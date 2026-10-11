@@ -42,6 +42,8 @@ enum Command {
         free_rotations: u32,
         #[arg(long)]
         refine: bool,
+        #[arg(long, requires = "refine")]
+        contacts: bool,
     },
     /// Check a complete polygon benchmark job/layout against every declared constraint.
     Validate {
@@ -134,6 +136,7 @@ fn main() -> Result<()> {
             samples,
             free_rotations,
             refine,
+            contacts,
         } => {
             let job = serde_json::from_slice(
                 &fs::read(&job).with_context(|| format!("cannot read {}", job.display()))?,
@@ -144,7 +147,9 @@ fn main() -> Result<()> {
                 free_rotations,
             };
             let prepared = nestbolt_core::construct::PreparedJob::new(&job)?;
-            let result = if refine {
+            let result = if contacts {
+                prepared.construct_with_contacts(options)?
+            } else if refine {
                 prepared.construct_refined(options)?
             } else {
                 prepared.construct(options)?

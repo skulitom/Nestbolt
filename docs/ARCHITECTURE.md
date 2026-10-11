@@ -68,7 +68,12 @@ placement, using progressively smaller steps and several downward slopes. It
 keeps the exact rotation/reflection and reconstructs each source translation from
 the actual f32 displacement, avoiding accumulated proxy/source drift. Repacking
 first compares this refined construction against the original incumbent with the
-same order and seed, then explores other orders and attempts one fewer sheet.
+same order and seed, then compares a contact-candidate construction. Contact
+candidates align bounding corners and sampled convex/concave vertices of the
+inflated outlines; every candidate still passes the collision tree. A separate
+random stream preserves the ordinary placement quota, and cached anchors bound
+the cost for large contours. Later passes alternate translation/contact search
+with other orders and attempts at one fewer sheet.
 Failed/incomplete trials are recorded without a score. This is still constructive
 repacking; overlap repair and neighbourhood moves across existing sheets remain.
 

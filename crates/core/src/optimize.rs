@@ -4,7 +4,7 @@ use anyhow::{Result, ensure};
 use nestbolt_validator::job::{Job, Metrics, Mode, Report, validate};
 use serde::Serialize;
 
-use crate::construct::{Construction, Options as ConstructOptions, PreparedJob};
+use crate::construct::{Construction, Options as ConstructOptions, PreparedJob, Refinement};
 
 #[derive(Clone, Copy, Debug)]
 pub struct Options {
@@ -17,6 +17,7 @@ pub struct Options {
 pub struct Progress {
     pub pass: u32,
     pub stage: &'static str,
+    pub contact_search: bool,
     pub seed: u64,
     pub sheet_limit: Option<usize>,
     pub complete: bool,
@@ -98,9 +99,9 @@ pub fn optimize(
     for pass in 0..options.passes {
         // Compare refinement to the initial constructor before changing its
         // ordering or random stream. Later passes explore new orders and caps.
-        let trial_seed = seed(options.construct.seed, if pass == 1 { 0 } else { pass });
-        let sheet_limit = if pass >= 2
-            && pass % 3 == 2
+        let trial_seed = seed(options.construct.seed, if pass <= 2 { 0 } else { pass });
+        let sheet_limit = if pass >= 3
+            && pass % 3 == 0
             && job.mode == Mode::All
             && validation.valid
             && best.layout.sheets.len() > 1
@@ -108,6 +109,13 @@ pub fn optimize(
             Some(best.layout.sheets.len() - 1)
         } else {
             None
+        };
+        let refinement = if pass == 0 {
+            Refinement::None
+        } else if pass % 2 == 0 {
+            Refinement::Contacts
+        } else {
+            Refinement::Translation
         };
         let mut candidate = if pass == 0 {
             None
@@ -118,9 +126,9 @@ pub fn optimize(
                     seed: trial_seed,
                     ..options.construct
                 },
-                if pass == 1 { None } else { Some(&order) },
+                if pass <= 2 { None } else { Some(&order) },
                 sheet_limit,
-                true,
+                refinement,
             )?)
         };
         let checked = if let Some(ref c) = candidate {
@@ -148,11 +156,14 @@ pub fn optimize(
                 "construct"
             } else if pass == 1 {
                 "refine"
+            } else if pass == 2 {
+                "contacts"
             } else if sheet_limit.is_some() {
                 "remove-sheet"
             } else {
                 "repack"
             },
+            contact_search: refinement == Refinement::Contacts,
             seed: trial_seed,
             sheet_limit,
             complete: current.complete,
@@ -171,7 +182,7 @@ pub fn optimize(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v2",
+        algorithm: "nestbolt-repack-v4",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: options.passes,

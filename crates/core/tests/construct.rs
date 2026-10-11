@@ -294,3 +294,46 @@ fn refinement_keeps_holes_components_defects_and_exact_angles_in_source_space() 
     );
     assert_eq!(serde_json::to_string(&source).unwrap(), original);
 }
+
+#[test]
+fn contact_candidates_interlock_concave_parts_without_random_sampling() {
+    let mut source = job(
+        vec![
+            part(
+                "open-frame",
+                vec![Polygon {
+                    outer: vec![
+                        [0.0, 0.0],
+                        [5.0, 0.0],
+                        [5.0, 1.0],
+                        [1.0, 1.0],
+                        [1.0, 4.0],
+                        [5.0, 4.0],
+                        [5.0, 5.0],
+                        [0.0, 5.0],
+                    ],
+                    holes: vec![],
+                }],
+                1,
+            ),
+            part("insert", vec![rectangle(0.0, 0.0, 3.0, 2.0)], 1),
+        ],
+        vec![stock("sheet", 6.0, 6.0, None)],
+    );
+    source.clearance = 0.1;
+    source.edge_clearance = 0.1;
+    let options = Options {
+        random_samples: 0,
+        ..Options::default()
+    };
+    let prepared = PreparedJob::new(&source).unwrap();
+    let initial = prepared.construct(options).unwrap();
+    let interlocked = prepared.construct_with_contacts(options).unwrap();
+    assert_eq!(initial.layout.sheets.len(), 2);
+    assert_eq!(interlocked.layout.sheets.len(), 1);
+    assert!(validate(&source, &interlocked.layout).unwrap().valid);
+    assert_eq!(
+        serde_json::to_string(&interlocked).unwrap(),
+        serde_json::to_string(&prepared.construct_with_contacts(options).unwrap()).unwrap()
+    );
+}

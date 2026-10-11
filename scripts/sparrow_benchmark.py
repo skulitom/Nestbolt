@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import shutil
 import subprocess
 import sys
 import time
@@ -64,10 +65,15 @@ def run(args):
             'started_at':datetime.now(timezone.utc).isoformat()}
     try:
         prepared=prepare(job,args.axis);write(dest/'request.json',prepared);write(dest/'input.json',prepared['input'])
-        subprocess.run(['cargo','build','--locked','-p','nestbolt-cli'],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
-        validator=ROOT/'target/debug'/('nestbolt.exe' if os.name=='nt' else 'nestbolt')
+        snapshot=getattr(args,'validator_snapshot',None)
+        if snapshot:
+            validator=ROOT/snapshot['path']
+            if digest(validator)!=snapshot['sha256']: raise ValueError('Batch validator binary changed')
+        else:
+            subprocess.run(['cargo','build','--locked','-p','nestbolt-cli'],cwd=ROOT,check=True,stdout=subprocess.DEVNULL)
+            validator=ROOT/'target/debug'/('nestbolt.exe' if os.name=='nt' else 'nestbolt')
         record['validator_sha256']=digest(validator)
-        record['validator_sources']={p.relative_to(ROOT).as_posix():digest(p) for p in [ROOT/'Cargo.lock',*sorted((ROOT/'crates/validator/src').glob('*.rs'))]}
+        record['validator_sources']=snapshot['sources'] if snapshot else {p.relative_to(ROOT).as_posix():digest(p) for p in [ROOT/'Cargo.lock',*sorted((ROOT/'crates/validator/src').glob('*.rs'))]}
         write(dest/'empty-layout.json',{'version':1,'units':job['units'],'sheets':[],'placements':[]})
         probe=subprocess.run([str(validator),'validate','--job',str(dest/'job.json'),'--layout',str(dest/'empty-layout.json')],capture_output=True,timeout=60)
         if any(v['code']!='quantity' for v in json.loads(probe.stdout)['violations']): raise ValueError('Invalid original job contract')
@@ -117,15 +123,21 @@ def batch(args):
     sources={s:digest(ROOT/s) for s in SOURCES}
     identifier=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
     dest=ROOT/'output/sparrow-batches'/identifier;dest.mkdir(parents=True)
+    subprocess.run(['cargo','build','--locked','-p','nestbolt-cli'],cwd=ROOT,check=True)
+    validator=ROOT/'target/debug'/('nestbolt.exe' if os.name=='nt' else 'nestbolt')
+    frozen=dest/validator.name
+    shutil.copy2(validator,frozen)
+    validator_snapshot={'path':frozen.relative_to(ROOT).as_posix(),'sha256':digest(frozen),
+        'sources':{p.relative_to(ROOT).as_posix():digest(p) for p in [ROOT/'Cargo.lock',*sorted((ROOT/'crates/validator/src').glob('*.rs'))]}}
     record={'batch_id':identifier,'dataset':args.dataset,'dataset_manifest_sha256':digest(DATASET),'cases':selected,
             'sources':sources,'seconds':args.seconds,'seed':args.seed,'settings':args.settings,'axis':args.axis,
-            'complete':False,'runs':[]}
+            'complete':False,'runs':[],'validator_snapshot':validator_snapshot}
     write(dest/'start.json',record)
     for row in selected:
         if {s:digest(ROOT/s) for s in SOURCES}!=sources: raise ValueError('Runner changed during batch')
         source=DEST/row['path']
         if digest(source)!=row['sha256']: raise ValueError('Frozen source changed')
-        result=run(argparse.Namespace(job=source,seconds=args.seconds,seed=args.seed,settings=args.settings,axis=args.axis,phase='development'))
+        result=run(argparse.Namespace(job=source,seconds=args.seconds,seed=args.seed,settings=args.settings,axis=args.axis,phase='development',validator_snapshot=validator_snapshot))
         path=ROOT/'output/sparrow-benchmark'/result['run_id']/'run.json'
         entry={'job':row['id'],'status':result['status'],'record':path.relative_to(ROOT).as_posix(),'sha256':digest(path)}
         record['runs'].append(entry)

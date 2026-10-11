@@ -52,13 +52,14 @@ cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-b
 cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box-mini.json --output improved-box-layout.json --passes 6
 ```
 
-`construct --refine` adds bounded translation refinement. `improve` compares that
-refinement with its initial layout before exploring other orders, and keeps the
+`construct --refine` adds bounded translation refinement; adding `--contacts`
+tries outline contacts to interlock concave parts. `improve` compares both methods
+with its initial layout before exploring other orders, and keeps the
 best valid result. It reports each completed pass on stderr and the final result
 on stdout. Existing output files are never overwritten.
 
-The sample reports six parts with a total area of 16,800 mm² and two available
-300 × 200 mm sheets. Units must be specified (`mm`, `inch` or `unitless`); no
+The sample reports six parts with a total area of 16,800 mmÂ² and two available
+300 Ã— 200 mm sheets. Units must be specified (`mm`, `inch` or `unitless`); no
 coordinate conversion is performed by inspection. See [the input notes](schemas/README.md).
 
 The first smoke run downloads and builds a pinned Sparrow checkout. It runs two
@@ -107,7 +108,7 @@ has been published or installed by this setup.
 ## Progress and licence
 
 **5% of gated milestones completed: M0 has passed.** The complete native
-reproduction meets the original 1% threshold. M1's full baseline and M2–M5 remain
+reproduction meets the original 1% threshold. M1's full baseline and M2â€“M5 remain
 in progress or pending; see [current evidence and next work](docs/STATUS.md).
 
 Nestbolt's original code and generated fixtures are [MIT](LICENSE). jagua-rs is

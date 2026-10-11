@@ -8,7 +8,12 @@ use anyhow::{Context, Result, ensure};
 use jagua_rs::{
     collision_detection::{CDEConfig, hazards::filter::NoFilter},
     entities::{Container, Item, Layout as SearchLayout},
-    geometry::{DTransformation, fail_fast::SPSurrogateConfig, geo_traits::TransformableFrom},
+    geometry::{
+        DTransformation,
+        fail_fast::SPSurrogateConfig,
+        geo_traits::TransformableFrom,
+        primitives::{Point, SPolygon},
+    },
     io::{
         ext_repr::{
             ExtContainer, ExtItem, ExtOrientation, ExtQualityZone, ExtRotation, ExtSPolygon,
@@ -57,6 +62,7 @@ pub struct Construction {
 struct Region {
     layout: SearchLayout,
     boxes: Vec<[f32; 4]>,
+    contact_anchors: Vec<Point>,
     search_bounds: [f32; 4],
     nudge: f32,
 }
@@ -73,6 +79,20 @@ struct Candidate {
 
 // A specified, platform-independent integer stream; no entropy or thread order.
 struct Random(u64);
+struct SearchState {
+    random: Random,
+    contact_random: Random,
+    contacts: bool,
+    checks: u64,
+    surrogate_rejections: u64,
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(crate) enum Refinement {
+    None,
+    Translation,
+    Contacts,
+}
 impl Random {
     fn unit(&mut self) -> f32 {
         self.0 = self.0.wrapping_add(0x9e3779b97f4a7c15);
@@ -237,14 +257,90 @@ fn shape_bounds(shape: &ExtShape) -> [f32; 4] {
     }
 }
 
+/// Candidate contacts between sampled vertices of the inflated collision shapes.
+/// This finds interlocking positions with overlapping bounding boxes. Sampling
+/// is capped regardless of polygon complexity and has its own integer stream,
+/// so it never consumes the ordinary random-placement quota.
+fn contact_positions(region: &Region, oriented: &SPolygon, random: &mut Random) -> Vec<(f32, f32)> {
+    let incoming = contact_anchors(oriented);
+    let placed = &region.contact_anchors;
+    let pair_limit = if region.boxes.len() <= 4 { 1024 } else { 256 };
+    let pairs = incoming.len() * placed.len();
+    let count = pairs.min(pair_limit);
+    let b = oriented.bbox();
+    let n = region.nudge * 2.0;
+    let mut positions = Vec::with_capacity(count * 8);
+    for i in 0..count {
+        let index = if pairs <= pair_limit {
+            i
+        } else {
+            // One sample from each stratum includes every part of the list.
+            (((i as f64 + f64::from(random.unit())) * pairs as f64 / count as f64) as usize)
+                .min(pairs - 1)
+        };
+        let a = incoming[index % incoming.len()];
+        let p = placed[index / incoming.len()];
+        let x = p.0 - a.0 + b.x_min;
+        let y = p.1 - a.1 + b.y_min;
+        for (dx, dy) in [
+            (n, 0.0),
+            (-n, 0.0),
+            (0.0, n),
+            (0.0, -n),
+            (n, n),
+            (n, -n),
+            (-n, n),
+            (-n, -n),
+        ] {
+            positions.push((x + dx, y + dy));
+        }
+    }
+    positions
+}
+
+fn contact_anchors(shape: &SPolygon) -> Vec<Point> {
+    let v = shape.vertices();
+    let b = shape.bbox();
+    // Virtual bounding corners cover a rectangular insert meeting a concave
+    // corner: coinciding two rounded vertices alone can still cross both walls.
+    let mut anchors = vec![
+        Point(b.x_min, b.y_min),
+        Point(b.x_max, b.y_min),
+        Point(b.x_min, b.y_max),
+        Point(b.x_max, b.y_max),
+    ];
+    let orientation = v
+        .iter()
+        .zip(v.iter().cycle().skip(1))
+        .take(v.len())
+        .map(|(a, b)| a.0 * b.1 - a.1 * b.0)
+        .sum::<f32>()
+        .signum();
+    let concave: Vec<_> = (0..v.len())
+        .filter(|&i| {
+            let a = v[(i + v.len() - 1) % v.len()];
+            let p = v[i];
+            let b = v[(i + 1) % v.len()];
+            let x = (p.0 - a.0, p.1 - a.1);
+            let y = (b.0 - p.0, b.1 - p.1);
+            let scale = (x.0 * x.0 + x.1 * x.1).sqrt() * (y.0 * y.0 + y.1 * y.1).sqrt();
+            (x.0 * y.1 - x.1 * y.0) * orientation < -0.000001 * scale
+        })
+        .map(|i| v[i])
+        .collect();
+    let count = concave.len().min(16);
+    anchors.extend((0..count).map(|i| concave[i * concave.len() / count]));
+    let count = v.len().min(16);
+    anchors.extend((0..count).map(|i| v[i * v.len() / count]));
+    anchors
+}
+
 fn search(
     region: &Region,
     item: &Item,
     part: &Part,
     options: Options,
-    random: &mut Random,
-    checks: &mut u64,
-    surrogate_rejections: &mut u64,
+    state: &mut SearchState,
 ) -> Result<Option<Candidate>> {
     let cde = region.layout.cde();
     let sheet = region.search_bounds;
@@ -281,10 +377,17 @@ fn search(
                     (b[0], b[3] + nudge),
                 ]);
             }
+            if state.contacts {
+                positions.extend(contact_positions(
+                    region,
+                    &buffer,
+                    &mut state.contact_random,
+                ));
+            }
             positions.extend((0..options.random_samples).map(|_| {
                 (
-                    min_x + random.unit() * (max_x - min_x),
-                    min_y + random.unit() * (max_y - min_y),
+                    min_x + state.random.unit() * (max_x - min_x),
+                    min_y + state.random.unit() * (max_y - min_y),
                 )
             }));
             for (x, y) in positions {
@@ -297,14 +400,14 @@ fn search(
                 }
                 let internal = DTransformation::new(rotation, (x - bounds.x_min, y - bounds.y_min))
                     .with_reflection(mirrored);
-                *checks += 1;
+                state.checks += 1;
                 let transform = internal.compose();
                 if cde.detect_surrogate_collision(
                     item.shape_cd().surrogate(),
                     &transform,
                     &NoFilter,
                 ) {
-                    *surrogate_rejections += 1;
+                    state.surrogate_rejections += 1;
                     continue;
                 }
                 buffer.transform_from(item.shape_cd(), &transform);
@@ -343,8 +446,7 @@ fn refine_translation(
     region: &Region,
     item: &Item,
     mut candidate: Candidate,
-    checks: &mut u64,
-    surrogate_rejections: &mut u64,
+    state: &mut SearchState,
 ) -> Candidate {
     let cde = region.layout.cde();
     let mut buffer = item.shape_cd().as_ref().clone();
@@ -386,10 +488,10 @@ fn refine_translation(
                 {
                     continue;
                 }
-                *checks += 1;
+                state.checks += 1;
                 if cde.detect_surrogate_collision(item.shape_cd().surrogate(), &composed, &NoFilter)
                 {
-                    *surrogate_rejections += 1;
+                    state.surrogate_rejections += 1;
                     continue;
                 }
                 if cde.detect_poly_collision(&buffer, &NoFilter) {
@@ -532,12 +634,17 @@ impl<'a> PreparedJob<'a> {
     }
 
     pub fn construct(&self, options: Options) -> Result<Construction> {
-        self.construct_ordered(options, None, None, false)
+        self.construct_ordered(options, None, None, Refinement::None)
     }
 
     /// Construct with bounded translation refinement of each feasible placement.
     pub fn construct_refined(&self, options: Options) -> Result<Construction> {
-        self.construct_ordered(options, None, None, true)
+        self.construct_ordered(options, None, None, Refinement::Translation)
+    }
+
+    /// Include bounded outline-contact candidates before refining translations.
+    pub fn construct_with_contacts(&self, options: Options) -> Result<Construction> {
+        self.construct_ordered(options, None, None, Refinement::Contacts)
     }
 
     pub(crate) fn construct_ordered(
@@ -545,7 +652,7 @@ impl<'a> PreparedJob<'a> {
         options: Options,
         part_order: Option<&[usize]>,
         max_sheets: Option<usize>,
-        refine: bool,
+        refinement: Refinement,
     ) -> Result<Construction> {
         ensure!(
             (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
@@ -591,9 +698,13 @@ impl<'a> PreparedJob<'a> {
         });
         let mut open: Vec<OpenSheet> = vec![];
         let mut stock_used = vec![0_u32; job.stocks.len()];
-        let mut random = Random(options.seed);
-        let mut checks = 0;
-        let mut surrogate_rejections = 0;
+        let mut state = SearchState {
+            random: Random(options.seed),
+            contact_random: Random(options.seed ^ 0xa0761d6478bd642f),
+            contacts: refinement == Refinement::Contacts,
+            checks: 0,
+            surrogate_rejections: 0,
+        };
         for index in order {
             for copy in 0..job.parts[index].quantity {
                 let mut found = None;
@@ -604,9 +715,7 @@ impl<'a> PreparedJob<'a> {
                             &items[index],
                             &job.parts[index],
                             options,
-                            &mut random,
-                            &mut checks,
-                            &mut surrogate_rejections,
+                            &mut state,
                         )? {
                             found = Some((sheet_index, region_index, candidate));
                             break;
@@ -646,6 +755,7 @@ impl<'a> PreparedJob<'a> {
                                         ],
                                         layout: SearchLayout::new(c),
                                         boxes: vec![],
+                                        contact_anchors: vec![],
                                     }
                                 })
                                 .collect(),
@@ -656,9 +766,7 @@ impl<'a> PreparedJob<'a> {
                                 &items[index],
                                 &job.parts[index],
                                 options,
-                                &mut random,
-                                &mut checks,
-                                &mut surrogate_rejections,
+                                &mut state,
                             )? {
                                 found = Some((open.len(), region_index, candidate));
                                 break;
@@ -677,16 +785,16 @@ impl<'a> PreparedJob<'a> {
                 }
                 if let Some((sheet, region, mut candidate)) = found {
                     let active = &mut open[sheet].regions[region];
-                    if refine {
-                        candidate = refine_translation(
-                            active,
-                            &items[index],
-                            candidate,
-                            &mut checks,
-                            &mut surrogate_rejections,
-                        );
+                    if refinement != Refinement::None {
+                        candidate =
+                            refine_translation(active, &items[index], candidate, &mut state);
                     }
-                    active.layout.place_item(&items[index], candidate.internal);
+                    let key = active.layout.place_item(&items[index], candidate.internal);
+                    if refinement == Refinement::Contacts {
+                        active
+                            .contact_anchors
+                            .extend(contact_anchors(active.layout.placed_items()[key].shape()));
+                    }
                     active.boxes.push(candidate.bounds);
                     layout.placements.push(Placement {
                         part_id: job.parts[index].id.clone(),
@@ -712,14 +820,14 @@ impl<'a> PreparedJob<'a> {
                 .all(|(i, s)| layout.sheets[i].stock_id == job.stocks[s.stock].id)
         );
         Ok(Construction {
-            algorithm: if refine {
-                "nestbolt-construct-refined-v1"
-            } else {
-                "nestbolt-construct-v3"
+            algorithm: match refinement {
+                Refinement::None => "nestbolt-construct-v3",
+                Refinement::Translation => "nestbolt-construct-refined-v1",
+                Refinement::Contacts => "nestbolt-construct-refined-v2",
             },
             seed: options.seed,
-            collision_checks: checks,
-            surrogate_rejections,
+            collision_checks: state.checks,
+            surrogate_rejections: state.surrogate_rejections,
             proxy_notes: self.notes.clone(),
             complete: unplaced == 0 || job.mode != Mode::All,
             unplaced,
