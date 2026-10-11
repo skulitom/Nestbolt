@@ -7,11 +7,12 @@ The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **18/39 runs** have finished (all thirteen first seeds,
-plus ALBANO, SHAPES2, DAGLI, FU and JAKOBS1 second seeds). All eighteen pass independent
-geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-eighteen-20261011.json)
+At the latest checkpoint, **24/39 runs** have finished (all thirteen first seeds
+and eleven second seeds). All twenty-four pass independent
+geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-twenty-four-20261011.json)
 retains the run records and validation evidence.
-JAKOBS2 is about 1.02% longer than its published mean; the required three-seed
+The first JAKOBS2 run is about 1.02% longer than its published mean; its two-run
+mean is now about 0.29% longer. The required three-seed
 comparison is pending for every instance. No results have been discarded and the
 original 1% pass threshold is unchanged. The next bounded batch is still running.
 
@@ -34,15 +35,30 @@ defect, margin and spacing smoke also passes; see [LBF method](../benchmarks/lbf
 
 The pinned [SVGnest runner](../benchmarks/svgnest/README.md) now automates local
 Chromium, bounds solve time, enforces a single-core process tree, checks original
-geometry independently and retains every outcome. Eight adapter/evidence tests
+geometry independently and retains every outcome. Eleven adapter/evidence tests
 pass. Actual FU and unequal-edge-gap checks pass; an insufficient stock cap is
 correctly invalid with no score. The detailed mini-box trial has no result within
 30 s. [All preparation attempts](../benchmarks/results/svgnest-preparation-20261011.json)
 are retained, including early configuration and CPU-limit failures. One five-second
 FU batch also passes the immutable report audit; this is not the full baseline.
-The full B batches, settings selection and remaining competitor runners are pending.
-Deepnest opens in an isolated profile on the hidden desktop; its solve adapter is
-still being prepared.
+The first 24-job B pilot (60 seconds, seed 0, identical settings) has **23 valid
+layouts** after correcting an output-decoding precision loss. The remaining
+invalid layout contains a genuine overlap and has no score. Original records
+remain unchanged; [all 38 saved attempts were audited](../benchmarks/results/svgnest-correction-20261011T202121Z-ad4dbe52.md),
+and the [24-job correction table](../benchmarks/results/svgnest-correction-20261011T202304Z-3f63b428.md)
+and a fresh [decoder smoke](../benchmarks/results/svgnest-decoder-v2-smoke-20261011.json)
+retain independent proof. The remaining eleven B jobs, full seed/configuration
+matrix and settings selection are pending.
+
+The pinned [Deepnest runner](../benchmarks/deepnest/README.md) now imports parts,
+quantities and mixed rectangular stock, runs the native solver with one worker
+and one CPU, and validates its original-coordinate output independently. Actual
+FU, spacing-safe hole placement and capped mixed-stock smoke layouts pass.
+Native half-gap behavior inside holes and incomplete stock-cap output are
+correctly rejected under the original constraints. Startup remains intermittent;
+[all eleven preparation attempts](../benchmarks/results/deepnest-preparation-20261011.json)
+are retained, including failures. Nine adapter/evidence tests pass. The complete
+Deepnest baseline and applicable Sparrow runner remain pending.
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
@@ -65,7 +81,7 @@ never been run through an optimiser. See [maker method](../benchmarks/makers/REA
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
-| M1 — Baseline | 15% | Validator, S/B/M freezes, LBF and SVGnest runners ready; remaining competitors and full matrix pending |
+| M1 — Baseline | 15% | Validator, S/B/M freezes, LBF/SVGnest pilots and Deepnest smoke evidence; complete competitors and full matrix pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
 | M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |
@@ -95,7 +111,7 @@ configured remote, hosted repository, release, registry publication or Pages dep
 On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
-dependency-notice/schema consistency, twenty-seven Python harness/conversion/evidence tests,
+dependency-notice/schema consistency, thirty-nine Python harness/conversion/evidence tests,
 88 source-contract checks and fixture checksums. Four additional curve-conversion
 tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).

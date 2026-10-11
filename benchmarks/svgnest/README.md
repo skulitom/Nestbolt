@@ -33,6 +33,16 @@ IDs and rigid transforms are checked; unknown/duplicate copies, missing holes,
 scaling or reflection are errors. Original job geometry, not SVGnest's internally
 cleaned contours, goes to the independent Clipper2 validator for every score.
 
+Output decoder v2 reads the exported `translate(...) rotate(...)` text directly
+in double precision. Chromium's `SVGMatrix` rounded native translation values to
+float32 and introduced small errors in the first pilot. `redecode_svgnest.py`
+revalidates every saved export into separate correction records, without rerunning
+search or changing the originals. The report auditor refuses legacy decoded scores.
+The [24-job corrected pilot](../results/svgnest-correction-20261011T202304Z-3f63b428.md)
+has 23 independently valid layouts; it is one provisional configuration and seed.
+The [full initial-record audit](../results/svgnest-correction-20261011T202121Z-ad4dbe52.md)
+also retains all preparation failures and settings changes.
+
 SVGnest has one uniform angle grid for all parts. The adapter chooses a native
 grid only if it preserves every declared discrete angle and introduces none that
 are forbidden. Free rotations use a disclosed finite grid (4 or 36 samples).

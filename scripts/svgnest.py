@@ -14,12 +14,14 @@ import uuid
 
 from benchmark_io import UnsupportedJob
 from svgnest_io import prepare, layout
+from svg_export_transform import groups_from_exports
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKOUT = ROOT / '.cache/upstream/svgnest'
 CONFIG = ROOT / 'benchmarks/svgnest/tool.json'
 PACKAGE = ROOT / 'benchmarks/browser'
 SOURCE_FILES = ['scripts/svgnest.py', 'scripts/svgnest_io.py', 'scripts/benchmark_io.py',
+                'scripts/svg_export_transform.py',
                 'benchmarks/browser/svgnest.mjs', 'benchmarks/browser/cpu-limit.mjs',
                 'benchmarks/browser/cpu-job.ps1', 'benchmarks/browser/package.json',
                 'benchmarks/browser/package-lock.json', 'benchmarks/svgnest/tool.json']
@@ -81,6 +83,7 @@ def run(args):
               'job_sha256': digest(source), 'seed': args.seed, 'seconds': args.seconds,
               'settings': args.settings, 'axis': args.axis, 'phase': args.phase,
               'settings_finalized': config['settings_finalized'], 'score': None,
+              'output_decoding': 'native_svg_attributes_v2',
               'started_at': datetime.now(timezone.utc).isoformat(),
               'commit': command(['git', 'rev-parse', 'HEAD']),
               'dirty': bool(command(['git', 'status', '--porcelain'])),
@@ -133,7 +136,7 @@ def run(args):
                 if raw['status'] != 'completed' or raw['errors']:
                     record['status'] = raw['status'] if not raw['errors'] else 'failed'
                 else:
-                    common = layout(prepared, raw['last']['sheets'])
+                    common = layout(prepared, groups_from_exports(raw['last']['svgs']))
                     write(dest / 'layout.json', common)
                     for i, svg in enumerate(raw['last']['svgs']):
                         (dest / f'native-sheet-{i}.svg').write_text(svg + '\n', encoding='utf-8', newline='\n')

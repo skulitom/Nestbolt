@@ -16,6 +16,7 @@ class SvgNestEvidenceTests(unittest.TestCase):
                'configured_workers': 1, 'affinity': affinity, 'affinity_verification': evidence}
         metrics = {'normalized_material': 0.5, 'sheets_used': 1}
         run = {'status': 'valid', 'score': 0.5, 'metrics': metrics, 'seconds': 5,
+               'output_decoding': 'native_svg_attributes_v2',
                'validator_exit_code': 0, 'affinity_verification': evidence, 'cpu_affinity': affinity}
         if change:
             change(run, raw)
@@ -54,6 +55,7 @@ class SvgNestEvidenceTests(unittest.TestCase):
 
     def test_late_results_and_unverified_cpu_tree_are_ineligible(self):
         for change in [lambda run, raw: raw['last'].update(elapsed_ms=5001),
+                       lambda run, raw: run.update(output_decoding='legacy_svg_matrix'),
                        lambda run, raw: raw.update(affinity_verification=[]),
                        lambda run, raw: raw['affinity'].update(method='inherited_unverified'),
                        lambda run, raw: raw.update(configured_workers=4)]:

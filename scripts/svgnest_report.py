@@ -19,6 +19,8 @@ def audit_record(path, expected_hash):
     if digest(path.parent / 'job.json') != run['job_sha256']:
         raise ValueError('Copied source job changed')
     if run['status'] == 'valid':
+        if run.get('output_decoding') != 'native_svg_attributes_v2':
+            raise ValueError('Legacy browser-matrix decode requires correction from saved native SVG attributes')
         required = {'job.json', 'layout.json', 'validation.json', 'request.json', 'browser-result.json', 'candidates.jsonl'}
         if not required.issubset(run['outputs']):
             raise ValueError('Valid run is missing independent evidence')

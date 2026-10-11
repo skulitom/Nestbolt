@@ -1,4 +1,5 @@
-param([Parameter(Mandatory = $true)][int]$ControllerId)
+param([Parameter(Mandatory = $true)][int]$ControllerId, [UInt64]$Mask = 1)
+if ($Mask -eq 0 -or ($Mask -band ($Mask - 1)) -ne 0) { throw 'Mask must select exactly one logical CPU' }
 $ErrorActionPreference = 'Stop'
 # A job-wide affinity remains enforced for future browser children, including
 # processes that try to reset their own mask. It ends when this process tree ends.
@@ -27,12 +28,12 @@ public static class NestboltCpuJob {
     static extern bool AssignProcessToJobObject(IntPtr job, IntPtr process);
     [DllImport("kernel32.dll", SetLastError=true)]
     static extern bool CloseHandle(IntPtr handle);
-    public static void Apply(int pid) {
+    public static void Apply(int pid, ulong mask) {
         IntPtr job = CreateJobObject(IntPtr.Zero, null);
         if (job == IntPtr.Zero) throw new Win32Exception(Marshal.GetLastWin32Error());
         IntPtr process = IntPtr.Zero;
         try {
-            Limits limits = new Limits { Flags = 0x10, Affinity = new UIntPtr(1) };
+            Limits limits = new Limits { Flags = 0x10, Affinity = new UIntPtr(mask) };
             if (!SetInformationJobObject(job, 2, ref limits, (uint)Marshal.SizeOf(typeof(Limits))))
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             process = OpenProcess(0x101, false, pid); // SET_QUOTA | TERMINATE, as required for assignment.
@@ -45,5 +46,5 @@ public static class NestboltCpuJob {
     }
 }
 '@
-[NestboltCpuJob]::Apply($ControllerId)
+[NestboltCpuJob]::Apply($ControllerId, $Mask)
 (Get-Process -Id $ControllerId).ProcessorAffinity.ToInt64()
