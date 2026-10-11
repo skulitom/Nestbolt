@@ -23,15 +23,15 @@ It permits unrelated metadata and does not encode all planned Nestbolt constrain
 
 ## Resolve before acceptance benchmarking
 
-**Mixed sheet sizes:** `(sheets - 1) + last_length / sheet_length` compares equal-size
-stock sensibly but cannot fairly compare different stock areas. Preserve the stated
-metric for equal-stock jobs; define an area-normalised mixed-stock metric and last
-sheet choice explicitly before freezing G2. Do not silently change the plan's gate.
+**Mixed sheet sizes:** [SCORING.md](SCORING.md) defines the area-normalised extension
+and last-sheet choice, preserving the exact stated metric for equal rectangular
+stock. The independent job validator implements it. Search still prioritises the
+fewest sheets; G2 still measures material rather than sheet count alone.
 
-**Determinism:** identical seeds with wall-clock termination can execute different
-numbers of search steps. Define deterministic work budgets/checkpoints plus a hard
-wall-clock cap and report whether the cap truncated the run. Do not claim identical
-layouts from a seeded time-limited search until this is specified and tested.
+**Determinism:** [SEARCH_CONTRACT.md](SEARCH_CONTRACT.md) separates repeatable work
+quotas from explicit wall-clock benchmark mode. Hard timeouts cannot masquerade
+as completed repeatable results. Calibration, implementation and repeated-run
+acceptance tests remain M2/M4 work; no deterministic Nestbolt solver exists yet.
 
 **Independent validation:** jagua-rs 1.1.0 itself now depends on `geo`. Choosing `geo`
 again does not automatically create an independent validator. Keep separate source

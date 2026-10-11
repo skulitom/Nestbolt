@@ -21,6 +21,7 @@ def main():
         [sys.executable, "scripts/notices.py", "--check"],
         [sys.executable, "scripts/smoke.py", "--verify-only"],
         [sys.executable, "scripts/test_m0.py"],
+        [sys.executable, "scripts/schemas.py", "--check"],
     ]
     if args.smoke:
         commands.append([sys.executable, "scripts/smoke.py"])

@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "Placement": {
+      "additionalProperties": false,
+      "properties": {
+        "copy_index": {
+          "description": "Zero-based physical copy within the source quantity.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "part_id": {
+          "type": "string"
+        },
+        "sheet_id": {
+          "type": "string"
+        },
+        "transform": {
+          "$ref": "#/$defs/RigidTransform"
+        }
+      },
+      "required": [
+        "part_id",
+        "copy_index",
+        "sheet_id",
+        "transform"
+      ],
+      "type": "object"
+    },
+    "RigidTransform": {
+      "additionalProperties": false,
+      "description": "Mirror about the local Y axis, then rotate about the origin, then translate.\nCoordinates and translation use the caller's declared units.",
+      "properties": {
+        "mirrored": {
+          "type": "boolean"
+        },
+        "rotation_radians": {
+          "format": "double",
+          "type": "number"
+        },
+        "translation": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "translation",
+        "rotation_radians",
+        "mirrored"
+      ],
+      "type": "object"
+    },
+    "Sheet": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "stock_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "stock_id"
+      ],
+      "type": "object"
+    },
+    "Units": {
+      "enum": [
+        "mm",
+        "inch",
+        "unitless"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "placements": {
+      "items": {
+        "$ref": "#/$defs/Placement"
+      },
+      "type": "array"
+    },
+    "sheets": {
+      "items": {
+        "$ref": "#/$defs/Sheet"
+      },
+      "type": "array"
+    },
+    "units": {
+      "$ref": "#/$defs/Units"
+    },
+    "version": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version",
+    "units",
+    "sheets",
+    "placements"
+  ],
+  "title": "Layout",
+  "type": "object"
+}

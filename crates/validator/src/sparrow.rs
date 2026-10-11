@@ -1,10 +1,10 @@
 //! Strip-output adapter. Always reads original polygons from a separate input.
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeMap;
 
 use anyhow::{Context, Result, ensure};
 use serde::{Deserialize, Serialize};
 
-use crate::{BACKEND, Footprint, GRID, Polygon, RigidTransform, Units};
+use crate::{Polygon, RigidTransform, Units, job};
 
 #[derive(Deserialize)]
 struct Instance {
@@ -68,158 +68,110 @@ pub struct StripReport {
     pub placed_parts: usize,
     pub maximum_overlap_ratio: f64,
     pub maximum_outside_ratio: f64,
+    pub maximum_total_overlap_ratio: f64,
     pub violations: Vec<String>,
 }
 
-/// Validate original simple polygons, quantities, rigid transforms, rotations,
-/// containment and pairwise overlap independently of Sparrow's own geometry.
-/// The historical strip instances have zero inter-part clearance.
-pub fn validate(input: &str, output: &str, units: Units) -> Result<StripReport> {
+/// Convert a historical strip result to the same independent contract used for
+/// sheet jobs. Source geometry always comes from the separate original file.
+pub fn to_job(input: &str, output: &str, units: Units) -> Result<(job::Job, job::Layout)> {
     let source: Instance = serde_json::from_str(input).context("invalid original Sparrow input")?;
     let output: Output = serde_json::from_str(output).context("invalid Sparrow solution JSON")?;
     ensure!(
-        source.strip_height.is_finite() && source.strip_height > 0.0,
-        "strip height must be positive and finite"
+        source.items.len() <= 2000 && output.solution.layout.placed_items.len() <= 2000,
+        "strip job/layout exceeds 2000 parts"
     );
-    let width = output.solution.strip_width;
-    ensure!(
-        width.is_finite() && width > 0.0,
-        "strip width must be positive and finite"
-    );
-    let mut ids = BTreeSet::new();
-    let mut expected = 0_u64;
-    for item in &source.items {
-        ensure!(ids.insert(item.id), "duplicate source item ID {}", item.id);
-        expected = expected
-            .checked_add(item.demand)
-            .context("part count overflow")?;
-        if let Some(angles) = &item.allowed_orientations {
-            ensure!(
-                angles.iter().all(|a| a.is_finite()),
-                "source orientations must be finite"
-            );
-        }
-        let Shape::SimplePolygon(ref points) = item.shape;
-        Footprint::new(
-            &Polygon {
-                outer: points.clone(),
-                holes: vec![],
-            },
-            units,
-            RigidTransform::default(),
-        )
-        .with_context(|| format!("invalid original part {}", item.id))?;
-    }
-    ensure!((1..=2000).contains(&expected), "job requires 1..2000 parts");
-    let placed = output.solution.layout.placed_items;
-    ensure!(placed.len() <= 2000, "layout exceeds 2000 parts");
-    // Only integer-grid rounding is tolerated at the container boundary.
-    let epsilon = 2.0 * GRID / units.to_mm();
-    let container = Footprint::new(
-        &Polygon {
-            outer: vec![
-                [-epsilon, -epsilon],
-                [width + epsilon, -epsilon],
-                [width + epsilon, source.strip_height + epsilon],
-                [-epsilon, source.strip_height + epsilon],
-            ],
-            holes: vec![],
-        },
-        units,
-        RigidTransform::default(),
-    )?;
-    let mut report = StripReport {
-        valid: false,
-        instance: source.name,
-        backend: BACKEND,
-        units,
-        strip_width: width,
-        expected_parts: expected,
-        placed_parts: placed.len(),
-        maximum_overlap_ratio: 0.0,
-        maximum_outside_ratio: 0.0,
-        violations: vec![],
-    };
-    let by_id: BTreeMap<_, _> = source.items.iter().map(|i| (i.id, i)).collect();
-    let mut counts = BTreeMap::<u64, u64>::new();
-    let mut shapes = vec![];
-    for (index, part) in placed.iter().enumerate() {
-        *counts.entry(part.item_id).or_default() += 1;
-        let Some(item) = by_id.get(&part.item_id) else {
-            report
-                .violations
-                .push(format!("placement {index}: unknown item {}", part.item_id));
-            continue;
+    let mut parts = vec![];
+    for item in source.items {
+        let Shape::SimplePolygon(points) = item.shape;
+        let rotations = match item.allowed_orientations {
+            None => job::Rotations::Free,
+            Some(angles) if angles.is_empty() => job::Rotations::List { degrees: vec![0.0] },
+            Some(angles) => job::Rotations::List { degrees: angles },
         };
-        let degrees = part.transformation.rotation.to_degrees().rem_euclid(360.0);
-        if let Some(angles) = &item.allowed_orientations {
-            // Historical jagua-rs treats an empty list as no rotation; null is free.
-            let permitted = if angles.is_empty() {
-                degrees.min(360.0 - degrees) <= 0.00001
-            } else {
-                angles
-                    .iter()
-                    .any(|a| ((degrees - a + 180.0).rem_euclid(360.0) - 180.0).abs() <= 0.00001)
-            };
-            if !permitted {
-                report.violations.push(format!(
-                    "placement {index}: rotation {degrees} is not allowed"
-                ));
-            }
-        }
-        let Shape::SimplePolygon(ref points) = item.shape;
-        let shape = Footprint::new(
-            &Polygon {
-                outer: points.clone(),
+        parts.push(job::Part {
+            id: item.id.to_string(),
+            quantity: u32::try_from(item.demand).context("quantity exceeds u32")?,
+            geometry: vec![Polygon {
+                outer: points,
                 holes: vec![],
-            },
-            units,
-            RigidTransform {
-                translation: part.transformation.translation,
-                rotation_radians: part.transformation.rotation,
-                mirrored: false,
-            },
-        );
-        match shape {
-            Ok(shape) => {
-                let containment = shape.inside(&container, 0.0)?;
-                report.maximum_outside_ratio =
-                    report.maximum_outside_ratio.max(containment.outside_ratio);
-                if containment.outside_area > 0.0 {
-                    report.violations.push(format!(
-                        "placement {index}: outside strip (area {})",
-                        containment.outside_area
-                    ));
-                }
-                shapes.push((index, shape));
+            }],
+            rotations,
+            allow_mirror: false,
+            priority: 1.0,
+        });
+    }
+    let job = job::Job {
+        version: 1,
+        name: source.name,
+        units,
+        parts,
+        stocks: vec![job::Stock {
+            id: "strip".into(),
+            width: output.solution.strip_width,
+            height: source.strip_height,
+            count: Some(1),
+            margins: job::Margins::default(),
+            outline: vec![],
+            defects: vec![],
+        }],
+        clearance: 0.0,
+        edge_clearance: 0.0,
+        mode: job::Mode::All,
+    };
+    let mut counts = BTreeMap::<u64, u32>::new();
+    let placements = output
+        .solution
+        .layout
+        .placed_items
+        .into_iter()
+        .map(|p| {
+            let counter = counts.entry(p.item_id).or_default();
+            let copy_index = *counter;
+            *counter += 1;
+            job::Placement {
+                part_id: p.item_id.to_string(),
+                copy_index,
+                sheet_id: "strip-0".into(),
+                transform: RigidTransform {
+                    translation: p.transformation.translation,
+                    rotation_radians: p.transformation.rotation,
+                    mirrored: false,
+                },
             }
-            Err(error) => report
-                .violations
-                .push(format!("placement {index}: {error:#}")),
-        }
-    }
-    for item in &source.items {
-        let actual = counts.get(&item.id).copied().unwrap_or(0);
-        if actual != item.demand {
-            report.violations.push(format!(
-                "item {}: expected {}, found {actual}",
-                item.id, item.demand
-            ));
-        }
-    }
-    for (i, (index, shape)) in shapes.iter().enumerate() {
-        for (other_index, other) in shapes.iter().skip(i + 1) {
-            let comparison = shape.compare(other, 0.0)?;
-            report.maximum_overlap_ratio =
-                report.maximum_overlap_ratio.max(comparison.overlap_ratio);
-            if comparison.overlap_ratio > 1e-6 {
-                report.violations.push(format!(
-                    "placements {index} and {other_index}: overlap ratio {} exceeds 1e-6",
-                    comparison.overlap_ratio
-                ));
-            }
-        }
-    }
-    report.valid = report.violations.is_empty();
-    Ok(report)
+        })
+        .collect();
+    let layout = job::Layout {
+        version: 1,
+        units,
+        sheets: vec![job::Sheet {
+            id: "strip-0".into(),
+            stock_id: "strip".into(),
+        }],
+        placements,
+    };
+    Ok((job, layout))
+}
+
+/// Validate through the common job validator; strip scoring remains strip width.
+pub fn validate(input: &str, output: &str, units: Units) -> Result<StripReport> {
+    let (job, layout) = to_job(input, output, units)?;
+    let report = job::validate(&job, &layout)?;
+    Ok(StripReport {
+        valid: report.valid,
+        instance: job.name,
+        backend: report.backend,
+        units,
+        strip_width: job.stocks[0].width,
+        expected_parts: job.parts.iter().map(|p| u64::from(p.quantity)).sum(),
+        placed_parts: layout.placements.len(),
+        maximum_overlap_ratio: report.maximum_overlap_ratio,
+        maximum_outside_ratio: report.maximum_outside_ratio,
+        maximum_total_overlap_ratio: report.maximum_total_overlap_ratio,
+        violations: report
+            .violations
+            .into_iter()
+            .map(|v| format!("{}: {}", v.code, v.message))
+            .collect(),
+    })
 }

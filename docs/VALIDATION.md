@@ -20,26 +20,42 @@ self-intersecting, self-touching and doubled-back rings are rejected. Holes must
 lie strictly inside their outer ring and cannot overlap, nest or touch one another.
 Input geometry is never repaired silently across these topology errors.
 
-## Current CLI adapter
+## Current CLI adapters
 
 ```powershell
+cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layout examples/validation-layout.json
 cargo run -p nestbolt-cli -- validate-sparrow --input original.json --layout result.json --units unitless
 ```
+
+The polygon job/layout contract checks finite or unlimited stock, margins,
+irregular remnant outlines, overlapping defect zones, parts with holes or multiple
+rigid components, exact physical copies, rotation steps/lists/free rotation,
+mirroring permission, units, edge/inter-part clearance, and all/fill-area/fill-priority
+modes. It rejects empty declared sheets and gives invalid layouts **no metrics**.
+Fill can validly place nothing, including when defects cover all usable stock;
+that has zero quality score. Diagnostics retain a total count and at most 128
+messages, bounding report memory on heavily overlapping layouts.
+
+The example places an insert inside a frame's hole, alongside two brackets.
+It is a hand-authored validity fixture, not a solver-quality result. The
+[internal schemas](../schemas/README.md) are generated from the actual Rust types.
+Material scoring, including mixed stock, follows [SCORING.md](SCORING.md).
 
 This checks a Sparrow strip result against a **separate original source file**;
 embedded copies of source geometry or reported solver density are ignored.
 It checks exact item demands/IDs, original polygons, rigid transforms, allowed
-rotations, containment and all pair overlaps. Unknown transform fields such as
+rotations, containment and all pair overlaps. It adapts into the same job checker,
+not a second scoring implementation. Unknown transform fields such as
 scale are rejected. Overlap is measured against the smaller part's area and must
-not exceed 1e-6. Containment permits only two integer-grid units of boundary
+not exceed 1e-6; cumulative overlap per part must also stay below 1e-6 of its area.
+Containment permits only two integer-grid units of boundary
 rounding. Allowed angles tolerate 0.00001 degrees for historical f32 exports.
 Historical empty orientation lists mean fixed orientation; null means free.
 Invalid layouts print a JSON report and return a failing exit status.
 
-The adapter handles the simple-polygon, zero-clearance strip jobs used for M0.
-It does **not** yet provide the complete M1 stock/margin/quantity/fill/mirror-rule
-job validator, or the M3 curve fidelity validator. The kernel's support for holes
-does not mean the optimiser can nest parts in holes yet.
+The strip adapter handles the simple-polygon, zero-clearance jobs used for M0.
+The M3 curve fidelity validator is not implemented. Support for checking part-in-part
+layouts does not mean a Nestbolt optimiser can produce them yet.
 
 `python scripts/validate_m0.py --experiment NAME` records independent reports for
 completed runs, preserving every raw layout and the original run record. Each
@@ -49,14 +65,14 @@ predeclared M0 quality comparison or discarding invalid outputs.
 
 ## Verification and remaining work
 
-Seventeen tests cover analytic rectangle intersections, winding and quarter-turn
-properties, clearance/contact, diagonal distance, holes and defects, inches,
-mirroring, tiny slivers, malformed contours, changed embedded geometry, invalid
-quantities/rotations and nonrigid transforms. Property checks use 48 cases per
-property locally and in CI. These are targeted checks, not the plan's full fuzzing
-or acceptance matrix.
+Thirty-one validator tests cover the geometry kernel, stock/fill constraints,
+scoring identities and strip adaptation. They include a fixed-seed 10,000-case
+adversarial polygon fuzz test, analytic rectangle/winding properties (48 cases
+each), and a 2,000-copy layout. Two additional CLI integration tests check actual
+success/failure exit behavior. These are bounded tests, not the complete G1 matrix;
+curve fuzzing and heterogeneous browser-scale evidence remain outstanding.
 
-Next: complete the engine-neutral job/layout model and stock/rotation/fill rules,
-validate every competitor adapter through the same path, add adversarial fuzzing,
-and measure large-job time/memory. Ring topology checking is currently quadratic
-in its vertex count; do not infer 2,000-part browser performance from these tests.
+Next: feed every competitor adapter through this same contract, expand fuzzing
+and measure heterogeneous large-job time/memory. Ring topology checking is
+currently quadratic in its vertex count; the passing 2,000-rectangle native test
+does not establish the browser's 2,000-part import/solve/export requirement.

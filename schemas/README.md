@@ -22,3 +22,24 @@ Versioned canonical `job.schema.json` and `result.schema.json` are a v1 requirem
 to be generated from the shared model once geometry fidelity, mixed-stock scoring,
 units, file references and deterministic search budgets are settled. Do not freeze
 those public interfaces around the temporary upstream interchange format.
+
+## Independent benchmark contract
+
+`nestbolt validate` reads the engine-neutral polygon model in `validator::job`:
+
+- [benchmark-job.schema.json](benchmark-job.schema.json): original geometry,
+  constraints, stock and fill mode.
+- [benchmark-layout.schema.json](benchmark-layout.schema.json): stock assignments
+  and rigid placements identified by original part and physical copy.
+- [benchmark-validation.schema.json](benchmark-validation.schema.json): findings
+  and independently computed metrics, absent for invalid layouts.
+
+Regenerate with `python scripts/schemas.py`; CI checks consistency with the Rust
+types. JSON Schema checks structure; the Rust validator checks semantic constraints
+and geometry. Examples live in `examples/validation-job.json` and
+`examples/validation-layout.json`.
+
+This is the M1 polygon benchmark contract. It does not replace the future public
+project/import/curve or solve-result formats, which must preserve original curves,
+file references, progress and the search-budget contract. Those v1 deliverables
+remain outstanding.

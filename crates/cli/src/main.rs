@@ -13,6 +13,13 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Check a complete polygon benchmark job/layout against every declared constraint.
+    Validate {
+        #[arg(long)]
+        job: PathBuf,
+        #[arg(long)]
+        layout: PathBuf,
+    },
     /// Independently check a Sparrow strip layout against its original input.
     ValidateSparrow {
         #[arg(long)]
@@ -52,6 +59,22 @@ impl From<InputUnits> for Units {
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::Validate { job, layout } => {
+            let source = fs::read_to_string(&job)
+                .with_context(|| format!("cannot read {}", job.display()))?;
+            let result = fs::read_to_string(&layout)
+                .with_context(|| format!("cannot read {}", layout.display()))?;
+            let job = serde_json::from_str::<nestbolt_validator::job::Job>(&source)
+                .context("invalid benchmark job JSON")?;
+            let layout = serde_json::from_str::<nestbolt_validator::job::Layout>(&result)
+                .context("invalid benchmark layout JSON")?;
+            let report = nestbolt_validator::job::validate(&job, &layout)?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+            ensure!(
+                report.valid,
+                "layout failed independent validation; see the JSON report"
+            );
+        }
         Command::ValidateSparrow {
             input,
             layout,

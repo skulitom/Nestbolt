@@ -1,0 +1,279 @@
+{
+  "$defs": {
+    "Margins": {
+      "additionalProperties": false,
+      "properties": {
+        "bottom": {
+          "format": "double",
+          "type": "number"
+        },
+        "left": {
+          "format": "double",
+          "type": "number"
+        },
+        "right": {
+          "format": "double",
+          "type": "number"
+        },
+        "top": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "bottom",
+        "top"
+      ],
+      "type": "object"
+    },
+    "Mode": {
+      "enum": [
+        "all",
+        "fill_area",
+        "fill_priority"
+      ],
+      "type": "string"
+    },
+    "Part": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_mirror": {
+          "type": "boolean"
+        },
+        "geometry": {
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "priority": {
+          "format": "double",
+          "type": "number"
+        },
+        "quantity": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rotations": {
+          "$ref": "#/$defs/Rotations"
+        }
+      },
+      "required": [
+        "id",
+        "quantity",
+        "geometry",
+        "rotations",
+        "allow_mirror",
+        "priority"
+      ],
+      "type": "object"
+    },
+    "Polygon": {
+      "additionalProperties": false,
+      "properties": {
+        "holes": {
+          "default": [],
+          "items": {
+            "items": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "outer": {
+          "items": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "outer"
+      ],
+      "type": "object"
+    },
+    "Rotations": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "free",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "degrees": {
+              "format": "double",
+              "type": "number"
+            },
+            "kind": {
+              "const": "step",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "degrees"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "degrees": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "kind": {
+              "const": "list",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "degrees"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "Stock": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "description": "null is unlimited; zero makes this stock unavailable.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "defects": {
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "height": {
+          "format": "double",
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "margins": {
+          "$ref": "#/$defs/Margins"
+        },
+        "outline": {
+          "description": "Empty means the complete rectangular sheet; otherwise a remnant outline.",
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "width": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "width",
+        "height",
+        "margins",
+        "outline",
+        "defects"
+      ],
+      "type": "object"
+    },
+    "Units": {
+      "enum": [
+        "mm",
+        "inch",
+        "unitless"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "clearance": {
+      "format": "double",
+      "type": "number"
+    },
+    "edge_clearance": {
+      "format": "double",
+      "type": "number"
+    },
+    "mode": {
+      "$ref": "#/$defs/Mode"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parts": {
+      "items": {
+        "$ref": "#/$defs/Part"
+      },
+      "type": "array"
+    },
+    "stocks": {
+      "items": {
+        "$ref": "#/$defs/Stock"
+      },
+      "type": "array"
+    },
+    "units": {
+      "$ref": "#/$defs/Units"
+    },
+    "version": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "version",
+    "name",
+    "units",
+    "parts",
+    "stocks",
+    "clearance",
+    "edge_clearance",
+    "mode"
+  ],
+  "title": "Job",
+  "type": "object"
+}

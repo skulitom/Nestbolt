@@ -9,8 +9,10 @@ use anyhow::{Result, ensure};
 use clipper2_rust::{
     ClipType, Clipper64, ClipperOffset, EndType, FillRule, JoinType, Path64, Paths64, Point64,
 };
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
+pub mod job;
 pub mod sparrow;
 
 const SCALE: f64 = 1_000_000.0;
@@ -19,7 +21,7 @@ pub const MAX_COORDINATE: f64 = 10_000_000.0;
 const MAX_VERTICES: usize = 10_000;
 pub const BACKEND: &str = "clipper2-rust 1.2.0";
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub enum Units {
     Mm,
@@ -36,7 +38,7 @@ impl Units {
     }
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct Polygon {
     pub outer: Vec<[f64; 2]>,
@@ -46,7 +48,7 @@ pub struct Polygon {
 
 /// Mirror about the local Y axis, then rotate about the origin, then translate.
 /// Coordinates and translation use the caller's declared units.
-#[derive(Clone, Copy, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, Default, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct RigidTransform {
     pub translation: [f64; 2],
@@ -62,7 +64,7 @@ pub struct Footprint {
     units: Units,
 }
 
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Debug, Serialize, JsonSchema)]
 pub struct PairCheck {
     /// mm² for physical units; squared model units for unitless jobs.
     pub overlap_area: f64,
@@ -71,7 +73,7 @@ pub struct PairCheck {
     pub clearance_violation: bool,
 }
 
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Debug, Serialize, JsonSchema)]
 pub struct ContainmentCheck {
     pub outside_area: f64,
     pub outside_ratio: f64,
@@ -79,6 +81,86 @@ pub struct ContainmentCheck {
 }
 
 impl Footprint {
+    /// Multiple rigid components belonging to one part or stock outline.
+    /// Components may lie inside other components' holes but cannot overlap.
+    pub fn from_polygons(
+        polygons: &[Polygon],
+        units: Units,
+        transform: RigidTransform,
+    ) -> Result<Self> {
+        ensure!(!polygons.is_empty(), "geometry needs at least one polygon");
+        let mut components: Vec<Self> = vec![];
+        for polygon in polygons {
+            let next = Self::new(polygon, units, transform)?;
+            for previous in &components {
+                ensure!(
+                    next.compare(previous, 0.0)?.overlap_area == 0.0,
+                    "components of the same geometry overlap"
+                );
+            }
+            components.push(next);
+        }
+        let paths = components.into_iter().flat_map(|c| c.paths).collect();
+        Self::from_paths(paths, units).ok_or_else(|| anyhow::anyhow!("geometry has no area"))
+    }
+
+    /// Intersection for building a usable sheet from stock outlines and margins.
+    pub fn intersection(&self, other: &Self) -> Result<Option<Self>> {
+        self.check_clearance(other, 0.0)?;
+        Ok(Self::from_paths(
+            boolean(&self.paths, &other.paths, ClipType::Intersection)?,
+            self.units,
+        ))
+    }
+
+    /// Subtraction for explicitly declared sheet defects, including overlapping ones.
+    pub fn subtract(&self, other: &Self) -> Result<Option<Self>> {
+        self.check_clearance(other, 0.0)?;
+        Ok(Self::from_paths(
+            boolean(&self.paths, &other.paths, ClipType::Difference)?,
+            self.units,
+        ))
+    }
+
+    pub(crate) fn boundary_tolerance(&self) -> Result<Self> {
+        let mut engine = ClipperOffset::new(2.0, 0.0, false, false);
+        engine.add_paths(&self.paths, JoinType::Miter, EndType::Polygon);
+        let mut paths = vec![];
+        engine.execute(2.0, &mut paths);
+        ensure!(
+            engine.error_code() == 0,
+            "container tolerance offset failed"
+        );
+        Self::from_paths(paths, self.units)
+            .ok_or_else(|| anyhow::anyhow!("container tolerance offset collapsed"))
+    }
+
+    fn from_paths(paths: Paths64, units: Units) -> Option<Self> {
+        let area = area(&paths);
+        if area <= 0.0 {
+            return None;
+        }
+        let mut bounds = [
+            f64::INFINITY,
+            f64::INFINITY,
+            f64::NEG_INFINITY,
+            f64::NEG_INFINITY,
+        ];
+        for point in paths.iter().flatten() {
+            let (x, y) = (point.x as f64 / SCALE, point.y as f64 / SCALE);
+            bounds[0] = bounds[0].min(x);
+            bounds[1] = bounds[1].min(y);
+            bounds[2] = bounds[2].max(x);
+            bounds[3] = bounds[3].max(y);
+        }
+        Some(Self {
+            paths,
+            area,
+            bounds,
+            units,
+        })
+    }
+
     pub fn new(polygon: &Polygon, units: Units, transform: RigidTransform) -> Result<Self> {
         ensure!(
             transform.translation.iter().all(|x| x.is_finite())
@@ -174,7 +256,7 @@ impl Footprint {
             if overlap_area > 0.0 {
                 true
             } else {
-                let expanded = offset(&self.paths, gap + 10.0 * GRID)?;
+                let expanded = clearance_envelope(&self.paths, gap)?;
                 let possible =
                     !boolean(&expanded, &other.paths, ClipType::Intersection)?.is_empty();
                 possible && boundary_distance(&self.paths, &other.paths) + 2.0 * GRID < gap
@@ -202,7 +284,7 @@ impl Footprint {
             if outside_area > 0.0 {
                 true
             } else {
-                let expanded = offset(&self.paths, gap + 10.0 * GRID)?;
+                let expanded = clearance_envelope(&self.paths, gap)?;
                 let possible =
                     !boolean(&expanded, &container.paths, ClipType::Difference)?.is_empty();
                 possible && boundary_distance(&self.paths, &container.paths) + 2.0 * GRID < gap
@@ -246,11 +328,16 @@ fn boolean(subject: &Paths64, clip: &Paths64, operation: ClipType) -> Result<Pat
     Ok(output)
 }
 
-fn offset(paths: &Paths64, distance: f64) -> Result<Paths64> {
-    let mut engine = ClipperOffset::new(2.0, 10.0, false, false);
+fn clearance_envelope(paths: &Paths64, gap: f64) -> Result<Paths64> {
+    // A conservative polygonal envelope is sufficient: exact segment distance
+    // confirms every candidate. Relative arc tolerance bounds corner complexity
+    // even for very large spacing, while the extra radius covers chord error.
+    let arc_tolerance = (gap * SCALE / 1000.0).max(10.0);
+    let distance = gap * SCALE + 2.0 * arc_tolerance + 2.0;
+    let mut engine = ClipperOffset::new(2.0, arc_tolerance, false, false);
     engine.add_paths(paths, JoinType::Round, EndType::Polygon);
     let mut output = vec![];
-    engine.execute(distance * SCALE, &mut output);
+    engine.execute(distance, &mut output);
     ensure!(
         engine.error_code() == 0 && !output.is_empty(),
         "independent polygon offset failed ({})",

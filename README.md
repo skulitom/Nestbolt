@@ -14,14 +14,18 @@ No optimisation-quality claims have been established yet.
 - A Rust workspace with core, CLI, WebAssembly and native stdio MCP entry points.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
+- `nestbolt validate`: independently checks a polygon job/layout, including stock,
+  margins, holes, defects, quantities, rotations, mirroring and fill mode. Invalid
+  layouts receive no score. `validate-sparrow` adapts historical strip results.
 - The same inspection function exposed through `wasm-bindgen` for a future Worker.
 - An MCP connection scaffold using the official Rust SDK. It advertises **no tools**
   until their implementations exist.
 - Native integration/property tests, Windows/Linux CI definitions, a WASM build
   check, locked dependency notices and two generated Sparrow smoke jobs.
 
-The fixed-sheet optimiser, independent layout validator, SVG/DXF imports and
-exports, browser interface and five MCP tools are still to be built. The inspection
+The fixed-sheet optimiser, SVG/DXF imports and exports, browser interface and five
+MCP tools are still to be built. The independent validator currently operates on
+polygon benchmark files; see [its scope and tests](docs/VALIDATION.md). The inspection
 command is not a solver, fit test or independent layout validator. Item holes are
 explicitly rejected by the current geometry adapter.
 
@@ -34,6 +38,7 @@ and the WebAssembly target automatically. Windows requires the MSVC build tools.
 cargo run -p nestbolt-cli -- inspect --input examples/sheet-job.json --units mm
 python scripts/check.py
 python scripts/smoke.py
+cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layout examples/validation-layout.json
 ```
 
 The sample reports six parts with a total area of 16,800 mm² and two available
