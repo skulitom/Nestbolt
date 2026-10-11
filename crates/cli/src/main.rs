@@ -13,6 +13,21 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Improve a polygon job using an explicit deterministic number of repacking passes.
+    Improve {
+        #[arg(long)]
+        job: PathBuf,
+        #[arg(long)]
+        output: PathBuf,
+        #[arg(long, default_value_t = 0)]
+        seed: u64,
+        #[arg(long, default_value_t = 4)]
+        passes: u32,
+        #[arg(long, default_value_t = 64)]
+        samples: u32,
+        #[arg(long, default_value_t = 4)]
+        free_rotations: u32,
+    },
     /// Build a first conservative sheet layout; improvement search is not yet implemented.
     Construct {
         #[arg(long)]
@@ -72,6 +87,44 @@ impl From<InputUnits> for Units {
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::Improve {
+            job,
+            output,
+            seed,
+            passes,
+            samples,
+            free_rotations,
+        } => {
+            let job = serde_json::from_slice(&fs::read(&job)?)?;
+            let result = nestbolt_core::optimize::optimize(
+                &job,
+                nestbolt_core::optimize::Options {
+                    construct: nestbolt_core::construct::Options {
+                        seed,
+                        random_samples: samples,
+                        free_rotations,
+                    },
+                    passes,
+                },
+                |progress| {
+                    eprintln!(
+                        "{}",
+                        serde_json::to_string(progress).expect("finite search progress")
+                    )
+                },
+            )?;
+            println!("{}", serde_json::to_string_pretty(&result)?);
+            ensure!(
+                result.best.complete && result.validation.valid,
+                "no complete validated layout found in the requested passes"
+            );
+            use std::io::Write;
+            let mut file = fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(&output)?;
+            file.write_all(serde_json::to_string_pretty(&result.best.layout)?.as_bytes())?;
+        }
         Command::Construct {
             job,
             output,

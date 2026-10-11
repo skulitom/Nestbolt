@@ -89,10 +89,16 @@ def run(args):
         write(dest / 'request.json', {'seconds': args.seconds, 'seed': args.seed, 'prepared': prepared})
         for source in prepared['imports']:
             (dest / f'input-{source["source"]}.svg').write_text(source['svg']+'\n', encoding='utf-8', newline='\n')
-        subprocess.run(['cargo', 'build', '--locked', '-p', 'nestbolt-cli'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
-        binary = ROOT / 'target/debug' / ('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
+        snapshot = getattr(args, 'validator_snapshot', None)
+        if snapshot:
+            binary = ROOT / snapshot['path']
+            if digest(binary) != snapshot['sha256']:
+                raise ValueError('Batch validator binary changed')
+        else:
+            subprocess.run(['cargo', 'build', '--locked', '-p', 'nestbolt-cli'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+            binary = ROOT / 'target/debug' / ('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
         record['validator_sha256'] = digest(binary)
-        record['validator_sources'] = {p.relative_to(ROOT).as_posix(): digest(p)
+        record['validator_sources'] = snapshot['sources'] if snapshot else {p.relative_to(ROOT).as_posix(): digest(p)
             for p in [ROOT / 'Cargo.lock', *sorted((ROOT / 'crates/validator/src').glob('*.rs'))]}
         write(dest / 'empty-layout.json', {'version': 1, 'units': job['units'], 'sheets': [], 'placements': []})
         contract = subprocess.run([str(binary), 'validate', '--job', str(dest / 'job.json'), '--layout', str(dest / 'empty-layout.json')],
@@ -166,10 +172,17 @@ def batch(args):
     identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
     dest = ROOT/'output/playwright/deepnest-batches'/identifier
     dest.mkdir(parents=True)
+    subprocess.run(['cargo', 'build', '--locked', '-p', 'nestbolt-cli'], cwd=ROOT, check=True)
+    binary = ROOT/'target/debug'/('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
+    frozen_binary = dest/binary.name
+    shutil.copy2(binary, frozen_binary)
+    validator_snapshot = {'path': frozen_binary.relative_to(ROOT).as_posix(), 'sha256': digest(frozen_binary),
+        'sources': {p.relative_to(ROOT).as_posix(): digest(p)
+            for p in [ROOT/'Cargo.lock', *sorted((ROOT/'crates/validator/src').glob('*.rs'))]}}
     record = {'batch_id':identifier, 'tool':'deepnest-next', 'dataset':args.dataset,
               'dataset_manifest_sha256':digest(manifest), 'cases':selected, 'sources':sources,
               'seconds':args.seconds, 'seed':args.seed, 'settings':args.settings, 'axis':args.axis,
-              'complete':False, 'runs':[]}
+              'complete':False, 'runs':[], 'validator_snapshot':validator_snapshot}
     write(dest/'start.json', record)
     for row in selected:
         if {name:digest(ROOT/name) for name in SOURCES} != sources:
@@ -178,7 +191,7 @@ def batch(args):
         if digest(source) != row['sha256']:
             raise ValueError('Frozen job source changed')
         result = run(argparse.Namespace(job=source, seconds=args.seconds, seed=args.seed,
-                     settings=args.settings, axis=args.axis, phase='development'))
+                     settings=args.settings, axis=args.axis, phase='development', validator_snapshot=validator_snapshot))
         path = ROOT/'output/playwright/deepnest'/result['run_id']/'run.json'
         entry = {'job':row['id'], 'status':result['status'], 'record':path.relative_to(ROOT).as_posix(), 'sha256':digest(path)}
         record['runs'].append(entry)

@@ -33,7 +33,7 @@ quotas from explicit wall-clock benchmark mode. Hard timeouts cannot masquerade
 as completed repeatable results. Calibration, implementation and repeated-run
 acceptance tests remain M2/M4 work. The first constructor uses a fixed sample
 quota and an explicit integer random stream; repeated native trials match exactly.
-This is not yet the versioned time-to-work mapping or improvement search.
+Repacking uses fixed passes and seeds; the versioned time-to-work mapping is pending.
 
 ## First M2 constructor
 
@@ -54,6 +54,14 @@ square quadtree root. It compensates jagua's 0.1-radian inscribed offset joins b
 dividing the requested guarded separation by cos(0.05), and nudges contact
 candidates by the scale-dependent rounding guard. A narrow-sheet regression with
 zero random samples and an exact-angle clearance regression cover these cases.
+
+Constructor v3 first tests an interior-circle surrogate before full polygons;
+all 30 retained maker layouts are exactly equal to v2, with cheaper rejection.
+`core::optimize` reuses prepared geometry, changes part order deterministically,
+and periodically attempts one fewer sheet. Independent validation accepts an
+improvement only if it beats the incumbent under the declared all/fill objective.
+Incomplete capped trials have no score. Progress reports every pass. Fixed passes
+are an experimental work quota; calibrated deadlines and cancellation are pending.
 
 For this bootstrap, core consumes the polygon contract from the validator crate.
 The checker is called for source preflight and final acceptance, never to choose

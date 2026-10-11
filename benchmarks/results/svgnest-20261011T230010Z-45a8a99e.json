@@ -1,0 +1,3605 @@
+{
+  "recorded_at": "2026-10-11T23:00:10.500246+00:00",
+  "scope": "Provisional svgnest pilot: 16 B jobs, one configuration and seed; no milestone or quality gate.",
+  "batch_sha256": "ae505f8a2c3ddbc815ca7f71ad9d06859906c0239165f0d6c3b9535d3b95e2c5",
+  "batch": {
+    "batch_id": "20261011T224118Z-d13a6ccb",
+    "kind": "provisional_svgnest_baseline",
+    "dataset": "B",
+    "dataset_manifest_sha256": "8409fc41a1971515c74e85a213db5c38ee0634a45d9651ab72b0fc5be2ce113d",
+    "cases": [
+      {
+        "id": "b-fu-nest-mb-given",
+        "set": "B",
+        "path": "B/b-fu-nest-mb-given.json",
+        "sha256": "b695328588773199ba0e5b6f622306c0d78b89d8da2fa99ad2602219464c9c53",
+        "source": "fu",
+        "source_sha256": "598823eaf79bf378e77920d20d696382ef74f9be5f48d9cead1bd004dd866df4",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/FU/json/fu.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 12,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 21.0,
+        "printed_table_1_side": 21,
+        "rotation_overrides": [],
+        "published_name": "fu",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 4,
+          "mean_squared_utilization": 0.443,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-fu-strip-sheet",
+        "set": "B",
+        "path": "B/b-fu-strip-sheet.json",
+        "sha256": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+        "source": "fu",
+        "source_sha256": "598823eaf79bf378e77920d20d696382ef74f9be5f48d9cead1bd004dd866df4",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/FU/json/fu.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 12,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 28.0,
+        "strip_height": 38.0
+      },
+      {
+        "id": "b-jakobs1-nest-mb-free",
+        "set": "B",
+        "path": "B/b-jakobs1-nest-mb-free.json",
+        "sha256": "09ba68a24fe9d78946d73ec20f3f775b3a00508d563de71bf927f38a8eb78c74",
+        "source": "jakobs1",
+        "source_sha256": "e23c41d4a4af54c746ae24203bebe79dc3fb6a7f26315dda898a48d064b14734",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/JAKOBS/json/jakobs1.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 25,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 12.0,
+        "printed_table_1_side": 12,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "2",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "published_name": "jakobs1",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 4,
+          "mean_squared_utilization": 0.53,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-jakobs1-nest-mb-given",
+        "set": "B",
+        "path": "B/b-jakobs1-nest-mb-given.json",
+        "sha256": "cc509b312db5e4041824ff7b8d517545a8326caafe4e8eb2713edcc346bbd5ec",
+        "source": "jakobs1",
+        "source_sha256": "e23c41d4a4af54c746ae24203bebe79dc3fb6a7f26315dda898a48d064b14734",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/JAKOBS/json/jakobs1.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 25,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 12.0,
+        "printed_table_1_side": 12,
+        "rotation_overrides": [],
+        "published_name": "jakobs1",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 4,
+          "mean_squared_utilization": 0.57,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-jakobs1-strip-sheet",
+        "set": "B",
+        "path": "B/b-jakobs1-strip-sheet.json",
+        "sha256": "fe9b2a125baf696c7240b65128612694d1bb9cf574e54659fc7357212c8c31fc",
+        "source": "jakobs1",
+        "source_sha256": "e23c41d4a4af54c746ae24203bebe79dc3fb6a7f26315dda898a48d064b14734",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/JAKOBS/json/jakobs1.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 25,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 16.0,
+        "strip_height": 40.0
+      },
+      {
+        "id": "b-jakobs2-nest-mb-free",
+        "set": "B",
+        "path": "B/b-jakobs2-nest-mb-free.json",
+        "sha256": "82419ebc742d9da5782c56a3a6a3f2311deea6a33c868f2a6856642cafc32738",
+        "source": "jakobs2",
+        "source_sha256": "368bada14bc14ee9910791ec52b7c34694138bcf0f7f1d3f9a74c763ac2456e4",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/JAKOBS/json/jakobs2.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 25,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 24.0,
+        "printed_table_1_side": 24,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "2",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "published_name": "jakobs2",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 4,
+          "mean_squared_utilization": 0.38,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-jakobs2-nest-mb-given",
+        "set": "B",
+        "path": "B/b-jakobs2-nest-mb-given.json",
+        "sha256": "4fa9cfe064f57e7d2ee6bfa5f70543e7debbf99ef1d1affc388bf6b85a14675b",
+        "source": "jakobs2",
+        "source_sha256": "368bada14bc14ee9910791ec52b7c34694138bcf0f7f1d3f9a74c763ac2456e4",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/JAKOBS/json/jakobs2.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 25,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 24.0,
+        "printed_table_1_side": 24,
+        "rotation_overrides": [],
+        "published_name": "jakobs2",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 4,
+          "mean_squared_utilization": 0.401,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-jakobs2-strip-sheet",
+        "set": "B",
+        "path": "B/b-jakobs2-strip-sheet.json",
+        "sha256": "b908f3ef16fa41e8c4cd7a56edf21f9d77ecda44f1301ec5ba05aaf4c38cccb3",
+        "source": "jakobs2",
+        "source_sha256": "368bada14bc14ee9910791ec52b7c34694138bcf0f7f1d3f9a74c763ac2456e4",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/JAKOBS/json/jakobs2.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 25,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 32.0,
+        "strip_height": 70.0
+      },
+      {
+        "id": "b-mao-nest-mb-free",
+        "set": "B",
+        "path": "B/b-mao-nest-mb-free.json",
+        "sha256": "85763ce57108e39f4efc295014de09947a831fa50d133e5395a1e45cd16c5a8d",
+        "source": "mao",
+        "source_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/MAO/json/mao.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 20,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 1645.5,
+        "printed_table_1_side": 1645.5,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "published_name": "mao",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 3,
+          "mean_squared_utilization": 0.3,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-mao-nest-mb-given",
+        "set": "B",
+        "path": "B/b-mao-nest-mb-given.json",
+        "sha256": "1c4e85a0a752a33c1757a268256a814993e932499d8d9f2d6eee5a0cd963025c",
+        "source": "mao",
+        "source_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/MAO/json/mao.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 20,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 1645.5,
+        "printed_table_1_side": 1645.5,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "published_name": "mao",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 3,
+          "mean_squared_utilization": 0.271,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-mao-strip-sheet",
+        "set": "B",
+        "path": "B/b-mao-strip-sheet.json",
+        "sha256": "52c4d9baf0d33c84aa17a929da64973d08e74d757214e323deb6bdba58c53a9e",
+        "source": "mao",
+        "source_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/MAO/json/mao.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 20,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 2194.0,
+        "strip_height": 2550.0
+      },
+      {
+        "id": "b-marques-strip-sheet",
+        "set": "B",
+        "path": "B/b-marques-strip-sheet.json",
+        "sha256": "5ff1cc845d0764d4514f735fa925007fc72be0e142f30c54293a6e753749ef30",
+        "source": "marques",
+        "source_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/MARQUES/json/marques.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 78.0,
+        "strip_height": 104.0
+      },
+      {
+        "id": "b-shapes0-nest-mb-free",
+        "set": "B",
+        "path": "B/b-shapes0-nest-mb-free.json",
+        "sha256": "957c7e93efe640e15bafe7a986abb1b588cdbf13b299500f70d7c271b720241f",
+        "source": "shapes0",
+        "source_sha256": "77ef3a1a264856f1e0185e0fad85b65a6217a6cacc1ff41d2d93a8e61629fe50",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/SHAPES/json/shapes0.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 43,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 21.0,
+        "printed_table_1_side": 21,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "published_name": "shapes0",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 6,
+          "mean_squared_utilization": 0.39,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-shapes0-nest-mb-given",
+        "set": "B",
+        "path": "B/b-shapes0-nest-mb-given.json",
+        "sha256": "58327ccced9319c580ad2bc5f9a52095161e735ec28e5b564b6eb49ab329459c",
+        "source": "shapes0",
+        "source_sha256": "77ef3a1a264856f1e0185e0fad85b65a6217a6cacc1ff41d2d93a8e61629fe50",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/SHAPES/json/shapes0.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 43,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 21.0,
+        "printed_table_1_side": 21,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "published_name": "shapes0",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 7,
+          "mean_squared_utilization": 0.271,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-shapes0-strip-sheet",
+        "set": "B",
+        "path": "B/b-shapes0-strip-sheet.json",
+        "sha256": "2212495bbc9fbf26da058ec9c00cc1e04d0b40cc340c89510f67b59f95cd57d4",
+        "source": "shapes0",
+        "source_sha256": "77ef3a1a264856f1e0185e0fad85b65a6217a6cacc1ff41d2d93a8e61629fe50",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/SHAPES/json/shapes0.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 43,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 28.0,
+        "strip_height": 40.0
+      },
+      {
+        "id": "b-shapes1-nest-mb-free",
+        "set": "B",
+        "path": "B/b-shapes1-nest-mb-free.json",
+        "sha256": "9a26c7dbe837c0b0bab60a588ee4104b6f26e3afc148c9c348ca985971ec29c4",
+        "source": "shapes1",
+        "source_sha256": "0ac9b4a37be93badf000cf9326a2e08340540a4b4b4ec4db783d2d508b99f82f",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/SHAPES/json/shapes1.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 43,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 21.0,
+        "printed_table_1_side": 21,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "published_name": "shapes1",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 6,
+          "mean_squared_utilization": 0.39,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      }
+    ],
+    "sources": {
+      "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+      "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+      "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+      "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+      "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+      "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+      "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+      "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+      "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+      "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+      "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+    },
+    "seed": 0,
+    "seconds": 60,
+    "axis": "y",
+    "settings": "expanded",
+    "complete": true,
+    "runs": [
+      {
+        "job": "b-fu-nest-mb-given",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224119Z-540402ed/run.json",
+        "sha256": "a1d1465c8c0952dd8e427ee346a8a298cbfa7340f8f6718a67ca7bfc006b0638"
+      },
+      {
+        "job": "b-fu-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224232Z-832f0e41/run.json",
+        "sha256": "31cbf07c639637ef490dc71283e0147c81ee6086e3a4edaca826c3706aabb4e6"
+      },
+      {
+        "job": "b-jakobs1-nest-mb-free",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224338Z-b4047f7e/run.json",
+        "sha256": "2643d44786202b89e9f8874a4abb377c31824a1165c5a5beb9340c5c0ed225da"
+      },
+      {
+        "job": "b-jakobs1-nest-mb-given",
+        "status": "invalid",
+        "record": "output/playwright/svgnest/20261011T224446Z-1bfa608c/run.json",
+        "sha256": "3092b8d498d80d0c01979394af6f18153ab19c0edd97fbd870163cde24538016"
+      },
+      {
+        "job": "b-jakobs1-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224554Z-516030b0/run.json",
+        "sha256": "0c18f1f75389df51a1387c2565558dd540891ad0af95a924383318fd61b40211"
+      },
+      {
+        "job": "b-jakobs2-nest-mb-free",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224702Z-aec1d9b3/run.json",
+        "sha256": "a5588794b75894914d6608523c79a7530487cadb0aaf93ab0cd1cbc149886dee"
+      },
+      {
+        "job": "b-jakobs2-nest-mb-given",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224810Z-11dac240/run.json",
+        "sha256": "f9da22f110d2a23af1291abfd4618ee1cf86dafaaabed5a86ad757c768af8941"
+      },
+      {
+        "job": "b-jakobs2-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T224917Z-10d2fdfd/run.json",
+        "sha256": "84af0c5e26ae9cbd8ce4c8148d269efbf04d28b08fac48129f642013022f4fc9"
+      },
+      {
+        "job": "b-mao-nest-mb-free",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225024Z-eeea1a59/run.json",
+        "sha256": "e97a827fe47f1d2448bc4883ec6f16881c69240c4cc7996ffe62bf1325fd53e6"
+      },
+      {
+        "job": "b-mao-nest-mb-given",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225131Z-04cc77a7/run.json",
+        "sha256": "d0155d17639658a734f68e1fddea8fd5104a5f746f2998b30ab15b862c56099e"
+      },
+      {
+        "job": "b-mao-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225237Z-59dc64d9/run.json",
+        "sha256": "c48d92689c84fe2f84c6fb6439101cf9123a8a65ba359a33ae28883b636896d8"
+      },
+      {
+        "job": "b-marques-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225343Z-31b8e26b/run.json",
+        "sha256": "03814bb1f38b77aabee345e72abe3276d8348c7d18b1ead24e1c0befd589cc31"
+      },
+      {
+        "job": "b-shapes0-nest-mb-free",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225450Z-dd33442b/run.json",
+        "sha256": "e28ac77d2e9cb3d38a1fb99dafe7eedd201b54f19e01f290ba27f2033903013d"
+      },
+      {
+        "job": "b-shapes0-nest-mb-given",
+        "status": "invalid",
+        "record": "output/playwright/svgnest/20261011T225556Z-51f28a6f/run.json",
+        "sha256": "6ffaf4e0b6f23aae0a3e92bacfc3a51de45515e8257ae444a6bb9a8088e1722f"
+      },
+      {
+        "job": "b-shapes0-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225703Z-5f1a25e1/run.json",
+        "sha256": "8f4c96868f19dd45e2f5372625cd02383249fb4725aed723c4cbc8ab358cd2fd"
+      },
+      {
+        "job": "b-shapes1-nest-mb-free",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T225809Z-e24329c4/run.json",
+        "sha256": "2e84a6a2f18148031a5af69919ae165f054c8f78daad7e240a82c2925ea0f1a2"
+      }
+    ],
+    "validator_snapshot": {
+      "path": "output/playwright/svgnest-batches/20261011T224118Z-d13a6ccb/nestbolt.exe",
+      "sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+      "sources": {
+        "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+        "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+        "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+        "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+      }
+    },
+    "valid_runs": 14
+  },
+  "rows": [
+    {
+      "job": "b-fu-nest-mb-given",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224119Z-540402ed/run.json",
+      "sha256": "a1d1465c8c0952dd8e427ee346a8a298cbfa7340f8f6718a67ca7bfc006b0638",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224119Z-540402ed",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-fu-nest-mb-given",
+        "job_sha256": "b695328588773199ba0e5b6f622306c0d78b89d8da2fa99ad2602219464c9c53",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 3.6666666666666665,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:41:19.998653+00:00",
+        "commit": "5d2da6e34a52adade26568903e1027b648abf225",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 13,
+          "coordinates": 94,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 165648,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 156540,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 127952,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 20052,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 112880,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 148948,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 187348,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 6,
+        "controller_solve_ms": 60002.3011,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 4,
+          "placed_parts": 12,
+          "requested_parts": 12,
+          "placed_area": 1083.0,
+          "placed_priority": 12.0,
+          "full_stock_area": 1764.0,
+          "material_area": 1617.0,
+          "normalized_material": 3.6666666666666665,
+          "utilization": 0.6697588126159555,
+          "trailing_offcut_area": 147.0,
+          "last_sheet_id": "sheet-3",
+          "last_sheet_used_height": 14.0
+        },
+        "finished_at": "2026-10-11T22:42:31.897795+00:00",
+        "outputs": {
+          "browser-result.json": "cd33a766c5a4d7896c50cabc7b877074a2c80e6ec26a21b1db3b31222f26ff5d",
+          "candidates.jsonl": "bf6a0f1fa58a951ecb86a541c80ad46de51b3119da76bc3e9c53479cf32030c4",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "98a036c1345715689b5c7fac0621a09aa3bf74d2ab8e5c89257e8ea488c6e075",
+          "job.json": "b695328588773199ba0e5b6f622306c0d78b89d8da2fa99ad2602219464c9c53",
+          "layout.json": "54ec835de228094201eec231bd88bb4f72340349d7e780ba5a5b00b6a9ddd569",
+          "native-sheet-0.svg": "a8f25c7d95fcfbe180a8636f450e65b6addf63f4f9dbaf7e3771b68e87071a43",
+          "native-sheet-1.svg": "33090201e416e30c1d93325ecfe8bf91dbf7444ac8fc6adb1b773692e41ad90a",
+          "native-sheet-2.svg": "dd4404d3105940a79f1ace469d91c04010ef45a566ea4002e2895e1b7274c667",
+          "native-sheet-3.svg": "ae6b3a8dde7586dc701531cdd1286a0754f48d52e78722e0ba47c11285a03cc4",
+          "request.json": "b1b5901160764537daabc3116d373852e215b4917fab49a168d6b74e98c90dd5",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "aadfb3adc7d503c06f4ac852087cbdef0152066bea1e2d386808c2f95412bb31",
+          "validation.json": "7ad2a547dfbde8059e73c622ebde684ca8eea5dcd807ac149f1d3a2813785968"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 4,
+          "placed_parts": 12,
+          "requested_parts": 12,
+          "placed_area": 1083.0,
+          "placed_priority": 12.0,
+          "full_stock_area": 1764.0,
+          "material_area": 1617.0,
+          "normalized_material": 3.6666666666666665,
+          "utilization": 0.6697588126159555,
+          "trailing_offcut_area": 147.0,
+          "last_sheet_id": "sheet-3",
+          "last_sheet_used_height": 14.0
+        }
+      }
+    },
+    {
+      "job": "b-fu-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224232Z-832f0e41/run.json",
+      "sha256": "31cbf07c639637ef490dc71283e0147c81ee6086e3a4edaca826c3706aabb4e6",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224232Z-832f0e41",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-fu-strip-sheet",
+        "job_sha256": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 1.4473684210526316,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:42:32.081434+00:00",
+        "commit": "5d2da6e34a52adade26568903e1027b648abf225",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 13,
+          "coordinates": 94,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 71308,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 109244,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 143264,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 124392,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 167572,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 164232,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 178068,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 6,
+        "controller_solve_ms": 60006.3724,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 12,
+          "requested_parts": 12,
+          "placed_area": 1083.0,
+          "placed_priority": 12.0,
+          "full_stock_area": 2128.0,
+          "material_area": 1540.0,
+          "normalized_material": 1.4473684210526316,
+          "utilization": 0.7032467532467532,
+          "trailing_offcut_area": 588.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 17.0
+        },
+        "finished_at": "2026-10-11T22:43:38.700131+00:00",
+        "outputs": {
+          "browser-result.json": "ac17fe08fcfe7c20b8fe5b5679a31be4436de8f93cb3ac495a568dc509aebb18",
+          "candidates.jsonl": "caf34586bf9b8db9da45c2f7bbb91b71de9c548316f3533e5a4c9f2fab32c6a5",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "8e6456dd2b195f6817e5ba296f5c6206b8c3560bd85088d84077df93b4373ec9",
+          "job.json": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+          "layout.json": "c22b6285941c049f3edddf0460b0cd5b2d2a009f46db1da554447c97834dbc2a",
+          "native-sheet-0.svg": "98251c53eca2cd36ff8f074e186b4a6d96d0acc8acae737c8df77d7085e1a8d2",
+          "native-sheet-1.svg": "640d44aa4e61747e8f973fec50c7509da74854231ecc6807d60f882049b05b72",
+          "request.json": "ee53dc1eaa01c299d303ce38c7d9e6c1480cc3b2f4a29912dc7ec125a52d47e6",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "aadfb3adc7d503c06f4ac852087cbdef0152066bea1e2d386808c2f95412bb31",
+          "validation.json": "048c295411bef1d12a956646deb473d3a9f4eecc5c754dab260c1dfb178b08c5"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 12,
+          "requested_parts": 12,
+          "placed_area": 1083.0,
+          "placed_priority": 12.0,
+          "full_stock_area": 2128.0,
+          "material_area": 1540.0,
+          "normalized_material": 1.4473684210526316,
+          "utilization": 0.7032467532467532,
+          "trailing_offcut_area": 588.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 17.0
+        }
+      }
+    },
+    {
+      "job": "b-jakobs1-nest-mb-free",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224338Z-b4047f7e/run.json",
+      "sha256": "2643d44786202b89e9f8874a4abb377c31824a1165c5a5beb9340c5c0ed225da",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224338Z-b4047f7e",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-jakobs1-nest-mb-free",
+        "job_sha256": "09ba68a24fe9d78946d73ec20f3f775b3a00508d563de71bf927f38a8eb78c74",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 5.360843916666667,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:43:38.979079+00:00",
+        "commit": "e4d9ddcd0efd7e9e1e7a9697ec1a5c5660c7618a",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [
+          "Native finite-angle search uses 36 equally spaced angles within the allowed free rotations."
+        ],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 36,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 26,
+          "coordinates": 308,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 153496,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 154924,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 189676,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 165344,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 128920,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 96544,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 93868,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 5,
+        "controller_solve_ms": 60013.2376,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 6,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 392.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 864.0,
+          "material_area": 771.961524,
+          "normalized_material": 5.360843916666667,
+          "utilization": 0.5077973290285385,
+          "trailing_offcut_area": 92.038476,
+          "last_sheet_id": "sheet-5",
+          "last_sheet_used_height": 4.330127
+        },
+        "finished_at": "2026-10-11T22:44:45.585512+00:00",
+        "outputs": {
+          "browser-result.json": "eb79e24323a40959c0dcaa058958eff852ff15c0eb0d3f53afa7578e260078ea",
+          "candidates.jsonl": "1b67590a2d69507f609b2a2da9198c792a15abe902711979d56ee6a6f5587d70",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "67c29561b2cbf5093f8a1ee980affe2cfa37df3e7d79fccd167567c7c7d2ed5e",
+          "job.json": "09ba68a24fe9d78946d73ec20f3f775b3a00508d563de71bf927f38a8eb78c74",
+          "layout.json": "4feb078cf0dbda97184bf5a0c3fde44545389d0073a0c8a0425dd49682fbdf06",
+          "native-sheet-0.svg": "6766d73104aa58effe0722862c1c2b1bcc970a6bccd612bbb6e87f8c88e048b3",
+          "native-sheet-1.svg": "86632e95dc9019f4e70578004a3b2405c82e265aa4fa50059ada92a821006382",
+          "native-sheet-2.svg": "3d20d6dd82b568daf4f4a67fffad3f58f6ddd5d4045cada4d13bf044ac6aaaa9",
+          "native-sheet-3.svg": "5a4100b4a90704fd7a37e91f37f8f8f4e757c22c01b1faf3fd2ade09660574b5",
+          "native-sheet-4.svg": "7145156fb87c95f50f27dd75e03ba22f49d6260923fb0d949eafa205cd00bffe",
+          "native-sheet-5.svg": "b298da01a3bca8e3d96c3cbbbce0c0745ec9a5cadcc013c014638a07d32c75a0",
+          "request.json": "a473b585653c7b29c18ee872a5d9925bc4e2f7142187cabc48ec25a3e072e64d",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "21cfa95b3ad735a36f34f6a4a065a0b8bbae6d141d7168f2dbba25afb16da992",
+          "validation.json": "e71cd9cd5bbcbd05e28deb6c8c35bf80a359b1179e127477a94d535b9cbeb3c3"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 4.329109278552207e-08,
+        "maximum_total_overlap_ratio": 4.329109278552207e-08,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 6,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 392.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 864.0,
+          "material_area": 771.961524,
+          "normalized_material": 5.360843916666667,
+          "utilization": 0.5077973290285385,
+          "trailing_offcut_area": 92.038476,
+          "last_sheet_id": "sheet-5",
+          "last_sheet_used_height": 4.330127
+        }
+      }
+    },
+    {
+      "job": "b-jakobs1-nest-mb-given",
+      "status": "invalid",
+      "record": "output/playwright/svgnest/20261011T224446Z-1bfa608c/run.json",
+      "sha256": "3092b8d498d80d0c01979394af6f18153ab19c0edd97fbd870163cde24538016",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224446Z-1bfa608c",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-jakobs1-nest-mb-given",
+        "job_sha256": "cc509b312db5e4041824ff7b8d517545a8326caafe4e8eb2713edcc346bbd5ec",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:44:46.037762+00:00",
+        "commit": "e4d9ddcd0efd7e9e1e7a9697ec1a5c5660c7618a",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 26,
+          "coordinates": 308,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 170368,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 127008,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 109516,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 141016,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 179764,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 87772,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 152244,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 9,
+        "controller_solve_ms": 60019.8563,
+        "validator_exit_code": 1,
+        "status": "invalid",
+        "finished_at": "2026-10-11T22:45:54.053809+00:00",
+        "outputs": {
+          "browser-result.json": "d86fdc8544a272ba9e859fb68fa265c37bbcba7eec7b3ef63916049fee8444f2",
+          "candidates.jsonl": "294ead41375c65b6453d8d48b8cb5e94ca89c9c264eff64a4c73a0b2d9ca2c47",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "67c29561b2cbf5093f8a1ee980affe2cfa37df3e7d79fccd167567c7c7d2ed5e",
+          "job.json": "cc509b312db5e4041824ff7b8d517545a8326caafe4e8eb2713edcc346bbd5ec",
+          "layout.json": "110637939ea4df53342ef0b07f50ecfedc53bb7fe0726b4a7928e35d6d577799",
+          "native-sheet-0.svg": "254e831e663a21648c8bf112c2358a0099daef4daf7f7e030008eddd586b7908",
+          "native-sheet-1.svg": "797aba8e8d7e1a18034f8c64c7f4244f7f678cf866657f1ad46cce38dedc718d",
+          "native-sheet-2.svg": "97c1e487ff956bea6d59bd1ab97c8800b13db6a51c5f1d5f51ae633ebf52ddcd",
+          "native-sheet-3.svg": "a77d3fa737f2ae0f0fce00ebad983753a450603e93cd452e89af05ba6fe75890",
+          "native-sheet-4.svg": "2e40f504616e1bc031e4b404935950de1f590b950510517a1015175dab41a8c0",
+          "request.json": "aec99fa41400e51afd27c69488e8424beef7b6df6e90e2fb5f0ca016464e35ad",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "46d652413f5b0de3c2e9118df8ca87909990dae164fb3b6a14b6aace1ac2d61c",
+          "validation.json": "9363ddd4379b600d0177a3a634aeef02bd5921d58d08d117da4bd35d61b6ebab"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.9111111166666667,
+        "maximum_total_overlap_ratio": 0.9111111166666667,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 3,
+        "violations": [
+          {
+            "code": "overlap",
+            "message": "placements 0/1: overlap ratio 0.9111111166666667"
+          },
+          {
+            "code": "total_overlap",
+            "message": "placement 0: cumulative overlap ratio 0.9111111166666667"
+          },
+          {
+            "code": "total_overlap",
+            "message": "placement 1: cumulative overlap ratio 0.7192982499999999"
+          }
+        ],
+        "metrics": null
+      }
+    },
+    {
+      "job": "b-jakobs1-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224554Z-516030b0/run.json",
+      "sha256": "0c18f1f75389df51a1387c2565558dd540891ad0af95a924383318fd61b40211",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224554Z-516030b0",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-jakobs1-strip-sheet",
+        "job_sha256": "fe9b2a125baf696c7240b65128612694d1bb9cf574e54659fc7357212c8c31fc",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 0.8479166749999999,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:45:54.272260+00:00",
+        "commit": "e4d9ddcd0efd7e9e1e7a9697ec1a5c5660c7618a",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 26,
+          "coordinates": 308,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 153516,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 181672,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 141408,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 145596,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 162516,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 172560,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 100136,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 8,
+        "controller_solve_ms": 60001.2791,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 392.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 640.0,
+          "material_area": 542.666672,
+          "normalized_material": 0.8479166749999999,
+          "utilization": 0.7223587152593739,
+          "trailing_offcut_area": 97.33332800000005,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 33.916667
+        },
+        "finished_at": "2026-10-11T22:47:02.040352+00:00",
+        "outputs": {
+          "browser-result.json": "35ad60851b63dda933994465d583550873ea10ecc04f881d3846743105c4c533",
+          "candidates.jsonl": "dfde6d44d2f13bc05a835799b7fc5d6466e6e012c3e784e407150447536f2ea4",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "790d683c2f7891fe94344cd4200c10f8db3a03f9e3833e299ebd8f402b9b0fb5",
+          "job.json": "fe9b2a125baf696c7240b65128612694d1bb9cf574e54659fc7357212c8c31fc",
+          "layout.json": "31fcdd1939cd22e40a4ae4b20588dfda9c80943ee8f357b8a88200e831b476d4",
+          "native-sheet-0.svg": "e6893358b18e8b8c206f5539530d320c6da0c6961df713c197582d86c8b9e30c",
+          "request.json": "795e5700b31abe3c8279a976eb187845fbd75df69c9e900e861d5b4a0727c640",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "703764d51a657fc0887be96df673549be40b21cdba2aae4f30f8aa172a23d9ad",
+          "validation.json": "74bb8baf1de55a48148768af7e35770c4b94622736030f435a2e7a4cd1304f62"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 392.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 640.0,
+          "material_area": 542.666672,
+          "normalized_material": 0.8479166749999999,
+          "utilization": 0.7223587152593739,
+          "trailing_offcut_area": 97.33332800000005,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 33.916667
+        }
+      }
+    },
+    {
+      "job": "b-jakobs2-nest-mb-free",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224702Z-aec1d9b3/run.json",
+      "sha256": "a5588794b75894914d6608523c79a7530487cadb0aaf93ab0cd1cbc149886dee",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224702Z-aec1d9b3",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-jakobs2-nest-mb-free",
+        "job_sha256": "82419ebc742d9da5782c56a3a6a3f2311deea6a33c868f2a6856642cafc32738",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 4.588006625,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:47:02.672840+00:00",
+        "commit": "e4d9ddcd0efd7e9e1e7a9697ec1a5c5660c7618a",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [
+          "Native finite-angle search uses 36 equally spaced angles within the allowed free rotations."
+        ],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 36,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 26,
+          "coordinates": 276,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 136264,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 153896,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 177376,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 157048,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 177252,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 104244,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 162188,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 8,
+        "controller_solve_ms": 60003.3844,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 5,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 1351.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 2880.0,
+          "material_area": 2642.691816,
+          "normalized_material": 4.588006625,
+          "utilization": 0.5112211691959165,
+          "trailing_offcut_area": 237.30818399999998,
+          "last_sheet_id": "sheet-4",
+          "last_sheet_used_height": 14.112159
+        },
+        "finished_at": "2026-10-11T22:48:09.676599+00:00",
+        "outputs": {
+          "browser-result.json": "8e296ef2a7c4d690f653260cd6f406fc3abcb383b97dc896c65ac0660b49df6f",
+          "candidates.jsonl": "7a28612d905e1302bc5200da998f1c839d552c08662ea8a88f578b150b71f09a",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "4648c6d9f18d3e02b8ec1673e2ea540539f70b3523f19848ac15af985480c267",
+          "job.json": "82419ebc742d9da5782c56a3a6a3f2311deea6a33c868f2a6856642cafc32738",
+          "layout.json": "adaf29a4db57ee8024cd281b56799a69d519645ff33d700cf668b5a474e31d6b",
+          "native-sheet-0.svg": "bce2daa4f4b3c2567f18fdcb3b8b4ca932874ffc6602ba7f98e4f8cc0d017834",
+          "native-sheet-1.svg": "7f1842a1f77642fefbfd82ac987f2a56d8140d9644b2aebf1d2e14b27d65517a",
+          "native-sheet-2.svg": "b4bc606df2f53faf4347c19141685d6be0b3ea821d39a2fbf1ec8e79ce8e0ea2",
+          "native-sheet-3.svg": "93192afbc8f54ee36b2824b0f3d0e735a01d26830b0f9f413d3788503b0a1033",
+          "native-sheet-4.svg": "4f51f20579834d468100a77d684a74161fb87f6211db99a9f100ea9a8793bff0",
+          "request.json": "1e958813c127d2afe7b5cce10da5bbb14ad5a6053908740b7dae4acbff7c96c3",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "703764d51a657fc0887be96df673549be40b21cdba2aae4f30f8aa172a23d9ad",
+          "validation.json": "740834add3d564a1bb3ff10cc16b1cd657d034bdcb20b5e94dba19e13c75e6c6"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 5,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 1351.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 2880.0,
+          "material_area": 2642.691816,
+          "normalized_material": 4.588006625,
+          "utilization": 0.5112211691959165,
+          "trailing_offcut_area": 237.30818399999998,
+          "last_sheet_id": "sheet-4",
+          "last_sheet_used_height": 14.112159
+        }
+      }
+    },
+    {
+      "job": "b-jakobs2-nest-mb-given",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224810Z-11dac240/run.json",
+      "sha256": "f9da22f110d2a23af1291abfd4618ee1cf86dafaaabed5a86ad757c768af8941",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224810Z-11dac240",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-jakobs2-nest-mb-given",
+        "job_sha256": "4fa9cfe064f57e7d2ee6bfa5f70543e7debbf99ef1d1affc388bf6b85a14675b",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 3.9166666666666665,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:48:10.059186+00:00",
+        "commit": "e4d9ddcd0efd7e9e1e7a9697ec1a5c5660c7618a",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 26,
+          "coordinates": 276,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 120376,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 186728,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 173588,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 124048,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 175732,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 96132,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 143660,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 4,
+        "controller_solve_ms": 60006.520000000004,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 4,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 1351.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 2304.0,
+          "material_area": 2256.0,
+          "normalized_material": 3.9166666666666665,
+          "utilization": 0.5988475177304965,
+          "trailing_offcut_area": 48.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 22.0
+        },
+        "finished_at": "2026-10-11T22:49:16.183485+00:00",
+        "outputs": {
+          "browser-result.json": "64f287e3f7b5ca20bf2d8773a78e1f5ac4ec7b2d2fe492f121233dc841c02103",
+          "candidates.jsonl": "acba10b42ba01e367f25915c428ffce64231d5d2bcaaef63c7a15a099d38690f",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "4648c6d9f18d3e02b8ec1673e2ea540539f70b3523f19848ac15af985480c267",
+          "job.json": "4fa9cfe064f57e7d2ee6bfa5f70543e7debbf99ef1d1affc388bf6b85a14675b",
+          "layout.json": "99432ed6baf8c9c1728f981eca2b635808060cffc818960acf610a2bdc8f57fb",
+          "native-sheet-0.svg": "67349d364d8ab481dc3b3bf567397deab80ad061693545ce05f91058e91e1d1c",
+          "native-sheet-1.svg": "e03b2b415ffcf65d6cc254e1a109ed588fb853c92ce9d0141405cce90029f52d",
+          "native-sheet-2.svg": "33ad9fec4a40c28992398f19b09a91130a7416a969148fb4ad296c77a183f3fc",
+          "native-sheet-3.svg": "9ddd32cb4e5c66f414ebce1bea7d1bcb2def0068c6498de08086d6278436d597",
+          "request.json": "9d05baf718f77ffc10ef541aff9d37586a87506e398981dc780c916a91d13c13",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "7c94aa0180fbe4abe4b7bb11b23bc3fd3e134b3cbdaa4403a73e1a5e99e0fd2f",
+          "validation.json": "66a21e8c00a1873409aabc3fe380948aaecc449982036888ee7431b4d67afe7c"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 4,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 1351.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 2304.0,
+          "material_area": 2256.0,
+          "normalized_material": 3.9166666666666665,
+          "utilization": 0.5988475177304965,
+          "trailing_offcut_area": 48.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 22.0
+        }
+      }
+    },
+    {
+      "job": "b-jakobs2-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T224917Z-10d2fdfd/run.json",
+      "sha256": "84af0c5e26ae9cbd8ce4c8148d269efbf04d28b08fac48129f642013022f4fc9",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T224917Z-10d2fdfd",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-jakobs2-strip-sheet",
+        "job_sha256": "b908f3ef16fa41e8c4cd7a56edf21f9d77ecda44f1301ec5ba05aaf4c38cccb3",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 1.1428571428571428,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:49:17.022580+00:00",
+        "commit": "e4d9ddcd0efd7e9e1e7a9697ec1a5c5660c7618a",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 26,
+          "coordinates": 276,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 185760,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 176184,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 105904,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 174880,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 113344,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 141816,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 168624,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 6,
+        "controller_solve_ms": 60006.8085,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 1351.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 4480.0,
+          "material_area": 2560.0,
+          "normalized_material": 1.1428571428571428,
+          "utilization": 0.527734375,
+          "trailing_offcut_area": 1920.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 10.0
+        },
+        "finished_at": "2026-10-11T22:50:23.822640+00:00",
+        "outputs": {
+          "browser-result.json": "ef6a16bc83e3f52c0da66f0ef1de4660b84eaffdbe4a30cd8c19c58070394c32",
+          "candidates.jsonl": "14b4f8beefc23b8086df56e7c49d2875e2d0ffe0995710a4243e46be2095dd25",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "59f4f4b1f7825e9dca567fc8f522dbf8c87b5656dab50f5c25650beb7269a697",
+          "job.json": "b908f3ef16fa41e8c4cd7a56edf21f9d77ecda44f1301ec5ba05aaf4c38cccb3",
+          "layout.json": "aabe82dc207d341e06b237910b83d935f05ea7a19a1e7cc1c07a5af76e02a7a1",
+          "native-sheet-0.svg": "674709aca173c5cc9054f74e88b029642c8bbda7750ba33bcf2e8f928eda121f",
+          "native-sheet-1.svg": "988a3bc971a42d8659427bf1a7f2d26687ccedcfdae6b8b1a23189ae63d62b72",
+          "request.json": "56bc53b2784737b7bec7867b67359847d05b95eb736e269ca0aafc7d46fd5305",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "aadfb3adc7d503c06f4ac852087cbdef0152066bea1e2d386808c2f95412bb31",
+          "validation.json": "85fc8581cd47785859329e60c3be6c1ddd4e21bf02d00750afd878596c081b05"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 25,
+          "requested_parts": 25,
+          "placed_area": 1351.0,
+          "placed_priority": 25.0,
+          "full_stock_area": 4480.0,
+          "material_area": 2560.0,
+          "normalized_material": 1.1428571428571428,
+          "utilization": 0.527734375,
+          "trailing_offcut_area": 1920.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 10.0
+        }
+      }
+    },
+    {
+      "job": "b-mao-nest-mb-free",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225024Z-eeea1a59/run.json",
+      "sha256": "e97a827fe47f1d2448bc4883ec6f16881c69240c4cc7996ffe62bf1325fd53e6",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225024Z-eeea1a59",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-mao-nest-mb-free",
+        "job_sha256": "85763ce57108e39f4efc295014de09947a831fa50d133e5395a1e45cd16c5a8d",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 2.4289495381343054,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:50:24.134932+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [
+          "Native finite-angle search uses 36 equally spaced angles within the allowed free rotations."
+        ],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 36,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 21,
+          "coordinates": 356,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 184116,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 121308,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 145960,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 96280,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 108000,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 147424,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 98756,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 4,
+        "controller_solve_ms": 60007.414000000004,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 3758617.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 8123010.75,
+          "material_area": 6576794.4031575,
+          "normalized_material": 2.4289495381343054,
+          "utilization": 0.5714968067415181,
+          "trailing_offcut_area": 1546216.3468425001,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 705.836465
+        },
+        "finished_at": "2026-10-11T22:51:31.621076+00:00",
+        "outputs": {
+          "browser-result.json": "342f02c371dafffd9bc890214183ec01ee53141b819be46845254d9fb132a18c",
+          "candidates.jsonl": "45bb75aa88edb5d60bf99c3d4d24b4bc547d6c628b0fb9a155e2dc4543e90fb0",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "c3e8684bb97eefb5b86b79af4f524c8bca8400c00d8ca593345a1fd66b043e62",
+          "job.json": "85763ce57108e39f4efc295014de09947a831fa50d133e5395a1e45cd16c5a8d",
+          "layout.json": "b2fac6b7e1cd738bc442a1f76ad1651f3e08a3928e46e1020bee85acc3b4294d",
+          "native-sheet-0.svg": "8b93f197a5b5644891feac245ad5688c9ecb318079d0c1cb7e48c5fabfc76f6e",
+          "native-sheet-1.svg": "415baf2c1c92cea31b9e90d58bef77d3038d42924b84e87e4bd37b468016271a",
+          "native-sheet-2.svg": "a6320312c2795f7ecc38addf30dfab3e3207d4136f6b0d3bb9011b042476ab1b",
+          "request.json": "0a9adbdb3feaf7fb04b11e15a9ba9376d800b4f1071df4c79a41c5c99a55fa1b",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "7c94aa0180fbe4abe4b7bb11b23bc3fd3e134b3cbdaa4403a73e1a5e99e0fd2f",
+          "validation.json": "7277f14928cc0efd9e676cf0a8c87b51ad1247418ebde62aad50b92dc0879760"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 3758617.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 8123010.75,
+          "material_area": 6576794.4031575,
+          "normalized_material": 2.4289495381343054,
+          "utilization": 0.5714968067415181,
+          "trailing_offcut_area": 1546216.3468425001,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 705.836465
+        }
+      }
+    },
+    {
+      "job": "b-mao-nest-mb-given",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225131Z-04cc77a7/run.json",
+      "sha256": "d0155d17639658a734f68e1fddea8fd5104a5f746f2998b30ab15b862c56099e",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225131Z-04cc77a7",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-mao-nest-mb-given",
+        "job_sha256": "1c4e85a0a752a33c1757a268256a814993e932499d8d9f2d6eee5a0cd963025c",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 2.3426354974171986,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:51:31.812063+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 2,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 21,
+          "coordinates": 356,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 107640,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 103604,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 141068,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 57748,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 116408,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 184612,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 101672,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 15,
+        "controller_solve_ms": 60014.3188,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 3758617.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 8123010.75,
+          "material_area": 6343084.4429505,
+          "normalized_material": 2.3426354974171986,
+          "utilization": 0.5925535177412317,
+          "trailing_offcut_area": 1779926.3070495,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 563.806711
+        },
+        "finished_at": "2026-10-11T22:52:37.504897+00:00",
+        "outputs": {
+          "browser-result.json": "5e83d46cd45489494b9447692c6c7064e65220bfdbe0b090cf0fd32fe850bbd2",
+          "candidates.jsonl": "f4909ea3cc0032b1c98b09b7fc3af5992b2c2098c693a70b7f273fc49a285d6c",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "c3e8684bb97eefb5b86b79af4f524c8bca8400c00d8ca593345a1fd66b043e62",
+          "job.json": "1c4e85a0a752a33c1757a268256a814993e932499d8d9f2d6eee5a0cd963025c",
+          "layout.json": "d6de38adcb5940d5913021b6219a422330ed1c9f9f4c14ffbe235707b1bef3e3",
+          "native-sheet-0.svg": "107cd535e12cbb41057900fc1b9745985610df7ab275120041e168d731984294",
+          "native-sheet-1.svg": "df222e384b00d819e2f1c74f3f10299bd82511d944c602363a38e3ac5601aa04",
+          "native-sheet-2.svg": "477e0d71f4c2155b2945c4ec1aecc0dc50432b6adfa890a18a5c48c3f8a9bfbe",
+          "request.json": "40a16ca186afd884310291fd952e3e7657982e8441f71e844ae3bc0aed16781a",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "74c19381e11245692e20c7c8ed76898c92b091515f58aa6dc80aff03004146ad",
+          "validation.json": "63ccf757993fc664f3da1c05713901271fd505a324b4b16ae4422ab3024aab49"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 3758617.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 8123010.75,
+          "material_area": 6343084.4429505,
+          "normalized_material": 2.3426354974171986,
+          "utilization": 0.5925535177412317,
+          "trailing_offcut_area": 1779926.3070495,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 563.806711
+        }
+      }
+    },
+    {
+      "job": "b-mao-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225237Z-59dc64d9/run.json",
+      "sha256": "c48d92689c84fe2f84c6fb6439101cf9123a8a65ba359a33ae28883b636896d8",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225237Z-59dc64d9",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-mao-strip-sheet",
+        "job_sha256": "52c4d9baf0d33c84aa17a929da64973d08e74d757214e323deb6bdba58c53a9e",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 0.8936295964705883,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:52:37.889454+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 21,
+          "coordinates": 356,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 118152,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 181952,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 118272,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 144636,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 172064,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 181392,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 121920,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 4,
+        "controller_solve_ms": 60010.9875,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 3758617.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 5594700.0,
+          "material_area": 4999589.503374,
+          "normalized_material": 0.8936295964705883,
+          "utilization": 0.7517851210511337,
+          "trailing_offcut_area": 595110.4966259999,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 2278.755471
+        },
+        "finished_at": "2026-10-11T22:53:43.329948+00:00",
+        "outputs": {
+          "browser-result.json": "c8585bd863bfa0c3d6f3888f997cae7cd4c7226e79204b118cfdee3f15cf1134",
+          "candidates.jsonl": "1acf7c77b2d685bf5a0ff7e185f74faaa5eb68d1cfbba61365241efee0224a1f",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "f0e38014a13f541b0490a729060dfff52295be6c75b7affbc5690180f79c4ac8",
+          "job.json": "52c4d9baf0d33c84aa17a929da64973d08e74d757214e323deb6bdba58c53a9e",
+          "layout.json": "7c1e58e5fd0d5c995a38bf4126c2699b69916856a95cabe05d28ecd24095d845",
+          "native-sheet-0.svg": "9314fe31084253200981894c1e40b2bd17524e5a8d8a56d51930d1baed06a84d",
+          "request.json": "3979968255515dfd58dc671212012a6bb9d6c148688fe0dd88a07dd0907fd546",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "7c94aa0180fbe4abe4b7bb11b23bc3fd3e134b3cbdaa4403a73e1a5e99e0fd2f",
+          "validation.json": "5be1a50d6200ec6053b7ebe792c8cf4e150aa8466f3840404f344d165476ae69"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 3758617.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 5594700.0,
+          "material_area": 4999589.503374,
+          "normalized_material": 0.8936295964705883,
+          "utilization": 0.7517851210511337,
+          "trailing_offcut_area": 595110.4966259999,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 2278.755471
+        }
+      }
+    },
+    {
+      "job": "b-marques-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225343Z-31b8e26b/run.json",
+      "sha256": "03814bb1f38b77aabee345e72abe3276d8348c7d18b1ead24e1c0befd589cc31",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225343Z-31b8e26b",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-marques-strip-sheet",
+        "job_sha256": "5ff1cc845d0764d4514f735fa925007fc72be0e142f30c54293a6e753749ef30",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 1.1923076923076923,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:53:43.872975+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 25,
+          "coordinates": 332,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 49720,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 152152,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 183684,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 132852,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 122724,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 191992,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 155636,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 5,
+        "controller_solve_ms": 60001.1093,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 24,
+          "requested_parts": 24,
+          "placed_area": 7194.0,
+          "placed_priority": 24.0,
+          "full_stock_area": 16224.0,
+          "material_area": 9672.0,
+          "normalized_material": 1.1923076923076923,
+          "utilization": 0.7437965260545906,
+          "trailing_offcut_area": 6552.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 20.0
+        },
+        "finished_at": "2026-10-11T22:54:49.914161+00:00",
+        "outputs": {
+          "browser-result.json": "5f3076559140640f664ca9feb5242cf680b44d5b2a0bd08cbfefcb4df3fe78e0",
+          "candidates.jsonl": "e3bd6744697e2b66e8a6e4ee4ccbc5858963ad1fe774da381d01b20f0c76ea4b",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "83765e9421fd94e873fb39a4fa92cece87fdae5f74121a2d99be05fc7c9c8449",
+          "job.json": "5ff1cc845d0764d4514f735fa925007fc72be0e142f30c54293a6e753749ef30",
+          "layout.json": "7dcbfb3d9b00bb655afaf43e32249182028b681d70f775968f5fc3f7b18a0257",
+          "native-sheet-0.svg": "0233f7ab27b93f6e991d6a7e8962f562ce2c76f24f9f26ad37a4e269c426439b",
+          "native-sheet-1.svg": "077a0f6b7b4f88aea3135816a43aa923d470dce3651ae3c1885b7c8f19408118",
+          "request.json": "e497e656d83fa4b7404c19d2721d0ba421a9fb5c6ba80f5187219c2616e0af79",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "21cfa95b3ad735a36f34f6a4a065a0b8bbae6d141d7168f2dbba25afb16da992",
+          "validation.json": "cdf1c9370dade843436e69beeac4e4adb37c9290495ae1d9ca2557cc9b913733"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 24,
+          "requested_parts": 24,
+          "placed_area": 7194.0,
+          "placed_priority": 24.0,
+          "full_stock_area": 16224.0,
+          "material_area": 9672.0,
+          "normalized_material": 1.1923076923076923,
+          "utilization": 0.7437965260545906,
+          "trailing_offcut_area": 6552.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 20.0
+        }
+      }
+    },
+    {
+      "job": "b-shapes0-nest-mb-free",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225450Z-dd33442b/run.json",
+      "sha256": "e28ac77d2e9cb3d38a1fb99dafe7eedd201b54f19e01f290ba27f2033903013d",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225450Z-dd33442b",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-shapes0-nest-mb-free",
+        "job_sha256": "957c7e93efe640e15bafe7a986abb1b588cdbf13b299500f70d7c271b720241f",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 8.730147952380952,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:54:50.264781+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [
+          "Native finite-angle search uses 36 equally spaced angles within the allowed free rotations."
+        ],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 36,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 44,
+          "coordinates": 790,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 164716,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 98724,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 179168,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 140872,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 122748,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 135708,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 110380,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 4,
+        "controller_solve_ms": 60580.803199999995,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 9,
+          "placed_parts": 43,
+          "requested_parts": 43,
+          "placed_area": 1596.0,
+          "placed_priority": 43.0,
+          "full_stock_area": 3969.0,
+          "material_area": 3849.995247,
+          "normalized_material": 8.730147952380952,
+          "utilization": 0.414545966321293,
+          "trailing_offcut_area": 119.004753,
+          "last_sheet_id": "sheet-8",
+          "last_sheet_used_height": 15.333107
+        },
+        "finished_at": "2026-10-11T22:55:56.611744+00:00",
+        "outputs": {
+          "browser-result.json": "633b284ef2bcae47430b73933d143843a1cbf797b04e01cd4d7267162d238907",
+          "candidates.jsonl": "d5b29b723a93dc0da133b55650a595c208ef30d5ff0216c7bd09f4b79b8cbef5",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "882e67b056425d64fe0774c11e74c257fc655b700d6c9aff904332b540d49e0b",
+          "job.json": "957c7e93efe640e15bafe7a986abb1b588cdbf13b299500f70d7c271b720241f",
+          "layout.json": "2fcf581034b8c95f6431914640d282ac72b9cd931e90151636d5e48afb03a21d",
+          "native-sheet-0.svg": "339f6193970d2fec7f1d6ed61cc1eabb18cd5c727dbfadd3fcc2cedf8e640cc2",
+          "native-sheet-1.svg": "c5dcc191c43a1f8b80f1fe39f278259c3a915d73d17f05ada874db5735ca0c65",
+          "native-sheet-2.svg": "d7e6801174bba1e9761a67ca56d63765c9d02b05c9e4f13235167c206b90d67d",
+          "native-sheet-3.svg": "996fa2ff9b9124bb071d41cfb9d7b89169820bd0483feacb72cd30b7d7e17984",
+          "native-sheet-4.svg": "d33c311b28511a05344f7836668ab8b4951a07aa1ed98fc767b92e579c8a2599",
+          "native-sheet-5.svg": "a8f2dcde36c0e387cf01f90f3f97d3cf3b5f533806544ab5d43e87b7fc0c3ecc",
+          "native-sheet-6.svg": "89af5ed227fd8cf89738bc9de499c61e634ed62a2cef8800e2e438dfba7e3737",
+          "native-sheet-7.svg": "9c9f748f3662647abb41cee3a32c3cd758108f8fca32f136e3df2f10be336b44",
+          "native-sheet-8.svg": "b02a289411eaf8ba284119d31705df3eee8c84ae8775f8b9b0f8aba5f6943893",
+          "request.json": "6eaf499658726b5e1dd8de6989246e87ecccaf3db191e51fef3258a8069ad07e",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "7c94aa0180fbe4abe4b7bb11b23bc3fd3e134b3cbdaa4403a73e1a5e99e0fd2f",
+          "validation.json": "e145e0b9dfd29c2aba499cede22e4c1a88e68a62472a27142d28a5c6e6209828"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 9,
+          "placed_parts": 43,
+          "requested_parts": 43,
+          "placed_area": 1596.0,
+          "placed_priority": 43.0,
+          "full_stock_area": 3969.0,
+          "material_area": 3849.995247,
+          "normalized_material": 8.730147952380952,
+          "utilization": 0.414545966321293,
+          "trailing_offcut_area": 119.004753,
+          "last_sheet_id": "sheet-8",
+          "last_sheet_used_height": 15.333107
+        }
+      }
+    },
+    {
+      "job": "b-shapes0-nest-mb-given",
+      "status": "invalid",
+      "record": "output/playwright/svgnest/20261011T225556Z-51f28a6f/run.json",
+      "sha256": "6ffaf4e0b6f23aae0a3e92bacfc3a51de45515e8257ae444a6bb9a8088e1722f",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225556Z-51f28a6f",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-shapes0-nest-mb-given",
+        "job_sha256": "58327ccced9319c580ad2bc5f9a52095161e735ec28e5b564b6eb49ab329459c",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:55:56.865033+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 4,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 44,
+          "coordinates": 790,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 180652,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 129744,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 187800,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 164260,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 176196,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 159860,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 88556,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 7,
+        "controller_solve_ms": 60009.0561,
+        "validator_exit_code": 1,
+        "status": "invalid",
+        "finished_at": "2026-10-11T22:57:02.525822+00:00",
+        "outputs": {
+          "browser-result.json": "92552acc66e27953d3ea7cb45338f00d981f6af64cb6c01aef1db3aa763f17dd",
+          "candidates.jsonl": "638c6b9d893fd924adf4acb6c3e94bc6ef4cf08f7cc460b3124e4353a4d4a99d",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "882e67b056425d64fe0774c11e74c257fc655b700d6c9aff904332b540d49e0b",
+          "job.json": "58327ccced9319c580ad2bc5f9a52095161e735ec28e5b564b6eb49ab329459c",
+          "layout.json": "211f738739a2b019bf0b56953f597ba3435d538996c1a1525ca76d65c8579067",
+          "native-sheet-0.svg": "df70fbecc335ca64a2753dba6a0e18e49100cb53cd94d3207fea5d742f5b7600",
+          "native-sheet-1.svg": "58b0862bc5d65893fc6a6f6c134195b08486dd3b0a8a14f9cbb416868d31b974",
+          "native-sheet-2.svg": "4c33f5ded95bb439c3771cdad0d455b13b19e06c3ef493a4a0b2c74411954e93",
+          "native-sheet-3.svg": "ec68a4e32fc76aaab4d898f6c0adff8ac5757d6a310e8163faef9aa6ff002568",
+          "native-sheet-4.svg": "6fadbb13c4abff082223e01a6ffe5ee7320365b22018d2b40aef35b16cc18a86",
+          "native-sheet-5.svg": "8210dde263f31cd2afaa516eb08cc79f26c0254f930c3e6be8accda3d6c0c098",
+          "native-sheet-6.svg": "aa470a5ce88f37e463bd04a0237a987ffb5d15a4ef838263b069edb93ebdfc09",
+          "native-sheet-7.svg": "c27e75fb01f6921f6e4de76d765217dae5abdeadf42d04202df2ef0ec4436175",
+          "native-sheet-8.svg": "67e418166713058a06a0b69649e12303f2109abec5b2ed5ba7ffc6a3e032a89a",
+          "request.json": "0c022d2b055879353f7c656f310482ea56e6b495301f5dabffaefc9bcef4629a",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "bd45d0f0266a8cda18c73e1b67bd8a84e376ac2faa11a0f80474de2e9b0d3814",
+          "validation.json": "012afaae3937e0fd51ef68180ef6cc1ee62cb594a90096a7d39d0f27f2f23d81"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.2,
+        "maximum_total_overlap_ratio": 0.2,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 3,
+        "violations": [
+          {
+            "code": "overlap",
+            "message": "placements 32/37: overlap ratio 0.2"
+          },
+          {
+            "code": "total_overlap",
+            "message": "placement 32: cumulative overlap ratio 0.14285714285714285"
+          },
+          {
+            "code": "total_overlap",
+            "message": "placement 37: cumulative overlap ratio 0.2"
+          }
+        ],
+        "metrics": null
+      }
+    },
+    {
+      "job": "b-shapes0-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225703Z-5f1a25e1/run.json",
+      "sha256": "8f4c96868f19dd45e2f5372625cd02383249fb4725aed723c4cbc8ab358cd2fd",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225703Z-5f1a25e1",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-shapes0-strip-sheet",
+        "job_sha256": "2212495bbc9fbf26da058ec9c00cc1e04d0b40cc340c89510f67b59f95cd57d4",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 2.825,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:57:03.110226+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 1,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 44,
+          "coordinates": 790,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 151060,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 186300,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 114232,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 129876,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 116660,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 130740,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 136128,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 2,
+        "controller_solve_ms": 60012.8428,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 43,
+          "requested_parts": 43,
+          "placed_area": 1596.0,
+          "placed_priority": 43.0,
+          "full_stock_area": 3360.0,
+          "material_area": 3164.0,
+          "normalized_material": 2.825,
+          "utilization": 0.504424778761062,
+          "trailing_offcut_area": 196.0,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 33.0
+        },
+        "finished_at": "2026-10-11T22:58:09.069282+00:00",
+        "outputs": {
+          "browser-result.json": "f6617555d862ba226e99a5e7c4ad13e509b82239d8d8a95c0bdac9d9bc222819",
+          "candidates.jsonl": "912bce92b155c49aef3df21bd7d6e7fda7b949e25cbcb93f197745098ef3d97f",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "739baa4b4c2cbcb9b0587f4744988278d62c6e33f75f9908fc45eb573e8f4dd7",
+          "job.json": "2212495bbc9fbf26da058ec9c00cc1e04d0b40cc340c89510f67b59f95cd57d4",
+          "layout.json": "4b7577fce137f6a1433e7b841e3e8f32e4ee975518c76d7cbc1f63bca445a83f",
+          "native-sheet-0.svg": "7ac922a8608b129e434d3a2aa704fb80c2f138062cf64fe0ac72d71d1a8fe16c",
+          "native-sheet-1.svg": "2a38f766994aec40438b4fc0151e3e589412b30a1085f4013b0cc20f8f2230ed",
+          "native-sheet-2.svg": "34c6b10e42cc04580846a04d33a58c029b2fa3f51868a1cc0bdff949de83ae54",
+          "request.json": "0d993105b3c03d21db6fe37d8b9992200a79ea016625c53f9a673321d8bafafe",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "70a01bc4b1161c7a335e66f0e5b7fb2c5912f0797ba73dda73d868f2cc56fd7c",
+          "validation.json": "129ddd67c7561023c916d7279e0367678a792648ab7e50828b8958944d5a53a6"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 43,
+          "requested_parts": 43,
+          "placed_area": 1596.0,
+          "placed_priority": 43.0,
+          "full_stock_area": 3360.0,
+          "material_area": 3164.0,
+          "normalized_material": 2.825,
+          "utilization": 0.504424778761062,
+          "trailing_offcut_area": 196.0,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 33.0
+        }
+      }
+    },
+    {
+      "job": "b-shapes1-nest-mb-free",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T225809Z-e24329c4/run.json",
+      "sha256": "2e84a6a2f18148031a5af69919ae165f054c8f78daad7e240a82c2925ea0f1a2",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T225809Z-e24329c4",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-shapes1-nest-mb-free",
+        "job_sha256": "9a26c7dbe837c0b0bab60a588ee4104b6f26e3afc148c9c348ca985971ec29c4",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 8.764053428571428,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:58:09.287259+00:00",
+        "commit": "78fd09abd32bd237475c7b862214e7289771bf66",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [
+          "Native finite-angle search uses 36 equally spaced angles within the allowed free rotations."
+        ],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 36,
+          "spacing": 0
+        },
+        "validator_sha256": "b827c2b600775461f008b58183d4dfa416985e086c28e41010bf5f38c1795752",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "16",
+          "cpu_index": 4,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 44,
+          "coordinates": 790,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "16",
+            "pid": 167604,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 68504,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 150468,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 177628,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 114920,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 136668,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "16",
+            "pid": 107428,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 5,
+        "controller_solve_ms": 60014.0539,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 9,
+          "placed_parts": 43,
+          "requested_parts": 43,
+          "placed_area": 1596.0,
+          "placed_priority": 43.0,
+          "full_stock_area": 3969.0,
+          "material_area": 3864.947562,
+          "normalized_material": 8.764053428571428,
+          "utilization": 0.4129422131600967,
+          "trailing_offcut_area": 104.052438,
+          "last_sheet_id": "sheet-8",
+          "last_sheet_used_height": 16.045122
+        },
+        "finished_at": "2026-10-11T22:59:14.952310+00:00",
+        "outputs": {
+          "browser-result.json": "86fda860b7a424f6f80778a8f918f8b679495d5a286b8d49171d3bd2dbc92c85",
+          "candidates.jsonl": "ba9e4b24f5d6a4424f7b221662e6fb01734963857ff285d064170617ad281bf5",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "882e67b056425d64fe0774c11e74c257fc655b700d6c9aff904332b540d49e0b",
+          "job.json": "9a26c7dbe837c0b0bab60a588ee4104b6f26e3afc148c9c348ca985971ec29c4",
+          "layout.json": "3d63df9cf9da97c521a9a4109a104f601ef1c6e6128d9bc8ece5960db467affd",
+          "native-sheet-0.svg": "8161681e1962a80a3fdec6ac5306a49d5ba3b42a902f370b84289d1baa77ec2f",
+          "native-sheet-1.svg": "3e0160cc412fda597eacafaa8b9595ee0081292a55601b0a69f91a8e2d39fc64",
+          "native-sheet-2.svg": "b85d2f058cdbec4f96954ca5383d12f66ba84168dc062612725e29e49f51be37",
+          "native-sheet-3.svg": "16984949f7bc251c4120d8e0e23bcd3c90ae6d1064d6adb9487072be402bec1d",
+          "native-sheet-4.svg": "dcb127f1e3588cedcde034f49e84876db2777d532e5d442e8c44e8acc68570cd",
+          "native-sheet-5.svg": "434221691bc1b1d4d9b8d515650f043322d7fffc6f8f06bc2b3f7ce85445bf93",
+          "native-sheet-6.svg": "12fb18afdb8b2671acf6a517d5d7db8c00b88b84c78d839f3fd3d9c5e4cb322d",
+          "native-sheet-7.svg": "57397d593bd230f89c0ac7777c953aa13ffba429d6e910029d56b790d92eefad",
+          "native-sheet-8.svg": "42f91499a9619348b12061ba4ef20a422e5fa2d9c31cd226d31f6c20a78019be",
+          "request.json": "6eaf499658726b5e1dd8de6989246e87ecccaf3db191e51fef3258a8069ad07e",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "21cfa95b3ad735a36f34f6a4a065a0b8bbae6d141d7168f2dbba25afb16da992",
+          "validation.json": "5b0e29c21658f29ad0897f6b98c51ea0eb2939642b8b8e2a6bcf5ae9f602cea9"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 9,
+          "placed_parts": 43,
+          "requested_parts": 43,
+          "placed_area": 1596.0,
+          "placed_priority": 43.0,
+          "full_stock_area": 3969.0,
+          "material_area": 3864.947562,
+          "normalized_material": 8.764053428571428,
+          "utilization": 0.4129422131600967,
+          "trailing_offcut_area": 104.052438,
+          "last_sheet_id": "sheet-8",
+          "last_sheet_used_height": 16.045122
+        }
+      }
+    }
+  ]
+}

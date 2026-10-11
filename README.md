@@ -14,7 +14,10 @@ No optimisation-quality claims have been established yet.
 - A Rust workspace with core, CLI, WebAssembly and native stdio MCP entry points.
 - `nestbolt construct`: builds a first fixed/mixed-sheet layout, including holed
   and multipart parts through conservative collision proxies. All 30 development
-  maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T224552Z-f0cf58b4.md).
+  maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md).
+- `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
+  retaining independently valid improvements and recording failed sheet-removal
+  attempts. This experimental command has a work quota, not a time-budget promise.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,
@@ -26,7 +29,7 @@ No optimisation-quality claims have been established yet.
 - Native integration/property tests, Windows/Linux CI definitions, a WASM build
   check, locked dependency notices and two generated Sparrow smoke jobs.
 
-Layout improvement, SVG/DXF imports and exports, browser interface and five
+Stronger layout improvement, SVG/DXF imports and exports, browser interface and five
 MCP tools are still to be built. The independent validator currently operates on
 polygon benchmark files; see [its scope and tests](docs/VALIDATION.md). The inspection
 command is not a solver, fit test or independent layout validator. Its upstream
@@ -44,6 +47,7 @@ python scripts/check.py
 python scripts/smoke.py
 cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layout examples/validation-layout.json
 cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-box-mini.json --output box-layout.json
+cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box-mini.json --output improved-box-layout.json --passes 6
 ```
 
 The sample reports six parts with a total area of 16,800 mm² and two available

@@ -10,6 +10,7 @@ use jagua_rs::probs::bpp::io::ext_repr::ExtBPInstance;
 use serde::{Deserialize, Serialize};
 
 pub mod construct;
+pub mod optimize;
 
 /// Initial supported job size, matching the v1 target in the project plan.
 pub const MAX_PARTS: u64 = 2_000;

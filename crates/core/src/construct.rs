@@ -47,6 +47,7 @@ pub struct Construction {
     pub algorithm: &'static str,
     pub seed: u64,
     pub collision_checks: u64,
+    pub surrogate_rejections: u64,
     pub proxy_notes: Vec<String>,
     pub complete: bool,
     pub unplaced: u32,
@@ -243,6 +244,7 @@ fn search(
     options: Options,
     random: &mut Random,
     checks: &mut u64,
+    surrogate_rejections: &mut u64,
 ) -> Result<Option<Candidate>> {
     let cde = region.layout.cde();
     let sheet = region.search_bounds;
@@ -295,8 +297,17 @@ fn search(
                 }
                 let internal = DTransformation::new(rotation, (x - bounds.x_min, y - bounds.y_min))
                     .with_reflection(mirrored);
-                buffer.transform_from(item.shape_cd(), &internal.compose());
                 *checks += 1;
+                let transform = internal.compose();
+                if cde.detect_surrogate_collision(
+                    item.shape_cd().surrogate(),
+                    &transform,
+                    &NoFilter,
+                ) {
+                    *surrogate_rejections += 1;
+                    continue;
+                }
+                buffer.transform_from(item.shape_cd(), &transform);
                 if cde.detect_poly_collision(&buffer, &NoFilter) {
                     continue;
                 }
@@ -327,169 +338,180 @@ fn search(
 /// A deterministic constructive candidate. A failed construction does not prove
 /// infeasibility: filled holes/hulls and a finite placement search lose options.
 pub fn construct(job: &Job, options: Options) -> Result<Construction> {
-    ensure!(
-        (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
-        "invalid construction work budget"
-    );
-    let mut layout = Layout {
-        version: 1,
-        units: job.units,
-        sheets: vec![],
-        placements: vec![],
-    };
-    // Existing independent model owns schema validation until public job types
-    // are extracted. Collision decisions below never call that checker.
-    let preflight = nestbolt_validator::job::validate(job, &layout)?;
-    ensure!(
-        preflight.violations.iter().all(|v| v.code == "quantity"),
-        "invalid source job"
-    );
-    let magnitude = job
-        .parts
-        .iter()
-        .flat_map(|p| &p.geometry)
-        .flat_map(|p| &p.outer)
-        .flat_map(|p| p.iter())
-        .copied()
-        .map(f64::abs)
-        .chain(job.stocks.iter().flat_map(|s| [s.width, s.height]))
-        .fold(1.0, f64::max);
-    // Reserve a scale-dependent floating-point guard for conversion, centering,
-    // rotation and source-transform reconstruction. Final validity is checked.
-    let guard = (magnitude * 32.0 * f32::EPSILON as f64).max(0.00002 / job.units.to_mm());
-    // jagua uses 0.1-radian inscribed round joins. Compensate their chord
-    // deficit as well as f32 rounding before allowing contact placements.
-    let separation = (job.clearance.max(job.edge_clearance) + guard) / 0.05_f64.cos();
-    let importer = Importer::new(
-        CDEConfig {
-            quadtree_depth: 5,
-            cd_threshold: 96,
-            item_surrogate_config: SPSurrogateConfig::none(),
-        },
-        None,
-        None,
-    )
-    .with_min_item_separation(separation as f32)?;
-    let mut notes = vec![format!(
-        "Conservative separation {separation}; requested part gap {}, edge gap {}. No placement inside holes yet.",
-        job.clearance, job.edge_clearance
-    )];
-    let mut items: Vec<Arc<Item>> = Vec::new();
-    for (index, part) in job.parts.iter().enumerate() {
-        let multipart = part.geometry.len() > 1;
-        let points = if multipart {
-            hull(part.geometry.iter().flat_map(|p| p.outer.clone()).collect())
-        } else {
-            part.geometry[0].outer.clone()
+    PreparedJob::new(job)?.construct(options)
+}
+
+/// Geometry prepared once for construction, repair and repeated search passes.
+/// Only search state is recreated; source polygons and collision proxies persist.
+pub struct PreparedJob<'a> {
+    job: &'a Job,
+    items: Vec<Arc<Item>>,
+    containers: Vec<Vec<Container>>,
+    guard: f64,
+    separation: f64,
+    notes: Vec<String>,
+}
+
+impl<'a> PreparedJob<'a> {
+    pub fn new(job: &'a Job) -> Result<Self> {
+        let layout = Layout {
+            version: 1,
+            units: job.units,
+            sheets: vec![],
+            placements: vec![],
         };
-        if multipart || part.geometry.iter().any(|p| !p.holes.is_empty()) {
-            notes.push(format!(
-                "{}: {}",
-                part.id,
-                if multipart {
-                    "one hull around all rigid components"
-                } else {
-                    "outer contour with holes reserved"
-                }
-            ));
-        }
-        let external = ExtItem {
-            id: index as u64,
-            shape: shape(&points),
-            orientation: ExtOrientation {
-                rotation: ExtRotation::Continuous {},
-                reflection_axes: vec![90.0],
-            },
-            min_quality: None,
-        };
-        items.push(
-            importer
-                .import_item(&external, index)
-                .with_context(|| format!("collision proxy for {}", part.id))?,
+        // Existing independent model owns schema validation until public job types
+        // are extracted. Collision decisions below never call that checker.
+        let preflight = nestbolt_validator::job::validate(job, &layout)?;
+        ensure!(
+            preflight.violations.iter().all(|v| v.code == "quantity"),
+            "invalid source job"
         );
-    }
-    let containers: Vec<_> = job
-        .stocks
-        .iter()
-        .enumerate()
-        .map(|(i, s)| container_regions(s, i, &importer))
-        .collect::<Result<_>>()?;
-    let mut order: Vec<_> = (0..items.len()).collect();
-    order.sort_by(|&a, &b| {
-        let priority = if job.mode == Mode::FillPriority {
-            job.parts[b].priority.total_cmp(&job.parts[a].priority)
-        } else {
-            std::cmp::Ordering::Equal
-        };
-        priority
-            .then(items[b].area().total_cmp(&items[a].area()))
-            .then(a.cmp(&b))
-    });
-    let mut stock_order: Vec<_> = (0..job.stocks.len()).collect();
-    stock_order.sort_by(|&a, &b| {
-        (job.stocks[a].width * job.stocks[a].height)
-            .total_cmp(&(job.stocks[b].width * job.stocks[b].height))
-            .then(a.cmp(&b))
-    });
-    let mut open: Vec<OpenSheet> = vec![];
-    let mut stock_used = vec![0_u32; job.stocks.len()];
-    let mut random = Random(options.seed);
-    let mut checks = 0;
-    for index in order {
-        for copy in 0..job.parts[index].quantity {
-            let mut found = None;
-            for (sheet_index, sheet) in open.iter().enumerate() {
-                for (region_index, region) in sheet.regions.iter().enumerate() {
-                    if let Some(candidate) = search(
-                        region,
-                        &items[index],
-                        &job.parts[index],
-                        options,
-                        &mut random,
-                        &mut checks,
-                    )? {
-                        found = Some((sheet_index, region_index, candidate));
-                        break;
+        let magnitude = job
+            .parts
+            .iter()
+            .flat_map(|p| &p.geometry)
+            .flat_map(|p| &p.outer)
+            .flat_map(|p| p.iter())
+            .copied()
+            .map(f64::abs)
+            .chain(job.stocks.iter().flat_map(|s| [s.width, s.height]))
+            .fold(1.0, f64::max);
+        // Reserve a scale-dependent floating-point guard for conversion, centering,
+        // rotation and source-transform reconstruction. Final validity is checked.
+        let guard = (magnitude * 32.0 * f32::EPSILON as f64).max(0.00002 / job.units.to_mm());
+        // jagua uses 0.1-radian inscribed round joins. Compensate their chord
+        // deficit as well as f32 rounding before allowing contact placements.
+        let separation = (job.clearance.max(job.edge_clearance) + guard) / 0.05_f64.cos();
+        let importer = Importer::new(
+            CDEConfig {
+                quadtree_depth: 5,
+                cd_threshold: 96,
+                item_surrogate_config: SPSurrogateConfig {
+                    n_pole_limits: [(1, 0.0), (1, 0.75), (1, 0.90)],
+                    ff_pole_area_ratio: 1.0,
+                    n_ff_piers: 0,
+                },
+            },
+            None,
+            None,
+        )
+        .with_min_item_separation(separation as f32)?;
+        let mut notes = vec![format!(
+            "Conservative separation {separation}; requested part gap {}, edge gap {}. No placement inside holes yet.",
+            job.clearance, job.edge_clearance
+        )];
+        let mut items: Vec<Arc<Item>> = Vec::new();
+        for (index, part) in job.parts.iter().enumerate() {
+            let multipart = part.geometry.len() > 1;
+            let points = if multipart {
+                hull(part.geometry.iter().flat_map(|p| p.outer.clone()).collect())
+            } else {
+                part.geometry[0].outer.clone()
+            };
+            if multipart || part.geometry.iter().any(|p| !p.holes.is_empty()) {
+                notes.push(format!(
+                    "{}: {}",
+                    part.id,
+                    if multipart {
+                        "one hull around all rigid components"
+                    } else {
+                        "outer contour with holes reserved"
                     }
-                }
-                if found.is_some() {
-                    break;
-                }
+                ));
             }
-            if found.is_none() {
-                for &stock in &stock_order {
-                    if job.stocks[stock]
-                        .count
-                        .is_some_and(|limit| stock_used[stock] >= limit)
-                    {
-                        continue;
-                    }
-                    let sheet = OpenSheet {
-                        stock,
-                        regions: containers[stock]
-                            .iter()
-                            .cloned()
-                            .map(|c| {
-                                // CDE's tree uses an inflated square, not the
-                                // usable sheet extent. Anchor to the actual
-                                // contour and margin-zone offsets instead.
-                                let b = c.outer_cd().bbox();
-                                let s = &job.stocks[stock];
-                                let half = separation / 2.0;
-                                Region {
-                                    nudge: guard as f32,
-                                    search_bounds: [
-                                        b.x_min.max((s.margins.left + half) as f32),
-                                        b.y_min.max((s.margins.bottom + half) as f32),
-                                        b.x_max.min((s.width - s.margins.right - half) as f32),
-                                        b.y_max.min((s.height - s.margins.top - half) as f32),
-                                    ],
-                                    layout: SearchLayout::new(c),
-                                    boxes: vec![],
-                                }
-                            })
-                            .collect(),
-                    };
+            let external = ExtItem {
+                id: index as u64,
+                shape: shape(&points),
+                orientation: ExtOrientation {
+                    rotation: ExtRotation::Continuous {},
+                    reflection_axes: vec![90.0],
+                },
+                min_quality: None,
+            };
+            items.push(
+                importer
+                    .import_item(&external, index)
+                    .with_context(|| format!("collision proxy for {}", part.id))?,
+            );
+        }
+        let containers: Vec<_> = job
+            .stocks
+            .iter()
+            .enumerate()
+            .map(|(i, s)| container_regions(s, i, &importer))
+            .collect::<Result<_>>()?;
+        Ok(Self {
+            job,
+            items,
+            containers,
+            guard,
+            separation,
+            notes,
+        })
+    }
+
+    pub fn construct(&self, options: Options) -> Result<Construction> {
+        self.construct_ordered(options, None, None)
+    }
+
+    pub(crate) fn construct_ordered(
+        &self,
+        options: Options,
+        part_order: Option<&[usize]>,
+        max_sheets: Option<usize>,
+    ) -> Result<Construction> {
+        ensure!(
+            (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
+            "invalid construction work budget"
+        );
+        let job = self.job;
+        let items = &self.items;
+        let containers = &self.containers;
+        let guard = self.guard;
+        let separation = self.separation;
+        let mut layout = Layout {
+            version: 1,
+            units: job.units,
+            sheets: vec![],
+            placements: vec![],
+        };
+        let mut order: Vec<_> = (0..items.len()).collect();
+        order.sort_by(|&a, &b| {
+            let priority = if job.mode == Mode::FillPriority {
+                job.parts[b].priority.total_cmp(&job.parts[a].priority)
+            } else {
+                std::cmp::Ordering::Equal
+            };
+            priority
+                .then(items[b].area().total_cmp(&items[a].area()))
+                .then(a.cmp(&b))
+        });
+        if let Some(requested) = part_order {
+            let unique: std::collections::BTreeSet<_> = requested.iter().copied().collect();
+            ensure!(
+                requested.len() == items.len()
+                    && unique.len() == items.len()
+                    && unique.iter().all(|&i| i < items.len()),
+                "search order must contain every part type exactly once"
+            );
+            order = requested.to_vec();
+        }
+        let mut stock_order: Vec<_> = (0..job.stocks.len()).collect();
+        stock_order.sort_by(|&a, &b| {
+            (job.stocks[a].width * job.stocks[a].height)
+                .total_cmp(&(job.stocks[b].width * job.stocks[b].height))
+                .then(a.cmp(&b))
+        });
+        let mut open: Vec<OpenSheet> = vec![];
+        let mut stock_used = vec![0_u32; job.stocks.len()];
+        let mut random = Random(options.seed);
+        let mut checks = 0;
+        let mut surrogate_rejections = 0;
+        for index in order {
+            for copy in 0..job.parts[index].quantity {
+                let mut found = None;
+                for (sheet_index, sheet) in open.iter().enumerate() {
                     for (region_index, region) in sheet.regions.iter().enumerate() {
                         if let Some(candidate) = search(
                             region,
@@ -498,56 +520,111 @@ pub fn construct(job: &Job, options: Options) -> Result<Construction> {
                             options,
                             &mut random,
                             &mut checks,
+                            &mut surrogate_rejections,
                         )? {
-                            found = Some((open.len(), region_index, candidate));
+                            found = Some((sheet_index, region_index, candidate));
                             break;
                         }
                     }
                     if found.is_some() {
-                        layout.sheets.push(Sheet {
-                            id: format!("sheet-{}", open.len()),
-                            stock_id: job.stocks[stock].id.clone(),
-                        });
-                        stock_used[stock] += 1;
-                        open.push(sheet);
                         break;
                     }
                 }
-            }
-            if let Some((sheet, region, candidate)) = found {
-                let active = &mut open[sheet].regions[region];
-                active.layout.place_item(&items[index], candidate.internal);
-                active.boxes.push(candidate.bounds);
-                layout.placements.push(Placement {
-                    part_id: job.parts[index].id.clone(),
-                    copy_index: copy,
-                    sheet_id: layout.sheets[sheet].id.clone(),
-                    transform: candidate.external,
-                });
+                if found.is_none() && max_sheets.is_none_or(|limit| open.len() < limit) {
+                    for &stock in &stock_order {
+                        if job.stocks[stock]
+                            .count
+                            .is_some_and(|limit| stock_used[stock] >= limit)
+                        {
+                            continue;
+                        }
+                        let sheet = OpenSheet {
+                            stock,
+                            regions: containers[stock]
+                                .iter()
+                                .cloned()
+                                .map(|c| {
+                                    // CDE's tree uses an inflated square, not the
+                                    // usable sheet extent. Anchor to the actual
+                                    // contour and margin-zone offsets instead.
+                                    let b = c.outer_cd().bbox();
+                                    let s = &job.stocks[stock];
+                                    let half = separation / 2.0;
+                                    Region {
+                                        nudge: guard as f32,
+                                        search_bounds: [
+                                            b.x_min.max((s.margins.left + half) as f32),
+                                            b.y_min.max((s.margins.bottom + half) as f32),
+                                            b.x_max.min((s.width - s.margins.right - half) as f32),
+                                            b.y_max.min((s.height - s.margins.top - half) as f32),
+                                        ],
+                                        layout: SearchLayout::new(c),
+                                        boxes: vec![],
+                                    }
+                                })
+                                .collect(),
+                        };
+                        for (region_index, region) in sheet.regions.iter().enumerate() {
+                            if let Some(candidate) = search(
+                                region,
+                                &items[index],
+                                &job.parts[index],
+                                options,
+                                &mut random,
+                                &mut checks,
+                                &mut surrogate_rejections,
+                            )? {
+                                found = Some((open.len(), region_index, candidate));
+                                break;
+                            }
+                        }
+                        if found.is_some() {
+                            layout.sheets.push(Sheet {
+                                id: format!("sheet-{}", open.len()),
+                                stock_id: job.stocks[stock].id.clone(),
+                            });
+                            stock_used[stock] += 1;
+                            open.push(sheet);
+                            break;
+                        }
+                    }
+                }
+                if let Some((sheet, region, candidate)) = found {
+                    let active = &mut open[sheet].regions[region];
+                    active.layout.place_item(&items[index], candidate.internal);
+                    active.boxes.push(candidate.bounds);
+                    layout.placements.push(Placement {
+                        part_id: job.parts[index].id.clone(),
+                        copy_index: copy,
+                        sheet_id: layout.sheets[sheet].id.clone(),
+                        transform: candidate.external,
+                    });
+                }
             }
         }
+        let unplaced =
+            job.parts.iter().map(|p| p.quantity).sum::<u32>() - layout.placements.len() as u32;
+        let final_check = nestbolt_validator::job::validate(job, &layout)?;
+        ensure!(
+            final_check.violations.iter().all(|v| v.code == "quantity"),
+            "construction failed independent original-geometry validation: {:?}",
+            final_check.violations
+        );
+        // Keep stock identity checked here as well as in the final independent pass.
+        debug_assert!(
+            open.iter()
+                .enumerate()
+                .all(|(i, s)| layout.sheets[i].stock_id == job.stocks[s.stock].id)
+        );
+        Ok(Construction {
+            algorithm: "nestbolt-construct-v3",
+            seed: options.seed,
+            collision_checks: checks,
+            surrogate_rejections,
+            proxy_notes: self.notes.clone(),
+            complete: unplaced == 0 || job.mode != Mode::All,
+            unplaced,
+            layout,
+        })
     }
-    let unplaced =
-        job.parts.iter().map(|p| p.quantity).sum::<u32>() - layout.placements.len() as u32;
-    let final_check = nestbolt_validator::job::validate(job, &layout)?;
-    ensure!(
-        final_check.violations.iter().all(|v| v.code == "quantity"),
-        "construction failed independent original-geometry validation: {:?}",
-        final_check.violations
-    );
-    // Keep stock identity checked here as well as in the final independent pass.
-    debug_assert!(
-        open.iter()
-            .enumerate()
-            .all(|(i, s)| layout.sheets[i].stock_id == job.stocks[s.stock].id)
-    );
-    Ok(Construction {
-        algorithm: "nestbolt-construct-v2",
-        seed: options.seed,
-        collision_checks: checks,
-        proxy_notes: notes,
-        complete: unplaced == 0 || job.mode != Mode::All,
-        unplaced,
-        layout,
-    })
 }
