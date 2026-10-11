@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "name": "generated-lbf-constraints",
+  "units": "mm",
+  "parts": [
+    {
+      "id": "bracket",
+      "quantity": 6,
+      "geometry": [{"outer": [[0, 0], [25, 0], [25, 8], [8, 8], [8, 30], [0, 30]], "holes": []}],
+      "rotations": {"kind": "list", "degrees": [0, 90, 180, 270]},
+      "allow_mirror": true,
+      "priority": 1
+    },
+    {
+      "id": "gusset",
+      "quantity": 4,
+      "geometry": [{"outer": [[0, 0], [18, 0], [0, 12]], "holes": []}],
+      "rotations": {"kind": "free"},
+      "allow_mirror": false,
+      "priority": 1
+    }
+  ],
+  "stocks": [
+    {
+      "id": "small-defective",
+      "width": 100,
+      "height": 70,
+      "count": 1,
+      "margins": {"left": 3, "right": 4, "bottom": 5, "top": 3},
+      "outline": [],
+      "defects": [{"outer": [[42, 22], [58, 22], [58, 48], [42, 48]], "holes": []}]
+    },
+    {
+      "id": "large",
+      "width": 120,
+      "height": 80,
+      "count": null,
+      "margins": {"left": 3, "right": 4, "bottom": 5, "top": 3},
+      "outline": [],
+      "defects": []
+    }
+  ],
+  "clearance": 1,
+  "edge_clearance": 1,
+  "mode": "all"
+}

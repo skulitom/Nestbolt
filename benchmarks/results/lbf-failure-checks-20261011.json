@@ -1,0 +1,419 @@
+{
+  "recorded_at": "2026-10-11T18:50:10.839825+00:00",
+  "scope": "Negative integration checks only; intentionally impossible and timed-out generated jobs. Neither is a B/M quality result.",
+  "checks": [
+    {
+      "source_job": {
+        "version": 1,
+        "name": "generated-lbf-impossible",
+        "units": "mm",
+        "parts": [
+          {
+            "id": "bracket",
+            "quantity": 1,
+            "geometry": [
+              {
+                "outer": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    25,
+                    0
+                  ],
+                  [
+                    25,
+                    8
+                  ],
+                  [
+                    8,
+                    8
+                  ],
+                  [
+                    8,
+                    30
+                  ],
+                  [
+                    0,
+                    30
+                  ]
+                ],
+                "holes": []
+              }
+            ],
+            "rotations": {
+              "kind": "list",
+              "degrees": [
+                0,
+                90,
+                180,
+                270
+              ]
+            },
+            "allow_mirror": true,
+            "priority": 1
+          }
+        ],
+        "stocks": [
+          {
+            "id": "large",
+            "width": 10,
+            "height": 10,
+            "count": 1,
+            "margins": {
+              "left": 0,
+              "right": 0,
+              "bottom": 0,
+              "top": 0
+            },
+            "outline": [],
+            "defects": []
+          }
+        ],
+        "clearance": 1,
+        "edge_clearance": 1,
+        "mode": "all"
+      },
+      "run": {
+        "run_id": "20261011T184913Z-generated-lbf-impossible-identical-s0-a9f86922",
+        "batch_id": null,
+        "kind": "provisional_lbf_baseline",
+        "started_at": "2026-10-11T18:49:13.150934+00:00",
+        "job_name": "generated-lbf-impossible",
+        "job_sha256": "9cc4db23c4c67db46aa8869c3c9107c133c7c2e891e6fc28da4b339afbf83616",
+        "job_source_path": "C:\\DEV\\Nestbolt\\.cache\\lbf-failure-fixtures\\impossible.json",
+        "tool": {
+          "name": "jagua-rs LBF",
+          "repository": "https://github.com/JeroenGar/jagua-rs",
+          "revision": "9e00fd867be0fc493002aea68a1c6613d5b833d6",
+          "licence": "MPL-2.0",
+          "cargo_lock_sha256": "998571ef790f1927fc0e97835fa0ef10e570a4e33b4005079ab4decb7a517301",
+          "cargo_lock_checksum_encoding": "Git blob / UTF-8 LF; Windows checkout CRLF is normalized only for this checksum",
+          "rust_toolchain": "1.98.1",
+          "rustflags": "-C target-cpu=native",
+          "rayon_threads": 1,
+          "algorithm": "unmodified upstream one-pass LBF; no restarts",
+          "settings": {
+            "identical": {
+              "poly_simpl_tolerance": null,
+              "narrow_concavity_cutoff": null,
+              "n_samples": 5000,
+              "ls_frac": 0.2
+            },
+            "upstream-default": {
+              "poly_simpl_tolerance": 0.001,
+              "narrow_concavity_cutoff": [
+                0.01,
+                0.01
+              ],
+              "n_samples": 5000,
+              "ls_frac": 0.2
+            }
+          },
+          "note": "The time budget is a hard process limit, not a promise to consume the entire budget. Configurations are provisional M1 baseline measurements, not tuned best settings. Invalid or timed-out layouts never receive a material score. This LBF baseline measures the construction-to-optimisation gap; it is not one of the G2 best-competitor tools."
+        },
+        "build": {
+          "tool_sha256": "982ff2661de53fabeb96db65b7956210c72fb136b90c8118f3dd7b01a6a61fb1",
+          "binary_sha256": "23af2dbfec6756be1244e39a6ced1138581075074acfff8f2c3082b6f9ef71f8",
+          "revision": "9e00fd867be0fc493002aea68a1c6613d5b833d6",
+          "cargo_lock_sha256": "998571ef790f1927fc0e97835fa0ef10e570a4e33b4005079ab4decb7a517301",
+          "cargo_lock_worktree_sha256": "5a6e16184b4b2cc46f776b18976af9088206a54fa08e24b5c55f671aa2e5890e",
+          "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "rustflags": "-C target-cpu=native",
+          "built_at": "2026-10-11T18:45:15.718519+00:00"
+        },
+        "seed": 0,
+        "seconds_limit": 5,
+        "settings": "identical",
+        "workers": 1,
+        "rayon_threads": 1,
+        "nestbolt_commit": "52eba70a201176d3b064ee8bf0eb849574f91468",
+        "dirty": true,
+        "adapter_sources": {
+          "scripts/lbf.py": "5007b5d9757a2e362e380b429ca362104ef4bf657b75bb549f41586c3e088500",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062"
+        },
+        "validator_binary_sha256": "2644a4fac9ec3f8a77ece05fe2d4af4c7857fd15311010b2f0433cb884073291",
+        "status": "invalid",
+        "metrics": null,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "quality_gate": "not_evaluated",
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\lbf\\release\\lbf.exe",
+          "--input-file",
+          "C:\\DEV\\Nestbolt\\output\\lbf\\20261011T184913Z-generated-lbf-impossible-identical-s0-a9f86922\\input.json",
+          "--prob-var",
+          "bpp",
+          "--solution-folder",
+          "C:\\DEV\\Nestbolt\\output\\lbf\\20261011T184913Z-generated-lbf-impossible-identical-s0-a9f86922\\solver",
+          "--config-file",
+          "C:\\DEV\\Nestbolt\\output\\lbf\\20261011T184913Z-generated-lbf-impossible-identical-s0-a9f86922\\config.json"
+        ],
+        "solver_exit_code": 0,
+        "solver_wall_seconds": 0.031000000002677552,
+        "validator_exit_code": 1,
+        "elapsed_seconds": 0.42199999999138527,
+        "finished_at": "2026-10-11T18:49:13.750705+00:00",
+        "outputs": {
+          "config.json": "ff8f01914b68d7b6237d2cff912aa3186544ccf5725b69fb47fb2ee0feea0c5b",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.json": "d6d43e41e9f7cdebc9380e16513e5fe22e9ab1c3fc77fc3a16fea3502fbb3c23",
+          "job.json": "9cc4db23c4c67db46aa8869c3c9107c133c7c2e891e6fc28da4b339afbf83616",
+          "layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "solver/sol_input.json": "1a4f5f2a875218c7f7971ac5eebc85e1b77f65c8a053dbbb0689996bfcc233c0",
+          "start.json": "d61bd7f72e1325963896ab1cc28331eb2daabde91f5d6538acd3c7a4fac9ff2c",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "8b0cc62e56fd02ed3db123072e06faa7867d1207d319462890336cd211687171",
+          "validation.json": "5018546e254637dc6d3476d91a8e35d848fa28f0977ed21eeb17fb1613537804"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 1,
+        "violations": [
+          {
+            "code": "quantity",
+            "message": "part bracket: expected 1, found 0"
+          }
+        ],
+        "metrics": null
+      }
+    },
+    {
+      "source_job": {
+        "version": 1,
+        "name": "generated-lbf-timeout",
+        "units": "mm",
+        "parts": [
+          {
+            "id": "bracket",
+            "quantity": 1996,
+            "geometry": [
+              {
+                "outer": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    25,
+                    0
+                  ],
+                  [
+                    25,
+                    8
+                  ],
+                  [
+                    8,
+                    8
+                  ],
+                  [
+                    8,
+                    30
+                  ],
+                  [
+                    0,
+                    30
+                  ]
+                ],
+                "holes": []
+              }
+            ],
+            "rotations": {
+              "kind": "list",
+              "degrees": [
+                0,
+                90,
+                180,
+                270
+              ]
+            },
+            "allow_mirror": true,
+            "priority": 1
+          },
+          {
+            "id": "gusset",
+            "quantity": 4,
+            "geometry": [
+              {
+                "outer": [
+                  [
+                    0,
+                    0
+                  ],
+                  [
+                    18,
+                    0
+                  ],
+                  [
+                    0,
+                    12
+                  ]
+                ],
+                "holes": []
+              }
+            ],
+            "rotations": {
+              "kind": "free"
+            },
+            "allow_mirror": false,
+            "priority": 1
+          }
+        ],
+        "stocks": [
+          {
+            "id": "small-defective",
+            "width": 100,
+            "height": 70,
+            "count": 1,
+            "margins": {
+              "left": 3,
+              "right": 4,
+              "bottom": 5,
+              "top": 3
+            },
+            "outline": [],
+            "defects": [
+              {
+                "outer": [
+                  [
+                    42,
+                    22
+                  ],
+                  [
+                    58,
+                    22
+                  ],
+                  [
+                    58,
+                    48
+                  ],
+                  [
+                    42,
+                    48
+                  ]
+                ],
+                "holes": []
+              }
+            ]
+          },
+          {
+            "id": "large",
+            "width": 120,
+            "height": 80,
+            "count": null,
+            "margins": {
+              "left": 3,
+              "right": 4,
+              "bottom": 5,
+              "top": 3
+            },
+            "outline": [],
+            "defects": []
+          }
+        ],
+        "clearance": 1,
+        "edge_clearance": 1,
+        "mode": "all"
+      },
+      "run": {
+        "run_id": "20261011T184914Z-generated-lbf-timeout-identical-s0-7dc86e41",
+        "batch_id": null,
+        "kind": "provisional_lbf_baseline",
+        "started_at": "2026-10-11T18:49:14.195222+00:00",
+        "job_name": "generated-lbf-timeout",
+        "job_sha256": "5d377739e1aad31d08ebda552891c3e19d2c10102c5b9f5816f6b8cb7e319df7",
+        "job_source_path": "C:\\DEV\\Nestbolt\\.cache\\lbf-failure-fixtures\\timeout.json",
+        "tool": {
+          "name": "jagua-rs LBF",
+          "repository": "https://github.com/JeroenGar/jagua-rs",
+          "revision": "9e00fd867be0fc493002aea68a1c6613d5b833d6",
+          "licence": "MPL-2.0",
+          "cargo_lock_sha256": "998571ef790f1927fc0e97835fa0ef10e570a4e33b4005079ab4decb7a517301",
+          "cargo_lock_checksum_encoding": "Git blob / UTF-8 LF; Windows checkout CRLF is normalized only for this checksum",
+          "rust_toolchain": "1.98.1",
+          "rustflags": "-C target-cpu=native",
+          "rayon_threads": 1,
+          "algorithm": "unmodified upstream one-pass LBF; no restarts",
+          "settings": {
+            "identical": {
+              "poly_simpl_tolerance": null,
+              "narrow_concavity_cutoff": null,
+              "n_samples": 5000,
+              "ls_frac": 0.2
+            },
+            "upstream-default": {
+              "poly_simpl_tolerance": 0.001,
+              "narrow_concavity_cutoff": [
+                0.01,
+                0.01
+              ],
+              "n_samples": 5000,
+              "ls_frac": 0.2
+            }
+          },
+          "note": "The time budget is a hard process limit, not a promise to consume the entire budget. Configurations are provisional M1 baseline measurements, not tuned best settings. Invalid or timed-out layouts never receive a material score. This LBF baseline measures the construction-to-optimisation gap; it is not one of the G2 best-competitor tools."
+        },
+        "build": {
+          "tool_sha256": "982ff2661de53fabeb96db65b7956210c72fb136b90c8118f3dd7b01a6a61fb1",
+          "binary_sha256": "23af2dbfec6756be1244e39a6ced1138581075074acfff8f2c3082b6f9ef71f8",
+          "revision": "9e00fd867be0fc493002aea68a1c6613d5b833d6",
+          "cargo_lock_sha256": "998571ef790f1927fc0e97835fa0ef10e570a4e33b4005079ab4decb7a517301",
+          "cargo_lock_worktree_sha256": "5a6e16184b4b2cc46f776b18976af9088206a54fa08e24b5c55f671aa2e5890e",
+          "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "rustflags": "-C target-cpu=native",
+          "built_at": "2026-10-11T18:45:15.718519+00:00"
+        },
+        "seed": 0,
+        "seconds_limit": 1,
+        "settings": "identical",
+        "workers": 1,
+        "rayon_threads": 1,
+        "nestbolt_commit": "52eba70a201176d3b064ee8bf0eb849574f91468",
+        "dirty": true,
+        "adapter_sources": {
+          "scripts/lbf.py": "5007b5d9757a2e362e380b429ca362104ef4bf657b75bb549f41586c3e088500",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062"
+        },
+        "validator_binary_sha256": "2644a4fac9ec3f8a77ece05fe2d4af4c7857fd15311010b2f0433cb884073291",
+        "status": "timeout",
+        "metrics": null,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "quality_gate": "not_evaluated",
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\lbf\\release\\lbf.exe",
+          "--input-file",
+          "C:\\DEV\\Nestbolt\\output\\lbf\\20261011T184914Z-generated-lbf-timeout-identical-s0-7dc86e41\\input.json",
+          "--prob-var",
+          "bpp",
+          "--solution-folder",
+          "C:\\DEV\\Nestbolt\\output\\lbf\\20261011T184914Z-generated-lbf-timeout-identical-s0-7dc86e41\\solver",
+          "--config-file",
+          "C:\\DEV\\Nestbolt\\output\\lbf\\20261011T184914Z-generated-lbf-timeout-identical-s0-7dc86e41\\config.json"
+        ],
+        "solver_wall_seconds": 1.0310000000026776,
+        "error": "Process exceeded 1.0s: lbf.exe",
+        "elapsed_seconds": 1.0469999999913853,
+        "finished_at": "2026-10-11T18:49:15.398759+00:00",
+        "outputs": {
+          "config.json": "ff8f01914b68d7b6237d2cff912aa3186544ccf5725b69fb47fb2ee0feea0c5b",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.json": "c6d116b045e8028ff734b5cfd72c7976b113ee64af872385e0907a956179cab2",
+          "job.json": "5d377739e1aad31d08ebda552891c3e19d2c10102c5b9f5816f6b8cb7e319df7",
+          "start.json": "b7367bc15522f829cd088fc792db006b51c6fca37a2e489d5a621e1ffe50a38c",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "7d00b254040e7e9577993a688f1f9b0e5f37ce113c4e0c8ae2ddca651aa10590"
+        }
+      },
+      "validation": null
+    }
+  ]
+}

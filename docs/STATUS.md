@@ -24,6 +24,14 @@ The academic datasets are frozen; maker jobs, remaining competitor adapters and
 the full baseline matrix are pending.
 See [VALIDATION.md](VALIDATION.md).
 
+The unmodified, pinned LBF sheet runner is automated. Its first provisional batch
+has **70/70 independently valid layouts** across all 35 B jobs and two untuned
+configurations (one seed, 60 s maximum, one constructive pass). The retained
+[baseline table](../benchmarks/results/lbf-20261011T184759Z-924100e9.md) includes
+full-precision scores and provenance. This is not a result for Nestbolt and does
+not establish the complete competitor comparison or M1. The generated mixed-stock,
+defect, margin and spacing smoke also passes; see [LBF method](../benchmarks/lbf/README.md).
+
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
 M0 input. The canonical freeze now includes **13 S and 35 B jobs**: 22 reconstructions
@@ -36,7 +44,7 @@ Python tests protect conversion and tamper detection. See
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
-| M1 — Baseline | 15% | Validator, scoring, schemas and S/B freeze ready; M jobs and full harness pending |
+| M1 — Baseline | 15% | Validator, S/B freeze and LBF runner ready; M jobs and other competitor runners pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
 | M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |
@@ -66,7 +74,7 @@ configured remote, hosted repository, release, registry publication or Pages dep
 On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
-dependency-notice/schema consistency, seven Python harness/conversion tests,
+dependency-notice/schema consistency, sixteen Python harness/conversion/evidence tests,
 48 academic source-contract checks and fixture checksums. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).
 The schema was also checked against real CLI output locally. None of these checks

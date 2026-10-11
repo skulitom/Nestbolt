@@ -1,0 +1,17 @@
+{
+  "name": "jagua-rs LBF",
+  "repository": "https://github.com/JeroenGar/jagua-rs",
+  "revision": "9e00fd867be0fc493002aea68a1c6613d5b833d6",
+  "licence": "MPL-2.0",
+  "cargo_lock_sha256": "998571ef790f1927fc0e97835fa0ef10e570a4e33b4005079ab4decb7a517301",
+  "cargo_lock_checksum_encoding": "Git blob / UTF-8 LF; Windows checkout CRLF is normalized only for this checksum",
+  "rust_toolchain": "1.98.1",
+  "rustflags": "-C target-cpu=native",
+  "rayon_threads": 1,
+  "algorithm": "unmodified upstream one-pass LBF; no restarts",
+  "settings": {
+    "identical": {"poly_simpl_tolerance": null, "narrow_concavity_cutoff": null, "n_samples": 5000, "ls_frac": 0.2},
+    "upstream-default": {"poly_simpl_tolerance": 0.001, "narrow_concavity_cutoff": [0.01, 0.01], "n_samples": 5000, "ls_frac": 0.2}
+  },
+  "note": "The time budget is a hard process limit, not a promise to consume the entire budget. Configurations are provisional M1 baseline measurements, not tuned best settings. Invalid or timed-out layouts never receive a material score. This LBF baseline measures the construction-to-optimisation gap; it is not one of the G2 best-competitor tools."
+}

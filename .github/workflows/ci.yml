@@ -45,11 +45,20 @@ jobs:
           python-version: '3.13'
       - name: Two sequential five-second native Sparrow runs
         run: python scripts/smoke.py
+      - name: Build pinned LBF and verify its dependency notices
+        run: |
+          python scripts/lbf.py build
+          python scripts/notices.py --lbf --check
+      - name: Independently validate two bounded LBF smoke jobs
+        run: |
+          python scripts/lbf.py run --job benchmarks/datasets/B/b-fu-nest-mb-given.json --seconds 5 --seed 0
+          python scripts/lbf.py run --job benchmarks/fixtures/lbf-constraints.json --seconds 5 --seed 0
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
           name: integration-smoke-records
           path: |
             output/runs/
+            output/lbf/
             BENCHMARKS.md
           if-no-files-found: warn

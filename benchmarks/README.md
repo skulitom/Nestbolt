@@ -27,7 +27,8 @@ frozen in [the reproduction method](sparrow-repro/README.md). Experiment
   competitor output adapters must use the same checker.
 - [13 S and 35 B jobs](datasets/README.md) are frozen and checked. Add 40 M jobs;
   mark 10 M jobs held out before any tuning.
-- LBF, deepnest-next and SVGnest runners; identical-constraint and best-settings modes.
+- [LBF](lbf/README.md) is automated with a valid first B batch. Add deepnest-next
+  and SVGnest runners; identical-constraint and best-settings modes.
 - 60/300-second budgets, seed matrices, medians/IQR, raw records and charts.
 - [Mixed-stock material scoring](../docs/SCORING.md) is implemented; freeze all
   tool settings and the seed matrix before quality tuning.

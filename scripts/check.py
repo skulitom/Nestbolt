@@ -24,6 +24,8 @@ def main():
         [sys.executable, "scripts/schemas.py", "--check"],
         [sys.executable, "scripts/datasets.py", "--check"],
         [sys.executable, "scripts/test_datasets.py"],
+        [sys.executable, "scripts/test_benchmark_io.py"],
+        [sys.executable, "scripts/test_lbf_report.py"],
         ["cargo", "run", "--quiet", "--locked", "-p", "nestbolt-validator", "--example", "check_jobs", "--",
             *[str(path) for group in ["S", "B"] for path in sorted((ROOT / "benchmarks/datasets" / group).glob("*.json"))]],
     ]
