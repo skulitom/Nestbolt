@@ -14,6 +14,7 @@ not establish that the configuration is empirically best.
 python scripts/comparison_session.py create --name development-example --settings benchmarks/session-smoke-settings.json
 python scripts/comparison_session.py run --name development-example --tool lbf --limit 2
 python scripts/comparison_session.py progress --name development-example
+python scripts/comparison_session_report.py --name development-example
 ```
 
 Preparation of the pinned tool and validator binaries precedes `create`. Repeat
@@ -40,3 +41,11 @@ failed outcomes, manifest edits, duplicate prevention and existing process locks
 The actual `queue-proof-20261011` trial ran two native LBF attempts and resumed in a
 new process for the third. All three passed independent validation. This is a
 3/450-slot controller proof, not a completed development matrix or M1.
+
+The report audits every retained completion and lists every scheduled group,
+including missing and failed seeds. Medians and inclusive quartiles describe valid
+scores only; a row is eligible for comparison only after every declared seed is
+valid (at least three). Four aggregation tests cover partial sets, failures,
+configuration separation, duplicate seeds, differing metrics and LBF's independent
+material score. The [actual partial-session table](results/comparison-session-20261011T214917Z-024c5add.md)
+correctly has no eligible rows. It establishes neither a baseline gap nor a gate.

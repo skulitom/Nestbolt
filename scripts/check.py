@@ -36,6 +36,7 @@ def main():
         [sys.executable, "scripts/test_sparrow_report.py"],
         [sys.executable, "scripts/test_comparator_batch_report.py"],
         [sys.executable, "scripts/test_comparison_session.py"],
+        [sys.executable, "scripts/test_comparison_session_report.py"],
         [sys.executable, "scripts/matrix_plan.py", "--check"],
         [sys.executable, "scripts/test_matrix_plan.py"],
         [sys.executable, "scripts/maker_freeze.py", "--check"],

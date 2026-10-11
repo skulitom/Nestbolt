@@ -119,6 +119,9 @@ A [resumable development queue](../benchmarks/SESSIONS.md) now freezes the plann
 slots, settings, inputs, code and binaries. Four lifecycle tests and a real
 three-attempt native resumption proof pass. Final acceptance, full aggregation,
 dataset rebuilding and public results remain pending.
+Audited partial-session tables now retain every missing/failed seed and show
+valid-only medians and quartiles. Four additional tests pass; the actual
+three-attempt proof has no eligible comparison rows, as expected.
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
@@ -172,7 +175,7 @@ On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clipp
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
 four additional stock-conversion tests, dependency-notice/schema consistency,
-sixty Python harness/conversion/evidence tests,
+sixty Python harness/conversion/evidence tests (plus four later aggregation tests),
 88 source-contract checks and fixture checksums. Four additional curve-conversion
 tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).
