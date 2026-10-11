@@ -7,8 +7,10 @@ The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **6/39 runs** have finished (ALBANO, SHAPES2, DAGLI, FU,
-JAKOBS1 and JAKOBS2, first seed). All six pass independent geometry checks.
+At the latest checkpoint, **9/39 runs** have finished (ALBANO, SHAPES2, DAGLI, FU,
+JAKOBS1, JAKOBS2, MAO, MARQUES and SHAPES0, first seed). All nine pass independent
+geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-nine-20261011.json)
+retains the run records and validation evidence.
 JAKOBS2 is about 1.02% longer than its published mean; the required three-seed
 comparison is pending for every instance. No results have been discarded and the
 original 1% pass threshold is unchanged. The next bounded batch is still running.
@@ -18,17 +20,23 @@ stock, margins, defects/remnants, copies, rotations, mirroring, holes, clearance
 fill modes. It computes material scores and never scores invalid layouts. All
 43 native tests pass, including a 10,000-case bounded polygon fuzz test, a
 2,000-copy case and actual CLI exit behavior. The checker also compiles to WASM.
-Datasets, remaining competitor adapters and the full baseline matrix are pending.
+The academic datasets are frozen; maker jobs, remaining competitor adapters and
+the full baseline matrix are pending.
 See [VALIDATION.md](VALIDATION.md).
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
-M0 input. Canonical benchmark conversion remains pending. See [source provenance](../benchmarks/sources/README.md).
+M0 input. The canonical freeze now includes **13 S and 35 B jobs**: 22 reconstructions
+of published Nest-MB cases and 13 explicitly derived fixed-sheet variants. All
+48 pass source-contract checks and reproduce byte for byte; four additional
+Python tests protect conversion and tamper detection. See
+[the dataset method](../benchmarks/datasets/README.md) and
+[source provenance](../benchmarks/sources/README.md).
 
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
-| M1 — Baseline | 15% | Polygon job validator, scoring, schemas and strip adapter in place; datasets/full harness pending |
+| M1 — Baseline | 15% | Validator, scoring, schemas and S/B freeze ready; M jobs and full harness pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
 | M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |
@@ -58,7 +66,8 @@ configured remote, hosted repository, release, registry publication or Pages dep
 On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
-dependency-notice/schema consistency, Python harness tests and fixture checksums. Two original five-second
+dependency-notice/schema consistency, seven Python harness/conversion tests,
+48 academic source-contract checks and fixture checksums. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).
 The schema was also checked against real CLI output locally. None of these checks
 establishes the independent geometry validity or published quality gates.

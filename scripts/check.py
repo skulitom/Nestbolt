@@ -22,6 +22,10 @@ def main():
         [sys.executable, "scripts/smoke.py", "--verify-only"],
         [sys.executable, "scripts/test_m0.py"],
         [sys.executable, "scripts/schemas.py", "--check"],
+        [sys.executable, "scripts/datasets.py", "--check"],
+        [sys.executable, "scripts/test_datasets.py"],
+        ["cargo", "run", "--quiet", "--locked", "-p", "nestbolt-validator", "--example", "check_jobs", "--",
+            *[str(path) for group in ["S", "B"] for path in sorted((ROOT / "benchmarks/datasets" / group).glob("*.json"))]],
     ]
     if args.smoke:
         commands.append([sys.executable, "scripts/smoke.py"])
