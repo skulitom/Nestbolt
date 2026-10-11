@@ -940,3 +940,339 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-11T21:22:11.022296+00:00 | SVGnest `b-fu-strip-sheet` seed 0, 60s, identical, axis y | valid | material 1.4678362894736843 | [record](output/playwright/svgnest/20261011T212104Z-9515dd23/run.json). Provisional settings, one worker and one CPU affinity.
 
 - 2026-10-11T21:22:26.157927+00:00 | verified deepnest batch `20261011T211807Z-ef4481cd` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T212226Z-30644c2c.md). Provisional; all failures retained.
+
+- 2026-10-11T21:23:19.039308+00:00 | SVGnest `b-jakobs1-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 4.5 | [record](output/playwright/svgnest/20261011T212211Z-2b6c3521/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:24:25.752721+00:00 | SVGnest `b-jakobs1-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 4.5 | [record](output/playwright/svgnest/20261011T212319Z-ea17b51f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:25:30.630984+00:00 | SVGnest `b-jakobs1-strip-sheet` seed 0, 60s, identical, axis y | valid | material 0.825 | [record](output/playwright/svgnest/20261011T212425Z-9ce013d3/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:25:46.407858+00:00 | `20261011T212546Z-m-box-batch-500-identical-s0-c6c42911` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212546Z-m-box-batch-500-identical-s0-c6c42911/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:46.822490+00:00 | `20261011T212546Z-m-box-batch-500-upstream-default-s0-75c9b62b` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212546Z-m-box-batch-500-upstream-default-s0-75c9b62b/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:47.121468+00:00 | `20261011T212547Z-m-box-desktop-identical-s0-da0018d7` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212547Z-m-box-desktop-identical-s0-da0018d7/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:47.399101+00:00 | `20261011T212547Z-m-box-desktop-upstream-default-s0-fff778a8` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212547Z-m-box-desktop-upstream-default-s0-fff778a8/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:47.681078+00:00 | `20261011T212547Z-m-box-long-identical-s0-eb030183` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212547Z-m-box-long-identical-s0-eb030183/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:47.983413+00:00 | `20261011T212547Z-m-box-long-upstream-default-s0-e1c109cc` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212547Z-m-box-long-upstream-default-s0-e1c109cc/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:48.295454+00:00 | `20261011T212548Z-m-box-mini-identical-s0-19df9ebd` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212548Z-m-box-mini-identical-s0-19df9ebd/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:48.602735+00:00 | `20261011T212548Z-m-box-mini-upstream-default-s0-c1379360` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212548Z-m-box-mini-upstream-default-s0-c1379360/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:48.859346+00:00 | `20261011T212548Z-m-box-storage-identical-s0-a9fc78ec` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212548Z-m-box-storage-identical-s0-a9fc78ec/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:49.146294+00:00 | `20261011T212549Z-m-box-storage-upstream-default-s0-79ebe008` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212549Z-m-box-storage-upstream-default-s0-79ebe008/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:49.448422+00:00 | `20261011T212549Z-m-box-tool-identical-s0-66a0d860` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212549Z-m-box-tool-identical-s0-66a0d860/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:49.742647+00:00 | `20261011T212549Z-m-box-tool-upstream-default-s0-9dd92761` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212549Z-m-box-tool-upstream-default-s0-9dd92761/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:50.151242+00:00 | `20261011T212550Z-m-garment-bruce-1-identical-s0-b5b5bf1a` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | valid; independent material 0.9677442279999999 | [record](output/lbf/20261011T212550Z-m-garment-bruce-1-identical-s0-b5b5bf1a/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:51.070112+00:00 | `20261011T212551Z-m-garment-bruce-1-upstream-default-s0-d810d305` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 0.9677442279999999 | [record](output/lbf/20261011T212551Z-m-garment-bruce-1-upstream-default-s0-d810d305/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:51.713852+00:00 | `20261011T212551Z-m-garment-bruce-2-identical-s0-2e1a1ef1` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | valid; independent material 0.99998865 | [record](output/lbf/20261011T212551Z-m-garment-bruce-2-identical-s0-2e1a1ef1/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:52.976281+00:00 | `20261011T212552Z-m-garment-bruce-2-upstream-default-s0-88c591eb` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 0.9998925002500001 | [record](output/lbf/20261011T212552Z-m-garment-bruce-2-upstream-default-s0-88c591eb/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:53.864876+00:00 | `20261011T212553Z-m-garment-bruce-3-identical-s0-7f156b29` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | invalid; independent material none | [record](output/lbf/20261011T212553Z-m-garment-bruce-3-identical-s0-7f156b29/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:56.192761+00:00 | `20261011T212556Z-m-garment-bruce-3-upstream-default-s0-9a5212dc` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 1.57284825 | [record](output/lbf/20261011T212556Z-m-garment-bruce-3-upstream-default-s0-9a5212dc/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:57.946066+00:00 | `20261011T212557Z-m-garment-teagan-1-identical-s0-41ff58e8` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | valid; independent material 0.9922504243333333 | [record](output/lbf/20261011T212557Z-m-garment-teagan-1-identical-s0-41ff58e8/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:25:58.929246+00:00 | `20261011T212558Z-m-garment-teagan-1-upstream-default-s0-7d0417e4` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 0.9998894246666667 | [record](output/lbf/20261011T212558Z-m-garment-teagan-1-upstream-default-s0-7d0417e4/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:00.478654+00:00 | deepnest-next `m-box-batch-500` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261011T212436Z-2f960507/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:25:59.747026+00:00 | `20261011T212559Z-m-garment-teagan-2-identical-s0-c24c2fb9` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | valid; independent material 1.9998064302500003 | [record](output/lbf/20261011T212559Z-m-garment-teagan-2-identical-s0-c24c2fb9/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:01.358410+00:00 | `20261011T212601Z-m-garment-teagan-2-upstream-default-s0-e1dba29a` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 1.99992575525 | [record](output/lbf/20261011T212601Z-m-garment-teagan-2-upstream-default-s0-e1dba29a/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:02.579210+00:00 | `20261011T212602Z-m-garment-teagan-3-identical-s0-4d568750` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | valid; independent material 4.982509403000001 | [record](output/lbf/20261011T212602Z-m-garment-teagan-3-identical-s0-4d568750/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:06.233894+00:00 | `20261011T212606Z-m-garment-teagan-3-upstream-default-s0-8d12acd9` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 4.982122569666667 | [record](output/lbf/20261011T212606Z-m-garment-teagan-3-upstream-default-s0-8d12acd9/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:08.674323+00:00 | `20261011T212608Z-m-mechanical-batch-1000-identical-s0-1288a5fe` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212608Z-m-mechanical-batch-1000-identical-s0-1288a5fe/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:09.010804+00:00 | `20261011T212609Z-m-mechanical-batch-1000-upstream-default-s0-7a9e1300` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212609Z-m-mechanical-batch-1000-upstream-default-s0-7a9e1300/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:09.241461+00:00 | `20261011T212609Z-m-mechanical-cog-washers-identical-s0-45d4acbe` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212609Z-m-mechanical-cog-washers-identical-s0-45d4acbe/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:09.553593+00:00 | `20261011T212609Z-m-mechanical-cog-washers-upstream-default-s0-29996dc8` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212609Z-m-mechanical-cog-washers-upstream-default-s0-29996dc8/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:09.857888+00:00 | `20261011T212609Z-m-mechanical-defective-stock-identical-s0-2cb1886c` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212609Z-m-mechanical-defective-stock-identical-s0-2cb1886c/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:10.164548+00:00 | `20261011T212610Z-m-mechanical-defective-stock-upstream-default-s0-a537e41c` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212610Z-m-mechanical-defective-stock-upstream-default-s0-a537e41c/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:10.430995+00:00 | `20261011T212610Z-m-mechanical-frame-inserts-identical-s0-68c65127` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212610Z-m-mechanical-frame-inserts-identical-s0-68c65127/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:10.688438+00:00 | `20261011T212610Z-m-mechanical-frame-inserts-upstream-default-s0-2efe63c1` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212610Z-m-mechanical-frame-inserts-upstream-default-s0-2efe63c1/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:11.019371+00:00 | `20261011T212611Z-m-mechanical-large-plates-identical-s0-dbd777b4` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212611Z-m-mechanical-large-plates-identical-s0-dbd777b4/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:11.317530+00:00 | `20261011T212611Z-m-mechanical-large-plates-upstream-default-s0-1a117450` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212611Z-m-mechanical-large-plates-upstream-default-s0-1a117450/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:11.639126+00:00 | `20261011T212611Z-m-mechanical-mixed-stock-identical-s0-66a3d1d7` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212611Z-m-mechanical-mixed-stock-identical-s0-66a3d1d7/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:11.910781+00:00 | `20261011T212611Z-m-mechanical-mixed-stock-upstream-default-s0-6071cc2b` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212611Z-m-mechanical-mixed-stock-upstream-default-s0-6071cc2b/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:12.202247+00:00 | `20261011T212612Z-m-mechanical-mounting-kit-identical-s0-4d8b781f` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212612Z-m-mechanical-mounting-kit-identical-s0-4d8b781f/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:12.493559+00:00 | `20261011T212612Z-m-mechanical-mounting-kit-upstream-default-s0-f9ed39eb` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212612Z-m-mechanical-mounting-kit-upstream-default-s0-f9ed39eb/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:12.849126+00:00 | `20261011T212612Z-m-mechanical-panel-hardware-identical-s0-f68b949e` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212612Z-m-mechanical-panel-hardware-identical-s0-f68b949e/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:13.188217+00:00 | `20261011T212613Z-m-mechanical-panel-hardware-upstream-default-s0-94769079` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212613Z-m-mechanical-panel-hardware-upstream-default-s0-94769079/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:13.451557+00:00 | `20261011T212613Z-m-mechanical-remnant-kit-identical-s0-ee0f3e4c` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212613Z-m-mechanical-remnant-kit-identical-s0-ee0f3e4c/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:13.775801+00:00 | `20261011T212613Z-m-mechanical-remnant-kit-upstream-default-s0-e3a447f6` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212613Z-m-mechanical-remnant-kit-upstream-default-s0-e3a447f6/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:14.033972+00:00 | `20261011T212614Z-m-mechanical-small-brackets-identical-s0-41987d99` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212614Z-m-mechanical-small-brackets-identical-s0-41987d99/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:14.329870+00:00 | `20261011T212614Z-m-mechanical-small-brackets-upstream-default-s0-bd50efbf` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212614Z-m-mechanical-small-brackets-upstream-default-s0-bd50efbf/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:14.568738+00:00 | `20261011T212614Z-m-public-gear-1-identical-s0-45e0a568` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212614Z-m-public-gear-1-identical-s0-45e0a568/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:14.858774+00:00 | `20261011T212614Z-m-public-gear-1-upstream-default-s0-92c3c743` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212614Z-m-public-gear-1-upstream-default-s0-92c3c743/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:15.214803+00:00 | `20261011T212615Z-m-public-gear-2-identical-s0-bf528beb` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212615Z-m-public-gear-2-identical-s0-bf528beb/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:15.557760+00:00 | `20261011T212615Z-m-public-gear-2-upstream-default-s0-dff83bea` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212615Z-m-public-gear-2-upstream-default-s0-dff83bea/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:15.901735+00:00 | `20261011T212615Z-m-public-gear-3-identical-s0-ca92989f` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212615Z-m-public-gear-3-identical-s0-ca92989f/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:16.259575+00:00 | `20261011T212616Z-m-public-gear-3-upstream-default-s0-6cbbbc44` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212616Z-m-public-gear-3-upstream-default-s0-6cbbbc44/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:16.645967+00:00 | `20261011T212616Z-m-public-gear-4-identical-s0-5ccaa9b5` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212616Z-m-public-gear-4-identical-s0-5ccaa9b5/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:17.004796+00:00 | `20261011T212617Z-m-public-gear-4-upstream-default-s0-46637038` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212617Z-m-public-gear-4-upstream-default-s0-46637038/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:17.354047+00:00 | `20261011T212617Z-m-sign-1-identical-s0-fbf8a0b7` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212617Z-m-sign-1-identical-s0-fbf8a0b7/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:17.668134+00:00 | `20261011T212617Z-m-sign-1-upstream-default-s0-bb8a6af7` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212617Z-m-sign-1-upstream-default-s0-bb8a6af7/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:18.008826+00:00 | `20261011T212618Z-m-sign-2-identical-s0-a1bec928` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212618Z-m-sign-2-identical-s0-a1bec928/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:18.400185+00:00 | `20261011T212618Z-m-sign-2-upstream-default-s0-df5746d9` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212618Z-m-sign-2-upstream-default-s0-df5746d9/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:18.719752+00:00 | `20261011T212618Z-m-sign-3-identical-s0-c8a0cb41` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212618Z-m-sign-3-identical-s0-c8a0cb41/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:19.097592+00:00 | `20261011T212619Z-m-sign-3-upstream-default-s0-f168a3aa` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212619Z-m-sign-3-upstream-default-s0-f168a3aa/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:19.441044+00:00 | `20261011T212619Z-m-sign-4-identical-s0-21e72b30` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | unsupported; independent material none | [record](output/lbf/20261011T212619Z-m-sign-4-identical-s0-21e72b30/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:19.782255+00:00 | `20261011T212619Z-m-sign-4-upstream-default-s0-d8f8c71b` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | unsupported; independent material none | [record](output/lbf/20261011T212619Z-m-sign-4-upstream-default-s0-d8f8c71b/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:26:36.781941+00:00 | SVGnest `b-jakobs2-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 3.908333333333333 | [record](output/playwright/svgnest/20261011T212530Z-8df6b667/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:26:46.753944+00:00 | current Sparrow `m-box-batch-500` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T212644Z-691b2170/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:26:48.293816+00:00 | current Sparrow `m-box-desktop` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T212646Z-b3429a2c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:26:49.885589+00:00 | current Sparrow `m-box-long` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T212648Z-df668565/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:26:51.450586+00:00 | current Sparrow `m-box-mini` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T212649Z-fed277ed/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:26:52.986321+00:00 | current Sparrow `m-box-storage` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T212651Z-ac548476/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:26:54.623964+00:00 | current Sparrow `m-box-tool` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T212653Z-680536aa/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:27:09.543770+00:00 | deepnest-next `m-box-desktop` seed 0, 60s, identical, axis y | valid | material 0.887 | [record](output/playwright/deepnest/20261011T212600Z-7cee41fd/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:27:16.201426+00:00 | verified provisional LBF batch `20261011T212546Z-6e9ec88a` | 11/60 valid, seed 0, M only | [table](benchmarks/results/lbf-20261011T212716Z-c9c2fc4b.md). Full M1 and quality gates remain pending.
+
+- 2026-10-11T21:27:42.620635+00:00 | SVGnest `b-jakobs2-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 3.908333333333333 | [record](output/playwright/svgnest/20261011T212636Z-83af08e8/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:27:58.132407+00:00 | current Sparrow `m-garment-bruce-1` seed 0, 60s, identical, axis y | valid | score 0.19318351233333328 | [record](output/sparrow-benchmark/20261011T212654Z-7526d902/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:28:19.156605+00:00 | deepnest-next `m-box-long` seed 0, 60s, identical, axis y | valid | material 0.3257377049180328 | [record](output/playwright/deepnest/20261011T212709Z-e0e49002/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:28:49.413980+00:00 | SVGnest `b-jakobs2-strip-sheet` seed 0, 60s, identical, axis y | valid | material 0.8857142857142857 | [record](output/playwright/svgnest/20261011T212742Z-d98af425/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:29:01.008528+00:00 | verified deepnest batch `20261011T212436Z-18393dac` | 2/3 valid | [table](benchmarks/results/deepnest-20261011T212901Z-75266a12.md). Provisional; all failures retained.
+
+- 2026-10-11T21:29:01.430913+00:00 | current Sparrow `m-garment-bruce-2` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T212758Z-81446f57/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:29:56.340997+00:00 | SVGnest `b-mao-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 1.8961902388331813 | [record](output/playwright/svgnest/20261011T212849Z-95569498/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:30:05.791917+00:00 | current Sparrow `m-garment-bruce-3` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T212901Z-e9271790/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:30:13.594475+00:00 | deepnest-next `m-box-mini` seed 0, 60s, identical, axis y | valid | material 0.716000005 | [record](output/playwright/deepnest/20261011T212902Z-60a8b56c/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:31:03.866623+00:00 | SVGnest `b-mao-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 2.815955970829535 | [record](output/playwright/svgnest/20261011T212956Z-fb2f546f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:31:09.089438+00:00 | current Sparrow `m-garment-teagan-1` seed 0, 60s, identical, axis y | valid | score 0.7828706096666668 | [record](output/sparrow-benchmark/20261011T213005Z-6f599799/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:31:27.213342+00:00 | deepnest-next `m-box-storage` seed 0, 60s, identical, axis y | valid | material 0.5388524590163934 | [record](output/playwright/deepnest/20261011T213013Z-92ffd48c/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:32:15.239097+00:00 | current Sparrow `m-garment-teagan-2` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T213109Z-42ffd8be/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:32:16.590528+00:00 | SVGnest `b-mao-strip-sheet` seed 0, 60s, identical, axis y | valid | material 0.9006386964705881 | [record](output/playwright/svgnest/20261011T213104Z-d907e4c4/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:32:54.513149+00:00 | deepnest-next `m-box-tool` seed 0, 60s, identical, axis y | valid | material 1.5310000025000001 | [record](output/playwright/deepnest/20261011T213129Z-38b60fdf/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:33:22.264264+00:00 | current Sparrow `m-garment-teagan-3` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T213215Z-310f4922/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:24.715369+00:00 | current Sparrow `m-mechanical-batch-1000` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213322Z-4ec5dd84/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:27.402409+00:00 | current Sparrow `m-mechanical-cog-washers` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213324Z-dcd73687/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:29.317488+00:00 | SVGnest `b-marques-strip-sheet` seed 0, 60s, identical, axis y | valid | material 1.1923076923076923 | [record](output/playwright/svgnest/20261011T213217Z-3ab7bd08/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:33:30.092159+00:00 | current Sparrow `m-mechanical-defective-stock` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213327Z-86d4b92e/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:32.595494+00:00 | current Sparrow `m-mechanical-frame-inserts` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213330Z-996b4373/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:35.337600+00:00 | current Sparrow `m-mechanical-large-plates` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213332Z-2393f195/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:37.990800+00:00 | current Sparrow `m-mechanical-mixed-stock` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213335Z-bf0b8eaf/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:40.364889+00:00 | current Sparrow `m-mechanical-mounting-kit` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213338Z-644f17ee/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:42.672385+00:00 | current Sparrow `m-mechanical-panel-hardware` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213340Z-4369fbba/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:44.690552+00:00 | current Sparrow `m-mechanical-remnant-kit` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213342Z-71c70440/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:46.706851+00:00 | current Sparrow `m-mechanical-small-brackets` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213344Z-7f314a37/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:48.642976+00:00 | current Sparrow `m-public-gear-1` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213346Z-9d6f37ad/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:50.361693+00:00 | current Sparrow `m-public-gear-2` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213348Z-b4ccdbfb/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:52.758121+00:00 | current Sparrow `m-public-gear-3` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213350Z-7efe0dd9/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:55.282100+00:00 | current Sparrow `m-public-gear-4` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213352Z-8d669493/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:33:58.054754+00:00 | current Sparrow `m-sign-1` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213355Z-a710dc41/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:34:00.983075+00:00 | current Sparrow `m-sign-2` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213358Z-61b4ad9d/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:34:03.285139+00:00 | current Sparrow `m-sign-3` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213401Z-b30477b3/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:34:04.999283+00:00 | current Sparrow `m-sign-4` seed 0, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T213403Z-b427656f/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:34:40.076756+00:00 | SVGnest `b-shapes0-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 8.476190476190476 | [record](output/playwright/svgnest/20261011T213330Z-a6c005dd/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:35:12.075365+00:00 | `20261011T213512Z-b-albano-nest-mb-free-identical-s0-435cfbcd` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, identical | valid; independent material 3.515800699186992 | [record](output/lbf/20261011T213512Z-b-albano-nest-mb-free-identical-s0-435cfbcd/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:35:12.972972+00:00 | `20261011T213512Z-b-albano-nest-mb-free-upstream-default-s0-230e0b6c` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 0, 60s limit, one pass/one worker, upstream-default | valid; independent material 3.515800699186992 | [record](output/lbf/20261011T213512Z-b-albano-nest-mb-free-upstream-default-s0-230e0b6c/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:35:49.648355+00:00 | SVGnest `b-shapes0-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 7.809523809523809 | [record](output/playwright/svgnest/20261011T213440Z-9d7faa76/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:35:56.480853+00:00 | `20261011T213556Z-b-albano-nest-mb-free-identical-s1-ad5bd878` | LBF `9e00fd867be0fc493002aea68a1c6613d5b833d6` | Nestbolt `0960889994ccba23100dcb3c2a6a8e5c7ae9f50f` (dirty=True) | seed 1, 60s limit, one pass/one worker, identical | valid; independent material 3.4921253612392884 | [record](output/lbf/20261011T213556Z-b-albano-nest-mb-free-identical-s1-ad5bd878/run.json). Provisional M1 baseline, no quality-gate claim.
+
+- 2026-10-11T21:35:58.958611+00:00 | verified sparrow batch `20261011T212644Z-c47d25b5` | 2/30 valid | [table](benchmarks/results/sparrow-20261011T213558Z-4b7cdd15.md). Provisional; all failures retained.
+
+- 2026-10-11T21:35:59.507125+00:00 | verified deepnest batch `20261011T212902Z-dd9a5bcc` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T213559Z-b00cc0a8.md). Provisional; all failures retained.
+
+- 2026-10-11T21:36:46.008471+00:00 | M0 `published-20261011/marques-2` | completed_integrity_checked | 1200s, 3 workers | length 76.28874 | [record](output/m0/published-20261011/marques-2/run.json). Geometry validation pending M1.
+
+- 2026-10-11T21:36:46.663199+00:00 | M0 `published-20261011/shapes0-2` | completed_integrity_checked | 1200s, 3 workers | length 58.919643 | [record](output/m0/published-20261011/shapes0-2/run.json). Geometry validation pending M1.
+
+- 2026-10-11T21:36:46.877393+00:00 | M0 `published-20261011/shapes1-2` | completed_integrity_checked | 1200s, 3 workers | length 52.84154 | [record](output/m0/published-20261011/shapes1-2/run.json). Geometry validation pending M1.
+
+- 2026-10-11T21:36:56.368623+00:00 | SVGnest `b-shapes0-strip-sheet` seed 0, 60s, identical, axis y | valid | material 2.825 | [record](output/playwright/svgnest/20261011T213549Z-5f9e87a5/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:38:01.954923+00:00 | independent geometry check `published-20261011/albano-0` | valid | [report](output/m0/published-20261011/albano-0/validation-05808c1613.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:02.249112+00:00 | independent geometry check `published-20261011/albano-1` | valid | [report](output/m0/published-20261011/albano-1/validation-379344ad42.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:02.450282+00:00 | independent geometry check `published-20261011/albano-2` | valid | [report](output/m0/published-20261011/albano-2/validation-0dada97835.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:02.607581+00:00 | independent geometry check `published-20261011/blaz1-0` | valid | [report](output/m0/published-20261011/blaz1-0/validation-18b3122eb1.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:02.755833+00:00 | independent geometry check `published-20261011/blaz1-1` | valid | [report](output/m0/published-20261011/blaz1-1/validation-b132fea316.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:02.860589+00:00 | independent geometry check `published-20261011/blaz1-2` | valid | [report](output/m0/published-20261011/blaz1-2/validation-6551dc48c3.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:02.936760+00:00 | independent geometry check `published-20261011/dagli-0` | valid | [report](output/m0/published-20261011/dagli-0/validation-25dc493a23.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.008776+00:00 | independent geometry check `published-20261011/dagli-1` | valid | [report](output/m0/published-20261011/dagli-1/validation-e793f6ee2b.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.134971+00:00 | independent geometry check `published-20261011/dagli-2` | valid | [report](output/m0/published-20261011/dagli-2/validation-394a5f0a48.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.256428+00:00 | independent geometry check `published-20261011/fu-0` | valid | [report](output/m0/published-20261011/fu-0/validation-7e058a9235.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.332681+00:00 | independent geometry check `published-20261011/fu-1` | valid | [report](output/m0/published-20261011/fu-1/validation-d58c545998.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.462196+00:00 | independent geometry check `published-20261011/fu-2` | valid | [report](output/m0/published-20261011/fu-2/validation-be053eec2c.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.534280+00:00 | independent geometry check `published-20261011/jakobs1-0` | valid | [report](output/m0/published-20261011/jakobs1-0/validation-bd470d5d97.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.631286+00:00 | independent geometry check `published-20261011/jakobs1-1` | valid | [report](output/m0/published-20261011/jakobs1-1/validation-ea26216672.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.729300+00:00 | independent geometry check `published-20261011/jakobs1-2` | valid | [report](output/m0/published-20261011/jakobs1-2/validation-ee377d8184.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.807954+00:00 | independent geometry check `published-20261011/jakobs2-0` | valid | [report](output/m0/published-20261011/jakobs2-0/validation-96a0d5c3eb.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.890956+00:00 | independent geometry check `published-20261011/jakobs2-1` | valid | [report](output/m0/published-20261011/jakobs2-1/validation-6063c6102d.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:03.962983+00:00 | independent geometry check `published-20261011/jakobs2-2` | valid | [report](output/m0/published-20261011/jakobs2-2/validation-9154a3cc2f.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.110489+00:00 | independent geometry check `published-20261011/mao-0` | valid | [report](output/m0/published-20261011/mao-0/validation-0d8d17506c.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.237299+00:00 | independent geometry check `published-20261011/mao-1` | valid | [report](output/m0/published-20261011/mao-1/validation-f04f6246ca.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.304317+00:00 | independent geometry check `published-20261011/mao-2` | valid | [report](output/m0/published-20261011/mao-2/validation-2c376dde84.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.378928+00:00 | independent geometry check `published-20261011/marques-0` | valid | [report](output/m0/published-20261011/marques-0/validation-d6f80d77fb.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.493722+00:00 | independent geometry check `published-20261011/marques-1` | valid | [report](output/m0/published-20261011/marques-1/validation-9f686f8944.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.611749+00:00 | independent geometry check `published-20261011/marques-2` | valid | [report](output/m0/published-20261011/marques-2/validation-d009d63a48.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.747713+00:00 | independent geometry check `published-20261011/shapes0-0` | valid | [report](output/m0/published-20261011/shapes0-0/validation-d9f95ff131.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:04.900539+00:00 | independent geometry check `published-20261011/shapes0-1` | valid | [report](output/m0/published-20261011/shapes0-1/validation-dcfaef2465.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.056129+00:00 | independent geometry check `published-20261011/shapes0-2` | valid | [report](output/m0/published-20261011/shapes0-2/validation-e045ed2e64.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.155039+00:00 | independent geometry check `published-20261011/shapes1-0` | valid | [report](output/m0/published-20261011/shapes1-0/validation-bc05e5fa17.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.334889+00:00 | independent geometry check `published-20261011/shapes1-1` | valid | [report](output/m0/published-20261011/shapes1-1/validation-9a03b3e891.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.584506+00:00 | independent geometry check `published-20261011/shapes1-2` | valid | [report](output/m0/published-20261011/shapes1-2/validation-7e2df19a4c.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.686870+00:00 | independent geometry check `published-20261011/shirts-0` | valid | [report](output/m0/published-20261011/shirts-0/validation-5ef869c087.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.805525+00:00 | independent geometry check `published-20261011/shirts-1` | valid | [report](output/m0/published-20261011/shirts-1/validation-3d27862a2c.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:05.996840+00:00 | independent geometry check `published-20261011/swim-0` | valid | [report](output/m0/published-20261011/swim-0/validation-7cde024c2c.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:06.098023+00:00 | independent geometry check `published-20261011/swim-1` | valid | [report](output/m0/published-20261011/swim-1/validation-1dc525fcf0.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:06.222917+00:00 | independent geometry check `published-20261011/trousers-0` | valid | [report](output/m0/published-20261011/trousers-0/validation-712339d0d9.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:06.362351+00:00 | independent geometry check `published-20261011/trousers-1` | valid | [report](output/m0/published-20261011/trousers-1/validation-88f5291e90.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:38:07.747162+00:00 | SVGnest `b-shapes1-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 7.809523809523809 | [record](output/playwright/svgnest/20261011T213657Z-806ae462/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:38:14.653866+00:00 | deepnest-next `m-garment-bruce-1` seed 0, 60s, identical, axis y | valid | material 0.2211004806666666 | [record](output/playwright/deepnest/20261011T213610Z-f366e0d7/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:39:21.372338+00:00 | verified SVGnest batch `20261011T211054Z-7faeffdd` | 24 selected B outcomes retained | [table](benchmarks/results/svgnest-20261011T213921Z-83f5b1f3.md). Provisional; full M1 and all quality gates pending.
+
+- 2026-10-11T21:39:27.136987+00:00 | deepnest-next `m-garment-bruce-2` seed 0, 60s, identical, axis y | valid | material 0.4776541012500001 | [record](output/playwright/deepnest/20261011T213814Z-f97e3bf2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:40:32.386631+00:00 | SVGnest `b-shapes1-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 7.809523809523809 | [record](output/playwright/svgnest/20261011T213923Z-6e654fc0/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:41:14.534159+00:00 | deepnest-next `m-garment-bruce-3` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261011T213927Z-b1833c28/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:41:47.406043+00:00 | SVGnest `b-shapes1-strip-sheet` seed 0, 60s, identical, axis y | valid | material 2.7 | [record](output/playwright/svgnest/20261011T214033Z-498c01b6/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:42:58.437983+00:00 | SVGnest `b-shirts-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 7.615384615384615 | [record](output/playwright/svgnest/20261011T214147Z-5ab8eb3b/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:44:05.697917+00:00 | SVGnest `b-shirts-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 8.940170923076924 | [record](output/playwright/svgnest/20261011T214258Z-e9d55fde/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:45:13.359040+00:00 | SVGnest `b-shirts-strip-sheet` seed 0, 60s, identical, axis y | valid | material 2.7601461 | [record](output/playwright/svgnest/20261011T214405Z-cbdbb233/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:46:03.932422+00:00 | verified deepnest batch `20261011T213609Z-9f54749b` | 2/3 valid | [table](benchmarks/results/deepnest-20261011T214603Z-a4686331.md). Provisional; all failures retained.
+
+- 2026-10-11T21:46:19.890036+00:00 | SVGnest `b-swim-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 5.464502452627639 | [record](output/playwright/svgnest/20261011T214513Z-7482177c/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:47:30.461597+00:00 | SVGnest `b-swim-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 4.936348159724673 | [record](output/playwright/svgnest/20261011T214620Z-0382e59d/run.json). Provisional settings, one worker and one CPU affinity.

@@ -26,6 +26,7 @@ SOURCES = ['scripts/deepnest.py', 'scripts/deepnest_io.py', 'scripts/svgnest.py'
            'benchmarks/browser/cpu-tree-job.ps1',
            'benchmarks/browser/package-lock.json']
 SOURCES += ['scripts/stock_inputs.py', 'crates/validator/examples/stock_adapter.rs']
+SOURCES += ['scripts/dataset_selection.py']
 
 
 def checkout_check():
@@ -149,9 +150,13 @@ def run(args):
 
 
 def batch(args):
-    from datasets import check_frozen, MANIFEST, DEST
+    from dataset_selection import development_cases
+    if args.dataset == 'M':
+        from maker_freeze import check_frozen, DEST
+    else:
+        from datasets import check_frozen, DEST
     check_frozen()
-    rows = sorted((r for r in json.loads(MANIFEST.read_bytes())['instances'] if r['set'] == 'B'), key=lambda r:r['id'])
+    manifest, rows = development_cases(ROOT, args.dataset)
     selected = rows[args.offset:args.offset+args.count]
     # Anode jobs have a 30-minute hard lifetime. Reserve startup, both checks,
     # controller teardown and metadata collection even if every attempt fails.
@@ -161,8 +166,8 @@ def batch(args):
     identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
     dest = ROOT/'output/playwright/deepnest-batches'/identifier
     dest.mkdir(parents=True)
-    record = {'batch_id':identifier, 'tool':'deepnest-next', 'dataset':'B',
-              'dataset_manifest_sha256':digest(MANIFEST), 'cases':selected, 'sources':sources,
+    record = {'batch_id':identifier, 'tool':'deepnest-next', 'dataset':args.dataset,
+              'dataset_manifest_sha256':digest(manifest), 'cases':selected, 'sources':sources,
               'seconds':args.seconds, 'seed':args.seed, 'settings':args.settings, 'axis':args.axis,
               'complete':False, 'runs':[]}
     write(dest/'start.json', record)
@@ -200,6 +205,7 @@ if __name__ == '__main__':
     running.add_argument('--phase', choices=['development','final'], default='development')
     batching.add_argument('--offset', type=int, default=0)
     batching.add_argument('--count', type=int, default=3)
+    batching.add_argument('--dataset', choices=['B','M'], default='B', help='M excludes every held-out job')
     args = parser.parse_args()
     if args.command == 'setup':
         setup()

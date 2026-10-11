@@ -7,15 +7,16 @@ The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **33/39 runs** have finished (all thirteen first and
-second seeds, plus seven third seeds). All thirty-three pass independent
-geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-thirty-three-20261011.json)
+At the latest checkpoint, **36/39 runs** have finished (all thirteen first and
+second seeds, plus ten third seeds). All thirty-six pass independent
+geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-thirty-six-20261011.json)
 retains the run records and validation evidence.
 The first JAKOBS2 run is about 1.02% longer than its published mean; its complete
 three-run comparison now passes. ALBANO, SHAPES2, DAGLI, FU, JAKOBS1, JAKOBS2 and
-MAO pass their complete comparisons; the remaining six await their third seeds.
+MAO, MARQUES, SHAPES0 and SHAPES1 pass their complete comparisons. The final
+SHIRTS, SWIM and TROUSERS runs are active.
 No results have been discarded and the
-original 1% pass threshold is unchanged. The next bounded batch is still running.
+original 1% pass threshold is unchanged.
 
 M1 preparation now includes an independent Clipper2 job/layout validator covering
 stock, margins, defects/remnants, copies, rotations, mirroring, holes, clearance and
@@ -33,6 +34,9 @@ configurations (one seed, 60 s maximum, one constructive pass). The retained
 full-precision scores and provenance. This is not a result for Nestbolt and does
 not establish the complete competitor comparison or M1. The generated mixed-stock,
 defect, margin and spacing smoke also passes; see [LBF method](../benchmarks/lbf/README.md).
+The [first development maker batch](../benchmarks/results/lbf-20261011T212716Z-c9c2fc4b.md)
+retains 60 attempts: eleven valid garment layouts, one clearance failure and 48
+unsupported outcomes. No held-out optimiser runs are included.
 
 The pinned [SVGnest runner](../benchmarks/svgnest/README.md) now automates local
 Chromium, bounds solve time, enforces a single-core process tree, checks original
@@ -58,6 +62,9 @@ every solve. The [three affected SWIM reruns](../benchmarks/results/svgnest-2026
 all pass at 60 seconds, as does an unequal-edge-gap smoke. A fresh full B pilot is
 running; earlier failures remain visible. The first three expanded-setting B
 trials also pass but do not establish a best configuration.
+The first 24 jobs in the fresh straight-path pilot again yield 23 valid layouts;
+the BLAZ1 strip-sheet overlap remains a genuine solver failure. The final eleven
+jobs are running with the same input encoding.
 
 The pinned [Deepnest runner](../benchmarks/deepnest/README.md) now imports parts,
 quantities and mixed rectangular stock, runs the native solver with one worker
@@ -80,6 +87,12 @@ The spacing-safe hole smoke also passes with the new input paths.
 [All six preparation attempts](../benchmarks/results/deepnest-stock-inputs-20261011.json)
 remain available, including the strict parser diagnostics and invalid hole-gap
 result. Final layouts are always checked against the original job.
+The [first three maker jobs](../benchmarks/results/deepnest-20261011T212901Z-75266a12.md)
+produce two valid box layouts and no layout within 60 seconds for the 500-part
+job. The [next three box jobs](../benchmarks/results/deepnest-20261011T213559Z-b00cc0a8.md)
+are all valid. The [first garment batch](../benchmarks/results/deepnest-20261011T214603Z-a4686331.md)
+adds two valid layouts and one no-layout outcome at 60 seconds. Garment trials
+are continuing; the first nine maker attempts have seven valid layouts.
 
 The [current Sparrow comparator](../benchmarks/sparrow-benchmark/README.md) now calls
 the pinned, unmodified public solver API with one worker and an overall candidate
@@ -89,6 +102,9 @@ does not fit one fixed sheet is invalid and unscored. [All three trials](../benc
 are retained. Seven Python adapter/evidence tests and one native deadline test
 pass. Its [first 13 S jobs at 60 seconds](../benchmarks/results/sparrow-20261011T210336Z-74491a27.md)
 are all independently valid. Remaining budget/seed/settings comparisons are pending.
+Its [first 30 development maker outcomes](../benchmarks/results/sparrow-20261011T213558Z-4b7cdd15.md)
+include two valid sheet layouts, four invalid layouts (one clearance failure,
+three exceeding one fixed sheet) and 24 unsupported jobs. All are retained.
 
 The [matrix coverage freeze](../benchmarks/MATRIX.md) fixes all 88 jobs, the
 12-job long-budget subset, development/final seeds and both settings roles before
@@ -99,6 +115,10 @@ The [static input coverage report](../benchmarks/results/comparator-coverage-202
 prepares all 35 B jobs for each comparator and all 30 development M jobs for
 Deepnest (27 for SVGnest, six each for LBF/Sparrow). It runs no optimiser and
 does not establish native parsing, valid packing, quality or performance.
+A [resumable development queue](../benchmarks/SESSIONS.md) now freezes the planned
+slots, settings, inputs, code and binaries. Four lifecycle tests and a real
+three-attempt native resumption proof pass. Final acceptance, full aggregation,
+dataset rebuilding and public results remain pending.
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
@@ -152,7 +172,7 @@ On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clipp
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
 four additional stock-conversion tests, dependency-notice/schema consistency,
-fifty-five Python harness/conversion/evidence tests,
+sixty Python harness/conversion/evidence tests,
 88 source-contract checks and fixture checksums. Four additional curve-conversion
 tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).

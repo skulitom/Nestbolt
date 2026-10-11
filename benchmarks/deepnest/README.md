@@ -15,6 +15,8 @@ python scripts/deepnest.py run --job benchmarks/datasets/B/b-fu-nest-mb-given.js
 python scripts/deepnest.py run --job benchmarks/fixtures/svgnest-edge-gap.json --seconds 5 --settings clearance-safe
 # A bounded slice of the frozen B matrix; repeat with the next offset:
 python scripts/deepnest.py batch --offset 0 --count 3 --seconds 60 --seed 0
+# Maker development batches omit all ten held-out jobs:
+python scripts/deepnest.py batch --dataset M --offset 0 --count 3 --seconds 60 --seed 0
 # After the batch has completed:
 python scripts/comparator_batch_report.py --tool deepnest --batch output/playwright/deepnest-batches/<batch-id>/batch.json
 ```

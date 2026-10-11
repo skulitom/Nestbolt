@@ -11,15 +11,22 @@ python scripts/lbf.py build
 python scripts/notices.py --lbf --check
 python scripts/lbf.py run --job benchmarks/datasets/B/b-fu-nest-mb-given.json --seconds 60 --seed 0
 python scripts/lbf.py batch --seconds 60 --seed 0
+python scripts/lbf.py batch --dataset M --seconds 60 --seed 0
 python scripts/lbf_report.py --batch output/lbf-batches/<batch-id>/batch.json
 ```
 
-The batch runs all 35 frozen B jobs sequentially with both configurations. Each
+The batch runs all 35 frozen B jobs sequentially with both configurations, or
+all 30 development maker jobs with `--dataset M`. All ten held-out jobs are
+excluded; the individual run command also enforces the phase guard. Each
 run has one worker, `RAYON_NUM_THREADS=1`, a hard process deadline and independent
 validation. Batch selection is bounded below three hours even if each solve and
 validation reaches its limit. Run another seed explicitly; never discard failures.
-These are provisional M1 measurements. The maker matrix, full competitor settings,
+These are provisional M1 measurements. Full competitor settings,
 development/final seed aggregation and final comparison gate remain to be built.
+The [first maker batch](../results/lbf-20261011T212716Z-c9c2fc4b.md) retains all
+60 attempts: eleven valid garment layouts, one clearance failure and 48
+unsupported outcomes. Native LBF cannot model the holed parts in those 24 jobs;
+they are neither filled in nor omitted from the table.
 
 ## Configuration and fairness
 

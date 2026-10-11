@@ -23,7 +23,7 @@ BUILD=TARGET/'build.json'
 SOURCES=['scripts/sparrow_benchmark.py','scripts/sparrow_io.py','scripts/benchmark_io.py','scripts/svgnest.py',
          'scripts/svgnest_io.py','scripts/svg_export_transform.py',
          'benchmarks/sparrow-benchmark/Cargo.toml','benchmarks/sparrow-benchmark/Cargo.lock',
-         'benchmarks/sparrow-benchmark/src/main.rs']
+         'benchmarks/sparrow-benchmark/src/main.rs','scripts/dataset_selection.py']
 
 
 def digest(path): return sha256(path.read_bytes()).hexdigest()
@@ -105,9 +105,13 @@ def run(args):
 
 
 def batch(args):
-    from datasets import check_frozen, MANIFEST as DATASET, DEST
+    from dataset_selection import development_cases
+    if args.dataset=='M':
+        from maker_freeze import check_frozen, DEST
+    else:
+        from datasets import check_frozen, DEST
     check_frozen()
-    rows=sorted((r for r in json.loads(DATASET.read_bytes())['instances'] if r['set']==args.dataset),key=lambda r:r['id'])
+    DATASET,rows=development_cases(ROOT,args.dataset)
     selected=rows[args.offset:args.offset+args.count]
     if not selected or len(selected)*(args.seconds+300)>3*3600: raise ValueError('Empty selection or batch over three hours')
     sources={s:digest(ROOT/s) for s in SOURCES}
@@ -138,7 +142,7 @@ if __name__=='__main__':
         sub.add_argument('--seconds',type=int,default=60);sub.add_argument('--seed',type=int,default=0)
         sub.add_argument('--settings',choices=['identical','upstream-default'],default='identical');sub.add_argument('--axis',choices=['x','y'],default='x')
     running.add_argument('--job',required=True);running.add_argument('--phase',choices=['development','final'],default='development')
-    batching.add_argument('--dataset',choices=['S','B'],default='S');batching.add_argument('--offset',type=int,default=0);batching.add_argument('--count',type=int,default=13)
+    batching.add_argument('--dataset',choices=['S','B','M'],default='S');batching.add_argument('--offset',type=int,default=0);batching.add_argument('--count',type=int,default=13)
     args=parser.parse_args()
     if args.command=='build': build()
     else:

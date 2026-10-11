@@ -6,6 +6,7 @@ from pathlib import Path
 import uuid
 
 from lbf import ROOT, digest, write_new
+from dataset_selection import development_cases
 
 
 def contained_file(directory, relative):
@@ -38,10 +39,15 @@ def audit_record(path, expected_hash):
 
 def report(batch_path):
     batch = json.loads(batch_path.read_bytes())
-    manifest_path = ROOT / "benchmarks/datasets/academic.json"
+    dataset = batch.get('dataset','B')
+    if dataset not in ['B','M']:
+        raise ValueError('Unexpected LBF dataset')
+    manifest_path, frozen = development_cases(ROOT,dataset)
     if digest(manifest_path) != batch["dataset_manifest_sha256"]:
         raise ValueError("Batch dataset manifest changed")
-    cases = {r["id"]: r for r in json.loads(manifest_path.read_bytes())["instances"] if r["set"] == "B"}
+    cases = {r['id']:r for r in frozen}
+    if 'cases' in batch and (len(batch['cases']) != len(cases) or {r['id']:r for r in batch['cases']} != cases):
+        raise ValueError('Batch selection differs from complete frozen development dataset')
     expected = {(name, setting) for name in cases for setting in batch["settings"]}
     seen, rows, sources = set(), [], set()
     for entry in batch["runs"]:
@@ -64,6 +70,8 @@ def report(batch_path):
         if digest(ROOT / "benchmarks/datasets" / cases[key[0]]["path"]) != run["job_sha256"]:
             raise ValueError("Frozen source job was modified")
         sources.add(json.dumps(run["adapter_sources"], sort_keys=True))
+        if 'adapter_sources' in batch and run['adapter_sources'] != batch['adapter_sources']:
+            raise ValueError('Adapter differs from batch start')
         rows.append({**entry, "metrics": run["metrics"], "error": run.get("error"),
             "solver_wall_seconds": run.get("solver_wall_seconds"),
             "validator_binary_sha256": run["validator_binary_sha256"],
@@ -76,7 +84,7 @@ def report(batch_path):
         raise ValueError("Adapter code changed during the batch")
     stamp = datetime.now(timezone.utc)
     checkpoint = {"recorded_at": stamp.isoformat(), "kind": "provisional_lbf_baseline",
-        "scope": "One development seed, B only, one-pass LBF. Not a complete M1 baseline or a quality gate.",
+        "scope": f"One development seed, {dataset} only (held-out jobs excluded), one-pass LBF. Not a complete M1 baseline or a quality gate.",
         "batch_sha256": digest(batch_path), "batch_id": batch["batch_id"],
         "dataset_manifest_sha256": batch["dataset_manifest_sha256"], "tool": batch["tool"], "build": batch["build"],
         "seed": batch["seed"], "seconds_limit": batch["seconds_limit"],
@@ -104,7 +112,7 @@ def report(batch_path):
         handle.write("\n".join(lines))
     with (ROOT / "BENCHMARKS.md").open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(f"\n- {stamp.isoformat()} | verified provisional LBF batch `{batch['batch_id']}` | "
-            f"{checkpoint['valid_runs']}/{len(expected)} valid, seed {batch['seed']}, B only | "
+            f"{checkpoint['valid_runs']}/{len(expected)} valid, seed {batch['seed']}, {dataset} only | "
             f"[table](benchmarks/results/{stem}.md). Full M1 and quality gates remain pending.\n")
     print(f"Verified and retained {len(rows)} runs: {output.with_suffix('.md')}")
 

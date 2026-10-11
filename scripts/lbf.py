@@ -12,12 +12,15 @@ import time
 import uuid
 
 from benchmark_io import UnsupportedJob, jagua_input, jagua_layout
+from svgnest import guard_held_out
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOL_PATH = ROOT / "benchmarks/lbf/tool.json"
 CHECKOUT = ROOT / ".cache/upstream/jagua-rs"
 TARGET = ROOT / ".cache/build/lbf"
 BUILD = TARGET / "build.json"
+SOURCES = ['scripts/lbf.py', 'scripts/benchmark_io.py', 'scripts/dataset_selection.py',
+           'scripts/svgnest.py', 'scripts/svgnest_io.py', 'scripts/svg_export_transform.py']
 
 
 def digest(path):
@@ -84,9 +87,10 @@ def built_tool():
     return tool, record
 
 
-def run(job_path, seconds, seed, settings, batch_id=None, verbose=True):
+def run(job_path, seconds, seed, settings, batch_id=None, verbose=True, phase='development'):
     tool, build_record = built_tool()
     job = json.loads(job_path.read_bytes())
+    guard_held_out(job, phase)
     identifier = re.sub(r"[^A-Za-z0-9_-]", "-", job["name"])[:70]
     timestamp = datetime.now(timezone.utc)
     run_id = f"{timestamp:%Y%m%dT%H%M%SZ}-{identifier}-{settings}-s{seed}-{uuid.uuid4().hex[:8]}"
@@ -101,7 +105,7 @@ def run(job_path, seconds, seed, settings, batch_id=None, verbose=True):
         "tool": tool, "build": build_record, "seed": seed, "seconds_limit": seconds, "settings": settings,
         "workers": 1, "rayon_threads": 1, "nestbolt_commit": command(["git", "rev-parse", "HEAD"]),
         "dirty": bool(command(["git", "status", "--porcelain"])),
-        "adapter_sources": {name: digest(ROOT / name) for name in ["scripts/lbf.py", "scripts/benchmark_io.py"]},
+        "adapter_sources": {name: digest(ROOT / name) for name in SOURCES}, "phase":phase,
         "validator_binary_sha256": digest(validator), "status": "failed", "metrics": None,
         "platform": platform.platform(), "cpu": cpu_name(), "quality_gate": "not_evaluated"}
     started = time.monotonic()
@@ -167,10 +171,14 @@ def run(job_path, seconds, seed, settings, batch_id=None, verbose=True):
     return record
 
 
-def batch(seconds, seed, settings):
-    from datasets import MANIFEST, DEST, check_frozen
+def batch(seconds, seed, settings, dataset='B'):
+    from dataset_selection import development_cases
+    if dataset == 'M':
+        from maker_freeze import DEST, check_frozen
+    else:
+        from datasets import DEST, check_frozen
     check_frozen()
-    rows = [row for row in json.loads(MANIFEST.read_bytes())["instances"] if row["set"] == "B"]
+    manifest, rows = development_cases(ROOT, dataset)
     variants = ["identical", "upstream-default"] if settings == "both" else [settings]
     if len(rows) * len(variants) * (seconds + 90) > 3 * 3600:
         raise ValueError("Batch could exceed three hours including validation; reduce the budget or select one setting")
@@ -179,15 +187,23 @@ def batch(seconds, seed, settings):
     directory = ROOT / "output/lbf-batches" / batch_id
     directory.mkdir(parents=True, exist_ok=False)
     record = {"batch_id": batch_id, "kind": "provisional_lbf_baseline", "tool": tool, "build": build_record,
-        "dataset_manifest_sha256": digest(MANIFEST), "seed": seed, "seconds_limit": seconds,
+        "dataset":dataset, "cases":rows, "adapter_sources":{name:digest(ROOT/name) for name in SOURCES},
+        "dataset_manifest_sha256": digest(manifest), "seed": seed, "seconds_limit": seconds,
         "settings": variants, "expected_runs": len(rows) * len(variants), "complete": False, "runs": []}
     write_new(directory / "start.json", record)
     for row in rows:
         for variant in variants:
+            if any(digest(ROOT/name) != checksum for name,checksum in record['adapter_sources'].items()):
+                raise ValueError('Runner changed during batch; incomplete evidence retained')
+            if digest(DEST/row['path']) != row['sha256']:
+                raise ValueError('Frozen source changed')
             result = run(DEST / row["path"], seconds, seed, variant, batch_id=batch_id, verbose=False)
             path = ROOT / "output/lbf" / result["run_id"] / "run.json"
-            record["runs"].append({"job": row["id"], "settings": variant, "status": result["status"],
-                "record": path.relative_to(ROOT).as_posix(), "sha256": digest(path)})
+            entry = {"job": row["id"], "settings": variant, "status": result["status"],
+                "record": path.relative_to(ROOT).as_posix(), "sha256": digest(path)}
+            record['runs'].append(entry)
+            with (directory/'runs.jsonl').open('a',encoding='utf-8',newline='\n') as f:
+                f.write(json.dumps(entry)+'\n')
     record["complete"] = True  # all attempts recorded; failures are still failures
     record["valid_runs"] = sum(row["status"] == "valid" for row in record["runs"])
     write_new(directory / "batch.json", record)
@@ -212,10 +228,12 @@ def main():
     run_parser.add_argument("--seconds", type=int, default=60)
     run_parser.add_argument("--seed", type=int, default=0)
     run_parser.add_argument("--settings", choices=["identical", "upstream-default"], default="identical")
-    batch_parser = subs.add_parser("batch", help="One bounded, sequential provisional pass over all frozen B jobs")
+    run_parser.add_argument('--phase', choices=['development','final'],default='development')
+    batch_parser = subs.add_parser("batch", help="One bounded development pass over frozen B or non-held-out M jobs")
     batch_parser.add_argument("--seconds", type=int, default=60)
     batch_parser.add_argument("--seed", type=int, default=0)
     batch_parser.add_argument("--settings", choices=["identical", "upstream-default", "both"], default="both")
+    batch_parser.add_argument('--dataset',choices=['B','M'],default='B')
     args = parser.parse_args()
     if args.action == "build":
         build()
@@ -224,11 +242,11 @@ def main():
             parser.error("seconds must be in 1..300 and seed must fit u64")
         subprocess.run(["cargo", "build", "--locked", "-p", "nestbolt-cli"], cwd=ROOT, check=True)
         if args.action == "batch":
-            result = batch(args.seconds, args.seed, args.settings)
+            result = batch(args.seconds, args.seed, args.settings,args.dataset)
             if result["valid_runs"] != result["expected_runs"]:
                 raise SystemExit(1)
         else:
-            result = run(args.job.resolve(strict=True), args.seconds, args.seed, args.settings)
+            result = run(args.job.resolve(strict=True), args.seconds, args.seed, args.settings,phase=args.phase)
             if result["status"] != "valid":
                 raise SystemExit(1)
 

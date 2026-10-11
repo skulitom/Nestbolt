@@ -31,8 +31,9 @@ and the [paper's Table 2](https://arxiv.org/html/2509.13329v1#S11.T2).
   paper's nominal-height figures to their printed precision. The length metric
   needs no adjustment. Every archived mean was checked against the paper.
 - M0 verifies quantities, finite metrics, instance identity and file hashes.
-  The separate independent geometry validator remains M1 work. These records
-  do not claim G1 or Nestbolt solver quality.
+  The independent Clipper2 checker now also validates every completed layout
+  against the original polygons. These checks do not establish the full M1
+  baseline, G1 or Nestbolt solver quality.
 
 ## Environment and limits
 
@@ -65,8 +66,9 @@ The modest concurrency and bounded sessions remain in place.
 The ignored upstream caches are the pinned clones described in
 `docs/UPSTREAM_REVIEW.md`. `scripts/m0_reference.py --check` reads the historical
 input blobs and the archives from those Git revisions, avoiding checkout line
-ending differences. Geometry is cached locally, not redistributed here; original
-ESICUP dataset redistribution rights still need resolving during M1.
+ending differences. Historical input blobs remain cached locally. M1 preparation
+has separately frozen the matching OR-Datasets collection under its retained MIT
+licence; see [source provenance](../sources/README.md).
 
 ```powershell
 rustup toolchain install nightly-2025-06-14 --profile minimal
@@ -79,6 +81,14 @@ python scripts/m0.py run --experiment published-20261011 --max-runs 18 --paralle
 Repeat the last command for the next bounded session until all 39 runs finish.
 Use `python scripts/m0.py report --experiment published-20261011` for a snapshot.
 It verifies output hashes and never treats a partial matrix as a pass.
+After all 39 runs finish, validate their original geometry and retain the final
+table. The summary command refuses missing or failed runs and geometry checks:
+
+```powershell
+python scripts/validate_m0.py --experiment published-20261011
+python scripts/m0_summary.py --experiment published-20261011
+```
+
 Use a different experiment name with `--smoke --max-runs 2` for five-second checks.
 Smoke results never count towards the reproduction.
 

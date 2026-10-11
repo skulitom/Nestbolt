@@ -41,3 +41,8 @@ prepares all 35 B inputs for each comparator. For the 30 development M jobs it
 prepares 30 for Deepnest, 27 for SVGnest and six each for LBF and Sparrow. Every
 unsupported reason is retained. Successful preparation does not prove native
 parsing, feasibility or a valid timed result; those require the actual runners.
+
+[Development sessions](SESSIONS.md) now provide an immutable, resumable work queue
+with explicit settings, source/binary checks and per-attempt audits. Four lifecycle
+tests and a real three-attempt native resumption trial pass. The full matrix,
+final configuration freeze, aggregation and G8 publication remain pending.

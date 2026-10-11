@@ -8,6 +8,7 @@ import uuid
 from deepnest_report import audit_record as audit_deepnest
 from sparrow_report import audit_record as audit_sparrow
 from lbf_report import contained_file
+from dataset_selection import development_cases
 from svgnest import ROOT, digest, write
 
 TOOLS = {'deepnest': ('output/playwright/deepnest', audit_deepnest),
@@ -17,12 +18,12 @@ TOOLS = {'deepnest': ('output/playwright/deepnest', audit_deepnest),
 def audit_batch(path, tool):
     directory, audit_record = TOOLS[tool]
     batch = json.loads(path.read_bytes())
-    manifest = ROOT/'benchmarks/datasets/academic.json'
-    if digest(manifest) != batch['dataset_manifest_sha256']:
-        raise ValueError('Frozen academic manifest changed')
-    if batch['dataset'] not in ['S', 'B'] or (tool == 'deepnest' and batch['dataset'] != 'B'):
+    if batch['dataset'] not in ['S', 'B', 'M'] or (tool == 'deepnest' and batch['dataset'] == 'S'):
         raise ValueError('Unexpected dataset for this runner')
-    frozen = {r['id']:r for r in json.loads(manifest.read_bytes())['instances'] if r['set'] == batch['dataset']}
+    manifest, cases = development_cases(ROOT, batch['dataset'])
+    if digest(manifest) != batch['dataset_manifest_sha256']:
+        raise ValueError('Frozen dataset manifest changed')
+    frozen = {r['id']:r for r in cases}
     selected = {r['id']:r for r in batch['cases']}
     if not selected or len(selected) != len(batch['cases']) or any(frozen.get(k) != v for k,v in selected.items()):
         raise ValueError('Unexpected, empty or duplicate frozen case selection')
