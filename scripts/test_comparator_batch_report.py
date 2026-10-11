@@ -67,6 +67,21 @@ class MatrixAuditTests(unittest.TestCase):
                 root=Path(temp);path,batch=self.fixture(root,'sparrow');change(batch)
                 with self.assertRaises(ValueError): self.check(root,path,batch,'sparrow')
 
+    def test_snapshot_requires_matching_checker_but_allows_unprepared_inputs(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);path,batch=self.fixture(root,'svgnest')
+            batch['validator_snapshot']={'sha256':'frozen','sources':{'checker.rs':'source'}}
+            self.check(root,path,batch,'svgnest')  # Unsupported before checker startup.
+            record=root/batch['runs'][0]['record']
+            run=json.loads(record.read_bytes())
+            run.update(validator_sha256='frozen',validator_sources={'checker.rs':'source'})
+            record.write_text(json.dumps(run));batch['runs'][0]['sha256']=digest(record)
+            self.check(root,path,batch,'svgnest')
+            run['validator_sha256']='different'
+            record.write_text(json.dumps(run));batch['runs'][0]['sha256']=digest(record)
+            with self.assertRaisesRegex(ValueError,'different validator'):
+                self.check(root,path,batch,'svgnest')
+
     def test_maker_sources_are_audited_and_held_out_jobs_cannot_enter_development(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);path,batch=self.fixture(root,'deepnest','M')

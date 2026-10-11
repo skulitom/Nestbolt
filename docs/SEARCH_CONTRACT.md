@@ -29,4 +29,6 @@ and is not evidence for this future contract.
 
 Acceptance still requires real repeated-job tests, native/browser comparison,
 progress/cancellation and actual timeout behavior. These notes resolve the intended
-semantics; they do not claim that any Nestbolt search implementation exists yet.
+semantics. The first constructor has an explicit seed and fixed sample count,
+with a native repeated-output test. Time-budget calibration, improvement search
+and the complete native/browser/MCP acceptance contract remain unfinished.

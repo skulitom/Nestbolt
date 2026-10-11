@@ -56,6 +56,8 @@ pub struct Construction {
 struct Region {
     layout: SearchLayout,
     boxes: Vec<[f32; 4]>,
+    search_bounds: [f32; 4],
+    nudge: f32,
 }
 struct OpenSheet {
     stock: usize,
@@ -243,7 +245,8 @@ fn search(
     checks: &mut u64,
 ) -> Result<Option<Candidate>> {
     let cde = region.layout.cde();
-    let sheet = cde.bbox();
+    let sheet = region.search_bounds;
+    let nudge = region.nudge;
     let mut buffer = item.shape_cd().as_ref().clone();
     let mut best: Option<Candidate> = None;
     for degrees in angles(part, options)? {
@@ -260,20 +263,20 @@ fn search(
             let bounds = buffer.bbox();
             let width = bounds.x_max - bounds.x_min;
             let height = bounds.y_max - bounds.y_min;
-            let min_x = sheet.x_min + 0.00001;
-            let min_y = sheet.y_min + 0.00001;
-            let max_x = sheet.x_max - width - 0.00001;
-            let max_y = sheet.y_max - height - 0.00001;
+            let min_x = sheet[0] + nudge;
+            let min_y = sheet[1] + nudge;
+            let max_x = sheet[2] - width - nudge;
+            let max_y = sheet[3] - height - nudge;
             if min_x > max_x || min_y > max_y {
                 continue;
             }
             let mut positions = vec![(min_x, min_y), (max_x, min_y), (min_x, max_y)];
             for b in &region.boxes {
                 positions.extend([
-                    (b[2] + 0.00001, min_y),
-                    (min_x, b[3] + 0.00001),
-                    (b[2] + 0.00001, b[1]),
-                    (b[0], b[3] + 0.00001),
+                    (b[2] + nudge, min_y),
+                    (min_x, b[3] + nudge),
+                    (b[2] + nudge, b[1]),
+                    (b[0], b[3] + nudge),
                 ]);
             }
             positions.extend((0..options.random_samples).map(|_| {
@@ -354,7 +357,9 @@ pub fn construct(job: &Job, options: Options) -> Result<Construction> {
     // Reserve a scale-dependent floating-point guard for conversion, centering,
     // rotation and source-transform reconstruction. Final validity is checked.
     let guard = (magnitude * 32.0 * f32::EPSILON as f64).max(0.00002 / job.units.to_mm());
-    let separation = job.clearance.max(job.edge_clearance) + guard;
+    // jagua uses 0.1-radian inscribed round joins. Compensate their chord
+    // deficit as well as f32 rounding before allowing contact placements.
+    let separation = (job.clearance.max(job.edge_clearance) + guard) / 0.05_f64.cos();
     let importer = Importer::new(
         CDEConfig {
             quadtree_depth: 5,
@@ -464,9 +469,24 @@ pub fn construct(job: &Job, options: Options) -> Result<Construction> {
                         regions: containers[stock]
                             .iter()
                             .cloned()
-                            .map(|c| Region {
-                                layout: SearchLayout::new(c),
-                                boxes: vec![],
+                            .map(|c| {
+                                // CDE's tree uses an inflated square, not the
+                                // usable sheet extent. Anchor to the actual
+                                // contour and margin-zone offsets instead.
+                                let b = c.outer_cd().bbox();
+                                let s = &job.stocks[stock];
+                                let half = separation / 2.0;
+                                Region {
+                                    nudge: guard as f32,
+                                    search_bounds: [
+                                        b.x_min.max((s.margins.left + half) as f32),
+                                        b.y_min.max((s.margins.bottom + half) as f32),
+                                        b.x_max.min((s.width - s.margins.right - half) as f32),
+                                        b.y_max.min((s.height - s.margins.top - half) as f32),
+                                    ],
+                                    layout: SearchLayout::new(c),
+                                    boxes: vec![],
+                                }
                             })
                             .collect(),
                     };
@@ -522,7 +542,7 @@ pub fn construct(job: &Job, options: Options) -> Result<Construction> {
             .all(|(i, s)| layout.sheets[i].stock_id == job.stocks[s.stock].id)
     );
     Ok(Construction {
-        algorithm: "nestbolt-construct-v1",
+        algorithm: "nestbolt-construct-v2",
         seed: options.seed,
         collision_checks: checks,
         proxy_notes: notes,

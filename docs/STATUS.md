@@ -1,8 +1,8 @@
 # Status — 2026-10-11
 
 **Completion: 5%. M0 is complete; M1 and M2 are in progress.**
-Percentages count completed milestones only. Pilot results below describe the
-competitors, not Nestbolt quality; all failures and earlier trials remain in
+Percentages count completed milestones only. Constructor results show valid starting layouts; competitor pilots do not yet
+establish the final comparison. All failures and earlier trials remain in
 [BENCHMARKS.md](../BENCHMARKS.md). Ten held-out maker jobs remain unused for tuning.
 
 | Milestone | Weight | State / next requirement |
@@ -22,7 +22,7 @@ competitors, not Nestbolt quality; all failures and earlier trials remain in
 | SVGnest | Fresh 60 s / seed 0 sheet pilot: 34/35 valid | 23 interrupted attempts are rerunning with a frozen checker; settings and remaining seeds pending |
 | Deepnest | First 12 sheet jobs valid; complete maker pilot retained, including failures | Remaining 23 sheet jobs, settings and seeds |
 | Current Sparrow | All 13 strip jobs valid at each of seeds 0, 1 and 2 | Aggregate seed statistics; sheet applicability proof |
-| Nestbolt constructor | 30/30 development maker layouts valid; median 0.438 s, slowest 18.047 s | [First proof](../benchmarks/results/construct-maker-20261011T223817Z-32654739.md); improve material use |
+| Nestbolt constructor | 30/30 valid; v2 uses 20.06% less material than v1; median 0.555 s, slowest 42.937 s | [Current proof](../benchmarks/results/construct-maker-20261011T224552Z-f0cf58b4.md); improve search speed and material use |
 | Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | [First CI run](https://github.com/skulitom/Nestbolt/actions/runs/38180612330): all five jobs passed |
 
 Next: add layout improvement and sheet
@@ -36,8 +36,8 @@ is not the final three-seed M1 target. Both 60 s and 300 s G2
 populations must pass separately.
 
 The independent checker covers original geometry, spacing, quantities, units,
-stock, margins, defects, rotations, mirroring and fill mode. The latest full local check passed 48 workspace tests, four stock-helper tests,
-both WASM builds, source/schema/notices checks and 71 Python tests. Two additional
+stock, margins, defects, rotations, mirroring and fill mode. The latest full local check passed 49 workspace tests, four stock-helper tests,
+both WASM builds, source/schema/notices checks and 72 Python tests. Two additional
 CPU-selection tests pass in Node.
 
 [Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio

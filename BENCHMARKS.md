@@ -2622,3 +2622,29 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-11T22:42:31.897795+00:00 | SVGnest `b-fu-nest-mb-given` seed 0, 60s, expanded, axis y | valid | material 3.6666666666666665 | [record](output/playwright/svgnest/20261011T224119Z-540402ed/run.json). Provisional settings, one worker and one CPU affinity.
 
 - 2026-10-11T22:42:38.730758+00:00 | SVGnest `m-public-gear-2` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224117Z-f072cc9a/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:43:38.700131+00:00 | SVGnest `b-fu-strip-sheet` seed 0, 60s, expanded, axis y | valid | material 1.4473684210526316 | [record](output/playwright/svgnest/20261011T224232Z-832f0e41/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:43:52.981640+00:00 | SVGnest `m-public-gear-3` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224238Z-5525f7d5/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:44:45.585512+00:00 | SVGnest `b-jakobs1-nest-mb-free` seed 0, 60s, expanded, axis y | valid | material 5.360843916666667 | [record](output/playwright/svgnest/20261011T224338Z-b4047f7e/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:45:05.973528+00:00 | SVGnest `m-public-gear-4` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224353Z-f9f5b659/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:45:54.053809+00:00 | SVGnest `b-jakobs1-nest-mb-given` seed 0, 60s, expanded, axis y | invalid | material None | [record](output/playwright/svgnest/20261011T224446Z-1bfa608c/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:46:16.512572+00:00 | SVGnest `m-sign-1` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224506Z-bcbdbabc/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:47:02.040352+00:00 | SVGnest `b-jakobs1-strip-sheet` seed 0, 60s, expanded, axis y | valid | material 0.8479166749999999 | [record](output/playwright/svgnest/20261011T224554Z-516030b0/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:47:26.420768+00:00 | SVGnest `m-sign-2` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224616Z-4e99f7d6/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:48:09.676599+00:00 | SVGnest `b-jakobs2-nest-mb-free` seed 0, 60s, expanded, axis y | valid | material 4.588006625 | [record](output/playwright/svgnest/20261011T224702Z-aec1d9b3/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:48:34.743142+00:00 | SVGnest `m-sign-3` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224727Z-8c520fbc/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:49:16.183485+00:00 | SVGnest `b-jakobs2-nest-mb-given` seed 0, 60s, expanded, axis y | valid | material 3.9166666666666665 | [record](output/playwright/svgnest/20261011T224810Z-11dac240/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:49:42.011342+00:00 | SVGnest `m-sign-4` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T224834Z-96bc3f05/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T22:50:07.285264+00:00 | Nestbolt constructor v2: 30/30 development maker layouts independently valid; all use less material than v1, median reduction 20.061918%. Diagnostic median time 0.555 s, max 42.937 s; speed remains work. [Proof](benchmarks/results/construct-maker-20261011T224552Z-f0cf58b4.md). Full local check passed 49 workspace tests, 4 stock-helper tests, 72 Python tests, both WASM builds and all schema/source/notices checks.

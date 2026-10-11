@@ -14,7 +14,7 @@ No optimisation-quality claims have been established yet.
 - A Rust workspace with core, CLI, WebAssembly and native stdio MCP entry points.
 - `nestbolt construct`: builds a first fixed/mixed-sheet layout, including holed
   and multipart parts through conservative collision proxies. All 30 development
-  maker jobs produce independently valid layouts in the [first diagnostic](benchmarks/results/construct-maker-20261011T223817Z-32654739.md).
+  maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T224552Z-f0cf58b4.md).
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,

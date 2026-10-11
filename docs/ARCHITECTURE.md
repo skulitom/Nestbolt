@@ -49,6 +49,12 @@ larger of edge and part gaps plus a scale-dependent rounding guard, so it can be
 more restrictive than requested. It does not claim infeasibility after failing to
 place a part. Search must later recover those lost options and reduce sheet usage.
 
+Constructor v2 anchors candidates to actual inset sheet/margin bounds, not the
+square quadtree root. It compensates jagua's 0.1-radian inscribed offset joins by
+dividing the requested guarded separation by cos(0.05), and nudges contact
+candidates by the scale-dependent rounding guard. A narrow-sheet regression with
+zero random samples and an exact-angle clearance regression cover these cases.
+
 For this bootstrap, core consumes the polygon contract from the validator crate.
 The checker is called for source preflight and final acceptance, never to choose
 placements. Search intersections stay in jagua; final intersections stay in

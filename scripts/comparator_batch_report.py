@@ -43,7 +43,9 @@ def audit_batch(path, tool):
         run = audit_record(record_path, entry['sha256'])
         if 'validator_snapshot' in batch:
             snapshot = batch['validator_snapshot']
-            if run.get('validator_sha256') != snapshot['sha256'] or run.get('validator_sources') != snapshot['sources']:
+            if 'validator_sha256' not in run and run['status'] in ['unsupported', 'failed']:
+                pass  # Input preparation can fail before any checker is invoked.
+            elif run.get('validator_sha256') != snapshot['sha256'] or run.get('validator_sources') != snapshot['sources']:
                 raise ValueError('Run used a different validator than the batch snapshot')
         for name in ['seconds', 'seed', 'settings', 'axis', 'sources']:
             if run[name] != batch[name]:

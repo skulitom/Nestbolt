@@ -162,3 +162,29 @@ fn a_mirror_required_by_the_remnant_is_exported_as_one_rigid_transform() {
     assert!(result.layout.placements[0].transform.mirrored);
     assert!(validate(&source, &result.layout).unwrap().valid);
 }
+
+#[test]
+fn a_long_rectangular_sheet_uses_its_usable_edges_without_random_sampling() {
+    let mut sheet = stock("long", 400.0, 20.0, Some(1));
+    sheet.margins = Margins {
+        left: 5.0,
+        right: 5.0,
+        bottom: 2.0,
+        top: 2.0,
+    };
+    let source = job(
+        vec![part("bar", vec![rectangle(0.0, 0.0, 180.0, 12.0)], 2)],
+        vec![sheet],
+    );
+    let result = construct(
+        &source,
+        Options {
+            random_samples: 0,
+            ..Options::default()
+        },
+    )
+    .unwrap();
+    assert!(result.complete);
+    assert_eq!(result.layout.sheets.len(), 1);
+    assert!(validate(&source, &result.layout).unwrap().valid);
+}
