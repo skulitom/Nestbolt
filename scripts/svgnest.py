@@ -21,6 +21,7 @@ CHECKOUT = ROOT / '.cache/upstream/svgnest'
 CONFIG = ROOT / 'benchmarks/svgnest/tool.json'
 PACKAGE = ROOT / 'benchmarks/browser'
 SOURCE_FILES = ['scripts/svgnest.py', 'scripts/svgnest_io.py', 'scripts/benchmark_io.py',
+                'scripts/dataset_selection.py',
                 'scripts/svg_export_transform.py',
                 'benchmarks/browser/svgnest.mjs', 'benchmarks/browser/cpu-limit.mjs',
                 'benchmarks/browser/cpu-job.ps1', 'benchmarks/browser/package.json',
@@ -166,9 +167,13 @@ def run(args):
 
 
 def batch(args):
-    from datasets import check_frozen, MANIFEST, DEST
+    from dataset_selection import development_cases
+    if args.dataset == 'M':
+        from maker_freeze import check_frozen, DEST
+    else:
+        from datasets import check_frozen, DEST
     check_frozen()
-    rows = sorted((row for row in json.loads(MANIFEST.read_bytes())['instances'] if row['set'] == 'B'), key=lambda row: row['id'])
+    manifest, rows = development_cases(ROOT, args.dataset)
     selected = rows[args.offset:args.offset + args.count]
     if not selected:
         raise ValueError('Batch selection is empty')
@@ -181,8 +186,8 @@ def batch(args):
     identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '-' + uuid.uuid4().hex[:8]
     dest = ROOT / 'output/playwright/svgnest-batches' / identifier
     dest.mkdir(parents=True)
-    record = {'batch_id': identifier, 'kind': 'provisional_svgnest_baseline', 'dataset': 'B',
-              'dataset_manifest_sha256': digest(MANIFEST), 'cases': selected, 'sources': sources,
+    record = {'batch_id': identifier, 'kind': 'provisional_svgnest_baseline', 'dataset': args.dataset,
+              'dataset_manifest_sha256': digest(manifest), 'cases': selected, 'sources': sources,
               'seed': args.seed, 'seconds': args.seconds, 'axis': args.axis, 'settings': args.settings,
               'complete': False, 'runs': []}
     write(dest / 'start.json', record)
@@ -210,7 +215,7 @@ def main():
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('setup')
     running = commands.add_parser('run')
-    batching = commands.add_parser('batch', help='A bounded sequential slice of frozen B jobs; every outcome retained')
+    batching = commands.add_parser('batch', help='A bounded slice of frozen development jobs; every outcome retained')
     for sub in [running, batching]:
         sub.add_argument('--seconds', type=int, default=60)
         sub.add_argument('--seed', type=int, default=0)
@@ -220,6 +225,7 @@ def main():
     running.add_argument('--phase', choices=['development', 'final'], default='development')
     batching.add_argument('--offset', type=int, default=0)
     batching.add_argument('--count', type=int, default=24)
+    batching.add_argument('--dataset', choices=['B','M'], default='B', help='M excludes all held-out jobs')
     args = parser.parse_args()
     if args.command == 'setup':
         setup()

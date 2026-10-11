@@ -1,0 +1,623 @@
+{
+  "recorded_at": "2026-10-11T21:50:44.092746+00:00",
+  "scope": "Provisional sparrow pilot: 3 B jobs, one configuration and seed; no milestone or quality gate.",
+  "batch_sha256": "7856cc2c6672e9cd4d586d8dbc270e687ca70a323b3fb0b64d2ea37e397c93c5",
+  "batch": {
+    "batch_id": "20261011T214704Z-ea8d0e92",
+    "dataset": "B",
+    "dataset_manifest_sha256": "8409fc41a1971515c74e85a213db5c38ee0634a45d9651ab72b0fc5be2ce113d",
+    "cases": [
+      {
+        "id": "b-albano-nest-mb-free",
+        "set": "B",
+        "path": "B/b-albano-nest-mb-free.json",
+        "sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+        "source": "albano",
+        "source_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/ALBANO/json/albano.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 4551.0,
+        "printed_table_1_side": 4551,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "published_name": "albano",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 3,
+          "mean_squared_utilization": 0.51,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-albano-nest-mb-given",
+        "set": "B",
+        "path": "B/b-albano-nest-mb-given.json",
+        "sha256": "c91864a40a561d14461c5c20ad91a2e4560a631d1f5965f5c788b9cfdde49607",
+        "source": "albano",
+        "source_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/ALBANO/json/albano.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 4551.0,
+        "printed_table_1_side": 4551,
+        "rotation_overrides": [],
+        "published_name": "albano",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 3,
+          "mean_squared_utilization": 0.48,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-albano-strip-sheet",
+        "set": "B",
+        "path": "B/b-albano-strip-sheet.json",
+        "sha256": "4cf7cf74854865b1bac6b4487fcfb1ec2b6440c336fe006fd3d451341b959988",
+        "source": "albano",
+        "source_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/ALBANO/json/albano.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 6068.0,
+        "strip_height": 4900.0
+      }
+    ],
+    "sources": {
+      "scripts/sparrow_benchmark.py": "3b08d746c05fbb8662db636b545c9d55024249a4a852e00f5f4518b72263adf8",
+      "scripts/sparrow_io.py": "5f815313aee5407d4e9918f90fec45d0c57de48d0ed7c9df5e0e897c1929d3ee",
+      "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+      "scripts/svgnest.py": "ec2204e80cb92b37486ed349b01dd9bd539e3169fdf4a423675377f4d0b1682c",
+      "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+      "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+      "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+      "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+      "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+      "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+    },
+    "seconds": 60,
+    "seed": 0,
+    "settings": "identical",
+    "axis": "y",
+    "complete": true,
+    "runs": [
+      {
+        "job": "b-albano-nest-mb-free",
+        "status": "invalid",
+        "record": "output/sparrow-benchmark/20261011T214705Z-04c26ac4/run.json",
+        "sha256": "56dfce1ba8c3797b4933464159bcc2b1768b9d1d815927385f59d4491fbba0d1"
+      },
+      {
+        "job": "b-albano-nest-mb-given",
+        "status": "invalid",
+        "record": "output/sparrow-benchmark/20261011T214808Z-9f6d49f2/run.json",
+        "sha256": "c1f662723f393b59088c12952005f97a7d75eca0cc2538c23101f85a18afc886"
+      },
+      {
+        "job": "b-albano-strip-sheet",
+        "status": "invalid",
+        "record": "output/sparrow-benchmark/20261011T214910Z-7a73a3cf/run.json",
+        "sha256": "ff062ce0969cf18f8452202cd35e987b68f733e08b944b94ac158749b8b4e566"
+      }
+    ],
+    "valid_runs": 0
+  },
+  "rows": [
+    {
+      "job": "b-albano-nest-mb-free",
+      "status": "invalid",
+      "record": "output/sparrow-benchmark/20261011T214705Z-04c26ac4/run.json",
+      "sha256": "56dfce1ba8c3797b4933464159bcc2b1768b9d1d815927385f59d4491fbba0d1",
+      "run": {
+        "run_id": "20261011T214705Z-04c26ac4",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "b-albano-nest-mb-free",
+        "job_sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+        "seed": 0,
+        "seconds": 60,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "3b08d746c05fbb8662db636b545c9d55024249a4a852e00f5f4518b72263adf8",
+          "scripts/sparrow_io.py": "5f815313aee5407d4e9918f90fec45d0c57de48d0ed7c9df5e0e897c1929d3ee",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "ec2204e80cb92b37486ed349b01dd9bd539e3169fdf4a423675377f4d0b1682c",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+        },
+        "commit": "0960889994ccba23100dcb3c2a6a8e5c7ae9f50f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-11T21:47:07.168149+00:00",
+        "validator_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-benchmark\\release\\nestbolt-sparrow-benchmark.exe",
+          "C:\\DEV\\Nestbolt\\output\\sparrow-benchmark\\20261011T214705Z-04c26ac4\\input.json",
+          "60",
+          "0",
+          "identical"
+        ],
+        "solver_exit_code": 0,
+        "solver_wall_seconds": 60.38999999999942,
+        "native_summary": {
+          "accepted_at_seconds": 57.7057457,
+          "candidates": 128,
+          "error": null,
+          "search_finished_seconds": 60.2870738,
+          "seconds": 60,
+          "seed": 0,
+          "settings": "identical",
+          "status": "completed",
+          "workers": 1
+        },
+        "validator_exit_code": 1,
+        "status": "invalid",
+        "finished_at": "2026-10-11T21:48:07.993431+00:00",
+        "outputs": {
+          "candidates.jsonl": "3594fda29d58141c71451af6156c83fdc5d6b44bc2e4c64f01008269cc4f04ec",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.json": "376d81d1e02411cb062a9c15770e83e7ca7bcd9588176b5146dad0219846267d",
+          "job.json": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+          "layout.json": "d95d7e3d451dffd08f8934d0bd7e28bc43d44373d763f785ff9ddf391ca338a8",
+          "request.json": "9568eb9a5d7aaa394cf48335cc5e7b9a3a87da905cba9725d6b00c77981a89a2",
+          "solver-result.json": "db52ea0a39b380245876d33d3d3c73c5f94f0abaf8a34ed88bf65dacef713097",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "2a71ab1cb0cceff4b3f8453154bc2f6051522a5036f3a6429f827d93d03e79f1",
+          "validation.json": "eeadd7a8a028cb104252c659dd7f266c65b3b8795fd3d0066ad2c4e73500a207"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 1.0,
+        "violation_count": 15,
+        "violations": [
+          {
+            "code": "containment",
+            "message": "placement 0: outside usable sheet (area 3374052.2852558587)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 1: outside usable sheet (area 5748390.001646838)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 3: outside usable sheet (area 3224074.49953216)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 7: outside usable sheet (area 3044827.000918398)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 8: outside usable sheet (area 3044827.001207856)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 9: outside usable sheet (area 2782463.875513715)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 11: outside usable sheet (area 500094.63539142656)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 12: outside usable sheet (area 442599.99997013)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 13: outside usable sheet (area 442600.00014558143)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 14: outside usable sheet (area 67869.33440716397)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 15: outside usable sheet (area 442599.99973417254)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 20: outside usable sheet (area 270125.99976020947)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 21: outside usable sheet (area 270125.99984433345)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 22: outside usable sheet (area 270126.0004924706)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 23: outside usable sheet (area 270125.999799865)"
+          }
+        ],
+        "metrics": null
+      }
+    },
+    {
+      "job": "b-albano-nest-mb-given",
+      "status": "invalid",
+      "record": "output/sparrow-benchmark/20261011T214808Z-9f6d49f2/run.json",
+      "sha256": "c1f662723f393b59088c12952005f97a7d75eca0cc2538c23101f85a18afc886",
+      "run": {
+        "run_id": "20261011T214808Z-9f6d49f2",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "b-albano-nest-mb-given",
+        "job_sha256": "c91864a40a561d14461c5c20ad91a2e4560a631d1f5965f5c788b9cfdde49607",
+        "seed": 0,
+        "seconds": 60,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "3b08d746c05fbb8662db636b545c9d55024249a4a852e00f5f4518b72263adf8",
+          "scripts/sparrow_io.py": "5f815313aee5407d4e9918f90fec45d0c57de48d0ed7c9df5e0e897c1929d3ee",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "ec2204e80cb92b37486ed349b01dd9bd539e3169fdf4a423675377f4d0b1682c",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+        },
+        "commit": "aed2c257084c57ef4e2fe4dcccbb15db8e8abcdb",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-11T21:48:09.545287+00:00",
+        "validator_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-benchmark\\release\\nestbolt-sparrow-benchmark.exe",
+          "C:\\DEV\\Nestbolt\\output\\sparrow-benchmark\\20261011T214808Z-9f6d49f2\\input.json",
+          "60",
+          "0",
+          "identical"
+        ],
+        "solver_exit_code": 0,
+        "solver_wall_seconds": 60.125,
+        "native_summary": {
+          "accepted_at_seconds": 59.2906598,
+          "candidates": 86,
+          "error": null,
+          "search_finished_seconds": 60.0760299,
+          "seconds": 60,
+          "seed": 0,
+          "settings": "identical",
+          "status": "completed",
+          "workers": 1
+        },
+        "validator_exit_code": 1,
+        "status": "invalid",
+        "finished_at": "2026-10-11T21:49:10.026533+00:00",
+        "outputs": {
+          "candidates.jsonl": "0cfd51bc35af68a919e47daaef97f2e4d78adc66062939a55228a66f690abcf6",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.json": "4d1bbadfc7aa325e47136cf1e069f5275d5711762e3363dda42ea817c8dbe34b",
+          "job.json": "c91864a40a561d14461c5c20ad91a2e4560a631d1f5965f5c788b9cfdde49607",
+          "layout.json": "2ab9d3bbe1a698a76bb3d48459d7b343d8c188d74fab2b74e33b9c3c89f6f72a",
+          "request.json": "b7e94e14ebbb796d7ed10f17b3ba8f0d0ec9ca152f64c89d3e15e1b96363001a",
+          "solver-result.json": "f2686641df26331714784db36b2422f992123cb19ddf172504ca4abc08b64f87",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "af8d050e60dffb777780834d97d0b50925875516b5ea4b5466372aa9bca1e562",
+          "validation.json": "e35619cd05d971a2bdd8b42907bdd081a2c776b90ef84c107de390c23e55b52e"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 1.0,
+        "violation_count": 14,
+        "violations": [
+          {
+            "code": "containment",
+            "message": "placement 0: outside usable sheet (area 5748390)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 1: outside usable sheet (area 5748390)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 4: outside usable sheet (area 2224799.367455123)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 5: outside usable sheet (area 2815300)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 7: outside usable sheet (area 3044827)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 9: outside usable sheet (area 3044827)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 12: outside usable sheet (area 442600)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 13: outside usable sheet (area 442600)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 14: outside usable sheet (area 442600)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 15: outside usable sheet (area 442600)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 16: outside usable sheet (area 385392.0564)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 18: outside usable sheet (area 616824)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 19: outside usable sheet (area 616824)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 21: outside usable sheet (area 270126)"
+          }
+        ],
+        "metrics": null
+      }
+    },
+    {
+      "job": "b-albano-strip-sheet",
+      "status": "invalid",
+      "record": "output/sparrow-benchmark/20261011T214910Z-7a73a3cf/run.json",
+      "sha256": "ff062ce0969cf18f8452202cd35e987b68f733e08b944b94ac158749b8b4e566",
+      "run": {
+        "run_id": "20261011T214910Z-7a73a3cf",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "b-albano-strip-sheet",
+        "job_sha256": "4cf7cf74854865b1bac6b4487fcfb1ec2b6440c336fe006fd3d451341b959988",
+        "seed": 0,
+        "seconds": 60,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "3b08d746c05fbb8662db636b545c9d55024249a4a852e00f5f4518b72263adf8",
+          "scripts/sparrow_io.py": "5f815313aee5407d4e9918f90fec45d0c57de48d0ed7c9df5e0e897c1929d3ee",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "ec2204e80cb92b37486ed349b01dd9bd539e3169fdf4a423675377f4d0b1682c",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+        },
+        "commit": "aed2c257084c57ef4e2fe4dcccbb15db8e8abcdb",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-11T21:49:11.742769+00:00",
+        "validator_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-benchmark\\release\\nestbolt-sparrow-benchmark.exe",
+          "C:\\DEV\\Nestbolt\\output\\sparrow-benchmark\\20261011T214910Z-7a73a3cf\\input.json",
+          "60",
+          "0",
+          "identical"
+        ],
+        "solver_exit_code": 0,
+        "solver_wall_seconds": 60.17200000000594,
+        "native_summary": {
+          "accepted_at_seconds": 57.5835454,
+          "candidates": 108,
+          "error": null,
+          "search_finished_seconds": 60.129683,
+          "seconds": 60,
+          "seed": 0,
+          "settings": "identical",
+          "status": "completed",
+          "workers": 1
+        },
+        "validator_exit_code": 1,
+        "status": "invalid",
+        "finished_at": "2026-10-11T21:50:12.368950+00:00",
+        "outputs": {
+          "candidates.jsonl": "75a7bdf92fb5af1612bf0d538357006624211e21d061364f347284caa082c313",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.json": "57a880acb87d48be593b7436686b29e4918fcc57e8ad8a645d7ed58a824e9be0",
+          "job.json": "4cf7cf74854865b1bac6b4487fcfb1ec2b6440c336fe006fd3d451341b959988",
+          "layout.json": "36d800bb3169115fed2008a21590b8dcd7aa75c0d571172ce224a6014875535d",
+          "request.json": "f146382b52c573c7e2227f088bb0c9d830f74452559adcf481274ab59baa9ecd",
+          "solver-result.json": "aa8cd8d88d7011e2ce627a5595e756a9794b39f8d8126514b95407fe37bfd473",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "e1857b667acf89763471202327517b10f2c8955ce583dd39303cd360c881710a",
+          "validation.json": "d712d0ab512a7c04793a4d9ad44c5c57e7643db5e961c445544ace85a5e652a1"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "unitless",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 1.0,
+        "violation_count": 13,
+        "violations": [
+          {
+            "code": "containment",
+            "message": "placement 0: outside usable sheet (area 595896.90443877)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 1: outside usable sheet (area 596173.6961662837)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 2: outside usable sheet (area 3224074.5)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 5: outside usable sheet (area 2815300)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 6: outside usable sheet (area 3044827)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 9: outside usable sheet (area 3044827)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 11: outside usable sheet (area 791874)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 14: outside usable sheet (area 442600)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 15: outside usable sheet (area 442600)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 20: outside usable sheet (area 270126)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 21: outside usable sheet (area 270126)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 22: outside usable sheet (area 270126)"
+          },
+          {
+            "code": "containment",
+            "message": "placement 23: outside usable sheet (area 270126)"
+          }
+        ],
+        "metrics": null
+      }
+    }
+  ]
+}

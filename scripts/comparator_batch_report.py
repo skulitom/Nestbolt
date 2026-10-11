@@ -1,4 +1,4 @@
-"""Retain an audited Deepnest/current-Sparrow batch; incomplete matrices cannot pass."""
+"""Retain audited comparator batches; incomplete matrices cannot pass."""
 import argparse
 from datetime import datetime, timezone
 import json
@@ -7,18 +7,20 @@ import uuid
 
 from deepnest_report import audit_record as audit_deepnest
 from sparrow_report import audit_record as audit_sparrow
+from svgnest_report import audit_record as audit_svgnest
 from lbf_report import contained_file
 from dataset_selection import development_cases
 from svgnest import ROOT, digest, write
 
 TOOLS = {'deepnest': ('output/playwright/deepnest', audit_deepnest),
+         'svgnest': ('output/playwright/svgnest', audit_svgnest),
          'sparrow': ('output/sparrow-benchmark', audit_sparrow)}
 
 
 def audit_batch(path, tool):
     directory, audit_record = TOOLS[tool]
     batch = json.loads(path.read_bytes())
-    if batch['dataset'] not in ['S', 'B', 'M'] or (tool == 'deepnest' and batch['dataset'] == 'S'):
+    if batch['dataset'] not in ['S', 'B', 'M'] or (tool != 'sparrow' and batch['dataset'] == 'S'):
         raise ValueError('Unexpected dataset for this runner')
     manifest, cases = development_cases(ROOT, batch['dataset'])
     if digest(manifest) != batch['dataset_manifest_sha256']:

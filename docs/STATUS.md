@@ -62,9 +62,13 @@ every solve. The [three affected SWIM reruns](../benchmarks/results/svgnest-2026
 all pass at 60 seconds, as does an unequal-edge-gap smoke. A fresh full B pilot is
 running; earlier failures remain visible. The first three expanded-setting B
 trials also pass but do not establish a best configuration.
-The first 24 jobs in the fresh straight-path pilot again yield 23 valid layouts;
-the BLAZ1 strip-sheet overlap remains a genuine solver failure. The final eleven
-jobs are running with the same input encoding.
+The fresh straight-path pilot is complete: **34/35 valid layouts**. The
+BLAZ1 strip-sheet overlap remains a genuine solver failure. The
+[final eleven jobs](../benchmarks/results/svgnest-20261011T215224Z-9e1ba193.md)
+all pass. The maker batch now uses the same frozen-case selection and strict
+report audit, excluding all ten held-out jobs. A five-second mini-box input check
+preserves all 1,608 parsed coordinates exactly but has no layout at that budget;
+the first twelve development maker jobs are running at 60 seconds.
 
 The pinned [Deepnest runner](../benchmarks/deepnest/README.md) now imports parts,
 quantities and mixed rectangular stock, runs the native solver with one worker
@@ -93,6 +97,9 @@ job. The [next three box jobs](../benchmarks/results/deepnest-20261011T213559Z-b
 are all valid. The [first garment batch](../benchmarks/results/deepnest-20261011T214603Z-a4686331.md)
 adds two valid layouts and one no-layout outcome at 60 seconds. Garment trials
 are continuing; the first nine maker attempts have seven valid layouts.
+The [next three garment jobs](../benchmarks/results/deepnest-20261011T215136Z-64a5bd6a.md)
+produce no layout at 60 seconds, leaving seven valid layouts in the first twelve
+maker attempts. Mechanical-part trials are continuing.
 
 The [current Sparrow comparator](../benchmarks/sparrow-benchmark/README.md) now calls
 the pinned, unmodified public solver API with one worker and an overall candidate
@@ -105,6 +112,9 @@ are all independently valid. Remaining budget/seed/settings comparisons are pend
 Its [first 30 development maker outcomes](../benchmarks/results/sparrow-20261011T213558Z-4b7cdd15.md)
 include two valid sheet layouts, four invalid layouts (one clearance failure,
 three exceeding one fixed sheet) and 24 unsupported jobs. All are retained.
+The [first three B jobs](../benchmarks/results/sparrow-20261011T215044Z-de7f97d5.md)
+do not fit their fixed sheets and are invalid/unscored. Remaining B trials are
+running; this does not affect the completed historical strip reproduction checks.
 
 The [matrix coverage freeze](../benchmarks/MATRIX.md) fixes all 88 jobs, the
 12-job long-budget subset, development/final seeds and both settings roles before

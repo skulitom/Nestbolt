@@ -44,7 +44,7 @@ class MatrixAuditTests(unittest.TestCase):
             return reporting.audit_batch(path, tool)
 
     def test_every_failed_attempt_is_retained_and_source_tampering_rejected(self):
-        for tool in ['deepnest','sparrow']:
+        for tool in ['deepnest','sparrow','svgnest']:
             with tempfile.TemporaryDirectory() as temp:
                 root = Path(temp); path,batch = self.fixture(root,tool)
                 _,rows = self.check(root,path,batch,tool)

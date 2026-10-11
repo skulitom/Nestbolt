@@ -12,14 +12,16 @@ python scripts/svgnest.py setup
 python scripts/svgnest.py run --job benchmarks/datasets/B/b-fu-nest-mb-given.json --seconds 60 --seed 0
 python scripts/svgnest.py batch --count 24 --offset 0 --seconds 60 --seed 0 --settings identical
 python scripts/svgnest.py batch --count 11 --offset 24 --seconds 60 --seed 0 --settings identical
+python scripts/svgnest.py batch --dataset M --count 12 --offset 0 --seconds 60 --seed 0 --settings identical
 python scripts/svgnest_report.py --batch output/playwright/svgnest-batches/<batch-id>/batch.json
 ```
 
 Setup installs the exact Playwright dependency lock and its matched Chromium
 build. Locally verified with Node 24.19.0, Playwright 1.64.0 and Chromium
 156.0.8078.4 on Windows. Linux affinity support exists but has not yet been run.
-Each batch selects a sorted slice of the 35 frozen B jobs, records the selection
-before solving and stops if adapter sources change. Default batches contain at
+Each batch selects a sorted slice of the 35 frozen B jobs or 30 development M jobs,
+records the selection before solving and stops if adapter sources change. All ten
+held-out M jobs are excluded. Default batches contain at
 most 24 sequential attempts. No unsupported or failed attempt is discarded.
 Use the second configuration with `--settings expanded`. Neither configuration
 has been established as the best setting; the complete M1 matrix is pending.
@@ -41,7 +43,10 @@ native parsed vertices before cleaning/search and refuses a changed coordinate.
 The [unequal-edge-gap smoke](../results/svgnest-input-v2-smoke-20261011.json) and
 [three affected SWIM jobs at 60 seconds](../results/svgnest-20261011T211052Z-d34e7f41.md)
 all pass independent validation with this encoding. These are fresh searches;
-the old failures remain unchanged. A fresh complete B pilot is in progress.
+the old failures remain unchanged. The fresh complete B pilot has 34/35 valid
+layouts: [first 24](../results/svgnest-20261011T213921Z-83f5b1f3.md) and
+[last eleven](../results/svgnest-20261011T215224Z-9e1ba193.md). BLAZ1 strip-sheet
+still has a genuine overlap. This is one untuned configuration and one seed.
 
 Output decoder v2 reads the exported `translate(...) rotate(...)` text directly
 in double precision. Chromium's `SVGMatrix` rounded native translation values to
