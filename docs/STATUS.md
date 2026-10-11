@@ -2,6 +2,12 @@
 
 M0 is in progress. **Gated completion: 0%.** Only finished milestones count.
 
+Groundwork committed as `66a3bab`. The durable goal covers the complete v1 plan.
+The historical Sparrow build and two five-second adapter checks pass. All 1,300
+archived results have been checked against the paper and a 39-run native quality
+reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
+Full-budget results are still pending; no reproduction pass is claimed.
+
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
@@ -14,7 +20,8 @@ M0 is in progress. **Gated completion: 0%.** Only finished milestones count.
 ## Next work, in order
 
 1. Freeze the exact published Sparrow runs, historical source, toolchain, seed and
-   expected lengths; reproduce within 1% and attach evidence to BENCHMARKS.md.
+   expected lengths (done); run the frozen matrix, reproduce within 1% and attach
+   evidence to BENCHMARKS.md.
 2. Resolve mixed-stock scoring and deterministic search budget semantics before
    defining canonical job/result schemas or freezing acceptance benchmarks.
 3. Implement the independent validator and adapters, then the licensed S/B/M

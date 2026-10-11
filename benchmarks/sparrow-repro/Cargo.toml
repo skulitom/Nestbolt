@@ -1,0 +1,21 @@
+[package]
+name = "nestbolt-sparrow-repro"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MPL-2.0"
+publish = false
+
+# Historical compiler and dependency graph are isolated from the product.
+[workspace]
+
+[dependencies]
+anyhow = "1.0"
+jagua-rs = { git = "https://github.com/JeroenGar/jagua-rs.git", rev = "6e47329e4fd8dfe014428bd9045db132d26d35c9", default-features = false, features = ["spp"] }
+rand = { version = "0.9", features = ["small_rng"] }
+serde_json = "1.0"
+sparrow = { git = "https://github.com/JeroenGar/sparrow.git", rev = "7f069e9d146f5599d7ba69a47ab4e8097c56e54f", features = ["only_final_svg", "simd"] }
+
+[profile.release]
+opt-level = 3
+lto = "fat"

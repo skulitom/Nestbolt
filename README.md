@@ -44,6 +44,10 @@ The first smoke run downloads and builds a pinned Sparrow checkout. It runs two
 five-second jobs sequentially and saves logs and provenance under `output/runs/`.
 It checks executable integration only. Full quality benchmarks remain local.
 
+The separate [M0 reproduction](benchmarks/sparrow-repro/README.md) freezes the
+historical Sparrow version, all 1,300 published lengths and a 39-run native check.
+Its full-budget results are pending.
+
 ## Use from agents
 
 MCP is a **v1 requirement**, including agent-readable job/result schemas, progress,
@@ -86,3 +90,4 @@ Nestbolt's original code and generated fixtures are [MIT](LICENSE). jagua-rs is
 an unmodified MPL-2.0 dependency. [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) records
 the locked dependency graph and supplied licence texts. Changes to upstream
 geometry code should be contributed upstream. See [CONTRIBUTING.md](CONTRIBUTING.md).
+The isolated historical benchmark adapter is MPL-2.0, with its own notices.

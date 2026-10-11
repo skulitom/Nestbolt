@@ -13,11 +13,13 @@ def main():
     args = parser.parse_args()
     commands = [
         ["cargo", "fmt", "--all", "--check"],
+        ["cargo", "fmt", "--manifest-path", "benchmarks/sparrow-repro/Cargo.toml", "--check"],
         ["cargo", "clippy", "--workspace", "--all-targets", "--locked", "--", "-D", "warnings"],
         ["cargo", "test", "--workspace", "--locked"],
         ["cargo", "build", "-p", "nestbolt-wasm", "--target", "wasm32-unknown-unknown", "--locked"],
         [sys.executable, "scripts/notices.py", "--check"],
         [sys.executable, "scripts/smoke.py", "--verify-only"],
+        [sys.executable, "scripts/test_m0.py"],
     ]
     if args.smoke:
         commands.append([sys.executable, "scripts/smoke.py"])
