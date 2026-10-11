@@ -75,6 +75,19 @@ class SvgNestEvidenceTests(unittest.TestCase):
             path,checksum=self.make_record(Path(temp),controls)
             audit_record(path,checksum)
 
+    def test_measured_double_rounding_passes_but_float32_scale_error_does_not(self):
+        for error,valid in [(0.0625,True),(9,False),(float('nan'),False)]:
+            with tempfile.TemporaryDirectory() as temp:
+                def controls(run,raw):
+                    run['input_encoding']='linear_svg_paths_v2'
+                    run['input_fidelity']=raw['input_fidelity']={'encoding':'linear_svg_paths_v2','coordinates':8,
+                        'maximum_absolute_error':1.3877787807814457e-17,'maximum_scaled_error':error,
+                        'scaled_error_limit':8,'error_scale':'Number.EPSILON * max(1, abs(source_coordinate))'}
+                path,checksum=self.make_record(Path(temp),controls)
+                if valid:audit_record(path,checksum)
+                else:
+                    with self.assertRaisesRegex(ValueError,'rounding allowance'):audit_record(path,checksum)
+
 
 if __name__ == '__main__':
     unittest.main()

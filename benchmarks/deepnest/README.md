@@ -31,6 +31,13 @@ refused pending equivalent controls.
 
 ## Current verification and remaining work
 
+The source-input guard now uses the parsed straight path before upstream
+`polygonify` removes near-closing vertices within its 0.01-unit tolerance. This
+keeps source-import precision distinct from native cleaning. It records the
+removed-vertex count and leaves all upstream code/settings unchanged. The
+[gear diagnostic and raw-path smoke](../results/deepnest-gear-parser-20261011.json)
+retain both attempts; original geometry still decides final layout validity.
+
 The first five-second FU result is independently valid. The native spacing trial
 demonstrates a hole-clearance issue: with a requested 4 mm gap the insert lands
 about 2 mm from the frame's inner edge, so the checker rejects it. The separately

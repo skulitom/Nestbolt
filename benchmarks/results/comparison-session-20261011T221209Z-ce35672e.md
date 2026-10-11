@@ -1,0 +1,162 @@
+# Development comparison session
+
+Development comparison only. Every declared seed participates: failed outcomes rank after valid scores; missing seeds prevent comparison. Failure-valued statistics have no invented numeric score. Valid-only statistics are diagnostic. No final quality gate is established.
+
+Session `lbf-development-20261011`: 450/450 attempts recorded. All failures and missing attempts remain visible.
+
+| Tool | Job | Budget | Settings role / configuration | Outcomes | All seeds valid | Comparison median | Comparison Q1–Q3 |
+| --- | --- | ---: | --- | --- | --- | ---: | --- |
+| lbf | b-albano-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 3.49212536 | 3.21734737–3.50396303 |
+| lbf | b-albano-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 3.49212536 | 3.21734737–3.50396303 |
+| lbf | b-albano-nest-mb-free | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 3.49212536 | 3.21734737–3.50396303 |
+| lbf | b-albano-nest-mb-free | 300 s | identical_constraints / identical | valid: 3 | yes | 3.49212536 | 3.21734737–3.50396303 |
+| lbf | b-albano-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.95053461 | 2.94659342–3.16040866 |
+| lbf | b-albano-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 2.95053461 | 2.94659342–3.16040866 |
+| lbf | b-albano-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.99994171 | 1.99856541–2.16961812 |
+| lbf | b-albano-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 1.99994171 | 1.99856541–2.16961812 |
+| lbf | b-blaz1-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 13.56719440 | 13.11955380–14.06415733 |
+| lbf | b-blaz1-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 13.56719440 | 13.11955380–14.06415733 |
+| lbf | b-blaz1-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 12.66670347 | 12.16678780–12.66677660 |
+| lbf | b-blaz1-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 12.66670347 | 12.16678780–12.66677660 |
+| lbf | b-blaz1-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 3.80062773 | 3.80042773–3.83385633 |
+| lbf | b-blaz1-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 3.80062773 | 3.80042773–3.83385633 |
+| lbf | b-dagli-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.16695853 | 1.12518133–1.36734554 |
+| lbf | b-dagli-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 1.16695853 | 1.12518133–1.36734554 |
+| lbf | b-fu-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 4.67173995 | 4.63971233–4.73563810 |
+| lbf | b-fu-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 4.67173995 | 4.63971233–4.73563810 |
+| lbf | b-fu-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 3.95262843 | 3.95253276–4.21446929 |
+| lbf | b-fu-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 3.95262843 | 3.95253276–4.21446929 |
+| lbf | b-fu-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.90993411 | 1.90250718–1.93051355 |
+| lbf | b-fu-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 1.90993411 | 1.90250718–1.93051355 |
+| lbf | b-fu-strip-sheet | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 1.90993411 | 1.90250718–1.93051355 |
+| lbf | b-fu-strip-sheet | 300 s | identical_constraints / identical | valid: 3 | yes | 1.90993411 | 1.90250718–1.93051355 |
+| lbf | b-jakobs1-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 4.74455492 | 4.66801013–4.83672517 |
+| lbf | b-jakobs1-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 4.74455492 | 4.66801013–4.83672517 |
+| lbf | b-jakobs1-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 4.50033075 | 4.41704037–4.66745267 |
+| lbf | b-jakobs1-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 4.50033075 | 4.41704037–4.66745267 |
+| lbf | b-jakobs1-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 0.97662345 | 0.97619577–0.98829357 |
+| lbf | b-jakobs1-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 0.97662345 | 0.97619577–0.98829357 |
+| lbf | b-jakobs2-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 4.25155179 | 4.10664956–4.25367483 |
+| lbf | b-jakobs2-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 4.25155179 | 4.10664956–4.25367483 |
+| lbf | b-jakobs2-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 4.25014512 | 4.08345442–4.29206006 |
+| lbf | b-jakobs2-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 4.25014512 | 4.08345442–4.29206006 |
+| lbf | b-jakobs2-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 0.98709500 | 0.98035519–0.99351167 |
+| lbf | b-jakobs2-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 0.98709500 | 0.98035519–0.99351167 |
+| lbf | b-jakobs2-strip-sheet | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 0.98709500 | 0.98035519–0.99351167 |
+| lbf | b-jakobs2-strip-sheet | 300 s | identical_constraints / identical | valid: 3 | yes | 0.98709500 | 0.98035519–0.99351167 |
+| lbf | b-mao-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.28834728 | 2.24094484–2.64100039 |
+| lbf | b-mao-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 2.28834728 | 2.24094484–2.64100039 |
+| lbf | b-mao-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.52185889 | 2.51950030–2.52651939 |
+| lbf | b-mao-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 2.52185889 | 2.51950030–2.52651939 |
+| lbf | b-mao-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 0.99997988 | 0.99274249–0.99998984 |
+| lbf | b-mao-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 0.99997988 | 0.99274249–0.99998984 |
+| lbf | b-marques-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.58760346 | 1.56341513–1.64020572 |
+| lbf | b-marques-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 1.58760346 | 1.56341513–1.64020572 |
+| lbf | b-shapes0-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 7.84321410 | 7.82679093–7.87312305 |
+| lbf | b-shapes0-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 7.84321410 | 7.82679093–7.87312305 |
+| lbf | b-shapes0-nest-mb-free | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 7.84321410 | 7.82679093–7.87312305 |
+| lbf | b-shapes0-nest-mb-free | 300 s | identical_constraints / identical | valid: 3 | yes | 7.84321410 | 7.82679093–7.87312305 |
+| lbf | b-shapes0-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 7.85823090 | 7.85805098–7.90538457 |
+| lbf | b-shapes0-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 7.85823090 | 7.85805098–7.90538457 |
+| lbf | b-shapes0-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.95108195 | 2.95089660–2.95108681 |
+| lbf | b-shapes0-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 2.95108195 | 2.95089660–2.95108681 |
+| lbf | b-shapes1-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 7.84321410 | 7.82679093–7.87312305 |
+| lbf | b-shapes1-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 7.84321410 | 7.82679093–7.87312305 |
+| lbf | b-shapes1-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 8.28611933 | 8.28598457–8.28637464 |
+| lbf | b-shapes1-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 8.28611933 | 8.28598457–8.28637464 |
+| lbf | b-shapes1-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.97624082 | 2.97612558–2.97672266 |
+| lbf | b-shapes1-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 2.97624082 | 2.97612558–2.97672266 |
+| lbf | b-shirts-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 7.98567149 | 7.98563731–8.09927962 |
+| lbf | b-shirts-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 7.98567149 | 7.98563731–8.09927962 |
+| lbf | b-shirts-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 8.77108764 | 8.71915762–8.82206023 |
+| lbf | b-shirts-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 8.77108764 | 8.71915762–8.82206023 |
+| lbf | b-shirts-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.99988175 | 2.98871946–2.99989535 |
+| lbf | b-shirts-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 2.99988175 | 2.98871946–2.99989535 |
+| lbf | b-swim-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 5.93674763 | 5.78926859–5.94796142 |
+| lbf | b-swim-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 5.96541239 | 5.93649606–5.96709681 |
+| lbf | b-swim-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 5.77659932 | 5.54336848–5.81218411 |
+| lbf | b-swim-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 5.66738327 | 5.56725813–5.74759119 |
+| lbf | b-swim-nest-mb-given | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 5.77659932 | 5.54336848–5.81218411 |
+| lbf | b-swim-nest-mb-given | 300 s | identical_constraints / identical | valid: 3 | yes | 5.66738327 | 5.56725813–5.74759119 |
+| lbf | b-swim-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.99553247 | 1.99443261–1.99774094 |
+| lbf | b-swim-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 1.99553247 | 1.99443261–1.99774633 |
+| lbf | b-trousers-nest-mb-free | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 3.71626760 | 3.61428202–3.72795456 |
+| lbf | b-trousers-nest-mb-free | 60 s | identical_constraints / identical | valid: 3 | yes | 3.71626760 | 3.61428202–3.72795456 |
+| lbf | b-trousers-nest-mb-given | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 3.51172784 | 3.43763676–3.52874543 |
+| lbf | b-trousers-nest-mb-given | 60 s | identical_constraints / identical | valid: 3 | yes | 3.51172784 | 3.43763676–3.52874543 |
+| lbf | b-trousers-nest-mb-given | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 3.51172784 | 3.43763676–3.52874543 |
+| lbf | b-trousers-nest-mb-given | 300 s | identical_constraints / identical | valid: 3 | yes | 3.51172784 | 3.43763676–3.52874543 |
+| lbf | b-trousers-strip-sheet | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 2.99674481 | 2.99013361–2.99682766 |
+| lbf | b-trousers-strip-sheet | 60 s | identical_constraints / identical | valid: 3 | yes | 2.99674481 | 2.99013361–2.99682766 |
+| lbf | m-box-batch-500 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-batch-500 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-desktop | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-desktop | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-long | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-long | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-mini | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-mini | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-mini | 300 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-mini | 300 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-storage | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-storage | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-tool | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-box-tool | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-garment-bruce-1 | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 0.96774423 | 0.96757841–0.97919595 |
+| lbf | m-garment-bruce-1 | 60 s | identical_constraints / identical | valid: 3 | yes | 0.96774423 | 0.96757841–0.97919595 |
+| lbf | m-garment-bruce-2 | 60 s | best_native_settings / upstream-default | invalid: 1, valid: 2 | no | 0.99989250 | 0.99868805–failed |
+| lbf | m-garment-bruce-2 | 60 s | identical_constraints / identical | invalid: 2, valid: 1 | no | failed | failed–failed |
+| lbf | m-garment-bruce-3 | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.56601635 | 1.56494776–1.56943230 |
+| lbf | m-garment-bruce-3 | 60 s | identical_constraints / identical | invalid: 2, valid: 1 | no | failed | failed–failed |
+| lbf | m-garment-teagan-1 | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 0.99992103 | 0.99990523–0.99994806 |
+| lbf | m-garment-teagan-1 | 60 s | identical_constraints / identical | valid: 3 | yes | 0.99984392 | 0.99604717–0.99989250 |
+| lbf | m-garment-teagan-2 | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 1.99989263 | 1.99747872–1.99990919 |
+| lbf | m-garment-teagan-2 | 60 s | identical_constraints / identical | valid: 3 | yes | 1.99980643 | 1.99666001–1.99987998 |
+| lbf | m-garment-teagan-2 | 300 s | best_native_settings / upstream-default | valid: 3 | yes | 1.99989263 | 1.99747872–1.99990919 |
+| lbf | m-garment-teagan-2 | 300 s | identical_constraints / identical | valid: 3 | yes | 1.99980643 | 1.99666001–1.99987998 |
+| lbf | m-garment-teagan-3 | 60 s | best_native_settings / upstream-default | valid: 3 | yes | 4.98212257 | 4.97480907–4.99099204 |
+| lbf | m-garment-teagan-3 | 60 s | identical_constraints / identical | valid: 3 | yes | 4.99951783 | 4.99101362–4.99966569 |
+| lbf | m-mechanical-batch-1000 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-batch-1000 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-cog-washers | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-cog-washers | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-defective-stock | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-defective-stock | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-defective-stock | 300 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-defective-stock | 300 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-frame-inserts | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-frame-inserts | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-large-plates | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-large-plates | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-mixed-stock | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-mixed-stock | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-mixed-stock | 300 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-mixed-stock | 300 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-mounting-kit | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-mounting-kit | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-panel-hardware | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-panel-hardware | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-remnant-kit | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-remnant-kit | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-small-brackets | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-mechanical-small-brackets | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-1 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-1 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-2 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-2 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-3 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-3 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-4 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-public-gear-4 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-1 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-1 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-2 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-2 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-3 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-3 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-4 | 60 s | best_native_settings / upstream-default | unsupported: 3 | no | failed | failed–failed |
+| lbf | m-sign-4 | 60 s | identical_constraints / identical | unsupported: 3 | no | failed | failed–failed |
+
+Scores are normalized material for B/M and original-polygon strip length for S; lower is better. Missing seeds prevent comparison. A failed median cannot produce a percentage reduction. Valid-only diagnostics are retained in JSON, separately from the comparison statistics. See [the frozen statistics policy](../STATISTICS.md).
+
+[Full precision, frozen schedule and audited attempt records](comparison-session-20261011T221209Z-ce35672e.json).

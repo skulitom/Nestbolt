@@ -117,7 +117,7 @@ try {
     if (window.DeepNest.parts.length !== 0) throw new Error('Nonempty isolated profile at import')
     DeepNest.config(prepared.config)
     const evidence = []
-    let coordinates = 0, contours = 0, maximumAbsoluteError = 0, maximumScaledError = 0
+    let coordinates = 0, contours = 0, maximumAbsoluteError = 0, maximumScaledError = 0, nativeClosingVerticesRemoved = 0
     const trimClosed = ring => {
       const points = ring.slice()
       while(points.length > 1 && points[0][0] === points.at(-1)[0] && points[0][1] === points.at(-1)[1]) points.pop()
@@ -148,12 +148,31 @@ try {
       SvgParser.load(null, source.svg, DeepNest.config().scale, undefined)
       const parsed = SvgParser.cleanInput(false)
       const actual = Array.from(parsed.children).filter(el => SvgParser.polygonElements.includes(el.tagName))
-        .map(el => trimClosed(SvgParser.polygonify(el).map(p => [p.x,p.y])))
+        .map(el => {
+          if(el.tagName !== 'path') throw new Error('Expected original straight-path input')
+          // polygonify additionally removes near-closing vertices within 0.01
+          // native units. Check raw path parsing first; that later cleanup is
+          // upstream algorithm behavior, measured against original geometry.
+          const raw = trimClosed(SvgParser.polygonifyPath(el).map(p => [p.x,p.y]))
+          nativeClosingVerticesRemoved += Math.max(0,raw.length-SvgParser.polygonify(el).length)
+          return raw
+        })
       if (actual.length !== source.source_rings.length) throw new Error('Native parser changed input contour count')
       for (const expected of source.source_rings.map(trimClosed)) {
         const errors = actual.map(ring => ringError(expected, ring))
         const index = errors.findIndex(error => error !== null)
-        if(index < 0) throw new Error(`Native parser changed source coordinates: source ${source.source}; expected ${JSON.stringify(expected.slice(0,8))}; observed ${JSON.stringify(actual.map(r => r.slice(0,8)))}`)
+        if(index < 0) {
+          const diagnostic = actual.map(ring => {
+            let worst = null, maximum = -1
+            for(let i=0;i<Math.min(expected.length,ring.length);i++)for(let axis=0;axis<2;axis++) {
+              const scaled=Math.abs(expected[i][axis]-ring[i][axis])/(Number.EPSILON*Math.max(1,Math.abs(expected[i][axis])))
+              if(scaled>maximum){maximum=scaled;worst={i,axis,expected:expected[i][axis],observed:ring[i][axis]}}
+            }
+            return {expected_vertices:expected.length,observed_vertices:ring.length,maximum_scaled_error:maximum,worst,
+              expected_last:expected.at(-1),observed_last:ring.at(-1)}
+          })
+          throw new Error(`Native parser changed source coordinates: source ${source.source}; ${JSON.stringify(diagnostic)}`)
+        }
         maximumAbsoluteError=Math.max(maximumAbsoluteError,errors[index].absolute)
         maximumScaledError=Math.max(maximumScaledError,errors[index].relative)
         actual.splice(index,1)
@@ -173,7 +192,8 @@ try {
     return { inputs: evidence, config: DeepNest.config(), seed: window.nestbenchSeed,
       input_fidelity: { encoding: prepared.input_encoding, contours, coordinates,
         maximum_absolute_error: maximumAbsoluteError, maximum_scaled_error: maximumScaledError,
-        scaled_error_limit: 8, error_scale: 'Number.EPSILON * max(1, abs(source_coordinate))' } }
+        scaled_error_limit: 8, error_scale: 'Number.EPSILON * max(1, abs(source_coordinate))',
+        stage: 'parsed_path_before_closing_point_cleanup', native_closing_vertices_removed: nativeClosingVerticesRemoved } }
   }, request.prepared)
   result.input_fidelity = result.imported.input_fidelity
   if (result.imported.seed !== request.seed || result.imported.config.threads !== 1) throw new Error('Main-window seed/configuration control failed')

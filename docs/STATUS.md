@@ -34,6 +34,13 @@ defect, margin and spacing smoke also passes; see [LBF method](../benchmarks/lbf
 The [first development maker batch](../benchmarks/results/lbf-20261011T212716Z-c9c2fc4b.md)
 retains 60 attempts: eleven valid garment layouts, one clearance failure and 48
 unsupported outcomes. No held-out optimiser runs are included.
+The [full LBF development queue](../benchmarks/results/comparison-session-20261011T221209Z-ce35672e.md)
+is now complete: **450/450 attempts**, with 283 valid, five invalid and 162
+unsupported outcomes. It includes both configurations, all three development
+seeds and the frozen 60/300-second coverage. There are 94 finite comparison
+medians among 150 configuration/job/budget groups; every failed and unsupported
+seed remains visible. This completes the LBF component, not the competitor gap
+or M1. The bounded controller finished its final 420 attempts in 507 seconds.
 
 The pinned [SVGnest runner](../benchmarks/svgnest/README.md) now automates local
 Chromium, bounds solve time, enforces a single-core process tree, checks original
@@ -66,6 +73,16 @@ all pass. The maker batch now uses the same frozen-case selection and strict
 report audit, excluding all ten held-out jobs. A five-second mini-box input check
 preserves all 1,608 parsed coordinates exactly but has no layout at that budget;
 the first twelve development maker jobs are running at 60 seconds.
+That [initial maker batch](../benchmarks/results/svgnest-20261011T220515Z-53a4946e.md)
+finished with six no-layout outcomes and six parser-check failures. The latter
+were isolated to double-precision decimal rounding; a bound of eight scaled
+double-rounding units accepts the measured 1.39e-17 mm difference while rejecting
+float32 loss. The [six garment reruns](../benchmarks/results/svgnest-20261011T221540Z-937f797b.md)
+reach native solving but have no layout at 60 seconds. All attempts remain.
+Input verification now reads parsed path segments before native near-closing-point
+cleanup; [gear and FU smokes](../benchmarks/results/svgnest-closing-point-20261011.json)
+prove complete input coordinates and record removed vertices separately. FU's
+final layout is valid. Original-job validation is unchanged.
 
 The pinned [Deepnest runner](../benchmarks/deepnest/README.md) now imports parts,
 quantities and mixed rectangular stock, runs the native solver with one worker
@@ -100,6 +117,14 @@ maker attempts. Mechanical-part trials are continuing.
 The [first mechanical batch](../benchmarks/results/deepnest-20261011T215752Z-30b81baa.md)
 adds one no-layout outcome and two clearance failures, all unscored. The first
 fifteen maker attempts therefore have seven valid layouts; the next three are running.
+The next [three](../benchmarks/results/deepnest-20261011T220219Z-3edeb335.md),
+[three](../benchmarks/results/deepnest-20261011T220730Z-5e7c70c2.md) and
+[three](../benchmarks/results/deepnest-20261011T221103Z-e48b455f.md) retain the first
+24 maker outcomes: seven valid, eight invalid, seven no-layout and two parser-check
+failures. The latter came from checking after native closing-point cleanup.
+[Raw-path verification](../benchmarks/results/deepnest-gear-parser-20261011.json)
+now confirms every input vertex before that unchanged cleanup; fresh gear trials
+are running. Original geometry still determines every score.
 
 The [current Sparrow comparator](../benchmarks/sparrow-benchmark/README.md) now calls
 the pinned, unmodified public solver API with one worker and an overall candidate
@@ -132,6 +157,10 @@ dataset rebuilding and public results remain pending.
 Audited partial-session tables now retain every missing/failed seed and show
 valid-only medians and quartiles. Four additional tests pass; the actual
 three-attempt proof has no eligible comparison rows, as expected.
+The subsequent [statistics policy](../benchmarks/STATISTICS.md) includes failed
+seeds as failure-valued observations after all valid scores. Missing seeds prevent
+a comparison; finite comparison medians never substitute valid-only diagnostics.
+Six aggregation and two bounded-controller tests pass.
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
@@ -184,7 +213,8 @@ On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clipp
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
 four additional stock-conversion tests, dependency-notice/schema consistency,
-sixty Python harness/conversion/evidence tests (plus four later aggregation tests),
+sixty Python harness/conversion/evidence tests at that checkpoint; a subsequent
+Python-only run passes all **69** current harness/conversion/evidence tests,
 88 source-contract checks and fixture checksums. Four additional curve-conversion
 tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).

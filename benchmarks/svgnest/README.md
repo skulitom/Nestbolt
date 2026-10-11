@@ -39,7 +39,18 @@ Input encoding v2 uses straight `M/L/Z` paths, with 17-digit coordinates. A real
 browser [parser probe](../results/svgnest-input-precision-20261011.json) found that
 SVG polygon objects rounded the SWIM gallery by up to 0.0004805625 source units;
 paths preserved all 1,928 coordinates exactly. Every new solve checks the actual
-native parsed vertices before cleaning/search and refuses a changed coordinate.
+native parsed vertices before cleaning/search. Subsequent garment trials measured
+a decimal-parser rounding difference of 1.3877787807814457e-17 mm. The guard now
+allows at most eight units of `Number.EPSILON * max(1, abs(source coordinate))`,
+records maximum absolute/scaled errors and continues to reject float32 precision
+loss. The independent original-job geometry checker is unchanged. Both the
+[strict diagnostic and bounded-rounding smoke](../results/svgnest-maker-rounding-20261011.json)
+are retained; neither found a layout within its five-second preparation budget.
+The guard reads original parsed path segments before native near-closing-point
+cleanup and records how many vertices that cleanup removes. The
+[gear and FU checks](../results/svgnest-closing-point-20261011.json) confirm all
+77,208 gear coordinates reach the parser and that FU still produces an
+independently valid layout. The upstream solver's cleanup is not changed.
 The [unequal-edge-gap smoke](../results/svgnest-input-v2-smoke-20261011.json) and
 [three affected SWIM jobs at 60 seconds](../results/svgnest-20261011T211052Z-d34e7f41.md)
 all pass independent validation with this encoding. These are fresh searches;

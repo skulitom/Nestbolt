@@ -1,5 +1,11 @@
 # Pinned jagua-rs LBF baseline
 
+The [full development queue](../results/comparison-session-20261011T221209Z-ce35672e.md)
+has completed all 450 declared B/M attempts: 283 valid, five invalid and 162
+unsupported. Both configurations, seeds 0/1/2 and the frozen 60/300-second coverage
+are retained. No held-out optimiser run is included. LBF remains a constructive
+baseline; the complete competitor gap and M1 are not established by this table.
+
 This runs Jeroen Gardeyn's **unmodified** one-pass Left Bottom Fill implementation
 from [jagua-rs revision 9e00fd8](https://github.com/JeroenGar/jagua-rs/tree/9e00fd867be0fc493002aea68a1c6613d5b833d6).
 The upstream workspace and its committed dependency lock are pinned in `tool.json`.

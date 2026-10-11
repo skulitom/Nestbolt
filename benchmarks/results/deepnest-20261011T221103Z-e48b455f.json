@@ -1,0 +1,749 @@
+{
+  "recorded_at": "2026-10-11T22:11:03.187835+00:00",
+  "scope": "Provisional deepnest pilot: 3 M jobs, one configuration and seed; no milestone or quality gate.",
+  "batch_sha256": "0ba511e26280592d2e3d013aa5b6ee6a1949d4afdb7ce222c86abba2610e6b8a",
+  "batch": {
+    "batch_id": "20261011T220731Z-4c1f576b",
+    "tool": "deepnest-next",
+    "dataset": "M",
+    "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+    "cases": [
+      {
+        "category": "mechanical",
+        "held_out": false,
+        "source": "procedural",
+        "parameters": {
+          "linear_scale": 1,
+          "base_copies": 20,
+          "cog_teeth": 12
+        },
+        "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+        "id": "m-mechanical-small-brackets",
+        "set": "M",
+        "units": "mm",
+        "part_count": 98,
+        "files": {
+          "maker-assets/m-mechanical-small-brackets/curves.json": "2ddf95d3e5fde6f8284f23065c9dd35f0f46b7de8d09c1e96e887c53102d63aa",
+          "M/m-mechanical-small-brackets.json": "f9bf29e58bec0c81f41a24055d73cf1fc753c8a6167effbc12790937127a19dd",
+          "maker-assets/m-mechanical-small-brackets/parts.svg": "2222e61e15fe6971242208fc948fc71a3230ff13870b92881e855c3e81959aa3"
+        },
+        "path": "M/m-mechanical-small-brackets.json",
+        "sha256": "f9bf29e58bec0c81f41a24055d73cf1fc753c8a6167effbc12790937127a19dd"
+      },
+      {
+        "category": "public-art",
+        "held_out": false,
+        "source": "openclipart-gear",
+        "parameters": {
+          "maximum_dimension_mm": 50,
+          "secondary_scale": 0.65,
+          "copies_each": 20
+        },
+        "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+        "id": "m-public-gear-1",
+        "set": "M",
+        "units": "mm",
+        "part_count": 40,
+        "files": {
+          "maker-assets/m-public-gear-1/curves.json": "9f9ba1193ef7bbe5c333e052d154fc41a750aea1944a69a9d36bae79e6608caa",
+          "M/m-public-gear-1.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+          "maker-assets/m-public-gear-1/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+          "maker-assets/m-public-gear-1/parts.svg": "cf6e485956509bc00c3aa733306270d513e5c89563a6328c3fa3b2e725655616"
+        },
+        "path": "M/m-public-gear-1.json",
+        "sha256": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671"
+      },
+      {
+        "category": "public-art",
+        "held_out": false,
+        "source": "openclipart-gear",
+        "parameters": {
+          "maximum_dimension_mm": 90,
+          "secondary_scale": 0.65,
+          "copies_each": 24
+        },
+        "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+        "id": "m-public-gear-2",
+        "set": "M",
+        "units": "mm",
+        "part_count": 48,
+        "files": {
+          "maker-assets/m-public-gear-2/curves.json": "13a0b0880f59e8929dd1d29dbeaeac9232c0a538ff64b7d715a10c738d1a7218",
+          "M/m-public-gear-2.json": "ab924a1d3503bc3e650170a00801257d123a40a598003101c5b5d9f7f357b0f6",
+          "maker-assets/m-public-gear-2/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+          "maker-assets/m-public-gear-2/parts.svg": "98626a707de0a6fed0179a8a70721d44f9d21484c2a825bd370096e4c32e9d9e"
+        },
+        "path": "M/m-public-gear-2.json",
+        "sha256": "ab924a1d3503bc3e650170a00801257d123a40a598003101c5b5d9f7f357b0f6"
+      }
+    ],
+    "sources": {
+      "scripts/deepnest.py": "95611f22bb4728477ff8364dca649846c9670ebc65d413090e4cd410618585ef",
+      "scripts/deepnest_io.py": "b2da81051067c1f06bbdfba12bb07041188ca2eb154eb0527ea899081efadaac",
+      "scripts/svgnest.py": "82e759d02ae1da307acb995e92e4949147cb11a09ebfa34ca854a7132d64c9a9",
+      "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+      "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+      "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+      "benchmarks/deepnest/tool.json": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
+      "benchmarks/browser/deepnest.mjs": "e16d2370ce535095823aca515169296fd29def01b71cd1203f90a9e33ff0ece6",
+      "benchmarks/browser/deepnest-preload.cjs": "7060538ec59a54425f60cef7f6a5be128afd12e8e18d6f9be3e63d43e10bb6c0",
+      "benchmarks/browser/deepnest-bootstrap.cjs": "e7ef12810d26d3d9d5e919c22b14d5e897fa99245148137af3f052319b05d975",
+      "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+      "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+      "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+      "benchmarks/browser/cpu-tree-job.ps1": "9383013823a4fd9c52f539e0dd1ee5eee466cb1e8dfa468208f7a9b5acfccd22",
+      "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+      "scripts/stock_inputs.py": "d50235f05b836a9d6ab7d88b25283cd77fe25a6a05178ec380648fb5cad710af",
+      "crates/validator/examples/stock_adapter.rs": "8a5b68963bc68a31df92f8fc62fb977846f05f6f93d3af8f2001ebcd2807dfb4",
+      "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+    },
+    "seconds": 60,
+    "seed": 0,
+    "settings": "identical",
+    "axis": "y",
+    "complete": true,
+    "runs": [
+      {
+        "job": "m-mechanical-small-brackets",
+        "status": "invalid",
+        "record": "output/playwright/deepnest/20261011T220732Z-2ddb572a/run.json",
+        "sha256": "c4c5ee87ad0fe72a10b72303c306bad29cec8b875ffbc2256474b7875dcdf7b4"
+      },
+      {
+        "job": "m-public-gear-1",
+        "status": "failed",
+        "record": "output/playwright/deepnest/20261011T220844Z-f0e038fa/run.json",
+        "sha256": "33c02d834121476f501854ff8ce78a16adfb60859481d071f48acffa4db3efc3"
+      },
+      {
+        "job": "m-public-gear-2",
+        "status": "failed",
+        "record": "output/playwright/deepnest/20261011T220852Z-1e57677f/run.json",
+        "sha256": "a51d6e5ad5dc3005f9aa564d8198864ac254f5f9cae867ac86fc6de66f27b816"
+      }
+    ],
+    "valid_runs": 0
+  },
+  "rows": [
+    {
+      "job": "m-mechanical-small-brackets",
+      "status": "invalid",
+      "record": "output/playwright/deepnest/20261011T220732Z-2ddb572a/run.json",
+      "sha256": "c4c5ee87ad0fe72a10b72303c306bad29cec8b875ffbc2256474b7875dcdf7b4",
+      "run": {
+        "tool": "deepnest-next",
+        "revision": "1e7ba6e2382557f337ad481ca3251fc22032ca0f",
+        "run_id": "20261011T220732Z-2ddb572a",
+        "job": "m-mechanical-small-brackets",
+        "job_sha256": "f9bf29e58bec0c81f41a24055d73cf1fc753c8a6167effbc12790937127a19dd",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:07:32.434337+00:00",
+        "commit": "1846f866c34160c7de70bbec7472bc84dca25659",
+        "dirty": true,
+        "platform": "Windows-11-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/deepnest.py": "95611f22bb4728477ff8364dca649846c9670ebc65d413090e4cd410618585ef",
+          "scripts/deepnest_io.py": "b2da81051067c1f06bbdfba12bb07041188ca2eb154eb0527ea899081efadaac",
+          "scripts/svgnest.py": "82e759d02ae1da307acb995e92e4949147cb11a09ebfa34ca854a7132d64c9a9",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "benchmarks/deepnest/tool.json": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
+          "benchmarks/browser/deepnest.mjs": "e16d2370ce535095823aca515169296fd29def01b71cd1203f90a9e33ff0ece6",
+          "benchmarks/browser/deepnest-preload.cjs": "7060538ec59a54425f60cef7f6a5be128afd12e8e18d6f9be3e63d43e10bb6c0",
+          "benchmarks/browser/deepnest-bootstrap.cjs": "e7ef12810d26d3d9d5e919c22b14d5e897fa99245148137af3f052319b05d975",
+          "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/cpu-tree-job.ps1": "9383013823a4fd9c52f539e0dd1ee5eee466cb1e8dfa468208f7a9b5acfccd22",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "scripts/stock_inputs.py": "d50235f05b836a9d6ab7d88b25283cd77fe25a6a05178ec380648fb5cad710af",
+          "crates/validator/examples/stock_adapter.rs": "8a5b68963bc68a31df92f8fc62fb977846f05f6f93d3af8f2001ebcd2807dfb4",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+        },
+        "upstream_lock_sha256": "db1295d2f63f2e14d7a79d7261f0e5f2df239b8df7bee58d6a509ac6a923d783",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "configuration": {
+          "curveTolerance": 0.005,
+          "endpointTolerance": 0.001,
+          "rotations": 4,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "threads": 1,
+          "placementType": "gravity",
+          "mergeLines": false,
+          "timeRatio": 0,
+          "scale": 25.4,
+          "simplify": false,
+          "spacing": 1.5
+        },
+        "restrictions": [
+          "Native free-angle search uses 4 equally spaced samples.",
+          "Native search has no mirroring; unmirrored placements remain allowed."
+        ],
+        "validator_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "compiled_app_sources": {
+          "build/nfpDb.js": "135dd8a6dc3cb051c09a5efe3098011b51a82eb1ef4ae98817bbc2c306d4323c",
+          "build/ui/components/navigation.js": "8a4cab27fe0b0628faa506ef030a359fca12eb270d4fc509e8fee53e87484fa6",
+          "build/ui/components/nest-view.js": "759f22cba74ce847a87daa27c7d6ab2a70656582a276bdff659f87a35fdde5a2",
+          "build/ui/components/parts-view.js": "ae01492063c667c41f13722c329f88fc2031102905e8d24ee4502431e72216e2",
+          "build/ui/components/sheet-dialog.js": "a1d14daaa91686a5fd704d800294825b11f28eb789c45420ac629b3df7691459",
+          "build/ui/index.js": "37fc65975de43f8e66f01b3d47bc1c1656e7c43ddc0fc5f297e1026d7adc83c0",
+          "build/ui/services/config.service.js": "d41afb3f695039ede9d891519793366ba59995b29419c4e3c29519768dba8662",
+          "build/ui/services/export.service.js": "1ca3be3e934574a57e2672fa7cb4d7d6882cbbbc8f662512747414bed524b9b8",
+          "build/ui/services/import.service.js": "7e3e0b82efeca045de6bd680e60b648d81f6f8707f929516a56b8bec1dc7603d",
+          "build/ui/services/nesting.service.js": "72ecc22fd274119255516dc66a0e9b2ae2b582426e916afbba5601d982a1959f",
+          "build/ui/services/preset.service.js": "d202bd6828d14e1b2924d20e8a20f9ee691c8bf77675f6624a90c00897aed4fb",
+          "build/ui/types/index.js": "a7d9a3c9d24e110e1da6ab96201387047ed11aa5ae212df29642c74e9bb52a8f",
+          "build/ui/utils/conversion.js": "75451158fcf5b05213649d0bc4d277201add471c334e8bb78570c456f2e01fdd",
+          "build/ui/utils/dom-utils.js": "e1694eed77c1cd18622b7e5a92d89b74a99fb43fa5e7392e61963e4bdc1ca5c2",
+          "build/ui/utils/ui-helpers.js": "7b67e90ef609a0dd5015c0d73746943c45067ef31450e102c4d8ef721bb8cf5c",
+          "build/util/domparser.js": "fb70cc638dc4cac730c38bd781ddbc6b3b44c1c98d97f643c380772e3d3c2910",
+          "build/util/eval.js": "2c8559f9ad3dfa9e6deb1a01c30d7a8fb69e8c9ef354aa69795264ca862c57c9",
+          "build/util/HullPolygon.js": "489454f6bcbd12dcafa47fca91099d1217254aaceed3dc9094c4dfd445bb1eb9",
+          "build/util/matrix.js": "e77e90b5bc920b46ba7293a7c145d229f9d6b0d10c97975dc6d752d0f0cfd8c8",
+          "build/util/point.js": "ee09b18fd91c68a25e5bc3fd1e25a379af161d14cf3f6bae38e9bf2e886e6473",
+          "build/util/vector.js": "f9282f867dfcec946607b04cc6d73a1ce21bbac883236f487c14b808b076a628"
+        },
+        "exit_code": 0,
+        "versions": {
+          "node": "24.15.0",
+          "acorn": "8.16.0",
+          "ada": "3.4.4",
+          "amaro": "1.1.8",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cldr": "47.0",
+          "icu": "77.1",
+          "llhttp": "9.3.1",
+          "merve": "1.2.2",
+          "modules": "143",
+          "napi": "10",
+          "nbytes": "0.1.3",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.68.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.5.0",
+          "simdutf": "7.7.0",
+          "sqlite": "3.51.3",
+          "tz": "2025b",
+          "undici": "7.24.4",
+          "unicode": "16.0",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.4.258.32-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "40.10.2",
+          "chrome": "144.0.7559.236"
+        },
+        "affinity": {
+          "platform": "win32",
+          "mask": "4",
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "affinity_verification": [
+          {
+            "affinity": "4",
+            "pid": 112356,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 109344,
+            "name": "cmd",
+            "executable": "C:\\WINDOWS\\system32\\cmd.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 46992,
+            "name": "electron",
+            "executable": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\electron\\dist\\electron.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 122808,
+            "name": "electron",
+            "executable": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\electron\\dist\\electron.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 123128,
+            "name": "electron",
+            "executable": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\electron\\dist\\electron.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 163532,
+            "name": "electron",
+            "executable": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\electron\\dist\\electron.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 85800,
+            "name": "electron",
+            "executable": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\electron\\dist\\electron.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 142616,
+            "name": "electron",
+            "executable": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\electron\\dist\\electron.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 61812,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "4",
+            "pid": 151724,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "worker_check": {
+          "workers": 1,
+          "seed": 0
+        },
+        "electron_executable_sha256": "5c4718cd0863732b5c16d6b4001ceda79f6da2f2c068e135326d115712d459b4",
+        "native_binaries": [
+          {
+            "path": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\@deepnest\\svg-preprocessor-win32-x64-msvc\\svg-preprocessor.win32-x64-msvc.node",
+            "sha256": "a1ce57996dd4b2c85c79dff38601a50033e3c897ee67706375cf55e6abbc81ab"
+          },
+          {
+            "path": "C:\\DEV\\Nestbolt\\.cache\\upstream\\deepnest-next\\node_modules\\@deepnest\\calculate-nfp\\prebuilds\\win32-x64\\calculateNfp.glibc.node",
+            "sha256": "a3d34db9287128d295930b76491cd7e763cbd560086178e6edc99c46a0fb0224"
+          }
+        ],
+        "stages_ms": {
+          "app_launched": 1229.7894000000001,
+          "main_ready": 1493.5565,
+          "both_windows_ready": 1668.2456000000002,
+          "source_imported": 1748.4676,
+          "budget_finished": 65035.869099999996,
+          "app_closed": 65197.2711
+        },
+        "controller_solve_ms": 60015.177200000006,
+        "candidates": 14,
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 11,
+          "coordinates": 768,
+          "maximum_absolute_error": 1.1102230246251565e-16,
+          "maximum_scaled_error": 0.5,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))"
+        },
+        "validator_exit_code": 1,
+        "status": "invalid",
+        "finished_at": "2026-10-11T22:08:43.939819+00:00",
+        "outputs": {
+          "browser-result.json": "9260734cc00085d00b1e0234792160e62a3d645128ef94b3141adef3111f8543",
+          "candidates.jsonl": "bdd7da01c260ca92fde41913c4a15e3fb61ca6b6d94b5a34edb855125a0da865",
+          "direct-inspection.json": "55c44a5078a28e54836a8803bb6a439c78cae0a44db9ca59f007d7673c1396d4",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input-0.svg": "d0c197a73cf08fe825aff4fe4b9f0295bba5c4507e5fd9b98fd15927d49ade2f",
+          "input-1.svg": "d105dafeef1a78d2effaffde7209451435df242f804fa8164197b12bbf3c4901",
+          "input-2.svg": "dd9eeb4682ec6c33722bff6385b4be10ab5ebd3601400ec67a9bcc8e4ec3f38a",
+          "input-3.svg": "01379ea5e1d76e13e8a488b6f66778eca734803c5de3dcf4747b77c1820de314",
+          "input-4.svg": "8cd42b5cdb8c93ea3cd8561c8a08a8d19f456d4d2d94865be3c224a39b615b01",
+          "job.json": "f9bf29e58bec0c81f41a24055d73cf1fc753c8a6167effbc12790937127a19dd",
+          "layout.json": "9d71f581488434f4522181e4c5eb4034ba825109132a31cbdd56d1e14ed75eef",
+          "request.json": "74e0f7046bf63cf376469d07e90e8e8541b0385d91ef0ef79120bb15c0d08c21",
+          "stage-progress.json": "b9fccfdb4a38d880ebb3a9ba2791d658ba9f8696ce124afb2310de1b317cf17b",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "0857627c822d6c091c2a2ab28771b10d53133e5df700fa77651cf7b4569a3730",
+          "validation.json": "67478729d9d2b0317bd1e2b9806e74d3caedd658a06667c1598fe37d62f4c00e"
+        }
+      },
+      "validation": {
+        "valid": false,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 10,
+        "violations": [
+          {
+            "code": "clearance",
+            "message": "placements 2/9: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 2/10: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 3/11: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 3/12: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 20/26: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 20/27: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 23/28: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 23/29: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 47/55: insufficient clearance"
+          },
+          {
+            "code": "clearance",
+            "message": "placements 47/56: insufficient clearance"
+          }
+        ],
+        "metrics": null
+      }
+    },
+    {
+      "job": "m-public-gear-1",
+      "status": "failed",
+      "record": "output/playwright/deepnest/20261011T220844Z-f0e038fa/run.json",
+      "sha256": "33c02d834121476f501854ff8ce78a16adfb60859481d071f48acffa4db3efc3",
+      "run": {
+        "tool": "deepnest-next",
+        "revision": "1e7ba6e2382557f337ad481ca3251fc22032ca0f",
+        "run_id": "20261011T220844Z-f0e038fa",
+        "job": "m-public-gear-1",
+        "job_sha256": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:08:44.878120+00:00",
+        "commit": "1846f866c34160c7de70bbec7472bc84dca25659",
+        "dirty": true,
+        "platform": "Windows-11-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/deepnest.py": "95611f22bb4728477ff8364dca649846c9670ebc65d413090e4cd410618585ef",
+          "scripts/deepnest_io.py": "b2da81051067c1f06bbdfba12bb07041188ca2eb154eb0527ea899081efadaac",
+          "scripts/svgnest.py": "82e759d02ae1da307acb995e92e4949147cb11a09ebfa34ca854a7132d64c9a9",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "benchmarks/deepnest/tool.json": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
+          "benchmarks/browser/deepnest.mjs": "e16d2370ce535095823aca515169296fd29def01b71cd1203f90a9e33ff0ece6",
+          "benchmarks/browser/deepnest-preload.cjs": "7060538ec59a54425f60cef7f6a5be128afd12e8e18d6f9be3e63d43e10bb6c0",
+          "benchmarks/browser/deepnest-bootstrap.cjs": "e7ef12810d26d3d9d5e919c22b14d5e897fa99245148137af3f052319b05d975",
+          "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/cpu-tree-job.ps1": "9383013823a4fd9c52f539e0dd1ee5eee466cb1e8dfa468208f7a9b5acfccd22",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "scripts/stock_inputs.py": "d50235f05b836a9d6ab7d88b25283cd77fe25a6a05178ec380648fb5cad710af",
+          "crates/validator/examples/stock_adapter.rs": "8a5b68963bc68a31df92f8fc62fb977846f05f6f93d3af8f2001ebcd2807dfb4",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+        },
+        "upstream_lock_sha256": "db1295d2f63f2e14d7a79d7261f0e5f2df239b8df7bee58d6a509ac6a923d783",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "configuration": {
+          "curveTolerance": 0.005,
+          "endpointTolerance": 0.001,
+          "rotations": 4,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "threads": 1,
+          "placementType": "gravity",
+          "mergeLines": false,
+          "timeRatio": 0,
+          "scale": 25.4,
+          "simplify": false,
+          "spacing": 1
+        },
+        "restrictions": [
+          "Native free-angle search uses 4 equally spaced samples."
+        ],
+        "validator_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "compiled_app_sources": {
+          "build/nfpDb.js": "135dd8a6dc3cb051c09a5efe3098011b51a82eb1ef4ae98817bbc2c306d4323c",
+          "build/ui/components/navigation.js": "8a4cab27fe0b0628faa506ef030a359fca12eb270d4fc509e8fee53e87484fa6",
+          "build/ui/components/nest-view.js": "759f22cba74ce847a87daa27c7d6ab2a70656582a276bdff659f87a35fdde5a2",
+          "build/ui/components/parts-view.js": "ae01492063c667c41f13722c329f88fc2031102905e8d24ee4502431e72216e2",
+          "build/ui/components/sheet-dialog.js": "a1d14daaa91686a5fd704d800294825b11f28eb789c45420ac629b3df7691459",
+          "build/ui/index.js": "37fc65975de43f8e66f01b3d47bc1c1656e7c43ddc0fc5f297e1026d7adc83c0",
+          "build/ui/services/config.service.js": "d41afb3f695039ede9d891519793366ba59995b29419c4e3c29519768dba8662",
+          "build/ui/services/export.service.js": "1ca3be3e934574a57e2672fa7cb4d7d6882cbbbc8f662512747414bed524b9b8",
+          "build/ui/services/import.service.js": "7e3e0b82efeca045de6bd680e60b648d81f6f8707f929516a56b8bec1dc7603d",
+          "build/ui/services/nesting.service.js": "72ecc22fd274119255516dc66a0e9b2ae2b582426e916afbba5601d982a1959f",
+          "build/ui/services/preset.service.js": "d202bd6828d14e1b2924d20e8a20f9ee691c8bf77675f6624a90c00897aed4fb",
+          "build/ui/types/index.js": "a7d9a3c9d24e110e1da6ab96201387047ed11aa5ae212df29642c74e9bb52a8f",
+          "build/ui/utils/conversion.js": "75451158fcf5b05213649d0bc4d277201add471c334e8bb78570c456f2e01fdd",
+          "build/ui/utils/dom-utils.js": "e1694eed77c1cd18622b7e5a92d89b74a99fb43fa5e7392e61963e4bdc1ca5c2",
+          "build/ui/utils/ui-helpers.js": "7b67e90ef609a0dd5015c0d73746943c45067ef31450e102c4d8ef721bb8cf5c",
+          "build/util/domparser.js": "fb70cc638dc4cac730c38bd781ddbc6b3b44c1c98d97f643c380772e3d3c2910",
+          "build/util/eval.js": "2c8559f9ad3dfa9e6deb1a01c30d7a8fb69e8c9ef354aa69795264ca862c57c9",
+          "build/util/HullPolygon.js": "489454f6bcbd12dcafa47fca91099d1217254aaceed3dc9094c4dfd445bb1eb9",
+          "build/util/matrix.js": "e77e90b5bc920b46ba7293a7c145d229f9d6b0d10c97975dc6d752d0f0cfd8c8",
+          "build/util/point.js": "ee09b18fd91c68a25e5bc3fd1e25a379af161d14cf3f6bae38e9bf2e886e6473",
+          "build/util/vector.js": "f9282f867dfcec946607b04cc6d73a1ce21bbac883236f487c14b808b076a628"
+        },
+        "exit_code": 0,
+        "versions": {
+          "node": "24.15.0",
+          "acorn": "8.16.0",
+          "ada": "3.4.4",
+          "amaro": "1.1.8",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cldr": "47.0",
+          "icu": "77.1",
+          "llhttp": "9.3.1",
+          "merve": "1.2.2",
+          "modules": "143",
+          "napi": "10",
+          "nbytes": "0.1.3",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.68.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.5.0",
+          "simdutf": "7.7.0",
+          "sqlite": "3.51.3",
+          "tz": "2025b",
+          "undici": "7.24.4",
+          "unicode": "16.0",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.4.258.32-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "40.10.2",
+          "chrome": "144.0.7559.236"
+        },
+        "affinity": null,
+        "affinity_verification": null,
+        "worker_check": {
+          "workers": 1,
+          "seed": 0
+        },
+        "electron_executable_sha256": "5c4718cd0863732b5c16d6b4001ceda79f6da2f2c068e135326d115712d459b4",
+        "native_binaries": null,
+        "stages_ms": {
+          "app_launched": 927.2553,
+          "main_ready": 1146.5948,
+          "both_windows_ready": 1328.5944000000002
+        },
+        "controller_solve_ms": null,
+        "candidates": 0,
+        "input_fidelity": null,
+        "status": "failed",
+        "finished_at": "2026-10-11T22:08:52.307932+00:00",
+        "outputs": {
+          "browser-result.json": "db8901340babb15c3357e8a6bc66463ddc3902d5c74f09c921e8855113b6d2f4",
+          "direct-inspection.json": "55c44a5078a28e54836a8803bb6a439c78cae0a44db9ca59f007d7673c1396d4",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input-0.svg": "37afdf8716709fd865f9024791837930f50123e56844c611701801271db7cfe7",
+          "input-1.svg": "d0dcdf57fa9f7468c2fa29fafaec2e7d690cd4adb7635dd944c5e4b5cd6f7ba7",
+          "input-2.svg": "b01378f0ed935b62235c8fddab495c023befda036982f17c73dac447a62e96cf",
+          "job.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+          "request.json": "82423f2fc9f751240b186d7cffa7c59388be78ba3748d88c770b3947e8c70892",
+          "stage-progress.json": "5463306bd952f96234ee5fa3d98d4caefc884508529ca2b87e86d747ae0c6db6",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "175eb24cee5d9ba591e6d5870a3716d71798fa11266cc88b71e7c27030f3914f"
+        }
+      },
+      "validation": null
+    },
+    {
+      "job": "m-public-gear-2",
+      "status": "failed",
+      "record": "output/playwright/deepnest/20261011T220852Z-1e57677f/run.json",
+      "sha256": "a51d6e5ad5dc3005f9aa564d8198864ac254f5f9cae867ac86fc6de66f27b816",
+      "run": {
+        "tool": "deepnest-next",
+        "revision": "1e7ba6e2382557f337ad481ca3251fc22032ca0f",
+        "run_id": "20261011T220852Z-1e57677f",
+        "job": "m-public-gear-2",
+        "job_sha256": "ab924a1d3503bc3e650170a00801257d123a40a598003101c5b5d9f7f357b0f6",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-11T22:08:52.876603+00:00",
+        "commit": "1846f866c34160c7de70bbec7472bc84dca25659",
+        "dirty": true,
+        "platform": "Windows-11-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/deepnest.py": "95611f22bb4728477ff8364dca649846c9670ebc65d413090e4cd410618585ef",
+          "scripts/deepnest_io.py": "b2da81051067c1f06bbdfba12bb07041188ca2eb154eb0527ea899081efadaac",
+          "scripts/svgnest.py": "82e759d02ae1da307acb995e92e4949147cb11a09ebfa34ca854a7132d64c9a9",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "benchmarks/deepnest/tool.json": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
+          "benchmarks/browser/deepnest.mjs": "e16d2370ce535095823aca515169296fd29def01b71cd1203f90a9e33ff0ece6",
+          "benchmarks/browser/deepnest-preload.cjs": "7060538ec59a54425f60cef7f6a5be128afd12e8e18d6f9be3e63d43e10bb6c0",
+          "benchmarks/browser/deepnest-bootstrap.cjs": "e7ef12810d26d3d9d5e919c22b14d5e897fa99245148137af3f052319b05d975",
+          "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/cpu-tree-job.ps1": "9383013823a4fd9c52f539e0dd1ee5eee466cb1e8dfa468208f7a9b5acfccd22",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "scripts/stock_inputs.py": "d50235f05b836a9d6ab7d88b25283cd77fe25a6a05178ec380648fb5cad710af",
+          "crates/validator/examples/stock_adapter.rs": "8a5b68963bc68a31df92f8fc62fb977846f05f6f93d3af8f2001ebcd2807dfb4",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45"
+        },
+        "upstream_lock_sha256": "db1295d2f63f2e14d7a79d7261f0e5f2df239b8df7bee58d6a509ac6a923d783",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "configuration": {
+          "curveTolerance": 0.005,
+          "endpointTolerance": 0.001,
+          "rotations": 4,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "threads": 1,
+          "placementType": "gravity",
+          "mergeLines": false,
+          "timeRatio": 0,
+          "scale": 25.4,
+          "simplify": false,
+          "spacing": 1
+        },
+        "restrictions": [
+          "Native free-angle search uses 4 equally spaced samples."
+        ],
+        "validator_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "compiled_app_sources": {
+          "build/nfpDb.js": "135dd8a6dc3cb051c09a5efe3098011b51a82eb1ef4ae98817bbc2c306d4323c",
+          "build/ui/components/navigation.js": "8a4cab27fe0b0628faa506ef030a359fca12eb270d4fc509e8fee53e87484fa6",
+          "build/ui/components/nest-view.js": "759f22cba74ce847a87daa27c7d6ab2a70656582a276bdff659f87a35fdde5a2",
+          "build/ui/components/parts-view.js": "ae01492063c667c41f13722c329f88fc2031102905e8d24ee4502431e72216e2",
+          "build/ui/components/sheet-dialog.js": "a1d14daaa91686a5fd704d800294825b11f28eb789c45420ac629b3df7691459",
+          "build/ui/index.js": "37fc65975de43f8e66f01b3d47bc1c1656e7c43ddc0fc5f297e1026d7adc83c0",
+          "build/ui/services/config.service.js": "d41afb3f695039ede9d891519793366ba59995b29419c4e3c29519768dba8662",
+          "build/ui/services/export.service.js": "1ca3be3e934574a57e2672fa7cb4d7d6882cbbbc8f662512747414bed524b9b8",
+          "build/ui/services/import.service.js": "7e3e0b82efeca045de6bd680e60b648d81f6f8707f929516a56b8bec1dc7603d",
+          "build/ui/services/nesting.service.js": "72ecc22fd274119255516dc66a0e9b2ae2b582426e916afbba5601d982a1959f",
+          "build/ui/services/preset.service.js": "d202bd6828d14e1b2924d20e8a20f9ee691c8bf77675f6624a90c00897aed4fb",
+          "build/ui/types/index.js": "a7d9a3c9d24e110e1da6ab96201387047ed11aa5ae212df29642c74e9bb52a8f",
+          "build/ui/utils/conversion.js": "75451158fcf5b05213649d0bc4d277201add471c334e8bb78570c456f2e01fdd",
+          "build/ui/utils/dom-utils.js": "e1694eed77c1cd18622b7e5a92d89b74a99fb43fa5e7392e61963e4bdc1ca5c2",
+          "build/ui/utils/ui-helpers.js": "7b67e90ef609a0dd5015c0d73746943c45067ef31450e102c4d8ef721bb8cf5c",
+          "build/util/domparser.js": "fb70cc638dc4cac730c38bd781ddbc6b3b44c1c98d97f643c380772e3d3c2910",
+          "build/util/eval.js": "2c8559f9ad3dfa9e6deb1a01c30d7a8fb69e8c9ef354aa69795264ca862c57c9",
+          "build/util/HullPolygon.js": "489454f6bcbd12dcafa47fca91099d1217254aaceed3dc9094c4dfd445bb1eb9",
+          "build/util/matrix.js": "e77e90b5bc920b46ba7293a7c145d229f9d6b0d10c97975dc6d752d0f0cfd8c8",
+          "build/util/point.js": "ee09b18fd91c68a25e5bc3fd1e25a379af161d14cf3f6bae38e9bf2e886e6473",
+          "build/util/vector.js": "f9282f867dfcec946607b04cc6d73a1ce21bbac883236f487c14b808b076a628"
+        },
+        "exit_code": 0,
+        "versions": {
+          "node": "24.15.0",
+          "acorn": "8.16.0",
+          "ada": "3.4.4",
+          "amaro": "1.1.8",
+          "ares": "1.34.6",
+          "brotli": "1.0.9",
+          "cldr": "47.0",
+          "icu": "77.1",
+          "llhttp": "9.3.1",
+          "merve": "1.2.2",
+          "modules": "143",
+          "napi": "10",
+          "nbytes": "0.1.3",
+          "ncrypto": "0.0.1",
+          "nghttp2": "1.68.0",
+          "openssl": "0.0.0",
+          "simdjson": "4.5.0",
+          "simdutf": "7.7.0",
+          "sqlite": "3.51.3",
+          "tz": "2025b",
+          "undici": "7.24.4",
+          "unicode": "16.0",
+          "uv": "1.51.0",
+          "uvwasi": "0.0.23",
+          "v8": "14.4.258.32-electron.0",
+          "zlib": "1.3.1",
+          "zstd": "1.5.8",
+          "electron": "40.10.2",
+          "chrome": "144.0.7559.236"
+        },
+        "affinity": null,
+        "affinity_verification": null,
+        "worker_check": {
+          "workers": 1,
+          "seed": 0
+        },
+        "electron_executable_sha256": "5c4718cd0863732b5c16d6b4001ceda79f6da2f2c068e135326d115712d459b4",
+        "native_binaries": null,
+        "stages_ms": {
+          "app_launched": 722.9852999999999,
+          "main_ready": 955.8433999999999,
+          "both_windows_ready": 1113.2782000000002
+        },
+        "controller_solve_ms": null,
+        "candidates": 0,
+        "input_fidelity": null,
+        "status": "failed",
+        "finished_at": "2026-10-11T22:08:59.758996+00:00",
+        "outputs": {
+          "browser-result.json": "1ee37cdbe86a9725c4ecc1caa965dfdfb092823f21ba8bd13f00a8dae57a6830",
+          "direct-inspection.json": "55c44a5078a28e54836a8803bb6a439c78cae0a44db9ca59f007d7673c1396d4",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input-0.svg": "c5a57e1bc93b235c3f0e1cf2e70d5a0b7dbe3687fe92324c64fa7780704dba1e",
+          "input-1.svg": "962f5ad799775999f434811f46639f1ad4bdf06a9cd890a3d7b42a4f02d8c9fe",
+          "input-2.svg": "a32f939aadfca83ead619f91321c2fde1ca5602028dacc7ee11732e1117b20d6",
+          "job.json": "ab924a1d3503bc3e650170a00801257d123a40a598003101c5b5d9f7f357b0f6",
+          "request.json": "d65377556b64835f0bd28729f3705e8fff9088fd6d70facdcf8dd5e00befa916",
+          "stage-progress.json": "2558d4285e7d7050ac24c8501ae91d153a97d556298c808c3490f6b8d9a2e3a7",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "9c6ab34595751b2a2bc1b3c3c8b26d0d1ae3bffee131aaf59f933efe9c72eacf"
+        }
+      },
+      "validation": null
+    }
+  ]
+}

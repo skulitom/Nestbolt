@@ -15,6 +15,7 @@ python scripts/comparison_session.py create --name development-example --setting
 python scripts/comparison_session.py run --name development-example --tool lbf --limit 2
 python scripts/comparison_session.py progress --name development-example
 python scripts/comparison_session_report.py --name development-example
+python scripts/comparison_envelope.py --name development-example --tool lbf --seconds 3600 --max-attempts 100
 ```
 
 Preparation of the pinned tool and validator binaries precedes `create`. Repeat
@@ -43,9 +44,19 @@ new process for the third. All three passed independent validation. This is a
 3/450-slot controller proof, not a completed development matrix or M1.
 
 The report audits every retained completion and lists every scheduled group,
-including missing and failed seeds. Medians and inclusive quartiles describe valid
-scores only; a row is eligible for comparison only after every declared seed is
-valid (at least three). Four aggregation tests cover partial sets, failures,
-configuration separation, duplicate seeds, differing metrics and LBF's independent
-material score. The [actual partial-session table](results/comparison-session-20261011T214917Z-024c5add.md)
-correctly has no eligible rows. It establishes neither a baseline gap nor a gate.
+including missing and failed seeds. The [statistics policy](STATISTICS.md) retains every failed seed as a
+failure-valued observation after all valid scores. Missing seeds prevent a
+comparison. New tables display these comparison medians/quartiles and retain
+valid-only diagnostics separately in JSON. Six aggregation tests cover partial
+sets, failures, configuration separation, duplicate seeds, differing metrics,
+LBF's material score and failure-ranked quantiles. The earlier
+[three-attempt controller proof](results/comparison-session-20261011T214917Z-024c5add.md)
+retains its initial valid-only format and has no complete comparison rows. It
+establishes neither a baseline gap nor a gate.
+
+The optional envelope controller repeats bounded chunks while they fit its
+declared remaining time and attempt allowance. It reserves a minute for closing
+evidence, records each chunk, and stops on any interruption without retrying it.
+Each native runner still enforces its own deadlines. Desktop envelopes stay
+within Anode's shorter lifetime; all others admit work for at most three hours.
+Two controller tests cover budget admission and preservation of interrupted work.

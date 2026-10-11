@@ -1,6 +1,7 @@
 """Verify immutable SVGnest evidence before retaining a provisional baseline table."""
 import argparse
 import json
+import math
 from pathlib import Path
 
 from svgnest import digest
@@ -26,8 +27,15 @@ def audit_record(path, expected_hash):
         raw = json.loads((path.parent / 'browser-result.json').read_bytes())
         if run.get('input_encoding') == 'linear_svg_paths_v2':
             proof = raw.get('input_fidelity')
-            if not proof or proof != run.get('input_fidelity') or proof.get('encoding') != run['input_encoding'] or proof.get('maximum_absolute_error') != 0 or proof.get('coordinates',0) < 6:
+            if not proof or proof != run.get('input_fidelity') or proof.get('encoding') != run['input_encoding'] or proof.get('coordinates',0) < 6:
                 raise ValueError('Native input fidelity was not verified')
+            if 'scaled_error_limit' in proof:
+                if (proof['scaled_error_limit'] != 8 or proof.get('error_scale') != 'Number.EPSILON * max(1, abs(source_coordinate))'
+                        or not 0 <= proof.get('maximum_scaled_error',float('inf')) <= 8
+                        or not math.isfinite(proof.get('maximum_absolute_error',float('inf'))) or proof['maximum_absolute_error'] < 0):
+                    raise ValueError('Native input fidelity exceeds double-precision rounding allowance')
+            elif proof.get('maximum_absolute_error') != 0:
+                raise ValueError('Legacy exact input fidelity claim has no rounding evidence')
         if not checked['valid'] or run['validator_exit_code'] != 0 or run['metrics'] != checked['metrics'] or run['score'] != checked['metrics']['normalized_material']:
             raise ValueError('Recorded score differs from independent validation')
         if raw['status'] != 'completed' or raw['errors'] or raw['last']['elapsed_ms'] > run['seconds'] * 1000:

@@ -69,18 +69,31 @@ try {
     if (new Parallel([]).options.maxWorkers !== 1) throw new Error('Upstream worker limit was not applied')
     SvgNest.config(prepared.config)
     const svg = SvgNest.parsesvg(prepared.svg)
-    let coordinates = 0
+    let coordinates = 0, maximumAbsoluteError = 0, maximumScaledError = 0, nativeClosingVerticesRemoved = 0
     for (const [id, ring] of Object.entries(prepared.source_rings)) {
       const node = Array.from(svg.children).find(p => p.id === id)
       if (!node) throw new Error(`Source contour lost during import: ${id}`)
-      const actual = SvgParser.polygonify(node).map(p => [p.x,p.y])
+      if(node.tagName.toLowerCase() !== 'path') throw new Error(`Original straight path changed type: ${id}`)
+      const actual = []
+      for(let i=0;i<node.pathSegList.numberOfItems;i++) {
+        const segment=node.pathSegList.getItem(i), kind=segment.pathSegTypeAsLetter
+        if(kind==='M'||kind==='L') actual.push([segment.x,segment.y])
+        else if(kind!=='Z'&&kind!=='z') throw new Error(`Unexpected segment after straight-path parsing: ${kind}`)
+      }
       const expected = ring.slice()
       for (const points of [actual,expected]) {
         if (points.length>1 && points[0][0]===points.at(-1)[0] && points[0][1]===points.at(-1)[1]) points.pop()
       }
+      nativeClosingVerticesRemoved+=Math.max(0,actual.length-SvgParser.polygonify(node).length)
       if (actual.length!==expected.length) throw new Error(`Source vertex count changed: ${id}`)
       for(let i=0;i<actual.length;i++)for(let axis=0;axis<2;axis++) {
-        if(actual[i][axis]!==expected[i][axis]) throw new Error(`Source coordinate rounded during import: ${id}/${i}/${axis}`)
+        // The upstream path parser sums decimal digits. Preserve full source
+        // precision, allowing its measured double rounding but not float32 loss.
+        const absolute = Math.abs(actual[i][axis]-expected[i][axis])
+        const scaled = absolute/(Number.EPSILON*Math.max(1,Math.abs(expected[i][axis])))
+        if(!(scaled<=8)) throw new Error(`Source coordinate changed during import: ${id}/${i}/${axis}; expected ${expected[i][axis]}, observed ${actual[i][axis]}, scaled error ${scaled}`)
+        maximumAbsoluteError=Math.max(maximumAbsoluteError,absolute)
+        maximumScaledError=Math.max(maximumScaledError,scaled)
         coordinates++
       }
     }
@@ -92,7 +105,10 @@ try {
     if (parts.length !== prepared.copies) throw new Error(`Source import changed quantity: ${parts.length}/${prepared.copies}`)
     window.benchmark = { started: null, iterations: 0, config: SvgNest.config() }
     return { encoding: prepared.input_encoding, contours: Object.keys(prepared.source_rings).length,
-      coordinates, maximum_absolute_error: 0 }
+      coordinates, maximum_absolute_error: maximumAbsoluteError,
+      maximum_scaled_error: maximumScaledError, scaled_error_limit: 8,
+      error_scale: 'Number.EPSILON * max(1, abs(source_coordinate))',
+      stage: 'parsed_path_before_closing_point_cleanup', native_closing_vertices_removed: nativeClosingVerticesRemoved }
   }, request.prepared)
   result.configuration = await page.evaluate(() => window.benchmark.config)
   result.affinity_verification = verifyCpu(affinity)
