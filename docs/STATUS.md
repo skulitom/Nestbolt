@@ -68,10 +68,11 @@ correctly rejected under the original constraints. Moving the CPU restriction
 after import and before solving produces four consecutive valid FU smokes with
 prompt startup. [All startup trials](../benchmarks/results/deepnest-startup-20261011.json)
 are retained, including failures. Eleven adapter/evidence tests pass. The complete
-Deepnest baseline remains pending. The first nine B jobs at 60 seconds are all
+Deepnest baseline remains pending. The first twelve B jobs at 60 seconds are all
 independently valid; [first three](../benchmarks/results/deepnest-20261011T205510Z-c961f172.md)
 and [next three](../benchmarks/results/deepnest-20261011T205945Z-dfbb847c.md) retain
-strictly audited batch evidence, followed by [the third batch](../benchmarks/results/deepnest-20261011T211232Z-57323d69.md).
+strictly audited batch evidence, followed by [the third](../benchmarks/results/deepnest-20261011T211232Z-57323d69.md)
+and [fourth batches](../benchmarks/results/deepnest-20261011T212226Z-30644c2c.md).
 New straight-path input checks reject loss beyond double-precision rounding.
 The remnant/defect input helper preserves margins and source stock identities;
 four native conversion tests and actual remnant and enclosed-defect smokes pass.
@@ -94,6 +95,10 @@ The [matrix coverage freeze](../benchmarks/MATRIX.md) fixes all 88 jobs, the
 Nestbolt search tuning. Exact tool settings and the full one-command executor
 remain pending. Initial competitor pilots preceded this coverage freeze; no
 held-out optimiser results informed it.
+The [static input coverage report](../benchmarks/results/comparator-coverage-20261011T212118Z-ed8cf053.md)
+prepares all 35 B jobs for each comparator and all 30 development M jobs for
+Deepnest (27 for SVGnest, six each for LBF/Sparrow). It runs no optimiser and
+does not establish native parsing, valid packing, quality or performance.
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical

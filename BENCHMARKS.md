@@ -930,3 +930,13 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-11T21:19:27.815586+00:00 | deepnest-next `b-fu-strip-sheet` seed 0, 60s, identical, axis y | valid | material 1.3843985263157894 | [record](output/playwright/deepnest/20261011T211809Z-55b530c1/run.json). Provisional native settings; independent score only for valid output.
 
 - 2026-10-11T21:19:57.723330+00:00 | SVGnest `b-fu-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 3.6666666666666665 | [record](output/playwright/svgnest/20261011T211848Z-e12f2632/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:20:36.231318+00:00 | deepnest-next `b-jakobs1-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 3.9047620000000003 | [record](output/playwright/deepnest/20261011T211928Z-032738d1/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:21:03.703714+00:00 | SVGnest `b-fu-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 3.6666666666666665 | [record](output/playwright/svgnest/20261011T211958Z-c665908e/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:21:46.804904+00:00 | deepnest-next `b-jakobs1-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 3.9047620000000003 | [record](output/playwright/deepnest/20261011T212037Z-a5ce1af2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:22:11.022296+00:00 | SVGnest `b-fu-strip-sheet` seed 0, 60s, identical, axis y | valid | material 1.4678362894736843 | [record](output/playwright/svgnest/20261011T212104Z-9515dd23/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:22:26.157927+00:00 | verified deepnest batch `20261011T211807Z-ef4481cd` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T212226Z-30644c2c.md). Provisional; all failures retained.

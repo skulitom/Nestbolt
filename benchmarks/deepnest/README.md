@@ -52,7 +52,7 @@ before solving produced four consecutive valid FU smokes with prompt startup.
 [Every startup trial](../results/deepnest-startup-20261011.json) remains available,
 including the failed shared-job experiment before separate nested jobs were used.
 The startup allowance is bounded separately from the solve clock. Initialization failures are failures,
-not unsupported jobs or discarded attempts. The first nine B jobs at 60 seconds
+not unsupported jobs or discarded attempts. The first twelve B jobs at 60 seconds
 are independently valid. The complete seed/settings matrix and settings selection
 remain pending. This is
 not a completed M1 comparison or a Nestbolt quality result.

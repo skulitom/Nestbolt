@@ -33,3 +33,11 @@ per-tool numbers before applying the best-valid-competitor-per-job gates.
 This is a coverage freeze, not the G8 one-command executor. That executor still
 needs to rebuild data, seal tool settings, schedule/resume every required attempt,
 and produce the complete results page and charts.
+
+`python scripts/comparator_coverage.py` performs a separate static development
+input check, without running any optimiser or touching the held-out jobs. The
+[first coverage report](results/comparator-coverage-20261011T212118Z-ed8cf053.md)
+prepares all 35 B inputs for each comparator. For the 30 development M jobs it
+prepares 30 for Deepnest, 27 for SVGnest and six each for LBF and Sparrow. Every
+unsupported reason is retained. Successful preparation does not prove native
+parsing, feasibility or a valid timed result; those require the actual runners.
