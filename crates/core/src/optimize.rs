@@ -16,6 +16,7 @@ pub struct Options {
 #[derive(Debug, Serialize)]
 pub struct Progress {
     pub pass: u32,
+    pub stage: &'static str,
     pub seed: u64,
     pub sheet_limit: Option<usize>,
     pub complete: bool,
@@ -95,9 +96,11 @@ pub fn optimize(
     let mut validation = validate(job, &best.layout)?;
     let mut history = vec![];
     for pass in 0..options.passes {
-        let trial_seed = seed(options.construct.seed, pass);
-        let sheet_limit = if pass > 0
-            && pass % 3 == 1
+        // Compare refinement to the initial constructor before changing its
+        // ordering or random stream. Later passes explore new orders and caps.
+        let trial_seed = seed(options.construct.seed, if pass == 1 { 0 } else { pass });
+        let sheet_limit = if pass >= 2
+            && pass % 3 == 2
             && job.mode == Mode::All
             && validation.valid
             && best.layout.sheets.len() > 1
@@ -115,8 +118,9 @@ pub fn optimize(
                     seed: trial_seed,
                     ..options.construct
                 },
-                Some(&order),
+                if pass == 1 { None } else { Some(&order) },
                 sheet_limit,
+                true,
             )?)
         };
         let checked = if let Some(ref c) = candidate {
@@ -140,6 +144,15 @@ pub fn optimize(
         let metrics = report.metrics.as_ref();
         let entry = Progress {
             pass,
+            stage: if pass == 0 {
+                "construct"
+            } else if pass == 1 {
+                "refine"
+            } else if sheet_limit.is_some() {
+                "remove-sheet"
+            } else {
+                "repack"
+            },
             seed: trial_seed,
             sheet_limit,
             complete: current.complete,
@@ -158,7 +171,7 @@ pub fn optimize(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v1",
+        algorithm: "nestbolt-repack-v2",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: options.passes,

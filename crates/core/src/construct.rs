@@ -335,6 +335,86 @@ fn search(
     Ok(best)
 }
 
+/// A bounded pattern search from a known feasible position. It only translates;
+/// exact list/step angles and reflection permissions stay unchanged. Each level
+/// halves the step and admits at most 16 improvements, so even tiny source units
+/// cannot turn refinement into an unbounded loop.
+fn refine_translation(
+    region: &Region,
+    item: &Item,
+    mut candidate: Candidate,
+    checks: &mut u64,
+    surrogate_rejections: &mut u64,
+) -> Candidate {
+    let cde = region.layout.cde();
+    let mut buffer = item.shape_cd().as_ref().clone();
+    let mut step_x = (candidate.bounds[2] - candidate.bounds[0]) / 4.0;
+    let mut step_y = (candidate.bounds[3] - candidate.bounds[1]) / 4.0;
+    let limits = region.search_bounds;
+    for _ in 0..10 {
+        if step_x.max(step_y) < region.nudge {
+            break;
+        }
+        for _ in 0..16 {
+            let mut moved = false;
+            for (dx, dy) in [
+                (0.0, -step_y),
+                (-step_x, 0.0),
+                (-step_x, -step_y),
+                (step_x, -step_y),
+                (2.0 * step_x, -step_y),
+                (4.0 * step_x, -step_y),
+                (step_x, -2.0 * step_y),
+                (step_x, -4.0 * step_y),
+            ] {
+                let old = candidate.internal.translation();
+                let translation = (old.0 + dx, old.1 + dy);
+                if translation == old {
+                    continue;
+                }
+                let transform = DTransformation::new(candidate.internal.rotation(), translation)
+                    .with_reflection(candidate.external.mirrored);
+                let composed = transform.compose();
+                buffer.transform_from(item.shape_cd(), &composed);
+                let b = buffer.bbox();
+                let cost = b.y_max + 0.001 * b.x_max;
+                if cost >= candidate.cost
+                    || b.x_min < limits[0] + region.nudge
+                    || b.y_min < limits[1] + region.nudge
+                    || b.x_max > limits[2] - region.nudge
+                    || b.y_max > limits[3] - region.nudge
+                {
+                    continue;
+                }
+                *checks += 1;
+                if cde.detect_surrogate_collision(item.shape_cd().surrogate(), &composed, &NoFilter)
+                {
+                    *surrogate_rejections += 1;
+                    continue;
+                }
+                if cde.detect_poly_collision(&buffer, &NoFilter) {
+                    continue;
+                }
+                // Match the actual rounded internal displacement in f64. Using
+                // the requested step would accumulate source/proxy drift.
+                candidate.external.translation[0] += f64::from(translation.0) - f64::from(old.0);
+                candidate.external.translation[1] += f64::from(translation.1) - f64::from(old.1);
+                candidate.internal = transform;
+                candidate.bounds = [b.x_min, b.y_min, b.x_max, b.y_max];
+                candidate.cost = cost;
+                moved = true;
+                break;
+            }
+            if !moved {
+                break;
+            }
+        }
+        step_x *= 0.5;
+        step_y *= 0.5;
+    }
+    candidate
+}
+
 /// A deterministic constructive candidate. A failed construction does not prove
 /// infeasibility: filled holes/hulls and a finite placement search lose options.
 pub fn construct(job: &Job, options: Options) -> Result<Construction> {
@@ -452,7 +532,12 @@ impl<'a> PreparedJob<'a> {
     }
 
     pub fn construct(&self, options: Options) -> Result<Construction> {
-        self.construct_ordered(options, None, None)
+        self.construct_ordered(options, None, None, false)
+    }
+
+    /// Construct with bounded translation refinement of each feasible placement.
+    pub fn construct_refined(&self, options: Options) -> Result<Construction> {
+        self.construct_ordered(options, None, None, true)
     }
 
     pub(crate) fn construct_ordered(
@@ -460,6 +545,7 @@ impl<'a> PreparedJob<'a> {
         options: Options,
         part_order: Option<&[usize]>,
         max_sheets: Option<usize>,
+        refine: bool,
     ) -> Result<Construction> {
         ensure!(
             (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
@@ -589,8 +675,17 @@ impl<'a> PreparedJob<'a> {
                         }
                     }
                 }
-                if let Some((sheet, region, candidate)) = found {
+                if let Some((sheet, region, mut candidate)) = found {
                     let active = &mut open[sheet].regions[region];
+                    if refine {
+                        candidate = refine_translation(
+                            active,
+                            &items[index],
+                            candidate,
+                            &mut checks,
+                            &mut surrogate_rejections,
+                        );
+                    }
                     active.layout.place_item(&items[index], candidate.internal);
                     active.boxes.push(candidate.bounds);
                     layout.placements.push(Placement {
@@ -617,7 +712,11 @@ impl<'a> PreparedJob<'a> {
                 .all(|(i, s)| layout.sheets[i].stock_id == job.stocks[s.stock].id)
         );
         Ok(Construction {
-            algorithm: "nestbolt-construct-v3",
+            algorithm: if refine {
+                "nestbolt-construct-refined-v1"
+            } else {
+                "nestbolt-construct-v3"
+            },
             seed: options.seed,
             collision_checks: checks,
             surrogate_rejections,

@@ -1,8 +1,26 @@
 """Current Sparrow strip/single-sheet adapter, preserving the original job."""
 from copy import deepcopy
+from fractions import Fraction
 import math
 
 from benchmark_io import UnsupportedJob, finite_number, jagua_input, jagua_layout
+
+
+def single_sheet_area_bound(job):
+    """Exact rational area of the stored coordinates; ignore gaps and margins.
+
+    Used only after the strict adapter has accepted simple, hole-free parts and
+    one rectangular stock. Exceeding the entire sheet already proves that this
+    single-strip adapter cannot provide a complete sheet layout. Passing this
+    necessary bound says nothing about whether an actual packing exists.
+    """
+    def area(ring):
+        points = [(Fraction(x), Fraction(y)) for x, y in ring]
+        return abs(sum(a[0]*b[1]-a[1]*b[0] for a,b in zip(points,points[1:]+points[:1]))) / 2
+    demand = sum(part['quantity']*area(part['geometry'][0]['outer']) for part in job['parts'])
+    stock = job['stocks'][0]
+    capacity = Fraction(stock['width'])*Fraction(stock['height'])
+    return demand, capacity
 
 
 def prepare(job, axis='x'):
@@ -22,6 +40,10 @@ def prepare(job, axis='x'):
                 component['outer'] = [[y,-x] for x,y in component['outer']]
                 component['holes'] = [[[y,-x] for x,y in ring] for ring in component['holes']]
     items = jagua_input(surrogate)['items']
+    demand, capacity = single_sheet_area_bound(job)
+    if demand > capacity:
+        raise UnsupportedJob(f'Sparrow single-sheet area bound: parts need {demand} square job units; '
+                             f'one whole sheet has {capacity}. A multi-sheet solver is required.')
     if axis == 'y':
         for item in items:
             if item['orientation']['reflection_axes']:

@@ -2738,3 +2738,267 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-11T23:08:05.959717+00:00 | SVGnest `b-swim-nest-mb-given` seed 0, 60s, expanded, axis y | valid | material 5.550648252555879 | [record](output/playwright/svgnest/20261011T230659Z-2e0892cc/run.json). Provisional settings, one worker and one CPU affinity.
 
 - 2026-10-11T23:08:17.062441+00:00 | SVGnest `b-dagli-strip-sheet` seed 1, 60s, identical, axis y | valid | material 0.9770498166666667 | [record](output/playwright/svgnest/20261011T230710Z-89310efa/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:09:12.211081+00:00 | deepnest-next `b-shapes1-strip-sheet` seed 0, 60s, identical, axis y | valid | material 2.5 | [record](output/playwright/deepnest/20261011T230802Z-4592cd14/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:09:12.339539+00:00 | deepnest-next `b-shirts-strip-sheet` seed 0, 60s, identical, axis y | valid | material 2.5630952750000002 | [record](output/playwright/deepnest/20261011T230802Z-2b6cfe0e/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:09:13.392967+00:00 | SVGnest `b-swim-strip-sheet` seed 0, 60s, expanded, axis y | valid | material 2.4221066662030597 | [record](output/playwright/svgnest/20261011T230806Z-453a129f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:09:23.318315+00:00 | SVGnest `b-fu-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 3.6666666666666665 | [record](output/playwright/svgnest/20261011T230817Z-638c9b16/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:10:20.131826+00:00 | SVGnest `b-trousers-nest-mb-free` seed 0, 60s, expanded, axis y | valid | material 3.7430356836158194 | [record](output/playwright/svgnest/20261011T230913Z-c3b065ca/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:10:22.115324+00:00 | deepnest-next `b-shirts-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 7.461538461538462 | [record](output/playwright/deepnest/20261011T230912Z-6c3738f8/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:10:22.061351+00:00 | deepnest-next `b-swim-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 4.90342160597153 | [record](output/playwright/deepnest/20261011T230912Z-f2d0d543/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:10:31.777852+00:00 | SVGnest `b-fu-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 3.6666666666666665 | [record](output/playwright/svgnest/20261011T230923Z-992bba09/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:11:27.852714+00:00 | SVGnest `b-trousers-nest-mb-given` seed 0, 60s, expanded, axis y | valid | material 3.4180790960451977 | [record](output/playwright/svgnest/20261011T231020Z-00082f5b/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:11:38.578363+00:00 | SVGnest `b-fu-strip-sheet` seed 1, 60s, identical, axis y | valid | material 1.394736842105263 | [record](output/playwright/svgnest/20261011T231032Z-44e9d6c2/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:11:48.079681+00:00 | verified deepnest batch `20261011T230645Z-5433a266` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T231148Z-0f5829be.md). Provisional; all failures retained.
+
+- 2026-10-11T23:11:49.184924+00:00 | verified deepnest batch `20261011T230646Z-35bc2b5f` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T231149Z-008e242e.md). Provisional; all failures retained.
+
+- 2026-10-11T23:12:33.998059+00:00 | SVGnest `b-trousers-strip-sheet` seed 0, 60s, expanded, axis y | valid | material 2.329113924050633 | [record](output/playwright/svgnest/20261011T231128Z-c0e625db/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:12:45.028275+00:00 | SVGnest `b-jakobs1-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 4.5 | [record](output/playwright/svgnest/20261011T231138Z-a951abca/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:13:01.560841+00:00 | deepnest-next `b-swim-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 4.815309339490865 | [record](output/playwright/deepnest/20261011T231150Z-63f83c15/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:13:01.948873+00:00 | deepnest-next `b-trousers-nest-mb-given` seed 0, 60s, identical, axis y | valid | material 3.264281231638418 | [record](output/playwright/deepnest/20261011T231150Z-5bd0ac49/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:13:52.343004+00:00 | SVGnest `b-jakobs1-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 4.5 | [record](output/playwright/svgnest/20261011T231245Z-600bfc02/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:14:11.922775+00:00 | verified svgnest batch `20261011T230012Z-9e7e14e5` | 9/11 valid | [table](benchmarks/results/svgnest-20261011T231411Z-61a4c43d.md). Provisional; all failures retained.
+
+- 2026-10-11T23:14:13.279192+00:00 | deepnest-next `b-swim-strip-sheet` seed 0, 60s, identical, axis y | valid | material 1.7257255092141865 | [record](output/playwright/deepnest/20261011T231302Z-e3dd38ef/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:14:15.004922+00:00 | deepnest-next `b-trousers-strip-sheet` seed 0, 60s, identical, axis y | valid | material 2.2025316455696204 | [record](output/playwright/deepnest/20261011T231302Z-b9a0ad43/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:14:58.516265+00:00 | SVGnest `b-jakobs1-strip-sheet` seed 1, 60s, identical, axis y | valid | material 0.83333335 | [record](output/playwright/svgnest/20261011T231352Z-cf12539e/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:15:23.779495+00:00 | deepnest-next `b-trousers-nest-mb-free` seed 0, 60s, identical, axis y | valid | material 2.6666666666666665 | [record](output/playwright/deepnest/20261011T231414Z-a21c179e/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:15:23.851246+00:00 | SVGnest `b-shapes1-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 7.809523809523809 | [record](output/playwright/svgnest/20261011T231416Z-d40e699a/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:16:04.429363+00:00 | SVGnest `b-jakobs2-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 3.9166666666666665 | [record](output/playwright/svgnest/20261011T231458Z-dc0efd09/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:16:28.841370+00:00 | SVGnest `b-shapes1-strip-sheet` seed 1, 60s, identical, axis y | valid | material 2.65 | [record](output/playwright/svgnest/20261011T231524Z-3b4e1411/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:17:09.091132+00:00 | SVGnest `b-jakobs2-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 3.9166666666666665 | [record](output/playwright/svgnest/20261011T231604Z-0f0850ae/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:17:11.232771+00:00 | verified deepnest batch `20261011T231145Z-fcbff56e` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T231711Z-82f402f9.md). Provisional; all failures retained.
+
+- 2026-10-11T23:17:11.962190+00:00 | verified deepnest batch `20261011T231146Z-2b0af1a6` | 2/2 valid | [table](benchmarks/results/deepnest-20261011T231711Z-bbb992e6.md). Provisional; all failures retained.
+
+- 2026-10-11T23:17:33.842288+00:00 | SVGnest `b-shirts-nest-mb-free` seed 1, 60s, identical, axis y | invalid | material None | [record](output/playwright/svgnest/20261011T231628Z-4342084c/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:17:43.113791+00:00 | current Sparrow `b-albano-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231741Z-a6bdcaca/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:44.589443+00:00 | current Sparrow `b-albano-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231743Z-03a7d9fa/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:46.053567+00:00 | current Sparrow `b-albano-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231744Z-535bc640/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:47.495365+00:00 | current Sparrow `b-blaz1-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231746Z-1941de8d/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:49.028584+00:00 | current Sparrow `b-blaz1-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231747Z-2676f00c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:50.470155+00:00 | current Sparrow `b-blaz1-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231749Z-e25e1478/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:53.615093+00:00 | current Sparrow `b-albano-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231751Z-e17eb077/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:55.115956+00:00 | current Sparrow `b-albano-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231753Z-58270867/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:56.564181+00:00 | current Sparrow `b-albano-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231755Z-fc1381c3/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:58.077557+00:00 | current Sparrow `b-blaz1-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231756Z-4dfce7ac/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:17:59.642881+00:00 | current Sparrow `b-blaz1-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231758Z-a3277650/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:18:01.132459+00:00 | current Sparrow `b-blaz1-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231759Z-4fec5fd7/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:18:14.168248+00:00 | SVGnest `b-jakobs2-strip-sheet` seed 1, 60s, identical, axis y | valid | material 0.8707417571428572 | [record](output/playwright/svgnest/20261011T231709Z-33a397ee/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:18:25.846833+00:00 | deepnest-next `b-blaz1-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 10.666666666666666 | [record](output/playwright/deepnest/20261011T231716Z-71719750/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:18:26.827700+00:00 | deepnest-next `b-albano-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 2.5943748626675456 | [record](output/playwright/deepnest/20261011T231716Z-12de5ce0/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:18:39.106040+00:00 | SVGnest `b-shirts-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 8.916239333333333 | [record](output/playwright/svgnest/20261011T231733Z-b330c99d/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:18:52.982026+00:00 | current Sparrow `b-dagli-strip-sheet` seed 1, 60s, identical, axis y | valid | score 0.88377255 | [record](output/sparrow-benchmark/20261011T231750Z-300c58fb/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:18:54.629283+00:00 | current Sparrow `b-fu-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231853Z-ea4c75ec/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:18:56.432562+00:00 | current Sparrow `b-fu-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231854Z-efc39e2a/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:18:57.996768+00:00 | current Sparrow `b-fu-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231856Z-8ed925d1/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:18:59.756319+00:00 | current Sparrow `b-jakobs1-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231858Z-3682de98/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:01.576997+00:00 | current Sparrow `b-jakobs1-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231859Z-b1ea4cbc/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:03.129255+00:00 | current Sparrow `b-dagli-strip-sheet` seed 2, 60s, identical, axis y | valid | score 0.8835400499999999 | [record](output/sparrow-benchmark/20261011T231801Z-8a2c2a31/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:04.887607+00:00 | current Sparrow `b-fu-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231903Z-1728e20c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:06.605813+00:00 | current Sparrow `b-fu-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231904Z-a85b4400/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:08.178910+00:00 | current Sparrow `b-fu-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231906Z-9b99ba9f/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:09.631854+00:00 | current Sparrow `b-jakobs1-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231908Z-416de7af/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:11.090614+00:00 | current Sparrow `b-jakobs1-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T231909Z-4d1718dd/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:19:19.135326+00:00 | SVGnest `b-mao-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 1.9281879872379213 | [record](output/playwright/svgnest/20261011T231814Z-43852898/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:19:34.391770+00:00 | deepnest-next `b-blaz1-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 9.666666666666666 | [record](output/playwright/deepnest/20261011T231826Z-87138a79/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:19:36.882457+00:00 | deepnest-next `b-albano-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 2.844649527576357 | [record](output/playwright/deepnest/20261011T231827Z-c081807a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:19:44.731812+00:00 | SVGnest `b-shirts-strip-sheet` seed 1, 60s, identical, axis y | valid | material 2.73125 | [record](output/playwright/svgnest/20261011T231839Z-d6aa87ec/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:20:04.230182+00:00 | current Sparrow `b-jakobs1-strip-sheet` seed 1, 60s, identical, axis y | valid | score 0.701604625 | [record](output/sparrow-benchmark/20261011T231901Z-049c0019/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:20:06.259103+00:00 | current Sparrow `b-jakobs2-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232004Z-558a81e2/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:20:07.851654+00:00 | current Sparrow `b-jakobs2-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232006Z-d9bfa594/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:20:13.365117+00:00 | current Sparrow `b-jakobs1-strip-sheet` seed 2, 60s, identical, axis y | valid | score 0.701202775 | [record](output/sparrow-benchmark/20261011T231911Z-67449b9a/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:20:14.956824+00:00 | current Sparrow `b-jakobs2-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232013Z-b9206488/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:20:16.459090+00:00 | current Sparrow `b-jakobs2-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232014Z-e9f4bab8/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:20:24.754851+00:00 | SVGnest `b-mao-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 2.422971741112124 | [record](output/playwright/svgnest/20261011T231919Z-f0acfc0d/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:20:43.067120+00:00 | deepnest-next `b-blaz1-strip-sheet` seed 1, 60s, identical, axis y | valid | material 3.366666733333333 | [record](output/playwright/deepnest/20261011T231934Z-299116b6/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:20:45.621498+00:00 | deepnest-next `b-albano-strip-sheet` seed 1, 60s, identical, axis y | valid | material 1.7848714557142857 | [record](output/playwright/deepnest/20261011T231937Z-c3b12409/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:20:50.219202+00:00 | SVGnest `b-swim-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 4.9602457530873005 | [record](output/playwright/svgnest/20261011T231944Z-92b695f1/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:20:59.431134+00:00 | verified deepnest batch `20261011T231713Z-80fe227f` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T232059Z-08a8be88.md). Provisional; all failures retained.
+
+- 2026-10-11T23:21:12.707482+00:00 | current Sparrow `b-jakobs2-strip-sheet` seed 1, 60s, identical, axis y | valid | score 0.7539087571428571 | [record](output/sparrow-benchmark/20261011T232007Z-8c45e160/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:21:14.184001+00:00 | current Sparrow `b-mao-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232112Z-b5d11ce9/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:21:15.610672+00:00 | current Sparrow `b-mao-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232114Z-95c5b140/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:21:18.471783+00:00 | current Sparrow `b-jakobs2-strip-sheet` seed 2, 60s, identical, axis y | valid | score 0.7585047571428571 | [record](output/sparrow-benchmark/20261011T232016Z-036073a7/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:21:19.958922+00:00 | current Sparrow `b-mao-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232118Z-45777e53/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:21:21.506448+00:00 | current Sparrow `b-mao-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232119Z-6a9446fc/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:21:31.416052+00:00 | SVGnest `b-mao-strip-sheet` seed 1, 60s, identical, axis y | valid | material 0.8773284019607843 | [record](output/playwright/svgnest/20261011T232025Z-2fca2374/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:21:56.240117+00:00 | SVGnest `b-swim-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 5.341178197878091 | [record](output/playwright/svgnest/20261011T232050Z-da1113ec/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:22:10.920021+00:00 | deepnest-next `b-dagli-strip-sheet` seed 1, 60s, identical, axis y | valid | material 0.9504597666666667 | [record](output/playwright/deepnest/20261011T232100Z-867996a3/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:22:17.705210+00:00 | current Sparrow `b-mao-strip-sheet` seed 1, 60s, identical, axis y | valid | score 0.8124014580392157 | [record](output/sparrow-benchmark/20261011T232115Z-053ccce1/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:22:23.495424+00:00 | current Sparrow `b-mao-strip-sheet` seed 2, 60s, identical, axis y | valid | score 0.7946245980392156 | [record](output/sparrow-benchmark/20261011T232121Z-c9637d3c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11 | 30/30 valid refined maker constructions | [proof](benchmarks/results/construct-maker-20261011T231256Z-a812ca42.md). Development diagnostic only.
+
+- 2026-10-11 | 35/35 valid 64-pass sheet repacks; six sheet-count improvements | [proof](benchmarks/results/repack-sheet-20261011T231949Z-43e06d0f.md). Development diagnostic only.
+
+- 2026-10-11 | four valid refined-repacking smoke incumbents | [proof](benchmarks/results/repack-refined-smoke-20261011T2322.md). Development diagnostic only.
+
+- 2026-10-11 | Sparrow applicability: 32 area-bound exclusions without new solver attempts | [proof](benchmarks/results/sparrow-applicability-20261011T2322.md). Development diagnostic only.
+
+- 2026-10-11T23:22:35.533163+00:00 | verified deepnest batch `20261011T231712Z-f580d353` | 3/3 valid | [table](benchmarks/results/deepnest-20261011T232235Z-95244f8f.md). Provisional; all failures retained.
+
+- 2026-10-11T23:22:37.403935+00:00 | SVGnest `b-marques-strip-sheet` seed 1, 60s, identical, axis y | valid | material 1.2019230769230769 | [record](output/playwright/svgnest/20261011T232131Z-343908e4/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:23:01.420855+00:00 | SVGnest `b-swim-strip-sheet` seed 1, 60s, identical, axis y | valid | material 1.7942708703059804 | [record](output/playwright/svgnest/20261011T232156Z-381da256/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:23:19.707375+00:00 | current Sparrow `b-marques-strip-sheet` seed 1, 60s, identical, axis y | valid | score 0.9808291634615384 | [record](output/sparrow-benchmark/20261011T232217Z-632dd1eb/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:20.382246+00:00 | deepnest-next `b-fu-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 3.6666666666666665 | [record](output/playwright/deepnest/20261011T232211Z-c1aed495/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:23:21.136560+00:00 | current Sparrow `b-shapes0-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232319Z-9c0e8c6c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:22.557008+00:00 | current Sparrow `b-shapes0-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232321Z-c5365883/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:24.062918+00:00 | current Sparrow `b-shapes0-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232322Z-f346187a/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:25.403081+00:00 | current Sparrow `b-marques-strip-sheet` seed 2, 60s, identical, axis y | valid | score 0.9906952884615385 | [record](output/sparrow-benchmark/20261011T232223Z-5981f099/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:25.711720+00:00 | current Sparrow `b-shapes1-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232324Z-5869413c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:26.829335+00:00 | current Sparrow `b-shapes0-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232325Z-633932e6/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:27.125737+00:00 | current Sparrow `b-shapes1-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232325Z-b5a72c15/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:28.246404+00:00 | current Sparrow `b-shapes0-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232326Z-1d1ad66c/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:28.509910+00:00 | current Sparrow `b-shapes1-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232327Z-9150a838/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:29.644000+00:00 | current Sparrow `b-shapes0-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232328Z-f34ec6eb/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:29.908340+00:00 | current Sparrow `b-shirts-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232328Z-fa60274d/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:31.061160+00:00 | current Sparrow `b-shapes1-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232329Z-3b2225e4/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:31.274490+00:00 | current Sparrow `b-shirts-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232329Z-8d92f980/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:32.463546+00:00 | current Sparrow `b-shapes1-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232331Z-322608dd/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:32.650182+00:00 | current Sparrow `b-shirts-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232331Z-27aad9fc/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:33.884338+00:00 | current Sparrow `b-shapes1-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232332Z-038a8e49/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:34.038974+00:00 | current Sparrow `b-swim-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232332Z-09cbb272/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:35.328633+00:00 | current Sparrow `b-shirts-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232333Z-dfd321ba/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:36.742218+00:00 | current Sparrow `b-shirts-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232335Z-270fc6e9/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:38.149218+00:00 | current Sparrow `b-shirts-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232336Z-37195fb3/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:39.565218+00:00 | current Sparrow `b-swim-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232338Z-11479649/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:43.896928+00:00 | SVGnest `b-shapes0-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 8.857142857142858 | [record](output/playwright/svgnest/20261011T232237Z-402c0ad2/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:23:49.071223+00:00 | deepnest-next `b-fu-strip-sheet` seed 1, 60s, identical, axis y | valid | material 1.368421052631579 | [record](output/playwright/deepnest/20261011T232237Z-41bc8c8e/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:23:53.441258+00:00 | current Sparrow `b-swim-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232351Z-9f339eed/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:54.833871+00:00 | current Sparrow `b-swim-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232353Z-c22b4010/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:56.285583+00:00 | current Sparrow `b-trousers-nest-mb-free` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232354Z-10cb3ca9/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:57.681782+00:00 | current Sparrow `b-trousers-nest-mb-given` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232356Z-c8535a86/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:23:59.143643+00:00 | current Sparrow `b-trousers-strip-sheet` seed 1, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232357Z-3cea840e/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:24:01.617155+00:00 | current Sparrow `b-swim-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232359Z-1e6e5014/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:24:03.322294+00:00 | current Sparrow `b-swim-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232401Z-f5781d4b/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:24:04.815417+00:00 | current Sparrow `b-trousers-nest-mb-free` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232403Z-82a496db/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:24:05.892492+00:00 | SVGnest `b-trousers-nest-mb-free` seed 1, 60s, identical, axis y | valid | material 2.689265536723164 | [record](output/playwright/svgnest/20261011T232301Z-9f84c4a1/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T23:24:06.378059+00:00 | current Sparrow `b-trousers-nest-mb-given` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232404Z-d12b7b69/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:24:07.826178+00:00 | current Sparrow `b-trousers-strip-sheet` seed 2, 60s, identical, axis y | unsupported | score None | [record](output/sparrow-benchmark/20261011T232406Z-3608eb8f/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T23:24:29.415519+00:00 | deepnest-next `b-fu-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 3.6666666666666665 | [record](output/playwright/deepnest/20261011T232320Z-e31daf0b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T23:24:36.815852+00:00 | verified sparrow batch `20261011T231741Z-8cf6c1cc` | 5/30 valid | [table](benchmarks/results/sparrow-20261011T232436Z-f57cdfcb.md). Provisional; all failures retained.
+
+- 2026-10-11T23:24:37.707339+00:00 | verified sparrow batch `20261011T231751Z-665eb178` | 5/30 valid | [table](benchmarks/results/sparrow-20261011T232437Z-00e407a2.md). Provisional; all failures retained.
+
+- 2026-10-11T23:24:38.380258+00:00 | verified sparrow batch `20261011T232351Z-688651a5` | 0/5 valid | [table](benchmarks/results/sparrow-20261011T232438Z-ab27f067.md). Provisional; all failures retained.
+
+- 2026-10-11T23:24:39.129025+00:00 | verified sparrow batch `20261011T232359Z-0f5cddfe` | 0/5 valid | [table](benchmarks/results/sparrow-20261011T232439Z-2e582843.md). Provisional; all failures retained.
+
+- 2026-10-11T23:24:48.539125+00:00 | SVGnest `b-shapes0-nest-mb-given` seed 1, 60s, identical, axis y | valid | material 8.857142857142858 | [record](output/playwright/svgnest/20261011T232344Z-698eed85/run.json). Provisional settings, one worker and one CPU affinity.

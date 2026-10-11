@@ -4,11 +4,23 @@ import math
 import unittest
 
 from benchmark_io import UnsupportedJob
-from sparrow_io import prepare, layout, strip_length
+from sparrow_io import prepare, layout, strip_length, single_sheet_area_bound
 from test_benchmark_io import job
 
 
 class SparrowAdapterTests(unittest.TestCase):
+    def test_single_sheet_area_bound_skips_only_proven_excess_demand(self):
+        source=job()
+        source['parts'][0]['quantity']=200
+        self.assertEqual(single_sheet_area_bound(source), (200,200))
+        prepare(source)  # Equality is inconclusive even though margins reduce usable space.
+        source['parts'][0]['quantity']=201
+        with self.assertRaisesRegex(UnsupportedJob, 'single-sheet area bound'):
+            prepare(source)
+        source['stocks'][0]['count']=None  # Unlimited stock cannot add bins to a strip solver.
+        with self.assertRaisesRegex(UnsupportedJob, 'multi-sheet solver'):
+            prepare(source,'y')
+
     def test_separate_edge_gap_and_original_geometry(self):
         source = job()
         source['edge_clearance'] = 1

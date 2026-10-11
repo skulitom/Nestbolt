@@ -28,7 +28,7 @@ enum Command {
         #[arg(long, default_value_t = 4)]
         free_rotations: u32,
     },
-    /// Build a first conservative sheet layout; improvement search is not yet implemented.
+    /// Build a first conservative sheet layout, optionally refining each placement.
     Construct {
         #[arg(long)]
         job: PathBuf,
@@ -40,6 +40,8 @@ enum Command {
         samples: u32,
         #[arg(long, default_value_t = 4)]
         free_rotations: u32,
+        #[arg(long)]
+        refine: bool,
     },
     /// Check a complete polygon benchmark job/layout against every declared constraint.
     Validate {
@@ -131,18 +133,22 @@ fn main() -> Result<()> {
             seed,
             samples,
             free_rotations,
+            refine,
         } => {
             let job = serde_json::from_slice(
                 &fs::read(&job).with_context(|| format!("cannot read {}", job.display()))?,
             )?;
-            let result = nestbolt_core::construct::construct(
-                &job,
-                nestbolt_core::construct::Options {
-                    seed,
-                    random_samples: samples,
-                    free_rotations,
-                },
-            )?;
+            let options = nestbolt_core::construct::Options {
+                seed,
+                random_samples: samples,
+                free_rotations,
+            };
+            let prepared = nestbolt_core::construct::PreparedJob::new(&job)?;
+            let result = if refine {
+                prepared.construct_refined(options)?
+            } else {
+                prepared.construct(options)?
+            };
             let report = nestbolt_validator::job::validate(&job, &result.layout)?;
             println!(
                 "{}",

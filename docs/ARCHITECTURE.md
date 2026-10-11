@@ -63,6 +63,15 @@ improvement only if it beats the incumbent under the declared all/fill objective
 Incomplete capped trials have no score. Progress reports every pass. Fixed passes
 are an experimental work quota; calibrated deadlines and cancellation are pending.
 
+The optional refinement stage makes bounded translations from a feasible
+placement, using progressively smaller steps and several downward slopes. It
+keeps the exact rotation/reflection and reconstructs each source translation from
+the actual f32 displacement, avoiding accumulated proxy/source drift. Repacking
+first compares this refined construction against the original incumbent with the
+same order and seed, then explores other orders and attempts one fewer sheet.
+Failed/incomplete trials are recorded without a score. This is still constructive
+repacking; overlap repair and neighbourhood moves across existing sheets remain.
+
 For this bootstrap, core consumes the polygon contract from the validator crate.
 The checker is called for source preflight and final acceptance, never to choose
 placements. Search intersections stay in jagua; final intersections stay in

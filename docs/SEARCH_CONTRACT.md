@@ -1,4 +1,4 @@
-# Repeatable search contract (design, not implemented)
+# Repeatable search contract (partially implemented)
 
 The v1 MCP promise is that the same original job, engine version, seed and budget
 produce the same successful layout. A seed combined with a wall-clock cutoff
@@ -29,6 +29,8 @@ and is not evidence for this future contract.
 
 Acceptance still requires real repeated-job tests, native/browser comparison,
 progress/cancellation and actual timeout behavior. These notes resolve the intended
-semantics. The first constructor has an explicit seed and fixed sample count,
-with a native repeated-output test. Time-budget calibration, improvement search
-and the complete native/browser/MCP acceptance contract remain unfinished.
+semantics. The constructor has an explicit seed and fixed sample count. Repacking
+has fixed passes, a specified integer shuffle, an initial refinement comparison,
+independent incumbent acceptance and per-pass progress. Native repeated-output
+tests cover both. These experimental quotas do not yet implement time-budget
+calibration, hard cancellation or the complete native/browser/MCP contract.

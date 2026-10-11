@@ -51,9 +51,18 @@ fn repacking_preserves_a_valid_incumbent_and_accounts_for_every_pass() {
     assert_eq!(callbacks, vec![0, 1, 2, 3, 4]);
     assert_eq!(result.completed_passes, 5);
     assert_eq!(
-        result.history[1].sheet_limit,
-        Some(result.history[0].sheets - 1)
+        result.history[2].sheet_limit,
+        Some(
+            result.history[..2]
+                .iter()
+                .rfind(|p| p.accepted)
+                .unwrap()
+                .sheets
+                - 1
+        )
     );
+    assert_eq!(result.history[1].stage, "refine");
+    assert_eq!(result.history[1].seed, result.history[0].seed);
     assert!(result.best.layout.sheets.len() <= result.history[0].sheets);
     for pass in &result.history {
         if !pass.complete {

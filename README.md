@@ -17,7 +17,9 @@ No optimisation-quality claims have been established yet.
   maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md).
 - `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
   retaining independently valid improvements and recording failed sheet-removal
-  attempts. This experimental command has a work quota, not a time-budget promise.
+  attempts. A [35-job development trial](benchmarks/results/repack-sheet-20261011T231949Z-43e06d0f.md)
+  passes independent validation and reduces sheet count on six jobs. This
+  experimental command has a work quota, not a time-budget promise.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,
@@ -49,6 +51,11 @@ cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layou
 cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-box-mini.json --output box-layout.json
 cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box-mini.json --output improved-box-layout.json --passes 6
 ```
+
+`construct --refine` adds bounded translation refinement. `improve` compares that
+refinement with its initial layout before exploring other orders, and keeps the
+best valid result. It reports each completed pass on stderr and the final result
+on stdout. Existing output files are never overwritten.
 
 The sample reports six parts with a total area of 16,800 mm² and two available
 300 × 200 mm sheets. Units must be specified (`mm`, `inch` or `unitless`); no

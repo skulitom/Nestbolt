@@ -1,4 +1,4 @@
-use nestbolt_core::construct::{Options, construct};
+use nestbolt_core::construct::{Options, PreparedJob, construct};
 use nestbolt_validator::{
     Polygon, Units,
     job::{Job, Margins, Mode, Part, Rotations, Stock, rectangle, validate},
@@ -187,4 +187,110 @@ fn a_long_rectangular_sheet_uses_its_usable_edges_without_random_sampling() {
     assert!(result.complete);
     assert_eq!(result.layout.sheets.len(), 1);
     assert!(validate(&source, &result.layout).unwrap().valid);
+}
+
+#[test]
+fn refinement_keeps_a_mirrored_remnant_valid_without_changing_permissions() {
+    let mut sheet = stock("triangle-remnant", 10.0, 10.0, Some(1));
+    sheet.outline = vec![Polygon {
+        outer: vec![[0.0, 0.0], [10.0, 0.0], [10.0, 10.0]],
+        holes: vec![],
+    }];
+    let mut source = job(
+        vec![part(
+            "offset-triangle",
+            vec![Polygon {
+                outer: vec![[4.0, -2.0], [12.0, -2.0], [4.0, 6.0]],
+                holes: vec![],
+            }],
+            1,
+        )],
+        vec![sheet],
+    );
+    source.clearance = 0.1;
+    source.edge_clearance = 0.1;
+    source.parts[0].allow_mirror = true;
+    let prepared = PreparedJob::new(&source).unwrap();
+    let initial = prepared.construct(Options::default()).unwrap();
+    let refined = prepared.construct_refined(Options::default()).unwrap();
+    let a = validate(&source, &initial.layout).unwrap();
+    let b = validate(&source, &refined.layout).unwrap();
+    assert!(a.valid && b.valid);
+    assert!(refined.layout.placements[0].transform.mirrored);
+    assert_eq!(refined.layout.placements[0].transform.rotation_radians, 0.0);
+    assert!(b.metrics.unwrap().material_area <= a.metrics.unwrap().material_area);
+    let repeated = prepared.construct_refined(Options::default()).unwrap();
+    assert_eq!(
+        serde_json::to_string(&refined).unwrap(),
+        serde_json::to_string(&repeated).unwrap()
+    );
+}
+
+#[test]
+fn refinement_closes_a_gap_above_a_sloping_remnant_edge() {
+    let mut sheet = stock("sloped-remnant", 10.0, 10.0, Some(1));
+    sheet.outline = vec![Polygon {
+        outer: vec![[0.0, 4.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0]],
+        holes: vec![],
+    }];
+    let source = job(
+        vec![part("square", vec![rectangle(0.0, 0.0, 4.0, 4.0)], 1)],
+        vec![sheet],
+    );
+    let prepared = PreparedJob::new(&source).unwrap();
+    let initial = prepared.construct(Options::default()).unwrap();
+    let refined = prepared.construct_refined(Options::default()).unwrap();
+    let a = validate(&source, &initial.layout).unwrap();
+    let b = validate(&source, &refined.layout).unwrap();
+    assert!(a.valid && b.valid);
+    assert!(
+        b.metrics.as_ref().unwrap().material_area < a.metrics.as_ref().unwrap().material_area - 0.1,
+        "initial={:?}, refined={:?}; initial placement={:?}, refined placement={:?}",
+        a.metrics,
+        b.metrics,
+        initial.layout.placements,
+        refined.layout.placements
+    );
+}
+
+#[test]
+fn refinement_keeps_holes_components_defects_and_exact_angles_in_source_space() {
+    let mut ring = rectangle(-2.0, -3.0, 8.0, 9.0);
+    ring.holes.push(rectangle(0.0, 0.0, 2.0, 2.0).outer);
+    let mut source = job(
+        vec![
+            part("ring", vec![ring], 4),
+            part(
+                "pair",
+                vec![
+                    rectangle(-3.0, 0.0, 2.0, 3.0),
+                    rectangle(1.0, 0.0, 2.0, 3.0),
+                ],
+                5,
+            ),
+        ],
+        vec![stock("sheet", 24.0, 26.0, None)],
+    );
+    source.stocks[0].defects.push(rectangle(5.0, 5.0, 3.0, 3.0));
+    for part in &mut source.parts {
+        part.rotations = Rotations::List {
+            degrees: vec![37.0],
+        };
+        part.allow_mirror = true;
+    }
+    let original = serde_json::to_string(&source).unwrap();
+    let result = PreparedJob::new(&source)
+        .unwrap()
+        .construct_refined(Options::default())
+        .unwrap();
+    assert!(result.complete);
+    assert!(validate(&source, &result.layout).unwrap().valid);
+    assert!(
+        result
+            .layout
+            .placements
+            .iter()
+            .all(|p| p.transform.rotation_radians == 37.0_f64.to_radians())
+    );
+    assert_eq!(serde_json::to_string(&source).unwrap(), original);
 }
