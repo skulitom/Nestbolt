@@ -1,0 +1,21 @@
+[package]
+name = "nestbolt-mcp"
+description = "Native stdio MCP entry point for Nestbolt (development scaffold)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+nestbolt-core.workspace = true
+rmcp.workspace = true
+tokio.workspace = true
+
+[dev-dependencies]
+rmcp = { workspace = true, features = ["client", "transport-child-process"] }
+tokio = { workspace = true, features = ["time"] }
+
+[lints]
+workspace = true

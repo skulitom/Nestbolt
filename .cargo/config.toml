@@ -1,0 +1,7 @@
+[build]
+# Keep development builds modest on the reference PC.
+jobs = 4
+
+[target.wasm32-unknown-unknown]
+# jagua-rs uses getrandom 0.4. Browser workers supply Web Crypto.
+rustflags = ['--cfg', 'getrandom_backend="wasm_js"']

@@ -1,0 +1,19 @@
+[package]
+name = "nestbolt-wasm"
+description = "Single-worker WebAssembly boundary for Nestbolt"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+nestbolt-core.workspace = true
+serde_json.workspace = true
+wasm-bindgen.workspace = true
+
+[lints]
+workspace = true

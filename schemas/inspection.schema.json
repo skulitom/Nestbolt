@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nestbolt development inspection report",
+  "description": "Summary of a jagua-rs BPP import, not a solution or independent validation report. Area is in squared input units.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "engine", "units", "part_types", "total_parts", "sheet_types", "available_sheets", "total_part_area", "min_item_separation"],
+  "properties": {
+    "name": {"type": "string", "minLength": 1},
+    "engine": {"const": "jagua-rs 1.1.0"},
+    "units": {"enum": ["mm", "inch", "unitless"]},
+    "part_types": {"type": "integer", "minimum": 1, "maximum": 2000},
+    "total_parts": {"type": "integer", "minimum": 1, "maximum": 2000},
+    "sheet_types": {"type": "integer", "minimum": 1},
+    "available_sheets": {"type": "integer", "minimum": 1},
+    "total_part_area": {"type": "number", "exclusiveMinimum": 0},
+    "min_item_separation": {"type": "number", "minimum": 0}
+  }
+}
