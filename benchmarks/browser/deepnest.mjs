@@ -18,24 +18,26 @@ mkdirSync(profile, { recursive: true })
 mkdirSync(imports, { recursive: true })
 writeFileSync(join(profile, 'settings.json'), JSON.stringify({ showNotifications: false, threads: 1, useSvgPreProcessor: false, useQuantityFromFileName: false }) + '\n')
 let affinity
+function constrainLoadedTree() {
 if (process.platform === 'win32') {
   // A separate logical CPU from the current SVGnest batch's CPU 0.
   const mask = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-File',
-    join(root, 'benchmarks/browser/cpu-job.ps1'), '-ControllerId', String(process.pid), '-Mask', '4'],
+    join(root, 'benchmarks/browser/cpu-tree-job.ps1'), '-ControllerId', String(process.pid), '-Mask', '4'],
     { encoding: 'utf8', windowsHide: true }).trim()
   if (mask !== '4') throw new Error('Deepnest controller CPU limit failed')
   affinity = { platform: 'win32', mask, method: 'JOB_OBJECT_LIMIT_AFFINITY' }
 } else if (process.platform === 'linux') {
-  const cpu = readFileSync('/proc/self/status', 'utf8').match(/^Cpus_allowed_list:\s*(.+)$/m)[1].split(/[-,]/)[0]
-  execFileSync('taskset', ['-pc', cpu, String(process.pid)])
-  affinity = { platform: 'linux', cpu }
+  throw new Error('Loaded-tree affinity has not yet been implemented on Linux')
 } else {
   throw new Error('Deepnest benchmark CPU controls currently support Windows/Linux')
+}
+return affinity
 }
 const executable = process.platform === 'win32' ? join(upstream, 'node_modules/electron/dist/electron.exe')
   : join(upstream, 'node_modules/electron/dist/electron')
 const result = { status: 'starting', errors: [], console: [], candidates: 0, last: null,
-  affinity, configured_workers: 1, seed: request.seed, budget_seconds: request.seconds,
+  configured_workers: 1, seed: request.seed, budget_seconds: request.seconds,
+  affinity_stage: 'after_import_before_solve',
   background_throttling: false,
   hardware_acceleration: false,
   electron_executable_sha256: createHash('sha256').update(readFileSync(executable)).digest('hex') }
@@ -135,6 +137,7 @@ try {
   ])]
   result.native_binaries = binaries.map(path => ({ path, sha256: createHash('sha256').update(readFileSync(path)).digest('hex') }))
   checkpoint('source_imported')
+  result.affinity = constrainLoadedTree()
   result.affinity_verification = verifyCpu(affinity)
   solveStart = performance.now()
   let startupError

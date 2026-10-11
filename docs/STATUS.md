@@ -7,13 +7,13 @@ The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **24/39 runs** have finished (all thirteen first seeds
-and eleven second seeds). All twenty-four pass independent
-geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-twenty-four-20261011.json)
+At the latest checkpoint, **27/39 runs** have finished (all thirteen first and
+second seeds, plus ALBANO's third). All twenty-seven pass independent
+geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-twenty-seven-20261011.json)
 retains the run records and validation evidence.
 The first JAKOBS2 run is about 1.02% longer than its published mean; its two-run
-mean is now about 0.29% longer. The required three-seed
-comparison is pending for every instance. No results have been discarded and the
+mean is now about 0.29% longer. ALBANO's complete three-seed comparison passes;
+the remaining twelve instances await their third seeds. No results have been discarded and the
 original 1% pass threshold is unchanged. The next bounded batch is still running.
 
 M1 preparation now includes an independent Clipper2 job/layout validator covering
@@ -47,18 +47,29 @@ invalid layout contains a genuine overlap and has no score. Original records
 remain unchanged; [all 38 saved attempts were audited](../benchmarks/results/svgnest-correction-20261011T202121Z-ad4dbe52.md),
 and the [24-job correction table](../benchmarks/results/svgnest-correction-20261011T202304Z-3f63b428.md)
 and a fresh [decoder smoke](../benchmarks/results/svgnest-decoder-v2-smoke-20261011.json)
-retain independent proof. The remaining eleven B jobs, full seed/configuration
-matrix and settings selection are pending.
+retain independent proof. The [remaining eleven B jobs](../benchmarks/results/svgnest-20261011T204513Z-1f07ec81.md)
+have eight valid layouts and three with small boundary violations. The complete
+first pilot is therefore **31/35 valid**, with every outcome retained. The full
+seed/configuration matrix and settings selection are pending.
 
 The pinned [Deepnest runner](../benchmarks/deepnest/README.md) now imports parts,
 quantities and mixed rectangular stock, runs the native solver with one worker
 and one CPU, and validates its original-coordinate output independently. Actual
 FU, spacing-safe hole placement and capped mixed-stock smoke layouts pass.
 Native half-gap behavior inside holes and incomplete stock-cap output are
-correctly rejected under the original constraints. Startup remains intermittent;
-[all eleven preparation attempts](../benchmarks/results/deepnest-preparation-20261011.json)
+correctly rejected under the original constraints. Moving the CPU restriction
+after import and before solving produces four consecutive valid FU smokes with
+prompt startup. [All startup trials](../benchmarks/results/deepnest-startup-20261011.json)
 are retained, including failures. Nine adapter/evidence tests pass. The complete
-Deepnest baseline and applicable Sparrow runner remain pending.
+Deepnest baseline remains pending.
+
+The [current Sparrow comparator](../benchmarks/sparrow-benchmark/README.md) now calls
+the pinned, unmodified public solver API with one worker and an overall candidate
+deadline that includes initial construction. Original polygons determine validation
+and strip scores. Real strip and unequal-edge-gap sheet smokes pass; a strip that
+does not fit one fixed sheet is invalid and unscored. [All three trials](../benchmarks/results/sparrow-preparation-20261011.json)
+are retained. Seven Python adapter/evidence tests and one native deadline test
+pass; full budget/seed comparisons are pending.
 
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
@@ -111,7 +122,7 @@ configured remote, hosted repository, release, registry publication or Pages dep
 On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
-dependency-notice/schema consistency, thirty-nine Python harness/conversion/evidence tests,
+dependency-notice/schema consistency, forty-six Python harness/conversion/evidence tests,
 88 source-contract checks and fixture checksums. Four additional curve-conversion
 tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).

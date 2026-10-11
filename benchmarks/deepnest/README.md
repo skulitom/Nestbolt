@@ -19,8 +19,9 @@ The exact upstream revision and dependency Git-blob checksum are in `tool.json`.
 Setup uses its locked dependencies, compiles TypeScript and downloads that lock's
 Electron version. The observed local runtime is Electron 40.10.2 / Chromium
 144.0.7559.236. Node controller dependencies share the exact Playwright lock with
-the SVGnest runner. Windows execution uses the hidden Anode session. Linux test
-display support is present but has not yet been verified.
+the SVGnest runner. Windows execution uses the hidden Anode session. The current
+loaded-process-tree CPU control is Windows-only; Linux execution is explicitly
+refused pending equivalent controls.
 
 ## Current verification and remaining work
 
@@ -35,9 +36,12 @@ large sheets produces a valid two-sheet layout. All eleven preparation attempts,
 including startup failures, are [retained](../results/deepnest-preparation-20261011.json).
 Six conversion tests and three evidence-audit tests pass.
 
-Startup has been intermittent in the hidden Electron environment. Stage timing
-and initialization diagnostics are retained; the startup allowance is currently
-bounded separately from the solve clock. Initialization failures are failures,
+Startup was intermittent with a CPU limit applied before launching Electron. Stage timing
+and initialization diagnostics are retained. Applying the limit after import and
+before solving produced four consecutive valid FU smokes with prompt startup.
+[Every startup trial](../results/deepnest-startup-20261011.json) remains available,
+including the failed shared-job experiment before separate nested jobs were used.
+The startup allowance is bounded separately from the solve clock. Initialization failures are failures,
 not unsupported jobs or discarded attempts. A stable full baseline batch,
 nonrectangular stock conversion and settings selection remain pending. This is
 not a completed M1 comparison or a Nestbolt quality result.
@@ -83,8 +87,10 @@ Every attempt has its own user-data and import directories. Notifications and
 external browser requests are disabled; only generated local SVG polygons enter
 the app. The seeded JS random generator and one-worker environment load before
 upstream scripts. GPU acceleration and background throttling are disabled for
-the hidden test window. Windows job affinity constrains all owned descendants
-to logical CPU 2; SVGnest uses CPU 0, avoiding overlap between their controllers.
+the hidden test window. After import, Windows affinity jobs constrain the controller
+and every existing descendant to logical CPU 2; later children inherit those
+limits. Separate nested jobs accommodate Chromium's existing sandbox jobs.
+SVGnest uses CPU 0, avoiding overlap between the timed solvers.
 The process tree is inspected before solving. Actual loaded native add-ons,
 Electron, generated application JS, lockfile and adapter hashes are recorded.
 

@@ -28,10 +28,10 @@ frozen in [the reproduction method](sparrow-repro/README.md). Experiment
 - [13 S, 35 B and 40 M jobs](datasets/README.md) are frozen and checked;
   ten M jobs are reserved for final acceptance and excluded from tuning.
 - [LBF](lbf/README.md) has a valid first B batch. The [SVGnest runner](svgnest/README.md)
-  has a 24-job pilot with 23 independently valid layouts after a documented export
-  precision correction. The [Deepnest runner](deepnest/README.md) passes real
-  spacing and mixed-stock smoke checks; startup stability, full batches and best
-  settings remain pending. Complete the applicable Sparrow adapter.
+  has a full 35-job, single-seed pilot with 31 independently valid layouts after
+  a documented export precision correction. The [Deepnest runner](deepnest/README.md)
+  passes real spacing and mixed-stock smoke checks. The [current Sparrow adapter](sparrow-benchmark/README.md)
+  passes original-geometry strip/sheet smokes. Full batches and best settings remain pending.
 - 60/300-second budgets, seed matrices, medians/IQR, raw records and charts.
 - [Mixed-stock material scoring](../docs/SCORING.md) is implemented; freeze all
   tool settings and the seed matrix before quality tuning.

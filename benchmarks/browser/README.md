@@ -18,8 +18,9 @@ The inspected deepnest-next checkout is revision
 `1e7ba6e2382557f337ad481ca3251fc22032ca0f`. Its locked Electron is 40.10.2.
 Local preparation used `npm ci --ignore-scripts`, the checkout's TypeScript
 compiler and Electron's install script. The native NFP package loaded successfully.
-The bounded solve/import/output adapter and setup command now exist; startup
-reliability and the full matrix are still pending. Do not treat the probe as a baseline or import that app's
+The bounded solve/import/output adapter and setup command now exist. Four successive
+smokes pass after moving the enforced single-core limit past startup; the full
+matrix is still pending. Do not treat the probe as a baseline or import that app's
 code into the product: upstream includes GPL-3.0 engine code and an
 AGPL-3.0-only preprocessor despite the root package's MIT declaration.
 

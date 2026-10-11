@@ -23,6 +23,7 @@ SOURCES = ['scripts/deepnest.py', 'scripts/deepnest_io.py', 'scripts/svgnest.py'
            'benchmarks/browser/deepnest.mjs', 'benchmarks/browser/deepnest-preload.cjs',
            'benchmarks/browser/deepnest-bootstrap.cjs', 'benchmarks/browser/cpu-limit.mjs',
            'benchmarks/browser/cpu-job.ps1', 'benchmarks/browser/package.json',
+           'benchmarks/browser/cpu-tree-job.ps1',
            'benchmarks/browser/package-lock.json']
 
 

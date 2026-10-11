@@ -31,6 +31,8 @@ def main():
         [sys.executable, "scripts/test_svgnest_report.py"],
         [sys.executable, "scripts/test_deepnest_io.py"],
         [sys.executable, "scripts/test_deepnest_report.py"],
+        [sys.executable, "scripts/test_sparrow_io.py"],
+        [sys.executable, "scripts/test_sparrow_report.py"],
         [sys.executable, "scripts/maker_freeze.py", "--check"],
         [sys.executable, "scripts/test_maker_freeze.py"],
         ["cargo", "run", "--quiet", "--locked", "-p", "nestbolt-validator", "--example", "check_jobs", "--",
