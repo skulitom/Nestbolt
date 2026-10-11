@@ -7,9 +7,9 @@ The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **15/39 runs** have finished (all thirteen first seeds,
-plus ALBANO and SHAPES2 second seeds). All fifteen pass independent
-geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-fifteen-20261011.json)
+At the latest checkpoint, **18/39 runs** have finished (all thirteen first seeds,
+plus ALBANO, SHAPES2, DAGLI, FU and JAKOBS1 second seeds). All eighteen pass independent
+geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-eighteen-20261011.json)
 retains the run records and validation evidence.
 JAKOBS2 is about 1.02% longer than its published mean; the required three-seed
 comparison is pending for every instance. No results have been discarded and the
@@ -32,6 +32,18 @@ full-precision scores and provenance. This is not a result for Nestbolt and does
 not establish the complete competitor comparison or M1. The generated mixed-stock,
 defect, margin and spacing smoke also passes; see [LBF method](../benchmarks/lbf/README.md).
 
+The pinned [SVGnest runner](../benchmarks/svgnest/README.md) now automates local
+Chromium, bounds solve time, enforces a single-core process tree, checks original
+geometry independently and retains every outcome. Eight adapter/evidence tests
+pass. Actual FU and unequal-edge-gap checks pass; an insufficient stock cap is
+correctly invalid with no score. The detailed mini-box trial has no result within
+30 s. [All preparation attempts](../benchmarks/results/svgnest-preparation-20261011.json)
+are retained, including early configuration and CPU-limit failures. One five-second
+FU batch also passes the immutable report audit; this is not the full baseline.
+The full B batches, settings selection and remaining competitor runners are pending.
+Deepnest opens in an isolated profile on the hidden desktop; its solve adapter is
+still being prepared.
+
 All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
 MIT collection licence; every part, demand and allowed angle matches the historical
 M0 input. The canonical freeze now includes **13 S and 35 B jobs**: 22 reconstructions
@@ -46,13 +58,14 @@ five planned source categories, requested sheet sizes and 500–2,000-copy jobs.
 All forty source contracts and full one-copy-per-sheet feasibility witnesses pass
 independently. Original curves, generation parameters, licence evidence and
 checksums are retained. A fresh isolated installation rebuilds all files exactly;
-four curve-bound/topology tests and three freeze/coverage tests pass. No maker
-job has been optimised or used for tuning. See [maker method](../benchmarks/makers/README.md).
+four curve-bound/topology tests and three freeze/coverage tests pass. Development
+SVGnest trials now include the non-held-out mini-box. The ten held-out jobs have
+never been run through an optimiser. See [maker method](../benchmarks/makers/README.md).
 
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
-| M1 — Baseline | 15% | Validator, S/B/M freezes and LBF runner ready; other competitor runners and full matrix pending |
+| M1 — Baseline | 15% | Validator, S/B/M freezes, LBF and SVGnest runners ready; remaining competitors and full matrix pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
 | M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |
@@ -82,7 +95,7 @@ configured remote, hosted repository, release, registry publication or Pages dep
 On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
-dependency-notice/schema consistency, nineteen Python harness/conversion/evidence tests,
+dependency-notice/schema consistency, twenty-seven Python harness/conversion/evidence tests,
 88 source-contract checks and fixture checksums. Four additional curve-conversion
 tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).

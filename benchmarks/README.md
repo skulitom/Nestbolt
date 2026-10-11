@@ -25,10 +25,11 @@ frozen in [the reproduction method](sparrow-repro/README.md). Experiment
 
 - Independent layout validation and polygon contracts are implemented; remaining
   competitor output adapters must use the same checker.
-- [13 S and 35 B jobs](datasets/README.md) are frozen and checked. Add 40 M jobs;
-  mark 10 M jobs held out before any tuning.
-- [LBF](lbf/README.md) is automated with a valid first B batch. Add deepnest-next
-  and SVGnest runners; identical-constraint and best-settings modes.
+- [13 S, 35 B and 40 M jobs](datasets/README.md) are frozen and checked;
+  ten M jobs are reserved for final acceptance and excluded from tuning.
+- [LBF](lbf/README.md) has a valid first B batch. The [SVGnest runner](svgnest/README.md)
+  passes adapter/evidence checks and real smoke cases; full batches and best
+  settings remain pending. Complete the deepnest-next and applicable Sparrow adapters.
 - 60/300-second budgets, seed matrices, medians/IQR, raw records and charts.
 - [Mixed-stock material scoring](../docs/SCORING.md) is implemented; freeze all
   tool settings and the seed matrix before quality tuning.
