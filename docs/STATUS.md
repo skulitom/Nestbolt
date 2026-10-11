@@ -6,13 +6,21 @@ Groundwork committed as `66a3bab`. The durable goal covers the complete v1 plan.
 The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
-Full-budget results are still pending; no reproduction pass is claimed.
+The full-budget experiment `published-20261011` is running in bounded batches.
+At the first checkpoint, **3/39 runs** have finished (ALBANO, SHAPES2 and DAGLI,
+first seed). All three pass independent geometry checks. Their lengths differ
+from their published 100-run means by +0.187%, +0.544% and -0.085%, respectively.
+This is an early snapshot, not the required three-seed/all-instance pass.
 
 M1 preparation now includes an independent Clipper2 geometry kernel and a CLI
 strip-layout checker. Seventeen targeted/property tests pass; two actual adapter
 smoke layouts pass independent checks against their original inputs. A deliberately
 incomplete layout correctly returns a failure. Full stock/fill rules, datasets,
 competitor adapters and adversarial fuzzing remain outstanding. See [VALIDATION.md](VALIDATION.md).
+
+All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
+MIT collection licence; every part, demand and allowed angle matches the historical
+M0 input. Canonical benchmark conversion remains pending. See [source provenance](../benchmarks/sources/README.md).
 
 | Milestone | Weight | State |
 | --- | --- | --- |

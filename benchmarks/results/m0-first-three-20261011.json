@@ -1,0 +1,228 @@
+{
+  "recorded_at": "2026-10-11T17:57:35.550443+00:00",
+  "scope": "First-seed checkpoint; incomplete M0 matrix, no milestone pass",
+  "experiment": {
+    "reference_sha256": "d55de0612137daf350ade223f4f2e8ee623747c2e51121ba0966b578eabe9d1c",
+    "build": {
+      "built_at": "2026-10-11T17:36:15.287723+00:00",
+      "binary_sha256": "0a05fef8e3e8604486b2e377f1d4e921943bfad466648aee777302f9bc6d3a9f",
+      "sources": {
+        "benchmarks/sparrow-repro/src/main.rs": "d1a7c98cf6fe401da24611e4037558613ff744b2034a4cc2f593da2d58c75f13",
+        "benchmarks/sparrow-repro/Cargo.toml": "72b72f7233d627703659ea83be1c94ea749c6d6fa79a85653d7f470df2584c67",
+        "benchmarks/sparrow-repro/Cargo.lock": "68f9102193c5d9992223a838749f955c3e98a120e008a59f983e871936d5bf86"
+      },
+      "compiler": "rustc 1.89.0-nightly (8da623945 2025-06-13)\nbinary: rustc\ncommit-hash: 8da623945f83933dd38644d5745532ee032e855b\ncommit-date: 2025-06-13\nhost: x86_64-pc-windows-msvc\nrelease: 1.89.0-nightly\nLLVM version: 20.1.5",
+      "flags": "-C target-cpu=native"
+    },
+    "seconds": 1200,
+    "smoke": false,
+    "source_hashes": {
+      "scripts/m0.py": "bd23f180cc5ca4bffd9c2483f96fe8e7de93ba0e1b271ed97556bf317eb63921",
+      "scripts/m0_reference.py": "c67c2e2fe48aaf574925c8d6f38478d061d88f89e9fdab9d36e420188ea7e4f9"
+    },
+    "started_at": "2026-10-11T17:36:20.999732+00:00",
+    "commit": "882caf8ccae6dfc88b360977c69c19119fd9b6c1",
+    "dirty": false,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor"
+  },
+  "completed_runs": 3,
+  "required_runs": 39,
+  "runs": [
+    {
+      "instance": "albano",
+      "run": {
+        "started_at": "2026-10-11T17:36:22.604927+00:00",
+        "instance": "albano",
+        "run_index": 0,
+        "archive_seed": "14527206836074996158",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\albano.json",
+          "1200",
+          "14527206836074996158",
+          "0"
+        ],
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "17517060485276396649",
+        "strip_width": 9747.749,
+        "density": 0.89307463,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "84899b28e2f111a70f20fd4aba92372dd2c60f02d83074b460fbc8d9a47ec4c4",
+          "output/layout.svg": "7479b5499ec2c59ba91a0113a114574059cd0edf1ea1b2714c7ad4ab7e92a891",
+          "stdout.log": "480cdddeae88dff299c7e38e6119f731687ff41d352afadf17e27ff716b09e38",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T17:56:22.939760+00:00",
+        "wall_seconds": 1200.3280000000086
+      },
+      "reference_mean_width": 9729.55248,
+      "relative_difference": 0.001870231959527846,
+      "independent_validation": [
+        {
+          "validator_binary_sha256": "f169ad530f24322fd014ef8b3ec6487a2ad9c19c767add7da13aeb0554dfcacb",
+          "validator_commit": "2a7c3238994c2cb92096a5a2a2a90de66a9ba61d",
+          "validator_dirty": true,
+          "validator_sources": {
+            "crates/validator/src/lib.rs": "22115e8bd1a1595f60f834828880d34c825c985d4d5ef48f6c92cc5cadef219a",
+            "crates/validator/src/sparrow.rs": "9c06d61aa06966715042ca8642fb184aea786969d7fa500549044e08919d59a5",
+            "Cargo.lock": "21d41efb075f4e1c35c7a56b6fae91a5a0a9185b17e5b81d897c6fa77470840a"
+          },
+          "validated_at": "2026-10-11T17:56:56.184835+00:00",
+          "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+          "layout_sha256": "84899b28e2f111a70f20fd4aba92372dd2c60f02d83074b460fbc8d9a47ec4c4",
+          "exit_code": 0,
+          "valid": true,
+          "report": {
+            "valid": true,
+            "instance": "albano",
+            "backend": "clipper2-rust 1.2.0",
+            "units": "unitless",
+            "strip_width": 9747.749,
+            "expected_parts": 24,
+            "placed_parts": 24,
+            "maximum_overlap_ratio": 0.0,
+            "maximum_outside_ratio": 0.0,
+            "violations": []
+          }
+        }
+      ]
+    },
+    {
+      "instance": "blaz1",
+      "run": {
+        "started_at": "2026-10-11T17:36:22.603925+00:00",
+        "instance": "blaz1",
+        "run_index": 0,
+        "archive_seed": "13575252682057771556",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\blaz1.json",
+          "1200",
+          "13575252682057771556",
+          "0"
+        ],
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "16235083380048159655",
+        "strip_width": 25.646978,
+        "density": 0.84212023,
+        "placed_count": 28,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "2f32c3f1b96de9db6381684b5912d3bf7b421e2082290f0b681474de221c49b0",
+          "output/layout.svg": "8f7b54e7212e6a51e39d5a02614be1fa6ca8360b62c0b8867f3fee5691724bc1",
+          "stdout.log": "0059abee6b44b202776ddc87226d1f85d2adc96a6d14e3c8c7ecf97c3ab137f8",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T17:56:22.994007+00:00",
+        "wall_seconds": 1200.3899999999994
+      },
+      "reference_mean_width": 25.50813749,
+      "relative_difference": 0.005442988930667081,
+      "independent_validation": [
+        {
+          "validator_binary_sha256": "f169ad530f24322fd014ef8b3ec6487a2ad9c19c767add7da13aeb0554dfcacb",
+          "validator_commit": "2a7c3238994c2cb92096a5a2a2a90de66a9ba61d",
+          "validator_dirty": true,
+          "validator_sources": {
+            "crates/validator/src/lib.rs": "22115e8bd1a1595f60f834828880d34c825c985d4d5ef48f6c92cc5cadef219a",
+            "crates/validator/src/sparrow.rs": "9c06d61aa06966715042ca8642fb184aea786969d7fa500549044e08919d59a5",
+            "Cargo.lock": "21d41efb075f4e1c35c7a56b6fae91a5a0a9185b17e5b81d897c6fa77470840a"
+          },
+          "validated_at": "2026-10-11T17:56:56.244485+00:00",
+          "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+          "layout_sha256": "2f32c3f1b96de9db6381684b5912d3bf7b421e2082290f0b681474de221c49b0",
+          "exit_code": 0,
+          "valid": true,
+          "report": {
+            "valid": true,
+            "instance": "blaz1",
+            "backend": "clipper2-rust 1.2.0",
+            "units": "unitless",
+            "strip_width": 25.646978,
+            "expected_parts": 28,
+            "placed_parts": 28,
+            "maximum_overlap_ratio": 0.0,
+            "maximum_outside_ratio": 0.0,
+            "violations": []
+          }
+        }
+      ]
+    },
+    {
+      "instance": "dagli",
+      "run": {
+        "started_at": "2026-10-11T17:36:22.602925+00:00",
+        "instance": "dagli",
+        "run_index": 0,
+        "archive_seed": "55857091789825901",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\dagli.json",
+          "1200",
+          "55857091789825901",
+          "0"
+        ],
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "14753325905006340130",
+        "strip_width": 56.614902,
+        "density": 0.89331603,
+        "placed_count": 30,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "d9e9bc03b64bf088b4f2861bff7edaf61652b8aa8dbc1db19f76c384ab103849",
+          "output/layout.svg": "4c1dd9b04393058d11d1e27363607786675fcc7fa1a9ac0a56e8d355675144ca",
+          "stdout.log": "c0b0fea0aa91edc2d1ed839db11e53ebf3c565666e07365055d36fe125a6146d",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T17:56:23.006882+00:00",
+        "wall_seconds": 1200.3899999999994
+      },
+      "reference_mean_width": 56.66282877,
+      "relative_difference": -0.0008458238150187425,
+      "independent_validation": [
+        {
+          "validator_binary_sha256": "f169ad530f24322fd014ef8b3ec6487a2ad9c19c767add7da13aeb0554dfcacb",
+          "validator_commit": "2a7c3238994c2cb92096a5a2a2a90de66a9ba61d",
+          "validator_dirty": true,
+          "validator_sources": {
+            "crates/validator/src/lib.rs": "22115e8bd1a1595f60f834828880d34c825c985d4d5ef48f6c92cc5cadef219a",
+            "crates/validator/src/sparrow.rs": "9c06d61aa06966715042ca8642fb184aea786969d7fa500549044e08919d59a5",
+            "Cargo.lock": "21d41efb075f4e1c35c7a56b6fae91a5a0a9185b17e5b81d897c6fa77470840a"
+          },
+          "validated_at": "2026-10-11T17:56:56.302942+00:00",
+          "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+          "layout_sha256": "d9e9bc03b64bf088b4f2861bff7edaf61652b8aa8dbc1db19f76c384ab103849",
+          "exit_code": 0,
+          "valid": true,
+          "report": {
+            "valid": true,
+            "instance": "dagli",
+            "backend": "clipper2-rust 1.2.0",
+            "units": "unitless",
+            "strip_width": 56.614902,
+            "expected_parts": 30,
+            "placed_parts": 30,
+            "maximum_overlap_ratio": 0.0,
+            "maximum_outside_ratio": 0.0,
+            "violations": []
+          }
+        }
+      ]
+    }
+  ]
+}
