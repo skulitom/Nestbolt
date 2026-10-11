@@ -1,6 +1,6 @@
 use std::{fs, path::PathBuf};
 
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use clap::{Parser, Subcommand, ValueEnum};
 use nestbolt_core::{Units, inspect_json};
 
@@ -13,6 +13,15 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Independently check a Sparrow strip layout against its original input.
+    ValidateSparrow {
+        #[arg(long)]
+        input: PathBuf,
+        #[arg(long)]
+        layout: PathBuf,
+        #[arg(long, value_enum)]
+        units: InputUnits,
+    },
     /// Inspect an upstream jagua-rs BPP JSON job (does not solve it).
     Inspect {
         #[arg(short, long)]
@@ -43,6 +52,27 @@ impl From<InputUnits> for Units {
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::ValidateSparrow {
+            input,
+            layout,
+            units,
+        } => {
+            let input_json = fs::read_to_string(&input)
+                .with_context(|| format!("cannot read {}", input.display()))?;
+            let layout_json = fs::read_to_string(&layout)
+                .with_context(|| format!("cannot read {}", layout.display()))?;
+            let units = match units {
+                InputUnits::Mm => nestbolt_validator::Units::Mm,
+                InputUnits::Inch => nestbolt_validator::Units::Inch,
+                InputUnits::Unitless => nestbolt_validator::Units::Unitless,
+            };
+            let report = nestbolt_validator::sparrow::validate(&input_json, &layout_json, units)?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+            ensure!(
+                report.valid,
+                "layout failed independent validation; see the JSON report"
+            );
+        }
         Command::Inspect { input, units } => {
             let json = fs::read_to_string(&input)
                 .with_context(|| format!("cannot read {}", input.display()))?;

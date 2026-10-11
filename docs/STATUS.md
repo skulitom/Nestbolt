@@ -8,10 +8,16 @@ archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 Full-budget results are still pending; no reproduction pass is claimed.
 
+M1 preparation now includes an independent Clipper2 geometry kernel and a CLI
+strip-layout checker. Seventeen targeted/property tests pass; two actual adapter
+smoke layouts pass independent checks against their original inputs. A deliberately
+incomplete layout correctly returns a failure. Full stock/fill rules, datasets,
+competitor adapters and adversarial fuzzing remain outstanding. See [VALIDATION.md](VALIDATION.md).
+
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
-| M1 — Baseline | 15% | Not started; initial smoke harness only |
+| M1 — Baseline | 15% | Preparation underway: independent geometry kernel and strip adapter; datasets/full harness pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
 | M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |

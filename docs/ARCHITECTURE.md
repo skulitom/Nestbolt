@@ -35,8 +35,10 @@ layouts from a seeded time-limited search until this is specified and tested.
 
 **Independent validation:** jagua-rs 1.1.0 itself now depends on `geo`. Choosing `geo`
 again does not automatically create an independent validator. Keep separate source
-geometry, transforms and intersection/offset code paths; evaluate Clipper2 or another
-implementation for stronger independence before M1. Never score from solver density alone.
+geometry, transforms and intersection/offset code paths. The new `validator` crate
+uses Clipper2 1.2.0 independently, with a working historical strip adapter. See
+[VALIDATION.md](VALIDATION.md) for verified scope, precision and remaining M1 work.
+Never score from solver density alone.
 
 **Area lower bounds:** `estimate_sheets` must label lower bounds as necessary, not
 sufficient, conditions. Grain, spacing, holes, defects, stock mix and oversized parts

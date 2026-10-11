@@ -17,6 +17,7 @@ def main():
         ["cargo", "clippy", "--workspace", "--all-targets", "--locked", "--", "-D", "warnings"],
         ["cargo", "test", "--workspace", "--locked"],
         ["cargo", "build", "-p", "nestbolt-wasm", "--target", "wasm32-unknown-unknown", "--locked"],
+        ["cargo", "build", "-p", "nestbolt-validator", "--target", "wasm32-unknown-unknown", "--locked"],
         [sys.executable, "scripts/notices.py", "--check"],
         [sys.executable, "scripts/smoke.py", "--verify-only"],
         [sys.executable, "scripts/test_m0.py"],

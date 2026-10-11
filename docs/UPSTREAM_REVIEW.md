@@ -17,6 +17,11 @@ not measured performance. Versions above are a dated observation, not a permanen
 claim about competitors. The source manifests were inspected because some README
 version statements lag the current release.
 
+Rechecked the four required competitors on the same date before M1 preparation
+while M0 runs were active. Sparrow Studio still explicitly excludes automatic
+multi-sheet allocation and nesting in holes; the stop condition remains untriggered.
+The observed releases/revisions above are unchanged.
+
 Sparrow's [published reproduction instructions](https://github.com/JeroenGar/sparrow/blob/4629b22795ae6b25b3b460ccde6fb36a71292b6d/data/experiments/README.md)
 require historical revisions and nightly/SIMD settings. The new integration smoke
 uses the current pinned revision and a stable compiler; it does not reproduce those

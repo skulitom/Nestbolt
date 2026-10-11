@@ -72,6 +72,7 @@ has been published or installed by this setup.
 | `crates/cli` | Native command-line interface |
 | `crates/wasm` | Single-Worker WebAssembly boundary |
 | `crates/mcp` | Native stdio MCP server |
+| `crates/validator` | Independent Clipper2 geometry kernel and strip-result checker |
 | `benchmarks` | Frozen original smoke fixtures and upstream tool lock |
 | `scripts` | Repeatable checks, fixture generation, notices and smoke runs |
 | `schemas` | Current inspection formats; future canonical job/result schemas |

@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/core", "crates/cli", "crates/wasm", "crates/mcp"]
+members = ["crates/core", "crates/cli", "crates/wasm", "crates/mcp", "crates/validator"]
 exclude = [".cache/upstream/sparrow", ".cache/upstream/sparrow-published", ".cache/upstream/jagua-rs"]
 default-members = ["crates/core", "crates/cli"]
 resolver = "3"
@@ -14,8 +14,10 @@ publish = false
 [workspace.dependencies]
 anyhow = "1.0"
 clap = { version = "4.6", features = ["derive"] }
+clipper2-rust = "=1.2.0"
 jagua-rs = { version = "=1.1.0", features = ["bpp", "spp"] }
 nestbolt-core = { path = "crates/core" }
+nestbolt-validator = { path = "crates/validator" }
 proptest = "1.9"
 rmcp = { version = "=3.5.1", default-features = false, features = ["server", "transport-io"] }
 serde = { version = "1.0", features = ["derive"] }
