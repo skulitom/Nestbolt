@@ -75,6 +75,14 @@ class SvgNestEvidenceTests(unittest.TestCase):
             path,checksum=self.make_record(Path(temp),controls)
             audit_record(path,checksum)
 
+    def test_matching_multicore_masks_do_not_count_as_single_core(self):
+        def multicore(run,raw):
+            raw['affinity']['mask']='3'
+            for row in raw['affinity_verification']:row['affinity']='3'
+        with tempfile.TemporaryDirectory() as temp:
+            path,checksum=self.make_record(Path(temp),multicore)
+            with self.assertRaisesRegex(ValueError,'single-core'):audit_record(path,checksum)
+
     def test_measured_double_rounding_passes_but_float32_scale_error_does_not(self):
         for error,valid in [(0.0625,True),(9,False),(float('nan'),False)]:
             with tempfile.TemporaryDirectory() as temp:

@@ -5,7 +5,7 @@ import { resolve, dirname, join, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
-import { verifyCpu } from './cpu-limit.mjs'
+import { verifyCpu, selectedCpu } from './cpu-limit.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
 const requestPath = resolve(process.argv[2])
@@ -20,12 +20,12 @@ writeFileSync(join(profile, 'settings.json'), JSON.stringify({ showNotifications
 let affinity
 function constrainLoadedTree() {
 if (process.platform === 'win32') {
-  // A separate logical CPU from the current SVGnest batch's CPU 0.
+  const selected = selectedCpu(2)
   const mask = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-File',
-    join(root, 'benchmarks/browser/cpu-tree-job.ps1'), '-ControllerId', String(process.pid), '-Mask', '4'],
+    join(root, 'benchmarks/browser/cpu-tree-job.ps1'), '-ControllerId', String(process.pid), '-Mask', selected.mask],
     { encoding: 'utf8', windowsHide: true }).trim()
-  if (mask !== '4') throw new Error('Deepnest controller CPU limit failed')
-  affinity = { platform: 'win32', mask, method: 'JOB_OBJECT_LIMIT_AFFINITY' }
+  if (mask !== selected.mask) throw new Error('Deepnest controller CPU limit failed')
+  affinity = { platform: 'win32', mask, cpu_index: selected.index, method: 'JOB_OBJECT_LIMIT_AFFINITY' }
 } else if (process.platform === 'linux') {
   throw new Error('Loaded-tree affinity has not yet been implemented on Linux')
 } else {

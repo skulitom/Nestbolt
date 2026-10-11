@@ -41,6 +41,10 @@ def audit_batch(path, tool):
         if not record_path.is_relative_to((ROOT/directory).resolve()):
             raise ValueError('Run is outside this comparator evidence directory')
         run = audit_record(record_path, entry['sha256'])
+        if 'validator_snapshot' in batch:
+            snapshot = batch['validator_snapshot']
+            if run.get('validator_sha256') != snapshot['sha256'] or run.get('validator_sources') != snapshot['sources']:
+                raise ValueError('Run used a different validator than the batch snapshot')
         for name in ['seconds', 'seed', 'settings', 'axis', 'sources']:
             if run[name] != batch[name]:
                 raise ValueError(f'Run differs from declared batch: {name}')

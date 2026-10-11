@@ -13,6 +13,19 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Build a first conservative sheet layout; improvement search is not yet implemented.
+    Construct {
+        #[arg(long)]
+        job: PathBuf,
+        #[arg(long)]
+        output: PathBuf,
+        #[arg(long, default_value_t = 0)]
+        seed: u64,
+        #[arg(long, default_value_t = 64)]
+        samples: u32,
+        #[arg(long, default_value_t = 4)]
+        free_rotations: u32,
+    },
     /// Check a complete polygon benchmark job/layout against every declared constraint.
     Validate {
         #[arg(long)]
@@ -59,6 +72,45 @@ impl From<InputUnits> for Units {
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::Construct {
+            job,
+            output,
+            seed,
+            samples,
+            free_rotations,
+        } => {
+            let job = serde_json::from_slice(
+                &fs::read(&job).with_context(|| format!("cannot read {}", job.display()))?,
+            )?;
+            let result = nestbolt_core::construct::construct(
+                &job,
+                nestbolt_core::construct::Options {
+                    seed,
+                    random_samples: samples,
+                    free_rotations,
+                },
+            )?;
+            let report = nestbolt_validator::job::validate(&job, &result.layout)?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(
+                    &serde_json::json!({"construction":result,"validation":report})
+                )?
+            );
+            ensure!(
+                result.complete && report.valid,
+                "construction incomplete: {} copies unplaced; this does not prove infeasibility",
+                result.unplaced
+            );
+            // Never overwrite a user's existing layout or write an invalid one.
+            use std::io::Write;
+            let mut file = fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(&output)
+                .with_context(|| format!("cannot create {}", output.display()))?;
+            file.write_all(serde_json::to_string_pretty(&result.layout)?.as_bytes())?;
+        }
         Command::Validate { job, layout } => {
             let source = fs::read_to_string(&job)
                 .with_context(|| format!("cannot read {}", job.display()))?;

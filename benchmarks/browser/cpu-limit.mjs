@@ -2,6 +2,15 @@
 import { execFileSync } from 'node:child_process'
 import { readFileSync, readlinkSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import { cpus } from 'node:os'
+
+export function selectedCpu(fallback, value = process.env.NESTBENCH_CPU, count = cpus().length) {
+  const text = value ?? String(fallback)
+  if(typeof text !== 'string' || !/^(0|[1-9][0-9]*)$/.test(text)) throw new Error('NESTBENCH_CPU must name one logical CPU index')
+  const index = Number(text)
+  if(!Number.isSafeInteger(index) || index >= Math.min(count,63)) throw new Error('Selected logical CPU is unavailable')
+  return { index, mask: (1n << BigInt(index)).toString() }
+}
 
 function powershell(code) {
   return execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', code],
@@ -10,15 +19,21 @@ function powershell(code) {
 
 export function limitCpu() {
   if (process.platform === 'win32') {
+    const selected = selectedCpu(0)
     const mask = execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-File',
-      fileURLToPath(new URL('./cpu-job.ps1', import.meta.url)), '-ControllerId', String(process.pid)],
+      fileURLToPath(new URL('./cpu-job.ps1', import.meta.url)), '-ControllerId', String(process.pid), '-Mask', selected.mask],
       { encoding: 'utf8', windowsHide: true }).trim()
-    if (mask !== '1') throw new Error('Could not restrict controller to one CPU')
-    return { platform: 'win32', mask, method: 'JOB_OBJECT_LIMIT_AFFINITY' }
+    if (mask !== selected.mask) throw new Error('Could not restrict controller to one CPU')
+    return { platform: 'win32', mask, cpu_index: selected.index, method: 'JOB_OBJECT_LIMIT_AFFINITY' }
   }
   if (process.platform === 'linux') {
     const allowed = readFileSync('/proc/self/status', 'utf8').match(/^Cpus_allowed_list:\s*(.+)$/m)[1]
-    const cpu = allowed.split(/[-,]/)[0]
+    const selected = selectedCpu(Number(allowed.split(/[-,]/)[0]))
+    const cpu = String(selected.index)
+    if(!allowed.split(',').some(range => {
+      const [lo,hi=lo]=range.split('-').map(Number)
+      return selected.index>=lo && selected.index<=hi
+    })) throw new Error('Selected logical CPU is outside the allowed affinity set')
     execFileSync('taskset', ['-pc', cpu, String(process.pid)])
     return { platform: 'linux', cpu }
   }

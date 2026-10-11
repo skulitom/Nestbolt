@@ -1,7 +1,7 @@
 # Nestbolt
 
 Free, open-source fixed-sheet nesting for makers, with a local browser app and
-native tools for people and agents. **Groundwork is complete; baseline work is in progress.**
+native tools for people and agents. **Groundwork is complete; baseline and optimiser work are in progress.**
 
 Nestbolt aims to arrange irregular parts across fixed sheets for laser cutting,
 CNC routing, plasma, waterjet and fabric. The engine builds on
@@ -12,6 +12,9 @@ No optimisation-quality claims have been established yet.
 ## What works today
 
 - A Rust workspace with core, CLI, WebAssembly and native stdio MCP entry points.
+- `nestbolt construct`: builds a first fixed/mixed-sheet layout, including holed
+  and multipart parts through conservative collision proxies. All 30 development
+  maker jobs produce independently valid layouts in the [first diagnostic](benchmarks/results/construct-maker-20261011T223817Z-32654739.md).
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,
@@ -23,11 +26,12 @@ No optimisation-quality claims have been established yet.
 - Native integration/property tests, Windows/Linux CI definitions, a WASM build
   check, locked dependency notices and two generated Sparrow smoke jobs.
 
-The fixed-sheet optimiser, SVG/DXF imports and exports, browser interface and five
+Layout improvement, SVG/DXF imports and exports, browser interface and five
 MCP tools are still to be built. The independent validator currently operates on
 polygon benchmark files; see [its scope and tests](docs/VALIDATION.md). The inspection
-command is not a solver, fit test or independent layout validator. Item holes are
-explicitly rejected by the current geometry adapter.
+command is not a solver, fit test or independent layout validator. Its upstream
+BPP format rejects item holes; the new constructor uses Nestbolt polygon jobs,
+preserves their source outlines and reserves holes until part-in-part is added.
 
 ## Start developing
 
@@ -39,6 +43,7 @@ cargo run -p nestbolt-cli -- inspect --input examples/sheet-job.json --units mm
 python scripts/check.py
 python scripts/smoke.py
 cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layout examples/validation-layout.json
+cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-box-mini.json --output box-layout.json
 ```
 
 The sample reports six parts with a total area of 16,800 mm² and two available

@@ -1,222 +1,44 @@
 # Status — 2026-10-11
 
-M0 is complete. **Gated completion: 5%.** Only finished milestones count.
+**Completion: 5%. M0 is complete; M1 and M2 are in progress.**
+Percentages count completed milestones only. Pilot results below describe the
+competitors, not Nestbolt quality; all failures and earlier trials remain in
+[BENCHMARKS.md](../BENCHMARKS.md). Ten held-out maker jobs remain unused for tuning.
 
-Groundwork committed as `66a3bab`. The durable goal covers the complete v1 plan.
-The historical Sparrow build and two five-second adapter checks pass. All 1,300
-archived results have been checked against the paper and a 39-run native quality
-reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
-The full-budget experiment `published-20261011` has finished: **39/39 runs pass
-independent geometry checks and 13/13 instance means pass the unchanged 1% quality
-threshold**. The [final table and retained proof](../benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md)
-include every predeclared run, geometry check, hash and full-precision statistic.
-The largest absolute mean difference is SHAPES0 at +0.986671%. No results were
-discarded. This establishes the planned native quality reproduction, with the
-recorded Windows/hardware and reconstructed-lock differences; it is not a full
-1,300-run statistical replication or a Nestbolt optimiser quality result.
+| Milestone | Weight | State / next requirement |
+| --- | ---: | --- |
+| M0 — Groundwork and reproduction | 5% | Complete: 39 valid runs; all 13 means within the frozen 1% threshold |
+| M1 — Baseline | 15% | Validator and datasets complete; finish competitor seeds/settings and gap table |
+| M2 — Sheet optimiser | 25% | First constructor passes all 30 development maker jobs; improvement search next |
+| M3 — Part-in-part and import/export | 15% | Pending; original curves already retained in maker sources |
+| M4 — Browser app and MCP | 20% | Scaffolding; five tools and actual Claude Code connection still to build |
+| M5 — Final gates | 20% | Pending; all G1–G8 requirements remain in scope |
 
-M1 preparation now includes an independent Clipper2 job/layout validator covering
-stock, margins, defects/remnants, copies, rotations, mirroring, holes, clearance and
-fill modes. It computes material scores and never scores invalid layouts. All
-43 native tests pass, including a 10,000-case bounded polygon fuzz test, a
-2,000-copy case and actual CLI exit behavior. The checker also compiles to WASM.
-The academic and maker datasets are frozen; remaining competitor adapters and
-the full baseline matrix are pending.
-See [VALIDATION.md](VALIDATION.md).
-
-The unmodified, pinned LBF sheet runner is automated. Its first provisional batch
-has **70/70 independently valid layouts** across all 35 B jobs and two untuned
-configurations (one seed, 60 s maximum, one constructive pass). The retained
-[baseline table](../benchmarks/results/lbf-20261011T184759Z-924100e9.md) includes
-full-precision scores and provenance. This is not a result for Nestbolt and does
-not establish the complete competitor comparison or M1. The generated mixed-stock,
-defect, margin and spacing smoke also passes; see [LBF method](../benchmarks/lbf/README.md).
-The [first development maker batch](../benchmarks/results/lbf-20261011T212716Z-c9c2fc4b.md)
-retains 60 attempts: eleven valid garment layouts, one clearance failure and 48
-unsupported outcomes. No held-out optimiser runs are included.
-The [full LBF development queue](../benchmarks/results/comparison-session-20261011T221209Z-ce35672e.md)
-is now complete: **450/450 attempts**, with 283 valid, five invalid and 162
-unsupported outcomes. It includes both configurations, all three development
-seeds and the frozen 60/300-second coverage. There are 94 finite comparison
-medians among 150 configuration/job/budget groups; every failed and unsupported
-seed remains visible. This completes the LBF component, not the competitor gap
-or M1. The bounded controller finished its final 420 attempts in 507 seconds.
-
-The pinned [SVGnest runner](../benchmarks/svgnest/README.md) now automates local
-Chromium, bounds solve time, enforces a single-core process tree, checks original
-geometry independently and retains every outcome. Eleven adapter/evidence tests
-pass. Actual FU and unequal-edge-gap checks pass; an insufficient stock cap is
-correctly invalid with no score. The detailed mini-box trial has no result within
-30 s. [All preparation attempts](../benchmarks/results/svgnest-preparation-20261011.json)
-are retained, including early configuration and CPU-limit failures. One five-second
-FU batch also passes the immutable report audit; this is not the full baseline.
-The first 24-job B pilot (60 seconds, seed 0, identical settings) has **23 valid
-layouts** after correcting an output-decoding precision loss. The remaining
-invalid layout contains a genuine overlap and has no score. Original records
-remain unchanged; [all 38 saved attempts were audited](../benchmarks/results/svgnest-correction-20261011T202121Z-ad4dbe52.md),
-and the [24-job correction table](../benchmarks/results/svgnest-correction-20261011T202304Z-3f63b428.md)
-and a fresh [decoder smoke](../benchmarks/results/svgnest-decoder-v2-smoke-20261011.json)
-retain independent proof. The [remaining eleven B jobs](../benchmarks/results/svgnest-20261011T204513Z-1f07ec81.md)
-have eight valid layouts and three with small boundary violations. The complete
-first pilot is therefore **31/35 valid**, with every outcome retained. The full
-seed/configuration matrix and settings selection are pending.
-An additional native parser diagnostic found float32 rounding in SVG polygon
-input. Straight paths preserve all tested coordinates exactly, now checked before
-every solve. The [three affected SWIM reruns](../benchmarks/results/svgnest-20261011T211052Z-d34e7f41.md)
-all pass at 60 seconds, as does an unequal-edge-gap smoke. A fresh full B pilot is
-running; earlier failures remain visible. The first three expanded-setting B
-trials also pass but do not establish a best configuration.
-The fresh straight-path pilot is complete: **34/35 valid layouts**. The
-BLAZ1 strip-sheet overlap remains a genuine solver failure. The
-[final eleven jobs](../benchmarks/results/svgnest-20261011T215224Z-9e1ba193.md)
-all pass. The maker batch now uses the same frozen-case selection and strict
-report audit, excluding all ten held-out jobs. A five-second mini-box input check
-preserves all 1,608 parsed coordinates exactly but has no layout at that budget;
-the first twelve development maker jobs are running at 60 seconds.
-That [initial maker batch](../benchmarks/results/svgnest-20261011T220515Z-53a4946e.md)
-finished with six no-layout outcomes and six parser-check failures. The latter
-were isolated to double-precision decimal rounding; a bound of eight scaled
-double-rounding units accepts the measured 1.39e-17 mm difference while rejecting
-float32 loss. The [six garment reruns](../benchmarks/results/svgnest-20261011T221540Z-937f797b.md)
-reach native solving but have no layout at 60 seconds. All attempts remain.
-Input verification now reads parsed path segments before native near-closing-point
-cleanup; [gear and FU smokes](../benchmarks/results/svgnest-closing-point-20261011.json)
-prove complete input coordinates and record removed vertices separately. FU's
-final layout is valid. Original-job validation is unchanged.
-
-The pinned [Deepnest runner](../benchmarks/deepnest/README.md) now imports parts,
-quantities and mixed rectangular stock, runs the native solver with one worker
-and one CPU, and validates its original-coordinate output independently. Actual
-FU, spacing-safe hole placement and capped mixed-stock smoke layouts pass.
-Native half-gap behavior inside holes and incomplete stock-cap output are
-correctly rejected under the original constraints. Moving the CPU restriction
-after import and before solving produces four consecutive valid FU smokes with
-prompt startup. [All startup trials](../benchmarks/results/deepnest-startup-20261011.json)
-are retained, including failures. Eleven adapter/evidence tests pass. The complete
-Deepnest baseline remains pending. The first twelve B jobs at 60 seconds are all
-independently valid; [first three](../benchmarks/results/deepnest-20261011T205510Z-c961f172.md)
-and [next three](../benchmarks/results/deepnest-20261011T205945Z-dfbb847c.md) retain
-strictly audited batch evidence, followed by [the third](../benchmarks/results/deepnest-20261011T211232Z-57323d69.md)
-and [fourth batches](../benchmarks/results/deepnest-20261011T212226Z-30644c2c.md).
-New straight-path input checks reject loss beyond double-precision rounding.
-The remnant/defect input helper preserves margins and source stock identities;
-four native conversion tests and actual remnant and enclosed-defect smokes pass.
-The spacing-safe hole smoke also passes with the new input paths.
-[All six preparation attempts](../benchmarks/results/deepnest-stock-inputs-20261011.json)
-remain available, including the strict parser diagnostics and invalid hole-gap
-result. Final layouts are always checked against the original job.
-The [first three maker jobs](../benchmarks/results/deepnest-20261011T212901Z-75266a12.md)
-produce two valid box layouts and no layout within 60 seconds for the 500-part
-job. The [next three box jobs](../benchmarks/results/deepnest-20261011T213559Z-b00cc0a8.md)
-are all valid. The [first garment batch](../benchmarks/results/deepnest-20261011T214603Z-a4686331.md)
-adds two valid layouts and one no-layout outcome at 60 seconds. Garment trials
-are continuing; the first nine maker attempts have seven valid layouts.
-The [next three garment jobs](../benchmarks/results/deepnest-20261011T215136Z-64a5bd6a.md)
-produce no layout at 60 seconds, leaving seven valid layouts in the first twelve
-maker attempts. Mechanical-part trials are continuing.
-The [first mechanical batch](../benchmarks/results/deepnest-20261011T215752Z-30b81baa.md)
-adds one no-layout outcome and two clearance failures, all unscored. The first
-fifteen maker attempts therefore have seven valid layouts; the next three are running.
-The next [three](../benchmarks/results/deepnest-20261011T220219Z-3edeb335.md),
-[three](../benchmarks/results/deepnest-20261011T220730Z-5e7c70c2.md) and
-[three](../benchmarks/results/deepnest-20261011T221103Z-e48b455f.md) retain the first
-24 maker outcomes: seven valid, eight invalid, seven no-layout and two parser-check
-failures. The latter came from checking after native closing-point cleanup.
-[Raw-path verification](../benchmarks/results/deepnest-gear-parser-20261011.json)
-now confirms every input vertex before that unchanged cleanup; fresh gear trials
-are running. Original geometry still determines every score.
-
-The [current Sparrow comparator](../benchmarks/sparrow-benchmark/README.md) now calls
-the pinned, unmodified public solver API with one worker and an overall candidate
-deadline that includes initial construction. Original polygons determine validation
-and strip scores. Real strip and unequal-edge-gap sheet smokes pass; a strip that
-does not fit one fixed sheet is invalid and unscored. [All three trials](../benchmarks/results/sparrow-preparation-20261011.json)
-are retained. Seven Python adapter/evidence tests and one native deadline test
-pass. Its [first 13 S jobs at 60 seconds](../benchmarks/results/sparrow-20261011T210336Z-74491a27.md)
-are all independently valid. Remaining budget/seed/settings comparisons are pending.
-Its [first 30 development maker outcomes](../benchmarks/results/sparrow-20261011T213558Z-4b7cdd15.md)
-include two valid sheet layouts, four invalid layouts (one clearance failure,
-three exceeding one fixed sheet) and 24 unsupported jobs. All are retained.
-The [first three B jobs](../benchmarks/results/sparrow-20261011T215044Z-de7f97d5.md)
-do not fit their fixed sheets and are invalid/unscored. Remaining B trials are
-running; this does not affect the completed historical strip reproduction checks.
-
-The [matrix coverage freeze](../benchmarks/MATRIX.md) fixes all 88 jobs, the
-12-job long-budget subset, development/final seeds and both settings roles before
-Nestbolt search tuning. Exact tool settings and the full one-command executor
-remain pending. Initial competitor pilots preceded this coverage freeze; no
-held-out optimiser results informed it.
-The [static input coverage report](../benchmarks/results/comparator-coverage-20261011T212118Z-ed8cf053.md)
-prepares all 35 B jobs for each comparator and all 30 development M jobs for
-Deepnest (27 for SVGnest, six each for LBF/Sparrow). It runs no optimiser and
-does not establish native parsing, valid packing, quality or performance.
-A [resumable development queue](../benchmarks/SESSIONS.md) now freezes the planned
-slots, settings, inputs, code and binaries. Four lifecycle tests and a real
-three-attempt native resumption proof pass. Final acceptance, full aggregation,
-dataset rebuilding and public results remain pending.
-Audited partial-session tables now retain every missing/failed seed and show
-valid-only medians and quartiles. Four additional tests pass; the actual
-three-attempt proof has no eligible comparison rows, as expected.
-The subsequent [statistics policy](../benchmarks/STATISTICS.md) includes failed
-seeds as failure-valued observations after all valid scores. Missing seeds prevent
-a comparison; finite comparison medians never substitute valid-only diagnostics.
-Six aggregation and two bounded-controller tests pass.
-
-All 13 OR-Datasets strip sources now have frozen URLs/checksums and a retained
-MIT collection licence; every part, demand and allowed angle matches the historical
-M0 input. The canonical freeze now includes **13 S and 35 B jobs**: 22 reconstructions
-of published Nest-MB cases and 13 explicitly derived fixed-sheet variants. All
-48 pass source-contract checks and reproduce byte for byte; four additional
-Python tests protect conversion and tamper detection. See
-[the dataset method](../benchmarks/datasets/README.md) and
-[source provenance](../benchmarks/sources/README.md).
-
-The maker freeze adds **40 M jobs with 10 held-out reservations**, spanning all
-five planned source categories, requested sheet sizes and 500–2,000-copy jobs.
-All forty source contracts and full one-copy-per-sheet feasibility witnesses pass
-independently. Original curves, generation parameters, licence evidence and
-checksums are retained. A fresh isolated installation rebuilds all files exactly;
-four curve-bound/topology tests and three freeze/coverage tests pass. Development
-SVGnest trials now include the non-held-out mini-box. The ten held-out jobs have
-never been run through an optimiser. See [maker method](../benchmarks/makers/README.md).
-
-| Milestone | Weight | State |
+| Evidence | Current result | Next step |
 | --- | --- | --- |
-| M0 — Groundwork | 5% | Complete: workspace/CI definitions/notices, 39 valid runs, 13/13 means within 1% |
-| M1 — Baseline | 15% | Validator, S/B/M freezes, LBF/SVGnest pilots and Deepnest smoke evidence; complete competitors and full matrix pending |
-| M2 — Sheet optimiser | 25% | Not started |
-| M3 — Part-in-part and import/export | 15% | Not started |
-| M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |
-| M5 — Final gate | 20% | Not started |
+| Published Sparrow reproduction | 39/39 layouts valid; 13/13 instance means pass; worst absolute difference 0.986671% | [Final proof](../benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md) |
+| Frozen datasets | 13 strip, 35 sheet, 40 maker jobs; 10 maker jobs held out | Use only development cases for tuning |
+| LBF development matrix | 450/450 attempts; 283 valid, 5 invalid, 162 unsupported | Complete; [table](../benchmarks/results/comparison-session-20261011T221209Z-ce35672e.md) |
+| SVGnest | Fresh 60 s / seed 0 sheet pilot: 34/35 valid | 23 interrupted attempts are rerunning with a frozen checker; settings and remaining seeds pending |
+| Deepnest | First 12 sheet jobs valid; complete maker pilot retained, including failures | Remaining 23 sheet jobs, settings and seeds |
+| Current Sparrow | All 13 strip jobs valid at each of seeds 0, 1 and 2 | Aggregate seed statistics; sheet applicability proof |
+| Nestbolt constructor | 30/30 development maker layouts valid; median 0.438 s, slowest 18.047 s | [First proof](../benchmarks/results/construct-maker-20261011T223817Z-32654739.md); improve material use |
+| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | [First CI run](https://github.com/skulitom/Nestbolt/actions/runs/38180612330): all five jobs passed |
 
-## Next work, in order
+Next: add layout improvement and sheet
+removal, and complete only the missing M1 comparisons. Conservative proxies may
+miss feasible layouts; M3 will recover hole area with true part-in-part placement.
+The first constructor does not establish M2, G2 quality or G4 speed.
 
-1. Finish M1's full development baseline and settings comparison, then retain the
-   measured gap against LBF. M0's frozen reproduction and independent checks are complete.
-2. Mixed-stock scoring is implemented and repeatable search semantics documented;
-   freeze the exact M2 work-budget mapping before public solve-result schemas.
-3. Complete the competitor adapters/runners against the common validator and
-   frozen S/B/M datasets. Keep the ten held-out maker jobs out of tuning.
-4. Build sheet optimisation against those measurements. Expose completed core
-   capabilities through CLI, Workers and the five MCP tools as they become usable.
+[Ties, failure coverage and the baseline-gap formula](../benchmarks/STATISTICS.md)
+are now explicit. No competitor result means no free win. The [verified 10.6417% single-seed gap](../benchmarks/results/pilot-gap-feedback-20261011.md)
+is not the final three-seed M1 target. Both 60 s and 300 s G2
+populations must pass separately.
 
-MCP is part of v1 in the refreshed plan. A protocol handshake test is not the G7
-Claude Code import/nest/export/independent-validation acceptance test. Release
-packaging, MCPB validation, registry metadata and explicit publication remain M4 work.
+The independent checker covers original geometry, spacing, quantities, units,
+stock, margins, defects, rotations, mirroring and fill mode. The latest full local check passed 48 workspace tests, four stock-helper tests,
+both WASM builds, source/schema/notices checks and 71 Python tests. Two additional
+CPU-selection tests pass in Node.
 
-GitHub workflows are prepared locally; hosted CI is not yet run. There is no
-configured remote, hosted repository, release, registry publication or Pages deployment.
-
-## Local setup verification
-
-On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
-with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
-test and an actual MCP subprocess handshake), both WebAssembly builds,
-four additional stock-conversion tests, dependency-notice/schema consistency,
-sixty Python harness/conversion/evidence tests at that checkpoint; a subsequent
-Python-only run passes all **69** current harness/conversion/evidence tests,
-88 source-contract checks and fixture checksums. Four additional curve-conversion
-tests pass in the isolated maker environment. Two original five-second
-Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).
-The schema was also checked against real CLI output locally. None of these checks
-establishes the independent geometry validity or published quality gates.
+[Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio
+stop condition was not triggered. No release or registry listing has been published.

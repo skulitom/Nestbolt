@@ -48,6 +48,10 @@ def audit_record(path, expected_hash):
             raise ValueError('Single-core process tree was not verified')
         if affinity['platform'] == 'win32' and affinity.get('method') != 'JOB_OBJECT_LIMIT_AFFINITY':
             raise ValueError('Windows job affinity was not enforced')
+        if affinity['platform'] == 'win32':
+            mask=int(affinity['mask'])
+            if mask<=0 or mask&(mask-1) or ('cpu_index' in affinity and mask != 1<<affinity['cpu_index']):
+                raise ValueError('Windows evidence does not select a single-core affinity')
         for key in ['affinity','affinity_verification','worker_check','native_binaries','electron_executable_sha256']:
             if not raw.get(key) or run[key] != raw[key]:
                 raise ValueError(f'Native provenance differs or is absent: {key}')

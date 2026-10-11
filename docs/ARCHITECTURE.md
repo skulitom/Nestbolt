@@ -31,7 +31,29 @@ fewest sheets; G2 still measures material rather than sheet count alone.
 **Determinism:** [SEARCH_CONTRACT.md](SEARCH_CONTRACT.md) separates repeatable work
 quotas from explicit wall-clock benchmark mode. Hard timeouts cannot masquerade
 as completed repeatable results. Calibration, implementation and repeated-run
-acceptance tests remain M2/M4 work; no deterministic Nestbolt solver exists yet.
+acceptance tests remain M2/M4 work. The first constructor uses a fixed sample
+quota and an explicit integer random stream; repeated native trials match exactly.
+This is not yet the versioned time-to-work mapping or improvement search.
+
+## First M2 constructor
+
+`core::construct` now uses unmodified jagua collision trees to place parts on
+fixed and mixed sheets with stock limits. Single-component holes are reserved;
+multipart pieces use one f64 convex hull before conversion to a collision proxy.
+Every output refers back to the original part and one rigid transform. Exact
+allowed f64 angles are retained on export instead of round-tripping f32 trig.
+
+Remnant islands share a physical sheet identity and stock count, each with its own
+collision region. Defects and margins are blocking zones. The first pass uses the
+larger of edge and part gaps plus a scale-dependent rounding guard, so it can be
+more restrictive than requested. It does not claim infeasibility after failing to
+place a part. Search must later recover those lost options and reduce sheet usage.
+
+For this bootstrap, core consumes the polygon contract from the validator crate.
+The checker is called for source preflight and final acceptance, never to choose
+placements. Search intersections stay in jagua; final intersections stay in
+Clipper2. Extract shared data types when introducing the public curve/project
+model. No upstream dependency was modified and no Deepnest code was copied.
 
 **Independent validation:** jagua-rs 1.1.0 itself now depends on `geo`. Choosing `geo`
 again does not automatically create an independent validator. Keep separate source

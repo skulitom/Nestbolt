@@ -22,6 +22,13 @@ while M0 runs were active. Sparrow Studio still explicitly excludes automatic
 multi-sheet allocation and nesting in holes; the stop condition remains untriggered.
 The observed releases/revisions above are unchanged.
 
+Rechecked before M2 implementation at 22:30 UTC on 2026-10-11. GitHub API heads
+for Sparrow, Studio and deepnest-next match the revisions above. Studio still
+explicitly excludes automatic multi-sheet allocation and nesting in holes;
+Deepnest's latest release remains v1.5.6. LightBurn's primary release note still
+describes Pro-only True Nest in 2.2 early access. The stop condition is not
+triggered. M2 starts while the remaining M1 comparisons finish.
+
 Sparrow's [published reproduction instructions](https://github.com/JeroenGar/sparrow/blob/4629b22795ae6b25b3b460ccde6fb36a71292b6d/data/experiments/README.md)
 require historical revisions and nightly/SIMD settings. The new integration smoke
 uses the current pinned revision and a stable compiler; it does not reproduce those

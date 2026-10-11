@@ -40,6 +40,14 @@ class DeepnestEvidenceTests(unittest.TestCase):
                 path,checksum=self.fixture(Path(temp),change)
                 with self.assertRaises(ValueError):audit_record(path,checksum)
 
+    def test_matching_multicore_masks_do_not_count_as_single_core(self):
+        def multicore(run,raw):
+            raw['affinity']['mask']='3'
+            for row in raw['affinity_verification']:row['affinity']='3'
+        with tempfile.TemporaryDirectory() as temp:
+            path,checksum=self.fixture(Path(temp),multicore)
+            with self.assertRaisesRegex(ValueError,'single-core'):audit_record(path,checksum)
+
     def test_missing_controls_native_binary_and_late_result_are_rejected(self):
         for change in [lambda run,raw:raw['last'].update(elapsed_ms=5001),
                        lambda run,raw:raw['worker_check'].update(workers=4),

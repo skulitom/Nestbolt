@@ -99,10 +99,16 @@ def run(args):
         record['configuration'] = prepared['config']
         write(dest / 'request.json', {'seconds': args.seconds, 'seed': args.seed, 'prepared': prepared})
         (dest / 'input.svg').write_text(prepared['svg'] + '\n', encoding='utf-8', newline='\n')
-        subprocess.run(['cargo', 'build', '-p', 'nestbolt-cli', '--locked'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
-        binary = ROOT / 'target/debug' / ('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
+        snapshot = getattr(args, 'validator_snapshot', None)
+        if snapshot:
+            binary = ROOT / snapshot['path']
+            if digest(binary) != snapshot['sha256']:
+                raise ValueError('Batch validator binary changed')
+        else:
+            subprocess.run(['cargo', 'build', '-p', 'nestbolt-cli', '--locked'], cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
+            binary = ROOT / 'target/debug' / ('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
         record['validator_sha256'] = digest(binary)
-        record['validator_sources'] = {p.relative_to(ROOT).as_posix(): digest(p)
+        record['validator_sources'] = snapshot['sources'] if snapshot else {p.relative_to(ROOT).as_posix(): digest(p)
             for p in [ROOT / 'Cargo.lock', *sorted((ROOT / 'crates/validator/src').glob('*.rs'))]}
         blank = {'version': 1, 'units': job['units'], 'sheets': [], 'placements': []}
         write(dest / 'empty-layout.json', blank)
@@ -186,10 +192,18 @@ def batch(args):
     identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '-' + uuid.uuid4().hex[:8]
     dest = ROOT / 'output/playwright/svgnest-batches' / identifier
     dest.mkdir(parents=True)
+    # Solve batches must not rebuild a moving product checkout between cases.
+    # Keep the exact independently checking executable for the whole batch.
+    binary = ROOT / 'target/debug' / ('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
+    frozen_binary = dest / binary.name
+    shutil.copy2(binary, frozen_binary)
+    validator_snapshot = {'path': frozen_binary.relative_to(ROOT).as_posix(), 'sha256': digest(frozen_binary),
+        'sources': {p.relative_to(ROOT).as_posix(): digest(p)
+            for p in [ROOT / 'Cargo.lock', *sorted((ROOT / 'crates/validator/src').glob('*.rs'))]}}
     record = {'batch_id': identifier, 'kind': 'provisional_svgnest_baseline', 'dataset': args.dataset,
               'dataset_manifest_sha256': digest(manifest), 'cases': selected, 'sources': sources,
               'seed': args.seed, 'seconds': args.seconds, 'axis': args.axis, 'settings': args.settings,
-              'complete': False, 'runs': []}
+              'complete': False, 'runs': [], 'validator_snapshot': validator_snapshot}
     write(dest / 'start.json', record)
     for row in selected:
         if {name: digest(ROOT / name) for name in SOURCE_FILES} != sources:
@@ -198,7 +212,7 @@ def batch(args):
         if digest(source) != row['sha256']:
             raise ValueError('Frozen batch source changed')
         result = run(argparse.Namespace(job=source, seconds=args.seconds, seed=args.seed,
-                    settings=args.settings, axis=args.axis, phase='development'))
+                    settings=args.settings, axis=args.axis, phase='development', validator_snapshot=validator_snapshot))
         path = ROOT / 'output/playwright/svgnest' / result['run_id'] / 'run.json'
         entry = {'job': row['id'], 'status': result['status'], 'record': path.relative_to(ROOT).as_posix(), 'sha256': digest(path)}
         record['runs'].append(entry)
