@@ -1,7 +1,7 @@
 # Nestbolt
 
 Free, open-source fixed-sheet nesting for makers, with a local browser app and
-native tools for people and agents. **Currently at the groundwork stage.**
+native tools for people and agents. **Groundwork is complete; baseline work is in progress.**
 
 Nestbolt aims to arrange irregular parts across fixed sheets for laser cutting,
 CNC routing, plasma, waterjet and fabric. The engine builds on
@@ -51,7 +51,9 @@ It checks executable integration only. Full quality benchmarks remain local.
 
 The separate [M0 reproduction](benchmarks/sparrow-repro/README.md) freezes the
 historical Sparrow version, all 1,300 published lengths and a 39-run native check.
-Its full-budget results are pending.
+All 39 runs pass independent geometry checks, and all 13 instance means are within
+1% of the published means. See [the complete results and scope](benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md).
+This reproduces historical Sparrow quality; it does not establish Nestbolt quality.
 
 ## Use from agents
 
@@ -88,9 +90,9 @@ has been published or installed by this setup.
 
 ## Progress and licence
 
-**0% of gated milestones completed; M0 is in progress.** Its final requirement is
-to reproduce Sparrow's published strip results natively within 1%. A scaffold or
-five-second smoke run does not satisfy that requirement.
+**5% of gated milestones completed: M0 has passed.** The complete native
+reproduction meets the original 1% threshold. M1's full baseline and M2–M5 remain
+in progress or pending; see [current evidence and next work](docs/STATUS.md).
 
 Nestbolt's original code and generated fixtures are [MIT](LICENSE). jagua-rs is
 an unmodified MPL-2.0 dependency. [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) records

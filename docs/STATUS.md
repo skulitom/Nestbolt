@@ -1,22 +1,19 @@
 # Status — 2026-10-11
 
-M0 is in progress. **Gated completion: 0%.** Only finished milestones count.
+M0 is complete. **Gated completion: 5%.** Only finished milestones count.
 
 Groundwork committed as `66a3bab`. The durable goal covers the complete v1 plan.
 The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
-The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **36/39 runs** have finished (all thirteen first and
-second seeds, plus ten third seeds). All thirty-six pass independent
-geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-thirty-six-20261011.json)
-retains the run records and validation evidence.
-The first JAKOBS2 run is about 1.02% longer than its published mean; its complete
-three-run comparison now passes. ALBANO, SHAPES2, DAGLI, FU, JAKOBS1, JAKOBS2 and
-MAO, MARQUES, SHAPES0 and SHAPES1 pass their complete comparisons. The final
-SHIRTS, SWIM and TROUSERS runs are active.
-No results have been discarded and the
-original 1% pass threshold is unchanged.
+The full-budget experiment `published-20261011` has finished: **39/39 runs pass
+independent geometry checks and 13/13 instance means pass the unchanged 1% quality
+threshold**. The [final table and retained proof](../benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md)
+include every predeclared run, geometry check, hash and full-precision statistic.
+The largest absolute mean difference is SHAPES0 at +0.986671%. No results were
+discarded. This establishes the planned native quality reproduction, with the
+recorded Windows/hardware and reconstructed-lock differences; it is not a full
+1,300-run statistical replication or a Nestbolt optimiser quality result.
 
 M1 preparation now includes an independent Clipper2 job/layout validator covering
 stock, margins, defects/remnants, copies, rotations, mirroring, holes, clearance and
@@ -100,6 +97,9 @@ are continuing; the first nine maker attempts have seven valid layouts.
 The [next three garment jobs](../benchmarks/results/deepnest-20261011T215136Z-64a5bd6a.md)
 produce no layout at 60 seconds, leaving seven valid layouts in the first twelve
 maker attempts. Mechanical-part trials are continuing.
+The [first mechanical batch](../benchmarks/results/deepnest-20261011T215752Z-30b81baa.md)
+adds one no-layout outcome and two clearance failures, all unscored. The first
+fifteen maker attempts therefore have seven valid layouts; the next three are running.
 
 The [current Sparrow comparator](../benchmarks/sparrow-benchmark/README.md) now calls
 the pinned, unmodified public solver API with one worker and an overall candidate
@@ -153,7 +153,7 @@ never been run through an optimiser. See [maker method](../benchmarks/makers/REA
 
 | Milestone | Weight | State |
 | --- | --- | --- |
-| M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
+| M0 — Groundwork | 5% | Complete: workspace/CI definitions/notices, 39 valid runs, 13/13 means within 1% |
 | M1 — Baseline | 15% | Validator, S/B/M freezes, LBF/SVGnest pilots and Deepnest smoke evidence; complete competitors and full matrix pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
@@ -162,9 +162,8 @@ never been run through an optimiser. See [maker method](../benchmarks/makers/REA
 
 ## Next work, in order
 
-1. Freeze the exact published Sparrow runs, historical source, toolchain, seed and
-   expected lengths (done); run the frozen matrix, reproduce within 1% and attach
-   evidence to BENCHMARKS.md.
+1. Finish M1's full development baseline and settings comparison, then retain the
+   measured gap against LBF. M0's frozen reproduction and independent checks are complete.
 2. Mixed-stock scoring is implemented and repeatable search semantics documented;
    freeze the exact M2 work-budget mapping before public solve-result schemas.
 3. Complete the competitor adapters/runners against the common validator and

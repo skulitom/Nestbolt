@@ -1,0 +1,2775 @@
+{
+  "recorded_at": "2026-10-11T21:58:20.660555+00:00",
+  "milestone": "M0",
+  "milestone_pass": true,
+  "scope": "39-run native quality reproduction: the three predeclared seeds for every instance, compared with all 100 archived lengths per instance. This is not a full statistical replication, Nestbolt optimiser result, or G1-G8 pass.",
+  "summary_source_sha256": "8ddf69d4899635c40692e5e5d2f9727928a874e7f16b1bcdf25d865ea23378f4",
+  "experiment": {
+    "reference_sha256": "d55de0612137daf350ade223f4f2e8ee623747c2e51121ba0966b578eabe9d1c",
+    "build": {
+      "built_at": "2026-10-11T17:36:15.287723+00:00",
+      "binary_sha256": "0a05fef8e3e8604486b2e377f1d4e921943bfad466648aee777302f9bc6d3a9f",
+      "sources": {
+        "benchmarks/sparrow-repro/src/main.rs": "d1a7c98cf6fe401da24611e4037558613ff744b2034a4cc2f593da2d58c75f13",
+        "benchmarks/sparrow-repro/Cargo.toml": "72b72f7233d627703659ea83be1c94ea749c6d6fa79a85653d7f470df2584c67",
+        "benchmarks/sparrow-repro/Cargo.lock": "68f9102193c5d9992223a838749f955c3e98a120e008a59f983e871936d5bf86"
+      },
+      "compiler": "rustc 1.89.0-nightly (8da623945 2025-06-13)\nbinary: rustc\ncommit-hash: 8da623945f83933dd38644d5745532ee032e855b\ncommit-date: 2025-06-13\nhost: x86_64-pc-windows-msvc\nrelease: 1.89.0-nightly\nLLVM version: 20.1.5",
+      "flags": "-C target-cpu=native"
+    },
+    "seconds": 1200,
+    "smoke": false,
+    "source_hashes": {
+      "scripts/m0.py": "bd23f180cc5ca4bffd9c2483f96fe8e7de93ba0e1b271ed97556bf317eb63921",
+      "scripts/m0_reference.py": "c67c2e2fe48aaf574925c8d6f38478d061d88f89e9fdab9d36e420188ea7e4f9"
+    },
+    "started_at": "2026-10-11T17:36:20.999732+00:00",
+    "commit": "882caf8ccae6dfc88b360977c69c19119fd9b6c1",
+    "dirty": false,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor"
+  },
+  "reference_sha256": "d55de0612137daf350ade223f4f2e8ee623747c2e51121ba0966b578eabe9d1c",
+  "integrity_report": {
+    "generated_at": "2026-10-11T21:58:19.261303+00:00",
+    "experiment": "published-20261011",
+    "reference_sha256": "d55de0612137daf350ade223f4f2e8ee623747c2e51121ba0966b578eabe9d1c",
+    "complete": true,
+    "pass": true,
+    "scope": "M0 native quality reproduction, not a full statistical replication",
+    "rows": [
+      {
+        "instance": "ALBANO",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 9729.55248,
+        "mean_width": 9774.344333333333,
+        "median_width": 9770.604,
+        "quartiles": [
+          9759.1765,
+          9770.604,
+          9787.642
+        ],
+        "relative_difference": 0.004603691015121925,
+        "pass": true
+      },
+      {
+        "instance": "SHAPES2",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 25.50813749,
+        "mean_width": 25.616326,
+        "median_width": 25.646978,
+        "quartiles": [
+          25.589284,
+          25.646978,
+          25.658694
+        ],
+        "relative_difference": 0.0042413331840638335,
+        "pass": true
+      },
+      {
+        "instance": "DAGLI",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 56.66282877,
+        "mean_width": 56.645354,
+        "median_width": 56.614902,
+        "quartiles": [
+          56.590461000000005,
+          56.614902,
+          56.685021
+        ],
+        "relative_difference": -0.0003083991812503628,
+        "pass": true
+      },
+      {
+        "instance": "FU",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 30.89792611,
+        "mean_width": 30.846401333333333,
+        "median_width": 30.846409,
+        "quartiles": [
+          30.846276500000002,
+          30.846409,
+          30.84653
+        ],
+        "relative_difference": -0.0016675804221691903,
+        "pass": true
+      },
+      {
+        "instance": "JAKOBS1",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 11.000081765000001,
+        "mean_width": 11.000301833333333,
+        "median_width": 11.00028,
+        "quartiles": [
+          11.000221,
+          11.00028,
+          11.00037175
+        ],
+        "relative_difference": 2.0006063412347785e-05,
+        "pass": true
+      },
+      {
+        "instance": "JAKOBS2",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 22.76927589,
+        "mean_width": 22.890050666666667,
+        "median_width": 23.000366,
+        "quartiles": [
+          22.834851,
+          23.000366,
+          23.000408
+        ],
+        "relative_difference": 0.0053042871126047775,
+        "pass": true
+      },
+      {
+        "instance": "MAO",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 1711.242338,
+        "mean_width": 1714.4517333333333,
+        "median_width": 1714.6738,
+        "quartiles": [
+          1714.03845,
+          1714.6738,
+          1714.97605
+        ],
+        "relative_difference": 0.0018754768170849978,
+        "pass": true
+      },
+      {
+        "instance": "MARQUES",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 76.07706347,
+        "mean_width": 75.93932833333334,
+        "median_width": 76.00197,
+        "quartiles": [
+          75.7646225,
+          76.00197,
+          76.145355
+        ],
+        "relative_difference": -0.0018104686272620851,
+        "pass": true
+      },
+      {
+        "instance": "SHAPES0",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 58.16434951,
+        "mean_width": 58.73824033333333,
+        "median_width": 58.773052,
+        "quartiles": [
+          58.647538999999995,
+          58.773052,
+          58.8463475
+        ],
+        "relative_difference": 0.009866710934928635,
+        "pass": true
+      },
+      {
+        "instance": "SHAPES1",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 52.7189748,
+        "mean_width": 52.80013233333334,
+        "median_width": 52.84154,
+        "quartiles": [
+          52.681682,
+          52.84154,
+          52.9392865
+        ],
+        "relative_difference": 0.0015394368657817292,
+        "pass": true
+      },
+      {
+        "instance": "SHIRTS",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 60.23153199,
+        "mean_width": 60.30956,
+        "median_width": 60.243362,
+        "quartiles": [
+          60.174623499999996,
+          60.243362,
+          60.4113975
+        ],
+        "relative_difference": 0.0012954677960532734,
+        "pass": true
+      },
+      {
+        "instance": "SWIM",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 5652.657356,
+        "mean_width": 5667.019766666666,
+        "median_width": 5674.9463,
+        "quartiles": [
+          5656.13765,
+          5674.9463,
+          5681.86515
+        ],
+        "relative_difference": 0.0025408245648255168,
+        "pass": true
+      },
+      {
+        "instance": "TROUSERS",
+        "completed": 3,
+        "attempted": 3,
+        "reference_mean_width": 237.4375928,
+        "mean_width": 237.80027666666666,
+        "median_width": 237.65578,
+        "quartiles": [
+          237.33583,
+          237.65578,
+          238.192475
+        ],
+        "relative_difference": 0.0015274913394702772,
+        "pass": true
+      }
+    ]
+  },
+  "runs": [
+    {
+      "instance": "albano",
+      "run": {
+        "started_at": "2026-10-11T17:36:22.604927+00:00",
+        "instance": "albano",
+        "run_index": 0,
+        "archive_seed": "14527206836074996158",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\albano.json",
+          "1200",
+          "14527206836074996158",
+          "0"
+        ],
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "17517060485276396649",
+        "strip_width": 9747.749,
+        "density": 0.89307463,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "84899b28e2f111a70f20fd4aba92372dd2c60f02d83074b460fbc8d9a47ec4c4",
+          "output/layout.svg": "7479b5499ec2c59ba91a0113a114574059cd0edf1ea1b2714c7ad4ab7e92a891",
+          "stdout.log": "480cdddeae88dff299c7e38e6119f731687ff41d352afadf17e27ff716b09e38",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T17:56:22.939760+00:00",
+        "wall_seconds": 1200.3280000000086
+      },
+      "run_sha256": "f3b424558987f236372a43f4fcf6fef57a3dd5c442df651c95a15971b5e46bde",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:03.762925+00:00",
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "layout_sha256": "84899b28e2f111a70f20fd4aba92372dd2c60f02d83074b460fbc8d9a47ec4c4",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "albano",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 9747.749,
+          "expected_parts": 24,
+          "placed_parts": 24,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "c95aeb5b1e918b107bf79e6f7ad238ddd2bda69f1783dc3cc4aaae056eb4f551"
+    },
+    {
+      "instance": "albano",
+      "run": {
+        "started_at": "2026-10-11T18:56:24.958210+00:00",
+        "instance": "albano",
+        "run_index": 1,
+        "archive_seed": "14527206836074996158",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\albano.json",
+          "1200",
+          "14527206836074996158",
+          "1"
+        ],
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "4490289746291267117",
+        "strip_width": 9804.68,
+        "density": 0.887889,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "aec03b708477ddcd4aed06715cb02bbabb58261112198b0cc2fa78b5bc8d7d39",
+          "output/layout.svg": "1cef0f1b37bdeb03871016a6bf2c755176748285bcd6fa57c56f5381e26fa493",
+          "stdout.log": "228560de598e5230615c9ce71bae07d0e7711a9f5d3d178a77b562471ccb8966",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:16:25.252258+00:00",
+        "wall_seconds": 1200.281999999992
+      },
+      "run_sha256": "46b7af5bfd3d3da294e3d7fef3798330252cf2e8d45ca3aa07fd1c5a7fb10b50",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:03.831633+00:00",
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "layout_sha256": "aec03b708477ddcd4aed06715cb02bbabb58261112198b0cc2fa78b5bc8d7d39",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "albano",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 9804.68,
+          "expected_parts": 24,
+          "placed_parts": 24,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "2a1122ba9a8666b94191a5c08375a6de4bb0c85804ced296c084dfcf0b698644"
+    },
+    {
+      "instance": "albano",
+      "run": {
+        "started_at": "2026-10-11T20:16:43.732732+00:00",
+        "instance": "albano",
+        "run_index": 2,
+        "archive_seed": "14527206836074996158",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\albano.json",
+          "1200",
+          "14527206836074996158",
+          "2"
+        ],
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "9977807614176324679",
+        "strip_width": 9770.604,
+        "density": 0.89098567,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "fe1b6aab47a0c3de286f49818d32078ebd30a4cc813187934c96d3fe58994d6a",
+          "output/layout.svg": "c6c2be6e766e04deb714aef1897d1bef8bf1971b444c771b97196ccac2540a16",
+          "stdout.log": "20ad750b97336c3a5d97afc597ee268a4a601a756478dded4ac3a7bbb5ec55c2",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:36:44.402834+00:00",
+        "wall_seconds": 1200.6719999999914
+      },
+      "run_sha256": "bc3fee0b2dbae6e20485328a37c8eae8927f8defb21d34c776b4e0c14afaa784",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:03.891871+00:00",
+        "input_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "layout_sha256": "fe1b6aab47a0c3de286f49818d32078ebd30a4cc813187934c96d3fe58994d6a",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "albano",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 9770.604,
+          "expected_parts": 24,
+          "placed_parts": 24,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "9408640441b41a5f7d813cad6736538147b122fbe446034b1831ad6ee7ec93b5"
+    },
+    {
+      "instance": "blaz1",
+      "run": {
+        "started_at": "2026-10-11T17:36:22.603925+00:00",
+        "instance": "blaz1",
+        "run_index": 0,
+        "archive_seed": "13575252682057771556",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\blaz1.json",
+          "1200",
+          "13575252682057771556",
+          "0"
+        ],
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "16235083380048159655",
+        "strip_width": 25.646978,
+        "density": 0.84212023,
+        "placed_count": 28,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "2f32c3f1b96de9db6381684b5912d3bf7b421e2082290f0b681474de221c49b0",
+          "output/layout.svg": "8f7b54e7212e6a51e39d5a02614be1fa6ca8360b62c0b8867f3fee5691724bc1",
+          "stdout.log": "0059abee6b44b202776ddc87226d1f85d2adc96a6d14e3c8c7ecf97c3ab137f8",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T17:56:22.994007+00:00",
+        "wall_seconds": 1200.3899999999994
+      },
+      "run_sha256": "c784292ec1703a5e08b1bc2e97832edf3f61fec9b6a6f4a4f9fe7f9d863363f7",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:03.955540+00:00",
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "layout_sha256": "2f32c3f1b96de9db6381684b5912d3bf7b421e2082290f0b681474de221c49b0",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "blaz1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 25.646978,
+          "expected_parts": 28,
+          "placed_parts": 28,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "8ed7f77847beec7059f1db0bb64cd8b023f17633a0c33a62c0b1da69b2aa7ab9"
+    },
+    {
+      "instance": "blaz1",
+      "run": {
+        "started_at": "2026-10-11T18:56:25.271254+00:00",
+        "instance": "blaz1",
+        "run_index": 1,
+        "archive_seed": "13575252682057771556",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\blaz1.json",
+          "1200",
+          "13575252682057771556",
+          "1"
+        ],
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "682197867442431408",
+        "strip_width": 25.67041,
+        "density": 0.84135157,
+        "placed_count": 28,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "3ddf92ba9fa6dd75fa649ff4ec152d2f83e561d8c29e6607ab2273b51b2bc196",
+          "output/layout.svg": "e2d899ecaec186ebeb9d49b93a6afbc32a630dfa9e9dada007f963fe8ed56d31",
+          "stdout.log": "77191c00d680a2ea52597d981192cca83b71ab4554aa90bed33910ec9bbed4ea",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:16:25.547759+00:00",
+        "wall_seconds": 1200.2660000000033
+      },
+      "run_sha256": "3bd05cac1cc6f3e2819a6927a035ba8d0571753f8a439f8422810ff18381701a",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.019670+00:00",
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "layout_sha256": "3ddf92ba9fa6dd75fa649ff4ec152d2f83e561d8c29e6607ab2273b51b2bc196",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "blaz1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 25.67041,
+          "expected_parts": 28,
+          "placed_parts": 28,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "a1f4b62ae5820dfc20a43e3126434454e2c25914d3d8c98606497ddc94e7f397"
+    },
+    {
+      "instance": "blaz1",
+      "run": {
+        "started_at": "2026-10-11T20:36:44.270817+00:00",
+        "instance": "blaz1",
+        "run_index": 2,
+        "archive_seed": "13575252682057771556",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\blaz1.json",
+          "1200",
+          "13575252682057771556",
+          "2"
+        ],
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "117675643171675598",
+        "strip_width": 25.53159,
+        "density": 0.84592617,
+        "placed_count": 28,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "2f6d2428ecb3ad8a23dc2c34f7cca771666dc084d51ffbfe4e2b944df5bcaf73",
+          "output/layout.svg": "2efbaeaaa6e33962525def7d56f521e36dd9450871880fc2f167dac4d1df6276",
+          "stdout.log": "0974c361346dc7de3de359363842c7fa050586fdbc3eb45de030c8aff47985aa",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:56:44.601896+00:00",
+        "wall_seconds": 1200.3280000000086
+      },
+      "run_sha256": "afe5349287109106d8690928f34435f79a94a9ca2a4155e3a18f757c7e673edc",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.093242+00:00",
+        "input_sha256": "2f4afb682686de22a27970a8ff6bde586aa9624017b39d643c7d7d4e898aef58",
+        "layout_sha256": "2f6d2428ecb3ad8a23dc2c34f7cca771666dc084d51ffbfe4e2b944df5bcaf73",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "blaz1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 25.53159,
+          "expected_parts": 28,
+          "placed_parts": 28,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "3358b8b955215f4349bdc897b01abe4a3cce8299b66e0ee31ba58e50e5be875f"
+    },
+    {
+      "instance": "dagli",
+      "run": {
+        "started_at": "2026-10-11T17:36:22.602925+00:00",
+        "instance": "dagli",
+        "run_index": 0,
+        "archive_seed": "55857091789825901",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\dagli.json",
+          "1200",
+          "55857091789825901",
+          "0"
+        ],
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "14753325905006340130",
+        "strip_width": 56.614902,
+        "density": 0.89331603,
+        "placed_count": 30,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "d9e9bc03b64bf088b4f2861bff7edaf61652b8aa8dbc1db19f76c384ab103849",
+          "output/layout.svg": "4c1dd9b04393058d11d1e27363607786675fcc7fa1a9ac0a56e8d355675144ca",
+          "stdout.log": "c0b0fea0aa91edc2d1ed839db11e53ebf3c565666e07365055d36fe125a6146d",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T17:56:23.006882+00:00",
+        "wall_seconds": 1200.3899999999994
+      },
+      "run_sha256": "fa30db79c306730e80a0abc0c28284f9657b9abe0220da2ff0b40b92aa44577b",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.166296+00:00",
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "layout_sha256": "d9e9bc03b64bf088b4f2861bff7edaf61652b8aa8dbc1db19f76c384ab103849",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "dagli",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 56.614902,
+          "expected_parts": 30,
+          "placed_parts": 30,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "7cb660edb791eb6cc74c10564e35edd26bc30288d074bb53e0cbc787d860b9a1"
+    },
+    {
+      "instance": "dagli",
+      "run": {
+        "started_at": "2026-10-11T19:16:25.290830+00:00",
+        "instance": "dagli",
+        "run_index": 1,
+        "archive_seed": "55857091789825901",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\dagli.json",
+          "1200",
+          "55857091789825901",
+          "1"
+        ],
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "4989716320640907570",
+        "strip_width": 56.56602,
+        "density": 0.89408803,
+        "placed_count": 30,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "40d1984ea3f60c23e9cd49ae6d32751b36c7a5c43dcd4ea57e9d749a7a1eb305",
+          "output/layout.svg": "26b6298214e2cefee5f574f292afef9c532c194b2d0a22a1546c8a2feda85e0c",
+          "stdout.log": "4250b9ce2cbee4b2d5ac17ddb01d3e4702ecd00be35f7805c2dac15121f0caa0",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:36:25.782975+00:00",
+        "wall_seconds": 1200.4839999999967
+      },
+      "run_sha256": "d0eeb435aa1bc14763d3c7df0becef446257b5bf8d2e873c7033ef0f7686a2bf",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.253703+00:00",
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "layout_sha256": "40d1984ea3f60c23e9cd49ae6d32751b36c7a5c43dcd4ea57e9d749a7a1eb305",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "dagli",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 56.56602,
+          "expected_parts": 30,
+          "placed_parts": 30,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "f300871647ea1508add7270f1353d53544b8ad2551d1f8e1022984dc7f2985b4"
+    },
+    {
+      "instance": "dagli",
+      "run": {
+        "started_at": "2026-10-11T20:36:44.689284+00:00",
+        "instance": "dagli",
+        "run_index": 2,
+        "archive_seed": "55857091789825901",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\dagli.json",
+          "1200",
+          "55857091789825901",
+          "2"
+        ],
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "5794259743373810923",
+        "strip_width": 56.75514,
+        "density": 0.89110875,
+        "placed_count": 30,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "6f427f420102f7b35c4b1ee1305bca44a2ca7db6c08e948500631bb844adcccf",
+          "output/layout.svg": "124e8f63f859994d2bbe66c0c03d90c71486d92f3164cb580db1bc400cbcacb3",
+          "stdout.log": "1d375ea6b049977ae8485cfefc07bbc2a5fbee66a5f422e989f58d1ea2b90fd5",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:56:45.516580+00:00",
+        "wall_seconds": 1200.827999999994
+      },
+      "run_sha256": "c947a1ec7b200d9b3ee9e2c35fc622a04869c291b4b8dc47505e926962d93928",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.347850+00:00",
+        "input_sha256": "e4f87dc490ba96467b0c1df3a0957212db3098813195d42fe5695c03aadea07a",
+        "layout_sha256": "6f427f420102f7b35c4b1ee1305bca44a2ca7db6c08e948500631bb844adcccf",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "dagli",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 56.75514,
+          "expected_parts": 30,
+          "placed_parts": 30,
+          "maximum_overlap_ratio": 2.6190474943310097e-13,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 2.6190474943310097e-13,
+          "violations": []
+        }
+      },
+      "validation_sha256": "d2a46f69b767f585a6cd01472a4bedc49931451a6fef64cd47b26fd0a32ab8df"
+    },
+    {
+      "instance": "fu",
+      "run": {
+        "started_at": "2026-10-11T17:56:23.002677+00:00",
+        "instance": "fu",
+        "run_index": 0,
+        "archive_seed": "17494856542040711796",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\fu.json",
+          "1200",
+          "17494856542040711796",
+          "0"
+        ],
+        "input_sha256": "1bae041893a948bc18dd168c4868093fcb62ad11bdd04e5738008859237b0179",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "5213629877894150108",
+        "strip_width": 30.846651,
+        "density": 0.9238329,
+        "placed_count": 12,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "5f2a8fae59ca4144fd7f5ad659038cc6c4bf1912d401e3722bb9a8fb5162c4d1",
+          "output/layout.svg": "8961b90b67557fa064d999be411d337cd555726df38f37854cac2e3eb798a55c",
+          "stdout.log": "9fe277c607db6a49685bdd02b9d06e7547b9903b8614d924e71218a94d29f32d",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:16:23.515272+00:00",
+        "wall_seconds": 1200.5160000000033
+      },
+      "run_sha256": "4b973a740e751a2ec85811088a353e1e2c851f0e17c3e4ef1db81c34c8ce4077",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.435654+00:00",
+        "input_sha256": "1bae041893a948bc18dd168c4868093fcb62ad11bdd04e5738008859237b0179",
+        "layout_sha256": "5f2a8fae59ca4144fd7f5ad659038cc6c4bf1912d401e3722bb9a8fb5162c4d1",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "fu",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 30.846651,
+          "expected_parts": 12,
+          "placed_parts": 12,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "e8c55c9878d2febc4659a0c512776f2cf0eac165485933d75f76bc6040cf2c1e"
+    },
+    {
+      "instance": "fu",
+      "run": {
+        "started_at": "2026-10-11T19:16:25.587786+00:00",
+        "instance": "fu",
+        "run_index": 1,
+        "archive_seed": "17494856542040711796",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\fu.json",
+          "1200",
+          "17494856542040711796",
+          "1"
+        ],
+        "input_sha256": "1bae041893a948bc18dd168c4868093fcb62ad11bdd04e5738008859237b0179",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "4895872023533740277",
+        "strip_width": 30.846144,
+        "density": 0.9238481,
+        "placed_count": 12,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "523faa29426b7e5ad83048f74d4870ca9a84d0dda565f96c248661a0255e35e0",
+          "output/layout.svg": "c866f949982264efb1fc0145c23ade78e8676441a289569013a3332baa4a0758",
+          "stdout.log": "63a1884a975f24cf37db5b72ec9065c3e30e6eb47ded3ac42b4a3f18a5f530c1",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:36:26.058822+00:00",
+        "wall_seconds": 1200.4689999999973
+      },
+      "run_sha256": "d679126ba935f78d6a16c753b566a165ab8b4dbea35fca686bb4126aca137229",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.499938+00:00",
+        "input_sha256": "1bae041893a948bc18dd168c4868093fcb62ad11bdd04e5738008859237b0179",
+        "layout_sha256": "523faa29426b7e5ad83048f74d4870ca9a84d0dda565f96c248661a0255e35e0",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "fu",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 30.846144,
+          "expected_parts": 12,
+          "placed_parts": 12,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "5ffd78667efec40bcf4b6bb61986f5c57c4463964b841224c3c65c675e31aca5"
+    },
+    {
+      "instance": "fu",
+      "run": {
+        "started_at": "2026-10-11T20:36:44.882102+00:00",
+        "instance": "fu",
+        "run_index": 2,
+        "archive_seed": "17494856542040711796",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\fu.json",
+          "1200",
+          "17494856542040711796",
+          "2"
+        ],
+        "input_sha256": "1bae041893a948bc18dd168c4868093fcb62ad11bdd04e5738008859237b0179",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "18353113014980001733",
+        "strip_width": 30.846409,
+        "density": 0.9238401,
+        "placed_count": 12,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "c9b7ae9c7301a3b5eb912c009940b1d0055393fcaa69f593e37c7519d47c8595",
+          "output/layout.svg": "02dc48a18b1ca7bf8fe086e2f295fdc0abbcf9220dfdebe6f914439b366db07a",
+          "stdout.log": "03fd904f32467efb7f67d3968477494eb195f08879ec8c3fd9f5e299c5bfacdb",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:56:45.048104+00:00",
+        "wall_seconds": 1200.1560000000027
+      },
+      "run_sha256": "b58421d69ff2ec3d17c87f0cf1992946a486973473aec2f6a1c1fb10ffdf6576",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.555445+00:00",
+        "input_sha256": "1bae041893a948bc18dd168c4868093fcb62ad11bdd04e5738008859237b0179",
+        "layout_sha256": "c9b7ae9c7301a3b5eb912c009940b1d0055393fcaa69f593e37c7519d47c8595",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "fu",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 30.846409,
+          "expected_parts": 12,
+          "placed_parts": 12,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "aa40aeafbc4fd6097492aad2d7b9ccad8f78f109f6e24988b2c85b87a167093c"
+    },
+    {
+      "instance": "jakobs1",
+      "run": {
+        "started_at": "2026-10-11T17:56:23.070064+00:00",
+        "instance": "jakobs1",
+        "run_index": 0,
+        "archive_seed": "11654014403320546545",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\jakobs1.json",
+          "1200",
+          "11654014403320546545",
+          "0"
+        ],
+        "input_sha256": "e6b9df65a387e2912b4fe04ecd619e92815d5096cab5537f757e2838dbdacc1d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "4923295161319167716",
+        "strip_width": 11.00028,
+        "density": 0.89079726,
+        "placed_count": 25,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "fa8c5cdbf717ea17d7eb5839b87606670bac22c2ba944bd62d7237aa84043347",
+          "output/layout.svg": "b4204e1578eb2464969a2ddfb2ce93cdbfa5e505550cf4e84946724a45875384",
+          "stdout.log": "562d5f04b75ab892edc4e9b3eb39ca9c5ac014508dce6a9c69ac91347c266f2f",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:16:23.542167+00:00",
+        "wall_seconds": 1200.453999999998
+      },
+      "run_sha256": "3f0f044e5a6985784594aff89c06555957e7850d5414f32af35cdd2be1466c7f",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.625345+00:00",
+        "input_sha256": "e6b9df65a387e2912b4fe04ecd619e92815d5096cab5537f757e2838dbdacc1d",
+        "layout_sha256": "fa8c5cdbf717ea17d7eb5839b87606670bac22c2ba944bd62d7237aa84043347",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "jakobs1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 11.00028,
+          "expected_parts": 25,
+          "placed_parts": 25,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "b2953d0f6be573c36e1520ecce58eaabe9e0a1f74667190319b730b9d03ddb7c"
+    },
+    {
+      "instance": "jakobs1",
+      "run": {
+        "started_at": "2026-10-11T19:16:25.657327+00:00",
+        "instance": "jakobs1",
+        "run_index": 1,
+        "archive_seed": "11654014403320546545",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\jakobs1.json",
+          "1200",
+          "11654014403320546545",
+          "1"
+        ],
+        "input_sha256": "e6b9df65a387e2912b4fe04ecd619e92815d5096cab5537f757e2838dbdacc1d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "6290093650825749975",
+        "strip_width": 11.000162,
+        "density": 0.89080685,
+        "placed_count": 25,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "34cb082d4b4fbd1e6f93436d40069a251767677af46343803c90abd186c3a857",
+          "output/layout.svg": "651a7e25568079a583acb1dd0f0f850cc06c37ab63768ca10d874f7f8aeef8dc",
+          "stdout.log": "e60150b323e3fe651a1f7c000102228e1bc98a64801c21a105bee51bc9d10b80",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:36:26.073354+00:00",
+        "wall_seconds": 1200.4060000000027
+      },
+      "run_sha256": "1152c3174cb849cee46f1b163f7bd2dc4ba43fba1b0cace2bbf61c04af694a6e",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.681010+00:00",
+        "input_sha256": "e6b9df65a387e2912b4fe04ecd619e92815d5096cab5537f757e2838dbdacc1d",
+        "layout_sha256": "34cb082d4b4fbd1e6f93436d40069a251767677af46343803c90abd186c3a857",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "jakobs1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 11.000162,
+          "expected_parts": 25,
+          "placed_parts": 25,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "85b80c15943f0a3b0564399fb4316703ef08286159552c2158b53e3df39eb4f0"
+    },
+    {
+      "instance": "jakobs1",
+      "run": {
+        "started_at": "2026-10-11T20:56:44.654064+00:00",
+        "instance": "jakobs1",
+        "run_index": 2,
+        "archive_seed": "11654014403320546545",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\jakobs1.json",
+          "1200",
+          "11654014403320546545",
+          "2"
+        ],
+        "input_sha256": "e6b9df65a387e2912b4fe04ecd619e92815d5096cab5537f757e2838dbdacc1d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "15131183542983537859",
+        "strip_width": 11.0004635,
+        "density": 0.8907824,
+        "placed_count": 25,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "7d0df9bf0df3fb5ffa00fdd2a584012071c3b8d4db52e6f17d2c169e60f65c65",
+          "output/layout.svg": "1d732df2a92e5b91c9a959a779a771c2ec904960b09c4530e259717239666cb4",
+          "stdout.log": "d26e672e7a003d3a2bb70306afb2ab1b33aaa7d93e175702ff357309f93e5686",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:16:45.252474+00:00",
+        "wall_seconds": 1200.5940000000119
+      },
+      "run_sha256": "34fda6261d886b7fbaff5ebdc4f542893380b2e8d94a8eaa84ed85f1f50360be",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.781599+00:00",
+        "input_sha256": "e6b9df65a387e2912b4fe04ecd619e92815d5096cab5537f757e2838dbdacc1d",
+        "layout_sha256": "7d0df9bf0df3fb5ffa00fdd2a584012071c3b8d4db52e6f17d2c169e60f65c65",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "jakobs1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 11.0004635,
+          "expected_parts": 25,
+          "placed_parts": 25,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "12a94062700fc0a0e0f38dea9f9789aead7237de6bcbda8d0f730a4615fd6499"
+    },
+    {
+      "instance": "jakobs2",
+      "run": {
+        "started_at": "2026-10-11T17:56:23.081029+00:00",
+        "instance": "jakobs2",
+        "run_index": 0,
+        "archive_seed": "17990366217442984607",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\jakobs2.json",
+          "1200",
+          "17990366217442984607",
+          "0"
+        ],
+        "input_sha256": "779bd33733ef276ba849a155fb1b11323153564e346057edae9fb06e3c87c30d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "5515489925928999519",
+        "strip_width": 23.00045,
+        "density": 0.83903,
+        "placed_count": 25,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "5a297a2450ed4e76ef207c333e7f94d190d0d2c1300836b43e3cb1e37e87444b",
+          "output/layout.svg": "6cf0fc99ce29068ad3d102182d942534151f0b2d4dbea69ad9745bc3507396d9",
+          "stdout.log": "7d2873f33026bcb4ab75cbf07a93e60314fdd8e9c8551cdfd02fb8180c375c38",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:16:23.373487+00:00",
+        "wall_seconds": 1200.2969999999914
+      },
+      "run_sha256": "e0e74a12965114740f836b354c0f19df053d90853d8e76fe2c8d19c24a0fea65",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:04.966870+00:00",
+        "input_sha256": "779bd33733ef276ba849a155fb1b11323153564e346057edae9fb06e3c87c30d",
+        "layout_sha256": "5a297a2450ed4e76ef207c333e7f94d190d0d2c1300836b43e3cb1e37e87444b",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "jakobs2",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 23.00045,
+          "expected_parts": 25,
+          "placed_parts": 25,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "8500229b30f2647111e963393980ce78316859806db8d8d7376571b9a1d2f06b"
+    },
+    {
+      "instance": "jakobs2",
+      "run": {
+        "started_at": "2026-10-11T19:36:41.794351+00:00",
+        "instance": "jakobs2",
+        "run_index": 1,
+        "archive_seed": "17990366217442984607",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\jakobs2.json",
+          "1200",
+          "17990366217442984607",
+          "1"
+        ],
+        "input_sha256": "779bd33733ef276ba849a155fb1b11323153564e346057edae9fb06e3c87c30d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "9991150044721687291",
+        "strip_width": 22.669336,
+        "density": 0.85128516,
+        "placed_count": 25,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "4fb96f0056857fd58a72fdc62b22d1d41a61841ffd144c66718ef730bc70f1e6",
+          "output/layout.svg": "ab47dcaec3011c1b2b718f30c835b8d4ef73609ba4b8e6afb805252d04c8c3b6",
+          "stdout.log": "1da32e1852c848d5235ad28575fafa6c2983e1166c9b20154f007c9306a704a1",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:56:42.387335+00:00",
+        "wall_seconds": 1200.577999999994
+      },
+      "run_sha256": "bf39d5af697e962fa5891abad8c356f86ea18aaa647278efeb886b7e5f179383",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.023188+00:00",
+        "input_sha256": "779bd33733ef276ba849a155fb1b11323153564e346057edae9fb06e3c87c30d",
+        "layout_sha256": "4fb96f0056857fd58a72fdc62b22d1d41a61841ffd144c66718ef730bc70f1e6",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "jakobs2",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 22.669336,
+          "expected_parts": 25,
+          "placed_parts": 25,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "ad166a0babd7ccf953d8dc9726a9d83504a493bedf972cd613e1fe40edb6a89b"
+    },
+    {
+      "instance": "jakobs2",
+      "run": {
+        "started_at": "2026-10-11T20:56:45.096203+00:00",
+        "instance": "jakobs2",
+        "run_index": 2,
+        "archive_seed": "17990366217442984607",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\jakobs2.json",
+          "1200",
+          "17990366217442984607",
+          "2"
+        ],
+        "input_sha256": "779bd33733ef276ba849a155fb1b11323153564e346057edae9fb06e3c87c30d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "7073750249612803468",
+        "strip_width": 23.000366,
+        "density": 0.8390331,
+        "placed_count": 25,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "a52bf95d2457a45d24836afdb324973922d4546afc02799855c8b547d8e3901e",
+          "output/layout.svg": "56e935d7be42363a43889045443988eb40b48e7f4aea67aafd71e50bb5a4cfa1",
+          "stdout.log": "e5accfaf72649f6370746e5d68ef319bab417c88d655e06b29fe2e158be9c0f5",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:16:45.663090+00:00",
+        "wall_seconds": 1200.5619999999908
+      },
+      "run_sha256": "e9e436342d7258ec65df86c5305841bed1510e11b1802c94f669d8c53d70898b",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.082634+00:00",
+        "input_sha256": "779bd33733ef276ba849a155fb1b11323153564e346057edae9fb06e3c87c30d",
+        "layout_sha256": "a52bf95d2457a45d24836afdb324973922d4546afc02799855c8b547d8e3901e",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "jakobs2",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 23.000366,
+          "expected_parts": 25,
+          "placed_parts": 25,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "c6dcf0bf49178ba32ae816376418217c5bbe414f5fd49fb180351c36056c8b74"
+    },
+    {
+      "instance": "mao",
+      "run": {
+        "started_at": "2026-10-11T18:16:23.412728+00:00",
+        "instance": "mao",
+        "run_index": 0,
+        "archive_seed": "13111216149200613741",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\mao.json",
+          "1200",
+          "13111216149200613741",
+          "0"
+        ],
+        "input_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "15396014946147650398",
+        "strip_width": 1715.2783,
+        "density": 0.8593168,
+        "placed_count": 20,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "3ec00ffa5f921f5f640ac753e668f34fad558b7c8e482a378d9874fcb6b72302",
+          "output/layout.svg": "79c110c1a2d3383432007a14698b5f2d98acc19e28d759fe9df480b3ce309890",
+          "stdout.log": "0dc0411a9b220ff73778cf513e644966b4a43f444dfaeffa955094e1f34a5a25",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:36:23.884883+00:00",
+        "wall_seconds": 1200.4679999999935
+      },
+      "run_sha256": "1c6dabde083393ecd3f082f42f57edf1f08b36afcb1f52b00172b25e3b7b6861",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.154585+00:00",
+        "input_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "layout_sha256": "3ec00ffa5f921f5f640ac753e668f34fad558b7c8e482a378d9874fcb6b72302",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "mao",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 1715.2783,
+          "expected_parts": 20,
+          "placed_parts": 20,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "1fcb36524c4ba679f871601a76d6a1232b736e952c9cac2b484ec2e6bd021907"
+    },
+    {
+      "instance": "mao",
+      "run": {
+        "started_at": "2026-10-11T19:36:41.790487+00:00",
+        "instance": "mao",
+        "run_index": 1,
+        "archive_seed": "13111216149200613741",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\mao.json",
+          "1200",
+          "13111216149200613741",
+          "1"
+        ],
+        "input_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "17622339519368733640",
+        "strip_width": 1714.6738,
+        "density": 0.8596197,
+        "placed_count": 20,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "9fe5edcb4b116b70f2be10f7830a64c9cf272557758ffeb899e5f71c7c110fa5",
+          "output/layout.svg": "2f6ed917151ddbda6ea34dfbac53ffcfb666f9c72ddff666d1c6d92a58569e94",
+          "stdout.log": "fdf191bdb5f42e5868b7fcdef5fb84e705b78491ed65163d467b4f0ad70741eb",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:56:42.519839+00:00",
+        "wall_seconds": 1200.7339999999967
+      },
+      "run_sha256": "a1275e9c67733aa9fab1de4905d209ffb6266c75c6c4f0e4d6608894eb6200c2",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.218275+00:00",
+        "input_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "layout_sha256": "9fe5edcb4b116b70f2be10f7830a64c9cf272557758ffeb899e5f71c7c110fa5",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "mao",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 1714.6738,
+          "expected_parts": 20,
+          "placed_parts": 20,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "b37255f7280afd267e661dadeed06a6a805e2c9f2f7a378eb209e078dd8a70b7"
+    },
+    {
+      "instance": "mao",
+      "run": {
+        "started_at": "2026-10-11T20:56:45.631380+00:00",
+        "instance": "mao",
+        "run_index": 2,
+        "archive_seed": "13111216149200613741",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\mao.json",
+          "1200",
+          "13111216149200613741",
+          "2"
+        ],
+        "input_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "4914785108194433989",
+        "strip_width": 1713.4031,
+        "density": 0.86025727,
+        "placed_count": 20,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "70e66a2f7a4447d421aaf16895c4bee272a787a1f8bb530c877deb3f6cdbef79",
+          "output/layout.svg": "7abefedac69c246d4eac22727fd3853cf23d8ad5e71bf53092bc0574c3ac5e60",
+          "stdout.log": "c0352e883eb191804a9bd30973aa0af113bfd9332903af3afb4844e160a51f24",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:16:45.939286+00:00",
+        "wall_seconds": 1200.3129999999946
+      },
+      "run_sha256": "f3331abed9d997a8bd3c8b3374f3784618f42ff7d2b4fbb20acce8a380388e30",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.276363+00:00",
+        "input_sha256": "2041da1d6a51b48787d5eb96358b352b841f8e16f6930af961e60a35d6b02d42",
+        "layout_sha256": "70e66a2f7a4447d421aaf16895c4bee272a787a1f8bb530c877deb3f6cdbef79",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "mao",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 1713.4031,
+          "expected_parts": 20,
+          "placed_parts": 20,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "20d2e2430da4d31e508859e9efb583ebc44d1089dccd686ab6390318bb0a29f6"
+    },
+    {
+      "instance": "marques",
+      "run": {
+        "started_at": "2026-10-11T18:16:23.555340+00:00",
+        "instance": "marques",
+        "run_index": 0,
+        "archive_seed": "1183601931912323987",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\marques.json",
+          "1200",
+          "1183601931912323987",
+          "0"
+        ],
+        "input_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "3810523319237993796",
+        "strip_width": 76.00197,
+        "density": 0.9101485,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "9e53fcfb0944dbdf00858e30d77c3a17afef45e1200574a23fdb81fe247249d1",
+          "output/layout.svg": "58b6e0777df9b9893058050688fd4340a8943ddf29a3f1550b502b5a919b1cb6",
+          "stdout.log": "14bf3d36f13b539869569ea6a48eb1bdb4c31c891d33eed438a5d62efeb5b6a3",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:36:24.008049+00:00",
+        "wall_seconds": 1200.452999999994
+      },
+      "run_sha256": "65286a718ecc06b3fde374191d3324924668e7ea1bd5b514af16bb8a0b892eb5",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.498289+00:00",
+        "input_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "layout_sha256": "9e53fcfb0944dbdf00858e30d77c3a17afef45e1200574a23fdb81fe247249d1",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "marques",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 76.00197,
+          "expected_parts": 24,
+          "placed_parts": 24,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "39c9da21466a412d14272e92f702635d199adf7e6fd82e8280dabd1ad5175a5d"
+    },
+    {
+      "instance": "marques",
+      "run": {
+        "started_at": "2026-10-11T19:36:41.793352+00:00",
+        "instance": "marques",
+        "run_index": 1,
+        "archive_seed": "1183601931912323987",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\marques.json",
+          "1200",
+          "1183601931912323987",
+          "1"
+        ],
+        "input_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "13926863115286722966",
+        "strip_width": 75.527275,
+        "density": 0.9158689,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "b99d065462b2ce904f494483e78c33c36f75f12c49107c505da1630a7553bab2",
+          "output/layout.svg": "d8abf2159f321600c14989cc507982ff101d493afcbdb30a16feb17381d58095",
+          "stdout.log": "69d2a18fc3baf7fa43fa5545f7877a3334dbd4a4363f33015b9c88906ef90452",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:56:42.315363+00:00",
+        "wall_seconds": 1200.5149999999994
+      },
+      "run_sha256": "7739047f12ef31bd71581bceb46780d97583320a8748dbcce1f7bfcf46db75be",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:05.744652+00:00",
+        "input_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "layout_sha256": "b99d065462b2ce904f494483e78c33c36f75f12c49107c505da1630a7553bab2",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "marques",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 75.527275,
+          "expected_parts": 24,
+          "placed_parts": 24,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "b8fff41f2b198eb2752fdac5cd7ef2a54a8b7c02b3328367c7010e0965445685"
+    },
+    {
+      "instance": "marques",
+      "run": {
+        "started_at": "2026-10-11T21:16:45.446355+00:00",
+        "instance": "marques",
+        "run_index": 2,
+        "archive_seed": "1183601931912323987",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\marques.json",
+          "1200",
+          "1183601931912323987",
+          "2"
+        ],
+        "input_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "2474623004895198764",
+        "strip_width": 76.28874,
+        "density": 0.9067272,
+        "placed_count": 24,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "3efb5c4f2cf06018eeb4e76a4997879196dc5fae0dd73051c65b1c3e4dff106b",
+          "output/layout.svg": "938bd639d255da2d40f0afd289d62cc93f50277637d7919b741f41fa10f7e5c0",
+          "stdout.log": "21047af32e1f42dae99c2f3a1ab942e8bb43afb2a70ab8b15c9a084cc4aa3d53",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:36:46.008471+00:00",
+        "wall_seconds": 1200.5620000000054
+      },
+      "run_sha256": "609d1d4b19edbd7015ff52cf88438d97eb6881a1c90564ebc6d4311b5416b595",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.045590+00:00",
+        "input_sha256": "8229c324c3dc9e07e9e489d7e95a35f714d0674e6a3db5a62d95fa795b5a2768",
+        "layout_sha256": "3efb5c4f2cf06018eeb4e76a4997879196dc5fae0dd73051c65b1c3e4dff106b",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "marques",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 76.28874,
+          "expected_parts": 24,
+          "placed_parts": 24,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "d5e718111495d5907faaf2981c1ae7346e7dfceebbe14dd66e6c7bbfe6b2dc0c"
+    },
+    {
+      "instance": "shapes0",
+      "run": {
+        "started_at": "2026-10-11T18:16:23.581329+00:00",
+        "instance": "shapes0",
+        "run_index": 0,
+        "archive_seed": "2380075321472337567",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shapes0.json",
+          "1200",
+          "2380075321472337567",
+          "0"
+        ],
+        "input_sha256": "3d156bf8de95dd8b8f00cf37d23fdbd8e924594b33329142854507d557c01488",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "1252858551854581405",
+        "strip_width": 58.522026,
+        "density": 0.6817264,
+        "placed_count": 43,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "a5c1fd7ab656a2d2804a14e97b44ab06d4ec0de20d4f183de9e4bc42d41a5314",
+          "output/layout.svg": "5195fb4a00491260dfc90e3ac9462c52ac0a1c7d5725aa9ddfa7b8a15671472a",
+          "stdout.log": "7499b3cd2bec1ff99f50593f67688ef5010bd0a04456ccbb2decc4a42472ee35",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:36:24.025256+00:00",
+        "wall_seconds": 1200.4379999999946
+      },
+      "run_sha256": "16c6d8098754dab524aa1d6ac3164e00e1bd3042352d19f3c5ddb89b708f19e5",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.159066+00:00",
+        "input_sha256": "3d156bf8de95dd8b8f00cf37d23fdbd8e924594b33329142854507d557c01488",
+        "layout_sha256": "a5c1fd7ab656a2d2804a14e97b44ab06d4ec0de20d4f183de9e4bc42d41a5314",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shapes0",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 58.522026,
+          "expected_parts": 43,
+          "placed_parts": 43,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "f0236679f90670c4e5ab23b1c158211ca3b1ac753822df18bb5a3b81ee4e9480"
+    },
+    {
+      "instance": "shapes0",
+      "run": {
+        "started_at": "2026-10-11T19:56:42.372944+00:00",
+        "instance": "shapes0",
+        "run_index": 1,
+        "archive_seed": "2380075321472337567",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shapes0.json",
+          "1200",
+          "2380075321472337567",
+          "1"
+        ],
+        "input_sha256": "3d156bf8de95dd8b8f00cf37d23fdbd8e924594b33329142854507d557c01488",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "11084772572490316052",
+        "strip_width": 58.773052,
+        "density": 0.67881465,
+        "placed_count": 43,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "9193b8a126e246b15e042fd4555ea3dc9938a21eabc9222bfb12e09a9f0e05f1",
+          "output/layout.svg": "cb4470e76b0b1be10a7015da62cbd881157d0b35eda9799175231f01c250dc70",
+          "stdout.log": "ed2d19be6e732f38cc33e5bce4ebc5037868bfbf2dbe2d05134ee31bdf14f88b",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:16:42.921145+00:00",
+        "wall_seconds": 1200.5469999999914
+      },
+      "run_sha256": "feb80c93b10889c13ebf26db88d266ad075f9eb0929dcb32ad06e0be7b9ae0a2",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.364984+00:00",
+        "input_sha256": "3d156bf8de95dd8b8f00cf37d23fdbd8e924594b33329142854507d557c01488",
+        "layout_sha256": "9193b8a126e246b15e042fd4555ea3dc9938a21eabc9222bfb12e09a9f0e05f1",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shapes0",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 58.773052,
+          "expected_parts": 43,
+          "placed_parts": 43,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "da1e448f74fae7031e8fbdd85c7c14d44ea0096c6e4c413e7de1d037d358fc43"
+    },
+    {
+      "instance": "shapes0",
+      "run": {
+        "started_at": "2026-10-11T21:16:45.798956+00:00",
+        "instance": "shapes0",
+        "run_index": 2,
+        "archive_seed": "2380075321472337567",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shapes0.json",
+          "1200",
+          "2380075321472337567",
+          "2"
+        ],
+        "input_sha256": "3d156bf8de95dd8b8f00cf37d23fdbd8e924594b33329142854507d557c01488",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "4738833576366763263",
+        "strip_width": 58.919643,
+        "density": 0.67712575,
+        "placed_count": 43,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "3cfb97531470944724207e598622ec8337205785d5c44dbd9005118b2a836c8f",
+          "output/layout.svg": "3ca9d85e062d65df4c1faa88576b3a6b59e5f3aa81b4132d030763f56e27458c",
+          "stdout.log": "628c34b961a4176349edeef026d976f50fb82d52d652bc155e6ec820289b001c",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:36:46.663199+00:00",
+        "wall_seconds": 1200.8589999999967
+      },
+      "run_sha256": "31f82b98c44bb75b9f5dff4851c57fb3e5a4562e19dbdf3ac7dfda8d1e05c9d2",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.511882+00:00",
+        "input_sha256": "3d156bf8de95dd8b8f00cf37d23fdbd8e924594b33329142854507d557c01488",
+        "layout_sha256": "3cfb97531470944724207e598622ec8337205785d5c44dbd9005118b2a836c8f",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shapes0",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 58.919643,
+          "expected_parts": 43,
+          "placed_parts": 43,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "a9bace575d47d3caadb363643880ee449f6f05c1c626e6be59d3214cb37c99f8"
+    },
+    {
+      "instance": "shapes1",
+      "run": {
+        "started_at": "2026-10-11T18:36:23.928131+00:00",
+        "instance": "shapes1",
+        "run_index": 0,
+        "archive_seed": "11576018927061876422",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shapes1.json",
+          "1200",
+          "11576018927061876422",
+          "0"
+        ],
+        "input_sha256": "dec476d6eb8e7132356a0e5560ec4c83787704fd327b76147020617e0d8353c5",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "8762803006906026391",
+        "strip_width": 52.521824,
+        "density": 0.75960827,
+        "placed_count": 43,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "6af8173af4b403df2d6a22ac23aac95a7bccd7f0818888d8b80f4013d281932d",
+          "output/layout.svg": "4f36b76d2c259d03cbbd35e76fb66694bb361f78653436eeefa78ccfeee46178",
+          "stdout.log": "d44c4742b4234a7671479d34db4c0bfa4f3d76b2fe84d2cfd810f6154f3115e3",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:56:24.834747+00:00",
+        "wall_seconds": 1200.9060000000027
+      },
+      "run_sha256": "864fe87db439490103bfc577b36190260571b22bb73250f22eaa2e7547cd3382",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.672519+00:00",
+        "input_sha256": "dec476d6eb8e7132356a0e5560ec4c83787704fd327b76147020617e0d8353c5",
+        "layout_sha256": "6af8173af4b403df2d6a22ac23aac95a7bccd7f0818888d8b80f4013d281932d",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shapes1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 52.521824,
+          "expected_parts": 43,
+          "placed_parts": 43,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "9ea74e1412bfdf9b882820fc80bba147452a313e5a9dee73fb15d5b35538d147"
+    },
+    {
+      "instance": "shapes1",
+      "run": {
+        "started_at": "2026-10-11T19:56:42.426461+00:00",
+        "instance": "shapes1",
+        "run_index": 1,
+        "archive_seed": "11576018927061876422",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shapes1.json",
+          "1200",
+          "11576018927061876422",
+          "1"
+        ],
+        "input_sha256": "dec476d6eb8e7132356a0e5560ec4c83787704fd327b76147020617e0d8353c5",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "3256687419760887766",
+        "strip_width": 53.037033,
+        "density": 0.7522293,
+        "placed_count": 43,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "8af3331be7d595e503fba90a7c48493c484ad32f9306214f9efeaca2ef4b5be5",
+          "output/layout.svg": "b2505ff3d004251a13343ad786eaf8788b3e46638f608e03fc275e58a2d51f96",
+          "stdout.log": "b5b97b27cb3e274132d4b0e16bfe0421f306aae3e760ba8b3c0424b88b2c2abf",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:16:42.921145+00:00",
+        "wall_seconds": 1200.4839999999967
+      },
+      "run_sha256": "9b59698522177dbe9dcc36744e87451869de034c622ae6c45f493c84e96bf1a2",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.748991+00:00",
+        "input_sha256": "dec476d6eb8e7132356a0e5560ec4c83787704fd327b76147020617e0d8353c5",
+        "layout_sha256": "8af3331be7d595e503fba90a7c48493c484ad32f9306214f9efeaca2ef4b5be5",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shapes1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 53.037033,
+          "expected_parts": 43,
+          "placed_parts": 43,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "876f9a65594b90b2b30a396bb03271cacc3d7d200eb6cb360e9731d383025113"
+    },
+    {
+      "instance": "shapes1",
+      "run": {
+        "started_at": "2026-10-11T21:16:46.134462+00:00",
+        "instance": "shapes1",
+        "run_index": 2,
+        "archive_seed": "11576018927061876422",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shapes1.json",
+          "1200",
+          "11576018927061876422",
+          "2"
+        ],
+        "input_sha256": "dec476d6eb8e7132356a0e5560ec4c83787704fd327b76147020617e0d8353c5",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "16560722634202156076",
+        "strip_width": 52.84154,
+        "density": 0.7550122,
+        "placed_count": 43,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "dca14799e9549319d7535e9ee09ff32b8ee4869999d1539e745c6055006465eb",
+          "output/layout.svg": "5a93e552682d999d50aee9960e9e35770d3826ef63915bfe58674e10fa90ea9b",
+          "stdout.log": "3b34dd6a4028eeb9958a0b33f2243620ffbbb6690e52bf3350e5443ff2be2197",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:36:46.877393+00:00",
+        "wall_seconds": 1200.75
+      },
+      "run_sha256": "a7aae6c77b7b2dc8e780adb3f495401af88addf6e220952656b4bd112bc9d670",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:06.861065+00:00",
+        "input_sha256": "dec476d6eb8e7132356a0e5560ec4c83787704fd327b76147020617e0d8353c5",
+        "layout_sha256": "dca14799e9549319d7535e9ee09ff32b8ee4869999d1539e745c6055006465eb",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shapes1",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 52.84154,
+          "expected_parts": 43,
+          "placed_parts": 43,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "e806da473ed1f8ac8d7bdd4b8e35488debac5934e1b9101a2590fc28eb414da4"
+    },
+    {
+      "instance": "shirts",
+      "run": {
+        "started_at": "2026-10-11T18:36:24.074648+00:00",
+        "instance": "shirts",
+        "run_index": 0,
+        "archive_seed": "1600225248336889506",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shirts.json",
+          "1200",
+          "1600225248336889506",
+          "0"
+        ],
+        "input_sha256": "3d35fc0b2127a6d07793bba3d867cdc7b4c88837b991207d849f8f3383598557",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "11444966621243409607",
+        "strip_width": 60.579433,
+        "density": 0.8913917,
+        "placed_count": 99,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "0d4f8c358c8471e27231eb6735bad6e91258de6f91f6a5ea8aa2316df1481130",
+          "output/layout.svg": "a37c03817042f261640ffd047afa429df927a2c7a19b130d4aa3fc49f3b0b1ef",
+          "stdout.log": "29acaed7904d66eddc50317379bc17f335b1c79e3cb3adddcbd7a4b5198763d3",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:56:25.230575+00:00",
+        "wall_seconds": 1201.1560000000027
+      },
+      "run_sha256": "c9ef77f933b9264a683a003c27dab9662e427f38019b1dd4f757b4fb7e04c481",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.157136+00:00",
+        "input_sha256": "3d35fc0b2127a6d07793bba3d867cdc7b4c88837b991207d849f8f3383598557",
+        "layout_sha256": "0d4f8c358c8471e27231eb6735bad6e91258de6f91f6a5ea8aa2316df1481130",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shirts",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 60.579433,
+          "expected_parts": 99,
+          "placed_parts": 99,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "a2d67a86340d03dd15c8255fbae6d12cad10f7b50358084a6e021b9301d33a8a"
+    },
+    {
+      "instance": "shirts",
+      "run": {
+        "started_at": "2026-10-11T19:56:42.559652+00:00",
+        "instance": "shirts",
+        "run_index": 1,
+        "archive_seed": "1600225248336889506",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shirts.json",
+          "1200",
+          "1600225248336889506",
+          "1"
+        ],
+        "input_sha256": "3d35fc0b2127a6d07793bba3d867cdc7b4c88837b991207d849f8f3383598557",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "9469906732953198971",
+        "strip_width": 60.105885,
+        "density": 0.89841455,
+        "placed_count": 99,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "79a24f383ab19400ca96de662032a3853cdbd6d85550732cc85438251bf47722",
+          "output/layout.svg": "225c556fb533ce190a9a9b0ecae4c2dd033c5324a12a929cfb45492f0f898711",
+          "stdout.log": "a5625e34674b51e691926d3936a699c5f64cca5baa547940e8790f150b4b30d8",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:16:43.529230+00:00",
+        "wall_seconds": 1200.9679999999935
+      },
+      "run_sha256": "9f151464170b4eadd655880c01dd19da328294c3b9aa50d9bb55969b4bd8f433",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.225678+00:00",
+        "input_sha256": "3d35fc0b2127a6d07793bba3d867cdc7b4c88837b991207d849f8f3383598557",
+        "layout_sha256": "79a24f383ab19400ca96de662032a3853cdbd6d85550732cc85438251bf47722",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shirts",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 60.105885,
+          "expected_parts": 99,
+          "placed_parts": 99,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "a76adc8bcfb4f7cd8847656d377b6a304e475cdf1527dc09b9ec639b88067165"
+    },
+    {
+      "instance": "shirts",
+      "run": {
+        "started_at": "2026-10-11T21:37:51.029390+00:00",
+        "instance": "shirts",
+        "run_index": 2,
+        "archive_seed": "1600225248336889506",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\shirts.json",
+          "1200",
+          "1600225248336889506",
+          "2"
+        ],
+        "input_sha256": "3d35fc0b2127a6d07793bba3d867cdc7b4c88837b991207d849f8f3383598557",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "7599751691751770349",
+        "strip_width": 60.243362,
+        "density": 0.89636433,
+        "placed_count": 99,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "e0f6af4ca87a2608e3b5a6717a647966ed1b9d0a9db8838ec94281bf98ef8bb2",
+          "output/layout.svg": "417354c6e965134f276f9387a1ae1ae986e9180fa93e50ea310bd4f387f53661",
+          "stdout.log": "b7d413802923007440a9c716bc89120ac58248d034be6258368d7d0eec3edde9",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:57:51.640439+00:00",
+        "wall_seconds": 1200.6090000000113
+      },
+      "run_sha256": "00c1f585250944c8b9546f8095d74786acdee1c70f414818af12fc2acae02289",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.294405+00:00",
+        "input_sha256": "3d35fc0b2127a6d07793bba3d867cdc7b4c88837b991207d849f8f3383598557",
+        "layout_sha256": "e0f6af4ca87a2608e3b5a6717a647966ed1b9d0a9db8838ec94281bf98ef8bb2",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "shirts",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 60.243362,
+          "expected_parts": 99,
+          "placed_parts": 99,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "725deb9e340a79f1e28cf90076059a301a71a3011a7eef9e4992c350557830c1"
+    },
+    {
+      "instance": "swim",
+      "run": {
+        "started_at": "2026-10-11T18:36:24.097792+00:00",
+        "instance": "swim",
+        "run_index": 0,
+        "archive_seed": "15519688987604749651",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\swim.json",
+          "1200",
+          "15519688987604749651",
+          "0"
+        ],
+        "input_sha256": "b296788340a3489c3d304b79ad8ca561735fe4ee3f79554f5170da8fcc4f3a0d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "2978695615478988613",
+        "strip_width": 5674.9463,
+        "density": 0.77951133,
+        "placed_count": 48,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "69cc5ed2b5dad8676f21468d0eef6c16682909bd0761ef658ae68721eadd13e4",
+          "output/layout.svg": "fc76cae812efc106aa2fd87a76a828d2103e8abf7f83491ce77b222021d26cb3",
+          "stdout.log": "4fead77d9e21a044078fa8717ebdfcb3cea00f30f90dd41e0e6dbcb34089228a",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T18:56:24.912044+00:00",
+        "wall_seconds": 1200.8129999999946
+      },
+      "run_sha256": "858b0688812af59e7e0207ef070ca12309c3adc6d6e2391ca6ce9f41f9bc64e8",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.516571+00:00",
+        "input_sha256": "b296788340a3489c3d304b79ad8ca561735fe4ee3f79554f5170da8fcc4f3a0d",
+        "layout_sha256": "69cc5ed2b5dad8676f21468d0eef6c16682909bd0761ef658ae68721eadd13e4",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "swim",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 5674.9463,
+          "expected_parts": 48,
+          "placed_parts": 48,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "1fe5381c7b1bc42fdea7b8491e0354a836623d6d0a230d93b037e474a721e45c"
+    },
+    {
+      "instance": "swim",
+      "run": {
+        "started_at": "2026-10-11T20:16:43.068002+00:00",
+        "instance": "swim",
+        "run_index": 1,
+        "archive_seed": "15519688987604749651",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\swim.json",
+          "1200",
+          "15519688987604749651",
+          "1"
+        ],
+        "input_sha256": "b296788340a3489c3d304b79ad8ca561735fe4ee3f79554f5170da8fcc4f3a0d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "7184729560506916947",
+        "strip_width": 5637.329,
+        "density": 0.784713,
+        "placed_count": 48,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "ca409bf448cdf2321ed69d864c9447c37863a23fad2258d6486bcfe449d55502",
+          "output/layout.svg": "c529a74e79aa92e4e9268ac487427e5f6d08fc07d2ffa4e3e8f0e0b96e0a210a",
+          "stdout.log": "499e09bd1e347594d6c18d39209014e2fa57a6f1c9f0d828053fe247e4312a96",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:36:44.026752+00:00",
+        "wall_seconds": 1200.952999999994
+      },
+      "run_sha256": "55dfe4bb147c2d2c0667d8b03e38d8a5d28199b5c05de2c2c7e2fe739d0e68fd",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.598528+00:00",
+        "input_sha256": "b296788340a3489c3d304b79ad8ca561735fe4ee3f79554f5170da8fcc4f3a0d",
+        "layout_sha256": "ca409bf448cdf2321ed69d864c9447c37863a23fad2258d6486bcfe449d55502",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "swim",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 5637.329,
+          "expected_parts": 48,
+          "placed_parts": 48,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "bc5e5f210a7f2a4d3b91dbeefad9c6c1b72eb27287348d3dae5854868f4922e9"
+    },
+    {
+      "instance": "swim",
+      "run": {
+        "started_at": "2026-10-11T21:37:51.027198+00:00",
+        "instance": "swim",
+        "run_index": 2,
+        "archive_seed": "15519688987604749651",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\swim.json",
+          "1200",
+          "15519688987604749651",
+          "2"
+        ],
+        "input_sha256": "b296788340a3489c3d304b79ad8ca561735fe4ee3f79554f5170da8fcc4f3a0d",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "14287859536988620342",
+        "strip_width": 5688.784,
+        "density": 0.7776152,
+        "placed_count": 48,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "17309466b944d922da8e142c3a2fe9a3ff04f04531cb5a411e32d3af54a774bd",
+          "output/layout.svg": "a7d291a529d565509e449ead9de6fb062998b6f3dfe61b1d01e1ee3421b416ef",
+          "stdout.log": "6bbd65d8650b63a6e0c11fcf603f3b535650181ccddf58bda15a6a2677d6370c",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:57:51.651453+00:00",
+        "wall_seconds": 1200.625
+      },
+      "run_sha256": "d74e81159f405fc967de647166a1f5b690f356bbb420f0174d876ad8a59537bc",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.663977+00:00",
+        "input_sha256": "b296788340a3489c3d304b79ad8ca561735fe4ee3f79554f5170da8fcc4f3a0d",
+        "layout_sha256": "17309466b944d922da8e142c3a2fe9a3ff04f04531cb5a411e32d3af54a774bd",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "swim",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 5688.784,
+          "expected_parts": 48,
+          "placed_parts": 48,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "92db95406cc172ff609b09c473f42ab7c1213254e0c605ba6a592f0166707ce3"
+    },
+    {
+      "instance": "trousers",
+      "run": {
+        "started_at": "2026-10-11T18:56:24.887120+00:00",
+        "instance": "trousers",
+        "run_index": 0,
+        "archive_seed": "2106443362401984189",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\trousers.json",
+          "1200",
+          "2106443362401984189",
+          "0"
+        ],
+        "input_sha256": "c2a91d1f1687f540764ddc14103eb03dc5f54ac135194ab9c23b4d50c83bb68e",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "11707178611087786690",
+        "strip_width": 237.01588,
+        "density": 0.9189418,
+        "placed_count": 64,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "5d0c65429367e3ae5fdf7b3a0e8f31f11b4654ff1f09c9647fbae25b713ffac8",
+          "output/layout.svg": "4a15bc64bcd332ec946f5ab0d8ac0abe4f63c0665d86715193356150ab732eb9",
+          "stdout.log": "d983b6ccf7660f55e492fc017e091b90f0ba27b577f6e34ed8ba5d57d5ae6abc",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T19:16:25.615680+00:00",
+        "wall_seconds": 1200.7190000000119
+      },
+      "run_sha256": "691892a6f7dd83355118582b6fa241432cfff73bb549bd2b128afa7abb6ba7cc",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.731530+00:00",
+        "input_sha256": "c2a91d1f1687f540764ddc14103eb03dc5f54ac135194ab9c23b4d50c83bb68e",
+        "layout_sha256": "5d0c65429367e3ae5fdf7b3a0e8f31f11b4654ff1f09c9647fbae25b713ffac8",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "trousers",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 237.01588,
+          "expected_parts": 64,
+          "placed_parts": 64,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "08016e773347157e6752027de7cdada523b45e8d3599fc558d4f088b3c00974c"
+    },
+    {
+      "instance": "trousers",
+      "run": {
+        "started_at": "2026-10-11T20:16:43.068002+00:00",
+        "instance": "trousers",
+        "run_index": 1,
+        "archive_seed": "2106443362401984189",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\trousers.json",
+          "1200",
+          "2106443362401984189",
+          "1"
+        ],
+        "input_sha256": "c2a91d1f1687f540764ddc14103eb03dc5f54ac135194ab9c23b4d50c83bb68e",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "373170330668380323",
+        "strip_width": 237.65578,
+        "density": 0.9164675,
+        "placed_count": 64,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "92d745999193d455a9b5f8cfe3d93cd52c8a60797b580430dc37e22bacf975a9",
+          "output/layout.svg": "9ef6107b87d117bef9f31fb833d23b616c969634591f7fc841fd5e9feba97067",
+          "stdout.log": "86469f1c0d82c6963c9f462c93ebe28ddae94e45042e950168a105b5f1aed0ea",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T20:36:44.826463+00:00",
+        "wall_seconds": 1201.75
+      },
+      "run_sha256": "5966f424ab23d54f1bfaf9ce1833bca44bbdd4d1ae6e40dc4ac65de6fea8b931",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.791664+00:00",
+        "input_sha256": "c2a91d1f1687f540764ddc14103eb03dc5f54ac135194ab9c23b4d50c83bb68e",
+        "layout_sha256": "92d745999193d455a9b5f8cfe3d93cd52c8a60797b580430dc37e22bacf975a9",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "trousers",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 237.65578,
+          "expected_parts": 64,
+          "placed_parts": 64,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "82403f7283d7e3096ee27ccc940534d3d0bb039038d657f85539eebcee0b722c"
+    },
+    {
+      "instance": "trousers",
+      "run": {
+        "started_at": "2026-10-11T21:37:51.008514+00:00",
+        "instance": "trousers",
+        "run_index": 2,
+        "archive_seed": "2106443362401984189",
+        "seconds": 1200,
+        "workers": 3,
+        "command": [
+          "C:\\DEV\\Nestbolt\\.cache\\build\\sparrow-published\\release\\nestbolt-sparrow-repro.exe",
+          "C:\\DEV\\Nestbolt\\.cache\\m0-inputs\\trousers.json",
+          "1200",
+          "2106443362401984189",
+          "2"
+        ],
+        "input_sha256": "c2a91d1f1687f540764ddc14103eb03dc5f54ac135194ab9c23b4d50c83bb68e",
+        "status": "completed_integrity_checked",
+        "exit_code": 0,
+        "derived_run_seed": "13872635959760804436",
+        "strip_width": 238.72917,
+        "density": 0.9123468,
+        "placed_count": 64,
+        "independent_geometry_validated": false,
+        "outputs": {
+          "output/layout.json": "19b58f0bef69b6f1154e013cb5902b58b74e4fcbcea975de2e6279abb752e371",
+          "output/layout.svg": "e7d8fc1363f1c7e9c10d85145bc58697e2b32648b103c652546bc40d6b62bd71",
+          "stdout.log": "2508f73c3992da105f1e382b57d0fdca79860f5121850b6c5e0d9ad4010bc057",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "finished_at": "2026-10-11T21:57:51.843337+00:00",
+        "wall_seconds": 1200.827999999994
+      },
+      "run_sha256": "e93f5418430dcd7badef9d3dd40e695efc224285bb26784a0c977f60376151da",
+      "independent_validation": {
+        "validator_binary_sha256": "db58a0a50cce6a1c39d3614a9448ccc48941d5fb5938a754c0019f4c9c01809e",
+        "validator_commit": "05574f0670182fbb334be20dc9fba489e19d9811",
+        "validator_dirty": true,
+        "validator_sources": {
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3",
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57"
+        },
+        "validated_at": "2026-10-11T21:58:07.853679+00:00",
+        "input_sha256": "c2a91d1f1687f540764ddc14103eb03dc5f54ac135194ab9c23b4d50c83bb68e",
+        "layout_sha256": "19b58f0bef69b6f1154e013cb5902b58b74e4fcbcea975de2e6279abb752e371",
+        "exit_code": 0,
+        "valid": true,
+        "report": {
+          "valid": true,
+          "instance": "trousers",
+          "backend": "clipper2-rust 1.2.0",
+          "units": "unitless",
+          "strip_width": 238.72917,
+          "expected_parts": 64,
+          "placed_parts": 64,
+          "maximum_overlap_ratio": 0.0,
+          "maximum_outside_ratio": 0.0,
+          "maximum_total_overlap_ratio": 0.0,
+          "violations": []
+        }
+      },
+      "validation_sha256": "fa54e324e74d14b96bed403628adac93fc1c4878b7ac4d62c4b9a6bcdfba252f"
+    }
+  ]
+}

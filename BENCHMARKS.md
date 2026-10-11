@@ -1306,3 +1306,117 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-11T21:52:37.584025+00:00 | SVGnest `m-box-mini` seed 0, 5s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T215224Z-7da36da6/run.json). Provisional settings, one worker and one CPU affinity.
 
 - 2026-10-11T21:54:37.814845+00:00 | SVGnest `m-box-batch-500` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T215310Z-1bca4608/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:54:59.009626+00:00 | deepnest-next `m-mechanical-batch-1000` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261011T215324Z-baf4ba59/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:54:59.396104+00:00 | current Sparrow `b-blaz1-nest-mb-free` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T215353Z-34da2c2e/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:55:47.271643+00:00 | SVGnest `m-box-desktop` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T215438Z-a7be7fa9/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:56:02.085839+00:00 | current Sparrow `b-blaz1-nest-mb-given` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T215459Z-862b8c80/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:56:10.201612+00:00 | deepnest-next `m-mechanical-cog-washers` seed 0, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261011T215459Z-4015c4b2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:56:55.224400+00:00 | SVGnest `m-box-long` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T215547Z-1775906f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:57:04.616738+00:00 | current Sparrow `b-blaz1-strip-sheet` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T215602Z-f4050329/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:57:28.248953+00:00 | deepnest-next `m-mechanical-defective-stock` seed 0, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261011T215610Z-30e8e95a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-11T21:57:51.640439+00:00 | M0 `published-20261011/shirts-2` | completed_integrity_checked | 1200s, 3 workers | length 60.243362 | [record](output/m0/published-20261011/shirts-2/run.json). Geometry validation pending M1.
+
+- 2026-10-11T21:57:51.651453+00:00 | M0 `published-20261011/swim-2` | completed_integrity_checked | 1200s, 3 workers | length 5688.784 | [record](output/m0/published-20261011/swim-2/run.json). Geometry validation pending M1.
+
+- 2026-10-11T21:57:51.843337+00:00 | M0 `published-20261011/trousers-2` | completed_integrity_checked | 1200s, 3 workers | length 238.72917 | [record](output/m0/published-20261011/trousers-2/run.json). Geometry validation pending M1.
+
+- 2026-10-11T21:57:52.934679+00:00 | verified deepnest batch `20261011T215321Z-ea19d3cb` | 0/3 valid | [table](benchmarks/results/deepnest-20261011T215752Z-30b81baa.md). Provisional; all failures retained.
+
+- 2026-10-11T21:58:02.917873+00:00 | SVGnest `m-box-mini` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T215655Z-1ccc5985/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:58:03.765432+00:00 | independent geometry check `published-20261011/albano-0` | valid | [report](output/m0/published-20261011/albano-0/validation-c4ee024d56.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:03.832635+00:00 | independent geometry check `published-20261011/albano-1` | valid | [report](output/m0/published-20261011/albano-1/validation-5edbc47d97.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:03.893922+00:00 | independent geometry check `published-20261011/albano-2` | valid | [report](output/m0/published-20261011/albano-2/validation-bedcc9ee4a.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:03.957539+00:00 | independent geometry check `published-20261011/blaz1-0` | valid | [report](output/m0/published-20261011/blaz1-0/validation-0a4e9a4c59.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.021675+00:00 | independent geometry check `published-20261011/blaz1-1` | valid | [report](output/m0/published-20261011/blaz1-1/validation-d332867310.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.095119+00:00 | independent geometry check `published-20261011/blaz1-2` | valid | [report](output/m0/published-20261011/blaz1-2/validation-2173c4b009.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.167302+00:00 | independent geometry check `published-20261011/dagli-0` | valid | [report](output/m0/published-20261011/dagli-0/validation-1cdebe4928.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.254701+00:00 | independent geometry check `published-20261011/dagli-1` | valid | [report](output/m0/published-20261011/dagli-1/validation-6d8891139a.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.347850+00:00 | independent geometry check `published-20261011/dagli-2` | valid | [report](output/m0/published-20261011/dagli-2/validation-5864cffcdf.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.436701+00:00 | independent geometry check `published-20261011/fu-0` | valid | [report](output/m0/published-20261011/fu-0/validation-7b9ff0ff88.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.500939+00:00 | independent geometry check `published-20261011/fu-1` | valid | [report](output/m0/published-20261011/fu-1/validation-f92b0df4ef.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.556452+00:00 | independent geometry check `published-20261011/fu-2` | valid | [report](output/m0/published-20261011/fu-2/validation-0d36088606.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.626351+00:00 | independent geometry check `published-20261011/jakobs1-0` | valid | [report](output/m0/published-20261011/jakobs1-0/validation-5afa9ed672.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.681010+00:00 | independent geometry check `published-20261011/jakobs1-1` | valid | [report](output/m0/published-20261011/jakobs1-1/validation-6143c177e5.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.781599+00:00 | independent geometry check `published-20261011/jakobs1-2` | valid | [report](output/m0/published-20261011/jakobs1-2/validation-cebe957ea5.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:04.967869+00:00 | independent geometry check `published-20261011/jakobs2-0` | valid | [report](output/m0/published-20261011/jakobs2-0/validation-aa347251d9.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.024189+00:00 | independent geometry check `published-20261011/jakobs2-1` | valid | [report](output/m0/published-20261011/jakobs2-1/validation-56a922369e.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.083636+00:00 | independent geometry check `published-20261011/jakobs2-2` | valid | [report](output/m0/published-20261011/jakobs2-2/validation-aeaeb186d8.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.155585+00:00 | independent geometry check `published-20261011/mao-0` | valid | [report](output/m0/published-20261011/mao-0/validation-e1dcd80992.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.218780+00:00 | independent geometry check `published-20261011/mao-1` | valid | [report](output/m0/published-20261011/mao-1/validation-474bfa948b.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.277369+00:00 | independent geometry check `published-20261011/mao-2` | valid | [report](output/m0/published-20261011/mao-2/validation-05b2c56c9d.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.498289+00:00 | independent geometry check `published-20261011/marques-0` | valid | [report](output/m0/published-20261011/marques-0/validation-087118611c.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:05.745710+00:00 | independent geometry check `published-20261011/marques-1` | valid | [report](output/m0/published-20261011/marques-1/validation-0715201e7b.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.045590+00:00 | independent geometry check `published-20261011/marques-2` | valid | [report](output/m0/published-20261011/marques-2/validation-112f0f6870.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.160065+00:00 | independent geometry check `published-20261011/shapes0-0` | valid | [report](output/m0/published-20261011/shapes0-0/validation-b6bbcd875a.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.366984+00:00 | independent geometry check `published-20261011/shapes0-1` | valid | [report](output/m0/published-20261011/shapes0-1/validation-dc5cf5514e.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.512542+00:00 | independent geometry check `published-20261011/shapes0-2` | valid | [report](output/m0/published-20261011/shapes0-2/validation-7c06f96c1b.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.673519+00:00 | independent geometry check `published-20261011/shapes1-0` | valid | [report](output/m0/published-20261011/shapes1-0/validation-6267940e7d.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.749991+00:00 | independent geometry check `published-20261011/shapes1-1` | valid | [report](output/m0/published-20261011/shapes1-1/validation-dcb42de37d.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:06.862065+00:00 | independent geometry check `published-20261011/shapes1-2` | valid | [report](output/m0/published-20261011/shapes1-2/validation-166ec2fada.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.159135+00:00 | independent geometry check `published-20261011/shirts-0` | valid | [report](output/m0/published-20261011/shirts-0/validation-c247857f70.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.163649+00:00 | current Sparrow `b-dagli-strip-sheet` seed 0, 60s, identical, axis y | valid | score 0.88532895 | [record](output/sparrow-benchmark/20261011T215704Z-4eccec5b/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:58:07.226679+00:00 | independent geometry check `published-20261011/shirts-1` | valid | [report](output/m0/published-20261011/shirts-1/validation-1642332687.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.296404+00:00 | independent geometry check `published-20261011/shirts-2` | valid | [report](output/m0/published-20261011/shirts-2/validation-1af51b5b52.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.517978+00:00 | independent geometry check `published-20261011/swim-0` | valid | [report](output/m0/published-20261011/swim-0/validation-118889d5d5.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.599534+00:00 | independent geometry check `published-20261011/swim-1` | valid | [report](output/m0/published-20261011/swim-1/validation-62f64d5fca.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.664976+00:00 | independent geometry check `published-20261011/swim-2` | valid | [report](output/m0/published-20261011/swim-2/validation-6ce6642825.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.732531+00:00 | independent geometry check `published-20261011/trousers-0` | valid | [report](output/m0/published-20261011/trousers-0/validation-ddaf67e0dc.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.792664+00:00 | independent geometry check `published-20261011/trousers-1` | valid | [report](output/m0/published-20261011/trousers-1/validation-0375985764.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:07.854678+00:00 | independent geometry check `published-20261011/trousers-2` | valid | [report](output/m0/published-20261011/trousers-2/validation-d7cb248aa8.json). Original polygons; Clipper2 path; this does not establish full M1/G1.
+
+- 2026-10-11T21:58:20.660555+00:00 | M0 published reproduction PASS: 39/39 independently valid runs, 13/13 complete means within 1%; [table](benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md). Historical native quality reproduction only; M1-M5 and G1-G8 remain pending.
+
+- 2026-10-11T21:59:08.669282+00:00 | SVGnest `m-box-storage` seed 0, 60s, identical, axis y | no_layout | material None | [record](output/playwright/svgnest/20261011T215803Z-b7b2509e/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-11T21:59:09.280824+00:00 | current Sparrow `b-fu-nest-mb-free` seed 0, 60s, identical, axis y | invalid | score None | [record](output/sparrow-benchmark/20261011T215807Z-dfcca8bf/run.json). Provisional single-strip comparison; deadline includes construction.
+
+- 2026-10-11T21:59:09.461256+00:00 | deepnest-next `m-mechanical-frame-inserts` seed 0, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261011T215757Z-9837d8eb/run.json). Provisional native settings; independent score only for valid output.

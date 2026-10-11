@@ -1,5 +1,10 @@
 # Published Sparrow reproduction (M0)
 
+**Complete:** all 39 predeclared full-budget runs pass independent geometry
+validation and all 13 means are within 1% of the published means. The
+[final table and proof](../results/m0-published-20261011T215820Z-10a30c6f.md)
+retain every run. The largest absolute mean difference is +0.986671% (SHAPES0).
+
 This isolated executable runs the **unmodified historical Sparrow 0.1.0 library**
 at `7f069e9d146f5599d7ba69a47ab4e8097c56e54f`, using its jagua-rs 0.6.2 revision
 `6e47329e4fd8dfe014428bd9045db132d26d35c9`. These versions used **MPL-2.0**.
