@@ -1,0 +1,1131 @@
+{
+  "version": 1,
+  "frozen_at": "2026-10-11T19:14:55.918714+00:00",
+  "status": "frozen before any optimiser tuning",
+  "policy": "Held-out jobs may be checked for source validity and final acceptance only. They must not inform solver tuning or selection. This freeze performed no optimiser runs.",
+  "curve_flattening_tolerance_mm": 0.005,
+  "coordinate_rounding_decimal_places": 9,
+  "held_out_ids": [
+    "m-box-compact-2000",
+    "m-box-deep",
+    "m-garment-bruce-4",
+    "m-garment-teagan-4",
+    "m-mechanical-batch-2000",
+    "m-mechanical-large-mixed",
+    "m-public-gear-5",
+    "m-public-gear-6",
+    "m-sign-5",
+    "m-sign-6"
+  ],
+  "inputs": {
+    "scripts/makers.py": "9e319d04faca4eaa4d7ca5dd4ab8324d35b342dab15ae61279bc729058e088f3",
+    "scripts/maker_geometry.py": "7293ba1f16ce32a532f5085ca1f2624a0a1d3f7b006fc9a80c912f36657aa822",
+    "scripts/validate_makers.py": "fdb161f2a22927d5c865201473f88e2924be24546f731ba24c73999acaf05b7a",
+    "benchmarks/makers/freesewing.mjs": "29669232a666a92d41f09b5a4e13d31e95ecfc4f5fd506fc1d2332b25e95f578",
+    "benchmarks/makers/sources.json": "106927a4ef5d5d25e69099cbaea3b70c5911f1a9e5a04484e026f6129353740e",
+    "benchmarks/makers/package.json": "39643186c9a319d6ac1ba7504cebf05e384396cf939fb7b86c9709f918db2636",
+    "benchmarks/makers/package-lock.json": "6d1c79097658c24fb415cf5fb36d7ec4dc8ecc8b025c018de5d36e4b22f0288f",
+    "benchmarks/makers/requirements.txt": "6e14cc4eb9acf41d840c0d32476d1513a87d4ecf1f81cfea7d04b9fc2515b182"
+  },
+  "notice_files": {
+    "licenses/affine-0-AUTHORS.txt": "4c53297800b3226b0ce3c75ae5a60930a488bcd33b95333a5a8bca44497a5c2a",
+    "licenses/affine-1-LICENSE.txt": "fc3636b54ff4072cf4b013ed9893c171ed25f88dae2b32722050499c1878cd6e",
+    "licenses/attrs-0-LICENSE": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+    "licenses/bezier-js-NOTICE.txt": "696c8a3038d2861e71d1a6527f6efaba3557e1445c8e5e6d4b4bbffa7a9ff834",
+    "licenses/Boxes-FAQ.rst": "bb030d29856e2ce1f155660683a2e8e953c1d02310b13e700bd57f2a2eb9afc7",
+    "licenses/Boxes-GPL-3.0.txt": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+    "licenses/colorama-0-LICENSE.txt": "cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318",
+    "licenses/fonttools-0-LICENSE": "6787208f83f659ccbc2223b2fde952ffa6f7e8aca62f1a8a2bf5bc51bb1b2383",
+    "licenses/fonttools-1-LICENSE.external": "94a83aaee0729a0f302d34acc4acecbd9d58366f262429075fe557e4a54b2e69",
+    "licenses/FreeSewing-LICENSE.txt": "851be3d2517b5f17640e0ce8b1eba36c3c2a699c104d3789cb50ab081fbcb212",
+    "licenses/lodash.clonedeep-LICENSE.txt": "ffd8b33b354585f4ce119f19c53728281e48a97b074491eb6bf6d5c5ff305272",
+    "licenses/lodash.get-LICENSE.txt": "ffd8b33b354585f4ce119f19c53728281e48a97b074491eb6bf6d5c5ff305272",
+    "licenses/lodash.set-LICENSE.txt": "ffd8b33b354585f4ce119f19c53728281e48a97b074491eb6bf6d5c5ff305272",
+    "licenses/lodash.unset-LICENSE.txt": "ffd8b33b354585f4ce119f19c53728281e48a97b074491eb6bf6d5c5ff305272",
+    "licenses/Markdown-0-LICENSE.md": "7ba4eb6d10b32b2d11dce13821340351cdbbb30ba8ccc67841db2ffd86e79aca",
+    "licenses/NotoSans-OFL.txt": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+    "licenses/numpy-0-LICENSE.txt": "dc97d59562c75c04557f1e9a68f3eae326699eb119d569cd4ed6a4eafe5f9abb",
+    "licenses/numpy-1-LICENSE.txt": "fbc539f47d0cf83bc61378080fb873d5c14630126cacbfe754035c3926daa5ec",
+    "licenses/numpy-10-LICENSE.md": "103166b62b80443afb9eb3488e052ea06be0cff566b908f199e561fde49af19f",
+    "licenses/numpy-11-LICENSE.md": "469778be8f33d54e1bcaab28c281cc472916d2d273f835e55bc487d30503face",
+    "licenses/numpy-12-LICENSE.md": "0e111337b25494a773106695f0e799f642b8567aaacca4f116a74a8177179156",
+    "licenses/numpy-13-LICENSE.md": "e7d4f4fb20358f314210a892ae17351e04993813646f697ec387385ca2a36918",
+    "licenses/numpy-14-LICENSE.md": "6f5828a57223d4cc7f8ea505a2623e7b978b242752c1515e355f46ba2cec1800",
+    "licenses/numpy-15-LICENSE.md": "9d4098846018319cd68e228ee6220361787f73bccbf00237a85e4fc9621b998f",
+    "licenses/numpy-16-LICENSE.md": "268b0ca06759d31ea3ca68dd35f20e877916e927b1c2a835e4592a3c4354b1f9",
+    "licenses/numpy-2-COPYING": "3f2c1ffa76383a55ae0aac01c9737cd70050dff63e1f026694fbe9d662573c98",
+    "licenses/numpy-3-LICENSE": "e340270d4f64384569a91d546acb5b094d69ce47f0c015db77abb74dc6f815af",
+    "licenses/numpy-4-dragon4_LICENSE.txt": "f7b14309e5f54e5022b26448eefd419988ada2aec01d3c1162d84a0ea8f21f2c",
+    "licenses/numpy-5-LICENSE.md": "211e7d737d6179a08f791ebb0a99897ce7cd2457410c542876d125576edfe910",
+    "licenses/numpy-6-LICENSE": "c17011467b4fe6e20fbfbeda4df09e58c2bca5480a063e55735a4000a379aad9",
+    "licenses/numpy-7-LICENSE.md": "a85ca13fdf90160b64a0698215868c13b74d835ad0a4e2ba44713b8c5058a056",
+    "licenses/numpy-8-LICENSE.txt": "a14cc25e10d40a3aa705b7de2fb764a6535d8ee9b2db4e1724900585457dfd55",
+    "licenses/numpy-9-LICENSE": "05f3b88351988ecfad10abe92c0c50e5875c6452d5009a0084cc291551ffcca6",
+    "licenses/Openclipart-share.html": "7659d28469192c241c84e7d22aa7d37104dda226ccf1c37ccecdffb635a0d94d",
+    "licenses/pillow-0-LICENSE": "51ed379cf673c9676b7fa7e1bedbfc5d4ad63caac4f6f99eeec5ccab50c3e0ef",
+    "licenses/PyYAML-0-LICENSE": "8d3928f9dc4490fd635707cb88eb26bd764102a7282954307d3e5167a577e8a4",
+    "licenses/qrcode-0-LICENSE": "40dfb903c94ee3f789500131311186548ecba5cefd3557623d7700e2522ab994",
+    "licenses/rectpack-LICENSE.txt": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "licenses/scipy-0-LICENSE.txt": "e6993ffc464425a198e3558f9d76fb888420c42ff0ae95b07a544087754a5995",
+    "licenses/shapely-0-LICENSE.txt": "4a207eac9bf257ed286e1c6f0fce253d1abfdb134fc61ec855e37f5692a3f754",
+    "licenses/shapely-1-LICENSE_GEOS": "81d9aaf9ab7e3e6184568a70f27ee3e138d8d1e543b46dad5af88cff61cf1b36",
+    "licenses/shapely-2-LICENSE_win32": "d13fd8b2b8ce957ad47d722ef1e7b8c91841a8feb3fe4e7b9bd4148ba2b560bd",
+    "licenses/svgpathtools-0-LICENSE.txt": "e61b5f4e69dcb874e07ee26762113879ec326a7c98c75c9aa2c8ea5453b4e495",
+    "licenses/svgwrite-0-LICENSE.TXT": "dc002591265d3b7149f42dcfa4a7dcd3bbc146cc3e850d9436ff86f378436b97",
+    "licenses/typing_extensions-0-LICENSE": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf"
+  },
+  "feasibility_proof": {
+    "path": "maker-feasibility.json",
+    "sha256": "ef58e4872571efd2ac6fc6658dd09ac75bc7c31cc369541df3496499c4514f4d"
+  },
+  "instances": [
+    {
+      "category": "boxes",
+      "held_out": false,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=60",
+          "--y=40",
+          "--h=30",
+          "--thickness=3",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 4,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-mini",
+      "set": "M",
+      "units": "mm",
+      "part_count": 20,
+      "files": {
+        "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+        "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+        "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+      },
+      "path": "M/m-box-mini.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": false,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=100",
+          "--y=80",
+          "--h=60",
+          "--thickness=3",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 6,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-desktop",
+      "set": "M",
+      "units": "mm",
+      "part_count": 30,
+      "files": {
+        "maker-assets/m-box-desktop/boxes.svg": "1834b56ed4541df5542d24ba88eb4de7370f01cc3da4f066a09724d761f07c51",
+        "maker-assets/m-box-desktop/curves.json": "47c30599c25989be3730999fe976ae63db46ca86732e710ae4f1a6bd244e70cc",
+        "M/m-box-desktop.json": "68feb4c70fe327ef249314b47716bbb676adaf6950335fc728d4618cb8aa0c0e",
+        "maker-assets/m-box-desktop/parts.svg": "79ecdaaa5ccda0ab20c44c97a612c188c7c3e2ce593b7bb694d797abc5868abf"
+      },
+      "path": "M/m-box-desktop.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": false,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=180",
+          "--y=120",
+          "--h=80",
+          "--thickness=4",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 4,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-tool",
+      "set": "M",
+      "units": "mm",
+      "part_count": 20,
+      "files": {
+        "maker-assets/m-box-tool/boxes.svg": "9b52749ae682395822f1fb660bc9df49f45a66d0539d470a73be7e5f971f2e57",
+        "maker-assets/m-box-tool/curves.json": "02210f0e01c34b37e49046cba977ffa2f40f1878dc45d290165f8247ee37babd",
+        "M/m-box-tool.json": "54c5095358b5b24f0d0b8a1bcd5e94e6834345e87865124e3ec8fac3f83ab44b",
+        "maker-assets/m-box-tool/parts.svg": "502a125c50d22d48c917f5de846d2101cfb8db35d75b3ae842087c1138e0c9de"
+      },
+      "path": "M/m-box-tool.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": false,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=400",
+          "--y=300",
+          "--h=250",
+          "--thickness=6",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 3,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-storage",
+      "set": "M",
+      "units": "mm",
+      "part_count": 15,
+      "files": {
+        "maker-assets/m-box-storage/boxes.svg": "46fbe98b37857d87c388abed485474c10500a6a89925fa73f2a5d5b202b9f03c",
+        "maker-assets/m-box-storage/curves.json": "8b138a352b08a3f438336878519a5502b51b2f386da3cfb72ce43095addb5e81",
+        "M/m-box-storage.json": "0ecbe92256765dfb15a4791026f2b07ef69114652c7530914dfa426771113d97",
+        "maker-assets/m-box-storage/parts.svg": "8892896f89c54ab45252f74835e8fb3badc890f9c4f4a707aff901153481398d"
+      },
+      "path": "M/m-box-storage.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": false,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=500",
+          "--y=180",
+          "--h=140",
+          "--thickness=6",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 3,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-long",
+      "set": "M",
+      "units": "mm",
+      "part_count": 15,
+      "files": {
+        "maker-assets/m-box-long/boxes.svg": "8025d4bafa8d75f0b9223af3b88231d6cb7dc99052a680e1b77a6f390b1b37c6",
+        "maker-assets/m-box-long/curves.json": "e6e75383e3fd065c5b23a830e9ef6f2895b642cbf6e00eca0ab8c46bcbd01823",
+        "M/m-box-long.json": "603f40fe5c9d1475c55136b8f9e5b0a23e412fe17bca7d7cbe004561bdc4929c",
+        "maker-assets/m-box-long/parts.svg": "4e2f21a332d5c77311e54c814d750ce9f50d6869b1079d4f423a48f31a47379c"
+      },
+      "path": "M/m-box-long.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": false,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=160",
+          "--y=100",
+          "--h=80",
+          "--thickness=3",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 100,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-batch-500",
+      "set": "M",
+      "units": "mm",
+      "part_count": 500,
+      "files": {
+        "maker-assets/m-box-batch-500/boxes.svg": "15b2b1998c67ce5e934254ed25536d485fa76a7444e9901bbbb0235db9cf6969",
+        "maker-assets/m-box-batch-500/curves.json": "23592d21e2119db731530c6bdeb06edd7214e371b281e33a4efd7996d065a50f",
+        "M/m-box-batch-500.json": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+        "maker-assets/m-box-batch-500/parts.svg": "b3d1aefbcf4ea534565c35e5bb02c755dd965514900281945478ce3e7a8cc177"
+      },
+      "path": "M/m-box-batch-500.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": true,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=80",
+          "--y=55",
+          "--h=40",
+          "--thickness=3",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 400,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-compact-2000",
+      "set": "M",
+      "units": "mm",
+      "part_count": 2000,
+      "files": {
+        "maker-assets/m-box-compact-2000/boxes.svg": "87b4f2dda48e057870130eac2657903639a38b035e0835975e019344c191ee20",
+        "maker-assets/m-box-compact-2000/curves.json": "4bc6cab3e130175353b56921626dc594e3ba2d9e8d8694fcd0449a61ad4f1956",
+        "M/m-box-compact-2000.json": "30c95d9a1b59b65118e90459e76de32a4999e5cf95e94a3c4a73436cc6d32d50",
+        "maker-assets/m-box-compact-2000/parts.svg": "5d9f5a50a693b6d70c7b2d810082d61382ae08f353ba141420e8d5dd97c51b44"
+      },
+      "path": "M/m-box-compact-2000.json"
+    },
+    {
+      "category": "boxes",
+      "held_out": true,
+      "source": "boxes",
+      "parameters": {
+        "generator": "UniversalBox",
+        "arguments": [
+          "--x=280",
+          "--y=220",
+          "--h=200",
+          "--thickness=6",
+          "--burn=0",
+          "--reference=0",
+          "--labels=false",
+          "--inner_corners=corner",
+          "--top_edge=e"
+        ],
+        "copies": 12,
+        "creation_date": "2026-10-11T00:00:00"
+      },
+      "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+      "id": "m-box-deep",
+      "set": "M",
+      "units": "mm",
+      "part_count": 60,
+      "files": {
+        "maker-assets/m-box-deep/boxes.svg": "0e7ed1e0259711f45b0f78a257697c49c16674b63c75eea87eb8f5cd85aebadc",
+        "maker-assets/m-box-deep/curves.json": "58088043a1a640faba8354af15f849f3ea344220762ca36ef68ce489b2d0b394",
+        "M/m-box-deep.json": "5146d25c05a44ca0baf1a73f8d7452ac2bea9066b46cb6f65f7fdc2b9ee9a081",
+        "maker-assets/m-box-deep/parts.svg": "87f905329f6308352c4fb0da01cb9f47968724c6b505f00f00b1d5a844d90b8d"
+      },
+      "path": "M/m-box-deep.json"
+    },
+    {
+      "category": "garments",
+      "held_out": false,
+      "source": "freesewing",
+      "parameters": {
+        "design": "teagan",
+        "seam_allowance": 10,
+        "measurements": {
+          "biceps": 272.0,
+          "chest": 816.0,
+          "hpsToBust": 221.0,
+          "hpsToWaistBack": 365.5,
+          "neck": 331.5,
+          "shoulderToShoulder": 365.5,
+          "shoulderSlope": 18,
+          "waistToArmpit": 187.0,
+          "waistToHips": 161.5,
+          "hips": 850.0,
+          "waist": 705.5,
+          "shoulderToWrist": 510.0,
+          "wrist": 144.5
+        },
+        "garment_count": 4,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-teagan-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 16,
+      "files": {
+        "maker-assets/m-garment-teagan-1/curves.json": "50ab500400c23b0ad4753aa0b160318bcf770090d3574b1457d96d6a0589e1fa",
+        "maker-assets/m-garment-teagan-1/freesewing.json": "186ad87ae5c1d10eb4d5644db97c7acfb7f62c3031db1d2fc7874ab59ff3739a",
+        "M/m-garment-teagan-1.json": "ced068804918163dd21b3f4644e9b5ac319a813cec1b4c2c9a659e7de7a24356",
+        "maker-assets/m-garment-teagan-1/parts.svg": "429551b6346e23a072dfc77a981a4a629fb614fde969ad5bf69f5b5d7a3b94dd"
+      },
+      "path": "M/m-garment-teagan-1.json"
+    },
+    {
+      "category": "garments",
+      "held_out": false,
+      "source": "freesewing",
+      "parameters": {
+        "design": "teagan",
+        "seam_allowance": 10,
+        "measurements": {
+          "biceps": 304.0,
+          "chest": 912.0,
+          "hpsToBust": 247.0,
+          "hpsToWaistBack": 408.5,
+          "neck": 370.5,
+          "shoulderToShoulder": 408.5,
+          "shoulderSlope": 18,
+          "waistToArmpit": 209.0,
+          "waistToHips": 180.5,
+          "hips": 950.0,
+          "waist": 788.5,
+          "shoulderToWrist": 570.0,
+          "wrist": 161.5
+        },
+        "garment_count": 10,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-teagan-2",
+      "set": "M",
+      "units": "mm",
+      "part_count": 40,
+      "files": {
+        "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+        "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+        "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+      },
+      "path": "M/m-garment-teagan-2.json"
+    },
+    {
+      "category": "garments",
+      "held_out": false,
+      "source": "freesewing",
+      "parameters": {
+        "design": "teagan",
+        "seam_allowance": 10,
+        "measurements": {
+          "biceps": 336.0,
+          "chest": 1008.0,
+          "hpsToBust": 273.0,
+          "hpsToWaistBack": 451.5,
+          "neck": 409.5,
+          "shoulderToShoulder": 451.5,
+          "shoulderSlope": 18,
+          "waistToArmpit": 231.0,
+          "waistToHips": 199.5,
+          "hips": 1050.0,
+          "waist": 871.5,
+          "shoulderToWrist": 630.0,
+          "wrist": 178.5
+        },
+        "garment_count": 30,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-teagan-3",
+      "set": "M",
+      "units": "mm",
+      "part_count": 120,
+      "files": {
+        "maker-assets/m-garment-teagan-3/curves.json": "47d81bd3c5d2971aff7e4190152a187c6e1b9e1504920ccb50dd615449983b05",
+        "maker-assets/m-garment-teagan-3/freesewing.json": "01bfc0352745849cfe272bccc16a00c2e7d32fa129e71dbed23ffd00a5b2cc31",
+        "M/m-garment-teagan-3.json": "c1f451271c0f3a9fb55ba62096cce8c550ed953f1ba28a3fce1bc1e2695f1844",
+        "maker-assets/m-garment-teagan-3/parts.svg": "bb336020ea1b663f4074a4da9941961174c9463628eb1be81ceca0b76e6788f1"
+      },
+      "path": "M/m-garment-teagan-3.json"
+    },
+    {
+      "category": "garments",
+      "held_out": true,
+      "source": "freesewing",
+      "parameters": {
+        "design": "teagan",
+        "seam_allowance": 10,
+        "measurements": {
+          "biceps": 368.0,
+          "chest": 1104.0,
+          "hpsToBust": 299.0,
+          "hpsToWaistBack": 494.5,
+          "neck": 448.5,
+          "shoulderToShoulder": 494.5,
+          "shoulderSlope": 18,
+          "waistToArmpit": 253.0,
+          "waistToHips": 218.5,
+          "hips": 1150.0,
+          "waist": 954.5,
+          "shoulderToWrist": 690.0,
+          "wrist": 195.5
+        },
+        "garment_count": 60,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-teagan-4",
+      "set": "M",
+      "units": "mm",
+      "part_count": 240,
+      "files": {
+        "maker-assets/m-garment-teagan-4/curves.json": "c47a3f34b8dc9abfd20fe4ce58a9a6606c31482ee793521545897c4ae27954d5",
+        "maker-assets/m-garment-teagan-4/freesewing.json": "1bcc72be65de965a79c010ee947a141a27e77022d22e85d0e52653dea49f6117",
+        "M/m-garment-teagan-4.json": "623e0b565583911b4b16252b2ab46ab10f7e379cdd009140d5ae2fc88be74574",
+        "maker-assets/m-garment-teagan-4/parts.svg": "12eaf853d56814c34f32e1513ade0e9d2b7b94f4e6567cb0e39e12bcb29e99a4"
+      },
+      "path": "M/m-garment-teagan-4.json"
+    },
+    {
+      "category": "garments",
+      "held_out": false,
+      "source": "freesewing",
+      "parameters": {
+        "design": "bruce",
+        "seam_allowance": 10,
+        "measurements": {
+          "hips": 850.0,
+          "upperLeg": 493.0,
+          "waistToHips": 161.5,
+          "waistToUpperLeg": 272.0
+        },
+        "garment_count": 4,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-bruce-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 28,
+      "files": {
+        "maker-assets/m-garment-bruce-1/curves.json": "f6f6b03872d2205544b1b2b885edfa07738e04ce7981ba2f335d72bb6673fcaa",
+        "maker-assets/m-garment-bruce-1/freesewing.json": "31a66a641431467b2265b8dd8ea912c7281e12171342e05e803c454bc1f2e8a6",
+        "M/m-garment-bruce-1.json": "8b6eea53a4a6e919c542ad56482c3061e6631fa6c27ddf12653276a3a6110a55",
+        "maker-assets/m-garment-bruce-1/parts.svg": "c5e9c328f97684ae265cbf4f9aa0b38b5650d5b6e0de00b318a5626439e8b6a0"
+      },
+      "path": "M/m-garment-bruce-1.json"
+    },
+    {
+      "category": "garments",
+      "held_out": false,
+      "source": "freesewing",
+      "parameters": {
+        "design": "bruce",
+        "seam_allowance": 10,
+        "measurements": {
+          "hips": 950.0,
+          "upperLeg": 551.0,
+          "waistToHips": 180.5,
+          "waistToUpperLeg": 304.0
+        },
+        "garment_count": 10,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-bruce-2",
+      "set": "M",
+      "units": "mm",
+      "part_count": 70,
+      "files": {
+        "maker-assets/m-garment-bruce-2/curves.json": "1604fbbb5ac5cd30e2aa9f19be153f0b156b33d1681802192bb4820d9b899637",
+        "maker-assets/m-garment-bruce-2/freesewing.json": "7b01751658f29f67156d9e7d9e4956dd3d105a58d29d8ec7862c14bf8ad523f2",
+        "M/m-garment-bruce-2.json": "380c1863db2839a039a9d0845aa528aa94c7fad32f9a4f589a0bfd2499df4ec0",
+        "maker-assets/m-garment-bruce-2/parts.svg": "52f81562b8c9ecbaf8ac0f87f62a6845d2896d8d02116575900680a3bbd7bdb6"
+      },
+      "path": "M/m-garment-bruce-2.json"
+    },
+    {
+      "category": "garments",
+      "held_out": false,
+      "source": "freesewing",
+      "parameters": {
+        "design": "bruce",
+        "seam_allowance": 10,
+        "measurements": {
+          "hips": 1050.0,
+          "upperLeg": 609.0,
+          "waistToHips": 199.5,
+          "waistToUpperLeg": 336.0
+        },
+        "garment_count": 30,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-bruce-3",
+      "set": "M",
+      "units": "mm",
+      "part_count": 210,
+      "files": {
+        "maker-assets/m-garment-bruce-3/curves.json": "6e64cac8685acc6df8c6f94724c441c9dd24a9770038ebff0459bbddb1618817",
+        "maker-assets/m-garment-bruce-3/freesewing.json": "d4dd550aa07a6f0b0e9422fbf55b5b64c19b68d438ab82186791dbe93f31ab5c",
+        "M/m-garment-bruce-3.json": "e1da484d4129bcd8d436236c02a86abea9163f29faaf3a1848e48f985f49961a",
+        "maker-assets/m-garment-bruce-3/parts.svg": "b9c333c4f8a32baa669ae9c86bbb8e58fac1ef7f3520cf46a8b673a386051e10"
+      },
+      "path": "M/m-garment-bruce-3.json"
+    },
+    {
+      "category": "garments",
+      "held_out": true,
+      "source": "freesewing",
+      "parameters": {
+        "design": "bruce",
+        "seam_allowance": 10,
+        "measurements": {
+          "hips": 1150.0,
+          "upperLeg": 667.0,
+          "waistToHips": 218.5,
+          "waistToUpperLeg": 368.0
+        },
+        "garment_count": 60,
+        "synthetic_measurements": true
+      },
+      "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+      "id": "m-garment-bruce-4",
+      "set": "M",
+      "units": "mm",
+      "part_count": 420,
+      "files": {
+        "maker-assets/m-garment-bruce-4/curves.json": "f51f34a4a99cef101b33eae44c8b07d825df3e4b6f002cf04b13f54c6a8b92fa",
+        "maker-assets/m-garment-bruce-4/freesewing.json": "aca5a17e04217a3eeed029ad340bff40425b3eb30a8869a0cbb6d08c73d15795",
+        "M/m-garment-bruce-4.json": "ae40aa474aa18f04df67b2779ecc5dea9c6347ba307158c4ae0450203517dd65",
+        "maker-assets/m-garment-bruce-4/parts.svg": "1a62ee9d35ac46037aabeca747f812d52e58b2809c70210ef3e081e978682053"
+      },
+      "path": "M/m-garment-bruce-4.json"
+    },
+    {
+      "category": "lettering",
+      "held_out": false,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "NESTBOLT",
+        "copies": 12,
+        "cap_height_mm": 25,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 96,
+      "files": {
+        "maker-assets/m-sign-1/curves.json": "37241d09ff428f7eddb41f1a1b5eccbca44569375cbe3c2eeb947dbb193105b1",
+        "M/m-sign-1.json": "c71ba09985e7a0b8cdd9bec3398abb66043586ce382b14e19172dc450564c7aa",
+        "maker-assets/m-sign-1/parts.svg": "f802ea3db50abf41e41721fb15d6dfb320128d01f5a99c17c0e71ac4825d31f1"
+      },
+      "path": "M/m-sign-1.json"
+    },
+    {
+      "category": "lettering",
+      "held_out": false,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "WORKSHOP",
+        "copies": 10,
+        "cap_height_mm": 45,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-2",
+      "set": "M",
+      "units": "mm",
+      "part_count": 80,
+      "files": {
+        "maker-assets/m-sign-2/curves.json": "2a17d1ffcedf8db7eb9f5863cbb004e5d1d2d7d44ff2dd86f105cfb2fa89ee99",
+        "M/m-sign-2.json": "eaa67133a907585fd572939694c44720ada3559f2e9509a76dbeab3edf13f6c3",
+        "maker-assets/m-sign-2/parts.svg": "0baca47cba64de726dd523623244d57afc6435ba43e375a2881381854ba42f2b"
+      },
+      "path": "M/m-sign-2.json"
+    },
+    {
+      "category": "lettering",
+      "held_out": false,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "OPEN STUDIO",
+        "copies": 6,
+        "cap_height_mm": 100,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-3",
+      "set": "M",
+      "units": "mm",
+      "part_count": 60,
+      "files": {
+        "maker-assets/m-sign-3/curves.json": "b5d647cd2485ca2f763402ee57a257846e219545b0990d21ef74c7733e4643c4",
+        "M/m-sign-3.json": "5deea7f3ce64dcea0e2e03d8f7d0819d589076c402ddaac71a1d9722d2e89525",
+        "maker-assets/m-sign-3/parts.svg": "9852d44070478fdc73882aeeb6083431d0b9e65c9488865e88b955396df3b928"
+      },
+      "path": "M/m-sign-3.json"
+    },
+    {
+      "category": "lettering",
+      "held_out": false,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "LASER LAB",
+        "copies": 10,
+        "cap_height_mm": 150,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-4",
+      "set": "M",
+      "units": "mm",
+      "part_count": 80,
+      "files": {
+        "maker-assets/m-sign-4/curves.json": "789c4db47a0d28bb6ac53ebf2bf4b9ecba3b2d1768417f1fc9e596c27ae78838",
+        "M/m-sign-4.json": "611b448005d8691e7e258046c4f3c7e81f739504ef2db159710f89d9d8397366",
+        "maker-assets/m-sign-4/parts.svg": "d417751abd0f937052acbad41e9d8538373cce998d37050dc28b468138de4f50"
+      },
+      "path": "M/m-sign-4.json"
+    },
+    {
+      "category": "lettering",
+      "held_out": true,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "TOOLS AND IDEAS",
+        "copies": 8,
+        "cap_height_mm": 200,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-5",
+      "set": "M",
+      "units": "mm",
+      "part_count": 104,
+      "files": {
+        "maker-assets/m-sign-5/curves.json": "23632aa6b904ca339bc997622ee812923d42d19182e92584e43263fe84ca1572",
+        "M/m-sign-5.json": "a5619422dc1da4a1949a2729159a9d390d55144561967bc004f63f93bb7a23f9",
+        "maker-assets/m-sign-5/parts.svg": "1793ba2ade24d82993c5d60af9f99effb51dc4a0156688b26fc7b3019d15bee6"
+      },
+      "path": "M/m-sign-5.json"
+    },
+    {
+      "category": "lettering",
+      "held_out": true,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "MAKER SPACE",
+        "copies": 30,
+        "cap_height_mm": 60,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-6",
+      "set": "M",
+      "units": "mm",
+      "part_count": 300,
+      "files": {
+        "maker-assets/m-sign-6/curves.json": "2ed0c04e3621df1890c2ee7c8472c1e7ad36a040c88b59b3e330c121619d05b4",
+        "M/m-sign-6.json": "f5cbd2205da89f89cce49ee016fdf18744b8ae8a9b224b5c784052a8fa5fafce",
+        "maker-assets/m-sign-6/parts.svg": "de6aed683a9aea493446f6fbb04448e83c4eb75e1dabb65ccf29f753cd414b4b"
+      },
+      "path": "M/m-sign-6.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 1,
+        "base_copies": 20,
+        "cog_teeth": 12
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-small-brackets",
+      "set": "M",
+      "units": "mm",
+      "part_count": 98,
+      "files": {
+        "maker-assets/m-mechanical-small-brackets/curves.json": "2ddf95d3e5fde6f8284f23065c9dd35f0f46b7de8d09c1e96e887c53102d63aa",
+        "M/m-mechanical-small-brackets.json": "f9bf29e58bec0c81f41a24055d73cf1fc753c8a6167effbc12790937127a19dd",
+        "maker-assets/m-mechanical-small-brackets/parts.svg": "2222e61e15fe6971242208fc948fc71a3230ff13870b92881e855c3e81959aa3"
+      },
+      "path": "M/m-mechanical-small-brackets.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 1,
+        "base_copies": 30,
+        "cog_teeth": 16
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-cog-washers",
+      "set": "M",
+      "units": "mm",
+      "part_count": 138,
+      "files": {
+        "maker-assets/m-mechanical-cog-washers/curves.json": "2f67d3d9c161ff636f2582202bb321a5aa9d36328b110599985f9a55b74a60d8",
+        "M/m-mechanical-cog-washers.json": "a3da32efd54b23706d75b7296127e5dab9869c61055eae988e26578023223d83",
+        "maker-assets/m-mechanical-cog-washers/parts.svg": "54ff227b08c15a732bf65986ee4fcf0afcc123fafc7a0e70beb2e4b433c81b79"
+      },
+      "path": "M/m-mechanical-cog-washers.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 1.5,
+        "base_copies": 16,
+        "cog_teeth": 20
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-mounting-kit",
+      "set": "M",
+      "units": "mm",
+      "part_count": 82,
+      "files": {
+        "maker-assets/m-mechanical-mounting-kit/curves.json": "92e1648bd731e036de66913b389b04f3cad8e12c50d1bacb62c08c72509dcec8",
+        "M/m-mechanical-mounting-kit.json": "3fcc566472b6a00271f05726a200c256d0ebc0ff236f710e5f04aa8efe4c7d7c",
+        "maker-assets/m-mechanical-mounting-kit/parts.svg": "03dd2d31fd4440b6a6db3fbec5f7944b6e508818b28cf96da05d0b451d2e0e45"
+      },
+      "path": "M/m-mechanical-mounting-kit.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 2,
+        "base_copies": 30,
+        "cog_teeth": 12
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-frame-inserts",
+      "set": "M",
+      "units": "mm",
+      "part_count": 138,
+      "files": {
+        "maker-assets/m-mechanical-frame-inserts/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+        "M/m-mechanical-frame-inserts.json": "0041d39dcd000ef2daf676666b0c65830e221f53345c29c5f19b11c94c068d66",
+        "maker-assets/m-mechanical-frame-inserts/parts.svg": "ddcd76e307b11cdc32ec07c9457ecaaa5757ae73c97b0d62e4db8f796bb07bf5"
+      },
+      "path": "M/m-mechanical-frame-inserts.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 3,
+        "base_copies": 40,
+        "cog_teeth": 16
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-panel-hardware",
+      "set": "M",
+      "units": "mm",
+      "part_count": 178,
+      "files": {
+        "maker-assets/m-mechanical-panel-hardware/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+        "M/m-mechanical-panel-hardware.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+        "maker-assets/m-mechanical-panel-hardware/parts.svg": "38919a3bed3ec645d6fe60394afdc75c0178b5250be969776b3179eaf5d8c020"
+      },
+      "path": "M/m-mechanical-panel-hardware.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 5,
+        "base_copies": 12,
+        "cog_teeth": 20
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-large-plates",
+      "set": "M",
+      "units": "mm",
+      "part_count": 66,
+      "files": {
+        "maker-assets/m-mechanical-large-plates/curves.json": "b33a6ca886b32e8bfb721ffa5b1f3cfe6bbd209a3d1cf4b70c0240785dcb74f4",
+        "M/m-mechanical-large-plates.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+        "maker-assets/m-mechanical-large-plates/parts.svg": "4ffd564a3cf15b3b75d2df8308e51a3227e34133d47d9cfe60df4bb3e406b685"
+      },
+      "path": "M/m-mechanical-large-plates.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 2,
+        "base_copies": 55,
+        "cog_teeth": 12
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-mixed-stock",
+      "set": "M",
+      "units": "mm",
+      "part_count": 238,
+      "files": {
+        "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+        "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+      },
+      "path": "M/m-mechanical-mixed-stock.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 3,
+        "base_copies": 70,
+        "cog_teeth": 16
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-defective-stock",
+      "set": "M",
+      "units": "mm",
+      "part_count": 298,
+      "files": {
+        "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+        "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+      },
+      "path": "M/m-mechanical-defective-stock.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 2,
+        "base_copies": 35,
+        "cog_teeth": 20
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-remnant-kit",
+      "set": "M",
+      "units": "mm",
+      "part_count": 158,
+      "files": {
+        "maker-assets/m-mechanical-remnant-kit/curves.json": "bf5da64f70b2fdb1d130740a83dea13714226c2f2d10995fad8e33b3d9ba6fde",
+        "M/m-mechanical-remnant-kit.json": "f311317b22533e07416e33b468a51de2fb2728bf08c02b61282ddb2432251f2f",
+        "maker-assets/m-mechanical-remnant-kit/parts.svg": "60760f89af01003e51b3aaf2ede4d8c44b4f809aca9b86476cbe677de15faac1"
+      },
+      "path": "M/m-mechanical-remnant-kit.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": false,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 1,
+        "base_copies": 250,
+        "cog_teeth": 12
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-batch-1000",
+      "set": "M",
+      "units": "mm",
+      "part_count": 1000,
+      "files": {
+        "maker-assets/m-mechanical-batch-1000/curves.json": "2ddf95d3e5fde6f8284f23065c9dd35f0f46b7de8d09c1e96e887c53102d63aa",
+        "M/m-mechanical-batch-1000.json": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "maker-assets/m-mechanical-batch-1000/parts.svg": "64275515a7fdf12c57eca0f0a4da1aeae264e7495c87c36abd1d4b1948aaa966"
+      },
+      "path": "M/m-mechanical-batch-1000.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": true,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 1,
+        "base_copies": 500,
+        "cog_teeth": 16
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-batch-2000",
+      "set": "M",
+      "units": "mm",
+      "part_count": 2000,
+      "files": {
+        "maker-assets/m-mechanical-batch-2000/curves.json": "2f67d3d9c161ff636f2582202bb321a5aa9d36328b110599985f9a55b74a60d8",
+        "M/m-mechanical-batch-2000.json": "99af65a93753bd93c1306002931ba72748f0aab4cfb92e7b0acf4e3c328b8c83",
+        "maker-assets/m-mechanical-batch-2000/parts.svg": "b0ea894e82913a88551ff8fa325e07d69337b1c9969d9480619d7f72f7efa8d8"
+      },
+      "path": "M/m-mechanical-batch-2000.json"
+    },
+    {
+      "category": "mechanical",
+      "held_out": true,
+      "source": "procedural",
+      "parameters": {
+        "linear_scale": 4,
+        "base_copies": 90,
+        "cog_teeth": 20
+      },
+      "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+      "id": "m-mechanical-large-mixed",
+      "set": "M",
+      "units": "mm",
+      "part_count": 360,
+      "files": {
+        "maker-assets/m-mechanical-large-mixed/curves.json": "862620055f539aa30e4c7baa802efe9af44f63ce1d1089dea2e6b8c6ba32aeab",
+        "M/m-mechanical-large-mixed.json": "576dd6d3dd4126b4c8455a7506cebfddd6b217d08e0d74542f671ffba4e8256c",
+        "maker-assets/m-mechanical-large-mixed/parts.svg": "9a4c52d33b256c3fdbfc50aa13e1e57e681bca919a6565525ecdaaaecec0d224"
+      },
+      "path": "M/m-mechanical-large-mixed.json"
+    },
+    {
+      "category": "public-art",
+      "held_out": false,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 50,
+        "secondary_scale": 0.65,
+        "copies_each": 20
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 40,
+      "files": {
+        "maker-assets/m-public-gear-1/curves.json": "9f9ba1193ef7bbe5c333e052d154fc41a750aea1944a69a9d36bae79e6608caa",
+        "M/m-public-gear-1.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+        "maker-assets/m-public-gear-1/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-1/parts.svg": "cf6e485956509bc00c3aa733306270d513e5c89563a6328c3fa3b2e725655616"
+      },
+      "path": "M/m-public-gear-1.json"
+    },
+    {
+      "category": "public-art",
+      "held_out": false,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 90,
+        "secondary_scale": 0.65,
+        "copies_each": 24
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-2",
+      "set": "M",
+      "units": "mm",
+      "part_count": 48,
+      "files": {
+        "maker-assets/m-public-gear-2/curves.json": "13a0b0880f59e8929dd1d29dbeaeac9232c0a538ff64b7d715a10c738d1a7218",
+        "M/m-public-gear-2.json": "ab924a1d3503bc3e650170a00801257d123a40a598003101c5b5d9f7f357b0f6",
+        "maker-assets/m-public-gear-2/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-2/parts.svg": "98626a707de0a6fed0179a8a70721d44f9d21484c2a825bd370096e4c32e9d9e"
+      },
+      "path": "M/m-public-gear-2.json"
+    },
+    {
+      "category": "public-art",
+      "held_out": false,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 160,
+        "secondary_scale": 0.65,
+        "copies_each": 60
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-3",
+      "set": "M",
+      "units": "mm",
+      "part_count": 120,
+      "files": {
+        "maker-assets/m-public-gear-3/curves.json": "a1f1d964be4cf540fb9dab857744e62a4b8c01a53d1a273a9f829b25f17de352",
+        "M/m-public-gear-3.json": "cbcc5df619be5a9310b03a5777364efcfd5facb08b33a0a7cf48fcfc012e65e4",
+        "maker-assets/m-public-gear-3/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-3/parts.svg": "b52b3df29e3d665a61b41a8260146d015fba95335e734f268a35fbf9eea7b60e"
+      },
+      "path": "M/m-public-gear-3.json"
+    },
+    {
+      "category": "public-art",
+      "held_out": false,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 240,
+        "secondary_scale": 0.65,
+        "copies_each": 30
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-4",
+      "set": "M",
+      "units": "mm",
+      "part_count": 60,
+      "files": {
+        "maker-assets/m-public-gear-4/curves.json": "e77fdf74b6b1cbcda6a62f0937d9bf4b7e94d4b65630cf0ea0cb7f563ac93a40",
+        "M/m-public-gear-4.json": "a03e84a5938275ea598dab574b2ad8e102f0fd3eba4025f833df1768095fc7ca",
+        "maker-assets/m-public-gear-4/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-4/parts.svg": "564e70b2a5daa0f69d59924cfb2acafba85b1a898f7001534d7ea78ce09e1c8a"
+      },
+      "path": "M/m-public-gear-4.json"
+    },
+    {
+      "category": "public-art",
+      "held_out": true,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 320,
+        "secondary_scale": 0.65,
+        "copies_each": 40
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-5",
+      "set": "M",
+      "units": "mm",
+      "part_count": 80,
+      "files": {
+        "maker-assets/m-public-gear-5/curves.json": "d860f985d6f87e1791cdbb1996e79c7a4ed58333d8b72752df7837110d3b0643",
+        "M/m-public-gear-5.json": "6a46099c191d2011bb783e07350b0221c0985c6667b4ff9304c6fe771da48dba",
+        "maker-assets/m-public-gear-5/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-5/parts.svg": "8695ae8714cbcc93e951bbfa59951b86c5ed2302bd55ae418b4ee4d4e76b0df0"
+      },
+      "path": "M/m-public-gear-5.json"
+    },
+    {
+      "category": "public-art",
+      "held_out": true,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 35,
+        "secondary_scale": 0.65,
+        "copies_each": 500
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-6",
+      "set": "M",
+      "units": "mm",
+      "part_count": 1000,
+      "files": {
+        "maker-assets/m-public-gear-6/curves.json": "8cf811057e6c3a1d70475d70c7cab2e873c2a1ef85378a02e79c9a2a91e25f9e",
+        "M/m-public-gear-6.json": "44cf8855053813a21d5190001a7862a1e4690ecbbab5e74bd263e58bfbfb0897",
+        "maker-assets/m-public-gear-6/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-6/parts.svg": "ccc8b1b88637f264dc4910149c7c2d681d1b10024ee737205aad420185ff5af6"
+      },
+      "path": "M/m-public-gear-6.json"
+    }
+  ]
+}

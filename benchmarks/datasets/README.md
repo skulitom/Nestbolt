@@ -15,7 +15,8 @@ The converter itself is checksummed. Rebuilding refuses to overwrite changed
 files, and freezing refuses an existing manifest. A future necessary dataset
 correction requires an explicit new version and disclosure in results; it must
 not silently replace cases after tuning. This academic freeze precedes any
-optimiser tuning. The maker set and its ten held-out jobs remain separate work.
+optimiser tuning. The separate [maker freeze](../makers/README.md) adds 40 M jobs
+and reserves ten of them before tuning; its manifest is `makers.json`.
 
 ## S: original strips
 
@@ -73,4 +74,5 @@ rotations stay separate, and changed/unlisted files fail the integrity check.
 `scripts/check.py` runs these checks offline in CI.
 
 The frozen files are benchmark polygons. They do not replace the later SVG/DXF
-curve fixtures, maker jobs, fidelity tests, competitor settings or seed matrix.
+fidelity tests, competitor settings or seed matrix. The M freeze retains original
+curves alongside its polygons; this alone does not establish import/export fidelity.

@@ -7,9 +7,9 @@ The historical Sparrow build and two five-second adapter checks pass. All 1,300
 archived results have been checked against the paper and a 39-run native quality
 reproduction is frozen in [the M0 method](../benchmarks/sparrow-repro/README.md).
 The full-budget experiment `published-20261011` is running in bounded batches.
-At the latest checkpoint, **9/39 runs** have finished (ALBANO, SHAPES2, DAGLI, FU,
-JAKOBS1, JAKOBS2, MAO, MARQUES and SHAPES0, first seed). All nine pass independent
-geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-nine-20261011.json)
+At the latest checkpoint, **15/39 runs** have finished (all thirteen first seeds,
+plus ALBANO and SHAPES2 second seeds). All fifteen pass independent
+geometry checks; [the immutable checkpoint](../benchmarks/results/m0-first-fifteen-20261011.json)
 retains the run records and validation evidence.
 JAKOBS2 is about 1.02% longer than its published mean; the required three-seed
 comparison is pending for every instance. No results have been discarded and the
@@ -20,7 +20,7 @@ stock, margins, defects/remnants, copies, rotations, mirroring, holes, clearance
 fill modes. It computes material scores and never scores invalid layouts. All
 43 native tests pass, including a 10,000-case bounded polygon fuzz test, a
 2,000-copy case and actual CLI exit behavior. The checker also compiles to WASM.
-The academic datasets are frozen; maker jobs, remaining competitor adapters and
+The academic and maker datasets are frozen; remaining competitor adapters and
 the full baseline matrix are pending.
 See [VALIDATION.md](VALIDATION.md).
 
@@ -41,10 +41,18 @@ Python tests protect conversion and tamper detection. See
 [the dataset method](../benchmarks/datasets/README.md) and
 [source provenance](../benchmarks/sources/README.md).
 
+The maker freeze adds **40 M jobs with 10 held-out reservations**, spanning all
+five planned source categories, requested sheet sizes and 500–2,000-copy jobs.
+All forty source contracts and full one-copy-per-sheet feasibility witnesses pass
+independently. Original curves, generation parameters, licence evidence and
+checksums are retained. A fresh isolated installation rebuilds all files exactly;
+four curve-bound/topology tests and three freeze/coverage tests pass. No maker
+job has been optimised or used for tuning. See [maker method](../benchmarks/makers/README.md).
+
 | Milestone | Weight | State |
 | --- | --- | --- |
 | M0 — Groundwork | 5% | Workspace/check infrastructure in place; published strip reproduction pending |
-| M1 — Baseline | 15% | Validator, S/B freeze and LBF runner ready; M jobs and other competitor runners pending |
+| M1 — Baseline | 15% | Validator, S/B/M freezes and LBF runner ready; other competitor runners and full matrix pending |
 | M2 — Sheet optimiser | 25% | Not started |
 | M3 — Part-in-part and import/export | 15% | Not started |
 | M4 — Browser app and MCP server | 20% | Entry-point scaffolding only |
@@ -57,8 +65,8 @@ Python tests protect conversion and tamper detection. See
    evidence to BENCHMARKS.md.
 2. Mixed-stock scoring is implemented and repeatable search semantics documented;
    freeze the exact M2 work-budget mapping before public solve-result schemas.
-3. Complete the licensed S/B/M datasets and competitor adapters/runners against
-   the common validator. Freeze the ten held-out maker jobs before any tuning.
+3. Complete the competitor adapters/runners against the common validator and
+   frozen S/B/M datasets. Keep the ten held-out maker jobs out of tuning.
 4. Build sheet optimisation against those measurements. Expose completed core
    capabilities through CLI, Workers and the five MCP tools as they become usable.
 
@@ -74,8 +82,9 @@ configured remote, hosted repository, release, registry publication or Pages dep
 On Windows with Rust 1.98.1, `python scripts/check.py` passed: formatting, Clippy
 with warnings treated as errors, 43 Rust tests (including the bounded geometry fuzz
 test and an actual MCP subprocess handshake), both WebAssembly builds,
-dependency-notice/schema consistency, sixteen Python harness/conversion/evidence tests,
-48 academic source-contract checks and fixture checksums. Two original five-second
+dependency-notice/schema consistency, nineteen Python harness/conversion/evidence tests,
+88 source-contract checks and fixture checksums. Four additional curve-conversion
+tests pass in the isolated maker environment. Two original five-second
 Sparrow jobs completed; records are appended to [BENCHMARKS.md](../BENCHMARKS.md).
 The schema was also checked against real CLI output locally. None of these checks
 establishes the independent geometry validity or published quality gates.

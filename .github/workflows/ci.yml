@@ -14,6 +14,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  maker-rebuild:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11.5'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.19.0'
+      - name: Prepare pinned isolated source generators
+        run: python scripts/maker_setup.py
+      - name: Verify curve bounds and exact maker rebuild
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            .cache/maker-venv/Scripts/python.exe scripts/test_maker_geometry.py
+          else
+            .cache/maker-venv/bin/python scripts/test_maker_geometry.py
+          fi
+          python scripts/maker_freeze.py --rebuild
+
   checks:
     strategy:
       fail-fast: false

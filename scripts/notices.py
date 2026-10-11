@@ -62,6 +62,8 @@ def render(historical=False, lbf=False):
         lines[16:16] = [
             "jagua-rs's unmodified LBF is a separately compiled MPL-2.0 benchmark executable.",
             "See benchmarks/lbf/UPSTREAM_LICENSE and its own THIRD_PARTY_NOTICES.", "",
+            "Maker dataset sources and isolated authoring tools retain their own licences.",
+            "See benchmarks/makers/README.md, sources.json and licenses/; none is linked into the app.", "",
         ]
     texts = {}
     for package in packages:

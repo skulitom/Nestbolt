@@ -26,8 +26,10 @@ def main():
         [sys.executable, "scripts/test_datasets.py"],
         [sys.executable, "scripts/test_benchmark_io.py"],
         [sys.executable, "scripts/test_lbf_report.py"],
+        [sys.executable, "scripts/maker_freeze.py", "--check"],
+        [sys.executable, "scripts/test_maker_freeze.py"],
         ["cargo", "run", "--quiet", "--locked", "-p", "nestbolt-validator", "--example", "check_jobs", "--",
-            *[str(path) for group in ["S", "B"] for path in sorted((ROOT / "benchmarks/datasets" / group).glob("*.json"))]],
+            *[str(path) for group in ["S", "B", "M"] for path in sorted((ROOT / "benchmarks/datasets" / group).glob("*.json"))]],
     ]
     if args.smoke:
         commands.append([sys.executable, "scripts/smoke.py"])
