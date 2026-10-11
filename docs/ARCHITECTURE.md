@@ -73,7 +73,10 @@ candidates align bounding corners and sampled convex/concave vertices of the
 inflated outlines; every candidate still passes the collision tree. A separate
 random stream preserves the ordinary placement quota, and cached anchors bound
 the cost for large contours. Later passes alternate translation/contact search
-with other orders and attempts at one fewer sheet.
+with other orders and attempts at one fewer sheet. Orders alternate between
+whole part types and individual copies; a complete unique `(part, copy)`
+permutation prevents duplicates or missing quantities. Both choices use fixed
+integer shuffles and are recorded in per-pass progress.
 Failed/incomplete trials are recorded without a score. This is still constructive
 repacking; overlap repair and neighbourhood moves across existing sheets remain.
 

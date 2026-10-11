@@ -30,7 +30,8 @@ and is not evidence for this future contract.
 Acceptance still requires real repeated-job tests, native/browser comparison,
 progress/cancellation and actual timeout behavior. These notes resolve the intended
 semantics. The constructor has an explicit seed and fixed sample count. Repacking
-has fixed passes, a specified integer shuffle, initial translation/contact comparisons,
+has fixed passes, specified integer shuffles over part types or individual copies,
+initial translation/contact comparisons,
 independent incumbent acceptance and per-pass progress. Native repeated-output
 tests cover both. These experimental quotas do not yet implement time-budget
 calibration, hard cancellation or the complete native/browser/MCP contract.

@@ -37,6 +37,60 @@ pub struct Options {
     pub free_rotations: u32,
 }
 
+#[cfg(test)]
+mod order_tests {
+    use super::*;
+
+    #[test]
+    fn interleaved_order_preserves_copy_identity_and_rejects_missing_or_duplicate_copies() {
+        let mut job: Job =
+            serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
+        for part in &mut job.parts {
+            part.quantity = 2;
+        }
+        job.stocks[0].count = None;
+        let original = serde_json::to_string(&job).unwrap();
+        let prepared = PreparedJob::new(&job).unwrap();
+        let order = [(2, 1), (0, 0), (1, 1), (2, 0), (1, 0), (0, 1)];
+        let run = |order: &[(usize, u32)]| {
+            prepared.construct_ordered(
+                Options {
+                    random_samples: 0,
+                    ..Options::default()
+                },
+                Some(order),
+                None,
+                Refinement::Contacts,
+            )
+        };
+        let result = run(&order).unwrap();
+        assert!(result.complete);
+        assert!(
+            nestbolt_validator::job::validate(&job, &result.layout)
+                .unwrap()
+                .valid
+        );
+        let identities: Vec<_> = result
+            .layout
+            .placements
+            .iter()
+            .map(|p| (p.part_id.as_str(), p.copy_index))
+            .collect();
+        let expected: Vec<_> = order
+            .iter()
+            .map(|&(index, copy)| (job.parts[index].id.as_str(), copy))
+            .collect();
+        assert_eq!(identities, expected);
+        assert_eq!(original, serde_json::to_string(&job).unwrap());
+        for replacement in [(2, 1), (0, 2), (3, 0)] {
+            let mut invalid = order;
+            invalid[5] = replacement;
+            assert!(run(&invalid).is_err());
+        }
+        assert!(run(&order[..5]).is_err());
+    }
+}
+
 impl Default for Options {
     fn default() -> Self {
         Self {
@@ -650,7 +704,7 @@ impl<'a> PreparedJob<'a> {
     pub(crate) fn construct_ordered(
         &self,
         options: Options,
-        part_order: Option<&[usize]>,
+        copy_order: Option<&[(usize, u32)]>,
         max_sheets: Option<usize>,
         refinement: Refinement,
     ) -> Result<Construction> {
@@ -680,15 +734,23 @@ impl<'a> PreparedJob<'a> {
                 .then(items[b].area().total_cmp(&items[a].area()))
                 .then(a.cmp(&b))
         });
-        if let Some(requested) = part_order {
+        let mut copies: Vec<_> = order
+            .into_iter()
+            .flat_map(|index| (0..job.parts[index].quantity).map(move |copy| (index, copy)))
+            .collect();
+        if let Some(requested) = copy_order {
             let unique: std::collections::BTreeSet<_> = requested.iter().copied().collect();
             ensure!(
-                requested.len() == items.len()
-                    && unique.len() == items.len()
-                    && unique.iter().all(|&i| i < items.len()),
-                "search order must contain every part type exactly once"
+                requested.len() == copies.len()
+                    && unique.len() == copies.len()
+                    && unique.iter().all(|&(index, copy)| {
+                        job.parts
+                            .get(index)
+                            .is_some_and(|part| copy < part.quantity)
+                    }),
+                "search order must contain every requested part copy exactly once"
             );
-            order = requested.to_vec();
+            copies = requested.to_vec();
         }
         let mut stock_order: Vec<_> = (0..job.stocks.len()).collect();
         stock_order.sort_by(|&a, &b| {
@@ -705,10 +767,60 @@ impl<'a> PreparedJob<'a> {
             checks: 0,
             surrogate_rejections: 0,
         };
-        for index in order {
-            for copy in 0..job.parts[index].quantity {
-                let mut found = None;
-                for (sheet_index, sheet) in open.iter().enumerate() {
+        for (index, copy) in copies {
+            let mut found = None;
+            for (sheet_index, sheet) in open.iter().enumerate() {
+                for (region_index, region) in sheet.regions.iter().enumerate() {
+                    if let Some(candidate) = search(
+                        region,
+                        &items[index],
+                        &job.parts[index],
+                        options,
+                        &mut state,
+                    )? {
+                        found = Some((sheet_index, region_index, candidate));
+                        break;
+                    }
+                }
+                if found.is_some() {
+                    break;
+                }
+            }
+            if found.is_none() && max_sheets.is_none_or(|limit| open.len() < limit) {
+                for &stock in &stock_order {
+                    if job.stocks[stock]
+                        .count
+                        .is_some_and(|limit| stock_used[stock] >= limit)
+                    {
+                        continue;
+                    }
+                    let sheet = OpenSheet {
+                        stock,
+                        regions: containers[stock]
+                            .iter()
+                            .cloned()
+                            .map(|c| {
+                                // CDE's tree uses an inflated square, not the
+                                // usable sheet extent. Anchor to the actual
+                                // contour and margin-zone offsets instead.
+                                let b = c.outer_cd().bbox();
+                                let s = &job.stocks[stock];
+                                let half = separation / 2.0;
+                                Region {
+                                    nudge: guard as f32,
+                                    search_bounds: [
+                                        b.x_min.max((s.margins.left + half) as f32),
+                                        b.y_min.max((s.margins.bottom + half) as f32),
+                                        b.x_max.min((s.width - s.margins.right - half) as f32),
+                                        b.y_max.min((s.height - s.margins.top - half) as f32),
+                                    ],
+                                    layout: SearchLayout::new(c),
+                                    boxes: vec![],
+                                    contact_anchors: vec![],
+                                }
+                            })
+                            .collect(),
+                    };
                     for (region_index, region) in sheet.regions.iter().enumerate() {
                         if let Some(candidate) = search(
                             region,
@@ -717,92 +829,39 @@ impl<'a> PreparedJob<'a> {
                             options,
                             &mut state,
                         )? {
-                            found = Some((sheet_index, region_index, candidate));
+                            found = Some((open.len(), region_index, candidate));
                             break;
                         }
                     }
                     if found.is_some() {
+                        layout.sheets.push(Sheet {
+                            id: format!("sheet-{}", open.len()),
+                            stock_id: job.stocks[stock].id.clone(),
+                        });
+                        stock_used[stock] += 1;
+                        open.push(sheet);
                         break;
                     }
                 }
-                if found.is_none() && max_sheets.is_none_or(|limit| open.len() < limit) {
-                    for &stock in &stock_order {
-                        if job.stocks[stock]
-                            .count
-                            .is_some_and(|limit| stock_used[stock] >= limit)
-                        {
-                            continue;
-                        }
-                        let sheet = OpenSheet {
-                            stock,
-                            regions: containers[stock]
-                                .iter()
-                                .cloned()
-                                .map(|c| {
-                                    // CDE's tree uses an inflated square, not the
-                                    // usable sheet extent. Anchor to the actual
-                                    // contour and margin-zone offsets instead.
-                                    let b = c.outer_cd().bbox();
-                                    let s = &job.stocks[stock];
-                                    let half = separation / 2.0;
-                                    Region {
-                                        nudge: guard as f32,
-                                        search_bounds: [
-                                            b.x_min.max((s.margins.left + half) as f32),
-                                            b.y_min.max((s.margins.bottom + half) as f32),
-                                            b.x_max.min((s.width - s.margins.right - half) as f32),
-                                            b.y_max.min((s.height - s.margins.top - half) as f32),
-                                        ],
-                                        layout: SearchLayout::new(c),
-                                        boxes: vec![],
-                                        contact_anchors: vec![],
-                                    }
-                                })
-                                .collect(),
-                        };
-                        for (region_index, region) in sheet.regions.iter().enumerate() {
-                            if let Some(candidate) = search(
-                                region,
-                                &items[index],
-                                &job.parts[index],
-                                options,
-                                &mut state,
-                            )? {
-                                found = Some((open.len(), region_index, candidate));
-                                break;
-                            }
-                        }
-                        if found.is_some() {
-                            layout.sheets.push(Sheet {
-                                id: format!("sheet-{}", open.len()),
-                                stock_id: job.stocks[stock].id.clone(),
-                            });
-                            stock_used[stock] += 1;
-                            open.push(sheet);
-                            break;
-                        }
-                    }
+            }
+            if let Some((sheet, region, mut candidate)) = found {
+                let active = &mut open[sheet].regions[region];
+                if refinement != Refinement::None {
+                    candidate = refine_translation(active, &items[index], candidate, &mut state);
                 }
-                if let Some((sheet, region, mut candidate)) = found {
-                    let active = &mut open[sheet].regions[region];
-                    if refinement != Refinement::None {
-                        candidate =
-                            refine_translation(active, &items[index], candidate, &mut state);
-                    }
-                    let key = active.layout.place_item(&items[index], candidate.internal);
-                    if refinement == Refinement::Contacts {
-                        active
-                            .contact_anchors
-                            .extend(contact_anchors(active.layout.placed_items()[key].shape()));
-                    }
-                    active.boxes.push(candidate.bounds);
-                    layout.placements.push(Placement {
-                        part_id: job.parts[index].id.clone(),
-                        copy_index: copy,
-                        sheet_id: layout.sheets[sheet].id.clone(),
-                        transform: candidate.external,
-                    });
+                let key = active.layout.place_item(&items[index], candidate.internal);
+                if refinement == Refinement::Contacts {
+                    active
+                        .contact_anchors
+                        .extend(contact_anchors(active.layout.placed_items()[key].shape()));
                 }
+                active.boxes.push(candidate.bounds);
+                layout.placements.push(Placement {
+                    part_id: job.parts[index].id.clone(),
+                    copy_index: copy,
+                    sheet_id: layout.sheets[sheet].id.clone(),
+                    transform: candidate.external,
+                });
             }
         }
         let unplaced =

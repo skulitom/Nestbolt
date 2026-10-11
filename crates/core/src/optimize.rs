@@ -18,6 +18,7 @@ pub struct Progress {
     pub pass: u32,
     pub stage: &'static str,
     pub contact_search: bool,
+    pub interleaved_copies: bool,
     pub seed: u64,
     pub sheet_limit: Option<usize>,
     pub complete: bool,
@@ -117,10 +118,22 @@ pub fn optimize(
         } else {
             Refinement::Translation
         };
+        let interleaved_copies = pass >= 3 && pass % 4 >= 2;
         let mut candidate = if pass == 0 {
             None
         } else {
-            let order = shuffled_order(job.parts.len(), trial_seed);
+            let grouped: Vec<_> = shuffled_order(job.parts.len(), trial_seed)
+                .into_iter()
+                .flat_map(|index| (0..job.parts[index].quantity).map(move |copy| (index, copy)))
+                .collect();
+            let order = if interleaved_copies {
+                shuffled_order(grouped.len(), trial_seed ^ 0xd1b54a32d192ed03)
+                    .into_iter()
+                    .map(|index| grouped[index])
+                    .collect()
+            } else {
+                grouped
+            };
             Some(prepared.construct_ordered(
                 ConstructOptions {
                     seed: trial_seed,
@@ -164,6 +177,7 @@ pub fn optimize(
                 "repack"
             },
             contact_search: refinement == Refinement::Contacts,
+            interleaved_copies,
             seed: trial_seed,
             sheet_limit,
             complete: current.complete,
@@ -182,7 +196,7 @@ pub fn optimize(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v4",
+        algorithm: "nestbolt-repack-v5",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: options.passes,
