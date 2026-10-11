@@ -57,8 +57,14 @@ def main():
             "units": "unitless", "strip_height": job["strip_height"], "part_count": quantities,
             "original_publication_index": BASE + "Cutting-and-Packing/2D-Irregular/README.md"})
     licence_path = ROOT / "benchmarks/sources/OR_DATASETS_LICENSE"
-    licence, licence_hash, licence_url = fetch("LICENSE", licence_path, frozen["licence_sha256"] if frozen else None)
+    licence, licence_hash, licence_url = fetch("LICENSE", CACHE / "SOURCE_LICENSE", frozen["licence_sha256"] if frozen else None)
     assert licence.decode("utf-8").startswith("MIT License")
+    notice = licence.decode("utf-8").replace("\r\n", "\n")
+    if args.freeze:
+        licence_path.parent.mkdir(parents=True, exist_ok=True)
+        licence_path.write_text(notice, encoding="utf-8", newline="\n")
+    else:
+        assert licence_path.read_text(encoding="utf-8") == notice, "Retained licence text differs from source"
     _, provenance_hash, provenance_url = fetch("Cutting-and-Packing/2D-Irregular/README.md",
         CACHE / "PROVENANCE.md", frozen["provenance_sha256"] if frozen else None)
     result = {"schema_version": 1, "repository": "https://github.com/Oscar-Oliveira/OR-Datasets",
