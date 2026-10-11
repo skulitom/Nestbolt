@@ -1,0 +1,589 @@
+{
+  "recorded_at": "2026-10-11T21:00:18.661745+00:00",
+  "kind": "provisional_svgnest_baseline",
+  "scope": "Provisional single-seed SVGnest baseline for 3 of 35 B jobs; not M1 or a Nestbolt quality gate.",
+  "batch_sha256": "6ba445b80e54c4e3148e3da39e48dddd7df6f4f5078fb7c6951b4bfcecdb07c7",
+  "batch": {
+    "batch_id": "20261011T205540Z-10313e98",
+    "kind": "provisional_svgnest_baseline",
+    "dataset": "B",
+    "dataset_manifest_sha256": "8409fc41a1971515c74e85a213db5c38ee0634a45d9651ab72b0fc5be2ce113d",
+    "cases": [
+      {
+        "id": "b-albano-nest-mb-free",
+        "set": "B",
+        "path": "B/b-albano-nest-mb-free.json",
+        "sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+        "source": "albano",
+        "source_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/ALBANO/json/albano.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 4551.0,
+        "printed_table_1_side": 4551,
+        "rotation_overrides": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "published_name": "albano",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 3,
+          "mean_squared_utilization": 0.51,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-albano-nest-mb-given",
+        "set": "B",
+        "path": "B/b-albano-nest-mb-given.json",
+        "sha256": "c91864a40a561d14461c5c20ad91a2e4560a631d1f5965f5c788b9cfdde49607",
+        "source": "albano",
+        "source_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/ALBANO/json/albano.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Reconstruction of Martinez-Sykora et al. (2017), section 6.1 Nest-MB: square side = 1.5 * maximum initial part bbox dimension, using pinned OR-Datasets contours. Rotation rule follows Table 1 / Table 5. No scaling, simplification or sheet rounding.",
+        "metric": "normalized_material",
+        "published_instance": "reconstructed",
+        "publication": "https://doi.org/10.1016/j.ejor.2016.09.043",
+        "publication_table": 5,
+        "sheet_side": 4551.0,
+        "printed_table_1_side": 4551,
+        "rotation_overrides": [],
+        "published_name": "albano",
+        "published_result": {
+          "algorithm": "PBP",
+          "bins": 3,
+          "mean_squared_utilization": 0.48,
+          "kind": "reported context; not a verified global best-known result",
+          "comparable_to_nestbolt_material": false
+        }
+      },
+      {
+        "id": "b-albano-strip-sheet",
+        "set": "B",
+        "path": "B/b-albano-strip-sheet.json",
+        "sha256": "4cf7cf74854865b1bac6b4487fcfb1ec2b6440c336fe006fd3d451341b959988",
+        "source": "albano",
+        "source_sha256": "cf26a244040ef1a49be1b5f9c947ab0ba14046dcaefdc844d6d57d96970a7542",
+        "source_url": "https://raw.githubusercontent.com/Oscar-Oliveira/OR-Datasets/e2e151cf241ab97d860f657cbfe515232e7096d7/Cutting-and-Packing/2D-Irregular/Datasets/ALBANO/json/albano.json",
+        "declared_licence": "MIT",
+        "licence_scope": "OR-Datasets converted collection",
+        "units": "unitless",
+        "part_count": 24,
+        "held_out": false,
+        "construction": "Nestbolt-derived fixed sheets: X length = twice the maximum initial part bbox dimension; Y height = original strip height. Original rotations, unlimited identical stock.",
+        "metric": "normalized_material",
+        "published_instance": false,
+        "sheet_length": 6068.0,
+        "strip_height": 4900.0
+      }
+    ],
+    "sources": {
+      "scripts/svgnest.py": "9ba637da0a8d6ea33770eccae46400a532be8af33e3a455cd6203a413dd26b93",
+      "scripts/svgnest_io.py": "c35749f2435772a005f62f7dae5cafbb39ec4f2f377f0a6e2194f6ced6c3b88f",
+      "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+      "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+      "benchmarks/browser/svgnest.mjs": "823ad9cdcbca5221b40e0080616053dc76598993c534fae0fb5b19ee46c59d62",
+      "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+      "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+      "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+      "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+      "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+    },
+    "seed": 0,
+    "seconds": 60,
+    "axis": "y",
+    "settings": "expanded",
+    "complete": true,
+    "runs": [
+      {
+        "job": "b-albano-nest-mb-free",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T205540Z-0970bd5b/run.json",
+        "sha256": "ac6a820d328146e5b7d00e6e07646acbc9bdef3cd0860adb5866408251ef1402"
+      },
+      {
+        "job": "b-albano-nest-mb-given",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T205648Z-48813117/run.json",
+        "sha256": "fbae47b67b3644add59e3ef42eeb7df7fa5d9f066b99353da7321503d92bff6e"
+      },
+      {
+        "job": "b-albano-strip-sheet",
+        "status": "valid",
+        "record": "output/playwright/svgnest/20261011T205754Z-50ae1013/run.json",
+        "sha256": "bcde276d084fc82bce70e78592b6ecde70bed20b64a1b715d5dff241e4f7e75d"
+      }
+    ],
+    "valid_runs": 3
+  },
+  "rows": [
+    {
+      "job": "b-albano-nest-mb-free",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T205540Z-0970bd5b/run.json",
+      "sha256": "ac6a820d328146e5b7d00e6e07646acbc9bdef3cd0860adb5866408251ef1402",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T205540Z-0970bd5b",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-albano-nest-mb-free",
+        "job_sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 3.3564093236651282,
+        "output_decoding": "native_svg_attributes_v2",
+        "started_at": "2026-10-11T20:55:40.580536+00:00",
+        "commit": "8c7783c867cceaa93a5b7dbd683806a0d73a03d0",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "9ba637da0a8d6ea33770eccae46400a532be8af33e3a455cd6203a413dd26b93",
+          "scripts/svgnest_io.py": "c35749f2435772a005f62f7dae5cafbb39ec4f2f377f0a6e2194f6ced6c3b88f",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "823ad9cdcbca5221b40e0080616053dc76598993c534fae0fb5b19ee46c59d62",
+          "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [
+          "Native finite-angle search uses 36 equally spaced angles within the allowed free rotations."
+        ],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 36,
+          "spacing": 0
+        },
+        "validator_sha256": "e65dc6d6798894b3f637ac299844a6c481f17db647fb94b63840b4a545ccbedf",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1",
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1",
+            "pid": 4364,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 87288,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 82068,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 59056,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 98352,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 99456,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 104996,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 3,
+        "controller_solve_ms": 60003.0579,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 4,
+          "placed_parts": 24,
+          "requested_parts": 24,
+          "placed_area": 42656785.0,
+          "placed_priority": 24.0,
+          "full_stock_area": 82846404.0,
+          "material_area": 69516610.704432,
+          "normalized_material": 3.3564093236651282,
+          "utilization": 0.6136200336544951,
+          "trailing_offcut_area": 13329793.295568,
+          "last_sheet_id": "sheet-3",
+          "last_sheet_used_height": 1622.018832
+        },
+        "finished_at": "2026-10-11T20:56:48.670874+00:00",
+        "outputs": {
+          "browser-result.json": "900b8045829fe3bd480048f246b660b269114e403c5efb03e543e208e8a8a4db",
+          "candidates.jsonl": "0bfd19a2bd6f35ce0c2495c2e5cd8aa517962f7cc87be294384838169ecb1ae8",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "08b82210406fa1a0a3694da84e0bcb76fbde03d179d56346bd3610a2d6713d2b",
+          "job.json": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+          "layout.json": "c62c4d7a794dfcbb6219bd39548c61853013461ca2eed6e656c1777445ca98a7",
+          "native-sheet-0.svg": "dcce3c2d68ebc479be1104ef09ac386e7106a1d6428d9310719a0f13dea6f45b",
+          "native-sheet-1.svg": "4535e88e276202298b38d00a0c41ae2593716d45bcf93eb96298763fc2a1bda4",
+          "native-sheet-2.svg": "9275765baaed9c3accb9b47a1345f3b11b4531d7c28dc3f1962ad85897390287",
+          "native-sheet-3.svg": "99779b059122aa43b1fbe00ac6f1a4ecfb409e622531e370edaf31f2dea4e4ae",
+          "request.json": "a7b2c4bfc2cec2ac205818e3040bbab5aec24603be3b161de13bf6bf6e7a8db2",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "92cc8e86817d862f00fe9197bda4a508a3275c458a98d859dac18616c5a22537",
+          "validation.json": "6afb4b64388a6a757863a2067a4a14dc1f8fac7e2eb203445ed69da614f9d1c8"
+        }
+      }
+    },
+    {
+      "job": "b-albano-nest-mb-given",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T205648Z-48813117/run.json",
+      "sha256": "fbae47b67b3644add59e3ef42eeb7df7fa5d9f066b99353da7321503d92bff6e",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T205648Z-48813117",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-albano-nest-mb-given",
+        "job_sha256": "c91864a40a561d14461c5c20ad91a2e4560a631d1f5965f5c788b9cfdde49607",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 4.161722698308064,
+        "output_decoding": "native_svg_attributes_v2",
+        "started_at": "2026-10-11T20:56:48.833865+00:00",
+        "commit": "8c7783c867cceaa93a5b7dbd683806a0d73a03d0",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "9ba637da0a8d6ea33770eccae46400a532be8af33e3a455cd6203a413dd26b93",
+          "scripts/svgnest_io.py": "c35749f2435772a005f62f7dae5cafbb39ec4f2f377f0a6e2194f6ced6c3b88f",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "823ad9cdcbca5221b40e0080616053dc76598993c534fae0fb5b19ee46c59d62",
+          "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 2,
+          "spacing": 0
+        },
+        "validator_sha256": "e65dc6d6798894b3f637ac299844a6c481f17db647fb94b63840b4a545ccbedf",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1",
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1",
+            "pid": 94148,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 77672,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 89464,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 63632,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 76532,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 47556,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 84808,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 11,
+        "controller_solve_ms": 60009.3333,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 5,
+          "placed_parts": 24,
+          "requested_parts": 24,
+          "placed_area": 42656785.0,
+          "placed_priority": 24.0,
+          "full_stock_area": 103558005.0,
+          "material_area": 86195940.0,
+          "normalized_material": 4.161722698308064,
+          "utilization": 0.4948816034722749,
+          "trailing_offcut_area": 17362065.0,
+          "last_sheet_id": "sheet-4",
+          "last_sheet_used_height": 736.0
+        },
+        "finished_at": "2026-10-11T20:57:54.125874+00:00",
+        "outputs": {
+          "browser-result.json": "b63741cef8cd1623d8c560f1094c3cb0ba294b5b5a0a2277e91c2e90464177df",
+          "candidates.jsonl": "5d04f6676542b0d3081d9defed7fff26f0eadc27eebea96c1f1aab83cb298dda",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "08b82210406fa1a0a3694da84e0bcb76fbde03d179d56346bd3610a2d6713d2b",
+          "job.json": "c91864a40a561d14461c5c20ad91a2e4560a631d1f5965f5c788b9cfdde49607",
+          "layout.json": "eee2a511884779a1ae1f2283c8f6060c912537c17588b6fdf9e99f0be8388dab",
+          "native-sheet-0.svg": "198ec3b00054f50935ded1a67072439f1582029fd9470e553ca683b0ca0d4d83",
+          "native-sheet-1.svg": "48ecf71bf008c5aa98ca07ad692c658da487e11e554d2b0cd89f98476c9ff651",
+          "native-sheet-2.svg": "8663f00fc28bebdf455d5a87e21fd6e6615cdd11e8c0b39e19229a8c014e8063",
+          "native-sheet-3.svg": "cd1acde63f8768078b577c89b9878567fd5e4d9cdb16e3ed0c068a1f6ab99a8d",
+          "native-sheet-4.svg": "260fd72f435629120eca518c6bddf70f8af4cc5eccf08aaab4ef50ea9ebc685e",
+          "request.json": "4fbf276dff2d53f0876fbc2adde9691c9a818cbbda90630ba097a8bcbdd1d5b8",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "8deac24308f20a6bace98d537c36678d1f4c2b1343401143003ae01efb15622e",
+          "validation.json": "47a1d4847df63851f5390e87d7a5746de5d7324645610fd6e139ef2fc89c86c9"
+        }
+      }
+    },
+    {
+      "job": "b-albano-strip-sheet",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261011T205754Z-50ae1013/run.json",
+      "sha256": "bcde276d084fc82bce70e78592b6ecde70bed20b64a1b715d5dff241e4f7e75d",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261011T205754Z-50ae1013",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "b-albano-strip-sheet",
+        "job_sha256": "4cf7cf74854865b1bac6b4487fcfb1ec2b6440c336fe006fd3d451341b959988",
+        "seed": 0,
+        "seconds": 60,
+        "settings": "expanded",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 3.150204081632653,
+        "output_decoding": "native_svg_attributes_v2",
+        "started_at": "2026-10-11T20:57:54.299719+00:00",
+        "commit": "8c7783c867cceaa93a5b7dbd683806a0d73a03d0",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "9ba637da0a8d6ea33770eccae46400a532be8af33e3a455cd6203a413dd26b93",
+          "scripts/svgnest_io.py": "c35749f2435772a005f62f7dae5cafbb39ec4f2f377f0a6e2194f6ced6c3b88f",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "823ad9cdcbca5221b40e0080616053dc76598993c534fae0fb5b19ee46c59d62",
+          "benchmarks/browser/cpu-limit.mjs": "8c95179254a1f2116db3c13895b5612b34e3c18536fca5dd11bc48120b567c61",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": true,
+          "rotations": 2,
+          "spacing": 0
+        },
+        "validator_sha256": "e65dc6d6798894b3f637ac299844a6c481f17db647fb94b63840b4a545ccbedf",
+        "validator_sources": {
+          "Cargo.lock": "a463d1672a403144e661a4172ce6673baa135eadd9a16370466131ce54a3ce57",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1",
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1",
+            "pid": 88392,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 95744,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 97832,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 100692,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 92808,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 84696,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 69512,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 7,
+        "controller_solve_ms": 60000.4347,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 4,
+          "placed_parts": 24,
+          "requested_parts": 24,
+          "placed_area": 42656785.0,
+          "placed_priority": 24.0,
+          "full_stock_area": 118932800.0,
+          "material_area": 93665648.0,
+          "normalized_material": 3.150204081632653,
+          "utilization": 0.4554154688600457,
+          "trailing_offcut_area": 25267152.0,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 736.0
+        },
+        "finished_at": "2026-10-11T20:58:59.448355+00:00",
+        "outputs": {
+          "browser-result.json": "f697a4b8379158fde65b83941a15774ffb396a7fdb8d5a42b584b707360ec87c",
+          "candidates.jsonl": "dfb519363c5298ad2ffe2d845e81f84f3f56d715da0ed043469d009efbaf410b",
+          "empty-layout.json": "dddc4f84c676b43cc233b8704b732e6f436ffcd226f678f82af2790f9caa53cd",
+          "input.svg": "a13f4a25ea702ffa0e9b6fd5dcaf02bb7179bec2645ea53687dee2b3d95bc548",
+          "job.json": "4cf7cf74854865b1bac6b4487fcfb1ec2b6440c336fe006fd3d451341b959988",
+          "layout.json": "12ca934c6cc705804a8185c6c99737affd22d8f2e9a82bc8a95fbba9b7956660",
+          "native-sheet-0.svg": "c0d5376bee59551994a75f0f70b26fc7d6f9a1158ae25af7ec3cd94ff8a90349",
+          "native-sheet-1.svg": "936db265f32f5f27b2d09a2728cec4b601120b58064a1c80e38281784969acb6",
+          "native-sheet-2.svg": "d87659b242087c9c216caaf53620285f69297b8614d5b757a310097fa1645101",
+          "native-sheet-3.svg": "23efd5de5881019a3e09761088ceb395a724296c2049401db41d381cfd0fbf3e",
+          "request.json": "2248c63f72f1a4ba83ea964c01dccc26e6c83bca4c42783499eb295f22a59fed",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "bd45d0f0266a8cda18c73e1b67bd8a84e376ac2faa11a0f80474de2e9b0d3814",
+          "validation.json": "35a1173c2daf60f3cd56979e2a5893efd6eda7ee91b2c8841886fc037ccab9f9"
+        }
+      }
+    }
+  ]
+}

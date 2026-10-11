@@ -2,6 +2,7 @@
 from copy import deepcopy
 import json
 import math
+import re
 from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
@@ -34,7 +35,7 @@ class DeepnestAdapterTests(unittest.TestCase):
             self.assertEqual(native['quantity'], part['quantity'])
             component = part['geometry'][0]
             for node, ring in zip(ET.fromstring(native['svg']), [component['outer'], *component['holes']], strict=True):
-                points = [[float(n) for n in point.split(',')] for point in node.attrib['points'].split()]
+                points = [[float(x),float(y)] for x,y in re.findall(r'[ML]([^ ,]+)[ ,]([^ MLZ]+)', node.attrib['d'])]
                 self.assertEqual(points, [[y,-x] for x,y in ring])
 
     def test_mixed_stock_caps_and_native_negative_offset_behavior(self):
@@ -47,7 +48,7 @@ class DeepnestAdapterTests(unittest.TestCase):
             self.assertEqual(len(prepared['stocks']), 6)
             self.assertEqual(prepared['stocks']['0001-0001']['stock_id'], 'small')
             inputs = prepared['imports'][-1]
-            corners = [[float(n) for n in point.split(',')] for point in list(ET.fromstring(inputs['svg']))[0].attrib['points'].split()]
+            corners = [[float(x),float(y)] for x,y in re.findall(r'[ML]([^ ,]+)[ ,]([^ MLZ]+)', list(ET.fromstring(inputs['svg']))[0].attrib['d'])]
             expected = [200-3-5-14+4,100-11-13-14+4]
             self.assertEqual(corners[2], expected if axis == 'x' else expected[::-1])
 
@@ -94,6 +95,29 @@ class DeepnestAdapterTests(unittest.TestCase):
             if change == 'disconnected': source['parts'][0]['geometry'] *= 2
             if change == 'angles': source['parts'][0]['rotations']['degrees'] = [0,45,180]
             with self.assertRaises(UnsupportedJob): prepare(source, SETTINGS)
+
+    def test_prepared_remnant_keeps_one_physical_sheet_and_its_original_frame(self):
+        source = job()
+        geometry = {'outer':[[10,20],[110,20],[110,60],[60,60],[60,90],[10,90]],
+                    'holes':[[[30,30],[40,30],[40,40],[30,40]]]}
+        source['stocks'][0]['outline'] = [geometry]
+        source['stocks'][0]['count'] = 1
+        converted = [{'id':source['stocks'][0]['id'],'geometry':[geometry], 'grid':1e-6,'inset':5}]
+        for axis in ['x','y']:
+            prepared = prepare(source,SETTINGS,axis,converted)
+            self.assertEqual(len(prepared['stocks']),1)
+            self.assertEqual(prepared['imports'][-1]['hole_count'],1)
+            stock = prepared['stocks']['0000-0000']
+            self.assertEqual(stock['origin'], [10,20] if axis == 'x' else [20,490])
+            native = placement(prepared,x=3,y=7,angle=0)
+            placed = layout(prepared,native)['placements'][0]['transform']['translation']
+            self.assertEqual(placed,[13,27] if axis == 'x' else [103,23])
+        converted[0]['geometry'] *= 2
+        with self.assertRaisesRegex(UnsupportedJob,'connected usable region'):
+            prepare(source,SETTINGS,'y',converted)
+        converted[0]['id']='invented'
+        with self.assertRaisesRegex(ValueError,'identities'):
+            prepare(source,SETTINGS,'y',converted)
 
 
 if __name__ == '__main__':

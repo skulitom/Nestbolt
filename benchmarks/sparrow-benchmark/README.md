@@ -11,6 +11,8 @@ including jagua-rs's MPL-2.0 terms, are retained here. No solver source is chang
 python scripts/sparrow_benchmark.py build
 python scripts/sparrow_benchmark.py run --job benchmarks/datasets/S/s-fu-strip.json --seconds 60 --seed 0 --axis x
 python scripts/sparrow_benchmark.py run --job benchmarks/fixtures/sparrow-edge-gap.json --seconds 5 --axis y
+python scripts/sparrow_benchmark.py batch --dataset S --count 13 --seconds 60 --seed 0 --axis x
+python scripts/comparator_batch_report.py --tool sparrow --batch output/sparrow-batches/<batch-id>/batch.json
 ```
 
 The upstream command's time limit covers its exploration and compression phases

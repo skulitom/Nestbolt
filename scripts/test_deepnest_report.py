@@ -49,6 +49,21 @@ class DeepnestEvidenceTests(unittest.TestCase):
                 path,checksum=self.fixture(Path(temp),change)
                 with self.assertRaises(ValueError):audit_record(path,checksum)
 
+    def test_parser_fidelity_and_stock_derivation_require_matching_evidence(self):
+        for change in [lambda run,raw:run.update(input_encoding='linear_svg_paths_v2'),
+                       lambda run,raw:run.update(stock_preparation={'output_sha256':'invented','input_job_sha256':'invented'})]:
+            with tempfile.TemporaryDirectory() as temp:
+                path,checksum=self.fixture(Path(temp),change)
+                with self.assertRaises(ValueError):audit_record(path,checksum)
+        def proof(run,raw):
+            run['input_encoding']='linear_svg_paths_v2'
+            value={'encoding':'linear_svg_paths_v2','coordinates':8,'maximum_absolute_error':0,
+                   'maximum_scaled_error':0,'scaled_error_limit':8,'error_scale':'Number.EPSILON * max(1, abs(source_coordinate))'}
+            run['input_fidelity']=raw['input_fidelity']=raw['imported']['input_fidelity']=value
+        with tempfile.TemporaryDirectory() as temp:
+            path,checksum=self.fixture(Path(temp),proof)
+            audit_record(path,checksum)
+
 
 if __name__ == '__main__':
     unittest.main()

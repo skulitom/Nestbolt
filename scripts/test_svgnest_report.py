@@ -64,6 +64,17 @@ class SvgNestEvidenceTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     audit_record(path, checksum)
 
+    def test_exact_path_input_claim_requires_observed_parser_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path, checksum = self.make_record(Path(temp), lambda run,raw:run.update(input_encoding='linear_svg_paths_v2'))
+            with self.assertRaisesRegex(ValueError,'input fidelity'): audit_record(path,checksum)
+        with tempfile.TemporaryDirectory() as temp:
+            def controls(run,raw):
+                run['input_encoding']='linear_svg_paths_v2'
+                run['input_fidelity']=raw['input_fidelity']={'encoding':'linear_svg_paths_v2','coordinates':8,'maximum_absolute_error':0}
+            path,checksum=self.make_record(Path(temp),controls)
+            audit_record(path,checksum)
+
 
 if __name__ == '__main__':
     unittest.main()

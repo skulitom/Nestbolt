@@ -26,6 +26,10 @@ def audit_record(path, expected_hash):
             raise ValueError('Valid run is missing independent evidence')
         checked = json.loads((path.parent / 'validation.json').read_bytes())
         raw = json.loads((path.parent / 'browser-result.json').read_bytes())
+        if run.get('input_encoding') == 'linear_svg_paths_v2':
+            proof = raw.get('input_fidelity')
+            if not proof or proof != run.get('input_fidelity') or proof.get('encoding') != run['input_encoding'] or proof.get('maximum_absolute_error') != 0 or proof.get('coordinates',0) < 6:
+                raise ValueError('Native input fidelity was not verified')
         if not checked['valid'] or run['validator_exit_code'] != 0 or run['metrics'] != checked['metrics'] or run['score'] != checked['metrics']['normalized_material']:
             raise ValueError('Recorded score differs from independent validation')
         if raw['status'] != 'completed' or raw['errors'] or raw['last']['elapsed_ms'] > run['seconds'] * 1000:

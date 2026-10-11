@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "name": "deepnest-stock-hole-smoke",
+  "units": "mm",
+  "parts": [
+    {
+      "id": "plate",
+      "quantity": 6,
+      "geometry": [
+        {
+          "outer": [
+            [
+              0.123456789,
+              0.987654321
+            ],
+            [
+              12.123456789,
+              0.987654321
+            ],
+            [
+              12.123456789,
+              10.987654321
+            ],
+            [
+              0.123456789,
+              10.987654321
+            ]
+          ],
+          "holes": []
+        }
+      ],
+      "rotations": {
+        "kind": "list",
+        "degrees": [
+          0,
+          90,
+          180,
+          270
+        ]
+      },
+      "allow_mirror": false,
+      "priority": 1
+    }
+  ],
+  "stocks": [
+    {
+      "id": "defective-sheet",
+      "width": 180,
+      "height": 120,
+      "count": 1,
+      "margins": {
+        "left": 3,
+        "right": 5,
+        "bottom": 11,
+        "top": 13
+      },
+      "outline": [],
+      "defects": [
+        {
+          "outer": [
+            [
+              25,
+              25
+            ],
+            [
+              105,
+              25
+            ],
+            [
+              105,
+              85
+            ],
+            [
+              25,
+              85
+            ]
+          ],
+          "holes": []
+        }
+      ]
+    }
+  ],
+  "clearance": 4,
+  "edge_clearance": 7,
+  "mode": "all"
+}

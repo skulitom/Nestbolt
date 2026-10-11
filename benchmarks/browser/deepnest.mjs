@@ -117,7 +117,49 @@ try {
     if (window.DeepNest.parts.length !== 0) throw new Error('Nonempty isolated profile at import')
     DeepNest.config(prepared.config)
     const evidence = []
+    let coordinates = 0, contours = 0, maximumAbsoluteError = 0, maximumScaledError = 0
+    const trimClosed = ring => {
+      const points = ring.slice()
+      while(points.length > 1 && points[0][0] === points.at(-1)[0] && points[0][1] === points.at(-1)[1]) points.pop()
+      return points
+    }
+    const ringError = (a,b) => {
+      if(a.length !== b.length) return null
+      // The upstream decimal parser sums digits rather than using parseFloat;
+      // allow eight double-precision rounding units, never float32 truncation.
+      const scaled = (x,y) => Math.abs(x-y)/(Number.EPSILON*Math.max(1,Math.abs(x)))
+      for(let start=0;start<b.length;start++) {
+        if(scaled(a[0][0],b[start][0]) > 8 || scaled(a[0][1],b[start][1]) > 8) continue
+        for(const direction of [1,-1]) {
+          let absolute = 0, relative = 0
+          for(let i=0;i<a.length;i++)for(let axis=0;axis<2;axis++) {
+            const x=a[i][axis], y=b[(start+direction*i+b.length)%b.length][axis]
+            absolute=Math.max(absolute,Math.abs(x-y)); relative=Math.max(relative,scaled(x,y))
+          }
+          if(relative <= 8) return {absolute,relative}
+        }
+      }
+      return null
+    }
     for (const source of prepared.imports) {
+      // Check the public parser before Deepnest's own cleanPolygon operation.
+      // Chromium polygon objects use float32; straight path segments avoid that
+      // loss without changing any upstream solver or cleanup implementation.
+      SvgParser.load(null, source.svg, DeepNest.config().scale, undefined)
+      const parsed = SvgParser.cleanInput(false)
+      const actual = Array.from(parsed.children).filter(el => SvgParser.polygonElements.includes(el.tagName))
+        .map(el => trimClosed(SvgParser.polygonify(el).map(p => [p.x,p.y])))
+      if (actual.length !== source.source_rings.length) throw new Error('Native parser changed input contour count')
+      for (const expected of source.source_rings.map(trimClosed)) {
+        const errors = actual.map(ring => ringError(expected, ring))
+        const index = errors.findIndex(error => error !== null)
+        if(index < 0) throw new Error(`Native parser changed source coordinates: source ${source.source}; expected ${JSON.stringify(expected.slice(0,8))}; observed ${JSON.stringify(actual.map(r => r.slice(0,8)))}`)
+        maximumAbsoluteError=Math.max(maximumAbsoluteError,errors[index].absolute)
+        maximumScaledError=Math.max(maximumScaledError,errors[index].relative)
+        actual.splice(index,1)
+        coordinates += expected.length*2
+        contours++
+      }
       const parts = DeepNest.importsvg(`source-${source.source}.svg`, null, source.svg, undefined, false)
       if (parts.length !== 1 || DeepNest.parts.length-1 !== source.source) throw new Error('SVG import changed source identity/count')
       const part = parts[0]
@@ -128,8 +170,12 @@ try {
       evidence.push({ source: source.source, quantity: part.quantity, sheet: part.sheet,
         bounds: part.bounds, polygon: part.polygontree.map(p => [p.x,p.y]), holes: children.map(c => c.map(p => [p.x,p.y])) })
     }
-    return { inputs: evidence, config: DeepNest.config(), seed: window.nestbenchSeed }
+    return { inputs: evidence, config: DeepNest.config(), seed: window.nestbenchSeed,
+      input_fidelity: { encoding: prepared.input_encoding, contours, coordinates,
+        maximum_absolute_error: maximumAbsoluteError, maximum_scaled_error: maximumScaledError,
+        scaled_error_limit: 8, error_scale: 'Number.EPSILON * max(1, abs(source_coordinate))' } }
   }, request.prepared)
+  result.input_fidelity = result.imported.input_fidelity
   if (result.imported.seed !== request.seed || result.imported.config.threads !== 1) throw new Error('Main-window seed/configuration control failed')
   const binaries = [...new Set([
     ...await page.evaluate(() => Object.keys(require.cache).filter(path => path.endsWith('.node'))),

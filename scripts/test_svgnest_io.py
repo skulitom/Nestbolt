@@ -2,6 +2,7 @@
 from copy import deepcopy
 import json
 import math
+import re
 from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
@@ -12,6 +13,12 @@ from svgnest import guard_held_out
 
 ROOT = Path(__file__).resolve().parents[1]
 SETTINGS = json.loads((ROOT / 'benchmarks/svgnest/tool.json').read_bytes())['settings']['identical']
+
+
+def path_points(node):
+    assert node.tag.endswith('}path')
+    values = [float(n) for n in re.findall(r'[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?', node.attrib['d'])]
+    return [values[i:i+2] for i in range(0,len(values),2)]
 
 
 def job():
@@ -32,9 +39,10 @@ class SvgNestTests(unittest.TestCase):
             source = parts[mapping['part_id']]['geometry'][0]
             for i, ring in enumerate([source['outer'], *source['holes']]):
                 name = key if i == 0 else f'{key}-hole-{i}'
-                actual = [[float(n) for n in pair.split(',')] for pair in nodes[name].attrib['points'].split()]
+                actual = path_points(nodes[name])
                 expected = [[y + mapping['offset'][0], -x + mapping['offset'][1]] for x, y in ring]
                 self.assertEqual(actual, expected)
+                self.assertEqual(prepared['source_rings'][name], expected)
 
     def test_margin_and_independent_edge_gap_match_virtual_bin(self):
         value = job()
@@ -42,7 +50,7 @@ class SvgNestTests(unittest.TestCase):
         value['stocks'][0]['margins'] = {'left': 3, 'right': 5, 'bottom': 11, 'top': 13}
         for axis in ['x', 'y']:
             prepared = prepare(value, SETTINGS, axis)
-            points = [[float(n) for n in p.split(',')] for p in list(ET.fromstring(prepared['svg']))[0].attrib['points'].split()]
+            points = path_points(list(ET.fromstring(prepared['svg']))[0])
             w, h = value['stocks'][0]['width'], value['stocks'][0]['height']
             expected = (w-3-5-14+8, h-11-13-14+8) if axis == 'x' else (h-11-13-14+8, w-5-3-14+8)
             self.assertEqual(points[2], list(expected))

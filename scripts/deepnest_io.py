@@ -3,17 +3,17 @@ import math
 import xml.etree.ElementTree as ET
 
 from benchmark_io import UnsupportedJob, finite_number
-from svgnest_io import allowed
+from svgnest_io import allowed, linear_path
 
 
 def svg(rings):
     root = ET.Element('svg', xmlns='http://www.w3.org/2000/svg')
     for i, ring in enumerate(rings):
-        ET.SubElement(root, 'polygon', id=f'ring-{i}', points=' '.join(f'{x:.17g},{y:.17g}' for x, y in ring))
+        ET.SubElement(root, 'path', id=f'ring-{i}', d=linear_path(ring))
     return ET.tostring(root, encoding='unicode')
 
 
-def prepare(job, settings, axis='y'):
+def prepare(job, settings, axis='y', stock_geometry=None):
     if job['version'] != 1 or job['mode'] != 'all':
         raise UnsupportedJob('Deepnest adapter requires all-parts polygon jobs')
     if axis not in ['x', 'y']:
@@ -23,8 +23,12 @@ def prepare(job, settings, axis='y'):
         raise ValueError('Deepnest adapter accepts 1..2000 positive part copies')
     if any(len(p['geometry']) != 1 for p in job['parts']):
         raise UnsupportedJob('Deepnest import cannot retain disconnected components as one rigid part')
-    if any(s['outline'] or s['defects'] for s in job['stocks']):
-        raise UnsupportedJob('Nonrectangular/defective stock conversion is not yet implemented')
+    complex_stocks = any(s['outline'] or s['defects'] for s in job['stocks'])
+    if complex_stocks and stock_geometry is None:
+        raise UnsupportedJob('Nonrectangular/defective stock needs checked contour preparation')
+    contours = {} if stock_geometry is None else {s['id']:s for s in stock_geometry}
+    if stock_geometry is not None and (len(contours) != len(stock_geometry) or set(contours) != {s['id'] for s in job['stocks']}):
+        raise ValueError('Prepared stock identities differ from source')
     all_free = all(p['rotations']['kind'] == 'free' for p in job['parts'])
     rotations = settings['free_rotation_samples'] if all_free else 0
     if not all_free:
@@ -57,7 +61,7 @@ def prepare(job, settings, axis='y'):
         if axis == 'y':
             rings = [[[y, -x] for x, y in ring] for ring in rings]
         imports.append({'source': source, 'kind': 'part', 'quantity': part['quantity'],
-                        'svg': svg(rings), 'hole_count': len(rings)-1})
+                        'svg': svg(rings), 'source_rings': rings, 'hole_count': len(rings)-1})
         for copy in range(part['quantity']):
             copies[str(len(copies))] = {'source': source, 'part_id': part['id'], 'copy_index': copy}
     for index, stock in enumerate(job['stocks']):
@@ -71,20 +75,37 @@ def prepare(job, settings, axis='y'):
         gap, edge = native_gap, job['edge_clearance']
         # This pinned engine inflates parts by gap/2, but does not apply its
         # negative sheet offset. Accommodate that exact public engine behavior.
-        width = width-left-right-2*edge+gap
-        height = height-bottom-top-2*edge+gap
-        if min(width, height) <= gap:
-            raise ValueError('No usable stock interior')
+        if stock['outline'] or stock['defects']:
+            adapted = contours[stock['id']]
+            if len(adapted['geometry']) != 1:
+                raise UnsupportedJob('Native stock import needs one connected usable region; never split one sheet into separately scored sheets')
+            component = adapted['geometry'][0]
+            rings = [component['outer'], *component['holes']]
+            if axis == 'y':
+                rings = [[[y, stock['width']-x] for x,y in ring] for ring in rings]
+            origin = [min(p[0] for p in rings[0]), min(p[1] for p in rings[0])]
+            rings = [[[x-origin[0], y-origin[1]] for x,y in ring] for ring in rings]
+            restrictions.append(f"Stock {stock['id']}: margin/defect clipping on grid {adapted['grid']:.17g}, inset {adapted['inset']:.17g}; original stock still determines validation and material score.")
+            if gap/2 > edge:
+                restrictions.append(f"Stock {stock['id']}: conservative native inflation exceeds edge clearance; its concave outline is never expanded.")
+        else:
+            width = width-left-right-2*edge+gap
+            height = height-bottom-top-2*edge+gap
+            if min(width, height) <= gap:
+                raise ValueError('No usable stock interior')
+            rings = [[[0,0],[width,0],[width,height],[0,height]]]
+            origin = [left+edge-gap/2, bottom+edge-gap/2]
         quantity = len(copies) if stock['count'] is None else min(stock['count'], len(copies))
         imports.append({'source': source, 'kind': 'stock', 'quantity': quantity,
-                        'svg': svg([[[0,0],[width,0],[width,height],[0,height]]]), 'hole_count': 0})
+                        'svg': svg(rings), 'source_rings': rings, 'hole_count': len(rings)-1})
         for copy in range(quantity):
             stocks[f'{index:04d}-{copy:04d}'] = {'source': source, 'stock_id': stock['id'],
-                'origin': [left+edge-gap/2, bottom+edge-gap/2], 'original_width': stock['width']}
+                'origin': origin, 'original_width': stock['width']}
     config = {k:v for k,v in settings.items() if k not in ['free_rotation_samples', 'spacing_multiplier']}
     config.update(rotations=rotations, spacing=native_gap)
     return {'imports': imports, 'copies': copies, 'stocks': stocks, 'config': config,
-            'axis': axis, 'units': job['units'], 'restrictions': restrictions}
+            'axis': axis, 'units': job['units'], 'restrictions': restrictions,
+            'input_encoding': 'linear_svg_paths_v2'}
 
 
 def layout(prepared, native):

@@ -33,6 +33,16 @@ IDs and rigid transforms are checked; unknown/duplicate copies, missing holes,
 scaling or reflection are errors. Original job geometry, not SVGnest's internally
 cleaned contours, goes to the independent Clipper2 validator for every score.
 
+Input encoding v2 uses straight `M/L/Z` paths, with 17-digit coordinates. A real
+browser [parser probe](../results/svgnest-input-precision-20261011.json) found that
+SVG polygon objects rounded the SWIM gallery by up to 0.0004805625 source units;
+paths preserved all 1,928 coordinates exactly. Every new solve checks the actual
+native parsed vertices before cleaning/search and refuses a changed coordinate.
+The [unequal-edge-gap smoke](../results/svgnest-input-v2-smoke-20261011.json) and
+[three affected SWIM jobs at 60 seconds](../results/svgnest-20261011T211052Z-d34e7f41.md)
+all pass independent validation with this encoding. These are fresh searches;
+the old failures remain unchanged. A fresh complete B pilot is in progress.
+
 Output decoder v2 reads the exported `translate(...) rotate(...)` text directly
 in double precision. Chromium's `SVGMatrix` rounded native translation values to
 float32 and introduced small errors in the first pilot. `redecode_svgnest.py`

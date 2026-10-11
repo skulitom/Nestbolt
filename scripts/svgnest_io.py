@@ -13,6 +13,12 @@ def allowed(part, angle):
     return any(abs((angle - a + 180) % 360 - 180) < 1e-8 for a in angles)
 
 
+def linear_path(points):
+    # SVG polygon.points exposes float32 coordinates in Chromium. The pinned
+    # path-segment polyfill parses M/L values as JS doubles instead.
+    return ' '.join(f'{"M" if i == 0 else "L"}{x:.17g} {y:.17g}' for i,(x,y) in enumerate(points)) + ' Z'
+
+
 def prepare(job, settings, axis='y'):
     if job['version'] != 1 or job['mode'] != 'all':
         raise UnsupportedJob('SVGnest supports all-parts polygon jobs only')
@@ -77,7 +83,8 @@ def prepare(job, settings, axis='y'):
     pitch_x = max(t[4] for t in transformed) + 10
     pitch_y = max(t[5] for t in transformed) + 10
     svg = ET.Element('svg', xmlns='http://www.w3.org/2000/svg')
-    ET.SubElement(svg, 'polygon', id='sheet', points=f'0,0 {bin_width},0 {bin_width},{bin_height} 0,{bin_height}')
+    source_rings = {'sheet': [[0,0],[bin_width,0],[bin_width,bin_height],[0,bin_height]]}
+    ET.SubElement(svg, 'path', id='sheet', d=linear_path(source_rings['sheet']))
     mapping = {}
     for part, rings, min_x, min_y, _, _ in transformed:
         for copy in range(part['quantity']):
@@ -87,14 +94,17 @@ def prepare(job, settings, axis='y'):
                       (index // columns) * pitch_y - min_y]
             mapping[key] = {'part_id': part['id'], 'copy_index': copy, 'offset': offset, 'hole_count': len(rings)-1}
             for r, ring in enumerate(rings):
-                ET.SubElement(svg, 'polygon', id=key if r == 0 else f'{key}-hole-{r}',
-                    points=' '.join(f'{x+offset[0]:.17g},{y+offset[1]:.17g}' for x, y in ring))
+                identifier = key if r == 0 else f'{key}-hole-{r}'
+                points = [[x+offset[0],y+offset[1]] for x,y in ring]
+                source_rings[identifier] = points
+                ET.SubElement(svg, 'path', id=identifier, d=linear_path(points))
     config = {k: v for k, v in settings.items() if k != 'free_rotation_samples'}
     config.update({'rotations': rotations, 'spacing': gap})
     return {'svg': ET.tostring(svg, encoding='unicode'), 'mapping': mapping,
             'origin': origin, 'axis': axis, 'original_width': stock['width'],
             'stock_id': stock['id'], 'config': config, 'restrictions': restrictions,
-            'copies': count, 'units': job['units']}
+            'copies': count, 'units': job['units'], 'source_rings': source_rings,
+            'input_encoding': 'linear_svg_paths_v2'}
 
 
 def layout(prepared, sheets):

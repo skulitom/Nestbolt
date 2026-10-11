@@ -13,6 +13,10 @@ python scripts/deepnest.py setup
 # Run this command inside Anode on Windows to keep the GUI off the working desktop:
 python scripts/deepnest.py run --job benchmarks/datasets/B/b-fu-nest-mb-given.json --seconds 60 --seed 0
 python scripts/deepnest.py run --job benchmarks/fixtures/svgnest-edge-gap.json --seconds 5 --settings clearance-safe
+# A bounded slice of the frozen B matrix; repeat with the next offset:
+python scripts/deepnest.py batch --offset 0 --count 3 --seconds 60 --seed 0
+# After the batch has completed:
+python scripts/comparator_batch_report.py --tool deepnest --batch output/playwright/deepnest-batches/<batch-id>/batch.json
 ```
 
 The exact upstream revision and dependency Git-blob checksum are in `tool.json`.
@@ -34,7 +38,13 @@ An insufficient stock cap produces an incomplete native layout and no score.
 A mixed-stock trial with unequal margins, one capped small sheet and unlimited
 large sheets produces a valid two-sheet layout. All eleven preparation attempts,
 including startup failures, are [retained](../results/deepnest-preparation-20261011.json).
-Six conversion tests and three evidence-audit tests pass.
+Seven conversion tests and four evidence-audit tests pass. Four additional native
+stock-conversion tests check known areas, margin clipping, insets, defects and
+disconnected regions.
+[All six input/stock preparation attempts](../results/deepnest-stock-inputs-20261011.json)
+are retained. Actual concave-remnant, enclosed-defect and spacing-safe hole smokes
+pass with the new path encoding; the enclosed-defect case also checks the X axis.
+The fractional-coordinate smokes show at most 1.12e-16 source-unit parser error.
 
 Startup was intermittent with a CPU limit applied before launching Electron. Stage timing
 and initialization diagnostics are retained. Applying the limit after import and
@@ -42,16 +52,23 @@ before solving produced four consecutive valid FU smokes with prompt startup.
 [Every startup trial](../results/deepnest-startup-20261011.json) remains available,
 including the failed shared-job experiment before separate nested jobs were used.
 The startup allowance is bounded separately from the solve clock. Initialization failures are failures,
-not unsupported jobs or discarded attempts. A stable full baseline batch,
-nonrectangular stock conversion and settings selection remain pending. This is
+not unsupported jobs or discarded attempts. The first nine B jobs at 60 seconds
+are independently valid. The complete seed/settings matrix and settings selection
+remain pending. This is
 not a completed M1 comparison or a Nestbolt quality result.
 
 ## Conversion and constraints
 
-Each original part type is imported as one SVG containing its original polygon
-and holes. Native quantities represent copies; there is no gallery translation.
+Each original part type is imported as one SVG containing straight paths for its
+original polygon and holes. Native quantities represent copies; there is no gallery translation.
 Every imported source, hole count and quantity is checked. Original polygons
 are used for independent validation, including after native simplification.
+Before solving, parsed coordinates must match within eight double-precision
+rounding units (`Number.EPSILON * max(1, abs(source_coordinate))`). The upstream
+path parser sums decimal digits, introducing tiny rounding differences on some
+fractional coordinates. Each run records the observed absolute/scaled errors;
+float32 loss is rejected. The initial exact-equality diagnostic failures remain
+in the evidence. Upstream parser, cleanup and solver code remain unmodified.
 The native output's numeric source/copy IDs are mapped back to the original IDs;
 unknown or duplicate IDs, changed source identities, non-finite values and
 unexpected scaling/reflection are rejected.
@@ -60,9 +77,15 @@ Rectangular stocks keep their sizes, individual margins and limits. Unlimited
 stock becomes one possible sheet per part copy, sufficient for any complete
 solution. Mixed stock order follows the original job; native fitness and common
 material scoring remain distinct. The original checker determines stock usage,
-feasibility and the trailing offcut. The provisional adapter explicitly refuses
-defects/remnants, disconnected rigid parts and fill mode; those conversions are
-still pending rather than silently relaxed.
+feasibility and the trailing offcut. Remnants and defective sheets use a separate
+input helper to intersect the original outline with margins, subtract defects,
+and inset by any edge clearance left after native half-gap part inflation.
+The helper uses the checker grid (1e-6 mm, or 1e-6 unitless units); its source,
+binary and output hashes are retained. Concave stock is never expanded to
+compensate excessive native inflation. A usable region with multiple disconnected
+components is explicitly unsupported, never split into independently scored sheets.
+The final validator always reads the original stock and geometry. Disconnected
+rigid parts and fill mode remain unsupported by this adapter.
 
 The pinned engine inflates outer part contours by half its spacing, but its
 recursive offset skips negative sheet/hole offsets. A virtual rectangular bin
@@ -84,7 +107,7 @@ coordinates are restored on output, independently for each stock size.
 ## Isolation, time limits and records
 
 Every attempt has its own user-data and import directories. Notifications and
-external browser requests are disabled; only generated local SVG polygons enter
+external browser requests are disabled; only generated local SVG paths enter
 the app. The seeded JS random generator and one-worker environment load before
 upstream scripts. GPU acceleration and background throttling are disabled for
 the hidden test window. After import, Windows affinity jobs constrain the controller
@@ -109,3 +132,11 @@ job identity, validator score, worker/seed/CPU controls, native binary provenanc
 and result timing. Earlier partial provenance records remain preparation evidence.
 All outcomes are appended to `BENCHMARKS.md`. The ten held-out maker jobs remain
 excluded from development runs.
+
+Batch selection, original dataset checksums, configuration and harness hashes are
+frozen before the first attempt. Every selected outcome is retained, including
+failed startup, invalid layout and unsupported constraints. The reporter refuses
+missing/duplicate rows, changed inputs, mismatched controls or altered outputs.
+A conservative session estimate stays below 27 minutes for Anode's 30-minute
+job limit; 60-second batches default to three jobs. Source setup and compilation
+should be completed beforehand. An interrupted batch stays visibly incomplete.

@@ -84,6 +84,7 @@ def run(args):
               'settings': args.settings, 'axis': args.axis, 'phase': args.phase,
               'settings_finalized': config['settings_finalized'], 'score': None,
               'output_decoding': 'native_svg_attributes_v2',
+              'input_encoding': 'linear_svg_paths_v2',
               'started_at': datetime.now(timezone.utc).isoformat(),
               'commit': command(['git', 'rev-parse', 'HEAD']),
               'dirty': bool(command(['git', 'status', '--porcelain'])),
@@ -130,6 +131,7 @@ def run(args):
             else:
                 raw = json.loads(raw_path.read_bytes())
                 record.update({'browser_version': raw.get('browser_version'), 'cpu_affinity': raw['affinity'],
+                               'input_fidelity': raw.get('input_fidelity'),
                                'browser_executables': raw.get('browser_executables'),
                                'affinity_verification': raw.get('affinity_verification'),
                                'candidates': raw['candidates'], 'controller_solve_ms': raw.get('controller_solve_ms')})

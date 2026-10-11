@@ -19,12 +19,13 @@ from svgnest import ROOT, digest, command, write, guard_held_out
 CHECKOUT = ROOT / '.cache/upstream/deepnest-next'
 CONFIG = ROOT / 'benchmarks/deepnest/tool.json'
 SOURCES = ['scripts/deepnest.py', 'scripts/deepnest_io.py', 'scripts/svgnest.py',
-           'scripts/svgnest_io.py', 'scripts/benchmark_io.py', 'benchmarks/deepnest/tool.json',
+           'scripts/svgnest_io.py', 'scripts/svg_export_transform.py', 'scripts/benchmark_io.py', 'benchmarks/deepnest/tool.json',
            'benchmarks/browser/deepnest.mjs', 'benchmarks/browser/deepnest-preload.cjs',
            'benchmarks/browser/deepnest-bootstrap.cjs', 'benchmarks/browser/cpu-limit.mjs',
            'benchmarks/browser/cpu-job.ps1', 'benchmarks/browser/package.json',
            'benchmarks/browser/cpu-tree-job.ps1',
            'benchmarks/browser/package-lock.json']
+SOURCES += ['scripts/stock_inputs.py', 'crates/validator/examples/stock_adapter.rs']
 
 
 def checkout_check():
@@ -67,6 +68,7 @@ def run(args):
               'job': job['name'], 'job_sha256': digest(dest / 'job.json'), 'seed': args.seed,
               'seconds': args.seconds, 'settings': args.settings, 'axis': args.axis, 'phase': args.phase,
               'settings_finalized': config['settings_finalized'], 'score': None,
+              'input_encoding': 'linear_svg_paths_v2',
               'started_at': datetime.now(timezone.utc).isoformat(), 'commit': command(['git', 'rev-parse', 'HEAD']),
               'dirty': bool(command(['git', 'status', '--porcelain'])), 'platform': platform.platform(),
               'node': command(['node', '--version']), 'sources': {name: digest(ROOT / name) for name in SOURCES},
@@ -74,7 +76,13 @@ def run(args):
     record['cpu'] = command(['powershell.exe', '-NoProfile', '-NonInteractive', '-Command',
                             '(Get-CimInstance Win32_Processor).Name']) if os.name == 'nt' else platform.processor()
     try:
-        prepared = prepare(job, config['settings'][args.settings], args.axis)
+        settings = config['settings'][args.settings]
+        stock_geometry = None
+        if any(s['outline'] or s['defects'] for s in job['stocks']):
+            from stock_inputs import prepare_stocks
+            stock_geometry, record['stock_preparation'] = prepare_stocks(
+                dest/'job.json', job['clearance']*settings.get('spacing_multiplier',1), dest/'stock-inputs.json')
+        prepared = prepare(job, settings, args.axis, stock_geometry)
         record['configuration'] = prepared['config']
         record['restrictions'] = prepared['restrictions']
         write(dest / 'request.json', {'seconds': args.seconds, 'seed': args.seed, 'prepared': prepared})
@@ -111,7 +119,7 @@ def run(args):
                 record['status'] = 'failed'
             else:
                 raw = json.loads(raw_path.read_bytes())
-                for name in ['versions', 'affinity', 'affinity_verification', 'worker_check', 'electron_executable_sha256', 'native_binaries', 'stages_ms', 'controller_solve_ms', 'candidates']:
+                for name in ['versions', 'affinity', 'affinity_verification', 'worker_check', 'electron_executable_sha256', 'native_binaries', 'stages_ms', 'controller_solve_ms', 'candidates', 'input_fidelity']:
                     record[name] = raw.get(name)
                 if raw['errors'] or raw['status'] != 'completed':
                     record['status'] = 'failed' if raw['errors'] else raw['status']
@@ -140,22 +148,68 @@ def run(args):
     return record
 
 
+def batch(args):
+    from datasets import check_frozen, MANIFEST, DEST
+    check_frozen()
+    rows = sorted((r for r in json.loads(MANIFEST.read_bytes())['instances'] if r['set'] == 'B'), key=lambda r:r['id'])
+    selected = rows[args.offset:args.offset+args.count]
+    # Anode jobs have a 30-minute hard lifetime. Reserve startup, both checks,
+    # controller teardown and metadata collection even if every attempt fails.
+    if not selected or len(selected)*(args.seconds+400) > 27*60:
+        raise ValueError('Empty batch or worst-case session over 27 minutes; reduce --count')
+    sources = {name:digest(ROOT/name) for name in SOURCES}
+    identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
+    dest = ROOT/'output/playwright/deepnest-batches'/identifier
+    dest.mkdir(parents=True)
+    record = {'batch_id':identifier, 'tool':'deepnest-next', 'dataset':'B',
+              'dataset_manifest_sha256':digest(MANIFEST), 'cases':selected, 'sources':sources,
+              'seconds':args.seconds, 'seed':args.seed, 'settings':args.settings, 'axis':args.axis,
+              'complete':False, 'runs':[]}
+    write(dest/'start.json', record)
+    for row in selected:
+        if {name:digest(ROOT/name) for name in SOURCES} != sources:
+            raise ValueError('Runner changed during batch; incomplete evidence retained')
+        source = DEST/row['path']
+        if digest(source) != row['sha256']:
+            raise ValueError('Frozen job source changed')
+        result = run(argparse.Namespace(job=source, seconds=args.seconds, seed=args.seed,
+                     settings=args.settings, axis=args.axis, phase='development'))
+        path = ROOT/'output/playwright/deepnest'/result['run_id']/'run.json'
+        entry = {'job':row['id'], 'status':result['status'], 'record':path.relative_to(ROOT).as_posix(), 'sha256':digest(path)}
+        record['runs'].append(entry)
+        with (dest/'runs.jsonl').open('a', encoding='utf-8', newline='\n') as f:
+            f.write(json.dumps(entry)+'\n')
+    record['complete'] = True
+    record['valid_runs'] = sum(r['status'] == 'valid' for r in record['runs'])
+    write(dest/'batch.json', record)
+    print(f'Batch finished: {record["valid_runs"]}/{len(selected)} valid. Evidence: {dest / "batch.json"}', flush=True)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     subs = parser.add_subparsers(dest='command', required=True)
     subs.add_parser('setup')
     running = subs.add_parser('run')
+    batching = subs.add_parser('batch')
     running.add_argument('--job', required=True)
-    running.add_argument('--seconds', type=int, default=60)
-    running.add_argument('--seed', type=int, default=0)
-    running.add_argument('--settings', choices=['identical','expanded','clearance-safe'], default='identical')
-    running.add_argument('--axis', choices=['x','y'], default='y')
+    for sub in [running, batching]:
+        sub.add_argument('--seconds', type=int, default=60)
+        sub.add_argument('--seed', type=int, default=0)
+        sub.add_argument('--settings', choices=['identical','expanded','clearance-safe'], default='identical')
+        sub.add_argument('--axis', choices=['x','y'], default='y')
     running.add_argument('--phase', choices=['development','final'], default='development')
+    batching.add_argument('--offset', type=int, default=0)
+    batching.add_argument('--count', type=int, default=3)
     args = parser.parse_args()
     if args.command == 'setup':
         setup()
     else:
         if not 1 <= args.seconds <= 300 or not 0 <= args.seed < 2**32:
             parser.error('Budget must be 1..300 seconds and seed uint32')
-        outcome = run(args)
-        sys.exit(0 if outcome['status'] in ['valid','unsupported'] else 1)
+        if args.command == 'batch':
+            if args.offset < 0 or not 1 <= args.count <= 35:
+                parser.error('Offset must be nonnegative; count must be 1..35')
+            batch(args)
+        else:
+            outcome = run(args)
+            sys.exit(0 if outcome['status'] in ['valid','unsupported'] else 1)
