@@ -1,0 +1,1379 @@
+//! SVG and DXF import into exact source contours and nesting polygons.
+//!
+//! Geometry is converted to millimetres in a Y-up frame. Each closed outer
+//! contour becomes one physical part, with the contours directly inside it as
+//! holes; islands inside holes are parts of their own. Open paths are chained
+//! end to end; anything still open is reported and skipped. Nesting polygons
+//! are chord flattenings within `tolerance` of the exact curves; callers widen
+//! clearances by that tolerance so the true curves keep the requested gaps.
+use std::collections::HashMap;
+use std::f64::consts::{PI, TAU};
+
+use anyhow::{Context, Result, bail, ensure};
+use serde::Serialize;
+
+use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_area};
+
+#[derive(Clone, Copy, Debug)]
+pub struct Options {
+    /// Maximum distance between an exact curve and its nesting polygon, in mm.
+    pub tolerance: f64,
+    /// Millimetres per SVG user unit when the document gives no absolute size.
+    /// CSS pixels (25.4 / 96 mm) by default.
+    pub svg_user_unit: f64,
+    /// Millimetres per DXF drawing unit when `$INSUNITS` is absent or unitless.
+    pub dxf_unit: f64,
+}
+
+impl Default for Options {
+    fn default() -> Self {
+        Self {
+            tolerance: 0.005,
+            svg_user_unit: 25.4 / 96.0,
+            dxf_unit: 1.0,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct ImportedPart {
+    pub id: String,
+    /// Source element id, layer or block, for the user's reference.
+    pub source: String,
+    pub outer: Contour,
+    pub holes: Vec<Contour>,
+    /// Counter-clockwise outer and clockwise holes, flattened within tolerance.
+    pub polygon: nestbolt_validator::Polygon,
+    pub area: f64,
+    pub bounds: [f64; 4],
+}
+
+#[derive(Clone, Debug, Serialize)]
+pub struct Import {
+    pub parts: Vec<ImportedPart>,
+    pub warnings: Vec<String>,
+}
+
+/// An open run of segments, or a closed loop when `start == end`.
+#[derive(Clone, Debug)]
+struct Piece {
+    start: Point,
+    segments: Vec<Segment>,
+    source: String,
+}
+
+impl Piece {
+    fn end(&self) -> Point {
+        self.segments.last().map_or(self.start, Segment::end)
+    }
+}
+
+fn dist(a: Point, b: Point) -> f64 {
+    (a[0] - b[0]).hypot(a[1] - b[1])
+}
+
+/// Reverse a run: the result traverses the same curve from its end.
+fn reverse(start: Point, segments: &[Segment]) -> (Point, Vec<Segment>) {
+    let mut points = vec![start];
+    for s in segments {
+        points.push(s.end());
+    }
+    let mut out = Vec::with_capacity(segments.len());
+    for (i, s) in segments.iter().enumerate().rev() {
+        let from = points[i];
+        out.push(match s {
+            Segment::Line { .. } => Segment::Line { to: from },
+            Segment::Quad { control, .. } => Segment::Quad {
+                control: *control,
+                to: from,
+            },
+            Segment::Cubic { controls, .. } => Segment::Cubic {
+                controls: [controls[1], controls[0]],
+                to: from,
+            },
+            Segment::Arc {
+                center,
+                radii,
+                rotation,
+                start,
+                sweep,
+            } => Segment::Arc {
+                center: *center,
+                radii: *radii,
+                rotation: *rotation,
+                start: start + sweep,
+                sweep: -sweep,
+            },
+        });
+    }
+    (*points.last().expect("start point"), out)
+}
+
+/// Arcs under a non-similarity map become cubic BÃ©ziers of at most 22.5Â°,
+/// whose radial error is below 1e-7 of the radius; everything else maps exactly.
+fn map_segments(start: Point, segments: &[Segment], a: &Affine) -> (Point, Vec<Segment>) {
+    let similar = {
+        let (c0, c1) = ([a.m[0][0], a.m[1][0]], [a.m[0][1], a.m[1][1]]);
+        let (n0, n1) = (c0[0].hypot(c0[1]), c1[0].hypot(c1[1]));
+        (c0[0] * c1[0] + c0[1] * c1[1]).abs() <= 1e-12 * n0 * n1 && (n0 - n1).abs() <= 1e-12 * n0
+    };
+    let mut out = vec![];
+    for s in segments {
+        match s {
+            Segment::Arc {
+                center,
+                radii,
+                rotation,
+                start,
+                sweep,
+            } if !similar => {
+                let pieces = (sweep.abs() / (PI / 8.0)).ceil().max(1.0) as usize;
+                let step = sweep / pieces as f64;
+                let k = 4.0 / 3.0 * (step / 4.0).tan();
+                let (rs, rc) = rotation.sin_cos();
+                let at = |t: f64| {
+                    let (x, y) = (radii[0] * t.cos(), radii[1] * t.sin());
+                    [center[0] + rc * x - rs * y, center[1] + rs * x + rc * y]
+                };
+                let tangent = |t: f64| {
+                    let (x, y) = (-radii[0] * t.sin(), radii[1] * t.cos());
+                    [rc * x - rs * y, rs * x + rc * y]
+                };
+                for i in 0..pieces {
+                    let (t0, t1) = (start + step * i as f64, start + step * (i + 1) as f64);
+                    let (p0, p3) = (at(t0), at(t1));
+                    let (d0, d1) = (tangent(t0), tangent(t1));
+                    let c1 = [p0[0] + k * d0[0], p0[1] + k * d0[1]];
+                    let c2 = [p3[0] - k * d1[0], p3[1] - k * d1[1]];
+                    out.push(Segment::Cubic {
+                        controls: [a.apply(c1), a.apply(c2)],
+                        to: a.apply(p3),
+                    });
+                }
+            }
+            s => out.push(s.transformed(a)),
+        }
+    }
+    (a.apply(start), out)
+}
+
+/// Join open runs whose ends meet within `tolerance`; return closed loops and
+/// the number of runs left open.
+fn chain(pieces: Vec<Piece>, tolerance: f64) -> (Vec<Piece>, usize) {
+    let (mut closed, mut open): (Vec<_>, Vec<_>) = pieces
+        .into_iter()
+        .filter(|p| !p.segments.is_empty())
+        .partition(|p| dist(p.start, p.end()) <= tolerance);
+    let mut left = 0;
+    while let Some(mut current) = open.pop() {
+        loop {
+            if dist(current.start, current.end()) <= tolerance {
+                closed.push(current);
+                break;
+            }
+            let end = current.end();
+            let next = open
+                .iter()
+                .position(|p| dist(p.start, end) <= tolerance || dist(p.end(), end) <= tolerance);
+            let Some(i) = next else {
+                left += 1;
+                break;
+            };
+            let p = open.swap_remove(i);
+            if dist(p.start, end) <= tolerance {
+                current.segments.extend(p.segments);
+            } else {
+                let (_, reversed) = reverse(p.start, &p.segments);
+                current.segments.extend(reversed);
+            }
+        }
+    }
+    (closed, left)
+}
+
+/// Snap a closed loop's last segment onto its start point.
+fn close(mut piece: Piece) -> Contour {
+    let start = piece.start;
+    if let Some(last) = piece.segments.last_mut() {
+        match last {
+            Segment::Line { to } | Segment::Quad { to, .. } | Segment::Cubic { to, .. } => {
+                *to = start
+            }
+            Segment::Arc { .. } => {
+                if dist(last.end(), start) > 0.0 {
+                    piece.segments.push(Segment::Line { to: start });
+                }
+            }
+        }
+    }
+    Contour {
+        start,
+        segments: piece.segments,
+    }
+}
+
+fn assemble(
+    pieces: Vec<Piece>,
+    options: &Options,
+    warnings: &mut Vec<String>,
+) -> Result<Vec<ImportedPart>> {
+    let join = options.tolerance.max(1e-6);
+    let (closed, open) = chain(pieces, join);
+    if open > 0 {
+        warnings.push(format!(
+            "{open} open path(s) could not be closed and were skipped"
+        ));
+    }
+    let mut loops = vec![];
+    for piece in closed {
+        let source = piece.source.clone();
+        let contour = close(piece);
+        match contour.flatten(options.tolerance) {
+            Ok(points) if signed_area(&points).abs() > 0.0 => loops.push((contour, points, source)),
+            Ok(_) | Err(_) => warnings.push(format!("{source}: degenerate contour skipped")),
+        }
+    }
+    // Containment depth by the smallest containing loop; even depth is an outer.
+    let areas: Vec<f64> = loops.iter().map(|l| signed_area(&l.1).abs()).collect();
+    let parent: Vec<Option<usize>> = (0..loops.len())
+        .map(|i| {
+            let probe = loops[i].1[0];
+            (0..loops.len())
+                .filter(|&j| j != i && areas[j] > areas[i] && contains(&loops[j].1, probe))
+                .min_by(|&a, &b| areas[a].total_cmp(&areas[b]))
+        })
+        .collect();
+    let depth = |mut i: usize| {
+        let mut d = 0;
+        while let Some(p) = parent[i] {
+            d += 1;
+            i = p;
+        }
+        d
+    };
+    let mut parts = vec![];
+    for i in (0..loops.len()).filter(|&i| depth(i) % 2 == 0) {
+        let (outer, points, source) = &loops[i];
+        let mut outer_points = points.clone();
+        if signed_area(&outer_points) < 0.0 {
+            outer_points.reverse();
+        }
+        let mut holes = vec![];
+        let mut hole_points = vec![];
+        for j in (0..loops.len()).filter(|&j| parent[j] == Some(i)) {
+            let mut h = loops[j].1.clone();
+            if signed_area(&h) > 0.0 {
+                h.reverse();
+            }
+            holes.push(loops[j].0.clone());
+            hole_points.push(h);
+        }
+        let area =
+            signed_area(&outer_points) + hole_points.iter().map(|h| signed_area(h)).sum::<f64>();
+        parts.push(ImportedPart {
+            id: format!("part-{}", parts.len() + 1),
+            source: source.clone(),
+            bounds: bounds(&outer_points),
+            outer: outer.clone(),
+            holes,
+            polygon: nestbolt_validator::Polygon {
+                outer: outer_points,
+                holes: hole_points,
+            },
+            area,
+        });
+    }
+    ensure!(!parts.is_empty(), "no closed part outlines found");
+    Ok(parts)
+}
+
+// ---------------------------------------------------------------- SVG
+
+fn length_mm(value: &str, user: f64) -> Option<f64> {
+    let length: svgtypes::Length = value.parse().ok()?;
+    use svgtypes::LengthUnit as U;
+    let n = length.number;
+    Some(match length.unit {
+        U::None | U::Px => n * 25.4 / 96.0,
+        U::Mm => n,
+        U::Cm => n * 10.0,
+        U::In => n * 25.4,
+        U::Pt => n * 25.4 / 72.0,
+        U::Pc => n * 25.4 / 6.0,
+        U::Em | U::Ex | U::Percent => return None,
+    })
+    .map(|mm| {
+        if length.unit == U::None && user != 25.4 / 96.0 {
+            n * user
+        } else {
+            mm
+        }
+    })
+}
+
+fn svg_transform(value: Option<&str>) -> Result<Affine> {
+    let Some(value) = value else {
+        return Ok(Affine::IDENTITY);
+    };
+    let t: svgtypes::Transform = value
+        .parse()
+        .with_context(|| format!("invalid SVG transform {value:?}"))?;
+    Ok(Affine {
+        m: [[t.a, t.c], [t.b, t.d]],
+        t: [t.e, t.f],
+    })
+}
+
+fn hidden(node: &roxmltree::Node) -> bool {
+    node.attribute("display") == Some("none")
+        || node.attribute("visibility") == Some("hidden")
+        || node
+            .attribute("style")
+            .is_some_and(|s| s.replace(' ', "").contains("display:none"))
+}
+
+/// SVG endpoint arc to centre form (SVG 1.1, appendix F.6.5).
+#[allow(clippy::too_many_arguments)]
+fn svg_arc(
+    from: Point,
+    rx: f64,
+    ry: f64,
+    phi_deg: f64,
+    large: bool,
+    sweep: bool,
+    to: Point,
+) -> Segment {
+    if dist(from, to) == 0.0 {
+        return Segment::Line { to };
+    }
+    let (mut rx, mut ry) = (rx.abs(), ry.abs());
+    if rx == 0.0 || ry == 0.0 {
+        return Segment::Line { to };
+    }
+    let phi = phi_deg.to_radians();
+    let (s, c) = phi.sin_cos();
+    let dx = (from[0] - to[0]) / 2.0;
+    let dy = (from[1] - to[1]) / 2.0;
+    let x1 = c * dx + s * dy;
+    let y1 = -s * dx + c * dy;
+    let lambda = (x1 * x1) / (rx * rx) + (y1 * y1) / (ry * ry);
+    if lambda > 1.0 {
+        rx *= lambda.sqrt();
+        ry *= lambda.sqrt();
+    }
+    let num = rx * rx * ry * ry - rx * rx * y1 * y1 - ry * ry * x1 * x1;
+    let den = rx * rx * y1 * y1 + ry * ry * x1 * x1;
+    let mut coef = (num / den).max(0.0).sqrt();
+    if large == sweep {
+        coef = -coef;
+    }
+    let cx1 = coef * rx * y1 / ry;
+    let cy1 = -coef * ry * x1 / rx;
+    let center = [
+        c * cx1 - s * cy1 + (from[0] + to[0]) / 2.0,
+        s * cx1 + c * cy1 + (from[1] + to[1]) / 2.0,
+    ];
+    let angle = |ux: f64, uy: f64, vx: f64, vy: f64| {
+        let dot = ux * vx + uy * vy;
+        let det = ux * vy - uy * vx;
+        det.atan2(dot)
+    };
+    let start = angle(1.0, 0.0, (x1 - cx1) / rx, (y1 - cy1) / ry);
+    let mut delta = angle(
+        (x1 - cx1) / rx,
+        (y1 - cy1) / ry,
+        (-x1 - cx1) / rx,
+        (-y1 - cy1) / ry,
+    );
+    if !sweep && delta > 0.0 {
+        delta -= TAU;
+    } else if sweep && delta < 0.0 {
+        delta += TAU;
+    }
+    Segment::Arc {
+        center,
+        radii: [rx, ry],
+        rotation: phi,
+        start,
+        sweep: delta,
+    }
+}
+
+fn svg_path(d: &str, source: &str) -> Result<Vec<Piece>> {
+    use svgtypes::PathSegment as P;
+    let mut pieces = vec![];
+    let mut current: Option<Piece> = None;
+    let mut point = [0.0, 0.0];
+    let mut start = [0.0, 0.0];
+    let mut last_cubic: Option<Point> = None;
+    let mut last_quad: Option<Point> = None;
+    let finish = |current: &mut Option<Piece>, pieces: &mut Vec<Piece>| {
+        if let Some(p) = current.take()
+            && !p.segments.is_empty()
+        {
+            pieces.push(p);
+        }
+    };
+    for segment in svgtypes::PathParser::from(d) {
+        let segment = segment.with_context(|| format!("{source}: invalid path data"))?;
+        let rel = |abs: bool, x: f64, y: f64| {
+            if abs {
+                [x, y]
+            } else {
+                [point[0] + x, point[1] + y]
+            }
+        };
+        let push = |current: &mut Option<Piece>, s: Segment| {
+            current
+                .get_or_insert_with(|| Piece {
+                    start: point,
+                    segments: vec![],
+                    source: source.into(),
+                })
+                .segments
+                .push(s);
+        };
+        let (mut cubic, mut quad) = (None, None);
+        match segment {
+            P::MoveTo { abs, x, y } => {
+                finish(&mut current, &mut pieces);
+                point = rel(abs, x, y);
+                start = point;
+            }
+            P::LineTo { abs, x, y } => {
+                let to = rel(abs, x, y);
+                push(&mut current, Segment::Line { to });
+                point = to;
+            }
+            P::HorizontalLineTo { abs, x } => {
+                let to = [if abs { x } else { point[0] + x }, point[1]];
+                push(&mut current, Segment::Line { to });
+                point = to;
+            }
+            P::VerticalLineTo { abs, y } => {
+                let to = [point[0], if abs { y } else { point[1] + y }];
+                push(&mut current, Segment::Line { to });
+                point = to;
+            }
+            P::CurveTo {
+                abs,
+                x1,
+                y1,
+                x2,
+                y2,
+                x,
+                y,
+            } => {
+                let (c1, c2, to) = (rel(abs, x1, y1), rel(abs, x2, y2), rel(abs, x, y));
+                push(
+                    &mut current,
+                    Segment::Cubic {
+                        controls: [c1, c2],
+                        to,
+                    },
+                );
+                cubic = Some(c2);
+                point = to;
+            }
+            P::SmoothCurveTo { abs, x2, y2, x, y } => {
+                let c1 =
+                    last_cubic.map_or(point, |c| [2.0 * point[0] - c[0], 2.0 * point[1] - c[1]]);
+                let (c2, to) = (rel(abs, x2, y2), rel(abs, x, y));
+                push(
+                    &mut current,
+                    Segment::Cubic {
+                        controls: [c1, c2],
+                        to,
+                    },
+                );
+                cubic = Some(c2);
+                point = to;
+            }
+            P::Quadratic { abs, x1, y1, x, y } => {
+                let (control, to) = (rel(abs, x1, y1), rel(abs, x, y));
+                push(&mut current, Segment::Quad { control, to });
+                quad = Some(control);
+                point = to;
+            }
+            P::SmoothQuadratic { abs, x, y } => {
+                let control =
+                    last_quad.map_or(point, |c| [2.0 * point[0] - c[0], 2.0 * point[1] - c[1]]);
+                let to = rel(abs, x, y);
+                push(&mut current, Segment::Quad { control, to });
+                quad = Some(control);
+                point = to;
+            }
+            P::EllipticalArc {
+                abs,
+                rx,
+                ry,
+                x_axis_rotation,
+                large_arc,
+                sweep,
+                x,
+                y,
+            } => {
+                let to = rel(abs, x, y);
+                push(
+                    &mut current,
+                    svg_arc(point, rx, ry, x_axis_rotation, large_arc, sweep, to),
+                );
+                point = to;
+            }
+            P::ClosePath { .. } => {
+                if dist(point, start) > 0.0 {
+                    push(&mut current, Segment::Line { to: start });
+                }
+                point = start;
+                finish(&mut current, &mut pieces);
+            }
+        }
+        last_cubic = cubic;
+        last_quad = quad;
+    }
+    finish(&mut current, &mut pieces);
+    Ok(pieces)
+}
+
+fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
+    let num = |name: &str| node.attribute(name).and_then(|v| v.parse::<f64>().ok());
+    let piece = |start: Point, segments: Vec<Segment>| Piece {
+        start,
+        segments,
+        source: source.into(),
+    };
+    Ok(match node.tag_name().name() {
+        "path" => svg_path(node.attribute("d").unwrap_or(""), source)?,
+        "rect" => {
+            let (x, y) = (num("x").unwrap_or(0.0), num("y").unwrap_or(0.0));
+            let (w, h) = (num("width").unwrap_or(0.0), num("height").unwrap_or(0.0));
+            if w <= 0.0 || h <= 0.0 {
+                return Ok(vec![]);
+            }
+            let rx = num("rx").or(num("ry")).unwrap_or(0.0).clamp(0.0, w / 2.0);
+            let ry = num("ry").or(num("rx")).unwrap_or(0.0).clamp(0.0, h / 2.0);
+            if rx == 0.0 || ry == 0.0 {
+                vec![piece(
+                    [x, y],
+                    vec![
+                        Segment::Line { to: [x + w, y] },
+                        Segment::Line { to: [x + w, y + h] },
+                        Segment::Line { to: [x, y + h] },
+                        Segment::Line { to: [x, y] },
+                    ],
+                )]
+            } else {
+                let arc = |cx: f64, cy: f64, a: f64| Segment::Arc {
+                    center: [cx, cy],
+                    radii: [rx, ry],
+                    rotation: 0.0,
+                    start: a,
+                    sweep: PI / 2.0,
+                };
+                vec![piece(
+                    [x + rx, y],
+                    vec![
+                        Segment::Line {
+                            to: [x + w - rx, y],
+                        },
+                        arc(x + w - rx, y + ry, -PI / 2.0),
+                        Segment::Line {
+                            to: [x + w, y + h - ry],
+                        },
+                        arc(x + w - rx, y + h - ry, 0.0),
+                        Segment::Line {
+                            to: [x + rx, y + h],
+                        },
+                        arc(x + rx, y + h - ry, PI / 2.0),
+                        Segment::Line { to: [x, y + ry] },
+                        arc(x + rx, y + ry, PI),
+                    ],
+                )]
+            }
+        }
+        "circle" | "ellipse" => {
+            let (cx, cy) = (num("cx").unwrap_or(0.0), num("cy").unwrap_or(0.0));
+            let (rx, ry) = if node.tag_name().name() == "circle" {
+                let r = num("r").unwrap_or(0.0);
+                (r, r)
+            } else {
+                (num("rx").unwrap_or(0.0), num("ry").unwrap_or(0.0))
+            };
+            if rx <= 0.0 || ry <= 0.0 {
+                return Ok(vec![]);
+            }
+            vec![piece(
+                [cx + rx, cy],
+                vec![Segment::Arc {
+                    center: [cx, cy],
+                    radii: [rx, ry],
+                    rotation: 0.0,
+                    start: 0.0,
+                    sweep: TAU,
+                }],
+            )]
+        }
+        "line" => {
+            let a = [num("x1").unwrap_or(0.0), num("y1").unwrap_or(0.0)];
+            let b = [num("x2").unwrap_or(0.0), num("y2").unwrap_or(0.0)];
+            vec![piece(a, vec![Segment::Line { to: b }])]
+        }
+        "polygon" | "polyline" => {
+            let values: Vec<f64> = node
+                .attribute("points")
+                .unwrap_or("")
+                .split(|c: char| c == ',' || c.is_whitespace())
+                .filter(|s| !s.is_empty())
+                .filter_map(|s| s.parse().ok())
+                .collect();
+            let points: Vec<Point> = values.as_chunks::<2>().0.to_vec();
+            if points.len() < 2 {
+                return Ok(vec![]);
+            }
+            let mut segments: Vec<_> = points[1..].iter().map(|&to| Segment::Line { to }).collect();
+            if node.tag_name().name() == "polygon" {
+                segments.push(Segment::Line { to: points[0] });
+            }
+            vec![piece(points[0], segments)]
+        }
+        _ => vec![],
+    })
+}
+
+/// Import closed outlines from an SVG document. Text and images are ignored.
+pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
+    let document = roxmltree::Document::parse(text).context("invalid SVG/XML")?;
+    let root = document.root_element();
+    ensure!(
+        root.tag_name().name() == "svg",
+        "the document root is not <svg>"
+    );
+    let mut warnings = vec![];
+    // User units to millimetres, from the outer size and viewBox when given.
+    let view: Option<svgtypes::ViewBox> = root.attribute("viewBox").and_then(|v| v.parse().ok());
+    let width = root
+        .attribute("width")
+        .and_then(|v| length_mm(v, options.svg_user_unit));
+    let height = root
+        .attribute("height")
+        .and_then(|v| length_mm(v, options.svg_user_unit));
+    let (scale, origin) = match (view, width, height) {
+        (Some(v), Some(w), h) if v.w > 0.0 => {
+            let sx = w / v.w;
+            if let Some(h) = h
+                && v.h > 0.0
+                && ((h / v.h) - sx).abs() > 1e-9 * sx
+            {
+                warnings.push("non-uniform viewBox scaling; using the width scale".into());
+            }
+            (sx, [v.x, v.y])
+        }
+        (Some(v), None, _) => (options.svg_user_unit, [v.x, v.y]),
+        _ => (options.svg_user_unit, [0.0, 0.0]),
+    };
+    // SVG is Y-down: flip into the Y-up sheet frame.
+    let page = Affine {
+        m: [[scale, 0.0], [0.0, -scale]],
+        t: [-origin[0] * scale, origin[1] * scale],
+    };
+    let ids: HashMap<&str, roxmltree::Node> = document
+        .descendants()
+        .filter_map(|n| n.attribute("id").map(|id| (id, n)))
+        .collect();
+    let mut pieces = vec![];
+    let mut counter = 0;
+    let mut stack = vec![(root, Affine::IDENTITY, 0_u32)];
+    while let Some((node, parent, depth)) = stack.pop() {
+        if !node.is_element() || hidden(&node) {
+            continue;
+        }
+        let name = node.tag_name().name();
+        if matches!(
+            name,
+            "defs"
+                | "clipPath"
+                | "mask"
+                | "symbol"
+                | "pattern"
+                | "marker"
+                | "metadata"
+                | "title"
+                | "desc"
+                | "style"
+                | "text"
+                | "image"
+        ) {
+            continue;
+        }
+        let local = svg_transform(node.attribute("transform"))?;
+        let ctm = if node == root {
+            Affine::IDENTITY
+        } else {
+            local.then(parent)
+        };
+        if name == "use" {
+            ensure!(depth < 16, "SVG <use> nesting is too deep");
+            let href = node
+                .attribute(("http://www.w3.org/1999/xlink", "href"))
+                .or(node.attribute("href"))
+                .unwrap_or("");
+            if let Some(target) = href.strip_prefix('#').and_then(|id| ids.get(id)) {
+                let x = node
+                    .attribute("x")
+                    .and_then(|v| v.parse().ok())
+                    .unwrap_or(0.0);
+                let y = node
+                    .attribute("y")
+                    .and_then(|v| v.parse().ok())
+                    .unwrap_or(0.0);
+                let shift = Affine::translation([x, y]).then(ctm);
+                stack.push((*target, shift, depth + 1));
+            } else {
+                warnings.push(format!("unresolved <use> reference {href:?}"));
+            }
+            continue;
+        }
+        counter += 1;
+        let source = node
+            .attribute("id")
+            .map_or_else(|| format!("{name}-{counter}"), str::to_owned);
+        let total = ctm.then(page);
+        for piece in svg_shape(&node, &source)? {
+            let (start, segments) = map_segments(piece.start, &piece.segments, &total);
+            pieces.push(Piece {
+                start,
+                segments,
+                source: piece.source,
+            });
+        }
+        for child in node.children().collect::<Vec<_>>().into_iter().rev() {
+            stack.push((child, ctm, depth));
+        }
+    }
+    let parts = assemble(pieces, options, &mut warnings)?;
+    Ok(Import { parts, warnings })
+}
+
+impl Affine {
+    pub fn translation(t: Point) -> Self {
+        Self {
+            m: [[1.0, 0.0], [0.0, 1.0]],
+            t,
+        }
+    }
+}
+
+// ---------------------------------------------------------------- DXF
+
+/// Pairs of (group code, value) from an ASCII DXF file.
+fn dxf_pairs(text: &str) -> Result<Vec<(i32, &str)>> {
+    let lines: Vec<&str> = text.lines().map(str::trim).collect();
+    ensure!(
+        lines.len().is_multiple_of(2) || lines.last() == Some(&""),
+        "truncated DXF group pairs"
+    );
+    let mut pairs = Vec::with_capacity(lines.len() / 2);
+    for chunk in lines.chunks(2) {
+        if chunk.len() < 2 {
+            break;
+        }
+        let code: i32 = chunk[0]
+            .parse()
+            .with_context(|| format!("invalid DXF group code {:?}", chunk[0]))?;
+        pairs.push((code, chunk[1]));
+    }
+    Ok(pairs)
+}
+
+#[derive(Default, Clone)]
+struct Entity<'a> {
+    kind: &'a str,
+    codes: Vec<(i32, &'a str)>,
+}
+
+impl<'a> Entity<'a> {
+    fn get(&self, code: i32) -> Option<f64> {
+        self.codes
+            .iter()
+            .find(|c| c.0 == code)
+            .and_then(|c| c.1.parse().ok())
+    }
+    fn text(&self, code: i32) -> Option<&'a str> {
+        self.codes.iter().find(|c| c.0 == code).map(|c| c.1)
+    }
+    fn all(&self, code: i32) -> Vec<f64> {
+        self.codes
+            .iter()
+            .filter(|c| c.0 == code)
+            .filter_map(|c| c.1.parse().ok())
+            .collect()
+    }
+    /// Extrusion (0, 0, -1) mirrors object coordinates across Y.
+    fn ocs(&self) -> Affine {
+        if self.get(230).is_some_and(|z| z < 0.0) {
+            Affine {
+                m: [[-1.0, 0.0], [0.0, 1.0]],
+                t: [0.0, 0.0],
+            }
+        } else {
+            Affine::IDENTITY
+        }
+    }
+}
+
+fn bulge_segment(from: Point, to: Point, bulge: f64) -> Segment {
+    if bulge.abs() < 1e-12 {
+        return Segment::Line { to };
+    }
+    let theta = 4.0 * bulge.atan();
+    let c = [to[0] - from[0], to[1] - from[1]];
+    let d = c[0].hypot(c[1]);
+    let h = d / (2.0 * (theta / 2.0).tan());
+    let n = [-c[1] / d, c[0] / d];
+    let center = [
+        (from[0] + to[0]) / 2.0 + n[0] * h,
+        (from[1] + to[1]) / 2.0 + n[1] * h,
+    ];
+    let radius = d / (2.0 * (theta / 2.0).sin().abs());
+    Segment::Arc {
+        center,
+        radii: [radius, radius],
+        rotation: 0.0,
+        start: (from[1] - center[1]).atan2(from[0] - center[0]),
+        sweep: theta,
+    }
+}
+
+/// Exact BÃ©zier pieces of a non-rational B-spline by Boehm knot insertion.
+fn bspline(degree: usize, knots: &[f64], controls: &[Point]) -> Result<(Point, Vec<Segment>)> {
+    ensure!(
+        (1..=3).contains(&degree),
+        "spline degree {degree} is not supported"
+    );
+    ensure!(
+        controls.len() > degree && knots.len() == controls.len() + degree + 1,
+        "inconsistent spline knots and control points"
+    );
+    let mut knots = knots.to_vec();
+    let mut points = controls.to_vec();
+    let (lo, hi) = (knots[degree], knots[knots.len() - degree - 1]);
+    let insert = |knots: &mut Vec<f64>, points: &mut Vec<Point>, u: f64| {
+        let k = (degree..knots.len() - degree - 1)
+            .rev()
+            .find(|&i| knots[i] <= u)
+            .unwrap_or(degree);
+        let mut next = points[..=k - degree].to_vec();
+        for i in k - degree + 1..=k {
+            let span = knots[i + degree] - knots[i];
+            let a = if span == 0.0 {
+                0.0
+            } else {
+                (u - knots[i]) / span
+            };
+            let (p, q) = (points[i - 1], points[i]);
+            next.push([(1.0 - a) * p[0] + a * q[0], (1.0 - a) * p[1] + a * q[1]]);
+        }
+        next.extend_from_slice(&points[k..]);
+        *points = next;
+        knots.insert(k + 1, u);
+    };
+    // Raise every knot of the domain [lo, hi], ends included, to multiplicity
+    // `degree`; the control polygon then splits into Bézier spans.
+    let mut distinct: Vec<f64> = knots
+        .iter()
+        .copied()
+        .filter(|&k| k >= lo && k <= hi)
+        .collect();
+    distinct.dedup();
+    ensure!(distinct.len() >= 2, "spline has an empty parameter domain");
+    for &u in &distinct {
+        while knots.iter().filter(|&&k| k == u).count() < degree {
+            insert(&mut knots, &mut points, u);
+        }
+    }
+    let first = knots.iter().position(|&k| k == lo).expect("lower knot");
+    let multiplicity = knots.iter().filter(|&&k| k == lo).count();
+    let skip = (first + multiplicity - 1)
+        .checked_sub(degree)
+        .context("spline start is not representable")?;
+    let spans = distinct.len() - 1;
+    ensure!(
+        skip + spans * degree < points.len(),
+        "inconsistent spline after knot insertion"
+    );
+    let points = &points[skip..=skip + spans * degree];
+    let mut segments = vec![];
+    for chunk in 0..spans {
+        let p = &points[chunk * degree..=chunk * degree + degree];
+        segments.push(match degree {
+            1 => Segment::Line { to: p[1] },
+            2 => Segment::Quad {
+                control: p[1],
+                to: p[2],
+            },
+            _ => Segment::Cubic {
+                controls: [p[1], p[2]],
+                to: p[3],
+            },
+        });
+    }
+    Ok((points[0], segments))
+}
+
+fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
+    let layer = e.text(8).unwrap_or("0").to_owned();
+    let source = format!("{}:{}", layer, e.kind);
+    let point = |x: i32, y: i32| -> Option<Point> { Some([e.get(x)?, e.get(y)?]) };
+    let ocs = e.ocs();
+    let map = |start: Point, segments: Vec<Segment>| {
+        let (start, segments) = map_segments(start, &segments, &ocs);
+        Piece {
+            start,
+            segments,
+            source: source.clone(),
+        }
+    };
+    Ok(match e.kind {
+        "LINE" => {
+            let (Some(a), Some(b)) = (point(10, 20), point(11, 21)) else {
+                bail!("LINE without endpoints");
+            };
+            vec![map(a, vec![Segment::Line { to: b }])]
+        }
+        "CIRCLE" | "ARC" => {
+            let (Some(c), Some(r)) = (point(10, 20), e.get(40)) else {
+                bail!("{} without centre or radius", e.kind);
+            };
+            let (start, sweep) = if e.kind == "CIRCLE" {
+                (0.0, TAU)
+            } else {
+                let a = e.get(50).unwrap_or(0.0).to_radians();
+                let b = e.get(51).unwrap_or(360.0).to_radians();
+                let mut sweep = (b - a).rem_euclid(TAU);
+                if sweep == 0.0 {
+                    sweep = TAU;
+                }
+                (a, sweep)
+            };
+            let arc = Segment::Arc {
+                center: c,
+                radii: [r, r],
+                rotation: 0.0,
+                start,
+                sweep,
+            };
+            let begin = [c[0] + r * start.cos(), c[1] + r * start.sin()];
+            vec![map(begin, vec![arc])]
+        }
+        "ELLIPSE" => {
+            let (Some(c), Some(m), Some(ratio)) = (point(10, 20), point(11, 21), e.get(40)) else {
+                bail!("ELLIPSE without centre, axis or ratio");
+            };
+            let start = e.get(41).unwrap_or(0.0);
+            let mut sweep = (e.get(42).unwrap_or(TAU) - start).rem_euclid(TAU);
+            if sweep < 1e-12 {
+                sweep = TAU;
+            }
+            let rx = m[0].hypot(m[1]);
+            let arc = Segment::Arc {
+                center: c,
+                radii: [rx, rx * ratio],
+                rotation: m[1].atan2(m[0]),
+                start,
+                sweep,
+            };
+            let mut probe = vec![];
+            let begin = {
+                let s = Segment::Arc {
+                    center: c,
+                    radii: [rx, rx * ratio],
+                    rotation: m[1].atan2(m[0]),
+                    start,
+                    sweep: 0.0,
+                };
+                s.end()
+            };
+            probe.push(arc);
+            vec![map(begin, probe)]
+        }
+        "LWPOLYLINE" => {
+            let closed = e.get(70).is_some_and(|f| (f as i64) & 1 == 1);
+            // Vertices and optional bulges appear in order: 10, 20, [42].
+            let mut vertices: Vec<(Point, f64)> = vec![];
+            let mut x = None;
+            for &(code, value) in &e.codes {
+                match code {
+                    10 => x = value.parse::<f64>().ok(),
+                    20 => {
+                        if let (Some(xv), Ok(y)) = (x.take(), value.parse::<f64>()) {
+                            vertices.push(([xv, y], 0.0));
+                        }
+                    }
+                    42 => {
+                        if let (Some(last), Ok(b)) = (vertices.last_mut(), value.parse::<f64>()) {
+                            last.1 = b;
+                        }
+                    }
+                    _ => {}
+                }
+            }
+            polyline(&vertices, closed).map_or(vec![], |(s, segs)| vec![map(s, segs)])
+        }
+        "SPLINE" => {
+            let flags = e.get(70).unwrap_or(0.0) as i64;
+            let degree = e.get(71).unwrap_or(3.0) as usize;
+            let knots = e.all(40);
+            let xs = e.all(10);
+            let ys = e.all(20);
+            let controls: Vec<Point> = xs.iter().zip(&ys).map(|(&x, &y)| [x, y]).collect();
+            let weights = e.all(41);
+            if flags & 4 != 0 && weights.iter().any(|w| (w - 1.0).abs() > 1e-12) {
+                warnings.push(format!("{source}: rational spline skipped"));
+                return Ok(vec![]);
+            }
+            if controls.is_empty() {
+                let fx = e.all(11);
+                let fy = e.all(21);
+                ensure!(!fx.is_empty(), "SPLINE without control or fit points");
+                warnings.push(format!("{source}: fit-point spline imported as a polyline"));
+                let pts: Vec<Point> = fx.iter().zip(&fy).map(|(&x, &y)| [x, y]).collect();
+                let segs = pts[1..].iter().map(|&to| Segment::Line { to }).collect();
+                return Ok(vec![map(pts[0], segs)]);
+            }
+            match bspline(degree, &knots, &controls) {
+                Ok((s, segs)) => vec![map(s, segs)],
+                Err(err) => {
+                    warnings.push(format!("{source}: {err}"));
+                    vec![]
+                }
+            }
+        }
+        "POLYLINE" | "VERTEX" | "SEQEND" | "INSERT" => unreachable!("handled by the caller"),
+        other => {
+            if !matches!(
+                other,
+                "TEXT"
+                    | "MTEXT"
+                    | "POINT"
+                    | "DIMENSION"
+                    | "HATCH"
+                    | "SOLID"
+                    | "ATTRIB"
+                    | "ATTDEF"
+                    | "VIEWPORT"
+            ) {
+                warnings.push(format!("{source}: unsupported entity skipped"));
+            }
+            vec![]
+        }
+    })
+}
+
+fn polyline(vertices: &[(Point, f64)], closed: bool) -> Option<(Point, Vec<Segment>)> {
+    if vertices.len() < 2 {
+        return None;
+    }
+    let mut segments = vec![];
+    for i in 0..vertices.len() - 1 {
+        segments.push(bulge_segment(
+            vertices[i].0,
+            vertices[i + 1].0,
+            vertices[i].1,
+        ));
+    }
+    if closed {
+        let last = vertices[vertices.len() - 1];
+        segments.push(bulge_segment(last.0, vertices[0].0, last.1));
+    }
+    Some((vertices[0].0, segments))
+}
+
+fn dxf_entities<'a>(pairs: &[(i32, &'a str)]) -> Vec<Entity<'a>> {
+    let mut entities = vec![];
+    let mut current: Option<Entity> = None;
+    for &(code, value) in pairs {
+        if code == 0 {
+            if let Some(e) = current.take() {
+                entities.push(e);
+            }
+            current = Some(Entity {
+                kind: value,
+                codes: vec![],
+            });
+        } else if let Some(e) = current.as_mut() {
+            e.codes.push((code, value));
+        }
+    }
+    if let Some(e) = current {
+        entities.push(e);
+    }
+    entities
+}
+
+/// Convert a flat entity list (POLYLINE/VERTEX runs and INSERTs resolved) to pieces.
+fn dxf_pieces(
+    entities: &[Entity],
+    blocks: &HashMap<String, Vec<Entity>>,
+    transform: Affine,
+    depth: u32,
+    warnings: &mut Vec<String>,
+) -> Result<Vec<Piece>> {
+    ensure!(depth < 16, "DXF block nesting is too deep");
+    let mut pieces = vec![];
+    let mut i = 0;
+    while i < entities.len() {
+        let e = &entities[i];
+        match e.kind {
+            "POLYLINE" => {
+                let closed = e.get(70).is_some_and(|f| (f as i64) & 1 == 1);
+                let mut vertices = vec![];
+                i += 1;
+                while i < entities.len() && entities[i].kind == "VERTEX" {
+                    let v = &entities[i];
+                    if let (Some(x), Some(y)) = (v.get(10), v.get(20)) {
+                        vertices.push(([x, y], v.get(42).unwrap_or(0.0)));
+                    }
+                    i += 1;
+                }
+                if let Some((s, segs)) = polyline(&vertices, closed) {
+                    let (s, segs) = map_segments(s, &segs, &e.ocs().then(transform));
+                    pieces.push(Piece {
+                        start: s,
+                        segments: segs,
+                        source: format!("{}:POLYLINE", e.text(8).unwrap_or("0")),
+                    });
+                }
+                continue;
+            }
+            "SEQEND" | "VERTEX" => {}
+            "INSERT" => {
+                let name = e.text(2).unwrap_or("");
+                if let Some(block) = blocks.get(name) {
+                    let (sx, sy) = (e.get(41).unwrap_or(1.0), e.get(42).unwrap_or(1.0));
+                    let r = e.get(50).unwrap_or(0.0).to_radians();
+                    let (s, c) = r.sin_cos();
+                    let at = [e.get(10).unwrap_or(0.0), e.get(20).unwrap_or(0.0)];
+                    let local = Affine {
+                        m: [[c * sx, -s * sy], [s * sx, c * sy]],
+                        t: at,
+                    };
+                    pieces.extend(dxf_pieces(
+                        block,
+                        blocks,
+                        e.ocs().then(local).then(transform),
+                        depth + 1,
+                        warnings,
+                    )?);
+                } else {
+                    warnings.push(format!("unknown block {name:?} skipped"));
+                }
+            }
+            _ => {
+                for p in dxf_entity(e, warnings)? {
+                    let (s, segs) = map_segments(p.start, &p.segments, &transform);
+                    pieces.push(Piece {
+                        start: s,
+                        segments: segs,
+                        source: p.source,
+                    });
+                }
+            }
+        }
+        i += 1;
+    }
+    Ok(pieces)
+}
+
+/// Import closed outlines from an ASCII DXF drawing (model space only).
+pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
+    let pairs = dxf_pairs(text)?;
+    let mut warnings = vec![];
+    let mut unit = None;
+    let mut sections: HashMap<&str, Vec<(i32, &str)>> = HashMap::new();
+    let mut i = 0;
+    while i + 1 < pairs.len() {
+        if pairs[i] == (0, "SECTION") && pairs[i + 1].0 == 2 {
+            let name = pairs[i + 1].1;
+            let begin = i + 2;
+            let end = (begin..pairs.len())
+                .find(|&j| pairs[j] == (0, "ENDSEC"))
+                .unwrap_or(pairs.len());
+            sections.insert(name, pairs[begin..end].to_vec());
+            i = end + 1;
+        } else {
+            i += 1;
+        }
+    }
+    if let Some(header) = sections.get("HEADER")
+        && let Some(pos) = header.iter().position(|p| *p == (9, "$INSUNITS"))
+        && let Some(&(70, v)) = header.get(pos + 1)
+    {
+        unit = match v.trim() {
+            "1" => Some(25.4),
+            "2" => Some(304.8),
+            "4" => Some(1.0),
+            "5" => Some(10.0),
+            "6" => Some(1000.0),
+            "0" => None,
+            other => {
+                warnings.push(format!(
+                    "unsupported $INSUNITS {other}; using the default unit"
+                ));
+                None
+            }
+        };
+    }
+    let scale = unit.unwrap_or_else(|| {
+        warnings.push(format!(
+            "no drawing units; assuming {} mm per unit",
+            options.dxf_unit
+        ));
+        options.dxf_unit
+    });
+    let mut blocks = HashMap::new();
+    if let Some(section) = sections.get("BLOCKS") {
+        let entities = dxf_entities(section);
+        let mut name = None;
+        let mut body = vec![];
+        for e in entities {
+            match e.kind {
+                "BLOCK" => {
+                    name = e.text(2).map(str::to_owned);
+                    body.clear();
+                }
+                "ENDBLK" => {
+                    if let Some(n) = name.take() {
+                        blocks.insert(n, std::mem::take(&mut body));
+                    }
+                }
+                _ => body.push(e),
+            }
+        }
+    }
+    let entities = dxf_entities(
+        sections
+            .get("ENTITIES")
+            .context("DXF has no ENTITIES section")?,
+    );
+    let pieces = dxf_pieces(&entities, &blocks, Affine::scale(scale), 0, &mut warnings)?;
+    let parts = assemble(pieces, options, &mut warnings)?;
+    Ok(Import { parts, warnings })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn svg_frame_with_hole_and_rounded_rectangle() {
+        let svg = r#"<svg xmlns="http://www.w3.org/2000/svg" width="100mm" height="50mm" viewBox="0 0 100 50">
+            <path id="frame" d="M 0 0 H 60 V 40 H 0 Z M 10 10 V 30 H 50 V 10 Z"/>
+            <rect id="tab" x="70" y="5" width="20" height="10" rx="2"/>
+            <circle cx="80" cy="35" r="5" transform="translate(1,1)"/>
+            <g transform="scale(2)"><line x1="0" y1="0" x2="5" y2="5"/></g>
+        </svg>"#;
+        let import = import_svg(svg, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 3);
+        let frame = import.parts.iter().find(|p| p.source == "frame").unwrap();
+        assert_eq!(frame.holes.len(), 1);
+        assert!((frame.area - (2400.0 - 800.0)).abs() < 1e-6);
+        let circle = import
+            .parts
+            .iter()
+            .find(|p| p.holes.is_empty() && p.source != "tab")
+            .unwrap();
+        assert!((circle.area - PI * 25.0).abs() < 0.15);
+        // Y-up: the circle centre (81, 36) in SVG maps to y = -36; polygon
+        // vertices lie on the circle, so the bounds are within the tolerance.
+        assert!((circle.bounds[1] + 41.0).abs() < 0.01 && (circle.bounds[0] - 76.0).abs() < 0.01);
+        assert!(
+            import.warnings.iter().any(|w| w.contains("open path")),
+            "{:?}",
+            import.warnings
+        );
+    }
+
+    #[test]
+    fn svg_arcs_match_the_endpoint_definition() {
+        for (large, sweep) in [(false, false), (false, true), (true, false), (true, true)] {
+            let s = svg_arc([0.0, 0.0], 10.0, 6.0, 30.0, large, sweep, [8.0, 3.0]);
+            assert!(dist(s.end(), [8.0, 3.0]) < 1e-9);
+            if let Segment::Arc { sweep: d, .. } = s {
+                assert_eq!(d > 0.0, sweep);
+                assert_eq!(d.abs() > PI, large);
+            }
+        }
+    }
+
+    #[test]
+    fn dxf_lines_arcs_bulges_and_splines_close_into_parts() {
+        let dxf = "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n1\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n\
+            0\nLINE\n8\nCUT\n10\n0\n20\n0\n11\n2\n21\n0\n\
+            0\nARC\n8\nCUT\n10\n2\n20\n1\n40\n1\n50\n270\n51\n90\n\
+            0\nLINE\n8\nCUT\n10\n2\n20\n2\n11\n0\n21\n2\n\
+            0\nLINE\n8\nCUT\n10\n0\n20\n2\n11\n0\n21\n0\n\
+            0\nLWPOLYLINE\n8\nCUT\n90\n2\n70\n1\n10\n10\n20\n0\n42\n1\n10\n12\n20\n0\n42\n1\n\
+            0\nSPLINE\n8\nCUT\n70\n8\n71\n3\n72\n8\n73\n4\n40\n0\n40\n0\n40\n0\n40\n0\n40\n1\n40\n1\n40\n1\n40\n1\n\
+            10\n20\n20\n0\n10\n20\n20\n2\n10\n22\n20\n2\n10\n22\n20\n0\n\
+            0\nLINE\n8\nCUT\n10\n22\n20\n0\n11\n20\n21\n0\n\
+            0\nENDSEC\n0\nEOF\n";
+        let import = import_dxf(dxf, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 3, "{:?}", import.warnings);
+        // Inches to millimetres.
+        let stadium = import.parts.iter().find(|p| p.bounds[0] < 1.0).unwrap();
+        let expected = (4.0 + PI / 2.0) * 25.4 * 25.4;
+        assert!((stadium.area - expected).abs() / expected < 1e-4);
+        let disc = import
+            .parts
+            .iter()
+            .find(|p| (p.bounds[0] - 254.0).abs() < 1e-6)
+            .unwrap();
+        // Chords sit inside the arc by at most the 0.005 mm tolerance.
+        assert!((disc.area - PI * 25.4 * 25.4).abs() / (PI * 645.16) < 1e-3);
+    }
+
+    #[test]
+    fn bspline_knot_insertion_reproduces_the_curve() {
+        // A clamped cubic with one interior knot: compare against de Boor.
+        let knots = [0.0, 0.0, 0.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0];
+        let controls = [[0.0, 0.0], [1.0, 3.0], [3.0, 4.0], [5.0, 1.0], [6.0, 0.0]];
+        let (start, segments) = bspline(3, &knots, &controls).unwrap();
+        assert_eq!(segments.len(), 2);
+        let de_boor = |u: f64| {
+            let k = if u >= 0.5 { 4 } else { 3 };
+            let mut d: Vec<Point> = (0..=3).map(|j| controls[j + k - 3]).collect();
+            for r in 1..=3 {
+                for j in (r..=3).rev() {
+                    let i = j + k - 3;
+                    let a = (u - knots[i]) / (knots[i + 4 - r] - knots[i]);
+                    d[j] = [
+                        (1.0 - a) * d[j - 1][0] + a * d[j][0],
+                        (1.0 - a) * d[j - 1][1] + a * d[j][1],
+                    ];
+                }
+            }
+            d[3]
+        };
+        let bezier = |p: [Point; 4], t: f64| {
+            let s = 1.0 - t;
+            let w = [s * s * s, 3.0 * s * s * t, 3.0 * s * t * t, t * t * t];
+            [
+                (0..4).map(|i| w[i] * p[i][0]).sum::<f64>(),
+                (0..4).map(|i| w[i] * p[i][1]).sum::<f64>(),
+            ]
+        };
+        let mut from = start;
+        for (i, s) in segments.iter().enumerate() {
+            let Segment::Cubic { controls: c, to } = s else {
+                panic!("cubic")
+            };
+            for step in 0..=10 {
+                let t = f64::from(step) / 10.0;
+                let u = 0.5 * (i as f64 + t);
+                let expected = de_boor(u.min(0.999_999_999));
+                assert!(dist(bezier([from, c[0], c[1], *to], t), expected) < 1e-6);
+            }
+            from = *to;
+        }
+    }
+}

@@ -11,7 +11,13 @@ use serde::{Deserialize, Serialize};
 
 pub mod construct;
 pub mod control;
+pub mod curves;
+pub mod export;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod holes;
+pub mod import;
 pub mod optimize;
+pub mod project;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod separate;
 #[cfg(not(target_arch = "wasm32"))]

@@ -42,8 +42,10 @@ pub struct Options {
     pub seed: u64,
     /// Share of the budget given to the deterministic repacking warm start.
     pub warm_fraction: f64,
-    /// Share of the budget reserved for shortening the last sheet.
+    /// Share of the separator time reserved for Sparrow's compression phase.
     pub compress_fraction: f64,
+    /// Number of trailing sheets laid end to end in one virtual strip.
+    pub window: usize,
 }
 
 impl Default for Options {
@@ -53,6 +55,7 @@ impl Default for Options {
             seed: 0,
             warm_fraction: 0.1,
             compress_fraction: 0.25,
+            window: 6,
         }
     }
 }
@@ -85,6 +88,8 @@ pub struct SheetResult {
     pub warm_start: Metrics,
     /// Why the separator was skipped; the general search then used the budget.
     pub unsupported: Option<String>,
+    /// Parts placed inside the holes of other parts before the search.
+    pub riders: u32,
     pub layout: Layout,
     pub validation: Report,
     pub history: Vec<Progress>,
@@ -116,6 +121,13 @@ impl Affine {
             m: [[m(0, 0), m(0, 1)], [m(1, 0), m(1, 1)]],
             t: [t(0), t(1)],
         }
+    }
+
+    fn apply(&self, p: [f64; 2]) -> [f64; 2] {
+        [
+            self.m[0][0] * p[0] + self.m[0][1] * p[1] + self.t[0],
+            self.m[1][0] * p[0] + self.m[1][1] * p[1] + self.t[1],
+        ]
     }
 
     fn reflected(&self) -> bool {
@@ -167,6 +179,8 @@ struct Model<'a> {
     /// Per internal item: original coordinates to jagua's centred shape.
     pre: Vec<Affine>,
     part: Vec<usize>,
+    /// Stock defects as outer contours in one sheet's strip frame.
+    defects: Vec<Vec<(f32, f32)>>,
 }
 
 impl<'a> Model<'a> {
@@ -176,10 +190,14 @@ impl<'a> Model<'a> {
             "sheet separation supports all-parts jobs"
         );
         ensure!(
-            job.stocks.len() == 1
-                && job.stocks[0].outline.is_empty()
-                && job.stocks[0].defects.is_empty(),
-            "sheet separation supports one rectangular stock size without defects"
+            job.stocks.len() == 1 && job.stocks[0].outline.is_empty(),
+            "sheet separation supports one rectangular stock size"
+        );
+        // Defects become inflated container holes, which keep the part
+        // clearance; a larger edge clearance would need offset defects.
+        ensure!(
+            job.stocks[0].defects.is_empty() || job.edge_clearance <= job.clearance,
+            "sheet separation keeps defect clearance only up to the part clearance"
         );
         let stock = &job.stocks[0];
         let guard = conversion_guard(job);
@@ -256,9 +274,23 @@ impl<'a> Model<'a> {
             pre.push(Affine::translation([f64::from(x), f64::from(y)]));
             part.push(usize::try_from(item.external_id())?);
         }
+        let defects = stock
+            .defects
+            .iter()
+            .map(|d| {
+                d.outer
+                    .iter()
+                    .map(|&[x, y]| {
+                        let [u, v] = frame.apply([x, y]);
+                        (u as f32, v as f32)
+                    })
+                    .collect()
+            })
+            .collect();
         Ok(Self {
             job,
             instance,
+            defects,
             full_width: full as f32,
             separation: separation as f32,
             frame,
@@ -413,6 +445,10 @@ struct Search<'a, 'm, F> {
     history: Vec<Progress>,
     stats: Stats,
     progress: F,
+    /// Longest observed independent check, reserved before every deadline.
+    check_cost: Duration,
+    /// Minimum spacing of intermediate checks; removals are checked at once.
+    check_every: Duration,
 }
 
 impl<F: FnMut(&Progress)> Search<'_, '_, F> {
@@ -421,9 +457,17 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
     }
 
     /// Validate the current state independently and keep it only if better.
+    /// The latest instant at which search may start another step and still
+    /// finish an independent check before `until`.
+    fn last_step(&self, until: Instant) -> Instant {
+        until - self.check_cost.mul_f64(1.5)
+    }
+
     fn accept(&mut self, sheets: &[SPProblem], stage: &'static str) -> Result<bool> {
+        let started = Instant::now();
         let layout = self.model.to_layout(sheets);
         let report = validate(self.model.job, &layout)?;
+        self.check_cost = self.check_cost.max(started.elapsed());
         if !report.valid {
             if std::env::var_os("NESTBOLT_DEBUG").is_some() {
                 eprintln!(
@@ -478,6 +522,45 @@ pub fn optimize(
         "sheet budget must be in (0, 300] seconds"
     );
     let start = Instant::now();
+    // Part-in-part first: filled hosts become rigid groups for the search.
+    let grouped = crate::holes::group(
+        job,
+        start + Duration::from_secs_f64(options.seconds * 0.05),
+        options.seed,
+    )?;
+    let remaining = options.seconds - start.elapsed().as_secs_f64();
+    ensure!(remaining > 0.0, "no time left after part-in-part grouping");
+    let mut result = optimize_job(
+        &grouped.job,
+        Options {
+            seconds: remaining,
+            ..options
+        },
+        progress,
+    )?;
+    if grouped.riders_placed > 0 {
+        let expanded = grouped.expand(job, &result.layout)?;
+        let validation = validate(job, &expanded)?;
+        ensure!(
+            validation.valid,
+            "expanded part-in-part layout failed independent validation: {:?}",
+            validation.violations
+        );
+        result.layout = expanded;
+        result.validation = validation;
+    }
+    result.riders = grouped.riders_placed;
+    result.seconds = options.seconds;
+    result.elapsed_seconds = start.elapsed().as_secs_f64();
+    Ok(result)
+}
+
+fn optimize_job(
+    job: &Job,
+    options: Options,
+    progress: impl FnMut(&Progress),
+) -> Result<SheetResult> {
+    let start = Instant::now();
     let deadline = start + Duration::from_secs_f64(options.seconds);
     let finish = deadline - Duration::from_millis(250);
     let model = Model::new(job);
@@ -524,6 +607,7 @@ pub fn optimize(
                 seed: options.seed,
                 seconds: options.seconds,
                 unsupported: Some(reason.to_string()),
+                riders: 0,
                 history: vec![Progress {
                     elapsed_seconds: elapsed,
                     stage: "general",
@@ -553,9 +637,12 @@ pub fn optimize(
         }],
         stats: Stats::default(),
         progress,
+        check_cost: Duration::ZERO,
+        check_every: Duration::from_secs_f64((options.seconds * 0.1).max(5.0)),
     };
     let sheets = model.sheets_of(&warm.best.layout)?;
-    search.window_search(sheets, finish, options.compress_fraction)?;
+    ensure!(options.window >= 1, "the window needs at least one sheet");
+    search.window_search(sheets, finish, options.compress_fraction, options.window)?;
     let Search {
         best,
         history,
@@ -568,6 +655,7 @@ pub fn optimize(
         seconds: options.seconds,
         warm_start: warm_metrics,
         unsupported: None,
+        riders: 0,
         layout: best.0,
         validation: best.1,
         history,
@@ -702,6 +790,86 @@ mod tests {
             let warm = result.warm_start.normalized_material;
             assert!(result.validation.metrics.unwrap().normalized_material <= warm);
         }
+    }
+
+    proptest::proptest! {
+        #![proptest_config(proptest::prelude::ProptestConfig::with_cases(64))]
+        #[test]
+        fn strip_frame_round_trips_random_jobs(
+            width in 20.0..3000.0_f64,
+            height in 20.0..3000.0_f64,
+            margin in 0.0..0.1_f64,
+            clearance in 0.0..2.0_f64,
+            edge in 0.0..2.0_f64,
+            angles in proptest::collection::vec(0u32..360, 1..6),
+            mirror in proptest::prelude::any::<bool>(),
+            pick in 0usize..6,
+            x in 0.0..1.0_f64,
+            y in 0.0..1.0_f64,
+        ) {
+            let mut job = job(Rotations::List { degrees: angles.iter().map(|&a| f64::from(a)).collect() }, mirror);
+            let scale = width.min(height) / 200.0;
+            for point in &mut job.parts[0].geometry[0].outer {
+                *point = [point[0] * scale, point[1] * scale];
+            }
+            job.clearance = clearance * scale;
+            job.edge_clearance = edge * scale;
+            job.stocks[0].width = width;
+            job.stocks[0].height = height;
+            job.stocks[0].margins = Margins {
+                left: margin * width,
+                right: margin * width / 2.0,
+                bottom: margin * height,
+                top: margin * height / 3.0,
+            };
+            let model = Model::new(&job).unwrap();
+            let angle = f64::from(angles[pick % angles.len()]).to_radians();
+            for mirrored in [false, true].into_iter().take(if mirror { 2 } else { 1 }) {
+                let rt = RigidTransform {
+                    translation: [x * width, y * height],
+                    rotation_radians: angle,
+                    mirrored,
+                };
+                let dt = model.internal(0, &rt);
+                proptest::prop_assert!(model.instance.item(0).allowed_orientations().allows(&dt));
+                let back = model.external(0, &dt);
+                proptest::prop_assert_eq!(back.mirrored, mirrored);
+                proptest::prop_assert!(circular_distance(back.rotation_radians, angle) < 1e-6);
+                for i in 0..2 {
+                    proptest::prop_assert!((back.translation[i] - rt.translation[i]).abs() < 1e-6 * width.max(height));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn defects_stay_clear_in_sheet_search() {
+        let mut job = job(
+            Rotations::List {
+                degrees: vec![0.0, 90.0, 180.0, 270.0],
+            },
+            false,
+        );
+        job.parts[0].quantity = 10;
+        job.edge_clearance = job.clearance;
+        job.stocks[0].defects = vec![nestbolt_validator::Polygon {
+            outer: vec![[30.0, 18.0], [42.0, 18.0], [42.0, 30.0], [30.0, 30.0]],
+            holes: vec![],
+        }];
+        let result = optimize(
+            &job,
+            Options {
+                seconds: 4.0,
+                ..Options::default()
+            },
+            |_| {},
+        )
+        .unwrap();
+        assert!(result.unsupported.is_none());
+        assert!(validate(&job, &result.layout).unwrap().valid);
+        // A larger edge clearance cannot be kept around defects yet.
+        job.edge_clearance = job.clearance + 0.5;
+        assert!(Model::new(&job).is_err());
     }
 
     #[test]

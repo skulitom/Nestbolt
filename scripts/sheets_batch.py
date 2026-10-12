@@ -76,7 +76,7 @@ def run_case(binary, case, args, run_dir, cpus):
             raise ValueError(f'{case["id"]}: job hash differs from the frozen manifest')
         layout = directory/'layout.json'
         command = [str(binary), 'sheets', '--job', str(job), '--output', str(layout),
-                   '--seconds', str(args.seconds), '--seed', str(args.seed)]
+                   '--seconds', str(args.seconds), '--seed', str(args.seed), *args.solver_arg]
         started = time.perf_counter()
         with open(directory/'stdout.json', 'wb') as out, open(directory/'progress.log', 'wb') as err:
             process = subprocess.Popen(command, stdout=out, stderr=err)
@@ -120,12 +120,12 @@ SOURCE_FILES = ['scripts/sheets_batch.py', 'crates/core/src/sheets.rs', 'crates/
 
 
 def report(rows, args, binary_hash, started, run_dir, sources):
-    competitors = competitor_medians(60)
+    competitors = competitor_medians(args.reference_seconds)
     lines = ['# Fixed-sheet separator: development batch', '',
              f'All selected development B/M jobs, seed {args.seed}, {args.seconds} s wall clock per job, '
              'one pinned logical CPU per process. Ten held-out maker jobs are excluded. Competitor '
-             'references are the frozen M1 three-seed 60 s medians; one Nestbolt seed is triage, '
-             'not G1/G2/G4 acceptance.', '']
+             f'references are the frozen M1 three-seed {args.reference_seconds} s medians; one Nestbolt '
+             'seed is development evidence, not final acceptance.', '', f'Solver arguments: `{" ".join(args.solver_arg) or "defaults"}`.', '']
     valid = [r for r in rows if r['status'] == 'valid']
     lines.append(f'Valid layouts: **{len(valid)}/{len(rows)}**. Failed or invalid outcomes are listed below and never scored.')
     comparisons = []
@@ -152,10 +152,10 @@ def report(rows, args, binary_hash, started, run_dir, sources):
                      f"{fmt(row.get('warm_material'))} | {fmt(competitor)} | {reduction} | "
                      f"{row.get('sheets', '—')} | {fmt(row.get('accepted_at_seconds'), 1)} |")
     stamp = started.strftime('%Y%m%dT%H%M%SZ')
-    name = f'sheets-development-{stamp}-{uuid.uuid4().hex[:8]}'
+    name = f'sheets-{args.label}-{stamp}-{uuid.uuid4().hex[:8]}'
     record = {'scope': 'Development B/M only; one seed; timed; no acceptance-gate claim.',
               'recorded_at': datetime.now(timezone.utc).isoformat(), 'seed': args.seed,
-              'seconds': args.seconds, 'cpus': args.cpu, 'binary_sha256': binary_hash,
+              'seconds': args.seconds, 'reference_seconds': args.reference_seconds, 'cpus': args.cpu, 'solver_args': args.solver_arg, 'binary_sha256': binary_hash,
               'baseline': {'path': BASELINE.relative_to(ROOT).as_posix(), 'git_lf_sha256': lf_digest(BASELINE)},
               'sources_at_start': sources,
               'run_directory': run_dir.relative_to(ROOT).as_posix(), 'rows': rows}
@@ -174,6 +174,10 @@ def main():
     parser.add_argument('--cpu', type=int, action='append', required=True)
     parser.add_argument('--seconds', type=float, default=60.0)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--solver-arg', action='append', default=[],
+                        help='extra argument passed to `nestbolt sheets`, e.g. --solver-arg=--window=8')
+    parser.add_argument('--label', default='development')
+    parser.add_argument('--reference-seconds', type=int, choices=[60, 300], default=60)
     args = parser.parse_args()
     if not 1 <= len(args.cpu) <= 8 or len(set(args.cpu)) != len(args.cpu) or not 0 < args.seconds <= 300:
         parser.error('1..8 distinct CPUs; budget in (0, 300] seconds')

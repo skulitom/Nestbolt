@@ -13,6 +13,51 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Import closed outlines from SVG/DXF files into a part library (mm).
+    Import {
+        #[arg(required = true)]
+        inputs: Vec<PathBuf>,
+        #[arg(long)]
+        output: PathBuf,
+        /// Maximum distance between exact curves and nesting polygons, in mm.
+        #[arg(long, default_value_t = 0.005)]
+        tolerance: f64,
+        /// Millimetres per SVG user unit when a document has no absolute size.
+        #[arg(long)]
+        svg_user_unit_mm: Option<f64>,
+        /// Millimetres per DXF unit when $INSUNITS is missing.
+        #[arg(long)]
+        dxf_unit_mm: Option<f64>,
+    },
+    /// Nest library parts on sheets and write the layout, report and exports.
+    Nest {
+        #[arg(long)]
+        library: PathBuf,
+        #[arg(long)]
+        request: PathBuf,
+        #[arg(long)]
+        out_dir: PathBuf,
+        #[arg(long, default_value_t = 60.0)]
+        seconds: f64,
+        #[arg(long, default_value_t = 0)]
+        seed: u64,
+        /// Draw sheet boundaries in exports (in their own group/layer).
+        #[arg(long)]
+        sheet_outline: bool,
+    },
+    /// Write per-sheet SVG and DXF files for an existing layout.
+    Export {
+        #[arg(long)]
+        library: PathBuf,
+        #[arg(long)]
+        request: PathBuf,
+        #[arg(long)]
+        layout: PathBuf,
+        #[arg(long)]
+        out_dir: PathBuf,
+        #[arg(long)]
+        sheet_outline: bool,
+    },
     /// Native strip-parity diagnostic using pinned Sparrow, timed rather than fixed-work.
     Strip {
         #[arg(long)]
@@ -39,6 +84,8 @@ enum Command {
         warm_fraction: f64,
         #[arg(long, default_value_t = 0.25)]
         compress_fraction: f64,
+        #[arg(long, default_value_t = 6)]
+        window: usize,
     },
     /// Compact an existing valid layout with bounded translation sweeps.
     Compact {
@@ -136,9 +183,173 @@ impl From<InputUnits> for Units {
     }
 }
 
+/// Create a new file; never overwrite a user's existing output.
+fn write_new(path: &std::path::Path, bytes: &[u8]) -> Result<()> {
+    use std::io::Write;
+    let mut file = fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(path)
+        .with_context(|| format!("cannot create {} (it may already exist)", path.display()))?;
+    file.write_all(bytes)?;
+    Ok(())
+}
+
+fn exports(
+    job: &nestbolt_validator::job::Job,
+    layout: &nestbolt_validator::job::Layout,
+    outlines: &std::collections::HashMap<String, nestbolt_core::export::Outline>,
+    out_dir: &std::path::Path,
+    sheet_outline: bool,
+) -> Result<Vec<String>> {
+    let options = nestbolt_core::export::Options { sheet_outline };
+    let mut written = vec![];
+    for sheet in &layout.sheets {
+        for (ext, text) in [
+            (
+                "svg",
+                nestbolt_core::export::svg(job, layout, &sheet.id, outlines, options)?,
+            ),
+            (
+                "dxf",
+                nestbolt_core::export::dxf(job, layout, &sheet.id, outlines, options)?,
+            ),
+        ] {
+            let path = out_dir.join(format!("{}.{ext}", sheet.id));
+            write_new(&path, text.as_bytes())?;
+            written.push(path.display().to_string());
+        }
+    }
+    Ok(written)
+}
+
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::Import {
+            inputs,
+            output,
+            tolerance,
+            svg_user_unit_mm,
+            dxf_unit_mm,
+        } => {
+            let mut options = nestbolt_core::import::Options {
+                tolerance,
+                ..Default::default()
+            };
+            if let Some(u) = svg_user_unit_mm {
+                options.svg_user_unit = u;
+            }
+            if let Some(u) = dxf_unit_mm {
+                options.dxf_unit = u;
+            }
+            let files = inputs
+                .iter()
+                .map(|p| {
+                    let name = p
+                        .file_name()
+                        .and_then(|n| n.to_str())
+                        .context("input file name")?
+                        .to_owned();
+                    Ok((
+                        name,
+                        fs::read_to_string(p)
+                            .with_context(|| format!("cannot read {}", p.display()))?,
+                    ))
+                })
+                .collect::<Result<Vec<_>>>()?;
+            let library = nestbolt_core::project::Library::import(&files, &options)?;
+            write_new(&output, serde_json::to_string_pretty(&library)?.as_bytes())?;
+            let summary: Vec<_> = library
+                .parts
+                .iter()
+                .map(|p| {
+                    serde_json::json!({"id": p.id, "source": p.source, "area_mm2": p.area_mm2,
+                    "bounds_mm": p.bounds_mm, "holes": p.holes.len()})
+                })
+                .collect();
+            println!(
+                "{}",
+                serde_json::to_string_pretty(
+                    &serde_json::json!({"library": output, "parts": summary,
+                    "warnings": library.warnings})
+                )?
+            );
+        }
+        Command::Nest {
+            library,
+            request,
+            out_dir,
+            seconds,
+            seed,
+            sheet_outline,
+        } => {
+            let library: nestbolt_core::project::Library =
+                serde_json::from_slice(&fs::read(&library)?)
+                    .context("invalid part library JSON")?;
+            let request: nestbolt_core::project::Request =
+                serde_json::from_slice(&fs::read(&request)?)
+                    .context("invalid nest request JSON")?;
+            let (job, outlines) = request.job(&library)?;
+            fs::create_dir_all(&out_dir)?;
+            let result = nestbolt_core::sheets::optimize(
+                &job,
+                nestbolt_core::sheets::Options {
+                    seconds,
+                    seed,
+                    ..Default::default()
+                },
+                |p| eprintln!("{}", serde_json::to_string(p).expect("finite progress")),
+            )?;
+            ensure!(
+                result.validation.valid,
+                "result failed independent validation"
+            );
+            write_new(
+                &out_dir.join("job.json"),
+                serde_json::to_string_pretty(&job)?.as_bytes(),
+            )?;
+            write_new(
+                &out_dir.join("layout.json"),
+                serde_json::to_string_pretty(&result.layout)?.as_bytes(),
+            )?;
+            let files = exports(&job, &result.layout, &outlines, &out_dir, sheet_outline)?;
+            let report = serde_json::json!({"validation": result.validation, "files": files,
+                "seconds": result.seconds, "seed": result.seed, "riders": result.riders,
+                "algorithm": result.algorithm, "unsupported": result.unsupported});
+            write_new(
+                &out_dir.join("report.json"),
+                serde_json::to_string_pretty(&report)?.as_bytes(),
+            )?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+        }
+        Command::Export {
+            library,
+            request,
+            layout,
+            out_dir,
+            sheet_outline,
+        } => {
+            let library: nestbolt_core::project::Library =
+                serde_json::from_slice(&fs::read(&library)?)?;
+            let request: nestbolt_core::project::Request =
+                serde_json::from_slice(&fs::read(&request)?)?;
+            let layout: nestbolt_validator::job::Layout =
+                serde_json::from_slice(&fs::read(&layout)?)?;
+            let (job, outlines) = request.job(&library)?;
+            let report = nestbolt_validator::job::validate(&job, &layout)?;
+            ensure!(
+                report.valid,
+                "the layout does not satisfy the request: {:?}",
+                report.violations
+            );
+            fs::create_dir_all(&out_dir)?;
+            let files = exports(&job, &layout, &outlines, &out_dir, sheet_outline)?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&serde_json::json!({"files": files}))?
+            );
+        }
         Command::Strip {
             job,
             output,
@@ -175,6 +386,7 @@ fn main() -> Result<()> {
             seconds,
             warm_fraction,
             compress_fraction,
+            window,
         } => {
             let job = serde_json::from_slice(&fs::read(&job)?)?;
             let result = nestbolt_core::sheets::optimize(
@@ -184,6 +396,7 @@ fn main() -> Result<()> {
                     seed,
                     warm_fraction,
                     compress_fraction,
+                    window,
                 },
                 |p| {
                     eprintln!(
