@@ -102,7 +102,7 @@ pub struct Violation {
     pub message: String,
 }
 
-#[derive(Debug, Serialize, JsonSchema)]
+#[derive(Clone, Debug, Serialize, JsonSchema)]
 pub struct Metrics {
     pub sheets_used: usize,
     pub placed_parts: usize,

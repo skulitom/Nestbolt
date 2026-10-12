@@ -325,6 +325,32 @@ fn hull(mut points: Vec<[f64; 2]>) -> Vec<[f64; 2]> {
     result
 }
 
+/// The conservative collision outline shared by every search stage: one hull
+/// around multipart components, otherwise the outer contour with holes reserved.
+pub(crate) fn proxy_points(part: &Part) -> Vec<[f64; 2]> {
+    if part.geometry.len() > 1 {
+        hull(part.geometry.iter().flat_map(|p| p.outer.clone()).collect())
+    } else {
+        part.geometry[0].outer.clone()
+    }
+}
+
+/// Scale-dependent floating-point guard for conversion, centering, rotation and
+/// source-transform reconstruction, shared by the constructor and sheet search.
+pub(crate) fn conversion_guard(job: &Job) -> f64 {
+    let magnitude = job
+        .parts
+        .iter()
+        .flat_map(|p| &p.geometry)
+        .flat_map(|p| &p.outer)
+        .flat_map(|p| p.iter())
+        .copied()
+        .map(f64::abs)
+        .chain(job.stocks.iter().flat_map(|s| [s.width, s.height]))
+        .fold(1.0, f64::max);
+    (magnitude * 32.0 * f32::EPSILON as f64).max(0.00002 / job.units.to_mm())
+}
+
 fn shape(points: &[[f64; 2]]) -> ExtShape {
     let mut points: Vec<_> = points.iter().map(|p| (p[0] as f32, p[1] as f32)).collect();
     points.dedup();
@@ -796,19 +822,8 @@ impl<'a> PreparedJob<'a> {
             preflight.violations.iter().all(|v| v.code == "quantity"),
             "invalid source job"
         );
-        let magnitude = job
-            .parts
-            .iter()
-            .flat_map(|p| &p.geometry)
-            .flat_map(|p| &p.outer)
-            .flat_map(|p| p.iter())
-            .copied()
-            .map(f64::abs)
-            .chain(job.stocks.iter().flat_map(|s| [s.width, s.height]))
-            .fold(1.0, f64::max);
-        // Reserve a scale-dependent floating-point guard for conversion, centering,
-        // rotation and source-transform reconstruction. Final validity is checked.
-        let guard = (magnitude * 32.0 * f32::EPSILON as f64).max(0.00002 / job.units.to_mm());
+        // Final validity is still checked independently.
+        let guard = conversion_guard(job);
         // jagua uses 0.1-radian inscribed round joins. Compensate their chord
         // deficit as well as f32 rounding before allowing contact placements.
         let separation = (job.clearance.max(job.edge_clearance) + guard) / 0.05_f64.cos();
@@ -834,11 +849,7 @@ impl<'a> PreparedJob<'a> {
         for (index, part) in job.parts.iter().enumerate() {
             control.checkpoint()?;
             let multipart = part.geometry.len() > 1;
-            let points = if multipart {
-                hull(part.geometry.iter().flat_map(|p| p.outer.clone()).collect())
-            } else {
-                part.geometry[0].outer.clone()
-            };
+            let points = proxy_points(part);
             if multipart || part.geometry.iter().any(|p| !p.holes.is_empty()) {
                 notes.push(format!(
                     "{}: {}",

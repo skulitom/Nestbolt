@@ -13,6 +13,10 @@ pub mod construct;
 pub mod control;
 pub mod optimize;
 #[cfg(not(target_arch = "wasm32"))]
+pub mod separate;
+#[cfg(not(target_arch = "wasm32"))]
+pub mod sheets;
+#[cfg(not(target_arch = "wasm32"))]
 pub mod strip;
 
 /// Initial supported job size, matching the v1 target in the project plan.

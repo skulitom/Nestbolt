@@ -24,6 +24,22 @@ enum Command {
         #[arg(long, default_value_t = 60, value_parser = clap::value_parser!(u64).range(1..=300))]
         seconds: u64,
     },
+    /// Timed fixed-sheet search: repacking warm start, then Sparrow-style sheet
+    /// removal and last-sheet compression. Wall-clock, not repeatable.
+    Sheets {
+        #[arg(long)]
+        job: PathBuf,
+        #[arg(long)]
+        output: PathBuf,
+        #[arg(long, default_value_t = 0)]
+        seed: u64,
+        #[arg(long, default_value_t = 60.0)]
+        seconds: f64,
+        #[arg(long, default_value_t = 0.1)]
+        warm_fraction: f64,
+        #[arg(long, default_value_t = 0.25)]
+        compress_fraction: f64,
+    },
     /// Compact an existing valid layout with bounded translation sweeps.
     Compact {
         #[arg(long)]
@@ -151,6 +167,42 @@ fn main() -> Result<()> {
                 .open(output)?;
             file.write_all(serde_json::to_string_pretty(&result.layout)?.as_bytes())?;
             println!("{}", serde_json::to_string_pretty(&result)?);
+        }
+        Command::Sheets {
+            job,
+            output,
+            seed,
+            seconds,
+            warm_fraction,
+            compress_fraction,
+        } => {
+            let job = serde_json::from_slice(&fs::read(&job)?)?;
+            let result = nestbolt_core::sheets::optimize(
+                &job,
+                nestbolt_core::sheets::Options {
+                    seconds,
+                    seed,
+                    warm_fraction,
+                    compress_fraction,
+                },
+                |p| {
+                    eprintln!(
+                        "{}",
+                        serde_json::to_string(p).expect("finite sheet progress")
+                    )
+                },
+            )?;
+            println!("{}", serde_json::to_string_pretty(&result)?);
+            ensure!(
+                result.validation.valid,
+                "sheet result failed independent validation"
+            );
+            use std::io::Write;
+            let mut file = fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(&output)?;
+            file.write_all(serde_json::to_string_pretty(&result.layout)?.as_bytes())?;
         }
         Command::Compact {
             job,
