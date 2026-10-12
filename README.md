@@ -6,10 +6,17 @@ competitor produced a valid layout ([details](#how-it-compares)).
 
 Free, open-source nesting for people who cut **fixed sheets**: laser cutters, CNC
 routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use
-the least material. It runs in your browser (nothing is uploaded), on the command
-line, and as an MCP server that AI agents can call.
+the least material. It runs [in your browser](https://skulitom.github.io/Nestbolt/)
+(nothing is uploaded), on the command line, and as an MCP server that AI agents
+can call.
 
-![Two finger-jointed boxes nested in the browser app in ten seconds](docs/images/browser-example.png)
+![451 letter outlines nested on one sheet, small letters inside the holes of large ones](docs/images/showcase.png)
+
+451 parts on one 850 × 425 mm sheet in 120 seconds on one CPU core: DejaVu Sans
+Bold glyphs in four sizes with their exact Bézier outlines, 90° rotations and
+1 mm spacing. 29 letters sit inside the holes of others, and the unused material
+stays as one clean offcut along the top. The layout passed the independent
+validator. Rebuild it with `python scripts/make_showcase.py --nest 120`.
 
 ## How it compares
 
@@ -98,8 +105,13 @@ File formats are described by the [JSON Schemas](schemas/README.md).
 
 ## Browser app
 
-Build it locally (needs the `wasm32-unknown-unknown` target, `wasm-bindgen-cli`
-0.2.129 and Node.js 24), then open the printed address:
+[Open it](https://skulitom.github.io/Nestbolt/) and press **Try an example** to
+nest two finger-jointed boxes, or drop your own SVG and DXF files.
+
+![Two finger-jointed boxes nested in the browser app in ten seconds](docs/images/browser-example.png)
+
+To build it locally you need the `wasm32-unknown-unknown` target, `wasm-bindgen-cli`
+0.2.129 and Node.js 24; then open the printed address:
 
 ```sh
 cd web && npm ci && cd ..
