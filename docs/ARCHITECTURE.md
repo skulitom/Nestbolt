@@ -60,8 +60,15 @@ all 30 retained maker layouts are exactly equal to v2, with cheaper rejection.
 `core::optimize` reuses prepared geometry, changes part order deterministically,
 and periodically attempts one fewer sheet. Independent validation accepts an
 improvement only if it beats the incumbent under the declared all/fill objective.
-Incomplete capped trials have no score. Progress reports every pass. Fixed passes
-are an experimental work quota; calibrated deadlines and cancellation are pending.
+Incomplete capped trials have no score. Progress reports every completed pass.
+`optimize_controlled` shares a deterministic collision-query allowance across
+passes and accepts an external cancellation/deadline callback. Checkpoints occur
+between imports, parts, orientations and refinement steps, and every 64 collision
+queries. An interrupted trial is discarded; the last independently checked
+incumbent survives. Interruption before the initial construction completes is a
+typed error. Individual geometry operations and validation are not preempted.
+The CLI exposes `--max-checks` and `--timeout-ms`; the versioned time-to-work
+calibration and browser/MCP cancellation wiring remain to be built.
 
 The optional refinement stage makes bounded translations from a feasible
 placement, using progressively smaller steps and several downward slopes. It

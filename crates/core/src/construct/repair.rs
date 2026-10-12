@@ -75,6 +75,7 @@ impl PreparedJob<'_> {
         source: &Layout,
         rank: usize,
         options: Options,
+        control: &mut Control<'_>,
     ) -> Result<Construction> {
         let mut loads: Vec<_> = source
             .sheets
@@ -100,7 +101,7 @@ impl PreparedJob<'_> {
             .collect();
         loads.sort_by(|a, b| a.1.total_cmp(&b.1).then(a.0.cmp(&b.0)));
         ensure!(!loads.is_empty(), "repair requires sheets");
-        self.repair_sheet(source, loads[rank % loads.len()].0, options, 8)
+        self.repair_sheet_controlled(source, loads[rank % loads.len()].0, options, 8, control)
     }
 
     /// Try to remove a physical sheet from a valid all-parts layout compatible
@@ -114,6 +115,18 @@ impl PreparedJob<'_> {
         options: Options,
         ejections: usize,
     ) -> Result<Construction> {
+        self.repair_sheet_controlled(source, donor, options, ejections, &mut Control::unlimited())
+    }
+
+    fn repair_sheet_controlled(
+        &self,
+        source: &Layout,
+        donor: usize,
+        options: Options,
+        ejections: usize,
+        control: &mut Control<'_>,
+    ) -> Result<Construction> {
+        control.checkpoint()?;
         ensure!(
             self.job.mode == Mode::All,
             "sheet repair requires all-parts mode"
@@ -165,7 +178,9 @@ impl PreparedJob<'_> {
             })
             .collect();
         let mut pending = vec![];
+        let mut state = SearchState::new(options.seed, true, control);
         for placement in &source.placements {
+            state.control.checkpoint()?;
             let part = self
                 .job
                 .parts
@@ -184,16 +199,22 @@ impl PreparedJob<'_> {
             let internal = restore_transform(&self.items[part], placement.transform);
             let mut shape = self.items[part].shape_cd().as_ref().clone();
             shape.transform_from(self.items[part].shape_cd(), &internal.compose());
-            let region = sheets[sheet]
-                .iter_mut()
-                .find(|region| {
-                    !region
-                        .region
-                        .layout
-                        .cde()
-                        .detect_poly_collision(&shape, &NoFilter)
-                })
+            let mut matching = None;
+            for (index, region) in sheets[sheet].iter().enumerate() {
+                state.before_collision()?;
+                if !region
+                    .region
+                    .layout
+                    .cde()
+                    .detect_poly_collision(&shape, &NoFilter)
+                {
+                    matching = Some(index);
+                    break;
+                }
+            }
+            let index = matching
                 .context("source layout is incompatible with conservative repair proxies")?;
+            let region = &mut sheets[sheet][index];
             let key = region.region.layout.place_item(&self.items[part], internal);
             region.placed.push(Tracked {
                 key,
@@ -211,8 +232,8 @@ impl PreparedJob<'_> {
                 .then(a.cmp(b))
                 .then(pa.copy_index.cmp(&pb.copy_index))
         });
-        let mut state = SearchState::new(options.seed, true);
         'pending: for (part, placement) in pending {
+            state.control.checkpoint()?;
             if let Some((sheet, region, candidate)) =
                 self.repair_position(&sheets, part, options, &mut state)?
             {
@@ -234,6 +255,7 @@ impl PreparedJob<'_> {
                 .collect();
             victims.sort_by(|a, b| self.items[a.3].area().total_cmp(&self.items[b.3].area()));
             for (sheet, region, key, victim_part) in victims.into_iter().take(ejections) {
+                state.control.checkpoint()?;
                 let snapshot = sheets[sheet][region].clone();
                 let occupied = &mut sheets[sheet][region];
                 let victim = occupied
@@ -257,7 +279,7 @@ impl PreparedJob<'_> {
                         &self.items[part],
                         candidate,
                         &mut state,
-                    );
+                    )?;
                     let mut placed = placement.clone();
                     placed.sheet_id = layout.sheets[sheet].id.clone();
                     occupied.insert(&self.items[part], part, placed, candidate);
@@ -315,7 +337,7 @@ impl PreparedJob<'_> {
         sheets: &[Vec<Occupied>],
         part: usize,
         options: Options,
-        state: &mut SearchState,
+        state: &mut SearchState<'_, '_>,
     ) -> Result<Option<(usize, usize, Candidate)>> {
         for (sheet, regions) in sheets.iter().enumerate() {
             for (region, occupied) in regions.iter().enumerate() {
@@ -329,7 +351,7 @@ impl PreparedJob<'_> {
                     return Ok(Some((
                         sheet,
                         region,
-                        refine_translation(&occupied.region, &self.items[part], candidate, state),
+                        refine_translation(&occupied.region, &self.items[part], candidate, state)?,
                     )));
                 }
             }

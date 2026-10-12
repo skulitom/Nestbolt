@@ -27,6 +27,12 @@ enum Command {
         samples: u32,
         #[arg(long, default_value_t = 4)]
         free_rotations: u32,
+        /// Deterministic collision-query limit shared by all search passes.
+        #[arg(long)]
+        max_checks: Option<u64>,
+        /// Cooperative safety deadline; returns the last completed valid layout.
+        #[arg(long, value_parser = clap::value_parser!(u64).range(1..=300_000))]
+        timeout_ms: Option<u64>,
     },
     /// Build a first conservative sheet layout, optionally refining each placement.
     Construct {
@@ -98,9 +104,26 @@ fn main() -> Result<()> {
             passes,
             samples,
             free_rotations,
+            max_checks,
+            timeout_ms,
         } => {
             let job = serde_json::from_slice(&fs::read(&job)?)?;
-            let result = nestbolt_core::optimize::optimize(
+            use nestbolt_core::control::{Control, StopReason};
+            let started = std::time::Instant::now();
+            let mut deadline = || {
+                timeout_ms
+                    .filter(|&limit| started.elapsed().as_millis() >= u128::from(limit))
+                    .map(|_| StopReason::Deadline)
+            };
+            let mut control = Control::new(
+                max_checks,
+                if timeout_ms.is_some() {
+                    Some(&mut deadline)
+                } else {
+                    None
+                },
+            );
+            let result = nestbolt_core::optimize::optimize_controlled(
                 &job,
                 nestbolt_core::optimize::Options {
                     construct: nestbolt_core::construct::Options {
@@ -110,6 +133,7 @@ fn main() -> Result<()> {
                     },
                     passes,
                 },
+                &mut control,
                 |progress| {
                     eprintln!(
                         "{}",

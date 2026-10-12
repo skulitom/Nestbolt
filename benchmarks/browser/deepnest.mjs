@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 import { verifyCpu, selectedCpu } from './cpu-limit.mjs'
+import { closeOwnedProcess } from './deepnest-lifecycle.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..')
 const requestPath = resolve(process.argv[2])
@@ -50,23 +51,15 @@ const checkpoint = name => {
 async function closeOwnedApp() {
   if (!app) return
   const child = app.process()
-  const running = () => child.exitCode === null && child.signalCode === null
-  if (running()) {
-    // Bypass renderer beforeunload handlers, which can stall behind native NFP
-    // work. Only this isolated Electron process tree belongs to the controller.
-    const exited = new Promise(resolve => child.once('exit', resolve))
-    app.evaluate(({ app }) => app.exit(0)).catch(() => {})
-    await Promise.race([exited, new Promise(resolve => setTimeout(resolve, 2000))])
-    if (running()) {
+  // Bypass renderer beforeunload handlers that can stall behind native NFP work.
+  await closeOwnedProcess(child, () => app.evaluate(({ app }) => app.exit(0)), () => {
       if (process.platform === 'win32') {
         execFileSync('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true, stdio: 'ignore' })
       } else {
         try { execFileSync('pkill', ['-KILL', '-P', String(child.pid)]) } catch {}
         child.kill('SIGKILL')
       }
-      await exited
-    }
-  }
+  })
   await app.close().catch(() => {})
   app = null
 }

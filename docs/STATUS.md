@@ -24,9 +24,10 @@ establish the final comparison. All failures and earlier trials remain in
 | Current Sparrow | All 528 development slots accounted for: 127 valid, 43 invalid, 358 unsupported; both settings, both budgets, three seeds | [Complete coverage](../benchmarks/results/sparrow-development-20261012T0048.md); final-seed comparisons remain for M5 |
 | Nestbolt constructor | 30/30 valid; v3 has exactly the v2 layouts; median 0.453 s, slowest 15.563 s | [Current proof](../benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md); improve material use |
 | Nestbolt refinement | Three-method comparison: 30/30 valid; 22 improve, eight unchanged vs constructor; slowest 56.718 s | [Trial](../benchmarks/results/repack-maker-20261011T233725Z-c0e36d78.md); improve large-job speed |
-| Nestbolt repair | 35/35 sheet and 30/30 maker jobs valid. All 64 comparable layouts exactly preserved; previously timed-out 1,000-part job now finishes in 40.1 s | [Sheet trial](../benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md), [maker trial](../benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md); improve quality and add bounded/cancellable search |
+| Nestbolt repair | 35/35 sheet and 30/30 maker jobs valid. All 64 comparable layouts exactly preserved; previously timed-out 1,000-part job now finishes in 40.1 s | [Sheet trial](../benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md), [maker trial](../benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md); improve quality |
+| Search limits | 1,000-part job returns a valid incumbent in 15.094 s under a 15 s cooperative deadline; two fixed-work replays produce identical results | [Stop and replay evidence](../benchmarks/results/search-control-20261012T0114.md); calibrate time-to-work mapping and wire browser/MCP cancellation |
 | Constructor speed diagnostic | Stable cost order cuts 1,000-part collision checks from 9.33M to 4.39M; last matched-CPU pair uses 61.8% less CPU time with identical output | [All ten timing attempts](../benchmarks/results/construct-profile-20261012T0042.md); four-circle experiment reverted; no G4 claim |
-| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | [Repair CI](https://github.com/skulitom/Nestbolt/actions/runs/38187614132): all five jobs passed |
+| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | [Latest completed CI](https://github.com/skulitom/Nestbolt/actions/runs/38189470261): all five jobs passed |
 
 Next: reduce repeated-construction cost on large jobs and strengthen repair while completing
 only the missing M1 comparisons. Conservative proxies may
@@ -39,10 +40,10 @@ is not the final three-seed M1 target. Both 60 s and 300 s G2
 populations must pass separately.
 
 The independent checker covers original geometry, spacing, quantities, units,
-stock, margins, defects, rotations, mirroring and fill mode. The latest full local check passed 62 workspace tests, four stock-helper tests,
-both WASM builds, source/schema/notices checks and 77 Python tests. The updated
-batch-report suite adds one more passing test (78 Python tests in total). Two additional
-CPU-selection tests pass in Node.
+stock, margins, defects, rotations, mirroring and fill mode. The latest full local
+check passed 67 workspace tests, four stock-helper tests, both WASM builds,
+source/schema/notices checks and 79 Python tests. Five additional Node tests cover
+CPU selection and native process cleanup.
 
 [Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio
 stop condition was not triggered. No release or registry listing has been published.

@@ -32,6 +32,7 @@ def main():
         [sys.executable, "scripts/test_svgnest_report.py"],
         [sys.executable, "scripts/test_deepnest_io.py"],
         [sys.executable, "scripts/test_deepnest_report.py"],
+        [sys.executable, "scripts/test_deepnest_snapshot.py"],
         [sys.executable, "scripts/test_sparrow_io.py"],
         [sys.executable, "scripts/test_sparrow_report.py"],
         [sys.executable, "scripts/test_comparator_batch_report.py"],

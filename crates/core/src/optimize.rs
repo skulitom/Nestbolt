@@ -5,6 +5,7 @@ use nestbolt_validator::job::{Job, Metrics, Mode, Report, validate};
 use serde::Serialize;
 
 use crate::construct::{Construction, Options as ConstructOptions, PreparedJob, Refinement};
+use crate::control::{Control, Interrupted, StopReason};
 
 #[derive(Clone, Copy, Debug)]
 pub struct Options {
@@ -39,6 +40,8 @@ pub struct SearchResult {
     pub best: Construction,
     pub validation: Report,
     pub history: Vec<Progress>,
+    pub collision_checks: u64,
+    pub stopped: Option<StopReason>,
 }
 
 fn seed(base: u64, pass: u32) -> u64 {
@@ -82,22 +85,41 @@ fn better(candidate: &Metrics, incumbent: &Metrics, mode: Mode) -> bool {
 
 /// Run every declared pass and retain the independently valid incumbent. Failed
 /// attempts remain in history; a sheet-removal attempt never relaxes stock caps.
-/// This API has no time-budget promise yet. Native benchmark process deadlines
-/// must surround it until calibrated/cancellable work budgets are implemented.
+/// This fixed-pass API has no time-budget promise. Use `optimize_controlled` for
+/// a deterministic collision limit or cooperative cancellation/deadline hook.
 pub fn optimize(
     job: &Job,
     options: Options,
+    progress: impl FnMut(&Progress),
+) -> Result<SearchResult> {
+    optimize_controlled(job, options, &mut Control::unlimited(), progress)
+}
+
+/// Interrupt a search at cooperative checkpoints and retain only its last
+/// independently checked incumbent. If interrupted before the initial layout,
+/// return a typed `Interrupted` error; no partially constructed layout escapes.
+/// Geometry operations and independent validation finish before yielding.
+pub fn optimize_controlled(
+    job: &Job,
+    options: Options,
+    control: &mut Control<'_>,
     mut progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
     ensure!(
         (1..=64).contains(&options.passes),
         "search needs 1..=64 passes"
     );
-    let prepared = PreparedJob::new(job)?;
-    let mut best = prepared.construct(options.construct)?;
+    let prepared = PreparedJob::new_controlled(job, control)?;
+    let mut best =
+        prepared.construct_ordered(options.construct, None, None, Refinement::None, control)?;
     let mut validation = validate(job, &best.layout)?;
     let mut history = vec![];
     for pass in 0..options.passes {
+        // Pass zero records the completed initial construction. After that,
+        // interruption leaves its complete, validated incumbent untouched.
+        if pass > 0 && control.checkpoint().is_err() {
+            break;
+        }
         // Compare refinement to the initial constructor before changing its
         // ordering or random stream. Later passes explore new orders and caps.
         let trial_seed = seed(options.construct.seed, if pass <= 2 { 0 } else { pass });
@@ -120,17 +142,20 @@ pub fn optimize(
             Refinement::Translation
         };
         let interleaved_copies = !repairing && pass >= 3 && pass % 4 >= 2;
-        let mut candidate = if pass == 0 {
-            None
+        let attempted = if pass == 0 {
+            Ok(None)
         } else if repairing {
-            Some(prepared.repair_ranked(
-                &best.layout,
-                (pass / 6) as usize,
-                ConstructOptions {
-                    seed: trial_seed,
-                    ..options.construct
-                },
-            )?)
+            prepared
+                .repair_ranked(
+                    &best.layout,
+                    (pass / 6) as usize,
+                    ConstructOptions {
+                        seed: trial_seed,
+                        ..options.construct
+                    },
+                    control,
+                )
+                .map(Some)
         } else {
             let grouped: Vec<_> = shuffled_order(job.parts.len(), trial_seed)
                 .into_iter()
@@ -144,15 +169,22 @@ pub fn optimize(
             } else {
                 grouped
             };
-            Some(prepared.construct_ordered(
-                ConstructOptions {
-                    seed: trial_seed,
-                    ..options.construct
-                },
-                if pass <= 2 { None } else { Some(&order) },
-                sheet_limit,
-                refinement,
-            )?)
+            prepared
+                .construct_ordered(
+                    ConstructOptions {
+                        seed: trial_seed,
+                        ..options.construct
+                    },
+                    if pass <= 2 { None } else { Some(&order) },
+                    sheet_limit,
+                    refinement,
+                    control,
+                )
+                .map(Some)
+        };
+        let mut candidate = match attempted {
+            Err(error) if error.is::<Interrupted>() => break,
+            other => other?,
         };
         let checked = if let Some(ref c) = candidate {
             Some(validate(job, &c.layout)?)
@@ -208,12 +240,14 @@ pub fn optimize(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v7",
+        algorithm: "nestbolt-repack-v8",
         seed: options.construct.seed,
         requested_passes: options.passes,
-        completed_passes: options.passes,
+        completed_passes: history.len() as u32,
         best,
         validation,
         history,
+        collision_checks: control.collision_checks(),
+        stopped: control.stop_reason(),
     })
 }

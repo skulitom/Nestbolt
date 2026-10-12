@@ -1,0 +1,311 @@
+{
+  "recorded_at": "2026-10-12T01:11:37.884450+00:00",
+  "scope": "Development interruption diagnostic on one 1000-part job, seed 0, CPU 14. No G4 or equal-budget quality claim. Fixed-work replays use the query count observed at the deadline, testing reproducibility, not an independently chosen quality budget.",
+  "source_snapshot_after_trials": {
+    "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+    "crates/core/src/control.rs": "1759cd318120bb1b4f1b1d34400334351705a2cd59742f54ef1ba56e8a034294",
+    "crates/core/src/construct.rs": "a9dfc5c9c6c6fd7701d34a08c17410c954e309b6a6191a1064b40e49e2ad04dd",
+    "crates/core/src/construct/repair.rs": "106dc881737f974bfb64fe65b4e5bc6a48afbf43f414f429fe82d3976642fb54",
+    "crates/core/src/optimize.rs": "3548fe6828cc0f1b488eddb801ea89a603eaf5b6f97b2b5d8a3ad7c42bef9baa",
+    "crates/cli/src/main.rs": "2b61bbe7c6e836060509f1e7b868f98a252a5121895ccaca870e75c8d346ee06",
+    "scripts/construct_profile.py": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71"
+  },
+  "profiles": [
+    {
+      "path": "output/construct-profiles/20261012T010211Z-72ec6a26/profile.json",
+      "sha256": "a42cc13a1ad9f17314c9f00d3281a065d3693037d402283d7092bf815e522e8e",
+      "profile": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+        "binary_sha256": "cae019984c62cd94e37d35b223891f51a7ca5c1b51deb37455135d36c994c44e",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 64,
+        "max_checks": null,
+        "timeout_ms": 15000,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 15.093999999997322,
+            "cpu_seconds": 14.9375,
+            "cpu_mask": 16384,
+            "progress": [
+              {
+                "elapsed_seconds": 5.561999999990803,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 13.48399999999674,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "caef4cf5e2bd9388ba3f80a5ef253db2860b61564d5d87039186396f9104cdde"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 13006336,
+            "stopped": "deadline",
+            "completed_passes": 2
+          }
+        ]
+      },
+      "checked_results": [
+        {
+          "repeat": 0,
+          "algorithm": "nestbolt-repack-v8",
+          "validation": {
+            "valid": true,
+            "backend": "clipper2-rust 1.2.0",
+            "units": "mm",
+            "maximum_overlap_ratio": 0.0,
+            "maximum_total_overlap_ratio": 0.0,
+            "maximum_outside_ratio": 0.0,
+            "violation_count": 0,
+            "violations": [],
+            "metrics": {
+              "sheets_used": 2,
+              "placed_parts": 1000,
+              "requested_parts": 1000,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "full_stock_area": 6250000.0,
+              "material_area": 3286381.02625,
+              "normalized_material": 1.0516419284,
+              "utilization": 0.5230743686675474,
+              "trailing_offcut_area": 2963618.97375,
+              "last_sheet_id": "sheet-1",
+              "last_sheet_used_height": 129.104821
+            }
+          },
+          "history": [
+            {
+              "pass": 0,
+              "stage": "construct",
+              "contact_search": false,
+              "interleaved_copies": false,
+              "seed": 0,
+              "sheet_limit": null,
+              "complete": true,
+              "accepted": true,
+              "sheets": 2,
+              "material": 1.1217355836,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "collision_checks": 4387224
+            },
+            {
+              "pass": 1,
+              "stage": "refine",
+              "contact_search": false,
+              "interleaved_copies": false,
+              "seed": 0,
+              "sheet_limit": null,
+              "complete": true,
+              "accepted": true,
+              "sheets": 2,
+              "material": 1.0516419284,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "collision_checks": 6228252
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "output/construct-profiles/20261012T010409Z-dcd57cf0/profile.json",
+      "sha256": "510b28f68790aa5498920c295da117831e7caa260e35ba4df3159a42a873de75",
+      "profile": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+        "binary_sha256": "cae019984c62cd94e37d35b223891f51a7ca5c1b51deb37455135d36c994c44e",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 64,
+        "max_checks": 13006336,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 15.046000000002095,
+            "cpu_seconds": 14.90625,
+            "cpu_mask": 16384,
+            "progress": [
+              {
+                "elapsed_seconds": 5.5,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 13.406000000002678,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "8f958e816513753d9696dbd2a43a8d3306226fa95e2d9d22458e2e7ce515b5bc"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 13006336,
+            "stopped": "work_limit",
+            "completed_passes": 2
+          },
+          {
+            "repeat": 1,
+            "exit_code": 0,
+            "wall_seconds": 15.85899999999674,
+            "cpu_seconds": 15.65625,
+            "cpu_mask": 16384,
+            "progress": [
+              {
+                "elapsed_seconds": 5.952999999994063,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 14.265999999988708,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "8f958e816513753d9696dbd2a43a8d3306226fa95e2d9d22458e2e7ce515b5bc"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 13006336,
+            "stopped": "work_limit",
+            "completed_passes": 2
+          }
+        ]
+      },
+      "checked_results": [
+        {
+          "repeat": 0,
+          "algorithm": "nestbolt-repack-v8",
+          "validation": {
+            "valid": true,
+            "backend": "clipper2-rust 1.2.0",
+            "units": "mm",
+            "maximum_overlap_ratio": 0.0,
+            "maximum_total_overlap_ratio": 0.0,
+            "maximum_outside_ratio": 0.0,
+            "violation_count": 0,
+            "violations": [],
+            "metrics": {
+              "sheets_used": 2,
+              "placed_parts": 1000,
+              "requested_parts": 1000,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "full_stock_area": 6250000.0,
+              "material_area": 3286381.02625,
+              "normalized_material": 1.0516419284,
+              "utilization": 0.5230743686675474,
+              "trailing_offcut_area": 2963618.97375,
+              "last_sheet_id": "sheet-1",
+              "last_sheet_used_height": 129.104821
+            }
+          },
+          "history": [
+            {
+              "pass": 0,
+              "stage": "construct",
+              "contact_search": false,
+              "interleaved_copies": false,
+              "seed": 0,
+              "sheet_limit": null,
+              "complete": true,
+              "accepted": true,
+              "sheets": 2,
+              "material": 1.1217355836,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "collision_checks": 4387224
+            },
+            {
+              "pass": 1,
+              "stage": "refine",
+              "contact_search": false,
+              "interleaved_copies": false,
+              "seed": 0,
+              "sheet_limit": null,
+              "complete": true,
+              "accepted": true,
+              "sheets": 2,
+              "material": 1.0516419284,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "collision_checks": 6228252
+            }
+          ]
+        },
+        {
+          "repeat": 1,
+          "algorithm": "nestbolt-repack-v8",
+          "validation": {
+            "valid": true,
+            "backend": "clipper2-rust 1.2.0",
+            "units": "mm",
+            "maximum_overlap_ratio": 0.0,
+            "maximum_total_overlap_ratio": 0.0,
+            "maximum_outside_ratio": 0.0,
+            "violation_count": 0,
+            "violations": [],
+            "metrics": {
+              "sheets_used": 2,
+              "placed_parts": 1000,
+              "requested_parts": 1000,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "full_stock_area": 6250000.0,
+              "material_area": 3286381.02625,
+              "normalized_material": 1.0516419284,
+              "utilization": 0.5230743686675474,
+              "trailing_offcut_area": 2963618.97375,
+              "last_sheet_id": "sheet-1",
+              "last_sheet_used_height": 129.104821
+            }
+          },
+          "history": [
+            {
+              "pass": 0,
+              "stage": "construct",
+              "contact_search": false,
+              "interleaved_copies": false,
+              "seed": 0,
+              "sheet_limit": null,
+              "complete": true,
+              "accepted": true,
+              "sheets": 2,
+              "material": 1.1217355836,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "collision_checks": 4387224
+            },
+            {
+              "pass": 1,
+              "stage": "refine",
+              "contact_search": false,
+              "interleaved_copies": false,
+              "seed": 0,
+              "sheet_limit": null,
+              "complete": true,
+              "accepted": true,
+              "sheets": 2,
+              "material": 1.0516419284,
+              "placed_area": 1719021.6805067256,
+              "placed_priority": 1000.0,
+              "collision_checks": 6228252
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

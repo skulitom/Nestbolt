@@ -21,7 +21,8 @@ No optimisation-quality claims have been established yet.
   parts; [35 sheet jobs pass validation](benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md).
   The [four-pass maker trial](benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md) now finishes all 30 jobs,
   including the 1,000-part job in 40.1 seconds. This
-  experimental command has a work quota, not a time-budget promise.
+  experimental command supports a deterministic collision-query allowance and a
+  cooperative deadline, keeping its last independently checked layout.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,
@@ -61,6 +62,15 @@ best valid result. It reports each completed pass on stderr and the final result
 on stdout. It tests placements in stable cost order and stops sheet-removal
 trials after an unplaced copy that the trial cannot revisit. Existing output
 files are never overwritten.
+
+`improve --max-checks 1000000` limits total collision queries across all passes;
+the same job, seed, options and allowance give repeatable work. Add
+`--timeout-ms 15000` for a cooperative deadline (at most 300,000 ms). The deadline
+can return an earlier incumbent as machine speed varies. Individual geometry
+operations and independent checks finish before yielding, so this is not a hard
+wall-clock cap. Stopping before the first complete construction returns an error
+and writes no layout. The result reports the stop reason, completed passes and
+total queries, including work spent on an interrupted pass.
 
 The sample reports six parts with a total area of 16,800 mm² and two available
 300 × 200 mm sheets. Units must be specified (`mm`, `inch` or `unitless`); no

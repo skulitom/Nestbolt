@@ -4,6 +4,7 @@
 //! geometry is never rewritten. This is a starting solution, not the M2 optimiser.
 use std::sync::Arc;
 
+use crate::control::Control;
 use anyhow::{Context, Result, ensure};
 use jagua_rs::{
     collision_detection::{CDEConfig, hazards::filter::NoFilter},
@@ -63,6 +64,7 @@ mod order_tests {
                 Some(order),
                 None,
                 Refinement::Contacts,
+                &mut Control::unlimited(),
             )
         };
         let result = run(&order).unwrap();
@@ -136,12 +138,13 @@ struct Candidate {
 
 // A specified, platform-independent integer stream; no entropy or thread order.
 struct Random(u64);
-struct SearchState {
+struct SearchState<'a, 'b> {
     random: Random,
     contact_random: Random,
     contacts: bool,
     checks: u64,
     surrogate_rejections: u64,
+    control: &'a mut Control<'b>,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -160,15 +163,22 @@ impl Random {
     }
 }
 
-impl SearchState {
-    fn new(seed: u64, contacts: bool) -> Self {
+impl<'a, 'b> SearchState<'a, 'b> {
+    fn new(seed: u64, contacts: bool, control: &'a mut Control<'b>) -> Self {
         Self {
             random: Random(seed),
             contact_random: Random(seed ^ 0xa0761d6478bd642f),
             contacts,
             checks: 0,
             surrogate_rejections: 0,
+            control,
         }
+    }
+
+    fn before_collision(&mut self) -> Result<()> {
+        self.control.before_collision()?;
+        self.checks += 1;
+        Ok(())
     }
 }
 
@@ -409,7 +419,7 @@ fn search(
     item: &Item,
     part: &Part,
     options: Options,
-    state: &mut SearchState,
+    state: &mut SearchState<'_, '_>,
 ) -> Result<Option<Candidate>> {
     let cde = region.layout.cde();
     let sheet = region.search_bounds;
@@ -417,6 +427,7 @@ fn search(
     let mut buffer = item.shape_cd().as_ref().clone();
     let mut best: Option<Candidate> = None;
     for degrees in angles(part, options)? {
+        state.control.checkpoint()?;
         let angle = degrees.to_radians();
         for mirrored in [false, true]
             .into_iter()
@@ -475,7 +486,7 @@ fn search(
                 }
                 let internal = DTransformation::new(rotation, (x - bounds.x_min, y - bounds.y_min))
                     .with_reflection(mirrored);
-                state.checks += 1;
+                state.before_collision()?;
                 let transform = internal.compose();
                 if cde.detect_surrogate_collision(
                     item.shape_cd().surrogate(),
@@ -522,14 +533,15 @@ fn refine_translation(
     region: &Region,
     item: &Item,
     mut candidate: Candidate,
-    state: &mut SearchState,
-) -> Candidate {
+    state: &mut SearchState<'_, '_>,
+) -> Result<Candidate> {
     let cde = region.layout.cde();
     let mut buffer = item.shape_cd().as_ref().clone();
     let mut step_x = (candidate.bounds[2] - candidate.bounds[0]) / 4.0;
     let mut step_y = (candidate.bounds[3] - candidate.bounds[1]) / 4.0;
     let limits = region.search_bounds;
     for _ in 0..10 {
+        state.control.checkpoint()?;
         if step_x.max(step_y) < region.nudge {
             break;
         }
@@ -564,7 +576,7 @@ fn refine_translation(
                 {
                     continue;
                 }
-                state.checks += 1;
+                state.before_collision()?;
                 if cde.detect_surrogate_collision(item.shape_cd().surrogate(), &composed, &NoFilter)
                 {
                     state.surrogate_rejections += 1;
@@ -590,7 +602,7 @@ fn refine_translation(
         step_x *= 0.5;
         step_y *= 0.5;
     }
-    candidate
+    Ok(candidate)
 }
 
 /// A deterministic constructive candidate. A failed construction does not prove
@@ -612,6 +624,11 @@ pub struct PreparedJob<'a> {
 
 impl<'a> PreparedJob<'a> {
     pub fn new(job: &'a Job) -> Result<Self> {
+        Self::new_controlled(job, &mut Control::unlimited())
+    }
+
+    pub(crate) fn new_controlled(job: &'a Job, control: &mut Control<'_>) -> Result<Self> {
+        control.checkpoint()?;
         let layout = Layout {
             version: 1,
             units: job.units,
@@ -661,6 +678,7 @@ impl<'a> PreparedJob<'a> {
         )];
         let mut items: Vec<Arc<Item>> = Vec::new();
         for (index, part) in job.parts.iter().enumerate() {
+            control.checkpoint()?;
             let multipart = part.geometry.len() > 1;
             let points = if multipart {
                 hull(part.geometry.iter().flat_map(|p| p.outer.clone()).collect())
@@ -697,7 +715,10 @@ impl<'a> PreparedJob<'a> {
             .stocks
             .iter()
             .enumerate()
-            .map(|(i, s)| container_regions(s, i, &importer))
+            .map(|(i, s)| {
+                control.checkpoint()?;
+                container_regions(s, i, &importer)
+            })
             .collect::<Result<_>>()?;
         Ok(Self {
             job,
@@ -710,17 +731,35 @@ impl<'a> PreparedJob<'a> {
     }
 
     pub fn construct(&self, options: Options) -> Result<Construction> {
-        self.construct_ordered(options, None, None, Refinement::None)
+        self.construct_ordered(
+            options,
+            None,
+            None,
+            Refinement::None,
+            &mut Control::unlimited(),
+        )
     }
 
     /// Construct with bounded translation refinement of each feasible placement.
     pub fn construct_refined(&self, options: Options) -> Result<Construction> {
-        self.construct_ordered(options, None, None, Refinement::Translation)
+        self.construct_ordered(
+            options,
+            None,
+            None,
+            Refinement::Translation,
+            &mut Control::unlimited(),
+        )
     }
 
     /// Include bounded outline-contact candidates before refining translations.
     pub fn construct_with_contacts(&self, options: Options) -> Result<Construction> {
-        self.construct_ordered(options, None, None, Refinement::Contacts)
+        self.construct_ordered(
+            options,
+            None,
+            None,
+            Refinement::Contacts,
+            &mut Control::unlimited(),
+        )
     }
 
     fn open_sheet(&self, stock: usize) -> OpenSheet {
@@ -756,6 +795,7 @@ impl<'a> PreparedJob<'a> {
         copy_order: Option<&[(usize, u32)]>,
         max_sheets: Option<usize>,
         refinement: Refinement,
+        control: &mut Control<'_>,
     ) -> Result<Construction> {
         ensure!(
             (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
@@ -806,8 +846,9 @@ impl<'a> PreparedJob<'a> {
         });
         let mut open: Vec<OpenSheet> = vec![];
         let mut stock_used = vec![0_u32; job.stocks.len()];
-        let mut state = SearchState::new(options.seed, refinement == Refinement::Contacts);
+        let mut state = SearchState::new(options.seed, refinement == Refinement::Contacts, control);
         for (index, copy) in copies {
+            state.control.checkpoint()?;
             let mut found = None;
             for (sheet_index, sheet) in open.iter().enumerate() {
                 for (region_index, region) in sheet.regions.iter().enumerate() {
@@ -861,7 +902,7 @@ impl<'a> PreparedJob<'a> {
             if let Some((sheet, region, mut candidate)) = found {
                 let active = &mut open[sheet].regions[region];
                 if refinement != Refinement::None {
-                    candidate = refine_translation(active, &items[index], candidate, &mut state);
+                    candidate = refine_translation(active, &items[index], candidate, &mut state)?;
                 }
                 let key = active.layout.place_item(&items[index], candidate.internal);
                 if refinement == Refinement::Contacts {

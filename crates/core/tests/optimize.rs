@@ -1,8 +1,10 @@
+use nestbolt_core::control::{Control, Interrupted, StopReason};
 use nestbolt_core::{construct, optimize};
 use nestbolt_validator::{
     Units,
     job::{Job, Margins, Mode, Part, Rotations, Stock, rectangle, validate},
 };
+use std::cell::Cell;
 
 fn job() -> Job {
     Job {
@@ -132,4 +134,116 @@ fn impossible_stock_is_not_reported_as_a_successful_improvement() {
             .iter()
             .all(|p| !p.accepted && p.material.is_none())
     );
+}
+
+#[test]
+fn collision_limit_stops_mid_pass_and_preserves_the_valid_incumbent_deterministically() {
+    let job = job();
+    let options = optimize::Options {
+        construct: construct::Options::default(),
+        passes: 1,
+    };
+    let initial = optimize::optimize(&job, options, |_| {}).unwrap();
+    let limit = initial.collision_checks + 1;
+    let run = || {
+        optimize::optimize_controlled(
+            &job,
+            optimize::Options {
+                passes: 8,
+                ..options
+            },
+            &mut Control::new(Some(limit), None),
+            |_| {},
+        )
+        .unwrap()
+    };
+    let stopped = run();
+    assert_eq!(stopped.stopped, Some(StopReason::WorkLimit));
+    assert_eq!(stopped.completed_passes, 1);
+    assert_eq!(stopped.requested_passes, 8);
+    assert_eq!(stopped.collision_checks, limit);
+    assert!(stopped.validation.valid);
+    assert_eq!(
+        serde_json::to_string(&stopped.best.layout).unwrap(),
+        serde_json::to_string(&initial.best.layout).unwrap()
+    );
+    assert_eq!(
+        serde_json::to_string(&stopped).unwrap(),
+        serde_json::to_string(&run()).unwrap()
+    );
+}
+
+#[test]
+fn cancellation_before_initial_layout_is_typed_and_after_progress_keeps_the_layout() {
+    let job = job();
+    let options = optimize::Options {
+        construct: construct::Options::default(),
+        passes: 4,
+    };
+    let mut already_cancelled = || Some(StopReason::Cancelled);
+    let error = optimize::optimize_controlled(
+        &job,
+        options,
+        &mut Control::new(None, Some(&mut already_cancelled)),
+        |_| {},
+    )
+    .unwrap_err();
+    assert_eq!(
+        error.downcast_ref::<Interrupted>().unwrap().0,
+        StopReason::Cancelled
+    );
+    let error =
+        optimize::optimize_controlled(&job, options, &mut Control::new(Some(0), None), |_| {})
+            .unwrap_err();
+    assert_eq!(
+        error.downcast_ref::<Interrupted>().unwrap().0,
+        StopReason::WorkLimit
+    );
+
+    let cancel = Cell::new(false);
+    let mut probe = || cancel.get().then_some(StopReason::Cancelled);
+    let result = optimize::optimize_controlled(
+        &job,
+        options,
+        &mut Control::new(None, Some(&mut probe)),
+        |_| cancel.set(true),
+    )
+    .unwrap();
+    assert_eq!(result.stopped, Some(StopReason::Cancelled));
+    assert_eq!(result.completed_passes, 1);
+    assert!(result.validation.valid && result.best.complete);
+}
+
+#[test]
+fn interrupted_sheet_repair_cannot_leak_removed_or_displaced_parts() {
+    let job = job();
+    let options = optimize::Options {
+        construct: construct::Options::default(),
+        passes: 3,
+    };
+    let initial = optimize::optimize(&job, options, |_| {}).unwrap();
+    assert!(initial.best.layout.sheets.len() > 1);
+    let options = optimize::Options {
+        passes: 4,
+        ..options
+    };
+    let full = optimize::optimize(&job, options, |_| {}).unwrap();
+    let repair_work = full.collision_checks - initial.collision_checks;
+    assert!(repair_work > 2);
+    for extra in [1, repair_work / 2, repair_work - 1] {
+        let result = optimize::optimize_controlled(
+            &job,
+            options,
+            &mut Control::new(Some(initial.collision_checks + extra), None),
+            |_| {},
+        )
+        .unwrap();
+        assert_eq!(result.stopped, Some(StopReason::WorkLimit));
+        assert_eq!(result.completed_passes, 3);
+        assert!(result.validation.valid);
+        assert_eq!(
+            serde_json::to_string(&result.best.layout).unwrap(),
+            serde_json::to_string(&initial.best.layout).unwrap()
+        );
+    }
 }

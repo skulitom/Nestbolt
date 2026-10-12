@@ -28,9 +28,14 @@ def main():
     parser.add_argument('--cpu', type=int, default=8)
     parser.add_argument('--passes', type=int, default=0)
     parser.add_argument('--repeat', type=int, default=2)
+    parser.add_argument('--max-checks', type=int)
+    parser.add_argument('--timeout-ms', type=int)
     args = parser.parse_args()
     if os.name != 'nt' or not 0 <= args.cpu < 64 or not 0 <= args.passes <= 64 or not 1 <= args.repeat <= 3:
         parser.error('Use Windows, CPU 0..63, passes 0..64 and repeats 1..3')
+    if (args.max_checks is not None and (not args.passes or args.max_checks < 0)
+            or args.timeout_ms is not None and (not args.passes or not 1 <= args.timeout_ms <= 300_000)):
+        parser.error('Search controls require passes, a nonnegative check limit and a 1..300000 ms deadline')
     binary = args.binary.resolve(strict=True)
     cases = [case for dataset in ['B', 'M'] for case in development_cases(ROOT, dataset)[1]]
     case = next((case for case in cases if case['id'] == args.job), None)
@@ -55,6 +60,10 @@ def main():
                    '--output', str(dest/'layout.json'), '--seed', '0', '--samples', '64']
         if args.passes:
             command += ['--passes', str(args.passes)]
+            if args.max_checks is not None:
+                command += ['--max-checks', str(args.max_checks)]
+            if args.timeout_ms is not None:
+                command += ['--timeout-ms', str(args.timeout_ms)]
         progress = []
         started = time.monotonic()
         with (dest/'stdout.json').open('wb') as output:
@@ -86,13 +95,17 @@ def main():
             construction = report['best'] if args.passes else report['construction']
             row['collision_checks'] = construction['collision_checks']
             row['surrogate_rejections'] = construction['surrogate_rejections']
+            if args.passes:
+                row.update(total_collision_checks=report['collision_checks'], stopped=report['stopped'],
+                           completed_passes=report['completed_passes'])
         runs.append(row)
         print(json.dumps(row), flush=True)
     if digest(binary) != binary_hash:
         raise ValueError('Profiled binary changed')
     proof = {'scope': 'Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.',
              'binary': str(binary), 'binary_sha256': binary_hash, 'job': args.job,
-             'job_sha256': case['sha256'], 'script_sha256': digest(Path(__file__)), 'passes': args.passes, 'runs': runs}
+             'job_sha256': case['sha256'], 'script_sha256': digest(Path(__file__)), 'passes': args.passes,
+             'max_checks': args.max_checks, 'timeout_ms': args.timeout_ms, 'runs': runs}
     (directory/'profile.json').write_text(json.dumps(proof, indent=2)+'\n', encoding='utf-8')
     print(directory, flush=True)
 

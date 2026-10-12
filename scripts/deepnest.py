@@ -20,13 +20,14 @@ CHECKOUT = ROOT / '.cache/upstream/deepnest-next'
 CONFIG = ROOT / 'benchmarks/deepnest/tool.json'
 SOURCES = ['scripts/deepnest.py', 'scripts/deepnest_io.py', 'scripts/svgnest.py',
            'scripts/svgnest_io.py', 'scripts/svg_export_transform.py', 'scripts/benchmark_io.py', 'benchmarks/deepnest/tool.json',
-           'benchmarks/browser/deepnest.mjs', 'benchmarks/browser/deepnest-preload.cjs',
+           'benchmarks/browser/deepnest.mjs', 'benchmarks/browser/deepnest-lifecycle.mjs', 'benchmarks/browser/deepnest-preload.cjs',
            'benchmarks/browser/deepnest-bootstrap.cjs', 'benchmarks/browser/cpu-limit.mjs',
            'benchmarks/browser/cpu-job.ps1', 'benchmarks/browser/package.json',
            'benchmarks/browser/cpu-tree-job.ps1',
            'benchmarks/browser/package-lock.json']
 SOURCES += ['scripts/stock_inputs.py', 'crates/validator/examples/stock_adapter.rs']
 SOURCES += ['scripts/dataset_selection.py']
+SOURCES += ['scripts/comparison_cases.py', 'scripts/matrix_plan.py', 'benchmarks/matrix-plan.json']
 
 
 def checkout_check():
@@ -155,6 +156,27 @@ def run(args):
     return record
 
 
+def freeze_validator(destination, from_batch=None):
+    sources = {p.relative_to(ROOT).as_posix(): digest(p)
+               for p in [ROOT/'Cargo.lock', *sorted((ROOT/'crates/validator/src').glob('*.rs'))]}
+    if from_batch:
+        previous = json.loads(Path(from_batch).read_bytes())['validator_snapshot']
+        binary = (ROOT/previous['path']).resolve(strict=True)
+        if (not binary.is_relative_to(ROOT) or previous['sources'] != sources
+                or digest(binary) != previous['sha256']):
+            raise ValueError('Reusable checker snapshot changed or has incompatible source provenance')
+        checksum = previous['sha256']
+    else:
+        subprocess.run(['cargo', 'build', '--locked', '-p', 'nestbolt-cli'], cwd=ROOT, check=True)
+        binary = ROOT/'target/debug'/('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
+        checksum = digest(binary)
+    frozen = destination/binary.name
+    shutil.copy2(binary, frozen)
+    if digest(frozen) != checksum:
+        raise ValueError('Checker binary changed while copying')
+    return {'path': frozen.relative_to(ROOT).as_posix(), 'sha256': checksum, 'sources': sources}
+
+
 def batch(args):
     from dataset_selection import development_cases
     if args.dataset == 'M':
@@ -163,6 +185,9 @@ def batch(args):
         from datasets import check_frozen, DEST
     check_frozen()
     manifest, rows = development_cases(ROOT, args.dataset)
+    if args.seconds == 300:
+        from comparison_cases import comparison_cases
+        manifest, rows = comparison_cases(ROOT, args.dataset, args.seconds)
     selected = rows[args.offset:args.offset+args.count]
     # Anode jobs have a 30-minute hard lifetime. Reserve startup, both checks,
     # controller teardown and metadata collection even if every attempt fails.
@@ -172,13 +197,7 @@ def batch(args):
     identifier = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
     dest = ROOT/'output/playwright/deepnest-batches'/identifier
     dest.mkdir(parents=True)
-    subprocess.run(['cargo', 'build', '--locked', '-p', 'nestbolt-cli'], cwd=ROOT, check=True)
-    binary = ROOT/'target/debug'/('nestbolt.exe' if os.name == 'nt' else 'nestbolt')
-    frozen_binary = dest/binary.name
-    shutil.copy2(binary, frozen_binary)
-    validator_snapshot = {'path': frozen_binary.relative_to(ROOT).as_posix(), 'sha256': digest(frozen_binary),
-        'sources': {p.relative_to(ROOT).as_posix(): digest(p)
-            for p in [ROOT/'Cargo.lock', *sorted((ROOT/'crates/validator/src').glob('*.rs'))]}}
+    validator_snapshot = freeze_validator(dest, getattr(args, 'validator_from_batch', None))
     record = {'batch_id':identifier, 'tool':'deepnest-next', 'dataset':args.dataset,
               'dataset_manifest_sha256':digest(manifest), 'cases':selected, 'sources':sources,
               'seconds':args.seconds, 'seed':args.seed, 'settings':args.settings, 'axis':args.axis,
@@ -219,6 +238,8 @@ if __name__ == '__main__':
     batching.add_argument('--offset', type=int, default=0)
     batching.add_argument('--count', type=int, default=3)
     batching.add_argument('--dataset', choices=['B','M'], default='B', help='M excludes every held-out job')
+    batching.add_argument('--validator-from-batch', type=Path,
+                          help='Reuse a verified immutable checker snapshot from an earlier batch JSON')
     args = parser.parse_args()
     if args.command == 'setup':
         setup()
