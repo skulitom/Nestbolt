@@ -28,8 +28,6 @@ import sys
 import threading
 import time
 
-import psutil
-
 from comparison_cases import comparison_cases
 from dataset_selection import PHASE_SEEDS, check_seed
 
@@ -54,12 +52,24 @@ def datasets():
             raise SystemExit(f'dataset stage failed: {" ".join(command)}')
 
 
+EXCLUDED = ROOT/'benchmarks/final-excluded.json'
+
+
+def excluded():
+    """Batch ids kept as evidence but never scored or reused (harness faults)."""
+    if not EXCLUDED.exists():
+        return set()
+    return {b for entry in json.loads(EXCLUDED.read_text(encoding='utf-8'))['entries'] for b in entry['batches']}
+
+
 def finished_runs(tool, phase):
     """(dataset, seconds, seed, settings, axis, job) of every run in a complete batch, and
     the same keys for batches that started but never completed (interruptions)."""
-    complete, interrupted = set(), set()
+    complete, interrupted, skip = set(), set(), excluded()
     for start in glob.glob(str(ROOT/BATCHES[tool]/'*'/'start.json')):
         path = Path(start)
+        if path.parent.name in skip:
+            continue
         batch = json.loads((path.with_name('batch.json') if path.with_name('batch.json').exists() else path)
                            .read_text(encoding='utf-8'))
         if batch.get('phase', 'development') != phase:
@@ -125,26 +135,24 @@ def competitors(phase, tools, cpus, dry_run, minutes=None):
                    '--seed', str(task['seed']), '--settings', task['settings'], '--axis', task['axis'],
                    '--phase', task['phase']]
         print(f'+ [cpu {cpu}]', ' '.join(command), flush=True)
-        # Browser runners pin their tool via NESTBENCH_CPU; the batch process and every
-        # descendant (Sparrow included) also inherit this one-CPU affinity.
-        process = subprocess.Popen(command, cwd=ROOT, env={**os.environ, 'NESTBENCH_CPU': str(cpu)})
-        try:
-            psutil.Process(process.pid).cpu_affinity([cpu])
-        except psutil.Error:
-            pass
-        return process.wait()
+        # Exactly as in the development matrix: the browser runners confine their
+        # controller to NESTBENCH_CPU themselves. Restricting the whole process
+        # tree to that CPU as well starved Deepnest's Electron processes (100x
+        # slower start-up, mostly timeouts) and is not how the baseline ran.
+        return subprocess.call(command, cwd=ROOT, env={**os.environ, 'NESTBENCH_CPU': str(cpu)})
     # Each batch runs its native tool on one CPU; Deepnest batches may run side by
     # side inside one hidden desktop, as the development matrix did. With a time
     # limit (an Anode job lives 30 minutes), a batch starts only if its worst
     # case still fits; the rest wait for the next invocation.
     deadline = time.monotonic() + 60 * minutes if minutes else None
+    overhead = json.loads(SETTINGS.read_text(encoding='utf-8')).get('planning_overhead_seconds', 400)
     queue, lock, codes = list(tasks), threading.Lock(), []
 
     def lane(cpu):
         while True:
             with lock:
                 fits = [t for t in queue if deadline is None
-                        or time.monotonic() + t['count'] * (t['seconds'] + 400) < deadline]
+                        or time.monotonic() + t['count'] * (t['seconds'] + overhead) < deadline]
                 if not fits:
                     return
                 task = fits[0]

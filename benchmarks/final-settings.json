@@ -17,7 +17,7 @@
    "config": "benchmarks/deepnest/tool.json",
    "config_sha256": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
    "batch_size": {
-    "60": 1,
+    "60": 3,
     "300": 1
    },
    "desktop": true
@@ -36,8 +36,8 @@
    "config": "benchmarks/svgnest/tool.json",
    "config_sha256": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494",
    "batch_size": {
-    "60": 24,
-    "300": 8
+    "60": 6,
+    "300": 2
    },
    "desktop": false
   },
@@ -59,8 +59,8 @@
    "config": "benchmarks/sparrow-benchmark/Cargo.toml",
    "config_sha256": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
    "batch_size": {
-    "60": 40,
-    "300": 8
+    "60": 10,
+    "300": 3
    },
    "desktop": false
   }
@@ -69,5 +69,6 @@
   "settings": "defaults",
   "note": "Nestbolt's identical-constraints and best settings are the same defaults, so each slot runs once."
  },
- "execution_note": "batch_size is an execution parameter (runs per audited batch), not a tool setting; single-run Deepnest batches let a 30-minute Anode job keep every lane busy."
+ "execution_note": "batch_size and planning_overhead_seconds are execution parameters, not tool settings. A session starts a batch only if count x (budget + planning_overhead_seconds) still fits before its deadline; each runner keeps its own stricter worst-case guard. The first final session began with 24-run SVGnest and single-run Deepnest batches.",
+ "planning_overhead_seconds": 150
 }

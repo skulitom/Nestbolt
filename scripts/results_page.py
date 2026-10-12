@@ -92,10 +92,12 @@ def final_competitors(seconds):
     """From the audited final-phase batches: per job and tool, the better settings role
     whose median over all five seeds is finite."""
     from comparator_batch_report import audit_batch
-    from reproduce import BATCHES
-    seeds = {}
+    from reproduce import BATCHES, excluded
+    seeds, skip = {}, excluded()
     for tool in TOOLS:
         for path in sorted(ROOT.glob(f"{BATCHES[tool]}/*/batch.json")):
+            if path.parent.name in skip:
+                continue
             batch = json.loads(path.read_text(encoding='utf-8'))
             if batch.get('phase') != 'final' or batch['seconds'] != seconds or not batch.get('complete'):
                 continue
@@ -195,8 +197,8 @@ def strip_parity(phase):
     phase's seeds (failures ranked last); the reference is Sparrow's better setting."""
     from comparator_batch_report import audit_batch
     from dataset_selection import PHASE_SEEDS
-    from reproduce import BATCHES
-    seeds = PHASE_SEEDS[phase]
+    from reproduce import BATCHES, excluded
+    seeds, skip = PHASE_SEEDS[phase], excluded()
     ours, records = {}, []
     for path in sorted(ROOT.glob('benchmarks/results/strip-native-*.json')):
         record = json.loads(path.read_text(encoding='utf-8'))
@@ -209,6 +211,8 @@ def strip_parity(phase):
                     row['result']['strip_length'] if row['status'] == 'valid' else None)
     theirs = {}
     for path in sorted(ROOT.glob(f"{BATCHES['sparrow']}/*/batch.json")):
+        if path.parent.name in skip:
+            continue
         batch = json.loads(path.read_text(encoding='utf-8'))
         if (batch.get('phase', 'development') != phase or batch['dataset'] != 'S' or batch['seconds'] != 60
                 or not batch.get('complete') or batch['seed'] not in seeds):
