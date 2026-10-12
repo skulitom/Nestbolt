@@ -74,7 +74,7 @@ budget table only with an explicit link and reuse label, never as a new run.
 Harness faults may have explicitly selected replacement attempts. Retain and audit
 the original record and every replacement outcome; never select by score. The
 current report recognizes checker-build failures before launch, the historical
-exact-coordinate import guard before SVGnest starts, Deepnest affinity setup
+exact-coordinate import guards before SVGnest or Deepnest starts, Deepnest affinity setup
 before solving, and Deepnest process cleanup after the budget. Native solver
 crashes, invalid layouts, no-layout results and timeouts are not eligible. This
 repairs development harness evidence; it does not waive frozen final-run controls.

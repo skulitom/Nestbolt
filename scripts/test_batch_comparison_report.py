@@ -7,6 +7,18 @@ from pathlib import Path
 
 
 class BatchTests(unittest.TestCase):
+    def test_deepnest_legacy_exact_coordinate_guard_must_precede_import_and_search(self):
+        run = {'tool': 'deepnest-next', 'status': 'failed', 'score': None, 'seconds': 60}
+        raw = {'status': 'failed', 'errors': ['Error: page.evaluate: Error: Native parser changed source coordinates: source 0; expected [[0.1,0]]; observed [[[0.10000000000000002,0]]]'],
+               'stages_ms': {'both_windows_ready': 1000}, 'controller_solve_ms': None,
+               'candidates': 0, 'last': None}
+        self.assertEqual(infrastructure_failure_kind(run, raw), 'exact_coordinate_guard_before_solve')
+        for changed in [{'stages_ms': {'both_windows_ready': 1000, 'source_imported': 1100}},
+                        {'controller_solve_ms': 1}, {'candidates': 1}, {'last': {}},
+                        {'errors': ['native process crashed']}, {'stages_ms': {}}]:
+            with self.assertRaises(ValueError):
+                infrastructure_failure_kind(run, {**raw, **changed})
+
     def test_legacy_exact_coordinate_guard_can_be_replaced_only_before_solving(self):
         run = {'tool': 'SVGnest', 'status': 'failed', 'score': None, 'seconds': 60}
         raw = {'status': 'failed', 'errors': ['Error: page.evaluate: Error: Source coordinate rounded during import: copy-0/67/1'],

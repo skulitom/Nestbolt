@@ -49,6 +49,12 @@ def infrastructure_failure_kind(run, raw):
         raise ValueError('Not a recognized SVGnest infrastructure failure')
     if run.get('tool') != 'deepnest-next':
         raise ValueError('Not a recognized Deepnest infrastructure failure')
+    if (re.match(r'Error: page.evaluate: Error: Native parser changed source coordinates: source [0-9]+; expected \[', error)
+            and 'both_windows_ready' in stages and 'source_imported' not in stages
+            and 'budget_finished' not in stages
+            and raw.get('controller_solve_ms') is None
+            and raw.get('candidates') == 0 and raw.get('last') is None):
+        return 'exact_coordinate_guard_before_solve'
     if (re.fullmatch(r'Error: Command failed: taskkill /PID [1-9][0-9]* /T /F', error)
             and 'budget_finished' in stages
             and raw.get('controller_solve_ms', 0) >= run['seconds'] * 1000
