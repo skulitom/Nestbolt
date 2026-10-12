@@ -2,47 +2,62 @@
 
 Free, open-source nesting for people who cut **fixed sheets**: laser cutters, CNC
 routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use
-the least material, with native tools, a browser app and an MCP server for AI
-agents. **Work in progress: the optimiser, import/export, browser app and MCP
-server work; hosting, release packages and the final acceptance gates are still
-to come.**
+the least material. It runs in your browser (nothing is uploaded), on the command
+line, and as an MCP server that AI agents can call.
 
-The engine builds on [jagua-rs](https://github.com/JeroenGar/jagua-rs) and on
-[sparrow](https://github.com/JeroenGar/sparrow) by Jeroen Gardeyn and collaborators
-(arXiv [2509.13329](https://arxiv.org/abs/2509.13329)). Nestbolt adapts Sparrow's
-overlap-minimising separator to fixed sheets.
+![Two finger-jointed boxes nested in the browser app in ten seconds](docs/images/browser-example.png)
+
+## How it compares
+
+Development benchmark: 65 frozen sheet jobs (35 academic, 30 maker), equal time
+budgets, one CPU core per tool, three seeds each, every layout checked by an
+independent validator. The comparison is against the best of
+[Deepnest](https://github.com/deepnest-next/deepnest), [SVGnest](https://github.com/Jack000/SVGnest) and
+[Sparrow](https://github.com/JeroenGar/sparrow) on each job.
+
+| Budget | Valid layouts | Less material than the best competitor (median) | Wins or ties |
+| --- | ---: | ---: | ---: |
+| 60 s | 195/195 | **8.4%** | 48 of 52 |
+| 300 s (long subset) | 30/30 | **7.6%** | 8 of 9 |
+
+In 30 s Nestbolt matches the competitors' 300 s result on 8 of 9 jobs. The losses
+are single-sheet strip jobs where Sparrow, which Nestbolt builds on, is
+strongest. These are development results; the final acceptance run uses fresh
+seeds and ten held-out jobs. Every run, including failures, is in
+[BENCHMARKS.md](BENCHMARKS.md); [status](docs/STATUS.md) lists the evidence per
+gate.
 
 ## What works today
 
 - **Import** SVG and DXF: lines, arcs, ellipses, Béziers, B-splines, blocks,
   transforms and units, converted to millimetres. Each closed outline is a part;
-  outlines inside it are its holes. Outlines that touch themselves, such as the
-  relief loops boxes.py draws at slot corners, nest with a covering outline while
-  exports keep the exact curves.
+  outlines inside it are its holes. Real maker files work: all 192 boxes.py
+  example drawings import and nest, including their relief loops at slot corners.
 - **Nest** on fixed sheets: margins, part and edge spacing, several sheets, stock
   limits, defects, rotations (free, stepped or a list such as 0/180 for fabric
   grain) and mirroring. Small parts can sit inside the holes of larger parts.
   The last sheet is compressed towards one end so the offcut stays usable.
 - **Export** one SVG and one DXF per sheet from the original curves, transformed
-  rather than re-polygonised (round trip within 0.01 mm).
+  rather than re-polygonised: on 196 real drawings every exported contour is
+  within 0.0005 mm of its source. LightBurn, Inkscape and LibreCAD open them at
+  the exact size.
 - **Check** every result with an independent Clipper2 validator (overlap,
   spacing, containment, rotations, quantities). Invalid layouts are never returned.
-- **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`
-  and `estimate_sheets`. Its budgets are repeatable: same inputs, budget and seed,
-  same layout. See [the agent interface](docs/AGENT_INTERFACE.md).
 - **Browser app** (`web/`): the same engine compiled to WebAssembly in Web
-  Workers, several seeds in parallel, projects saved in the browser or as a ZIP.
-  Files never leave the computer. Tested in Chromium and Firefox; not hosted yet.
+  Workers, several seeds in parallel, projects saved in the browser or as a ZIP,
+  and a one-click example. Files never leave the computer.
+- **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`
+  and `estimate_sheets`, tested with Claude Code. Its budgets are repeatable:
+  same inputs, budget and seed, same layout. See
+  [the agent interface](docs/AGENT_INTERFACE.md).
 
-Fixed-sheet search lays the last sheets end to end as one walled strip and
-shrinks the last sheet with a port of Sparrow's separator; parts move between
-sheets and an emptied sheet disappears. In development runs at 60 seconds on
-65 frozen jobs, all 195 layouts over three seeds were valid. At the per-job
-median of three seeds, Nestbolt used **8.3% less material** at the median than
-the best of Deepnest, SVGnest and Sparrow. It won or tied on 48 of 52 comparable
-jobs; the four losses are single-sheet jobs where Sparrow leads, one of them by
-more than 1%. These are development results, not the final acceptance gates
-(the target is 10.8%); see [status](docs/STATUS.md).
+The engine builds on [jagua-rs](https://github.com/JeroenGar/jagua-rs) and
+[sparrow](https://github.com/JeroenGar/sparrow) by Jeroen Gardeyn and collaborators
+(arXiv [2509.13329](https://arxiv.org/abs/2509.13329)). Fixed-sheet search lays
+the last sheets end to end as one walled strip and shrinks the last sheet with a
+port of Sparrow's separator; parts move between sheets and an emptied sheet
+disappears. Near-rectangular parts such as box panels also get a bounding-
+rectangle packing start.
 
 ## Quick start
 
@@ -52,7 +67,8 @@ Install Rust through rustup (the repository selects Rust 1.98.1) and build:
 cargo build --release -p nestbolt-cli -p nestbolt-mcp
 ```
 
-Import parts, nest them for 30 seconds, and get per-sheet SVG/DXF files:
+Import parts, nest them for 30 seconds, and get per-sheet SVG/DXF files
+(`examples/box-99x63x45.svg` is the browser app's example box):
 
 ```sh
 target/release/nestbolt import examples/parts.svg --output library.json

@@ -15,6 +15,7 @@ async function importAndConfigure(page: Page) {
   await sheet.getByLabel('Width').fill('300');
   await sheet.getByLabel('Height').fill('200');
   await page.getByLabel('Time').fill('5');
+  await page.getByText('Advanced').click();
   await page.getByLabel('Workers').fill('1');
 }
 
@@ -46,6 +47,14 @@ test('import, nest, export and keep the main thread responsive', async ({ page }
   // Firefox has no longtask entries; Chromium's must all stay under 200 ms.
   const longest = await page.evaluate(() => Math.max(0, ...(window as unknown as { longTasks: number[] }).longTasks));
   expect(longest).toBeLessThan(200);
+});
+
+test('the example boxes import and nest in one click', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: /Try an example/ }).click();
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(6);
+  await expect(page.locator('.summary')).toContainText('12/12', { timeout: 60_000 });
+  await expect(page.locator('.summary')).toContainText('valid');
 });
 
 test('projects save to the browser and to a ZIP', async ({ page }) => {

@@ -49,6 +49,7 @@ export function App() {
   const [request, setRequest] = useState<NestRequest>(emptyRequest);
   const [result, setResult] = useState<NestResult | null>(null);
   const [seconds, setSeconds] = useState(30);
+  const [runSeconds, setRunSeconds] = useState(30);
   const [workers, setWorkers] = useState(Math.min(4, cores));
   const [seed, setSeed] = useState(0);
   const [repeatable, setRepeatable] = useState(false);
@@ -63,6 +64,11 @@ export function App() {
 
   const colors = useMemo(() => new Map((library?.parts ?? []).map((p, i) => [p.id, PALETTE[i % PALETTE.length]])), [library]);
   const part = (id: string) => library?.parts.find((p) => p.id === id);
+  /** The drawing's own element name ("front", "bracket") when it has one. */
+  const label = (id: string) => {
+    const name = part(id)?.source.split('#')[1]?.split(':')[0];
+    return name && !/^(path|rect|circle|ellipse|polygon|g|use)-?\d*$/.test(name) ? `${name} (${id})` : id;
+  };
   const update = (change: Partial<NestRequest>) => { setRequest((r) => ({ ...r, ...change })); setResult(null); };
   const updatePart = (i: number, change: Partial<RequestPart>) =>
     update({ parts: request.parts.map((p, j) => (j === i ? { ...p, ...change } : p)) });
@@ -93,17 +99,18 @@ export function App() {
     }
   }
 
-  async function run() {
-    if (!library) return;
+  async function run(lib: Library | null = library, req: NestRequest = request, budget = seconds) {
+    if (!lib) return;
     setError(null);
     setResult(null);
     setBusy('Nesting…');
     const started = performance.now();
     let best: number | null = null;
     const tick = setInterval(() => setProgress({ elapsed: (performance.now() - started) / 1000, best }), 250);
+    setRunSeconds(budget);
     portfolio.current = new Portfolio();
     try {
-      const r = await portfolio.current.run(library, request, { seconds, seed, workers, repeatable }, (_w, _t, material) => {
+      const r = await portfolio.current.run(lib, req, { seconds: budget, seed, workers, repeatable }, (_w, _t, material) => {
         if (best === null || material < best) best = material;
       });
       setResult(r);
@@ -119,6 +126,31 @@ export function App() {
   }
 
   function cancel() { portfolio.current?.stop(); }
+
+  /** Two finger-jointed boxes (bundled, MIT) on a 400 x 300 mm bed, nested at once. */
+  async function tryExample() {
+    setError(null);
+    setBusy('Importing…');
+    try {
+      const text = await (await fetch('./example-box.svg')).text();
+      const lib = await importFiles([{ name: 'example-box.svg', text }]);
+      const req: NestRequest = {
+        ...emptyRequest(),
+        parts: lib.parts.map((p) => ({ id: p.id, quantity: 2, rotations: ROTATIONS[0].value, allow_mirror: false, priority: 1 })),
+        sheets: [blankSheet(400, 300)],
+      };
+      setName('Example: two boxes');
+      setLibrary(lib);
+      setRequest(req);
+      setResult(null);
+      setBusy(null);
+      setSeconds(10);
+      await run(lib, req, 10);
+    } catch (e) {
+      setError(String(e));
+      setBusy(null);
+    }
+  }
 
   const project = (): Project => ({ version: 1, name, library, request, result, savedAt: new Date().toISOString() });
 
@@ -187,7 +219,7 @@ export function App() {
         <input ref={zipInput} type="file" accept=".zip" hidden onChange={(e) => openZip((e.target as HTMLInputElement).files)} />
         <button onClick={() => open({ version: 1, name: 'Untitled project', library: null, request: emptyRequest(), result: null, savedAt: '' })}>New</button>
       </header>
-      <p class="privacy">Everything runs in this browser. Files are never uploaded.</p>
+      <p class="privacy">Free, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.</p>
       <main>
         <aside>
           <section aria-labelledby="parts-title">
@@ -198,6 +230,7 @@ export function App() {
               <input type="file" accept=".svg,.dxf" multiple onChange={(e) => onFiles((e.target as HTMLInputElement).files)} />
               <span>Import SVG or DXF (or drop files here)</span>
             </label>
+            {!library ? <button class="example" onClick={tryExample} disabled={!!busy}>Try an example: two finger-jointed boxes</button> : null}
             {library?.warnings.length ? <ul class="warnings">{library.warnings.slice(0, 5).map((w) => <li>{w}</li>)}</ul> : null}
             <table class="parts">
               <thead><tr><th></th><th>Part</th><th>Qty</th><th>Rotation</th><th title="Allow mirroring">Mirror</th>{request.mode === 'fill_priority' ? <th>Priority</th> : null}<th></th></tr></thead>
@@ -207,7 +240,7 @@ export function App() {
                   return (
                     <tr key={p.id}>
                       <td>{lp ? <PartThumb polygon={lp.polygon} color={colors.get(p.id) ?? '#888'} /> : null}</td>
-                      <td title={lp?.source}>{p.id}<small>{lp ? `${(lp.area_mm2 / 100).toFixed(1)} cm²` : ''}</small></td>
+                      <td title={lp?.source}>{label(p.id)}<small>{lp ? `${(lp.area_mm2 / 100).toFixed(1)} cm²` : ''}</small></td>
                       <td><input type="number" min={1} max={2000} value={p.quantity} aria-label={`Quantity of ${p.id}`}
                         onInput={(e) => updatePart(i, { quantity: Math.max(1, Math.round(num(e))) })} /></td>
                       <td><select aria-label={`Rotations of ${p.id}`} value={rotationLabel(p.rotations)}
@@ -275,26 +308,31 @@ export function App() {
                 <option value="fill_priority">Fill by priority</option>
               </select></label>
               <label>Time <input type="number" min={1} max={300} value={seconds} onInput={(e) => setSeconds(Math.min(300, Math.max(1, num(e))))} /> s</label>
-              <label>Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
-              <label>Seed <input type="number" min={0} value={seed} onInput={(e) => setSeed(Math.max(0, Math.round(num(e))))} /></label>
-              <label class="check"><input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable((e.target as HTMLInputElement).checked)} /> Repeatable</label>
             </div>
+            <details class="advanced">
+              <summary>Advanced</summary>
+              <div class="grid">
+                <label>Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
+                <label>Seed <input type="number" min={0} value={seed} onInput={(e) => setSeed(Math.max(0, Math.round(num(e))))} /></label>
+                <label class="check"><input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable((e.target as HTMLInputElement).checked)} /> Repeatable</label>
+              </div>
+            </details>
           </section>
           <div class="run">
             {busy === 'Nesting…' ? (
               <>
-                <progress max={seconds} value={progress.elapsed} aria-label="Search progress" />
+                <progress max={runSeconds} value={progress.elapsed} aria-label="Search progress" />
                 <span>{progress.best !== null ? `best ${progress.best.toFixed(3)} sheets` : 'searching…'}</span>
                 <button onClick={cancel}>Cancel</button>
               </>
-            ) : <button class="primary" disabled={!canRun} onClick={run}>Nest</button>}
+            ) : <button class="primary" disabled={!canRun} onClick={() => run()}>Nest</button>}
           </div>
           {error ? <p class="error" role="alert">{error}</p> : null}
         </aside>
         <section class="results" aria-labelledby="results-title">
           <h2 id="results-title">Result</h2>
           {busy && busy !== 'Nesting…' ? <p>{busy}</p> : null}
-          {!result && !busy ? <p class="hint">Import parts, choose sheets and press Nest.</p> : null}
+          {!result && !busy ? <p class="hint">Import parts, choose sheets and press Nest, or try the example boxes.</p> : null}
           {result && library && metrics ? (
             <>
               <dl class="summary">
