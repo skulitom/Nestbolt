@@ -113,6 +113,59 @@ fn repacking_preserves_a_valid_incumbent_and_accounts_for_every_pass() {
 }
 
 #[test]
+fn finishing_preserves_every_repacking_pass_and_the_incumbent_on_interruption() {
+    let job = job();
+    let options = optimize::Options {
+        construct: construct::Options::default(),
+        passes: 6,
+    };
+    let cancel = Cell::new(false);
+    let mut probe = || cancel.get().then_some(StopReason::Cancelled);
+    let before = optimize::optimize_controlled(
+        &job,
+        options,
+        &mut Control::new(None, Some(&mut probe)),
+        |p| cancel.set(p.pass == 5),
+    )
+    .unwrap();
+    assert_eq!(before.completed_passes, 6);
+    assert!(before.polishing.is_empty());
+    let mut callbacks = vec![];
+    let full = optimize::optimize(&job, options, |p| callbacks.push(p.pass)).unwrap();
+    assert_eq!(callbacks, (0..9).collect::<Vec<_>>());
+    assert_eq!(full.completed_passes, 6);
+    assert_eq!(full.polishing.len(), 3);
+    assert_eq!(
+        serde_json::to_string(&full.history).unwrap(),
+        serde_json::to_string(&before.history).unwrap()
+    );
+    assert!(full.validation.valid);
+    assert!(
+        full.validation.metrics.as_ref().unwrap().material_area
+            <= before.validation.metrics.as_ref().unwrap().material_area
+    );
+    let stopped = optimize::optimize_controlled(
+        &job,
+        options,
+        &mut Control::new(Some(before.collision_checks + 1), None),
+        |_| {},
+    )
+    .unwrap();
+    assert_eq!(stopped.stopped, Some(StopReason::WorkLimit));
+    assert_eq!(stopped.completed_passes, 6);
+    assert!(stopped.polishing.is_empty());
+    assert_eq!(
+        serde_json::to_string(&stopped.best.layout).unwrap(),
+        serde_json::to_string(&before.best.layout).unwrap()
+    );
+    let replay = optimize::optimize(&job, options, |_| {}).unwrap();
+    assert_eq!(
+        serde_json::to_string(&full).unwrap(),
+        serde_json::to_string(&replay).unwrap()
+    );
+}
+
+#[test]
 fn fill_priority_search_never_reduces_the_incumbents_priority() {
     let mut job = job();
     job.mode = Mode::FillPriority;

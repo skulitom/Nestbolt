@@ -4,6 +4,7 @@ use super::*;
 use jagua_rs::entities::PItemKey;
 
 mod compact;
+mod compress;
 mod displace;
 mod relax;
 

@@ -11,6 +11,8 @@ use crate::control::{Control, Interrupted, StopReason};
 pub struct Options {
     pub construct: ConstructOptions,
     /// Includes the initial construction. Every requested pass is accounted for.
+    /// Six or more passes also enable up to three bounded finishing trials,
+    /// recorded in `polishing` and sharing the same collision/deadline control.
     pub passes: u32,
 }
 
@@ -40,6 +42,8 @@ pub struct SearchResult {
     pub best: Construction,
     pub validation: Report,
     pub history: Vec<Progress>,
+    /// Bounded finishing trials, separate from the requested repacking passes.
+    pub polishing: Vec<Progress>,
     pub collision_checks: u64,
     pub stopped: Option<StopReason>,
 }
@@ -85,6 +89,8 @@ fn better(candidate: &Metrics, incumbent: &Metrics, mode: Mode) -> bool {
 
 /// Run every declared pass and retain the independently valid incumbent. Failed
 /// attempts remain in history; a sheet-removal attempt never relaxes stock caps.
+/// At six or more passes, compression then tries three progressively smaller
+/// reductions of the last-sheet height without replacing any repacking pass.
 /// This fixed-pass API has no time-budget promise. Use `optimize_controlled` for
 /// a deterministic collision limit or cooperative cancellation/deadline hook.
 pub fn optimize(
@@ -239,14 +245,64 @@ pub fn optimize_controlled(
         progress(&entry);
         history.push(entry);
     }
+    // Finish the full repacking portfolio before compression, so a polishing
+    // attempt cannot displace a useful ordering trial or weaken its incumbent.
+    let mut polishing = vec![];
+    if options.passes >= 6 && validation.valid && !best.layout.sheets.is_empty() {
+        for (step, fraction) in [0.03, 0.01, 0.003].into_iter().enumerate() {
+            if control.checkpoint().is_err() {
+                break;
+            }
+            let pass = options.passes + step as u32;
+            let trial_seed = seed(options.construct.seed, pass);
+            let before = control.collision_checks();
+            let candidate =
+                match prepared.compress_last_sheet(&best.layout, fraction, trial_seed, control) {
+                    Err(error) if error.is::<Interrupted>() => break,
+                    other => other?,
+                };
+            let checked = candidate
+                .as_ref()
+                .map(|c| validate(job, &c.layout))
+                .transpose()?;
+            let metrics = checked.as_ref().and_then(|c| c.metrics.as_ref());
+            let accepted = checked.as_ref().is_some_and(|r| r.valid)
+                && metrics
+                    .is_some_and(|m| better(m, validation.metrics.as_ref().unwrap(), job.mode));
+            let entry = Progress {
+                pass,
+                stage: "compress-last-sheet",
+                contact_search: false,
+                interleaved_copies: false,
+                seed: trial_seed,
+                sheet_limit: None,
+                complete: candidate.is_some(),
+                accepted,
+                sheets: candidate
+                    .as_ref()
+                    .map_or(best.layout.sheets.len(), |c| c.layout.sheets.len()),
+                material: metrics.map(|m| m.normalized_material),
+                placed_area: metrics.map(|m| m.placed_area),
+                placed_priority: metrics.map(|m| m.placed_priority),
+                collision_checks: control.collision_checks() - before,
+            };
+            if accepted {
+                best = candidate.unwrap();
+                validation = checked.unwrap();
+            }
+            progress(&entry);
+            polishing.push(entry);
+        }
+    }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v11",
+        algorithm: "nestbolt-repack-v13",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: history.len() as u32,
         best,
         validation,
         history,
+        polishing,
         collision_checks: control.collision_checks(),
         stopped: control.stop_reason(),
     })

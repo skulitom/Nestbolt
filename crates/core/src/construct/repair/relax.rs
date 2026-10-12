@@ -114,7 +114,7 @@ impl PreparedJob<'_> {
         result
     }
 
-    fn separate_region(
+    pub(super) fn separate_region(
         &self,
         occupied: &mut Occupied,
         state: &mut SearchState<'_, '_>,

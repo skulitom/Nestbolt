@@ -1,13 +1,15 @@
 # Nestbolt
 
 Free, open-source fixed-sheet nesting for makers, with a local browser app and
-native tools for people and agents. **Groundwork is complete; baseline and optimiser work are in progress.**
+native tools for people and agents. **Groundwork and the baseline are complete; the optimiser is in development.**
 
 Nestbolt aims to arrange irregular parts across fixed sheets for laser cutting,
 CNC routing, plasma, waterjet and fabric. The engine builds on
 [jagua-rs](https://github.com/JeroenGar/jagua-rs) and the research behind
 [sparrow](https://github.com/JeroenGar/sparrow), by Jeroen Gardeyn and collaborators.
-No optimisation-quality claims have been established yet.
+The [M1 audit](docs/M1_BASELINE.md) covers all 1,878 development baseline slots and
+freezes the final median-improvement target at 10.77231474%. Nestbolt has not yet
+passed the optimisation-quality gates.
 
 ## What works today
 
@@ -17,10 +19,11 @@ No optimisation-quality claims have been established yet.
   maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md).
 - `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
   retaining independently valid improvements and recording failed sheet-removal
-  attempts. Existing-sheet repair can move one blocking part and reinsert both
-  parts; [35 sheet jobs pass validation](benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md).
-  The [four-pass maker trial](benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md) now finishes all 30 jobs,
-  including the 1,000-part job in 40.1 seconds. This
+  attempts. Repair can displace blocking parts and separate overlapping groups.
+  At six or more passes, bounded finishing trials compress the last sheet after
+  all repacking passes. The latest [35 sheet](benchmarks/results/repack-sheet-20261012T032354Z-429e1837.md)
+  and [30 maker](benchmarks/results/repack-maker-20261012T032404Z-eba64968.md)
+  diagnostics produce valid layouts on every development job. This
   experimental command supports a deterministic collision-query allowance and a
   cooperative deadline, keeping its last independently checked layout.
 - `nestbolt compact`: refines an existing valid layout without opening stock.
@@ -65,7 +68,9 @@ cargo run --release -p nestbolt-cli -- compact --job benchmarks/datasets/M/m-box
 `construct --refine` adds bounded translation refinement; adding `--contacts`
 tries outline contacts to interlock concave parts. `improve` compares both methods
 with its initial layout before exploring other orders, and keeps the
-best valid result. It reports each completed pass on stderr and the final result
+best valid result. Finishing trials share the search controls and appear separately
+in `polishing`; `completed_passes` counts only the requested repacking passes.
+It reports each completed trial on stderr and the final result
 on stdout. It tests placements in stable cost order and stops sheet-removal
 trials after an unplaced copy that the trial cannot revisit. Existing output
 files are never overwritten.

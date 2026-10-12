@@ -23,9 +23,12 @@ def main():
     parser.add_argument('--contacts', action='store_true', help='Also sample outline contacts; requires --refine')
     parser.add_argument('--dataset', choices=['B','M'], default='M')
     parser.add_argument('--passes', type=int, default=0, help='Run repacking instead of construction, with 1..64 fixed passes')
+    parser.add_argument('--max-checks', type=int, help='Optional shared deterministic collision quota for repacking')
     args = parser.parse_args()
     if not 0 <= args.passes <= 64 or (args.refine and args.passes) or (args.contacts and not args.refine):
         parser.error('Choose --refine or --passes 1..64, not both')
+    if args.max_checks is not None and (not args.passes or args.max_checks < 0):
+        parser.error('--max-checks requires --passes and a nonnegative quota')
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
     directory = ROOT/'output/construct-pilots'/stamp
     directory.mkdir(parents=True)
@@ -35,7 +38,7 @@ def main():
     sources = {p: digest(ROOT/p) for p in ['Cargo.lock','crates/core/src/construct.rs',
         'crates/core/src/optimize.rs','crates/core/src/control.rs','crates/core/src/construct/repair.rs',
         'crates/core/src/construct/repair/compact.rs','crates/core/src/construct/repair/displace.rs',
-        'crates/core/src/construct/repair/relax.rs',
+        'crates/core/src/construct/repair/relax.rs','crates/core/src/construct/repair/compress.rs',
         'crates/core/src/lib.rs','scripts/construct_pilot.py',
         'crates/cli/src/main.rs','crates/validator/src/lib.rs','crates/validator/src/job.rs']}
     rows = []
@@ -49,7 +52,8 @@ def main():
             try:
                 run = subprocess.run([str(binary), 'improve' if args.passes else 'construct', '--job', str(job), '--output',
                     str(run_dir/'layout.json'), '--seed', '0', '--samples', '64'] +
-                    (['--passes',str(args.passes)] if args.passes else ['--refine','--contacts'] if args.contacts else ['--refine'] if args.refine else []),
+                    (['--passes',str(args.passes)] if args.passes else ['--refine','--contacts'] if args.contacts else ['--refine'] if args.refine else []) +
+                    (['--max-checks',str(args.max_checks)] if args.max_checks is not None else []),
                     cwd=ROOT, stdout=out, stderr=err, timeout=60)
                 status = 'valid' if run.returncode == 0 else 'failed'
                 exit_code = run.returncode
@@ -77,7 +81,7 @@ def main():
         (directory/'progress.json').write_text(json.dumps(rows,indent=2)+'\n')
     assert all(digest(ROOT/p)==checksum for p,checksum in sources.items())
     assert digest(binary)==binary_hash
-    result={'scope':f'Nestbolt constructor/repacking diagnostic: all {len(cases)} development {args.dataset} jobs, seed 0, 64 random samples per orientation/region, refinement={args.refine}, contacts={args.contacts}, repacking_passes={args.passes}, 60-second process cap. No held-out jobs or quality gate.',
+    result={'scope':f'Nestbolt constructor/repacking diagnostic: all {len(cases)} development {args.dataset} jobs, seed 0, 64 random samples per orientation/region, refinement={args.refine}, contacts={args.contacts}, repacking_passes={args.passes}, max_checks={args.max_checks}, 60-second process cap. No held-out jobs or quality gate.',
         'binary_sha256':binary_hash,'sources':sources,'manifest_sha256':digest(manifest),'rows':rows}
     group='maker' if args.dataset=='M' else 'sheet'
     mode='repack' if args.passes else 'construct'
