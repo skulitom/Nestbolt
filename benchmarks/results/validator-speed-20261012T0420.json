@@ -1,0 +1,1116 @@
+{
+  "scope": "Development CPU timing diagnostic; not G4. Each search is seed0,6passes,max40Mchecks,one process on the same specified CPU. One full-search pair per job; OS load varies. Validation timings are before/after/after/before on CPU12. All unsuccessful edge-sweep trial measurements are retained.",
+  "recorded_at": "2026-10-12T04:21:43.714123+00:00",
+  "base_commit": "d01b14bba013ce0a889bcd17c8ce0123f5224d88",
+  "binaries": {
+    "before": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5",
+    "edge-sweep": "cd4cc16d96db558495c4899a73f0205e5692291f23effc8b929e606cb9b8dd04",
+    "distance-pruning": "1c33fe210db777eabfdbd15a5699fe0691d1108733f57c547991b3597c928bbb"
+  },
+  "sources": {
+    "crates/validator/src/lib.rs": "fc4f8b11ea1d4f78665ad2b247ab3dc0a4fc23b77e37d2be24930d29add6ba64",
+    "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+    "crates/validator/src/distance_tests.rs": "6973e4f7c989bb60ab3088838eb01b749d25cf92bcd7a871e107033b0dbae18e",
+    "crates/validator/examples/profile_geometry.rs": "c0d6309719641e2b4d7801b7a44822916ad9fb72e63ab659ee4d0e9f43522fc7",
+    "Cargo.lock": "8858d35937ad68f47d13ceb6014a56370d7f591113a1299db22a5cfa28f0b05d",
+    "scripts/construct_profile.py": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+    "scripts/validator_replay.py": "a8b39eb3cd58c7a5f6f1eb813b668d16e66dfabd9d1a5a60fbd54208920c2c9c"
+  },
+  "rows": [
+    {
+      "job": "m-public-gear-3",
+      "validation_before_mean_cpu_seconds": 1.2421875,
+      "validation_after_mean_cpu_seconds": 0.8359375,
+      "validation_cpu_reduction_percent": 32.704402515723274,
+      "search_before_cpu_seconds": 44.046875,
+      "search_after_cpu_seconds": 36.671875,
+      "search_cpu_reduction_percent": 16.743526073075554,
+      "identical_complete_output_sha256": "f8a3987ed503f6e09cef70ada4d28c108d18d0662842f95350f43e823ab52458"
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "validation_before_mean_cpu_seconds": 0.5,
+      "validation_after_mean_cpu_seconds": 0.453125,
+      "validation_cpu_reduction_percent": 9.375,
+      "search_before_cpu_seconds": 41.359375,
+      "search_after_cpu_seconds": 41.296875,
+      "search_cpu_reduction_percent": 0.1511144692104227,
+      "identical_complete_output_sha256": "5902237ce51e8bc7154bcb8f9ef804b152872cb23f76758e3a90c281221f9fbc"
+    }
+  ],
+  "search_profiles": [
+    {
+      "path": "output/construct-profiles/20261012T040951Z-c90dd8dc/profile.json",
+      "sha256": "f757f469df00ee3aa7add248fb7130c665bb8f61f69ae6536b8de688d70e60ac",
+      "record": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\validation-speed-20261012\\before.exe",
+        "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5",
+        "job": "m-public-gear-3",
+        "job_sha256": "cbcc5df619be5a9310b03a5777364efcfd5facb08b33a0a7cf48fcfc012e65e4",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 6,
+        "max_checks": 40000000,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 44.296999999991385,
+            "cpu_seconds": 44.046875,
+            "cpu_mask": 256,
+            "progress": [
+              {
+                "elapsed_seconds": 2.25,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":1,\"material\":0.8391553311475409,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":83861}"
+              },
+              {
+                "elapsed_seconds": 5.812999999994645,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":1,\"material\":0.7371593352459016,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":109992}"
+              },
+              {
+                "elapsed_seconds": 13.202999999994063,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7460672622950819,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":850726}"
+              },
+              {
+                "elapsed_seconds": 16.937999999994645,
+                "message": "{\"pass\":3,\"stage\":\"repack\",\"contact_search\":false,\"interleaved_copies\":true,\"seed\":15755400384260043839,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7633018766393443,\"placed_area\":586233.2122645952,\"placed_priority\":120.0,\"collision_checks\":114362}"
+              },
+              {
+                "elapsed_seconds": 23.968999999997322,
+                "message": "{\"pass\":4,\"stage\":\"repack\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":8709371129873690708,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7556795778688524,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":850523}"
+              },
+              {
+                "elapsed_seconds": 27.375,
+                "message": "{\"pass\":5,\"stage\":\"repack\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":1663341875487337577,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7697580868852459,\"placed_area\":586233.212264596,\"placed_priority\":120.0,\"collision_checks\":96194}"
+              },
+              {
+                "elapsed_seconds": 33.046999999991385,
+                "message": "{\"pass\":6,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":13064056694810536062,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":20120}"
+              },
+              {
+                "elapsed_seconds": 39.437999999994645,
+                "message": "{\"pass\":7,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":6018027440424182931,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":18038}"
+              },
+              {
+                "elapsed_seconds": 44.296999999991385,
+                "message": "{\"pass\":8,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":17418742259747381416,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":12470}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "3e23e68d42f046ce7faff69a9086e6ef3527a28ff8c850ceb1bf66bc79ec185b",
+              "stdout.json": "f8a3987ed503f6e09cef70ada4d28c108d18d0662842f95350f43e823ab52458"
+            },
+            "collision_checks": 109992,
+            "surrogate_rejections": 101023,
+            "total_collision_checks": 2156286,
+            "stopped": null,
+            "completed_passes": 6
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T041002Z-9f037827/profile.json",
+      "sha256": "b24af5d53bcfae559a40d6563cc4a57dbb75be9459ade135ccff597992eadf4d",
+      "record": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\validation-speed-20261012\\before.exe",
+        "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 6,
+        "max_checks": 40000000,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 41.48500000000058,
+            "cpu_seconds": 41.359375,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 5.187999999994645,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 13.25,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 26.562999999994645,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 29.922000000005937,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "5902237ce51e8bc7154bcb8f9ef804b152872cb23f76758e3a90c281221f9fbc"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 40000000,
+            "stopped": "work_limit",
+            "completed_passes": 4
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T041246Z-11a7b4fd/profile.json",
+      "sha256": "fcecb2f203f13dda22bab11be3947605c1362f34800c91bcb6185f7fea276b26",
+      "record": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\validation-speed-20261012\\edge-sweep.exe",
+        "binary_sha256": "cd4cc16d96db558495c4899a73f0205e5692291f23effc8b929e606cb9b8dd04",
+        "job": "m-public-gear-3",
+        "job_sha256": "cbcc5df619be5a9310b03a5777364efcfd5facb08b33a0a7cf48fcfc012e65e4",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 6,
+        "max_checks": 40000000,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 49.0,
+            "cpu_seconds": 48.59375,
+            "cpu_mask": 256,
+            "progress": [
+              {
+                "elapsed_seconds": 2.264999999999418,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":1,\"material\":0.8391553311475409,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":83861}"
+              },
+              {
+                "elapsed_seconds": 5.7810000000026776,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":1,\"material\":0.7371593352459016,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":109992}"
+              },
+              {
+                "elapsed_seconds": 13.906000000002678,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7460672622950819,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":850726}"
+              },
+              {
+                "elapsed_seconds": 18.077999999994063,
+                "message": "{\"pass\":3,\"stage\":\"repack\",\"contact_search\":false,\"interleaved_copies\":true,\"seed\":15755400384260043839,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7633018766393443,\"placed_area\":586233.2122645952,\"placed_priority\":120.0,\"collision_checks\":114362}"
+              },
+              {
+                "elapsed_seconds": 26.125,
+                "message": "{\"pass\":4,\"stage\":\"repack\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":8709371129873690708,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7556795778688524,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":850523}"
+              },
+              {
+                "elapsed_seconds": 30.10899999999674,
+                "message": "{\"pass\":5,\"stage\":\"repack\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":1663341875487337577,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7697580868852459,\"placed_area\":586233.212264596,\"placed_priority\":120.0,\"collision_checks\":96194}"
+              },
+              {
+                "elapsed_seconds": 36.60899999999674,
+                "message": "{\"pass\":6,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":13064056694810536062,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":20120}"
+              },
+              {
+                "elapsed_seconds": 43.546000000002095,
+                "message": "{\"pass\":7,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":6018027440424182931,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":18038}"
+              },
+              {
+                "elapsed_seconds": 48.98399999999674,
+                "message": "{\"pass\":8,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":17418742259747381416,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":12470}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "3e23e68d42f046ce7faff69a9086e6ef3527a28ff8c850ceb1bf66bc79ec185b",
+              "stdout.json": "f8a3987ed503f6e09cef70ada4d28c108d18d0662842f95350f43e823ab52458"
+            },
+            "collision_checks": 109992,
+            "surrogate_rejections": 101023,
+            "total_collision_checks": 2156286,
+            "stopped": null,
+            "completed_passes": 6
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T041257Z-ad047193/profile.json",
+      "sha256": "1900baf06519121240fdb685c665f59f403bb4c1db4772c1208198ef12c0280b",
+      "record": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\validation-speed-20261012\\edge-sweep.exe",
+        "binary_sha256": "cd4cc16d96db558495c4899a73f0205e5692291f23effc8b929e606cb9b8dd04",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 6,
+        "max_checks": 40000000,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 43.39100000000326,
+            "cpu_seconds": 43.25,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 5.203000000008615,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 13.76600000000326,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 27.76600000000326,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 31.297000000005937,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "5902237ce51e8bc7154bcb8f9ef804b152872cb23f76758e3a90c281221f9fbc"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 40000000,
+            "stopped": "work_limit",
+            "completed_passes": 4
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T041749Z-0078c254/profile.json",
+      "sha256": "5654592f5e2867b2f5a98d05d43c299634e10884a4dbd7e62a365224fe10d8ce",
+      "record": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\validation-speed-20261012\\distance-pruning.exe",
+        "binary_sha256": "1c33fe210db777eabfdbd15a5699fe0691d1108733f57c547991b3597c928bbb",
+        "job": "m-public-gear-3",
+        "job_sha256": "cbcc5df619be5a9310b03a5777364efcfd5facb08b33a0a7cf48fcfc012e65e4",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 6,
+        "max_checks": 40000000,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 37.14100000000326,
+            "cpu_seconds": 36.671875,
+            "cpu_mask": 256,
+            "progress": [
+              {
+                "elapsed_seconds": 1.5160000000032596,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":1,\"material\":0.8391553311475409,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":83861}"
+              },
+              {
+                "elapsed_seconds": 3.985000000000582,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":1,\"material\":0.7371593352459016,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":109992}"
+              },
+              {
+                "elapsed_seconds": 11.03200000000652,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7460672622950819,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":850726}"
+              },
+              {
+                "elapsed_seconds": 13.813000000009197,
+                "message": "{\"pass\":3,\"stage\":\"repack\",\"contact_search\":false,\"interleaved_copies\":true,\"seed\":15755400384260043839,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7633018766393443,\"placed_area\":586233.2122645952,\"placed_priority\":120.0,\"collision_checks\":114362}"
+              },
+              {
+                "elapsed_seconds": 19.610000000000582,
+                "message": "{\"pass\":4,\"stage\":\"repack\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":8709371129873690708,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7556795778688524,\"placed_area\":586233.2122645944,\"placed_priority\":120.0,\"collision_checks\":850523}"
+              },
+              {
+                "elapsed_seconds": 22.078000000008615,
+                "message": "{\"pass\":5,\"stage\":\"repack\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":1663341875487337577,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":1,\"material\":0.7697580868852459,\"placed_area\":586233.212264596,\"placed_priority\":120.0,\"collision_checks\":96194}"
+              },
+              {
+                "elapsed_seconds": 27.03200000000652,
+                "message": "{\"pass\":6,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":13064056694810536062,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":20120}"
+              },
+              {
+                "elapsed_seconds": 32.719000000011874,
+                "message": "{\"pass\":7,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":6018027440424182931,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":18038}"
+              },
+              {
+                "elapsed_seconds": 37.14100000000326,
+                "message": "{\"pass\":8,\"stage\":\"compress-last-sheet\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":17418742259747381416,\"sheet_limit\":null,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":12470}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "3e23e68d42f046ce7faff69a9086e6ef3527a28ff8c850ceb1bf66bc79ec185b",
+              "stdout.json": "f8a3987ed503f6e09cef70ada4d28c108d18d0662842f95350f43e823ab52458"
+            },
+            "collision_checks": 109992,
+            "surrogate_rejections": 101023,
+            "total_collision_checks": 2156286,
+            "stopped": null,
+            "completed_passes": 6
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T041750Z-71f8376e/profile.json",
+      "sha256": "849f4bfa7d250ab074457761925e0300cca27d47af9827901f96193cc8edc2a7",
+      "record": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\validation-speed-20261012\\distance-pruning.exe",
+        "binary_sha256": "1c33fe210db777eabfdbd15a5699fe0691d1108733f57c547991b3597c928bbb",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 6,
+        "max_checks": 40000000,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 41.625,
+            "cpu_seconds": 41.296875,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 5.157000000006519,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 13.14100000000326,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 26.047000000005937,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 29.438000000009197,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "5902237ce51e8bc7154bcb8f9ef804b152872cb23f76758e3a90c281221f9fbc"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 40000000,
+            "stopped": "work_limit",
+            "completed_passes": 4
+          }
+        ]
+      }
+    }
+  ],
+  "initial_validation": [
+    {
+      "job": "m-public-gear-3",
+      "wall_seconds": 1.235000000000582,
+      "cpu_seconds": 1.21875,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "wall_seconds": 0.5160000000032596,
+      "cpu_seconds": 0.5,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    }
+  ],
+  "rejected_edge_sweep_validation": [
+    {
+      "job": "m-public-gear-3",
+      "binary": "before",
+      "wall_seconds": 1.25,
+      "cpu_seconds": 1.21875,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-public-gear-3",
+      "binary": "edge-sweep",
+      "wall_seconds": 1.2660000000032596,
+      "cpu_seconds": 1.265625,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-public-gear-3",
+      "binary": "edge-sweep",
+      "wall_seconds": 1.25,
+      "cpu_seconds": 1.234375,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-public-gear-3",
+      "binary": "before",
+      "wall_seconds": 1.25,
+      "cpu_seconds": 1.25,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "before",
+      "wall_seconds": 0.5149999999994179,
+      "cpu_seconds": 0.5,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "edge-sweep",
+      "wall_seconds": 0.5319999999919673,
+      "cpu_seconds": 0.515625,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "edge-sweep",
+      "wall_seconds": 0.5310000000026776,
+      "cpu_seconds": 0.515625,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "before",
+      "wall_seconds": 0.5160000000032596,
+      "cpu_seconds": 0.5,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    }
+  ],
+  "adopted_distance_validation": [
+    {
+      "job": "m-public-gear-3",
+      "binary": "before",
+      "wall_seconds": 1.25,
+      "cpu_seconds": 1.25,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-public-gear-3",
+      "binary": "distance-pruning",
+      "wall_seconds": 0.8439999999973224,
+      "cpu_seconds": 0.84375,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-public-gear-3",
+      "binary": "distance-pruning",
+      "wall_seconds": 0.8439999999973224,
+      "cpu_seconds": 0.828125,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-public-gear-3",
+      "binary": "before",
+      "wall_seconds": 1.2339999999967404,
+      "cpu_seconds": 1.234375,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 120,
+          "requested_parts": 120,
+          "placed_area": 586233.2122645944,
+          "placed_priority": 120.0,
+          "full_stock_area": 2976800.0,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "utilization": 0.2671525921413358,
+          "trailing_offcut_area": 782424.0908400002,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "before",
+      "wall_seconds": 0.5160000000032596,
+      "cpu_seconds": 0.5,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "distance-pruning",
+      "wall_seconds": 0.46799999999348074,
+      "cpu_seconds": 0.453125,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "distance-pruning",
+      "wall_seconds": 0.45300000000861473,
+      "cpu_seconds": 0.453125,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    },
+    {
+      "job": "m-mechanical-batch-1000",
+      "binary": "before",
+      "wall_seconds": 0.5160000000032596,
+      "cpu_seconds": 0.5,
+      "cpu": 12,
+      "report": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 1000,
+          "requested_parts": 1000,
+          "placed_area": 1719021.6805067256,
+          "placed_priority": 1000.0,
+          "full_stock_area": 6250000.0,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "utilization": 0.5230743686675474,
+          "trailing_offcut_area": 2963618.97375,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821
+        }
+      }
+    }
+  ],
+  "stage_profiles": {
+    "stages-after-batch.json": {
+      "full_validation_seconds": 0.4572849,
+      "job": "m-mechanical-batch-1000",
+      "pairs_seconds": 0.335168,
+      "report": {
+        "backend": "clipper2-rust 1.2.0",
+        "maximum_outside_ratio": 0.0,
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "metrics": {
+          "full_stock_area": 6250000.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "placed_area": 1719021.6805067256,
+          "placed_parts": 1000,
+          "placed_priority": 1000.0,
+          "requested_parts": 1000,
+          "sheets_used": 2,
+          "trailing_offcut_area": 2963618.97375,
+          "utilization": 0.5230743686675474
+        },
+        "units": "mm",
+        "valid": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "source_area": 6876.086722026906,
+      "source_seconds": 0.0004469,
+      "total_overlap": 0.0,
+      "transformed_seconds": 0.0551906
+    },
+    "stages-after-gear.json": {
+      "full_validation_seconds": 0.8037732,
+      "job": "m-public-gear-3",
+      "pairs_seconds": 0.4798174,
+      "report": {
+        "backend": "clipper2-rust 1.2.0",
+        "maximum_outside_ratio": 0.0,
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "metrics": {
+          "full_stock_area": 2976800.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "placed_area": 586233.2122645944,
+          "placed_parts": 120,
+          "placed_priority": 120.0,
+          "requested_parts": 120,
+          "sheets_used": 1,
+          "trailing_offcut_area": 782424.0908400002,
+          "utilization": 0.2671525921413358
+        },
+        "units": "mm",
+        "valid": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "source_area": 9770.553537743268,
+      "source_seconds": 0.0025391,
+      "total_overlap": 0.0,
+      "transformed_seconds": 0.1434024
+    },
+    "stages-before-batch.json": {
+      "full_validation_seconds": 0.5216776,
+      "job": "m-mechanical-batch-1000",
+      "pairs_seconds": 0.3234145,
+      "report": {
+        "backend": "clipper2-rust 1.2.0",
+        "maximum_outside_ratio": 0.0,
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "metrics": {
+          "full_stock_area": 6250000.0,
+          "last_sheet_id": "sheet-1",
+          "last_sheet_used_height": 129.104821,
+          "material_area": 3286381.02625,
+          "normalized_material": 1.0516419284,
+          "placed_area": 1719021.6805067256,
+          "placed_parts": 1000,
+          "placed_priority": 1000.0,
+          "requested_parts": 1000,
+          "sheets_used": 2,
+          "trailing_offcut_area": 2963618.97375,
+          "utilization": 0.5230743686675474
+        },
+        "units": "mm",
+        "valid": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "source_area": 6876.086722026906,
+      "source_seconds": 0.0005114,
+      "total_overlap": 0.0,
+      "transformed_seconds": 0.10871
+    },
+    "stages-before-gear.json": {
+      "full_validation_seconds": 1.227867,
+      "job": "m-public-gear-3",
+      "pairs_seconds": 0.4768471,
+      "report": {
+        "backend": "clipper2-rust 1.2.0",
+        "maximum_outside_ratio": 0.0,
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "metrics": {
+          "full_stock_area": 2976800.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 1798.668778,
+          "material_area": 2194375.90916,
+          "normalized_material": 0.7371593352459016,
+          "placed_area": 586233.2122645944,
+          "placed_parts": 120,
+          "placed_priority": 120.0,
+          "requested_parts": 120,
+          "sheets_used": 1,
+          "trailing_offcut_area": 782424.0908400002,
+          "utilization": 0.2671525921413358
+        },
+        "units": "mm",
+        "valid": true,
+        "violation_count": 0,
+        "violations": []
+      },
+      "source_area": 9770.553537743268,
+      "source_seconds": 0.0092247,
+      "total_overlap": 0.0,
+      "transformed_seconds": 0.5526631
+    }
+  },
+  "rejected_edge_sweep_patch": "diff --git a/crates/validator/src/lib.rs b/crates/validator/src/lib.rs\nindex ad3fc8f..4b38baa 100644\n--- a/crates/validator/src/lib.rs\n+++ b/crates/validator/src/lib.rs\n@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};\n pub mod job;\n pub mod sparrow;\n \n+#[cfg(test)]\n+mod ring_tests;\n+\n const SCALE: f64 = 1_000_000.0;\n pub const GRID: f64 = 1.0 / SCALE;\n pub const MAX_COORDINATE: f64 = 10_000_000.0;\n@@ -414,18 +417,10 @@ fn make_ring(\n             None => break,\n         }\n     }\n-    let segments: Vec<_> = edges(&path).collect();\n-    for (i, &(a, b)) in segments.iter().enumerate() {\n-        for (j, &(c, d)) in segments.iter().enumerate().skip(i + 1) {\n-            if j == i + 1 || (i == 0 && j == path.len() - 1) {\n-                continue;\n-            }\n-            ensure!(\n-                !segments_touch(a, b, c, d),\n-                \"ring self-intersects or touches itself\"\n-            );\n-        }\n-    }\n+    ensure!(\n+        !ring_self_intersects(&path),\n+        \"ring self-intersects or touches itself\"\n+    );\n     let signed = signed_twice_area(&path);\n     ensure!(signed != 0, \"ring has zero area\");\n     if (signed > 0) != positive {\n@@ -434,6 +429,33 @@ fn make_ring(\n     Ok(path)\n }\n \n+/// Order edges by their minimum integer X coordinate. An edge can only meet\n+/// following edges whose minimum X is no greater than its maximum X. This\n+/// rejects distant pairs before the exact integer intersection predicate;\n+/// touching bounds remain candidates. Adjacency uses the original ring order.\n+fn ring_self_intersects(path: &Path64) -> bool {\n+    let mut segments: Vec<_> = edges(path).enumerate().collect();\n+    // Avoid sorting overhead for the common small rectangle/bracket contours.\n+    let sweep = segments.len() > 32;\n+    if sweep {\n+        segments.sort_unstable_by_key(|&(index, (a, b))| (a.x.min(b.x), index));\n+    }\n+    for (position, &(i, (a, b))) in segments.iter().enumerate() {\n+        for &(j, (c, d)) in segments.iter().skip(position + 1) {\n+            if sweep && c.x.min(d.x) > a.x.max(b.x) {\n+                break;\n+            }\n+            if i.abs_diff(j) == 1 || i.abs_diff(j) == path.len() - 1 {\n+                continue;\n+            }\n+            if segments_touch(a, b, c, d) {\n+                return true;\n+            }\n+        }\n+    }\n+    false\n+}\n+\n fn edges(path: &Path64) -> impl Iterator<Item = (Point64, Point64)> + '_ {\n     path.iter()\n         .copied()\n",
+  "replays": [
+    {
+      "path": "benchmarks/results/validator-replay-20261012T041352Z-8b7abdcc.json",
+      "sha256": "c67aa0c6b057d11baef3d88116b5b5da2926117110b45c7e1a0033110b2b8653"
+    },
+    {
+      "path": "benchmarks/results/validator-replay-20261012T041750Z-d3c8167a.json",
+      "sha256": "835942e8b40b80a29d5aacd0ddf283c4a45ed8662efd009ec67c39e491a81aa8"
+    }
+  ]
+}

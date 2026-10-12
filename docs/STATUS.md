@@ -28,7 +28,8 @@ Percentages count completed milestones only. Development results do not establis
 | Search limits | 1,000-part job returns a valid incumbent in 15.094 s under a 15 s cooperative deadline; two fixed-work replays produce identical results | [Stop and replay evidence](../benchmarks/results/search-control-20261012T0114.md); calibrate time-to-work mapping and wire browser/MCP cancellation |
 | Compaction | All 65 layouts valid; seven sheet and ten maker improvements retained. Bounded relocation preserves every material score and reduces collision queries by 24% overall; original-geometry guard prevents material regression | [Sheet trial](../benchmarks/results/compact-b-20261012T013650Z-e3423fac.md), [maker trial](../benchmarks/results/compact-m-20261012T013654Z-fb5e8bfa.md); remains optional while stronger sheet repair is developed |
 | Constructor speed diagnostic | Stable cost order cuts 1,000-part collision checks from 9.33M to 4.39M; last matched-CPU pair uses 61.8% less CPU time with identical output | [All ten timing attempts](../benchmarks/results/construct-profile-20261012T0042.md); four-circle experiment reverted; no G4 claim |
-| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | All five hosted checks passed for M1 commit `55c968c`; local compression/strip tests, lint and both WASM builds pass |
+| Independent checker speed | Boundary-distance pruning reduces gear validation CPU time by 32.7% and 1,000-part validation by 9.4%. Full gear search uses 16.7% less CPU in one matched pair; the 1,000-part search is effectively unchanged | [All attempts](../benchmarks/results/validator-speed-20261012T0420.md); both complete solver outputs are byte-identical, and all 104 retained validation reports match |
+| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | All five hosted checks passed for `d01b14b`; local distance tests, lint and both WASM builds pass |
 
 The [complete baseline audit](../benchmarks/results/baseline-gap-20261012T033547Z-e9539412.md)
 measures competitor reductions over LBF of **17.09% at 60 s** and **21.54% at 300 s**.
@@ -46,7 +47,7 @@ populations must pass separately.
 
 The independent checker covers original geometry, spacing, quantities, units,
 stock, margins, defects, rotations, mirroring and fill mode. The latest full local
-checks passed 86 workspace tests, four stock-helper tests, both WASM builds,
+checks passed 88 workspace tests, four stock-helper tests, both WASM builds,
 source/schema/notices checks and 91 Python tests. Five Node tests cover CPU
 selection and native process cleanup.
 

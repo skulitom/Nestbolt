@@ -65,12 +65,26 @@ predeclared M0 quality comparison or discarding invalid outputs.
 
 ## Verification and remaining work
 
-Thirty-one validator tests cover the geometry kernel, stock/fill constraints,
+Thirty-three validator tests cover the geometry kernel, stock/fill constraints,
 scoring identities and strip adaptation. They include a fixed-seed 10,000-case
 adversarial polygon fuzz test, analytic rectangle/winding properties (48 cases
 each), and a 2,000-copy layout. Two additional CLI integration tests check actual
 success/failure exit behavior. These are bounded tests, not the complete G1 matrix;
 curve fuzzing and heterogeneous browser-scale evidence remain outstanding.
+
+Boundary-distance checks prune edge pairs whose bounding boxes cannot improve
+the closest known distance, with two grid units reserved for numerical rounding.
+The exact segment predicates and distance calculations are unchanged. Two new
+tests compare against the exhaustive reference, including 3,000 fixed-seed pairs
+in both directions, curved and multipart boundaries, near-touching contours and
+large coordinates. All 104 retained development validation reports match
+exactly in the [replay and timing diagnostic](../benchmarks/results/validator-speed-20261012T0420.md).
+
+`scripts/validator_replay.py --binary PATH --pilot RESULT.json` repeats those
+independent checks without rerunning a solver. Multiple `--pilot` arguments are
+allowed; only frozen development jobs are accepted. The
+`profile_geometry` validator example reports time spent constructing original
+and transformed footprints, checking pairs and validating the full layout.
 
 Next: feed every competitor adapter through this same contract, expand fuzzing
 and measure heterogeneous large-job time/memory. Ring topology checking is

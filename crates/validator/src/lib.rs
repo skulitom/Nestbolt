@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub mod job;
 pub mod sparrow;
 
+#[cfg(test)]
+mod distance_tests;
+
 const SCALE: f64 = 1_000_000.0;
 pub const GRID: f64 = 1.0 / SCALE;
 pub const MAX_COORDINATE: f64 = 10_000_000.0;
@@ -483,6 +486,16 @@ fn boundary_distance(a: &Paths64, b: &Paths64) -> f64 {
     let mut minimum = f64::INFINITY;
     for (a0, a1) in a.iter().flat_map(edges) {
         for (b0, b1) in b.iter().flat_map(edges) {
+            // A segment pair cannot improve the incumbent if its bounding boxes
+            // are farther apart on either axis. Coordinates are exact integers;
+            // keep two extra grid units to conservatively cover f64 distance
+            // rounding within MAX_COORDINATE. Never prune touching boxes.
+            let limit = minimum * SCALE + 2.0;
+            let dx = (a0.x.min(a1.x) - b0.x.max(b1.x)).max(b0.x.min(b1.x) - a0.x.max(a1.x));
+            let dy = (a0.y.min(a1.y) - b0.y.max(b1.y)).max(b0.y.min(b1.y) - a0.y.max(a1.y));
+            if dx as f64 > limit || dy as f64 > limit {
+                continue;
+            }
             if segments_touch(a0, a1, b0, b1) {
                 return 0.0;
             }
