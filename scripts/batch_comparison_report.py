@@ -7,8 +7,28 @@ import uuid
 
 from comparator_batch_report import TOOLS, audit_batch
 from comparison_session_report import summarize
-from dataset_selection import development_cases
+from comparison_cases import comparison_cases
 from svgnest import ROOT, digest, write
+
+
+def split_build_failures(rows):
+    """Retain every solver outcome; only a failed checker build can be replaced."""
+    retained, excluded = [], []
+    for row in rows:
+        run = row['run']
+        if run['status'] != 'failed':
+            retained.append(row)
+            continue
+        if (run.get('reason') != "Command '['cargo', 'build', '-p', 'nestbolt-cli', '--locked']' returned non-zero exit status 101."
+                or run.get('score') is not None
+                or any(k in run for k in ['validator_sha256', 'exit_code', 'stages_ms', 'candidates', 'controller_solve_ms'])
+                or any(name not in ['job.json', 'request.json', 'input.svg'] and not (name.startswith('input-') and name.endswith('.svg'))
+                       for name in run['outputs'])):
+            raise ValueError('Only an unstarted checker-build failure may be replaced')
+        excluded.append(row)
+    if not excluded:
+        raise ValueError('The replacement batch contains no failed checker builds')
+    return retained, excluded
 
 
 def combine(tool, dataset, seconds, settings, cases, batches):
@@ -42,10 +62,24 @@ def combine(tool, dataset, seconds, settings, cases, batches):
 
 
 def report(args):
-    manifest, cases = development_cases(ROOT, args.dataset)
+    manifest, cases = comparison_cases(ROOT, args.dataset, args.seconds)
     selected = [path.resolve(strict=True) for path in args.batch]
     audited = [audit_batch(path, args.tool) for path in selected]
-    slots, attempts, rows = combine(args.tool, args.dataset, args.seconds, args.settings, cases, audited)
+    replace = {path.resolve(strict=True) for path in getattr(args, 'replace_build_failures', [])}
+    if not replace.issubset(selected):
+        raise ValueError('A replacement must name an explicitly audited batch')
+    excluded, filtered = [], []
+    for path, (batch, records) in zip(selected, audited):
+        if path in replace:
+            records, removed = split_build_failures(records)
+            excluded.extend(removed)
+        filtered.append((batch, records))
+    slots, attempts, rows = combine(args.tool, args.dataset, args.seconds, args.settings, cases, filtered)
+    for row in excluded:
+        run = row['run']
+        replacement = attempts.get(f"{run['job']}:{run['seed']}")
+        if replacement is None or replacement['sha256'] == row['sha256']:
+            raise ValueError('Every excluded build failure needs an audited replacement attempt')
     stamp = datetime.now(timezone.utc)
     stem = f'comparison-batches-{stamp:%Y%m%dT%H%M%SZ}-{uuid.uuid4().hex[:8]}'
     target = ROOT/'benchmarks/results'/stem
@@ -57,12 +91,14 @@ def report(args):
         'sources': {name: digest(ROOT/name) for name in [
             'scripts/batch_comparison_report.py', 'scripts/comparator_batch_report.py',
             'scripts/comparison_session_report.py', f'scripts/{args.tool}_report.py',
-            'benchmarks/STATISTICS.md']},
+            'benchmarks/STATISTICS.md', 'scripts/comparison_cases.py',
+            'scripts/matrix_plan.py', 'benchmarks/matrix-plan.json']},
         'dataset_manifest_sha256': digest(manifest),
         'batches': [{'path': p.relative_to(ROOT).as_posix(), 'sha256': digest(p), 'manifest': b}
                     for p, (b, _) in zip(selected, audited)],
         'required_slots': len(slots), 'completed_slots': len(attempts),
         'complete': len(slots) == len(attempts), 'rows': rows,
+        'replaced_checker_build_failures': excluded,
         'attempts': [{'slot_id': key, **row} for key, row in sorted(attempts.items())],
     }
     write(target.with_suffix('.json'), value)
@@ -80,6 +116,10 @@ def report(args):
               'This explicitly selected batch set retains runner and validator versions per attempt; '
               'it does not establish a frozen final comparison.', '',
               f'[Full precision, selection and audited evidence]({stem}.json).', '']
+    if excluded:
+        lines += [f'{len(excluded)} explicitly named checker-build failures occurred before the competitor started. '
+                  'Their audited records remain in the JSON alongside all replacement outcomes. '
+                  'Solver failures, invalid layouts and timeouts are never replaced by this option.', '']
     with target.with_suffix('.md').open('x', encoding='utf-8', newline='\n') as out:
         out.write('\n'.join(lines))
     with (ROOT/'BENCHMARKS.md').open('a', encoding='utf-8', newline='\n') as out:
@@ -96,4 +136,6 @@ if __name__ == '__main__':
     parser.add_argument('--settings', required=True)
     parser.add_argument('--seconds', type=int, choices=[60, 300], required=True)
     parser.add_argument('--batch', type=Path, action='append', required=True)
+    parser.add_argument('--replace-build-failures', type=Path, action='append', default=[],
+                        help='Explicit audited batch whose pre-solver checker-build failures have replacement attempts')
     report(parser.parse_args())

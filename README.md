@@ -18,8 +18,9 @@ No optimisation-quality claims have been established yet.
 - `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
   retaining independently valid improvements and recording failed sheet-removal
   attempts. Existing-sheet repair can move one blocking part and reinsert both
-  parts; [35 sheet jobs pass validation](benchmarks/results/repack-sheet-20261012T000748Z-0c7fac06.md).
-  The [maker trial](benchmarks/results/repack-maker-20261012T000758Z-533d7bb1.md) still times out on a 1,000-part job. This
+  parts; [35 sheet jobs pass validation](benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md).
+  The [four-pass maker trial](benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md) now finishes all 30 jobs,
+  including the 1,000-part job in 40.1 seconds. This
   experimental command has a work quota, not a time-budget promise.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
@@ -57,7 +58,9 @@ cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box
 tries outline contacts to interlock concave parts. `improve` compares both methods
 with its initial layout before exploring other orders, and keeps the
 best valid result. It reports each completed pass on stderr and the final result
-on stdout. Existing output files are never overwritten.
+on stdout. It tests placements in stable cost order and stops sheet-removal
+trials after an unplaced copy that the trial cannot revisit. Existing output
+files are never overwritten.
 
 The sample reports six parts with a total area of 16,800 mm² and two available
 300 × 200 mm sheets. Units must be specified (`mm`, `inch` or `unitless`); no

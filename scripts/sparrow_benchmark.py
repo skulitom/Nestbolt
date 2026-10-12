@@ -24,7 +24,8 @@ BUILD=TARGET/'build.json'
 SOURCES=['scripts/sparrow_benchmark.py','scripts/sparrow_io.py','scripts/benchmark_io.py','scripts/svgnest.py',
          'scripts/svgnest_io.py','scripts/svg_export_transform.py',
          'benchmarks/sparrow-benchmark/Cargo.toml','benchmarks/sparrow-benchmark/Cargo.lock',
-         'benchmarks/sparrow-benchmark/src/main.rs','scripts/dataset_selection.py']
+         'benchmarks/sparrow-benchmark/src/main.rs','scripts/dataset_selection.py',
+         'scripts/comparison_cases.py','scripts/matrix_plan.py','benchmarks/matrix-plan.json']
 
 
 def digest(path): return sha256(path.read_bytes()).hexdigest()
@@ -111,13 +112,13 @@ def run(args):
 
 
 def batch(args):
-    from dataset_selection import development_cases
+    from comparison_cases import comparison_cases
     if args.dataset=='M':
         from maker_freeze import check_frozen, DEST
     else:
         from datasets import check_frozen, DEST
     check_frozen()
-    DATASET,rows=development_cases(ROOT,args.dataset)
+    DATASET,rows=comparison_cases(ROOT,args.dataset,args.seconds)
     selected=rows[args.offset:args.offset+args.count]
     if not selected or len(selected)*(args.seconds+300)>3*3600: raise ValueError('Empty selection or batch over three hours')
     sources={s:digest(ROOT/s) for s in SOURCES}

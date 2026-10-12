@@ -208,7 +208,7 @@ pub fn optimize(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v6",
+        algorithm: "nestbolt-repack-v7",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: options.passes,

@@ -99,6 +99,31 @@ fn moving_a_blocker_fits_both_parts_on_one_sheet_and_repeats() {
 }
 
 #[test]
+fn an_unplaced_donor_stops_the_trial_without_adding_later_smaller_parts() {
+    let (mut job, mut source) = fixture();
+    let mut small = job.parts[0].clone();
+    small.id = "later-small".into();
+    small.geometry = vec![rectangle(0.0, 0.0, 1.0, 1.0)];
+    job.parts.push(small);
+    let mut placement = source.placements[1].clone();
+    placement.part_id = "later-small".into();
+    placement.transform.translation = [5.0, 5.0];
+    source.placements.push(placement);
+    assert!(validate(&job, &source).unwrap().valid);
+    let before = serde_json::to_string(&source).unwrap();
+    let repaired = PreparedJob::new(&job)
+        .unwrap()
+        .repair_sheet(&source, 1, options(), 0)
+        .unwrap();
+    assert!(!repaired.complete);
+    assert_eq!(repaired.unplaced, 2);
+    assert_eq!(repaired.layout.placements.len(), 1);
+    assert_eq!(repaired.layout.placements[0].part_id, "small");
+    assert!(validate(&job, &repaired.layout).unwrap().metrics.is_none());
+    assert_eq!(before, serde_json::to_string(&source).unwrap());
+}
+
+#[test]
 fn failed_ejection_restores_the_unchanged_receiver_and_never_opens_stock() {
     let (mut job, mut source) = fixture();
     job.stocks[0].width = 4.0;

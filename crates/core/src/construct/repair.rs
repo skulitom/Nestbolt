@@ -212,7 +212,7 @@ impl PreparedJob<'_> {
                 .then(pa.copy_index.cmp(&pb.copy_index))
         });
         let mut state = SearchState::new(options.seed, true);
-        for (part, placement) in pending {
+        'pending: for (part, placement) in pending {
             if let Some((sheet, region, candidate)) =
                 self.repair_position(&sheets, part, options, &mut state)?
             {
@@ -272,11 +272,15 @@ impl PreparedJob<'_> {
                             placed,
                             candidate,
                         );
-                        break;
+                        continue 'pending;
                     }
                 }
                 sheets[sheet][region] = snapshot;
             }
+            // This trial never revisits an unplaced donor copy. Once direct
+            // insertion and every ejection fail, adding later copies cannot
+            // make the trial complete. Preserve the incumbent in the caller.
+            break;
         }
         layout.placements = sheets
             .into_iter()
@@ -295,7 +299,7 @@ impl PreparedJob<'_> {
             checked.violations
         );
         Ok(Construction {
-            algorithm: "nestbolt-repair-v1",
+            algorithm: "nestbolt-repair-v2",
             seed: options.seed,
             collision_checks: state.checks,
             surrogate_rejections: state.surrogate_rejections,

@@ -1,0 +1,1523 @@
+{
+  "recorded_at": "2026-10-12T00:44:55.869442+00:00",
+  "tool": "sparrow",
+  "dataset": "M",
+  "seconds": 300,
+  "settings": "identical",
+  "scope": "Development comparison slice, not a complete M1 or final quality gate. All three declared seeds participate. Missing seeds prevent comparison; failures rank after finite scores.",
+  "sources": {
+    "scripts/batch_comparison_report.py": "67aad4b717f075713708dca79746d9e731a7381e58a40c5c2749a6c33a77a5bf",
+    "scripts/comparator_batch_report.py": "d19db491ca111228e20c045c18220146ae3f389c5d619a4fb678a264ec647a83",
+    "scripts/comparison_session_report.py": "a8aab0844d396229902425e30c6e93393f38b148a1c2c00a60dc418e12ddf59f",
+    "scripts/sparrow_report.py": "a9782fe6ec1bebc74d64937e8f1b64bc713bb5bc005f3c397de70b2fe5cff187",
+    "benchmarks/STATISTICS.md": "a545c37a7657263a56eb6c6df4733fa4979e59b0bf2bc5c33a936c55eaed1489",
+    "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+    "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+    "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+  },
+  "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+  "batches": [
+    {
+      "path": "output/sparrow-batches/20261012T003830Z-90f59c53/batch.json",
+      "sha256": "db0386e1a98d0e6b148d21ad29e5184874360dc96ef8bacfae5492de0c4521a9",
+      "manifest": {
+        "batch_id": "20261012T003830Z-90f59c53",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "boxes",
+            "held_out": false,
+            "source": "boxes",
+            "parameters": {
+              "generator": "UniversalBox",
+              "arguments": [
+                "--x=60",
+                "--y=40",
+                "--h=30",
+                "--thickness=3",
+                "--burn=0",
+                "--reference=0",
+                "--labels=false",
+                "--inner_corners=corner",
+                "--top_edge=e"
+              ],
+              "copies": 4,
+              "creation_date": "2026-10-11T00:00:00"
+            },
+            "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+            "id": "m-box-mini",
+            "set": "M",
+            "units": "mm",
+            "part_count": 20,
+            "files": {
+              "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+              "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+              "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+              "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+            },
+            "path": "M/m-box-mini.json",
+            "sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+          },
+          {
+            "category": "garments",
+            "held_out": false,
+            "source": "freesewing",
+            "parameters": {
+              "design": "teagan",
+              "seam_allowance": 10,
+              "measurements": {
+                "biceps": 304.0,
+                "chest": 912.0,
+                "hpsToBust": 247.0,
+                "hpsToWaistBack": 408.5,
+                "neck": 370.5,
+                "shoulderToShoulder": 408.5,
+                "shoulderSlope": 18,
+                "waistToArmpit": 209.0,
+                "waistToHips": 180.5,
+                "hips": 950.0,
+                "waist": 788.5,
+                "shoulderToWrist": 570.0,
+                "wrist": 161.5
+              },
+              "garment_count": 10,
+              "synthetic_measurements": true
+            },
+            "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+            "id": "m-garment-teagan-2",
+            "set": "M",
+            "units": "mm",
+            "part_count": 40,
+            "files": {
+              "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+              "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+              "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+              "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+            },
+            "path": "M/m-garment-teagan-2.json",
+            "sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+          },
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 3,
+              "base_copies": 70,
+              "cog_teeth": 16
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-defective-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 298,
+            "files": {
+              "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+              "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+              "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+            },
+            "path": "M/m-mechanical-defective-stock.json",
+            "sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+          },
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 2,
+              "base_copies": 55,
+              "cog_teeth": 12
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-mixed-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 238,
+            "files": {
+              "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+              "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+              "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+            },
+            "path": "M/m-mechanical-mixed-stock.json",
+            "sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+          }
+        ],
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "seconds": 300,
+        "seed": 0,
+        "settings": "identical",
+        "axis": "y",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-box-mini",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003832Z-6b35e76d/run.json",
+            "sha256": "cf823ce1f8843724e76d23dc583af45441984ef11e223afdac5bbf6e5ae65e65"
+          },
+          {
+            "job": "m-garment-teagan-2",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003833Z-90c2756a/run.json",
+            "sha256": "f4f28167b0aae8b09b33da9c4e83a4e91c355320e144aa527369f3fc6dffc250"
+          },
+          {
+            "job": "m-mechanical-defective-stock",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003835Z-1a01654a/run.json",
+            "sha256": "0689fcbf6b5fecfcfd913470477f9f3dcdcc9ca8c9fa4c398dbe99d7816626b8"
+          },
+          {
+            "job": "m-mechanical-mixed-stock",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003836Z-4543acee/run.json",
+            "sha256": "b4e4e18b5586bef44cd7cf8331ca438e9050af58a1cde3157843cfaf7892efcb"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/sparrow-batches/20261012T003830Z-90f59c53/nestbolt.exe",
+          "sha256": "a5015bb683d1d4d7ad87b1bdb260c43ee6926545b83ec5f2ac43814322c3e650",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/sparrow-batches/20261012T003842Z-aa538c5b/batch.json",
+      "sha256": "b645b48d6ada2ccd74ab5d3d34c698723787ba40ad5f14be4bbd599c3790ffeb",
+      "manifest": {
+        "batch_id": "20261012T003842Z-aa538c5b",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "boxes",
+            "held_out": false,
+            "source": "boxes",
+            "parameters": {
+              "generator": "UniversalBox",
+              "arguments": [
+                "--x=60",
+                "--y=40",
+                "--h=30",
+                "--thickness=3",
+                "--burn=0",
+                "--reference=0",
+                "--labels=false",
+                "--inner_corners=corner",
+                "--top_edge=e"
+              ],
+              "copies": 4,
+              "creation_date": "2026-10-11T00:00:00"
+            },
+            "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+            "id": "m-box-mini",
+            "set": "M",
+            "units": "mm",
+            "part_count": 20,
+            "files": {
+              "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+              "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+              "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+              "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+            },
+            "path": "M/m-box-mini.json",
+            "sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+          },
+          {
+            "category": "garments",
+            "held_out": false,
+            "source": "freesewing",
+            "parameters": {
+              "design": "teagan",
+              "seam_allowance": 10,
+              "measurements": {
+                "biceps": 304.0,
+                "chest": 912.0,
+                "hpsToBust": 247.0,
+                "hpsToWaistBack": 408.5,
+                "neck": 370.5,
+                "shoulderToShoulder": 408.5,
+                "shoulderSlope": 18,
+                "waistToArmpit": 209.0,
+                "waistToHips": 180.5,
+                "hips": 950.0,
+                "waist": 788.5,
+                "shoulderToWrist": 570.0,
+                "wrist": 161.5
+              },
+              "garment_count": 10,
+              "synthetic_measurements": true
+            },
+            "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+            "id": "m-garment-teagan-2",
+            "set": "M",
+            "units": "mm",
+            "part_count": 40,
+            "files": {
+              "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+              "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+              "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+              "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+            },
+            "path": "M/m-garment-teagan-2.json",
+            "sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+          },
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 3,
+              "base_copies": 70,
+              "cog_teeth": 16
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-defective-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 298,
+            "files": {
+              "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+              "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+              "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+            },
+            "path": "M/m-mechanical-defective-stock.json",
+            "sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+          },
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 2,
+              "base_copies": 55,
+              "cog_teeth": 12
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-mixed-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 238,
+            "files": {
+              "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+              "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+              "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+            },
+            "path": "M/m-mechanical-mixed-stock.json",
+            "sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+          }
+        ],
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "seconds": 300,
+        "seed": 1,
+        "settings": "identical",
+        "axis": "y",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-box-mini",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003842Z-2928026b/run.json",
+            "sha256": "fed8cec02b048d8f7a2d11bd58ca7873840041f860fe7b7b5d9f11c68bb9d185"
+          },
+          {
+            "job": "m-garment-teagan-2",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003844Z-0087fd86/run.json",
+            "sha256": "386a5685b8bb7d757ded25bef0d8aef6c8dab0e90a40626a1ec35ce879276547"
+          },
+          {
+            "job": "m-mechanical-defective-stock",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003846Z-b379e2ce/run.json",
+            "sha256": "bb7ca121022f882057a8de7e7cb4ca4972a87887302e4bc4ed54449f2528f268"
+          },
+          {
+            "job": "m-mechanical-mixed-stock",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003847Z-63626aa1/run.json",
+            "sha256": "6ac7dc4d0d6e9da20e8f39351fa03148763e22407dbe991c150375293a1b4a73"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/sparrow-batches/20261012T003842Z-aa538c5b/nestbolt.exe",
+          "sha256": "a5015bb683d1d4d7ad87b1bdb260c43ee6926545b83ec5f2ac43814322c3e650",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/sparrow-batches/20261012T003852Z-aebde0fc/batch.json",
+      "sha256": "63eec278419ed4ab206b7f9e4d86bf7d2331d670105dfb7618590dc5e554277c",
+      "manifest": {
+        "batch_id": "20261012T003852Z-aebde0fc",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "boxes",
+            "held_out": false,
+            "source": "boxes",
+            "parameters": {
+              "generator": "UniversalBox",
+              "arguments": [
+                "--x=60",
+                "--y=40",
+                "--h=30",
+                "--thickness=3",
+                "--burn=0",
+                "--reference=0",
+                "--labels=false",
+                "--inner_corners=corner",
+                "--top_edge=e"
+              ],
+              "copies": 4,
+              "creation_date": "2026-10-11T00:00:00"
+            },
+            "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+            "id": "m-box-mini",
+            "set": "M",
+            "units": "mm",
+            "part_count": 20,
+            "files": {
+              "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+              "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+              "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+              "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+            },
+            "path": "M/m-box-mini.json",
+            "sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+          },
+          {
+            "category": "garments",
+            "held_out": false,
+            "source": "freesewing",
+            "parameters": {
+              "design": "teagan",
+              "seam_allowance": 10,
+              "measurements": {
+                "biceps": 304.0,
+                "chest": 912.0,
+                "hpsToBust": 247.0,
+                "hpsToWaistBack": 408.5,
+                "neck": 370.5,
+                "shoulderToShoulder": 408.5,
+                "shoulderSlope": 18,
+                "waistToArmpit": 209.0,
+                "waistToHips": 180.5,
+                "hips": 950.0,
+                "waist": 788.5,
+                "shoulderToWrist": 570.0,
+                "wrist": 161.5
+              },
+              "garment_count": 10,
+              "synthetic_measurements": true
+            },
+            "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+            "id": "m-garment-teagan-2",
+            "set": "M",
+            "units": "mm",
+            "part_count": 40,
+            "files": {
+              "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+              "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+              "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+              "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+            },
+            "path": "M/m-garment-teagan-2.json",
+            "sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+          },
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 3,
+              "base_copies": 70,
+              "cog_teeth": 16
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-defective-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 298,
+            "files": {
+              "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+              "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+              "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+            },
+            "path": "M/m-mechanical-defective-stock.json",
+            "sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+          },
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 2,
+              "base_copies": 55,
+              "cog_teeth": 12
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-mixed-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 238,
+            "files": {
+              "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+              "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+              "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+            },
+            "path": "M/m-mechanical-mixed-stock.json",
+            "sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+          }
+        ],
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "seconds": 300,
+        "seed": 2,
+        "settings": "identical",
+        "axis": "y",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-box-mini",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003853Z-097e0a35/run.json",
+            "sha256": "a8634822e144d5331c3abb2662a40f9884eb62b762074912ac1656c38cc5212e"
+          },
+          {
+            "job": "m-garment-teagan-2",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003854Z-9551706b/run.json",
+            "sha256": "303bb20582a46cee2c70d54f70a80a05bea4ee87a203d2f4a13611e1b98b9441"
+          },
+          {
+            "job": "m-mechanical-defective-stock",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003856Z-1f760547/run.json",
+            "sha256": "0fc3d530817441a4bbaa2a6e408c0595f865d58fab33661a44276ed7543e78d8"
+          },
+          {
+            "job": "m-mechanical-mixed-stock",
+            "status": "unsupported",
+            "record": "output/sparrow-benchmark/20261012T003857Z-024c02b5/run.json",
+            "sha256": "98f3badba5c4107976b56e2975d6a7a4f8e8945cfbc04396a9ae5cee50ac0bbf"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/sparrow-batches/20261012T003852Z-aebde0fc/nestbolt.exe",
+          "sha256": "80cef3303d4d3a716e98aa00fa3b5ac0d1490318b239dd55742ecd60fa67dc98",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    }
+  ],
+  "required_slots": 12,
+  "completed_slots": 12,
+  "complete": true,
+  "rows": [
+    {
+      "tool": "sparrow",
+      "job": "m-box-mini",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "unsupported": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-box-mini:0",
+        "m-box-mini:1",
+        "m-box-mini:2"
+      ]
+    },
+    {
+      "tool": "sparrow",
+      "job": "m-garment-teagan-2",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "unsupported": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-garment-teagan-2:0",
+        "m-garment-teagan-2:1",
+        "m-garment-teagan-2:2"
+      ]
+    },
+    {
+      "tool": "sparrow",
+      "job": "m-mechanical-defective-stock",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "unsupported": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-mechanical-defective-stock:0",
+        "m-mechanical-defective-stock:1",
+        "m-mechanical-defective-stock:2"
+      ]
+    },
+    {
+      "tool": "sparrow",
+      "job": "m-mechanical-mixed-stock",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "unsupported": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-mechanical-mixed-stock:0",
+        "m-mechanical-mixed-stock:1",
+        "m-mechanical-mixed-stock:2"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "slot_id": "m-box-mini:0",
+      "job": "m-box-mini",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003832Z-6b35e76d/run.json",
+      "sha256": "cf823ce1f8843724e76d23dc583af45441984ef11e223afdac5bbf6e5ae65e65",
+      "run": {
+        "run_id": "20261012T003832Z-6b35e76d",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-box-mini",
+        "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:33.572488+00:00",
+        "status": "unsupported",
+        "reason": "LBF has no holed or disconnected items; refusing to fill holes silently",
+        "finished_at": "2026-10-12T00:38:33.572488+00:00",
+        "outputs": {
+          "job.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-box-mini:1",
+      "job": "m-box-mini",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003842Z-2928026b/run.json",
+      "sha256": "fed8cec02b048d8f7a2d11bd58ca7873840041f860fe7b7b5d9f11c68bb9d185",
+      "run": {
+        "run_id": "20261012T003842Z-2928026b",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-box-mini",
+        "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:44.519686+00:00",
+        "status": "unsupported",
+        "reason": "LBF has no holed or disconnected items; refusing to fill holes silently",
+        "finished_at": "2026-10-12T00:38:44.520694+00:00",
+        "outputs": {
+          "job.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-box-mini:2",
+      "job": "m-box-mini",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003853Z-097e0a35/run.json",
+      "sha256": "a8634822e144d5331c3abb2662a40f9884eb62b762074912ac1656c38cc5212e",
+      "run": {
+        "run_id": "20261012T003853Z-097e0a35",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-box-mini",
+        "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:54.894547+00:00",
+        "status": "unsupported",
+        "reason": "LBF has no holed or disconnected items; refusing to fill holes silently",
+        "finished_at": "2026-10-12T00:38:54.894547+00:00",
+        "outputs": {
+          "job.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-garment-teagan-2:0",
+      "job": "m-garment-teagan-2",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003833Z-90c2756a/run.json",
+      "sha256": "f4f28167b0aae8b09b33da9c4e83a4e91c355320e144aa527369f3fc6dffc250",
+      "run": {
+        "run_id": "20261012T003833Z-90c2756a",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-garment-teagan-2",
+        "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:35.012657+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow single-sheet area bound: parts need 82682128370956488547542351125983038225/10141204801825835211973625643008 square job units; one whole sheet has 6000000. A multi-sheet solver is required.",
+        "finished_at": "2026-10-12T00:38:35.039187+00:00",
+        "outputs": {
+          "job.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-garment-teagan-2:1",
+      "job": "m-garment-teagan-2",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003844Z-0087fd86/run.json",
+      "sha256": "386a5685b8bb7d757ded25bef0d8aef6c8dab0e90a40626a1ec35ce879276547",
+      "run": {
+        "run_id": "20261012T003844Z-0087fd86",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-garment-teagan-2",
+        "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:45.970391+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow single-sheet area bound: parts need 82682128370956488547542351125983038225/10141204801825835211973625643008 square job units; one whole sheet has 6000000. A multi-sheet solver is required.",
+        "finished_at": "2026-10-12T00:38:45.998351+00:00",
+        "outputs": {
+          "job.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-garment-teagan-2:2",
+      "job": "m-garment-teagan-2",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003854Z-9551706b/run.json",
+      "sha256": "303bb20582a46cee2c70d54f70a80a05bea4ee87a203d2f4a13611e1b98b9441",
+      "run": {
+        "run_id": "20261012T003854Z-9551706b",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-garment-teagan-2",
+        "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:56.294878+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow single-sheet area bound: parts need 82682128370956488547542351125983038225/10141204801825835211973625643008 square job units; one whole sheet has 6000000. A multi-sheet solver is required.",
+        "finished_at": "2026-10-12T00:38:56.323313+00:00",
+        "outputs": {
+          "job.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-defective-stock:0",
+      "job": "m-mechanical-defective-stock",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003835Z-1a01654a/run.json",
+      "sha256": "0689fcbf6b5fecfcfd913470477f9f3dcdcc9ca8c9fa4c398dbe99d7816626b8",
+      "run": {
+        "run_id": "20261012T003835Z-1a01654a",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-mechanical-defective-stock",
+        "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:36.470019+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow has no remnant/defective strip support",
+        "finished_at": "2026-10-12T00:38:36.470019+00:00",
+        "outputs": {
+          "job.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-defective-stock:1",
+      "job": "m-mechanical-defective-stock",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003846Z-b379e2ce/run.json",
+      "sha256": "bb7ca121022f882057a8de7e7cb4ca4972a87887302e4bc4ed54449f2528f268",
+      "run": {
+        "run_id": "20261012T003846Z-b379e2ce",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-mechanical-defective-stock",
+        "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:47.450542+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow has no remnant/defective strip support",
+        "finished_at": "2026-10-12T00:38:47.450542+00:00",
+        "outputs": {
+          "job.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-defective-stock:2",
+      "job": "m-mechanical-defective-stock",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003856Z-1f760547/run.json",
+      "sha256": "0fc3d530817441a4bbaa2a6e408c0595f865d58fab33661a44276ed7543e78d8",
+      "run": {
+        "run_id": "20261012T003856Z-1f760547",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-mechanical-defective-stock",
+        "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:57.760020+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow has no remnant/defective strip support",
+        "finished_at": "2026-10-12T00:38:57.760020+00:00",
+        "outputs": {
+          "job.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-mixed-stock:0",
+      "job": "m-mechanical-mixed-stock",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003836Z-4543acee/run.json",
+      "sha256": "b4e4e18b5586bef44cd7cf8331ca438e9050af58a1cde3157843cfaf7892efcb",
+      "run": {
+        "run_id": "20261012T003836Z-4543acee",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-mechanical-mixed-stock",
+        "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:38.046346+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow single-sheet comparison requires one available stock type",
+        "finished_at": "2026-10-12T00:38:38.046346+00:00",
+        "outputs": {
+          "job.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-mixed-stock:1",
+      "job": "m-mechanical-mixed-stock",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003847Z-63626aa1/run.json",
+      "sha256": "6ac7dc4d0d6e9da20e8f39351fa03148763e22407dbe991c150375293a1b4a73",
+      "run": {
+        "run_id": "20261012T003847Z-63626aa1",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-mechanical-mixed-stock",
+        "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:49.032713+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow single-sheet comparison requires one available stock type",
+        "finished_at": "2026-10-12T00:38:49.032713+00:00",
+        "outputs": {
+          "job.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-mixed-stock:2",
+      "job": "m-mechanical-mixed-stock",
+      "status": "unsupported",
+      "record": "output/sparrow-benchmark/20261012T003857Z-024c02b5/run.json",
+      "sha256": "98f3badba5c4107976b56e2975d6a7a4f8e8945cfbc04396a9ae5cee50ac0bbf",
+      "run": {
+        "run_id": "20261012T003857Z-024c02b5",
+        "tool": "sparrow",
+        "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+        "job": "m-mechanical-mixed-stock",
+        "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "settings_finalized": false,
+        "phase": "development",
+        "build": {
+          "built_at": "2026-10-11T20:39:14.814328+00:00",
+          "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: x86_64-pc-windows-msvc\nrelease: 1.98.1\nLLVM version: 22.1.8",
+          "binary_sha256": "9e910b02d985d722a407469e95ebcf3279593b54c8385453de84a20f81551622",
+          "rustflags": "",
+          "sources": {
+            "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+            "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+            "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611"
+          }
+        },
+        "workers": 1,
+        "rayon_threads": 1,
+        "score": null,
+        "metrics": null,
+        "sources": {
+          "scripts/sparrow_benchmark.py": "dc894c88db89087ba811a2e66131b0f4471651e0cd04cb379eb9b6a3eaaa4820",
+          "scripts/sparrow_io.py": "4a54dbc37f7728b8322314e408229bc87a99aa3c060fc4b18aac65f2d8d860d1",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/sparrow-benchmark/Cargo.toml": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+          "benchmarks/sparrow-benchmark/Cargo.lock": "5e9b2156e31b326ae71c811dbac73631e57172f9083a1dc1f83b527bb6fdbef0",
+          "benchmarks/sparrow-benchmark/src/main.rs": "b94fc1578cb31aa55851d42d927ac777cf882fccda990df8edad8055ba1db611",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+          "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+          "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+        },
+        "commit": "7ebd9d3686d72fc1bed0ca41ea166f9c7fb52c4f",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "started_at": "2026-10-12T00:38:59.185677+00:00",
+        "status": "unsupported",
+        "reason": "Sparrow single-sheet comparison requires one available stock type",
+        "finished_at": "2026-10-12T00:38:59.185677+00:00",
+        "outputs": {
+          "job.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+        }
+      },
+      "validation": null
+    }
+  ]
+}

@@ -19,13 +19,14 @@ establish the final comparison. All failures and earlier trials remain in
 | Published Sparrow reproduction | 39/39 layouts valid; 13/13 instance means pass; worst absolute difference 0.986671% | [Final proof](../benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md) |
 | Frozen datasets | 13 strip, 35 sheet, 40 maker jobs; 10 maker jobs held out | Use only development cases for tuning |
 | LBF development matrix | 450/450 attempts; 283 valid, 5 invalid, 162 unsupported | Complete; [table](../benchmarks/results/comparison-session-20261011T221209Z-ce35672e.md) |
-| SVGnest | 60 s / identical: all three seeds complete, 103/105 valid; 35 finite job medians | [Three-seed table](../benchmarks/results/comparison-batches-20261011T235825Z-a4355046.md); finish expanded settings and maker seeds |
-| Deepnest | 60 s / identical: 35/35 sheet jobs valid at both seeds 0 and 1; complete maker pilot retained | Seed 2 underway; further settings/budgets pending |
-| Current Sparrow | 78/78 valid strip layouts across both settings and three seeds; both B settings complete at 60 s | [Strip table](../benchmarks/results/comparison-batches-20261012T000738Z-c8a95335.md); finish maker settings and long-budget cases |
+| SVGnest | Both sheet settings complete at 60 s: identical 103/105 valid, expanded 85/105 valid; all failures retained | [Expanded table](../benchmarks/results/comparison-batches-20261012T004641Z-9dad00a0.md); remaining maker seeds/settings running |
+| Deepnest | 60 s / identical: all 105 sheet attempts complete, 104 valid; 35 finite job medians | [Three-seed table](../benchmarks/results/comparison-batches-20261012T003528Z-1cfd337e.md); expanded settings underway; maker seeds and long budgets pending |
+| Current Sparrow | All 528 development slots accounted for: 127 valid, 43 invalid, 358 unsupported; both settings, both budgets, three seeds | [Complete coverage](../benchmarks/results/sparrow-development-20261012T0048.md); final-seed comparisons remain for M5 |
 | Nestbolt constructor | 30/30 valid; v3 has exactly the v2 layouts; median 0.453 s, slowest 15.563 s | [Current proof](../benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md); improve material use |
 | Nestbolt refinement | Three-method comparison: 30/30 valid; 22 improve, eight unchanged vs constructor; slowest 56.718 s | [Trial](../benchmarks/results/repack-maker-20261011T233725Z-c0e36d78.md); improve large-job speed |
-| Nestbolt repair | Sheet set: 35/35 valid; two improve, 33 unchanged vs prior search, one fewer-sheet job. Maker set: 29/30 finish; mixed-stock and remnant jobs lose a sheet; 1,000-part job times out | [Sheet trial](../benchmarks/results/repack-sheet-20261012T000748Z-0c7fac06.md), [maker trial](../benchmarks/results/repack-maker-20261012T000758Z-533d7bb1.md); accelerate repeated construction |
-| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | [Repacking CI](https://github.com/skulitom/Nestbolt/actions/runs/38186324561): all five jobs passed |
+| Nestbolt repair | 35/35 sheet and 30/30 maker jobs valid. All 64 comparable layouts exactly preserved; previously timed-out 1,000-part job now finishes in 40.1 s | [Sheet trial](../benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md), [maker trial](../benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md); improve quality and add bounded/cancellable search |
+| Constructor speed diagnostic | Stable cost order cuts 1,000-part collision checks from 9.33M to 4.39M; last matched-CPU pair uses 61.8% less CPU time with identical output | [All ten timing attempts](../benchmarks/results/construct-profile-20261012T0042.md); four-circle experiment reverted; no G4 claim |
+| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | [Repair CI](https://github.com/skulitom/Nestbolt/actions/runs/38187614132): all five jobs passed |
 
 Next: reduce repeated-construction cost on large jobs and strengthen repair while completing
 only the missing M1 comparisons. Conservative proxies may
@@ -38,8 +39,9 @@ is not the final three-seed M1 target. Both 60 s and 300 s G2
 populations must pass separately.
 
 The independent checker covers original geometry, spacing, quantities, units,
-stock, margins, defects, rotations, mirroring and fill mode. The latest full local check passed 61 workspace tests, four stock-helper tests,
-both WASM builds, source/schema/notices checks and 76 Python tests. Two additional
+stock, margins, defects, rotations, mirroring and fill mode. The latest full local check passed 62 workspace tests, four stock-helper tests,
+both WASM builds, source/schema/notices checks and 77 Python tests. The updated
+batch-report suite adds one more passing test (78 Python tests in total). Two additional
 CPU-selection tests pass in Node.
 
 [Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio

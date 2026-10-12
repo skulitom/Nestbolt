@@ -459,13 +459,19 @@ fn search(
                     min_y + state.random.unit() * (max_y - min_y),
                 )
             }));
-            for (x, y) in positions {
-                if x < min_x || y < min_y || x > max_x || y > max_y {
-                    continue;
-                }
-                let cost = y + height + 0.001 * (x + width);
+            // Generate the complete random stream before pruning. Stable cost
+            // order preserves the original first-candidate tie rule, but lets
+            // us stop at the cheapest feasible placement for this orientation.
+            let mut ranked: Vec<_> = positions
+                .into_iter()
+                .filter(|&(x, y)| x >= min_x && y >= min_y && x <= max_x && y <= max_y)
+                .map(|(x, y)| (x, y, y + height + 0.001 * (x + width)))
+                .collect();
+            ranked.sort_by(|a, b| a.2.total_cmp(&b.2));
+            ranked.dedup_by(|a, b| a.0 == b.0 && a.1 == b.1);
+            for (x, y, cost) in ranked {
                 if best.as_ref().is_some_and(|b| cost >= b.cost) {
-                    continue;
+                    break;
                 }
                 let internal = DTransformation::new(rotation, (x - bounds.x_min, y - bounds.y_min))
                     .with_reflection(mirrored);
@@ -501,6 +507,7 @@ fn search(
                     bounds: [x, y, x + width, y + height],
                     cost,
                 });
+                break;
             }
         }
     }
@@ -869,6 +876,11 @@ impl<'a> PreparedJob<'a> {
                     sheet_id: layout.sheets[sheet].id.clone(),
                     transform: candidate.external,
                 });
+            } else if max_sheets.is_some() && job.mode == Mode::All {
+                // A capped reconstruction does not retry missing copies. Stop
+                // this failed sheet-removal trial; fill mode must keep looking
+                // for later parts that may still fit.
+                break;
             }
         }
         let unplaced =

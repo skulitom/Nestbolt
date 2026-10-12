@@ -1,10 +1,38 @@
 """A selected batch slice must preserve failures, coverage and unique attempts."""
 from copy import deepcopy
 import unittest
-from batch_comparison_report import combine
+from batch_comparison_report import combine, split_build_failures
+from comparison_cases import comparison_cases
+from pathlib import Path
 
 
 class BatchTests(unittest.TestCase):
+    def test_replacements_cannot_hide_solver_failures_or_scores(self):
+        failed = {'run': {'status': 'failed', 'score': None,
+                         'reason': "Command '['cargo', 'build', '-p', 'nestbolt-cli', '--locked']' returned non-zero exit status 101.",
+                         'outputs': {'job.json': 'hash', 'request.json': 'hash', 'input.svg': 'hash', 'input-0.svg': 'hash'}}}
+        invalid = {'run': {'status': 'invalid', 'score': None}}
+        retained, excluded = split_build_failures([failed, invalid])
+        self.assertEqual(retained, [invalid])
+        self.assertEqual(excluded, [failed])
+        for field, value in [('score', 1), ('exit_code', 0), ('reason', 'solver crashed'),
+                             ('outputs', {'browser-result.json': 'hash'})]:
+            changed = deepcopy(failed)
+            changed['run'][field] = value
+            with self.assertRaisesRegex(ValueError, 'unstarted'):
+                split_build_failures([changed])
+
+    def test_long_budget_population_preserves_frozen_subset_and_excludes_held_out(self):
+        root = Path(__file__).resolve().parents[1]
+        selected = {group: comparison_cases(root, group, 300)[1] for group in ['S', 'B', 'M']}
+        self.assertEqual({group: len(rows) for group, rows in selected.items()}, {'S': 0, 'B': 6, 'M': 4})
+        self.assertFalse(any(row['held_out'] for rows in selected.values() for row in rows))
+        self.assertEqual({row['id'] for row in selected['M']}, {
+            'm-box-mini', 'm-garment-teagan-2', 'm-mechanical-defective-stock', 'm-mechanical-mixed-stock'})
+        self.assertEqual(len(comparison_cases(root, 'M', 60)[1]), 30)
+        with self.assertRaises(ValueError):
+            comparison_cases(root, 'M', 120)
+
     def setUp(self):
         self.cases = [{'id': 'b-test', 'sha256': 'frozen'}]
         self.batch = {'dataset': 'B', 'seconds': 60, 'settings': 'identical', 'axis': 'y'}
