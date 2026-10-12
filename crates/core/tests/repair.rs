@@ -229,3 +229,122 @@ fn repair_rejects_invalid_sources_donors_and_excess_work() {
     source.placements[0].transform.translation = [-20.0, 0.0];
     assert!(prepared.repair_sheet(&source, 1, options(), 1).is_err());
 }
+
+#[test]
+fn two_blockers_move_together_to_remove_a_sheet_and_repeat() {
+    let (mut job, mut source) = fixture();
+    job.parts[0].quantity = 2;
+    job.parts[1].geometry = vec![rectangle(0.0, 0.0, 4.5, 4.5)];
+    job.stocks[0].width = 7.4;
+    job.stocks[0].height = 7.4;
+    source.placements[0].transform.translation = [1.8, 1.8];
+    let mut second = source.placements[0].clone();
+    second.copy_index = 1;
+    second.transform.translation = [4.1, 4.1];
+    source.placements.push(second);
+    assert!(validate(&job, &source).unwrap().valid);
+    let before = serde_json::to_string(&source).unwrap();
+    let prepared = PreparedJob::new(&job).unwrap();
+    let direct = prepared.repair_sheet(&source, 1, options(), 0).unwrap();
+    assert!(!direct.complete);
+    // Each blocker individually prevents every permitted position of the big
+    // square: one victim trial cannot fit it. The guided trial moves both.
+    let result = prepared.repair_sheet(&source, 1, options(), 1).unwrap();
+    assert!(result.complete);
+    assert_eq!(result.layout.sheets.len(), 1);
+    assert!(validate(&job, &result.layout).unwrap().valid);
+    let again = prepared.repair_sheet(&source, 1, options(), 1).unwrap();
+    assert_eq!(
+        serde_json::to_string(&result).unwrap(),
+        serde_json::to_string(&again).unwrap()
+    );
+    assert_eq!(before, serde_json::to_string(&source).unwrap());
+}
+
+#[test]
+fn failed_two_part_reinsertion_rolls_back_another_receiver_sheet() {
+    let (mut job, mut source) = fixture();
+    job.parts[0].quantity = 2;
+    job.parts[1].geometry = vec![rectangle(0.0, 0.0, 6.0, 4.0)];
+    job.stocks[0].height = 4.4;
+    let mut small_stock = job.stocks[0].clone();
+    small_stock.id = "spare".into();
+    small_stock.width = 2.8;
+    small_stock.height = 2.8;
+    small_stock.count = Some(1);
+    job.stocks.push(small_stock);
+    source.sheets.push(Sheet {
+        id: "side".into(),
+        stock_id: "spare".into(),
+    });
+    source.placements[0].transform.translation = [0.2, 0.2];
+    let mut second = source.placements[0].clone();
+    second.copy_index = 1;
+    second.transform.translation = [3.0, 0.2];
+    source.placements.push(second);
+    let mut marker = job.parts[0].clone();
+    marker.id = "marker".into();
+    marker.quantity = 1;
+    marker.geometry = vec![rectangle(0.0, 0.0, 0.2, 0.2)];
+    job.parts.push(marker);
+    let mut marker = source.placements[0].clone();
+    marker.part_id = "marker".into();
+    marker.sheet_id = "side".into();
+    source.placements.push(marker);
+    assert!(validate(&job, &source).unwrap().valid);
+    let result = PreparedJob::new(&job)
+        .unwrap()
+        .repair_sheet(&source, 1, options(), 1)
+        .unwrap();
+    // Big part fills the receiver. One victim can move to the small spare
+    // sheet, then the other fails. Neither that move nor the big insert leaks.
+    assert!(!result.complete);
+    assert_eq!(result.unplaced, 1);
+    assert_eq!(result.layout.sheets.len(), 2);
+    assert_eq!(result.layout.placements.len(), 3);
+    for p in &result.layout.placements {
+        let old = source
+            .placements
+            .iter()
+            .find(|old| old.part_id == p.part_id && old.copy_index == p.copy_index)
+            .unwrap();
+        assert_eq!(
+            serde_json::to_string(p).unwrap(),
+            serde_json::to_string(old).unwrap()
+        );
+    }
+    assert!(
+        validate(&job, &result.layout)
+            .unwrap()
+            .violations
+            .iter()
+            .all(|v| v.code == "quantity")
+    );
+}
+
+#[test]
+fn defects_are_never_displaced_to_admit_a_part() {
+    let (mut job, mut source) = fixture();
+    job.parts[1].geometry = vec![rectangle(0.0, 0.0, 4.5, 4.5)];
+    job.stocks[0].width = 7.4;
+    job.stocks[0].height = 7.4;
+    // Use a second, defect-free stock only for the donor.
+    let mut clear = job.stocks[0].clone();
+    clear.id = "clear".into();
+    clear.count = Some(1);
+    job.stocks.push(clear);
+    source.sheets[1].stock_id = "clear".into();
+    source.placements[0].transform.translation = [4.1, 4.1];
+    job.stocks[0].defects = vec![rectangle(1.8, 1.8, 2.0, 2.0)];
+    assert!(validate(&job, &source).unwrap().valid);
+    let result = PreparedJob::new(&job)
+        .unwrap()
+        .repair_sheet(&source, 1, options(), 8)
+        .unwrap();
+    assert!(!result.complete);
+    assert_eq!(result.unplaced, 1);
+    assert_eq!(
+        serde_json::to_string(&result.layout.placements[0]).unwrap(),
+        serde_json::to_string(&source.placements[0]).unwrap()
+    );
+}

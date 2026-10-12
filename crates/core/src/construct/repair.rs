@@ -1,9 +1,10 @@
 //! Remove one physical sheet while preserving the other placements. A bounded
-//! one-item ejection can unlock a blocked insertion; failed trials roll back.
+//! displacement can unlock a blocked insertion; failed trials roll back.
 use super::*;
 use jagua_rs::entities::PItemKey;
 
 mod compact;
+mod displace;
 
 #[derive(Clone)]
 struct Tracked {
@@ -116,7 +117,8 @@ impl PreparedJob<'_> {
     /// Try to remove a physical sheet from a valid all-parts layout compatible
     /// with these conservative proxies. No stock is opened. Failed insertions
     /// produce an explicitly incomplete trial; the supplied layout is immutable.
-    /// `ejections` caps the number of one-item displacement trials per insertion.
+    /// `ejections` caps each of the single-victim and collision-guided trial
+    /// lists per insertion. A guided trial moves at most two actual blockers.
     pub fn repair_sheet(
         &self,
         source: &Layout,
@@ -308,6 +310,22 @@ impl PreparedJob<'_> {
                 }
                 sheets[sheet][region] = snapshot;
             }
+            if ejections > 0 {
+                let proposals =
+                    self.displacement_candidates(&sheets, part, options, ejections, &mut state)?;
+                for proposal in proposals {
+                    if self.try_displacement(
+                        &mut sheets,
+                        &layout,
+                        (part, &placement),
+                        proposal,
+                        options,
+                        &mut state,
+                    )? {
+                        continue 'pending;
+                    }
+                }
+            }
             // This trial never revisits an unplaced donor copy. Once direct
             // insertion and every ejection fail, adding later copies cannot
             // make the trial complete. Preserve the incumbent in the caller.
@@ -330,7 +348,7 @@ impl PreparedJob<'_> {
             checked.violations
         );
         Ok(Construction {
-            algorithm: "nestbolt-repair-v2",
+            algorithm: "nestbolt-repair-v3",
             seed: options.seed,
             collision_checks: state.checks,
             surrogate_rejections: state.surrogate_rejections,

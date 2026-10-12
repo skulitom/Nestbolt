@@ -240,7 +240,7 @@ pub fn optimize_controlled(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v8",
+        algorithm: "nestbolt-repack-v9",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: history.len() as u32,

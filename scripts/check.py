@@ -37,6 +37,7 @@ def main():
         [sys.executable, "scripts/test_sparrow_report.py"],
         [sys.executable, "scripts/test_comparator_batch_report.py"],
         [sys.executable, "scripts/test_batch_comparison_report.py"],
+        [sys.executable, "scripts/test_baseline_gap.py"],
         [sys.executable, "scripts/test_comparison_session.py"],
         [sys.executable, "scripts/test_comparison_session_report.py"],
         [sys.executable, "scripts/test_comparison_envelope.py"],

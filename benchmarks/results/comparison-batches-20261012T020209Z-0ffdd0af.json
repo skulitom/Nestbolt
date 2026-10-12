@@ -1,0 +1,2441 @@
+{
+  "recorded_at": "2026-10-12T02:02:09.528299+00:00",
+  "tool": "svgnest",
+  "dataset": "M",
+  "seconds": 300,
+  "settings": "identical",
+  "scope": "Development comparison slice, not a complete M1 or final quality gate. All three declared seeds participate. Missing seeds prevent comparison; failures rank after finite scores.",
+  "sources": {
+    "scripts/batch_comparison_report.py": "65d97275e9018bb326479c639c9798c1a29772cc27dd81622870ba8fbea91ff9",
+    "scripts/comparator_batch_report.py": "d19db491ca111228e20c045c18220146ae3f389c5d619a4fb678a264ec647a83",
+    "scripts/comparison_session_report.py": "a8aab0844d396229902425e30c6e93393f38b148a1c2c00a60dc418e12ddf59f",
+    "scripts/svgnest_report.py": "3a5c1b9361b69a47598cf8ae333401a675473057a32aeb6ad7a89952e9b9d454",
+    "benchmarks/STATISTICS.md": "5129fe7b438c497d16dae048b03090323b4d8d3db0d21ee2e45f9085817bed31",
+    "scripts/comparison_cases.py": "485d9da716785dd03220b6e71669f099c712b32eb8a2929f8d1ab29099c26a09",
+    "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+    "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1"
+  },
+  "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+  "batches": [
+    {
+      "path": "output/playwright/svgnest-batches/20261012T014809Z-c5c6e021/batch.json",
+      "sha256": "f0c39a56d67b60a18cc2c7f20240b2ebcb77770f82b9f638d423c71de1d7d1ce",
+      "manifest": {
+        "batch_id": "20261012T014809Z-c5c6e021",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "boxes",
+            "held_out": false,
+            "source": "boxes",
+            "parameters": {
+              "generator": "UniversalBox",
+              "arguments": [
+                "--x=60",
+                "--y=40",
+                "--h=30",
+                "--thickness=3",
+                "--burn=0",
+                "--reference=0",
+                "--labels=false",
+                "--inner_corners=corner",
+                "--top_edge=e"
+              ],
+              "copies": 4,
+              "creation_date": "2026-10-11T00:00:00"
+            },
+            "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+            "id": "m-box-mini",
+            "set": "M",
+            "units": "mm",
+            "part_count": 20,
+            "files": {
+              "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+              "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+              "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+              "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+            },
+            "path": "M/m-box-mini.json",
+            "sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-box-mini",
+            "status": "valid",
+            "record": "output/playwright/svgnest/20261012T014809Z-65e4dd47/run.json",
+            "sha256": "2835ed0fe7611e86ae69381cd8ffd5cfe08dc56b212dc96469cea2bc8e5ee375"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T014809Z-c5c6e021/nestbolt.exe",
+          "sha256": "e09e68f31ec33d707fa7c8b88e04f47b4b946a08bf423d603b5b7e725710d142",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 1
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T014913Z-7f9c7774/batch.json",
+      "sha256": "0b29c6f757d90e2e502eb865fd4c049d52aa192d20d1c46335084049d7d93fde",
+      "manifest": {
+        "batch_id": "20261012T014913Z-7f9c7774",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "boxes",
+            "held_out": false,
+            "source": "boxes",
+            "parameters": {
+              "generator": "UniversalBox",
+              "arguments": [
+                "--x=60",
+                "--y=40",
+                "--h=30",
+                "--thickness=3",
+                "--burn=0",
+                "--reference=0",
+                "--labels=false",
+                "--inner_corners=corner",
+                "--top_edge=e"
+              ],
+              "copies": 4,
+              "creation_date": "2026-10-11T00:00:00"
+            },
+            "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+            "id": "m-box-mini",
+            "set": "M",
+            "units": "mm",
+            "part_count": 20,
+            "files": {
+              "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+              "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+              "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+              "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+            },
+            "path": "M/m-box-mini.json",
+            "sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-box-mini",
+            "status": "valid",
+            "record": "output/playwright/svgnest/20261012T014914Z-23f6903c/run.json",
+            "sha256": "99f69cc031c2f3f2887884a07ac117ed280aea8cca3865068727821cd6c6ee84"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T014913Z-7f9c7774/nestbolt.exe",
+          "sha256": "e09e68f31ec33d707fa7c8b88e04f47b4b946a08bf423d603b5b7e725710d142",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 1
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T014923Z-0241c2b0/batch.json",
+      "sha256": "8f999d4c888f3fb6757bdf550558ae0bcfc9d2172e595437036baf6b666c2a68",
+      "manifest": {
+        "batch_id": "20261012T014923Z-0241c2b0",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "boxes",
+            "held_out": false,
+            "source": "boxes",
+            "parameters": {
+              "generator": "UniversalBox",
+              "arguments": [
+                "--x=60",
+                "--y=40",
+                "--h=30",
+                "--thickness=3",
+                "--burn=0",
+                "--reference=0",
+                "--labels=false",
+                "--inner_corners=corner",
+                "--top_edge=e"
+              ],
+              "copies": 4,
+              "creation_date": "2026-10-11T00:00:00"
+            },
+            "construction": "Five open-top finger-jointed panels per box. Closed contours in each source part group define outer boundary and holes; burn=0, no labels/reference.",
+            "id": "m-box-mini",
+            "set": "M",
+            "units": "mm",
+            "part_count": 20,
+            "files": {
+              "maker-assets/m-box-mini/boxes.svg": "8798ad126dd94f4b09dabf47e5942779331368e101fe73faeb307b4b172b431f",
+              "maker-assets/m-box-mini/curves.json": "13d5aae891bbb92ecc8207f46ac55bb2a563609475b9b21d7bc487a086e6bfe2",
+              "M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+              "maker-assets/m-box-mini/parts.svg": "db12dec3a29630f767c05b2c47ad2b5d9e57adfad06d5d7408c512254cd5251d"
+            },
+            "path": "M/m-box-mini.json",
+            "sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-box-mini",
+            "status": "valid",
+            "record": "output/playwright/svgnest/20261012T014924Z-11831618/run.json",
+            "sha256": "6b6dd410f24a02ea22b6bd20d9b3c70d6eb0155cbe7010f69baafb5fbd3e6e49"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T014923Z-0241c2b0/nestbolt.exe",
+          "sha256": "e09e68f31ec33d707fa7c8b88e04f47b4b946a08bf423d603b5b7e725710d142",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 1
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015318Z-d2e16599/batch.json",
+      "sha256": "8ffa872d62422d877989761157dc72a5065ba26a66fc1e3a16bb9b2eec0a0dd3",
+      "manifest": {
+        "batch_id": "20261012T015318Z-d2e16599",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "garments",
+            "held_out": false,
+            "source": "freesewing",
+            "parameters": {
+              "design": "teagan",
+              "seam_allowance": 10,
+              "measurements": {
+                "biceps": 304.0,
+                "chest": 912.0,
+                "hpsToBust": 247.0,
+                "hpsToWaistBack": 408.5,
+                "neck": 370.5,
+                "shoulderToShoulder": 408.5,
+                "shoulderSlope": 18,
+                "waistToArmpit": 209.0,
+                "waistToHips": 180.5,
+                "hips": 950.0,
+                "waist": 788.5,
+                "shoulderToWrist": 570.0,
+                "wrist": 161.5
+              },
+              "garment_count": 10,
+              "synthetic_measurements": true
+            },
+            "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+            "id": "m-garment-teagan-2",
+            "set": "M",
+            "units": "mm",
+            "part_count": 40,
+            "files": {
+              "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+              "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+              "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+              "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+            },
+            "path": "M/m-garment-teagan-2.json",
+            "sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-garment-teagan-2",
+            "status": "no_layout",
+            "record": "output/playwright/svgnest/20261012T015319Z-5a05a1d4/run.json",
+            "sha256": "5dc89943beb88f62585667ec95380e15402ec4d75718e533a932f804702d9640"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015318Z-d2e16599/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015421Z-fc4af058/batch.json",
+      "sha256": "0a4e0b73aada86d66d17bdf128295719052844941b1cde414abbbf624b64c570",
+      "manifest": {
+        "batch_id": "20261012T015421Z-fc4af058",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "garments",
+            "held_out": false,
+            "source": "freesewing",
+            "parameters": {
+              "design": "teagan",
+              "seam_allowance": 10,
+              "measurements": {
+                "biceps": 304.0,
+                "chest": 912.0,
+                "hpsToBust": 247.0,
+                "hpsToWaistBack": 408.5,
+                "neck": 370.5,
+                "shoulderToShoulder": 408.5,
+                "shoulderSlope": 18,
+                "waistToArmpit": 209.0,
+                "waistToHips": 180.5,
+                "hips": 950.0,
+                "waist": 788.5,
+                "shoulderToWrist": 570.0,
+                "wrist": 161.5
+              },
+              "garment_count": 10,
+              "synthetic_measurements": true
+            },
+            "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+            "id": "m-garment-teagan-2",
+            "set": "M",
+            "units": "mm",
+            "part_count": 40,
+            "files": {
+              "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+              "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+              "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+              "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+            },
+            "path": "M/m-garment-teagan-2.json",
+            "sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-garment-teagan-2",
+            "status": "no_layout",
+            "record": "output/playwright/svgnest/20261012T015422Z-52b5f0c7/run.json",
+            "sha256": "afde5e256f58e6d80e7d460168d567156e87e936d6f8625266ae492aafae3532"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015421Z-fc4af058/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015432Z-08b81032/batch.json",
+      "sha256": "dc37588a5f0e499175d7eef8c0f99cbf9bfe75968b66aed63d9c7cb0ecea15dc",
+      "manifest": {
+        "batch_id": "20261012T015432Z-08b81032",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "garments",
+            "held_out": false,
+            "source": "freesewing",
+            "parameters": {
+              "design": "teagan",
+              "seam_allowance": 10,
+              "measurements": {
+                "biceps": 304.0,
+                "chest": 912.0,
+                "hpsToBust": 247.0,
+                "hpsToWaistBack": 408.5,
+                "neck": 370.5,
+                "shoulderToShoulder": 408.5,
+                "shoulderSlope": 18,
+                "waistToArmpit": 209.0,
+                "waistToHips": 180.5,
+                "hips": 950.0,
+                "waist": 788.5,
+                "shoulderToWrist": 570.0,
+                "wrist": 161.5
+              },
+              "garment_count": 10,
+              "synthetic_measurements": true
+            },
+            "construction": "Original 10 mm seam allowance cut paths at full precision. On-fold parts unfolded at X=0; each cut-two part has explicit left/right contours. Grain parallel to Y, rotations 0/180, no placement reflection. Finite 1500 mm wide roll sections.",
+            "id": "m-garment-teagan-2",
+            "set": "M",
+            "units": "mm",
+            "part_count": 40,
+            "files": {
+              "maker-assets/m-garment-teagan-2/curves.json": "fb4bd876df23eb8c17460b107a418d467110b776a3951d2b1bc7addbd8095335",
+              "maker-assets/m-garment-teagan-2/freesewing.json": "c2a33b1de8c31b341adaf70ed60cacd2ff3625721de4035737d200db98578cd2",
+              "M/m-garment-teagan-2.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+              "maker-assets/m-garment-teagan-2/parts.svg": "1c9332e738b941219ab13e1989b4871666f2702da0ab51fd5d6b4faf40911e0c"
+            },
+            "path": "M/m-garment-teagan-2.json",
+            "sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-garment-teagan-2",
+            "status": "no_layout",
+            "record": "output/playwright/svgnest/20261012T015432Z-59cbb412/run.json",
+            "sha256": "5eba916c44239462b7b241c26e78e273629402ae95073cb0d74901be83475fab"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015432Z-08b81032/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015828Z-5c27b218/batch.json",
+      "sha256": "9f869891d2abd74d05c24766db19a835a7e20693b5797405b51e53505b470e77",
+      "manifest": {
+        "batch_id": "20261012T015828Z-5c27b218",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 3,
+              "base_copies": 70,
+              "cog_teeth": 16
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-defective-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 298,
+            "files": {
+              "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+              "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+              "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+            },
+            "path": "M/m-mechanical-defective-stock.json",
+            "sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-mechanical-defective-stock",
+            "status": "unsupported",
+            "record": "output/playwright/svgnest/20261012T015829Z-5e8f9dcc/run.json",
+            "sha256": "2a429ffc73049e4bf8d5202707eb89667d30d0ffa4199586e1ca226bbf4068c2"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015828Z-5c27b218/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015832Z-48f27f64/batch.json",
+      "sha256": "dd9e3605795a8e30817cee2d132715e62f95375e4a1205b7c598484c85868965",
+      "manifest": {
+        "batch_id": "20261012T015832Z-48f27f64",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 2,
+              "base_copies": 55,
+              "cog_teeth": 12
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-mixed-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 238,
+            "files": {
+              "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+              "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+              "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+            },
+            "path": "M/m-mechanical-mixed-stock.json",
+            "sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 0,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-mechanical-mixed-stock",
+            "status": "unsupported",
+            "record": "output/playwright/svgnest/20261012T015832Z-56216a84/run.json",
+            "sha256": "16f2ee85d0dcbb9fde86800215aa8a29eb5a8c7b7fd3220983915f68031baa14"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015832Z-48f27f64/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015930Z-84efc1bb/batch.json",
+      "sha256": "112f51993b4e45321914f35dd4ddc182ea02b9194c5d8c20da5a635311656b34",
+      "manifest": {
+        "batch_id": "20261012T015930Z-84efc1bb",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 3,
+              "base_copies": 70,
+              "cog_teeth": 16
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-defective-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 298,
+            "files": {
+              "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+              "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+              "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+            },
+            "path": "M/m-mechanical-defective-stock.json",
+            "sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-mechanical-defective-stock",
+            "status": "unsupported",
+            "record": "output/playwright/svgnest/20261012T015931Z-f5743c47/run.json",
+            "sha256": "136d999b1997327e5de999dc8e88ccd9f65bbca13dfe7494690ee5e08b86d0f7"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015930Z-84efc1bb/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015934Z-a607b1b0/batch.json",
+      "sha256": "c02cc28988ec714e50c60ed175aea894dae014503bfa4bc6e0ace5175fa2f649",
+      "manifest": {
+        "batch_id": "20261012T015934Z-a607b1b0",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 2,
+              "base_copies": 55,
+              "cog_teeth": 12
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-mixed-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 238,
+            "files": {
+              "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+              "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+              "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+            },
+            "path": "M/m-mechanical-mixed-stock.json",
+            "sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 1,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-mechanical-mixed-stock",
+            "status": "unsupported",
+            "record": "output/playwright/svgnest/20261012T015935Z-be46f698/run.json",
+            "sha256": "2f3aa9f4555c40ac9e032af30a706303b521ce5ccddc00da8a06e001c04e4711"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015934Z-a607b1b0/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015941Z-2adaede4/batch.json",
+      "sha256": "14ed3511c0ef26e898b6ee06a9004650f561c8c955d2e15c87391442c34fb4ba",
+      "manifest": {
+        "batch_id": "20261012T015941Z-2adaede4",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 3,
+              "base_copies": 70,
+              "cog_teeth": 16
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-defective-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 298,
+            "files": {
+              "maker-assets/m-mechanical-defective-stock/curves.json": "71c49c6a640aa46b832acdf350dcaf9db84686f721d5f22a554fea846d95610a",
+              "M/m-mechanical-defective-stock.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+              "maker-assets/m-mechanical-defective-stock/parts.svg": "9d36fd771c1b0942322c72ca49b1e327c4549bab886620050d0487aa252d2b74"
+            },
+            "path": "M/m-mechanical-defective-stock.json",
+            "sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-mechanical-defective-stock",
+            "status": "unsupported",
+            "record": "output/playwright/svgnest/20261012T015942Z-71de7eb6/run.json",
+            "sha256": "81dde2defa5bc464057e60334252ed3ac08f915b3b1d9c6a46aedd332eb520a5"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015941Z-2adaede4/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    },
+    {
+      "path": "output/playwright/svgnest-batches/20261012T015944Z-79f0a6c6/batch.json",
+      "sha256": "cdeccbf8e01cf78eab028b610f6058d5478c11ce54e3b2e5070a485e95eb097e",
+      "manifest": {
+        "batch_id": "20261012T015944Z-79f0a6c6",
+        "kind": "provisional_svgnest_baseline",
+        "dataset": "M",
+        "dataset_manifest_sha256": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+        "cases": [
+          {
+            "category": "mechanical",
+            "held_out": false,
+            "source": "procedural",
+            "parameters": {
+              "linear_scale": 2,
+              "base_copies": 55,
+              "cog_teeth": 12
+            },
+            "construction": "Original dimensioned L-brackets, radial trapezoid-tooth cogs, open frames and drilled inserts. Circular holes retain arcs. Quantity mix, stock caps and defects/remnants are declared in the job.",
+            "id": "m-mechanical-mixed-stock",
+            "set": "M",
+            "units": "mm",
+            "part_count": 238,
+            "files": {
+              "maker-assets/m-mechanical-mixed-stock/curves.json": "081d922e588d771e0204cae01597f566ab1d213613248467f3404dbf3cabb2b8",
+              "M/m-mechanical-mixed-stock.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+              "maker-assets/m-mechanical-mixed-stock/parts.svg": "f3d5ca3c29d12e68e3fc36ec0fc0c2ee360c8c569a161bfbb03e774276a7b7b0"
+            },
+            "path": "M/m-mechanical-mixed-stock.json",
+            "sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+          }
+        ],
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "seed": 2,
+        "seconds": 300,
+        "axis": "y",
+        "settings": "identical",
+        "complete": true,
+        "runs": [
+          {
+            "job": "m-mechanical-mixed-stock",
+            "status": "unsupported",
+            "record": "output/playwright/svgnest/20261012T015945Z-e742c784/run.json",
+            "sha256": "efe3f2eab8cf223ffcfc0a8a763cc198337edc61a9fc13231abd635c34249df6"
+          }
+        ],
+        "validator_snapshot": {
+          "path": "output/playwright/svgnest-batches/20261012T015944Z-79f0a6c6/nestbolt.exe",
+          "sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+          "sources": {
+            "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+            "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+            "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+            "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+          }
+        },
+        "valid_runs": 0
+      }
+    }
+  ],
+  "required_slots": 12,
+  "completed_slots": 12,
+  "complete": true,
+  "rows": [
+    {
+      "tool": "svgnest",
+      "job": "m-box-mini",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "valid": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": true,
+      "comparable_median": true,
+      "comparison_statistics": {
+        "median": {
+          "state": "finite",
+          "value": 0.805
+        },
+        "quartiles": [
+          {
+            "state": "finite",
+            "value": 0.7875000000000001
+          },
+          {
+            "state": "finite",
+            "value": 0.805
+          },
+          {
+            "state": "finite",
+            "value": 0.8105000025
+          }
+        ]
+      },
+      "metric": "normalized_material",
+      "valid_only_median": 0.805,
+      "valid_only_quartiles": [
+        0.7875000000000001,
+        0.805,
+        0.8105000025
+      ],
+      "slot_ids": [
+        "m-box-mini:0",
+        "m-box-mini:1",
+        "m-box-mini:2"
+      ]
+    },
+    {
+      "tool": "svgnest",
+      "job": "m-garment-teagan-2",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "no_layout": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-garment-teagan-2:0",
+        "m-garment-teagan-2:1",
+        "m-garment-teagan-2:2"
+      ]
+    },
+    {
+      "tool": "svgnest",
+      "job": "m-mechanical-defective-stock",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "unsupported": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-mechanical-defective-stock:0",
+        "m-mechanical-defective-stock:1",
+        "m-mechanical-defective-stock:2"
+      ]
+    },
+    {
+      "tool": "svgnest",
+      "job": "m-mechanical-mixed-stock",
+      "seconds": 300,
+      "settings_role": "identical_constraints",
+      "settings": "identical",
+      "axis": "y",
+      "required_seeds": [
+        0,
+        1,
+        2
+      ],
+      "outcomes": {
+        "unsupported": 3,
+        "missing": 0
+      },
+      "required": 3,
+      "completed": 3,
+      "all_seeds_valid": false,
+      "comparable_median": false,
+      "comparison_statistics": {
+        "median": {
+          "state": "failed",
+          "value": null
+        },
+        "quartiles": [
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          },
+          {
+            "state": "failed",
+            "value": null
+          }
+        ]
+      },
+      "metric": null,
+      "valid_only_median": null,
+      "valid_only_quartiles": null,
+      "slot_ids": [
+        "m-mechanical-mixed-stock:0",
+        "m-mechanical-mixed-stock:1",
+        "m-mechanical-mixed-stock:2"
+      ]
+    }
+  ],
+  "replaced_checker_build_failures": [],
+  "replaced_infrastructure_failures": [],
+  "attempts": [
+    {
+      "slot_id": "m-box-mini:0",
+      "job": "m-box-mini",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261012T014809Z-65e4dd47/run.json",
+      "sha256": "2835ed0fe7611e86ae69381cd8ffd5cfe08dc56b212dc96469cea2bc8e5ee375",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T014809Z-65e4dd47",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-box-mini",
+        "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "seed": 0,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 0.816000005,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:48:09.691255+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": false,
+          "rotations": 4,
+          "spacing": 0.8
+        },
+        "validator_sha256": "e09e68f31ec33d707fa7c8b88e04f47b4b946a08bf423d603b5b7e725710d142",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1",
+          "cpu_index": 0,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 69,
+          "coordinates": 1608,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1",
+            "pid": 178868,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 173804,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 108400,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 177080,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 162872,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 178792,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 119016,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 2,
+        "controller_solve_ms": 300011.2889,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 29904.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 60000.0,
+          "material_area": 48960.0003,
+          "normalized_material": 0.816000005,
+          "utilization": 0.6107843099829393,
+          "trailing_offcut_area": 11039.9997,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 163.200001
+        },
+        "finished_at": "2026-10-12T01:53:15.924922+00:00",
+        "outputs": {
+          "browser-result.json": "318a17a2aa3fc5c92785366fe1af509c984fb2cd9a0bded2e478693877a9e86a",
+          "candidates.jsonl": "cbbcfcb0f4c35aef822196ef192a1e41cb6a850e3ef9bbfeb8efc5825fdbdaf5",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.svg": "8deababb97fb63cf30bcff27c1c22dcaf59a2baf257681c272d19aa435283aad",
+          "job.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+          "layout.json": "005f11082d91e07e584466d8d763d665b3e18cfe2370ce5e48b2217fe8c0cb40",
+          "native-sheet-0.svg": "e1ad0e923db48e8459c7a2a35aed43a17aced8ff3806e02ae120e9e78b1bfada",
+          "request.json": "8f8bdba2fd3560240cc75988fcf9f491b65b3c759bc72fbc3ab265c46cdff50e",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "70a01bc4b1161c7a335e66f0e5b7fb2c5912f0797ba73dda73d868f2cc56fd7c",
+          "validation.json": "778ae7047c8fabe5226ff1308cdcd4a1145cbc0b875fda7712c484f83bab1785"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 29904.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 60000.0,
+          "material_area": 48960.0003,
+          "normalized_material": 0.816000005,
+          "utilization": 0.6107843099829393,
+          "trailing_offcut_area": 11039.9997,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 163.200001
+        }
+      }
+    },
+    {
+      "slot_id": "m-box-mini:1",
+      "job": "m-box-mini",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261012T014914Z-23f6903c/run.json",
+      "sha256": "99f69cc031c2f3f2887884a07ac117ed280aea8cca3865068727821cd6c6ee84",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T014914Z-23f6903c",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-box-mini",
+        "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "seed": 1,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 0.77,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:49:14.316460+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": false,
+          "rotations": 4,
+          "spacing": 0.8
+        },
+        "validator_sha256": "e09e68f31ec33d707fa7c8b88e04f47b4b946a08bf423d603b5b7e725710d142",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "256",
+          "cpu_index": 8,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 69,
+          "coordinates": 1608,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "256",
+            "pid": 118828,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 119256,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 162636,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 191356,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 165836,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 128792,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 152056,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 2,
+        "controller_solve_ms": 300009.2,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 29904.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 60000.0,
+          "material_area": 46200.0,
+          "normalized_material": 0.77,
+          "utilization": 0.6472727272727272,
+          "trailing_offcut_area": 13800.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 154.0
+        },
+        "finished_at": "2026-10-12T01:54:21.335274+00:00",
+        "outputs": {
+          "browser-result.json": "099d070e7ec184e6ace09b42ea14112d65b84a8523e92fe523843ef483be3dfa",
+          "candidates.jsonl": "88d7b6cd4d9945fb2c0483c1a0ea46f25433d7dd8e3a9940084a7decd102885a",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.svg": "8deababb97fb63cf30bcff27c1c22dcaf59a2baf257681c272d19aa435283aad",
+          "job.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+          "layout.json": "d0c3b7ee7359bfa3d83694d4982fcd35048a9a2faa1d665decaa2239a85dc735",
+          "native-sheet-0.svg": "678910400a8ace1e104c3f1ddcbc8b9cca3b370b10c580538927ff0e81d35ac6",
+          "request.json": "f797dd01746fd3ab09c59dd969fd00333ef04f63cacd26d73b7be95021cf0b6e",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "70a01bc4b1161c7a335e66f0e5b7fb2c5912f0797ba73dda73d868f2cc56fd7c",
+          "validation.json": "8263dee6beb35a2c8b5fc1263b57b05ec1289243cf6a049e08d2835a5e900e16"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 29904.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 60000.0,
+          "material_area": 46200.0,
+          "normalized_material": 0.77,
+          "utilization": 0.6472727272727272,
+          "trailing_offcut_area": 13800.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 154.0
+        }
+      }
+    },
+    {
+      "slot_id": "m-box-mini:2",
+      "job": "m-box-mini",
+      "status": "valid",
+      "record": "output/playwright/svgnest/20261012T014924Z-11831618/run.json",
+      "sha256": "6b6dd410f24a02ea22b6bd20d9b3c70d6eb0155cbe7010f69baafb5fbd3e6e49",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T014924Z-11831618",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-box-mini",
+        "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+        "seed": 2,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": 0.805,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:49:24.113726+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": false,
+          "rotations": 4,
+          "spacing": 0.8
+        },
+        "validator_sha256": "e09e68f31ec33d707fa7c8b88e04f47b4b946a08bf423d603b5b7e725710d142",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1024",
+          "cpu_index": 10,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 69,
+          "coordinates": 1608,
+          "maximum_absolute_error": 0,
+          "maximum_scaled_error": 0,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1024",
+            "pid": 112788,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 117796,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 110328,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 116804,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 137928,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 124308,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 144704,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 3,
+        "controller_solve_ms": 300008.6825,
+        "validator_exit_code": 0,
+        "status": "valid",
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 29904.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 60000.0,
+          "material_area": 48300.0,
+          "normalized_material": 0.805,
+          "utilization": 0.6191304347826087,
+          "trailing_offcut_area": 11700.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 161.0
+        },
+        "finished_at": "2026-10-12T01:54:31.356678+00:00",
+        "outputs": {
+          "browser-result.json": "5968fbd7949c7308552aac598c4f3f9fab33334d5911eecf9a8f650d8dbaf895",
+          "candidates.jsonl": "1d4acca1bcc9ac6b70e3a0feb87432dd04304a68bf00f495c7c512f086b1f15e",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.svg": "8deababb97fb63cf30bcff27c1c22dcaf59a2baf257681c272d19aa435283aad",
+          "job.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+          "layout.json": "9500409e7b56ab07ce19a913e5b13233d521b3dea3690bdce720ee911b323075",
+          "native-sheet-0.svg": "102b85d3d311083515cbb709ca80cd8aced43d1f3c830d4c0af943e9635e8430",
+          "request.json": "6699636ce756517e790c73524f7e0f75fb6b3c9bacb53d9bb49e89dad61fa043",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "92cc8e86817d862f00fe9197bda4a508a3275c458a98d859dac18616c5a22537",
+          "validation.json": "7430df9dcc6fb959d50643d2d6e711a25c0b516b6ca40b329433d94059a91eaa"
+        }
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 1,
+          "placed_parts": 20,
+          "requested_parts": 20,
+          "placed_area": 29904.0,
+          "placed_priority": 20.0,
+          "full_stock_area": 60000.0,
+          "material_area": 48300.0,
+          "normalized_material": 0.805,
+          "utilization": 0.6191304347826087,
+          "trailing_offcut_area": 11700.0,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 161.0
+        }
+      }
+    },
+    {
+      "slot_id": "m-garment-teagan-2:0",
+      "job": "m-garment-teagan-2",
+      "status": "no_layout",
+      "record": "output/playwright/svgnest/20261012T015319Z-5a05a1d4/run.json",
+      "sha256": "5dc89943beb88f62585667ec95380e15402ec4d75718e533a932f804702d9640",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015319Z-5a05a1d4",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-garment-teagan-2",
+        "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "seed": 0,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:53:19.425252+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": false,
+          "rotations": 2,
+          "spacing": 3
+        },
+        "validator_sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1",
+          "cpu_index": 0,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 41,
+          "coordinates": 37768,
+          "maximum_absolute_error": 2.220446049250313e-16,
+          "maximum_scaled_error": 1,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1",
+            "pid": 114720,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 168228,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 150328,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 61412,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 122112,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 107944,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1",
+            "pid": 137484,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 0,
+        "controller_solve_ms": 300007.42710000003,
+        "status": "no_layout",
+        "finished_at": "2026-10-12T01:58:27.452199+00:00",
+        "outputs": {
+          "browser-result.json": "c8d82037afe32177e4a300319494c6a8a2d15203b212883025d47dbbc5a7a582",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.svg": "eb5005e45ea74c3be980a64eda1ed59bec081026973f2c3b932a59d474e8f44d",
+          "job.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+          "request.json": "0316f31b747ced318016e61282f61d6a31d9a4ffed40a56760074676e05742c3",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "9a6965e5b2d8275f11c4e2bf865c12e2ecf4c90c55ac20d3f685cd41a2827902"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-garment-teagan-2:1",
+      "job": "m-garment-teagan-2",
+      "status": "no_layout",
+      "record": "output/playwright/svgnest/20261012T015422Z-52b5f0c7/run.json",
+      "sha256": "afde5e256f58e6d80e7d460168d567156e87e936d6f8625266ae492aafae3532",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015422Z-52b5f0c7",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-garment-teagan-2",
+        "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "seed": 1,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:54:22.582368+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": false,
+          "rotations": 2,
+          "spacing": 3
+        },
+        "validator_sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "256",
+          "cpu_index": 8,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 41,
+          "coordinates": 37768,
+          "maximum_absolute_error": 2.220446049250313e-16,
+          "maximum_scaled_error": 1,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "256",
+            "pid": 211012,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 202388,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 200120,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 199692,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 199060,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 196920,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "256",
+            "pid": 195316,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 0,
+        "controller_solve_ms": 300014.4504,
+        "status": "no_layout",
+        "finished_at": "2026-10-12T01:59:29.698043+00:00",
+        "outputs": {
+          "browser-result.json": "2aef3d0d5bd45897a208a516247e59a697af41abb7e525e125c57fc4ef427606",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.svg": "eb5005e45ea74c3be980a64eda1ed59bec081026973f2c3b932a59d474e8f44d",
+          "job.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+          "request.json": "c69c2a812d69f1db5608f1bee1e99c13e7f32632a17235e9a6bcc3481b62624a",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "9a6965e5b2d8275f11c4e2bf865c12e2ecf4c90c55ac20d3f685cd41a2827902"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-garment-teagan-2:2",
+      "job": "m-garment-teagan-2",
+      "status": "no_layout",
+      "record": "output/playwright/svgnest/20261012T015432Z-59cbb412/run.json",
+      "sha256": "5eba916c44239462b7b241c26e78e273629402ae95073cb0d74901be83475fab",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015432Z-59cbb412",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-garment-teagan-2",
+        "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+        "seed": 2,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:54:32.784466+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "restrictions": [],
+        "configuration": {
+          "curveTolerance": 0.005,
+          "populationSize": 10,
+          "mutationRate": 10,
+          "useHoles": true,
+          "exploreConcave": false,
+          "rotations": 2,
+          "spacing": 3
+        },
+        "validator_sha256": "2fb33ecbc6e155ede2efd7b9b7a974dc94af9ba88b4617459a3a9cb79c05c133",
+        "validator_sources": {
+          "Cargo.lock": "72217ca22752f3b3a1cf432fa9482423efcef2cfafefdcc8d6d357d43fd55024",
+          "crates/validator/src/job.rs": "eeaebe5e24536655ae1e4db739a6cb666ed7141d8b8d16b9178a398ac6a2b8f4",
+          "crates/validator/src/lib.rs": "de2ec1777409a122a752e5ad095550ab305047f6d67db84dc8d61a37ff4f4e9f",
+          "crates/validator/src/sparrow.rs": "a773e4fddc468a30696f184aadbd421bb761ccc1a84c7d3c8fea6262d05217d3"
+        },
+        "exit_code": 0,
+        "browser_version": "156.0.8078.4",
+        "cpu_affinity": {
+          "platform": "win32",
+          "mask": "1024",
+          "cpu_index": 10,
+          "method": "JOB_OBJECT_LIMIT_AFFINITY"
+        },
+        "input_fidelity": {
+          "encoding": "linear_svg_paths_v2",
+          "contours": 41,
+          "coordinates": 37768,
+          "maximum_absolute_error": 2.220446049250313e-16,
+          "maximum_scaled_error": 1,
+          "scaled_error_limit": 8,
+          "error_scale": "Number.EPSILON * max(1, abs(source_coordinate))",
+          "stage": "parsed_path_before_closing_point_cleanup",
+          "native_closing_vertices_removed": 0
+        },
+        "browser_executables": [
+          {
+            "path": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+            "sha256": "f77d8e27c8db1e4ac0399459a00e0c97bb9417adc393474cabaffebe2314ecb0"
+          }
+        ],
+        "affinity_verification": [
+          {
+            "affinity": "1024",
+            "pid": 138028,
+            "name": "node",
+            "executable": "C:\\Program Files\\nodejs\\node.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 87100,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 186552,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 104876,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 124288,
+            "name": "chrome-headless-shell",
+            "executable": "C:\\Users\\artem\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\chrome-headless-shell-win64\\chrome-headless-shell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 175108,
+            "name": "powershell",
+            "executable": "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+          },
+          {
+            "affinity": "1024",
+            "pid": 153872,
+            "name": "conhost",
+            "executable": "C:\\WINDOWS\\system32\\conhost.exe"
+          }
+        ],
+        "candidates": 0,
+        "controller_solve_ms": 300005.11439999996,
+        "status": "no_layout",
+        "finished_at": "2026-10-12T01:59:40.464872+00:00",
+        "outputs": {
+          "browser-result.json": "d9c87a5affc3c7758ceef14ccf058fc7b0dc4f2a441c240afb85d787e524eeee",
+          "empty-layout.json": "30f5a007f664bb9b1096320398b569f7838d3cdc99643aa1bd21c5335e55d6a9",
+          "input.svg": "eb5005e45ea74c3be980a64eda1ed59bec081026973f2c3b932a59d474e8f44d",
+          "job.json": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+          "request.json": "b8967d5aec305643785d623008dd58df214f8f54769a577ba15ee7a34755240a",
+          "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout.log": "9a6965e5b2d8275f11c4e2bf865c12e2ecf4c90c55ac20d3f685cd41a2827902"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-defective-stock:0",
+      "job": "m-mechanical-defective-stock",
+      "status": "unsupported",
+      "record": "output/playwright/svgnest/20261012T015829Z-5e8f9dcc/run.json",
+      "sha256": "2a429ffc73049e4bf8d5202707eb89667d30d0ffa4199586e1ca226bbf4068c2",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015829Z-5e8f9dcc",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-mechanical-defective-stock",
+        "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "seed": 0,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:58:29.266790+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "status": "unsupported",
+        "reason": "SVGnest cannot express stock remnants or defects",
+        "finished_at": "2026-10-12T01:58:31.225061+00:00",
+        "outputs": {
+          "job.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-defective-stock:1",
+      "job": "m-mechanical-defective-stock",
+      "status": "unsupported",
+      "record": "output/playwright/svgnest/20261012T015931Z-f5743c47/run.json",
+      "sha256": "136d999b1997327e5de999dc8e88ccd9f65bbca13dfe7494690ee5e08b86d0f7",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015931Z-f5743c47",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-mechanical-defective-stock",
+        "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "seed": 1,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:59:31.163280+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "status": "unsupported",
+        "reason": "SVGnest cannot express stock remnants or defects",
+        "finished_at": "2026-10-12T01:59:33.563553+00:00",
+        "outputs": {
+          "job.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-defective-stock:2",
+      "job": "m-mechanical-defective-stock",
+      "status": "unsupported",
+      "record": "output/playwright/svgnest/20261012T015942Z-71de7eb6/run.json",
+      "sha256": "81dde2defa5bc464057e60334252ed3ac08f915b3b1d9c6a46aedd332eb520a5",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015942Z-71de7eb6",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-mechanical-defective-stock",
+        "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+        "seed": 2,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:59:42.064849+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "status": "unsupported",
+        "reason": "SVGnest cannot express stock remnants or defects",
+        "finished_at": "2026-10-12T01:59:44.008155+00:00",
+        "outputs": {
+          "job.json": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-mixed-stock:0",
+      "job": "m-mechanical-mixed-stock",
+      "status": "unsupported",
+      "record": "output/playwright/svgnest/20261012T015832Z-56216a84/run.json",
+      "sha256": "16f2ee85d0dcbb9fde86800215aa8a29eb5a8c7b7fd3220983915f68031baa14",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015832Z-56216a84",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-mechanical-mixed-stock",
+        "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "seed": 0,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:58:32.886964+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "status": "unsupported",
+        "reason": "SVGnest cannot express mixed stock sizes",
+        "finished_at": "2026-10-12T01:58:34.881557+00:00",
+        "outputs": {
+          "job.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-mixed-stock:1",
+      "job": "m-mechanical-mixed-stock",
+      "status": "unsupported",
+      "record": "output/playwright/svgnest/20261012T015935Z-be46f698/run.json",
+      "sha256": "2f3aa9f4555c40ac9e032af30a706303b521ce5ccddc00da8a06e001c04e4711",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015935Z-be46f698",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-mechanical-mixed-stock",
+        "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "seed": 1,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:59:35.413393+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "status": "unsupported",
+        "reason": "SVGnest cannot express mixed stock sizes",
+        "finished_at": "2026-10-12T01:59:37.814447+00:00",
+        "outputs": {
+          "job.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+        }
+      },
+      "validation": null
+    },
+    {
+      "slot_id": "m-mechanical-mixed-stock:2",
+      "job": "m-mechanical-mixed-stock",
+      "status": "unsupported",
+      "record": "output/playwright/svgnest/20261012T015945Z-e742c784/run.json",
+      "sha256": "efe3f2eab8cf223ffcfc0a8a763cc198337edc61a9fc13231abd635c34249df6",
+      "run": {
+        "tool": "SVGnest",
+        "run_id": "20261012T015945Z-e742c784",
+        "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+        "job": "m-mechanical-mixed-stock",
+        "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+        "seed": 2,
+        "seconds": 300,
+        "settings": "identical",
+        "axis": "y",
+        "phase": "development",
+        "settings_finalized": false,
+        "score": null,
+        "output_decoding": "native_svg_attributes_v2",
+        "input_encoding": "linear_svg_paths_v2",
+        "started_at": "2026-10-12T01:59:45.543880+00:00",
+        "commit": "6536049e2f3fea2722e44d771ef9b0d2208afc2d",
+        "dirty": true,
+        "platform": "Windows-10-10.0.26200-SP0",
+        "node": "v24.19.0",
+        "sources": {
+          "scripts/svgnest.py": "190c35a364d1f77fc8a5f94b17de04e27be8d02f77fca8a7f79f4ff64d40cb55",
+          "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+          "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+          "scripts/dataset_selection.py": "5369822d21fcf7d98cc11c252e77bca9e54f82e0ec0e27c9cb92b3db44ba0b45",
+          "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+          "benchmarks/browser/svgnest.mjs": "4fd43da102d9aebcdf5679473bf10ee40d5564c43783a765dbaa87d124c2c9f9",
+          "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+          "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+          "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+          "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+          "benchmarks/svgnest/tool.json": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494"
+        },
+        "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+        "status": "unsupported",
+        "reason": "SVGnest cannot express mixed stock sizes",
+        "finished_at": "2026-10-12T01:59:47.674374+00:00",
+        "outputs": {
+          "job.json": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb"
+        }
+      },
+      "validation": null
+    }
+  ]
+}

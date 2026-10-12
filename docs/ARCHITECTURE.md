@@ -93,14 +93,21 @@ eight one-item displacement trials per blocked insertion can move an obstacle
 and find room for both parts. Failed trials restore the complete affected region,
 including collision data, bounding boxes and contact anchors. It opens no stock,
 preserves copy identities, and independently validates the resulting original
-geometry. Incomplete trials remain unscored. Overlap-based multi-item repair and
-continuous rotation improvement remain future search work.
+geometry. Incomplete trials remain unscored. If these attempts fail, a second
+bounded list collects the actual one or two movable blockers at candidate
+positions. Static boundaries and defects are never candidates for displacement.
+It reinserts larger victims first and restores every changed receiver region if
+any reinsertion fails. Stable blocker ordering and cost ties preserve repeatability.
+Continuous overlap repair and rotation improvement remain future search work.
 
 The separate compaction stage restores a valid layout into the collision trees,
 then makes bounded bottom-up sweeps. Translation-only sweeps preserve each exact
 source angle and reflection. Optional relocation removes one item, rebuilds its
 other-item contacts, searches permitted orientations/positions and reinserts it.
 A relocation must lower placement cost without raising its proxy's top edge.
+Candidates outside those bounds skip collision checks while preserving random
+stream consumption. The independent material metric also guards final acceptance;
+a regression restores the original layout.
 Physical sheets, stock identities, original copy selection and source ordering
 remain intact. The source is immutable on interruption, and the complete trial
 passes the independent checker. Trials show modest gains but expensive searches
