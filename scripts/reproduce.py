@@ -204,12 +204,14 @@ def nestbolt(phase, binary, final, dry_run):
 
 def report(phase):
     records = lambda seconds: sorted(glob.glob(str(ROOT/'benchmarks/results'/f'sheets-{phase}-{seconds}s-s*.json')))
-    sixty, long = records(60), records(300)
+    sixty, long, quick = records(60), records(300), records(30)
     if not sixty:
         raise SystemExit(f'no {phase} Nestbolt records yet')
-    command = [sys.executable, 'scripts/results_page.py', '--phase', phase, '--nestbolt-60', *sixty]
+    command = [sys.executable, 'scripts/results_page.py', '--phase', phase, '--nestbolt-60', *sixty, '--strip']
     if long:
         command += ['--nestbolt-300', *long]
+    if quick:
+        command += ['--nestbolt-30', *quick]
     if run(command):
         raise SystemExit('report failed')
 

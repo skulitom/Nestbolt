@@ -1,0 +1,659 @@
+{
+ "scope": "Development B/M only; one seed; timed; no acceptance-gate claim.",
+ "phase": "development",
+ "long_subset": true,
+ "recorded_at": "2026-10-12T21:49:44.096894+00:00",
+ "seed": 2,
+ "seconds": 30.0,
+ "reference_seconds": 300,
+ "cpus": [
+  0,
+  2,
+  4,
+  6,
+  8,
+  10,
+  12,
+  14
+ ],
+ "solver_args": [],
+ "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304",
+ "baseline": {
+  "path": "benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json",
+  "git_lf_sha256": "5b5ffeaa50bd76f9089d3cb95d61761c736cc5533cffed674d2e591540f3759a"
+ },
+ "sources_at_start": {
+  "scripts/sheets_batch.py": "2255830e3af310f3f44485001e18ba9110ff0102ee3dfe4bd403dae829b2edb6",
+  "crates/core/src/sheets.rs": "d12ee3cb184607f5f53d7ade5dfb31b963055901e92988a3b2a48ade562a1eec",
+  "crates/core/src/sheets/vstrip.rs": "4772ea162f1f422ff8b9bd0b0be10cc138dc0a29364c2507033d8db3d42902f3",
+  "crates/core/src/separate.rs": "f65e766367ec9e0990c403cf3cff44c4425a3449d5df6deb8e91e91ba23a6464",
+  "crates/core/src/construct.rs": "2bb20eaa1dffa266d9e85f79ec2b277281bc971e018ceadb77c2f48ac9c67284",
+  "crates/core/src/optimize.rs": "4865fc4018c179c4d562dbaef6ae2e88c6a8485a953663a8823f1029a7098e00",
+  "crates/core/src/holes.rs": "e6d270e5da85a0ef468d6bbf9870d325420466d47976a8b02af6f732c6ce8849",
+  "crates/core/src/clock.rs": "0172a471bead9645bdba388230cecf8aae45ae4f851fd730db6c34b341fa60e3",
+  "crates/core/src/curves.rs": "03657c60f81fa4cca801b628c407ecc8b920c15a85521dfcf6532de21fca67c9"
+ },
+ "run_directory": "output/sheets-batches/20261012T214844Z-41d42fa7",
+ "rows": [
+  {
+   "job": "b-albano-nest-mb-free",
+   "job_sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+   "cpu": 0,
+   "exit_code": 0,
+   "wall_seconds": 29.84669780000695,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/b-albano-nest-mb-free",
+   "status": "valid",
+   "material": 2.4104924590199954,
+   "sheets": 3,
+   "warm_material": 2.594375162601626,
+   "accepted_at_seconds": 29.7654492,
+   "elapsed_seconds": 29.7675038,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 2,
+    "failed_insertions": 14,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.1637143,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.594375162601626
+    },
+    {
+     "elapsed_seconds": 9.5449314,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.5629447481872116
+    },
+    {
+     "elapsed_seconds": 14.5833334,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.4781808521204134
+    },
+    {
+     "elapsed_seconds": 20.2322872,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.433459622061086
+    },
+    {
+     "elapsed_seconds": 23.1087139,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.421090568446495
+    },
+    {
+     "elapsed_seconds": 27.8462929,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.41083381300813
+    },
+    {
+     "elapsed_seconds": 29.7654492,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.4104924590199954
+    }
+   ],
+   "layout_sha256": "e879a94de3f4523a6efe7835fab6a0c04abfc88ea4893f38b70554d9e3ea55c1",
+   "validation_sha256": "064bf5fc75141e165dc486b07046013d9ea672e3cd383f47e226fa538b16a372",
+   "comparison": {
+    "reduction_percent": 7.087734555772007,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-fu-strip-sheet",
+   "job_sha256": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 29.83947320000152,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/b-fu-strip-sheet",
+   "status": "valid",
+   "material": 1.2368502368421053,
+   "sheets": 2,
+   "warm_material": 1.3684286842105262,
+   "accepted_at_seconds": 28.2337942,
+   "elapsed_seconds": 29.7521386,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 1,
+    "failed_insertions": 7,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.0240488,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.3684286842105262
+    },
+    {
+     "elapsed_seconds": 10.4915986,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.2374288684210526
+    },
+    {
+     "elapsed_seconds": 28.2337942,
+     "stage": "compress",
+     "sheets": 2,
+     "material": 1.2368502368421053
+    }
+   ],
+   "layout_sha256": "713110c628c16d223587b2cb1a78327eab9905f9f02d7792fce644e3aa17d978",
+   "validation_sha256": "490fbbfa5b9343268030ecbd3fb20669c55a02b7df7546eaab6cbc657cd00d6a",
+   "comparison": {
+    "reduction_percent": 9.61479038461539,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-jakobs2-strip-sheet",
+   "job_sha256": "b908f3ef16fa41e8c4cd7a56edf21f9d77ecda44f1301ec5ba05aaf4c38cccb3",
+   "cpu": 4,
+   "exit_code": 0,
+   "wall_seconds": 29.851840999996057,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/b-jakobs2-strip-sheet",
+   "status": "valid",
+   "material": 0.7587656285714286,
+   "sheets": 1,
+   "warm_material": 1.0857219285714286,
+   "accepted_at_seconds": 28.1374729,
+   "elapsed_seconds": 29.7653697,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 0,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 0.2516912,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.0857219285714286
+    },
+    {
+     "elapsed_seconds": 0.2838398,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.9623122285714286
+    },
+    {
+     "elapsed_seconds": 2.7575688,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7931977285714286
+    },
+    {
+     "elapsed_seconds": 5.0378524,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7822895
+    },
+    {
+     "elapsed_seconds": 7.38418,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7799048428571429
+    },
+    {
+     "elapsed_seconds": 15.7821039,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7791681428571429
+    },
+    {
+     "elapsed_seconds": 25.1593339,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7690839857142857
+    },
+    {
+     "elapsed_seconds": 28.1374729,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7587656285714286
+    }
+   ],
+   "layout_sha256": "607906a6b681c24ec754f168b5fd12c03ad7f10e086bf77f77c81f842c0168c5",
+   "validation_sha256": "6ef0c7ed34f9cee74581792fdb43cc651c492d1469caa590939fb7ac698068f4",
+   "comparison": {
+    "reduction_percent": -2.331113021102693,
+    "outcome": "loss",
+    "within_one_percent": false
+   }
+  },
+  {
+   "job": "b-shapes0-nest-mb-free",
+   "job_sha256": "957c7e93efe640e15bafe7a986abb1b588cdbf13b299500f70d7c271b720241f",
+   "cpu": 6,
+   "exit_code": 0,
+   "wall_seconds": 29.844051600026432,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/b-shapes0-nest-mb-free",
+   "status": "valid",
+   "material": 5.5009037619047625,
+   "sheets": 6,
+   "warm_material": 7.285721904761905,
+   "accepted_at_seconds": 28.2397047,
+   "elapsed_seconds": 29.7548376,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 11,
+    "failed_insertions": 21,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 2,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.273431,
+     "stage": "warm",
+     "sheets": 8,
+     "material": 7.285721904761905
+    },
+    {
+     "elapsed_seconds": 3.4324045,
+     "stage": "eliminate",
+     "sheets": 7,
+     "material": 6.904777047619048
+    },
+    {
+     "elapsed_seconds": 4.5252065,
+     "stage": "eliminate",
+     "sheets": 6,
+     "material": 5.994999476190476
+    },
+    {
+     "elapsed_seconds": 10.4644057,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.742512190476191
+    },
+    {
+     "elapsed_seconds": 18.0564443,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.628371333333333
+    },
+    {
+     "elapsed_seconds": 23.1469552,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.503427857142857
+    },
+    {
+     "elapsed_seconds": 28.2397047,
+     "stage": "compress",
+     "sheets": 6,
+     "material": 5.5009037619047625
+    }
+   ],
+   "layout_sha256": "2cb06b3445a1a3617efedac17072e6e741856af30ec4d81f67bfb11d7fd0408d",
+   "validation_sha256": "b19adef1bf31e62696f7fe1efd7c157ee77eb1f7d2dcf54c3e7f0c4ba7790af6",
+   "comparison": {
+    "reduction_percent": 20.376108347899923,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-swim-nest-mb-given",
+   "job_sha256": "501ca6210869d2b31ef6bfdaa1c302b475f70c907d09cd51af321ff26de52be0",
+   "cpu": 8,
+   "exit_code": 0,
+   "wall_seconds": 29.84985119997873,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/b-swim-nest-mb-given",
+   "status": "valid",
+   "material": 4.422788388488687,
+   "sheets": 5,
+   "warm_material": 4.980624547168462,
+   "accepted_at_seconds": 29.7584101,
+   "elapsed_seconds": 29.7614775,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 3,
+    "failed_insertions": 22,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.5352078000000002,
+     "stage": "warm",
+     "sheets": 5,
+     "material": 4.980624547168462
+    },
+    {
+     "elapsed_seconds": 9.6989521,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.48385663077752
+    },
+    {
+     "elapsed_seconds": 16.9664907,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.466114962686532
+    },
+    {
+     "elapsed_seconds": 23.2054422,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.456448917040442
+    },
+    {
+     "elapsed_seconds": 28.9852117,
+     "stage": "compress",
+     "sheets": 5,
+     "material": 4.438371037626029
+    },
+    {
+     "elapsed_seconds": 29.7584101,
+     "stage": "compress",
+     "sheets": 5,
+     "material": 4.422788388488687
+    }
+   ],
+   "layout_sha256": "947f77b78c5a2fe2dd93e51737f769da5b7420a40f484dcbfce6e0cdb1e609e8",
+   "validation_sha256": "23c68cca106fde207012b2f6920214063945d41da7dec359c9695835e0c5b03c",
+   "comparison": {
+    "reduction_percent": 4.589528162833023,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-trousers-nest-mb-given",
+   "job_sha256": "f0d25168ab71e56cccd54bf2ef8116290e23c096a2124d9cc2c50d76e30809f4",
+   "cpu": 10,
+   "exit_code": 0,
+   "wall_seconds": 29.854393099987647,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/b-trousers-nest-mb-given",
+   "status": "valid",
+   "material": 2.7391947344632768,
+   "sheets": 3,
+   "warm_material": 3.190612,
+   "accepted_at_seconds": 29.76254,
+   "elapsed_seconds": 29.765021,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 16,
+    "failed_insertions": 24,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 1,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.5449362,
+     "stage": "warm",
+     "sheets": 4,
+     "material": 3.190612
+    },
+    {
+     "elapsed_seconds": 3.619693,
+     "stage": "eliminate",
+     "sheets": 3,
+     "material": 2.9644837401129944
+    },
+    {
+     "elapsed_seconds": 8.8729465,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.848668011299435
+    },
+    {
+     "elapsed_seconds": 14.1218702,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.785754033898305
+    },
+    {
+     "elapsed_seconds": 23.2067284,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.749041559322034
+    },
+    {
+     "elapsed_seconds": 26.6499063,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.7466574011299434
+    },
+    {
+     "elapsed_seconds": 29.76254,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.7391947344632768
+    }
+   ],
+   "layout_sha256": "0ea1bedc93c2c290526eca6e095d41ae4f1cb4a60fc9cccbf0e5d5a8209e2b73",
+   "validation_sha256": "e74905b8e63b10c2b5926f7b16e42b8ca29591cd035964ea14cf40b6c3eb3c8a",
+   "comparison": {
+    "reduction_percent": 15.386131239092492,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-box-mini",
+   "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+   "cpu": 12,
+   "exit_code": 0,
+   "wall_seconds": 29.841250900004525,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/m-box-mini",
+   "status": "valid",
+   "material": 0.666000455,
+   "sheets": 1,
+   "warm_material": 0.666000455,
+   "accepted_at_seconds": 3.106016,
+   "elapsed_seconds": 29.7528553,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.106016,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.666000455
+    }
+   ],
+   "layout_sha256": "80e23f51aa5e9845623c95e5b2138988e0e860269b644db36a4316af2ace7c40",
+   "validation_sha256": "86beaa8c90b25f80dfad612b2ef622a66f205aa91266c25cd9cd047e35c1d4a1",
+   "comparison": {
+    "reduction_percent": -6.756756707471112e-05,
+    "outcome": "tie",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-garment-teagan-2",
+   "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+   "cpu": 14,
+   "exit_code": 0,
+   "wall_seconds": 29.789176899997983,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/m-garment-teagan-2",
+   "status": "valid",
+   "material": 1.8646769710000002,
+   "sheets": 2,
+   "warm_material": 1.966478741,
+   "accepted_at_seconds": 18.0339537,
+   "elapsed_seconds": 29.6993766,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 1,
+    "failed_insertions": 16,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.367362,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.966478741
+    },
+    {
+     "elapsed_seconds": 8.9665825,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.9062427137499998
+    },
+    {
+     "elapsed_seconds": 18.0339537,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.8646769710000002
+    }
+   ],
+   "layout_sha256": "d71612624b284d157badc96cf848e289c670cfceb4e07fedc8069f532a3406c9",
+   "validation_sha256": "48c06d4a6c069ecce3f88b13992e5417eade02d57454befe98077f5bcb7b387d",
+   "comparison": null
+  },
+  {
+   "job": "m-mechanical-defective-stock",
+   "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 29.882246099994518,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/m-mechanical-defective-stock",
+   "status": "valid",
+   "material": 2.6929584124,
+   "sheets": 3,
+   "warm_material": 2.735438916,
+   "accepted_at_seconds": 29.6995841,
+   "elapsed_seconds": 29.8661153,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 19,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.0011834,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.735438916
+    },
+    {
+     "elapsed_seconds": 14.1827143,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7299076324000002
+    },
+    {
+     "elapsed_seconds": 19.8943537,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6970009904000003
+    },
+    {
+     "elapsed_seconds": 29.6995841,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6929584124
+    }
+   ],
+   "layout_sha256": "d9f53b5be109d844ac4e68904a70b4474929d56313524ede68c9191be9551b2c",
+   "validation_sha256": "75be951d3ca14b6fdf88836b30f5649c15dfc1edcfbb99130ef9172a08b12ed0",
+   "comparison": {
+    "reduction_percent": 18.920984753417237,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-mechanical-mixed-stock",
+   "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+   "cpu": 14,
+   "exit_code": 0,
+   "wall_seconds": 29.991708299989114,
+   "directory": "output/sheets-batches/20261012T214844Z-41d42fa7/m-mechanical-mixed-stock",
+   "status": "valid",
+   "material": 0.9216403393664,
+   "sheets": 1,
+   "warm_material": 0.9234527889344001,
+   "accepted_at_seconds": 29.748174,
+   "elapsed_seconds": 29.9754493,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 6.5442463,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.9234527889344001
+    },
+    {
+     "elapsed_seconds": 23.2292666,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9225332263296002
+    },
+    {
+     "elapsed_seconds": 29.748174,
+     "stage": "compress",
+     "sheets": 1,
+     "material": 0.9216403393664
+    }
+   ],
+   "layout_sha256": "0b01619f3c052a68f4993ba86f71e7a31a9e8699a540f45bcd114ca115f6b6e7",
+   "validation_sha256": "4c9c7f8aff417623a7860b16172c72e454f7de441dcd8b612d3ad055a588d703",
+   "comparison": {
+    "reduction_percent": 9.706960189098657,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  }
+ ]
+}

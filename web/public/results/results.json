@@ -1,0 +1,5371 @@
+{
+ "phase": "development",
+ "generated_at": "2026-10-12 21:56 UTC",
+ "commit": "f8a9fb8101bdea10c5dbce969a2dc698af8ace1e",
+ "hardware": {
+  "cpu": "AMD Ryzen 9 7950X3D 16-Core Processor",
+  "physical_cores": 16,
+  "logical_cpus": 32,
+  "memory_gib": 63,
+  "os": "Windows-11-10.0.26200-SP0"
+ },
+ "tools": [
+  {
+   "tool": "deepnest",
+   "name": "deepnest-next",
+   "repository": "https://github.com/deepnest-next/deepnest.git",
+   "revision": "1e7ba6e2382557f337ad481ca3251fc22032ca0f",
+   "settings": [
+    "clearance-safe",
+    "expanded",
+    "identical"
+   ],
+   "config": "benchmarks/deepnest/tool.json"
+  },
+  {
+   "tool": "svgnest",
+   "name": "SVGnest",
+   "repository": "https://github.com/Jack000/SVGnest",
+   "revision": "1248dc21efd3f90d1aa52ba5785e27e5217ed2c9",
+   "settings": [
+    "expanded",
+    "identical"
+   ],
+   "config": "benchmarks/svgnest/tool.json"
+  },
+  {
+   "tool": "lbf",
+   "name": "jagua-rs LBF",
+   "repository": "https://github.com/JeroenGar/jagua-rs",
+   "revision": "9e00fd867be0fc493002aea68a1c6613d5b833d6",
+   "settings": [
+    "identical",
+    "upstream-default"
+   ],
+   "config": "benchmarks/lbf/tool.json"
+  },
+  {
+   "tool": "sparrow",
+   "name": "sparrow (CLI)",
+   "repository": "https://github.com/JeroenGar/sparrow",
+   "revision": "4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+   "settings": [
+    "identical",
+    "upstream-default"
+   ],
+   "config": "benchmarks/sparrow-benchmark/Cargo.toml"
+  }
+ ],
+ "target_percent": 5.0,
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "baseline": {
+  "path": "benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json",
+  "sha256": "5b5ffeaa50bd76f9089d3cb95d61761c736cc5533cffed674d2e591540f3759a"
+ },
+ "budgets": [
+  {
+   "seconds": 60,
+   "records": [
+    {
+     "path": "benchmarks/results/sheets-m4-60s-s0-20261012T195244Z-462d2983.json",
+     "seed": 0,
+     "seconds": 60.0,
+     "binary_sha256": "33d6d8ee366358bd7f7c0db3ee4075f031cfdeb9077037233886c863bb91dd74"
+    },
+    {
+     "path": "benchmarks/results/sheets-m4-60s-s1-20261012T200143Z-50c5228a.json",
+     "seed": 1,
+     "seconds": 60.0,
+     "binary_sha256": "33d6d8ee366358bd7f7c0db3ee4075f031cfdeb9077037233886c863bb91dd74"
+    },
+    {
+     "path": "benchmarks/results/sheets-m4-60s-s2-20261012T201041Z-b629e0a9.json",
+     "seed": 2,
+     "seconds": 60.0,
+     "binary_sha256": "33d6d8ee366358bd7f7c0db3ee4075f031cfdeb9077037233886c863bb91dd74"
+    }
+   ],
+   "summary": {
+    "best_of_tools": {
+     "jobs": 52,
+     "median_reduction_percent": 8.76681832630604,
+     "wins_or_ties": 47,
+     "worse_than_one_percent": 3,
+     "worst_percent": -4.851009110418758
+    },
+    "per_tool": {
+     "deepnest": {
+      "jobs": 51,
+      "median_reduction_percent": 10.022073254451392,
+      "wins_or_ties": 51,
+      "worse_than_one_percent": 0,
+      "worst_percent": 1.023078498293506
+     },
+     "svgnest": {
+      "jobs": 35,
+      "median_reduction_percent": 13.55829696969696,
+      "wins_or_ties": 35,
+      "worse_than_one_percent": 0,
+      "worst_percent": 2.8703220624298087
+     },
+     "sparrow": {
+      "jobs": 8,
+      "median_reduction_percent": -0.07154038520669204,
+      "wins_or_ties": 3,
+      "worse_than_one_percent": 3,
+      "worst_percent": -4.851009110418758
+     }
+    },
+    "jobs": 65,
+    "jobs_without_competitor": 13,
+    "nestbolt_valid_runs": 195,
+    "nestbolt_runs": 195,
+    "g2_pass": false
+   },
+   "rows": [
+    {
+     "job": "b-albano-nest-mb-free",
+     "nestbolt": {
+      "median": 2.410976165677873,
+      "q1": 2.4106085304328717,
+      "q3": 2.431424668094924,
+      "seeds": {
+       "0": 2.4518731705119756,
+       "1": 2.410240895187871,
+       "2": 2.410976165677873
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.4921253612392884,
+       "q1": 3.217347373104812,
+       "q3": 3.50396303021314,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.5636123928806858,
+       "q1": 2.5610377150076906,
+       "q3": 2.578993627774116,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.5943748626675456,
+       "q1": 2.5943748626675456,
+       "q3": 2.6967699406723797,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "svgnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.5636123928806858,
+      "q1": 2.5610377150076906,
+      "q3": 2.578993627774116,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 5.953951058541196,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 7.069090116032861,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 5.953951058541196,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-albano-nest-mb-given",
+     "nestbolt": {
+      "median": 2.772689971434849,
+      "q1": 2.767759019995605,
+      "q3": 2.7803055611953416,
+      "seeds": {
+       "0": 2.772689971434849,
+       "1": 2.787921150955834,
+       "2": 2.7628280685563613
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.9505346077785104,
+       "q1": 2.946593419028785,
+       "q3": 3.160408659195781,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.901999560536146,
+       "q1": 2.8994452237969677,
+       "q3": 2.902088557679631,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.844649527576357,
+       "q1": 2.8420951907273126,
+       "q3": 2.844649527576357,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.844649527576357,
+      "q1": 2.8420951907273126,
+      "q3": 2.844649527576357,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 2.529645759307908,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 2.529645759307908,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 4.455879003558727,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-albano-strip-sheet",
+     "nestbolt": {
+      "median": 1.6788890212244898,
+      "q1": 1.6784734335714286,
+      "q3": 1.6833561085714286,
+      "seeds": {
+       "0": 1.6878231959183676,
+       "1": 1.6780578459183675,
+       "2": 1.6788890212244898
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9999417142857145,
+       "q1": 1.9985654081632656,
+       "q3": 2.1696181225510203,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.8229719163265306,
+       "q1": 1.8153331065306122,
+       "q3": 1.834758315,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.7848714557142857,
+       "q1": 1.7847632840816328,
+       "q3": 1.797519877346939,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 1.7848714557142857,
+      "q1": 1.7847632840816328,
+      "q3": 1.797519877346939,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 5.937818891690605,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 5.937818891690605,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 7.903736410398576,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-blaz1-nest-mb-free",
+     "nestbolt": {
+      "median": 9.666801066666666,
+      "q1": 9.666742866666667,
+      "q3": 9.6668746,
+      "seeds": {
+       "0": 9.666948133333333,
+       "1": 9.666684666666667,
+       "2": 9.666801066666666
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 13.5671944,
+       "q1": 13.1195538,
+       "q3": 14.064157333333334,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 15.533333333333333,
+       "q1": 15.533333333333333,
+       "q3": 15.533333333333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 9.8,
+       "q1": 9.733333333333334,
+       "q3": 10.233333333333334,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 9.8,
+      "q1": 9.733333333333334,
+      "q3": 10.233333333333334,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 1.359172789115659,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 1.359172789115659,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 37.76737510729614,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-blaz1-nest-mb-given",
+     "nestbolt": {
+      "median": 9.666746000000002,
+      "q1": 9.666726200000001,
+      "q3": 9.666818200000002,
+      "seeds": {
+       "0": 9.6668904,
+       "1": 9.666746000000002,
+       "2": 9.6667064
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 12.666703466666666,
+       "q1": 12.1667878,
+       "q3": 12.666776599999999,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 15.533333333333333,
+       "q1": 15.533333333333333,
+       "q3": 15.533333333333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 9.766666666666667,
+       "q1": 9.716666666666667,
+       "q3": 10.216666666666667,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 9.766666666666667,
+      "q1": 9.716666666666667,
+      "q3": 10.216666666666667,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 1.023078498293506,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 1.023078498293506,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 37.76772961373389,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-blaz1-strip-sheet",
+     "nestbolt": {
+      "median": 2.8287104666666663,
+      "q1": 2.8147884,
+      "q3": 2.8311488999999996,
+      "seeds": {
+       "0": 2.8287104666666663,
+       "1": 2.8008663333333335,
+       "2": 2.8335873333333335
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.800627733333333,
+       "q1": 3.8004277333333336,
+       "q3": 3.8338563333333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 3.6,
+       "q1": 3.6,
+       "q3": 3.7,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.3333333333333335,
+       "q1": 3.3333333333333335,
+       "q3": 3.350000033333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.3333333333333335,
+      "q1": 3.3333333333333335,
+      "q3": 3.350000033333333,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 15.138686000000012,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 15.138686000000012,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 21.424709259259277,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-dagli-strip-sheet",
+     "nestbolt": {
+      "median": 0.8848551166666666,
+      "q1": 0.8841546166666666,
+      "q3": 0.89107355,
+      "seeds": {
+       "0": 0.8834541166666666,
+       "1": 0.8848551166666666,
+       "2": 0.8972919833333333
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.1669585333333332,
+       "q1": 1.1251813333333334,
+       "q3": 1.3673455416666664,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.88377255,
+       "q1": 0.8836563,
+       "q3": 0.88455075,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.9781609333333333,
+       "q1": 0.977605375,
+       "q3": 1.0507471416666667,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.9504597666666667,
+       "q1": 0.9445512333333332,
+       "q3": 0.952000175,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.88377255,
+      "q1": 0.8836563,
+      "q3": 0.88455075,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -0.12249380982318758,
+      "outcome": "loss"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 6.902412106309397,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 9.53890239193087,
+       "outcome": "win"
+      },
+      "sparrow": {
+       "reduction_percent": -0.12249380982318758,
+       "outcome": "loss"
+      }
+     }
+    },
+    {
+     "job": "b-fu-nest-mb-free",
+     "nestbolt": {
+      "median": 3.3605295714285717,
+      "q1": 3.3605260714285716,
+      "q3": 3.3605435000000003,
+      "seeds": {
+       "0": 3.3605225714285716,
+       "1": 3.3605574285714286,
+       "2": 3.3605295714285717
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.671739952380952,
+       "q1": 4.639712333333334,
+       "q3": 4.7356380952380945,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.6666666666666665,
+       "q1": 3.6666666666666665,
+       "q3": 3.738095238095238,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.6666666666666665,
+       "q1": 3.6666666666666665,
+       "q3": 3.7142857142857144,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "svgnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.6666666666666665,
+      "q1": 3.6666666666666665,
+      "q3": 3.738095238095238,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 8.34919350649349,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 8.34919350649349,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 8.34919350649349,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-fu-nest-mb-given",
+     "nestbolt": {
+      "median": 3.4285797619047615,
+      "q1": 3.4285794047619045,
+      "q3": 3.4285803095238094,
+      "seeds": {
+       "0": 3.4285797619047615,
+       "1": 3.4285790476190474,
+       "2": 3.428580857142857
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.9526284285714284,
+       "q1": 3.9525327619047617,
+       "q3": 4.214469285714285,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.6666666666666665,
+       "q1": 3.6666666666666665,
+       "q3": 3.738095238095238,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.6666666666666665,
+       "q1": 3.6666666666666665,
+       "q3": 3.7142857142857144,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "svgnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.6666666666666665,
+      "q1": 3.6666666666666665,
+      "q3": 3.738095238095238,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 6.4932792207792245,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 6.4932792207792245,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 6.4932792207792245,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-fu-strip-sheet",
+     "nestbolt": {
+      "median": 1.2368534736842105,
+      "q1": 1.23685125,
+      "q3": 1.2368540131578947,
+      "seeds": {
+       "0": 1.2368490263157894,
+       "1": 1.2368545526315788,
+       "2": 1.2368534736842105
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9099341052631578,
+       "q1": 1.9025071842105263,
+       "q3": 1.9305135526315789,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 1.394736842105263,
+       "q1": 1.3829241184210526,
+       "q3": 1.4210526315789473,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.3843985263157894,
+       "q1": 1.3764097894736842,
+       "q3": 1.386748144736842,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 1.3843985263157894,
+      "q1": 1.3764097894736842,
+      "q3": 1.386748144736842,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.657700786798074,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.657700786798074,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 11.319939622641506,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-jakobs1-nest-mb-free",
+     "nestbolt": {
+      "median": 3.4167804166666667,
+      "q1": 3.4167282083333337,
+      "q3": 3.4168470416666668,
+      "seeds": {
+       "0": 3.4166760000000003,
+       "1": 3.416913666666667,
+       "2": 3.4167804166666667
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.744554916666667,
+       "q1": 4.668010125,
+       "q3": 4.836725166666667,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.5,
+       "q1": 4.5,
+       "q3": 4.541666666666666,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.9047620000000003,
+       "q1": 3.827381,
+       "q3": 3.9107143333333334,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.9047620000000003,
+      "q1": 3.827381,
+      "q3": 3.9107143333333334,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 12.49708902446125,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 12.49708902446125,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 24.071546296296297,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-jakobs1-nest-mb-given",
+     "nestbolt": {
+      "median": 3.416791,
+      "q1": 3.416735958333333,
+      "q3": 3.4584077916666667,
+      "seeds": {
+       "0": 3.4166809166666665,
+       "1": 3.416791,
+       "2": 3.5000245833333334
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.50033075,
+       "q1": 4.417040374999999,
+       "q3": 4.667452666666667,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.5,
+       "q1": 4.5,
+       "q3": 4.541666666666666,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 3.8333333333333335,
+       "q1": 3.791666666666667,
+       "q3": 3.875,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "expanded",
+      "role": "best_native_settings",
+      "median": 3.8333333333333335,
+      "q1": 3.791666666666667,
+      "q3": 3.875,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.866321739130436,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.866321739130436,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 24.071311111111115,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-jakobs1-strip-sheet",
+     "nestbolt": {
+      "median": 0.71314405,
+      "q1": 0.7092216625000001,
+      "q3": 0.7152088750000001,
+      "seeds": {
+       "0": 0.71314405,
+       "1": 0.7172737,
+       "2": 0.705299275
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.97662345,
+       "q1": 0.976195775,
+       "q3": 0.9882935749999999,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.701202775,
+       "q1": 0.7008103749999999,
+       "q3": 0.7014037,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.825,
+       "q1": 0.825,
+       "q3": 0.829166675,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.7750000499999999,
+       "q1": 0.775000025,
+       "q3": 0.7875000249999999,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.701202775,
+      "q1": 0.7008103749999999,
+      "q3": 0.7014037,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -1.7029702998537122,
+      "outcome": "loss"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 7.98141883990845,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 13.55829696969696,
+       "outcome": "win"
+      },
+      "sparrow": {
+       "reduction_percent": -1.7029702998537122,
+       "outcome": "loss"
+      }
+     }
+    },
+    {
+     "job": "b-jakobs2-nest-mb-free",
+     "nestbolt": {
+      "median": 3.250098,
+      "q1": 3.2500716250000004,
+      "q3": 3.2501502083333333,
+      "seeds": {
+       "0": 3.250098,
+       "1": 3.2500452500000003,
+       "2": 3.2502024166666663
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.2515517916666665,
+       "q1": 4.1066495624999995,
+       "q3": 4.253674833333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.908333333333333,
+       "q1": 3.8604166666666666,
+       "q3": 3.9124999999999996,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.5833333333333335,
+       "q1": 3.5833333333333335,
+       "q3": 3.625,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.5833333333333335,
+      "q1": 3.5833333333333335,
+      "q3": 3.625,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 9.29959069767442,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 9.29959069767442,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 16.841842217484004,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-jakobs2-nest-mb-given",
+     "nestbolt": {
+      "median": 3.2503496666666667,
+      "q1": 3.2502091875000003,
+      "q3": 3.2503967083333336,
+      "seeds": {
+       "0": 3.2500687083333335,
+       "1": 3.2503496666666667,
+       "2": 3.25044375
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.2501451249999995,
+       "q1": 4.083454416666666,
+       "q3": 4.292060062499999,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.908333333333333,
+       "q1": 3.8604166666666666,
+       "q3": 3.9124999999999996,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.5833333333333335,
+       "q1": 3.5833333333333335,
+       "q3": 3.625,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.5833333333333335,
+      "q1": 3.5833333333333335,
+      "q3": 3.625,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 9.292567441860466,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 9.292567441860466,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 16.835402985074623,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-jakobs2-strip-sheet",
+     "nestbolt": {
+      "median": 0.7649795142857143,
+      "q1": 0.7499762785714286,
+      "q3": 0.7657747857142857,
+      "seeds": {
+       "0": 0.7349730428571428,
+       "1": 0.7649795142857143,
+       "2": 0.7665700571428571
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.987095,
+       "q1": 0.9803551857142857,
+       "q3": 0.9935116714285714,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.7539087571428571,
+       "q1": 0.7495730785714285,
+       "q3": 0.7562067571428571,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.8857142857142857,
+       "q1": 0.8782280214285714,
+       "q3": 0.8996666714285714,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.8523809571428571,
+       "q1": 0.8494047714285714,
+       "q3": 0.8529761928571429,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.7539087571428571,
+      "q1": 0.7495730785714285,
+      "q3": 0.7562067571428571,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -1.468447877540635,
+      "outcome": "loss"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.253800501375409,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 13.63134516129032,
+       "outcome": "win"
+      },
+      "sparrow": {
+       "reduction_percent": -1.468447877540635,
+       "outcome": "loss"
+      }
+     }
+    },
+    {
+     "job": "b-mao-nest-mb-free",
+     "nestbolt": {
+      "median": 1.7352821725919174,
+      "q1": 1.7304149644484959,
+      "q3": 1.7451438258887877,
+      "seeds": {
+       "0": 1.755005479185658,
+       "1": 1.7255477563050745,
+       "2": 1.7352821725919174
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.2883472816773014,
+       "q1": 2.2409448444241873,
+       "q3": 2.641000390154968,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9281879872379213,
+       "q1": 1.9121891130355513,
+       "q3": 2.2229818696444847,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9107763391066543,
+       "q1": 1.8702992673959282,
+       "q3": 1.9144195308416894,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 1.9107763391066543,
+      "q1": 1.8702992673959282,
+      "q3": 1.9144195308416894,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 9.184443146118593,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 9.184443146118593,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 10.004512833955381,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-mao-nest-mb-given",
+     "nestbolt": {
+      "median": 1.8609442424794898,
+      "q1": 1.845922287146764,
+      "q3": 1.861061156791249,
+      "seeds": {
+       "0": 1.8609442424794898,
+       "1": 1.8309003318140384,
+       "2": 1.8611780711030081
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.5218588878760255,
+       "q1": 2.519500295047098,
+       "q3": 2.52651938650866,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 2.426962810088119,
+       "q1": 2.3847991537526587,
+       "q3": 2.446257427833485,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.171376481312671,
+       "q1": 2.171376481312671,
+       "q3": 2.171376481312671,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.171376481312671,
+      "q1": 2.171376481312671,
+      "q3": 2.171376481312671,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 14.296564483627193,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 14.296564483627193,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 23.32209481150137,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-mao-strip-sheet",
+     "nestbolt": {
+      "median": 0.7993166419607842,
+      "q1": 0.7992448143137254,
+      "q3": 0.8084389888235294,
+      "seeds": {
+       "0": 0.7991729866666667,
+       "1": 0.8175613356862745,
+       "2": 0.7993166419607842
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.9999798823529412,
+       "q1": 0.9927424901960784,
+       "q3": 0.9999898431372549,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 0.8019373756862745,
+       "q1": 0.7951676196078432,
+       "q3": 0.8040940231372549,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 0.8936295964705883,
+       "q1": 0.8854789992156863,
+       "q3": 0.9180135347058824,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.8699480925490195,
+       "q1": 0.8621510731372548,
+       "q3": 0.8732968145098039,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "upstream-default",
+      "role": "best_native_settings",
+      "median": 0.8019373756862745,
+      "q1": 0.7951676196078432,
+      "q3": 0.8040940231372549,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 0.32680029699919677,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 8.119041951259332,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 10.553920201646783,
+       "outcome": "win"
+      },
+      "sparrow": {
+       "reduction_percent": 0.32680029699919677,
+       "outcome": "win"
+      }
+     }
+    },
+    {
+     "job": "b-marques-strip-sheet",
+     "nestbolt": {
+      "median": 1.0384734903846156,
+      "q1": 1.0156446923076925,
+      "q3": 1.038474855769231,
+      "seeds": {
+       "0": 0.9928158942307693,
+       "1": 1.0384734903846156,
+       "2": 1.038476221153846
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.5876034615384615,
+       "q1": 1.5634151250000001,
+       "q3": 1.640205721153846,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 0.99042775,
+       "q1": 0.9897122067307693,
+       "q3": 0.9924442596153846,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.1923076923076923,
+       "q1": 1.1923076923076923,
+       "q3": 1.1971153846153846,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.1057692307692308,
+       "q1": 1.1009615384615385,
+       "q3": 1.125,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "upstream-default",
+      "role": "best_native_settings",
+      "median": 0.99042775,
+      "q1": 0.9897122067307693,
+      "q3": 0.9924442596153846,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -4.851009110418758,
+      "outcome": "loss"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 6.0858756521739,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 12.902223387096756,
+       "outcome": "win"
+      },
+      "sparrow": {
+       "reduction_percent": -4.851009110418758,
+       "outcome": "loss"
+      }
+     }
+    },
+    {
+     "job": "b-shapes0-nest-mb-free",
+     "nestbolt": {
+      "median": 5.412996619047619,
+      "q1": 5.4087131190476185,
+      "q3": 5.444715261904761,
+      "seeds": {
+       "0": 5.412996619047619,
+       "1": 5.404429619047619,
+       "2": 5.476433904761905
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.843214095238094,
+       "q1": 7.8267909285714286,
+       "q3": 7.873123047619047,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 8.666666666666666,
+       "q1": 8.571428571428571,
+       "q3": 8.761904761904763,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.523809523809524,
+       "q1": 7.5,
+       "q3": 7.523809523809524,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 7.523809523809524,
+      "q1": 7.5,
+      "q3": 7.523809523809524,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 28.055108227848102,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 28.055108227848102,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 37.5423467032967,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shapes0-nest-mb-given",
+     "nestbolt": {
+      "median": 5.5239334285714285,
+      "q1": 5.482344690476191,
+      "q3": 5.524078190476191,
+      "seeds": {
+       "0": 5.5239334285714285,
+       "1": 5.440755952380953,
+       "2": 5.524222952380953
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.858230904761904,
+       "q1": 7.858050976190476,
+       "q3": 7.905384571428572,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 8.571428571428571,
+       "q1": 8.19047619047619,
+       "q3": 8.714285714285715,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.523809523809524,
+       "q1": 7.523809523809524,
+       "q3": 7.5476190476190474,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 7.523809523809524,
+      "q1": 7.523809523809524,
+      "q3": 7.5476190476190474,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 26.580631645569618,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 26.580631645569618,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 35.554109999999994,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shapes0-strip-sheet",
+     "nestbolt": {
+      "median": 2.45116385,
+      "q1": 2.4307431125,
+      "q3": 2.463207625,
+      "seeds": {
+       "0": 2.45116385,
+       "1": 2.4752514,
+       "2": 2.410322375
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.9510819500000003,
+       "q1": 2.9508966,
+       "q3": 2.9510868125000003,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.825,
+       "q1": 2.825,
+       "q3": 2.825,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.775,
+       "q1": 2.775,
+       "q3": 2.775,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.775,
+      "q1": 2.775,
+      "q3": 2.775,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 11.669771171171172,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 11.669771171171172,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 13.233138053097349,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shapes1-nest-mb-free",
+     "nestbolt": {
+      "median": 5.4041429999999995,
+      "q1": 5.368843238095238,
+      "q3": 5.45176580952381,
+      "seeds": {
+       "0": 5.333543476190476,
+       "1": 5.4041429999999995,
+       "2": 5.499388619047619
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.843214095238094,
+       "q1": 7.8267909285714286,
+       "q3": 7.873123047619047,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 8.666666666666666,
+       "q1": 8.238095238095237,
+       "q3": 8.761904761904763,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.523809523809524,
+       "q1": 7.523809523809524,
+       "q3": 7.5476190476190474,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 7.523809523809524,
+      "q1": 7.523809523809524,
+      "q3": 7.5476190476190474,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 28.172782911392414,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 28.172782911392414,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 37.644503846153846,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shapes1-nest-mb-given",
+     "nestbolt": {
+      "median": 5.857829904761904,
+      "q1": 5.857700904761904,
+      "q3": 5.8581805,
+      "seeds": {
+       "0": 5.857571904761905,
+       "1": 5.857829904761904,
+       "2": 5.858531095238095
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 8.286119333333334,
+       "q1": 8.285984571428571,
+       "q3": 8.286374642857144,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.809523809523809,
+       "q1": 7.809523809523809,
+       "q3": 7.809523809523809,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.571428571428571,
+       "q1": 7.523809523809524,
+       "q3": 7.666666666666666,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 7.571428571428571,
+      "q1": 7.523809523809524,
+      "q3": 7.666666666666666,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 22.632435220125792,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 22.632435220125792,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 24.991202439024395,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shapes1-strip-sheet",
+     "nestbolt": {
+      "median": 2.200064675,
+      "q1": 2.187587075,
+      "q3": 2.22506115,
+      "seeds": {
+       "0": 2.175109475,
+       "1": 2.250057625,
+       "2": 2.200064675
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.9762408249999996,
+       "q1": 2.976125575,
+       "q3": 2.9767226625,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.65,
+       "q1": 2.65,
+       "q3": 2.675,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 2.45,
+       "q1": 2.45,
+       "q3": 2.5,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "expanded",
+      "role": "best_native_settings",
+      "median": 2.45,
+      "q1": 2.45,
+      "q3": 2.5,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.201441836734693,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.201441836734693,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 16.97869150943395,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shirts-nest-mb-free",
+     "nestbolt": {
+      "median": 6.887864512820514,
+      "q1": 6.824054102564103,
+      "q3": 6.888392230769231,
+      "seeds": {
+       "0": 6.888919948717949,
+       "1": 6.760243692307692,
+       "2": 6.887864512820514
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.985671487179487,
+       "q1": 7.985637307692308,
+       "q3": 8.099279615384615,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.615384615384615,
+       "q1": 7.602564102564102,
+       "q3": null,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.461538461538462,
+       "q1": 7.435897435897436,
+       "q3": 7.461538461538462,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 7.461538461538462,
+      "q1": 7.435897435897436,
+      "q3": 7.461538461538462,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 7.688413745704459,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 7.688413745704459,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 9.55329427609426,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shirts-nest-mb-given",
+     "nestbolt": {
+      "median": 7.5984974358974355,
+      "q1": 7.5814067948717945,
+      "q3": 7.6620276153846145,
+      "seeds": {
+       "0": 7.564316153846154,
+       "1": 7.5984974358974355,
+       "2": 7.725557794871794
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 8.771087641025641,
+       "q1": 8.719157615384615,
+       "q3": 8.822060230769232,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 8.871794871794872,
+       "q1": 8.85897435897436,
+       "q3": 8.905982897435898,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 8.205128205128204,
+       "q1": 8.205128205128204,
+       "q3": 8.282051282051281,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 8.205128205128204,
+      "q1": 8.205128205128204,
+      "q3": 8.282051282051281,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 7.393312499999993,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 7.393312499999993,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 14.352196531791916,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-shirts-strip-sheet",
+     "nestbolt": {
+      "median": 2.4751745,
+      "q1": 2.466992175,
+      "q3": 2.4752870375,
+      "seeds": {
+       "0": 2.4751745,
+       "1": 2.45880985,
+       "2": 2.4753995749999995
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.99988175,
+       "q1": 2.9887194625,
+       "q3": 2.99989535,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 2.7104762,
+       "q1": 2.6993353375,
+       "q3": 2.717440475,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.5630952750000002,
+       "q1": 2.561755975,
+       "q3": 2.5641233999999997,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.5630952750000002,
+      "q1": 2.561755975,
+      "q3": 2.5641233999999997,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 3.4302577768982934,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 3.4302577768982934,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 8.68119410161211,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-swim-nest-mb-free",
+     "nestbolt": {
+      "median": 4.292902918186058,
+      "q1": 4.269877993546766,
+      "q3": 4.316174141483229,
+      "seeds": {
+       "0": 4.246853068907474,
+       "1": 4.292902918186058,
+       "2": 4.339445364780401
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 5.936747625916795,
+       "q1": 5.789268589354237,
+       "q3": 5.947961418745298,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.9602457530873005,
+       "q1": 4.9035985857649695,
+       "q3": 5.21237410285747,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.883006106894998,
+       "q1": 4.842022251401885,
+       "q3": 4.893213856433263,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 4.883006106894998,
+      "q1": 4.842022251401885,
+      "q3": 4.893213856433263,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 12.084834132721866,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 12.084834132721866,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 13.453826042507732,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-swim-nest-mb-given",
+     "nestbolt": {
+      "median": 4.381841452635015,
+      "q1": 4.368991927287022,
+      "q3": 4.3923725755815575,
+      "seeds": {
+       "0": 4.4029036985281,
+       "1": 4.381841452635015,
+       "2": 4.356142401939027
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 5.667383271506984,
+       "q1": 5.567258131676511,
+       "q3": 5.747591189481557,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 5.162206487869697,
+       "q1": 5.049277323797185,
+       "q3": 5.251692342873894,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.624515100398043,
+       "q1": 4.618567959878071,
+       "q3": 4.7199122199444545,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 4.624515100398043,
+      "q1": 4.618567959878071,
+      "q3": 4.7199122199444545,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 5.247547958966347,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 5.247547958966347,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 15.11688920364589,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-swim-strip-sheet",
+     "nestbolt": {
+      "median": 1.584315622566064,
+      "q1": 1.5758382137517384,
+      "q3": 1.592866533727399,
+      "seeds": {
+       "0": 1.5673608049374128,
+       "1": 1.584315622566064,
+       "2": 1.6014174448887344
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9955324680111266,
+       "q1": 1.9944326109179416,
+       "q3": 1.9977463278859529,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.7942708703059804,
+       "q1": 1.7678535833623088,
+       "q3": 1.8235363602225312,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 1.6942486256954103,
+       "q1": 1.6929811238699584,
+       "q3": 1.7477585999652296,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "expanded",
+      "role": "best_native_settings",
+      "median": 1.6942486256954103,
+      "q1": 1.6929811238699584,
+      "q3": 1.7477585999652296,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 6.488599221039593,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 6.488599221039593,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 11.701424306359742,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-trousers-nest-mb-free",
+     "nestbolt": {
+      "median": 2.63278020338983,
+      "q1": 2.5910362711864403,
+      "q3": 2.6328081638418075,
+      "seeds": {
+       "0": 2.632836124293785,
+       "1": 2.549292338983051,
+       "2": 2.63278020338983
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.716267604519774,
+       "q1": 3.6142820169491525,
+       "q3": 3.7279545649717516,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.7105826553672316,
+       "q1": 2.699924096045198,
+       "q3": 2.728172683615819,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.6666666666666665,
+       "q1": 2.6666666666666665,
+       "q3": 2.6666666666666665,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.6666666666666665,
+      "q1": 2.6666666666666665,
+      "q3": 2.6666666666666665,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 1.2707423728813616,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 1.2707423728813616,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 2.8703220624298087,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-trousers-nest-mb-given",
+     "nestbolt": {
+      "median": 2.6738318531073446,
+      "q1": 2.6703642655367235,
+      "q3": 2.6745646553672318,
+      "seeds": {
+       "0": 2.6738318531073446,
+       "1": 2.675297457627119,
+       "2": 2.666896677966102
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.5117278418079096,
+       "q1": 3.437636757062147,
+       "q3": 3.528745429378531,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.2937853107344632,
+       "q1": 3.2655367231638417,
+       "q3": 3.3559322033898304,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.264281231638418,
+       "q1": 3.264281231638418,
+       "q3": 3.290224056497175,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.264281231638418,
+      "q1": 3.264281231638418,
+      "q3": 3.290224056497175,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 18.08818960842762,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 18.08818960842762,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 18.821914579759856,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-trousers-strip-sheet",
+     "nestbolt": {
+      "median": 2.0886902531645566,
+      "q1": 2.088660221518987,
+      "q3": 2.088697696202532,
+      "seeds": {
+       "0": 2.0887051392405067,
+       "1": 2.088630189873418,
+       "2": 2.0886902531645566
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.9967448101265823,
+       "q1": 2.9901336075949367,
+       "q3": 2.996827664556962,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 2.3164556962025316,
+       "q1": 2.291139240506329,
+       "q3": 2.3227848101265822,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.2025316455696204,
+       "q1": 2.2025316455696204,
+       "q3": 2.2025316455696204,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.2025316455696204,
+      "q1": 2.2025316455696204,
+      "q3": 2.2025316455696204,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 5.168660919540258,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 5.168660919540258,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 9.832497267759576,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-batch-500",
+     "nestbolt": {
+      "median": 2.0375410840163934,
+      "q1": 2.0375410840163934,
+      "q3": 2.0375410840163934,
+      "seeds": {
+       "0": 2.0375410840163934,
+       "1": 2.0375410840163934,
+       "2": 2.0375410840163934
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.455081967213115,
+       "q1": 2.4207377049180328,
+       "q3": null,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.455081967213115,
+      "q1": 2.4207377049180328,
+      "q3": null,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 17.007207448584406,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 17.007207448584406,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-desktop",
+     "nestbolt": {
+      "median": 0.8351790575,
+      "q1": 0.8351578824999999,
+      "q3": 0.83521312625,
+      "seeds": {
+       "0": 0.835247195,
+       "1": 0.8351367074999999,
+       "2": 0.8351790575
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.887,
+       "q1": 0.886,
+       "q3": 0.9145,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.887,
+      "q1": 0.886,
+      "q3": 0.9145,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 5.8422708568207415,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 5.8422708568207415,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-long",
+     "nestbolt": {
+      "median": 0.309344762295082,
+      "q1": 0.309344762295082,
+      "q3": 0.309344762295082,
+      "seeds": {
+       "0": 0.309344762295082,
+       "1": 0.309344762295082,
+       "2": 0.309344762295082
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.3257377049180328,
+       "q1": 0.3257377049180328,
+       "q3": 0.3257377049180328,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.3257377049180328,
+      "q1": 0.3257377049180328,
+      "q3": 0.3257377049180328,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 5.0325591343734155,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 5.0325591343734155,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-mini",
+     "nestbolt": {
+      "median": 0.666000455,
+      "q1": 0.666000455,
+      "q3": 0.666000455,
+      "seeds": {
+       "0": 0.666000455,
+       "1": 0.666000455,
+       "2": 0.666000455
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.716000005,
+       "q1": 0.691000005,
+       "q3": 0.716000005,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.716000005,
+      "q1": 0.691000005,
+      "q3": 0.716000005,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 6.983177325536472,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 6.983177325536472,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-storage",
+     "nestbolt": {
+      "median": 0.5183611557377049,
+      "q1": 0.5183611557377049,
+      "q3": 0.5183611557377049,
+      "seeds": {
+       "0": 0.5183611557377049,
+       "1": 0.5183611557377049,
+       "2": 0.5183611557377049
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.5388524590163934,
+       "q1": 0.5388524590163934,
+       "q3": 0.5388524590163934,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.5388524590163934,
+      "q1": 0.5388524590163934,
+      "q3": 0.5388524590163934,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 3.802766960754489,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 3.802766960754489,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-tool",
+     "nestbolt": {
+      "median": 1.32900015,
+      "q1": 1.32900015,
+      "q3": 1.32900015,
+      "seeds": {
+       "0": 1.32900015,
+       "1": 1.32900015,
+       "2": 1.32900015
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.4790000025,
+       "q1": 1.4790000025,
+       "q3": 1.5050000025,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 1.4790000025,
+      "q1": 1.4790000025,
+      "q3": 1.5050000025,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.141977839516613,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.141977839516613,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-garment-bruce-1",
+     "nestbolt": {
+      "median": 0.19625359033333334,
+      "q1": 0.19482363183333337,
+      "q3": 0.19641327000000003,
+      "seeds": {
+       "0": 0.1965729496666667,
+       "1": 0.1933936733333334,
+       "2": 0.19625359033333334
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.9677442279999999,
+       "q1": 0.967578414,
+       "q3": 0.9791959475,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.19621319600000006,
+       "q1": 0.19469835416666667,
+       "q3": null,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.21860406799999996,
+       "q1": 0.21857091099999998,
+       "q3": 0.21985227433333326,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.19621319600000006,
+      "q1": 0.19469835416666667,
+      "q3": null,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -0.02058696059019649,
+      "outcome": "loss"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.224181951941825,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": {
+       "reduction_percent": -0.02058696059019649,
+       "outcome": "loss"
+      }
+     }
+    },
+    {
+     "job": "m-garment-bruce-2",
+     "nestbolt": {
+      "median": 0.42048186474999993,
+      "q1": 0.42024794174999996,
+      "q3": 0.4234843657499999,
+      "seeds": {
+       "0": 0.42648686674999997,
+       "1": 0.42001401875,
+       "2": 0.42048186474999993
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 0.9998925002500001,
+       "q1": 0.9986880455,
+       "q3": null,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 0.42682101699999997,
+       "q1": 0.42492442575,
+       "q3": null,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.4776541012500001,
+       "q1": 0.47719716075000007,
+       "q3": 0.47963824450000003,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "upstream-default",
+      "role": "best_native_settings",
+      "median": 0.42682101699999997,
+      "q1": 0.42492442575,
+      "q3": null,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 1.4852015241789362,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 11.969380426208609,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": {
+       "reduction_percent": 1.4852015241789362,
+       "outcome": "win"
+      }
+     }
+    },
+    {
+     "job": "m-garment-bruce-3",
+     "nestbolt": {
+      "median": 0.9917907916666666,
+      "q1": 0.9879136138333333,
+      "q3": 1.0095396718333334,
+      "seeds": {
+       "0": 0.9917907916666666,
+       "1": 0.984036436,
+       "2": 1.0272885520000001
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 1.5660163501666668,
+       "q1": 1.5649477585,
+       "q3": 1.5694323000833335,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-garment-teagan-1",
+     "nestbolt": {
+      "median": 0.7625685076666666,
+      "q1": 0.762430614,
+      "q3": 0.7722688048333333,
+      "seeds": {
+       "0": 0.7622927203333334,
+       "1": 0.7625685076666666,
+       "2": 0.7819691019999999
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.9998439246666667,
+       "q1": 0.9960471745,
+       "q3": 0.9998924954999999,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 0.7626814826666666,
+       "q1": 0.7626389003333333,
+       "q3": 0.7628096154999999,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "upstream-default",
+      "role": "best_native_settings",
+      "median": 0.7626814826666666,
+      "q1": 0.7626389003333333,
+      "q3": 0.7628096154999999,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 0.014812867831137666,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": {
+       "reduction_percent": 0.014812867831137666,
+       "outcome": "win"
+      }
+     }
+    },
+    {
+     "job": "m-garment-teagan-2",
+     "nestbolt": {
+      "median": 1.8640022352499999,
+      "q1": 1.8568855969999998,
+      "q3": 1.864059573875,
+      "seeds": {
+       "0": 1.8641169125000003,
+       "1": 1.8640022352499999,
+       "2": 1.84976895875
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9998064302500003,
+       "q1": 1.9966600053750003,
+       "q3": 1.99987998025,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-garment-teagan-3",
+     "nestbolt": {
+      "median": 4.492297893333333,
+      "q1": 4.4922645275,
+      "q3": 4.492373414166666,
+      "seeds": {
+       "0": 4.492297893333333,
+       "1": 4.492231161666666,
+       "2": 4.492448935
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 4.982122569666667,
+       "q1": 4.974809069666668,
+       "q3": 4.990992044666667,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-batch-1000",
+     "nestbolt": {
+      "median": 1.025297572,
+      "q1": 1.0126460583999999,
+      "q3": 1.0253139781999998,
+      "seeds": {
+       "0": 1.0253303844,
+       "1": 0.9999945447999999,
+       "2": 1.025297572
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-cog-washers",
+     "nestbolt": {
+      "median": 1.8778857624999998,
+      "q1": 1.86875418125,
+      "q3": 1.88581342625,
+      "seeds": {
+       "0": 1.8596226,
+       "1": 1.8778857624999998,
+       "2": 1.89374109
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 2.1825,
+       "q1": 2.1825,
+       "q3": 2.1825,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 2.1825,
+      "q1": 2.1825,
+      "q3": 2.1825,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 13.957124284077905,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 13.957124284077905,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-defective-stock",
+     "nestbolt": {
+      "median": 2.669649428,
+      "q1": 2.6671574358,
+      "q3": 2.6742563616,
+      "seeds": {
+       "0": 2.6646654436,
+       "1": 2.6788632951999998,
+       "2": 2.669649428
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-frame-inserts",
+     "nestbolt": {
+      "median": 0.5574866426229508,
+      "q1": 0.5566257096311475,
+      "q3": 0.5577905334016393,
+      "seeds": {
+       "0": 0.5557647766393442,
+       "1": 0.5574866426229508,
+       "2": 0.5580944241803278
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 0.6225393286885246,
+       "q1": 0.619593168852459,
+       "q3": 0.6231656415983606,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 0.6225393286885246,
+      "q1": 0.619593168852459,
+      "q3": 0.6231656415983606,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.44957050386155,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.44957050386155,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-large-plates",
+     "nestbolt": {
+      "median": 1.1132281186666666,
+      "q1": 1.1053149958333335,
+      "q3": 1.1171685493333334,
+      "seeds": {
+       "0": 1.12110898,
+       "1": 1.1132281186666666,
+       "2": 1.0974018730000001
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 1.2396666666666667,
+       "q1": 1.2271666666666667,
+       "q3": 1.2416398963333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 1.2396666666666667,
+      "q1": 1.2271666666666667,
+      "q3": 1.2416398963333333,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.199398870664167,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.199398870664167,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-mixed-stock",
+     "nestbolt": {
+      "median": 0.9109641002368,
+      "q1": 0.9078996603168,
+      "q3": 0.9118626519184,
+      "seeds": {
+       "0": 0.9109641002368,
+       "1": 0.9048352203968001,
+       "2": 0.9127612036
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 1.0284506139840002,
+       "q1": 1.0251503525536,
+       "q3": 1.033102064064,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 1.0284506139840002,
+      "q1": 1.0251503525536,
+      "q3": 1.033102064064,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 11.423641752916291,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 11.423641752916291,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-mounting-kit",
+     "nestbolt": {
+      "median": 2.512263145,
+      "q1": 2.5102321549999997,
+      "q3": 2.5230731987499997,
+      "seeds": {
+       "0": 2.508201165,
+       "1": 2.5338832525,
+       "2": 2.512263145
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 2.7920882775,
+       "q1": 2.76676174875,
+       "q3": 2.793075435,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 2.7920882775,
+      "q1": 2.76676174875,
+      "q3": 2.793075435,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.022073254451392,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.022073254451392,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-panel-hardware",
+     "nestbolt": {
+      "median": 1.5216033331999999,
+      "q1": 1.5200125187999998,
+      "q3": 1.5225671520000001,
+      "seeds": {
+       "0": 1.5216033331999999,
+       "1": 1.5184217044,
+       "2": 1.5235309708000002
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 1.7398561948000002,
+       "q1": 1.735107906,
+       "q3": 1.756334373,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 1.7398561948000002,
+      "q1": 1.735107906,
+      "q3": 1.756334373,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 12.544304653011217,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 12.544304653011217,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-remnant-kit",
+     "nestbolt": {
+      "median": 0.6598964610655738,
+      "q1": 0.6557471211065573,
+      "q3": 0.6599720649590164,
+      "seeds": {
+       "0": 0.6598964610655738,
+       "1": 0.651597781147541,
+       "2": 0.660047668852459
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-small-brackets",
+     "nestbolt": {
+      "median": 5.700719800000001,
+      "q1": 5.6911076725,
+      "q3": 5.71083485,
+      "seeds": {
+       "0": 5.681495545,
+       "1": 5.7209499,
+       "2": 5.700719800000001
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 6.67,
+       "q1": 6.65,
+       "q3": 6.725,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 6.67,
+      "q1": 6.65,
+      "q3": 6.725,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 14.531937031484244,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 14.531937031484244,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-public-gear-1",
+     "nestbolt": {
+      "median": 0.9404124500000001,
+      "q1": 0.939425795,
+      "q3": 0.9405925500000001,
+      "seeds": {
+       "0": 0.9384391400000001,
+       "1": 0.9404124500000001,
+       "2": 0.94077265
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-public-gear-2",
+     "nestbolt": {
+      "median": 0.82263016,
+      "q1": 0.82254330625,
+      "q3": 0.8227672699999999,
+      "seeds": {
+       "0": 0.82263016,
+       "1": 0.8224564525,
+       "2": 0.82290438
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-public-gear-3",
+     "nestbolt": {
+      "median": 0.5091524098360656,
+      "q1": 0.5082109692622951,
+      "q3": 0.5094649801229508,
+      "seeds": {
+       "0": 0.5097775504098361,
+       "1": 0.5072695286885246,
+       "2": 0.5091524098360656
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-public-gear-4",
+     "nestbolt": {
+      "median": 0.551481862,
+      "q1": 0.5500535222,
+      "q3": 0.5517145498,
+      "seeds": {
+       "0": 0.5486251824,
+       "1": 0.5519472376,
+       "2": 0.551481862
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-sign-1",
+     "nestbolt": {
+      "median": 0.7179308550000001,
+      "q1": 0.7177962775,
+      "q3": 0.7187972725,
+      "seeds": {
+       "0": 0.7176617,
+       "1": 0.7179308550000001,
+       "2": 0.71966369
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 0.9447733,
+       "q1": 0.92717096,
+       "q3": 0.946367425,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 0.9447733,
+      "q1": 0.92717096,
+      "q3": 0.946367425,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 24.01025145397313,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 24.01025145397313,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-sign-2",
+     "nestbolt": {
+      "median": 0.5790430725,
+      "q1": 0.5771667549999999,
+      "q3": 0.58020445625,
+      "seeds": {
+       "0": 0.5790430725,
+       "1": 0.58136584,
+       "2": 0.5752904375
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-sign-3",
+     "nestbolt": {
+      "median": 0.13822948155737713,
+      "q1": 0.13756618545081975,
+      "q3": 0.13889712991803282,
+      "seeds": {
+       "0": 0.1395647782786885,
+       "1": 0.13822948155737713,
+       "2": 0.13690288934426237
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-sign-4",
+     "nestbolt": {
+      "median": 0.32047096188524593,
+      "q1": 0.3203734010245902,
+      "q3": 0.32074566987704917,
+      "seeds": {
+       "0": 0.3210203778688524,
+       "1": 0.32027584016393446,
+       "2": 0.32047096188524593
+      },
+      "all_valid": true
+     },
+     "tools": {},
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    }
+   ]
+  },
+  {
+   "seconds": 300,
+   "records": [
+    {
+     "path": "benchmarks/results/sheets-development-300s-s0-20261012T211642Z-ab17a555.json",
+     "seed": 0,
+     "seconds": 300.0,
+     "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304"
+    },
+    {
+     "path": "benchmarks/results/sheets-development-300s-s1-20261012T212643Z-ee2ef238.json",
+     "seed": 1,
+     "seconds": 300.0,
+     "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304"
+    },
+    {
+     "path": "benchmarks/results/sheets-development-300s-s2-20261012T213643Z-aa28b604.json",
+     "seed": 2,
+     "seconds": 300.0,
+     "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304"
+    }
+   ],
+   "summary": {
+    "best_of_tools": {
+     "jobs": 9,
+     "median_reduction_percent": 9.61470000000001,
+     "wins_or_ties": 8,
+     "worse_than_one_percent": 0,
+     "worst_percent": -0.2497280490484144
+    },
+    "per_tool": {
+     "deepnest": {
+      "jobs": 9,
+      "median_reduction_percent": 10.143724657997277,
+      "wins_or_ties": 9,
+      "worse_than_one_percent": 0,
+      "worst_percent": -6.756756707471112e-05
+     },
+     "svgnest": {
+      "jobs": 7,
+      "median_reduction_percent": 13.518096323999451,
+      "wins_or_ties": 7,
+      "worse_than_one_percent": 0,
+      "worst_percent": 7.615110572704909
+     },
+     "sparrow": {
+      "jobs": 1,
+      "median_reduction_percent": -0.2497280490484144,
+      "wins_or_ties": 0,
+      "worse_than_one_percent": 0,
+      "worst_percent": -0.2497280490484144
+     }
+    },
+    "jobs": 10,
+    "jobs_without_competitor": 1,
+    "nestbolt_valid_runs": 30,
+    "nestbolt_runs": 30,
+    "g2_pass": false
+   },
+   "rows": [
+    {
+     "job": "b-albano-nest-mb-free",
+     "nestbolt": {
+      "median": 2.405608837618106,
+      "q1": 2.3954230302131396,
+      "q3": 2.4078341618325645,
+      "seeds": {
+       "0": 2.3852372228081737,
+       "1": 2.405608837618106,
+       "2": 2.4100594860470226
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.4921253612392884,
+       "q1": 3.217347373104812,
+       "q3": 3.50396303021314,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.6038985948143263,
+       "q1": 2.5550804773676115,
+       "q3": 2.6891533141067896,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 2.5943748626675456,
+       "q1": 2.5943748626675456,
+       "q3": 2.6149197978466274,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 2.5943748626675456,
+      "q1": 2.5943748626675456,
+      "q3": 2.6149197978466274,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 7.275973405606839,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 7.275973405606839,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 7.615110572704909,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-fu-strip-sheet",
+     "nestbolt": {
+      "median": 1.2368514736842104,
+      "q1": 1.236850657894737,
+      "q3": 1.236860657894737,
+      "seeds": {
+       "0": 1.2368698421052633,
+       "1": 1.2368514736842104,
+       "2": 1.2368498421052634
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9099341052631578,
+       "q1": 1.9025071842105263,
+       "q3": 1.9305135526315789,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 1.3711113947368423,
+       "q1": 1.3697662236842105,
+       "q3": 1.3829241184210526,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.368421052631579,
+       "q1": 1.368421052631579,
+       "q3": 1.368421052631579,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 1.368421052631579,
+      "q1": 1.368421052631579,
+      "q3": 1.368421052631579,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 9.61470000000001,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 9.61470000000001,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 9.79205056336071,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-jakobs2-strip-sheet",
+     "nestbolt": {
+      "median": 0.7433325571428572,
+      "q1": 0.7392840928571429,
+      "q3": 0.7468731714285715,
+      "seeds": {
+       "0": 0.7504137857142857,
+       "1": 0.7433325571428572,
+       "2": 0.7352356285714285
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.987095,
+       "q1": 0.9803551857142857,
+       "q3": 0.9935116714285714,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "sparrow": {
+       "settings": "upstream-default",
+       "role": "best_native_settings",
+       "median": 0.7414808714285714,
+       "q1": 0.7404449857142857,
+       "q3": 0.7428974500000001,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.8595238142857142,
+       "q1": 0.8573809571428571,
+       "q3": 0.8602813928571429,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.8386904857142857,
+       "q1": 0.8372023857142857,
+       "q3": 0.8399181642857143,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "sparrow",
+      "settings": "upstream-default",
+      "role": "best_native_settings",
+      "median": 0.7414808714285714,
+      "q1": 0.7404449857142857,
+      "q3": 0.7428974500000001,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -0.2497280490484144,
+      "outcome": "loss"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 11.369859345693579,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 13.518096323999451,
+       "outcome": "win"
+      },
+      "sparrow": {
+       "reduction_percent": -0.2497280490484144,
+       "outcome": "loss"
+      }
+     }
+    },
+    {
+     "job": "b-shapes0-nest-mb-free",
+     "nestbolt": {
+      "median": 5.286471047619048,
+      "q1": 5.277938857142857,
+      "q3": 5.309929214285715,
+      "seeds": {
+       "0": 5.286471047619048,
+       "1": 5.333387380952381,
+       "2": 5.269406666666667
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.843214095238094,
+       "q1": 7.8267909285714286,
+       "q3": 7.873123047619047,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 7.809523809523809,
+       "q1": 7.809523809523809,
+       "q3": 7.833333333333333,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "expanded",
+       "role": "best_native_settings",
+       "median": 6.908609523809524,
+       "q1": 6.882032642857142,
+       "q3": 7.343583904761905,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "expanded",
+      "role": "best_native_settings",
+      "median": 6.908609523809524,
+      "q1": 6.882032642857142,
+      "q3": 7.343583904761905,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 23.47995599693412,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 23.47995599693412,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 32.30738292682926,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-swim-nest-mb-given",
+     "nestbolt": {
+      "median": 4.303852970850364,
+      "q1": 4.299802967535358,
+      "q3": 4.314874780453916,
+      "seeds": {
+       "0": 4.325896590057468,
+       "1": 4.303852970850364,
+       "2": 4.295752964220354
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 5.667383271506984,
+       "q1": 5.567258131676511,
+       "q3": 5.747591189481557,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.946872094586707,
+       "q1": 4.898714185331565,
+       "q3": 4.96409612469936,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 4.635537696571581,
+       "q1": 4.563048656581393,
+       "q3": 4.667561270387166,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 4.635537696571581,
+      "q1": 4.563048656581393,
+      "q3": 4.667561270387166,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 7.155258945829079,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 7.155258945829079,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 12.998499080661297,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "b-trousers-nest-mb-given",
+     "nestbolt": {
+      "median": 2.6667907457627122,
+      "q1": 2.6667872485875708,
+      "q3": 2.6668116949152543,
+      "seeds": {
+       "0": 2.6668326440677963,
+       "1": 2.6667837514124293,
+       "2": 2.6667907457627122
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.5117278418079096,
+       "q1": 3.437636757062147,
+       "q3": 3.528745429378531,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.23728813559322,
+       "q1": 3.2033898305084745,
+       "q3": 3.2742285988700566,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 3.264281231638418,
+       "q1": 3.0754502881355936,
+       "q3": 3.264281231638418,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "svgnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 3.23728813559322,
+      "q1": 3.2033898305084745,
+      "q3": 3.2742285988700566,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 17.622694240837678,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 18.303891223729263,
+       "outcome": "win"
+      },
+      "svgnest": {
+       "reduction_percent": 17.622694240837678,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-box-mini",
+     "nestbolt": {
+      "median": 0.666000455,
+      "q1": 0.666000455,
+      "q3": 0.666000455,
+      "seeds": {
+       "0": 0.666000455,
+       "1": 0.666000455,
+       "2": 0.666000455
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "svgnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.805,
+       "q1": 0.7875000000000001,
+       "q3": 0.8105000025,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      },
+      "deepnest": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 0.666000005,
+       "q1": 0.666000005,
+       "q3": 0.691000005,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "identical",
+      "role": "identical_constraints",
+      "median": 0.666000005,
+      "q1": 0.666000005,
+      "q3": 0.691000005,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": -6.756756707471112e-05,
+      "outcome": "tie"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": -6.756756707471112e-05,
+       "outcome": "tie"
+      },
+      "svgnest": {
+       "reduction_percent": 17.26702422360248,
+       "outcome": "win"
+      },
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-garment-teagan-2",
+     "nestbolt": {
+      "median": 1.84975601925,
+      "q1": 1.8497460095,
+      "q3": 1.849756812625,
+      "seeds": {
+       "0": 1.849757606,
+       "1": 1.84975601925,
+       "2": 1.84973599975
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "lbf": {
+       "settings": "identical",
+       "role": "identical_constraints",
+       "median": 1.9998064302500003,
+       "q1": 1.9966600053750003,
+       "q3": 1.99987998025,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": null,
+     "vs_best": null,
+     "vs_tool": {
+      "deepnest": null,
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-defective-stock",
+     "nestbolt": {
+      "median": 2.64680548,
+      "q1": 2.6448218036,
+      "q3": 2.6483214954,
+      "seeds": {
+       "0": 2.64680548,
+       "1": 2.6428381272,
+       "2": 2.6498375108
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 3.3214,
+       "q1": 3.156807658,
+       "q3": 3.331,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 3.3214,
+      "q1": 3.156807658,
+      "q3": 3.331,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 20.310547359547183,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 20.310547359547183,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    },
+    {
+     "job": "m-mechanical-mixed-stock",
+     "nestbolt": {
+      "median": 0.9171821911615999,
+      "q1": 0.9137071939135999,
+      "q3": 0.9193004166495999,
+      "seeds": {
+       "0": 0.9171821911615999,
+       "1": 0.9214186421376,
+       "2": 0.9102321966656
+      },
+      "all_valid": true
+     },
+     "tools": {
+      "deepnest": {
+       "settings": "clearance-safe",
+       "role": "best_native_settings",
+       "median": 1.0207213549312,
+       "q1": 1.0206910950272001,
+       "q3": 1.0235161598208,
+       "seeds": [
+        0,
+        1,
+        2
+       ]
+      }
+     },
+     "best": {
+      "tool": "deepnest",
+      "settings": "clearance-safe",
+      "role": "best_native_settings",
+      "median": 1.0207213549312,
+      "q1": 1.0206910950272001,
+      "q3": 1.0235161598208,
+      "seeds": [
+       0,
+       1,
+       2
+      ]
+     },
+     "vs_best": {
+      "reduction_percent": 10.143724657997277,
+      "outcome": "win"
+     },
+     "vs_tool": {
+      "deepnest": {
+       "reduction_percent": 10.143724657997277,
+       "outcome": "win"
+      },
+      "svgnest": null,
+      "sparrow": null
+     }
+    }
+   ]
+  }
+ ],
+ "speed": {
+  "records": [
+   {
+    "path": "benchmarks/results/sheets-development-30s-s0-20261012T214643Z-62415807.json",
+    "seed": 0,
+    "seconds": 30.0,
+    "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304"
+   },
+   {
+    "path": "benchmarks/results/sheets-development-30s-s1-20261012T214743Z-954e58db.json",
+    "seed": 1,
+    "seconds": 30.0,
+    "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304"
+   },
+   {
+    "path": "benchmarks/results/sheets-development-30s-s2-20261012T214844Z-c811113d.json",
+    "seed": 2,
+    "seconds": 30.0,
+    "binary_sha256": "c4ba3ea1414fc8ffbb39a414689f43450197583f4019455b36faeb5e7dd4c304"
+   }
+  ],
+  "rows": [
+   {
+    "job": "b-albano-nest-mb-free",
+    "nestbolt_30s": 2.420565633267414,
+    "best_300s": 2.5943748626675456,
+    "tool": "deepnest",
+    "reached": true
+   },
+   {
+    "job": "b-fu-strip-sheet",
+    "nestbolt_30s": 1.2368544736842104,
+    "best_300s": 1.368421052631579,
+    "tool": "deepnest",
+    "reached": true
+   },
+   {
+    "job": "b-jakobs2-strip-sheet",
+    "nestbolt_30s": 0.7587656285714286,
+    "best_300s": 0.7414808714285714,
+    "tool": "sparrow",
+    "reached": false
+   },
+   {
+    "job": "b-shapes0-nest-mb-free",
+    "nestbolt_30s": 5.404476333333334,
+    "best_300s": 6.908609523809524,
+    "tool": "deepnest",
+    "reached": true
+   },
+   {
+    "job": "b-swim-nest-mb-given",
+    "nestbolt_30s": 4.427952129534213,
+    "best_300s": 4.635537696571581,
+    "tool": "deepnest",
+    "reached": true
+   },
+   {
+    "job": "b-trousers-nest-mb-given",
+    "nestbolt_30s": 2.7391947344632768,
+    "best_300s": 3.23728813559322,
+    "tool": "svgnest",
+    "reached": true
+   },
+   {
+    "job": "m-box-mini",
+    "nestbolt_30s": 0.666000455,
+    "best_300s": 0.666000005,
+    "tool": "deepnest",
+    "reached": true
+   },
+   {
+    "job": "m-mechanical-defective-stock",
+    "nestbolt_30s": 2.70035021,
+    "best_300s": 3.3214,
+    "tool": "deepnest",
+    "reached": true
+   },
+   {
+    "job": "m-mechanical-mixed-stock",
+    "nestbolt_30s": 0.9173109595264,
+    "best_300s": 1.0207213549312,
+    "tool": "deepnest",
+    "reached": true
+   }
+  ],
+  "summary": {
+   "jobs": 9,
+   "reached": 8,
+   "g4_pass": true
+  }
+ },
+ "strip": {
+  "records": [
+   {
+    "path": "benchmarks/results/strip-native-20261012T035142Z-32d825e1.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035142Z-6f9b339a.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035142Z-dd407f21.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035143Z-f2e617bd.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035420Z-6ca5cfa9.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035421Z-38094629.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035421Z-9562087f.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035640Z-a1fc861f.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035640Z-b9e4fa16.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035640Z-e1bdbaab.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   },
+   {
+    "path": "benchmarks/results/strip-native-20261012T035640Z-fff6b5e9.json",
+    "binary_sha256": "0f34920337add8ff77f19a7baa689e5e39d44849e4f2377d9ca835bcc36fd4f5"
+   }
+  ],
+  "summary": {
+   "jobs": 13,
+   "compared": 13,
+   "median_regression_percent": -0.039034271339577487,
+   "worst_regression_percent": 1.6493127928228324,
+   "g3_pass": true
+  },
+  "rows": [
+   {
+    "job": "s-albano-strip",
+    "nestbolt": 9899.3017578125,
+    "seeds": {
+     "0": 9950.8076171875,
+     "1": 9899.3017578125,
+     "2": 9891.6025390625
+    },
+    "sparrow": 9889.6826171875,
+    "settings": "identical",
+    "regression_percent": 0.09726440167334705
+   },
+   {
+    "job": "s-blaz1-strip",
+    "nestbolt": 26.41503143310547,
+    "seeds": {
+     "0": 26.21442985534668,
+     "1": 26.41503143310547,
+     "2": 26.543113708496094
+    },
+    "sparrow": 26.42534637451172,
+    "settings": "upstream-default",
+    "regression_percent": -0.039034271339577487
+   },
+   {
+    "job": "s-dagli-strip",
+    "nestbolt": 58.415950775146484,
+    "seeds": {
+     "0": 58.64577102661132,
+     "1": 58.24672317504883,
+     "2": 58.415950775146484
+    },
+    "sparrow": 58.508819580078125,
+    "settings": "identical",
+    "regression_percent": -0.1587261640179527
+   },
+   {
+    "job": "s-fu-strip",
+    "nestbolt": 31.91097068786621,
+    "seeds": {
+     "0": 32.00715637207031,
+     "1": 31.616878509521484,
+     "2": 31.91097068786621
+    },
+    "sparrow": 31.924409866333008,
+    "settings": "identical",
+    "regression_percent": -0.04209687359317815
+   },
+   {
+    "job": "s-jakobs1-strip",
+    "nestbolt": 11.208680152893066,
+    "seeds": {
+     "0": 11.208680152893066,
+     "1": 11.018027305603027,
+     "2": 11.341939926147461
+    },
+    "sparrow": 11.026813507080078,
+    "settings": "upstream-default",
+    "regression_percent": 1.6493127928228324
+   },
+   {
+    "job": "s-jakobs2-strip",
+    "nestbolt": 24.005708694458008,
+    "seeds": {
+     "0": 24.009883880615234,
+     "1": 24.005708694458008,
+     "2": 24.00525665283203
+    },
+    "sparrow": 24.005708694458008,
+    "settings": "identical",
+    "regression_percent": 0.0
+   },
+   {
+    "job": "s-mao-strip",
+    "nestbolt": 1767.8349609375,
+    "seeds": {
+     "0": 1778.4024658203125,
+     "1": 1766.684814453125,
+     "2": 1767.8349609375
+    },
+    "sparrow": 1778.25439453125,
+    "settings": "identical",
+    "regression_percent": -0.5859360519953394
+   },
+   {
+    "job": "s-marques-strip",
+    "nestbolt": 77.37901306152344,
+    "seeds": {
+     "0": 77.86793518066406,
+     "1": 77.0276870727539,
+     "2": 77.37901306152344
+    },
+    "sparrow": 77.3263931274414,
+    "settings": "upstream-default",
+    "regression_percent": 0.0680491252130544
+   },
+   {
+    "job": "s-shapes0-strip",
+    "nestbolt": 61.050785064697266,
+    "seeds": {
+     "0": 61.042274475097656,
+     "1": 61.53068542480469,
+     "2": 61.050785064697266
+    },
+    "sparrow": 61.06184768676758,
+    "settings": "identical",
+    "regression_percent": -0.018117077175683338
+   },
+   {
+    "job": "s-shapes1-strip",
+    "nestbolt": 54.49087905883789,
+    "seeds": {
+     "0": 54.49087905883789,
+     "1": 55.50171661376953,
+     "2": 54.364837646484375
+    },
+    "sparrow": 56.00193786621094,
+    "settings": "upstream-default",
+    "regression_percent": -2.698225927436615
+   },
+   {
+    "job": "s-shirts-strip",
+    "nestbolt": 61.872310638427734,
+    "seeds": {
+     "0": 61.872310638427734,
+     "1": 61.707984924316406,
+     "2": 61.93459701538086
+    },
+    "sparrow": 61.579463958740234,
+    "settings": "upstream-default",
+    "regression_percent": 0.4755589946085159
+   },
+   {
+    "job": "s-swim-strip",
+    "nestbolt": 5937.26904296875,
+    "seeds": {
+     "0": 5929.1611328125,
+     "1": 6005.38671875,
+     "2": 5937.26904296875
+    },
+    "sparrow": 5960.81103515625,
+    "settings": "identical",
+    "regression_percent": -0.39494612475805546
+   },
+   {
+    "job": "s-trousers-strip",
+    "nestbolt": 240.90518188476562,
+    "seeds": {
+     "0": 240.90518188476562,
+     "1": 241.2163543701172,
+     "2": 240.5159912109375
+    },
+    "sparrow": 241.06053161621094,
+    "settings": "identical",
+    "regression_percent": -0.06444428310340422
+   }
+  ]
+ }
+}
