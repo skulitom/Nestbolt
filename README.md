@@ -16,7 +16,9 @@ overlap-minimising separator to fixed sheets.
 
 - **Import** SVG and DXF: lines, arcs, ellipses, Béziers, B-splines, blocks,
   transforms and units, converted to millimetres. Each closed outline is a part;
-  outlines inside it are its holes.
+  outlines inside it are its holes. Outlines that touch themselves, such as the
+  relief loops boxes.py draws at slot corners, nest with a covering outline while
+  exports keep the exact curves.
 - **Nest** on fixed sheets: margins, part and edge spacing, several sheets, stock
   limits, defects, rotations (free, stepped or a list such as 0/180 for fabric
   grain) and mirroring. Small parts can sit inside the holes of larger parts.

@@ -159,10 +159,34 @@ fn map_segments(start: Point, segments: &[Segment], a: &Affine) -> (Point, Vec<S
 
 /// Join open runs whose ends meet within `tolerance`; return closed loops and
 /// the number of runs left open.
+/// Join pieces that follow each other in file order, as exporters write one
+/// outline's entities. A loop that closes on itself and starts where the chain
+/// ends (a boxes.py relief at a slot corner) stays in the outline; once a
+/// chain has closed, only such a loop, or the outline after a leading loop,
+/// may still join it.
+fn sequential(pieces: Vec<Piece>, tolerance: f64) -> Vec<Piece> {
+    let mut chains: Vec<Piece> = vec![];
+    let mut loop_only = false;
+    for piece in pieces.into_iter().filter(|p| !p.segments.is_empty()) {
+        let self_closed = dist(piece.start, piece.end()) <= tolerance;
+        if let Some(current) = chains.last_mut() {
+            let connects = dist(piece.start, current.end()) <= tolerance;
+            let closed = dist(current.start, current.end()) <= tolerance;
+            if connects && (!closed || self_closed || loop_only) {
+                current.segments.extend(piece.segments);
+                loop_only = false;
+                continue;
+            }
+        }
+        loop_only = self_closed;
+        chains.push(piece);
+    }
+    chains
+}
+
 fn chain(pieces: Vec<Piece>, tolerance: f64) -> (Vec<Piece>, usize) {
-    let (mut closed, mut open): (Vec<_>, Vec<_>) = pieces
+    let (mut closed, mut open): (Vec<_>, Vec<_>) = sequential(pieces, tolerance)
         .into_iter()
-        .filter(|p| !p.segments.is_empty())
         .partition(|p| dist(p.start, p.end()) <= tolerance);
     let mut left = 0;
     while let Some(mut current) = open.pop() {
@@ -210,6 +234,116 @@ fn close(mut piece: Piece) -> Contour {
         start,
         segments: piece.segments,
     }
+}
+
+/// Clipper2 coordinates: nanometres, as the validator uses.
+const NM: f64 = 1_000_000.0;
+
+fn to_path(ring: &[Point]) -> clipper2_rust::Path64 {
+    ring.iter()
+        .map(|p| {
+            clipper2_rust::Point64::new((p[0] * NM).round() as i64, (p[1] * NM).round() as i64)
+        })
+        .collect()
+}
+
+fn from_path(path: &clipper2_rust::Path64) -> Vec<Point> {
+    path.iter()
+        .map(|p| [p.x as f64 / NM, p.y as f64 / NM])
+        .collect()
+}
+
+/// A conservative stand-in for an outline that touches or crosses itself, as
+/// boxes.py relief loops at slot corners do: the nonzero union of its rings
+/// (attached loops stay covered), then a morphological closing by `delta` that
+/// fills slits and touching points narrower than `2 delta`. The result never
+/// shrinks the outer outline or grows a hole; concave corners move by at most
+/// `delta`. `None` if it splits into separate pieces.
+fn closed_polygon(
+    polygon: &nestbolt_validator::Polygon,
+    delta: f64,
+) -> Option<nestbolt_validator::Polygon> {
+    use clipper2_rust::{ClipType, Clipper64, ClipperOffset, EndType, FillRule, JoinType, Paths64};
+    let rings: Paths64 = std::iter::once(&polygon.outer)
+        .chain(&polygon.holes)
+        .map(|r| to_path(r))
+        .collect();
+    let mut union = Clipper64::new();
+    union.add_subject(&rings);
+    let mut merged = Paths64::new();
+    let mut open = Paths64::new();
+    if !union.execute(
+        ClipType::Union,
+        FillRule::NonZero,
+        &mut merged,
+        Some(&mut open),
+    ) {
+        return None;
+    }
+    let mut paths = merged;
+    for (distance, join) in [(delta, JoinType::Round), (-delta, JoinType::Miter)] {
+        let mut engine = ClipperOffset::new(2.0, delta * NM / 4.0, false, false);
+        engine.add_paths(&paths, join, EndType::Polygon);
+        let mut next = Paths64::new();
+        engine.execute(distance * NM, &mut next);
+        if engine.error_code() != 0 || next.is_empty() {
+            return None;
+        }
+        paths = next;
+    }
+    let (outers, holes): (Vec<_>, Vec<_>) = paths
+        .iter()
+        .map(from_path)
+        .partition(|r| signed_area(r) > 0.0);
+    let [outer] = <[Vec<Point>; 1]>::try_from(outers).ok()?;
+    Some(nestbolt_validator::Polygon {
+        outer,
+        holes: holes
+            .into_iter()
+            .map(|mut h| {
+                h.reverse();
+                h.reverse();
+                h
+            })
+            .collect(),
+    })
+}
+
+/// The nesting polygon checked as the validator will, repaired if needed.
+fn checked_polygon(
+    polygon: nestbolt_validator::Polygon,
+    source: &str,
+    tolerance: f64,
+    warnings: &mut Vec<String>,
+) -> Option<nestbolt_validator::Polygon> {
+    let identity = nestbolt_validator::RigidTransform {
+        translation: [0.0, 0.0],
+        rotation_radians: 0.0,
+        mirrored: false,
+    };
+    let valid = |p: &nestbolt_validator::Polygon| {
+        nestbolt_validator::Footprint::new(p, nestbolt_validator::Units::Mm, identity).is_ok()
+    };
+    if valid(&polygon) {
+        return Some(polygon);
+    }
+    // Independent of the flattening tolerance, so a re-import repairs alike;
+    // larger closings stay conservative and are tried only when needed.
+    let base = tolerance.max(0.005);
+    for delta in [base, 2.0 * base, 4.0 * base, 8.0 * base] {
+        if let Some(p) = closed_polygon(&polygon, delta).filter(|p| valid(p)) {
+            warnings.push(format!(
+                "{source}: outline touches itself (for example relief loops); the nesting \
+                 outline closes gaps under {:.3} mm, exports keep the exact curves",
+                2.0 * delta
+            ));
+            return Some(p);
+        }
+    }
+    warnings.push(format!(
+        "{source}: outline crosses or touches itself; part skipped"
+    ));
+    None
 }
 
 fn assemble(
@@ -268,18 +402,22 @@ fn assemble(
             holes.push(loops[j].0.clone());
             hole_points.push(h);
         }
+        let polygon = nestbolt_validator::Polygon {
+            outer: outer_points,
+            holes: hole_points,
+        };
+        let Some(polygon) = checked_polygon(polygon, source, options.tolerance, warnings) else {
+            continue;
+        };
         let area =
-            signed_area(&outer_points) + hole_points.iter().map(|h| signed_area(h)).sum::<f64>();
+            signed_area(&polygon.outer) + polygon.holes.iter().map(|h| signed_area(h)).sum::<f64>();
         parts.push(ImportedPart {
             id: format!("part-{}", parts.len() + 1),
             source: source.clone(),
-            bounds: bounds(&outer_points),
+            bounds: bounds(&polygon.outer),
             outer: outer.clone(),
             holes,
-            polygon: nestbolt_validator::Polygon {
-                outer: outer_points,
-                holes: hole_points,
-            },
+            polygon,
             area,
         });
     }
@@ -1263,6 +1401,85 @@ pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// boxes.py draws burn-relief loops that start and end on a slot corner.
+    /// The nesting outline covers them; exports keep the exact curves.
+    #[test]
+    fn self_touching_relief_loops_get_a_covering_nesting_outline() {
+        let svg = r#"<svg xmlns="http://www.w3.org/2000/svg" width="100mm" height="50mm" viewBox="0 0 100 50">
+            <path id="relief" d="M 0 0 H 20 C 19.9 0 20 0.1 20 0 V 20 H 0 Z M 5 5 V 15 H 15 V 5 H 10 C 10 4.9 10.1 5 10 5 Z"/>
+            <path id="outward" d="M 40 0 H 60 C 60.1 0 60 -0.1 60 0 V 20 H 40 Z"/>
+        </svg>"#;
+        let import = import_svg(svg, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 2, "{:?}", import.warnings);
+        let identity = nestbolt_validator::RigidTransform {
+            translation: [0.0, 0.0],
+            rotation_radians: 0.0,
+            mirrored: false,
+        };
+        for part in &import.parts {
+            nestbolt_validator::Footprint::new(
+                &part.polygon,
+                nestbolt_validator::Units::Mm,
+                identity,
+            )
+            .unwrap();
+            // The exact contours keep the loops for cutting.
+            assert!(
+                part.outer
+                    .segments
+                    .iter()
+                    .any(|s| matches!(s, Segment::Cubic { .. }))
+            );
+        }
+        let relief = &import.parts[0];
+        assert_eq!((relief.source.as_str(), relief.holes.len()), ("relief", 1));
+        assert!((relief.area - 300.0).abs() < 0.05, "{}", relief.area);
+        // An outward loop is a cut outside the square: the outline covers it.
+        let outward = &import.parts[1];
+        assert!(outward.bounds[2] > 60.02, "{:?}", outward.bounds);
+        assert_eq!(import.warnings.len(), 2);
+        assert!(
+            import
+                .warnings
+                .iter()
+                .all(|w| w.contains("touches itself") && !w.contains("skipped"))
+        );
+    }
+
+    /// Exported DXF writes each segment as an entity: the relief SPLINE that
+    /// closes on a corner must stay in its outline, not become a tiny part.
+    #[test]
+    fn dxf_relief_loops_in_file_order_stay_in_their_outline() {
+        let line = |a: [f64; 2], b: [f64; 2]| {
+            format!(
+                "0\nLINE\n8\nCUT\n10\n{}\n20\n{}\n11\n{}\n21\n{}\n",
+                a[0], a[1], b[0], b[1]
+            )
+        };
+        let relief = "0\nSPLINE\n8\nCUT\n70\n8\n71\n3\n72\n8\n73\n4\n40\n0\n40\n0\n40\n0\n40\n0\n40\n1\n40\n1\n40\n1\n40\n1\n\
+            10\n20\n20\n0\n10\n19.9\n20\n0\n10\n20\n20\n0.1\n10\n20\n20\n0\n";
+        let dxf = format!(
+            "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n{}{}{}{}{}{}0\nENDSEC\n0\nEOF\n",
+            line([0.0, 0.0], [20.0, 0.0]),
+            relief,
+            line([20.0, 0.0], [20.0, 20.0]),
+            line([20.0, 20.0], [0.0, 20.0]),
+            line([0.0, 20.0], [0.0, 0.0]),
+            line([40.0, 0.0], [50.0, 0.0]),
+        );
+        let import = import_dxf(&dxf, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 1, "{:?}", import.warnings);
+        assert!((import.parts[0].area - 400.0).abs() < 0.05);
+        assert!(
+            import.parts[0]
+                .outer
+                .segments
+                .iter()
+                .any(|s| matches!(s, Segment::Cubic { .. }))
+        );
+        assert!(import.warnings.iter().any(|w| w.contains("touches itself")));
+    }
 
     #[test]
     fn svg_frame_with_hole_and_rounded_rectangle() {

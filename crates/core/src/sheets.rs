@@ -634,6 +634,16 @@ fn optimize_job(
                 if p.complete && (p.accepted || p.pass > 0) {
                     complete.set(true);
                 }
+            })
+            .map_err(|e| {
+                if e.is::<crate::control::Interrupted>() {
+                    anyhow::anyhow!(
+                        "no complete layout within {} s: these parts are many or detailed; allow more time",
+                        options.seconds
+                    )
+                } else {
+                    e
+                }
             })?
         }
         Timing::Work => {

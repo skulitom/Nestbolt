@@ -1,6 +1,6 @@
 # Status — 2026-10-12
 
-**Completion: 20%. M0 and M1 are complete; M2 is in progress.**
+**Completion: 45%. M0, M1 and M2 are complete (M2 on development evidence; final seeds re-check it in M5).**
 Percentages count completed milestones only. Development results do not establish the final acceptance gates. All failures and earlier trials remain in
 [BENCHMARKS.md](../BENCHMARKS.md). Ten held-out maker jobs remain unused for tuning.
 
@@ -8,7 +8,7 @@ Percentages count completed milestones only. Development results do not establis
 | --- | ---: | --- |
 | M0 — Groundwork and reproduction | 5% | Complete: 39 valid runs; all 13 means within the frozen 1% threshold |
 | M1 — Baseline | 15% | Complete: all 1,878 declared slots audited; [target frozen at 10.77231474%](M1_BASELINE.md) |
-| M2 — Sheet optimiser | 25% | Virtual-strip separator plus a bounding-rectangle warm start. Development evidence: G4-style 8/9 (88.9%, needs 80%), all 195 runs valid; strip parity (G3) passes its development thresholds. The complete development matrix at 60 s and 300 s with the committed build is running; M2 counts once it is all valid |
+| M2 — Sheet optimiser | 25% | Complete: [development matrix](../benchmarks/results/sheets-m2-60s-s0-20261012T144634Z-10b9520f.md) 225/225 valid at 60 s and 300 s; G3 strip parity median −0.039%, worst +1.65%; G4 8/9 (88.9%). 60 s medians: 48/52 wins/ties, median 8.44% (G2 is M5) |
 | M3 — Part-in-part and import/export | 15% | SVG/DXF import with exact curves, transformed export (round trip within 0.01 mm in tests), part-in-part groups, defects. G6 opening check passes: Inkscape and LibreCAD read the exports at the placed size within 0.3 mm. Artem's LightBurn check on 5 exports outstanding |
 | M4 — Browser app and MCP | 20% | Browser app with 6 Playwright tests (Chromium, Firefox; also in CI). Real Claude Code MCP run passes (G7). MCPB bundle and release workflows built and tested locally. Outstanding: Pages hosting (the repository must be public first), G5 quality and 2,000-part memory measurements, MCPB/registry validation in a release dry run |
 | M5 — Final gates | 20% | Pending; all G1–G8 requirements remain in scope |
