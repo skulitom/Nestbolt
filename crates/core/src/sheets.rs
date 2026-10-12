@@ -33,6 +33,7 @@ use crate::clock::{Clock, Deadline, Timing, Work};
 use crate::construct::{Options as ConstructOptions, conversion_guard, proxy_points};
 use crate::control::{Control, StopReason};
 
+mod native;
 mod vstrip;
 
 #[derive(Clone, Copy, Debug)]
@@ -483,8 +484,13 @@ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
     }
 
     fn accept(&mut self, sheets: &[SPProblem], stage: &'static str) -> Result<bool> {
-        let started = Instant::now();
         let layout = self.model.to_layout(sheets);
+        self.accept_layout(layout, stage)
+    }
+
+    /// Validate a layout of the whole job independently and keep it if better.
+    fn accept_layout(&mut self, layout: Layout, stage: &'static str) -> Result<bool> {
+        let started = Instant::now();
         let report = validate(self.model.job, &layout)?;
         self.clock.validated(self.model.job, &layout);
         self.check_cost = self.check_cost.max(started.elapsed().as_secs_f64());
@@ -636,14 +642,30 @@ fn optimize_job(
     } else {
         finish
     };
-    let warm = warm_start(
-        job,
-        options.seed,
-        clock,
-        warm_until,
-        finish,
-        options.seconds,
-    )?;
+    // Sparrow's own problem (hole-free parts whose area fits one sheet, one
+    // rectangular stock without defects): the first complete repacking is kept as
+    // the fallback and unmodified Sparrow gets the rest of the budget, as its
+    // own command-line run would. Its layouts count only when they fit the sheet.
+    let quick = model.is_ok() && sparrow_shaped(job) && clock.timing() == Timing::Wall;
+    let mut warm = None;
+    if quick {
+        let first = warm_start(job, options.seed, clock, 0.0, finish, options.seconds)?;
+        if first.best.complete && first.validation.valid {
+            warm = Some(first);
+        }
+    }
+    let delegated = warm.is_some();
+    let warm = match warm {
+        Some(warm) => warm,
+        None => warm_start(
+            job,
+            options.seed,
+            clock,
+            warm_until,
+            finish,
+            options.seconds,
+        )?,
+    };
     ensure!(
         warm.best.complete && warm.validation.valid,
         "no complete valid warm start"
@@ -651,7 +673,10 @@ fn optimize_job(
     let mut warm = warm;
     // Packed bounding rectangles suit near-rectangular parts; keep them if better.
     let operations = (budget * RECT_SHARE * RECT_OPERATIONS_PER_SECOND) as u64;
-    if let Some((layout, used)) = crate::rects::pack(job, options.seed, operations) {
+    if let Some((layout, used)) = (!delegated)
+        .then(|| crate::rects::pack(job, options.seed, operations))
+        .flatten()
+    {
         clock.charge(Work::RectOperation, used as f64);
         let report = validate(job, &layout)?;
         clock.validated(job, &layout);
@@ -788,7 +813,23 @@ fn optimize_job(
         check_every: (options.seconds * 0.1).max(5.0),
     };
     let sheets = model.sheets_of(&warm.best.layout)?;
-    search.window_search(sheets, finish, options.compress_fraction, options.window)?;
+    // Sparrow's own strip problem, where unmodified Sparrow is the state of the
+    // art: it gets the rest of the budget in one run from its own construction
+    // (wall clock only: its steps are not charged to repeatable work budgets).
+    let mut sheets = Some(sheets);
+    if delegated {
+        // Sparrow keeps going only once its strip fits the sheet; otherwise our
+        // search takes over from the best layout at the checkpoint.
+        let now = clock.now();
+        if !search.sparrow_single(finish, now + (finish - now) * 0.35)? {
+            sheets = Some(model.sheets_of(&search.best.0)?);
+        } else {
+            sheets = None;
+        }
+    }
+    if let Some(sheets) = sheets {
+        search.window_search(sheets, finish, options.compress_fraction, options.window)?;
+    }
     let Search {
         best,
         mut history,
@@ -903,6 +944,34 @@ fn single_size_start(
         }
     }
     Ok(best.map(|(sub, start, _)| (sub, Some(start))))
+}
+
+/// Hole-free parts whose net area fits one sheet's usable area, on one
+/// rectangular stock without defects: the shape of Sparrow's strip problem.
+fn sparrow_shaped(job: &Job) -> bool {
+    let [stock] = job.stocks.as_slice() else {
+        return false;
+    };
+    let m = stock.margins;
+    let usable = (stock.width - m.left - m.right) * (stock.height - m.bottom - m.top);
+    let area: f64 = job
+        .parts
+        .iter()
+        .map(|p| {
+            f64::from(p.quantity)
+                * p.geometry
+                    .iter()
+                    .map(crate::curves::polygon_area)
+                    .sum::<f64>()
+        })
+        .sum();
+    stock.outline.is_empty()
+        && stock.defects.is_empty()
+        && job
+            .parts
+            .iter()
+            .all(|p| p.geometry.iter().all(|g| g.holes.is_empty()))
+        && area <= usable
 }
 
 /// The job with only `stock` available.
@@ -1263,6 +1332,71 @@ mod tests {
         // Progress material is the whole job's, as in the final report.
         assert!((result.history[0].material - result.warm_start.normalized_material).abs() < 1e-12);
         assert!(shown >= 1, "the warm start is offered to live previews");
+    }
+
+    #[test]
+    fn sparrow_takes_one_sheet_of_hole_free_parts() {
+        let mut job = job(
+            Rotations::List {
+                degrees: vec![0.0, 90.0, 180.0, 270.0],
+            },
+            false,
+        );
+        job.parts[0].quantity = 3;
+        assert!(sparrow_shaped(&job));
+        let result = optimize(
+            &job,
+            Options {
+                seconds: 4.0,
+                ..Options::default()
+            },
+            |_, _| {},
+        )
+        .unwrap();
+        assert!(validate(&job, &result.layout).unwrap().valid);
+        assert_eq!(result.validation.metrics.as_ref().unwrap().sheets_used, 1);
+        assert!(
+            result.history.iter().any(|p| p.stage == "sparrow"),
+            "{:?}",
+            result.history
+        );
+        // Holes, defects or several sheets' worth of parts keep our own search.
+        let mut holed = job.clone();
+        holed.parts[0].geometry[0].holes =
+            vec![vec![[2.0, 2.0], [2.0, 5.0], [5.0, 5.0], [5.0, 2.0]]];
+        assert!(!sparrow_shaped(&holed));
+        let mut many = job.clone();
+        many.parts[0].quantity = 40;
+        assert!(!sparrow_shaped(&many));
+    }
+
+    #[test]
+    // Stopped mid-search on a strip that can never fit, unmodified Sparrow trips
+    // its own debug assertion on a NaN loss; release builds have no such check and
+    // our search resumes from the last validated layout. check.py runs it in release.
+    #[cfg_attr(debug_assertions, ignore = "upstream Sparrow debug assertion")]
+    fn sparrow_hands_back_when_its_strip_cannot_fit_the_sheet() {
+        // Two fixed 40 x 22 plates pass the area test (1,760 of 2,904 mm2 usable)
+        // but with 1 mm spacing cannot share one 66 x 44 sheet, so Sparrow
+        // never fits and our search finishes the job on two sheets.
+        let mut job = job(Rotations::List { degrees: vec![0.0] }, false);
+        job.clearance = 1.0;
+        job.edge_clearance = 1.0;
+        job.parts[0].quantity = 2;
+        job.parts[0].geometry[0].outer = vec![[0.0, 0.0], [40.0, 0.0], [40.0, 22.0], [0.0, 22.0]];
+        assert!(sparrow_shaped(&job));
+        let result = optimize(
+            &job,
+            Options {
+                seconds: 4.0,
+                ..Options::default()
+            },
+            |_, _| {},
+        )
+        .unwrap();
+        assert!(validate(&job, &result.layout).unwrap().valid);
+        assert_eq!(result.validation.metrics.as_ref().unwrap().sheets_used, 2);
+        assert!(result.elapsed_seconds < 4.5, "{}", result.elapsed_seconds);
     }
 
     #[test]

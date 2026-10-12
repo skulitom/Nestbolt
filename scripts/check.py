@@ -18,6 +18,7 @@ def main():
         ["cargo", "clippy", "--workspace", "--all-targets", "--locked", "--", "-D", "warnings"],
         ["cargo", "test", "--workspace", "--locked"],
         ["cargo", "test", "--release", "--locked", "-p", "nestbolt-cli", "--test", "features"],
+        ["cargo", "test", "--release", "--locked", "-p", "nestbolt-core", "--lib", "sparrow_"],
         ["cargo", "test", "--locked", "-p", "nestbolt-validator", "--example", "stock_adapter"],
         ["cargo", "build", "-p", "nestbolt-wasm", "--target", "wasm32-unknown-unknown", "--locked"],
         ["cargo", "build", "-p", "nestbolt-validator", "--target", "wasm32-unknown-unknown", "--locked"],

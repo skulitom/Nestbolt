@@ -129,10 +129,16 @@ impl Strip<'_, '_> {
                 },
             })
             .collect();
+        let end = self.width(s);
         for i in 0..s.sheets {
             for defect in &self.model.defects {
                 let du = self.start(i);
-                let points = defect.iter().map(|&(u, v)| (u + du, v)).collect();
+                let points: Vec<_> = defect.iter().map(|&(u, v)| (u + du, v)).collect();
+                // A defect beyond the shortened last sheet cannot block a part,
+                // and the quadtree cannot hold a zone outside its container.
+                if points.iter().all(|&(u, _)| u >= end) {
+                    continue;
+                }
                 zones.push(ExtQualityZone {
                     quality: 0,
                     shape: ExtShape::SimplePolygon(jagua_rs::io::ext_repr::ExtSPolygon(points)),

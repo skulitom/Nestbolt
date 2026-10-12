@@ -1,4 +1,5 @@
-"""Bounded native strip development runs; never substitutes for the full G3 gate."""
+"""Bounded native strip runs on set S (G3 strip parity): development seeds 0-2, or
+the final seeds 1000-1004 with --phase final. One process, optionally pinned to a CPU."""
 import argparse
 from datetime import datetime, timezone
 from hashlib import sha256
@@ -8,7 +9,9 @@ from pathlib import Path
 import subprocess
 import uuid
 
-from dataset_selection import development_cases
+import psutil
+
+from dataset_selection import check_seed, phase_cases
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,13 +23,19 @@ def digest(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--seconds', type=int, default=60)
-    parser.add_argument('--seed', type=int, choices=[0, 1, 2], default=0)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--phase', choices=['development', 'final'], default='development')
+    parser.add_argument('--cpu', type=int, help='pin the solver processes to this logical CPU')
     parser.add_argument('--offset', type=int, default=0)
     parser.add_argument('--count', type=int, default=13)
     args = parser.parse_args()
     if not 1 <= args.seconds <= 300 or args.offset < 0 or not 1 <= args.count <= 13:
         parser.error('Use 1..300 seconds, nonnegative offset and 1..13 cases')
-    manifest, cases = development_cases(ROOT, 'S')
+    try:
+        check_seed(args.phase, args.seed)
+    except ValueError as error:
+        parser.error(str(error))
+    manifest, cases = phase_cases(ROOT, 'S', args.phase)
     cases = cases[args.offset:args.offset+args.count]
     if not cases:
         parser.error('No development strip cases selected')
@@ -48,12 +57,16 @@ def main():
         run_dir.mkdir()
         with (run_dir/'stdout.json').open('wb') as out, (run_dir/'stderr.jsonl').open('wb') as err:
             try:
-                process = subprocess.run([str(binary), 'strip', '--job', str(job), '--output',
+                process = subprocess.Popen([str(binary), 'strip', '--job', str(job), '--output',
                     str(run_dir/'layout.json'), '--seconds', str(args.seconds), '--seed', str(args.seed)],
-                    cwd=ROOT, env=env, stdout=out, stderr=err, timeout=args.seconds+90)
-                status = 'valid' if process.returncode == 0 else 'failed'
-                exit_code = process.returncode
+                    cwd=ROOT, env=env, stdout=out, stderr=err)
+                if args.cpu is not None:
+                    psutil.Process(process.pid).cpu_affinity([args.cpu])
+                exit_code = process.wait(timeout=args.seconds+90)
+                status = 'valid' if exit_code == 0 else 'failed'
             except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait()
                 status, exit_code = 'timeout', None
         result = json.loads((run_dir/'stdout.json').read_bytes()) if status == 'valid' else None
         if result is not None:
@@ -74,7 +87,9 @@ def main():
     assert all(digest(ROOT/p) == checksum for p,checksum in sources.items())
     target = ROOT/'benchmarks/results'/f'strip-native-{stamp}.json'
     with target.open('x',encoding='utf-8',newline='\n') as f:
-        json.dump({'scope':'Native strip development slice; explicit seed and timed budget. Not full G3 acceptance.',
+        json.dump({'scope':('Native strip development slice; explicit seed and timed budget. Not full G3 acceptance.'
+                            if args.phase == 'development' else 'Native strip final-phase run (G3), one seed of five.'),
+                   'phase':args.phase, 'seed':args.seed, 'cpu':args.cpu,
                    'manifest_sha256':digest(manifest), 'binary_sha256':binary_hash, 'sources':sources,
                    'rows':rows},f,indent=2)
         f.write('\n')

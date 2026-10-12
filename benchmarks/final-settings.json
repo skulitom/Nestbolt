@@ -17,8 +17,8 @@
    "config": "benchmarks/deepnest/tool.json",
    "config_sha256": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
    "batch_size": {
-    "60": 3,
-    "300": 2
+    "60": 1,
+    "300": 1
    },
    "desktop": true
   },
@@ -68,5 +68,6 @@
  "nestbolt": {
   "settings": "defaults",
   "note": "Nestbolt's identical-constraints and best settings are the same defaults, so each slot runs once."
- }
+ },
+ "execution_note": "batch_size is an execution parameter (runs per audited batch), not a tool setting; single-run Deepnest batches let a 30-minute Anode job keep every lane busy."
 }

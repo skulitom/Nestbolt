@@ -19,12 +19,16 @@ desktop (pass --tools deepnest there, the rest here). The final phase includes
 the held-out jobs, which ends tuning, so it needs --final-acceptance.
 """
 import argparse
-from concurrent.futures import ThreadPoolExecutor
 import glob
 import json
 from pathlib import Path
 import subprocess
+import os
 import sys
+import threading
+import time
+
+import psutil
 
 from comparison_cases import comparison_cases
 from dataset_selection import PHASE_SEEDS, check_seed
@@ -104,7 +108,7 @@ def competitor_tasks(phase, tools):
     return tasks, total, blocked
 
 
-def competitors(phase, tools, parallel, dry_run):
+def competitors(phase, tools, cpus, dry_run, minutes=None):
     tasks, total, blocked = competitor_tasks(phase, tools)
     print(json.dumps({'competitor_runs': total, 'remaining_batches': len(tasks),
                       'interrupted_runs': len(blocked)}), flush=True)
@@ -115,22 +119,66 @@ def competitors(phase, tools, parallel, dry_run):
             print('would run', t)
         return
 
-    def one(task):
+    def one(task, cpu):
         command = [sys.executable, SCRIPTS[task['tool']], 'batch', '--dataset', task['dataset'],
                    '--offset', str(task['offset']), '--count', str(task['count']), '--seconds', str(task['seconds']),
                    '--seed', str(task['seed']), '--settings', task['settings'], '--axis', task['axis'],
                    '--phase', task['phase']]
-        return run(command)
-    desktop = [t for t in tasks if t['tool'] == 'deepnest']
-    other = [t for t in tasks if t['tool'] != 'deepnest']
-    with ThreadPoolExecutor(max(1, min(parallel, 8))) as pool:
-        codes = list(pool.map(one, other))
-    codes += [one(t) for t in desktop]  # one Electron app at a time
+        print(f'+ [cpu {cpu}]', ' '.join(command), flush=True)
+        # Browser runners pin their tool via NESTBENCH_CPU; the batch process and every
+        # descendant (Sparrow included) also inherit this one-CPU affinity.
+        process = subprocess.Popen(command, cwd=ROOT, env={**os.environ, 'NESTBENCH_CPU': str(cpu)})
+        try:
+            psutil.Process(process.pid).cpu_affinity([cpu])
+        except psutil.Error:
+            pass
+        return process.wait()
+    # Each batch runs its native tool on one CPU; Deepnest batches may run side by
+    # side inside one hidden desktop, as the development matrix did. With a time
+    # limit (an Anode job lives 30 minutes), a batch starts only if its worst
+    # case still fits; the rest wait for the next invocation.
+    deadline = time.monotonic() + 60 * minutes if minutes else None
+    queue, lock, codes = list(tasks), threading.Lock(), []
+
+    def lane(cpu):
+        while True:
+            with lock:
+                fits = [t for t in queue if deadline is None
+                        or time.monotonic() + t['count'] * (t['seconds'] + 400) < deadline]
+                if not fits:
+                    return
+                task = fits[0]
+                queue.remove(task)
+            codes.append(one(task, cpu))
+    lanes = [threading.Thread(target=lane, args=(cpu,)) for cpu in cpus[:8]]
+    for t in lanes:
+        t.start()
+    for t in lanes:
+        t.join()
+    print(json.dumps({'ran_batches': len(codes), 'left_for_later': len(queue)}), flush=True)
     if any(codes):
         raise SystemExit('some competitor batches failed; their evidence is retained')
 
 
+def strips(phase, dry_run):
+    """G3: Nestbolt's strip adapter on set S, one process per seed on its own CPU."""
+    done = {json.loads(Path(p).read_text(encoding='utf-8')).get('seed') for p in
+            glob.glob(str(ROOT/'benchmarks/results/strip-native-*.json'))
+            if json.loads(Path(p).read_text(encoding='utf-8')).get('phase') == phase}
+    todo = [seed for seed in PHASE_SEEDS[phase] if seed not in done]
+    commands = [[sys.executable, 'scripts/strip_pilot.py', '--phase', phase, '--seed', str(seed),
+                 '--cpu', str(CPUS[i % len(CPUS)])] for i, seed in enumerate(todo)]
+    if dry_run:
+        for c in commands:
+            print('would run', ' '.join(c))
+        return
+    processes = [subprocess.Popen(c, cwd=ROOT) for c in commands]
+    if any(p.wait() for p in processes):
+        raise SystemExit('a strip run failed; evidence retained')
+
+
 def nestbolt(phase, binary, final, dry_run):
+    strips(phase, dry_run)
     slots = [(60, False), (300, True), (30, True)]
     for seconds, long_subset in slots:
         for seed in PHASE_SEEDS[phase]:
@@ -172,9 +220,11 @@ def main():
     parser.add_argument('--final-acceptance', action='store_true')
     parser.add_argument('--only', choices=['datasets', 'competitors', 'nestbolt', 'report'], action='append')
     parser.add_argument('--tools', choices=['deepnest', 'svgnest', 'sparrow'], action='append')
-    parser.add_argument('--parallel', type=int, default=8)
+    parser.add_argument('--cpus', type=int, nargs='+', default=CPUS,
+                        help='one competitor lane per logical CPU, at most eight (default: physical cores of CCD0)')
     parser.add_argument('--binary', type=Path, default=ROOT/'target/release/nestbolt.exe')
     parser.add_argument('--dry-run', action='store_true', help='list what would run')
+    parser.add_argument('--minutes', type=float, help='start no competitor batch that could end after this')
     args = parser.parse_args()
     if args.phase == 'final' and not args.final_acceptance and not args.dry_run:
         parser.error('the final phase includes held-out jobs and ends tuning: pass --final-acceptance')
@@ -182,7 +232,7 @@ def main():
     if 'datasets' in stages and not args.dry_run:
         datasets()
     if 'competitors' in stages:
-        competitors(args.phase, args.tools, args.parallel, args.dry_run)
+        competitors(args.phase, args.tools, args.cpus, args.dry_run, args.minutes)
     if 'nestbolt' in stages:
         nestbolt(args.phase, args.binary.resolve(), args.final_acceptance, args.dry_run)
     if 'report' in stages and not args.dry_run:

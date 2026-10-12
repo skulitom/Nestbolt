@@ -11,7 +11,7 @@ Percentages count completed milestones only. Development results do not establis
 | M2 — Sheet optimiser | 25% | Complete: [development matrix](../benchmarks/results/sheets-m2-60s-s0-20261012T144634Z-10b9520f.md) 225/225 valid at 60 s and 300 s; G3 strip parity median −0.039%, worst +1.65%; G4 8/9 (88.9%). 60 s medians: 48/52 wins/ties, median 8.44% (G2 is M5) |
 | M3 — Part-in-part and import/export | 15% | Complete: [fidelity](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md) on 196 real drawings within 0.0005 mm, curves kept, mm and inch correct; Inkscape and LibreCAD open the exports; [LightBurn 2.1.01](../benchmarks/results/g6-lightburn-20261012T170036Z.md) imports all five at the exact placed sizes |
 | M4 — Browser app and MCP | 20% | Complete: [Pages app](https://skulitom.github.io/Nestbolt/) with five examples and a live view; G5 [quality](../benchmarks/results/g5-browser-60s-s0-20261012T182218Z-032f0985.md) (WebAssembly vs native at 60 s on 65 jobs: median +0.02% Chrome 154, +0.07% Firefox 157, total +0.9%), [scale and responsiveness](../benchmarks/results/g5-scale-20261012T192645Z-39d0cca0.md) (2,000 parts imported, nested and exported, peak 1.05/1.16 GB, longest task 106 ms), hosting re-checked live; G7 real Claude Code run, CLI and UI end-to-end tests for every v1 item, MCPB and `mcp-publisher` validation in a [release dry run](https://github.com/skulitom/Nestbolt/actions/runs/38300373491) |
-| M5 — Final gates | 20% | Pending; all G1–G8 requirements remain in scope |
+| M5 — Final gates | 20% | In progress. G2 median condition 5% (Artem, 2026-10-12); development at 60 s: median 8.77%, 48/52 wins or ties, Sparrow's own one-sheet jobs delegated to Sparrow. G1 search fuzzing added. G8: `scripts/reproduce.py`, sealed final settings, results page generator. Next: the final acceptance run (seeds 1000-1004, held-out jobs) |
 
 | Evidence | Current result | Next step |
 | --- | --- | --- |
@@ -43,14 +43,18 @@ Percentages count completed milestones only. Development results do not establis
 
 The [complete baseline audit](../benchmarks/results/baseline-gap-20261012T033547Z-e9539412.md)
 measures competitor reductions over LBF of **17.09% at 60 s** and **21.54% at 300 s**.
-The frozen G2 target is **10.77231474%**, applied separately to both budgets.
+The target frozen from it (10.77231474%) was waived by Artem on 2026-10-12
+([plan decision 4](PLAN.md)); the G2 median condition is the base 5%.
 Missing finite comparisons remain explicit and never earn free wins.
 
-Next: M5. G2 is the open gate: the development median is 8.4% against the frozen
-10.77% target, and several jobs would need packing densities near or above 90% to
-clear it (analysis in BENCHMARKS.md). The final run (seeds 1000-1004, held-out jobs
-included) waits until development results meet G2; G8's one-command run and the
-results page are being built meanwhile.
+Next: M5. On 2026-10-12 Artem waived the raised G2 median target (10.77%) after the
+feasibility analysis; G2's median condition is the plan's base 5% (development
+median 8.77%). The other G2 conditions remain: wins or ties on at least 90% of jobs
+and never more than 1% worse, at 60 s and 300 s. The development matrix is at 47/52
+with three single-sheet strip jobs more than 1% behind Sparrow; delegating Sparrow's
+own problem (one sheet, hole-free parts, no defects) to Sparrow is being tested. Then
+the final acceptance run (seeds 1000-1004, held-out jobs included) and the G8
+results page from it.
 
 [Ties, failure coverage and the baseline-gap formula](../benchmarks/STATISTICS.md)
 are now explicit. No competitor result means no free win. The [verified 10.6417% single-seed gap](../benchmarks/results/pilot-gap-feedback-20261011.md)

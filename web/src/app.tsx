@@ -439,7 +439,7 @@ export function App() {
       </main>
       <footer>
         Built on <a href="https://github.com/JeroenGar/jagua-rs">jagua-rs</a> and <a href="https://github.com/JeroenGar/sparrow">sparrow</a> by Jeroen Gardeyn et al. MIT licensed;{' '}
-        <a href="./THIRD_PARTY_NOTICES.txt">third-party notices</a>.
+        <a href="./THIRD_PARTY_NOTICES.txt">third-party notices</a>. <a href="./results/">Benchmark results</a> against Deepnest, SVGnest and Sparrow.
       </footer>
     </div>
   );

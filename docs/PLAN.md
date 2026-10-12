@@ -262,9 +262,14 @@ Report progress as the sum of finished milestone weights. A milestone only count
 - Ask Artem only about anything that needs an account or costs money. The name, the licence and LightBurn are settled
   (section 9).
 
-## 9. Decisions (Artem, 2026-10-11)
+## 9. Decisions (Artem, 2026-10-11 and later)
 
 1. **Name:** Nestbolt, next to Cutbolt and Inkbolt.
 2. **Licence:** MIT. Reputation and trust come before sales, and an open tool is its own marketing.
 3. **LightBurn:** not provided now. Its True Nest comparison waits until Nestbolt has traction. Until then, claims
    name only the tools actually measured.
+4. **G2 median target (2026-10-12):** the raise to half the measured gap (10.77%, frozen in M1) is waived after a
+   feasibility analysis showed that about ten of the 52 development jobs cannot reach it by any tool (packing densities
+   at or above 95-100%, near-optimal rectangle stacking, or a sheet fewer than the published bin counts). G2's median
+   condition is the base **at least 5%**; the development median is 8.77%. The 90% wins/ties and never-more-than-1%-worse
+   conditions are unchanged, at both budgets, on the final run with the held-out jobs.

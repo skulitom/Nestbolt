@@ -2,7 +2,7 @@
 
 **Currently 8.4% less material at the median than the best of Deepnest, SVGnest and
 Sparrow**, at equal 60-second budgets on the 52 benchmark sheet jobs where a
-competitor produced a valid layout ([details](#how-it-compares)).
+competitor produced a valid layout ([details](#how-it-compares), [every number](https://skulitom.github.io/Nestbolt/results/)).
 
 Free, open-source nesting for people who cut **fixed sheets**: laser cutters, CNC
 routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use
@@ -43,7 +43,9 @@ are single-sheet strip jobs where Sparrow, which Nestbolt builds on, is
 strongest. These are development results; the final acceptance run uses fresh
 seeds and ten held-out jobs. Every run, including failures, is in
 [BENCHMARKS.md](BENCHMARKS.md); [status](docs/STATUS.md) lists the evidence per
-gate.
+gate. The [results page](https://skulitom.github.io/Nestbolt/results/) shows every
+per-job number, tool revision, seed and the hardware; `python scripts/reproduce.py
+--phase development` rebuilds the datasets, reruns what is missing and regenerates it.
 
 ## What works today
 
@@ -77,7 +79,9 @@ The engine builds on [jagua-rs](https://github.com/JeroenGar/jagua-rs) and
 the last sheets end to end as one walled strip and shrinks the last sheet with a
 port of Sparrow's separator; parts move between sheets and an emptied sheet
 disappears. Near-rectangular parts such as box panels also get a bounding-
-rectangle packing start.
+rectangle packing start. One sheet of hole-free parts without defects is exactly
+Sparrow's own strip-packing problem, where it is the state of the art, so there
+Nestbolt runs unmodified Sparrow for the rest of the budget.
 
 ## Quick start
 
@@ -121,7 +125,7 @@ pattern on a fabric roll, interlocking gears), or drop your own SVG and DXF file
 The best layout so far is drawn while the search runs, and each sheet shows the
 box around its parts and the clear offcut left above them.
 
-![Two finger-jointed boxes nested in the browser app in ten seconds](docs/images/browser-example.png)
+![The mechanical-kit example in the browser app: 138 parts on one plywood sheet in 30 seconds, inserts inside the frames, the clear offcut shaded above the dashed box around the parts](docs/images/browser-example.png)
 
 To build it locally you need the `wasm32-unknown-unknown` target, `wasm-bindgen-cli`
 0.2.129 and Node.js 24; then open the printed address:

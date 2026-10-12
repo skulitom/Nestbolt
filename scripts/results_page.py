@@ -24,7 +24,10 @@ import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT/'benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json'
-TARGET = 10.77231473513936
+# G2 median target: the plan's base 5%. The M1 raise to 10.77231473513936% (half the
+# measured gap) was waived by Artem on 2026-10-12 (docs/PLAN.md, decision 4).
+TARGET = 5.0
+RAISED_TARGET = 10.77231473513936
 TIE = 1e-6
 TOOLS = ['deepnest', 'svgnest', 'sparrow']
 NAMES = {'deepnest': 'Deepnest', 'svgnest': 'SVGnest', 'sparrow': 'Sparrow', 'nestbolt': 'Nestbolt', 'lbf': 'jagua-rs LBF'}
@@ -187,6 +190,107 @@ def budget_table(seconds, paths, phase='development'):
     return {'seconds': seconds, 'records': records, 'summary': summary, 'rows': rows}
 
 
+def strip_parity(phase):
+    """G3: Nestbolt's strip adapter against Sparrow on set S, per-job medians over the
+    phase's seeds (failures ranked last); the reference is Sparrow's better setting."""
+    from comparator_batch_report import audit_batch
+    from dataset_selection import PHASE_SEEDS
+    from reproduce import BATCHES
+    seeds = PHASE_SEEDS[phase]
+    ours, records = {}, []
+    for path in sorted(ROOT.glob('benchmarks/results/strip-native-*.json')):
+        record = json.loads(path.read_text(encoding='utf-8'))
+        if record.get('phase', 'development') != phase:
+            continue
+        records.append({'path': path.relative_to(ROOT).as_posix(), 'binary_sha256': record['binary_sha256']})
+        for row in record['rows']:
+            if row['seed'] in seeds and row['seconds'] == 60:
+                ours.setdefault(row['job'], {})[row['seed']] = (
+                    row['result']['strip_length'] if row['status'] == 'valid' else None)
+    theirs = {}
+    for path in sorted(ROOT.glob(f"{BATCHES['sparrow']}/*/batch.json")):
+        batch = json.loads(path.read_text(encoding='utf-8'))
+        if (batch.get('phase', 'development') != phase or batch['dataset'] != 'S' or batch['seconds'] != 60
+                or not batch.get('complete') or batch['seed'] not in seeds):
+            continue
+        for row in audit_batch(path, 'sparrow')[1]:
+            run = row['run']
+            theirs.setdefault((row['job'], batch['settings']), {})[batch['seed']] = (
+                run['score'] if run['status'] == 'valid' else None)
+    rows = []
+    for job in sorted(ours):
+        mine = ours[job]
+        if sorted(mine) != seeds:
+            continue
+        median = ranked(list(mine.values()))[1]
+        refs = [(settings, ranked(list(v.values()))[1]) for (j, settings), v in theirs.items()
+                if j == job and sorted(v) == seeds]
+        refs = [(k, v) for k, v in refs if v is not None]
+        best = min(refs, key=lambda kv: kv[1], default=None)
+        rows.append({'job': job, 'nestbolt': median, 'seeds': mine,
+                     'sparrow': best[1] if best else None, 'settings': best[0] if best else None,
+                     'regression_percent': 100 * (median / best[1] - 1) if best and median else None})
+    deltas = [r['regression_percent'] for r in rows if r['regression_percent'] is not None]
+    summary = {'jobs': len(rows), 'compared': len(deltas),
+               'median_regression_percent': statistics.median(deltas) if deltas else None,
+               'worst_regression_percent': max(deltas) if deltas else None}
+    summary['g3_pass'] = (bool(deltas) and len(deltas) == len(rows) == 13
+                          and summary['median_regression_percent'] <= 1.0
+                          and summary['worst_regression_percent'] <= 2.0)
+    return {'records': records, 'summary': summary, 'rows': rows}
+
+
+def speed(paths, phase):
+    """G4: Nestbolt at 30 s against the best competitor's 300 s median, per job."""
+    runs, records = nestbolt_runs(paths)
+    rivals = competitors(300, phase)
+    rows = []
+    for job, seeds in sorted(runs.items()):
+        best = min(((t, v) for t, v in rivals.get(job, {}).items() if t in TOOLS),
+                   key=lambda tv: tv[1]['median'], default=None)
+        if not best:
+            continue
+        median = ranked(list(seeds.values()))[1]
+        rows.append({'job': job, 'nestbolt_30s': median, 'best_300s': best[1]['median'], 'tool': best[0],
+                     'reached': median is not None and median <= best[1]['median'] * (1 + TIE)})
+    reached = sum(r['reached'] for r in rows)
+    return {'records': records, 'rows': rows,
+            'summary': {'jobs': len(rows), 'reached': reached,
+                        'g4_pass': bool(rows) and reached >= 0.8 * len(rows)}}
+
+
+def gate_sections(data):
+    e = html.escape
+    out = []
+    if data.get('strip'):
+        g = data['strip']
+        sm = g['summary']
+        verdict = 'pass' if sm['g3_pass'] else 'not met'
+        out.append(f"<h2>Strip parity (G3)</h2><p>Nestbolt's strip adapter against the Sparrow CLI on the {sm['jobs']} "
+                   f"strip jobs at 60 s: median regression {fmt(sm['median_regression_percent'], 3)}%, worst "
+                   f"{fmt(sm['worst_regression_percent'], 3)}% (pass: median at most 1%, never more than 2%): "
+                   f"<strong>{verdict}</strong>.</p>")
+        out.append('<div class="table"><table><tr><th>Job</th><th>Nestbolt length</th><th>Sparrow length</th>'
+                   '<th>Regression</th></tr>')
+        for r in g['rows']:
+            out.append(f"<tr><td>{e(r['job'])}</td><td>{fmt(r['nestbolt'])}</td><td>{fmt(r['sparrow'])}</td>"
+                       f"<td>{fmt(r['regression_percent'], 3)}%</td></tr>")
+        out.append('</table></div>')
+    if data.get('speed'):
+        g = data['speed']
+        sm = g['summary']
+        verdict = 'pass' if sm['g4_pass'] else 'not met'
+        out.append(f"<h2>Speed (G4)</h2><p>Nestbolt at 30 s reaches the best competitor's 300 s median on "
+                   f"{sm['reached']} of {sm['jobs']} jobs (pass: at least 80%): <strong>{verdict}</strong>.</p>")
+        out.append('<div class="table"><table><tr><th>Job</th><th>Nestbolt 30 s</th><th>Best 300 s</th>'
+                   '<th>Tool</th><th>Reached</th></tr>')
+        for r in g['rows']:
+            out.append(f"<tr><td>{e(r['job'])}</td><td>{fmt(r['nestbolt_30s'])}</td><td>{fmt(r['best_300s'])}</td>"
+                       f"<td>{NAMES[r['tool']]}</td><td>{'yes' if r['reached'] else 'no'}</td></tr>")
+        out.append('</table></div>')
+    return '\n'.join(out)
+
+
 def chart(rows):
     """Horizontal bars of reduction vs the best competitor, sorted, with 0 and target lines."""
     data = sorted(((r['vs_best']['reduction_percent'], r['job']) for r in rows if r['vs_best']), reverse=True)
@@ -244,7 +348,8 @@ th{{color:var(--muted);font-weight:600}}.win{{fill:var(--good);color:var(--good)
 Each tool runs single-threaded at equal wall-clock budgets on the same PC, at most eight runs at once. A competitor's value per job is the
 better of its two settings (identical constraints, its own best settings); jobs where no competitor produced a valid layout earn no wins.
 G2 passes when the median reduction against the best competitor is at least {TARGET:.2f}%, Nestbolt wins or ties at least 90% of jobs and is
-never more than 1% worse (<a href="{REPO}docs/PLAN.md">plan</a>, section 6).</p>
+never more than 1% worse (<a href="{REPO}docs/PLAN.md">plan</a>, section 6; the earlier raise to {RAISED_TARGET:.2f}% was
+waived on 2026-10-12, decision 4).</p>
 <dl><dt>Generated</dt><dd>{e(data['generated_at'])} from commit <code>{e(data['commit'][:10])}</code></dd>
 <dt>Hardware</dt><dd>{e(hw['cpu'])}, {hw['physical_cores']} cores / {hw['logical_cpus']} threads, {hw['memory_gib']} GiB, {e(hw['os'])}; runs pinned one per physical core of the first CCD</dd>
 <dt>Seeds</dt><dd>{e(', '.join(map(str, data['seeds'])))} for every tool</dd></dl>
@@ -286,6 +391,7 @@ never more than 1% worse (<a href="{REPO}docs/PLAN.md">plan</a>, section 6).</p>
                    + ', '.join(f'<a href="{REPO}{e(x["path"].replace(".json", ".md"))}">seed {x["seed"]}</a>' for x in b['records'])
                    + f'; competitor medians: <a href="{REPO}{e(BASELINE.relative_to(ROOT).as_posix().replace(".json", ".md"))}">M1 audit</a>. '
                    'Hover a value for its settings or per-seed results.</p>')
+    out.append(gate_sections(data))
     out.append(f'''<h2>All gates</h2><p>Gate-by-gate evidence, including every failed and superseded run, is in
 <a href="{REPO}docs/STATUS.md">STATUS.md</a> and <a href="{REPO}BENCHMARKS.md">BENCHMARKS.md</a>. All numbers on this page are in
 <a href="results.json">results.json</a>; rebuild it with <code>python scripts/results_page.py</code>.</p>
@@ -299,6 +405,8 @@ def main():
     parser.add_argument('--nestbolt-300', type=Path, nargs='*', default=[])
     parser.add_argument('--out', type=Path, default=ROOT/'web/public/results')
     parser.add_argument('--phase', choices=['development', 'final'], default='development')
+    parser.add_argument('--nestbolt-30', type=Path, nargs='*', default=[], help='30 s records on the long subset (G4)')
+    parser.add_argument('--strip', action='store_true', help='include G3 strip parity from the phase records')
     args = parser.parse_args()
     commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     budgets = [budget_table(60, [p.resolve() for p in args.nestbolt_60], args.phase)]
@@ -309,6 +417,10 @@ def main():
             'seeds': sorted({r['seed'] for b in budgets for r in b['records']}),
             'baseline': {'path': BASELINE.relative_to(ROOT).as_posix(), 'sha256': sha256(BASELINE.read_bytes()).hexdigest()},
             'budgets': budgets}
+    if args.nestbolt_30:
+        data['speed'] = speed([p.resolve() for p in args.nestbolt_30], args.phase)
+    if args.strip:
+        data['strip'] = strip_parity(args.phase)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out/'results.json').write_text(json.dumps(data, indent=1) + '\n', encoding='utf-8', newline='\n')
     (args.out/'index.html').write_text(page(data), encoding='utf-8', newline='\n')
