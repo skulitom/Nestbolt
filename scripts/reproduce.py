@@ -226,9 +226,11 @@ def main():
     parser.add_argument('--dry-run', action='store_true', help='list what would run')
     parser.add_argument('--minutes', type=float, help='start no competitor batch that could end after this')
     args = parser.parse_args()
-    if args.phase == 'final' and not args.final_acceptance and not args.dry_run:
-        parser.error('the final phase includes held-out jobs and ends tuning: pass --final-acceptance')
     stages = args.only or ['datasets', 'competitors', 'nestbolt', 'report']
+    # Competitor runs on held-out jobs inform nothing about Nestbolt; Nestbolt's own
+    # runs on them end tuning, so that stage needs an explicit confirmation.
+    if args.phase == 'final' and 'nestbolt' in stages and not args.final_acceptance and not args.dry_run:
+        parser.error('Nestbolt on the held-out jobs ends tuning: pass --final-acceptance')
     if 'datasets' in stages and not args.dry_run:
         datasets()
     if 'competitors' in stages:
