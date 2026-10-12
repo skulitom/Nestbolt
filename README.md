@@ -20,13 +20,17 @@ passed the optimisation-quality gates.
 - `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
   retaining independently valid improvements and recording failed sheet-removal
   attempts. Repair can displace blocking parts and separate overlapping groups.
-  At six or more passes, bounded finishing trials compress the last sheet after
-  all repacking passes. Successful compression can repeat, up to 15 total trials.
-  The latest [35 sheet](benchmarks/results/repack-sheet-20261012T035142Z-a7b22154.md)
+  At six or more passes, bounded finishing trials compress the last sheet at
+  each completed block of 64 passes and at the requested final pass. Successful
+  compression can repeat, up to 15 trials per block.
+  The full [35 sheet](benchmarks/results/repack-sheet-20261012T035142Z-a7b22154.md)
   and [30 maker](benchmarks/results/repack-maker-20261012T035142Z-54130739.md)
   diagnostics produce valid layouts on every development job. This
   experimental command supports a deterministic collision-query allowance and a
   cooperative deadline, keeping its last independently checked layout.
+  Longer search supports up to 1,024 passes; a [four-job pilot](benchmarks/results/progressive-pilot-20261012T0433.md)
+  improves two difficult sheet jobs while retaining the original finished
+  64-pass result on the other two.
 - `nestbolt compact`: refines an existing valid layout without opening stock.
   Translation sweeps preserve its angles; `--relocate` also tries other positions
   and permitted orientations. The current [sheet](benchmarks/results/compact-b-20261012T012839Z-c2a42aba.md)
@@ -79,6 +83,9 @@ in `polishing`; `completed_passes` counts only the requested repacking passes.
 The first three finishing trials try 3%, 1% and 0.3% height reductions. If any
 succeeds, up to twelve further trials repeat reductions, decreasing the step after
 failure. If all three fail, finishing stops.
+For more than 64 requested passes, finishing repeats after each block and at the
+last pass, retaining the best independently checked layout throughout. The
+default remains four passes; longer searches need an explicit `--passes` value.
 It reports each completed trial on stderr and the final result
 on stdout. It tests placements in stable cost order and stops sheet-removal
 trials after an unplaced copy that the trial cannot revisit. Existing output

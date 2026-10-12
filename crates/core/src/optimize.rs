@@ -11,7 +11,8 @@ use crate::control::{Control, Interrupted, StopReason};
 pub struct Options {
     pub construct: ConstructOptions,
     /// Includes the initial construction. Every requested pass is accounted for.
-    /// Six or more passes also enable up to fifteen bounded finishing trials,
+    /// Six or more passes also enable up to fifteen bounded finishing trials per
+    /// 64-pass block (and at the requested final pass),
     /// recorded in `polishing` and sharing the same collision/deadline control.
     pub passes: u32,
 }
@@ -92,7 +93,9 @@ fn better(candidate: &Metrics, incumbent: &Metrics, mode: Mode) -> bool {
 /// At six or more passes, compression first tries three progressively smaller
 /// reductions of the last-sheet height. Up to twelve further attempts repeat
 /// successful reductions, decreasing the step after failure. No repacking pass
-/// is replaced, and finishing shares the same control as the main search.
+/// is replaced. Finishing runs every 64 passes and at the requested last pass,
+/// sharing the same control as the main search. Runs through 64 passes preserve
+/// the earlier schedule; longer runs retain its checked incumbent.
 /// This fixed-pass API has no time-budget promise. Use `optimize_controlled` for
 /// a deterministic collision limit or cooperative cancellation/deadline hook.
 pub fn optimize(
@@ -114,14 +117,93 @@ pub fn optimize_controlled(
     mut progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
     ensure!(
-        (1..=64).contains(&options.passes),
-        "search needs 1..=64 passes"
+        (1..=1024).contains(&options.passes),
+        "search needs 1..=1024 passes"
     );
     let prepared = PreparedJob::new_controlled(job, control)?;
     let mut best =
         prepared.construct_ordered(options.construct, None, None, Refinement::None, control)?;
     let mut validation = validate(job, &best.layout)?;
     let mut history = vec![];
+    // Preserve the complete original 64-pass portfolio and its finishing trials.
+    // Longer runs continue from that checked incumbent in further 64-pass blocks.
+    let mut polishing = vec![];
+    let mut finish = |best: &mut Construction,
+                      validation: &mut Report,
+                      pass_end: u32,
+                      control: &mut Control<'_>,
+                      progress: &mut dyn FnMut(&Progress)|
+     -> Result<()> {
+        if validation.valid && !best.layout.sheets.is_empty() {
+            let first_trial = polishing.len();
+            let fractions = [0.03, 0.01, 0.003];
+            let mut repeated_fraction = 0;
+            for step in 0..15 {
+                // Failed initial trials give no evidence of compressible space.
+                // Avoid repeating the expensive restore/validation work in that case.
+                if step == 3
+                    && !polishing[first_trial..]
+                        .iter()
+                        .any(|p: &Progress| p.accepted)
+                {
+                    break;
+                }
+                if control.checkpoint().is_err() {
+                    break;
+                }
+                // Preserve the first three trials and their random streams exactly.
+                // Continuing from that incumbent cannot undo their accepted gains.
+                let fraction = fractions[if step < 3 { step } else { repeated_fraction }];
+                let pass = pass_end + step as u32;
+                let trial_seed = seed(options.construct.seed, pass);
+                let before = control.collision_checks();
+                let candidate =
+                    match prepared.compress_last_sheet(&best.layout, fraction, trial_seed, control)
+                    {
+                        Err(error) if error.is::<Interrupted>() => break,
+                        other => other?,
+                    };
+                let checked = candidate
+                    .as_ref()
+                    .map(|c| validate(job, &c.layout))
+                    .transpose()?;
+                let metrics = checked.as_ref().and_then(|c| c.metrics.as_ref());
+                let accepted = checked.as_ref().is_some_and(|r| r.valid)
+                    && metrics
+                        .is_some_and(|m| better(m, validation.metrics.as_ref().unwrap(), job.mode));
+                let entry = Progress {
+                    pass,
+                    stage: "compress-last-sheet",
+                    contact_search: false,
+                    interleaved_copies: false,
+                    seed: trial_seed,
+                    sheet_limit: None,
+                    complete: candidate.is_some(),
+                    accepted,
+                    sheets: candidate
+                        .as_ref()
+                        .map_or(best.layout.sheets.len(), |c| c.layout.sheets.len()),
+                    material: metrics.map(|m| m.normalized_material),
+                    placed_area: metrics.map(|m| m.placed_area),
+                    placed_priority: metrics.map(|m| m.placed_priority),
+                    collision_checks: control.collision_checks() - before,
+                };
+                if accepted {
+                    *best = candidate.unwrap();
+                    *validation = checked.unwrap();
+                }
+                progress(&entry);
+                polishing.push(entry);
+                if step >= 3 && !accepted {
+                    repeated_fraction += 1;
+                    if repeated_fraction == fractions.len() {
+                        break;
+                    }
+                }
+            }
+        }
+        Ok(())
+    };
     for pass in 0..options.passes {
         // Pass zero records the completed initial construction. After that,
         // interruption leaves its complete, validated incumbent untouched.
@@ -246,74 +328,12 @@ pub fn optimize_controlled(
         }
         progress(&entry);
         history.push(entry);
-    }
-    // Finish the full repacking portfolio before compression, so a polishing
-    // attempt cannot displace a useful ordering trial or weaken its incumbent.
-    let mut polishing = vec![];
-    if options.passes >= 6 && validation.valid && !best.layout.sheets.is_empty() {
-        let fractions = [0.03, 0.01, 0.003];
-        let mut repeated_fraction = 0;
-        for step in 0..15 {
-            // Failed initial trials give no evidence of compressible space.
-            // Avoid repeating the expensive restore/validation work in that case.
-            if step == 3 && !polishing.iter().any(|p: &Progress| p.accepted) {
-                break;
-            }
-            if control.checkpoint().is_err() {
-                break;
-            }
-            // Preserve the first three trials and their random streams exactly.
-            // Continuing from that incumbent cannot undo their accepted gains.
-            let fraction = fractions[if step < 3 { step } else { repeated_fraction }];
-            let pass = options.passes + step as u32;
-            let trial_seed = seed(options.construct.seed, pass);
-            let before = control.collision_checks();
-            let candidate =
-                match prepared.compress_last_sheet(&best.layout, fraction, trial_seed, control) {
-                    Err(error) if error.is::<Interrupted>() => break,
-                    other => other?,
-                };
-            let checked = candidate
-                .as_ref()
-                .map(|c| validate(job, &c.layout))
-                .transpose()?;
-            let metrics = checked.as_ref().and_then(|c| c.metrics.as_ref());
-            let accepted = checked.as_ref().is_some_and(|r| r.valid)
-                && metrics
-                    .is_some_and(|m| better(m, validation.metrics.as_ref().unwrap(), job.mode));
-            let entry = Progress {
-                pass,
-                stage: "compress-last-sheet",
-                contact_search: false,
-                interleaved_copies: false,
-                seed: trial_seed,
-                sheet_limit: None,
-                complete: candidate.is_some(),
-                accepted,
-                sheets: candidate
-                    .as_ref()
-                    .map_or(best.layout.sheets.len(), |c| c.layout.sheets.len()),
-                material: metrics.map(|m| m.normalized_material),
-                placed_area: metrics.map(|m| m.placed_area),
-                placed_priority: metrics.map(|m| m.placed_priority),
-                collision_checks: control.collision_checks() - before,
-            };
-            if accepted {
-                best = candidate.unwrap();
-                validation = checked.unwrap();
-            }
-            progress(&entry);
-            polishing.push(entry);
-            if step >= 3 && !accepted {
-                repeated_fraction += 1;
-                if repeated_fraction == fractions.len() {
-                    break;
-                }
-            }
+        if options.passes >= 6 && ((pass + 1) % 64 == 0 || pass + 1 == options.passes) {
+            finish(&mut best, &mut validation, pass + 1, control, &mut progress)?;
         }
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v15",
+        algorithm: "nestbolt-repack-v16",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: history.len() as u32,

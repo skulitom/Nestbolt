@@ -84,3 +84,89 @@ fn pruning_preserves_near_touching_curves_and_multiple_components() {
         assert_eq!(boundary_distance(&a, &nested), exhaustive(&a, &nested));
     }
 }
+
+#[test]
+fn reused_clearance_envelopes_match_fresh_queries_for_different_neighbours() {
+    let mut ring = job::rectangle(0.0, 0.0, 20.0, 20.0);
+    ring.holes.push(job::rectangle(4.0, 4.0, 12.0, 12.0).outer);
+    for units in [Units::Mm, Units::Inch, Units::Unitless] {
+        let source = Footprint::from_polygons(
+            &[ring.clone(), job::rectangle(30.0, 0.0, 5.0, 8.0)],
+            units,
+            RigidTransform::default(),
+        )
+        .unwrap();
+        for gap in [0.0, 0.1, 1.0, 4.0] {
+            let mut query = source.pair_query(gap);
+            let offsets = [100.0, 20.01, 20.1, 20.000001, 19.0, 35.1, 100.0, 20.2];
+            for x in offsets {
+                let other = Footprint::new(
+                    &job::rectangle(x, 2.0, 3.0, 3.0),
+                    units,
+                    RigidTransform::default(),
+                )
+                .unwrap();
+                let fresh = source.compare(&other, gap).unwrap();
+                let reused = query.compare(&other).unwrap();
+                assert_eq!(
+                    serde_json::to_value(fresh).unwrap(),
+                    serde_json::to_value(reused).unwrap()
+                );
+            }
+            assert_eq!(query.expanded.is_some(), gap > 0.0);
+            let in_hole = Footprint::new(
+                &job::rectangle(5.0, 5.0, 5.0, 5.0),
+                units,
+                RigidTransform::default(),
+            )
+            .unwrap();
+            assert_eq!(
+                serde_json::to_value(query.compare(&in_hole).unwrap()).unwrap(),
+                serde_json::to_value(source.compare(&in_hole, gap).unwrap()).unwrap()
+            );
+        }
+    }
+}
+
+#[test]
+fn queries_keep_input_checks_after_warming_and_do_not_allocate_for_distant_pairs() {
+    let make = |x, units| {
+        Footprint::new(
+            &job::rectangle(x, 0.0, 1.0, 1.0),
+            units,
+            RigidTransform::default(),
+        )
+        .unwrap()
+    };
+    let source = make(0.0, Units::Mm);
+    let mut query = source.pair_query(0.1);
+    assert!(
+        !query
+            .compare(&make(100.0, Units::Mm))
+            .unwrap()
+            .clearance_violation
+    );
+    assert!(query.expanded.is_none());
+    assert!(
+        query
+            .compare(&make(1.05, Units::Mm))
+            .unwrap()
+            .clearance_violation
+    );
+    assert!(query.expanded.is_some());
+    assert!(query.compare(&make(1.05, Units::Inch)).is_err());
+    assert!(
+        !query
+            .compare(&make(1.2, Units::Mm))
+            .unwrap()
+            .clearance_violation
+    );
+    for invalid in [-0.1, f64::NAN, f64::INFINITY, MAX_COORDINATE + 1.0] {
+        assert!(
+            source
+                .pair_query(invalid)
+                .compare(&make(100.0, Units::Mm))
+                .is_err()
+        );
+    }
+}

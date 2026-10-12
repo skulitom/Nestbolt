@@ -65,7 +65,7 @@ predeclared M0 quality comparison or discarding invalid outputs.
 
 ## Verification and remaining work
 
-Thirty-three validator tests cover the geometry kernel, stock/fill constraints,
+Thirty-five validator tests cover the geometry kernel, stock/fill constraints,
 scoring identities and strip adaptation. They include a fixed-seed 10,000-case
 adversarial polygon fuzz test, analytic rectangle/winding properties (48 cases
 each), and a 2,000-copy layout. Two additional CLI integration tests check actual
@@ -85,6 +85,15 @@ independent checks without rerunning a solver. Multiple `--pilot` arguments are
 allowed; only frozen development jobs are accepted. The
 `profile_geometry` validator example reports time spent constructing original
 and transformed footprints, checking pairs and validating the full layout.
+
+The job checker also reuses a clearance outline while comparing one original
+transformed footprint with its neighbours. The query borrows that immutable
+footprint and fixes the clearance; it allocates lazily and discards the outline
+after the outer comparison loop, bounding extra memory to one outline. Standalone
+pair comparisons still create a fresh query. Tests cover different neighbours,
+holes, multipart geometry, units, invalid clearances and reuse after a failed
+unit check. All 104 reports remain exactly equal in the
+[clearance-reuse diagnostic](../benchmarks/results/clearance-cache-20261012T0433.md).
 
 Next: feed every competitor adapter through this same contract, expand fuzzing
 and measure heterogeneous large-job time/memory. Ring topology checking is

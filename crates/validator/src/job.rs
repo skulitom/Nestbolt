@@ -491,11 +491,12 @@ pub fn validate(job: &Job, layout: &Layout) -> Result<Report> {
     }
     let mut total_overlap = vec![0.0; placed.len()];
     for (i, (index, sheet, shape)) in placed.iter().enumerate() {
+        let mut comparisons = shape.pair_query(job.clearance);
         for (j, (other_index, other_sheet, other)) in placed.iter().enumerate().skip(i + 1) {
             if sheet != other_sheet {
                 continue;
             }
-            let pair = shape.compare(other, job.clearance)?;
+            let pair = comparisons.compare(other)?;
             report.maximum_overlap_ratio = report.maximum_overlap_ratio.max(pair.overlap_ratio);
             total_overlap[i] += pair.overlap_area;
             total_overlap[j] += pair.overlap_area;

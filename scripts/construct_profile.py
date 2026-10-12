@@ -31,8 +31,8 @@ def main():
     parser.add_argument('--max-checks', type=int)
     parser.add_argument('--timeout-ms', type=int)
     args = parser.parse_args()
-    if os.name != 'nt' or not 0 <= args.cpu < 64 or not 0 <= args.passes <= 64 or not 1 <= args.repeat <= 3:
-        parser.error('Use Windows, CPU 0..63, passes 0..64 and repeats 1..3')
+    if os.name != 'nt' or not 0 <= args.cpu < 64 or not 0 <= args.passes <= 1024 or not 1 <= args.repeat <= 3:
+        parser.error('Use Windows, CPU 0..63, passes 0..1024 and repeats 1..3')
     if (args.max_checks is not None and (not args.passes or args.max_checks < 0)
             or args.timeout_ms is not None and (not args.passes or not 1 <= args.timeout_ms <= 300_000)):
         parser.error('Search controls require passes, a nonnegative check limit and a 1..300000 ms deadline')

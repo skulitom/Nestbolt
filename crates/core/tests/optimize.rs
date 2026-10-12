@@ -329,3 +329,64 @@ fn interrupted_sheet_repair_cannot_leak_removed_or_displaced_parts() {
         );
     }
 }
+
+#[test]
+fn longer_search_preserves_the_first_finished_block_and_shared_work_limit() {
+    let mut job = job();
+    job.parts.truncate(3);
+    for part in &mut job.parts {
+        part.quantity = 1;
+    }
+    let options = optimize::Options {
+        construct: construct::Options {
+            random_samples: 4,
+            ..Default::default()
+        },
+        passes: 64,
+    };
+    let first = optimize::optimize(&job, options, |_| {}).unwrap();
+    let longer = optimize::optimize(
+        &job,
+        optimize::Options {
+            passes: 65,
+            ..options
+        },
+        |_| {},
+    )
+    .unwrap();
+    assert_eq!(longer.completed_passes, 65);
+    assert_eq!(
+        serde_json::to_value(&first.history).unwrap(),
+        serde_json::to_value(&longer.history[..64]).unwrap()
+    );
+    assert_eq!(
+        serde_json::to_value(&first.polishing).unwrap(),
+        serde_json::to_value(&longer.polishing[..first.polishing.len()]).unwrap()
+    );
+    assert!(longer.validation.valid);
+    assert!(
+        longer.validation.metrics.as_ref().unwrap().material_area
+            <= first.validation.metrics.as_ref().unwrap().material_area
+    );
+    assert!(longer.polishing.len() > first.polishing.len());
+    let stopped = optimize::optimize_controlled(
+        &job,
+        optimize::Options {
+            passes: 1024,
+            ..options
+        },
+        &mut Control::new(Some(first.collision_checks + 1), None),
+        |_| {},
+    )
+    .unwrap();
+    assert_eq!(stopped.completed_passes, 64);
+    assert_eq!(stopped.stopped, Some(StopReason::WorkLimit));
+    assert!(stopped.validation.valid);
+    assert_eq!(
+        serde_json::to_value(stopped.best.layout).unwrap(),
+        serde_json::to_value(first.best.layout).unwrap()
+    );
+    for passes in [0, 1025] {
+        assert!(optimize::optimize(&job, optimize::Options { passes, ..options }, |_| {}).is_err());
+    }
+}

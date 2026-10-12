@@ -83,6 +83,58 @@ pub struct ContainmentCheck {
     pub clearance_violation: bool,
 }
 
+/// One immutable original footprint and clearance, reused across its neighbours.
+/// The offset is created only if a close, non-overlapping pair needs it and is
+/// dropped after that footprint's comparisons. It never contains solver geometry.
+struct PairQuery<'a> {
+    source: &'a Footprint,
+    clearance: f64,
+    expanded: Option<Paths64>,
+}
+
+impl PairQuery<'_> {
+    fn compare(&mut self, other: &Footprint) -> Result<PairCheck> {
+        let source = self.source;
+        source.check_clearance(other, self.clearance)?;
+        let gap = self.clearance * source.units.to_mm();
+        if bounds_distance(source.bounds, other.bounds) > gap + 2.0 * GRID {
+            return Ok(PairCheck {
+                overlap_area: 0.0,
+                overlap_ratio: 0.0,
+                clearance_violation: false,
+            });
+        }
+        let overlap_area = area(&boolean(
+            &source.paths,
+            &other.paths,
+            ClipType::Intersection,
+        )?);
+        let clearance_violation = if gap > 0.0 {
+            if overlap_area > 0.0 {
+                true
+            } else {
+                if self.expanded.is_none() {
+                    self.expanded = Some(clearance_envelope(&source.paths, gap)?);
+                }
+                let possible = !boolean(
+                    self.expanded.as_ref().expect("offset prepared"),
+                    &other.paths,
+                    ClipType::Intersection,
+                )?
+                .is_empty();
+                possible && boundary_distance(&source.paths, &other.paths) + 2.0 * GRID < gap
+            }
+        } else {
+            false
+        };
+        Ok(PairCheck {
+            overlap_area,
+            overlap_ratio: overlap_area / source.area.min(other.area),
+            clearance_violation,
+        })
+    }
+}
+
 impl Footprint {
     /// Multiple rigid components belonging to one part or stock outline.
     /// Components may lie inside other components' holes but cannot overlap.
@@ -245,33 +297,15 @@ impl Footprint {
     /// permitted. Positive clearance uses offset polygons and a segment-distance
     /// confirmation, with a two-grid-unit tolerance for integer quantisation.
     pub fn compare(&self, other: &Self, clearance: f64) -> Result<PairCheck> {
-        self.check_clearance(other, clearance)?;
-        let gap = clearance * self.units.to_mm();
-        if bounds_distance(self.bounds, other.bounds) > gap + 2.0 * GRID {
-            return Ok(PairCheck {
-                overlap_area: 0.0,
-                overlap_ratio: 0.0,
-                clearance_violation: false,
-            });
+        self.pair_query(clearance).compare(other)
+    }
+
+    fn pair_query(&self, clearance: f64) -> PairQuery<'_> {
+        PairQuery {
+            source: self,
+            clearance,
+            expanded: None,
         }
-        let overlap_area = area(&boolean(&self.paths, &other.paths, ClipType::Intersection)?);
-        let clearance_violation = if gap > 0.0 {
-            if overlap_area > 0.0 {
-                true
-            } else {
-                let expanded = clearance_envelope(&self.paths, gap)?;
-                let possible =
-                    !boolean(&expanded, &other.paths, ClipType::Intersection)?.is_empty();
-                possible && boundary_distance(&self.paths, &other.paths) + 2.0 * GRID < gap
-            }
-        } else {
-            false
-        };
-        Ok(PairCheck {
-            overlap_area,
-            overlap_ratio: overlap_area / self.area.min(other.area),
-            clearance_violation,
-        })
     }
 
     /// The container polygon may include holes representing keep-out regions.
