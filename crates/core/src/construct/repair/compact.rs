@@ -43,8 +43,9 @@ impl PreparedJob<'_> {
     ) -> Result<Construction> {
         ensure!((1..=8).contains(&sweeps), "compaction needs 1..=8 sweeps");
         control.checkpoint()?;
+        let before = nestbolt_validator::job::validate(self.job, source)?;
         ensure!(
-            nestbolt_validator::job::validate(self.job, source)?.valid,
+            before.valid,
             "compaction requires an independently valid source layout"
         );
         let mut sheets: Vec<Vec<Occupied>> = source
@@ -137,12 +138,13 @@ impl PreparedJob<'_> {
                     occupied.region.layout.remove_item(tracked.key);
                     if let Some(options) = relocation {
                         occupied.refresh_except(Some(tracked.key));
-                        if let Some(found) = search(
+                        if let Some(found) = search_bounded(
                             &occupied.region,
                             &self.items[tracked.part],
                             &self.job.parts[tracked.part],
                             options,
                             &mut state,
+                            Some((candidate.cost, candidate.bounds[3])),
                         )? && found.cost < candidate.cost
                             && found.bounds[3] <= candidate.bounds[3]
                         {
@@ -193,11 +195,26 @@ impl PreparedJob<'_> {
             "compaction failed independent validation: {:?}",
             checked.violations
         );
+        // Proxy coordinates use f32 and conservative outlines; accept quality
+        // using the independent original-geometry material metric as well.
+        if checked
+            .metrics
+            .as_ref()
+            .expect("valid metrics")
+            .material_area
+            > before
+                .metrics
+                .as_ref()
+                .expect("valid source metrics")
+                .material_area
+        {
+            layout = source.clone();
+        }
         Ok(Construction {
             algorithm: if relocation.is_some() {
-                "nestbolt-compact-relocated-v1"
+                "nestbolt-compact-relocated-v2"
             } else {
-                "nestbolt-compact-v1"
+                "nestbolt-compact-v2"
             },
             seed,
             collision_checks: state.checks,

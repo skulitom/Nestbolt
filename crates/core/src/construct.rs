@@ -421,6 +421,19 @@ fn search(
     options: Options,
     state: &mut SearchState<'_, '_>,
 ) -> Result<Option<Candidate>> {
+    search_bounded(region, item, part, options, state, None)
+}
+
+/// A relocation need not test positions that cannot improve its incumbent.
+/// Generate random candidates first so pruning does not change the stream.
+fn search_bounded(
+    region: &Region,
+    item: &Item,
+    part: &Part,
+    options: Options,
+    state: &mut SearchState<'_, '_>,
+    ceiling: Option<(f32, f32)>, // strict cost ceiling, inclusive top edge
+) -> Result<Option<Candidate>> {
     let cde = region.layout.cde();
     let sheet = region.search_bounds;
     let nudge = region.nudge;
@@ -477,6 +490,10 @@ fn search(
                 .into_iter()
                 .filter(|&(x, y)| x >= min_x && y >= min_y && x <= max_x && y <= max_y)
                 .map(|(x, y)| (x, y, y + height + 0.001 * (x + width)))
+                .filter(|&(_, y, cost)| {
+                    ceiling
+                        .is_none_or(|(max_cost, max_top)| cost < max_cost && y + height <= max_top)
+                })
                 .collect();
             ranked.sort_by(|a, b| a.2.total_cmp(&b.2));
             ranked.dedup_by(|a, b| a.0 == b.0 && a.1 == b.1);
