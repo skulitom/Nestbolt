@@ -1,12 +1,46 @@
 """A selected batch slice must preserve failures, coverage and unique attempts."""
 from copy import deepcopy
 import unittest
-from batch_comparison_report import combine, split_build_failures
+from batch_comparison_report import combine, split_build_failures, infrastructure_failure_kind
 from comparison_cases import comparison_cases
 from pathlib import Path
 
 
 class BatchTests(unittest.TestCase):
+    def test_legacy_exact_coordinate_guard_can_be_replaced_only_before_solving(self):
+        run = {'tool': 'SVGnest', 'status': 'failed', 'score': None, 'seconds': 60}
+        raw = {'status': 'failed', 'errors': ['Error: page.evaluate: Error: Source coordinate rounded during import: copy-0/67/1'],
+               'candidates': 0, 'last': None}
+        self.assertEqual(infrastructure_failure_kind(run, raw), 'exact_coordinate_guard_before_solve')
+        for change in [{'candidates': 1}, {'last': {'elapsed_ms': 100}}, {'controller_solve_ms': 1},
+                       {'errors': ['solver crashed']}, {'status': 'completed'}]:
+            with self.assertRaises(ValueError):
+                infrastructure_failure_kind(run, {**raw, **change})
+
+    def test_native_infrastructure_replacement_cannot_hide_solver_failures(self):
+        run = {'tool': 'deepnest-next', 'status': 'failed', 'score': None, 'seconds': 60}
+        cleanup = {'status': 'failed', 'errors': ['Error: Command failed: taskkill /PID 123 /T /F'],
+                   'stages_ms': {'budget_finished': 61000}, 'controller_solve_ms': 60001,
+                   'candidates': 1, 'last': {'elapsed_ms': 59000}}
+        self.assertEqual(infrastructure_failure_kind(run, cleanup), 'cleanup_after_budget')
+        before = {'status': 'failed', 'errors': ['Error: Command failed: powershell.exe -NoProfile -NonInteractive -File cpu-tree-job.ps1 Access is denied Win32Exception,cpu-tree-job.ps1'],
+                  'stages_ms': {'source_imported': 1000}, 'candidates': 0, 'last': None}
+        self.assertEqual(infrastructure_failure_kind(run, before), 'affinity_before_solve')
+        for field, value in [('status', 'invalid'), ('status', 'timeout'), ('status', 'no_layout'),
+                             ('score', 1), ('metrics', {}), ('tool', 'svgnest')]:
+            with self.assertRaises(ValueError):
+                infrastructure_failure_kind({**run, field: value}, cleanup)
+        for raw in [
+            {**cleanup, 'errors': ['native solver crashed']},
+            {**cleanup, 'errors': cleanup['errors'] + ['another error']},
+            {**cleanup, 'stages_ms': {}}, {**cleanup, 'controller_solve_ms': 100},
+            {**cleanup, 'last': {'elapsed_ms': 60001}},
+            {**before, 'controller_solve_ms': 1}, {**before, 'candidates': 1},
+            {**before, 'stages_ms': {'source_imported': 1000, 'budget_finished': 61000}},
+        ]:
+            with self.assertRaises(ValueError):
+                infrastructure_failure_kind(run, raw)
+
     def test_replacements_cannot_hide_solver_failures_or_scores(self):
         failed = {'run': {'status': 'failed', 'score': None,
                          'reason': "Command '['cargo', 'build', '-p', 'nestbolt-cli', '--locked']' returned non-zero exit status 101.",

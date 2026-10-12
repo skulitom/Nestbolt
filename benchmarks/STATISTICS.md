@@ -70,3 +70,11 @@ from a documented capability limitation or a necessary mathematical bound
 A previous timeout or non-fitting result is not such a proof. Preserve already
 completed evidence. A deterministic one-pass run may be reused in a future
 budget table only with an explicit link and reuse label, never as a new run.
+
+Harness faults may have explicitly selected replacement attempts. Retain and audit
+the original record and every replacement outcome; never select by score. The
+current report recognizes checker-build failures before launch, the historical
+exact-coordinate import guard before SVGnest starts, Deepnest affinity setup
+before solving, and Deepnest process cleanup after the budget. Native solver
+crashes, invalid layouts, no-layout results and timeouts are not eligible. This
+repairs development harness evidence; it does not waive frozen final-run controls.

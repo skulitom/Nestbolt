@@ -3,11 +3,13 @@ import argparse
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import re
 import uuid
 
 from comparator_batch_report import TOOLS, audit_batch
 from comparison_session_report import summarize
 from comparison_cases import comparison_cases
+from lbf_report import contained_file
 from svgnest import ROOT, digest, write
 
 
@@ -28,6 +30,56 @@ def split_build_failures(rows):
         excluded.append(row)
     if not excluded:
         raise ValueError('The replacement batch contains no failed checker builds')
+    return retained, excluded
+
+
+def infrastructure_failure_kind(run, raw):
+    """Recognize harness faults, never native crashes or failed layouts."""
+    if (run['status'] != 'failed'
+            or run.get('score') is not None or run.get('metrics') is not None
+            or raw.get('status') != 'failed' or len(raw.get('errors', [])) != 1):
+        raise ValueError('Not a recognized infrastructure failure')
+    error = raw['errors'][0]
+    stages = raw.get('stages_ms', {})
+    if run.get('tool') == 'SVGnest':
+        if (error.startswith('Error: page.evaluate: Error: Source coordinate rounded during import: copy-')
+                and raw.get('controller_solve_ms') is None
+                and raw.get('candidates') == 0 and raw.get('last') is None):
+            return 'exact_coordinate_guard_before_solve'
+        raise ValueError('Not a recognized SVGnest infrastructure failure')
+    if run.get('tool') != 'deepnest-next':
+        raise ValueError('Not a recognized Deepnest infrastructure failure')
+    if (re.fullmatch(r'Error: Command failed: taskkill /PID [1-9][0-9]* /T /F', error)
+            and 'budget_finished' in stages
+            and raw.get('controller_solve_ms', 0) >= run['seconds'] * 1000
+            and raw.get('candidates', 0) > 0 and raw.get('last')
+            and 0 <= raw['last']['elapsed_ms'] <= run['seconds'] * 1000):
+        return 'cleanup_after_budget'
+    if (error.startswith('Error: Command failed: powershell.exe -NoProfile -NonInteractive -File ')
+            and 'cpu-tree-job.ps1' in error and 'Win32Exception,cpu-tree-job.ps1' in error
+            and 'Access is' in error and 'denied' in error
+            and 'source_imported' in stages and 'budget_finished' not in stages
+            and raw.get('controller_solve_ms') is None
+            and raw.get('candidates') == 0 and raw.get('last') is None):
+        return 'affinity_before_solve'
+    raise ValueError('Not a recognized Deepnest infrastructure failure')
+
+
+def split_infrastructure_failures(rows):
+    retained, excluded = [], []
+    for row in rows:
+        run = row['run']
+        if run['status'] != 'failed':
+            retained.append(row)
+            continue
+        record = contained_file(ROOT, row['record'])
+        raw_path = record.parent/'browser-result.json'
+        if digest(raw_path) != run['outputs'].get('browser-result.json'):
+            raise ValueError('Infrastructure evidence changed')
+        kind = infrastructure_failure_kind(run, json.loads(raw_path.read_bytes()))
+        excluded.append({**row, 'infrastructure_failure_kind': kind})
+    if not excluded:
+        raise ValueError('The replacement batch contains no infrastructure failures')
     return retained, excluded
 
 
@@ -66,20 +118,24 @@ def report(args):
     selected = [path.resolve(strict=True) for path in args.batch]
     audited = [audit_batch(path, args.tool) for path in selected]
     replace = {path.resolve(strict=True) for path in getattr(args, 'replace_build_failures', [])}
-    if not replace.issubset(selected):
+    infrastructure = {path.resolve(strict=True) for path in getattr(args, 'replace_infrastructure_failures', [])}
+    if not (replace | infrastructure).issubset(selected) or replace & infrastructure:
         raise ValueError('A replacement must name an explicitly audited batch')
-    excluded, filtered = [], []
+    excluded, infra_excluded, filtered = [], [], []
     for path, (batch, records) in zip(selected, audited):
         if path in replace:
             records, removed = split_build_failures(records)
             excluded.extend(removed)
+        elif path in infrastructure:
+            records, removed = split_infrastructure_failures(records)
+            infra_excluded.extend(removed)
         filtered.append((batch, records))
     slots, attempts, rows = combine(args.tool, args.dataset, args.seconds, args.settings, cases, filtered)
-    for row in excluded:
+    for row in excluded + infra_excluded:
         run = row['run']
         replacement = attempts.get(f"{run['job']}:{run['seed']}")
         if replacement is None or replacement['sha256'] == row['sha256']:
-            raise ValueError('Every excluded build failure needs an audited replacement attempt')
+            raise ValueError('Every excluded infrastructure failure needs an audited replacement attempt')
     stamp = datetime.now(timezone.utc)
     stem = f'comparison-batches-{stamp:%Y%m%dT%H%M%SZ}-{uuid.uuid4().hex[:8]}'
     target = ROOT/'benchmarks/results'/stem
@@ -99,6 +155,7 @@ def report(args):
         'required_slots': len(slots), 'completed_slots': len(attempts),
         'complete': len(slots) == len(attempts), 'rows': rows,
         'replaced_checker_build_failures': excluded,
+        'replaced_infrastructure_failures': infra_excluded,
         'attempts': [{'slot_id': key, **row} for key, row in sorted(attempts.items())],
     }
     write(target.with_suffix('.json'), value)
@@ -120,6 +177,11 @@ def report(args):
         lines += [f'{len(excluded)} explicitly named checker-build failures occurred before the competitor started. '
                   'Their audited records remain in the JSON alongside all replacement outcomes. '
                   'Solver failures, invalid layouts and timeouts are never replaced by this option.', '']
+    if infra_excluded:
+        lines += [f'{len(infra_excluded)} explicitly named harness failures were replaced: '
+                  'input guard or affinity setup before solving, or process cleanup after the budget. '
+                  'Original audited records and all replacement outcomes remain in the JSON. '
+                  'This option rejects solver crashes, invalid layouts, timeouts and no-layout outcomes.', '']
     with target.with_suffix('.md').open('x', encoding='utf-8', newline='\n') as out:
         out.write('\n'.join(lines))
     with (ROOT/'BENCHMARKS.md').open('a', encoding='utf-8', newline='\n') as out:
@@ -138,4 +200,6 @@ if __name__ == '__main__':
     parser.add_argument('--batch', type=Path, action='append', required=True)
     parser.add_argument('--replace-build-failures', type=Path, action='append', default=[],
                         help='Explicit audited batch whose pre-solver checker-build failures have replacement attempts')
+    parser.add_argument('--replace-infrastructure-failures', type=Path, action='append', default=[],
+                        help='Explicit audited batch with recognized pre-solve input/affinity or post-budget cleanup faults')
     report(parser.parse_args())

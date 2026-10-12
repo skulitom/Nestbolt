@@ -11,7 +11,9 @@ import deepnest
 class SnapshotTests(unittest.TestCase):
     def test_verified_snapshot_is_copied_without_building_and_tampering_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
+            # Hosted Windows may use an 8.3 alias in TEMP. Match the production
+            # ROOT contract (resolved absolute path) before checking containment.
+            root = Path(directory).resolve()
             source = root/'crates/validator/src'
             source.mkdir(parents=True)
             (source/'lib.rs').write_text('validator', encoding='utf-8')

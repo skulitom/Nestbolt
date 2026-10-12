@@ -33,5 +33,9 @@ semantics. The constructor has an explicit seed and fixed sample count. Repackin
 has fixed passes, specified integer shuffles over part types or individual copies,
 initial translation/contact comparisons,
 independent incumbent acceptance and per-pass progress. Native repeated-output
-tests cover both. These experimental quotas do not yet implement time-budget
-calibration, hard cancellation or the complete native/browser/MCP contract.
+tests cover both. `improve --max-checks` now supplies a deterministic collision-query
+allowance; `--timeout-ms` and the core cancellation callback stop cooperatively
+and preserve a checked incumbent with an explicit stop reason. A deadline-stopped
+result is a wall-clock result, not completion of a promised repeatable quota.
+The experimental controls do not yet implement time-budget calibration, hard
+cancellation or the complete native/browser/MCP contract.
