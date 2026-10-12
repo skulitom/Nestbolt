@@ -1,0 +1,218 @@
+{
+  "recorded_at": "2026-10-12T02:42:56.087489+00:00",
+  "scope": "Single-core development diagnostic, CPU10, seed0, four passes, 1000-part frozen development job. Two interleaved before/after pairs; all attempts retained. No G4 claim.",
+  "decision": "Keep indexed blocker lookup and dynamic collection cutoff. Completed output and every query count are identical. Both pairs are faster, but unrelated stage timing changes show changing host conditions; do not extrapolate to the full matrix.",
+  "change": "Map hazard keys to source indices once per receiver, restore source order by sorting. Stop collision collection when blocker count exceeds the worst retained proposal, since it cannot enter the sorted bounded list. No random-stream or candidate-order change.",
+  "snapshots": {
+    "after.exe": "81db0dc3b44ee26a63035d5c68b92beba964facf95cd7dcf3b2fdd5ded896943",
+    "after.rs": "be5231d0e5a7937164ca525b601566a5a1b46dbf0d94d1557cf3b3d64ab356e9",
+    "before.exe": "e216d9edb290cdc58640ac4ab48ddaf36c8c386d2364c65e99f71ec9d3b807c3",
+    "before.rs": "337c11a0a8437a2b19bcba03a7d09f7987b7134295520ce6623e09244bab47d5"
+  },
+  "profiles": [
+    {
+      "path": "output/construct-profiles/20261012T023745Z-53ad926a/profile.json",
+      "sha256": "0749eb0c7c997c1316a91fc4d326686501242126d3549bf9a3f61096e4d74d83",
+      "proof": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\relax-profile-20261012-0237\\before.exe",
+        "binary_sha256": "e216d9edb290cdc58640ac4ab48ddaf36c8c386d2364c65e99f71ec9d3b807c3",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 4,
+        "max_checks": null,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 39.828000000008615,
+            "cpu_seconds": 39.328125,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 6.25,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 16.0,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 31.844000000011874,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 39.828000000008615,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "fc0df9e14931ac2cf0a26fd2bc86ce4b92f098aea0d7100fdd21762c3e0ab5ce"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 27071841,
+            "stopped": null,
+            "completed_passes": 4
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T023927Z-52e76fe3/profile.json",
+      "sha256": "e29ce25e23867eed94a65983b461e6e60a569692cbbdf015d4ac28aa9feaff7a",
+      "proof": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\relax-profile-20261012-0237\\after.exe",
+        "binary_sha256": "81db0dc3b44ee26a63035d5c68b92beba964facf95cd7dcf3b2fdd5ded896943",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 4,
+        "max_checks": null,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 27.421999999991385,
+            "cpu_seconds": 27.28125,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 5.14100000000326,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 12.312999999994645,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 24.312999999994645,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 27.421999999991385,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "fc0df9e14931ac2cf0a26fd2bc86ce4b92f098aea0d7100fdd21762c3e0ab5ce"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 27071841,
+            "stopped": null,
+            "completed_passes": 4
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T024059Z-5a509800/profile.json",
+      "sha256": "3ff4e3249efb6b02575e471fee4eb4c03bce20e8e4451be1469395f5a11f7bd5",
+      "proof": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\relax-profile-20261012-0237\\before.exe",
+        "binary_sha256": "e216d9edb290cdc58640ac4ab48ddaf36c8c386d2364c65e99f71ec9d3b807c3",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 4,
+        "max_checks": null,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 30.421000000002095,
+            "cpu_seconds": 30.34375,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 5.092999999993481,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 12.34299999999348,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 24.35899999999674,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 30.421000000002095,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "fc0df9e14931ac2cf0a26fd2bc86ce4b92f098aea0d7100fdd21762c3e0ab5ce"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 27071841,
+            "stopped": null,
+            "completed_passes": 4
+          }
+        ]
+      }
+    },
+    {
+      "path": "output/construct-profiles/20261012T024129Z-48d78045/profile.json",
+      "sha256": "72238a14ead005024af1291d57962242cf4cc47d2bc54292b73af936109dde1c",
+      "proof": {
+        "scope": "Development timing diagnostic; explicit single CPU after process creation, 90-second cap. No G4 claim.",
+        "binary": "C:\\DEV\\Nestbolt\\output\\relax-profile-20261012-0237\\after.exe",
+        "binary_sha256": "81db0dc3b44ee26a63035d5c68b92beba964facf95cd7dcf3b2fdd5ded896943",
+        "job": "m-mechanical-batch-1000",
+        "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+        "script_sha256": "acc96c5c9aa63f83188e7a31c044d696175214f1005dcecd326cb399a12d3f71",
+        "passes": 4,
+        "max_checks": null,
+        "timeout_ms": null,
+        "runs": [
+          {
+            "repeat": 0,
+            "exit_code": 0,
+            "wall_seconds": 27.327999999994063,
+            "cpu_seconds": 27.296875,
+            "cpu_mask": 1024,
+            "progress": [
+              {
+                "elapsed_seconds": 5.077999999994063,
+                "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":4387224}"
+              },
+              {
+                "elapsed_seconds": 12.265999999988708,
+                "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":6228252}"
+              },
+              {
+                "elapsed_seconds": 24.23399999999674,
+                "message": "{\"pass\":2,\"stage\":\"contacts\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":false,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":15646634}"
+              },
+              {
+                "elapsed_seconds": 27.312999999994645,
+                "message": "{\"pass\":3,\"stage\":\"repair-sheet\",\"contact_search\":true,\"interleaved_copies\":false,\"seed\":15755400384260043839,\"sheet_limit\":1,\"complete\":false,\"accepted\":false,\"sheets\":1,\"material\":null,\"placed_area\":null,\"placed_priority\":null,\"collision_checks\":809731}"
+              }
+            ],
+            "outputs": {
+              "layout.json": "c01add99d4a2289699ec7794be5267e4e1d57c8a6ed6ec266b9a8776140c251a",
+              "stdout.json": "fc0df9e14931ac2cf0a26fd2bc86ce4b92f098aea0d7100fdd21762c3e0ab5ce"
+            },
+            "collision_checks": 6228252,
+            "surrogate_rejections": 4805925,
+            "total_collision_checks": 27071841,
+            "stopped": null,
+            "completed_passes": 4
+          }
+        ]
+      }
+    }
+  ]
+}

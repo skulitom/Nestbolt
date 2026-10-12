@@ -5,6 +5,7 @@ use jagua_rs::entities::PItemKey;
 
 mod compact;
 mod displace;
+mod relax;
 
 #[derive(Clone)]
 struct Tracked {
@@ -119,6 +120,8 @@ impl PreparedJob<'_> {
     /// produce an explicitly incomplete trial; the supplied layout is immutable.
     /// `ejections` caps each of the single-victim and collision-guided trial
     /// lists per insertion. A guided trial moves at most two actual blockers.
+    /// Up to two later separation trials admit eight initial blockers and use
+    /// at most 20,000 collision queries each; only a valid separated trial survives.
     pub fn repair_sheet(
         &self,
         source: &Layout,
@@ -311,15 +314,37 @@ impl PreparedJob<'_> {
                 sheets[sheet][region] = snapshot;
             }
             if ejections > 0 {
-                let proposals =
-                    self.displacement_candidates(&sheets, part, options, ejections, &mut state)?;
-                for proposal in proposals {
+                let proposals = self.displacement_candidates(
+                    &sheets,
+                    part,
+                    options,
+                    ejections.max(2),
+                    8,
+                    &mut state,
+                )?;
+                for proposal in proposals
+                    .iter()
+                    .filter(|p| p.victims.len() <= 2)
+                    .take(ejections)
+                    .cloned()
+                {
                     if self.try_displacement(
                         &mut sheets,
                         &layout,
                         (part, &placement),
                         proposal,
                         options,
+                        &mut state,
+                    )? {
+                        continue 'pending;
+                    }
+                }
+                for proposal in proposals.into_iter().take(ejections.min(2)) {
+                    if self.try_relaxation(
+                        &mut sheets,
+                        &layout,
+                        (part, &placement),
+                        proposal,
                         &mut state,
                     )? {
                         continue 'pending;
@@ -348,7 +373,7 @@ impl PreparedJob<'_> {
             checked.violations
         );
         Ok(Construction {
-            algorithm: "nestbolt-repair-v3",
+            algorithm: "nestbolt-repair-v4",
             seed: options.seed,
             collision_checks: state.checks,
             surrogate_rejections: state.surrogate_rejections,

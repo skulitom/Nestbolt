@@ -74,13 +74,22 @@ def render(historical=False, lbf=False, sparrow=False):
             "| --- | --- | --- | --- |",
         ]
     else:
+        lines = [line.replace('No sparrow/studio source is currently reused.',
+                 'Nestbolt adapts the MIT Sparrow overlap-area penalty in crates/core/src/construct/repair/relax.rs; no Studio UI source is reused.')
+                 for line in lines]
         lines[16:16] = [
+            "Adapted source: Sparrow 0.3.0 src/quantify/{mod.rs,overlap_proxy.rs},",
+            "https://github.com/JeroenGar/sparrow/tree/4629b22795ae6b25b3b460ccde6fb36a71292b6d",
+            "Copyright (c) 2025 Jeroen Gardeyn, KU Leuven. Full MIT text: crates/core/Sparrow_LICENSE.", "",
             "jagua-rs's unmodified LBF is a separately compiled MPL-2.0 benchmark executable.",
             "See benchmarks/lbf/UPSTREAM_LICENSE and its own THIRD_PARTY_NOTICES.", "",
             "Maker dataset sources and isolated authoring tools retain their own licences.",
             "See benchmarks/makers/README.md, sources.json and licenses/; none is linked into the app.", "",
         ]
     texts = {}
+    if not (historical or lbf or sparrow):
+        content = (ROOT/'crates/core/Sparrow_LICENSE').read_text(encoding='utf-8').strip()
+        texts[content] = ['Sparrow 0.3.0 overlap penalty adaptation / crates/core/Sparrow_LICENSE']
     for package in packages:
         directory = Path(package["manifest_path"]).parent
         licence = package["license"]

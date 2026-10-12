@@ -98,7 +98,14 @@ bounded list collects the actual one or two movable blockers at candidate
 positions. Static boundaries and defects are never candidates for displacement.
 It reinserts larger victims first and restores every changed receiver region if
 any reinsertion fails. Stable blocker ordering and cost ties preserve repeatability.
-Continuous overlap repair and rotation improvement remain future search work.
+If ejection fails, up to two trials insert the donor part with at most eight
+initial blockers and separate the group by translation. Each trial has a local
+20,000-query cap plus the caller's shared work/cancellation limit. Jagua detects
+collisions; an MIT-licensed Sparrow pole-overlap proxy ranks moves. Persistent
+pairs gain weight at local minima. Angles, reflections, stock boundaries and
+defects stay fixed. Only a completely separated group survives; failure or
+interruption restores the receiver snapshot. The final original-geometry check
+still decides acceptance. Rotation improvement remains future search work.
 
 The separate compaction stage restores a valid layout into the collision trees,
 then makes bounded bottom-up sweeps. Translation-only sweeps preserve each exact

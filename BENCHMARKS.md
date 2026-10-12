@@ -5028,3 +5028,213 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-12T02:09:02.979936+00:00 | deepnest-next `m-sign-3` seed 1, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T020723Z-0b36e14b/run.json). Provisional native settings; independent score only for valid output.
 
 - 2026-10-12T02:09:09.442153+00:00 | deepnest-next `m-box-mini` seed 1, 60s, clearance-safe, axis y | valid | material 0.774000005 | [record](output/playwright/deepnest/20261012T020758Z-6687c481/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:09:45.465718+00:00 | SVGnest `m-box-mini` seed 1, 300s, expanded, axis y | no_layout | material None | [record](output/playwright/svgnest/20261012T020437Z-6e71a622/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:09:48.878818+00:00 | deepnest-next `m-garment-bruce-1` seed 0, 60s, clearance-safe, axis y | valid | material 0.22518335233333334 | [record](output/playwright/deepnest/20261012T020835Z-a5f94a0a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:09:52.239938+00:00 | deepnest-next `m-mechanical-mixed-stock` seed 2, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261012T020821Z-61bcbe35/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:10:15.104116+00:00 | deepnest-next `m-box-storage` seed 2, 60s, clearance-safe, axis y | valid | material 0.5401639344262295 | [record](output/playwright/deepnest/20261012T020902Z-ada31f9a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:10:24.005445+00:00 | deepnest-next `m-box-storage` seed 1, 60s, clearance-safe, axis y | valid | material 0.5401639344262295 | [record](output/playwright/deepnest/20261012T020911Z-9c108990/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:10:41.903550+00:00 | deepnest-next `m-sign-4` seed 1, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T020904Z-1c3c654e/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:11:07.403826+00:00 | deepnest-next `m-garment-bruce-2` seed 0, 60s, clearance-safe, axis y | valid | material 0.4877499222500001 | [record](output/playwright/deepnest/20261012T020950Z-135f7596/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:11:08.164891+00:00 | SVGnest `b-trousers-nest-mb-given` seed 2, 300s, expanded, axis y | valid | material 3.23728813559322 | [record](output/playwright/svgnest/20261012T020600Z-2928ef37/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:11:09.136786+00:00 | deepnest-next `m-mechanical-mounting-kit` seed 2, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261012T020954Z-26e276c8/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:11:26.658237+00:00 | deepnest-next `m-box-tool` seed 2, 60s, clearance-safe, axis y | valid | material 1.4330000025 | [record](output/playwright/deepnest/20261012T021016Z-f30d5360/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:11:35.372526+00:00 | deepnest-next `m-box-tool` seed 1, 60s, clearance-safe, axis y | valid | material 1.4790000025 | [record](output/playwright/deepnest/20261012T021025Z-52acecad/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:11:40.694117+00:00 | SVGnest `m-garment-teagan-2` seed 0, 300s, expanded, axis y | no_layout | material None | [record](output/playwright/svgnest/20261012T020633Z-ed2218ce/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:11:44.133167+00:00 | SVGnest `m-mechanical-defective-stock` seed 0, 300s, expanded, axis y | unsupported | material None | [record](output/playwright/svgnest/20261012T021142Z-341f6b6b/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:11:47.719011+00:00 | SVGnest `m-mechanical-mixed-stock` seed 0, 300s, expanded, axis y | unsupported | material None | [record](output/playwright/svgnest/20261012T021145Z-642de624/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:12:31.497449+00:00 | deepnest-next `m-mechanical-panel-hardware` seed 2, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261012T021110Z-35e14d44/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:12:40.017627+00:00 | deepnest-next `m-garment-bruce-1` seed 2, 60s, clearance-safe, axis y | valid | material 0.224454846 | [record](output/playwright/deepnest/20261012T021128Z-64bfb39c/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:12:47.462468+00:00 | deepnest-next `m-mechanical-frame-inserts` seed 0, 60s, clearance-safe, axis y | valid | material 0.6166470090163935 | [record](output/playwright/deepnest/20261012T021127Z-4218c6a3/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:12:48.488389+00:00 | deepnest-next `m-garment-bruce-3` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021109Z-0894548a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:12:50.899098+00:00 | deepnest-next `m-garment-bruce-1` seed 1, 60s, clearance-safe, axis y | valid | material 0.22868668933333333 | [record](output/playwright/deepnest/20261012T021136Z-c7cc23d4/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:13:36.706305+00:00 | svgnest B expanded, 300 s: 18/18 audited development attempts | [three-seed table](benchmarks/results/comparison-batches-20261012T021336Z-74941dfd.md). No final gate.
+
+- 2026-10-12T02:13:57.384565+00:00 | deepnest-next `m-garment-bruce-2` seed 2, 60s, clearance-safe, axis y | valid | material 0.4798551255 | [record](output/playwright/deepnest/20261012T021246Z-21b4df35/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:13:58.841410+00:00 | deepnest-next `m-mechanical-large-plates` seed 0, 60s, clearance-safe, axis y | valid | material 1.2436131259999998 | [record](output/playwright/deepnest/20261012T021248Z-d4eb636d/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:14:03.954031+00:00 | deepnest-next `m-garment-bruce-2` seed 1, 60s, clearance-safe, axis y | valid | material 0.5020563222500001 | [record](output/playwright/deepnest/20261012T021252Z-bd9175ed/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:14:32.805177+00:00 | deepnest-next `m-mechanical-remnant-kit` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021233Z-5bb1550a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:14:48.517234+00:00 | deepnest-next `m-garment-teagan-1` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021249Z-2c09b715/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:14:56.392723+00:00 | SVGnest `m-garment-teagan-2` seed 1, 300s, expanded, axis y | no_layout | material None | [record](output/playwright/svgnest/20261012T020947Z-e1c6483e/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:15:03.508224+00:00 | SVGnest `m-mechanical-defective-stock` seed 1, 300s, expanded, axis y | unsupported | material None | [record](output/playwright/svgnest/20261012T021501Z-a4b4fbf5/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:15:06.498204+00:00 | SVGnest `m-mechanical-mixed-stock` seed 1, 300s, expanded, axis y | unsupported | material None | [record](output/playwright/svgnest/20261012T021504Z-f28f648f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:15:30.907125+00:00 | deepnest-next `m-mechanical-mixed-stock` seed 0, 60s, clearance-safe, axis y | valid | material 1.037753514144 | [record](output/playwright/deepnest/20261012T021400Z-13cbc43a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:15:31.265299+00:00 | deepnest-next `m-garment-bruce-3` seed 2, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021358Z-5072f603/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:15:36.393024+00:00 | deepnest-next `m-garment-bruce-3` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021405Z-6c8599da/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:15:45.146674+00:00 | deepnest-next `m-mechanical-small-brackets` seed 2, 60s, identical, axis y | invalid | material None | [record](output/playwright/deepnest/20261012T021434Z-34d9c563/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:16:17.125296+00:00 | SVGnest `m-box-mini` seed 2, 300s, expanded, axis y | no_layout | material None | [record](output/playwright/svgnest/20261012T021109Z-b3d72093/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:16:36.819275+00:00 | deepnest-next `m-garment-teagan-2` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021449Z-cca2bb23/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:16:40.092453+00:00 | deepnest-next `m-mechanical-mounting-kit` seed 0, 60s, clearance-safe, axis y | valid | material 2.7940625925 | [record](output/playwright/deepnest/20261012T021532Z-8d7028b1/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:17:21.371382+00:00 | deepnest-next `m-garment-teagan-1` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021537Z-f37bb80b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:17:25.067847+00:00 | deepnest-next `m-garment-teagan-1` seed 2, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021532Z-d027abad/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:17:43.928902+00:00 | deepnest-next `m-mechanical-frame-inserts` seed 1, 60s, clearance-safe, axis y | valid | material 0.6225393286885246 | [record](output/playwright/deepnest/20261012T021635Z-932d12be/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:17:55.249794+00:00 | deepnest-next `m-mechanical-panel-hardware` seed 0, 60s, clearance-safe, axis y | valid | material 1.7303596172 | [record](output/playwright/deepnest/20261012T021641Z-805fc12f/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:18:39.476716+00:00 | deepnest-next `m-public-gear-1` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021546Z-35b4ba4e/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:18:46.349406+00:00 | deepnest-next `m-garment-teagan-3` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021637Z-d38360e6/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:18:57.675209+00:00 | tested and reverted surrogate early screening for multi-item repair: four valid, identical-layout runs; no consistent timing benefit | [all evidence](benchmarks/results/displace-profile-20261012T0219.md). No speed-gate claim.
+
+- 2026-10-12T02:18:59.143059+00:00 | deepnest-next `m-mechanical-large-plates` seed 1, 60s, clearance-safe, axis y | valid | material 1.2146666666666666 | [record](output/playwright/deepnest/20261012T021745Z-8c3d9244/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:19:13.859013+00:00 | deepnest-next `m-garment-teagan-2` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021722Z-a3ef5e38/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:19:22.747880+00:00 | deepnest-next `m-mechanical-remnant-kit` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021757Z-6b652499/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:19:38.969853+00:00 | deepnest-next `m-garment-teagan-2` seed 2, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021726Z-084c45a5/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:20:09.376098+00:00 | deepnest-next `m-mechanical-batch-1000` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021848Z-bc487ed5/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:20:16.790383+00:00 | deepnest-next `m-mechanical-mixed-stock` seed 1, 60s, clearance-safe, axis y | valid | material 1.0284506139840002 | [record](output/playwright/deepnest/20261012T021900Z-b7f9c2b2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:20:31.028859+00:00 | deepnest-next `m-public-gear-2` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021842Z-7f30eb84/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:20:33.528505+00:00 | deepnest-next `m-mechanical-small-brackets` seed 0, 60s, clearance-safe, axis y | valid | material 6.67 | [record](output/playwright/deepnest/20261012T021923Z-efefd9f4/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:20:49.782613+00:00 | deepnest-next `m-garment-teagan-3` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021915Z-75337509/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:21:24.020689+00:00 | deepnest-next `m-mechanical-cog-washers` seed 0, 60s, clearance-safe, axis y | valid | material 2.1825 | [record](output/playwright/deepnest/20261012T022010Z-af20c737/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:21:24.424495+00:00 | SVGnest `m-garment-teagan-2` seed 2, 300s, expanded, axis y | no_layout | material None | [record](output/playwright/svgnest/20261012T021618Z-62cc803a/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:21:28.547971+00:00 | deepnest-next `m-mechanical-mounting-kit` seed 1, 60s, clearance-safe, axis y | valid | material 2.74143522 | [record](output/playwright/deepnest/20261012T022018Z-fa4985dc/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:21:31.529599+00:00 | SVGnest `m-mechanical-defective-stock` seed 2, 300s, expanded, axis y | unsupported | material None | [record](output/playwright/svgnest/20261012T022129Z-1c4e7ba9/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:21:34.855291+00:00 | SVGnest `m-mechanical-mixed-stock` seed 2, 300s, expanded, axis y | unsupported | material None | [record](output/playwright/svgnest/20261012T022133Z-9e9ac014/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T02:22:18.216892+00:00 | deepnest-next `m-public-gear-3` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022032Z-268b0f59/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:22:20.296903+00:00 | deepnest-next `m-public-gear-1` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022034Z-c8fe2299/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:22:36.904948+00:00 | deepnest-next `m-mechanical-batch-1000` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022050Z-bfff322c/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:22:41.848629+00:00 | deepnest-next `m-mechanical-panel-hardware` seed 1, 60s, clearance-safe, axis y | valid | material 1.7728125512000001 | [record](output/playwright/deepnest/20261012T022129Z-97426b40/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:23:39.040641+00:00 | deepnest-next `m-public-gear-4` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022219Z-4f74b65a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:23:47.130877+00:00 | deepnest-next `m-mechanical-cog-washers` seed 1, 60s, clearance-safe, axis y | valid | material 2.1825 | [record](output/playwright/deepnest/20261012T022238Z-5a1782b7/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:23:52.790707+00:00 | deepnest-next `m-garment-teagan-3` seed 2, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T021940Z-f146e25e/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:24:26.984059+00:00 | deepnest-next `m-public-gear-2` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022221Z-2ec062dd/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:24:37.663324+00:00 | deepnest-next `m-mechanical-remnant-kit` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022242Z-467f7d9b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:25:16.489010+00:00 | deepnest-next `b-albano-nest-mb-free` seed 0, 300s, identical, axis y | valid | material 2.5943748626675456 | [record](output/playwright/deepnest/20261012T022005Z-33a84558/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:25:49.529281+00:00 | deepnest-next `m-public-gear-3` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022428Z-a3c0f2f2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:25:50.811436+00:00 | deepnest-next `m-mechanical-small-brackets` seed 1, 60s, clearance-safe, axis y | valid | material 6.63 | [record](output/playwright/deepnest/20261012T022438Z-2c5ea74f/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:27:19.948760+00:00 | deepnest-next `m-public-gear-1` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022555Z-ad6e2195/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:27:30.104833+00:00 | deepnest-next `m-public-gear-4` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022554Z-32872e8f/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:28:47.298693+00:00 | deepnest-next `m-sign-1` seed 0, 60s, clearance-safe, axis y | valid | material 0.9447733 | [record](output/playwright/deepnest/20261012T022731Z-ba2e412c/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:29:06.926625+00:00 | deepnest-next `m-public-gear-2` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022721Z-7fb9a494/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:30:24.078880+00:00 | deepnest-next `m-sign-2` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022848Z-6fe6ed61/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:30:37.468729+00:00 | deepnest-next `m-public-gear-3` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T022908Z-1846a37b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:30:51.921816+00:00 | deepnest-next `b-fu-strip-sheet` seed 0, 300s, identical, axis y | valid | material 1.368421052631579 | [record](output/playwright/deepnest/20261012T022521Z-2646c905/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:32:46.737118+00:00 | svgnest M expanded, 300 s: 12/12 audited development attempts | [three-seed table](benchmarks/results/comparison-batches-20261012T023246Z-a5cc0290.md). No final gate.
+
+- 2026-10-12T02:33:18.073125+00:00 | deepnest-next `m-sign-3` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023025Z-f6666850/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:33:57.044011+00:00 | deepnest-next `m-public-gear-4` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023038Z-c004d7f8/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:35:36.614224+00:00 | deepnest-next `m-mechanical-defective-stock` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023233Z-ae17e157/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:35:41.220289+00:00 | deepnest-next `m-mechanical-batch-1000` seed 2, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023230Z-e4d5f0a2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:36:01.934821+00:00 | deepnest-next `b-jakobs2-strip-sheet` seed 0, 300s, identical, axis y | valid | material 0.8411458428571429 | [record](output/playwright/deepnest/20261012T023052Z-a7c0bfb2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:36:29.847158+00:00 | deepnest-next `m-sign-1` seed 1, 60s, clearance-safe, axis y | valid | material 0.94796155 | [record](output/playwright/deepnest/20261012T023421Z-c30c8d77/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:36:50.999457+00:00 | deepnest-next `m-mechanical-cog-washers` seed 2, 60s, clearance-safe, axis y | valid | material 2.1825 | [record](output/playwright/deepnest/20261012T023542Z-186a2270/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:36:58.240301+00:00 | deepnest-next `m-mechanical-defective-stock` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023537Z-072cec43/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:37:10.382927+00:00 | deepnest-next `m-sign-4` seed 0, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023427Z-16ee36e8/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:38:11.289903+00:00 | deepnest-next `m-mechanical-defective-stock` seed 2, 60s, clearance-safe, axis y | valid | material 3.3214 | [record](output/playwright/deepnest/20261012T023652Z-6a6be6dd/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:38:24.253442+00:00 | deepnest-next `m-sign-1` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023659Z-e18588ad/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:38:36.978418+00:00 | deepnest-next `b-albano-nest-mb-free` seed 1, 300s, identical, axis y | valid | material 2.5943748626675456 | [record](output/playwright/deepnest/20261012T023237Z-07dbddd8/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:39:24.016560+00:00 | deepnest-next `m-mechanical-frame-inserts` seed 2, 60s, clearance-safe, axis y | valid | material 0.6237919545081968 | [record](output/playwright/deepnest/20261012T023812Z-d5991444/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:39:46.176341+00:00 | deepnest-next `m-sign-2` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023825Z-b397ced9/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:40:24.092192+00:00 | bounded group-separation development trial, sheet: all outcomes retained; no material gain on completed jobs | [report](benchmarks/results/repack-sheet-20261012T023153Z-f9cc4dca.md).
+
+- 2026-10-12T02:40:24.116232+00:00 | bounded group-separation development trial, maker: all outcomes retained; no material gain on completed jobs | [report](benchmarks/results/repack-maker-20261012T023204Z-cf2e3cd9.md).
+
+- 2026-10-12T02:40:31.478194+00:00 | deepnest-next `m-mechanical-large-plates` seed 2, 60s, clearance-safe, axis y | valid | material 1.2396666666666667 | [record](output/playwright/deepnest/20261012T023925Z-4d9a98ac/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:41:21.304431+00:00 | deepnest-next `m-sign-3` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023947Z-762e2248/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:41:50.330999+00:00 | deepnest-next `m-mechanical-mixed-stock` seed 2, 60s, clearance-safe, axis y | valid | material 1.0218500911232 | [record](output/playwright/deepnest/20261012T024032Z-214e7ac4/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:41:57.614674+00:00 | deepnest-next `b-shapes0-nest-mb-free` seed 0, 300s, identical, axis y | valid | material 6.809523809523809 | [record](output/playwright/deepnest/20261012T023650Z-70faf3fd/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:41:58.772116+00:00 | deepnest-next `b-albano-nest-mb-free` seed 0, 300s, expanded, axis y | valid | material 3.8726159228740933 | [record](output/playwright/deepnest/20261012T023651Z-aa27fac2/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:42:05.789540+00:00 | deepnest-next `m-sign-2` seed 1, 60s, clearance-safe, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T023927Z-0e98b80b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:42:20.945503+00:00 | deepnest-next `b-albano-nest-mb-free` seed 2, 300s, identical, axis y | valid | material 2.635464733025709 | [record](output/playwright/deepnest/20261012T023711Z-14ebcaec/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:42:56.087489+00:00 | indexed blocker-search diagnostic: four exact-output replays, two CPU10 pairs; retain speed change, no G4 claim | [all profiles](benchmarks/results/relax-profile-20261012T0242.md).
+
+- 2026-10-12T02:42:57.289939+00:00 | deepnest-next `m-mechanical-mounting-kit` seed 2, 60s, clearance-safe, axis y | valid | material 2.7920882775 | [record](output/playwright/deepnest/20261012T024151Z-3845c307/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:43:27.220332+00:00 | deepnest-next `m-sign-4` seed 2, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T024122Z-f88ca780/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:43:44.438976+00:00 | deepnest-next `b-fu-strip-sheet` seed 1, 300s, identical, axis y | valid | material 1.368421052631579 | [record](output/playwright/deepnest/20261012T023838Z-119043dd/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T02:44:00.955176+00:00 | deepnest M identical, 60 s: 90/90 audited development attempts | [three-seed table](benchmarks/results/comparison-batches-20261012T024400Z-b9c3dab2.md). No final gate.
+
+- 2026-10-12T02:44:06.242095+00:00 | deepnest-next `m-mechanical-panel-hardware` seed 2, 60s, clearance-safe, axis y | valid | material 1.7398561948000002 | [record](output/playwright/deepnest/20261012T024258Z-dc14d7b5/run.json). Provisional native settings; independent score only for valid output.

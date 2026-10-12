@@ -129,6 +129,7 @@ struct OpenSheet {
     stock: usize,
     regions: Vec<Region>,
 }
+#[derive(Clone, Copy)]
 struct Candidate {
     internal: DTransformation,
     external: RigidTransform,

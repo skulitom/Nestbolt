@@ -12,7 +12,11 @@ Current Sparrow is a separately downloaded MIT benchmark executable.
 The historical M0 Sparrow 0.1.0 and jagua-rs 0.6.2 are MPL-2.0 and unmodified.
 Their isolated adapter also uses MPL-2.0; see benchmarks/sparrow-repro/UPSTREAM_LICENSE
 and its separate THIRD_PARTY_NOTICES. They are not linked into the product.
-No sparrow/studio source is currently reused.
+Nestbolt adapts the MIT Sparrow overlap-area penalty in crates/core/src/construct/repair/relax.rs; no Studio UI source is reused.
+
+Adapted source: Sparrow 0.3.0 src/quantify/{mod.rs,overlap_proxy.rs},
+https://github.com/JeroenGar/sparrow/tree/4629b22795ae6b25b3b460ccde6fb36a71292b6d
+Copyright (c) 2025 Jeroen Gardeyn, KU Leuven. Full MIT text: crates/core/Sparrow_LICENSE.
 
 jagua-rs's unmodified LBF is a separately compiled MPL-2.0 benchmark executable.
 See benchmarks/lbf/UPSTREAM_LICENSE and its own THIRD_PARTY_NOTICES.
@@ -204,6 +208,34 @@ Identical texts are printed once with every supplying package listed.
 
 ## Notice 1
 
+- Sparrow 0.3.0 overlap penalty adaptation / crates/core/Sparrow_LICENSE
+
+````text
+MIT License
+
+Copyright (c) 2025 Jeroen Gardeyn, KU Leuven
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+````
+
+## Notice 2
+
 - android_system_properties 0.1.6 / LICENSE-APACHE
 
 ````text
@@ -222,7 +254,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 2
+## Notice 3
 
 - android_system_properties 0.1.6 / LICENSE-MIT
 
@@ -249,7 +281,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 3
+## Notice 4
 
 - anstream 1.0.0 / LICENSE-APACHE
 - anstyle 1.0.14 / LICENSE-APACHE
@@ -465,7 +497,7 @@ Apache License
    limitations under the License.
 ````
 
-## Notice 4
+## Notice 5
 
 - anstream 1.0.0 / LICENSE-MIT
 - anstyle 1.0.14 / LICENSE-MIT
@@ -505,7 +537,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 5
+## Notice 6
 
 - anyhow 1.0.104 / LICENSE-APACHE
 - dyn-clone 1.0.20 / LICENSE-APACHE
@@ -711,7 +743,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 END OF TERMS AND CONDITIONS
 ````
 
-## Notice 6
+## Notice 7
 
 - anyhow 1.0.104 / LICENSE-MIT
 - borsh 1.8.1 / LICENSE-MIT
@@ -772,7 +804,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 7
+## Notice 8
 
 - approx 0.5.1 / LICENSE
 - unarray 0.1.4 / LICENSE-APACHE
@@ -981,7 +1013,7 @@ Apache License
    limitations under the License.
 ````
 
-## Notice 8
+## Notice 9
 
 - autocfg 1.5.1 / LICENSE-APACHE
 - bitflags 2.13.2 / LICENSE-APACHE
@@ -1240,7 +1272,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 9
+## Notice 10
 
 - autocfg 1.5.1 / LICENSE-MIT
 
@@ -1272,7 +1304,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 10
+## Notice 11
 
 - bit-set 0.11.1 / LICENSE-APACHE
 - bit-vec 0.10.1 / LICENSE-APACHE
@@ -1481,7 +1513,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 11
+## Notice 12
 
 - bit-set 0.11.1 / LICENSE-MIT
 - bit-vec 0.10.1 / LICENSE-MIT
@@ -1514,7 +1546,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 12
+## Notice 13
 
 - bitflags 2.13.2 / LICENSE-MIT
 - log 0.4.34 / LICENSE-MIT
@@ -1551,7 +1583,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 13
+## Notice 14
 
 - borsh 1.8.1 / LICENSE-APACHE
 - borsh-derive 1.8.1 / LICENSE-APACHE
@@ -1760,7 +1792,7 @@ Apache License
    limitations under the License.
 ````
 
-## Notice 14
+## Notice 15
 
 - bumpalo 3.20.3 / LICENSE-MIT
 
@@ -1792,7 +1824,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 15
+## Notice 16
 
 - byteorder 1.5.0 / COPYING
 - memchr 2.8.3 / COPYING
@@ -1803,7 +1835,7 @@ This project is dual-licensed under the Unlicense and MIT licenses.
 You may use this code under the terms of either license.
 ````
 
-## Notice 16
+## Notice 17
 
 - byteorder 1.5.0 / LICENSE-MIT
 - memchr 2.8.3 / LICENSE-MIT
@@ -1832,7 +1864,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ````
 
-## Notice 17
+## Notice 18
 
 - byteorder 1.5.0 / UNLICENSE
 - memchr 2.8.3 / UNLICENSE
@@ -1864,7 +1896,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 For more information, please refer to <http://unlicense.org/>
 ````
 
-## Notice 18
+## Notice 19
 
 - bytes 1.12.1 / LICENSE
 
@@ -1896,7 +1928,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 19
+## Notice 20
 
 - cc 1.8.0 / LICENSE-MIT
 - cfg-if 1.0.5 / LICENSE-MIT
@@ -1936,7 +1968,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 20
+## Notice 21
 
 - cfg_aliases 0.2.2 / LICENSE
 
@@ -1952,7 +1984,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 21
+## Notice 22
 
 - cfg_aliases 0.2.2 / NOTICES.md
 
@@ -1985,7 +2017,7 @@ The `cfg_aliases!` macro uses a lot of the code from [`tectonic_cfg_support::tar
 ---
 ````
 
-## Notice 22
+## Notice 23
 
 - chacha20 0.10.2 / LICENSE-APACHE
 - cpufeatures 0.3.1 / LICENSE-APACHE
@@ -2194,7 +2226,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 23
+## Notice 24
 
 - chacha20 0.10.2 / LICENSE-MIT
 
@@ -2226,7 +2258,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 24
+## Notice 25
 
 - chrono 0.4.45 / LICENSE.txt
 
@@ -2472,7 +2504,7 @@ limitations under the License.
 ~~~~
 ````
 
-## Notice 25
+## Notice 26
 
 - clap 4.6.7 / LICENSE-APACHE
 - clap_builder 4.6.7 / LICENSE-APACHE
@@ -2686,7 +2718,7 @@ Apache License
    limitations under the License.
 ````
 
-## Notice 26
+## Notice 27
 
 - clipper2-rust 1.2.0 / LICENSE
 
@@ -2716,7 +2748,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 27
+## Notice 28
 
 - core-foundation-sys 0.8.7 / LICENSE-MIT
 
@@ -2748,7 +2780,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 28
+## Notice 29
 
 - core_detect 1.0.0 / LICENSE-MIT
 
@@ -2780,7 +2812,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 29
+## Notice 30
 
 - cpufeatures 0.3.1 / LICENSE-MIT
 
@@ -2812,7 +2844,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 30
+## Notice 31
 
 - crossbeam-deque 0.8.8 / LICENSE-MIT
 - crossbeam-epoch 0.9.21 / LICENSE-MIT
@@ -2848,7 +2880,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 31
+## Notice 32
 
 - document-features 0.2.12 / LICENSE-APACHE
 
@@ -2928,7 +2960,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 32
+## Notice 33
 
 - document-features 0.2.12 / LICENSE-MIT
 
@@ -2954,7 +2986,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 33
+## Notice 34
 
 - either 1.19.0 / LICENSE-MIT
 - itertools 0.15.0 / LICENSE-MIT
@@ -2988,7 +3020,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 34
+## Notice 35
 
 - equivalent 1.0.2 / LICENSE-MIT
 
@@ -3020,7 +3052,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 35
+## Notice 36
 
 - errno 0.3.14 / LICENSE-MIT
 
@@ -3052,7 +3084,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 36
+## Notice 37
 
 - float-cmp 0.10.0 / LICENSE
 
@@ -3078,7 +3110,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 ````
 
-## Notice 37
+## Notice 38
 
 - float_next_after 2.0.0 / LICENSE
 
@@ -3108,7 +3140,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 38
+## Notice 39
 
 - fnv 1.0.7 / LICENSE-MIT
 
@@ -3140,7 +3172,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 39
+## Notice 40
 
 - futures 0.3.34 / LICENSE-APACHE
 - futures-channel 0.3.34 / LICENSE-APACHE
@@ -3357,7 +3389,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 40
+## Notice 41
 
 - futures 0.3.34 / LICENSE-MIT
 - futures-channel 0.3.34 / LICENSE-MIT
@@ -3398,7 +3430,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 41
+## Notice 42
 
 - geo-types 0.7.20 / LICENSE-MIT
 
@@ -3430,7 +3462,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 42
+## Notice 43
 
 - geographiclib-rs 0.2.7 / LICENSE
 
@@ -3458,7 +3490,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 43
+## Notice 44
 
 - getrandom 0.4.3 / LICENSE-APACHE
 
@@ -3666,7 +3698,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 44
+## Notice 45
 
 - getrandom 0.4.3 / LICENSE-MIT
 
@@ -3699,7 +3731,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 45
+## Notice 46
 
 - hash32 0.3.1 / LICENSE-MIT
 
@@ -3731,7 +3763,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 46
+## Notice 47
 
 - hashbrown 0.17.1 / LICENSE-MIT
 
@@ -3763,7 +3795,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 47
+## Notice 48
 
 - heapless 0.8.0 / LICENSE-MIT
 
@@ -3795,7 +3827,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 48
+## Notice 49
 
 - heck 0.5.0 / LICENSE-MIT
 
@@ -3827,7 +3859,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 49
+## Notice 50
 
 - i_float 1.16.0 / LICENSE
 - i_shape 1.18.0 / LICENSE
@@ -3856,7 +3888,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 50
+## Notice 51
 
 - i_tree 0.18.0 / LICENSE
 
@@ -3884,7 +3916,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 51
+## Notice 52
 
 - iana-time-zone 0.1.65 / LICENSE-APACHE
 - iana-time-zone-haiku 0.1.2 / LICENSE-APACHE
@@ -4093,7 +4125,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 52
+## Notice 53
 
 - iana-time-zone 0.1.65 / LICENSE-MIT
 - iana-time-zone-haiku 0.1.2 / LICENSE-MIT
@@ -4126,7 +4158,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 53
+## Notice 54
 
 - indexmap 2.14.2 / LICENSE-MIT
 
@@ -4158,7 +4190,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 54
+## Notice 55
 
 - libc 0.2.190 / LICENSE-MIT
 
@@ -4190,7 +4222,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 55
+## Notice 56
 
 - libm 0.2.16 / LICENSE.txt
 
@@ -4455,7 +4487,7 @@ have been licensed under extremely permissive terms.
 Copyright notices are retained in src/* files where relevant.
 ````
 
-## Notice 56
+## Notice 57
 
 - linux-raw-sys 0.12.1 / LICENSE-Apache-2.0_WITH_LLVM-exception
 - rustix 1.1.5 / LICENSE-Apache-2.0_WITH_LLVM-exception
@@ -4682,7 +4714,7 @@ the License, but only in their entirety and only with respect to the Combined
 Software.
 ````
 
-## Notice 57
+## Notice 58
 
 - litrs 1.0.0 / LICENSE-MIT
 
@@ -4714,7 +4746,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 58
+## Notice 59
 
 - matrixmultiply 0.3.11 / LICENSE-MIT
 
@@ -4748,7 +4780,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 59
+## Notice 60
 
 - mio 1.2.4 / LICENSE
 
@@ -4774,7 +4806,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ````
 
-## Notice 60
+## Notice 61
 
 - ndarray 0.17.2 / LICENSE-MIT
 
@@ -4808,7 +4840,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 61
+## Notice 62
 
 - nix 0.31.3 / LICENSE
 
@@ -4836,7 +4868,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ````
 
-## Notice 62
+## Notice 63
 
 - ordered-float 5.5.0 / LICENSE-MIT
 
@@ -4868,7 +4900,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 63
+## Notice 64
 
 - pin-project-lite 0.2.17 / LICENSE-APACHE
 - portable-atomic 1.15.0 / LICENSE-APACHE
@@ -5053,7 +5085,7 @@ Apache License
    END OF TERMS AND CONDITIONS
 ````
 
-## Notice 64
+## Notice 65
 
 - proc-macro-crate 3.5.0 / LICENSE-APACHE
 
@@ -5261,7 +5293,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 65
+## Notice 66
 
 - proptest 1.12.0 / LICENSE-MIT
 - rusty-fork 0.3.1 / LICENSE-MIT
@@ -5294,7 +5326,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 66
+## Notice 67
 
 - quick-error 1.2.3 / LICENSE-MIT
 
@@ -5320,7 +5352,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 67
+## Notice 68
 
 - rand 0.10.3 / LICENSE-APACHE
 - rand_xorshift 0.5.0 / LICENSE-APACHE
@@ -5504,7 +5536,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 END OF TERMS AND CONDITIONS
 ````
 
-## Notice 68
+## Notice 69
 
 - rand 0.10.3 / LICENSE-MIT
 - rand_xorshift 0.5.0 / LICENSE-MIT
@@ -5538,7 +5570,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 69
+## Notice 70
 
 - rand_core 0.10.1 / LICENSE-APACHE
 - rand_distr 0.6.0 / LICENSE-APACHE
@@ -5734,7 +5766,7 @@ APPENDIX: How to apply the Apache License to your work.
    identification within third-party archives.
 ````
 
-## Notice 70
+## Notice 71
 
 - rand_core 0.10.1 / LICENSE-MIT
 
@@ -5766,7 +5798,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 71
+## Notice 72
 
 - rand_distr 0.6.0 / LICENSE-MIT
 
@@ -5798,7 +5830,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 72
+## Notice 73
 
 - rand_pcg 0.10.2 / LICENSE-MIT
 
@@ -5831,7 +5863,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 73
+## Notice 74
 
 - rayon 1.12.0 / LICENSE-MIT
 - rayon-core 1.13.0 / LICENSE-MIT
@@ -5864,7 +5896,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 74
+## Notice 75
 
 - robust 1.2.0 / LICENSE-MIT
 
@@ -5897,7 +5929,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 75
+## Notice 76
 
 - schemars 1.2.2 / LICENSE
 - schemars_derive 1.2.2 / LICENSE
@@ -5926,7 +5958,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 76
+## Notice 77
 
 - shlex 2.0.1 / LICENSE-APACHE
 
@@ -5946,7 +5978,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ````
 
-## Notice 77
+## Notice 78
 
 - shlex 2.0.1 / LICENSE-MIT
 
@@ -5974,7 +6006,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ````
 
-## Notice 78
+## Notice 79
 
 - sif-itree 0.4.1 / LICENSE-MIT
 
@@ -6006,7 +6038,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 79
+## Notice 80
 
 - signal-hook-registry 1.4.8 / LICENSE-MIT
 
@@ -6038,7 +6070,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 80
+## Notice 81
 
 - slab 0.4.12 / LICENSE
 
@@ -6070,7 +6102,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 81
+## Notice 82
 
 - slotmap 1.1.1 / LICENSE
 
@@ -6096,7 +6128,7 @@ the following restrictions:
  3. This notice may not be removed or altered from any source distribution.
 ````
 
-## Notice 82
+## Notice 83
 
 - smallvec 1.16.3 / LICENSE-MIT
 
@@ -6128,7 +6160,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 83
+## Notice 84
 
 - stable_deref_trait 1.2.1 / LICENSE-MIT
 
@@ -6160,7 +6192,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 84
+## Notice 85
 
 - strsim 0.11.1 / LICENSE
 
@@ -6190,7 +6222,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 85
+## Notice 86
 
 - svg 0.18.0 / LICENSE.md
 
@@ -6246,7 +6278,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
 ````
 
-## Notice 86
+## Notice 87
 
 - tempfile 3.27.0 / LICENSE-MIT
 
@@ -6278,7 +6310,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 87
+## Notice 88
 
 - tokio 1.53.2 / LICENSE
 - tokio-stream 0.1.19 / LICENSE
@@ -6308,7 +6340,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 88
+## Notice 89
 
 - tokio-macros 2.7.2 / LICENSE
 
@@ -6337,7 +6369,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 89
+## Notice 90
 
 - tracing 0.1.44 / LICENSE
 - tracing-attributes 0.1.31 / LICENSE
@@ -6371,7 +6403,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 90
+## Notice 91
 
 - unarray 0.1.4 / LICENSE-MIT
 
@@ -6399,7 +6431,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 91
+## Notice 92
 
 - unicode-ident 1.0.26 / LICENSE-UNICODE
 
@@ -6445,7 +6477,7 @@ dealings in these Data Files or Software without prior written
 authorization of the copyright holder.
 ````
 
-## Notice 92
+## Notice 93
 
 - utf8parse 0.2.2 / LICENSE-MIT
 
@@ -6477,7 +6509,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 93
+## Notice 94
 
 - uuid 1.28.0 / LICENSE-MIT
 
@@ -6510,7 +6542,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 94
+## Notice 95
 
 - version_check 0.9.5 / LICENSE-MIT
 
@@ -6536,7 +6568,7 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ````
 
-## Notice 95
+## Notice 96
 
 - web-time 1.1.0 / LICENSE-APACHE
 
@@ -6744,7 +6776,7 @@ Apache License
    limitations under the License.
 ````
 
-## Notice 96
+## Notice 97
 
 - web-time 1.1.0 / LICENSE-MIT
 
@@ -6772,7 +6804,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ````
 
-## Notice 97
+## Notice 98
 
 - windows 0.62.2 / license-apache-2.0
 - windows-collections 0.3.2 / license-apache-2.0
@@ -6991,7 +7023,7 @@ Apache License
    limitations under the License.
 ````
 
-## Notice 98
+## Notice 99
 
 - windows 0.62.2 / license-mit
 - windows-collections 0.3.2 / license-mit
@@ -7030,7 +7062,7 @@ MIT License
     SOFTWARE
 ````
 
-## Notice 99
+## Notice 100
 
 - winnow 1.0.4 / LICENSE-MIT
 

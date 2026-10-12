@@ -1,13 +1,15 @@
-//! Collision-guided moves of at most two parts. Static stock hazards are never
+//! Collision-guided proposals and bounded ejections. Static stock hazards are never
 //! movable, and failed reinsertion restores every changed receiver region.
 use super::*;
 use jagua_rs::collision_detection::hazards::{BasicHazardEntity, collector::BasicHazardCollector};
+use std::collections::HashMap;
 
+#[derive(Clone)]
 pub(super) struct Displacement {
-    sheet: usize,
-    region: usize,
-    candidate: Candidate,
-    victims: Vec<PItemKey>,
+    pub(super) sheet: usize,
+    pub(super) region: usize,
+    pub(super) candidate: Candidate,
+    pub(super) victims: Vec<PItemKey>,
     area: f32,
 }
 
@@ -18,6 +20,7 @@ impl PreparedJob<'_> {
         part: usize,
         options: Options,
         limit: usize,
+        max_blockers: usize,
         state: &mut SearchState<'_, '_>,
     ) -> Result<Vec<Displacement>> {
         let item = &self.items[part];
@@ -27,6 +30,12 @@ impl PreparedJob<'_> {
         for (si, regions) in sheets.iter().enumerate() {
             for (ri, occupied) in regions.iter().enumerate() {
                 let region = &occupied.region;
+                let indices: HashMap<_, _> = occupied
+                    .placed
+                    .iter()
+                    .enumerate()
+                    .map(|(index, placed)| (placed.key, index))
+                    .collect();
                 for degrees in angles(&self.job.parts[part], options)? {
                     state.control.checkpoint()?;
                     let angle = degrees.to_radians();
@@ -82,6 +91,14 @@ impl PreparedJob<'_> {
                             buffer.transform_from(item.shape_cd(), &internal.compose());
                             collector.clear();
                             let mut count = 0;
+                            // A candidate with more blockers than the worst retained
+                            // proposal cannot enter the bounded list. Stop collecting
+                            // there without changing candidate order or random draws.
+                            let blocker_limit = if proposals.len() == limit {
+                                max_blockers.min(proposals.last().unwrap().victims.len())
+                            } else {
+                                max_blockers
+                            };
                             let stopped = region.layout.cde().collect_poly_collisions_until(
                                 &buffer,
                                 &NoFilter,
@@ -89,7 +106,7 @@ impl PreparedJob<'_> {
                                 |hazard| {
                                     count += 1;
                                     !matches!(hazard, BasicHazardEntity::PlacedItem { .. })
-                                        || count > 2
+                                        || count > blocker_limit
                                 },
                             );
                             if stopped {
@@ -97,15 +114,18 @@ impl PreparedJob<'_> {
                             }
                             // Use source placement order, not tree traversal order,
                             // for deterministic ties and reinsertion.
-                            let victims: Vec<_> = occupied
-                                .placed
-                                .iter()
-                                .filter(|p| {
-                                    collector.iter().any(|(_, h)| {
-                                        matches!(h,
-                                    BasicHazardEntity::PlacedItem { pk, .. } if *pk == p.key)
-                                    })
-                                })
+                            let mut victim_indices = Vec::with_capacity(collector.len());
+                            for (_, hazard) in collector.iter() {
+                                let BasicHazardEntity::PlacedItem { pk, .. } = hazard else {
+                                    unreachable!()
+                                };
+                                victim_indices
+                                    .push(*indices.get(pk).context("untracked repair hazard")?);
+                            }
+                            victim_indices.sort_unstable();
+                            let victims: Vec<_> = victim_indices
+                                .into_iter()
+                                .map(|index| &occupied.placed[index])
                                 .collect();
                             ensure!(victims.len() == collector.len(), "untracked repair hazard");
                             let area = victims.iter().map(|p| self.items[p.part].area()).sum();
