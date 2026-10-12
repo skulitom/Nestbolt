@@ -1,6 +1,6 @@
 # Status — 2026-10-12
 
-**Completion: 45%. M0, M1 and M2 are complete (M2 on development evidence; final seeds re-check it in M5).**
+**Completion: 60%. M0, M1, M2 and M3 are complete (M2 on development evidence; final seeds re-check it in M5).**
 Percentages count completed milestones only. Development results do not establish the final acceptance gates. All failures and earlier trials remain in
 [BENCHMARKS.md](../BENCHMARKS.md). Ten held-out maker jobs remain unused for tuning.
 
@@ -9,7 +9,7 @@ Percentages count completed milestones only. Development results do not establis
 | M0 — Groundwork and reproduction | 5% | Complete: 39 valid runs; all 13 means within the frozen 1% threshold |
 | M1 — Baseline | 15% | Complete: all 1,878 declared slots audited; [target frozen at 10.77231474%](M1_BASELINE.md) |
 | M2 — Sheet optimiser | 25% | Complete: [development matrix](../benchmarks/results/sheets-m2-60s-s0-20261012T144634Z-10b9520f.md) 225/225 valid at 60 s and 300 s; G3 strip parity median −0.039%, worst +1.65%; G4 8/9 (88.9%). 60 s medians: 48/52 wins/ties, median 8.44% (G2 is M5) |
-| M3 — Part-in-part and import/export | 15% | G6 evidence except LightBurn: [fidelity](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md) on 196 real drawings, every exported contour within 0.0005 mm of its source, curves kept, mm and inch correct; Inkscape and LibreCAD open the exports at the placed size. Outstanding: Artem's LightBurn check on 5 exports |
+| M3 — Part-in-part and import/export | 15% | Complete: [fidelity](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md) on 196 real drawings within 0.0005 mm, curves kept, mm and inch correct; Inkscape and LibreCAD open the exports; [LightBurn 2.1.01](../benchmarks/results/g6-lightburn-20261012T170036Z.md) imports all five at the exact placed sizes |
 | M4 — Browser app and MCP | 20% | Browser app with 6 Playwright tests (Chromium, Firefox; also in CI). Real Claude Code MCP run passes (G7). MCPB bundle and release workflows built and tested locally. Outstanding: Pages hosting (the repository must be public first), G5 quality and 2,000-part memory measurements, MCPB/registry validation in a release dry run |
 | M5 — Final gates | 20% | Pending; all G1–G8 requirements remain in scope |
 
@@ -46,11 +46,10 @@ measures competitor reductions over LBF of **17.09% at 60 s** and **21.54% at 30
 The frozen G2 target is **10.77231474%**, applied separately to both budgets.
 Missing finite comparisons remain explicit and never earn free wins.
 
-Next: finish the M2 development matrix (60 s and 300 s, three seeds) and count
-M2 if every run is valid. Then G5 (browser quality within 2% of native, a
-2,000-part job under 1.5 GB) and Pages hosting once the repository is public.
-Artem's LightBurn check completes G6. G2's median (8.3% vs 10.8%) is the M5
-tuning work.
+Next: G2 quality, the competitive edge before the public launch (median 8.44%
+vs the 10.77% target at 60 s; 8 more jobs must clear it), then M4: G5 browser
+quality and 2,000-part memory measurements, and Pages hosting once Artem makes
+the repository public.
 
 [Ties, failure coverage and the baseline-gap formula](../benchmarks/STATISTICS.md)
 are now explicit. No competitor result means no free win. The [verified 10.6417% single-seed gap](../benchmarks/results/pilot-gap-feedback-20261011.md)
