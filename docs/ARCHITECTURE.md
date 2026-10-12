@@ -96,6 +96,16 @@ preserves copy identities, and independently validates the resulting original
 geometry. Incomplete trials remain unscored. Overlap-based multi-item repair and
 continuous rotation improvement remain future search work.
 
+The separate compaction stage restores a valid layout into the collision trees,
+then makes bounded bottom-up sweeps. Translation-only sweeps preserve each exact
+source angle and reflection. Optional relocation removes one item, rebuilds its
+other-item contacts, searches permitted orientations/positions and reinserts it.
+A relocation must lower placement cost without raising its proxy's top edge.
+Physical sheets, stock identities, original copy selection and source ordering
+remain intact. The source is immutable on interruption, and the complete trial
+passes the independent checker. Trials show modest gains but expensive searches
+on some large jobs; automatic scheduling inside repacking remains pending.
+
 For this bootstrap, core consumes the polygon contract from the validator crate.
 The checker is called for source preflight and final acceptance, never to choose
 placements. Search intersections stay in jagua; final intersections stay in

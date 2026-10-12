@@ -23,6 +23,12 @@ No optimisation-quality claims have been established yet.
   including the 1,000-part job in 40.1 seconds. This
   experimental command supports a deterministic collision-query allowance and a
   cooperative deadline, keeping its last independently checked layout.
+- `nestbolt compact`: refines an existing valid layout without opening stock.
+  Translation sweeps preserve its angles; `--relocate` also tries other positions
+  and permitted orientations. The current [sheet](benchmarks/results/compact-b-20261012T012839Z-c2a42aba.md)
+  and [maker](benchmarks/results/compact-m-20261012T012843Z-dac4bd32.md) diagnostics
+  keep all 65 layouts valid and improve material on 17. This separate experimental
+  step is not yet scheduled inside `improve`.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,
@@ -53,6 +59,7 @@ python scripts/smoke.py
 cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layout examples/validation-layout.json
 cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-box-mini.json --output box-layout.json
 cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box-mini.json --output improved-box-layout.json --passes 6
+cargo run --release -p nestbolt-cli -- compact --job benchmarks/datasets/M/m-box-mini.json --layout improved-box-layout.json --output compact-box-layout.json --relocate
 ```
 
 `construct --refine` adds bounded translation refinement; adding `--contacts`

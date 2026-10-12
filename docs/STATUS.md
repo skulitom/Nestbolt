@@ -26,6 +26,7 @@ establish the final comparison. All failures and earlier trials remain in
 | Nestbolt refinement | Three-method comparison: 30/30 valid; 22 improve, eight unchanged vs constructor; slowest 56.718 s | [Trial](../benchmarks/results/repack-maker-20261011T233725Z-c0e36d78.md); improve large-job speed |
 | Nestbolt repair | 35/35 sheet and 30/30 maker jobs valid. All 64 comparable layouts exactly preserved; previously timed-out 1,000-part job now finishes in 40.1 s | [Sheet trial](../benchmarks/results/repack-sheet-20261012T003957Z-29681a27.md), [maker trial](../benchmarks/results/repack-maker-20261012T003947Z-73f9cdbc.md); improve quality |
 | Search limits | 1,000-part job returns a valid incumbent in 15.094 s under a 15 s cooperative deadline; two fixed-work replays produce identical results | [Stop and replay evidence](../benchmarks/results/search-control-20261012T0114.md); calibrate time-to-work mapping and wire browser/MCP cancellation |
+| Compaction | All 65 saved layouts remain valid. Relocation improves seven sheet and ten maker jobs, with no observed regressions; largest maker reduction 2.65% | [Sheet trial](../benchmarks/results/compact-b-20261012T012839Z-c2a42aba.md), [maker trial](../benchmarks/results/compact-m-20261012T012843Z-dac4bd32.md); reduce its 33 s cost on the unchanged 1,000-part layout before automatic scheduling |
 | Constructor speed diagnostic | Stable cost order cuts 1,000-part collision checks from 9.33M to 4.39M; last matched-CPU pair uses 61.8% less CPU time with identical output | [All ten timing attempts](../benchmarks/results/construct-profile-20261012T0042.md); four-circle experiment reverted; no G4 claim |
 | Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | Search-control CI passed four jobs; Windows exposed a temporary-path alias in the new test fixture, now fixed; rerun pending |
 
@@ -41,10 +42,9 @@ populations must pass separately.
 
 The independent checker covers original geometry, spacing, quantities, units,
 stock, margins, defects, rotations, mirroring and fill mode. The latest full local
-check passed 67 workspace tests, four stock-helper tests, both WASM builds,
-source/schema/notices checks and 79 Python tests. Two further report tests pass
-for the explicit harness replacements. Five Node tests cover CPU selection and
-native process cleanup.
+check passed 71 workspace tests, four stock-helper tests, both WASM builds,
+source/schema/notices checks and 81 Python tests. Five Node tests cover CPU
+selection and native process cleanup.
 
 [Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio
 stop condition was not triggered. No release or registry listing has been published.

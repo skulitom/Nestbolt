@@ -33,7 +33,8 @@ def main():
     binary_hash = digest(binary)
     manifest, cases = development_cases(ROOT, args.dataset)
     sources = {p: digest(ROOT/p) for p in ['Cargo.lock','crates/core/src/construct.rs',
-        'crates/core/src/optimize.rs','crates/core/src/control.rs','crates/core/src/construct/repair.rs','crates/core/src/lib.rs','scripts/construct_pilot.py',
+        'crates/core/src/optimize.rs','crates/core/src/control.rs','crates/core/src/construct/repair.rs',
+        'crates/core/src/construct/repair/compact.rs','crates/core/src/lib.rs','scripts/construct_pilot.py',
         'crates/cli/src/main.rs','crates/validator/src/lib.rs','crates/validator/src/job.rs']}
     rows = []
     for case in cases:

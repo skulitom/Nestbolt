@@ -186,6 +186,21 @@ fn repair_keeps_mirrored_off_origin_geometry_and_split_remnant_identity() {
         "{:?}",
         validate(&job, &source).unwrap()
     );
+    let compacted = PreparedJob::new(&job)
+        .unwrap()
+        .compact_layout(&source, 2)
+        .unwrap();
+    assert!(validate(&job, &compacted.layout).unwrap().valid);
+    for (before, after) in source.placements.iter().zip(&compacted.layout.placements) {
+        assert_eq!(before.part_id, after.part_id);
+        assert_eq!(before.copy_index, after.copy_index);
+        assert_eq!(before.sheet_id, after.sheet_id);
+        assert_eq!(
+            before.transform.rotation_radians,
+            after.transform.rotation_radians
+        );
+        assert_eq!(before.transform.mirrored, after.transform.mirrored);
+    }
     let repaired = PreparedJob::new(&job)
         .unwrap()
         .repair_sheet(&source, 1, options(), 0)

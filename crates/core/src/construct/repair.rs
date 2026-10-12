@@ -3,6 +3,8 @@
 use super::*;
 use jagua_rs::entities::PItemKey;
 
+mod compact;
+
 #[derive(Clone)]
 struct Tracked {
     key: PItemKey,
@@ -18,9 +20,16 @@ struct Occupied {
 
 impl Occupied {
     fn refresh(&mut self) {
+        self.refresh_except(None);
+    }
+
+    fn refresh_except(&mut self, removed: Option<PItemKey>) {
         self.region.boxes.clear();
         self.region.contact_anchors.clear();
         for tracked in &self.placed {
+            if removed == Some(tracked.key) {
+                continue;
+            }
             let shape = self.region.layout.placed_items()[tracked.key].shape();
             let b = shape.bbox();
             self.region.boxes.push([b.x_min, b.y_min, b.x_max, b.y_max]);

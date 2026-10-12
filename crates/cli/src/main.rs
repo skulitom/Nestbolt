@@ -13,6 +13,21 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Compact an existing valid layout with bounded translation sweeps.
+    Compact {
+        #[arg(long)]
+        job: PathBuf,
+        #[arg(long)]
+        layout: PathBuf,
+        #[arg(long)]
+        output: PathBuf,
+        #[arg(long, default_value_t = 2)]
+        sweeps: u32,
+        #[arg(long)]
+        max_checks: Option<u64>,
+        #[arg(long)]
+        relocate: bool,
+    },
     /// Improve a polygon job using an explicit deterministic number of repacking passes.
     Improve {
         #[arg(long)]
@@ -97,6 +112,46 @@ impl From<InputUnits> for Units {
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::Compact {
+            job,
+            layout,
+            output,
+            sweeps,
+            max_checks,
+            relocate,
+        } => {
+            let job = serde_json::from_slice(&fs::read(job)?)?;
+            let source = serde_json::from_slice(&fs::read(layout)?)?;
+            let prepared = nestbolt_core::construct::PreparedJob::new(&job)?;
+            let mut control = nestbolt_core::control::Control::new(max_checks, None);
+            let construction = if relocate {
+                prepared.compact_with_relocation(
+                    &source,
+                    sweeps,
+                    nestbolt_core::construct::Options::default(),
+                    &mut control,
+                )?
+            } else {
+                prepared.compact_controlled(&source, sweeps, &mut control)?
+            };
+            let validation = nestbolt_validator::job::validate(&job, &construction.layout)?;
+            ensure!(
+                validation.valid,
+                "compacted layout failed independent validation"
+            );
+            println!(
+                "{}",
+                serde_json::to_string_pretty(
+                    &serde_json::json!({"construction": construction, "validation": validation})
+                )?
+            );
+            use std::io::Write;
+            let mut file = fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(output)?;
+            file.write_all(serde_json::to_string_pretty(&construction.layout)?.as_bytes())?;
+        }
         Command::Improve {
             job,
             output,

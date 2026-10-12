@@ -4726,3 +4726,89 @@ and do not reproduce the published experiments or independently validate geometr
 - 2026-10-12T01:21:31.409563+00:00 | deepnest-next `b-trousers-nest-mb-given` seed 1, 60s, expanded, axis y | valid | material 3.3111690621468925 | [record](output/playwright/deepnest/20261012T012025Z-d12c8515/run.json). Provisional native settings; independent score only for valid output.
 
 - 2026-10-12T01:21:35.237241+00:00 | deepnest-next `b-shapes1-nest-mb-given` seed 1, 60s, expanded, axis y | valid | material 7.809523809523809 | [record](output/playwright/deepnest/20261012T012028Z-e05843ec/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:21:38.618719+00:00 | deepnest-next `b-jakobs2-strip-sheet` seed 2, 60s, expanded, axis y | valid | material 0.9690476285714285 | [record](output/playwright/deepnest/20261012T012032Z-574e0c28/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:22:14.042737+00:00 | deepnest-next `b-fu-nest-mb-free` seed 2, 60s, expanded, axis y | valid | material 5.656538571428572 | [record](output/playwright/deepnest/20261012T012104Z-bc6f22ae/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:22:25.971521+00:00 | SVGnest `b-albano-nest-mb-free` seed 0, 300s, identical, axis y | valid | material 2.5062623599208966 | [record](output/playwright/svgnest/20261012T011719Z-4d4cedd3/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T01:22:30.034953+00:00 | deepnest-next `m-box-long` seed 1, 60s, identical, axis y | valid | material 0.3257377049180328 | [record](output/playwright/deepnest/20261012T012123Z-df652291/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:22:42.068047+00:00 | deepnest-next `b-shapes1-strip-sheet` seed 1, 60s, expanded, axis y | valid | material 2.45 | [record](output/playwright/deepnest/20261012T012136Z-4dd72db1/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:22:45.417244+00:00 | deepnest-next `b-mao-nest-mb-free` seed 2, 60s, expanded, axis y | valid | material 2.7350966703129744 | [record](output/playwright/deepnest/20261012T012139Z-30ea8986/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:23:23.592508+00:00 | deepnest-next `b-fu-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 3.6666666666666665 | [record](output/playwright/deepnest/20261012T012214Z-ce6d0c33/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:23:33.594813+00:00 | SVGnest `b-albano-nest-mb-free` seed 1, 300s, identical, axis y | valid | material 2.774408033399253 | [record](output/playwright/svgnest/20261012T011828Z-a0e31f0f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T01:23:37.078505+00:00 | deepnest-next `m-box-mini` seed 1, 60s, identical, axis y | valid | material 0.716000005 | [record](output/playwright/deepnest/20261012T012230Z-6c3bbd71/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:23:44.278010+00:00 | SVGnest `b-albano-nest-mb-free` seed 2, 300s, identical, axis y | valid | material 2.6038985948143263 | [record](output/playwright/svgnest/20261012T011839Z-c83bbc43/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T01:23:51.925654+00:00 | deepnest-next `b-shirts-nest-mb-free` seed 1, 60s, expanded, axis y | valid | material 8.474624615384615 | [record](output/playwright/deepnest/20261012T012242Z-6e4e0546/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:23:55.085391+00:00 | deepnest-next `b-mao-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 2.7886232318444244 | [record](output/playwright/deepnest/20261012T012246Z-4eabcb0a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:24:33.414376+00:00 | deepnest-next `b-fu-strip-sheet` seed 2, 60s, expanded, axis y | valid | material 1.5365881842105265 | [record](output/playwright/deepnest/20261012T012324Z-d24bf108/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:24:44.676060+00:00 | deepnest-next `m-box-storage` seed 1, 60s, identical, axis y | valid | material 0.5388524590163934 | [record](output/playwright/deepnest/20261012T012338Z-476b434b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:25:01.643691+00:00 | deepnest-next `b-shirts-nest-mb-given` seed 1, 60s, expanded, axis y | valid | material 8.871794871794872 | [record](output/playwright/deepnest/20261012T012352Z-d4988962/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:25:02.109359+00:00 | deepnest-next `b-mao-strip-sheet` seed 2, 60s, expanded, axis y | valid | material 0.9026602309803923 | [record](output/playwright/deepnest/20261012T012356Z-0f4525c6/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:25:40.874720+00:00 | deepnest-next `b-jakobs1-nest-mb-free` seed 2, 60s, expanded, axis y | valid | material 4.535815916666667 | [record](output/playwright/deepnest/20261012T012434Z-eb00f257/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:25:52.073199+00:00 | deepnest-next `m-box-tool` seed 1, 60s, identical, axis y | valid | material 1.4790000025 | [record](output/playwright/deepnest/20261012T012445Z-e0c2733b/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:26:08.895094+00:00 | deepnest-next `b-shirts-strip-sheet` seed 1, 60s, expanded, axis y | valid | material 2.59375 | [record](output/playwright/deepnest/20261012T012502Z-34dfe779/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:26:12.224826+00:00 | deepnest-next `b-marques-strip-sheet` seed 2, 60s, expanded, axis y | valid | material 1.1826923076923077 | [record](output/playwright/deepnest/20261012T012502Z-c444c111/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:26:25.529216+00:00 | Two-sweep compaction of 35 B development layouts; every attempt retained | [evidence](benchmarks/results/compact-b-20261012T012622Z-10241405.md).
+
+- 2026-10-12T01:26:48.085084+00:00 | deepnest-next `b-jakobs1-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 3.8333333333333335 | [record](output/playwright/deepnest/20261012T012541Z-9a0d9b3a/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:26:55.040308+00:00 | Two-sweep compaction of 30 M development layouts; every attempt retained | [evidence](benchmarks/results/compact-m-20261012T012625Z-c3cdcbe3.md).
+
+- 2026-10-12T01:26:59.888921+00:00 | deepnest-next `m-garment-bruce-1` seed 1, 60s, identical, axis y | valid | material 0.21860406799999996 | [record](output/playwright/deepnest/20261012T012553Z-6dd555c4/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:27:16.467234+00:00 | deepnest-next `b-swim-nest-mb-free` seed 1, 60s, expanded, axis y | valid | material 5.611848604231749 | [record](output/playwright/deepnest/20261012T012609Z-f34219dc/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:27:19.515898+00:00 | deepnest-next `b-shapes0-nest-mb-free` seed 2, 60s, expanded, axis y | valid | material 7.618578666666667 | [record](output/playwright/deepnest/20261012T012613Z-4547bf85/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:27:31.808304+00:00 | SVGnest `b-fu-strip-sheet` seed 0, 300s, identical, axis y | valid | material 1.3976608157894737 | [record](output/playwright/svgnest/20261012T012226Z-f40d366f/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T01:27:55.701908+00:00 | deepnest-next `b-jakobs1-strip-sheet` seed 2, 60s, expanded, axis y | valid | material 0.8125 | [record](output/playwright/deepnest/20261012T012649Z-0a1844af/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:28:09.174182+00:00 | deepnest-next `m-garment-bruce-2` seed 1, 60s, identical, axis y | valid | material 0.48162238775 | [record](output/playwright/deepnest/20261012T012700Z-8c117aa9/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:28:26.300283+00:00 | deepnest-next `b-shapes0-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 7.809523809523809 | [record](output/playwright/deepnest/20261012T012720Z-4d292d41/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:28:42.249648+00:00 | SVGnest `b-fu-strip-sheet` seed 1, 300s, identical, axis y | valid | material 1.394736842105263 | [record](output/playwright/svgnest/20261012T012337Z-fd024d19/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T01:28:43.712326+00:00 | Two-sweep compaction of 35 B development layouts; every attempt retained | [evidence](benchmarks/results/compact-b-20261012T012839Z-c2a42aba.md).
+
+- 2026-10-12T01:28:50.342086+00:00 | SVGnest `b-fu-strip-sheet` seed 2, 300s, identical, axis y | valid | material 1.394736842105263 | [record](output/playwright/svgnest/20261012T012345Z-7d0fbfb1/run.json). Provisional settings, one worker and one CPU affinity.
+
+- 2026-10-12T01:29:05.745583+00:00 | deepnest-next `b-jakobs2-nest-mb-free` seed 2, 60s, expanded, axis y | valid | material 3.935232625 | [record](output/playwright/deepnest/20261012T012756Z-ec654f80/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:29:34.074569+00:00 | deepnest-next `b-shapes0-strip-sheet` seed 2, 60s, expanded, axis y | valid | material 2.9 | [record](output/playwright/deepnest/20261012T012827Z-ffb183b1/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:29:36.004824+00:00 | deepnest-next `m-garment-bruce-3` seed 1, 60s, identical, axis y | valid | material 1.1054080543333333 | [record](output/playwright/deepnest/20261012T012810Z-cc53fd30/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:30:01.274410+00:00 | deepnest-next `b-trousers-strip-sheet` seed 1, 60s, expanded, axis y | valid | material 2.2025316455696204 | [record](output/playwright/deepnest/20261012T012850Z-a25c4140/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:30:05.505628+00:00 | Two-sweep compaction of 30 M development layouts; every attempt retained | [evidence](benchmarks/results/compact-m-20261012T012843Z-dac4bd32.md).
+
+- 2026-10-12T01:30:13.297918+00:00 | deepnest-next `b-jakobs2-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 3.6666666666666665 | [record](output/playwright/deepnest/20261012T012906Z-d6001f7d/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:30:41.278327+00:00 | deepnest-next `b-shapes1-nest-mb-free` seed 2, 60s, expanded, axis y | valid | material 7.618578666666667 | [record](output/playwright/deepnest/20261012T012935Z-75560157/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:31:08.553172+00:00 | deepnest-next `b-swim-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 4.8097503701417565 | [record](output/playwright/deepnest/20261012T013002Z-27dd6c76/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:31:13.138521+00:00 | deepnest-next `m-garment-teagan-1` seed 1, 60s, identical, axis y | no_layout | material None | [record](output/playwright/deepnest/20261012T012937Z-38454fce/run.json). Provisional native settings; independent score only for valid output.
+
+- 2026-10-12T01:31:48.376538+00:00 | deepnest-next `b-shapes1-nest-mb-given` seed 2, 60s, expanded, axis y | valid | material 7.809523809523809 | [record](output/playwright/deepnest/20261012T013042Z-dca288b7/run.json). Provisional native settings; independent score only for valid output.
