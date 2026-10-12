@@ -17,8 +17,9 @@ No optimisation-quality claims have been established yet.
   maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md).
 - `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
   retaining independently valid improvements and recording failed sheet-removal
-  attempts. A [35-job development trial](benchmarks/results/repack-sheet-20261011T231949Z-43e06d0f.md)
-  passes independent validation and reduces sheet count on six jobs. This
+  attempts. Existing-sheet repair can move one blocking part and reinsert both
+  parts; [35 sheet jobs pass validation](benchmarks/results/repack-sheet-20261012T000748Z-0c7fac06.md).
+  The [maker trial](benchmarks/results/repack-maker-20261012T000758Z-533d7bb1.md) still times out on a 1,000-part job. This
   experimental command has a work quota, not a time-budget promise.
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.

@@ -1,0 +1,33 @@
+{
+  "scope": "Development-only timing diagnostic, 90-second cap, no gate claim",
+  "command": [
+    "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+    "improve",
+    "--job",
+    "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-mechanical-batch-1000.json",
+    "--output",
+    "C:\\DEV\\Nestbolt\\output\\repair-timing-20261012T001132Z\\layout.json",
+    "--seed",
+    "0",
+    "--samples",
+    "64",
+    "--passes",
+    "4"
+  ],
+  "binary_sha256": "81ee5bd60684673601082c7857a08683c2601c2df5eb03abc970d62cc68892d2",
+  "job_sha256": "bad5b141819185dd9dec508af2ff47d32f6b74b83a5f3985b0eb4679e888958b",
+  "exit_code": 1,
+  "elapsed_seconds": 90.01499999999942,
+  "progress": [
+    {
+      "elapsed_seconds": 38.375,
+      "message": "{\"pass\":0,\"stage\":\"construct\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.1217355836,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":9328950}"
+    },
+    {
+      "elapsed_seconds": 66.85899999999674,
+      "message": "{\"pass\":1,\"stage\":\"refine\",\"contact_search\":false,\"interleaved_copies\":false,\"seed\":0,\"sheet_limit\":null,\"complete\":true,\"accepted\":true,\"sheets\":2,\"material\":1.0516419284,\"placed_area\":1719021.6805067256,\"placed_priority\":1000.0,\"collision_checks\":9698019}"
+    }
+  ],
+  "code_snapshot": "32918e2",
+  "note": "Concurrent development timing trace. The 90-second watchdog killed this attempt before a completed result; no geometry was exported. This is not a G4 measurement."
+}
