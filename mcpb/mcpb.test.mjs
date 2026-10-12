@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { readFile, writeFile, mkdir, mkdtemp, rm, access, link } from 'node:fs/promises';
 import path from 'node:path';
 import { gunzipSync } from 'node:zlib';
-import { archive, DOCUMENTS } from './archive.mjs';
+import { archive, DOCUMENTS, smoke } from './archive.mjs';
 import { root, cargoVersion, assembleMcpb, buildMcpb, registryEntry, BUNDLE_NAME, SERVER, json, mergeTools } from './build.mjs';
 import { readZip, writeZip, sha256 } from './zip.mjs';
 import { checkManifest, inside, verifyMcpb, ENTRIES } from './verify.mjs';
@@ -265,6 +265,13 @@ test('verifier rejects incompatible manifest versions and launch commands', () =
 test('non-Windows verification requires explicit allow-skip', { skip: process.platform === 'win32' }, async () => {
   await assert.rejects(verifyMcpb(build.bundle), /Windows only/);
   assert.deepEqual(await verifyMcpb(build.bundle, { allowSkip: true }), { skipped: true });
+});
+
+test('real release binaries pass the archive version smoke test', async context => {
+  const suffix = process.platform === 'win32' ? '.exe' : '';
+  const cli = path.join(root, `target/release/nestbolt${suffix}`), server = path.join(root, `target/release/nestbolt-mcp${suffix}`);
+  try { await access(cli); await access(server); } catch (error) { if (error.code !== 'ENOENT') throw error; context.skip('No release binaries'); return; }
+  smoke({ cli, server, version: await cargoVersion() });
 });
 
 test('real release server passes the standalone bundle smoke test', async context => {

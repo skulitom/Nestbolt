@@ -42,12 +42,14 @@ all = "warn"
 lto = "thin"
 codegen-units = 1
 
-# Debug tests run real searches; optimise the geometry engines even in dev builds.
-[profile.dev.package.jagua-rs]
+# Debug tests run real searches and repeatable work budgets that must finish
+# before their real-time limit: optimise every dependency and the engine crates
+# even in dev builds (debug assertions stay on).
+[profile.dev.package."*"]
 opt-level = 3
 
-[profile.dev.package.sparrow]
+[profile.dev.package.nestbolt-core]
 opt-level = 3
 
-[profile.dev.package.clipper2-rust]
+[profile.dev.package.nestbolt-validator]
 opt-level = 3

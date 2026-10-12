@@ -1,21 +1,27 @@
-import type { Library, NestRequest, NestResult, Report } from './types';
+import type { Layout, Library, NestRequest, NestResult, Report } from './types';
 
-type Pending = { resolve: (v: string) => void; reject: (e: Error) => void; progress?: (t: number, m: number) => void };
+type Progress = (t: number, material: number, layout?: Layout) => void;
+type Pending = { resolve: (v: string) => void; reject: (e: Error) => void; progress?: Progress };
 
 /** A Web Worker running the WebAssembly engine, addressed by request ids. */
 class EngineWorker {
   private worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });
   private pending = new Map<number, Pending>();
   private next = 0;
+  /** Linear memory of this worker's engine after its last finished request. */
+  memory = 0;
 
   constructor() {
     this.worker.onmessage = (event) => {
       const { id, type } = event.data;
       const p = this.pending.get(id);
       if (!p) return;
-      if (type === 'progress') p.progress?.(event.data.t, event.data.material);
+      if (type === 'progress') {
+        p.progress?.(event.data.t, event.data.material, event.data.layout ? JSON.parse(event.data.layout) : undefined);
+      }
       else {
         this.pending.delete(id);
+        this.memory = event.data.memory ?? this.memory;
         if (type === 'done') p.resolve(event.data.value);
         else p.reject(new Error(event.data.message));
       }
@@ -26,7 +32,7 @@ class EngineWorker {
     };
   }
 
-  call(type: string, args: unknown, progress?: (t: number, m: number) => void): Promise<string> {
+  call(type: string, args: unknown, progress?: Progress): Promise<string> {
     const id = this.next++;
     return new Promise((resolve, reject) => {
       this.pending.set(id, { resolve, reject, progress });
@@ -63,6 +69,17 @@ export async function estimate(library: Library, request: NestRequest): Promise<
   return JSON.parse(await tool().call('estimate', { library: JSON.stringify(library), request: JSON.stringify(request) }));
 }
 
+/** Benchmark run of a polygon job in its own worker, the same search as `nestbolt sheets`. */
+export async function nestJob(job: string, seconds: number, seed: number, repeatable = false) {
+  const worker = new EngineWorker();
+  try {
+    const value = await worker.call('nest_job', { job, seconds, seed, repeatable });
+    return { result: JSON.parse(value), memoryBytes: worker.memory };
+  } finally {
+    worker.terminate();
+  }
+}
+
 const key = (r: NestResult): [number, number] => {
   const m = r.validation.metrics;
   return m ? [m.sheets_used, m.material_area] : [Infinity, Infinity];
@@ -73,14 +90,14 @@ export class Portfolio {
   private workers: EngineWorker[] = [];
 
   async run(library: Library, request: NestRequest,
-    options: { seconds: number; seed: number; workers: number; repeatable: boolean },
-    onProgress: (worker: number, t: number, material: number) => void): Promise<NestResult> {
+    options: { seconds: number; seed: number; workers: number; repeatable: boolean; live?: number },
+    onProgress: (worker: number, t: number, material: number, layout?: Layout) => void): Promise<NestResult> {
     this.workers = Array.from({ length: Math.max(1, options.workers) }, () => new EngineWorker());
     const lib = JSON.stringify(library);
     const req = JSON.stringify(request);
     const runs = this.workers.map((w, i) =>
-      w.call('nest', { library: lib, request: req, seconds: options.seconds, seed: options.seed + i, repeatable: options.repeatable },
-        (t, m) => onProgress(i, t, m)).then((v) => JSON.parse(v) as NestResult));
+      w.call('nest', { library: lib, request: req, seconds: options.seconds, seed: options.seed + i, repeatable: options.repeatable,
+        live: options.live ?? 0 }, (t, m, layout) => onProgress(i, t, m, layout)).then((v) => JSON.parse(v) as NestResult));
     const settled = await Promise.allSettled(runs);
     this.stop();
     const ok = settled.flatMap((s) => (s.status === 'fulfilled' && s.value.validation.valid ? [s.value] : []));

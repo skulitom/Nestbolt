@@ -51,9 +51,9 @@ gate.
   transforms and units, converted to millimetres. Each closed outline is a part;
   outlines inside it are its holes. Real maker files work: all 192 boxes.py
   example drawings import and nest, including their relief loops at slot corners.
-- **Nest** on fixed sheets: margins, part and edge spacing, several sheets, stock
-  limits, defects, rotations (free, stepped or a list such as 0/180 for fabric
-  grain) and mirroring. Small parts can sit inside the holes of larger parts.
+- **Nest** on fixed sheets: margins, part and edge spacing, several sheets, several
+  stock sizes with limits, defects, remnant outlines, rotations (free, stepped or a
+  list such as 0/180 for fabric grain) and mirroring. Small parts can sit inside the holes of larger parts.
   The last sheet is compressed towards one end so the offcut stays usable.
 - **Export** one SVG and one DXF per sheet from the original curves, transformed
   rather than re-polygonised: on 196 real drawings every exported contour is
@@ -62,8 +62,10 @@ gate.
 - **Check** every result with an independent Clipper2 validator (overlap,
   spacing, containment, rotations, quantities). Invalid layouts are never returned.
 - **Browser app** (`web/`): the same engine compiled to WebAssembly in Web
-  Workers, several seeds in parallel, projects saved in the browser or as a ZIP,
-  and a one-click example. Files never leave the computer.
+  Workers, several seeds in parallel, a live view of the best layout, projects
+  saved in the browser or as a ZIP, and five one-click examples. Files never leave
+  the computer. On the 65 development jobs, one browser worker matches the native
+  build within 0.1% at the median (Chrome and Firefox, 60 s).
 - **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`
   and `estimate_sheets`, tested with Claude Code. Its budgets are repeatable:
   same inputs, budget and seed, same layout. See
@@ -107,13 +109,17 @@ A request names library parts with quantities and the sheets in millimetres:
 `run/` then holds `layout.json`, `report.json` and `sheet-0.svg`/`sheet-0.dxf` and
 so on. Existing files are never overwritten. `nestbolt export` re-exports a
 layout; `nestbolt validate` checks a polygon job and layout. Add `--repeatable`
-to `nestbolt sheets` for a deterministic work budget instead of wall-clock time.
+to `nestbolt nest` or `nestbolt sheets` for a deterministic work budget instead of
+wall-clock time: the same inputs, budget and seed then give the same layout.
 File formats are described by the [JSON Schemas](schemas/README.md).
 
 ## Browser app
 
-[Open it](https://skulitom.github.io/Nestbolt/) and press **Try an example** to
-nest two finger-jointed boxes, or drop your own SVG and DXF files.
+[Open it](https://skulitom.github.io/Nestbolt/) and pick an example (finger-jointed
+boxes, letters inside letters, a 138-part mechanical kit, a FreeSewing T-shirt
+pattern on a fabric roll, interlocking gears), or drop your own SVG and DXF files.
+The best layout so far is drawn while the search runs, and each sheet shows the
+box around its parts and the clear offcut left above them.
 
 ![Two finger-jointed boxes nested in the browser app in ten seconds](docs/images/browser-example.png)
 

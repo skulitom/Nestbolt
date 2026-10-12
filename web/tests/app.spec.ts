@@ -51,7 +51,7 @@ test('import, nest, export and keep the main thread responsive', async ({ page }
 
 test('the example boxes import and nest in one click', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: /Try an example/ }).click();
+  await page.getByRole('button', { name: 'Try an example: two finger-jointed boxes' }).click();
   await expect(page.locator('table.parts tbody tr')).toHaveCount(6);
   await expect(page.locator('.summary')).toContainText('12/12', { timeout: 60_000 });
   await expect(page.locator('.summary')).toContainText('valid');

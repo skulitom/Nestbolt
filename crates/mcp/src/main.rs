@@ -333,7 +333,7 @@ impl Nestbolt {
                     timing: nestbolt_core::clock::Timing::Work,
                     ..Default::default()
                 },
-                |progress| {
+                |progress, _| {
                     let _ = tx.send((progress.elapsed_seconds, progress.material));
                 },
             )

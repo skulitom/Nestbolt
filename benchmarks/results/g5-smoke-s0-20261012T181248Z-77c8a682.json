@@ -1,0 +1,87 @@
+{
+ "scope": "G5 quality: development B/M jobs, WebAssembly in browsers vs native, same seed and budget.",
+ "recorded_at": "2026-10-12T18:12:55.670527+00:00",
+ "seed": 0,
+ "seconds": 5.0,
+ "concurrency": 8,
+ "cpus": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15
+ ],
+ "threshold_percent": 2.0,
+ "wasm_sha256": "88b25f2951fc54f795529d3409a9537a6db88f9110120c8ab02ae50b8c9f9fa4",
+ "wasm_file": "nestbolt_wasm_bg-3rbGlklR.wasm",
+ "validator_sha256": "a6df156392d24db9d5d611b8a233575f2f6374087406ea779c71915a2604c56d",
+ "native_record": "benchmarks/results/sheets-g5-smoke-native-20261012T181205Z-d697e6a4.json",
+ "native_binary_sha256": "a6df156392d24db9d5d611b8a233575f2f6374087406ea779c71915a2604c56d",
+ "run_directory": "output/g5-browser/20261012T181248Z-b1bc1725",
+ "browsers": {
+  "chrome": {
+   "info": {
+    "browser": "chrome",
+    "version": "154.0.8037.99",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+    "cores": 32
+   },
+   "peak_process_tree_rss_bytes": 677498880,
+   "pinned_processes": [
+    "chrome.exe",
+    "node.exe"
+   ],
+   "wall_seconds": 6.715348099998664,
+   "summary": {
+    "valid": 2,
+    "jobs": 2,
+    "compared": 2,
+    "median_difference_percent": -0.000718066513044624,
+    "total_difference_percent": -0.0009334907313474083,
+    "worst_job": "m-box-mini",
+    "worst_difference_percent": 0.0,
+    "within_two_percent": 2,
+    "passes": true
+   },
+   "rows": [
+    {
+     "job": "b-fu-strip-sheet",
+     "directory": "output/g5-browser/20261012T181248Z-b1bc1725/chrome/b-fu-strip-sheet",
+     "status": "valid",
+     "material": 1.2368563684210525,
+     "sheets": 2,
+     "elapsed_seconds": 4.7551,
+     "accepted_at_seconds": 4.7545,
+     "memory_bytes": 3276800,
+     "layout_sha256": "224692164293908f334e4bfc5ff6bc96b07c994aa4085e889486da82b85f3dd9",
+     "native_material": 1.2368741315789473,
+     "difference_percent": -0.001436133026089248
+    },
+    {
+     "job": "m-box-mini",
+     "directory": "output/g5-browser/20261012T181248Z-b1bc1725/chrome/m-box-mini",
+     "status": "valid",
+     "material": 0.666000455,
+     "sheets": 1,
+     "elapsed_seconds": 4.7636,
+     "accepted_at_seconds": 0.6208,
+     "memory_bytes": 4325376,
+     "layout_sha256": "16f57d07cbe706ed228977791376b26513d7f3c9a7e203f88e2dc3fe7b86fd40",
+     "native_material": 0.666000455,
+     "difference_percent": 0.0
+    }
+   ]
+  }
+ }
+}

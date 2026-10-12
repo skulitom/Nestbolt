@@ -106,7 +106,7 @@ fn measure(path: &str) -> serde_json::Value {
             timing: Timing::Work,
             ..Options::default()
         },
-        |_| {},
+        |_, _| {},
     ) {
         Ok(r) if r.validation.valid => r,
         Ok(_) => return json!({"file": name, "error": "invalid layout"}),

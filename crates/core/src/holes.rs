@@ -195,6 +195,21 @@ pub fn group(job: &Job, clock: &Clock, until: f64, seed: u64) -> Result<Grouped>
         }
         // Fill one host copy at a time; identical consecutive patterns merge.
         while remaining[host] > 0 && clock.now() < until {
+            // Another copy of the same host takes the last checked pattern
+            // again while its riders last: same group, no new search.
+            if let Some((h, pattern, n)) = patterns.last_mut()
+                && *h == host
+                && (0..job.parts.len()).all(|part| {
+                    pattern.iter().filter(|r| r.part == part).count() as u32 <= remaining[part]
+                })
+            {
+                for r in pattern.iter() {
+                    remaining[r.part] -= 1;
+                }
+                remaining[host] -= 1;
+                *n += 1;
+                continue;
+            }
             let mut riders = vec![];
             for hole in &part.geometry[0].holes {
                 let container = importer.import_container(&ExtContainer {

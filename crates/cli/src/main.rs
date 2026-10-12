@@ -5,7 +5,7 @@ use clap::{Parser, Subcommand, ValueEnum};
 use nestbolt_core::{Units, inspect_json};
 
 #[derive(Parser)]
-#[command(version, about = "Nestbolt fixed-sheet nesting")]
+#[command(name = "nestbolt", version, about = "Nestbolt fixed-sheet nesting")]
 struct Cli {
     #[command(subcommand)]
     command: Command,
@@ -44,6 +44,10 @@ enum Command {
         /// Draw sheet boundaries in exports (in their own group/layer).
         #[arg(long)]
         sheet_outline: bool,
+        /// Use a repeatable work budget instead of wall-clock time: the same
+        /// inputs, budget and seed give the same layout.
+        #[arg(long)]
+        repeatable: bool,
     },
     /// Write per-sheet SVG and DXF files for an existing layout.
     Export {
@@ -286,6 +290,7 @@ fn main() -> Result<()> {
             seconds,
             seed,
             sheet_outline,
+            repeatable,
         } => {
             let library: nestbolt_core::project::Library =
                 serde_json::from_slice(&fs::read(&library)?)
@@ -300,9 +305,14 @@ fn main() -> Result<()> {
                 nestbolt_core::sheets::Options {
                     seconds,
                     seed,
+                    timing: if repeatable {
+                        nestbolt_core::clock::Timing::Work
+                    } else {
+                        nestbolt_core::clock::Timing::Wall
+                    },
                     ..Default::default()
                 },
-                |p| eprintln!("{}", serde_json::to_string(p).expect("finite progress")),
+                |p, _| eprintln!("{}", serde_json::to_string(p).expect("finite progress")),
             )?;
             ensure!(
                 result.validation.valid,
@@ -410,7 +420,7 @@ fn main() -> Result<()> {
                         nestbolt_core::clock::Timing::Wall
                     },
                 },
-                |p| {
+                |p, _| {
                     eprintln!(
                         "{}",
                         serde_json::to_string(p).expect("finite sheet progress")

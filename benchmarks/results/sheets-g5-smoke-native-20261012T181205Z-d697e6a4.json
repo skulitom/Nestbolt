@@ -1,0 +1,121 @@
+{
+ "scope": "Development B/M only; one seed; timed; no acceptance-gate claim.",
+ "recorded_at": "2026-10-12T18:12:10.247504+00:00",
+ "seed": 0,
+ "seconds": 5.0,
+ "reference_seconds": 60,
+ "cpus": [
+  0,
+  2
+ ],
+ "solver_args": [],
+ "binary_sha256": "a6df156392d24db9d5d611b8a233575f2f6374087406ea779c71915a2604c56d",
+ "baseline": {
+  "path": "benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json",
+  "git_lf_sha256": "5b5ffeaa50bd76f9089d3cb95d61761c736cc5533cffed674d2e591540f3759a"
+ },
+ "sources_at_start": {
+  "scripts/sheets_batch.py": "1e853348648e3f0a1cb0cb3950b130165de4fc5ce06a1766580a46835b1ec33b",
+  "crates/core/src/sheets.rs": "973a86715819a977efb002c1e3bf149d3790e130b15a815dbdddf0adc9781531",
+  "crates/core/src/sheets/vstrip.rs": "37873261f8f78cf60f43e78d1227f2a42382c39153f86fe03275ae57e3305cf1",
+  "crates/core/src/separate.rs": "0480c2c325aab751478b93c62f18a7ecfa7afb7b5015fc42c41a9d3855b7f004",
+  "crates/core/src/construct.rs": "2bb20eaa1dffa266d9e85f79ec2b277281bc971e018ceadb77c2f48ac9c67284",
+  "crates/core/src/optimize.rs": "4865fc4018c179c4d562dbaef6ae2e88c6a8485a953663a8823f1029a7098e00",
+  "crates/core/src/holes.rs": "96594bf5be9b6cac1513caedcf668747866efcfc4cfa0f6dbb326dcc323f87f1",
+  "crates/core/src/clock.rs": "0172a471bead9645bdba388230cecf8aae45ae4f851fd730db6c34b341fa60e3",
+  "crates/core/src/curves.rs": "03657c60f81fa4cca801b628c407ecc8b920c15a85521dfcf6532de21fca67c9"
+ },
+ "run_directory": "output/sheets-batches/20261012T181205Z-016f2d9e",
+ "rows": [
+  {
+   "job": "b-fu-strip-sheet",
+   "job_sha256": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+   "cpu": 0,
+   "exit_code": 0,
+   "wall_seconds": 4.895077000022866,
+   "directory": "output/sheets-batches/20261012T181205Z-016f2d9e/b-fu-strip-sheet",
+   "status": "valid",
+   "material": 1.2368741315789473,
+   "sheets": 2,
+   "warm_material": 1.5000137368421051,
+   "accepted_at_seconds": 4.7536622,
+   "elapsed_seconds": 4.7545086,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 1,
+    "failed_insertions": 3,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 0.5263225,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.5000137368421051
+    },
+    {
+     "elapsed_seconds": 3.6971216,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.2380435526315787
+    },
+    {
+     "elapsed_seconds": 4.7536622,
+     "stage": "compress",
+     "sheets": 2,
+     "material": 1.2368741315789473
+    }
+   ],
+   "layout_sha256": "3ee0c1d34cc08790a1da08d5cb8b6065ffe3ebd31990c03b48d686527b2cb685",
+   "validation_sha256": "4aaafb9d1f4b3fbefd4c18dfc329025640837034c881936a9defaf25b34a8a27",
+   "comparison": {
+    "reduction_percent": 10.656208594026694,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-box-mini",
+   "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 4.896010900003603,
+   "directory": "output/sheets-batches/20261012T181205Z-016f2d9e/m-box-mini",
+   "status": "valid",
+   "material": 0.666000455,
+   "sheets": 1,
+   "warm_material": 0.666000455,
+   "accepted_at_seconds": 0.6276333,
+   "elapsed_seconds": 4.7545784,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 0.6276333,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.666000455
+    }
+   ],
+   "layout_sha256": "0a1211e60506f60fc2a2ad53c8065790660846989159fcd42e805e9ea9041a5b",
+   "validation_sha256": "86beaa8c90b25f80dfad612b2ef622a66f205aa91266c25cd9cd047e35c1d4a1",
+   "comparison": {
+    "reduction_percent": 6.983177325536472,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  }
+ ]
+}

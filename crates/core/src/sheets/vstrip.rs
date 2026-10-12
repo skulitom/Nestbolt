@@ -392,7 +392,7 @@ fn disrupt(sep: &mut Separator) {
     }
 }
 
-impl<F: FnMut(&Progress)> Search<'_, '_, F> {
+impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
     /// Validate a window snapshot with the frozen sheets and keep it if better.
     fn accept_window(
         &mut self,

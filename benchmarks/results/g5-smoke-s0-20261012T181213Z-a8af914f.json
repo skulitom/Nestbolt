@@ -1,0 +1,140 @@
+{
+ "scope": "G5 quality: development B/M jobs, WebAssembly in browsers vs native, same seed and budget.",
+ "recorded_at": "2026-10-12T18:12:26.267467+00:00",
+ "seed": 0,
+ "seconds": 5.0,
+ "concurrency": 8,
+ "cpus": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15
+ ],
+ "threshold_percent": 2.0,
+ "wasm_sha256": "88b25f2951fc54f795529d3409a9537a6db88f9110120c8ab02ae50b8c9f9fa4",
+ "wasm_file": "nestbolt_wasm_bg-3rbGlklR.wasm",
+ "validator_sha256": "a6df156392d24db9d5d611b8a233575f2f6374087406ea779c71915a2604c56d",
+ "native_record": "benchmarks/results/sheets-g5-smoke-native-20261012T181205Z-d697e6a4.json",
+ "native_binary_sha256": "a6df156392d24db9d5d611b8a233575f2f6374087406ea779c71915a2604c56d",
+ "run_directory": "output/g5-browser/20261012T181213Z-26cf7300",
+ "browsers": {
+  "chromium": {
+   "info": {
+    "browser": "chromium",
+    "version": "156.0.8078.4",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "cores": 32
+   },
+   "peak_process_tree_rss_bytes": 399446016,
+   "pinned_processes": [
+    "chrome-headless-shell.exe",
+    "node.exe"
+   ],
+   "wall_seconds": 5.484300100011751,
+   "summary": {
+    "valid": 2,
+    "jobs": 2,
+    "compared": 2,
+    "median_difference_percent": -0.000852105595472441,
+    "total_difference_percent": -0.0011077423345162707,
+    "worst_job": "m-box-mini",
+    "worst_difference_percent": 0.0,
+    "within_two_percent": 2,
+    "passes": true
+   },
+   "rows": [
+    {
+     "job": "b-fu-strip-sheet",
+     "directory": "output/g5-browser/20261012T181213Z-26cf7300/chromium/b-fu-strip-sheet",
+     "status": "valid",
+     "material": 1.236853052631579,
+     "sheets": 2,
+     "elapsed_seconds": 4.7546,
+     "accepted_at_seconds": 4.7539,
+     "memory_bytes": 3276800,
+     "layout_sha256": "99d02fc64f30f936228d3a9c59f3ad5a6b647791ab1726e47829e27c730c2b18",
+     "native_material": 1.2368741315789473,
+     "difference_percent": -0.001704211190944882
+    },
+    {
+     "job": "m-box-mini",
+     "directory": "output/g5-browser/20261012T181213Z-26cf7300/chromium/m-box-mini",
+     "status": "valid",
+     "material": 0.666000455,
+     "sheets": 1,
+     "elapsed_seconds": 4.766,
+     "accepted_at_seconds": 0.6238,
+     "memory_bytes": 4325376,
+     "layout_sha256": "16f57d07cbe706ed228977791376b26513d7f3c9a7e203f88e2dc3fe7b86fd40",
+     "native_material": 0.666000455,
+     "difference_percent": 0.0
+    }
+   ]
+  },
+  "firefox": {
+   "info": {
+    "browser": "firefox",
+    "version": "157.0",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+    "cores": 32
+   },
+   "peak_process_tree_rss_bytes": 748621824,
+   "pinned_processes": [
+    "firefox.exe",
+    "node.exe"
+   ],
+   "wall_seconds": 6.691919000004418,
+   "summary": {
+    "valid": 2,
+    "jobs": 2,
+    "compared": 2,
+    "median_difference_percent": -0.0007340235466612999,
+    "total_difference_percent": -0.0009542349698077324,
+    "worst_job": "m-box-mini",
+    "worst_difference_percent": 0.0,
+    "within_two_percent": 2,
+    "passes": true
+   },
+   "rows": [
+    {
+     "job": "b-fu-strip-sheet",
+     "directory": "output/g5-browser/20261012T181213Z-26cf7300/firefox/b-fu-strip-sheet",
+     "status": "valid",
+     "material": 1.2368559736842106,
+     "sheets": 2,
+     "elapsed_seconds": 4.754,
+     "accepted_at_seconds": 4.753,
+     "memory_bytes": 3276800,
+     "layout_sha256": "757e9ff369dcbe1b5bf1b0f45a40eca78da2c90562c5dd069eeced2bcc12872a",
+     "native_material": 1.2368741315789473,
+     "difference_percent": -0.0014680470933225997
+    },
+    {
+     "job": "m-box-mini",
+     "directory": "output/g5-browser/20261012T181213Z-26cf7300/firefox/m-box-mini",
+     "status": "valid",
+     "material": 0.666000455,
+     "sheets": 1,
+     "elapsed_seconds": 4.753,
+     "accepted_at_seconds": 0.645,
+     "memory_bytes": 4325376,
+     "layout_sha256": "16f57d07cbe706ed228977791376b26513d7f3c9a7e203f88e2dc3fe7b86fd40",
+     "native_material": 0.666000455,
+     "difference_percent": 0.0
+    }
+   ]
+  }
+ }
+}

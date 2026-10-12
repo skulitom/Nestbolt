@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// PW_CHROME=1 adds the installed Google Chrome as a third browser.
 export default defineConfig({
   testDir: 'tests',
   timeout: 180_000,
@@ -14,5 +15,6 @@ export default defineConfig({
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    ...(process.env.PW_CHROME ? [{ name: 'chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome' } }] : []),
   ],
 });

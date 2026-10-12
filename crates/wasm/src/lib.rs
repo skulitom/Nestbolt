@@ -57,7 +57,11 @@ pub fn import_files(
 }
 
 /// Nest with a wall-clock (`repeatable = false`) or work budget. `progress` is
-/// called with `(seconds, material)` whenever a better layout is checked.
+/// called with `(seconds, material)` whenever a better layout is checked, and
+/// with that layout's JSON as a third argument at most once per
+/// `live_interval_s` seconds when it is positive (for a live preview; the
+/// search already pauses to check every improvement, so this costs one
+/// serialisation per shown layout).
 #[wasm_bindgen]
 pub fn nest(
     library_json: &str,
@@ -65,11 +69,13 @@ pub fn nest(
     seconds: f64,
     seed: u32,
     repeatable: bool,
+    live_interval_s: f64,
     progress: &js_sys::Function,
 ) -> Result<String, JsValue> {
     let library: Library = parse(library_json, "library")?;
     let request: Request = parse(request_json, "request")?;
     let (job, _) = request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
+    let mut shown = f64::NEG_INFINITY;
     let result = nestbolt_core::sheets::optimize(
         &job,
         nestbolt_core::sheets::Options {
@@ -82,12 +88,22 @@ pub fn nest(
             },
             ..Default::default()
         },
-        |p| {
-            let _ = progress.call2(
-                &JsValue::NULL,
-                &JsValue::from_f64(p.elapsed_seconds),
-                &JsValue::from_f64(p.material),
+        |p, layout| {
+            let live = (live_interval_s > 0.0 && p.elapsed_seconds - shown >= live_interval_s)
+                .then(layout)
+                .flatten()
+                .and_then(|l| serde_json::to_string(&l).ok());
+            let (t, m) = (
+                JsValue::from_f64(p.elapsed_seconds),
+                JsValue::from_f64(p.material),
             );
+            let _ = match live {
+                Some(json) => {
+                    shown = p.elapsed_seconds;
+                    progress.call3(&JsValue::NULL, &t, &m, &JsValue::from_str(&json))
+                }
+                None => progress.call2(&JsValue::NULL, &t, &m),
+            };
         },
     )
     .map_err(|e| fail(format!("{e:#}")))?;
@@ -101,6 +117,51 @@ pub fn nest(
         "elapsed_seconds": result.elapsed_seconds,
     }))
     .map_err(fail)
+}
+
+/// Benchmark entry: the same search as `nestbolt sheets` on a polygon job
+/// (validator job JSON), with default search options. Returns the full sheet
+/// result, so browser and native runs are scored identically.
+#[wasm_bindgen]
+pub fn nest_job(
+    job_json: &str,
+    seconds: f64,
+    seed: u32,
+    repeatable: bool,
+    progress: &js_sys::Function,
+) -> Result<String, JsValue> {
+    let job: nestbolt_validator::job::Job = parse(job_json, "job")?;
+    let result = nestbolt_core::sheets::optimize(
+        &job,
+        nestbolt_core::sheets::Options {
+            seconds,
+            seed: u64::from(seed),
+            timing: if repeatable {
+                nestbolt_core::clock::Timing::Work
+            } else {
+                nestbolt_core::clock::Timing::Wall
+            },
+            ..Default::default()
+        },
+        |p, _| {
+            let _ = progress.call2(
+                &JsValue::NULL,
+                &JsValue::from_f64(p.elapsed_seconds),
+                &JsValue::from_f64(p.material),
+            );
+        },
+    )
+    .map_err(|e| fail(format!("{e:#}")))?;
+    serde_json::to_string(&result).map_err(fail)
+}
+
+/// Bytes of WebAssembly linear memory this engine instance has reserved.
+#[wasm_bindgen]
+pub fn memory_bytes() -> f64 {
+    #[cfg(target_arch = "wasm32")]
+    return (core::arch::wasm32::memory_size(0) * 65536) as f64;
+    #[cfg(not(target_arch = "wasm32"))]
+    0.0
 }
 
 /// Independent check of a layout against a request.

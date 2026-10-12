@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { exportSheet, importFiles, Portfolio } from './engine';
-import { PALETTE, PartThumb, SheetPreview } from './preview';
+import { SheetCanvas } from './canvas';
+import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
-import type { Library, Mode, NestRequest, NestResult, Project, RequestPart, RequestSheet, Rotations } from './types';
+import type { Example, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Point, Project, RequestPart, RequestSheet, Rotations } from './types';
 import { unzip, zip } from './zip';
 
 const ROTATIONS: { label: string; value: Rotations }[] = [
@@ -42,6 +43,10 @@ function download(name: string, data: string | Uint8Array, type: string) {
 
 const num = (e: Event) => Number((e.target as HTMLInputElement).value);
 const cores = Math.max(1, Math.min(8, (navigator.hardwareConcurrency || 2) - 1));
+/** Each worker holds its own engine: large jobs use fewer, so the tab stays well under 1.5 GB. */
+const LARGE_JOB = 1000;
+const workersFor = (request: NestRequest, chosen: number) =>
+  request.parts.reduce((n, p) => n + p.quantity, 0) > LARGE_JOB ? Math.min(chosen, 2) : chosen;
 
 export function App() {
   const [name, setName] = useState('Untitled project');
@@ -57,10 +62,15 @@ export function App() {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<{ elapsed: number; best: number | null }>({ elapsed: 0, best: null });
   const [projects, setProjects] = useState<{ name: string; savedAt: string }[]>([]);
+  const [examples, setExamples] = useState<Example[]>([]);
+  const [live, setLive] = useState<{ layout: Layout; material: number } | null>(null);
   const portfolio = useRef<Portfolio | null>(null);
   const zipInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => { listProjects().then(setProjects).catch(() => setProjects([])); }, []);
+  useEffect(() => {
+    fetch('./examples/examples.json').then((r) => r.json()).then(setExamples).catch(() => setExamples([]));
+  }, []);
 
   const colors = useMemo(() => new Map((library?.parts ?? []).map((p, i) => [p.id, PALETTE[i % PALETTE.length]])), [library]);
   const part = (id: string) => library?.parts.find((p) => p.id === id);
@@ -99,6 +109,25 @@ export function App() {
     }
   }
 
+  /** Use the largest closed outline of a drawing as a remnant sheet, moved to the origin. */
+  async function onRemnant(i: number, list: FileList | null) {
+    if (!list?.length) return;
+    setError(null);
+    try {
+      const lib = await importFiles([{ name: list[0].name, text: await list[0].text() }]);
+      const largest = lib.parts.reduce<LibraryPart | null>((a, b) => (!a || b.area_mm2 > a.area_mm2 ? b : a), null);
+      if (!largest) throw new Error(`${list[0].name} has no closed outline to use as a remnant`);
+      const [x0, y0, x1, y1] = largest.bounds_mm;
+      const move = (ring: Point[]): Point[] => ring.map(([x, y]) => [x - x0, y - y0]);
+      updateSheet(i, {
+        width_mm: x1 - x0, height_mm: y1 - y0,
+        outline_mm: [{ outer: move(largest.polygon.outer), holes: largest.polygon.holes.map(move) }],
+      });
+    } catch (e) {
+      setError(String(e));
+    }
+  }
+
   async function run(lib: Library | null = library, req: NestRequest = request, budget = seconds) {
     if (!lib) return;
     setError(null);
@@ -106,13 +135,21 @@ export function App() {
     setBusy('Nesting…');
     const started = performance.now();
     let best: number | null = null;
-    const tick = setInterval(() => setProgress({ elapsed: (performance.now() - started) / 1000, best }), 250);
+    // The best layout any worker has shown so far, drawn at most four times a second.
+    let shown: { layout: Layout; material: number } | null = null;
+    const tick = setInterval(() => {
+      setProgress({ elapsed: (performance.now() - started) / 1000, best });
+      setLive(shown);
+    }, 250);
     setRunSeconds(budget);
+    setLive(null);
     portfolio.current = new Portfolio();
     try {
-      const r = await portfolio.current.run(lib, req, { seconds: budget, seed, workers, repeatable }, (_w, _t, material) => {
-        if (best === null || material < best) best = material;
-      });
+      const r = await portfolio.current.run(lib, req, { seconds: budget, seed, workers: workersFor(req, workers), repeatable, live: 0.5 },
+        (_w, _t, material, layout) => {
+          if (best === null || material < best) best = material;
+          if (layout && (!shown || material <= shown.material)) shown = { layout, material };
+        });
       setResult(r);
     } catch (e) {
       if (String(e).includes('cancelled')) setError('Cancelled.');
@@ -121,31 +158,37 @@ export function App() {
       clearInterval(tick);
       portfolio.current = null;
       setBusy(null);
+      setLive(null);
       setProgress({ elapsed: 0, best: null });
     }
   }
 
   function cancel() { portfolio.current?.stop(); }
 
-  /** Two finger-jointed boxes (bundled, MIT) on a 400 x 300 mm bed, nested at once. */
-  async function tryExample() {
+  /** A bundled example drawing (web/public/examples, see its LICENSES.txt), nested at once. */
+  async function tryExample(example: Example) {
     setError(null);
     setBusy('Importing…');
     try {
-      const text = await (await fetch('./example-box.svg')).text();
-      const lib = await importFiles([{ name: 'example-box.svg', text }]);
+      const text = await (await fetch(`./examples/${example.file}`)).text();
+      const lib = await importFiles([{ name: example.file, text }]);
+      const element = (p: LibraryPart) => p.source.split('#')[1]?.split(':')[0] ?? '';
+      const [w, h] = example.sheet;
+      const sheet = blankSheet(w, h);
+      sheet.margins_mm = { left: example.margin, right: example.margin, bottom: example.margin, top: example.margin };
       const req: NestRequest = {
         ...emptyRequest(),
-        parts: lib.parts.map((p) => ({ id: p.id, quantity: 2, rotations: ROTATIONS[0].value, allow_mirror: false, priority: 1 })),
-        sheets: [blankSheet(400, 300)],
+        parts: lib.parts.map((p) => ({ id: p.id, quantity: example.quantities[element(p)] ?? example.default_quantity ?? 1,
+          rotations: example.overrides?.[element(p)] ?? example.rotations, allow_mirror: false, priority: 1 })),
+        sheets: [sheet], spacing_mm: example.spacing, edge_spacing_mm: example.edge,
       };
-      setName('Example: two boxes');
+      setName(`Example: ${example.title}`);
       setLibrary(lib);
       setRequest(req);
       setResult(null);
       setBusy(null);
-      setSeconds(10);
-      await run(lib, req, 10);
+      setSeconds(example.seconds);
+      await run(lib, req, example.seconds);
     } catch (e) {
       setError(String(e));
       setBusy(null);
@@ -230,7 +273,17 @@ export function App() {
               <input type="file" accept=".svg,.dxf" multiple onChange={(e) => onFiles((e.target as HTMLInputElement).files)} />
               <span>Import SVG or DXF (or drop files here)</span>
             </label>
-            {!library ? <button class="example" onClick={tryExample} disabled={!!busy}>Try an example: two finger-jointed boxes</button> : null}
+            {!library && examples.length ? (
+              <div class="examples">
+                <p>Or try an example:</p>
+                {examples.map((e) => (
+                  <button key={e.id} class="example" onClick={() => tryExample(e)} disabled={!!busy} title={e.summary}
+                    aria-label={`Try an example: ${e.title}`}>
+                    <strong>{e.title[0].toUpperCase() + e.title.slice(1)}</strong><small>{e.summary}</small>
+                  </button>
+                ))}
+              </div>
+            ) : null}
             {library?.warnings.length ? <ul class="warnings">{library.warnings.slice(0, 5).map((w) => <li>{w}</li>)}</ul> : null}
             <table class="parts">
               <thead><tr><th></th><th>Part</th><th>Qty</th><th>Rotation</th><th title="Allow mirroring">Mirror</th>{request.mode === 'fill_priority' ? <th>Priority</th> : null}<th></th></tr></thead>
@@ -269,6 +322,14 @@ export function App() {
                   onInput={(e) => updateSheet(i, { count: (e.target as HTMLInputElement).value ? Math.max(1, num(e)) : null })} /></label>
                 <label>Margin <input type="number" min={0} value={s.margins_mm.left}
                   onInput={(e) => { const m = num(e); updateSheet(i, { margins_mm: { left: m, right: m, top: m, bottom: m } }); }} /> mm</label>
+                {s.outline_mm?.length ? (
+                  <span class="remnant">Remnant outline
+                    <button class="icon" aria-label={`Use the full rectangle for sheet size ${i + 1}`}
+                      onClick={() => updateSheet(i, { outline_mm: [] })}>×</button></span>
+                ) : (
+                  <label class="remnant">Remnant outline <input type="file" accept=".svg,.dxf" aria-label={`Remnant outline for sheet size ${i + 1}`}
+                    onChange={(e) => onRemnant(i, (e.target as HTMLInputElement).files)} /></label>
+                )}
                 <details>
                   <summary>Defects ({s.defects_mm.length})</summary>
                   {s.defects_mm.map((d, k) => {
@@ -312,7 +373,7 @@ export function App() {
             <details class="advanced">
               <summary>Advanced</summary>
               <div class="grid">
-                <label>Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
+                <label title={`Jobs of more than ${LARGE_JOB} parts use at most two workers, to limit memory`}>Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
                 <label>Seed <input type="number" min={0} value={seed} onInput={(e) => setSeed(Math.max(0, Math.round(num(e))))} /></label>
                 <label class="check"><input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable((e.target as HTMLInputElement).checked)} /> Repeatable</label>
               </div>
@@ -332,6 +393,16 @@ export function App() {
         <section class="results" aria-labelledby="results-title">
           <h2 id="results-title">Result</h2>
           {busy && busy !== 'Nesting…' ? <p>{busy}</p> : null}
+          {busy === 'Nesting…' && live && library ? (
+            <div class="live" aria-live="off">
+              <p class="hint">Best layout so far ({live.material.toFixed(3)} sheets), updated while the search runs.</p>
+              <div class="sheets">
+                {live.layout.sheets.map((s) => (
+                  <figure key={s.id}><SheetCanvas library={library} request={request} layout={live.layout} sheet={s.id} /></figure>
+                ))}
+              </div>
+            </div>
+          ) : null}
           {!result && !busy ? <p class="hint">Import parts, choose sheets and press Nest, or try the example boxes.</p> : null}
           {result && library && metrics ? (
             <>
@@ -350,6 +421,12 @@ export function App() {
                     <SheetPreview library={library} request={request} layout={result.layout} sheet={s.id} />
                     <figcaption>
                       {s.id}
+                      {(() => {
+                        const u = sheetUsage(library, request, result.layout, s.id);
+                        return u && u.offcut > 0.01 * u.height
+                          ? <span class="usage" title="Clear material above the placed parts">offcut {u.width.toFixed(0)} × {u.offcut.toFixed(0)} mm</span>
+                          : null;
+                      })()}
                       <button onClick={guarded(async () => download(`${s.id}.svg`, await exportSheet(library, request, result.layout, s.id, 'svg'), 'image/svg+xml'))}>SVG</button>
                       <button onClick={guarded(async () => download(`${s.id}.dxf`, await exportSheet(library, request, result.layout, s.id, 'dxf'), 'application/dxf'))}>DXF</button>
                     </figcaption>

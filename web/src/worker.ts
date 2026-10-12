@@ -1,5 +1,5 @@
 // One Nestbolt engine per worker: the main thread never runs geometry.
-import init, { estimate_sheets, export_sheet, import_files, nest, validate } from './pkg/nestbolt_wasm.js';
+import init, { estimate_sheets, export_sheet, import_files, memory_bytes, nest, nest_job, validate } from './pkg/nestbolt_wasm.js';
 
 const ready = init();
 
@@ -13,7 +13,11 @@ self.onmessage = async (event: MessageEvent) => {
         value = import_files(JSON.stringify(args.files), args.tolerance ?? 0, 0);
         break;
       case 'nest':
-        value = nest(args.library, args.request, args.seconds, args.seed, args.repeatable,
+        value = nest(args.library, args.request, args.seconds, args.seed, args.repeatable, args.live ?? 0,
+          (t: number, material: number, layout?: string) => self.postMessage({ id, type: 'progress', t, material, layout }));
+        break;
+      case 'nest_job':
+        value = nest_job(args.job, args.seconds, args.seed, args.repeatable,
           (t: number, material: number) => self.postMessage({ id, type: 'progress', t, material }));
         break;
       case 'validate':
@@ -28,7 +32,7 @@ self.onmessage = async (event: MessageEvent) => {
       default:
         throw new Error(`unknown request ${type}`);
     }
-    self.postMessage({ id, type: 'done', value });
+    self.postMessage({ id, type: 'done', value, memory: memory_bytes() });
   } catch (error) {
     self.postMessage({ id, type: 'error', message: String(error) });
   }

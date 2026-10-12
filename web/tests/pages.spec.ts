@@ -12,7 +12,7 @@ test('the deployed app nests the example from GitHub Pages', async ({ page }) =>
   expect(response?.ok()).toBe(true);
   // No cross-origin isolation is required: workers and WebAssembly suffice.
   expect(response?.headers()['cross-origin-embedder-policy']).toBeUndefined();
-  await page.getByRole('button', { name: /Try an example/ }).click();
+  await page.getByRole('button', { name: 'Try an example: two finger-jointed boxes' }).click();
   await expect(page.locator('.summary')).toContainText('12/12', { timeout: 60_000 });
   await expect(page.locator('.summary')).toContainText('valid');
   expect(errors).toEqual([]);

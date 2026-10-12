@@ -533,6 +533,15 @@ impl Separator {
             self.evals += evals as u64;
             charge(&self.clock, &item, evals);
             let (dt, _) = best.expect("the current placement is always a sample");
+            // Coordinate descent is unbounded: when an item cannot fit, it may
+            // walk off the container entirely, which jagua's quadtree cannot
+            // register. Such a place is never useful; keep the current one.
+            let mut buffer = item.shape_cd().as_ref().clone();
+            let moved = buffer.transform_from(item.shape_cd().as_ref(), &dt.compose());
+            if Rect::intersection(moved.bbox(), self.layout.container().outer_cd().bbox()).is_none()
+            {
+                continue;
+            }
             self.move_item(key, dt);
         }
     }

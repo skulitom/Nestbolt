@@ -25,6 +25,8 @@ export interface RequestSheet {
   count?: number | null;
   margins_mm: Margins;
   defects_mm: Polygon[];
+  /** A remnant's usable outline inside width x height; absent or empty is the full rectangle. */
+  outline_mm?: Polygon[];
 }
 export type Mode = 'all' | 'fill_area' | 'fill_priority';
 export interface NestRequest {
@@ -57,4 +59,22 @@ export interface Project {
   request: NestRequest;
   result: NestResult | null;
   savedAt: string;
+}
+
+/** A bundled example from web/public/examples/examples.json. */
+export interface Example {
+  id: string;
+  title: string;
+  summary: string;
+  file: string;
+  /** Copies by drawing element id; others get `default_quantity` or 1. */
+  quantities: Record<string, number>;
+  default_quantity?: number;
+  rotations: Rotations;
+  overrides?: Record<string, Rotations>;
+  sheet: [number, number];
+  margin: number;
+  spacing: number;
+  edge: number;
+  seconds: number;
 }

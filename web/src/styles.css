@@ -8,6 +8,7 @@
   --danger: #b3261e;
   --stock: #efe8d8;
   --margin: #c9bfa5;
+  --offcut: rgba(89, 161, 79, 0.18);
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,7 @@
     --danger: #f2b8b5;
     --stock: #2b2a26;
     --margin: #5a5546;
+    --offcut: rgba(120, 200, 110, 0.16);
   }
 }
 * { box-sizing: border-box; }
@@ -44,7 +46,11 @@ button.primary { background: var(--accent); color: #fff; border-color: var(--acc
 button.icon { padding: 0 6px; border: none; background: none; font-size: 18px; line-height: 1; }
 .drop { display: block; border: 2px dashed var(--line); border-radius: 6px; padding: 14px; text-align: center; cursor: pointer; color: var(--muted); }
 .drop input { display: block; margin: 0 auto 6px; }
-.example { display: block; width: 100%; margin-top: 8px; padding: 8px; font-weight: 600; color: var(--accent); }
+.examples { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; margin-top: 8px; }
+.examples p { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 13px; }
+.example { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 8px 10px; }
+.example strong { color: var(--accent); }
+.example small { color: var(--muted); font-size: 12px; line-height: 1.3; }
 .advanced { margin-top: 8px; }
 .advanced summary { cursor: pointer; color: var(--muted); }
 .advanced .grid { margin-top: 6px; }
@@ -74,6 +80,10 @@ figcaption button { padding: 1px 8px; }
 .sheet .stock { fill: var(--stock); stroke: var(--margin); stroke-width: 0.5; vector-effect: non-scaling-stroke; }
 .sheet .margin { fill: none; stroke: var(--margin); stroke-dasharray: 4 3; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .sheet .defect { fill: var(--danger); opacity: 0.35; }
+.sheet .offcut { fill: var(--offcut); }
+.sheet .extent { fill: none; stroke: var(--accent); stroke-dasharray: 5 4; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.usage { color: var(--muted); margin-right: auto; }
+.live-sheet { aspect-ratio: auto; }
 .sheet .part { stroke: rgba(0, 0, 0, 0.45); stroke-width: 0.6; vector-effect: non-scaling-stroke; opacity: 0.9; }
 footer { margin-top: 24px; color: var(--muted); font-size: 13px; }
 footer a { color: var(--accent); }

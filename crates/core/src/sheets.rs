@@ -63,7 +63,7 @@ impl Default for Options {
     }
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Copy, Debug, Serialize)]
 pub struct Progress {
     pub elapsed_seconds: f64,
     pub stage: &'static str,
@@ -460,7 +460,7 @@ struct Search<'a, 'm, F> {
     check_every: f64,
 }
 
-impl<F: FnMut(&Progress)> Search<'_, '_, F> {
+impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
     fn metrics(&self) -> &Metrics {
         self.best.1.metrics.as_ref().expect("valid incumbent")
     }
@@ -517,7 +517,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             sheets: metrics.sheets_used,
             material: metrics.normalized_material,
         };
-        (self.progress)(&progress);
+        (self.progress)(&progress, &|| Some(layout.clone()));
         self.history.push(progress);
         self.best = (layout, report, elapsed);
         Ok(true)
@@ -535,7 +535,7 @@ fn least_filled(sheets: &[SPProblem]) -> Option<usize> {
 pub fn optimize(
     job: &Job,
     options: Options,
-    progress: impl FnMut(&Progress),
+    mut progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
     ensure!(
         options.seconds > 0.0 && options.seconds <= 300.0,
@@ -549,8 +549,9 @@ pub fn optimize(
         Timing::Wall => options.seconds,
         Timing::Work => options.seconds * WORK_SHARE,
     };
-    // Part-in-part first: filled hosts become rigid groups for the search.
-    let grouped = crate::holes::group(job, &clock, budget * 0.05, options.seed)?;
+    // Part-in-part first: filled hosts become rigid groups for the search. The
+    // pre-pass stops early once every host is filled; this caps slow ones.
+    let grouped = crate::holes::group(job, &clock, budget * HOLE_SHARE, options.seed)?;
     let debug = std::env::var_os("NESTBOLT_DEBUG").is_some();
     if debug {
         eprintln!(
@@ -559,7 +560,19 @@ pub fn optimize(
             clock.now()
         );
     }
-    let mut result = optimize_job(&grouped.job, options, &clock, budget, progress)?;
+    // Improved layouts are offered to the caller lazily, with riders expanded,
+    // so callers that only log progress pay nothing.
+    let live = |p: &Progress, layout: &dyn Fn() -> Option<Layout>| {
+        progress(p, &|| {
+            let layout = layout()?;
+            if grouped.riders_placed > 0 {
+                grouped.expand(job, &layout).ok()
+            } else {
+                Some(layout)
+            }
+        })
+    };
+    let mut result = optimize_job(&grouped.job, options, &clock, budget, live)?;
     if debug {
         eprintln!(
             "debug phase search: real {:.2} clock {:.2}",
@@ -586,6 +599,8 @@ pub fn optimize(
     Ok(result)
 }
 
+/// Largest share of the budget for the part-in-part pre-pass.
+pub const HOLE_SHARE: f64 = 0.2;
 /// Share of a repeatable budget's seconds converted to work, leaving headroom
 /// below the real limit on the reference machine.
 pub const WORK_SHARE: f64 = 0.5;
@@ -600,26 +615,333 @@ fn optimize_job(
     options: Options,
     clock: &Clock,
     budget: f64,
-    progress: impl FnMut(&Progress),
+    progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
     let finish = match clock.timing() {
         Timing::Wall => budget - 0.25,
         Timing::Work => budget,
     };
     let model = Model::new(job);
-    let warm_until = if model.is_ok() {
+    // Several stock sizes or remnant outlines: the separator then works on the
+    // one rectangular size the warm start used, a sub-job whose layouts stay
+    // valid for the whole job.
+    let restrictable = model.is_err()
+        && job.stocks.len() > 1
+        && job
+            .stocks
+            .iter()
+            .any(|s| Model::new(&single_stock(job, s)).is_ok());
+    let warm_until = if model.is_ok() || restrictable {
         budget * options.warm_fraction
     } else {
         finish
     };
+    let warm = warm_start(
+        job,
+        options.seed,
+        clock,
+        warm_until,
+        finish,
+        options.seconds,
+    )?;
+    ensure!(
+        warm.best.complete && warm.validation.valid,
+        "no complete valid warm start"
+    );
+    let mut warm = warm;
+    // Packed bounding rectangles suit near-rectangular parts; keep them if better.
+    let operations = (budget * RECT_SHARE * RECT_OPERATIONS_PER_SECOND) as u64;
+    if let Some((layout, used)) = crate::rects::pack(job, options.seed, operations) {
+        clock.charge(Work::RectOperation, used as f64);
+        let report = validate(job, &layout)?;
+        clock.validated(job, &layout);
+        if report.valid
+            && better(
+                report.metrics.as_ref().expect("valid layout has metrics"),
+                warm.validation.metrics.as_ref().expect("valid warm start"),
+            )
+        {
+            warm.best.layout = layout;
+            warm.validation = report;
+        }
+    }
+    if std::env::var_os("NESTBOLT_DEBUG").is_some() {
+        eprintln!(
+            "debug phase warm: real {:.2} clock {:.2}",
+            clock.real(),
+            clock.now()
+        );
+    }
+    let mut progress = progress;
+    let restricted: Option<Job>;
+    // The full job's own warm start, when a single-size start replaced it.
+    let mut fallback: Option<(Layout, Report)> = None;
+    let model = match model {
+        Ok(model) => {
+            restricted = None;
+            model
+        }
+        Err(reason) => {
+            restricted = if restrictable {
+                match single_size_start(job, &warm, options, clock, budget, finish)? {
+                    Some((sub, start)) => {
+                        if let Some(start) = start {
+                            fallback = Some((warm.best.layout.clone(), warm.validation));
+                            warm.best.layout = start.best.layout;
+                            warm.validation = validate(job, &warm.best.layout)?;
+                        }
+                        Some(sub)
+                    }
+                    None => None,
+                }
+            } else {
+                None
+            };
+            match restricted.as_ref().map(Model::new) {
+                Some(Ok(model)) => model,
+                _ => {
+                    if restrictable && clock.now() < finish {
+                        // The warm start mixed sizes: keep repacking instead.
+                        let more = warm_start(
+                            job,
+                            options.seed.wrapping_add(1),
+                            clock,
+                            finish,
+                            finish,
+                            options.seconds,
+                        )?;
+                        if more.best.complete
+                            && more.validation.valid
+                            && better(
+                                more.validation.metrics.as_ref().expect("valid layout"),
+                                warm.validation.metrics.as_ref().expect("valid warm start"),
+                            )
+                        {
+                            warm = more;
+                        }
+                    }
+                    let warm_metrics = warm.validation.metrics.clone().expect("valid warm start");
+                    let elapsed = clock.now();
+                    return Ok(SheetResult {
+                        algorithm: "nestbolt-sheet-separator-v1",
+                        seed: options.seed,
+                        seconds: options.seconds,
+                        unsupported: Some(reason.to_string()),
+                        riders: 0,
+                        history: vec![Progress {
+                            elapsed_seconds: elapsed,
+                            stage: "general",
+                            sheets: warm_metrics.sheets_used,
+                            material: warm_metrics.normalized_material,
+                        }],
+                        warm_start: warm_metrics,
+                        layout: warm.best.layout,
+                        validation: warm.validation,
+                        stats: Stats::default(),
+                        accepted_at_seconds: elapsed,
+                        elapsed_seconds: elapsed,
+                        work: 0.0,
+                        counts: Default::default(),
+                        repeatable: false,
+                    });
+                }
+            }
+        }
+    };
+    let warm_metrics = warm.validation.metrics.clone().expect("valid warm start");
+    // A sub-job normalises material by its own stock; report the whole job's.
+    let search_validation = if restricted.is_some() {
+        validate(model.job, &warm.best.layout)?
+    } else {
+        warm.validation
+    };
+    let scale = warm_metrics.normalized_material
+        / search_validation
+            .metrics
+            .as_ref()
+            .expect("valid warm start")
+            .normalized_material;
+    let elapsed = clock.now();
+    let first = Progress {
+        elapsed_seconds: elapsed,
+        stage: "warm",
+        sheets: warm_metrics.sheets_used,
+        material: warm_metrics.normalized_material,
+    };
+    // Offer the warm start at once, so live previews start with a layout.
+    progress(&first, &|| Some(warm.best.layout.clone()));
+    let mut search = Search {
+        model: &model,
+        rng: Xoshiro256PlusPlus::seed_from_u64(options.seed),
+        clock: clock.clone(),
+        best: (warm.best.layout.clone(), search_validation, elapsed),
+        history: vec![first],
+        stats: Stats::default(),
+        progress: |p: &Progress, layout: &dyn Fn() -> Option<Layout>| {
+            let scaled = Progress {
+                material: p.material * scale,
+                ..*p
+            };
+            progress(&scaled, layout)
+        },
+        check_cost: 0.0,
+        check_every: (options.seconds * 0.1).max(5.0),
+    };
+    let sheets = model.sheets_of(&warm.best.layout)?;
+    search.window_search(sheets, finish, options.compress_fraction, options.window)?;
+    let Search {
+        best,
+        mut history,
+        stats,
+        ..
+    } = search;
+    for p in history.iter_mut().skip(1) {
+        p.material *= scale;
+    }
+    let (mut layout, mut validation) = if restricted.is_some() {
+        let report = validate(job, &best.0)?;
+        ensure!(
+            report.valid,
+            "single-size search layout failed the whole job's check: {:?}",
+            report.violations
+        );
+        (best.0, report)
+    } else {
+        (best.0, best.1)
+    };
+    if let Some((original, report)) = fallback
+        && better(
+            report.metrics.as_ref().expect("valid warm start"),
+            validation.metrics.as_ref().expect("valid layout"),
+        )
+    {
+        (layout, validation) = (original, report);
+    }
+    Ok(SheetResult {
+        algorithm: "nestbolt-sheet-separator-v1",
+        seed: options.seed,
+        seconds: options.seconds,
+        warm_start: warm_metrics,
+        unsupported: None,
+        riders: 0,
+        layout,
+        validation,
+        history,
+        stats,
+        accepted_at_seconds: best.2,
+        elapsed_seconds: clock.now(),
+        work: 0.0,
+        counts: Default::default(),
+        repeatable: false,
+    })
+}
+
+/// For several stock sizes: the sub-job of the one rectangular size the
+/// separator will search, and a new warm start on it when the full job's warm
+/// start mixed sizes (`None` keeps that warm start). Sizes that cannot hold
+/// every part by area, or whose start fails, are skipped.
+fn single_size_start(
+    job: &Job,
+    warm: &crate::optimize::SearchResult,
+    options: Options,
+    clock: &Clock,
+    budget: f64,
+    finish: f64,
+) -> Result<Option<(Job, Option<crate::optimize::SearchResult>)>> {
+    if let Some(stock) = used_stock(job, &warm.best.layout)
+        && stock.outline.is_empty()
+    {
+        return Ok(Some((single_stock(job, stock), None)));
+    }
+    let parts: f64 = job
+        .parts
+        .iter()
+        .map(|p| {
+            f64::from(p.quantity)
+                * p.geometry
+                    .iter()
+                    .map(crate::curves::polygon_area)
+                    .sum::<f64>()
+        })
+        .sum();
+    let sizes: Vec<_> = job
+        .stocks
+        .iter()
+        .filter(|s| {
+            let m = s.margins;
+            let usable = (s.width - m.left - m.right) * (s.height - m.bottom - m.top);
+            s.outline.is_empty() && s.count.is_none_or(|c| f64::from(c) * usable >= parts)
+        })
+        .collect();
+    let share = budget * options.warm_fraction / sizes.len().max(1) as f64;
+    let mut best: Option<(Job, crate::optimize::SearchResult, Metrics)> = None;
+    for stock in sizes {
+        let sub = single_stock(job, stock);
+        let now = clock.now();
+        if Model::new(&sub).is_err() || now >= finish {
+            continue;
+        }
+        let Ok(start) = warm_start(
+            &sub,
+            options.seed,
+            clock,
+            now + share,
+            (now + 2.0 * share).min(finish),
+            options.seconds,
+        ) else {
+            continue;
+        };
+        if !start.best.complete || !start.validation.valid {
+            continue;
+        }
+        let report = validate(job, &start.best.layout)?;
+        let Some(metrics) = report.metrics.filter(|_| report.valid) else {
+            continue;
+        };
+        if best.as_ref().is_none_or(|(_, _, b)| better(&metrics, b)) {
+            best = Some((sub, start, metrics));
+        }
+    }
+    Ok(best.map(|(sub, start, _)| (sub, Some(start))))
+}
+
+/// The job with only `stock` available.
+fn single_stock(job: &Job, stock: &nestbolt_validator::job::Stock) -> Job {
+    Job {
+        stocks: vec![stock.clone()],
+        ..job.clone()
+    }
+}
+
+/// The one stock size every sheet of `layout` uses, if there is one.
+fn used_stock<'j>(job: &'j Job, layout: &Layout) -> Option<&'j nestbolt_validator::job::Stock> {
+    let first = &layout.sheets.first()?.stock_id;
+    layout
+        .sheets
+        .iter()
+        .all(|s| &s.stock_id == first)
+        .then(|| job.stocks.iter().find(|s| &s.id == first))
+        .flatten()
+}
+
+/// The repacking warm start: stops at `warm_until` once it has a complete
+/// layout, and at `finish` regardless.
+fn warm_start(
+    job: &Job,
+    seed: u64,
+    clock: &Clock,
+    warm_until: f64,
+    finish: f64,
+    seconds: f64,
+) -> Result<crate::optimize::SearchResult> {
     let construct = crate::optimize::Options {
         construct: ConstructOptions {
-            seed: options.seed,
+            seed,
             ..ConstructOptions::default()
         },
         passes: 1024,
     };
-    let warm = match clock.timing() {
+    Ok(match clock.timing() {
         Timing::Wall => {
             // Never interrupt the warm start before its first complete layout,
             // except at the overall deadline.
@@ -639,7 +961,7 @@ fn optimize_job(
                 if e.is::<crate::control::Interrupted>() {
                     anyhow::anyhow!(
                         "no complete layout within {} s: these parts are many or detailed; allow more time",
-                        options.seconds
+                        seconds
                     )
                 } else {
                     e
@@ -687,105 +1009,6 @@ fn optimize_job(
             );
             warm
         }
-    };
-    ensure!(
-        warm.best.complete && warm.validation.valid,
-        "no complete valid warm start"
-    );
-    let mut warm = warm;
-    // Packed bounding rectangles suit near-rectangular parts; keep them if better.
-    let operations = (budget * RECT_SHARE * RECT_OPERATIONS_PER_SECOND) as u64;
-    if let Some((layout, used)) = crate::rects::pack(job, options.seed, operations) {
-        clock.charge(Work::RectOperation, used as f64);
-        let report = validate(job, &layout)?;
-        clock.validated(job, &layout);
-        if report.valid
-            && better(
-                report.metrics.as_ref().expect("valid layout has metrics"),
-                warm.validation.metrics.as_ref().expect("valid warm start"),
-            )
-        {
-            warm.best.layout = layout;
-            warm.validation = report;
-        }
-    }
-    if std::env::var_os("NESTBOLT_DEBUG").is_some() {
-        eprintln!(
-            "debug phase warm: real {:.2} clock {:.2}",
-            clock.real(),
-            clock.now()
-        );
-    }
-    let warm_metrics = warm.validation.metrics.clone().expect("valid warm start");
-    let model = match model {
-        Ok(model) => model,
-        Err(reason) => {
-            let elapsed = clock.now();
-            return Ok(SheetResult {
-                algorithm: "nestbolt-sheet-separator-v1",
-                seed: options.seed,
-                seconds: options.seconds,
-                unsupported: Some(reason.to_string()),
-                riders: 0,
-                history: vec![Progress {
-                    elapsed_seconds: elapsed,
-                    stage: "general",
-                    sheets: warm_metrics.sheets_used,
-                    material: warm_metrics.normalized_material,
-                }],
-                warm_start: warm_metrics,
-                layout: warm.best.layout,
-                validation: warm.validation,
-                stats: Stats::default(),
-                accepted_at_seconds: elapsed,
-                elapsed_seconds: elapsed,
-                work: 0.0,
-                counts: Default::default(),
-                repeatable: false,
-            });
-        }
-    };
-    let elapsed = clock.now();
-    let mut search = Search {
-        model: &model,
-        rng: Xoshiro256PlusPlus::seed_from_u64(options.seed),
-        clock: clock.clone(),
-        best: (warm.best.layout.clone(), warm.validation, elapsed),
-        history: vec![Progress {
-            elapsed_seconds: elapsed,
-            stage: "warm",
-            sheets: warm_metrics.sheets_used,
-            material: warm_metrics.normalized_material,
-        }],
-        stats: Stats::default(),
-        progress,
-        check_cost: 0.0,
-        check_every: (options.seconds * 0.1).max(5.0),
-    };
-    let sheets = model.sheets_of(&warm.best.layout)?;
-    search.window_search(sheets, finish, options.compress_fraction, options.window)?;
-    let Search {
-        best,
-        history,
-        stats,
-        ..
-    } = search;
-    Ok(SheetResult {
-        algorithm: "nestbolt-sheet-separator-v1",
-        seed: options.seed,
-        seconds: options.seconds,
-        warm_start: warm_metrics,
-        unsupported: None,
-        riders: 0,
-        layout: best.0,
-        validation: best.1,
-        history,
-        stats,
-        accepted_at_seconds: best.2,
-        elapsed_seconds: clock.now(),
-        work: 0.0,
-        counts: Default::default(),
-        repeatable: false,
     })
 }
 
@@ -908,7 +1131,7 @@ mod tests {
                     timing: Timing::Work,
                     ..Options::default()
                 },
-                |_| {},
+                |_, _| {},
             )
             .unwrap();
             assert!(result.validation.valid);
@@ -990,7 +1213,7 @@ mod tests {
                 timing: Timing::Work,
                 ..Options::default()
             },
-            |_| {},
+            |_, _| {},
         )
         .unwrap();
         assert!(result.unsupported.is_none());
@@ -1001,21 +1224,70 @@ mod tests {
     }
 
     #[test]
-    fn unsupported_stock_keeps_the_general_search() {
+    fn several_stock_sizes_search_one_size() {
         let mut job = job(Rotations::Free, false);
-        job.stocks.push(Stock {
-            id: "offcut".into(),
-            ..job.stocks[0].clone()
-        });
+        job.parts[0].quantity = 10;
+        // A small capped offcut that cannot hold every part, then the sheet.
+        job.stocks.insert(
+            0,
+            Stock {
+                id: "offcut".into(),
+                width: 40.0,
+                height: 30.0,
+                count: Some(1),
+                ..job.stocks[0].clone()
+            },
+        );
+        let mut shown = 0;
         let result = optimize(
             &job,
             Options {
-                seconds: 10.0,
+                seconds: 6.0,
                 // Work budgets finish the warm start on any machine speed.
                 timing: Timing::Work,
                 ..Options::default()
             },
-            |_| {},
+            |_, layout| {
+                if let Some(layout) = layout() {
+                    assert!(validate(&job, &layout).unwrap().valid);
+                    shown += 1;
+                }
+            },
+        )
+        .unwrap();
+        assert!(result.unsupported.is_none(), "{:?}", result.unsupported);
+        assert!(validate(&job, &result.layout).unwrap().valid);
+        assert!(result.validation.valid);
+        let metrics = result.validation.metrics.unwrap();
+        assert!(metrics.normalized_material <= result.warm_start.normalized_material);
+        // Progress material is the whole job's, as in the final report.
+        assert!((result.history[0].material - result.warm_start.normalized_material).abs() < 1e-12);
+        assert!(shown >= 1, "the warm start is offered to live previews");
+    }
+
+    #[test]
+    fn remnant_outline_keeps_the_general_search() {
+        let mut job = job(Rotations::Free, false);
+        job.stocks[0].outline = vec![nestbolt_validator::Polygon {
+            outer: vec![
+                [0.0, 0.0],
+                [70.0, 0.0],
+                [70.0, 25.0],
+                [35.0, 25.0],
+                [35.0, 50.0],
+                [0.0, 50.0],
+            ],
+            holes: vec![],
+        }];
+        job.parts[0].quantity = 3;
+        let result = optimize(
+            &job,
+            Options {
+                seconds: 6.0,
+                timing: Timing::Work,
+                ..Options::default()
+            },
+            |_, _| {},
         )
         .unwrap();
         assert!(result.unsupported.is_some());
