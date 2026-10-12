@@ -111,16 +111,26 @@ pub fn optimize(
         } else {
             None
         };
+        let repairing = sheet_limit.is_some() && pass % 6 == 3;
         let refinement = if pass == 0 {
             Refinement::None
-        } else if pass % 2 == 0 {
+        } else if repairing || pass % 2 == 0 {
             Refinement::Contacts
         } else {
             Refinement::Translation
         };
-        let interleaved_copies = pass >= 3 && pass % 4 >= 2;
+        let interleaved_copies = !repairing && pass >= 3 && pass % 4 >= 2;
         let mut candidate = if pass == 0 {
             None
+        } else if repairing {
+            Some(prepared.repair_ranked(
+                &best.layout,
+                (pass / 6) as usize,
+                ConstructOptions {
+                    seed: trial_seed,
+                    ..options.construct
+                },
+            )?)
         } else {
             let grouped: Vec<_> = shuffled_order(job.parts.len(), trial_seed)
                 .into_iter()
@@ -171,6 +181,8 @@ pub fn optimize(
                 "refine"
             } else if pass == 2 {
                 "contacts"
+            } else if repairing {
+                "repair-sheet"
             } else if sheet_limit.is_some() {
                 "remove-sheet"
             } else {
@@ -196,7 +208,7 @@ pub fn optimize(
         history.push(entry);
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v5",
+        algorithm: "nestbolt-repack-v6",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: options.passes,

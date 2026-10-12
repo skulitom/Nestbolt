@@ -28,6 +28,8 @@ use nestbolt_validator::{
 };
 use serde::Serialize;
 
+mod repair;
+
 #[derive(Clone, Copy, Debug)]
 pub struct Options {
     pub seed: u64,
@@ -113,6 +115,7 @@ pub struct Construction {
     pub layout: Layout,
 }
 
+#[derive(Clone)]
 struct Region {
     layout: SearchLayout,
     boxes: Vec<[f32; 4]>,
@@ -154,6 +157,18 @@ impl Random {
         z = (z ^ (z >> 30)).wrapping_mul(0xbf58476d1ce4e5b9);
         z = (z ^ (z >> 27)).wrapping_mul(0x94d049bb133111eb);
         ((z ^ (z >> 31)) >> 40) as f32 / 16777216.0
+    }
+}
+
+impl SearchState {
+    fn new(seed: u64, contacts: bool) -> Self {
+        Self {
+            random: Random(seed),
+            contact_random: Random(seed ^ 0xa0761d6478bd642f),
+            contacts,
+            checks: 0,
+            surrogate_rejections: 0,
+        }
     }
 }
 
@@ -701,6 +716,33 @@ impl<'a> PreparedJob<'a> {
         self.construct_ordered(options, None, None, Refinement::Contacts)
     }
 
+    fn open_sheet(&self, stock: usize) -> OpenSheet {
+        OpenSheet {
+            stock,
+            regions: self.containers[stock]
+                .iter()
+                .cloned()
+                .map(|c| {
+                    let b = c.outer_cd().bbox();
+                    let s = &self.job.stocks[stock];
+                    let half = self.separation / 2.0;
+                    Region {
+                        nudge: self.guard as f32,
+                        search_bounds: [
+                            b.x_min.max((s.margins.left + half) as f32),
+                            b.y_min.max((s.margins.bottom + half) as f32),
+                            b.x_max.min((s.width - s.margins.right - half) as f32),
+                            b.y_max.min((s.height - s.margins.top - half) as f32),
+                        ],
+                        layout: SearchLayout::new(c),
+                        boxes: vec![],
+                        contact_anchors: vec![],
+                    }
+                })
+                .collect(),
+        }
+    }
+
     pub(crate) fn construct_ordered(
         &self,
         options: Options,
@@ -714,9 +756,6 @@ impl<'a> PreparedJob<'a> {
         );
         let job = self.job;
         let items = &self.items;
-        let containers = &self.containers;
-        let guard = self.guard;
-        let separation = self.separation;
         let mut layout = Layout {
             version: 1,
             units: job.units,
@@ -760,13 +799,7 @@ impl<'a> PreparedJob<'a> {
         });
         let mut open: Vec<OpenSheet> = vec![];
         let mut stock_used = vec![0_u32; job.stocks.len()];
-        let mut state = SearchState {
-            random: Random(options.seed),
-            contact_random: Random(options.seed ^ 0xa0761d6478bd642f),
-            contacts: refinement == Refinement::Contacts,
-            checks: 0,
-            surrogate_rejections: 0,
-        };
+        let mut state = SearchState::new(options.seed, refinement == Refinement::Contacts);
         for (index, copy) in copies {
             let mut found = None;
             for (sheet_index, sheet) in open.iter().enumerate() {
@@ -794,33 +827,7 @@ impl<'a> PreparedJob<'a> {
                     {
                         continue;
                     }
-                    let sheet = OpenSheet {
-                        stock,
-                        regions: containers[stock]
-                            .iter()
-                            .cloned()
-                            .map(|c| {
-                                // CDE's tree uses an inflated square, not the
-                                // usable sheet extent. Anchor to the actual
-                                // contour and margin-zone offsets instead.
-                                let b = c.outer_cd().bbox();
-                                let s = &job.stocks[stock];
-                                let half = separation / 2.0;
-                                Region {
-                                    nudge: guard as f32,
-                                    search_bounds: [
-                                        b.x_min.max((s.margins.left + half) as f32),
-                                        b.y_min.max((s.margins.bottom + half) as f32),
-                                        b.x_max.min((s.width - s.margins.right - half) as f32),
-                                        b.y_max.min((s.height - s.margins.top - half) as f32),
-                                    ],
-                                    layout: SearchLayout::new(c),
-                                    boxes: vec![],
-                                    contact_anchors: vec![],
-                                }
-                            })
-                            .collect(),
-                    };
+                    let sheet = self.open_sheet(stock);
                     for (region_index, region) in sheet.regions.iter().enumerate() {
                         if let Some(candidate) = search(
                             region,

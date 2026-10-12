@@ -77,8 +77,17 @@ with other orders and attempts at one fewer sheet. Orders alternate between
 whole part types and individual copies; a complete unique `(part, copy)`
 permutation prevents duplicates or missing quantities. Both choices use fixed
 integer shuffles and are recorded in per-pass progress.
-Failed/incomplete trials are recorded without a score. This is still constructive
-repacking; overlap repair and neighbourhood moves across existing sheets remain.
+Failed/incomplete trials are recorded without a score.
+
+The first repair stage rebuilds occupied collision trees from a valid incumbent,
+then tries to remove a lightly loaded physical sheet. It preserves original
+transforms on the other sheets and inserts donor parts into their gaps. Up to
+eight one-item displacement trials per blocked insertion can move an obstacle
+and find room for both parts. Failed trials restore the complete affected region,
+including collision data, bounding boxes and contact anchors. It opens no stock,
+preserves copy identities, and independently validates the resulting original
+geometry. Incomplete trials remain unscored. Overlap-based multi-item repair and
+continuous rotation improvement remain future search work.
 
 For this bootstrap, core consumes the polygon contract from the validator crate.
 The checker is called for source preflight and final acceptance, never to choose

@@ -67,7 +67,8 @@ fn repacking_preserves_a_valid_incumbent_and_accounts_for_every_pass() {
     assert_eq!(result.history[2].seed, result.history[0].seed);
     assert!(!result.history[1].contact_search);
     assert!(result.history[2].contact_search);
-    assert!(result.history[3].interleaved_copies);
+    assert_eq!(result.history[3].stage, "repair-sheet");
+    assert!(!result.history[3].interleaved_copies);
     assert!(!result.history[4].interleaved_copies);
     assert!(result.best.layout.sheets.len() <= result.history[0].sheets);
     for pass in &result.history {
