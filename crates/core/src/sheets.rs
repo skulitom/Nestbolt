@@ -591,6 +591,9 @@ pub fn optimize(
 pub const WORK_SHARE: f64 = 0.5;
 /// Constructor collision checks per reference second, for repeatable warm starts.
 pub const CHECKS_PER_SECOND: f64 = 4.0e5;
+/// Share of the budget for bounding-rectangle packing, and its reference speed.
+pub const RECT_SHARE: f64 = 0.03;
+pub const RECT_OPERATIONS_PER_SECOND: f64 = 2.0e8;
 
 fn optimize_job(
     job: &Job,
@@ -679,6 +682,23 @@ fn optimize_job(
         warm.best.complete && warm.validation.valid,
         "no complete valid warm start"
     );
+    let mut warm = warm;
+    // Packed bounding rectangles suit near-rectangular parts; keep them if better.
+    let operations = (budget * RECT_SHARE * RECT_OPERATIONS_PER_SECOND) as u64;
+    if let Some((layout, used)) = crate::rects::pack(job, options.seed, operations) {
+        clock.charge(Work::RectOperation, used as f64);
+        let report = validate(job, &layout)?;
+        clock.validated(job, &layout);
+        if report.valid
+            && better(
+                report.metrics.as_ref().expect("valid layout has metrics"),
+                warm.validation.metrics.as_ref().expect("valid warm start"),
+            )
+        {
+            warm.best.layout = layout;
+            warm.validation = report;
+        }
+    }
     if std::env::var_os("NESTBOLT_DEBUG").is_some() {
         eprintln!(
             "debug phase warm: real {:.2} clock {:.2}",
@@ -874,6 +894,8 @@ mod tests {
                 &job,
                 Options {
                     seconds: 3.0,
+                    // Work budgets finish the warm start on any machine speed.
+                    timing: Timing::Work,
                     ..Options::default()
                 },
                 |_| {},
@@ -954,6 +976,8 @@ mod tests {
             &job,
             Options {
                 seconds: 4.0,
+                // Work budgets finish the warm start on any machine speed.
+                timing: Timing::Work,
                 ..Options::default()
             },
             |_| {},
@@ -977,6 +1001,8 @@ mod tests {
             &job,
             Options {
                 seconds: 10.0,
+                // Work budgets finish the warm start on any machine speed.
+                timing: Timing::Work,
                 ..Options::default()
             },
             |_| {},

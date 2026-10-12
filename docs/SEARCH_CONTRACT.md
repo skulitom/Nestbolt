@@ -13,10 +13,11 @@ does not satisfy that promise: scheduling changes how many search steps finish.
   are never reported as repeatable.
 - **Work** (MCP `nest`, CLI `--repeatable`): the search clock is charged with
   deterministic work counts converted to reference seconds by fixed coefficients
-  (`crates/core/src/clock.rs`, version `nestbolt-work-v1`): sample evaluations,
+  (`crates/core/src/clock.rs`, version `nestbolt-work-v2`): sample evaluations,
   evaluated vertices, collision-tracker items and vertices, re-registered items,
   container builds, constructor collision checks (weighted by the square root of
-  the mean outline vertex count) and validated vertices. The search is single-
+  the mean outline vertex count), validated vertices and bounding-rectangle
+  packing steps. The search is single-
   threaded with seeded streams, so the same inputs replay the same steps.
 
 A work budget converts `WORK_SHARE` (0.5) of `time_budget_s` to work. The full

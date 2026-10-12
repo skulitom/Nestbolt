@@ -18,6 +18,7 @@ pub mod holes;
 pub mod import;
 pub mod optimize;
 pub mod project;
+pub mod rects;
 pub mod separate;
 pub mod sheets;
 #[cfg(not(target_arch = "wasm32"))]

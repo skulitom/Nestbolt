@@ -10,7 +10,7 @@ use std::time::Duration;
 use jagua_rs::Instant;
 use serde::Serialize;
 
-pub const WORK_VERSION: &str = "nestbolt-work-v1";
+pub const WORK_VERSION: &str = "nestbolt-work-v2";
 
 /// Kinds of deterministic work, with reference seconds per unit (AMD Ryzen 9
 /// 7950X3D, one core). Changing a coefficient changes repeatable results.
@@ -32,11 +32,16 @@ pub enum Work {
     TrackedVertex,
     /// One placed vertex checked by the independent validator.
     ValidatedVertex,
+    /// One free-rectangle visit in bounding-rectangle packing.
+    RectOperation,
 }
 
 // Fitted on 16 development jobs (20 s wall-clock runs, `nestbolt-work-v1`):
-// predicted/real time 0.72-1.23 per job.
-const COEFFICIENTS: [f64; 8] = [1.8e-6, 1.9e-8, 2.0e-5, 2.0e-6, 0.05, 2.5e-6, 7.3e-7, 4.0e-6];
+// predicted/real time 0.72-1.23 per job. v2 adds rectangle packing, measured
+// at 2.0e8-2.7e8 operations per second on the small box jobs.
+const COEFFICIENTS: [f64; 9] = [
+    1.8e-6, 1.9e-8, 2.0e-5, 2.0e-6, 0.05, 2.5e-6, 7.3e-7, 4.0e-6, 5.0e-9,
+];
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Timing {
@@ -47,7 +52,7 @@ pub enum Timing {
 struct Inner {
     start: Instant,
     timing: Timing,
-    counts: Cell<[f64; 8]>,
+    counts: Cell<[f64; 9]>,
     /// Real-time limit, in seconds since start.
     hard: f64,
     hit_hard: Cell<bool>,
@@ -64,6 +69,7 @@ pub struct Counts {
     pub constructor_checks: f64,
     pub tracked_vertices: f64,
     pub validated_vertices: f64,
+    pub rect_operations: f64,
 }
 
 #[derive(Clone)]
@@ -74,7 +80,7 @@ impl Clock {
         Self(Rc::new(Inner {
             start: Instant::now(),
             timing,
-            counts: Cell::new([0.0; 8]),
+            counts: Cell::new([0.0; 9]),
             hard: hard_limit_seconds,
             hit_hard: Cell::new(false),
         }))
@@ -132,6 +138,7 @@ impl Clock {
             constructor_checks: c[5],
             tracked_vertices: c[6],
             validated_vertices: c[7],
+            rect_operations: c[8],
         }
     }
 

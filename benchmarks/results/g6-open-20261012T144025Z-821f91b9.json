@@ -1,0 +1,51 @@
+{
+  "scope": "G6 export opening check (development)",
+  "recorded_at": "2026-10-12T14:40:25.890894+00:00",
+  "fixtures": {
+    "examples\\fidelity\\curves-mm.svg": "cfc508027ad27b309febfb7f99433c888130fa38c512f0345f322aba0493cde7",
+    "examples\\fidelity\\plate-in.dxf": "2415856b026f797030ea1623e07ef3a837eb0db32b9fae6a98b72505766ebccc"
+  },
+  "exports": {
+    "sheet-0.svg": "46fa63e3ffbaac122b6bd1575ca3150490b858ba4cd56b4959b75935fcf7440e",
+    "sheet-0.dxf": "971c9d693600437633ffca9afce6ed31a84bbcf0efd39f6f75e6b810c1a46faf"
+  },
+  "validation_valid": true,
+  "expected": {
+    "width_mm": 387.9474944044128,
+    "height_mm": 142.63403326392216
+  },
+  "tolerance_mm": 0.5,
+  "checks": [
+    {
+      "check": "SVG opened in Inkscape",
+      "width_mm": 388.04850000000005,
+      "height_mm": 142.73900416666666,
+      "objects": 17,
+      "pass": true,
+      "note": "rendered to PNG: exit 0; 38 SVG arc commands kept"
+    },
+    {
+      "check": "DXF imported by Inkscape",
+      "width_mm": 388.21254166666665,
+      "height_mm": 142.90436875,
+      "objects": 88,
+      "pass": true,
+      "note": "Inkscape DXF input, exit 0"
+    },
+    {
+      "check": "DXF opened in LibreCAD (printed 1:2, doubled)",
+      "width_mm": 387.90456666666665,
+      "height_mm": 142.63105416666667,
+      "objects": 85,
+      "pass": true,
+      "note": "LibreCAD dxf2pdf, exit 0; 85 drawn objects, measured by Inkscape"
+    }
+  ],
+  "versions": {
+    "inkscape": "Inkscape 1.4.4 (dcaf3e7, 2026-05-05)",
+    "librecad": "LibreCAD v2.2.1.5",
+    "nestbolt_binary_sha256": "4760078c03be13ed63bb479de52ea7615e0b144b9445282960ba5c79bd9b2e92"
+  },
+  "work_directory": "output\\g6-open\\20261012T144025Z-821f91b9",
+  "pass": true
+}
