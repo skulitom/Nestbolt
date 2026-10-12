@@ -1,5 +1,9 @@
 # Nestbolt
 
+**Currently 8.4% less material at the median than the best of Deepnest, SVGnest and
+Sparrow**, at equal 60-second budgets on the 52 benchmark sheet jobs where a
+competitor produced a valid layout ([details](#how-it-compares)).
+
 Free, open-source nesting for people who cut **fixed sheets**: laser cutters, CNC
 routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use
 the least material. It runs in your browser (nothing is uploaded), on the command
