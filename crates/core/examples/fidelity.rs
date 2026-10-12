@@ -122,6 +122,7 @@ fn measure(path: &str) -> serde_json::Value {
     let mut kinds: HashMap<String, usize> = HashMap::new();
     for sheet in &result.layout.sheets {
         let mut expected: Vec<Ring> = vec![];
+        let mut labels: Vec<String> = vec![];
         for p in result
             .layout
             .placements
@@ -132,6 +133,10 @@ fn measure(path: &str) -> serde_json::Value {
             let a = Affine::placement(&p.transform);
             for c in std::iter::once(&o.outer).chain(&o.holes) {
                 expected.push(c.transformed(&a).flatten(0.0005).unwrap());
+                labels.push(format!(
+                    "{} mirrored {} rotation {:.4}",
+                    p.part_id, p.transform.mirrored, p.transform.rotation_radians
+                ));
                 for s in &c.segments {
                     let kind = serde_json::to_value(s).unwrap()["kind"]
                         .as_str()
@@ -215,6 +220,10 @@ fn measure(path: &str) -> serde_json::Value {
                             got.len()
                         );
                     }
+                }
+                if best > 0.01 && std::env::var_os("FIDELITY_DEBUG").is_some() {
+                    let k = expected.iter().position(|x| std::ptr::eq(x, e)).unwrap();
+                    eprintln!("{format} distance {best:.4} for {}", labels[k]);
                 }
                 let w = worst.entry(format).or_default();
                 *w = w.max(best);

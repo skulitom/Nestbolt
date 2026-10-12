@@ -42,7 +42,11 @@ def main():
     measured = [r for r in rows if 'max_hausdorff_mm' in r]
     skipped = [r for r in rows if 'skipped' in r]
     errors = [r for r in rows if 'error' in r]
-    worst = {f: max((r['max_hausdorff_mm'].get(f) or float('inf')) for r in measured) for f in ['svg', 'dxf']}
+    def distance(r, f):
+        value = r['max_hausdorff_mm'].get(f)
+        return float('inf') if value is None else value  # 0.0 is a perfect match, not missing
+
+    worst = {f: max(distance(r, f) for r in measured) for f in ['svg', 'dxf']}
     rings = sum(r['rings_compared'] for r in measured)
     unmatched = sum(r['unmatched'] for r in measured)
     kinds = {}
@@ -50,7 +54,7 @@ def main():
         for k, v in r['segments'].items():
             kinds[k] = kinds.get(k, 0) + v
     failing = [r['file'] for r in measured
-               if r['unmatched'] or any((r['max_hausdorff_mm'].get(f) or float('inf')) > LIMIT_MM for f in ['svg', 'dxf'])]
+               if r['unmatched'] or any(distance(r, f) > LIMIT_MM for f in ['svg', 'dxf'])]
     revision = subprocess.run(['git', '-C', str(CORPUS), 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
     passed = not failing and not errors and unmatched == 0
     result = {'scope': 'G6 export fidelity (development)', 'recorded_at': started.isoformat(),

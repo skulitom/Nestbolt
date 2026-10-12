@@ -160,25 +160,20 @@ fn map_segments(start: Point, segments: &[Segment], a: &Affine) -> (Point, Vec<S
 /// Join open runs whose ends meet within `tolerance`; return closed loops and
 /// the number of runs left open.
 /// Join pieces that follow each other in file order, as exporters write one
-/// outline's entities. A loop that closes on itself and starts where the chain
-/// ends (a boxes.py relief at a slot corner) stays in the outline; once a
-/// chain has closed, only such a loop, or the outline after a leading loop,
-/// may still join it.
+/// outline's entities, for as long as each starts where the chain ends. An
+/// outline may pass through its own start point (a pinch) or carry relief loops
+/// that close on themselves (boxes.py slot corners), so returning to the start
+/// does not end it. Figures that really touch then nest together, which is
+/// conservative.
 fn sequential(pieces: Vec<Piece>, tolerance: f64) -> Vec<Piece> {
     let mut chains: Vec<Piece> = vec![];
-    let mut loop_only = false;
     for piece in pieces.into_iter().filter(|p| !p.segments.is_empty()) {
-        let self_closed = dist(piece.start, piece.end()) <= tolerance;
-        if let Some(current) = chains.last_mut() {
-            let connects = dist(piece.start, current.end()) <= tolerance;
-            let closed = dist(current.start, current.end()) <= tolerance;
-            if connects && (!closed || self_closed || loop_only) {
-                current.segments.extend(piece.segments);
-                loop_only = false;
-                continue;
-            }
+        if let Some(current) = chains.last_mut()
+            && dist(piece.start, current.end()) <= tolerance
+        {
+            current.segments.extend(piece.segments);
+            continue;
         }
-        loop_only = self_closed;
         chains.push(piece);
     }
     chains
@@ -296,17 +291,94 @@ fn closed_polygon(
         .map(from_path)
         .partition(|r| signed_area(r) > 0.0);
     let [outer] = <[Vec<Point>; 1]>::try_from(outers).ok()?;
+    // The validator normalises ring orientation.
     Some(nestbolt_validator::Polygon {
-        outer,
-        holes: holes
-            .into_iter()
-            .map(|mut h| {
-                h.reverse();
-                h.reverse();
-                h
-            })
-            .collect(),
+        outer: thin(outer),
+        holes: holes.into_iter().map(thin).collect(),
     })
+}
+
+/// Drop vertices within 0.1 µm of the previous kept one, so offsets cannot
+/// leave vertices that single-precision collision shapes would merge.
+fn thin(ring: Vec<Point>) -> Vec<Point> {
+    let mut kept: Vec<Point> = Vec::with_capacity(ring.len());
+    for p in ring {
+        if kept.last().is_none_or(|&q| dist(p, q) > 1e-4) {
+            kept.push(p);
+        }
+    }
+    while kept.len() > 3 && dist(kept[0], *kept.last().expect("non-empty")) <= 1e-4 {
+        kept.pop();
+    }
+    kept
+}
+
+/// Collision shapes are single precision: distinct vertices must stay distinct.
+fn simple_in_f32(ring: &[Point]) -> bool {
+    let mut points: Vec<(u32, u32)> = ring
+        .iter()
+        .map(|p| ((p[0] as f32).to_bits(), (p[1] as f32).to_bits()))
+        .collect();
+    points.dedup();
+    if points.len() > 1 && points.first() == points.last() {
+        points.pop();
+    }
+    let mut seen = std::collections::HashSet::with_capacity(points.len());
+    if !points.iter().all(|&p| seen.insert(p)) {
+        return false;
+    }
+    // No two non-adjacent edges may touch once rounded to single precision.
+    let v: Vec<[f64; 2]> = points
+        .iter()
+        .map(|&(x, y)| [f64::from(f32::from_bits(x)), f64::from(f32::from_bits(y))])
+        .collect();
+    let n = v.len();
+    let cross = |o: [f64; 2], a: [f64; 2], b: [f64; 2]| {
+        (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    };
+    let on = |a: [f64; 2], b: [f64; 2], p: [f64; 2]| {
+        a[0].min(b[0]) <= p[0]
+            && p[0] <= a[0].max(b[0])
+            && a[1].min(b[1]) <= p[1]
+            && p[1] <= a[1].max(b[1])
+    };
+    let touch = |a: [f64; 2], b: [f64; 2], c: [f64; 2], d: [f64; 2]| {
+        let (d1, d2, d3, d4) = (
+            cross(c, d, a),
+            cross(c, d, b),
+            cross(a, b, c),
+            cross(a, b, d),
+        );
+        ((d1 > 0.0) != (d2 > 0.0)
+            && (d3 > 0.0) != (d4 > 0.0)
+            && d1 != 0.0
+            && d2 != 0.0
+            && d3 != 0.0
+            && d4 != 0.0)
+            || (d1 == 0.0 && on(c, d, a))
+            || (d2 == 0.0 && on(c, d, b))
+            || (d3 == 0.0 && on(a, b, c))
+            || (d4 == 0.0 && on(a, b, d))
+    };
+    let mut edges: Vec<usize> = (0..n).collect();
+    let min_x = |i: usize| v[i][0].min(v[(i + 1) % n][0]);
+    edges.sort_by(|&a, &b| min_x(a).total_cmp(&min_x(b)));
+    for (k, &i) in edges.iter().enumerate() {
+        let (a, b) = (v[i], v[(i + 1) % n]);
+        let max_x = a[0].max(b[0]);
+        for &j in &edges[k + 1..] {
+            if min_x(j) > max_x {
+                break;
+            }
+            if j == (i + 1) % n || i == (j + 1) % n {
+                continue;
+            }
+            if touch(a, b, v[j], v[(j + 1) % n]) {
+                return false;
+            }
+        }
+    }
+    true
 }
 
 /// The nesting polygon checked as the validator will, repaired if needed.
@@ -322,7 +394,9 @@ fn checked_polygon(
         mirrored: false,
     };
     let valid = |p: &nestbolt_validator::Polygon| {
-        nestbolt_validator::Footprint::new(p, nestbolt_validator::Units::Mm, identity).is_ok()
+        simple_in_f32(&p.outer)
+            && nestbolt_validator::Footprint::new(p, nestbolt_validator::Units::Mm, identity)
+                .is_ok()
     };
     if valid(&polygon) {
         return Some(polygon);
@@ -1444,6 +1518,41 @@ mod tests {
                 .warnings
                 .iter()
                 .all(|w| w.contains("touches itself") && !w.contains("skipped"))
+        );
+    }
+
+    /// Collision shapes are single precision: vertices or edges that only
+    /// merge there must count as touching.
+    #[test]
+    fn rings_must_stay_simple_in_single_precision() {
+        let square = [[0.0, 0.0], [300.0, 0.0], [300.0, 200.0], [0.0, 200.0]];
+        assert!(simple_in_f32(&square));
+        // Two distinct vertices 1e-6 mm apart (but not neighbours) merge in f32.
+        let pinch = [
+            [0.0, 0.0],
+            [150.0, 100.0],
+            [300.0, 0.0],
+            [300.0, 200.0],
+            [150.000_001, 100.0],
+            [0.0, 200.0],
+        ];
+        assert!(!simple_in_f32(&pinch));
+        // A vertex 1e-6 mm from a non-adjacent edge touches it in f32 (whose
+        // spacing near 150 is 1.5e-5).
+        let near = [
+            [0.0, 0.0],
+            [300.0, 0.0],
+            [300.0, 100.0],
+            [150.0, 149.999_999],
+            [100.0, 150.0],
+            [300.0, 150.0],
+            [300.0, 200.0],
+            [0.0, 200.0],
+        ];
+        assert!(!simple_in_f32(&near));
+        assert_eq!(
+            thin(vec![[0.0, 0.0], [5e-5, 0.0], [10.0, 0.0], [10.0, 10.0]]).len(),
+            3
         );
     }
 
