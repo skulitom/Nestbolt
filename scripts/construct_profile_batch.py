@@ -34,6 +34,8 @@ def select_cases(root, include=(), exclude=()):
 
 
 def audited_profile(root, profile_path, case, binary_hash):
+    # Resolve both: Windows temp folders may be spelled with 8.3 short names.
+    root = Path(root).resolve(strict=True)
     profile_path = profile_path.resolve(strict=True)
     if not profile_path.is_relative_to(root/'output/construct-profiles'):
         raise ValueError('Profile escaped the retained output folder')

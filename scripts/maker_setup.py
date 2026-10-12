@@ -6,12 +6,26 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import time
+from urllib.error import URLError
 from urllib.request import Request, urlopen
 import venv
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / 'benchmarks/makers'
 
+
+
+def fetch(url, attempts=4):
+    """Download with retries: hosted sources occasionally answer 500 or time out."""
+    for attempt in range(attempts):
+        try:
+            return urlopen(Request(url, headers={'User-Agent': 'Nestbolt benchmark source fetcher'}), timeout=60).read()
+        except (URLError, TimeoutError, ConnectionError) as error:
+            if attempt == attempts - 1:
+                raise
+            print(f'Retrying {url} after {error}', flush=True)
+            time.sleep(5 * 2 ** attempt)
 
 def main():
     config = json.loads((CONFIG / 'sources.json').read_bytes())
@@ -36,7 +50,7 @@ def main():
         for download in source.get('downloads', []):
             path = cache / download['cache_name']
             if not path.exists():
-                data = urlopen(Request(download['url'], headers={'User-Agent': 'Nestbolt benchmark source fetcher'}), timeout=60).read()
+                data = fetch(download['url'])
                 if sha256(data).hexdigest() != download['sha256']:
                     raise ValueError(f'Source checksum mismatch: {download["cache_name"]}')
                 path.write_bytes(data)
