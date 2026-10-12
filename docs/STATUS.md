@@ -1,6 +1,6 @@
 # Status — 2026-10-12
 
-**Completion: 60%. M0, M1, M2 and M3 are complete (M2 on development evidence; final seeds re-check it in M5).**
+**Completion: 80%. M0-M4 are complete (M2 on development evidence; final seeds re-check it in M5). M5 (G2 on final seeds with the held-out jobs, G8) remains.**
 Percentages count completed milestones only. Development results do not establish the final acceptance gates. All failures and earlier trials remain in
 [BENCHMARKS.md](../BENCHMARKS.md). Ten held-out maker jobs remain unused for tuning.
 
@@ -10,7 +10,7 @@ Percentages count completed milestones only. Development results do not establis
 | M1 — Baseline | 15% | Complete: all 1,878 declared slots audited; [target frozen at 10.77231474%](M1_BASELINE.md) |
 | M2 — Sheet optimiser | 25% | Complete: [development matrix](../benchmarks/results/sheets-m2-60s-s0-20261012T144634Z-10b9520f.md) 225/225 valid at 60 s and 300 s; G3 strip parity median −0.039%, worst +1.65%; G4 8/9 (88.9%). 60 s medians: 48/52 wins/ties, median 8.44% (G2 is M5) |
 | M3 — Part-in-part and import/export | 15% | Complete: [fidelity](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md) on 196 real drawings within 0.0005 mm, curves kept, mm and inch correct; Inkscape and LibreCAD open the exports; [LightBurn 2.1.01](../benchmarks/results/g6-lightburn-20261012T170036Z.md) imports all five at the exact placed sizes |
-| M4 — Browser app and MCP | 20% | Browser app deployed to [GitHub Pages](https://skulitom.github.io/Nestbolt/) and tested live in Chromium and Firefox (G5 hosting); 8 Playwright tests in CI. Real Claude Code MCP run passes (G7). MCPB bundle and release workflows built and tested locally. Outstanding: G5 quality (WebAssembly within 2% of native at 60 s) and a 2,000-part job under 1.5 GB, end-to-end tests for every v1 feature, MCPB/registry validation in a release dry run |
+| M4 — Browser app and MCP | 20% | Complete: [Pages app](https://skulitom.github.io/Nestbolt/) with five examples and a live view; G5 [quality](../benchmarks/results/g5-browser-60s-s0-20261012T182218Z-032f0985.md) (WebAssembly vs native at 60 s on 65 jobs: median +0.02% Chrome 154, +0.07% Firefox 157, total +0.9%), [scale and responsiveness](../benchmarks/results/g5-scale-20261012T192645Z-39d0cca0.md) (2,000 parts imported, nested and exported, peak 1.05/1.16 GB, longest task 106 ms), hosting re-checked live; G7 real Claude Code run, CLI and UI end-to-end tests for every v1 item, MCPB and `mcp-publisher` validation in a [release dry run](https://github.com/skulitom/Nestbolt/actions/runs/38300373491) |
 | M5 — Final gates | 20% | Pending; all G1–G8 requirements remain in scope |
 
 | Evidence | Current result | Next step |
@@ -30,7 +30,7 @@ Percentages count completed milestones only. Development results do not establis
 | Quality triage | Combined search on all 65 development jobs (seed 0, up to 1,024 passes / 80M queries / 60 s): 65/65 valid; vs 52 finite 60 s competitor medians 27 wins/ties, 15 more than 1% worse, median reduction 0.396716%. Thirteen jobs have no finite competitor | [Corrected coverage](../benchmarks/results/search-coverage-20261012T051749Z.md); the frozen G2 target is 10.77231474%, so sheet search needs a much stronger separator |
 | Sheet separator | `nestbolt sheets`: warm start, then the last twelve sheets as one walled strip; the last sheet's free end is a pinned blocker (several sheets) or a shrinking container (one sheet). Three development seeds, 60 s, pinned CPUs: 195/195 valid; per-job median 48/52 wins/ties (92.3%); one job more than 1% worse (jakobs1 strip-sheet, -1.7%); median reduction **8.2619%** | [Seed 0](../benchmarks/results/sheets-eval-fixed-s0-20261012T125826Z-fd1af61e.md), [1](../benchmarks/results/sheets-eval-fixed-s1-20261012T130725Z-ece55c03.md), [2](../benchmarks/results/sheets-eval-fixed-s2-20261012T131624Z-24a17328.md); all earlier and interrupted batches in BENCHMARKS.md. All four losses are single-sheet jobs where Sparrow leads |
 | Speed (G4-style) | 30 s runs vs the frozen 300 s competitor medians, three seeds, with the rectangle warm start: 195/195 valid; **8 of the 9** jobs with a finite 300 s median reached (88.9%); m-box-mini ties at 0.6660, jakobs2 strip-sheet misses by 2.7% | [Seed 0](../benchmarks/results/sheets-ab-rects-30s-s0-20261012T142836Z-c9d2a6d1.md), [1](../benchmarks/results/sheets-ab-rects-30s-s1-20261012T143305Z-524036e1.md), [2](../benchmarks/results/sheets-ab-rects-30s-s2-20261012T143733Z-7272c8c3.md); previous build 7/9 |
-| Browser app | Same engine in WebAssembly Web Workers, several seeds in parallel; import, nest, export, defects, several sheet sizes, fill mode, IndexedDB and ZIP projects. Chromium longest main-thread task under 200 ms in the test | `python scripts/build_web.py --test`: 3 tests × Chromium and Firefox pass; CI job added. Pages workflow is manual and waits for Artem |
+| Browser app | Same engine in WebAssembly Web Workers, several seeds in parallel; five bundled examples, live view of the best layout, offcut and bounding box per sheet; import, nest, export, defects, remnant outlines, several sheet sizes, fill modes, IndexedDB and ZIP projects | 22 Playwright tests (11 × Chromium and Firefox) in CI; [G5 quality](../benchmarks/results/g5-browser-60s-s0-20261012T182218Z-032f0985.md) and [scale](../benchmarks/results/g5-scale-20261012T192645Z-39d0cca0.md) pass; the four detailed-gear jobs remain 16-30% worse in one browser worker (half the native search rate) |
 | MCP server and packaging | Five tools, workspace confinement, no overwrites, repeatable work budgets; end-to-end stdio test. JSON Schemas for library, request and report. MCPB bundle, native archives and release/registry workflows (dispatch or tag only) | 20 Node packaging tests pass, including a real bundle import-nest-validate smoke test; nothing released |
 | Export fidelity (G6) | 196 drawings (fixtures, example parts, 192 boxes.py examples): imported, nested, exported to SVG and DXF and re-imported; 29,308 contours, none unmatched, largest distance 0.0005 mm (SVG) and 0.0000045 mm (DXF) | [Passing report](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md); `python scripts/g6_fidelity.py`. It found and fixed self-touching boxes.py outlines, DXF chaining and single-precision collisions |
 | Export opening (G6) | Fidelity fixtures (mm SVG with arcs, ellipses and Béziers; inch DXF with bulges, holes and arcs) nested and exported; Inkscape 1.4.4 (SVG and DXF) and LibreCAD 2.2.1.5 (DXF) report the placed drawing size within 0.04-0.27 mm | [Passing report](../benchmarks/results/g6-open-20261012T144206Z-4e0d95be.md); two earlier method failures retained; `python scripts/g6_open_check.py` |
@@ -39,17 +39,18 @@ Percentages count completed milestones only. Development results do not establis
 | Compaction | All 65 layouts valid; seven sheet and ten maker improvements retained. Bounded relocation preserves every material score and reduces collision queries by 24% overall; original-geometry guard prevents material regression | [Sheet trial](../benchmarks/results/compact-b-20261012T013650Z-e3423fac.md), [maker trial](../benchmarks/results/compact-m-20261012T013654Z-fb5e8bfa.md); remains optional while stronger sheet repair is developed |
 | Constructor speed diagnostic | Stable cost order cuts 1,000-part collision checks from 9.33M to 4.39M; last matched-CPU pair uses 61.8% less CPU time with identical output | [All ten timing attempts](../benchmarks/results/construct-profile-20261012T0042.md); four-circle experiment reverted; no G4 claim |
 | Independent checker speed | Reusing clearance outlines cuts validation CPU by a further 17.0% on the gear job and 13.8% on the 1,000-part job. Full-search outputs and all 104 retained validation reports remain identical | [Reuse timings](../benchmarks/results/clearance-cache-20261012T0433.md), [preceding distance-pruning trial](../benchmarks/results/validator-speed-20261012T0420.md); no G4 claim |
-| Backup and hosted checks | [Private GitHub repository](https://github.com/skulitom/Nestbolt); commits pushed | All five hosted checks passed for `9185a00`; four passed for `9fe9a1c`, benchmark smoke still running. Local diversity tests, lint and both WASM builds pass |
+| Repository and hosted checks | [Public repository](https://github.com/skulitom/Nestbolt) since 2026-10-12, Pages live | Release dry run passes; no release or registry listing published (Artem decides) |
 
 The [complete baseline audit](../benchmarks/results/baseline-gap-20261012T033547Z-e9539412.md)
 measures competitor reductions over LBF of **17.09% at 60 s** and **21.54% at 300 s**.
 The frozen G2 target is **10.77231474%**, applied separately to both budgets.
 Missing finite comparisons remain explicit and never earn free wins.
 
-Next: G2 quality, the competitive edge before the public launch (median 8.44%
-vs the 10.77% target at 60 s; 8 more jobs must clear it), then M4: G5 browser
-quality and 2,000-part memory measurements, and Pages hosting once Artem makes
-the repository public.
+Next: M5. G2 is the open gate: the development median is 8.4% against the frozen
+10.77% target, and several jobs would need packing densities near or above 90% to
+clear it (analysis in BENCHMARKS.md). The final run (seeds 1000-1004, held-out jobs
+included) waits until development results meet G2; G8's one-command run and the
+results page are being built meanwhile.
 
 [Ties, failure coverage and the baseline-gap formula](../benchmarks/STATISTICS.md)
 are now explicit. No competitor result means no free win. The [verified 10.6417% single-seed gap](../benchmarks/results/pilot-gap-feedback-20261011.md)
