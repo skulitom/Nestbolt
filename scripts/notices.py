@@ -81,6 +81,8 @@ def render(historical=False, lbf=False, sparrow=False):
             "Adapted source: Sparrow 0.3.0 src/quantify/{mod.rs,overlap_proxy.rs},",
             "https://github.com/JeroenGar/sparrow/tree/4629b22795ae6b25b3b460ccde6fb36a71292b6d",
             "Copyright (c) 2025 Jeroen Gardeyn, KU Leuven. Full MIT text: crates/core/Sparrow_LICENSE.", "",
+            "Native strip parity also links the unmodified pinned Sparrow 0.3.0 library.",
+            "This timed diagnostic is separate from the fixed-sheet browser engine.", "",
             "jagua-rs's unmodified LBF is a separately compiled MPL-2.0 benchmark executable.",
             "See benchmarks/lbf/UPSTREAM_LICENSE and its own THIRD_PARTY_NOTICES.", "",
             "Maker dataset sources and isolated authoring tools retain their own licences.",
@@ -97,7 +99,7 @@ def render(historical=False, lbf=False, sparrow=False):
                 and package["source"].endswith("#7f069e9d146f5599d7ba69a47ab4e8097c56e54f")):
             assert (directory / "LICENSE").read_text(encoding="utf-8").startswith("Mozilla Public License Version 2.0")
             licence = "MPL-2.0 (verified LICENSE; absent from historical manifest)"
-        if (sparrow and package['name'] == 'sparrow'
+        if (package['name'] == 'sparrow' and package.get('source')
                 and package['source'].endswith('#4629b22795ae6b25b3b460ccde6fb36a71292b6d')):
             assert (directory / 'LICENSE').read_text(encoding='utf-8').startswith('MIT License')
             licence = 'MIT (verified LICENSE; absent from manifest)'

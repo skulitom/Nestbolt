@@ -132,9 +132,12 @@ fn finishing_preserves_every_repacking_pass_and_the_incumbent_on_interruption() 
     assert!(before.polishing.is_empty());
     let mut callbacks = vec![];
     let full = optimize::optimize(&job, options, |p| callbacks.push(p.pass)).unwrap();
-    assert_eq!(callbacks, (0..9).collect::<Vec<_>>());
+    assert_eq!(
+        callbacks,
+        (0..6 + full.polishing.len() as u32).collect::<Vec<_>>()
+    );
     assert_eq!(full.completed_passes, 6);
-    assert_eq!(full.polishing.len(), 3);
+    assert!((3..=15).contains(&full.polishing.len()));
     assert_eq!(
         serde_json::to_string(&full.history).unwrap(),
         serde_json::to_string(&before.history).unwrap()

@@ -13,6 +13,17 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
+    /// Native strip-parity diagnostic using pinned Sparrow, timed rather than fixed-work.
+    Strip {
+        #[arg(long)]
+        job: PathBuf,
+        #[arg(long)]
+        output: PathBuf,
+        #[arg(long, default_value_t = 0)]
+        seed: u64,
+        #[arg(long, default_value_t = 60, value_parser = clap::value_parser!(u64).range(1..=300))]
+        seconds: u64,
+    },
     /// Compact an existing valid layout with bounded translation sweeps.
     Compact {
         #[arg(long)]
@@ -112,6 +123,35 @@ impl From<InputUnits> for Units {
 fn main() -> Result<()> {
     let Cli { command } = Cli::parse();
     match command {
+        Command::Strip {
+            job,
+            output,
+            seed,
+            seconds,
+        } => {
+            let job = serde_json::from_slice(&fs::read(job)?)?;
+            let result = nestbolt_core::strip::optimize(
+                &job,
+                nestbolt_core::strip::Options { seconds, seed },
+                |p| {
+                    eprintln!(
+                        "{}",
+                        serde_json::to_string(p).expect("finite strip progress")
+                    )
+                },
+            )?;
+            ensure!(
+                result.validation.valid,
+                "strip result failed independent validation"
+            );
+            use std::io::Write;
+            let mut file = fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(output)?;
+            file.write_all(serde_json::to_string_pretty(&result.layout)?.as_bytes())?;
+            println!("{}", serde_json::to_string_pretty(&result)?);
+        }
         Command::Compact {
             job,
             layout,

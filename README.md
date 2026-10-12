@@ -21,8 +21,9 @@ passed the optimisation-quality gates.
   retaining independently valid improvements and recording failed sheet-removal
   attempts. Repair can displace blocking parts and separate overlapping groups.
   At six or more passes, bounded finishing trials compress the last sheet after
-  all repacking passes. The latest [35 sheet](benchmarks/results/repack-sheet-20261012T032354Z-429e1837.md)
-  and [30 maker](benchmarks/results/repack-maker-20261012T032404Z-eba64968.md)
+  all repacking passes. Successful compression can repeat, up to 15 total trials.
+  The latest [35 sheet](benchmarks/results/repack-sheet-20261012T035142Z-a7b22154.md)
+  and [30 maker](benchmarks/results/repack-maker-20261012T035142Z-54130739.md)
   diagnostics produce valid layouts on every development job. This
   experimental command supports a deterministic collision-query allowance and a
   cooperative deadline, keeping its last independently checked layout.
@@ -32,6 +33,10 @@ passed the optimisation-quality gates.
   and [maker](benchmarks/results/compact-m-20261012T012843Z-dac4bd32.md) diagnostics
   keep all 65 layouts valid and improve material on 17. This separate experimental
   step is not yet scheduled inside `improve`.
+- `nestbolt strip`: a native strip diagnostic using the pinned, unmodified Sparrow
+  library and independent checks of every accepted candidate. All 39 development
+  runs pass validation and the development parity thresholds. See the
+  [comparison and supported input scope](docs/STRIP_PARITY.md).
 - `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
   reports quantities, original area, sheet stock and declared units.
 - `nestbolt validate`: independently checks a polygon job/layout, including stock,
@@ -63,6 +68,7 @@ cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layou
 cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-box-mini.json --output box-layout.json
 cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box-mini.json --output improved-box-layout.json --passes 6
 cargo run --release -p nestbolt-cli -- compact --job benchmarks/datasets/M/m-box-mini.json --layout improved-box-layout.json --output compact-box-layout.json --relocate
+cargo run --release -p nestbolt-cli -- strip --job benchmarks/datasets/S/s-fu-strip.json --output fu-strip-layout.json --seconds 60 --seed 0
 ```
 
 `construct --refine` adds bounded translation refinement; adding `--contacts`
@@ -70,6 +76,9 @@ tries outline contacts to interlock concave parts. `improve` compares both metho
 with its initial layout before exploring other orders, and keeps the
 best valid result. Finishing trials share the search controls and appear separately
 in `polishing`; `completed_passes` counts only the requested repacking passes.
+The first three finishing trials try 3%, 1% and 0.3% height reductions. If any
+succeeds, up to twelve further trials repeat reductions, decreasing the step after
+failure. If all three fail, finishing stops.
 It reports each completed trial on stderr and the final result
 on stdout. It tests placements in stable cost order and stops sheet-removal
 trials after an unplaced copy that the trial cannot revisit. Existing output
@@ -133,9 +142,10 @@ has been published or installed by this setup.
 
 ## Progress and licence
 
-**5% of gated milestones completed: M0 has passed.** The complete native
-reproduction meets the original 1% threshold. M1's full baseline and M2–M5 remain
-in progress or pending; see [current evidence and next work](docs/STATUS.md).
+**20% of gated milestones completed: M0 and M1 have passed.** The native
+reproduction meets the original 1% threshold, and the development baseline is
+complete. M2–M5 remain in progress or pending; see
+[current evidence and next work](docs/STATUS.md).
 
 Nestbolt's original code and generated fixtures are [MIT](LICENSE). jagua-rs is
 an unmodified MPL-2.0 dependency. [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) records

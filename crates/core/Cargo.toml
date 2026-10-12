@@ -14,6 +14,10 @@ nestbolt-validator.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+rand.workspace = true
+sparrow.workspace = true
+
 [dev-dependencies]
 proptest.workspace = true
 

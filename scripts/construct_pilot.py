@@ -35,7 +35,7 @@ def main():
     binary = ROOT/'target/release/nestbolt.exe'
     binary_hash = digest(binary)
     manifest, cases = development_cases(ROOT, args.dataset)
-    sources = {p: digest(ROOT/p) for p in ['Cargo.lock','crates/core/src/construct.rs',
+    sources = {p: digest(ROOT/p) for p in ['Cargo.toml','Cargo.lock','crates/core/Cargo.toml','crates/core/src/strip.rs','crates/core/src/construct.rs',
         'crates/core/src/optimize.rs','crates/core/src/control.rs','crates/core/src/construct/repair.rs',
         'crates/core/src/construct/repair/compact.rs','crates/core/src/construct/repair/displace.rs',
         'crates/core/src/construct/repair/relax.rs','crates/core/src/construct/repair/compress.rs',

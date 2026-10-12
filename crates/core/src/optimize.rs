@@ -11,7 +11,7 @@ use crate::control::{Control, Interrupted, StopReason};
 pub struct Options {
     pub construct: ConstructOptions,
     /// Includes the initial construction. Every requested pass is accounted for.
-    /// Six or more passes also enable up to three bounded finishing trials,
+    /// Six or more passes also enable up to fifteen bounded finishing trials,
     /// recorded in `polishing` and sharing the same collision/deadline control.
     pub passes: u32,
 }
@@ -89,8 +89,10 @@ fn better(candidate: &Metrics, incumbent: &Metrics, mode: Mode) -> bool {
 
 /// Run every declared pass and retain the independently valid incumbent. Failed
 /// attempts remain in history; a sheet-removal attempt never relaxes stock caps.
-/// At six or more passes, compression then tries three progressively smaller
-/// reductions of the last-sheet height without replacing any repacking pass.
+/// At six or more passes, compression first tries three progressively smaller
+/// reductions of the last-sheet height. Up to twelve further attempts repeat
+/// successful reductions, decreasing the step after failure. No repacking pass
+/// is replaced, and finishing shares the same control as the main search.
 /// This fixed-pass API has no time-budget promise. Use `optimize_controlled` for
 /// a deterministic collision limit or cooperative cancellation/deadline hook.
 pub fn optimize(
@@ -249,10 +251,20 @@ pub fn optimize_controlled(
     // attempt cannot displace a useful ordering trial or weaken its incumbent.
     let mut polishing = vec![];
     if options.passes >= 6 && validation.valid && !best.layout.sheets.is_empty() {
-        for (step, fraction) in [0.03, 0.01, 0.003].into_iter().enumerate() {
+        let fractions = [0.03, 0.01, 0.003];
+        let mut repeated_fraction = 0;
+        for step in 0..15 {
+            // Failed initial trials give no evidence of compressible space.
+            // Avoid repeating the expensive restore/validation work in that case.
+            if step == 3 && !polishing.iter().any(|p: &Progress| p.accepted) {
+                break;
+            }
             if control.checkpoint().is_err() {
                 break;
             }
+            // Preserve the first three trials and their random streams exactly.
+            // Continuing from that incumbent cannot undo their accepted gains.
+            let fraction = fractions[if step < 3 { step } else { repeated_fraction }];
             let pass = options.passes + step as u32;
             let trial_seed = seed(options.construct.seed, pass);
             let before = control.collision_checks();
@@ -292,10 +304,16 @@ pub fn optimize_controlled(
             }
             progress(&entry);
             polishing.push(entry);
+            if step >= 3 && !accepted {
+                repeated_fraction += 1;
+                if repeated_fraction == fractions.len() {
+                    break;
+                }
+            }
         }
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v13",
+        algorithm: "nestbolt-repack-v15",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: history.len() as u32,
