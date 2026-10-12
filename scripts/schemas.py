@@ -12,9 +12,9 @@ def main():
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     schemas = {}
-    for package in ["nestbolt-validator", "nestbolt-core"]:
+    for package, example in [("nestbolt-validator", "schemas"), ("nestbolt-core", "public_schemas")]:
         schemas.update(json.loads(subprocess.check_output(["cargo", "run", "--quiet", "--locked", "-p", package,
-            "--example", "schemas"], cwd=ROOT, text=True, encoding="utf-8")))
+            "--example", example], cwd=ROOT, text=True, encoding="utf-8")))
     for filename, schema in schemas.items():
         text = json.dumps(schema, indent=2, ensure_ascii=False) + "\n"
         path = ROOT / "schemas" / filename
