@@ -12,9 +12,9 @@ pub struct Options {
     pub construct: ConstructOptions,
     /// Includes the initial construction. Every requested pass is accounted for.
     /// Six or more passes also enable up to fifteen bounded finishing trials per
-    /// 64-pass block (and at the requested final pass). After the first block,
-    /// legacy and diversified constructions share each successive search seed,
-    /// recorded in `polishing` and sharing the same collision/deadline control.
+    /// 64-pass block (and at the requested final pass), recorded in `polishing`
+    /// and sharing the same collision/deadline control. After the first block,
+    /// legacy and diversified constructions share each successive search seed.
     pub passes: u32,
 }
 
@@ -350,7 +350,7 @@ pub fn optimize_controlled(
         }
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v17",
+        algorithm: "nestbolt-repack-v18",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: history.len() as u32,

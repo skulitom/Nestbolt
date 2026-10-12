@@ -51,7 +51,8 @@ fn collisions(
 ) -> Result<Option<Vec<(usize, f32)>>> {
     state.before_collision()?;
     let mut collector = BasicHazardCollector::new();
-    let fixed = occupied.region.layout.cde().collect_poly_collisions_until(
+    let fixed = collect_collisions(
+        &occupied.region,
         shape,
         &IgnoreItem(occupied.placed[index].key),
         &mut collector,

@@ -39,6 +39,8 @@ def main():
         [sys.executable, "scripts/test_batch_comparison_report.py"],
         [sys.executable, "scripts/test_baseline_gap.py"],
         [sys.executable, "scripts/test_strip_report.py"],
+        [sys.executable, "scripts/test_construct_profile_batch.py"],
+        [sys.executable, "scripts/test_search_development_report.py"],
         [sys.executable, "scripts/test_comparison_session.py"],
         [sys.executable, "scripts/test_comparison_session_report.py"],
         [sys.executable, "scripts/test_comparison_envelope.py"],

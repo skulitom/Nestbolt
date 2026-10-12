@@ -1,12 +1,33 @@
 //! Remove one physical sheet while preserving the other placements. A bounded
 //! displacement can unlock a blocked insertion; failed trials roll back.
 use super::*;
-use jagua_rs::entities::PItemKey;
+use jagua_rs::{
+    collision_detection::hazards::{
+        BasicHazardEntity, collector::BasicHazardCollector, filter::HazardFilter,
+    },
+    entities::PItemKey,
+};
 
 mod compact;
 mod compress;
 mod displace;
 mod relax;
+
+/// Union the certified interior-pole collisions with polygon intersections.
+/// Near-coincident outlines can defeat edge/containment classification in f32;
+/// their overlapping interior poles still prove a collision. Both traversals
+/// share the collector and callback, so a hazard is counted only once.
+fn collect_collisions(
+    region: &Region,
+    shape: &SPolygon,
+    filter: &impl HazardFilter<BasicHazardEntity>,
+    collector: &mut BasicHazardCollector,
+    mut stop: impl FnMut(BasicHazardEntity) -> bool,
+) -> bool {
+    let cde = region.layout.cde();
+    cde.collect_surrogate_collisions_until(shape, filter, collector, &mut stop)
+        || cde.collect_poly_collisions_until(shape, filter, collector, stop)
+}
 
 #[derive(Clone)]
 struct Tracked {
@@ -369,7 +390,7 @@ impl PreparedJob<'_> {
             checked.violations
         );
         Ok(Construction {
-            algorithm: "nestbolt-repair-v5",
+            algorithm: "nestbolt-repair-v6",
             seed: options.seed,
             collision_checks: state.checks,
             surrogate_rejections: state.surrogate_rejections,

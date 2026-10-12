@@ -348,3 +348,54 @@ fn defects_are_never_displaced_to_admit_a_part() {
         serde_json::to_string(&source.placements[0]).unwrap()
     );
 }
+
+#[test]
+fn late_shapes_repairs_cannot_admit_coincident_parts() {
+    // Valid incumbents retained immediately before the two independently
+    // rejected repair trials in development batch20261012T045942Z-d0c3d8fe.
+    let cases = [
+        (
+            include_str!("../../../benchmarks/datasets/B/b-shapes1-strip-sheet.json"),
+            include_str!("fixtures/shapes1-repair-source.json"),
+            335373174827490839,
+        ),
+        (
+            include_str!("../../../benchmarks/datasets/B/b-shapes0-strip-sheet.json"),
+            include_str!("fixtures/shapes0-repair-source.json"),
+            14070176219293008579,
+        ),
+    ];
+    for (job, source, seed) in cases {
+        let job: Job = serde_json::from_str(job).unwrap();
+        let source: Layout = serde_json::from_str(source).unwrap();
+        assert!(validate(&job, &source).unwrap().valid);
+        let original = serde_json::to_value(&source).unwrap();
+        let prepared = PreparedJob::new(&job).unwrap();
+        let run = || {
+            prepared
+                .repair_sheet(
+                    &source,
+                    1,
+                    Options {
+                        seed,
+                        ..Default::default()
+                    },
+                    8,
+                )
+                .unwrap()
+        };
+        let result = run();
+        assert!(
+            validate(&job, &result.layout)
+                .unwrap()
+                .violations
+                .iter()
+                .all(|v| v.code == "quantity")
+        );
+        assert_eq!(
+            serde_json::to_value(&result).unwrap(),
+            serde_json::to_value(run()).unwrap()
+        );
+        assert_eq!(original, serde_json::to_value(&source).unwrap());
+    }
+}

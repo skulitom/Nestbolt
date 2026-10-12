@@ -133,7 +133,8 @@ impl PreparedJob<'_> {
                             buffer.transform_from(item.shape_cd(), &internal.compose());
                             collector.clear();
                             let mut count = 0;
-                            let stopped = region.layout.cde().collect_poly_collisions_until(
+                            let stopped = collect_collisions(
+                                region,
                                 &buffer,
                                 &NoFilter,
                                 &mut collector,
