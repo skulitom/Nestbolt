@@ -1,0 +1,70 @@
+{
+  "scope": "G7 real MCP client (Claude Code print mode)",
+  "recorded_at": "2026-10-12T14:49:30.230650+00:00",
+  "claude_version": "2.1.280 (Claude Code)",
+  "server_sha256": "72fd6a1a97b42271ace668e2e087f9a3bd50cd64a4bbc4eb61cf1facf9539c09",
+  "command": [
+    "C:\\windows\\claude.CMD",
+    "-p",
+    "--mcp-config",
+    "C:\\DEV\\Nestbolt\\output\\g7\\20261012T144930Z-3a7dcdb1-mcp.json",
+    "--strict-mcp-config",
+    "--allowedTools",
+    "mcp__nestbolt__import_parts,mcp__nestbolt__nest,mcp__nestbolt__validate_layout,mcp__nestbolt__export_layout,mcp__nestbolt__estimate_sheets",
+    "--restricted",
+    "--no-session-persistence",
+    "--setting-sources",
+    "project,local",
+    "--output-format",
+    "json",
+    "< prompt on stdin"
+  ],
+  "prompt": "Use only the nestbolt MCP tools for this task.\n1. List the names of the nestbolt tools you have.\n2. Import parts.svg with import_parts.\n3. Call nest once: two copies of every imported part on one sheet 300 mm wide and\n   200 mm high with 5 mm margins, spacing_mm 1, edge_spacing_mm 1, time_budget_s 10,\n   seed 0, out_dir \"run\".\n4. Call export_layout for that layout with out_dir \"export\".\nFinish with only a JSON object, no other text:\n{\"tools\": [...], \"library_path\": \"...\", \"layout_path\": \"...\", \"valid\": true or false,\n \"export_files\": [...]}",
+  "answer": {
+    "tools": [
+      "mcp__nestbolt__estimate_sheets",
+      "mcp__nestbolt__export_layout",
+      "mcp__nestbolt__import_parts",
+      "mcp__nestbolt__nest",
+      "mcp__nestbolt__validate_layout"
+    ],
+    "library_path": "nestbolt/parts-library-1.json",
+    "layout_path": "run/layout.json",
+    "valid": true,
+    "export_files": [
+      "export/sheet-0.svg",
+      "export/sheet-0.dxf"
+    ]
+  },
+  "checks": {
+    "client_exit": 0,
+    "listed_tools": false,
+    "library_written": true,
+    "nest_outputs": true,
+    "exports": true,
+    "nest_budget_10s": true,
+    "independent_validation": true
+  },
+  "validation_metrics": {
+    "sheets_used": 1,
+    "placed_parts": 8,
+    "requested_parts": 8,
+    "placed_area": 10682.145782978278,
+    "placed_priority": 8.0,
+    "full_stock_area": 60000.0,
+    "material_area": 21603.009,
+    "normalized_material": 0.36005014999999996,
+    "utilization": 0.4944749031479031,
+    "trailing_offcut_area": 38396.991,
+    "last_sheet_id": "sheet-0",
+    "last_sheet_used_height": 72.01003
+  },
+  "usage": {
+    "num_turns": 5,
+    "duration_ms": 15437,
+    "total_cost_usd": 0.32967979999999997,
+    "is_error": false
+  },
+  "workspace": "output\\g7\\20261012T144930Z-3a7dcdb1",
+  "pass": false
+}
