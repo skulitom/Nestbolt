@@ -28,9 +28,10 @@ passed the optimisation-quality gates.
   diagnostics produce valid layouts on every development job. This
   experimental command supports a deterministic collision-query allowance and a
   cooperative deadline, keeping its last independently checked layout.
-  Longer search supports up to 1,024 passes; a [four-job pilot](benchmarks/results/progressive-pilot-20261012T0433.md)
-  improves two difficult sheet jobs while retaining the original finished
-  64-pass result on the other two.
+  Longer search supports up to 1,024 passes. A [four-job development pilot](benchmarks/results/placement-diversity-20261012T045248Z.md)
+  combines the original placement strategy with shuffled allowed orientations
+  and alternating left/right anchors. Blaz1 drops from 12 sheets to 10; Bruce
+  uses 2.99% less material; Jakobs1 and Marques retain their preceding best scores.
 - `nestbolt compact`: refines an existing valid layout without opening stock.
   Translation sweeps preserve its angles; `--relocate` also tries other positions
   and permitted orientations. The current [sheet](benchmarks/results/compact-b-20261012T012839Z-c2a42aba.md)
@@ -86,6 +87,11 @@ failure. If all three fail, finishing stops.
 For more than 64 requested passes, finishing repeats after each block and at the
 last pass, retaining the best independently checked layout throughout. The
 default remains four passes; longer searches need an explicit `--passes` value.
+After the original 64-pass block, successive seeds each receive an original
+and a diversified pass. The latter varies the first feasible orientation on an
+empty region and the preferred horizontal edge, while retaining all geometry
+and rotation constraints. Each attempt counts against the requested passes and
+the shared collision quota; twice the passes does not imply the same runtime.
 It reports each completed trial on stderr and the final result
 on stdout. It tests placements in stable cost order and stops sheet-removal
 trials after an unplaced copy that the trial cannot revisit. Existing output

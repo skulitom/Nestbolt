@@ -45,6 +45,106 @@ mod order_tests {
     use super::*;
 
     #[test]
+    fn diversified_anchors_preserve_constraints_and_replay_both_allowed_orientations() {
+        let mut job: Job =
+            serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
+        job.parts.truncate(1);
+        let source = serde_json::to_value(&job).unwrap();
+        let prepared = PreparedJob::new(&job).unwrap();
+        for right in [false, true] {
+            let mut seen = [false; 2];
+            for seed in 0..8 {
+                let run = || {
+                    prepared
+                        .construct_ordered(
+                            Options {
+                                seed,
+                                random_samples: 0,
+                                ..Default::default()
+                            },
+                            None,
+                            None,
+                            Refinement::Diversified { right },
+                            &mut Control::unlimited(),
+                        )
+                        .unwrap()
+                };
+                let result = run();
+                assert!(
+                    nestbolt_validator::job::validate(&job, &result.layout)
+                        .unwrap()
+                        .valid
+                );
+                assert_eq!(
+                    serde_json::to_value(&result).unwrap(),
+                    serde_json::to_value(run()).unwrap()
+                );
+                let transform = result.layout.placements[0].transform;
+                assert!(!transform.mirrored);
+                assert!(
+                    transform.rotation_radians == 0.0
+                        || transform.rotation_radians == std::f64::consts::PI
+                );
+                seen[usize::from(transform.rotation_radians > 0.0)] = true;
+                let bounds = nestbolt_validator::Footprint::new(
+                    &job.parts[0].geometry[0],
+                    job.units,
+                    transform,
+                )
+                .unwrap()
+                .bounds();
+                if right {
+                    assert!(bounds[0] > 530.0 && bounds[2] < 595.0);
+                } else {
+                    assert!(bounds[0] > 5.0 && bounds[2] < 70.0);
+                }
+                assert!(bounds[1] > 5.0 && bounds[3] < 50.0);
+            }
+            assert!(seen.into_iter().all(|value| value));
+        }
+        assert_eq!(serde_json::to_value(&job).unwrap(), source);
+    }
+
+    #[test]
+    fn diversified_first_orientation_keeps_trying_when_an_angle_does_not_fit() {
+        let mut job: Job =
+            serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
+        job.parts.truncate(1);
+        job.parts[0].rotations = Rotations::List {
+            degrees: vec![0.0, 90.0],
+        };
+        job.stocks[0].width = 55.0;
+        job.stocks[0].height = 80.0;
+        let prepared = PreparedJob::new(&job).unwrap();
+        for seed in 0..8 {
+            let result = prepared
+                .construct_ordered(
+                    Options {
+                        seed,
+                        random_samples: 0,
+                        ..Default::default()
+                    },
+                    None,
+                    None,
+                    Refinement::Diversified {
+                        right: seed % 2 == 0,
+                    },
+                    &mut Control::unlimited(),
+                )
+                .unwrap();
+            assert!(
+                nestbolt_validator::job::validate(&job, &result.layout)
+                    .unwrap()
+                    .valid
+            );
+            assert_eq!(
+                result.layout.placements[0].transform.rotation_radians,
+                std::f64::consts::FRAC_PI_2
+            );
+        }
+    }
+
+    #[test]
     fn interleaved_order_preserves_copy_identity_and_rejects_missing_or_duplicate_copies() {
         let mut job: Job =
             serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
@@ -142,6 +242,8 @@ struct Random(u64);
 struct SearchState<'a, 'b> {
     random: Random,
     contact_random: Random,
+    angle_random: Option<Random>,
+    right: bool,
     contacts: bool,
     checks: u64,
     surrogate_rejections: u64,
@@ -153,6 +255,10 @@ pub(crate) enum Refinement {
     None,
     Translation,
     Contacts,
+    /// Later repacks vary the first feasible orientation and horizontal anchor.
+    Diversified {
+        right: bool,
+    },
 }
 impl Random {
     fn unit(&mut self) -> f32 {
@@ -169,6 +275,8 @@ impl<'a, 'b> SearchState<'a, 'b> {
         Self {
             random: Random(seed),
             contact_random: Random(seed ^ 0xa0761d6478bd642f),
+            angle_random: None,
+            right: false,
             contacts,
             checks: 0,
             surrogate_rejections: 0,
@@ -180,6 +288,10 @@ impl<'a, 'b> SearchState<'a, 'b> {
         self.control.before_collision()?;
         self.checks += 1;
         Ok(())
+    }
+
+    fn cost(&self, bounds: [f32; 4]) -> f32 {
+        bounds[3] + 0.001 * if self.right { -bounds[0] } else { bounds[2] }
     }
 }
 
@@ -440,7 +552,14 @@ fn search_bounded(
     let nudge = region.nudge;
     let mut buffer = item.shape_cd().as_ref().clone();
     let mut best: Option<Candidate> = None;
-    for degrees in angles(part, options)? {
+    let mut orientations = angles(part, options)?;
+    if let Some(random) = &mut state.angle_random {
+        for index in (1..orientations.len()).rev() {
+            let other = (random.unit() * (index + 1) as f32) as usize;
+            orientations.swap(index, other);
+        }
+    }
+    for degrees in orientations {
         state.control.checkpoint()?;
         let angle = degrees.to_radians();
         for mirrored in [false, true]
@@ -470,6 +589,14 @@ fn search_bounded(
                     (b[2] + nudge, b[1]),
                     (b[0], b[3] + nudge),
                 ]);
+                if state.right {
+                    positions.extend([
+                        (b[0] - width - nudge, min_y),
+                        (max_x, b[3] + nudge),
+                        (b[0] - width - nudge, b[1]),
+                        (b[2] - width, b[3] + nudge),
+                    ]);
+                }
             }
             if state.contacts {
                 positions.extend(contact_positions(
@@ -490,7 +617,7 @@ fn search_bounded(
             let mut ranked: Vec<_> = positions
                 .into_iter()
                 .filter(|&(x, y)| x >= min_x && y >= min_y && x <= max_x && y <= max_y)
-                .map(|(x, y)| (x, y, y + height + 0.001 * (x + width)))
+                .map(|(x, y)| (x, y, state.cost([x, y, x + width, y + height])))
                 .filter(|&(_, y, cost)| {
                     ceiling
                         .is_none_or(|(max_cost, max_top)| cost < max_cost && y + height <= max_top)
@@ -539,6 +666,12 @@ fn search_bounded(
                 break;
             }
         }
+        // At an empty region, keep the first feasible shuffled orientation.
+        // Otherwise small trig rounding differences would consistently select
+        // the same angle again. Later parts still compare every allowed angle.
+        if state.angle_random.is_some() && region.boxes.is_empty() && best.is_some() {
+            break;
+        }
     }
     Ok(best)
 }
@@ -565,7 +698,7 @@ fn refine_translation(
         }
         for _ in 0..16 {
             let mut moved = false;
-            for (dx, dy) in [
+            for (mut dx, dy) in [
                 (0.0, -step_y),
                 (-step_x, 0.0),
                 (-step_x, -step_y),
@@ -575,6 +708,9 @@ fn refine_translation(
                 (step_x, -2.0 * step_y),
                 (step_x, -4.0 * step_y),
             ] {
+                if state.right {
+                    dx = -dx;
+                }
                 let old = candidate.internal.translation();
                 let translation = (old.0 + dx, old.1 + dy);
                 if translation == old {
@@ -585,7 +721,7 @@ fn refine_translation(
                 let composed = transform.compose();
                 buffer.transform_from(item.shape_cd(), &composed);
                 let b = buffer.bbox();
-                let cost = b.y_max + 0.001 * b.x_max;
+                let cost = state.cost([b.x_min, b.y_min, b.x_max, b.y_max]);
                 if cost >= candidate.cost
                     || b.x_min < limits[0] + region.nudge
                     || b.y_min < limits[1] + region.nudge
@@ -864,7 +1000,15 @@ impl<'a> PreparedJob<'a> {
         });
         let mut open: Vec<OpenSheet> = vec![];
         let mut stock_used = vec![0_u32; job.stocks.len()];
-        let mut state = SearchState::new(options.seed, refinement == Refinement::Contacts, control);
+        let contacts = matches!(
+            refinement,
+            Refinement::Contacts | Refinement::Diversified { .. }
+        );
+        let mut state = SearchState::new(options.seed, contacts, control);
+        if let Refinement::Diversified { right } = refinement {
+            state.right = right;
+            state.angle_random = Some(Random(options.seed ^ 0xe7037ed1a0b428db));
+        }
         for (index, copy) in copies {
             state.control.checkpoint()?;
             let mut found = None;
@@ -923,7 +1067,7 @@ impl<'a> PreparedJob<'a> {
                     candidate = refine_translation(active, &items[index], candidate, &mut state)?;
                 }
                 let key = active.layout.place_item(&items[index], candidate.internal);
-                if refinement == Refinement::Contacts {
+                if contacts {
                     active
                         .contact_anchors
                         .extend(contact_anchors(active.layout.placed_items()[key].shape()));
@@ -961,6 +1105,7 @@ impl<'a> PreparedJob<'a> {
                 Refinement::None => "nestbolt-construct-v3",
                 Refinement::Translation => "nestbolt-construct-refined-v1",
                 Refinement::Contacts => "nestbolt-construct-refined-v2",
+                Refinement::Diversified { .. } => "nestbolt-construct-diverse-v1",
             },
             seed: options.seed,
             collision_checks: state.checks,

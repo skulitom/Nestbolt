@@ -348,13 +348,15 @@ fn longer_search_preserves_the_first_finished_block_and_shared_work_limit() {
     let longer = optimize::optimize(
         &job,
         optimize::Options {
-            passes: 65,
+            passes: 66,
             ..options
         },
         |_| {},
     )
     .unwrap();
-    assert_eq!(longer.completed_passes, 65);
+    assert_eq!(longer.completed_passes, 66);
+    assert_eq!(longer.history[64].seed, longer.history[65].seed);
+    assert!(longer.history[65].contact_search);
     assert_eq!(
         serde_json::to_value(&first.history).unwrap(),
         serde_json::to_value(&longer.history[..64]).unwrap()
@@ -369,6 +371,33 @@ fn longer_search_preserves_the_first_finished_block_and_shared_work_limit() {
             <= first.validation.metrics.as_ref().unwrap().material_area
     );
     assert!(longer.polishing.len() > first.polishing.len());
+    let diverse_checks = longer.history[65].collision_checks;
+    assert!(diverse_checks > 2);
+    let during_diversity = optimize::optimize_controlled(
+        &job,
+        optimize::Options {
+            passes: 1024,
+            ..options
+        },
+        &mut Control::new(
+            Some(first.collision_checks + longer.history[64].collision_checks + diverse_checks / 2),
+            None,
+        ),
+        |_| {},
+    )
+    .unwrap();
+    assert_eq!(during_diversity.completed_passes, 65);
+    assert_eq!(during_diversity.stopped, Some(StopReason::WorkLimit));
+    assert!(during_diversity.validation.valid && during_diversity.best.complete);
+    assert!(
+        during_diversity
+            .validation
+            .metrics
+            .as_ref()
+            .unwrap()
+            .material_area
+            <= first.validation.metrics.as_ref().unwrap().material_area
+    );
     let stopped = optimize::optimize_controlled(
         &job,
         optimize::Options {

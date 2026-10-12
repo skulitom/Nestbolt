@@ -12,7 +12,8 @@ pub struct Options {
     pub construct: ConstructOptions,
     /// Includes the initial construction. Every requested pass is accounted for.
     /// Six or more passes also enable up to fifteen bounded finishing trials per
-    /// 64-pass block (and at the requested final pass),
+    /// 64-pass block (and at the requested final pass). After the first block,
+    /// legacy and diversified constructions share each successive search seed,
     /// recorded in `polishing` and sharing the same collision/deadline control.
     pub passes: u32,
 }
@@ -212,9 +213,18 @@ pub fn optimize_controlled(
         }
         // Compare refinement to the initial constructor before changing its
         // ordering or random stream. Later passes explore new orders and caps.
-        let trial_seed = seed(options.construct.seed, if pass <= 2 { 0 } else { pass });
-        let sheet_limit = if pass >= 3
-            && pass % 3 == 0
+        let portfolio_pass = if pass < 64 {
+            pass
+        } else {
+            64 + (pass - 64) / 2
+        };
+        let diversified = pass >= 64 && pass % 2 == 1;
+        let trial_seed = seed(
+            options.construct.seed,
+            if pass <= 2 { 0 } else { portfolio_pass },
+        );
+        let sheet_limit = if portfolio_pass >= 3
+            && portfolio_pass % 3 == 0
             && job.mode == Mode::All
             && validation.valid
             && best.layout.sheets.len() > 1
@@ -223,22 +233,26 @@ pub fn optimize_controlled(
         } else {
             None
         };
-        let repairing = sheet_limit.is_some() && pass % 6 == 3;
+        let repairing = !diversified && sheet_limit.is_some() && portfolio_pass % 6 == 3;
         let refinement = if pass == 0 {
             Refinement::None
-        } else if repairing || pass % 2 == 0 {
+        } else if diversified {
+            Refinement::Diversified {
+                right: portfolio_pass % 4 < 2,
+            }
+        } else if repairing || portfolio_pass % 2 == 0 {
             Refinement::Contacts
         } else {
             Refinement::Translation
         };
-        let interleaved_copies = !repairing && pass >= 3 && pass % 4 >= 2;
+        let interleaved_copies = !repairing && portfolio_pass >= 3 && portfolio_pass % 4 >= 2;
         let attempted = if pass == 0 {
             Ok(None)
         } else if repairing {
             prepared
                 .repair_ranked(
                     &best.layout,
-                    (pass / 6) as usize,
+                    (portfolio_pass / 6) as usize,
                     ConstructOptions {
                         seed: trial_seed,
                         ..options.construct
@@ -310,7 +324,10 @@ pub fn optimize_controlled(
             } else {
                 "repack"
             },
-            contact_search: refinement == Refinement::Contacts,
+            contact_search: matches!(
+                refinement,
+                Refinement::Contacts | Refinement::Diversified { .. }
+            ),
             interleaved_copies,
             seed: trial_seed,
             sheet_limit,
@@ -333,7 +350,7 @@ pub fn optimize_controlled(
         }
     }
     Ok(SearchResult {
-        algorithm: "nestbolt-repack-v16",
+        algorithm: "nestbolt-repack-v17",
         seed: options.construct.seed,
         requested_passes: options.passes,
         completed_passes: history.len() as u32,
