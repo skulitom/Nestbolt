@@ -1,0 +1,72 @@
+{
+ "version": 1,
+ "sealed_on": "2026-10-12",
+ "note": "Final acceptance settings, unchanged from the M1 development audit: each tool runs its identical-constraints configuration and its own best native configuration; the gate uses the better per job. Configuration files are pinned by their LF-normalised SHA-256.",
+ "tools": {
+  "deepnest": {
+   "datasets": {
+    "B": {
+     "identical_constraints": "identical",
+     "best_native_settings": "expanded"
+    },
+    "M": {
+     "identical_constraints": "identical",
+     "best_native_settings": "clearance-safe"
+    }
+   },
+   "config": "benchmarks/deepnest/tool.json",
+   "config_sha256": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
+   "batch_size": {
+    "60": 3,
+    "300": 2
+   },
+   "desktop": true
+  },
+  "svgnest": {
+   "datasets": {
+    "B": {
+     "identical_constraints": "identical",
+     "best_native_settings": "expanded"
+    },
+    "M": {
+     "identical_constraints": "identical",
+     "best_native_settings": "expanded"
+    }
+   },
+   "config": "benchmarks/svgnest/tool.json",
+   "config_sha256": "400223d70f8189684302fd1907bd1a470746be6039cd61628da7b77d87999494",
+   "batch_size": {
+    "60": 24,
+    "300": 8
+   },
+   "desktop": false
+  },
+  "sparrow": {
+   "datasets": {
+    "S": {
+     "identical_constraints": "identical",
+     "best_native_settings": "upstream-default"
+    },
+    "B": {
+     "identical_constraints": "identical",
+     "best_native_settings": "upstream-default"
+    },
+    "M": {
+     "identical_constraints": "identical",
+     "best_native_settings": "upstream-default"
+    }
+   },
+   "config": "benchmarks/sparrow-benchmark/Cargo.toml",
+   "config_sha256": "ba241230b5ccd67046349351c5db1337b3b3fdf9294cb52412e8c81959b9bc56",
+   "batch_size": {
+    "60": 40,
+    "300": 8
+   },
+   "desktop": false
+  }
+ },
+ "nestbolt": {
+  "settings": "defaults",
+  "note": "Nestbolt's identical-constraints and best settings are the same defaults, so each slot runs once."
+ }
+}

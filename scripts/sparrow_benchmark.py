@@ -118,7 +118,9 @@ def batch(args):
     else:
         from datasets import check_frozen, DEST
     check_frozen()
-    DATASET,rows=comparison_cases(ROOT,args.dataset,args.seconds)
+    from dataset_selection import check_seed
+    check_seed(args.phase,args.seed)
+    DATASET,rows=comparison_cases(ROOT,args.dataset,args.seconds,args.phase)
     selected=rows[args.offset:args.offset+args.count]
     if not selected or len(selected)*(args.seconds+300)>3*3600: raise ValueError('Empty selection or batch over three hours')
     sources={s:digest(ROOT/s) for s in SOURCES}
@@ -132,13 +134,13 @@ def batch(args):
         'sources':{p.relative_to(ROOT).as_posix():digest(p) for p in [ROOT/'Cargo.lock',*sorted((ROOT/'crates/validator/src').glob('*.rs'))]}}
     record={'batch_id':identifier,'dataset':args.dataset,'dataset_manifest_sha256':digest(DATASET),'cases':selected,
             'sources':sources,'seconds':args.seconds,'seed':args.seed,'settings':args.settings,'axis':args.axis,
-            'complete':False,'runs':[],'validator_snapshot':validator_snapshot}
+            'phase':args.phase,'complete':False,'runs':[],'validator_snapshot':validator_snapshot}
     write(dest/'start.json',record)
     for row in selected:
         if {s:digest(ROOT/s) for s in SOURCES}!=sources: raise ValueError('Runner changed during batch')
         source=DEST/row['path']
         if digest(source)!=row['sha256']: raise ValueError('Frozen source changed')
-        result=run(argparse.Namespace(job=source,seconds=args.seconds,seed=args.seed,settings=args.settings,axis=args.axis,phase='development',validator_snapshot=validator_snapshot))
+        result=run(argparse.Namespace(job=source,seconds=args.seconds,seed=args.seed,settings=args.settings,axis=args.axis,phase=args.phase,validator_snapshot=validator_snapshot))
         path=ROOT/'output/sparrow-benchmark'/result['run_id']/'run.json'
         entry={'job':row['id'],'status':result['status'],'record':path.relative_to(ROOT).as_posix(),'sha256':digest(path)}
         record['runs'].append(entry)
@@ -156,6 +158,7 @@ if __name__=='__main__':
         sub.add_argument('--settings',choices=['identical','upstream-default'],default='identical');sub.add_argument('--axis',choices=['x','y'],default='x')
     running.add_argument('--job',required=True);running.add_argument('--phase',choices=['development','final'],default='development')
     batching.add_argument('--dataset',choices=['S','B','M'],default='S');batching.add_argument('--offset',type=int,default=0);batching.add_argument('--count',type=int,default=13)
+    batching.add_argument('--phase',choices=['development','final'],default='development',help='final: seeds 1000-1004 and the held-out jobs (acceptance run only)')
     args=parser.parse_args()
     if args.command=='build': build()
     else:

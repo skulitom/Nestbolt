@@ -9,7 +9,7 @@ from deepnest_report import audit_record as audit_deepnest
 from sparrow_report import audit_record as audit_sparrow
 from svgnest_report import audit_record as audit_svgnest
 from lbf_report import contained_file
-from dataset_selection import development_cases
+from dataset_selection import phase_cases
 from svgnest import ROOT, digest, write
 
 TOOLS = {'deepnest': ('output/playwright/deepnest', audit_deepnest),
@@ -22,7 +22,8 @@ def audit_batch(path, tool):
     batch = json.loads(path.read_bytes())
     if batch['dataset'] not in ['S', 'B', 'M'] or (tool != 'sparrow' and batch['dataset'] == 'S'):
         raise ValueError('Unexpected dataset for this runner')
-    manifest, cases = development_cases(ROOT, batch['dataset'])
+    phase = batch.get('phase', 'development')
+    manifest, cases = phase_cases(ROOT, batch['dataset'], phase)
     if digest(manifest) != batch['dataset_manifest_sha256']:
         raise ValueError('Frozen dataset manifest changed')
     frozen = {r['id']:r for r in cases}
@@ -50,6 +51,8 @@ def audit_batch(path, tool):
         for name in ['seconds', 'seed', 'settings', 'axis', 'sources']:
             if run[name] != batch[name]:
                 raise ValueError(f'Run differs from declared batch: {name}')
+        if run.get('phase', 'development') != phase:
+            raise ValueError('Run phase differs from its batch')
         if run['job'] != key or run['job_sha256'] != selected[key]['sha256'] or run['status'] != entry['status']:
             raise ValueError('Run identity or status differs from its batch entry')
         seen.add(key)

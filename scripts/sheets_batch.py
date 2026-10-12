@@ -1,4 +1,6 @@
-"""Timed development batch for `nestbolt sheets`; no held-out jobs, no gate claim.
+"""Timed batch for `nestbolt sheets`: development (no held-out jobs, seeds 0-2) or,
+with --phase final --final-acceptance, the acceptance run (all B/M jobs including
+the held-out ones, seeds 1000-1004).
 
 Each job runs as one native process pinned to one logical CPU, at most eight at
 once. Every outcome is retained. Successful layouts are re-checked with the
@@ -21,7 +23,7 @@ import uuid
 
 import psutil
 
-from dataset_selection import development_cases
+from dataset_selection import check_seed, phase_cases
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT/'benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json'
@@ -36,11 +38,15 @@ def lf_digest(path):
     return sha256(Path(path).read_bytes().replace(b'\r\n', b'\n')).hexdigest()
 
 
-def select_cases(include=(), exclude=()):
-    cases = [case for group in ['B', 'M'] for case in development_cases(ROOT, group)[1]]
+def select_cases(include=(), exclude=(), phase='development', long_subset=False):
+    cases = [case for group in ['B', 'M'] for case in phase_cases(ROOT, group, phase)[1]]
+    if long_subset:
+        plan = json.loads((ROOT/'benchmarks/matrix-plan.json').read_bytes())
+        long_ids = {row['id'] for row in plan['cases'] if 300 in row['budgets_seconds']}
+        cases = [c for c in cases if c['id'] in long_ids]
     known = {case['id'] for case in cases}
     if (set(include) | set(exclude)) - known:
-        raise ValueError('Choose frozen development B/M IDs; held-out and unknown IDs are forbidden')
+        raise ValueError(f'Choose frozen {phase} B/M IDs; held-out jobs belong to the final phase only')
     selected = [c for c in cases if (not include or c['id'] in include) and c['id'] not in exclude]
     if not selected:
         raise ValueError('No development jobs selected')
@@ -122,11 +128,14 @@ SOURCE_FILES = ['scripts/sheets_batch.py', 'crates/core/src/sheets.rs', 'crates/
 
 def report(rows, args, binary_hash, started, run_dir, sources):
     competitors = competitor_medians(args.reference_seconds)
-    lines = ['# Fixed-sheet separator: development batch', '',
-             f'All selected development B/M jobs, seed {args.seed}, {args.seconds} s wall clock per job, '
-             'one pinned logical CPU per process. Ten held-out maker jobs are excluded. Competitor '
-             f'references are the frozen M1 three-seed {args.reference_seconds} s medians; one Nestbolt '
-             'seed is development evidence, not final acceptance.', '', f'Solver arguments: `{" ".join(args.solver_arg) or "defaults"}`.', '']
+    scope = ('Ten held-out maker jobs are excluded. Competitor references are the frozen M1 three-seed '
+             f'{args.reference_seconds} s medians; one Nestbolt seed is development evidence, not final acceptance.'
+             if args.phase == 'development' else
+             'Final acceptance phase: every B/M job including the ten held-out ones. The comparison column uses '
+             'the development competitor medians where they exist; the final gate uses the final competitor runs.')
+    lines = [f'# Fixed-sheet separator: {args.phase} batch', '',
+             f'All selected {args.phase} B/M jobs, seed {args.seed}, {args.seconds} s wall clock per job, '
+             f'one pinned logical CPU per process. {scope}', '', f'Solver arguments: `{" ".join(args.solver_arg) or "defaults"}`.', '']
     valid = [r for r in rows if r['status'] == 'valid']
     lines.append(f'Valid layouts: **{len(valid)}/{len(rows)}**. Failed or invalid outcomes are listed below and never scored.')
     comparisons = []
@@ -154,7 +163,9 @@ def report(rows, args, binary_hash, started, run_dir, sources):
                      f"{row.get('sheets', '—')} | {fmt(row.get('accepted_at_seconds'), 1)} |")
     stamp = started.strftime('%Y%m%dT%H%M%SZ')
     name = f'sheets-{args.label}-{stamp}-{uuid.uuid4().hex[:8]}'
-    record = {'scope': 'Development B/M only; one seed; timed; no acceptance-gate claim.',
+    record = {'scope': ('Development B/M only; one seed; timed; no acceptance-gate claim.' if args.phase == 'development'
+                        else 'Final acceptance phase; all B/M jobs including held-out; one seed of five.'),
+              'phase': args.phase, 'long_subset': args.long_subset,
               'recorded_at': datetime.now(timezone.utc).isoformat(), 'seed': args.seed,
               'seconds': args.seconds, 'reference_seconds': args.reference_seconds, 'cpus': args.cpu, 'solver_args': args.solver_arg, 'binary_sha256': binary_hash,
               'baseline': {'path': BASELINE.relative_to(ROOT).as_posix(), 'git_lf_sha256': lf_digest(BASELINE)},
@@ -179,11 +190,18 @@ def main():
                         help='extra argument passed to `nestbolt sheets`, e.g. --solver-arg=--window=8')
     parser.add_argument('--label', default='development')
     parser.add_argument('--reference-seconds', type=int, choices=[60, 300], default=60)
+    parser.add_argument('--phase', choices=['development', 'final'], default='development')
+    parser.add_argument('--final-acceptance', action='store_true',
+                        help='required with --phase final: runs Nestbolt on the held-out jobs, which ends tuning')
+    parser.add_argument('--long-subset', action='store_true', help='only the frozen 300 s subset of jobs')
     args = parser.parse_args()
     if not 1 <= len(args.cpu) <= 8 or len(set(args.cpu)) != len(args.cpu) or not 0 < args.seconds <= 300:
         parser.error('1..8 distinct CPUs; budget in (0, 300] seconds')
+    if args.phase == 'final' and not args.final_acceptance:
+        parser.error('the final phase runs Nestbolt on held-out jobs; confirm with --final-acceptance')
     try:
-        cases = select_cases(args.job, args.exclude_job)
+        check_seed(args.phase, args.seed)
+        cases = select_cases(args.job, args.exclude_job, args.phase, args.long_subset)
     except ValueError as error:
         parser.error(str(error))
     binary = args.binary.resolve(strict=True)

@@ -178,16 +178,17 @@ def freeze_validator(destination, from_batch=None):
 
 
 def batch(args):
-    from dataset_selection import development_cases
+    from dataset_selection import check_seed, phase_cases
+    check_seed(args.phase, args.seed)
     if args.dataset == 'M':
         from maker_freeze import check_frozen, DEST
     else:
         from datasets import check_frozen, DEST
     check_frozen()
-    manifest, rows = development_cases(ROOT, args.dataset)
+    manifest, rows = phase_cases(ROOT, args.dataset, args.phase)
     if args.seconds == 300:
         from comparison_cases import comparison_cases
-        manifest, rows = comparison_cases(ROOT, args.dataset, args.seconds)
+        manifest, rows = comparison_cases(ROOT, args.dataset, args.seconds, args.phase)
     selected = rows[args.offset:args.offset+args.count]
     # Anode jobs have a 30-minute hard lifetime. Reserve startup, both checks,
     # controller teardown and metadata collection even if every attempt fails.
@@ -201,7 +202,7 @@ def batch(args):
     record = {'batch_id':identifier, 'tool':'deepnest-next', 'dataset':args.dataset,
               'dataset_manifest_sha256':digest(manifest), 'cases':selected, 'sources':sources,
               'seconds':args.seconds, 'seed':args.seed, 'settings':args.settings, 'axis':args.axis,
-              'complete':False, 'runs':[], 'validator_snapshot':validator_snapshot}
+              'phase':args.phase, 'complete':False, 'runs':[], 'validator_snapshot':validator_snapshot}
     write(dest/'start.json', record)
     for row in selected:
         if {name:digest(ROOT/name) for name in SOURCES} != sources:
@@ -210,7 +211,7 @@ def batch(args):
         if digest(source) != row['sha256']:
             raise ValueError('Frozen job source changed')
         result = run(argparse.Namespace(job=source, seconds=args.seconds, seed=args.seed,
-                     settings=args.settings, axis=args.axis, phase='development', validator_snapshot=validator_snapshot))
+                     settings=args.settings, axis=args.axis, phase=args.phase, validator_snapshot=validator_snapshot))
         path = ROOT/'output/playwright/deepnest'/result['run_id']/'run.json'
         entry = {'job':row['id'], 'status':result['status'], 'record':path.relative_to(ROOT).as_posix(), 'sha256':digest(path)}
         record['runs'].append(entry)
@@ -237,7 +238,9 @@ if __name__ == '__main__':
     running.add_argument('--phase', choices=['development','final'], default='development')
     batching.add_argument('--offset', type=int, default=0)
     batching.add_argument('--count', type=int, default=3)
-    batching.add_argument('--dataset', choices=['B','M'], default='B', help='M excludes every held-out job')
+    batching.add_argument('--dataset', choices=['B','M'], default='B', help='development M excludes every held-out job')
+    batching.add_argument('--phase', choices=['development','final'], default='development',
+                          help='final: seeds 1000-1004 and the held-out jobs (acceptance run only)')
     batching.add_argument('--validator-from-batch', type=Path,
                           help='Reuse a verified immutable checker snapshot from an earlier batch JSON')
     args = parser.parse_args()

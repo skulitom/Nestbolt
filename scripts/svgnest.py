@@ -173,13 +173,17 @@ def run(args):
 
 
 def batch(args):
-    from dataset_selection import development_cases
+    from dataset_selection import check_seed, phase_cases
+    check_seed(args.phase, args.seed)
     if args.dataset == 'M':
         from maker_freeze import check_frozen, DEST
     else:
         from datasets import check_frozen, DEST
     check_frozen()
-    manifest, rows = development_cases(ROOT, args.dataset)
+    manifest, rows = phase_cases(ROOT, args.dataset, args.phase)
+    if args.seconds == 300:
+        from comparison_cases import comparison_cases
+        manifest, rows = comparison_cases(ROOT, args.dataset, args.seconds, args.phase)
     selected = rows[args.offset:args.offset + args.count]
     if not selected:
         raise ValueError('Batch selection is empty')
@@ -203,7 +207,7 @@ def batch(args):
     record = {'batch_id': identifier, 'kind': 'provisional_svgnest_baseline', 'dataset': args.dataset,
               'dataset_manifest_sha256': digest(manifest), 'cases': selected, 'sources': sources,
               'seed': args.seed, 'seconds': args.seconds, 'axis': args.axis, 'settings': args.settings,
-              'complete': False, 'runs': [], 'validator_snapshot': validator_snapshot}
+              'phase': args.phase, 'complete': False, 'runs': [], 'validator_snapshot': validator_snapshot}
     write(dest / 'start.json', record)
     for row in selected:
         if {name: digest(ROOT / name) for name in SOURCE_FILES} != sources:
@@ -212,7 +216,7 @@ def batch(args):
         if digest(source) != row['sha256']:
             raise ValueError('Frozen batch source changed')
         result = run(argparse.Namespace(job=source, seconds=args.seconds, seed=args.seed,
-                    settings=args.settings, axis=args.axis, phase='development', validator_snapshot=validator_snapshot))
+                    settings=args.settings, axis=args.axis, phase=args.phase, validator_snapshot=validator_snapshot))
         path = ROOT / 'output/playwright/svgnest' / result['run_id'] / 'run.json'
         entry = {'job': row['id'], 'status': result['status'], 'record': path.relative_to(ROOT).as_posix(), 'sha256': digest(path)}
         record['runs'].append(entry)
@@ -239,7 +243,9 @@ def main():
     running.add_argument('--phase', choices=['development', 'final'], default='development')
     batching.add_argument('--offset', type=int, default=0)
     batching.add_argument('--count', type=int, default=24)
-    batching.add_argument('--dataset', choices=['B','M'], default='B', help='M excludes all held-out jobs')
+    batching.add_argument('--dataset', choices=['B','M'], default='B', help='development M excludes all held-out jobs')
+    batching.add_argument('--phase', choices=['development', 'final'], default='development',
+                          help='final: seeds 1000-1004 and the held-out jobs (acceptance run only)')
     args = parser.parse_args()
     if args.command == 'setup':
         setup()

@@ -51,6 +51,7 @@ def main():
         [sys.executable, "scripts/test_matrix_plan.py"],
         [sys.executable, "scripts/maker_freeze.py", "--check"],
         [sys.executable, "scripts/test_maker_freeze.py"],
+        [sys.executable, "scripts/test_dataset_selection.py"],
         ["cargo", "run", "--quiet", "--locked", "-p", "nestbolt-validator", "--example", "check_jobs", "--",
             *[str(path) for group in ["S", "B", "M"] for path in sorted((ROOT / "benchmarks/datasets" / group).glob("*.json"))]],
     ]
