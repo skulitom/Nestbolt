@@ -322,12 +322,7 @@ impl PreparedJob<'_> {
                     8,
                     &mut state,
                 )?;
-                for proposal in proposals
-                    .iter()
-                    .filter(|p| p.victims.len() <= 2)
-                    .take(ejections)
-                    .cloned()
-                {
+                for proposal in proposals.ejections.into_iter().take(ejections) {
                     if self.try_displacement(
                         &mut sheets,
                         &layout,
@@ -339,7 +334,7 @@ impl PreparedJob<'_> {
                         continue 'pending;
                     }
                 }
-                for proposal in proposals.into_iter().take(ejections.min(2)) {
+                for proposal in proposals.separation.into_iter().take(ejections.min(2)) {
                     if self.try_relaxation(
                         &mut sheets,
                         &layout,
@@ -373,7 +368,7 @@ impl PreparedJob<'_> {
             checked.violations
         );
         Ok(Construction {
-            algorithm: "nestbolt-repair-v4",
+            algorithm: "nestbolt-repair-v5",
             seed: options.seed,
             collision_checks: state.checks,
             surrogate_rejections: state.surrogate_rejections,

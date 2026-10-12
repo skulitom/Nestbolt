@@ -19,7 +19,7 @@ impl HazardFilter<BasicHazardEntity> for IgnoreItem {
 // Copyright (c) 2025 Jeroen Gardeyn, KU Leuven. MIT; see core/Sparrow_LICENSE.
 // This is a ranking proxy only. Jagua decides collisions; the independent
 // original-geometry validator decides whether a completed layout is acceptable.
-fn overlap_penalty(a: &SPolygon, b: &SPolygon) -> f32 {
+pub(super) fn overlap_penalty(a: &SPolygon, b: &SPolygon) -> f32 {
     let epsilon = a.diameter().max(b.diameter()) * 0.01;
     let mut area = 0.0;
     for p in &a.surrogate().poles {
@@ -400,6 +400,7 @@ mod tests {
         let proposal = prepared
             .displacement_candidates(&sheets, 0, Options::default(), 2, 8, &mut search)
             .unwrap()
+            .separation
             .remove(0);
         let mut control = Control::new(Some(0), None);
         let mut state = SearchState::new(0, true, &mut control);

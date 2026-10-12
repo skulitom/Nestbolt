@@ -6,6 +6,32 @@ use nestbolt_validator::{
 };
 use std::cell::Cell;
 
+#[test]
+fn shallow_overlap_repair_keeps_the_blaz1_development_quality_gain() {
+    // This is a frozen development job, never a held-out case. The original
+    // blocker-count ranking needed eleven sheets at the same four-pass budget.
+    let job: Job = serde_json::from_str(include_str!(
+        "../../../benchmarks/datasets/B/b-blaz1-nest-mb-free.json"
+    ))
+    .unwrap();
+    let result = optimize::optimize(
+        &job,
+        optimize::Options {
+            construct: construct::Options {
+                seed: 0,
+                random_samples: 64,
+                ..construct::Options::default()
+            },
+            passes: 4,
+        },
+        |_| {},
+    )
+    .unwrap();
+    assert!(result.validation.valid);
+    assert!(result.best.layout.sheets.len() <= 10);
+    assert!(result.validation.metrics.unwrap().normalized_material < 9.81);
+}
+
 fn job() -> Job {
     Job {
         version: 1,

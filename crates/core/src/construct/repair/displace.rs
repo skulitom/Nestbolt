@@ -11,6 +11,48 @@ pub(super) struct Displacement {
     pub(super) candidate: Candidate,
     pub(super) victims: Vec<PItemKey>,
     area: f32,
+    overlap: f64,
+}
+
+#[derive(Default)]
+pub(super) struct Proposals {
+    pub(super) ejections: Vec<Displacement>,
+    pub(super) separation: Vec<Displacement>,
+}
+
+fn compare(a: &Displacement, b: &Displacement, separation: bool) -> std::cmp::Ordering {
+    let common = || {
+        a.victims
+            .len()
+            .cmp(&b.victims.len())
+            .then(a.area.total_cmp(&b.area))
+            .then(a.candidate.cost.total_cmp(&b.candidate.cost))
+    };
+    if separation {
+        a.overlap.total_cmp(&b.overlap).then_with(common)
+    } else {
+        common()
+    }
+}
+
+fn retain(list: &mut Vec<Displacement>, proposal: Displacement, limit: usize, separation: bool) {
+    // Keep distinct blocker sets/orientations. Ejection favours a low position;
+    // separation favours shallow overlap, even when it involves more blockers.
+    if let Some(index) = list.iter().position(|p| {
+        p.sheet == proposal.sheet
+            && p.region == proposal.region
+            && p.victims == proposal.victims
+            && p.candidate.external.rotation_radians == proposal.candidate.external.rotation_radians
+            && p.candidate.external.mirrored == proposal.candidate.external.mirrored
+    }) {
+        if !compare(&proposal, &list[index], separation).is_lt() {
+            return;
+        }
+        list.remove(index);
+    }
+    list.push(proposal);
+    list.sort_by(|a, b| compare(a, b, separation));
+    list.truncate(limit);
 }
 
 impl PreparedJob<'_> {
@@ -22,11 +64,11 @@ impl PreparedJob<'_> {
         limit: usize,
         max_blockers: usize,
         state: &mut SearchState<'_, '_>,
-    ) -> Result<Vec<Displacement>> {
+    ) -> Result<Proposals> {
         let item = &self.items[part];
         let mut buffer = item.shape_cd().as_ref().clone();
         let mut collector = BasicHazardCollector::new();
-        let mut proposals: Vec<Displacement> = vec![];
+        let mut proposals = Proposals::default();
         for (si, regions) in sheets.iter().enumerate() {
             for (ri, occupied) in regions.iter().enumerate() {
                 let region = &occupied.region;
@@ -91,14 +133,6 @@ impl PreparedJob<'_> {
                             buffer.transform_from(item.shape_cd(), &internal.compose());
                             collector.clear();
                             let mut count = 0;
-                            // A candidate with more blockers than the worst retained
-                            // proposal cannot enter the bounded list. Stop collecting
-                            // there without changing candidate order or random draws.
-                            let blocker_limit = if proposals.len() == limit {
-                                max_blockers.min(proposals.last().unwrap().victims.len())
-                            } else {
-                                max_blockers
-                            };
                             let stopped = region.layout.cde().collect_poly_collisions_until(
                                 &buffer,
                                 &NoFilter,
@@ -106,7 +140,7 @@ impl PreparedJob<'_> {
                                 |hazard| {
                                     count += 1;
                                     !matches!(hazard, BasicHazardEntity::PlacedItem { .. })
-                                        || count > blocker_limit
+                                        || count > max_blockers
                                 },
                             );
                             if stopped {
@@ -129,6 +163,18 @@ impl PreparedJob<'_> {
                                 .collect();
                             ensure!(victims.len() == collector.len(), "untracked repair hazard");
                             let area = victims.iter().map(|p| self.items[p.part].area()).sum();
+                            // Sum in source order, independent of collision-tree
+                            // traversal. A low blocker count alone can conceal a
+                            // deep intersection that translation cannot resolve.
+                            let overlap = victims
+                                .iter()
+                                .map(|p| {
+                                    f64::from(relax::overlap_penalty(
+                                        &buffer,
+                                        region.layout.placed_items()[p.key].shape(),
+                                    ))
+                                })
+                                .sum();
                             let keys: Vec<_> = victims.iter().map(|p| p.key).collect();
                             let cost = y + height + 0.001 * (x + width);
                             let (cx, cy) = item.shape_orig().pre_transform.translation();
@@ -140,6 +186,7 @@ impl PreparedJob<'_> {
                                 sheet: si,
                                 region: ri,
                                 area,
+                                overlap,
                                 victims: keys,
                                 candidate: Candidate {
                                     internal,
@@ -155,30 +202,10 @@ impl PreparedJob<'_> {
                                     cost,
                                 },
                             };
-                            // Retain one low-cost position per blocker set and
-                            // orientation so near-identical contacts cannot use
-                            // every trial slot.
-                            if let Some(index) = proposals.iter().position(|p| {
-                                p.sheet == si
-                                    && p.region == ri
-                                    && p.victims == proposal.victims
-                                    && p.candidate.external.rotation_radians == angle
-                                    && p.candidate.external.mirrored == mirrored
-                            }) {
-                                if proposals[index].candidate.cost <= cost {
-                                    continue;
-                                }
-                                proposals.remove(index);
+                            if proposal.victims.len() <= 2 {
+                                retain(&mut proposals.ejections, proposal.clone(), limit, false);
                             }
-                            proposals.push(proposal);
-                            proposals.sort_by(|a, b| {
-                                a.victims
-                                    .len()
-                                    .cmp(&b.victims.len())
-                                    .then(a.area.total_cmp(&b.area))
-                                    .then(a.candidate.cost.total_cmp(&b.candidate.cost))
-                            });
-                            proposals.truncate(limit);
+                            retain(&mut proposals.separation, proposal, limit.min(2), true);
                         }
                     }
                 }
