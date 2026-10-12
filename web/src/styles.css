@@ -1,0 +1,75 @@
+:root {
+  --bg: #f6f5f1;
+  --panel: #ffffff;
+  --text: #1d2228;
+  --muted: #5d6670;
+  --line: #d9d6cd;
+  --accent: #2f6db5;
+  --danger: #b3261e;
+  --stock: #efe8d8;
+  --margin: #c9bfa5;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181c;
+    --panel: #1e2227;
+    --text: #e6e8eb;
+    --muted: #9aa3ad;
+    --line: #343a42;
+    --accent: #7fb0ec;
+    --danger: #f2b8b5;
+    --stock: #2b2a26;
+    --margin: #5a5546;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, sans-serif; }
+.app { max-width: 1400px; margin: 0 auto; padding: 0 16px 24px; }
+header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 0; }
+header h1 { margin: 0 12px 0 0; font-size: 22px; }
+header .name { flex: 1 1 180px; min-width: 0; }
+.privacy { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
+main { display: grid; grid-template-columns: minmax(320px, 520px) 1fr; gap: 16px; align-items: start; }
+@media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+aside, .results { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; min-width: 0; }
+h2 { margin: 0 0 8px; font-size: 16px; }
+input, select, button { font: inherit; color: inherit; }
+input, select { background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 3px 6px; max-width: 100%; }
+input[type='number'] { width: 5.5em; }
+button { background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 4px 10px; cursor: pointer; }
+button:disabled { opacity: 0.5; cursor: default; }
+button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; padding: 8px 22px; }
+button.icon { padding: 0 6px; border: none; background: none; font-size: 18px; line-height: 1; }
+.drop { display: block; border: 2px dashed var(--line); border-radius: 6px; padding: 14px; text-align: center; cursor: pointer; color: var(--muted); }
+.drop input { display: block; margin: 0 auto 6px; }
+.parts { width: 100%; border-collapse: collapse; margin-top: 8px; display: block; overflow-x: auto; }
+.parts th, .parts td { padding: 3px 4px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; font-size: 13px; }
+.parts small { display: block; color: var(--muted); }
+.thumb { width: 36px; height: 36px; display: block; }
+.sheet-row { border: 1px solid var(--line); border-radius: 6px; margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; }
+.sheet-row legend { font-size: 13px; color: var(--muted); }
+.defect-form { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.defect-form input { width: 4.5em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px 12px; }
+.check { display: flex; gap: 6px; align-items: center; }
+.run { display: flex; gap: 10px; align-items: center; }
+.run progress { flex: 1; }
+.error { color: var(--danger); margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.warnings { color: var(--muted); font-size: 13px; margin: 6px 0 0; padding-left: 18px; }
+.hint { color: var(--muted); }
+.summary { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0 0 8px; }
+.summary dt { color: var(--muted); font-size: 12px; }
+.summary dd { margin: 0; font-size: 20px; font-weight: 600; }
+.sheets { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 12px; }
+figure { margin: 0; }
+figcaption { display: flex; gap: 6px; align-items: center; margin-top: 4px; font-size: 13px; }
+figcaption button { padding: 1px 8px; }
+.sheet { width: 100%; height: auto; display: block; max-height: 70vh; }
+.sheet .stock { fill: var(--stock); stroke: var(--margin); stroke-width: 0.5; vector-effect: non-scaling-stroke; }
+.sheet .margin { fill: none; stroke: var(--margin); stroke-dasharray: 4 3; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.sheet .defect { fill: var(--danger); opacity: 0.35; }
+.sheet .part { stroke: rgba(0, 0, 0, 0.45); stroke-width: 0.6; vector-effect: non-scaling-stroke; opacity: 0.9; }
+footer { margin-top: 24px; color: var(--muted); font-size: 13px; }
+footer a { color: var(--accent); }

@@ -17,7 +17,7 @@ use crate::export::Outline;
 use crate::import::{Import, Options as ImportOptions, import_dxf, import_svg};
 
 /// Imported parts in millimetres, with the tolerance of their polygons.
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct Library {
     pub version: u32,
@@ -27,7 +27,7 @@ pub struct Library {
     pub warnings: Vec<String>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct LibraryPart {
     pub id: String,
@@ -87,6 +87,47 @@ impl Library {
     }
 }
 
+/// The `report.json` written beside `job.json` and `layout.json` by the CLI and
+/// the MCP server's `nest`.
+#[derive(Debug, Serialize, JsonSchema)]
+pub struct NestReport {
+    pub version: u32,
+    pub algorithm: String,
+    pub seed: u64,
+    pub time_budget_s: f64,
+    pub elapsed_s: f64,
+    /// Whether the same inputs and seed reproduce this layout exactly: true
+    /// only for a deterministic work budget that finished before the real-time
+    /// limit.
+    pub repeatable: bool,
+    pub work_version: String,
+    /// Copies placed inside the holes of other parts.
+    pub parts_in_holes: u32,
+    /// Why the fixed-sheet search did not apply; the general search ran instead.
+    pub unsupported: Option<String>,
+    /// Exported sheets, relative to the report's directory.
+    pub files: Vec<String>,
+    pub validation: nestbolt_validator::job::Report,
+}
+
+impl NestReport {
+    pub fn new(result: crate::sheets::SheetResult, time_budget_s: f64, files: Vec<String>) -> Self {
+        Self {
+            version: 1,
+            algorithm: result.algorithm.to_owned(),
+            seed: result.seed,
+            time_budget_s,
+            elapsed_s: result.elapsed_seconds,
+            repeatable: result.repeatable,
+            work_version: crate::clock::WORK_VERSION.to_owned(),
+            parts_in_holes: result.riders,
+            unsupported: result.unsupported,
+            files,
+            validation: result.validation,
+        }
+    }
+}
+
 fn default_quantity() -> u32 {
     1
 }
@@ -126,6 +167,13 @@ pub struct RequestSheet {
     pub count: Option<u32>,
     #[serde(default)]
     pub margins_mm: Margins,
+    /// Areas that must stay clear (knots, damage, clamps), in sheet coordinates.
+    #[serde(default)]
+    pub defects_mm: Vec<nestbolt_validator::Polygon>,
+    /// A remnant's usable outline inside its width × height; empty means the
+    /// whole rectangle.
+    #[serde(default)]
+    pub outline_mm: Vec<nestbolt_validator::Polygon>,
 }
 
 /// What to nest. Lengths are millimetres.
@@ -220,8 +268,8 @@ impl Request {
                 height: s.height_mm,
                 count: s.count,
                 margins: s.margins_mm,
-                outline: vec![],
-                defects: vec![],
+                outline: s.outline_mm.clone(),
+                defects: s.defects_mm.clone(),
             })
             .collect();
         let tolerance = library.tolerance;

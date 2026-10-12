@@ -1,0 +1,292 @@
+{
+  "$defs": {
+    "Contour": {
+      "description": "A closed boundary: a start point and segments that end where it began.",
+      "properties": {
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/Segment"
+          },
+          "type": "array"
+        },
+        "start": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "start",
+        "segments"
+      ],
+      "type": "object"
+    },
+    "LibraryPart": {
+      "additionalProperties": false,
+      "properties": {
+        "area_mm2": {
+          "format": "double",
+          "type": "number"
+        },
+        "bounds_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array"
+        },
+        "holes": {
+          "items": {
+            "$ref": "#/$defs/Contour"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "outer": {
+          "$ref": "#/$defs/Contour"
+        },
+        "polygon": {
+          "$ref": "#/$defs/Polygon"
+        },
+        "source": {
+          "description": "Source file and element, layer or block.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "outer",
+        "holes",
+        "polygon",
+        "area_mm2",
+        "bounds_mm"
+      ],
+      "type": "object"
+    },
+    "Polygon": {
+      "additionalProperties": false,
+      "properties": {
+        "holes": {
+          "default": [],
+          "items": {
+            "items": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "outer": {
+          "items": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "outer"
+      ],
+      "type": "object"
+    },
+    "Segment": {
+      "description": "One boundary segment, always in millimetres or the job's declared units.",
+      "oneOf": [
+        {
+          "properties": {
+            "kind": {
+              "const": "line",
+              "type": "string"
+            },
+            "to": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "to"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Elliptical arc in centre form: `center + R(rotation) (rx cos t, ry sin t)`\nfor `t` from `start` to `start + sweep` (radians; positive is\ncounter-clockwise in a Y-up frame).",
+          "properties": {
+            "center": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "arc",
+              "type": "string"
+            },
+            "radii": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "rotation": {
+              "format": "double",
+              "type": "number"
+            },
+            "start": {
+              "format": "double",
+              "type": "number"
+            },
+            "sweep": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "center",
+            "radii",
+            "rotation",
+            "start",
+            "sweep"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "control": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "quad",
+              "type": "string"
+            },
+            "to": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "control",
+            "to"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "controls": {
+              "items": {
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "cubic",
+              "type": "string"
+            },
+            "to": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "controls",
+            "to"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Imported parts in millimetres, with the tolerance of their polygons.",
+  "properties": {
+    "parts": {
+      "items": {
+        "$ref": "#/$defs/LibraryPart"
+      },
+      "type": "array"
+    },
+    "tolerance": {
+      "description": "Maximum distance between each exact curve and its polygon, in mm.",
+      "format": "double",
+      "type": "number"
+    },
+    "version": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "version",
+    "tolerance",
+    "parts",
+    "warnings"
+  ],
+  "title": "Library",
+  "type": "object"
+}

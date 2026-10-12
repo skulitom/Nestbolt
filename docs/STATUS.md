@@ -8,9 +8,9 @@ Percentages count completed milestones only. Development results do not establis
 | --- | ---: | --- |
 | M0 — Groundwork and reproduction | 5% | Complete: 39 valid runs; all 13 means within the frozen 1% threshold |
 | M1 — Baseline | 15% | Complete: all 1,878 declared slots audited; [target frozen at 10.77231474%](M1_BASELINE.md) |
-| M2 — Sheet optimiser | 25% | Virtual-strip Sparrow separator: 65/65 development layouts valid; one-seed triage 49/52 wins/ties, median 6.17% vs the frozen 10.77% target; G1/G3/G4 evidence still required |
-| M3 — Part-in-part and import/export | 15% | Pending; original curves already retained in maker sources |
-| M4 — Browser app and MCP | 20% | Scaffolding; five tools and actual Claude Code connection still to build |
+| M2 — Sheet optimiser | 25% | Virtual-strip separator with a pinned last-sheet end: 195/195 development layouts valid over three seeds; 48/52 wins/ties, one job more than 1% worse, median 8.26% vs the 10.77% target. G4-style speed check 7/9 (needs 80%); G1/G3/G4 final evidence still required |
+| M3 — Part-in-part and import/export | 15% | SVG/DXF import with exact curves, transformed SVG/DXF export (round trip within 0.01 mm in tests), part-in-part rigid groups, defects. Inkscape/LibreCAD opening and Artem's LightBurn check outstanding |
+| M4 — Browser app and MCP | 20% | WebAssembly in Web Workers, Preact UI, IndexedDB and ZIP projects; 6 Playwright tests pass in Chromium and Firefox. Five MCP tools with an end-to-end test; MCPB bundle, archives and release workflows built and tested locally. Pages hosting, G5 measurements and the real Claude Code run outstanding |
 | M5 — Final gates | 20% | Pending; all G1–G8 requirements remain in scope |
 
 | Evidence | Current result | Next step |
@@ -28,7 +28,10 @@ Percentages count completed milestones only. Development results do not establis
 | Native strip parity | 39/39 outputs valid at 60 s, seeds 0/1/2. Median regression −0.0390%; worst +1.6493%, against the better Sparrow setting per job. Development thresholds pass | [Audited comparison](../benchmarks/results/strip-development-20261012T040418Z-961c9a96.md), [adapter scope](STRIP_PARITY.md); final-seed G3 acceptance remains |
 | Repeatability and rollback | Two compression replays have identical complete outputs. Tests preserve the full repacking history, other sheets and the valid incumbent when interrupted | [Compression replay](../benchmarks/results/compression-replay-20261012T0326.json); previous [blaz1 repair replay](../benchmarks/results/shallow-replay-20261012T0255.json) |
 | Quality triage | Combined search on all 65 development jobs (seed 0, up to 1,024 passes / 80M queries / 60 s): 65/65 valid; vs 52 finite 60 s competitor medians 27 wins/ties, 15 more than 1% worse, median reduction 0.396716%. Thirteen jobs have no finite competitor | [Corrected coverage](../benchmarks/results/search-coverage-20261012T051749Z.md); the frozen G2 target is 10.77231474%, so sheet search needs a much stronger separator |
-| Sheet separator | `nestbolt sheets`: warm start, then the last six sheets as one walled strip shrunk by a port of Sparrow's separator (60 s, seed 0, pinned CPU). 65/65 valid; 49/52 wins/ties (94.2%); one job more than 1% worse; median reduction **6.1687%** | [Batch](../benchmarks/results/sheets-development-20261012T102518Z-09573066.md); earlier [per-sheet](../benchmarks/results/sheets-development-20261012T094605Z-f6cbed76.md) and [crashed](../benchmarks/results/sheets-development-20261012T101332Z-a64299a0.md) batches retained; close the gap to 10.77% and beat Sparrow on single-sheet jobs |
+| Sheet separator | `nestbolt sheets`: warm start, then the last twelve sheets as one walled strip; the last sheet's free end is a pinned blocker (several sheets) or a shrinking container (one sheet). Three development seeds, 60 s, pinned CPUs: 195/195 valid; per-job median 48/52 wins/ties (92.3%); one job more than 1% worse (jakobs1 strip-sheet, -1.7%); median reduction **8.2619%** | [Seed 0](../benchmarks/results/sheets-eval-fixed-s0-20261012T125826Z-fd1af61e.md), [1](../benchmarks/results/sheets-eval-fixed-s1-20261012T130725Z-ece55c03.md), [2](../benchmarks/results/sheets-eval-fixed-s2-20261012T131624Z-24a17328.md); all earlier and interrupted batches in BENCHMARKS.md. All four losses are single-sheet jobs where Sparrow leads |
+| Speed (G4-style) | 30 s runs vs the frozen 300 s competitor medians, three seeds: 195/195 valid; 7 of the 9 jobs with a finite 300 s median reached (77.8%, needs 80%). Misses: jakobs2 strip-sheet, m-box-mini | [Seed 0](../benchmarks/results/sheets-g4-30s-s0-20261012T132945Z-fbc0c4e6.md), [1](../benchmarks/results/sheets-g4-30s-s1-20261012T133414Z-96e265e2.md), [2](../benchmarks/results/sheets-g4-30s-s2-20261012T133842Z-4470a64e.md) |
+| Browser app | Same engine in WebAssembly Web Workers, several seeds in parallel; import, nest, export, defects, several sheet sizes, fill mode, IndexedDB and ZIP projects. Chromium longest main-thread task under 200 ms in the test | `python scripts/build_web.py --test`: 3 tests × Chromium and Firefox pass; CI job added. Pages workflow is manual and waits for Artem |
+| MCP server and packaging | Five tools, workspace confinement, no overwrites, repeatable work budgets; end-to-end stdio test. JSON Schemas for library, request and report. MCPB bundle, native archives and release/registry workflows (dispatch or tag only) | 20 Node packaging tests pass, including a real bundle import-nest-validate smoke test; nothing released |
 | Search limits | 1,000-part job returns a valid incumbent in 15.094 s under a 15 s cooperative deadline; two fixed-work replays produce identical results | [Stop and replay evidence](../benchmarks/results/search-control-20261012T0114.md); calibrate time-to-work mapping and wire browser/MCP cancellation |
 | Compaction | All 65 layouts valid; seven sheet and ten maker improvements retained. Bounded relocation preserves every material score and reduces collision queries by 24% overall; original-geometry guard prevents material regression | [Sheet trial](../benchmarks/results/compact-b-20261012T013650Z-e3423fac.md), [maker trial](../benchmarks/results/compact-m-20261012T013654Z-fb5e8bfa.md); remains optional while stronger sheet repair is developed |
 | Constructor speed diagnostic | Stable cost order cuts 1,000-part collision checks from 9.33M to 4.39M; last matched-CPU pair uses 61.8% less CPU time with identical output | [All ten timing attempts](../benchmarks/results/construct-profile-20261012T0042.md); four-circle experiment reverted; no G4 claim |
@@ -40,9 +43,11 @@ measures competitor reductions over LBF of **17.09% at 60 s** and **21.54% at 30
 The frozen G2 target is **10.77231474%**, applied separately to both budgets.
 Missing finite comparisons remain explicit and never earn free wins.
 
-Next: strengthen sheet removal and compression on the weakest development cases,
-reduce large-job search cost, and prepare equal-budget acceptance. M2 requires the complete
-G1/G3/G4 evidence. M3 will recover hole area with true part-in-part placement.
+Next: close the single-sheet gap to Sparrow (an A/B of Sparrow's native optimiser
+from our warm start is running), lift G4 to at least 8 of 9, then collect final
+G1/G3/G4 evidence for M2. M3 needs the Inkscape/LibreCAD opening check and
+Artem's LightBurn check; M4 needs Pages hosting, the G5 measurements and the real
+Claude Code MCP run.
 
 [Ties, failure coverage and the baseline-gap formula](../benchmarks/STATISTICS.md)
 are now explicit. No competitor result means no free win. The [verified 10.6417% single-seed gap](../benchmarks/results/pilot-gap-feedback-20261011.md)
@@ -51,8 +56,9 @@ populations must pass separately.
 
 The independent checker covers original geometry, spacing, quantities, units,
 stock, margins, defects, rotations, mirroring and fill mode. The latest full local
-checks passed 93 workspace tests, four stock-helper tests, both WASM builds,
-source/schema/notices checks and 91 Python tests. Five Node tests cover CPU
+checks passed 112 workspace tests, four stock-helper tests, both WASM builds,
+source/schema/notices checks, 94 Python tests, 20 Node packaging tests and the
+6 browser tests (3 each in Chromium and Firefox). Five Node tests cover CPU
 selection and native process cleanup.
 
 [Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio

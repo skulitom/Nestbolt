@@ -5,12 +5,13 @@ use std::f64::consts::{PI, TAU};
 
 use anyhow::{Result, ensure};
 use nestbolt_validator::RigidTransform;
+use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 pub type Point = [f64; 2];
 
 /// One boundary segment, always in millimetres or the job's declared units.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, JsonSchema)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum Segment {
     Line {
@@ -37,7 +38,7 @@ pub enum Segment {
 }
 
 /// A closed boundary: a start point and segments that end where it began.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, JsonSchema)]
 pub struct Contour {
     pub start: Point,
     pub segments: Vec<Segment>,
@@ -312,6 +313,49 @@ pub fn contains(polygon: &[Point], p: Point) -> bool {
         j = i;
     }
     inside
+}
+
+/// Net area of a polygon with holes.
+pub fn polygon_area(polygon: &nestbolt_validator::Polygon) -> f64 {
+    signed_area(&polygon.outer).abs()
+        - polygon
+            .holes
+            .iter()
+            .map(|h| signed_area(h).abs())
+            .sum::<f64>()
+}
+
+/// Whether the part's bounding box fits the stock's usable rectangle at some
+/// allowed rotation (free rotation sampled every half degree). Used only to
+/// warn about impossible parts; a fit here is no placement guarantee.
+pub fn fits_somehow(
+    part: &nestbolt_validator::job::Part,
+    stock: &nestbolt_validator::job::Stock,
+) -> bool {
+    use nestbolt_validator::job::Rotations;
+    let w = stock.width - stock.margins.left - stock.margins.right;
+    let h = stock.height - stock.margins.bottom - stock.margins.top;
+    let angles: Vec<f64> = match &part.rotations {
+        Rotations::Free => (0..720).map(|i| f64::from(i) * 0.5).collect(),
+        Rotations::List { degrees } => degrees.clone(),
+        Rotations::Step { degrees } => (0..(360.0 / degrees).ceil() as u32)
+            .map(|i| f64::from(i) * degrees)
+            .collect(),
+    };
+    let points: Vec<Point> = part
+        .geometry
+        .iter()
+        .flat_map(|g| g.outer.iter().copied())
+        .collect();
+    angles.iter().any(|a| {
+        let (s, c) = a.to_radians().sin_cos();
+        let rotated: Vec<Point> = points
+            .iter()
+            .map(|p| [c * p[0] - s * p[1], s * p[0] + c * p[1]])
+            .collect();
+        let b = bounds(&rotated);
+        b[2] - b[0] <= w * 1.000001 && b[3] - b[1] <= h * 1.000001
+    })
 }
 
 /// Normalise an angle to [0, 2π).

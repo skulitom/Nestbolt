@@ -1,6 +1,6 @@
 [package]
 name = "nestbolt-mcp"
-description = "Native stdio MCP entry point for Nestbolt (development scaffold)"
+description = "Native stdio MCP server for Nestbolt"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -10,7 +10,10 @@ publish.workspace = true
 [dependencies]
 anyhow.workspace = true
 nestbolt-core.workspace = true
+nestbolt-validator.workspace = true
 rmcp.workspace = true
+serde.workspace = true
+serde_json.workspace = true
 tokio.workspace = true
 
 [dev-dependencies]

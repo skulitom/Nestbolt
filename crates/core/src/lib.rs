@@ -9,18 +9,16 @@ use jagua_rs::io::import::Importer;
 use jagua_rs::probs::bpp::io::ext_repr::ExtBPInstance;
 use serde::{Deserialize, Serialize};
 
+pub mod clock;
 pub mod construct;
 pub mod control;
 pub mod curves;
 pub mod export;
-#[cfg(not(target_arch = "wasm32"))]
 pub mod holes;
 pub mod import;
 pub mod optimize;
 pub mod project;
-#[cfg(not(target_arch = "wasm32"))]
 pub mod separate;
-#[cfg(not(target_arch = "wasm32"))]
 pub mod sheets;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod strip;

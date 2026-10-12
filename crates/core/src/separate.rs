@@ -7,7 +7,6 @@
 //! boxes as Sparrow quantifies the exterior. A single worker moves items in the
 //! master layout, so a seed and the same work give the same result.
 use jagua_rs::{
-    Instant,
     collision_detection::hazards::{
         BasicHazardEntity, HazKey,
         collector::{BasicHazardCollector, HazardCollector},
@@ -16,6 +15,7 @@ use jagua_rs::{
     entities::{Item, Layout, LayoutSnapshot, PItemKey},
     geometry::{
         DTransformation,
+        geo_enums::RotationRange,
         geo_traits::TransformableFrom,
         primitives::{Rect, SPolygon},
     },
@@ -24,13 +24,18 @@ use rand::{SeedableRng, rngs::Xoshiro256PlusPlus, seq::SliceRandom};
 use slotmap::SecondaryMap;
 use sparrow::{
     consts::{GLS_WEIGHT_DECAY, GLS_WEIGHT_MAX_INC_RATIO, GLS_WEIGHT_MIN_INC_RATIO},
+    consts::{
+        PRE_REFINE_CD_R_STEPS, PRE_REFINE_CD_TL_RATIOS, SND_REFINE_CD_R_STEPS,
+        SND_REFINE_CD_TL_RATIOS, UNIQUE_SAMPLE_THRESHOLD,
+    },
     eval::sample_eval::{SampleEval, SampleEvaluator},
     quantify::{
         calc_shape_penalty, quantify_collision_poly_container, quantify_collision_poly_poly,
     },
-    sample::search::{SampleConfig, search_placement},
-    util::terminator::Terminator,
+    sample::{search::SampleConfig, uniform_sampler::UniformBBoxSampler},
 };
+
+use crate::clock::{Clock, Deadline, Work};
 
 #[derive(Clone, Copy, Debug)]
 struct Entry {
@@ -81,12 +86,32 @@ pub struct Tracker {
     index: SecondaryMap<PItemKey, usize>,
     pairs: Vec<Entry>,
     statics: Vec<Entry>,
+    /// Item index of pinned blockers, quantified like the container edge.
+    pinned: Option<usize>,
+}
+
+/// Loss between two placed shapes. A pinned blocker is a static region, so it
+/// is quantified by bounding boxes like the exterior, never by its large area.
+fn pair_loss(layout: &Layout, a: PItemKey, b: PItemKey, pinned: Option<usize>) -> f32 {
+    let (pa, pb) = (&layout.placed_items()[a], &layout.placed_items()[b]);
+    if Some(pb.item().idx()) == pinned {
+        quantify_static(pa.shape(), pb.shape().bbox())
+    } else if Some(pa.item().idx()) == pinned {
+        quantify_static(pb.shape(), pa.shape().bbox())
+    } else {
+        quantify_collision_poly_poly(pa.shape(), pb.shape())
+    }
 }
 
 impl Tracker {
     pub fn new(layout: &Layout) -> Self {
+        Self::pinned(layout, None)
+    }
+
+    pub fn pinned(layout: &Layout, pinned: Option<usize>) -> Self {
         let size = layout.placed_items().len();
         let mut tracker = Self {
+            pinned,
             size,
             index: layout
                 .placed_items()
@@ -125,9 +150,8 @@ impl Tracker {
         for (_, hazard) in collector.iter() {
             match hazard {
                 BasicHazardEntity::PlacedItem { pk, .. } => {
-                    let other = layout.placed_items()[*pk].shape();
                     let p = self.pair(idx, self.index[*pk]);
-                    self.pairs[p].loss = quantify_collision_poly_poly(shape, other);
+                    self.pairs[p].loss = pair_loss(layout, key, *pk, self.pinned);
                 }
                 hazard => self.statics[idx].loss += static_loss(layout, shape, hazard),
             }
@@ -248,8 +272,13 @@ fn weighted(
 ) -> f32 {
     match hazard {
         BasicHazardEntity::PlacedItem { pk, .. } => {
-            quantify_collision_poly_poly(layout.placed_items()[*pk].shape(), shape)
-                * tracker.pair_weight(key, *pk)
+            let other = &layout.placed_items()[*pk];
+            let loss = if Some(other.item().idx()) == tracker.pinned {
+                quantify_static(shape, other.shape().bbox())
+            } else {
+                quantify_collision_poly_poly(other.shape(), shape)
+            };
+            loss * tracker.pair_weight(key, *pk)
         }
         hazard => static_loss(layout, shape, hazard) * tracker.static_weight(key),
     }
@@ -335,33 +364,118 @@ pub struct Separator {
     pub rng: Xoshiro256PlusPlus,
     pub config: Config,
     pub evals: u64,
+    /// Charged with evaluations times vertices for repeatable work budgets.
+    pub clock: Clock,
+    /// Items with this index are fixed hazards: they keep their place.
+    pub pinned: Option<usize>,
+    /// Container-wide samples are drawn here (the open part of the strip)
+    /// instead of the whole container.
+    pub region: Option<Rect>,
+}
+
+/// Sparrow's sample search (Algorithm 6) with container-wide samples drawn
+/// from `region`: focussed samples around the current placement, uniform
+/// samples, then two rounds of coordinate descent on the best few.
+pub fn search_placement(
+    layout: &Layout,
+    item: &Item,
+    current: Option<PItemKey>,
+    mut evaluator: impl SampleEvaluator,
+    config: SampleConfig,
+    rng: &mut Xoshiro256PlusPlus,
+    region: Rect,
+) -> (Option<(DTransformation, SampleEval)>, usize) {
+    let bbox = item.shape_cd().bbox();
+    let min_dim = bbox.width().min(bbox.height());
+    let mut best = BestSamples::new(config.n_coord_descents, min_dim * UNIQUE_SAMPLE_THRESHOLD);
+    let container = layout.container().outer_cd().bbox();
+    let focussed = current.and_then(|key| {
+        let dt = layout.placed_items()[key].d_transf();
+        let eval = evaluator.evaluate_sample(dt, Some(best.upper_bound()));
+        best.report(dt, eval);
+        UniformBBoxSampler::new(layout.placed_items()[key].shape().bbox(), item, container)
+    });
+    if let Some(sampler) = focussed {
+        for _ in 0..config.n_focussed_samples {
+            let dt = sampler.sample(rng);
+            let eval = evaluator.evaluate_sample(dt, Some(best.upper_bound()));
+            best.report(dt, eval);
+        }
+    }
+    if let Some(sampler) = UniformBBoxSampler::new(region, item, container) {
+        for _ in 0..config.n_container_samples {
+            let dt = sampler.sample(rng);
+            let eval = evaluator.evaluate_sample(dt, Some(best.upper_bound()));
+            best.report(dt, eval);
+        }
+    }
+    let wiggle = item.allowed_orientations().rotations() == &RotationRange::Continuous;
+    let cd = |ratios: (f32, f32), rotations: (f32, f32)| CDConfig {
+        t_step_init: min_dim * ratios.0,
+        t_step_limit: min_dim * ratios.1,
+        r_step_init: rotations.0,
+        r_step_limit: rotations.1,
+        wiggle,
+    };
+    for start in best.samples.clone() {
+        let descended = refine_coord_desc(
+            start,
+            &mut evaluator,
+            cd(PRE_REFINE_CD_TL_RATIOS, PRE_REFINE_CD_R_STEPS),
+            rng,
+        );
+        best.report(descended.0, descended.1);
+    }
+    let last = best.best().map(|s| {
+        refine_coord_desc(
+            s,
+            &mut evaluator,
+            cd(SND_REFINE_CD_TL_RATIOS, SND_REFINE_CD_R_STEPS),
+            rng,
+        )
+    });
+    (last, evaluator.n_evals())
+}
+
+/// Charge `evals` sample evaluations of `item`.
+pub fn charge(clock: &Clock, item: &Item, evals: usize) {
+    clock.charge(Work::Evaluation, evals as f64);
+    clock.charge(
+        Work::EvaluatedVertex,
+        (evals * item.shape_cd().vertices().len()) as f64,
+    );
 }
 
 impl Separator {
-    pub fn new(layout: Layout, seed: u64, config: Config) -> Self {
+    pub fn new(layout: Layout, seed: u64, config: Config, clock: Clock) -> Self {
+        let tracker = Tracker::new(&layout);
+        charge_rebuild(&clock, &layout);
         Self {
-            tracker: Tracker::new(&layout),
+            tracker,
             layout,
             rng: Xoshiro256PlusPlus::seed_from_u64(seed),
             config,
             evals: 0,
+            clock,
+            pinned: None,
+            region: None,
         }
     }
 
     /// Algorithm 9: move colliding items until the layout is overlap-free or
     /// repeated strikes bring no substantial improvement. Returns the least
     /// overlapping layout seen and its tracker; a zero loss means feasible.
-    pub fn separate(&mut self, term: &impl Terminator) -> (LayoutSnapshot, Tracker) {
+    pub fn separate(&mut self, term: &Deadline) -> (LayoutSnapshot, Tracker) {
         let mut best = (self.layout.save(), self.tracker.clone());
         let mut best_loss = self.tracker.total_loss();
         if best_loss == 0.0 {
             return best;
         }
         let mut strikes = 0;
-        'outer: while strikes < self.config.strike_limit && !term.kill() {
+        'outer: while strikes < self.config.strike_limit && !term.passed() {
             let mut stale = 0;
             let initial = self.tracker.total_loss();
-            while stale < self.config.iter_no_improvement_limit && !term.kill() {
+            while stale < self.config.iter_no_improvement_limit && !term.passed() {
                 self.move_items();
                 let loss = self.tracker.total_loss();
                 if loss == 0.0 {
@@ -393,8 +507,9 @@ impl Separator {
         let mut candidates: Vec<_> = self
             .layout
             .placed_items()
-            .keys()
-            .filter(|&k| self.tracker.loss(k) > 0.0)
+            .iter()
+            .filter(|(k, p)| Some(p.item().idx()) != self.pinned && self.tracker.loss(*k) > 0.0)
+            .map(|(k, _)| k)
             .collect();
         candidates.shuffle(&mut self.rng);
         for key in candidates {
@@ -403,6 +518,9 @@ impl Separator {
             }
             let item = self.layout.placed_items()[key].item().clone();
             let evaluator = Evaluator::new(&self.layout, &item, key, &self.tracker);
+            let region = self
+                .region
+                .unwrap_or_else(|| self.layout.container().outer_cd().bbox());
             let (best, evals) = search_placement(
                 &self.layout,
                 &item,
@@ -410,8 +528,10 @@ impl Separator {
                 evaluator,
                 self.config.sample,
                 &mut self.rng,
+                region,
             );
             self.evals += evals as u64;
+            charge(&self.clock, &item, evals);
             let (dt, _) = best.expect("the current placement is always a sample");
             self.move_item(key, dt);
         }
@@ -430,37 +550,180 @@ impl Separator {
         if self.layout.restore(snapshot).is_err() {
             self.layout = Layout::from_snapshot(snapshot);
         }
+        self.clock.charge(
+            Work::RegisteredItem,
+            self.layout.placed_items().len() as f64,
+        );
         match tracker {
             Some(t) if t.size == self.tracker.size => self.tracker.restore_keep_weights(t),
-            _ => self.tracker = Tracker::new(&self.layout),
+            _ => self.rebuild(),
         }
     }
 
     /// Replace the container and rebuild the tracker. Items are kept in place.
     pub fn swap_container(&mut self, container: jagua_rs::entities::Container) {
         self.layout.swap_container(container);
-        self.tracker = Tracker::new(&self.layout);
+        self.clock.charge(
+            Work::RegisteredItem,
+            self.layout.placed_items().len() as f64,
+        );
+        self.rebuild();
+    }
+
+    /// Treat items with this index as fixed blockers from now on.
+    pub fn pin(&mut self, item: usize) {
+        self.pinned = Some(item);
+        self.rebuild();
     }
 
     /// Insert a new item and rebuild the tracker.
     pub fn place(&mut self, item: &std::sync::Arc<Item>, dt: DTransformation) -> PItemKey {
         let key = self.layout.place_item(item, dt);
-        self.tracker = Tracker::new(&self.layout);
+        self.rebuild();
         key
+    }
+
+    /// Recompute every collision entry, charging the work.
+    pub fn rebuild(&mut self) {
+        self.tracker = Tracker::pinned(&self.layout, self.pinned);
+        charge_rebuild(&self.clock, &self.layout);
     }
 }
 
-/// A terminator that also stops when `limit` is reached.
-pub struct Until(pub Instant);
+/// A full tracker rebuild queries every placed shape once.
+fn charge_rebuild(clock: &Clock, layout: &Layout) {
+    clock.charge(Work::TrackedItem, layout.placed_items().len() as f64);
+    let vertices: usize = layout
+        .placed_items()
+        .values()
+        .map(|p| p.shape().vertices().len())
+        .sum();
+    clock.charge(Work::TrackedVertex, vertices as f64);
+}
 
-impl Terminator for Until {
-    fn kill(&self) -> bool {
-        Instant::now() >= self.0
+/// The best few distinct samples, sorted by evaluation (sparrow's
+/// `BestSamples`, which sparrow does not export).
+#[derive(Clone, Debug)]
+struct BestSamples {
+    size: usize,
+    samples: Vec<(DTransformation, SampleEval)>,
+    unique: f32,
+}
+
+fn similar(a: DTransformation, b: DTransformation, threshold: f32) -> bool {
+    let (ta, tb) = (a.translation(), b.translation());
+    (ta.0 - tb.0).abs() < threshold
+        && (ta.1 - tb.1).abs() < threshold
+        && ((a.rotation() % std::f32::consts::TAU) - (b.rotation() % std::f32::consts::TAU)).abs()
+            < 1.0_f32.to_radians()
+        && a.reflected == b.reflected
+}
+
+impl BestSamples {
+    fn new(size: usize, unique: f32) -> Self {
+        Self {
+            size,
+            samples: vec![],
+            unique,
+        }
     }
-    fn new_timeout(&mut self, duration: std::time::Duration) {
-        self.0 = self.0.min(Instant::now() + duration);
+
+    fn report(&mut self, dt: DTransformation, eval: SampleEval) {
+        if eval >= self.upper_bound() {
+            return;
+        }
+        let mut close = self
+            .samples
+            .iter()
+            .filter(|(d, _)| similar(*d, dt, self.unique))
+            .peekable();
+        if close.peek().is_some() {
+            if !close.all(|(_, e)| eval < *e) {
+                return;
+            }
+            let unique = self.unique;
+            self.samples.retain(|(d, _)| !similar(*d, dt, unique));
+        } else if self.samples.len() == self.size {
+            self.samples.pop();
+        }
+        self.samples.push((dt, eval));
+        self.samples.sort_by_key(|(_, e)| *e);
     }
-    fn timeout_at(&self) -> Option<Instant> {
-        Some(self.0)
+
+    fn best(&self) -> Option<(DTransformation, SampleEval)> {
+        self.samples.first().copied()
     }
+
+    fn upper_bound(&self) -> SampleEval {
+        self.samples
+            .get(self.size - 1)
+            .map_or(SampleEval::Invalid, |(_, e)| *e)
+    }
+}
+
+#[derive(Clone, Copy, Debug)]
+struct CDConfig {
+    t_step_init: f32,
+    t_step_limit: f32,
+    r_step_init: f32,
+    r_step_limit: f32,
+    wiggle: bool,
+}
+
+/// Coordinate descent to a local minimum (sparrow's `refine_coord_desc`).
+/// Unlike sparrow, candidates keep the reflection of the start position.
+fn refine_coord_desc(
+    (start, eval): (DTransformation, SampleEval),
+    evaluator: &mut impl SampleEvaluator,
+    config: CDConfig,
+    rng: &mut Xoshiro256PlusPlus,
+) -> (DTransformation, SampleEval) {
+    use rand::RngExt;
+    use sparrow::consts::{CD_STEP_FAIL, CD_STEP_SUCCESS};
+    let axes = if config.wiggle { 6 } else { 4 };
+    let (mut pos, mut best) = (start, eval);
+    let mut axis = rng.random_range(0..axes);
+    let (mut sx, mut sy, mut sr) = (config.t_step_init, config.t_step_init, config.r_step_init);
+    while !(sx < config.t_step_limit
+        && sy < config.t_step_limit
+        && (sr < config.r_step_limit || !config.wiggle))
+    {
+        let (tx, ty) = pos.translation();
+        let r = pos.rotation();
+        let candidates = match axis {
+            0 => [(tx + sx, ty, r), (tx - sx, ty, r)],
+            1 => [(tx, ty + sy, r), (tx, ty - sy, r)],
+            2 => [(tx + sx, ty + sy, r), (tx - sx, ty - sy, r)],
+            3 => [(tx - sx, ty + sy, r), (tx + sx, ty - sy, r)],
+            _ => [(tx, ty, r + sr), (tx, ty, r - sr)],
+        }
+        .map(|(x, y, r)| DTransformation::new(r, (x, y)).with_reflection(pos.reflected));
+        let (dt, e) = candidates
+            .into_iter()
+            .map(|c| (c, evaluator.evaluate_sample(c, Some(best))))
+            .min_by_key(|(_, e)| *e)
+            .expect("two candidates");
+        let better = e < best;
+        if e <= best {
+            (pos, best) = (dt, e);
+        }
+        let m = if better {
+            CD_STEP_SUCCESS
+        } else {
+            CD_STEP_FAIL
+        };
+        match axis {
+            0 => sx *= m,
+            1 => sy *= m,
+            2 | 3 => {
+                sx *= m.sqrt();
+                sy *= m.sqrt();
+            }
+            _ => sr *= m,
+        }
+        if !better {
+            axis = rng.random_range(0..axes);
+        }
+    }
+    (pos, best)
 }

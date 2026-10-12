@@ -5,7 +5,7 @@ use clap::{Parser, Subcommand, ValueEnum};
 use nestbolt_core::{Units, inspect_json};
 
 #[derive(Parser)]
-#[command(version, about = "Nestbolt fixed-sheet nesting groundwork")]
+#[command(version, about = "Nestbolt fixed-sheet nesting")]
 struct Cli {
     #[command(subcommand)]
     command: Command,
@@ -84,8 +84,11 @@ enum Command {
         warm_fraction: f64,
         #[arg(long, default_value_t = 0.25)]
         compress_fraction: f64,
-        #[arg(long, default_value_t = 6)]
+        #[arg(long, default_value_t = 12)]
         window: usize,
+        /// Use a repeatable work budget instead of wall-clock time.
+        #[arg(long)]
+        repeatable: bool,
     },
     /// Compact an existing valid layout with bounded translation sweeps.
     Compact {
@@ -314,9 +317,12 @@ fn main() -> Result<()> {
                 serde_json::to_string_pretty(&result.layout)?.as_bytes(),
             )?;
             let files = exports(&job, &result.layout, &outlines, &out_dir, sheet_outline)?;
-            let report = serde_json::json!({"validation": result.validation, "files": files,
-                "seconds": result.seconds, "seed": result.seed, "riders": result.riders,
-                "algorithm": result.algorithm, "unsupported": result.unsupported});
+            let names = files
+                .iter()
+                .filter_map(|f| std::path::Path::new(f).file_name())
+                .map(|f| f.to_string_lossy().into_owned())
+                .collect();
+            let report = nestbolt_core::project::NestReport::new(result, seconds, names);
             write_new(
                 &out_dir.join("report.json"),
                 serde_json::to_string_pretty(&report)?.as_bytes(),
@@ -387,6 +393,7 @@ fn main() -> Result<()> {
             warm_fraction,
             compress_fraction,
             window,
+            repeatable,
         } => {
             let job = serde_json::from_slice(&fs::read(&job)?)?;
             let result = nestbolt_core::sheets::optimize(
@@ -397,6 +404,11 @@ fn main() -> Result<()> {
                     warm_fraction,
                     compress_fraction,
                     window,
+                    timing: if repeatable {
+                        nestbolt_core::clock::Timing::Work
+                    } else {
+                        nestbolt_core::clock::Timing::Wall
+                    },
                 },
                 |p| {
                     eprintln!(

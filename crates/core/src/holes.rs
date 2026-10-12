@@ -10,7 +10,6 @@ use std::sync::Arc;
 
 use anyhow::{Context, Result};
 use jagua_rs::{
-    Instant,
     entities::{Item, Layout as JLayout},
     geometry::DTransformation,
     io::{
@@ -30,6 +29,7 @@ use sparrow::{
     sample::search::search_placement,
 };
 
+use crate::clock::Clock;
 use crate::construct::{conversion_guard, proxy_points};
 use crate::curves::Affine;
 
@@ -153,7 +153,7 @@ fn decompose(g: &Affine, allowed: Option<&[f64]>) -> RigidTransform {
 /// Fill the holes of host parts with smaller parts, largest first. Returns the
 /// original job unchanged (as one-member groups) when nothing fits or the job
 /// asks for fill mode. `until` bounds the whole pre-pass.
-pub fn group(job: &Job, until: Instant, seed: u64) -> Result<Grouped> {
+pub fn group(job: &Job, clock: &Clock, until: f64, seed: u64) -> Result<Grouped> {
     let plain = || Grouped {
         job: job.clone(),
         members: (0..job.parts.len())
@@ -194,7 +194,7 @@ pub fn group(job: &Job, until: Instant, seed: u64) -> Result<Grouped> {
             continue;
         }
         // Fill one host copy at a time; identical consecutive patterns merge.
-        while remaining[host] > 0 && Instant::now() < until {
+        while remaining[host] > 0 && clock.now() < until {
             let mut riders = vec![];
             for hole in &part.geometry[0].holes {
                 let container = importer.import_container(&ExtContainer {
@@ -244,8 +244,8 @@ pub fn group(job: &Job, until: Instant, seed: u64) -> Result<Grouped> {
                             > riders.iter().filter(|r| r.part == rider).count() as u32
                                 + u32::from(rider == host)
                     };
-                    while available(&riders) && Instant::now() < until {
-                        let (sample, _) = search_placement(
+                    while available(&riders) && clock.now() < until {
+                        let (sample, evals) = search_placement(
                             &layout,
                             &item,
                             None,
@@ -253,6 +253,7 @@ pub fn group(job: &Job, until: Instant, seed: u64) -> Result<Grouped> {
                             LBF_SAMPLE_CONFIG,
                             &mut rng,
                         );
+                        crate::separate::charge(clock, &item, evals);
                         let Some((dt, SampleEval::Clear { .. })) = sample else {
                             break;
                         };
@@ -268,7 +269,7 @@ pub fn group(job: &Job, until: Instant, seed: u64) -> Result<Grouped> {
                 break;
             }
             // Confirm the group independently before using it.
-            if !pattern_valid(job, host, &riders)? {
+            if !pattern_valid(job, host, &riders, clock)? {
                 break;
             }
             for r in &riders {
@@ -327,7 +328,7 @@ fn same(a: &[Rider], b: &[Rider]) -> bool {
 }
 
 /// Check a host with its riders on an ample sheet with the original rules.
-fn pattern_valid(job: &Job, host: usize, riders: &[Rider]) -> Result<bool> {
+fn pattern_valid(job: &Job, host: usize, riders: &[Rider], clock: &Clock) -> Result<bool> {
     let mut probe = job.clone();
     probe.mode = Mode::FillArea;
     let extent = job
@@ -377,6 +378,7 @@ fn pattern_valid(job: &Job, host: usize, riders: &[Rider]) -> Result<bool> {
         });
         *copy += 1;
     }
+    clock.validated(&probe, &layout);
     Ok(validate(&probe, &layout)?.valid)
 }
 
@@ -440,7 +442,8 @@ mod tests {
         let mut job: Job =
             serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
         job.parts.iter_mut().for_each(|p| p.quantity *= 3);
-        let grouped = group(&job, Instant::now() + std::time::Duration::from_secs(10), 0).unwrap();
+        let clock = Clock::new(crate::clock::Timing::Wall, 10.0);
+        let grouped = group(&job, &clock, 10.0, 0).unwrap();
         assert!(grouped.riders_placed > 0);
         let original: u32 = job.parts.iter().map(|p| p.quantity).sum();
         let left: u32 = grouped.job.parts.iter().map(|p| p.quantity).sum();

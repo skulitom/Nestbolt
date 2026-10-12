@@ -116,7 +116,8 @@ def run_case(binary, case, args, run_dir, cpus):
 
 
 SOURCE_FILES = ['scripts/sheets_batch.py', 'crates/core/src/sheets.rs', 'crates/core/src/sheets/vstrip.rs',
-                'crates/core/src/separate.rs', 'crates/core/src/construct.rs', 'crates/core/src/optimize.rs']
+                'crates/core/src/separate.rs', 'crates/core/src/construct.rs', 'crates/core/src/optimize.rs',
+                'crates/core/src/holes.rs', 'crates/core/src/clock.rs', 'crates/core/src/curves.rs']
 
 
 def report(rows, args, binary_hash, started, run_dir, sources):

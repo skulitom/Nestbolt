@@ -1377,3 +1377,53 @@ mod tests {
         }
     }
 }
+
+#[cfg(test)]
+mod fuzz {
+    use super::*;
+    use proptest::prelude::*;
+
+    const SVG: &str = r#"<svg xmlns="http://www.w3.org/2000/svg" width="40mm" height="20mm" viewBox="0 0 40 20"><path d="M 0 0 L 10 0 A 5 5 0 0 1 10 10 Z"/><circle cx="30" cy="10" r="4"/></svg>"#;
+    const DXF: &str = "0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\n0\n90\n3\n70\n1\n10\n0\n20\n0\n10\n5\n20\n0\n42\n0.5\n10\n5\n20\n5\n0\nENDSEC\n0\nEOF\n";
+
+    proptest! {
+        #![proptest_config(ProptestConfig::with_cases(256))]
+        /// Arbitrary text must give an error or parts, never a panic.
+        #[test]
+        fn arbitrary_text_never_panics(text in ".{0,400}") {
+            let _ = import_svg(&text, &Options::default());
+            let _ = import_dxf(&text, &Options::default());
+        }
+
+        /// Truncated or byte-damaged valid files must not panic either.
+        #[test]
+        fn damaged_files_never_panic(cut in 0usize..400, at in 0usize..400, byte in 32u8..127) {
+            for source in [SVG, DXF] {
+                let mut bytes = source.as_bytes().to_vec();
+                bytes.truncate(cut.min(bytes.len()));
+                if !bytes.is_empty() {
+                    let i = at % bytes.len();
+                    bytes[i] = byte;
+                }
+                let text = String::from_utf8_lossy(&bytes);
+                let _ = import_svg(&text, &Options::default());
+                let _ = import_dxf(&text, &Options::default());
+            }
+        }
+
+        /// Random path data stays finite and bounded when it imports.
+        #[test]
+        fn random_paths_import_finite_parts(points in proptest::collection::vec((-50.0..50.0f64, -50.0..50.0f64), 3..12)) {
+            let d: String = points.iter().enumerate().map(|(i, (x, y))| {
+                format!("{} {x:.3} {y:.3} ", if i == 0 { "M" } else { "L" })
+            }).collect::<String>() + "Z";
+            let svg = format!(r#"<svg xmlns="http://www.w3.org/2000/svg" viewBox="-60 -60 120 120" width="120mm"><path d="{d}"/></svg>"#);
+            if let Ok(import) = import_svg(&svg, &Options::default()) {
+                for p in import.parts {
+                    prop_assert!(p.area.is_finite() && p.area >= 0.0);
+                    prop_assert!(p.bounds.iter().all(|v| v.is_finite() && v.abs() <= 200.0));
+                }
+            }
+        }
+    }
+}

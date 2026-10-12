@@ -9,7 +9,6 @@
 //! reserved, one hull around multipart parts). Every accepted layout passes the
 //! independent original-geometry checker. This is a wall-clock benchmark search;
 //! it makes no repeatability promise.
-use std::time::Duration;
 
 use anyhow::{Context, Result, ensure};
 use jagua_rs::{
@@ -30,6 +29,7 @@ use serde::Serialize;
 use serde_json::json;
 use sparrow::config::DEFAULT_SPARROW_CONFIG;
 
+use crate::clock::{Clock, Deadline, Timing, Work};
 use crate::construct::{Options as ConstructOptions, conversion_guard, proxy_points};
 use crate::control::{Control, StopReason};
 
@@ -46,6 +46,8 @@ pub struct Options {
     pub compress_fraction: f64,
     /// Number of trailing sheets laid end to end in one virtual strip.
     pub window: usize,
+    /// Wall-clock benchmarks, or repeatable work budgets.
+    pub timing: Timing,
 }
 
 impl Default for Options {
@@ -55,7 +57,8 @@ impl Default for Options {
             seed: 0,
             warm_fraction: 0.1,
             compress_fraction: 0.25,
-            window: 6,
+            window: 12,
+            timing: Timing::Wall,
         }
     }
 }
@@ -96,6 +99,11 @@ pub struct SheetResult {
     pub stats: Stats,
     pub accepted_at_seconds: f64,
     pub elapsed_seconds: f64,
+    /// Charged deterministic work units, and whether a work budget finished
+    /// before the real-time limit (wall-clock runs are never repeatable).
+    pub work: f64,
+    pub counts: crate::clock::Counts,
+    pub repeatable: bool,
 }
 
 /// Two-dimensional affine map `p -> m p + t` in f64.
@@ -440,15 +448,16 @@ fn better(candidate: &Metrics, incumbent: &Metrics) -> bool {
 struct Search<'a, 'm, F> {
     model: &'m Model<'a>,
     rng: Xoshiro256PlusPlus,
-    start: Instant,
+    clock: Clock,
     best: (Layout, Report, f64),
     history: Vec<Progress>,
     stats: Stats,
     progress: F,
-    /// Longest observed independent check, reserved before every deadline.
-    check_cost: Duration,
-    /// Minimum spacing of intermediate checks; removals are checked at once.
-    check_every: Duration,
+    /// Longest observed independent check (wall seconds), reserved before
+    /// every wall-clock deadline.
+    check_cost: f64,
+    /// Minimum clock spacing of intermediate checks; removals are checked at once.
+    check_every: f64,
 }
 
 impl<F: FnMut(&Progress)> Search<'_, '_, F> {
@@ -459,15 +468,26 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
     /// Validate the current state independently and keep it only if better.
     /// The latest instant at which search may start another step and still
     /// finish an independent check before `until`.
-    fn last_step(&self, until: Instant) -> Instant {
-        until - self.check_cost.mul_f64(1.5)
+    fn last_step(&self, until: f64) -> f64 {
+        match self.clock.timing() {
+            Timing::Wall => until - self.check_cost * 1.5,
+            Timing::Work => until,
+        }
+    }
+
+    fn deadline(&self, at: f64) -> Deadline {
+        Deadline {
+            clock: self.clock.clone(),
+            at,
+        }
     }
 
     fn accept(&mut self, sheets: &[SPProblem], stage: &'static str) -> Result<bool> {
         let started = Instant::now();
         let layout = self.model.to_layout(sheets);
         let report = validate(self.model.job, &layout)?;
-        self.check_cost = self.check_cost.max(started.elapsed());
+        self.clock.validated(self.model.job, &layout);
+        self.check_cost = self.check_cost.max(started.elapsed().as_secs_f64());
         if !report.valid {
             if std::env::var_os("NESTBOLT_DEBUG").is_some() {
                 eprintln!(
@@ -490,7 +510,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
         if !better(metrics, self.metrics()) {
             return Ok(false);
         }
-        let elapsed = self.start.elapsed().as_secs_f64();
+        let elapsed = self.clock.now();
         let progress = Progress {
             elapsed_seconds: elapsed,
             stage,
@@ -521,23 +541,32 @@ pub fn optimize(
         options.seconds > 0.0 && options.seconds <= 300.0,
         "sheet budget must be in (0, 300] seconds"
     );
-    let start = Instant::now();
+    ensure!(options.window >= 1, "the window needs at least one sheet");
+    let started = Instant::now();
+    let clock = Clock::new(options.timing, options.seconds);
+    // A work budget aims to finish within the real limit on the reference machine.
+    let budget = match options.timing {
+        Timing::Wall => options.seconds,
+        Timing::Work => options.seconds * WORK_SHARE,
+    };
     // Part-in-part first: filled hosts become rigid groups for the search.
-    let grouped = crate::holes::group(
-        job,
-        start + Duration::from_secs_f64(options.seconds * 0.05),
-        options.seed,
-    )?;
-    let remaining = options.seconds - start.elapsed().as_secs_f64();
-    ensure!(remaining > 0.0, "no time left after part-in-part grouping");
-    let mut result = optimize_job(
-        &grouped.job,
-        Options {
-            seconds: remaining,
-            ..options
-        },
-        progress,
-    )?;
+    let grouped = crate::holes::group(job, &clock, budget * 0.05, options.seed)?;
+    let debug = std::env::var_os("NESTBOLT_DEBUG").is_some();
+    if debug {
+        eprintln!(
+            "debug phase group: real {:.2} clock {:.2}",
+            clock.real(),
+            clock.now()
+        );
+    }
+    let mut result = optimize_job(&grouped.job, options, &clock, budget, progress)?;
+    if debug {
+        eprintln!(
+            "debug phase search: real {:.2} clock {:.2}",
+            clock.real(),
+            clock.now()
+        );
+    }
     if grouped.riders_placed > 0 {
         let expanded = grouped.expand(job, &result.layout)?;
         let validation = validate(job, &expanded)?;
@@ -550,58 +579,118 @@ pub fn optimize(
         result.validation = validation;
     }
     result.riders = grouped.riders_placed;
-    result.seconds = options.seconds;
-    result.elapsed_seconds = start.elapsed().as_secs_f64();
+    result.elapsed_seconds = started.elapsed().as_secs_f64();
+    result.work = clock.work();
+    result.counts = clock.counts();
+    result.repeatable = options.timing == Timing::Work && !clock.hit_hard_limit();
     Ok(result)
 }
+
+/// Share of a repeatable budget's seconds converted to work, leaving headroom
+/// below the real limit on the reference machine.
+pub const WORK_SHARE: f64 = 0.5;
+/// Constructor collision checks per reference second, for repeatable warm starts.
+pub const CHECKS_PER_SECOND: f64 = 4.0e5;
 
 fn optimize_job(
     job: &Job,
     options: Options,
+    clock: &Clock,
+    budget: f64,
     progress: impl FnMut(&Progress),
 ) -> Result<SheetResult> {
-    let start = Instant::now();
-    let deadline = start + Duration::from_secs_f64(options.seconds);
-    let finish = deadline - Duration::from_millis(250);
+    let finish = match clock.timing() {
+        Timing::Wall => budget - 0.25,
+        Timing::Work => budget,
+    };
     let model = Model::new(job);
     let warm_until = if model.is_ok() {
-        start + Duration::from_secs_f64(options.seconds * options.warm_fraction)
+        budget * options.warm_fraction
     } else {
         finish
     };
-    // Never interrupt the warm start before its first complete layout, except
-    // at the overall deadline.
-    let complete = std::cell::Cell::new(false);
-    let mut probe = || {
-        let now = Instant::now();
-        (now >= finish || (complete.get() && now >= warm_until)).then_some(StopReason::Deadline)
+    let construct = crate::optimize::Options {
+        construct: ConstructOptions {
+            seed: options.seed,
+            ..ConstructOptions::default()
+        },
+        passes: 1024,
     };
-    let mut control = Control::new(None, Some(&mut probe));
-    let warm = crate::optimize::optimize_controlled(
-        job,
-        crate::optimize::Options {
-            construct: ConstructOptions {
-                seed: options.seed,
-                ..ConstructOptions::default()
-            },
-            passes: 1024,
-        },
-        &mut control,
-        |p| {
-            if p.complete && (p.accepted || p.pass > 0) {
-                complete.set(true);
-            }
-        },
-    )?;
+    let warm = match clock.timing() {
+        Timing::Wall => {
+            // Never interrupt the warm start before its first complete layout,
+            // except at the overall deadline.
+            let complete = std::cell::Cell::new(false);
+            let mut probe = || {
+                let now = clock.now();
+                (now >= finish || (complete.get() && now >= warm_until))
+                    .then_some(StopReason::Deadline)
+            };
+            let mut control = Control::new(None, Some(&mut probe));
+            crate::optimize::optimize_controlled(job, construct, &mut control, |p| {
+                if p.complete && (p.accepted || p.pass > 0) {
+                    complete.set(true);
+                }
+            })?
+        }
+        Timing::Work => {
+            // A deterministic collision-check quota; if it cannot finish the
+            // first construction, construct once without a quota. Checks on
+            // detailed outlines cost more: weight by the root vertex count.
+            let vertices = job
+                .parts
+                .iter()
+                .map(|p| proxy_points(p).len())
+                .sum::<usize>() as f64
+                / job.parts.len().max(1) as f64;
+            let weight = (vertices / 16.0).sqrt().max(1.0);
+            let quota = ((warm_until - clock.now()).max(0.0) * CHECKS_PER_SECOND / weight) as u64;
+            let mut control = Control::new(Some(quota.max(1)), None);
+            let warm =
+                match crate::optimize::optimize_controlled(job, construct, &mut control, |_| {}) {
+                    Err(e) if e.is::<crate::control::Interrupted>() => {
+                        let mut unlimited = Control::unlimited();
+                        let once = crate::optimize::Options {
+                            passes: 1,
+                            ..construct
+                        };
+                        let warm = crate::optimize::optimize_controlled(
+                            job,
+                            once,
+                            &mut unlimited,
+                            |_| {},
+                        )?;
+                        clock.charge(
+                            Work::ConstructorCheck,
+                            unlimited.collision_checks() as f64 * weight,
+                        );
+                        warm
+                    }
+                    other => other?,
+                };
+            clock.charge(
+                Work::ConstructorCheck,
+                control.collision_checks() as f64 * weight,
+            );
+            warm
+        }
+    };
     ensure!(
         warm.best.complete && warm.validation.valid,
         "no complete valid warm start"
     );
+    if std::env::var_os("NESTBOLT_DEBUG").is_some() {
+        eprintln!(
+            "debug phase warm: real {:.2} clock {:.2}",
+            clock.real(),
+            clock.now()
+        );
+    }
     let warm_metrics = warm.validation.metrics.clone().expect("valid warm start");
     let model = match model {
         Ok(model) => model,
         Err(reason) => {
-            let elapsed = start.elapsed().as_secs_f64();
+            let elapsed = clock.now();
             return Ok(SheetResult {
                 algorithm: "nestbolt-sheet-separator-v1",
                 seed: options.seed,
@@ -620,14 +709,17 @@ fn optimize_job(
                 stats: Stats::default(),
                 accepted_at_seconds: elapsed,
                 elapsed_seconds: elapsed,
+                work: 0.0,
+                counts: Default::default(),
+                repeatable: false,
             });
         }
     };
-    let elapsed = start.elapsed().as_secs_f64();
+    let elapsed = clock.now();
     let mut search = Search {
         model: &model,
         rng: Xoshiro256PlusPlus::seed_from_u64(options.seed),
-        start,
+        clock: clock.clone(),
         best: (warm.best.layout.clone(), warm.validation, elapsed),
         history: vec![Progress {
             elapsed_seconds: elapsed,
@@ -637,11 +729,10 @@ fn optimize_job(
         }],
         stats: Stats::default(),
         progress,
-        check_cost: Duration::ZERO,
-        check_every: Duration::from_secs_f64((options.seconds * 0.1).max(5.0)),
+        check_cost: 0.0,
+        check_every: (options.seconds * 0.1).max(5.0),
     };
     let sheets = model.sheets_of(&warm.best.layout)?;
-    ensure!(options.window >= 1, "the window needs at least one sheet");
     search.window_search(sheets, finish, options.compress_fraction, options.window)?;
     let Search {
         best,
@@ -661,7 +752,10 @@ fn optimize_job(
         history,
         stats,
         accepted_at_seconds: best.2,
-        elapsed_seconds: start.elapsed().as_secs_f64(),
+        elapsed_seconds: clock.now(),
+        work: 0.0,
+        counts: Default::default(),
+        repeatable: false,
     })
 }
 

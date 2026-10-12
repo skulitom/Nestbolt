@@ -35,7 +35,8 @@ def render(historical=False, lbf=False, sparrow=False):
         "The historical M0 Sparrow 0.1.0 and jagua-rs 0.6.2 are MPL-2.0 and unmodified.",
         "Their isolated adapter also uses MPL-2.0; see benchmarks/sparrow-repro/UPSTREAM_LICENSE",
         "and its separate THIRD_PARTY_NOTICES. They are not linked into the product.",
-        "No sparrow/studio source is currently reused.", "",
+        "No sparrow/studio source is currently reused.",
+        "The browser app ships this file plus the licences of its JavaScript runtime packages.", "",
         "| Package | Version | Declared SPDX licence | Source |",
         "| --- | --- | --- | --- |",
     ]

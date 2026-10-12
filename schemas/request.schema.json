@@ -1,0 +1,277 @@
+{
+  "$defs": {
+    "Margins": {
+      "additionalProperties": false,
+      "properties": {
+        "bottom": {
+          "format": "double",
+          "type": "number"
+        },
+        "left": {
+          "format": "double",
+          "type": "number"
+        },
+        "right": {
+          "format": "double",
+          "type": "number"
+        },
+        "top": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "bottom",
+        "top"
+      ],
+      "type": "object"
+    },
+    "Mode": {
+      "enum": [
+        "all",
+        "fill_area",
+        "fill_priority"
+      ],
+      "type": "string"
+    },
+    "Polygon": {
+      "additionalProperties": false,
+      "properties": {
+        "holes": {
+          "default": [],
+          "items": {
+            "items": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "outer": {
+          "items": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "outer"
+      ],
+      "type": "object"
+    },
+    "RequestPart": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_mirror": {
+          "default": false,
+          "type": "boolean"
+        },
+        "id": {
+          "description": "A library part id.",
+          "type": "string"
+        },
+        "priority": {
+          "default": 1.0,
+          "format": "double",
+          "type": "number"
+        },
+        "quantity": {
+          "default": 1,
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rotations": {
+          "$ref": "#/$defs/Rotations",
+          "default": {
+            "degrees": [
+              0.0,
+              90.0,
+              180.0,
+              270.0
+            ],
+            "kind": "list"
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "RequestSheet": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "description": "Available sheets of this size; absent means unlimited.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "defects_mm": {
+          "default": [],
+          "description": "Areas that must stay clear (knots, damage, clamps), in sheet coordinates.",
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "height_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "margins_mm": {
+          "$ref": "#/$defs/Margins",
+          "default": {
+            "bottom": 0.0,
+            "left": 0.0,
+            "right": 0.0,
+            "top": 0.0
+          }
+        },
+        "outline_mm": {
+          "default": [],
+          "description": "A remnant's usable outline inside its width × height; empty means the\nwhole rectangle.",
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "width_mm": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "width_mm",
+        "height_mm"
+      ],
+      "type": "object"
+    },
+    "Rotations": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "free",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "degrees": {
+              "format": "double",
+              "type": "number"
+            },
+            "kind": {
+              "const": "step",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "degrees"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "degrees": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "kind": {
+              "const": "list",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "degrees"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "What to nest. Lengths are millimetres.",
+  "properties": {
+    "edge_spacing_mm": {
+      "default": 0.0,
+      "description": "Minimum gap between parts and the sheet edge or a defect.",
+      "format": "double",
+      "type": "number"
+    },
+    "mode": {
+      "$ref": "#/$defs/Mode",
+      "default": "all"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "parts": {
+      "default": [],
+      "description": "Parts to place; all library parts with default settings when empty.",
+      "items": {
+        "$ref": "#/$defs/RequestPart"
+      },
+      "type": "array"
+    },
+    "sheets": {
+      "items": {
+        "$ref": "#/$defs/RequestSheet"
+      },
+      "type": "array"
+    },
+    "spacing_mm": {
+      "default": 0.0,
+      "description": "Minimum gap between parts (kerf plus margin).",
+      "format": "double",
+      "type": "number"
+    }
+  },
+  "required": [
+    "sheets"
+  ],
+  "title": "Request",
+  "type": "object"
+}

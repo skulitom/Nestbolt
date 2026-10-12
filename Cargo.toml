@@ -24,12 +24,12 @@ roxmltree = "0.21"
 svgtypes = "0.16"
 rand_distr = "0.6"
 sparrow = { git = "https://github.com/JeroenGar/sparrow.git", rev = "4629b22795ae6b25b3b460ccde6fb36a71292b6d", features = ["only_final_svg"] }
-rmcp = { version = "=3.5.1", default-features = false, features = ["server", "transport-io"] }
+rmcp = { version = "=3.5.1", default-features = false, features = ["server", "transport-io", "macros"] }
 schemars = { version = "=1.2.2", features = ["derive"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 slotmap = "1.1"
-tokio = { version = "1.48", features = ["macros", "rt", "io-std"] }
+tokio = { version = "1.48", features = ["macros", "rt", "io-std", "sync"] }
 wasm-bindgen = "0.2"
 
 [workspace.lints.rust]
@@ -41,3 +41,13 @@ all = "warn"
 [profile.release]
 lto = "thin"
 codegen-units = 1
+
+# Debug tests run real searches; optimise the geometry engines even in dev builds.
+[profile.dev.package.jagua-rs]
+opt-level = 3
+
+[profile.dev.package.sparrow]
+opt-level = 3
+
+[profile.dev.package.clipper2-rust]
+opt-level = 3

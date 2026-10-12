@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--smoke", action="store_true", help="Also build pinned Sparrow and run two 5-second jobs")
+    parser.add_argument("--web", action="store_true", help="Also build the browser app and run its Chromium and Firefox tests")
     args = parser.parse_args()
     commands = [
         ["cargo", "fmt", "--all", "--check"],
@@ -20,6 +21,7 @@ def main():
         ["cargo", "build", "-p", "nestbolt-wasm", "--target", "wasm32-unknown-unknown", "--locked"],
         ["cargo", "build", "-p", "nestbolt-validator", "--target", "wasm32-unknown-unknown", "--locked"],
         [sys.executable, "scripts/notices.py", "--check"],
+        ["node", "--test", "mcpb/mcpb.test.mjs"],
         [sys.executable, "scripts/smoke.py", "--verify-only"],
         [sys.executable, "scripts/test_m0.py"],
         [sys.executable, "scripts/schemas.py", "--check"],
@@ -53,6 +55,8 @@ def main():
     ]
     if args.smoke:
         commands.append([sys.executable, "scripts/smoke.py"])
+    if args.web:
+        commands.append([sys.executable, "scripts/build_web.py", "--test"])
     for command in commands:
         print("Running:", " ".join(command), flush=True)
         subprocess.run(command, cwd=ROOT, check=True)

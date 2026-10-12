@@ -4,7 +4,7 @@
 //! window: parts move between sheets through ordinary sampling, and a last
 //! sheet that empties is removed. Earlier sheets stay fixed outside the window.
 use super::*;
-use crate::separate::{COMPRESS, EXPLORE, Separator, Tracker, Until};
+use crate::separate::{COMPRESS, EXPLORE, Separator};
 use jagua_rs::geometry::primitives::Rect;
 use jagua_rs::{
     collision_detection::hazards::{
@@ -35,6 +35,28 @@ struct Shape {
 struct Strip<'m, 'a> {
     model: &'m Model<'a>,
     gap: f32,
+    clock: crate::clock::Clock,
+    /// Containers per window size: the last sheet's region is always full and
+    /// its shrinking end is a pinned blocker item instead.
+    containers: std::cell::RefCell<std::collections::HashMap<usize, Container>>,
+}
+
+/// Item index reserved for the blocker that ends the last sheet.
+fn blocker_index(model: &Model) -> usize {
+    model.instance.items.len()
+}
+
+thread_local! {
+    static TIMERS: std::cell::RefCell<std::collections::BTreeMap<&'static str, f64>> = Default::default();
+}
+
+/// Accumulate real seconds per phase for `NESTBOLT_DEBUG` profiles.
+fn timed<T>(label: &'static str, f: impl FnOnce() -> T) -> T {
+    let started = Instant::now();
+    let out = f();
+    let spent = started.elapsed().as_secs_f64();
+    TIMERS.with(|t| *t.borrow_mut().entry(label).or_default() += spent);
+    out
 }
 
 fn shift(dt: DTransformation, du: f32) -> DTransformation {
@@ -59,7 +81,42 @@ impl Strip<'_, '_> {
         self.model.instance.base_strip.fixed_height
     }
 
+    /// A single sheet ends at its current length, as Sparrow's strip does; a
+    /// window of several sheets keeps every region full (cached) and ends the
+    /// last one with a pinned blocker, since rebuilding walls is costly.
     fn container(&self, s: Shape) -> Result<Container> {
+        if s.sheets == 1 {
+            return timed("container", || self.container_inner(s));
+        }
+        if let Some(c) = self.containers.borrow().get(&s.sheets) {
+            return Ok(c.clone());
+        }
+        let full = Shape {
+            sheets: s.sheets,
+            last: self.model.full_width,
+        };
+        let c = timed("container", || self.container_inner(full))?;
+        self.containers.borrow_mut().insert(s.sheets, c.clone());
+        Ok(c)
+    }
+
+    /// Make the separator's layout end the last region at `s.last`. Callers
+    /// swap in the multi-sheet container when the window size changes.
+    fn apply(&self, sep: &mut Separator, s: Shape) -> Result<()> {
+        self.set_blocker(&mut sep.layout, s)?;
+        if s.sheets == 1 {
+            sep.region = None;
+            sep.swap_container(self.container(s)?);
+        } else {
+            // Sample only the open strip, up to the blocker.
+            sep.region = Rect::try_new(0.0, 0.0, self.width(s), self.height()).ok();
+            sep.rebuild();
+        }
+        Ok(())
+    }
+
+    fn container_inner(&self, s: Shape) -> Result<Container> {
+        self.clock.charge(crate::clock::Work::Container, 1.0);
         let height = self.height();
         let mut zones: Vec<_> = (0..s.sheets - 1)
             .map(|i| ExtQualityZone {
@@ -86,6 +143,13 @@ impl Strip<'_, '_> {
         let aspect = (self.width(s) / height).max(1.0);
         let mut cde = DEFAULT_SPARROW_CONFIG.cde_config;
         cde.quadtree_depth += ((aspect / 2.0).max(1.0).log2().ceil() as u8).min(3);
+        // Walls and defects are scored by bounding box, never by surrogate
+        // poles, so a minimal surrogate avoids slow pole searches on thin walls.
+        cde.item_surrogate_config = jagua_rs::geometry::fail_fast::SPSurrogateConfig {
+            n_pole_limits: [(1, 0.0), (1, 0.75), (1, 0.90)],
+            ff_pole_area_ratio: 1.0,
+            n_ff_piers: 0,
+        };
         Importer::new(cde, None, None)
             .with_min_item_separation(self.model.separation)?
             .import_container(&ExtContainer {
@@ -107,13 +171,82 @@ impl Strip<'_, '_> {
             .max(0.0) as usize
     }
 
+    fn is_blocker(&self, p: &jagua_rs::entities::PlacedItem) -> bool {
+        p.item().idx() == blocker_index(self.model)
+    }
+
+    fn clear_blocker(&self, layout: &mut JLayout) {
+        let old: Vec<_> = layout
+            .placed_items()
+            .iter()
+            .filter(|(_, p)| self.is_blocker(p))
+            .map(|(k, _)| k)
+            .collect();
+        for k in old {
+            layout.remove_item(k);
+        }
+    }
+
+    /// Replace the blocker that ends the last region at `s.last`. It stays
+    /// inside the deflated container even after its own inflation.
+    fn set_blocker(&self, layout: &mut JLayout, s: Shape) -> Result<()> {
+        let old: Vec<_> = layout
+            .placed_items()
+            .iter()
+            .filter(|(_, p)| self.is_blocker(p))
+            .map(|(k, _)| k)
+            .collect();
+        for k in old {
+            layout.remove_item(k);
+        }
+        if s.sheets == 1 {
+            return Ok(());
+        }
+        let margin = self.model.separation * 1.1 + self.height() * 1e-5;
+        let start = self.start(s.sheets - 1) + s.last;
+        let end = self.start(s.sheets - 1) + self.model.full_width - margin;
+        let (low, high) = (margin, self.height() - margin);
+        // A sliver adds no useful pressure and has no stable surrogate poles.
+        if end - start <= (2.0 * margin).max(0.01 * self.height()) || high <= low {
+            return Ok(());
+        }
+        let points = vec![(start, low), (end, low), (end, high), (start, high)];
+        let imported = Importer::new(DEFAULT_SPARROW_CONFIG.cde_config, None, None)
+            .with_min_item_separation(self.model.separation)?
+            .import_item(
+                &jagua_rs::io::ext_repr::ExtItem {
+                    id: u64::MAX,
+                    shape: ExtShape::SimplePolygon(jagua_rs::io::ext_repr::ExtSPolygon(points)),
+                    orientation: jagua_rs::io::ext_repr::ExtOrientation {
+                        rotation: jagua_rs::io::ext_repr::ExtRotation::Discrete {
+                            angles: vec![0.0],
+                        },
+                        reflection_axes: vec![],
+                    },
+                    min_quality: None,
+                },
+                blocker_index(self.model),
+            );
+        // Without a blocker the search simply has no end pressure this step.
+        let Ok(item) = imported else {
+            return Ok(());
+        };
+        let (px, py) = item.shape_orig().pre_transform.translation();
+        layout.place_item(&item, DTransformation::new(0.0, (-px, -py)));
+        Ok(())
+    }
+
     fn layout(&self, window: &[SPProblem], s: Shape) -> Result<JLayout> {
         let mut layout = JLayout::new(self.container(s)?);
+        let items: usize = window.iter().map(|w| w.layout().placed_items().len()).sum();
+        self.clock
+            .charge(crate::clock::Work::RegisteredItem, items as f64);
         for (i, sheet) in window.iter().enumerate() {
             for p in sheet.layout().placed_items().values() {
                 layout.place_item(p.item(), shift(p.d_transf(), self.start(i)));
             }
         }
+        self.set_blocker(&mut layout, s)?;
         Ok(layout)
     }
 
@@ -122,7 +255,11 @@ impl Strip<'_, '_> {
         let mut out = (0..sheets)
             .map(|_| self.model.empty_sheet())
             .collect::<Result<Vec<_>>>()?;
-        for p in layout.placed_items().values() {
+        for p in layout
+            .placed_items()
+            .values()
+            .filter(|p| !self.is_blocker(p))
+        {
             let i = self.sheet_of(p.shape()).min(sheets - 1);
             out[i].place_item(SPPlacement {
                 item_idx: p.item().idx(),
@@ -136,7 +273,7 @@ impl Strip<'_, '_> {
         layout
             .placed_items()
             .iter()
-            .filter(|(_, p)| self.sheet_of(p.shape()) >= s.sheets - 1)
+            .filter(|(_, p)| !self.is_blocker(p) && self.sheet_of(p.shape()) >= s.sheets - 1)
             .map(|(k, _)| k)
             .collect()
     }
@@ -184,6 +321,7 @@ fn disrupt(sep: &mut Separator) {
     let mut areas: Vec<f32> = layout
         .placed_items()
         .values()
+        .filter(|p| Some(p.item().idx()) != sep.pinned)
         .map(|p| p.shape().surrogate().convex_hull_area)
         .collect();
     areas.sort_by(|a, b| b.total_cmp(a));
@@ -197,9 +335,11 @@ fn disrupt(sep: &mut Separator) {
             cumulative > total * 0.75
         })
         .unwrap_or(0.0);
+    let pinned = sep.pinned;
     let large: Vec<_> = layout
         .placed_items()
         .iter()
+        .filter(|(_, p)| Some(p.item().idx()) != pinned)
         .filter(|(_, p)| p.shape().surrogate().convex_hull_area >= cutoff)
         .map(|(k, _)| k)
         .collect();
@@ -220,8 +360,9 @@ fn disrupt(sep: &mut Separator) {
         .or_else(|| {
             layout
                 .placed_items()
-                .keys()
-                .filter(|&k| k != a)
+                .iter()
+                .filter(|(k, p)| *k != a && Some(p.item().idx()) != pinned)
+                .map(|(k, _)| k)
                 .choose(&mut sep.rng)
         });
     let Some(b) = b else {
@@ -265,7 +406,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
         let layout = JLayout::from_snapshot(snapshot);
         let mut sheets = frozen.to_vec();
         sheets.extend(strip.split(&layout, s.sheets)?);
-        let accepted = self.accept(&sheets, stage);
+        let accepted = timed("accept", || self.accept(&sheets, stage));
         if std::env::var_os("NESTBOLT_DEBUG").is_some() {
             eprintln!("debug accept_window {stage}: {:?}", started.elapsed());
         }
@@ -299,7 +440,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                 .layout
                 .placed_items()
                 .iter()
-                .filter(|(_, p)| p.shape().centroid().0 > split)
+                .filter(|(_, p)| !strip.is_blocker(p) && p.shape().centroid().0 > split)
                 .map(|(k, p)| (k, p.d_transf()))
                 .collect();
             for (key, dt) in moving {
@@ -307,7 +448,23 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                 sep.layout.place_item(&item, shift(dt, -by));
             }
         }
-        sep.swap_container(strip.container(next)?);
+        if next.sheets != from.sheets {
+            // Every hazard must lie inside the smaller container's quadtree:
+            // drop the blocker and move the dropped sheet's parts onto the new
+            // last sheet at the same local position, overlapping as they may.
+            strip.clear_blocker(&mut sep.layout);
+            let moving: Vec<_> = strip
+                .in_last(&sep.layout, from)
+                .into_iter()
+                .map(|k| (k, sep.layout.placed_items()[k].d_transf()))
+                .collect();
+            for (key, dt) in moving {
+                let item = sep.layout.remove_item(key).item().clone();
+                sep.layout.place_item(&item, shift(dt, -strip.pitch()));
+            }
+            sep.layout.swap_container(strip.container(next)?);
+        }
+        strip.apply(sep, next)?;
         Ok(next)
     }
 
@@ -350,6 +507,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                         best = Some((dt, eval));
                     }
                 }
+                crate::separate::charge(&self.clock, &item, samples);
                 if best.is_some() {
                     break;
                 }
@@ -359,7 +517,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             moved += usize::from(best.is_some());
         }
         if moved > 0 {
-            sep.tracker = Tracker::new(&sep.layout);
+            sep.rebuild();
             self.stats.direct_insertions += moved as u64;
         }
         moved
@@ -374,7 +532,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
         strip: &Strip,
         sep: &mut Separator,
         shape: Shape,
-        until: Instant,
+        until: f64,
     ) -> Result<usize> {
         if shape.sheets < 2 {
             return Ok(0);
@@ -402,7 +560,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             let mut targets: Vec<_> = (0..shape.sheets - 1).collect();
             targets.sort_by(|&a, &b| fill[a].total_cmp(&fill[b]));
             for target in targets.into_iter().take(3) {
-                if Instant::now() >= until {
+                if self.clock.now() >= until {
                     return Ok(moved);
                 }
                 let Some(sampler) = UniformBBoxSampler::new(bounds, &item, bounds) else {
@@ -421,10 +579,11 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                     layout.place_item(it, shift(*dt, -offset));
                 }
                 layout.place_item(&item, sampler.sample(&mut self.rng));
-                let remaining = until.saturating_duration_since(Instant::now());
-                let slice = Instant::now() + remaining.mul_f64(0.25).min(Duration::from_secs(2));
-                let mut local = Separator::new(layout, self.rng.next_u64(), EXPLORE);
-                let (snapshot, tracker) = local.separate(&Until(slice));
+                let now = self.clock.now();
+                let slice = now + ((until - now) * 0.25).min(2.0);
+                let mut local =
+                    Separator::new(layout, self.rng.next_u64(), EXPLORE, self.clock.clone());
+                let (snapshot, tracker) = local.separate(&self.deadline(slice));
                 if tracker.total_loss() > 0.0 {
                     self.stats.failed_insertions += 1;
                     continue;
@@ -443,7 +602,7 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                 for p in JLayout::from_snapshot(&snapshot).placed_items().values() {
                     sep.layout.place_item(p.item(), shift(p.d_transf(), offset));
                 }
-                sep.tracker = Tracker::new(&sep.layout);
+                sep.rebuild();
                 moved += 1;
                 self.stats.separated_insertions += 1;
                 break;
@@ -456,12 +615,14 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
     pub(super) fn window_search(
         &mut self,
         mut order: Vec<SPProblem>,
-        until: Instant,
+        until: f64,
         compress_share: f64,
         window: usize,
     ) -> Result<()> {
         let strip = Strip {
             model: self.model,
+            clock: self.clock.clone(),
+            containers: Default::default(),
             gap: (self
                 .model
                 .full_width
@@ -472,14 +633,11 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             let last = order.remove(victim);
             order.push(last);
         }
-        let now = Instant::now();
-        let explore_until = now
-            + until
-                .saturating_duration_since(now)
-                .mul_f64(1.0 - compress_share);
+        let now = self.clock.now();
+        let explore_until = now + (until - now).max(0.0) * (1.0 - compress_share);
         let mut pool: Vec<(LayoutSnapshot, f32)> = vec![];
-        let mut relocating = Duration::ZERO;
-        'windows: while !order.is_empty() && Instant::now() < explore_until {
+        let mut relocating = 0.0;
+        'windows: while !order.is_empty() && self.clock.now() < explore_until {
             let size = window.min(order.len());
             let frozen = order[..order.len() - size].to_vec();
             let window = order[order.len() - size..].to_vec();
@@ -500,8 +658,16 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                     },
                 ),
             };
-            let mut sep =
-                Separator::new(strip.layout(&window, shape)?, self.rng.next_u64(), EXPLORE);
+            let mut sep = Separator::new(
+                strip.layout(&window, shape)?,
+                self.rng.next_u64(),
+                EXPLORE,
+                self.clock.clone(),
+            );
+            sep.pin(blocker_index(self.model));
+            if shape.sheets > 1 {
+                sep.region = Rect::try_new(0.0, 0.0, strip.width(shape), strip.height()).ok();
+            }
             if std::env::var_os("NESTBOLT_DEBUG").is_some() {
                 let counts: Vec<_> = order
                     .iter()
@@ -518,27 +684,38 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             }
             let mut best = (sep.layout.save(), shape);
             let mut pending = false;
-            let mut checked = Instant::now();
+            let mut checked = self.clock.now();
             let mut filled = false;
             let mut stalled = 0;
             pool.clear();
-            while Instant::now() < explore_until {
-                let (snapshot, tracker) = sep.separate(&Until(explore_until));
+            while self.clock.now() < explore_until {
+                let deadline = self.deadline(explore_until);
+                let before = sep.tracker.total_loss();
+                let (snapshot, tracker) = timed("separate", || sep.separate(&deadline));
+                if std::env::var_os("NESTBOLT_TRACE").is_some() {
+                    eprintln!(
+                        "trace shape {:?} loss before {} after {}",
+                        shape,
+                        before,
+                        tracker.total_loss()
+                    );
+                }
                 if tracker.total_loss() == 0.0 {
                     stalled = 0;
                     if !filled {
                         // Cheap direct moves into free gaps and a bounded
                         // number of one-sheet relocations, once per window.
                         filled = true;
-                        let budget = Instant::now()
-                            + explore_until
-                                .saturating_duration_since(Instant::now())
-                                .mul_f64(0.1);
-                        if self.fill_gaps(&strip, &mut sep, shape) > 0
-                            || self.relocate(&strip, &mut sep, shape, budget)? > 0
+                        let t = self.clock.now();
+                        let budget = t + (explore_until - t).max(0.0) * 0.1;
+                        let gaps = std::env::var_os("NESTBOLT_NO_FILL").is_none();
+                        if (gaps && timed("fill", || self.fill_gaps(&strip, &mut sep, shape)) > 0)
+                            || timed("relocate", || {
+                                self.relocate(&strip, &mut sep, shape, budget)
+                            })? > 0
                         {
                             shape.last = strip.fit_last(&sep.layout, shape);
-                            sep.swap_container(strip.container(shape)?);
+                            strip.apply(&mut sep, shape)?;
                         }
                     }
                     let snapshot = sep.layout.save();
@@ -552,12 +729,14 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                             ..shape
                         };
                         shape.last = strip.fit_last(&sep.layout, shape);
-                        sep.swap_container(strip.container(shape)?);
+                        strip.clear_blocker(&mut sep.layout);
+                        sep.layout.swap_container(strip.container(shape)?);
+                        strip.apply(&mut sep, shape)?;
                         best = (sep.layout.save(), shape);
                         self.stats.eliminated_sheets += 1;
                         self.accept_window(&strip, &frozen, &best.0, shape, "eliminate")?;
                         pending = false;
-                        checked = Instant::now();
+                        checked = self.clock.now();
                         filled = false;
                         if !frozen.is_empty() && shape.sheets < size {
                             // Pull the next fixed sheet into the window.
@@ -569,30 +748,33 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                         continue;
                     }
                     let by = 0.001 * strip.width(shape);
-                    let next = self.shrink(&strip, &mut sep, shape, by)?;
+                    let next = timed("shrink", || self.shrink(&strip, &mut sep, shape, by))?;
                     if next == shape {
                         break;
                     }
                     shape = next;
                 } else {
                     stalled += 1;
-                    let elapsed = Instant::now().saturating_duration_since(now);
-                    if stalled >= 3 && best.1.sheets > 1 && relocating < elapsed.mul_f64(0.15) {
+                    let elapsed = self.clock.now() - now;
+                    if stalled >= 3 && best.1.sheets > 1 && relocating < elapsed * 0.15 {
                         // The last sheet cannot shrink: from the best feasible
                         // layout, try to move one of its parts elsewhere.
                         stalled = 0;
-                        let started = Instant::now();
+                        let started = self.clock.now();
                         sep.rollback(&best.0, None);
                         shape = best.1;
-                        let budget = (started + Duration::from_secs(2)).min(explore_until);
-                        if self.relocate(&strip, &mut sep, shape, budget)? > 0 {
+                        let budget = (started + 2.0).min(explore_until);
+                        if timed("relocate", || {
+                            self.relocate(&strip, &mut sep, shape, budget)
+                        })? > 0
+                        {
                             shape.last = strip.fit_last(&sep.layout, shape);
-                            sep.swap_container(strip.container(shape)?);
+                            strip.apply(&mut sep, shape)?;
                             best = (sep.layout.save(), shape);
                             pending = true;
                         }
                         pool.clear();
-                        relocating += started.elapsed();
+                        relocating += self.clock.now() - started;
                         continue;
                     }
                     let loss = tracker.total_loss();
@@ -605,13 +787,13 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
                         .min(0.999);
                     let chosen = (sample * pool.len() as f32) as usize;
                     let snapshot = pool[chosen].0.clone();
-                    sep.rollback(&snapshot, None);
-                    disrupt(&mut sep);
+                    timed("rollback", || sep.rollback(&snapshot, None));
+                    timed("disrupt", || disrupt(&mut sep));
                 }
-                if pending && checked.elapsed() > self.check_every {
+                if pending && self.clock.now() - checked > self.check_every {
                     self.accept_window(&strip, &frozen, &best.0, best.1, "explore")?;
                     pending = false;
-                    checked = Instant::now();
+                    checked = self.clock.now();
                 }
             }
             if pending {
@@ -619,30 +801,29 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             }
             // Compression: smaller, time-decaying shrinks from the best layout.
             sep.config = COMPRESS;
-            let start = Instant::now();
-            let span = until
-                .saturating_duration_since(start)
-                .as_secs_f32()
-                .max(1e-3);
+            let start = self.clock.now();
+            let span = ((until - start) as f32).max(1e-3);
             let mut pending = false;
-            while Instant::now() < self.last_step(until) {
-                let ratio = 0.0005 + (start.elapsed().as_secs_f32() / span) * (0.00001 - 0.0005);
+            while self.clock.now() < self.last_step(until) {
+                let ratio =
+                    0.0005 + (((self.clock.now() - start) as f32) / span) * (0.00001 - 0.0005);
                 let shape = best.1;
                 sep.rollback(&best.0, None);
                 let by = ratio * strip.width(shape);
                 if shape.last - by <= self.model.separation * 2.0 {
                     break;
                 }
-                let next = self.shrink(&strip, &mut sep, shape, by)?;
-                let (snapshot, tracker) = sep.separate(&Until(self.last_step(until)));
+                let next = timed("shrink", || self.shrink(&strip, &mut sep, shape, by))?;
+                let deadline = self.deadline(self.last_step(until));
+                let (snapshot, tracker) = timed("separate-c", || sep.separate(&deadline));
                 if tracker.total_loss() == 0.0 {
                     best = (snapshot, next);
                     pending = true;
                 }
-                if pending && checked.elapsed() > self.check_every {
+                if pending && self.clock.now() - checked > self.check_every {
                     self.accept_window(&strip, &frozen, &best.0, best.1, "compress")?;
                     pending = false;
-                    checked = Instant::now();
+                    checked = self.clock.now();
                 }
             }
             if pending {
@@ -650,6 +831,9 @@ impl<F: FnMut(&Progress)> Search<'_, '_, F> {
             }
             self.stats.compressions += 1;
             break;
+        }
+        if std::env::var_os("NESTBOLT_DEBUG").is_some() {
+            TIMERS.with(|t| eprintln!("debug timers {:?}", t.borrow()));
         }
         Ok(())
     }

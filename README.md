@@ -1,167 +1,133 @@
 # Nestbolt
 
-Free, open-source fixed-sheet nesting for makers, with a local browser app and
-native tools for people and agents. **Groundwork and the baseline are complete; the optimiser is in development.**
+Free, open-source nesting for people who cut **fixed sheets**: laser cutters, CNC
+routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use
+the least material, with native tools, a browser app and an MCP server for AI
+agents. **Work in progress: the optimiser, import/export, browser app and MCP
+server work; hosting, release packages and the final acceptance gates are still
+to come.**
 
-Nestbolt aims to arrange irregular parts across fixed sheets for laser cutting,
-CNC routing, plasma, waterjet and fabric. The engine builds on
-[jagua-rs](https://github.com/JeroenGar/jagua-rs) and the research behind
-[sparrow](https://github.com/JeroenGar/sparrow), by Jeroen Gardeyn and collaborators.
-The [M1 audit](docs/M1_BASELINE.md) covers all 1,878 development baseline slots and
-freezes the final median-improvement target at 10.77231474%. Nestbolt has not yet
-passed the optimisation-quality gates.
+The engine builds on [jagua-rs](https://github.com/JeroenGar/jagua-rs) and on
+[sparrow](https://github.com/JeroenGar/sparrow) by Jeroen Gardeyn and collaborators
+(arXiv [2509.13329](https://arxiv.org/abs/2509.13329)). Nestbolt adapts Sparrow's
+overlap-minimising separator to fixed sheets.
 
 ## What works today
 
-- A Rust workspace with core, CLI, WebAssembly and native stdio MCP entry points.
-- `nestbolt construct`: builds a first fixed/mixed-sheet layout, including holed
-  and multipart parts through conservative collision proxies. All 30 development
-  maker jobs produce independently valid layouts in the [current diagnostic](benchmarks/results/construct-maker-20261011T230206Z-b7a21810.md).
-- `nestbolt improve`: deterministic repacking passes over shared prepared geometry,
-  retaining independently valid improvements and recording failed sheet-removal
-  attempts. Repair can displace blocking parts and separate overlapping groups.
-  At six or more passes, bounded finishing trials compress the last sheet at
-  each completed block of 64 passes and at the requested final pass. Successful
-  compression can repeat, up to 15 trials per block.
-  The full [35 sheet](benchmarks/results/repack-sheet-20261012T035142Z-a7b22154.md)
-  and [30 maker](benchmarks/results/repack-maker-20261012T035142Z-54130739.md)
-  diagnostics produce valid layouts on every development job. This
-  experimental command supports a deterministic collision-query allowance and a
-  cooperative deadline, keeping its last independently checked layout.
-  Longer search supports up to 1,024 passes. A [four-job development pilot](benchmarks/results/placement-diversity-20261012T045248Z.md)
-  combines the original placement strategy with shuffled allowed orientations
-  and alternating left/right anchors. Blaz1 drops from 12 sheets to 10; Bruce
-  uses 2.99% less material; Jakobs1 and Marques retain their preceding best scores.
-- `nestbolt compact`: refines an existing valid layout without opening stock.
-  Translation sweeps preserve its angles; `--relocate` also tries other positions
-  and permitted orientations. The current [sheet](benchmarks/results/compact-b-20261012T012839Z-c2a42aba.md)
-  and [maker](benchmarks/results/compact-m-20261012T012843Z-dac4bd32.md) diagnostics
-  keep all 65 layouts valid and improve material on 17. This separate experimental
-  step is not yet scheduled inside `improve`.
-- `nestbolt strip`: a native strip diagnostic using the pinned, unmodified Sparrow
-  library and independent checks of every accepted candidate. All 39 development
-  runs pass validation and the development parity thresholds. See the
-  [comparison and supported input scope](docs/STRIP_PARITY.md).
-- `nestbolt inspect`: reads upstream jagua-rs BPP JSON, imports the geometry and
-  reports quantities, original area, sheet stock and declared units.
-- `nestbolt validate`: independently checks a polygon job/layout, including stock,
-  margins, holes, defects, quantities, rotations, mirroring and fill mode. Invalid
-  layouts receive no score. `validate-sparrow` adapts historical strip results.
-- The same inspection function exposed through `wasm-bindgen` for a future Worker.
-- An MCP connection scaffold using the official Rust SDK. It advertises **no tools**
-  until their implementations exist.
-- Native integration/property tests, Windows/Linux CI definitions, a WASM build
-  check, locked dependency notices and two generated Sparrow smoke jobs.
+- **Import** SVG and DXF: lines, arcs, ellipses, Béziers, B-splines, blocks,
+  transforms and units, converted to millimetres. Each closed outline is a part;
+  outlines inside it are its holes.
+- **Nest** on fixed sheets: margins, part and edge spacing, several sheets, stock
+  limits, defects, rotations (free, stepped or a list such as 0/180 for fabric
+  grain) and mirroring. Small parts can sit inside the holes of larger parts.
+  The last sheet is compressed towards one end so the offcut stays usable.
+- **Export** one SVG and one DXF per sheet from the original curves, transformed
+  rather than re-polygonised (round trip within 0.01 mm).
+- **Check** every result with an independent Clipper2 validator (overlap,
+  spacing, containment, rotations, quantities). Invalid layouts are never returned.
+- **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`
+  and `estimate_sheets`. Its budgets are repeatable: same inputs, budget and seed,
+  same layout. See [the agent interface](docs/AGENT_INTERFACE.md).
+- **Browser app** (`web/`): the same engine compiled to WebAssembly in Web
+  Workers, several seeds in parallel, projects saved in the browser or as a ZIP.
+  Files never leave the computer. Tested in Chromium and Firefox; not hosted yet.
 
-Stronger layout improvement, SVG/DXF imports and exports, browser interface and five
-MCP tools are still to be built. The independent validator currently operates on
-polygon benchmark files; see [its scope and tests](docs/VALIDATION.md). The inspection
-command is not a solver, fit test or independent layout validator. Its upstream
-BPP format rejects item holes; the new constructor uses Nestbolt polygon jobs,
-preserves their source outlines and reserves holes until part-in-part is added.
+Fixed-sheet search lays the last sheets end to end as one walled strip and
+shrinks the last sheet with a port of Sparrow's separator; parts move between
+sheets and an emptied sheet disappears. In development runs at 60 seconds on
+65 frozen jobs, all 195 layouts over three seeds were valid. At the per-job
+median of three seeds, Nestbolt used **8.3% less material** at the median than
+the best of Deepnest, SVGnest and Sparrow. It won or tied on 48 of 52 comparable
+jobs; the four losses are single-sheet jobs where Sparrow leads, one of them by
+more than 1%. These are development results, not the final acceptance gates
+(the target is 10.8%); see [status](docs/STATUS.md).
 
-## Start developing
+## Quick start
 
-Install Rust through rustup and Python 3.11+. The repository selects Rust 1.98.1
-and the WebAssembly target automatically. Windows requires the MSVC build tools.
+Install Rust through rustup (the repository selects Rust 1.98.1) and build:
 
 ```sh
-cargo run -p nestbolt-cli -- inspect --input examples/sheet-job.json --units mm
-python scripts/check.py
-python scripts/smoke.py
-cargo run -p nestbolt-cli -- validate --job examples/validation-job.json --layout examples/validation-layout.json
-cargo run --release -p nestbolt-cli -- construct --job benchmarks/datasets/M/m-box-mini.json --output box-layout.json
-cargo run --release -p nestbolt-cli -- improve --job benchmarks/datasets/M/m-box-mini.json --output improved-box-layout.json --passes 6
-cargo run --release -p nestbolt-cli -- compact --job benchmarks/datasets/M/m-box-mini.json --layout improved-box-layout.json --output compact-box-layout.json --relocate
-cargo run --release -p nestbolt-cli -- strip --job benchmarks/datasets/S/s-fu-strip.json --output fu-strip-layout.json --seconds 60 --seed 0
+cargo build --release -p nestbolt-cli -p nestbolt-mcp
 ```
 
-`construct --refine` adds bounded translation refinement; adding `--contacts`
-tries outline contacts to interlock concave parts. `improve` compares both methods
-with its initial layout before exploring other orders, and keeps the
-best valid result. Finishing trials share the search controls and appear separately
-in `polishing`; `completed_passes` counts only the requested repacking passes.
-The first three finishing trials try 3%, 1% and 0.3% height reductions. If any
-succeeds, up to twelve further trials repeat reductions, decreasing the step after
-failure. If all three fail, finishing stops.
-For more than 64 requested passes, finishing repeats after each block and at the
-last pass, retaining the best independently checked layout throughout. The
-default remains four passes; longer searches need an explicit `--passes` value.
-After the original 64-pass block, successive seeds each receive an original
-and a diversified pass. The latter varies the first feasible orientation on an
-empty region and the preferred horizontal edge, while retaining all geometry
-and rotation constraints. Each attempt counts against the requested passes and
-the shared collision quota; twice the passes does not imply the same runtime.
-It reports each completed trial on stderr and the final result
-on stdout. It tests placements in stable cost order and stops sheet-removal
-trials after an unplaced copy that the trial cannot revisit. Existing output
-files are never overwritten.
+Import parts, nest them for 30 seconds, and get per-sheet SVG/DXF files:
 
-`improve --max-checks 1000000` limits total collision queries across all passes;
-the same job, seed, options and allowance give repeatable work. Add
-`--timeout-ms 15000` for a cooperative deadline (at most 300,000 ms). The deadline
-can return an earlier incumbent as machine speed varies. Individual geometry
-operations and independent checks finish before yielding, so this is not a hard
-wall-clock cap. Stopping before the first complete construction returns an error
-and writes no layout. The result reports the stop reason, completed passes and
-total queries, including work spent on an interrupted pass.
+```sh
+target/release/nestbolt import examples/parts.svg --output library.json
+target/release/nestbolt nest --library library.json --request examples/nest-request.json --out-dir run --seconds 30
+```
 
-The sample reports six parts with a total area of 16,800 mm² and two available
-300 × 200 mm sheets. Units must be specified (`mm`, `inch` or `unitless`); no
-coordinate conversion is performed by inspection. See [the input notes](schemas/README.md).
+A request names library parts with quantities and the sheets in millimetres:
 
-The first smoke run downloads and builds a pinned Sparrow checkout. It runs two
-five-second jobs sequentially and saves logs and provenance under `output/runs/`.
-It checks executable integration only. Full quality benchmarks remain local.
+```json
+{
+  "parts": [{"id": "parts-1", "quantity": 4}, {"id": "parts-2", "quantity": 12, "rotations": {"kind": "free"}}],
+  "sheets": [{"width_mm": 600, "height_mm": 400, "margins_mm": {"left": 5, "right": 5, "bottom": 5, "top": 5}}],
+  "spacing_mm": 1.0,
+  "edge_spacing_mm": 1.0
+}
+```
 
-The separate [M0 reproduction](benchmarks/sparrow-repro/README.md) freezes the
-historical Sparrow version, all 1,300 published lengths and a 39-run native check.
-All 39 runs pass independent geometry checks, and all 13 instance means are within
-1% of the published means. See [the complete results and scope](benchmarks/results/m0-published-20261011T215820Z-10a30c6f.md).
-This reproduces historical Sparrow quality; it does not establish Nestbolt quality.
+`run/` then holds `layout.json`, `report.json` and `sheet-0.svg`/`sheet-0.dxf` and
+so on. Existing files are never overwritten. `nestbolt export` re-exports a
+layout; `nestbolt validate` checks a polygon job and layout. Add `--repeatable`
+to `nestbolt sheets` for a deterministic work budget instead of wall-clock time.
+File formats are described by the [JSON Schemas](schemas/README.md).
+
+## Browser app
+
+Build it locally (needs the `wasm32-unknown-unknown` target, `wasm-bindgen-cli`
+0.2.129 and Node.js 24), then open the printed address:
+
+```sh
+cd web && npm ci && cd ..
+python scripts/build_web.py
+npm --prefix web run preview
+```
+
+`python scripts/build_web.py --test` also runs the Playwright tests in Chromium
+and Firefox.
 
 ## Use from agents
 
-MCP is a **v1 requirement**, including agent-readable job/result schemas, progress,
-bounded replies, reproducibility, release archives and an MCPB bundle. The five
-planned tools are `import_parts`, `nest`, `validate_layout`, `export_layout` and
-`estimate_sheets`. [Connection notes for Claude Code, Codex and Claude Desktop](docs/AGENT_INTERFACE.md)
-describe the current scaffold and the remaining acceptance test.
+Register the MCP server with an absolute path, for example in Claude Code:
 
 ```sh
-cargo build -p nestbolt-mcp --locked
+claude mcp add --transport stdio --scope local nestbolt -- /path/to/target/release/nestbolt-mcp
 ```
 
-The executable is `target/debug/nestbolt-mcp` (`.exe` on Windows). It runs over
-stdio without an HTTP server. No release, registry entry or client configuration
-has been published or installed by this setup.
+The server reads and writes only inside its working directory (or
+`NESTBOLT_WORKSPACE`). [docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md) covers
+Claude Code, Codex and Claude Desktop, the request format and the rules.
 
-## Project map
+## Development
+
+```sh
+python scripts/check.py
+python scripts/sheets_batch.py --cpu 0 --cpu 2 --seconds 60
+```
+
+The first runs format, lint, all Rust and Python tests, WebAssembly builds,
+notice and dataset checks; add `--web` for the browser build and tests. The second runs the development benchmark (held-out
+jobs excluded) and writes an audited report under `benchmarks/results/`.
 
 | Path | Purpose |
 | --- | --- |
-| `crates/core` | Shared geometry adapter; future problem model and optimiser |
-| `crates/cli` | Native command-line interface |
-| `crates/wasm` | Single-Worker WebAssembly boundary |
+| `crates/core` | Geometry import/export, sheet search, separator, part-in-part |
+| `crates/cli` | Command-line interface |
 | `crates/mcp` | Native stdio MCP server |
-| `crates/validator` | Independent Clipper2 geometry kernel and strip-result checker |
-| `benchmarks` | Frozen original smoke fixtures and upstream tool lock |
-| `scripts` | Repeatable checks, fixture generation, notices and smoke runs |
-| `schemas` | Current inspection formats; future canonical job/result schemas |
-| `docs/PLAN.md` | Artem's full plan, including MCP in v1 |
+| `crates/validator` | Independent Clipper2 checker and material scoring |
+| `crates/wasm` | WebAssembly boundary for the browser app |
+| `web` | Browser app (Preact, Vite) and its Playwright tests |
+| `benchmarks` | Frozen datasets, competitor runners and all results |
+| `docs/PLAN.md` | The full plan and its acceptance gates |
 | `docs/STATUS.md` | Milestone evidence and next steps |
-| `docs/ARCHITECTURE.md` | Boundaries and questions to resolve before benchmarking |
-| `docs/UPSTREAM_REVIEW.md` | Dated competitor review and pinned revisions |
+
+Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS.md).
 
 ## Progress and licence
 
-**20% of gated milestones completed: M0 and M1 have passed.** The native
-reproduction meets the original 1% threshold, and the development baseline is
-complete. M2–M5 remain in progress or pending; see
-[current evidence and next work](docs/STATUS.md).
-
-Nestbolt's original code and generated fixtures are [MIT](LICENSE). jagua-rs is
-an unmodified MPL-2.0 dependency. [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) records
-the locked dependency graph and supplied licence texts. Changes to upstream
-geometry code should be contributed upstream. See [CONTRIBUTING.md](CONTRIBUTING.md).
-The isolated historical benchmark adapter is MPL-2.0, with its own notices.
+Progress counts finished milestones only; see [docs/STATUS.md](docs/STATUS.md).
+Nestbolt is [MIT](LICENSE). jagua-rs is an unmodified MPL-2.0 dependency; the
+separator in `crates/core/src/separate.rs` is adapted from Sparrow (MIT).
+[THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) records every dependency and licence.

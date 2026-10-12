@@ -1,0 +1,230 @@
+{
+  "$defs": {
+    "Metrics": {
+      "properties": {
+        "full_stock_area": {
+          "format": "double",
+          "type": "number"
+        },
+        "last_sheet_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "last_sheet_used_height": {
+          "description": "In the job's declared coordinate units; measured in the +Y direction.",
+          "format": "double",
+          "type": "number"
+        },
+        "material_area": {
+          "format": "double",
+          "type": "number"
+        },
+        "normalized_material": {
+          "description": "Material area divided by the largest available stock outline's area.",
+          "format": "double",
+          "type": "number"
+        },
+        "placed_area": {
+          "description": "Area is mm² for physical jobs, squared model units for unitless jobs.",
+          "format": "double",
+          "type": "number"
+        },
+        "placed_parts": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "placed_priority": {
+          "description": "Sum of per-copy priorities, not an area-weighted score.",
+          "format": "double",
+          "type": "number"
+        },
+        "requested_parts": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sheets_used": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "trailing_offcut_area": {
+          "format": "double",
+          "type": "number"
+        },
+        "utilization": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "sheets_used",
+        "placed_parts",
+        "requested_parts",
+        "placed_area",
+        "placed_priority",
+        "full_stock_area",
+        "material_area",
+        "normalized_material",
+        "utilization",
+        "trailing_offcut_area",
+        "last_sheet_used_height"
+      ],
+      "type": "object"
+    },
+    "Report": {
+      "properties": {
+        "backend": {
+          "type": "string"
+        },
+        "maximum_outside_ratio": {
+          "format": "double",
+          "type": "number"
+        },
+        "maximum_overlap_ratio": {
+          "format": "double",
+          "type": "number"
+        },
+        "maximum_total_overlap_ratio": {
+          "format": "double",
+          "type": "number"
+        },
+        "metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metrics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Invalid layouts are never assigned a usable score."
+        },
+        "units": {
+          "$ref": "#/$defs/Units"
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "violation_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "violations": {
+          "description": "At most 128 diagnostics; violation_count includes every detected failure.",
+          "items": {
+            "$ref": "#/$defs/Violation"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "valid",
+        "backend",
+        "units",
+        "maximum_overlap_ratio",
+        "maximum_total_overlap_ratio",
+        "maximum_outside_ratio",
+        "violation_count",
+        "violations"
+      ],
+      "type": "object"
+    },
+    "Units": {
+      "enum": [
+        "mm",
+        "inch",
+        "unitless"
+      ],
+      "type": "string"
+    },
+    "Violation": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The `report.json` written beside `job.json` and `layout.json` by the CLI and\nthe MCP server's `nest`.",
+  "properties": {
+    "algorithm": {
+      "type": "string"
+    },
+    "elapsed_s": {
+      "format": "double",
+      "type": "number"
+    },
+    "files": {
+      "description": "Exported sheets, relative to the report's directory.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "parts_in_holes": {
+      "description": "Copies placed inside the holes of other parts.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "repeatable": {
+      "description": "Whether the same inputs and seed reproduce this layout exactly: true\nonly for a deterministic work budget that finished before the real-time\nlimit.",
+      "type": "boolean"
+    },
+    "seed": {
+      "format": "uint64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "time_budget_s": {
+      "format": "double",
+      "type": "number"
+    },
+    "unsupported": {
+      "description": "Why the fixed-sheet search did not apply; the general search ran instead.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "validation": {
+      "$ref": "#/$defs/Report"
+    },
+    "version": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "work_version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "version",
+    "algorithm",
+    "seed",
+    "time_budget_s",
+    "elapsed_s",
+    "repeatable",
+    "work_version",
+    "parts_in_holes",
+    "files",
+    "validation"
+  ],
+  "title": "NestReport",
+  "type": "object"
+}

@@ -1,77 +1,100 @@
 # Agent interface
 
-**Status: connection scaffold only.** The native executable uses rmcp 3.5.1 over
-stdio and negotiates with MCP clients. It intentionally advertises no tools yet.
-The integration test starts the actual process and checks that handshake and
-capability declaration. This is not the final Claude Code acceptance test.
+`nestbolt-mcp` is a native stdio MCP server (rmcp 3.5.1) with five tools over the
+same core as the CLI. It needs no network, account or credentials.
 
-## Development connection
+| Tool | What it does |
+| --- | --- |
+| `import_parts` | Reads SVG/DXF files, writes a part library (exact curves plus nesting polygons, mm) and returns part ids, areas, bounds and import warnings |
+| `nest` | Nests library parts on fixed sheets with a repeatable budget (`time_budget_s` ≤ 300, `seed`); writes `job.json`, `layout.json`, `report.json` and one SVG and DXF per sheet; sends progress notifications |
+| `validate_layout` | Checks a layout file against a request with the independent validator |
+| `export_layout` | Writes one SVG and one DXF per sheet from a valid layout; arcs and splines stay curves |
+| `estimate_sheets` | Net part area over usable sheet area: a necessary lower bound, never a layout; flags parts that fit no sheet |
 
-Build from the repository root:
+A `nest` request names library parts and the sheets, in millimetres:
+
+```json
+{
+  "parts": [{"id": "parts-1", "quantity": 4}, {"id": "parts-2", "quantity": 12, "rotations": {"kind": "free"}}],
+  "sheets": [{"width_mm": 600, "height_mm": 400, "margins_mm": {"left": 5, "right": 5, "bottom": 5, "top": 5}}],
+  "spacing_mm": 1.0,
+  "edge_spacing_mm": 1.0
+}
+```
+
+Rotations default to 0/90/180/270 degrees and mirroring to off. Parts may be
+placed inside the holes of larger parts. See `examples/nest-request.json`.
+The library, request and `report.json` formats are JSON Schemas in
+[schemas/](../schemas/README.md). `report.json` lists exported files relative to
+its own directory; the `nest` reply lists them relative to the workspace.
+
+## Rules
+
+- **Workspace.** Every path must lie inside the server's working directory, or
+  `NESTBOLT_WORKSPACE` when set. Paths with `..` or outside it are refused.
+- **No overwrites.** Libraries, layouts and exports are always new files; an
+  output directory must be new or empty.
+- **Small replies.** Geometry stays in files; lists over 200 entries are
+  truncated and counted; replies stay well under 50 KB.
+- **Repeatable.** `nest` measures its budget in deterministic work, so the same
+  library, request, budget and seed give the same layout on the same build. If
+  the real-time limit (`time_budget_s`) arrives first, the reply says
+  `"repeatable": false` and explains that a larger budget repeats. See the
+  [search contract](SEARCH_CONTRACT.md).
+- **Checked.** Every returned layout has passed the independent validator.
+  Errors say what to change (unknown part ids, missing sheets, paths).
+
+## Connecting
+
+Build the server, then register the absolute path of the executable:
 
 ```sh
-cargo build -p nestbolt-mcp --locked
+cargo build --release -p nestbolt-mcp --locked
 ```
-
-Use an absolute executable path. For this checkout on Windows, examples are:
 
 ```powershell
-claude mcp add --transport stdio --scope local nestbolt -- C:/DEV/Nestbolt/target/debug/nestbolt-mcp.exe
-codex mcp add nestbolt -- C:/DEV/Nestbolt/target/debug/nestbolt-mcp.exe
+claude mcp add --transport stdio --scope local nestbolt -- C:/DEV/Nestbolt/target/release/nestbolt-mcp.exe
+codex mcp add nestbolt -- C:/DEV/Nestbolt/target/release/nestbolt-mcp.exe
 ```
 
-These commands register the development server; they have not been run by the
-repository setup. Change the path for another checkout or operating system.
-On Linux/macOS the binary has no `.exe` suffix. No credentials or network endpoint
-are required by Nestbolt.
-
-For a project-specific Claude Code configuration or Claude Desktop's MCP settings,
-merge this object into the appropriate configuration file:
+On Linux/macOS the binary has no `.exe` suffix. For Claude Desktop or a project
+configuration, merge this object into the MCP settings:
 
 ```json
 {
   "mcpServers": {
     "nestbolt": {
-      "command": "C:/DEV/Nestbolt/target/debug/nestbolt-mcp.exe",
-      "args": []
+      "command": "C:/DEV/Nestbolt/target/release/nestbolt-mcp.exe",
+      "args": [],
+      "env": {"NESTBOLT_WORKSPACE": "C:/path/to/your/cutting/files"}
     }
   }
 }
 ```
 
-For Codex, the corresponding configuration is:
+For Codex:
 
 ```toml
 [mcp_servers.nestbolt]
-command = 'C:\DEV\Nestbolt\target\debug\nestbolt-mcp.exe'
+command = 'C:\DEV\Nestbolt\target\release\nestbolt-mcp.exe'
+env = { NESTBOLT_WORKSPACE = 'C:\path\to\your\cutting\files' }
 ```
 
-## Required v1 tools
+## Evidence and remaining acceptance
 
-| Tool | Contract to implement |
-| --- | --- |
-| `import_parts` | Read local SVG/DXF; write part geometry to files; return compact areas/bounds/warnings |
-| `nest` | Read a job file; use seed and budget (at most 300 s); send progress; write placements, validation and exports |
-| `validate_layout` | Independently check placements against the input sheets and all constraints |
-| `export_layout` | Preserve original curves; write one SVG/DXF per sheet |
-| `estimate_sheets` | Return an explicitly labelled lower bound, not a packing or feasibility guarantee |
+`crates/mcp/tests/connection.rs` starts the real executable as an MCP child
+process, lists the five tools, imports `examples/parts.svg`, nests twice with
+the same seed (identical layouts when repeatable), validates, exports and
+estimates, and checks that a path outside the workspace is refused.
 
-Heavy geometry belongs in files, replies below about 50 KB. File identity and
-hashes should link source jobs, layouts and exports. Define workspace confinement,
-overwrite policy, cancellation, errors and deterministic budgets before implementing
-the tools. Never advertise a successful nest based only on the collision engine's
-own report. See [architecture notes](ARCHITECTURE.md).
+G7 still requires a real client: Claude Code run with
+`claude -p --mcp-config <file> --strict-mcp-config`, listing the tools, importing
+a sample SVG, nesting with a 10-second budget and exporting, with the result
+passing the independent validator. That run uses Artem's Claude Code account.
 
-## Acceptance and packaging
-
-Before marking G7 green, connect real Claude Code using
-`claude -p --mcp-config <file> --strict-mcp-config`, import a sample SVG, run a
-10-second nest, export and pass the independent validator. That future test may use
-the user's existing client account; the current protocol test does not start an LLM.
-
-Before release, build and validate the MCPB bundle and validate registry metadata
-with `mcp-publisher validate`. Prepare Windows/Linux/macOS archives with notices and
-checksums, a tag-triggered release workflow and a dispatch-only OIDC publishing
-workflow. Follow [Cutbolt #2](https://github.com/skulitom/Cutbolt/pull/2) and
-[Inkbolt #1](https://github.com/skulitom/Inkbolt/pull/1). Do not publish until Artem
-says go, and do not publish a metadata-only version before its bundle is ready.
+Release packaging remains M4 work: Windows/Linux/macOS archives with notices and
+checksums, a tag-triggered release workflow, an MCPB bundle and `server.json`
+validated with `mcp-publisher validate`, following
+[Cutbolt #2](https://github.com/skulitom/Cutbolt/pull/2) and
+[Inkbolt #1](https://github.com/skulitom/Inkbolt/pull/1). Nothing is published
+until Artem says go.

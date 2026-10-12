@@ -1,6 +1,6 @@
 [package]
 name = "nestbolt-wasm"
-description = "Single-worker WebAssembly boundary for Nestbolt"
+description = "WebAssembly entry points for the Nestbolt browser app"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -11,7 +11,10 @@ publish.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+js-sys = "0.3"
 nestbolt-core.workspace = true
+nestbolt-validator.workspace = true
+serde.workspace = true
 serde_json.workspace = true
 wasm-bindgen.workspace = true
 

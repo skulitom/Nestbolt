@@ -1,41 +1,51 @@
-# Repeatable search contract (partially implemented)
+# Repeatable search contract
 
 The v1 MCP promise is that the same original job, engine version, seed and budget
 produce the same successful layout. A seed combined with a wall-clock cutoff
 does not satisfy that promise: scheduling changes how many search steps finish.
 
-The shared core will therefore support a repeatable work-budget mode. A versioned,
-documented mapping from `time_budget_s` and job complexity determines a fixed
-number of search operations. Stable ordering and explicit random streams make
-those operations repeatable. Worker scheduling must not select a different
-winner; candidate ties and portfolio merge order have deterministic rules.
-The exact work-unit definition/calibration will be measured and frozen with M2,
-before quality tuning against the acceptance matrix.
+## Two timings
 
-The time parameter also supplies a hard execution limit, capped at 300 seconds.
-If the deterministic quota cannot finish before that limit, return an explicit
-timeout/incomplete outcome, with no supposedly repeatable final layout. Progress
-previews may be retained separately and are labelled provisional. Cancellation
-has the same explicit distinction. A successful exported result must complete its
-quota and pass independent validation. Artifact paths/timestamps are provenance;
-repeatability applies to canonical placements, scores and exported geometry.
+`nestbolt sheets` and the core search take `Timing::Wall` or `Timing::Work`.
 
-Fair benchmark runs may explicitly request full wall-clock search so every tool
-gets the same 60/300-second opportunity. That mode records the seed, completed
-work and elapsed time but makes no identical-layout promise. Native CLI, browser
-and MCP must expose the same supported search semantics; the MCP default is the
-repeatable mode. M0 runs the published historical solver's wall-clock procedure
-and is not evidence for this future contract.
+- **Wall** (benchmarks, the CLI default): real seconds. Every tool gets the same
+  60/300-second opportunity. Results depend on machine speed and scheduling and
+  are never reported as repeatable.
+- **Work** (MCP `nest`, CLI `--repeatable`): the search clock is charged with
+  deterministic work counts converted to reference seconds by fixed coefficients
+  (`crates/core/src/clock.rs`, version `nestbolt-work-v1`): sample evaluations,
+  evaluated vertices, collision-tracker items and vertices, re-registered items,
+  container builds, constructor collision checks (weighted by the square root of
+  the mean outline vertex count) and validated vertices. The search is single-
+  threaded with seeded streams, so the same inputs replay the same steps.
 
-Acceptance still requires real repeated-job tests, native/browser comparison,
-progress/cancellation and actual timeout behavior. These notes resolve the intended
-semantics. The constructor has an explicit seed and fixed sample count. Repacking
-has fixed passes, specified integer shuffles over part types or individual copies,
-initial translation/contact comparisons,
-independent incumbent acceptance and per-pass progress. Native repeated-output
-tests cover both. `improve --max-checks` now supplies a deterministic collision-query
-allowance; `--timeout-ms` and the core cancellation callback stop cooperatively
-and preserve a checked incumbent with an explicit stop reason. A deadline-stopped
-result is a wall-clock result, not completion of a promised repeatable quota.
-The experimental controls do not yet implement time-budget calibration, hard
-cancellation or the complete native/browser/MCP contract.
+A work budget converts `WORK_SHARE` (0.5) of `time_budget_s` to work. The full
+`time_budget_s` stays a hard real-time limit. If it arrives first, the search
+stops at a cooperative checkpoint, returns its best checked layout and reports
+`repeatable: false`; the MCP reply suggests a larger budget.
+
+## Calibration
+
+The coefficients were fitted on 16 development jobs (20-second wall-clock runs on
+the reference AMD Ryzen 9 7950X3D, one core). Predicted/real search time ranged
+from 0.72 to 1.23 per job. Detailed outlines with many interlocking contacts
+(public gears) cost more per evaluated vertex than the model assumes and can
+reach the real limit at short budgets. Changing a coefficient changes repeatable
+results, so it requires a new `WORK_VERSION`.
+
+## Scope and limits
+
+- Repeatability covers placements, scores and exports on the same build and
+  platform. Floating-point libraries may differ between operating systems and
+  WebAssembly, so cross-platform equality is not promised.
+- Wall-clock and work runs with the same seed are different searches.
+- Cancellation and the hard limit always return either a checked layout or an
+  explicit error; no unchecked layout escapes.
+
+## Evidence
+
+Repeated work-mode CLI runs gave identical layouts on fu, jakobs1 strip, sign 2,
+frame inserts, box batch 500 and Shapes0 (15–20 s budgets). Two public-gear runs
+were identical but flagged not repeatable because they reached the real limit.
+The MCP integration test nests twice with the same seed and requires identical
+layouts whenever both runs report `repeatable: true`.
