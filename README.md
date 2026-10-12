@@ -31,6 +31,13 @@ independent validator. The comparison is against the best of
 | 60 s | 195/195 | **8.4%** | 48 of 52 |
 | 300 s (long subset) | 30/30 | **7.6%** | 8 of 9 |
 
+![A benchmark job as nested: frames with inserts in their windows, gears and brackets, compressed to one end of the sheet](docs/images/mechanical-mix.png)
+
+One benchmark job exactly as nested in the 60-second run (`m-mechanical-frame-inserts`,
+seed 0, sheet turned to landscape): 138 parts, all 39 inserts placed inside frame
+windows, everything packed into 56% of a 2440 × 1220 mm sheet so the rest stays one
+offcut. The best competitor used 62% of the sheet on this job.
+
 In 30 s Nestbolt matches the competitors' 300 s result on 8 of 9 jobs. The losses
 are single-sheet strip jobs where Sparrow, which Nestbolt builds on, is
 strongest. These are development results; the final acceptance run uses fresh
