@@ -1,0 +1,58 @@
+{
+  "base": "maker-frame",
+  "cut_dxf_aci": [
+    7
+  ],
+  "cut_layers": [
+    "CUT"
+  ],
+  "cut_parts": [
+    {
+      "holes": 1,
+      "outer_bounds_mm": [
+        10.0,
+        10.0,
+        100.0,
+        80.0
+      ],
+      "outer_size_mm": [
+        90.0,
+        70.0
+      ]
+    }
+  ],
+  "default_failure": {
+    "fix": "enable Close gaps up to 0.051 mm",
+    "no_silent_missing_part": true,
+    "reason": "open contour"
+  },
+  "derivation": "Analytical source paths, explicit generator edits and transforms; no Nestbolt import used.",
+  "expected_warnings": [
+    "gap_closed_with_explicit_tolerance"
+  ],
+  "features": {
+    "gap": {
+      "location_mm": [
+        10.0,
+        10.0
+      ],
+      "other_endpoint_mm": [
+        10.05,
+        10.0
+      ],
+      "size_mm": 0.05000000000000071
+    }
+  },
+  "file": "generated/maker-frame--gap-0.05.dxf",
+  "geometry_tolerance_mm": 0.0005,
+  "habit": "gap-0.05",
+  "import_options": {
+    "close_gaps_mm": 0.051000000000000004,
+    "layers": [
+      "CUT"
+    ]
+  },
+  "schema_version": 1,
+  "seed": 250300183623819,
+  "sha256": "adea182e102b889ba5ed6d43ec04f3d40df732568a43ed4c086ac460bf6a6987"
+}

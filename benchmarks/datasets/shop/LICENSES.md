@@ -604,3 +604,197 @@ record sources, modifications, writer evidence and hashes.
 | [native/lb-15.svg](native/lb-15.svg) | MIT | [real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf](real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf) — author notices in its source section above |
 | [native/feature-coupon-input.lbrn2](native/feature-coupon-input.lbrn2) | MIT | Original Nestbolt test geometry; repository MIT notice |
 | [native/tool-layer-enabled.lbrn2](native/tool-layer-enabled.lbrn2) | MIT | Original Nestbolt test geometry; repository MIT notice |
+
+## Original generated shop habits
+
+All ten clean bases and 170 generated DXFs are **MIT**, copyright Nestbolt
+contributors, under the repository LICENSE. They derive only from original
+Nestbolt examples and the non-held-out procedural maker geometry.
+The [generated manifest](generated/manifest.json) records each source path,
+source hash, selected element, transformation, label and generator seed.
+
+| Clean base | Original source |
+| --- | --- |
+| [bases/rounded.svg](bases/rounded.svg) | `examples/fidelity/curves-mm.svg`: rounded |
+| [bases/bezier.svg](bases/bezier.svg) | `examples/fidelity/curves-mm.svg`: bezier |
+| [bases/example-frame.svg](bases/example-frame.svg) | `examples/parts.svg`: frame |
+| [bases/washer.svg](bases/washer.svg) | `examples/parts.svg`: washer-outer, washer-hole |
+| [bases/oval.svg](bases/oval.svg) | `examples/fidelity/curves-mm.svg`: oval |
+| [bases/rotated-frame.svg](bases/rotated-frame.svg) | `examples/fidelity/curves-mm.svg`: frame |
+| [bases/maker-bracket.svg](bases/maker-bracket.svg) | `benchmarks/datasets/maker-assets/m-mechanical-cog-washers/curves.json`: bracket |
+| [bases/maker-cog.svg](bases/maker-cog.svg) | `benchmarks/datasets/maker-assets/m-mechanical-cog-washers/curves.json`: cog |
+| [bases/maker-frame.svg](bases/maker-frame.svg) | `benchmarks/datasets/maker-assets/m-mechanical-cog-washers/curves.json`: frame |
+| [bases/maker-insert.svg](bases/maker-insert.svg) | `benchmarks/datasets/maker-assets/m-mechanical-cog-washers/curves.json`: insert |
+
+| Generated DXF (MIT) | Clean base | Label |
+| --- | --- | --- |
+| [generated/rounded--exploded-shuffled.dxf](generated/rounded--exploded-shuffled.dxf) | rounded | [labels/generated/rounded--exploded-shuffled.json](labels/generated/rounded--exploded-shuffled.json) |
+| [generated/rounded--gap-0.001.dxf](generated/rounded--gap-0.001.dxf) | rounded | [labels/generated/rounded--gap-0.001.json](labels/generated/rounded--gap-0.001.json) |
+| [generated/rounded--gap-0.05.dxf](generated/rounded--gap-0.05.dxf) | rounded | [labels/generated/rounded--gap-0.05.json](labels/generated/rounded--gap-0.05.json) |
+| [generated/rounded--gap-0.5.dxf](generated/rounded--gap-0.5.dxf) | rounded | [labels/generated/rounded--gap-0.5.json](labels/generated/rounded--gap-0.5.json) |
+| [generated/rounded--overlap-0.001.dxf](generated/rounded--overlap-0.001.dxf) | rounded | [labels/generated/rounded--overlap-0.001.json](labels/generated/rounded--overlap-0.001.json) |
+| [generated/rounded--overlap-0.5.dxf](generated/rounded--overlap-0.5.dxf) | rounded | [labels/generated/rounded--overlap-0.5.json](labels/generated/rounded--overlap-0.5.json) |
+| [generated/rounded--duplicates-zero.dxf](generated/rounded--duplicates-zero.dxf) | rounded | [labels/generated/rounded--duplicates-zero.json](labels/generated/rounded--duplicates-zero.json) |
+| [generated/rounded--fusion-splines-extrusion.dxf](generated/rounded--fusion-splines-extrusion.dxf) | rounded | [labels/generated/rounded--fusion-splines-extrusion.json](labels/generated/rounded--fusion-splines-extrusion.json) |
+| [generated/rounded--bulges-widths.dxf](generated/rounded--bulges-widths.dxf) | rounded | [labels/generated/rounded--bulges-widths.json](labels/generated/rounded--bulges-widths.json) |
+| [generated/rounded--nested-mirrored-blocks.dxf](generated/rounded--nested-mirrored-blocks.dxf) | rounded | [labels/generated/rounded--nested-mirrored-blocks.json](labels/generated/rounded--nested-mirrored-blocks.json) |
+| [generated/rounded--single-block-insert.dxf](generated/rounded--single-block-insert.dxf) | rounded | [labels/generated/rounded--single-block-insert.json](labels/generated/rounded--single-block-insert.json) |
+| [generated/rounded--missing-header-inches.dxf](generated/rounded--missing-header-inches.dxf) | rounded | [labels/generated/rounded--missing-header-inches.json](labels/generated/rounded--missing-header-inches.json) |
+| [generated/rounded--missing-units-inches.dxf](generated/rounded--missing-units-inches.dxf) | rounded | [labels/generated/rounded--missing-units-inches.json](labels/generated/rounded--missing-units-inches.json) |
+| [generated/rounded--centimetres.dxf](generated/rounded--centimetres.dxf) | rounded | [labels/generated/rounded--centimetres.json](labels/generated/rounded--centimetres.json) |
+| [generated/rounded--annotations-construction.dxf](generated/rounded--annotations-construction.dxf) | rounded | [labels/generated/rounded--annotations-construction.json](labels/generated/rounded--annotations-construction.json) |
+| [generated/rounded--operation-colours.dxf](generated/rounded--operation-colours.dxf) | rounded | [labels/generated/rounded--operation-colours.json](labels/generated/rounded--operation-colours.json) |
+| [generated/rounded--existing-nest.dxf](generated/rounded--existing-nest.dxf) | rounded | [labels/generated/rounded--existing-nest.json](labels/generated/rounded--existing-nest.json) |
+| [generated/bezier--exploded-shuffled.dxf](generated/bezier--exploded-shuffled.dxf) | bezier | [labels/generated/bezier--exploded-shuffled.json](labels/generated/bezier--exploded-shuffled.json) |
+| [generated/bezier--gap-0.001.dxf](generated/bezier--gap-0.001.dxf) | bezier | [labels/generated/bezier--gap-0.001.json](labels/generated/bezier--gap-0.001.json) |
+| [generated/bezier--gap-0.05.dxf](generated/bezier--gap-0.05.dxf) | bezier | [labels/generated/bezier--gap-0.05.json](labels/generated/bezier--gap-0.05.json) |
+| [generated/bezier--gap-0.5.dxf](generated/bezier--gap-0.5.dxf) | bezier | [labels/generated/bezier--gap-0.5.json](labels/generated/bezier--gap-0.5.json) |
+| [generated/bezier--overlap-0.001.dxf](generated/bezier--overlap-0.001.dxf) | bezier | [labels/generated/bezier--overlap-0.001.json](labels/generated/bezier--overlap-0.001.json) |
+| [generated/bezier--overlap-0.5.dxf](generated/bezier--overlap-0.5.dxf) | bezier | [labels/generated/bezier--overlap-0.5.json](labels/generated/bezier--overlap-0.5.json) |
+| [generated/bezier--duplicates-zero.dxf](generated/bezier--duplicates-zero.dxf) | bezier | [labels/generated/bezier--duplicates-zero.json](labels/generated/bezier--duplicates-zero.json) |
+| [generated/bezier--fusion-splines-extrusion.dxf](generated/bezier--fusion-splines-extrusion.dxf) | bezier | [labels/generated/bezier--fusion-splines-extrusion.json](labels/generated/bezier--fusion-splines-extrusion.json) |
+| [generated/bezier--bulges-widths.dxf](generated/bezier--bulges-widths.dxf) | bezier | [labels/generated/bezier--bulges-widths.json](labels/generated/bezier--bulges-widths.json) |
+| [generated/bezier--nested-mirrored-blocks.dxf](generated/bezier--nested-mirrored-blocks.dxf) | bezier | [labels/generated/bezier--nested-mirrored-blocks.json](labels/generated/bezier--nested-mirrored-blocks.json) |
+| [generated/bezier--single-block-insert.dxf](generated/bezier--single-block-insert.dxf) | bezier | [labels/generated/bezier--single-block-insert.json](labels/generated/bezier--single-block-insert.json) |
+| [generated/bezier--missing-header-inches.dxf](generated/bezier--missing-header-inches.dxf) | bezier | [labels/generated/bezier--missing-header-inches.json](labels/generated/bezier--missing-header-inches.json) |
+| [generated/bezier--missing-units-inches.dxf](generated/bezier--missing-units-inches.dxf) | bezier | [labels/generated/bezier--missing-units-inches.json](labels/generated/bezier--missing-units-inches.json) |
+| [generated/bezier--centimetres.dxf](generated/bezier--centimetres.dxf) | bezier | [labels/generated/bezier--centimetres.json](labels/generated/bezier--centimetres.json) |
+| [generated/bezier--annotations-construction.dxf](generated/bezier--annotations-construction.dxf) | bezier | [labels/generated/bezier--annotations-construction.json](labels/generated/bezier--annotations-construction.json) |
+| [generated/bezier--operation-colours.dxf](generated/bezier--operation-colours.dxf) | bezier | [labels/generated/bezier--operation-colours.json](labels/generated/bezier--operation-colours.json) |
+| [generated/bezier--existing-nest.dxf](generated/bezier--existing-nest.dxf) | bezier | [labels/generated/bezier--existing-nest.json](labels/generated/bezier--existing-nest.json) |
+| [generated/example-frame--exploded-shuffled.dxf](generated/example-frame--exploded-shuffled.dxf) | example-frame | [labels/generated/example-frame--exploded-shuffled.json](labels/generated/example-frame--exploded-shuffled.json) |
+| [generated/example-frame--gap-0.001.dxf](generated/example-frame--gap-0.001.dxf) | example-frame | [labels/generated/example-frame--gap-0.001.json](labels/generated/example-frame--gap-0.001.json) |
+| [generated/example-frame--gap-0.05.dxf](generated/example-frame--gap-0.05.dxf) | example-frame | [labels/generated/example-frame--gap-0.05.json](labels/generated/example-frame--gap-0.05.json) |
+| [generated/example-frame--gap-0.5.dxf](generated/example-frame--gap-0.5.dxf) | example-frame | [labels/generated/example-frame--gap-0.5.json](labels/generated/example-frame--gap-0.5.json) |
+| [generated/example-frame--overlap-0.001.dxf](generated/example-frame--overlap-0.001.dxf) | example-frame | [labels/generated/example-frame--overlap-0.001.json](labels/generated/example-frame--overlap-0.001.json) |
+| [generated/example-frame--overlap-0.5.dxf](generated/example-frame--overlap-0.5.dxf) | example-frame | [labels/generated/example-frame--overlap-0.5.json](labels/generated/example-frame--overlap-0.5.json) |
+| [generated/example-frame--duplicates-zero.dxf](generated/example-frame--duplicates-zero.dxf) | example-frame | [labels/generated/example-frame--duplicates-zero.json](labels/generated/example-frame--duplicates-zero.json) |
+| [generated/example-frame--fusion-splines-extrusion.dxf](generated/example-frame--fusion-splines-extrusion.dxf) | example-frame | [labels/generated/example-frame--fusion-splines-extrusion.json](labels/generated/example-frame--fusion-splines-extrusion.json) |
+| [generated/example-frame--bulges-widths.dxf](generated/example-frame--bulges-widths.dxf) | example-frame | [labels/generated/example-frame--bulges-widths.json](labels/generated/example-frame--bulges-widths.json) |
+| [generated/example-frame--nested-mirrored-blocks.dxf](generated/example-frame--nested-mirrored-blocks.dxf) | example-frame | [labels/generated/example-frame--nested-mirrored-blocks.json](labels/generated/example-frame--nested-mirrored-blocks.json) |
+| [generated/example-frame--single-block-insert.dxf](generated/example-frame--single-block-insert.dxf) | example-frame | [labels/generated/example-frame--single-block-insert.json](labels/generated/example-frame--single-block-insert.json) |
+| [generated/example-frame--missing-header-inches.dxf](generated/example-frame--missing-header-inches.dxf) | example-frame | [labels/generated/example-frame--missing-header-inches.json](labels/generated/example-frame--missing-header-inches.json) |
+| [generated/example-frame--missing-units-inches.dxf](generated/example-frame--missing-units-inches.dxf) | example-frame | [labels/generated/example-frame--missing-units-inches.json](labels/generated/example-frame--missing-units-inches.json) |
+| [generated/example-frame--centimetres.dxf](generated/example-frame--centimetres.dxf) | example-frame | [labels/generated/example-frame--centimetres.json](labels/generated/example-frame--centimetres.json) |
+| [generated/example-frame--annotations-construction.dxf](generated/example-frame--annotations-construction.dxf) | example-frame | [labels/generated/example-frame--annotations-construction.json](labels/generated/example-frame--annotations-construction.json) |
+| [generated/example-frame--operation-colours.dxf](generated/example-frame--operation-colours.dxf) | example-frame | [labels/generated/example-frame--operation-colours.json](labels/generated/example-frame--operation-colours.json) |
+| [generated/example-frame--existing-nest.dxf](generated/example-frame--existing-nest.dxf) | example-frame | [labels/generated/example-frame--existing-nest.json](labels/generated/example-frame--existing-nest.json) |
+| [generated/washer--exploded-shuffled.dxf](generated/washer--exploded-shuffled.dxf) | washer | [labels/generated/washer--exploded-shuffled.json](labels/generated/washer--exploded-shuffled.json) |
+| [generated/washer--gap-0.001.dxf](generated/washer--gap-0.001.dxf) | washer | [labels/generated/washer--gap-0.001.json](labels/generated/washer--gap-0.001.json) |
+| [generated/washer--gap-0.05.dxf](generated/washer--gap-0.05.dxf) | washer | [labels/generated/washer--gap-0.05.json](labels/generated/washer--gap-0.05.json) |
+| [generated/washer--gap-0.5.dxf](generated/washer--gap-0.5.dxf) | washer | [labels/generated/washer--gap-0.5.json](labels/generated/washer--gap-0.5.json) |
+| [generated/washer--overlap-0.001.dxf](generated/washer--overlap-0.001.dxf) | washer | [labels/generated/washer--overlap-0.001.json](labels/generated/washer--overlap-0.001.json) |
+| [generated/washer--overlap-0.5.dxf](generated/washer--overlap-0.5.dxf) | washer | [labels/generated/washer--overlap-0.5.json](labels/generated/washer--overlap-0.5.json) |
+| [generated/washer--duplicates-zero.dxf](generated/washer--duplicates-zero.dxf) | washer | [labels/generated/washer--duplicates-zero.json](labels/generated/washer--duplicates-zero.json) |
+| [generated/washer--fusion-splines-extrusion.dxf](generated/washer--fusion-splines-extrusion.dxf) | washer | [labels/generated/washer--fusion-splines-extrusion.json](labels/generated/washer--fusion-splines-extrusion.json) |
+| [generated/washer--bulges-widths.dxf](generated/washer--bulges-widths.dxf) | washer | [labels/generated/washer--bulges-widths.json](labels/generated/washer--bulges-widths.json) |
+| [generated/washer--nested-mirrored-blocks.dxf](generated/washer--nested-mirrored-blocks.dxf) | washer | [labels/generated/washer--nested-mirrored-blocks.json](labels/generated/washer--nested-mirrored-blocks.json) |
+| [generated/washer--single-block-insert.dxf](generated/washer--single-block-insert.dxf) | washer | [labels/generated/washer--single-block-insert.json](labels/generated/washer--single-block-insert.json) |
+| [generated/washer--missing-header-inches.dxf](generated/washer--missing-header-inches.dxf) | washer | [labels/generated/washer--missing-header-inches.json](labels/generated/washer--missing-header-inches.json) |
+| [generated/washer--missing-units-inches.dxf](generated/washer--missing-units-inches.dxf) | washer | [labels/generated/washer--missing-units-inches.json](labels/generated/washer--missing-units-inches.json) |
+| [generated/washer--centimetres.dxf](generated/washer--centimetres.dxf) | washer | [labels/generated/washer--centimetres.json](labels/generated/washer--centimetres.json) |
+| [generated/washer--annotations-construction.dxf](generated/washer--annotations-construction.dxf) | washer | [labels/generated/washer--annotations-construction.json](labels/generated/washer--annotations-construction.json) |
+| [generated/washer--operation-colours.dxf](generated/washer--operation-colours.dxf) | washer | [labels/generated/washer--operation-colours.json](labels/generated/washer--operation-colours.json) |
+| [generated/washer--existing-nest.dxf](generated/washer--existing-nest.dxf) | washer | [labels/generated/washer--existing-nest.json](labels/generated/washer--existing-nest.json) |
+| [generated/oval--exploded-shuffled.dxf](generated/oval--exploded-shuffled.dxf) | oval | [labels/generated/oval--exploded-shuffled.json](labels/generated/oval--exploded-shuffled.json) |
+| [generated/oval--gap-0.001.dxf](generated/oval--gap-0.001.dxf) | oval | [labels/generated/oval--gap-0.001.json](labels/generated/oval--gap-0.001.json) |
+| [generated/oval--gap-0.05.dxf](generated/oval--gap-0.05.dxf) | oval | [labels/generated/oval--gap-0.05.json](labels/generated/oval--gap-0.05.json) |
+| [generated/oval--gap-0.5.dxf](generated/oval--gap-0.5.dxf) | oval | [labels/generated/oval--gap-0.5.json](labels/generated/oval--gap-0.5.json) |
+| [generated/oval--overlap-0.001.dxf](generated/oval--overlap-0.001.dxf) | oval | [labels/generated/oval--overlap-0.001.json](labels/generated/oval--overlap-0.001.json) |
+| [generated/oval--overlap-0.5.dxf](generated/oval--overlap-0.5.dxf) | oval | [labels/generated/oval--overlap-0.5.json](labels/generated/oval--overlap-0.5.json) |
+| [generated/oval--duplicates-zero.dxf](generated/oval--duplicates-zero.dxf) | oval | [labels/generated/oval--duplicates-zero.json](labels/generated/oval--duplicates-zero.json) |
+| [generated/oval--fusion-splines-extrusion.dxf](generated/oval--fusion-splines-extrusion.dxf) | oval | [labels/generated/oval--fusion-splines-extrusion.json](labels/generated/oval--fusion-splines-extrusion.json) |
+| [generated/oval--bulges-widths.dxf](generated/oval--bulges-widths.dxf) | oval | [labels/generated/oval--bulges-widths.json](labels/generated/oval--bulges-widths.json) |
+| [generated/oval--nested-mirrored-blocks.dxf](generated/oval--nested-mirrored-blocks.dxf) | oval | [labels/generated/oval--nested-mirrored-blocks.json](labels/generated/oval--nested-mirrored-blocks.json) |
+| [generated/oval--single-block-insert.dxf](generated/oval--single-block-insert.dxf) | oval | [labels/generated/oval--single-block-insert.json](labels/generated/oval--single-block-insert.json) |
+| [generated/oval--missing-header-inches.dxf](generated/oval--missing-header-inches.dxf) | oval | [labels/generated/oval--missing-header-inches.json](labels/generated/oval--missing-header-inches.json) |
+| [generated/oval--missing-units-inches.dxf](generated/oval--missing-units-inches.dxf) | oval | [labels/generated/oval--missing-units-inches.json](labels/generated/oval--missing-units-inches.json) |
+| [generated/oval--centimetres.dxf](generated/oval--centimetres.dxf) | oval | [labels/generated/oval--centimetres.json](labels/generated/oval--centimetres.json) |
+| [generated/oval--annotations-construction.dxf](generated/oval--annotations-construction.dxf) | oval | [labels/generated/oval--annotations-construction.json](labels/generated/oval--annotations-construction.json) |
+| [generated/oval--operation-colours.dxf](generated/oval--operation-colours.dxf) | oval | [labels/generated/oval--operation-colours.json](labels/generated/oval--operation-colours.json) |
+| [generated/oval--existing-nest.dxf](generated/oval--existing-nest.dxf) | oval | [labels/generated/oval--existing-nest.json](labels/generated/oval--existing-nest.json) |
+| [generated/rotated-frame--exploded-shuffled.dxf](generated/rotated-frame--exploded-shuffled.dxf) | rotated-frame | [labels/generated/rotated-frame--exploded-shuffled.json](labels/generated/rotated-frame--exploded-shuffled.json) |
+| [generated/rotated-frame--gap-0.001.dxf](generated/rotated-frame--gap-0.001.dxf) | rotated-frame | [labels/generated/rotated-frame--gap-0.001.json](labels/generated/rotated-frame--gap-0.001.json) |
+| [generated/rotated-frame--gap-0.05.dxf](generated/rotated-frame--gap-0.05.dxf) | rotated-frame | [labels/generated/rotated-frame--gap-0.05.json](labels/generated/rotated-frame--gap-0.05.json) |
+| [generated/rotated-frame--gap-0.5.dxf](generated/rotated-frame--gap-0.5.dxf) | rotated-frame | [labels/generated/rotated-frame--gap-0.5.json](labels/generated/rotated-frame--gap-0.5.json) |
+| [generated/rotated-frame--overlap-0.001.dxf](generated/rotated-frame--overlap-0.001.dxf) | rotated-frame | [labels/generated/rotated-frame--overlap-0.001.json](labels/generated/rotated-frame--overlap-0.001.json) |
+| [generated/rotated-frame--overlap-0.5.dxf](generated/rotated-frame--overlap-0.5.dxf) | rotated-frame | [labels/generated/rotated-frame--overlap-0.5.json](labels/generated/rotated-frame--overlap-0.5.json) |
+| [generated/rotated-frame--duplicates-zero.dxf](generated/rotated-frame--duplicates-zero.dxf) | rotated-frame | [labels/generated/rotated-frame--duplicates-zero.json](labels/generated/rotated-frame--duplicates-zero.json) |
+| [generated/rotated-frame--fusion-splines-extrusion.dxf](generated/rotated-frame--fusion-splines-extrusion.dxf) | rotated-frame | [labels/generated/rotated-frame--fusion-splines-extrusion.json](labels/generated/rotated-frame--fusion-splines-extrusion.json) |
+| [generated/rotated-frame--bulges-widths.dxf](generated/rotated-frame--bulges-widths.dxf) | rotated-frame | [labels/generated/rotated-frame--bulges-widths.json](labels/generated/rotated-frame--bulges-widths.json) |
+| [generated/rotated-frame--nested-mirrored-blocks.dxf](generated/rotated-frame--nested-mirrored-blocks.dxf) | rotated-frame | [labels/generated/rotated-frame--nested-mirrored-blocks.json](labels/generated/rotated-frame--nested-mirrored-blocks.json) |
+| [generated/rotated-frame--single-block-insert.dxf](generated/rotated-frame--single-block-insert.dxf) | rotated-frame | [labels/generated/rotated-frame--single-block-insert.json](labels/generated/rotated-frame--single-block-insert.json) |
+| [generated/rotated-frame--missing-header-inches.dxf](generated/rotated-frame--missing-header-inches.dxf) | rotated-frame | [labels/generated/rotated-frame--missing-header-inches.json](labels/generated/rotated-frame--missing-header-inches.json) |
+| [generated/rotated-frame--missing-units-inches.dxf](generated/rotated-frame--missing-units-inches.dxf) | rotated-frame | [labels/generated/rotated-frame--missing-units-inches.json](labels/generated/rotated-frame--missing-units-inches.json) |
+| [generated/rotated-frame--centimetres.dxf](generated/rotated-frame--centimetres.dxf) | rotated-frame | [labels/generated/rotated-frame--centimetres.json](labels/generated/rotated-frame--centimetres.json) |
+| [generated/rotated-frame--annotations-construction.dxf](generated/rotated-frame--annotations-construction.dxf) | rotated-frame | [labels/generated/rotated-frame--annotations-construction.json](labels/generated/rotated-frame--annotations-construction.json) |
+| [generated/rotated-frame--operation-colours.dxf](generated/rotated-frame--operation-colours.dxf) | rotated-frame | [labels/generated/rotated-frame--operation-colours.json](labels/generated/rotated-frame--operation-colours.json) |
+| [generated/rotated-frame--existing-nest.dxf](generated/rotated-frame--existing-nest.dxf) | rotated-frame | [labels/generated/rotated-frame--existing-nest.json](labels/generated/rotated-frame--existing-nest.json) |
+| [generated/maker-bracket--exploded-shuffled.dxf](generated/maker-bracket--exploded-shuffled.dxf) | maker-bracket | [labels/generated/maker-bracket--exploded-shuffled.json](labels/generated/maker-bracket--exploded-shuffled.json) |
+| [generated/maker-bracket--gap-0.001.dxf](generated/maker-bracket--gap-0.001.dxf) | maker-bracket | [labels/generated/maker-bracket--gap-0.001.json](labels/generated/maker-bracket--gap-0.001.json) |
+| [generated/maker-bracket--gap-0.05.dxf](generated/maker-bracket--gap-0.05.dxf) | maker-bracket | [labels/generated/maker-bracket--gap-0.05.json](labels/generated/maker-bracket--gap-0.05.json) |
+| [generated/maker-bracket--gap-0.5.dxf](generated/maker-bracket--gap-0.5.dxf) | maker-bracket | [labels/generated/maker-bracket--gap-0.5.json](labels/generated/maker-bracket--gap-0.5.json) |
+| [generated/maker-bracket--overlap-0.001.dxf](generated/maker-bracket--overlap-0.001.dxf) | maker-bracket | [labels/generated/maker-bracket--overlap-0.001.json](labels/generated/maker-bracket--overlap-0.001.json) |
+| [generated/maker-bracket--overlap-0.5.dxf](generated/maker-bracket--overlap-0.5.dxf) | maker-bracket | [labels/generated/maker-bracket--overlap-0.5.json](labels/generated/maker-bracket--overlap-0.5.json) |
+| [generated/maker-bracket--duplicates-zero.dxf](generated/maker-bracket--duplicates-zero.dxf) | maker-bracket | [labels/generated/maker-bracket--duplicates-zero.json](labels/generated/maker-bracket--duplicates-zero.json) |
+| [generated/maker-bracket--fusion-splines-extrusion.dxf](generated/maker-bracket--fusion-splines-extrusion.dxf) | maker-bracket | [labels/generated/maker-bracket--fusion-splines-extrusion.json](labels/generated/maker-bracket--fusion-splines-extrusion.json) |
+| [generated/maker-bracket--bulges-widths.dxf](generated/maker-bracket--bulges-widths.dxf) | maker-bracket | [labels/generated/maker-bracket--bulges-widths.json](labels/generated/maker-bracket--bulges-widths.json) |
+| [generated/maker-bracket--nested-mirrored-blocks.dxf](generated/maker-bracket--nested-mirrored-blocks.dxf) | maker-bracket | [labels/generated/maker-bracket--nested-mirrored-blocks.json](labels/generated/maker-bracket--nested-mirrored-blocks.json) |
+| [generated/maker-bracket--single-block-insert.dxf](generated/maker-bracket--single-block-insert.dxf) | maker-bracket | [labels/generated/maker-bracket--single-block-insert.json](labels/generated/maker-bracket--single-block-insert.json) |
+| [generated/maker-bracket--missing-header-inches.dxf](generated/maker-bracket--missing-header-inches.dxf) | maker-bracket | [labels/generated/maker-bracket--missing-header-inches.json](labels/generated/maker-bracket--missing-header-inches.json) |
+| [generated/maker-bracket--missing-units-inches.dxf](generated/maker-bracket--missing-units-inches.dxf) | maker-bracket | [labels/generated/maker-bracket--missing-units-inches.json](labels/generated/maker-bracket--missing-units-inches.json) |
+| [generated/maker-bracket--centimetres.dxf](generated/maker-bracket--centimetres.dxf) | maker-bracket | [labels/generated/maker-bracket--centimetres.json](labels/generated/maker-bracket--centimetres.json) |
+| [generated/maker-bracket--annotations-construction.dxf](generated/maker-bracket--annotations-construction.dxf) | maker-bracket | [labels/generated/maker-bracket--annotations-construction.json](labels/generated/maker-bracket--annotations-construction.json) |
+| [generated/maker-bracket--operation-colours.dxf](generated/maker-bracket--operation-colours.dxf) | maker-bracket | [labels/generated/maker-bracket--operation-colours.json](labels/generated/maker-bracket--operation-colours.json) |
+| [generated/maker-bracket--existing-nest.dxf](generated/maker-bracket--existing-nest.dxf) | maker-bracket | [labels/generated/maker-bracket--existing-nest.json](labels/generated/maker-bracket--existing-nest.json) |
+| [generated/maker-cog--exploded-shuffled.dxf](generated/maker-cog--exploded-shuffled.dxf) | maker-cog | [labels/generated/maker-cog--exploded-shuffled.json](labels/generated/maker-cog--exploded-shuffled.json) |
+| [generated/maker-cog--gap-0.001.dxf](generated/maker-cog--gap-0.001.dxf) | maker-cog | [labels/generated/maker-cog--gap-0.001.json](labels/generated/maker-cog--gap-0.001.json) |
+| [generated/maker-cog--gap-0.05.dxf](generated/maker-cog--gap-0.05.dxf) | maker-cog | [labels/generated/maker-cog--gap-0.05.json](labels/generated/maker-cog--gap-0.05.json) |
+| [generated/maker-cog--gap-0.5.dxf](generated/maker-cog--gap-0.5.dxf) | maker-cog | [labels/generated/maker-cog--gap-0.5.json](labels/generated/maker-cog--gap-0.5.json) |
+| [generated/maker-cog--overlap-0.001.dxf](generated/maker-cog--overlap-0.001.dxf) | maker-cog | [labels/generated/maker-cog--overlap-0.001.json](labels/generated/maker-cog--overlap-0.001.json) |
+| [generated/maker-cog--overlap-0.5.dxf](generated/maker-cog--overlap-0.5.dxf) | maker-cog | [labels/generated/maker-cog--overlap-0.5.json](labels/generated/maker-cog--overlap-0.5.json) |
+| [generated/maker-cog--duplicates-zero.dxf](generated/maker-cog--duplicates-zero.dxf) | maker-cog | [labels/generated/maker-cog--duplicates-zero.json](labels/generated/maker-cog--duplicates-zero.json) |
+| [generated/maker-cog--fusion-splines-extrusion.dxf](generated/maker-cog--fusion-splines-extrusion.dxf) | maker-cog | [labels/generated/maker-cog--fusion-splines-extrusion.json](labels/generated/maker-cog--fusion-splines-extrusion.json) |
+| [generated/maker-cog--bulges-widths.dxf](generated/maker-cog--bulges-widths.dxf) | maker-cog | [labels/generated/maker-cog--bulges-widths.json](labels/generated/maker-cog--bulges-widths.json) |
+| [generated/maker-cog--nested-mirrored-blocks.dxf](generated/maker-cog--nested-mirrored-blocks.dxf) | maker-cog | [labels/generated/maker-cog--nested-mirrored-blocks.json](labels/generated/maker-cog--nested-mirrored-blocks.json) |
+| [generated/maker-cog--single-block-insert.dxf](generated/maker-cog--single-block-insert.dxf) | maker-cog | [labels/generated/maker-cog--single-block-insert.json](labels/generated/maker-cog--single-block-insert.json) |
+| [generated/maker-cog--missing-header-inches.dxf](generated/maker-cog--missing-header-inches.dxf) | maker-cog | [labels/generated/maker-cog--missing-header-inches.json](labels/generated/maker-cog--missing-header-inches.json) |
+| [generated/maker-cog--missing-units-inches.dxf](generated/maker-cog--missing-units-inches.dxf) | maker-cog | [labels/generated/maker-cog--missing-units-inches.json](labels/generated/maker-cog--missing-units-inches.json) |
+| [generated/maker-cog--centimetres.dxf](generated/maker-cog--centimetres.dxf) | maker-cog | [labels/generated/maker-cog--centimetres.json](labels/generated/maker-cog--centimetres.json) |
+| [generated/maker-cog--annotations-construction.dxf](generated/maker-cog--annotations-construction.dxf) | maker-cog | [labels/generated/maker-cog--annotations-construction.json](labels/generated/maker-cog--annotations-construction.json) |
+| [generated/maker-cog--operation-colours.dxf](generated/maker-cog--operation-colours.dxf) | maker-cog | [labels/generated/maker-cog--operation-colours.json](labels/generated/maker-cog--operation-colours.json) |
+| [generated/maker-cog--existing-nest.dxf](generated/maker-cog--existing-nest.dxf) | maker-cog | [labels/generated/maker-cog--existing-nest.json](labels/generated/maker-cog--existing-nest.json) |
+| [generated/maker-frame--exploded-shuffled.dxf](generated/maker-frame--exploded-shuffled.dxf) | maker-frame | [labels/generated/maker-frame--exploded-shuffled.json](labels/generated/maker-frame--exploded-shuffled.json) |
+| [generated/maker-frame--gap-0.001.dxf](generated/maker-frame--gap-0.001.dxf) | maker-frame | [labels/generated/maker-frame--gap-0.001.json](labels/generated/maker-frame--gap-0.001.json) |
+| [generated/maker-frame--gap-0.05.dxf](generated/maker-frame--gap-0.05.dxf) | maker-frame | [labels/generated/maker-frame--gap-0.05.json](labels/generated/maker-frame--gap-0.05.json) |
+| [generated/maker-frame--gap-0.5.dxf](generated/maker-frame--gap-0.5.dxf) | maker-frame | [labels/generated/maker-frame--gap-0.5.json](labels/generated/maker-frame--gap-0.5.json) |
+| [generated/maker-frame--overlap-0.001.dxf](generated/maker-frame--overlap-0.001.dxf) | maker-frame | [labels/generated/maker-frame--overlap-0.001.json](labels/generated/maker-frame--overlap-0.001.json) |
+| [generated/maker-frame--overlap-0.5.dxf](generated/maker-frame--overlap-0.5.dxf) | maker-frame | [labels/generated/maker-frame--overlap-0.5.json](labels/generated/maker-frame--overlap-0.5.json) |
+| [generated/maker-frame--duplicates-zero.dxf](generated/maker-frame--duplicates-zero.dxf) | maker-frame | [labels/generated/maker-frame--duplicates-zero.json](labels/generated/maker-frame--duplicates-zero.json) |
+| [generated/maker-frame--fusion-splines-extrusion.dxf](generated/maker-frame--fusion-splines-extrusion.dxf) | maker-frame | [labels/generated/maker-frame--fusion-splines-extrusion.json](labels/generated/maker-frame--fusion-splines-extrusion.json) |
+| [generated/maker-frame--bulges-widths.dxf](generated/maker-frame--bulges-widths.dxf) | maker-frame | [labels/generated/maker-frame--bulges-widths.json](labels/generated/maker-frame--bulges-widths.json) |
+| [generated/maker-frame--nested-mirrored-blocks.dxf](generated/maker-frame--nested-mirrored-blocks.dxf) | maker-frame | [labels/generated/maker-frame--nested-mirrored-blocks.json](labels/generated/maker-frame--nested-mirrored-blocks.json) |
+| [generated/maker-frame--single-block-insert.dxf](generated/maker-frame--single-block-insert.dxf) | maker-frame | [labels/generated/maker-frame--single-block-insert.json](labels/generated/maker-frame--single-block-insert.json) |
+| [generated/maker-frame--missing-header-inches.dxf](generated/maker-frame--missing-header-inches.dxf) | maker-frame | [labels/generated/maker-frame--missing-header-inches.json](labels/generated/maker-frame--missing-header-inches.json) |
+| [generated/maker-frame--missing-units-inches.dxf](generated/maker-frame--missing-units-inches.dxf) | maker-frame | [labels/generated/maker-frame--missing-units-inches.json](labels/generated/maker-frame--missing-units-inches.json) |
+| [generated/maker-frame--centimetres.dxf](generated/maker-frame--centimetres.dxf) | maker-frame | [labels/generated/maker-frame--centimetres.json](labels/generated/maker-frame--centimetres.json) |
+| [generated/maker-frame--annotations-construction.dxf](generated/maker-frame--annotations-construction.dxf) | maker-frame | [labels/generated/maker-frame--annotations-construction.json](labels/generated/maker-frame--annotations-construction.json) |
+| [generated/maker-frame--operation-colours.dxf](generated/maker-frame--operation-colours.dxf) | maker-frame | [labels/generated/maker-frame--operation-colours.json](labels/generated/maker-frame--operation-colours.json) |
+| [generated/maker-frame--existing-nest.dxf](generated/maker-frame--existing-nest.dxf) | maker-frame | [labels/generated/maker-frame--existing-nest.json](labels/generated/maker-frame--existing-nest.json) |
+| [generated/maker-insert--exploded-shuffled.dxf](generated/maker-insert--exploded-shuffled.dxf) | maker-insert | [labels/generated/maker-insert--exploded-shuffled.json](labels/generated/maker-insert--exploded-shuffled.json) |
+| [generated/maker-insert--gap-0.001.dxf](generated/maker-insert--gap-0.001.dxf) | maker-insert | [labels/generated/maker-insert--gap-0.001.json](labels/generated/maker-insert--gap-0.001.json) |
+| [generated/maker-insert--gap-0.05.dxf](generated/maker-insert--gap-0.05.dxf) | maker-insert | [labels/generated/maker-insert--gap-0.05.json](labels/generated/maker-insert--gap-0.05.json) |
+| [generated/maker-insert--gap-0.5.dxf](generated/maker-insert--gap-0.5.dxf) | maker-insert | [labels/generated/maker-insert--gap-0.5.json](labels/generated/maker-insert--gap-0.5.json) |
+| [generated/maker-insert--overlap-0.001.dxf](generated/maker-insert--overlap-0.001.dxf) | maker-insert | [labels/generated/maker-insert--overlap-0.001.json](labels/generated/maker-insert--overlap-0.001.json) |
+| [generated/maker-insert--overlap-0.5.dxf](generated/maker-insert--overlap-0.5.dxf) | maker-insert | [labels/generated/maker-insert--overlap-0.5.json](labels/generated/maker-insert--overlap-0.5.json) |
+| [generated/maker-insert--duplicates-zero.dxf](generated/maker-insert--duplicates-zero.dxf) | maker-insert | [labels/generated/maker-insert--duplicates-zero.json](labels/generated/maker-insert--duplicates-zero.json) |
+| [generated/maker-insert--fusion-splines-extrusion.dxf](generated/maker-insert--fusion-splines-extrusion.dxf) | maker-insert | [labels/generated/maker-insert--fusion-splines-extrusion.json](labels/generated/maker-insert--fusion-splines-extrusion.json) |
+| [generated/maker-insert--bulges-widths.dxf](generated/maker-insert--bulges-widths.dxf) | maker-insert | [labels/generated/maker-insert--bulges-widths.json](labels/generated/maker-insert--bulges-widths.json) |
+| [generated/maker-insert--nested-mirrored-blocks.dxf](generated/maker-insert--nested-mirrored-blocks.dxf) | maker-insert | [labels/generated/maker-insert--nested-mirrored-blocks.json](labels/generated/maker-insert--nested-mirrored-blocks.json) |
+| [generated/maker-insert--single-block-insert.dxf](generated/maker-insert--single-block-insert.dxf) | maker-insert | [labels/generated/maker-insert--single-block-insert.json](labels/generated/maker-insert--single-block-insert.json) |
+| [generated/maker-insert--missing-header-inches.dxf](generated/maker-insert--missing-header-inches.dxf) | maker-insert | [labels/generated/maker-insert--missing-header-inches.json](labels/generated/maker-insert--missing-header-inches.json) |
+| [generated/maker-insert--missing-units-inches.dxf](generated/maker-insert--missing-units-inches.dxf) | maker-insert | [labels/generated/maker-insert--missing-units-inches.json](labels/generated/maker-insert--missing-units-inches.json) |
+| [generated/maker-insert--centimetres.dxf](generated/maker-insert--centimetres.dxf) | maker-insert | [labels/generated/maker-insert--centimetres.json](labels/generated/maker-insert--centimetres.json) |
+| [generated/maker-insert--annotations-construction.dxf](generated/maker-insert--annotations-construction.dxf) | maker-insert | [labels/generated/maker-insert--annotations-construction.json](labels/generated/maker-insert--annotations-construction.json) |
+| [generated/maker-insert--operation-colours.dxf](generated/maker-insert--operation-colours.dxf) | maker-insert | [labels/generated/maker-insert--operation-colours.json](labels/generated/maker-insert--operation-colours.json) |
+| [generated/maker-insert--existing-nest.dxf](generated/maker-insert--existing-nest.dxf) | maker-insert | [labels/generated/maker-insert--existing-nest.json](labels/generated/maker-insert--existing-nest.json) |

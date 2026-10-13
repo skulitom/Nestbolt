@@ -1,0 +1,58 @@
+{
+  "base": "example-frame",
+  "cut_dxf_aci": [
+    7
+  ],
+  "cut_layers": [
+    "CUT"
+  ],
+  "cut_parts": [
+    {
+      "holes": 1,
+      "outer_bounds_mm": [
+        10.0,
+        10.0,
+        90.0,
+        70.0
+      ],
+      "outer_size_mm": [
+        80.0,
+        60.0
+      ]
+    }
+  ],
+  "default_failure": {
+    "fix": "enable Close gaps up to 0.501 mm",
+    "no_silent_missing_part": true,
+    "reason": "open contour"
+  },
+  "derivation": "Analytical source paths, explicit generator edits and transforms; no Nestbolt import used.",
+  "expected_warnings": [
+    "gap_closed_with_explicit_tolerance"
+  ],
+  "features": {
+    "gap": {
+      "location_mm": [
+        10.0,
+        10.0
+      ],
+      "other_endpoint_mm": [
+        10.5,
+        10.0
+      ],
+      "size_mm": 0.5
+    }
+  },
+  "file": "generated/example-frame--gap-0.5.dxf",
+  "geometry_tolerance_mm": 0.0005,
+  "habit": "gap-0.5",
+  "import_options": {
+    "close_gaps_mm": 0.501,
+    "layers": [
+      "CUT"
+    ]
+  },
+  "schema_version": 1,
+  "seed": 271198223841311,
+  "sha256": "2d9b1695925a7b8a076cd6052698976b3228f281995063b393b8c2c753b66f1b"
+}

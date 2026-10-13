@@ -112,6 +112,22 @@ def attribution(lock):
             source = f'[{row["derived_from"]}]({quote(row["derived_from"])}) — author notices in its source section above' if row.get('derived_from') else 'Original Nestbolt test geometry; repository MIT notice'
             lines.append(f'| [{row["path"]}]({quote(row["path"])}) | {row["licence"]} | {source} |')
         lines += ['']
+    generated_manifest = CORPUS / 'generated/manifest.json'
+    if generated_manifest.exists():
+        generated = json.loads(generated_manifest.read_text(encoding='utf-8'))
+        lines += ['## Original generated shop habits', '',
+                  'All ten clean bases and 170 generated DXFs are **MIT**, copyright Nestbolt',
+                  'contributors, under the repository LICENSE. They derive only from original',
+                  'Nestbolt examples and the non-held-out procedural maker geometry.',
+                  'The [generated manifest](generated/manifest.json) records each source path,',
+                  'source hash, selected element, transformation, label and generator seed.', '',
+                  '| Clean base | Original source |', '| --- | --- |']
+        for b in generated['bases']:
+            lines.append(f'| [{b["path"]}]({b["path"]}) | `{b["source"]}`: {", ".join(b["source_elements"])} |')
+        lines += ['', '| Generated DXF (MIT) | Clean base | Label |', '| --- | --- | --- |']
+        for row in generated['files']:
+            lines.append(f'| [{row["path"]}]({row["path"]}) | {row["base"]} | [{row["label"]}]({row["label"]}) |')
+        lines += ['']
     return '\n'.join(lines)
 
 

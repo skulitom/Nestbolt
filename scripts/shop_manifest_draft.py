@@ -75,9 +75,19 @@ def main():
                             'writer': writer, 'counts_towards_H1_native': False,
                             'sha256': sha256((CORPUS/path).read_bytes()).hexdigest()})
     write_json(CORPUS/'native/manifest.json', {'state': 'draft-not-frozen', 'files': native_rows+auxiliaries})
-    write_json(target, {'state': 'draft-not-frozen', 'files': rows+native_rows,
-                        'note': 'Labels, generated cases and held-out freeze are not yet complete. No N1 changes allowed.'})
-    print(json.dumps({'source_files': len(rows), 'native_derivatives': len(native_rows), 'auxiliary_probes': len(auxiliaries), 'H1': False}))
+    generated_rows = []
+    generated_path = CORPUS/'generated/manifest.json'
+    if generated_path.exists():
+        generated = json.loads(generated_path.read_text(encoding='utf-8'))
+        bases = {b['id']: b for b in generated['bases']}
+        for row in generated['files']:
+            base = bases[row['base']]
+            generated_rows.append({**row, 'source': base['source'], 'source_sha256': base['source_sha256'],
+                                   'source_elements': base['source_elements'], 'lineage': base['path'], 'split': None})
+    write_json(target, {'state': 'draft-not-frozen', 'files': rows+native_rows+generated_rows,
+                        'note': 'Real/native/public labels and held-out freeze are not yet complete. No N1 changes allowed.'})
+    print(json.dumps({'source_files': len(rows), 'native_derivatives': len(native_rows),
+                      'generated':len(generated_rows), 'auxiliary_probes': len(auxiliaries), 'H1': False}))
 
 
 if __name__ == '__main__':
