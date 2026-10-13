@@ -1,5 +1,35 @@
 {
   "$defs": {
+    "Channel": {
+      "properties": {
+        "entities": {
+          "description": "Expanded entity instances, including ignored entities; INSERT counts too.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "geometry_entities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "selected_entities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "entities",
+        "geometry_entities",
+        "selected_entities"
+      ],
+      "type": "object"
+    },
     "Contour": {
       "description": "A closed boundary: a start point and segments that end where it began.",
       "properties": {
@@ -91,11 +121,29 @@
           },
           "type": "array"
         },
+        "colors": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Channel"
+          },
+          "type": "array"
+        },
+        "layers": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Channel"
+          },
+          "type": "array"
+        },
         "open_contours": {
           "items": {
             "$ref": "#/$defs/OpenContour"
           },
           "type": "array"
+        },
+        "selection_mode": {
+          "default": "",
+          "type": "string"
         },
         "silent_join_mm": {
           "format": "double",

@@ -20,8 +20,8 @@ CORPUS=ROOT/'benchmarks/datasets/shop'
 
 
 def source_digest():
-    names=subprocess.check_output(['git','ls-files','crates','web/src','Cargo.toml','Cargo.lock'],cwd=ROOT,text=True).splitlines()
-    return sha256(b''.join(n.encode()+b'\0'+(ROOT/n).read_bytes() for n in names)).hexdigest()
+    names=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','crates','web/src','Cargo.toml','Cargo.lock','scripts/h2_import_audit.py'],cwd=ROOT,text=True).splitlines()
+    return sha256(b''.join(n.encode()+b'\0'+(ROOT/n).read_bytes() for n in sorted(set(names)))).hexdigest()
 
 
 def main():
@@ -54,12 +54,12 @@ def main():
             timed_out=True;proc.kill();stdout,stderr=proc.communicate()
         elapsed=time.perf_counter()-begin
         result={'path':row['path'],'set':row['set'],'sha256':row['sha256'],'elapsed_s':elapsed,
-            'status':'timeout' if timed_out else 'imported' if proc.returncode==0 else 'rejected',
+            'status':'timeout' if timed_out else 'imported' if proc.returncode==0 else 'panic' if proc.returncode==101 or b'panicked at' in stderr else 'rejected',
             'exit_code':proc.returncode,'error':stderr.decode('utf-8',errors='replace')[-4000:],
             'baseline_unavailable_options':unsupported,'expected_negative_fixture':bool(expected and expected.get('negative_fixture'))}
         if proc.returncode==0:
             library=json.loads(target.read_text(encoding='utf-8'));parts=library['parts']
-            result.update(parts=len(parts),holes=sorted(len(p['holes']) for p in parts),warnings=library['warnings'])
+            result.update(parts=len(parts),holes=sorted(len(p['holes']) for p in parts),warnings=library['warnings'],imports=library.get('imports',[]))
             if expected:
                 ep=expected['cut_parts'];result['expected_parts']=len(ep)
                 result['part_and_hole_counts_match']=len(ep)==len(parts) and result['holes']==sorted(p['holes'] for p in ep)

@@ -46,6 +46,10 @@ struct ImportParams {
     dxf_unit_mm: Option<f64>,
     /// Explicitly close gaps up to this many mm (off by default, maximum 1).
     close_gaps_mm: Option<f64>,
+    /// Cut layer names; omit to prefer cut/outline/profile, then all closed contours.
+    layers: Option<Vec<String>>,
+    /// DXF ACI numbers as strings (e.g. "7") or RGB colours (e.g. "#000000").
+    colors: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize, JsonSchema)]
@@ -233,8 +237,12 @@ impl Nestbolt {
     ) -> Result<CallToolResult, ErrorData> {
         (|| -> Result<CallToolResult> {
             ensure!(!p.paths.is_empty(), "give at least one SVG or DXF path");
-            let mut options = nestbolt_core::import::Options::default();
-            options.close_gaps_mm = p.close_gaps_mm;
+            let mut options = nestbolt_core::import::Options {
+                close_gaps_mm: p.close_gaps_mm,
+                layers: p.layers,
+                colors: p.colors,
+                ..Default::default()
+            };
             if let Some(t) = p.tolerance_mm {
                 ensure!(t > 0.0 && t <= 1.0, "tolerance_mm must be in (0, 1]");
                 options.tolerance = t;

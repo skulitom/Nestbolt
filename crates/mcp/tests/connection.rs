@@ -47,6 +47,14 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
         let repaired=call("import_parts",json!({"paths":["gap.svg"],"close_gaps_mm":0.2})).await.unwrap().structured_content.unwrap();
         assert_eq!(repaired["part_count"],1);
         assert_eq!(repaired["imports"][0]["report"]["closed_gaps"][0]["size_mm"],0.2);
+        std::fs::write(workspace.join("layers.svg"),r##"<svg width="100mm" viewBox="0 0 100 100"><g id="CUT" stroke="black"><rect width="20" height="20"/></g><g id="SCORE" stroke="red"><rect x="40" width="10" height="10"/><text>label</text></g></svg>"##).unwrap();
+        for (selection,expected_x) in [(json!({"paths":["layers.svg"],"layers":["SCORE"]}),40.0),
+            (json!({"paths":["layers.svg"],"colors":["#000000"]}),0.0)] {
+            let selected=call("import_parts",selection).await.unwrap().structured_content.unwrap();
+            assert_eq!(selected["part_count"],1);
+            assert_eq!(selected["parts"][0]["bounds_mm"][0],expected_x);
+            assert_eq!(selected["imports"][0]["report"]["layers"].as_array().unwrap().len(),2);
+        }
         let imported = call("import_parts", json!({"paths": ["parts.svg"]})).await.unwrap();
         let imported = imported.structured_content.unwrap();
         assert_eq!(imported["part_count"], 4);

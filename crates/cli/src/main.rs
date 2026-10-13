@@ -31,6 +31,12 @@ enum Command {
         /// Close larger gaps up to this many mm (off by default, maximum 1).
         #[arg(long = "close-gaps")]
         close_gaps_mm: Option<f64>,
+        /// Comma-separated cut layer names (otherwise prefer cut/outline/profile).
+        #[arg(long, value_delimiter = ',')]
+        layers: Option<Vec<String>>,
+        /// Comma-separated DXF ACI numbers or RGB colours such as #000000.
+        #[arg(long, value_delimiter = ',')]
+        colors: Option<Vec<String>>,
     },
     /// Nest library parts on sheets and write the layout, report and exports.
     Nest {
@@ -250,10 +256,14 @@ fn main() -> Result<()> {
             svg_user_unit_mm,
             dxf_unit_mm,
             close_gaps_mm,
+            layers,
+            colors,
         } => {
             let mut options = nestbolt_core::import::Options {
                 tolerance,
                 close_gaps_mm,
+                layers,
+                colors,
                 ..Default::default()
             };
             if let Some(u) = svg_user_unit_mm {

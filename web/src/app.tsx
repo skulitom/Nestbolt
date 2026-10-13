@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { exportSheet, importFiles, Portfolio } from './engine';
+import { exportSheet, importFiles, inspectFiles, Portfolio } from './engine';
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
-import type { Example, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Point, Project, RequestPart, RequestSheet, Rotations } from './types';
+import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Point, Project, RequestPart, RequestSheet, Rotations } from './types';
 import { unzip, zip } from './zip';
 
 const ROTATIONS: { label: string; value: Rotations }[] = [
@@ -77,6 +77,8 @@ export function App() {
   const [closeGaps, setCloseGaps] = useState(false);
   const [gapLimit, setGapLimit] = useState(0.05);
   const [lastFiles, setLastFiles] = useState<{ name: string; text: string }[]>([]);
+  const [importChoices, setImportChoices] = useState<Record<string, ImportSelection>>({});
+  const [importInventory, setImportInventory] = useState<NonNullable<Library['imports']>>([]);
   const [progress, setProgress] = useState<{ elapsed: number; best: number | null }>({ elapsed: 0, best: null });
   const [projects, setProjects] = useState<{ name: string; savedAt: string }[]>([]);
   const [examples, setExamples] = useState<Example[]>([]);
@@ -108,16 +110,22 @@ export function App() {
     try {
       const files = await Promise.all([...list].map(async (f) => ({ name: f.name, text: await f.text() })));
       setLastFiles(files);
-      await importDrawings(files);
+      setImportChoices({}); setImportInventory([]);
+      setImportInventory(await inspectFiles(files));
+      await importDrawings(files, {});
     } catch (e) { setError(String(e)); setBusy(null); }
   }
 
-  async function importDrawings(files: { name: string; text: string }[]) {
+  async function importDrawings(files: { name: string; text: string }[], choices = importChoices) {
     setError(null);
     setBusy('Importing…');
     try {
       // Part ids are `<file stem>-<n>`: importing a file again replaces its parts.
-      const merged = await importFiles(files, 0, closeGaps ? gapLimit : undefined);
+      const imported: Library[] = [];
+      for (const file of files) imported.push(await importFiles([file], 0, closeGaps ? gapLimit : undefined, choices[file.name]));
+      const merged: Library = { version: 1, tolerance: imported[0].tolerance,
+        parts: imported.flatMap((r) => r.parts), warnings: imported.flatMap((r) => r.warnings), imports: imported.flatMap((r) => r.imports ?? []) };
+      setImportInventory(merged.imports ?? []);
       const retained = (library?.parts ?? []).filter((p) => !files.some((f) => p.source.startsWith(`${f.name}#`)));
       const parts = [...retained, ...merged.parts];
       const retainedIds = new Set(retained.map((p) => p.id));
@@ -230,6 +238,7 @@ export function App() {
 
   function open(p: Project) {
     setLastFiles([]);
+    setImportChoices({}); setImportInventory([]);
     setCloseGaps(false);
     setGapLimit(0.05);
     setName(p.name);
@@ -313,6 +322,24 @@ export function App() {
               {closeGaps ? <label>Close gaps up to (mm)<input type="number" min={0} max={1} step={0.005}
                 value={gapLimit} disabled={!!busy} onInput={(e) => setGapLimit(num(e))} /></label> : null}
               <p class="hint">Gaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.</p>
+              {importInventory.map(({ file, report }) => <details open key={file} class="import-channels">
+                <summary>Layers and colours — {file}</summary>
+                <p class="hint">Automatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.</p>
+                {(['layers', 'colors'] as const).map((kind) => <fieldset>
+                  <legend>{kind === 'layers' ? 'Cut layers' : 'Cut colours'}{importChoices[file]?.[kind] === undefined ? ' (automatic)' : ''}</legend>
+                  {(report[kind] ?? []).map((entry) => <label key={entry.name}>
+                    <input type="checkbox" disabled={!!busy} aria-label={`${kind === 'layers' ? 'Layer' : 'Colour'} ${entry.name} in ${file}`}
+                      checked={importChoices[file]?.[kind]?.includes(entry.name) ?? entry.selected_entities > 0}
+                      onChange={(e) => {
+                        const checked = (e.target as HTMLInputElement).checked;
+                        const before = importChoices[file]?.[kind] ?? (report[kind] ?? []).filter((c) => c.selected_entities > 0).map((c) => c.name);
+                        const values = checked ? [...new Set([...before, entry.name])] : before.filter((v) => v !== entry.name);
+                        setImportChoices((current) => ({ ...current, [file]: { ...current[file], [kind]: values } }));
+                      }} /> {entry.name} <small>{entry.entities} entities · {entry.selected_entities} selected outlines/paths</small>
+                  </label>)}
+                </fieldset>)}
+                <button disabled={!!busy} onClick={() => setImportChoices((current) => ({ ...current, [file]: {} }))}>Use automatic selection for {file}</button>
+              </details>)}
               {lastFiles.length ? <button disabled={!!busy} onClick={() => importDrawings(lastFiles)}>Apply import options</button> : null}
             </div>
             {!library && examples.length ? (

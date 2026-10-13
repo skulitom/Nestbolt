@@ -1,4 +1,4 @@
-import type { Layout, Library, NestRequest, NestResult, Report } from './types';
+import type { ImportSelection, Layout, Library, NestRequest, NestResult, Report } from './types';
 
 type Progress = (t: number, material: number, layout?: Layout) => void;
 type Pending = { resolve: (v: string) => void; reject: (e: Error) => void; progress?: Progress };
@@ -50,8 +50,12 @@ class EngineWorker {
 let utility: EngineWorker | null = null;
 const tool = () => (utility ??= new EngineWorker());
 
-export async function importFiles(files: { name: string; text: string }[], tolerance = 0, closeGapsMm?: number): Promise<Library> {
-  return JSON.parse(await tool().call('import', { files, tolerance, closeGapsMm }));
+export async function importFiles(files: { name: string; text: string }[], tolerance = 0, closeGapsMm?: number, selection: ImportSelection = {}): Promise<Library> {
+  return JSON.parse(await tool().call('import', { files, tolerance, closeGapsMm, ...selection }));
+}
+
+export async function inspectFiles(files: { name: string; text: string }[]): Promise<NonNullable<Library['imports']>> {
+  return JSON.parse(await tool().call('inspect', { files }));
 }
 
 export async function validate(library: Library, request: NestRequest, layout: unknown): Promise<Report> {

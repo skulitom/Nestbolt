@@ -15,7 +15,12 @@ use serde::{Deserialize, Serialize};
 
 use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_area};
 
-#[derive(Clone, Copy, Debug, Deserialize)]
+mod selection;
+mod svg_style;
+pub use selection::Channel;
+use selection::{Drawing, DrawingEntity};
+
+#[derive(Clone, Debug, Deserialize)]
 #[serde(default, deny_unknown_fields)]
 pub struct Options {
     /// Maximum distance between an exact curve and its nesting polygon, in mm.
@@ -28,6 +33,10 @@ pub struct Options {
     /// Explicit repair of larger gaps, in mm (off by default, at most 1 mm).
     /// The silent join threshold remains 0.005 mm regardless of curve precision.
     pub close_gaps_mm: Option<f64>,
+    /// Explicit layer names; None uses cut/outline/profile names, then all contours.
+    pub layers: Option<Vec<String>>,
+    /// Explicit DXF ACI numbers ("7" or "aci:7") or SVG/DXF RGB colours.
+    pub colors: Option<Vec<String>>,
 }
 
 impl Default for Options {
@@ -37,6 +46,8 @@ impl Default for Options {
             svg_user_unit: 25.4 / 96.0,
             dxf_unit: 1.0,
             close_gaps_mm: None,
+            layers: None,
+            colors: None,
         }
     }
 }
@@ -87,6 +98,12 @@ pub struct ImportReport {
     pub close_gaps_mm: Option<f64>,
     pub closed_gaps: Vec<Gap>,
     pub open_contours: Vec<OpenContour>,
+    #[serde(default)]
+    pub layers: Vec<Channel>,
+    #[serde(default)]
+    pub colors: Vec<Channel>,
+    #[serde(default)]
+    pub selection_mode: String,
 }
 
 impl ImportReport {
@@ -113,6 +130,9 @@ impl ImportReport {
             close_gaps_mm: options.close_gaps_mm,
             closed_gaps: vec![],
             open_contours: vec![],
+            layers: vec![],
+            colors: vec![],
+            selection_mode: String::new(),
         })
     }
 }
@@ -659,14 +679,6 @@ fn svg_transform(value: Option<&str>) -> Result<Affine> {
     })
 }
 
-fn hidden(node: &roxmltree::Node) -> bool {
-    node.attribute("display") == Some("none")
-        || node.attribute("visibility") == Some("hidden")
-        || node
-            .attribute("style")
-            .is_some_and(|s| s.replace(' ', "").contains("display:none"))
-}
-
 /// SVG endpoint arc to centre form (SVG 1.1, appendix F.6.5).
 #[allow(clippy::too_many_arguments)]
 fn svg_arc(
@@ -977,8 +989,25 @@ fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
 
 /// Import closed outlines from an SVG document. Text and images are ignored.
 pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
-    let mut report = ImportReport::new(options)?;
-    let document = roxmltree::Document::parse(text).context("invalid SVG/XML")?;
+    read_svg(text, options, false)
+}
+
+/// Inventory the document without chaining or requiring a closed part.
+pub fn inspect_svg(text: &str, options: &Options) -> Result<ImportReport> {
+    Ok(read_svg(text, options, true)?.report)
+}
+
+fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import> {
+    let report = ImportReport::new(options)?;
+    let document = roxmltree::Document::parse_with_options(
+        text,
+        roxmltree::ParsingOptions {
+            allow_dtd: true,
+            nodes_limit: 1_000_000,
+            entity_resolver: None,
+        },
+    )
+    .context("invalid SVG/XML; save as plain SVG and check its XML syntax")?;
     let root = document.root_element();
     ensure!(
         root.tag_name().name() == "svg",
@@ -1016,11 +1045,12 @@ pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
         .descendants()
         .filter_map(|n| n.attribute("id").map(|id| (id, n)))
         .collect();
-    let mut pieces = vec![];
+    let rules = svg_style::stylesheet(&document)?;
+    let mut drawing = Drawing::default();
     let mut counter = 0;
-    let mut stack = vec![(root, Affine::IDENTITY, 0_u32)];
-    while let Some((node, parent, depth)) = stack.pop() {
-        if !node.is_element() || hidden(&node) {
+    let mut stack = vec![(root, Affine::IDENTITY, 0_u32, svg_style::Style::default())];
+    while let Some((node, parent, depth, parent_style)) = stack.pop() {
+        if !node.is_element() {
             continue;
         }
         let name = node.tag_name().name();
@@ -1036,10 +1066,12 @@ pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
                 | "title"
                 | "desc"
                 | "style"
-                | "text"
-                | "image"
         ) {
             continue;
+        }
+        let style = parent_style.at(node, &rules);
+        if node.has_tag_name("g") {
+            drawing.known_layers.push(style.layer.clone());
         }
         let local = svg_transform(node.attribute("transform"))?;
         let ctm = if node == root {
@@ -1063,7 +1095,7 @@ pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
                     .and_then(|v| v.parse().ok())
                     .unwrap_or(0.0);
                 let shift = Affine::translation([x, y]).then(ctm);
-                stack.push((*target, shift, depth + 1));
+                stack.push((*target, shift, depth + 1, style));
             } else {
                 warnings.push(format!("unresolved <use> reference {href:?}"));
             }
@@ -1074,6 +1106,7 @@ pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
             .attribute("id")
             .map_or_else(|| format!("{name}-{counter}"), str::to_owned);
         let total = ctm.then(page);
+        let mut pieces = vec![];
         for piece in svg_shape(&node, &source)? {
             let (start, segments) = map_segments(piece.start, &piece.segments, &total);
             pieces.push(Piece {
@@ -1082,16 +1115,32 @@ pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
                 source: piece.source,
             });
         }
+        if !pieces.is_empty() || matches!(name, "text" | "image" | "foreignObject") {
+            let ignored = if style.hidden {
+                Some("hidden SVG entity".into())
+            } else if matches!(name, "text" | "image" | "foreignObject") {
+                Some("not a cut outline; convert text to paths or trace the image to cut it".into())
+            } else if style.color() == "none" {
+                Some("SVG has no stroke or fill".into())
+            } else {
+                None
+            };
+            drawing.entities.push(DrawingEntity {
+                layer: style.layer.clone(),
+                color: style.color(),
+                kind: name.into(),
+                ignored,
+                pieces,
+            });
+        }
+        if matches!(name, "text" | "image" | "foreignObject") {
+            continue;
+        }
         for child in node.children().collect::<Vec<_>>().into_iter().rev() {
-            stack.push((child, ctm, depth));
+            stack.push((child, ctm, depth, style.clone()));
         }
     }
-    let parts = assemble(pieces, options, &mut warnings, &mut report)?;
-    Ok(Import {
-        parts,
-        warnings,
-        report,
-    })
+    drawing.finish(options, warnings, report, inspect_only)
 }
 
 impl Affine {
@@ -1451,18 +1500,96 @@ fn dxf_entities<'a>(pairs: &[(i32, &'a str)]) -> Vec<Entity<'a>> {
 }
 
 /// Convert a flat entity list (POLYLINE/VERTEX runs and INSERTs resolved) to pieces.
+struct Block<'a> {
+    base: Point,
+    entities: Vec<Entity<'a>>,
+}
+
+#[derive(Clone)]
+struct DxfStyle {
+    layer: String,
+    color: String,
+    hidden: bool,
+}
+
+impl Default for DxfStyle {
+    fn default() -> Self {
+        Self {
+            layer: "0".into(),
+            color: "aci:7".into(),
+            hidden: false,
+        }
+    }
+}
+
+fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) -> DxfStyle {
+    let own = e.text(8).unwrap_or("0");
+    let layer = if own == "0" {
+        parent.layer.clone()
+    } else {
+        own.to_owned()
+    };
+    let table = layers.get(&layer.to_ascii_lowercase());
+    let color = if let Some(rgb) = e.get(420) {
+        format!("#{:06x}", (rgb as u32) & 0xffffff)
+    } else {
+        match e.get(62).unwrap_or(256.0) as i32 {
+            0 => parent.color.clone(),
+            256 => table.map_or_else(|| "aci:7".into(), |s| s.color.clone()),
+            n => format!("aci:{}", n.unsigned_abs()),
+        }
+    };
+    DxfStyle {
+        layer,
+        color,
+        hidden: parent.hidden
+            || table.is_some_and(|l| l.hidden)
+            || e.get(60) == Some(1.0)
+            || e.get(62).is_some_and(|c| c < 0.0),
+    }
+}
+
+#[allow(clippy::too_many_arguments)]
 fn dxf_pieces(
     entities: &[Entity],
-    blocks: &HashMap<String, Vec<Entity>>,
+    blocks: &HashMap<String, Block>,
     transform: Affine,
     depth: u32,
     warnings: &mut Vec<String>,
-) -> Result<Vec<Piece>> {
-    ensure!(depth < 16, "DXF block nesting is too deep");
-    let mut pieces = vec![];
+    parent_style: &DxfStyle,
+    layers: &HashMap<String, DxfStyle>,
+    drawing: &mut Drawing,
+) -> Result<()> {
+    ensure!(
+        depth < 16,
+        "DXF block nesting is too deep; explode nested blocks in the source drawing"
+    );
     let mut i = 0;
     while i < entities.len() {
         let e = &entities[i];
+        let style = dxf_style(e, parent_style, layers);
+        let mut pieces = vec![];
+        let ignored = if style.hidden {
+            Some("hidden DXF entity or layer".into())
+        } else if matches!(
+            e.kind,
+            "TEXT"
+                | "MTEXT"
+                | "DIMENSION"
+                | "HATCH"
+                | "LEADER"
+                | "MLEADER"
+                | "SOLID"
+                | "ATTDEF"
+                | "ATTRIB"
+                | "IMAGE"
+        ) {
+            Some("not a cut outline; explode/convert it to closed paths in the source drawing if it must be cut".into())
+        } else if e.get(67) == Some(1.0) {
+            Some("paper-space entity; move cut outlines to model space".into())
+        } else {
+            None
+        };
         match e.kind {
             "POLYLINE" => {
                 let closed = e.get(70).is_some_and(|f| (f as i64) & 1 == 1);
@@ -1475,17 +1602,24 @@ fn dxf_pieces(
                     }
                     i += 1;
                 }
+                ensure!(
+                    i < entities.len() && entities[i].kind == "SEQEND",
+                    "POLYLINE on layer {:?} is missing its SEQEND; repair or re-export this DXF with polylines intact",
+                    style.layer
+                );
                 if let Some((s, segs)) = polyline(&vertices, closed) {
                     let (s, segs) = map_segments(s, &segs, &e.ocs().then(transform));
                     pieces.push(Piece {
                         start: s,
                         segments: segs,
-                        source: format!("{}:POLYLINE", e.text(8).unwrap_or("0")),
+                        source: format!("{}:POLYLINE", style.layer),
                     });
                 }
+            }
+            "SEQEND" | "VERTEX" => {
+                i += 1;
                 continue;
             }
-            "SEQEND" | "VERTEX" => {}
             "INSERT" => {
                 let name = e.text(2).unwrap_or("");
                 if let Some(block) = blocks.get(name) {
@@ -1497,36 +1631,61 @@ fn dxf_pieces(
                         m: [[c * sx, -s * sy], [s * sx, c * sy]],
                         t: at,
                     };
-                    pieces.extend(dxf_pieces(
-                        block,
+                    dxf_pieces(
+                        &block.entities,
                         blocks,
-                        e.ocs().then(local).then(transform),
+                        Affine::translation([-block.base[0], -block.base[1]])
+                            .then(local)
+                            .then(e.ocs())
+                            .then(transform),
                         depth + 1,
                         warnings,
-                    )?);
+                        &style,
+                        layers,
+                        drawing,
+                    )?;
                 } else {
                     warnings.push(format!("unknown block {name:?} skipped"));
                 }
             }
             _ => {
-                for p in dxf_entity(e, warnings)? {
+                for p in if ignored.is_none() {
+                    dxf_entity(e, warnings)?
+                } else {
+                    vec![]
+                } {
                     let (s, segs) = map_segments(p.start, &p.segments, &transform);
                     pieces.push(Piece {
                         start: s,
                         segments: segs,
-                        source: p.source,
+                        source: format!("{}:{}", style.layer, e.kind),
                     });
                 }
             }
         }
+        drawing.entities.push(DrawingEntity {
+            layer: style.layer,
+            color: style.color,
+            kind: e.kind.into(),
+            ignored,
+            pieces,
+        });
         i += 1;
     }
-    Ok(pieces)
+    Ok(())
 }
 
 /// Import closed outlines from an ASCII DXF drawing (model space only).
 pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
-    let mut report = ImportReport::new(options)?;
+    read_dxf(text, options, false)
+}
+
+pub fn inspect_dxf(text: &str, options: &Options) -> Result<ImportReport> {
+    Ok(read_dxf(text, options, true)?.report)
+}
+
+fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import> {
+    let report = ImportReport::new(options)?;
     let pairs = dxf_pairs(text)?;
     let mut warnings = vec![];
     let mut unit = None;
@@ -1575,16 +1734,24 @@ pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
     if let Some(section) = sections.get("BLOCKS") {
         let entities = dxf_entities(section);
         let mut name = None;
+        let mut base = [0.0, 0.0];
         let mut body = vec![];
         for e in entities {
             match e.kind {
                 "BLOCK" => {
                     name = e.text(2).map(str::to_owned);
+                    base = [e.get(10).unwrap_or(0.0), e.get(20).unwrap_or(0.0)];
                     body.clear();
                 }
                 "ENDBLK" => {
                     if let Some(n) = name.take() {
-                        blocks.insert(n, std::mem::take(&mut body));
+                        blocks.insert(
+                            n,
+                            Block {
+                                base,
+                                entities: std::mem::take(&mut body),
+                            },
+                        );
                     }
                 }
                 _ => body.push(e),
@@ -1596,13 +1763,38 @@ pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
             .get("ENTITIES")
             .context("DXF has no ENTITIES section")?,
     );
-    let pieces = dxf_pieces(&entities, &blocks, Affine::scale(scale), 0, &mut warnings)?;
-    let parts = assemble(pieces, options, &mut warnings, &mut report)?;
-    Ok(Import {
-        parts,
-        warnings,
-        report,
-    })
+    let mut drawing = Drawing::default();
+    let mut layers = HashMap::new();
+    for e in dxf_entities(sections.get("TABLES").map_or(&[], Vec::as_slice)) {
+        if e.kind != "LAYER" {
+            continue;
+        }
+        let name = e.text(2).unwrap_or("0").to_owned();
+        drawing.known_layers.push(name.clone());
+        layers.insert(
+            name.to_ascii_lowercase(),
+            DxfStyle {
+                layer: name,
+                color: e.get(420).map_or_else(
+                    || format!("aci:{}", (e.get(62).unwrap_or(7.0) as i32).unsigned_abs()),
+                    |rgb| format!("#{:06x}", (rgb as u32) & 0xffffff),
+                ),
+                hidden: e.get(62).is_some_and(|c| c < 0.0)
+                    || e.get(70).is_some_and(|f| f as u32 & 1 != 0),
+            },
+        );
+    }
+    dxf_pieces(
+        &entities,
+        &blocks,
+        Affine::scale(scale),
+        0,
+        &mut warnings,
+        &DxfStyle::default(),
+        &layers,
+        &mut drawing,
+    )?;
+    drawing.finish(options, warnings, report, inspect_only)
 }
 
 #[cfg(test)]

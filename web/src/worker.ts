@@ -1,5 +1,5 @@
 // One Nestbolt engine per worker: the main thread never runs geometry.
-import init, { estimate_sheets, export_sheet, import_files_with_options, memory_bytes, nest, nest_job, validate } from './pkg/nestbolt_wasm.js';
+import init, { estimate_sheets, export_sheet, import_files_with_options, inspect_files, memory_bytes, nest, nest_job, validate } from './pkg/nestbolt_wasm.js';
 
 const ready = init();
 
@@ -9,10 +9,15 @@ self.onmessage = async (event: MessageEvent) => {
     await ready;
     let value: string;
     switch (type) {
+      case 'inspect':
+        value = inspect_files(JSON.stringify(args.files), '{}');
+        break;
       case 'import':
         value = import_files_with_options(JSON.stringify(args.files), JSON.stringify({
           ...(args.tolerance > 0 ? { tolerance: args.tolerance } : {}),
           ...(args.closeGapsMm !== undefined ? { close_gaps_mm: args.closeGapsMm } : {}),
+          ...(args.layers !== undefined ? { layers: args.layers } : {}),
+          ...(args.colors !== undefined ? { colors: args.colors } : {}),
         }));
         break;
       case 'nest':

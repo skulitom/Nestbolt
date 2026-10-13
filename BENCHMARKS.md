@@ -11755,3 +11755,28 @@ gap-only checkpoint explicitly skips and records unavailable layer/colour flags:
 30/30 match part/hole counts. This is not H2 fidelity or cut-selection acceptance.
 All reads remain training-only. H2 and the held-out scoring clarification remain
 pending; overall completion stays 15%.
+
+## 2026-10-13 — N1 layer/colour selection checkpoint (H2 pending)
+
+[Evidence and retained failures](benchmarks/results/h2-layer-checkpoint-20261013.md).
+UI per-file inventory/filtering, CLI and MCP options now share the core selector.
+Block layer/colour inheritance, base points, negative-Z INSERT placement and SVG
+style handling are covered by focused tests. Six browser checks, CLI/MCP checks,
+WASM/web build and generated schemas pass. Initial circle-bound test assertions
+were corrected to distinguish exact curves from flattened proxy bounds.
+
+[Training vectors](benchmarks/results/h2-import-training-20261013T184036Z.json):
+246 imported, 11 rejected, 221/257 part/hole-count matches versus baseline 165.
+[Robustness](benchmarks/results/h2-import-robustness-20261013T184058Z.json):
+83 imported, 100 rejected, zero panics/timeouts, worst 0.764 s. These are count
+diagnostics, not H2 acceptance or a quality claim. Four separate CCD0 physical
+cores, one process each, unchanged source hashes, no held-out reads. The runner
+now includes untracked product sources and itself in its digest and classifies
+panics separately. Frozen corpus integrity passes in its pinned environment.
+Cleanup and the remaining H2 evidence are pending; completion remains 15%.
+
+The full workspace test suite then passed (one existing ignored test). Strict
+Clippy found an MCP initializer style violation; the equivalent initializer now
+passes. Universal CSS selectors were corrected to have lower specificity than
+tag selectors, with the six focused tests passing again. Corpus/browser records
+above predate these two final small changes and retain their exact source hashes.

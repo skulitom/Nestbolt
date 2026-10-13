@@ -55,6 +55,35 @@ pub fn import_files_with_options(files_json: &str, options_json: &str) -> Result
     import_with_options(files_json, parse(options_json, "import options")?)
 }
 
+/// Show layer/colour choices even when a drawing has no closed selected outline.
+#[wasm_bindgen]
+pub fn inspect_files(files_json: &str, options_json: &str) -> Result<String, JsValue> {
+    #[derive(serde::Deserialize)]
+    struct File {
+        name: String,
+        text: String,
+    }
+    let files: Vec<File> = parse(files_json, "file list")?;
+    let options = parse(options_json, "import options")?;
+    let mut reports = vec![];
+    for file in files {
+        let lower = file.name.to_ascii_lowercase();
+        let report = if lower.ends_with(".svg") {
+            nestbolt_core::import::inspect_svg(&file.text, &options)
+        } else if lower.ends_with(".dxf") {
+            nestbolt_core::import::inspect_dxf(&file.text, &options)
+        } else {
+            return Err(fail("choose an SVG or DXF drawing"));
+        }
+        .map_err(|e| fail(format!("{}: {e:#}", file.name)))?;
+        reports.push(nestbolt_core::project::FileImportReport {
+            file: file.name,
+            report,
+        });
+    }
+    serde_json::to_string(&reports).map_err(fail)
+}
+
 fn import_with_options(
     files_json: &str,
     options: nestbolt_core::import::Options,

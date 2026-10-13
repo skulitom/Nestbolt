@@ -92,6 +92,46 @@ fn explicit_gap_repair_reports_its_size_and_location() {
     );
 }
 
+#[test]
+fn layers_and_colors_select_cuts_and_report_ignored_entities() {
+    let dir = temp("layers");
+    let source = dir.join("layers.svg");
+    fs::write(&source,r##"<svg width="100mm" viewBox="0 0 100 100"><g id="CUT" stroke="black"><rect width="20" height="20"/></g><g id="SCORE" stroke="red"><rect x="40" width="10" height="10"/><text>label</text></g></svg>"##).unwrap();
+    for (flag, value, expected_x) in [("--layers", "SCORE", 40.0), ("--colors", "#000000", 0.0)] {
+        let out = dir.join(format!("{flag}.json"));
+        let result = nestbolt(&[
+            "import".as_ref(),
+            source.as_os_str(),
+            "--output".as_ref(),
+            out.as_os_str(),
+            flag.as_ref(),
+            value.as_ref(),
+        ]);
+        assert!(
+            result.status.success(),
+            "{}",
+            String::from_utf8_lossy(&result.stderr)
+        );
+        let library: Value = serde_json::from_slice(&fs::read(out).unwrap()).unwrap();
+        assert_eq!(library["parts"][0]["bounds_mm"][0], expected_x);
+        assert_eq!(library["parts"].as_array().unwrap().len(), 1);
+        assert_eq!(
+            library["imports"][0]["report"]["layers"]
+                .as_array()
+                .unwrap()
+                .len(),
+            2
+        );
+        assert!(
+            library["warnings"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|w| w.as_str().unwrap().contains("text"))
+        );
+    }
+}
+
 struct Nested {
     dir: PathBuf,
     report: Value,
