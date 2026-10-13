@@ -62,10 +62,61 @@ def excluded():
     return {b for entry in json.loads(EXCLUDED.read_text(encoding='utf-8'))['entries'] for b in entry['batches']}
 
 
+REPLACED = ROOT/'benchmarks/final-replaced-runs.json'
+
+
+def replaced_runs():
+    """Records of single final runs that hit a recognized harness fault before solving
+    (benchmarks/STATISTICS.md): kept as evidence, never scored, and run again."""
+    if not REPLACED.exists():
+        return set()
+    return {e['record'] for e in json.loads(REPLACED.read_text(encoding='utf-8'))['entries']}
+
+
+def record_harness_faults():
+    """Classify every failed final browser-runner run by its own evidence, never by
+    score, with the development rules (batch_comparison_report). Recognized harness
+    faults are added to REPLACED; native failures, invalid layouts and timeouts stay."""
+    from datetime import datetime, timezone
+    from batch_comparison_report import infrastructure_failure_kind
+    from lbf_report import contained_file
+    from svgnest import digest
+    known, skip, found = replaced_runs(), excluded(), []
+    for tool in ['deepnest', 'svgnest']:
+        for path in sorted(ROOT.glob(f'{BATCHES[tool]}/*/batch.json')):
+            batch = json.loads(path.read_text(encoding='utf-8'))
+            if path.parent.name in skip or batch.get('phase') != 'final' or not batch.get('complete'):
+                continue
+            for entry in batch['runs']:
+                if entry['status'] != 'failed' or entry['record'] in known:
+                    continue
+                record = contained_file(ROOT, entry['record'])
+                raw = record.parent/'browser-result.json'
+                if digest(record) != entry['sha256'] or not raw.exists():
+                    continue
+                run = json.loads(record.read_text(encoding='utf-8'))
+                if digest(raw) != run['outputs'].get('browser-result.json'):
+                    continue
+                try:
+                    kind = infrastructure_failure_kind(run, json.loads(raw.read_bytes()))
+                except ValueError:
+                    continue
+                found.append({'recorded_at': datetime.now(timezone.utc).isoformat(), 'tool': tool,
+                              'batch': path.parent.name, 'job': entry['job'], 'record': entry['record'],
+                              'kind': kind})
+    if found:
+        data = (json.loads(REPLACED.read_text(encoding='utf-8')) if REPLACED.exists()
+                else {'version': 1, 'entries': []})
+        data['entries'] += [e for e in found if e['record'] not in {x['record'] for x in data['entries']}]
+        REPLACED.write_text(json.dumps(data, indent=1) + '\n', encoding='utf-8', newline='\n')
+        print(json.dumps({'harness_faults_replaced': [(e['job'], e['kind']) for e in found]}), flush=True)
+
+
 def finished_runs(tool, phase):
     """(dataset, seconds, seed, settings, axis, job) of every run in a complete batch, and
-    the same keys for batches that started but never completed (interruptions)."""
-    complete, interrupted, skip = set(), set(), excluded()
+    the same keys for batches that started but never completed (interruptions). A run
+    replaced after a harness fault does not count, so its slot runs again."""
+    complete, interrupted, skip, replaced = set(), set(), excluded(), replaced_runs()
     for start in glob.glob(str(ROOT/BATCHES[tool]/'*'/'start.json')):
         path = Path(start)
         if path.parent.name in skip:
@@ -76,7 +127,7 @@ def finished_runs(tool, phase):
             continue
         key = tuple(batch[k] for k in ['dataset', 'seconds', 'seed', 'settings', 'axis'])
         if batch.get('complete'):
-            complete.update(key + (run['job'],) for run in batch['runs'])
+            complete.update(key + (run['job'],) for run in batch['runs'] if run['record'] not in replaced)
         else:
             interrupted.update(key + (c['id'],) for c in batch['cases'])
     return complete, interrupted - complete
@@ -119,6 +170,8 @@ def competitor_tasks(phase, tools):
 
 
 def competitors(phase, tools, cpus, dry_run, minutes=None):
+    if phase == 'final' and not dry_run:
+        record_harness_faults()
     tasks, total, blocked = competitor_tasks(phase, tools)
     print(json.dumps({'competitor_runs': total, 'remaining_batches': len(tasks),
                       'interrupted_runs': len(blocked)}), flush=True)

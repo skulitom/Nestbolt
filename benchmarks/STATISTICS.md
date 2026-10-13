@@ -78,3 +78,7 @@ exact-coordinate import guards before SVGnest or Deepnest starts, Deepnest affin
 before solving, and Deepnest process cleanup after the budget. Native solver
 crashes, invalid layouts, no-layout results and timeouts are not eligible. This
 repairs development harness evidence; it does not waive frozen final-run controls.
+In the final phase the same evidence-only rules apply to single runs (added
+2026-10-13, after one Deepnest affinity fault before solving): `scripts/reproduce.py`
+lists each recognized fault in `benchmarks/final-replaced-runs.json` and runs that
+slot again with the sealed settings, and the replacement counts whatever its outcome.

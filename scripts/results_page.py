@@ -92,8 +92,8 @@ def final_competitors(seconds):
     """From the audited final-phase batches: per job and tool, the better settings role
     whose median over all five seeds is finite."""
     from comparator_batch_report import audit_batch
-    from reproduce import BATCHES, excluded
-    seeds, skip = {}, excluded()
+    from reproduce import BATCHES, excluded, replaced_runs
+    seeds, skip, replaced = {}, excluded(), replaced_runs()
     for tool in TOOLS:
         for path in sorted(ROOT.glob(f"{BATCHES[tool]}/*/batch.json")):
             if path.parent.name in skip:
@@ -103,8 +103,12 @@ def final_competitors(seconds):
                 continue
             _, rows = audit_batch(path, tool)
             for row in rows:
+                if row['record'] in replaced:
+                    continue  # harness fault before solving; its replacement attempt counts
                 run = row['run']
                 key = (row['job'], tool, batch['settings'])
+                if batch['seed'] in seeds.get(key, {}):
+                    raise ValueError(f'two scored final attempts for {key} seed {batch["seed"]}; never choose by score')
                 seeds.setdefault(key, {})[batch['seed']] = run['score'] if run['status'] == 'valid' else None
     out = {}
     for (job, tool, settings), by_seed in seeds.items():
