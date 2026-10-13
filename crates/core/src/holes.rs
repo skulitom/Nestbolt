@@ -194,7 +194,12 @@ pub fn group(job: &Job, clock: &Clock, until: f64, seed: u64) -> Result<Grouped>
             continue;
         }
         // Fill one host copy at a time; identical consecutive patterns merge.
-        while remaining[host] > 0 && clock.now() < until {
+        // The first copy of each host is always tried, however late: on a slow
+        // or busy machine a short budget could otherwise end the pre-pass before
+        // any rider, and a sheet that fits only the filled host has no layout.
+        let mut first = true;
+        while remaining[host] > 0 && (first || clock.now() < until) {
+            let forced = std::mem::replace(&mut first, false);
             // Another copy of the same host takes the last checked pattern
             // again while its riders last: same group, no new search.
             if let Some((h, pattern, n)) = patterns.last_mut()
@@ -259,7 +264,7 @@ pub fn group(job: &Job, clock: &Clock, until: f64, seed: u64) -> Result<Grouped>
                             > riders.iter().filter(|r| r.part == rider).count() as u32
                                 + u32::from(rider == host)
                     };
-                    while available(&riders) && clock.now() < until {
+                    while available(&riders) && (forced || clock.now() < until) {
                         let (sample, evals) = search_placement(
                             &layout,
                             &item,
@@ -468,5 +473,16 @@ mod tests {
         let expanded = grouped.expand(&job, &construction.layout).unwrap();
         let report = validate(&job, &expanded).unwrap();
         assert!(report.valid, "{:?}", report.violations);
+    }
+
+    #[test]
+    fn the_first_host_is_filled_even_when_the_share_has_run_out() {
+        // Found by the browser tests on a busy CI runner: a 3 s budget, the
+        // pre-pass deadline already past, and a sheet only the filled frame fits.
+        let job: Job =
+            serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
+        let clock = Clock::new(crate::clock::Timing::Wall, 10.0);
+        let grouped = group(&job, &clock, 0.0, 0).unwrap();
+        assert!(grouped.riders_placed > 0);
     }
 }

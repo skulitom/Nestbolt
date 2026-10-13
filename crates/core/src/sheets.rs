@@ -681,7 +681,8 @@ fn optimize_job(
     };
     ensure!(
         warm.best.complete && warm.validation.valid,
-        "no complete valid warm start"
+        "could not place every part in {} s: allow more time, more sheets or fewer parts",
+        options.seconds
     );
     let mut warm = warm;
     // Packed bounding rectangles suit near-rectangular parts; keep them if better.
