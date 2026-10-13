@@ -49,6 +49,29 @@ Libraries and CLI/MCP responses include an `imports` entry per file:
 }
 ```
 
+## File encoding and units
+
+The UI, CLI and MCP decode the original file bytes with the same reader. Older
+DXFs use their `$DWGCODEPAGE` setting, defaulting to Windows-1252 when it is absent;
+DXF R2007 and later use UTF-8. DXF Unicode escapes are decoded too, so non-ASCII
+layer names remain selectable. SVG follows its byte-order mark or XML encoding
+declaration. Invalid bytes or unsupported encodings give a re-export instruction;
+no replacement characters are silently inserted. These DXF rules follow the
+[ezdxf encoding reference](https://ezdxf.readthedocs.io/en/stable/dxfinternals/fileencoding.html).
+
+DXF file units take precedence over a fallback. mm, cm, metres, inches and feet
+are supported; unsupported unit codes request a re-export in one of these units.
+Without declared units, the default remains 1 mm per drawing unit. If the largest
+selected dimension is under 60 drawing units, the report warns that the drawing
+may be in inches. It never changes scale automatically.
+
+For a DXF without units, use its **DXF units when missing** dropdown and apply
+the options. CLI uses `--dxf-unit-mm 25.4`; MCP uses `dxf_unit_mm: 25.4`. A value of
+10 selects centimetres. These settings do not override units declared by the
+file. The structured `units` report records whether units were declared, the
+applied millimetres per unit, the largest selected dimension in drawing units
+and the possible-inches flag.
+
 ## Duplicate and overlap cleanup
 
 Before joining paths, the importer removes exact duplicate segments (including

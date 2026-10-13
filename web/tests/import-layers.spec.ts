@@ -1,5 +1,18 @@
 import { expect, test } from '@playwright/test';
 
+test('legacy DXF text keeps layer names and offers an explicit inches choice', async ({ page }) => {
+  await page.goto('/');
+  const dxf = '0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1009\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\nCUT_Ø\n70\n1\n90\n4\n10\n0\n20\n0\n10\n20\n20\n0\n10\n20\n20\n10\n10\n0\n20\n10\n0\nENDSEC\n0\nEOF\n';
+  await page.locator('.drop input[type=file]').setInputFiles({ name: 'legacy.dxf', mimeType: 'application/dxf', buffer: Buffer.from(dxf, 'latin1') });
+  await expect(page.getByLabel('Layer CUT_Ø in legacy.dxf', { exact: true })).toBeChecked();
+  await expect(page.locator('table.parts tbody tr')).toContainText('2.0 cm²');
+  await expect(page.locator('.warnings')).toContainText('this may be an inches drawing');
+  await page.getByLabel('DXF units when missing — legacy.dxf').selectOption('25.4');
+  await page.getByRole('button', { name: 'Apply import options' }).click();
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  await expect(page.locator('table.parts tbody tr')).toContainText('1290.3 cm²');
+});
+
 test('cleanup shows duplicate, zero-length and overlap counts', async ({ page }) => {
   await page.goto('/');
   await page.locator('.drop input[type=file]').setInputFiles({ name: 'cleanup.svg', mimeType: 'image/svg+xml',

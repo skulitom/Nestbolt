@@ -146,6 +146,43 @@ fn cleanup_counts_are_in_the_import_report() {
     );
 }
 
+#[test]
+fn legacy_dxf_bytes_and_missing_units_are_explicit() {
+    let dir = temp("encoding-units");
+    let source = dir.join("legacy.dxf");
+    let drawing = "0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1009\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\nCUT_Ø\n70\n1\n90\n4\n10\n0\n20\n0\n10\n20\n20\n0\n10\n20\n20\n10\n10\n0\n20\n10\n0\nENDSEC\n0\nEOF\n";
+    fs::write(
+        &source,
+        drawing.chars().map(|c| c as u8).collect::<Vec<_>>(),
+    )
+    .unwrap();
+    for (unit, width) in [("1", 20.0), ("25.4", 508.0)] {
+        let out = dir.join(format!("units-{unit}.json"));
+        let result = nestbolt(&[
+            "import".as_ref(),
+            source.as_os_str(),
+            "--output".as_ref(),
+            out.as_os_str(),
+            "--layers".as_ref(),
+            "CUT_Ø".as_ref(),
+            "--dxf-unit-mm".as_ref(),
+            unit.as_ref(),
+        ]);
+        assert!(
+            result.status.success(),
+            "{}",
+            String::from_utf8_lossy(&result.stderr)
+        );
+        let library: Value = serde_json::from_slice(&fs::read(out).unwrap()).unwrap();
+        assert_eq!(library["parts"][0]["bounds_mm"][2], width);
+        assert_eq!(library["imports"][0]["report"]["units"]["declared"], false);
+        assert_eq!(
+            library["imports"][0]["report"]["units"]["possible_inches"],
+            true
+        );
+    }
+}
+
 struct Nested {
     dir: PathBuf,
     report: Value,

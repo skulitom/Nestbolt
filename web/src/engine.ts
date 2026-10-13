@@ -58,6 +58,11 @@ export async function inspectFiles(files: { name: string; text: string }[]): Pro
   return JSON.parse(await tool().call('inspect', { files }));
 }
 
+export async function readDrawingFile(file: File): Promise<{ name: string; text: string }> {
+  const text = await tool().call('decode', { name: file.name, bytes: new Uint8Array(await file.arrayBuffer()) });
+  return { name: file.name, text };
+}
+
 export async function validate(library: Library, request: NestRequest, layout: unknown): Promise<Report> {
   return JSON.parse(await tool().call('validate', {
     library: JSON.stringify(library), request: JSON.stringify(request), layout: JSON.stringify(layout) }));

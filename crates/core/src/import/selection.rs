@@ -108,7 +108,7 @@ impl Drawing {
                 && options
                     .layers
                     .as_ref()
-                    .is_none_or(|v| v.iter().any(|s| s.eq_ignore_ascii_case(&e.layer)))
+                    .is_none_or(|v| v.iter().any(|s| s.to_lowercase() == e.layer.to_lowercase()))
                 && chosen_colors.as_ref().is_none_or(|v| v.contains(&color))
                 && (!named || cut_name(&e.layer));
             let geometry = !e.pieces.is_empty();
@@ -144,7 +144,7 @@ impl Drawing {
                     if !report
                         .layers
                         .iter()
-                        .any(|l| l.name.eq_ignore_ascii_case(name))
+                        .any(|l| l.name.to_lowercase() == name.to_lowercase())
                     {
                         bail!(
                             "unknown layer {name:?}; choose from: {}",

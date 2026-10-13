@@ -280,11 +280,11 @@ fn main() -> Result<()> {
                         .and_then(|n| n.to_str())
                         .context("input file name")?
                         .to_owned();
-                    Ok((
-                        name,
-                        fs::read_to_string(p)
-                            .with_context(|| format!("cannot read {}", p.display()))?,
-                    ))
+                    let bytes =
+                        fs::read(p).with_context(|| format!("cannot read {}", p.display()))?;
+                    let text = nestbolt_core::import::decode_drawing(&name, &bytes)
+                        .with_context(|| format!("cannot decode {}", p.display()))?;
+                    Ok((name, text))
                 })
                 .collect::<Result<Vec<_>>>()?;
             let library = nestbolt_core::project::Library::import(&files, &options)?;

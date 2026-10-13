@@ -18,9 +18,11 @@ use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_ar
 mod cleanup;
 mod selection;
 mod svg_style;
+mod text;
 pub use cleanup::Cleanup;
 pub use selection::Channel;
 use selection::{Drawing, DrawingEntity};
+pub use text::decode_drawing;
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(default, deny_unknown_fields)]
@@ -95,6 +97,14 @@ pub struct OpenContour {
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
+pub struct UnitReport {
+    pub declared: bool,
+    pub mm_per_unit: f64,
+    pub largest_dimension_in_drawing_units: Option<f64>,
+    pub possible_inches: bool,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 pub struct ImportReport {
     pub silent_join_mm: f64,
     pub close_gaps_mm: Option<f64>,
@@ -108,6 +118,8 @@ pub struct ImportReport {
     pub selection_mode: String,
     #[serde(default)]
     pub cleanup: Cleanup,
+    #[serde(default)]
+    pub units: Option<UnitReport>,
 }
 
 impl ImportReport {
@@ -138,6 +150,7 @@ impl ImportReport {
             colors: vec![],
             selection_mode: String::new(),
             cleanup: Cleanup::default(),
+            units: None,
         })
     }
 }
@@ -1539,7 +1552,7 @@ fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) 
     } else {
         own.to_owned()
     };
-    let table = layers.get(&layer.to_ascii_lowercase());
+    let table = layers.get(&layer.to_lowercase());
     let color = if let Some(rgb) = e.get(420) {
         format!("#{:06x}", (rgb as u32) & 0xffffff)
     } else {
@@ -1726,10 +1739,9 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             "6" => Some(1000.0),
             "0" => None,
             other => {
-                warnings.push(format!(
-                    "unsupported $INSUNITS {other}; using the default unit"
-                ));
-                None
+                bail!(
+                    "unsupported $INSUNITS {other}; set the source drawing to mm, cm, metres, inches or feet and re-export with its units declared"
+                );
             }
         };
     }
@@ -1782,7 +1794,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         let name = e.text(2).unwrap_or("0").to_owned();
         drawing.known_layers.push(name.clone());
         layers.insert(
-            name.to_ascii_lowercase(),
+            name.to_lowercase(),
             DxfStyle {
                 layer: name,
                 color: e.get(420).map_or_else(
@@ -1804,7 +1816,27 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         &layers,
         &mut drawing,
     )?;
-    drawing.finish(options, warnings, report, inspect_only)
+    let mut imported = drawing.finish(options, warnings, report, inspect_only)?;
+    let extent = imported.parts.iter().map(|p| p.bounds).reduce(|a, b| {
+        [
+            a[0].min(b[0]),
+            a[1].min(b[1]),
+            a[2].max(b[2]),
+            a[3].max(b[3]),
+        ]
+    });
+    let largest = extent.map(|b| (b[2] - b[0]).max(b[3] - b[1]) / scale);
+    let possible_inches = unit.is_none() && largest.is_some_and(|size| size < 60.0);
+    if possible_inches {
+        imported.warnings.push(format!("drawing units are missing and the largest selected dimension is {:.6} units (under 60); this may be an inches drawing. Choose inches (25.4 mm per unit) if appropriate; current scale is {scale} mm per unit. No automatic rescaling was applied",largest.unwrap()));
+    }
+    imported.report.units = Some(UnitReport {
+        declared: unit.is_some(),
+        mm_per_unit: scale,
+        largest_dimension_in_drawing_units: largest,
+        possible_inches,
+    });
+    Ok(imported)
 }
 
 #[cfg(test)]

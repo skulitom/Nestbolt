@@ -261,11 +261,10 @@ impl Nestbolt {
                     .and_then(|n| n.to_str())
                     .context("file name")?
                     .to_owned();
-                files.push((
-                    name,
-                    std::fs::read_to_string(&full)
-                        .with_context(|| format!("cannot read {path}"))?,
-                ));
+                let bytes = std::fs::read(&full).with_context(|| format!("cannot read {path}"))?;
+                let text = nestbolt_core::import::decode_drawing(&name, &bytes)
+                    .with_context(|| format!("cannot decode {path}"))?;
+                files.push((name, text));
             }
             let library = Library::import(&files, &options)?;
             let out = match &p.library_path {

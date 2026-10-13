@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { exportSheet, importFiles, inspectFiles, Portfolio } from './engine';
+import { exportSheet, importFiles, inspectFiles, readDrawingFile, Portfolio } from './engine';
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
@@ -108,7 +108,7 @@ export function App() {
     if (!list?.length) return;
     setError(null); setBusy('Importing…');
     try {
-      const files = await Promise.all([...list].map(async (f) => ({ name: f.name, text: await f.text() })));
+      const files = await Promise.all([...list].map(readDrawingFile));
       setLastFiles(files);
       setImportChoices({}); setImportInventory([]);
       setImportInventory(await inspectFiles(files));
@@ -151,7 +151,7 @@ export function App() {
     if (!list?.length) return;
     setError(null);
     try {
-      const lib = await importFiles([{ name: list[0].name, text: await list[0].text() }]);
+      const lib = await importFiles([await readDrawingFile(list[0])]);
       const largest = lib.parts.reduce<LibraryPart | null>((a, b) => (!a || b.area_mm2 > a.area_mm2 ? b : a), null);
       if (!largest) throw new Error(`${list[0].name} has no closed outline to use as a remnant`);
       const [x0, y0, x1, y1] = largest.bounds_mm;
@@ -324,6 +324,11 @@ export function App() {
               <p class="hint">Gaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.</p>
               {importInventory.map(({ file, report }) => <details open key={file} class="import-channels">
                 <summary>Layers and colours — {file}</summary>
+                {report.units && !report.units.declared ? <label>DXF units when missing — {file}
+                  <select value={importChoices[file]?.dxfUnitMm ?? 1} disabled={!!busy}
+                    onChange={(e) => setImportChoices((current) => ({ ...current, [file]: { ...current[file], dxfUnitMm: num(e) } }))}>
+                    <option value={1}>Millimetres</option><option value={25.4}>Inches</option><option value={10}>Centimetres</option>
+                  </select></label> : report.units ? <p class="hint">File units: {report.units.mm_per_unit} mm per drawing unit.</p> : null}
                 {report.cleanup ? <p class="hint">Cleanup: {report.cleanup.duplicate_segments_removed} duplicate segments removed; {report.cleanup.zero_length_segments_removed} zero-length segments removed; {report.cleanup.overlapping_segments_merged} collinear overlaps merged.</p> : null}
                 <p class="hint">Automatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.</p>
                 {(['layers', 'colors'] as const).map((kind) => <fieldset>
@@ -339,7 +344,7 @@ export function App() {
                       }} /> {entry.name} <small>{entry.entities} entities · {entry.selected_entities} selected outlines/paths</small>
                   </label>)}
                 </fieldset>)}
-                <button disabled={!!busy} onClick={() => setImportChoices((current) => ({ ...current, [file]: {} }))}>Use automatic selection for {file}</button>
+                <button disabled={!!busy} onClick={() => setImportChoices((current) => ({ ...current, [file]: { dxfUnitMm: current[file]?.dxfUnitMm } }))}>Use automatic selection for {file}</button>
               </details>)}
               {lastFiles.length ? <button disabled={!!busy} onClick={() => importDrawings(lastFiles)}>Apply import options</button> : null}
             </div>

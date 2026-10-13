@@ -55,6 +55,12 @@ pub fn import_files_with_options(files_json: &str, options_json: &str) -> Result
     import_with_options(files_json, parse(options_json, "import options")?)
 }
 
+/// Decode file bytes using the same DXF/XML rules as the native tools.
+#[wasm_bindgen]
+pub fn decode_drawing(name: &str, bytes: &[u8]) -> Result<String, JsValue> {
+    nestbolt_core::import::decode_drawing(name, bytes).map_err(|e| fail(format!("{name}: {e:#}")))
+}
+
 /// Show layer/colour choices even when a drawing has no closed selected outline.
 #[wasm_bindgen]
 pub fn inspect_files(files_json: &str, options_json: &str) -> Result<String, JsValue> {

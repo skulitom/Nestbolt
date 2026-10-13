@@ -11804,3 +11804,25 @@ CCD0 physical core, then resumes; there is no before-affinity import window.
 The complete replacement used the same product binary. This is not H2 acceptance:
 fidelity, complete fuzzing and other required evidence remain pending. Overall
 completion remains 15%, with held-out scoring clarification still pending.
+
+## 2026-10-13 — N1 encoding and units checkpoint (H2 pending)
+
+[Evidence](benchmarks/results/h2-encoding-checkpoint-20261013.md). UI, CLI and MCP
+share lossless byte decoding for legacy/modern DXF and declared XML encodings.
+The dependency and all its notices are pinned. Unicode layer choices survive;
+missing units under 60 raw units prompt an explicit inches choice without any
+automatic scale change. Declared units win; unsupported unit codes fail clearly.
+
+[Training](benchmarks/results/h2-import-training-20261013T191255Z.json):
+251 imports, six rejections, 247/257 count matches; the two formerly unreadable
+legacy DXFs now match. Three partially imported negative fixtures and one missing
+island/topology case remain mismatches. This is not H2 acceptance.
+[Robustness](benchmarks/results/h2-import-robustness-20261013T191404Z.json):
+82 imports, 101 rejections, no panic/timeout, slowest 0.859 s. Suspended launch with
+CCD0 affinity set before execution, at most four physical cores, ten-second limits,
+unchanged source hashes and no held-out reads.
+
+All 19 focused importer tests, CLI/MCP byte-and-unit checks, ten Chromium/Firefox
+import checks and the full workspace suite pass (one existing ignored test).
+Strict lint, WASM/web build, schemas and dependency-notice verification pass.
+Remaining H2 evidence and scoring clarification are pending. Completion stays 15%.

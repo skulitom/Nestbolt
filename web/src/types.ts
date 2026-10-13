@@ -19,9 +19,10 @@ export interface ImportReport {
   colors?: ImportChannel[];
   selection_mode?: string;
   cleanup?: { duplicate_segments_removed: number; zero_length_segments_removed: number; overlapping_segments_merged: number };
+  units?: { declared: boolean; mm_per_unit: number; largest_dimension_in_drawing_units: number | null; possible_inches: boolean } | null;
 }
 export interface ImportChannel { name: string; entities: number; geometry_entities: number; selected_entities: number }
-export interface ImportSelection { layers?: string[]; colors?: string[] }
+export interface ImportSelection { layers?: string[]; colors?: string[]; dxfUnitMm?: number }
 
 export type Rotations =
   | { kind: 'free' }

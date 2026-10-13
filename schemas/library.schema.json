@@ -182,6 +182,17 @@
         "silent_join_mm": {
           "format": "double",
           "type": "number"
+        },
+        "units": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UnitReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -462,6 +473,33 @@
           "type": "object"
         }
       ]
+    },
+    "UnitReport": {
+      "properties": {
+        "declared": {
+          "type": "boolean"
+        },
+        "largest_dimension_in_drawing_units": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mm_per_unit": {
+          "format": "double",
+          "type": "number"
+        },
+        "possible_inches": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "declared",
+        "mm_per_unit",
+        "possible_inches"
+      ],
+      "type": "object"
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
