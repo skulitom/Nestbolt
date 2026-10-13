@@ -57,6 +57,21 @@ test('the example boxes import and nest in one click', async ({ page }) => {
   await expect(page.locator('.summary')).toContainText('valid');
 });
 
+test("a loading state, then a live view in the sheet's proportions, in a window that does not scroll", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Try an example: a mechanical kit' }).click();
+  await expect(page.locator('.pending .sheet-skeleton')).toBeVisible();
+  const canvas = page.locator('canvas.live-sheet').first();
+  await expect(canvas).toBeVisible({ timeout: 60_000 });
+  // A 1220 x 2440 mm sheet is drawn twice as tall as it is wide, never stretched.
+  const box = (await canvas.boundingBox())!;
+  expect(Math.abs(box.height / box.width - 2)).toBeLessThan(0.02);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight - innerHeight)).toBeLessThanOrEqual(0);
+  await page.getByRole('button', { name: 'Cancel' }).click();
+  await expect(page.getByRole('alert')).toContainText('Cancelled');
+});
+
 test('projects save to the browser and to a ZIP', async ({ page }) => {
   await importAndConfigure(page);
   await page.getByLabel('Project name').fill('Bracket run');

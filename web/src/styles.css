@@ -9,6 +9,8 @@
   --stock: #efe8d8;
   --margin: #c9bfa5;
   --offcut: rgba(89, 161, 79, 0.18);
+  /* Tallest sheet preview; on wide screens the app fits the window. */
+  --sheet-max: 70vh;
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -76,14 +78,44 @@ button.icon { padding: 0 6px; border: none; background: none; font-size: 18px; l
 figure { margin: 0; }
 figcaption { display: flex; gap: 6px; align-items: center; margin-top: 4px; font-size: 13px; }
 figcaption button { padding: 1px 8px; }
-.sheet { width: 100%; height: auto; display: block; max-height: 70vh; }
+.sheet { width: 100%; height: auto; display: block; max-height: var(--sheet-max); }
 .sheet .stock { fill: var(--stock); stroke: var(--margin); stroke-width: 0.5; vector-effect: non-scaling-stroke; }
 .sheet .margin { fill: none; stroke: var(--margin); stroke-dasharray: 4 3; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .sheet .defect { fill: var(--danger); opacity: 0.35; }
 .sheet .offcut { fill: var(--offcut); }
 .sheet .extent { fill: none; stroke: var(--accent); stroke-dasharray: 5 4; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .usage { color: var(--muted); margin-right: auto; }
-.live-sheet { aspect-ratio: auto; }
+/* A canvas keeps its bitmap's proportions only when CSS sizes neither side. */
+.live-sheet { width: auto; max-width: 100%; margin: 0 auto; }
+.skeleton {
+  background: linear-gradient(90deg, var(--line) 25%, var(--panel) 50%, var(--line) 75%);
+  background-size: 300% 100%; animation: shimmer 1.4s ease-in-out infinite; border-radius: 6px;
+}
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+.skeleton.line { height: 28px; margin: 4px 0; }
+.pending { --fit-h: 70vh; }
+.sheet-skeleton { margin: 8px auto 0; max-width: 100%; }
+@media (min-width: 861px) {
+  :root { --sheet-max: calc(100dvh - 250px); }
+  html, body { height: 100%; overflow: hidden; }
+  .app { height: 100dvh; display: flex; flex-direction: column; padding-bottom: 8px; }
+  main { flex: 1 1 auto; min-height: 0; grid-template-rows: minmax(0, 1fr); align-items: stretch; }
+  aside { min-height: 0; overflow-y: auto; padding-right: 4px; }
+  aside .run { position: sticky; bottom: 0; margin-top: auto; padding: 8px 0; background: var(--bg); }
+  /* The sheet area takes the rest of the result panel; previews fit inside it. */
+  .results { min-height: 0; overflow: hidden; }
+  .results > .sheets, .results > .live, .results > .pending { flex: 1 1 0; min-height: 0; }
+  .live, .pending { display: flex; flex-direction: column; }
+  .live > .sheets { flex: 1 1 0; min-height: 0; margin-top: 0; }
+  .results .sheets { overflow-y: auto; grid-auto-rows: 100%; }
+  .results figure { min-height: 0; display: flex; flex-direction: column; }
+  .results figure > svg.sheet { flex: 1 1 0; min-height: 0; max-height: none; }
+  .results figure > .live-sheet { flex: none; align-self: center; max-height: 100%; }
+  .pending .frame { flex: 1 1 0; min-height: 0; container-type: size; --fit-h: 100cqh; }
+  .pending .sheet-skeleton { margin-top: 0; }
+  footer { margin-top: 6px; }
+}
 .sheet .part { stroke: rgba(0, 0, 0, 0.45); stroke-width: 0.6; vector-effect: non-scaling-stroke; opacity: 0.9; }
-footer { margin-top: 24px; color: var(--muted); font-size: 13px; }
+footer { margin-top: 24px; color: var(--muted); font-size: 13px; flex: none; }
 footer a { color: var(--accent); }

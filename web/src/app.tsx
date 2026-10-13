@@ -48,6 +48,20 @@ const LARGE_JOB = 1000;
 const workersFor = (request: NestRequest, chosen: number) =>
   request.parts.reduce((n, p) => n + p.quantity, 0) > LARGE_JOB ? Math.min(chosen, 2) : chosen;
 
+/** Until the first layout arrives: the sheet's own shape, shimmering, and what is happening. */
+function Pending(props: { sheet: RequestSheet; label: string }) {
+  const { width_mm: w, height_mm: h } = props.sheet;
+  return (
+    <div class="pending" role="status">
+      <p class="hint">{props.label}</p>
+      <div class="frame">
+        <div class="skeleton sheet-skeleton" aria-hidden="true"
+          style={{ aspectRatio: `${w} / ${h}`, width: `min(100%, calc(var(--fit-h) * ${w / h}))` }} />
+      </div>
+    </div>
+  );
+}
+
 export function App() {
   const [name, setName] = useState('Untitled project');
   const [library, setLibrary] = useState<Library | null>(null);
@@ -168,14 +182,16 @@ export function App() {
   /** A bundled example drawing (web/public/examples, see its LICENSES.txt), nested at once. */
   async function tryExample(example: Example) {
     setError(null);
+    const [w, h] = example.sheet;
+    const sheet = blankSheet(w, h);
+    sheet.margins_mm = { left: example.margin, right: example.margin, bottom: example.margin, top: example.margin };
+    // The example's sheet first, so the loading skeleton already has its shape.
+    setRequest({ ...emptyRequest(), sheets: [sheet] });
     setBusy('Importing…');
     try {
       const text = await (await fetch(`./examples/${example.file}`)).text();
       const lib = await importFiles([{ name: example.file, text }]);
       const element = (p: LibraryPart) => p.source.split('#')[1]?.split(':')[0] ?? '';
-      const [w, h] = example.sheet;
-      const sheet = blankSheet(w, h);
-      sheet.margins_mm = { left: example.margin, right: example.margin, bottom: example.margin, top: example.margin };
       const req: NestRequest = {
         ...emptyRequest(),
         parts: lib.parts.map((p) => ({ id: p.id, quantity: example.quantities[element(p)] ?? example.default_quantity ?? 1,
@@ -310,6 +326,9 @@ export function App() {
                 })}
               </tbody>
             </table>
+            {busy === 'Importing…' && !request.parts.length
+              ? <div class="parts-loading" aria-hidden="true">{[0, 1, 2].map((k) => <div key={k} class="skeleton line" />)}</div>
+              : null}
           </section>
           <section aria-labelledby="sheets-title">
             <h2 id="sheets-title">Sheets</h2>
@@ -392,7 +411,11 @@ export function App() {
         </aside>
         <section class="results" aria-labelledby="results-title">
           <h2 id="results-title">Result</h2>
-          {busy && busy !== 'Nesting…' ? <p>{busy}</p> : null}
+          {busy && !(busy === 'Nesting…' && live) ? (
+            <Pending sheet={request.sheets[0]} label={busy !== 'Nesting…'
+              ? (busy === 'Importing…' ? 'Reading the drawing…' : busy)
+              : progress.elapsed < 1 ? 'Starting the search…' : `Finding a first layout… ${progress.elapsed.toFixed(0)} s`} />
+          ) : null}
           {busy === 'Nesting…' && live && library ? (
             <div class="live" aria-live="off">
               <p class="hint">Best layout so far ({live.material.toFixed(3)} sheets), updated while the search runs.</p>

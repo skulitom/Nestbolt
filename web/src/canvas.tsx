@@ -27,7 +27,14 @@ export function SheetCanvas(props: { library: Library; request: NestRequest; lay
     const c = canvas.current;
     const ctx = c?.getContext('2d');
     if (!c || !ctx) return;
-    const pixels = Math.min(1600, Math.round((c.clientWidth || 600) * (window.devicePixelRatio || 1)));
+    // The bitmap keeps the sheet's proportions; CSS scales it down to fit both
+    // the column width and the panel height without stretching it.
+    const box = c.parentElement?.clientWidth || 600;
+    // A pixel cap (narrow screens) or, when the panel fits the window, its height.
+    const max = getComputedStyle(c).maxHeight;
+    const tallest = max.endsWith('px') ? parseFloat(max) : c.parentElement?.clientHeight || Infinity;
+    const fit = Math.max(1, Math.min(box, tallest * (width / height)));
+    const pixels = Math.min(1600, Math.round(fit * (window.devicePixelRatio || 1)));
     const scale = pixels / width;
     c.width = pixels;
     c.height = Math.round(height * scale);

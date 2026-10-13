@@ -6,9 +6,22 @@
     <meta name="description" content="Free nesting for laser, CNC and fabric cutting. Runs in your browser; files never leave your device." />
     <title>Nestbolt</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E" />
+    <style>
+      /* Shown until the app loads (main.tsx replaces it); colours match styles.css. */
+      .boot { --b: #f6f5f1; --p: #ffffff; --l: #d9d6cd; max-width: 1400px; margin: 0 auto; padding: 12px 16px; display: grid; gap: 12px; }
+      @media (prefers-color-scheme: dark) { .boot { --b: #15181c; --p: #1e2227; --l: #343a42; } }
+      body:has(.boot) { margin: 0; background: var(--b, #f6f5f1); }
+      .boot i { display: block; border-radius: 8px; background: linear-gradient(90deg, var(--l) 25%, var(--p) 50%, var(--l) 75%);
+        background-size: 300% 100%; animation: boot 1.4s ease-in-out infinite; }
+      .boot .bar { height: 34px; }
+      .boot .main { display: grid; grid-template-columns: minmax(280px, 520px) 1fr; gap: 16px; height: calc(100vh - 90px); }
+      @media (max-width: 860px) { .boot .main { grid-template-columns: 1fr; height: auto; } .boot .main i { height: 40vh; } }
+      @keyframes boot { from { background-position: 100% 0; } to { background-position: 0 0; } }
+      @media (prefers-reduced-motion: reduce) { .boot i { animation: none; } }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app"><div class="boot" role="status" aria-label="Loading Nestbolt"><i class="bar"></i><div class="main"><i></i><i></i></div></div></div>
     <noscript>Nestbolt needs JavaScript and WebAssembly.</noscript>
     <script type="module" src="./src/main.tsx"></script>
   </body>
