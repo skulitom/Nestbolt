@@ -189,9 +189,11 @@ def budget_table(seconds, paths, phase='development'):
                'per_tool': {t: summarise([r['vs_tool'][t] for r in rows]) for t in TOOLS},
                'jobs': len(rows), 'jobs_without_competitor': sum(r['best'] is None for r in rows),
                'nestbolt_valid_runs': sum(v is not None for r in rows for v in r['nestbolt']['seeds'].values()),
-               'nestbolt_runs': sum(len(r['nestbolt']['seeds']) for r in rows)}
+               'nestbolt_runs': sum(len(r['nestbolt']['seeds']) for r in rows),
+               # A failed Nestbolt seed leaves no median to compare: never a dropped job, always a failure.
+               'nestbolt_failed_jobs': sum(not r['nestbolt']['all_valid'] for r in rows)}
     s = summary['best_of_tools']
-    summary['g2_pass'] = bool(s and s['median_reduction_percent'] >= TARGET
+    summary['g2_pass'] = bool(s and summary['nestbolt_failed_jobs'] == 0 and s['median_reduction_percent'] >= TARGET
                               and s['wins_or_ties'] >= 0.9 * s['jobs'] and s['worse_than_one_percent'] == 0)
     return {'seconds': seconds, 'records': records, 'summary': summary, 'rows': rows}
 
@@ -395,10 +397,16 @@ waived on 2026-10-12, decision 4).</p>
             seeds = ', '.join(f'{k}: {fmt(v)}' for k, v in sorted(n['seeds'].items()))
             out.append(f'<tr><td>{e(r["job"])}</td><td title="seeds {e(seeds)}">{fmt(n["median"])} [{fmt(n["q1"])}–{fmt(n["q3"])}]</td>'
                        f'{cells}<td>{e(NAMES[r["best"]["tool"]]) if r["best"] else "—"}</td>{red_cell}</tr>')
+        source = (f'<a href="{REPO}{e(BASELINE.relative_to(ROOT).as_posix().replace(".json", ".md"))}">M1 audit</a>'
+                  if phase == 'development' else
+                  f'the audited final batches, every run listed in <a href="{REPO}BENCHMARKS.md">BENCHMARKS.md</a> '
+                  f'(excluded sessions: <a href="{REPO}benchmarks/final-excluded.json">final-excluded.json</a>, replaced '
+                  f'harness faults: <a href="{REPO}benchmarks/final-replaced-runs.json">final-replaced-runs.json</a>)')
+        failed = (f' <strong>{s["nestbolt_failed_jobs"]} jobs with a failed Nestbolt seed count as failures.</strong>'
+                  if s['nestbolt_failed_jobs'] else '')
         out.append('</table></div><p class="muted">Records: '
                    + ', '.join(f'<a href="{REPO}{e(x["path"].replace(".json", ".md"))}">seed {x["seed"]}</a>' for x in b['records'])
-                   + f'; competitor medians: <a href="{REPO}{e(BASELINE.relative_to(ROOT).as_posix().replace(".json", ".md"))}">M1 audit</a>. '
-                   'Hover a value for its settings or per-seed results.</p>')
+                   + f'; competitor medians: {source}. Hover a value for its settings or per-seed results.{failed}</p>')
     out.append(gate_sections(data))
     out.append(f'''<h2>All gates</h2><p>Gate-by-gate evidence, including every failed and superseded run, is in
 <a href="{REPO}docs/STATUS.md">STATUS.md</a> and <a href="{REPO}BENCHMARKS.md">BENCHMARKS.md</a>. All numbers on this page are in
