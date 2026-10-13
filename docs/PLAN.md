@@ -273,3 +273,7 @@ Report progress as the sum of finished milestone weights. A milestone only count
    at or above 95-100%, near-optimal rectangle stacking, or a sheet fewer than the published bin counts). G2's median
    condition is the base **at least 5%**; the development median is 8.77%. The 90% wins/ties and never-more-than-1%-worse
    conditions are unchanged, at both budgets, on the final run with the held-out jobs.
+5. **Final results accepted (2026-10-13):** Artem accepts the final acceptance run as published (build `75cbb32`,
+   seeds 1000-1004, held-out jobs included). G1, G3, G4 and G2 at 300 s are met; G2 at 60 s is not met as written
+   (median 8.52%, 48 of 56 jobs won or tied, two jobs more than 1% worse, every loss against Sparrow). M5 closes on
+   this acceptance. The results page and README state the shortfall, and nothing is tuned against the final records.
