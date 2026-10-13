@@ -54,6 +54,27 @@ Libraries and CLI/MCP responses include an `imports` entry per file:
 
 ## File encoding and units
 
+SVG page sizing follows `viewBox` and `preserveAspectRatio`: the default fits the
+whole viewBox inside the page, `none` permits different horizontal and vertical
+scales, and `slice` fills the page. All nine alignment choices and the root
+`transform` are applied before converting to millimetres and Y-up coordinates,
+following the [SVG viewport transform specification](https://www.w3.org/TR/SVG2/coords.html#ComputingAViewportsTransform).
+If only width or height is provided, the other dimension inherits the viewBox
+aspect ratio. With neither, the configured SVG user-unit scale applies (96 DPI
+by default). Invalid or relative page sizes need an absolute size in mm or pixels.
+Nested SVG viewports must be flattened into a single page first.
+
+Page clipping does not trim cutting paths. A `slice` mapping that extends beyond
+the page warns that complete paths were imported; convert visible edges into
+closed paths if clipping is intended to define the cut.
+
+DXF polyline widths do not change cutting geometry: Nestbolt imports the
+centreline and warns when an LWPOLYLINE, POLYLINE or VERTEX specifies a nonzero
+width. This covers both constant and variable widths from the
+[DXF polyline fields](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-748FC305-F3F2-4F74-825A-61F04D757A50.htm).
+Convert widths to closed outline paths in the source drawing if their outer
+edges are the intended cut. This warning appears in the UI, CLI and MCP.
+
 The UI, CLI and MCP decode the original file bytes with the same reader. Older
 DXFs use their `$DWGCODEPAGE` setting, defaulting to Windows-1252 when it is absent;
 DXF R2007 and later use UTF-8. DXF Unicode escapes are decoded too, so non-ASCII

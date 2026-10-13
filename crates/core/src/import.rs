@@ -18,6 +18,7 @@ use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_ar
 mod cleanup;
 mod selection;
 mod svg_style;
+mod svg_viewport;
 mod text;
 pub use cleanup::Cleanup;
 pub use selection::Channel;
@@ -1067,33 +1068,7 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         "the document root is not <svg>"
     );
     let mut warnings = vec![];
-    // User units to millimetres, from the outer size and viewBox when given.
-    let view: Option<svgtypes::ViewBox> = root.attribute("viewBox").and_then(|v| v.parse().ok());
-    let width = root
-        .attribute("width")
-        .and_then(|v| length_mm(v, options.svg_user_unit));
-    let height = root
-        .attribute("height")
-        .and_then(|v| length_mm(v, options.svg_user_unit));
-    let (scale, origin) = match (view, width, height) {
-        (Some(v), Some(w), h) if v.w > 0.0 => {
-            let sx = w / v.w;
-            if let Some(h) = h
-                && v.h > 0.0
-                && ((h / v.h) - sx).abs() > 1e-9 * sx
-            {
-                warnings.push("non-uniform viewBox scaling; using the width scale".into());
-            }
-            (sx, [v.x, v.y])
-        }
-        (Some(v), None, _) => (options.svg_user_unit, [v.x, v.y]),
-        _ => (options.svg_user_unit, [0.0, 0.0]),
-    };
-    // SVG is Y-down: flip into the Y-up sheet frame.
-    let page = Affine {
-        m: [[scale, 0.0], [0.0, -scale]],
-        t: [-origin[0] * scale, origin[1] * scale],
-    };
+    let page = svg_viewport::page(root, options, &mut warnings)?;
     let ids: HashMap<&str, roxmltree::Node> = document
         .descendants()
         .filter_map(|n| n.attribute("id").map(|id| (id, n)))
@@ -1107,6 +1082,10 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             continue;
         }
         let name = node.tag_name().name();
+        ensure!(
+            node == root || name != "svg",
+            "nested SVG viewports are not supported; save as a plain SVG with a single page and apply nested viewport transforms to its paths"
+        );
         if matches!(
             name,
             "defs"
@@ -1439,6 +1418,9 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
             vec![map(begin, probe)]
         }
         "LWPOLYLINE" => {
+            if polyline_has_width(e, &[40, 41, 43]) {
+                warn_polyline_width(warnings, &source);
+            }
             let closed = e.get(70).is_some_and(|f| (f as i64) & 1 == 1);
             // Vertices and optional bulges appear in order: 10, 20, [42].
             let mut vertices: Vec<(Point, f64)> = vec![];
@@ -1509,6 +1491,16 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
             vec![]
         }
     })
+}
+
+fn polyline_has_width(e: &Entity, codes: &[i32]) -> bool {
+    e.codes.iter().any(|(code, value)| {
+        codes.contains(code) && value.parse::<f64>().is_ok_and(|width| width != 0.0)
+    })
+}
+
+fn warn_polyline_width(warnings: &mut Vec<String>, source: &str) {
+    warnings.push(format!("{source}: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut"));
 }
 
 fn polyline(vertices: &[(Point, f64)], closed: bool) -> Option<(Point, Vec<Segment>)> {
@@ -1646,10 +1638,12 @@ fn dxf_pieces(
         match e.kind {
             "POLYLINE" => {
                 let closed = e.get(70).is_some_and(|f| (f as i64) & 1 == 1);
+                let mut has_width = polyline_has_width(e, &[40, 41]);
                 let mut vertices = vec![];
                 i += 1;
                 while i < entities.len() && entities[i].kind == "VERTEX" {
                     let v = &entities[i];
+                    has_width |= polyline_has_width(v, &[40, 41]);
                     if let (Some(x), Some(y)) = (v.get(10), v.get(20)) {
                         vertices.push(([x, y], v.get(42).unwrap_or(0.0)));
                     }
@@ -1660,6 +1654,9 @@ fn dxf_pieces(
                     "POLYLINE on layer {:?} is missing its SEQEND; repair or re-export this DXF with polylines intact",
                     style.layer
                 );
+                if has_width {
+                    warn_polyline_width(warnings, &format!("{}:POLYLINE", style.layer));
+                }
                 if let Some((s, segs)) = polyline(&vertices, closed) {
                     let (s, segs) = map_segments(s, &segs, &e.ocs().then(transform));
                     pieces.push(Piece {

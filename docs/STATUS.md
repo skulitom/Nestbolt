@@ -20,6 +20,13 @@ due by 2026-11-06. Release and registry publication still require Artem's instru
 | N4 — Common-line cutting | 15% | Pending; H5 requires compensated geometry, savings and surface evidence |
 | N5 — Lead-in allowances | 5% | Pending; H6 requires footprint validation, start points and surface evidence |
 
+Latest N1 checkpoint: [SVG page sizing and DXF width warnings](../benchmarks/results/h2-viewport-checkpoint-20261013.md)
+now work across UI, CLI and MCP. All ten generated width fixtures warn explicitly;
+training import/count results are unchanged. All 17 importable training SVGs pass
+the fidelity rerun (1,094 contours, maximum 0.003302 mm); four retain their clear
+rejections. The workspace passes 176 tests and the browser checks pass 18 cases.
+H2 is still incomplete and the v1.1 milestone total remains 15%.
+
 ## v1 — accepted
 
 **Completion: 100% on Artem's acceptance (plan decision 5, 2026-10-13).** M0-M4 met their gates. M5 closed when Artem accepted the published final run: G1, G3, G4 and G2 at 300 s are met; G2 at 60 s is not met as written (85.7% wins or ties against the 90% required, two jobs more than 1% worse, every loss against Sparrow).

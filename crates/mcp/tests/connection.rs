@@ -66,6 +66,15 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
         assert_eq!(retraced["parts"][0]["holes"],1);
         assert_eq!(retraced["imports"][0]["report"]["cleanup"]["closed_path_overlaps_preserved"],2);
         assert!(retraced["warnings"].as_array().unwrap().iter().any(|w| w.as_str().unwrap().contains("keep closed paths connected")));
+        std::fs::write(workspace.join("viewport.svg"),include_str!("../../core/tests/fixtures/viewport.svg")).unwrap();
+        std::fs::write(workspace.join("width.dxf"),include_str!("../../core/tests/fixtures/polyline-width.dxf")).unwrap();
+        let physical=call("import_parts",json!({"paths":["viewport.svg","width.dxf"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(physical["part_count"],2);
+        for (value,expected) in physical["parts"][0]["bounds_mm"].as_array().unwrap().iter().zip([65.4,-62.7,85.4,-42.7]) {
+            assert!((value.as_f64().unwrap()-expected).abs()<1e-9);
+        }
+        assert_eq!(physical["parts"][1]["bounds_mm"],json!([0.0,0.0,10.0,5.0]));
+        assert!(physical["warnings"].as_array().unwrap().iter().any(|w|w.as_str().unwrap().contains("polyline widths ignored")));
         let legacy="0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1009\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\nCUT_Ø\n70\n1\n90\n4\n10\n0\n20\n0\n10\n20\n20\n0\n10\n20\n20\n10\n10\n0\n20\n10\n0\nENDSEC\n0\nEOF\n";
         std::fs::write(workspace.join("arranged.svg"),include_str!("../../core/tests/fixtures/prearranged-sheet.svg").replace("id=\"SHEET\"","id=\"MATERIAL\"")).unwrap();
         let arranged=call("import_parts",json!({"paths":["arranged.svg"],"sheet_layers":["MATERIAL"]})).await.unwrap().structured_content.unwrap();

@@ -1,0 +1,165 @@
+{
+  "date": "2026-10-13",
+  "scope": "SVG page dimensions and explicit DXF polyline-width warnings",
+  "H2": false,
+  "completed_milestone_percent": 15,
+  "held_out_read": false,
+  "source_sha256": "ab6f77b91937baff84b6843d78ee764c95c4ed3baacbc735dd452f40aca6a1fa",
+  "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+  "training_report": "h2-import-training-20261013T213953Z.json",
+  "training_counts": {
+    "imported": 246,
+    "rejected": 11
+  },
+  "raw_count_matches": 245,
+  "reviewed_count_matches": 246,
+  "reviewed_exception": "h2-r43-scoring-exception-20261013.json",
+  "prior_import_and_count_results_unchanged": true,
+  "robustness_report": "h2-import-robustness-20261013T214000Z.json",
+  "robustness_counts": {
+    "imported": 36,
+    "rejected": 147
+  },
+  "maximum_native_import_s": {
+    "training": 0.5152949999901466,
+    "robustness": 0.7937613999820314
+  },
+  "fidelity_report": "h2-fidelity-20261013T214119Z.json",
+  "svg_fidelity_counts": {
+    "passed": 17,
+    "rejected": 4
+  },
+  "contours_compared": 1094,
+  "max_finite_hausdorff_mm": {
+    "svg": 0.0033016797131244944,
+    "dxf": 0.000497298728625928
+  },
+  "width_warning_checks": [
+    {
+      "path": "generated/bezier--bulges-widths.dxf",
+      "source_sha256": "cb19b0d21abf6c4a4c36cb47d6baaccf66a607d68f3c015331634c2b8fc234be",
+      "label_sha256": "39194edd6cb7eaed552dc84c4f05208b340e632f5e597544f7c7cf7a6aae42c5",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 1,
+      "example_warning": "bezier--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/example-frame--bulges-widths.dxf",
+      "source_sha256": "10b4f56d26c62548a147c60532f2827c727d3925f72bb640079faa6dcbc1ab90",
+      "label_sha256": "752eb2db7c07145cd0c57d386958b253319d77aea6dd22f5c90ac53a350c85d2",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 2,
+      "example_warning": "example-frame--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/maker-bracket--bulges-widths.dxf",
+      "source_sha256": "ac182b811318888a5e572680a999095bf7096a613f93871c79fac4769a4d8a92",
+      "label_sha256": "7631544870a0d3301d3e1b67cb47d83224928dcf2cf749a6af101472f2b499c7",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 4,
+      "example_warning": "maker-bracket--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/maker-cog--bulges-widths.dxf",
+      "source_sha256": "d1b2eabfcc0ef1c66fa8548ee9586da5ef0a75dcc7a5123d260159bea618be25",
+      "label_sha256": "8cc3ace43f65313f4927ecf15d1f5e24f9c608eb4d2bdd12bea3488b2cf48215",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 2,
+      "example_warning": "maker-cog--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/maker-frame--bulges-widths.dxf",
+      "source_sha256": "ba8402fbbd5a934bc3b3fe984c915c825932be50839c216793e0070aeeceef0d",
+      "label_sha256": "f633f52dd2ef13857d7498dd805eb520a7c38b6410b658b910d2324c0e937f58",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 2,
+      "example_warning": "maker-frame--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/maker-insert--bulges-widths.dxf",
+      "source_sha256": "c2ee8c0d2661ab2a6d968976c42590ded7bde4860ae40a32c175b5690801b909",
+      "label_sha256": "981f5b84329436a7fa6867544e02e71ae68eea5294480ad6fe588a1a84800cf7",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 2,
+      "example_warning": "maker-insert--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/oval--bulges-widths.dxf",
+      "source_sha256": "d3b0d24fa3f108f9668fb056f403b4708bb20994984e1d05bc2291fb20a11801",
+      "label_sha256": "8dd875496291de8cd496d160b4c7ad8571748c97eebca33a3dc5ec60dc4b4f5a",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 1,
+      "example_warning": "oval--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/rotated-frame--bulges-widths.dxf",
+      "source_sha256": "c78aa046537eae2b6b06dd4135811cf0c4beb4eb804bd8354c1f7667c3bd7103",
+      "label_sha256": "5ad0a14eaab7cb6a499ccf76a1e2471462025ee8b9aa61dc91a0512fa24a7315",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 2,
+      "example_warning": "rotated-frame--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/rounded--bulges-widths.dxf",
+      "source_sha256": "143e35bad2c2ab0790c8445d91f1de05fadcdba5cdef285ca6738f340ce9447f",
+      "label_sha256": "24a2de3af5a0d93cef52bd4ac54821bdfe4777dda8851be788315630e7d89299",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 1,
+      "example_warning": "rounded--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    },
+    {
+      "path": "generated/washer--bulges-widths.dxf",
+      "source_sha256": "8b34cd666f0e0d849853d16a6054a23062690a9216c24c576c2c075756450076",
+      "label_sha256": "bb627387017040c883faeaa04bc2025af0100ebabe5b4402046de0b642cb8861",
+      "expected_warning": "polyline_widths_ignored_for_cut_centerline",
+      "observed_warning_count": 2,
+      "example_warning": "washer--bulges-widths.dxf: CUT:LWPOLYLINE: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut",
+      "counts_match": true
+    }
+  ],
+  "validation": {
+    "workspace_passed": 176,
+    "workspace_ignored": 1,
+    "focused_import_tests_passed": 6,
+    "browser_unique_final_passes": 18,
+    "browser_scope": "16 existing import/gap checks plus 2 new viewport/width checks, in Chromium and Firefox",
+    "strict_clippy": true,
+    "schema_check": true,
+    "native_release_build": true,
+    "wasm_and_web_build": true,
+    "browser_type_check": true,
+    "frozen_hashes_verified": 1181
+  },
+  "retained_test_corrections": [
+    {
+      "stage": "audit launch",
+      "detail": "The shop-label Python environment lacked psutil; no import child or benchmark report was created. Reran the unchanged runner with the configured system Python."
+    },
+    {
+      "stage": "browser rendering oracle",
+      "initial_passed": 17,
+      "initial_failed": 1,
+      "detail": "Chromium CSS page layout reported x=65.39921223958332 mm for the analytical 65.4 mm edge, a 0.000787760416685046 mm difference. The initial browser-only 0.0005 mm comparison was narrower than subpixel layout rounding. The rendering oracle now allows 0.005 mm; both browsers pass. Native CLI/MCP bounds retain 1e-9 mm checks. No product code was changed for this test correction."
+    }
+  ],
+  "remaining": [
+    "Four dense DXF fidelity timeouts and two thin-shape nesting errors",
+    "Remaining expected-warning audit and 10,000-case habit fuzzing",
+    "56 native-project training files depend on N2",
+    "Held-out scoring denominator clarification remains pending; split unchanged",
+    "N2-N5 and H3-H6 remain incomplete"
+  ],
+  "references": {
+    "svg_viewport": "https://www.w3.org/TR/SVG2/coords.html#ComputingAViewportsTransform",
+    "dxf_widths": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-748FC305-F3F2-4F74-825A-61F04D757A50.htm"
+  }
+}

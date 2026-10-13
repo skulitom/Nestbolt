@@ -53,6 +53,41 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports() {
+    let dir = temp("viewport-widths");
+    let svg = dir.join("viewport.svg");
+    let dxf = dir.join("width.dxf");
+    fs::write(&svg, include_str!("../../core/tests/fixtures/viewport.svg")).unwrap();
+    fs::write(
+        &dxf,
+        include_str!("../../core/tests/fixtures/polyline-width.dxf"),
+    )
+    .unwrap();
+    let path = import(&dir, &[svg, dxf]);
+    let library: Value = serde_json::from_slice(&fs::read(path).unwrap()).unwrap();
+    assert_eq!(library["parts"].as_array().unwrap().len(), 2);
+    for (value, expected) in library["parts"][0]["bounds_mm"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .zip([65.4, -62.7, 85.4, -42.7])
+    {
+        assert!((value.as_f64().unwrap() - expected).abs() < 1e-9);
+    }
+    assert_eq!(
+        library["parts"][1]["bounds_mm"],
+        json!([0.0, 0.0, 10.0, 5.0])
+    );
+    assert!(
+        library["warnings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|w| w.as_str().unwrap().contains("polyline widths ignored"))
+    );
+}
+
+#[test]
 fn prearranged_sheet_is_discovered_and_used_without_nesting_the_boundary() {
     let dir = temp("imported-sheet");
     let source = dir.join("arranged.svg");
