@@ -23,7 +23,9 @@ does not satisfy that promise: scheduling changes how many search steps finish.
 A work budget converts `WORK_SHARE` (0.5) of `time_budget_s` to work. The full
 `time_budget_s` stays a hard real-time limit. If it arrives first, the search
 stops at a cooperative checkpoint, returns its best checked layout and reports
-`repeatable: false`; the MCP reply suggests a larger budget.
+`repeatable: false`; the MCP reply suggests a larger budget. The CLI's
+`--time-limit` raises that real-time limit (never below the budget) without
+changing the work, so a slower machine can still finish it and get the same layout.
 
 ## Calibration
 

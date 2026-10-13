@@ -106,6 +106,10 @@ fn nest(dir: &Path, library: &Path, request: Value, seconds: &str) -> Nested {
         "--seconds".as_ref(),
         seconds.as_ref(),
         "--repeatable".as_ref(),
+        // CI runners can be more than twice as slow as the reference PC; the
+        // work budget stays the same, so the layout does too.
+        "--time-limit".as_ref(),
+        "120".as_ref(),
     ]);
     assert!(
         out.status.success(),
@@ -419,9 +423,6 @@ fn svg_and_dxf_in_curves_out_and_re_export() {
 }
 
 #[test]
-// Work budgets assume a machine at least half as fast as the reference PC;
-// jagua-rs debug assertions make dev builds slower, so check.py runs this in release.
-#[cfg_attr(debug_assertions, ignore = "needs a release build")]
 fn repeatable_budgets_give_the_same_layout() {
     let dir = temp("repeat");
     let library = import(&dir, &[example("parts.svg")]);

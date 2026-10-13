@@ -48,6 +48,10 @@ enum Command {
         /// inputs, budget and seed give the same layout.
         #[arg(long)]
         repeatable: bool,
+        /// Real-time limit for a repeatable budget (default: --seconds). On a
+        /// machine slower than the reference PC, allow more so the work finishes.
+        #[arg(long, requires = "repeatable")]
+        time_limit: Option<f64>,
     },
     /// Write per-sheet SVG and DXF files for an existing layout.
     Export {
@@ -93,6 +97,9 @@ enum Command {
         /// Use a repeatable work budget instead of wall-clock time.
         #[arg(long)]
         repeatable: bool,
+        /// Real-time limit for a repeatable budget (default: --seconds).
+        #[arg(long, requires = "repeatable")]
+        time_limit: Option<f64>,
     },
     /// Compact an existing valid layout with bounded translation sweeps.
     Compact {
@@ -291,6 +298,7 @@ fn main() -> Result<()> {
             seed,
             sheet_outline,
             repeatable,
+            time_limit,
         } => {
             let library: nestbolt_core::project::Library =
                 serde_json::from_slice(&fs::read(&library)?)
@@ -310,6 +318,7 @@ fn main() -> Result<()> {
                     } else {
                         nestbolt_core::clock::Timing::Wall
                     },
+                    time_limit,
                     ..Default::default()
                 },
                 |p, _| eprintln!("{}", serde_json::to_string(p).expect("finite progress")),
@@ -404,6 +413,7 @@ fn main() -> Result<()> {
             compress_fraction,
             window,
             repeatable,
+            time_limit,
         } => {
             let job = serde_json::from_slice(&fs::read(&job)?)?;
             let result = nestbolt_core::sheets::optimize(
@@ -419,6 +429,7 @@ fn main() -> Result<()> {
                     } else {
                         nestbolt_core::clock::Timing::Wall
                     },
+                    time_limit,
                 },
                 |p, _| {
                     eprintln!(

@@ -49,6 +49,10 @@ pub struct Options {
     pub window: usize,
     /// Wall-clock benchmarks, or repeatable work budgets.
     pub timing: Timing,
+    /// Real-time limit of a repeatable work budget, at least `seconds` (default
+    /// `seconds`). A slower machine than the reference PC can allow more real
+    /// time so the same work still finishes; wall-clock runs ignore it.
+    pub time_limit: Option<f64>,
 }
 
 impl Default for Options {
@@ -60,6 +64,7 @@ impl Default for Options {
             compress_fraction: 0.25,
             window: 12,
             timing: Timing::Wall,
+            time_limit: None,
         }
     }
 }
@@ -548,8 +553,16 @@ pub fn optimize(
         "sheet budget must be in (0, 300] seconds"
     );
     ensure!(options.window >= 1, "the window needs at least one sheet");
+    let limit = match options.timing {
+        Timing::Work => options.time_limit.unwrap_or(options.seconds),
+        Timing::Wall => options.seconds,
+    };
+    ensure!(
+        limit >= options.seconds && limit <= 3600.0,
+        "the time limit must be between the budget and 3600 seconds"
+    );
     let started = Instant::now();
-    let clock = Clock::new(options.timing, options.seconds);
+    let clock = Clock::new(options.timing, limit);
     // A work budget aims to finish within the real limit on the reference machine.
     let budget = match options.timing {
         Timing::Wall => options.seconds,

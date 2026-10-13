@@ -1,8 +1,9 @@
 # Nestbolt
 
-**Currently 8.4% less material at the median than the best of Deepnest, SVGnest and
-Sparrow**, at equal 60-second budgets on the 52 benchmark sheet jobs where a
-competitor produced a valid layout ([details](#how-it-compares), [every number](https://skulitom.github.io/Nestbolt/results/)).
+**8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow**
+at equal 60-second budgets, and 9.6% at 300 seconds, in the final benchmark run
+(fresh seeds, ten held-out jobs). Sparrow still wins 8 of the 56 jobs at 60 seconds
+([details](#how-it-compares), [every number](https://skulitom.github.io/Nestbolt/results/)).
 
 Free, open-source nesting for people who cut **fixed sheets**: laser cutters, CNC
 routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use
@@ -20,32 +21,41 @@ validator. Rebuild it with `python scripts/make_showcase.py --nest 120`.
 
 ## How it compares
 
-Development benchmark: 65 frozen sheet jobs (35 academic, 30 maker), equal time
-budgets, one CPU core per tool, three seeds each, every layout checked by an
-independent validator. The comparison is against the best of
-[Deepnest](https://github.com/deepnest-next/deepnest), [SVGnest](https://github.com/Jack000/SVGnest) and
-[Sparrow](https://github.com/JeroenGar/sparrow) on each job.
+Final acceptance run (2026-10-13): 75 frozen sheet jobs (35 academic, 40 maker,
+ten of them held out from all tuning), equal time budgets, one CPU core per tool,
+five fresh seeds each, every layout checked by an independent validator. The
+comparison is against the best of [Deepnest](https://github.com/deepnest-next/deepnest),
+[SVGnest](https://github.com/Jack000/SVGnest) and [Sparrow](https://github.com/JeroenGar/sparrow)
+on each job, each with the better of its two settings.
 
-| Budget | Valid layouts | Less material than the best competitor (median) | Wins or ties |
+| Budget | Valid Nestbolt layouts | Less material than the best competitor (median) | Wins or ties |
 | --- | ---: | ---: | ---: |
-| 60 s | 195/195 | **8.4%** | 48 of 52 |
-| 300 s (long subset) | 30/30 | **7.6%** | 8 of 9 |
+| 60 s | 375/375 | **8.5%** | 48 of 56 |
+| 300 s (long subset) | 60/60 | **9.6%** | 11 of 11 |
+
+At 60 s Nestbolt uses less material than Deepnest on all 55 jobs where Deepnest
+produced a layout (median 9.9%) and than SVGnest on all 36 (14.4%). Sparrow, which
+Nestbolt builds on, wins 8 jobs. Seven are one-sheet jobs that Nestbolt hands to
+Sparrow itself after its own first layout, so Sparrow runs with slightly less time
+there; it is 0.03-2.4% better on them. The eighth (two sheets) is 0.34% better.
+That misses the project's own 60-second bar (wins or ties on 90% of jobs and never
+more than 1% worse); the 300-second, strip-parity and speed bars are met
+([status](docs/STATUS.md)).
 
 ![A benchmark job as nested: frames with inserts in their windows, gears and brackets, compressed to one end of the sheet](docs/images/mechanical-mix.png)
 
-One benchmark job exactly as nested in the 60-second run (`m-mechanical-frame-inserts`,
+One benchmark job exactly as nested in a 60-second development run (`m-mechanical-frame-inserts`,
 seed 0, sheet turned to landscape): 138 parts, all 39 inserts placed inside frame
 windows, everything packed into 56% of a 2440 × 1220 mm sheet so the rest stays one
 offcut. The best competitor used 62% of the sheet on this job.
 
-In 30 s Nestbolt matches the competitors' 300 s result on 8 of 9 jobs. The losses
-are single-sheet strip jobs where Sparrow, which Nestbolt builds on, is
-strongest. These are development results; the final acceptance run uses fresh
-seeds and ten held-out jobs. Every run, including failures, is in
+In 30 s Nestbolt matches the competitors' 300 s result on 10 of 11 jobs. The first
+final run (build `484ce8b`) stopped with an error on one job; the fix is in `75cbb32`
+and both runs are published. Every run, including failures, is in
 [BENCHMARKS.md](BENCHMARKS.md); [status](docs/STATUS.md) lists the evidence per
 gate. The [results page](https://skulitom.github.io/Nestbolt/results/) shows every
 per-job number, tool revision, seed and the hardware; `python scripts/reproduce.py
---phase development` rebuilds the datasets, reruns what is missing and regenerates it.
+--phase final --final-acceptance` rebuilds the datasets, reruns what is missing and regenerates it.
 
 ## What works today
 
@@ -114,7 +124,9 @@ A request names library parts with quantities and the sheets in millimetres:
 so on. Existing files are never overwritten. `nestbolt export` re-exports a
 layout; `nestbolt validate` checks a polygon job and layout. Add `--repeatable`
 to `nestbolt nest` or `nestbolt sheets` for a deterministic work budget instead of
-wall-clock time: the same inputs, budget and seed then give the same layout.
+wall-clock time: the same inputs, budget and seed then give the same layout. On a
+machine much slower than the reference PC, `--time-limit <seconds>` allows more real
+time for the same work (the default is `--seconds`).
 File formats are described by the [JSON Schemas](schemas/README.md).
 
 ## Browser app
