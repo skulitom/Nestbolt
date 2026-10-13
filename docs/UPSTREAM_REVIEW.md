@@ -47,3 +47,12 @@ Distribution references reviewed: [Cutbolt #2](https://github.com/skulitom/Cutbo
 and [Inkbolt #1](https://github.com/skulitom/Inkbolt/pull/1). They inform the M4 plan;
 no code from these PRs has been copied. MCP uses the [official Rust SDK](https://github.com/modelcontextprotocol/rust-sdk),
 pinned to rmcp 3.5.1.
+
+
+Rechecked on 2026-10-13 at the H1 completion / N1 boundary. The [Studio README](https://github.com/JeroenGar/sparrow-studio)
+still excludes automatic multi-sheet allocation and nesting in holes; no stop
+condition fired. [Sparrow](https://github.com/JeroenGar/sparrow) remains a strip
+solver. [Deepnest releases](https://github.com/deepnest-next/deepnest/releases)
+still mark v1.5.6 latest. The [LightBurn early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
+still describes 2.2 True Nest as Pro-only. This is a capability/documentation
+review, not a performance measurement or software update.

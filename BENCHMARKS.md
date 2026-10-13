@@ -11709,3 +11709,20 @@ Native save is explicitly not a no-op XML oracle; hidden layers, missing text
 caches, legacy mode changes and zero-area open-line proxies are documented.
 No N1 implementation or quality benchmark ran. H1 and the split remain pending;
 completed milestone weight is 0%.
+
+
+## 2026-10-13 — H1 frozen before N1 (N0 complete, 15%)
+
+[Gate report and exact allocation](benchmarks/results/h1-freeze-20261013.md), [JSON](benchmarks/results/h1-freeze-20261013.json).
+Manifest SHA-256 `02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7`; authoring checkpoint `709c415e3e19a7d6821ff3f1ac25cab6708158a1`.
+534 primary inputs; 338 labels; 148 reviewed renders; 1,181 checksummed and attributed
+corpus files. Hold out 15 real files (5 Fusion, 1 FreeCAD, 9 unknown) and 10 native
+files. Seed `nestbolt-v1.1-h1-110113`; metadata-only grouped allocation keeps
+source/derivative, paired-format and byte-identical lineages together. This entry
+precedes every N1 change. No held-out tuning and no redraw based on results.
+
+The random grouped split contains two pre-existing negative fixtures. Their
+required clear rejection means literal H2 successful-import coverage can reach
+only 23/25 (92%). H2 remains unpassed; its scoring needs an explicit decision,
+not a silent denominator/threshold change. Independent implementation continues.
+All other gates remain pending. Published v1 claims are unchanged.
