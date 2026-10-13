@@ -83,6 +83,10 @@ closed Bézier loops are retained. Overlapping collinear lines are merged into
 their union; neighbouring parallel lines are not merged. This does not flatten
 curves or increase the 0.005 mm join threshold.
 
+Retraces needed to keep a closed path connected retain their exact curves and
+produce a warning plus `cleanup.closed_path_overlaps_preserved`. Cleanup does
+not disconnect a neighbouring arc to remove a short overlapping bridge.
+
 Every report has `cleanup.duplicate_segments_removed`,
 `cleanup.zero_length_segments_removed` and `cleanup.overlapping_segments_merged`,
 including zero counts. The browser displays these counts beside each file's
@@ -168,3 +172,61 @@ display discrepancy whose saved geometry remains exact within native precision.
 These are initial N1 capabilities. Full corpus fidelity and 10,000-case property
 testing still need their H2 evidence. The frozen corpus and held-out partition
 must not change in response to these tests.
+
+
+## Sheet outlines in pre-arranged nests
+
+Importing a drawing offers closed boundaries on its `SHEET` layer separately
+from the cutting parts. The availability message and `sheet_outlines` list give
+each outline an ID, measured size and original position. Discovery does not
+change the chosen cutting layers or automatically replace your stock.
+
+In the browser, select **Imported sheet outline** for the required sheet size.
+The **Remnant outline** file picker also prefers `SHEET` over `CUT`, so parts
+already placed on a sheet do not become holes in the stock. For another layer
+name, tick it under **Sheet outline layers**, apply the import options, then
+choose the resulting outline. Several separate stock outlines are offered
+individually; the file picker asks you to choose rather than guessing.
+
+CLI imports discover `SHEET` automatically. Use `--sheet-layers MATERIAL` for a
+custom stock layer; MCP `import_parts` takes `sheet_layers: ["MATERIAL"]`.
+An explicit empty list disables discovery; CLI uses `--sheet-layers` without
+values. Cut-layer and cut-colour choices
+remain independent of stock-layer discovery. Failed automatic stock discovery
+is reported while valid cutting parts remain importable; an explicitly requested
+invalid stock layer fails with a repair instruction.
+
+```powershell
+nestbolt import arranged.dxf --output library.json
+```
+
+A nesting request can select the returned ID without copying its geometry:
+
+```json
+{
+  "sheets": [{"from_import": "arranged-sheet-1", "count": 1}],
+  "spacing_mm": 1,
+  "edge_spacing_mm": 1
+}
+```
+
+This works with CLI `nest` and MCP `nest`, `validate_layout`, `export_layout` and
+`estimate_sheets`. `from_import` resolves against the same part library.
+Dimensions may be omitted or set to the measured values; conflicting sizes are
+rejected, never used to stretch the stock. Count, margins and defects remain
+request settings. MCP returns bounded summaries; complete outline geometry is
+kept in the library file.
+
+The sheet and its own holes move together to the lower-left origin in mm, Y-up
+coordinates. `origin_mm` records that translation. Curved stock records its
+flattening error; edge clearance covers both this error and the part-library
+curve tolerance. Self-intersecting or touching stock contours require repair in
+the source drawing: the outward repair used for part collision proxies cannot
+create extra usable stock. Gap closure still requires the same explicit setting.
+An explicit `outline_mm` may carry `outline_tolerance_mm` when supplied by the
+shared sheet importer; it cannot be combined with `from_import`.
+
+The shared WebAssembly `import_sheet` entry point returns
+[`SheetImport`](../schemas/sheet-import.schema.json), including selected outlines,
+import warnings and the layer/colour/gap report. Plain remnant drawings without
+a `SHEET` layer still use their closed outlines.

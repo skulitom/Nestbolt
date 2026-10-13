@@ -1,4 +1,4 @@
-use nestbolt_core::project::{Library, NestReport, Request};
+use nestbolt_core::project::{Library, NestReport, Request, SheetImport};
 
 fn main() -> Result<(), serde_json::Error> {
     println!(
@@ -7,6 +7,7 @@ fn main() -> Result<(), serde_json::Error> {
             "library.schema.json": schemars::schema_for!(Library),
             "request.schema.json": schemars::schema_for!(Request),
             "nest-report.schema.json": schemars::schema_for!(NestReport),
+            "sheet-import.schema.json": schemars::schema_for!(SheetImport),
         }))?
     );
     Ok(())

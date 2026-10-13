@@ -42,3 +42,12 @@ Examples live in `examples/validation-job.json` and `examples/validation-layout.
 [inspection.schema.json](inspection.schema.json). It is an interchange format for
 benchmarks, not a Nestbolt project format, and extra upstream metadata is not
 enforced as a constraint.
+
+
+## Imported stock outlines
+
+`library.schema.json` includes optional `sheet_outlines` separate from parts.
+A request sheet may use `from_import` with one of those IDs and omit its dimensions.
+The browser's standalone stock import returns [sheet-import.schema.json](sheet-import.schema.json).
+All coordinates are millimetres. The curve error is reserved at sheet edges; see
+[imported stock rules](../docs/IMPORTING.md#sheet-outlines-in-pre-arranged-nests).

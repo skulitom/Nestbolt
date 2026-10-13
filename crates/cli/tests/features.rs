@@ -53,6 +53,66 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn prearranged_sheet_is_discovered_and_used_without_nesting_the_boundary() {
+    let dir = temp("imported-sheet");
+    let source = dir.join("arranged.svg");
+    fs::write(
+        &source,
+        include_str!("../../core/tests/fixtures/prearranged-sheet.svg"),
+    )
+    .unwrap();
+    let library = dir.join("library.json");
+    let imported = nestbolt(&[
+        "import".as_ref(),
+        source.as_os_str(),
+        "--output".as_ref(),
+        library.as_os_str(),
+        "--sheet-layers".as_ref(),
+        "SHEET".as_ref(),
+    ]);
+    assert!(
+        imported.status.success(),
+        "{}",
+        String::from_utf8_lossy(&imported.stderr)
+    );
+    let response: Value = serde_json::from_slice(&imported.stdout).unwrap();
+    assert_eq!(response["sheet_outlines"][0]["id"], "arranged-sheet-1");
+    let disabled_library = dir.join("without-stock.json");
+    let disabled = nestbolt(&[
+        "import".as_ref(),
+        source.as_os_str(),
+        "--output".as_ref(),
+        disabled_library.as_os_str(),
+        "--sheet-layers".as_ref(),
+    ]);
+    assert!(
+        disabled.status.success(),
+        "{}",
+        String::from_utf8_lossy(&disabled.stderr)
+    );
+    let disabled: Value = serde_json::from_slice(&disabled.stdout).unwrap();
+    assert!(disabled["sheet_outlines"].as_array().unwrap().is_empty());
+    let value: Value = serde_json::from_slice(&fs::read(&library).unwrap()).unwrap();
+    assert_eq!(value["parts"].as_array().unwrap().len(), 2);
+    assert_eq!(value["sheet_outlines"][0]["width_mm"], 200.0);
+    let run = nest(
+        &dir,
+        &library,
+        json!({"sheets":[{"from_import":"arranged-sheet-1","count":1}],"spacing_mm":1,"edge_spacing_mm":1}),
+        "1",
+    );
+    assert_eq!(run.metrics()["placed_parts"], 2);
+    assert_eq!(run.job["stocks"][0]["width"], 200.0);
+    assert_eq!(
+        run.job["stocks"][0]["outline"][0]["holes"]
+            .as_array()
+            .unwrap()
+            .len(),
+        1
+    );
+}
+
+#[test]
 fn explicit_gap_repair_reports_its_size_and_location() {
     let dir = temp("gap-repair");
     let source = dir.join("gap.svg");

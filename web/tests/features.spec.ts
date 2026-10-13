@@ -137,6 +137,26 @@ test('a remnant outline from a drawing is used as the sheet', async ({ page }) =
   await expect(page.locator('svg.sheet path.stock')).toHaveCount(1);
 });
 
+test('a prearranged drawing keeps CUT parts separate from its SHEET boundary', async ({ page }) => {
+  const source = fileURLToPath(new URL('../../crates/core/tests/fixtures/prearranged-sheet.svg', import.meta.url));
+  const sheet = await setUp(page, [source], { 'prearranged-sheet-1': 1, 'prearranged-sheet-2': 1 }, 600, 400, 1);
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(2);
+  await sheet.getByLabel('Imported sheet outline for sheet size 1').selectOption('prearranged-sheet-sheet-1');
+  await expect(sheet.getByLabel('Width')).toHaveValue('200');
+  await expect(sheet.getByLabel('Height')).toHaveValue('100');
+  await sheet.getByLabel('Count').fill('1');
+  await nest(page);
+  await expect(page.locator('.summary')).toContainText('2/2');
+  await expect(page.locator('svg.sheet path.stock')).toHaveCount(1);
+  // The stock-file picker also prefers SHEET, even though CUT is the normal
+  // part-selection default for this same drawing.
+  await sheet.getByRole('button', { name: 'Use the full rectangle for sheet size 1' }).click();
+  await sheet.getByLabel('Width').fill('600');
+  await sheet.getByLabel('Remnant outline for sheet size 1').setInputFiles(source);
+  await expect(sheet.getByLabel('Width')).toHaveValue('200');
+  await expect(sheet.getByLabel('Height')).toHaveValue('100');
+});
+
 test('rotation lists, steps, free rotation, mirroring and spacing reach the solver', async ({ page }) => {
   await setUp(page, [example('parts.svg')], { 'parts-1': 1, 'parts-2': 4, 'parts-3': 4, 'parts-4': 6 }, 250, 200);
   await page.getByLabel('Rotations of parts-4').selectOption('0/180° (grain)');

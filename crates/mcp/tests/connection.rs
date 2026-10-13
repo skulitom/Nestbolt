@@ -67,6 +67,18 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
         assert_eq!(retraced["imports"][0]["report"]["cleanup"]["closed_path_overlaps_preserved"],2);
         assert!(retraced["warnings"].as_array().unwrap().iter().any(|w| w.as_str().unwrap().contains("keep closed paths connected")));
         let legacy="0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1009\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\nCUT_Ø\n70\n1\n90\n4\n10\n0\n20\n0\n10\n20\n20\n0\n10\n20\n20\n10\n10\n0\n20\n10\n0\nENDSEC\n0\nEOF\n";
+        std::fs::write(workspace.join("arranged.svg"),include_str!("../../core/tests/fixtures/prearranged-sheet.svg").replace("id=\"SHEET\"","id=\"MATERIAL\"")).unwrap();
+        let arranged=call("import_parts",json!({"paths":["arranged.svg"],"sheet_layers":["MATERIAL"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(arranged["part_count"],2);
+        assert_eq!(arranged["sheet_outlines"][0]["width_mm"],200.0);
+        assert!(arranged["sheet_outlines"][0].get("outline_mm").is_none(),"heavy geometry stays in the library");
+        let sheet_request=json!({"sheets":[{"from_import":"arranged-sheet-1","count":1}],"spacing_mm":1,"edge_spacing_mm":1});
+        let on_sheet=call("nest",json!({"library_path":arranged["library_path"],"request":sheet_request,"time_budget_s":2,"out_dir":"sheet-run"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(on_sheet["validation"]["valid"],true);
+        let checked_sheet=call("validate_layout",json!({"library_path":arranged["library_path"],"request":sheet_request,"layout_path":on_sheet["layout_path"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(checked_sheet["valid"],true);
+        let sheet_job:Value=serde_json::from_slice(&std::fs::read(workspace.join("sheet-run/job.json")).unwrap()).unwrap();
+        assert_eq!(sheet_job["stocks"][0]["outline"][0]["holes"].as_array().unwrap().len(),1);
         std::fs::write(workspace.join("legacy.dxf"),legacy.chars().map(|c|c as u8).collect::<Vec<_>>()).unwrap();
         let decoded=call("import_parts",json!({"paths":["legacy.dxf"],"layers":["CUT_Ø"],"dxf_unit_mm":25.4})).await.unwrap().structured_content.unwrap();
         assert_eq!(decoded["part_count"],1);assert_eq!(decoded["parts"][0]["bounds_mm"][2],508.0);

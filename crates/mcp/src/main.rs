@@ -50,6 +50,8 @@ struct ImportParams {
     layers: Option<Vec<String>>,
     /// DXF ACI numbers as strings (e.g. "7") or RGB colours (e.g. "#000000").
     colors: Option<Vec<String>>,
+    /// Stock-outline layers offered separately from parts (defaults to SHEET).
+    sheet_layers: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize, JsonSchema)]
@@ -241,6 +243,7 @@ impl Nestbolt {
                 close_gaps_mm: p.close_gaps_mm,
                 layers: p.layers,
                 colors: p.colors,
+                sheet_layers: p.sheet_layers,
                 ..Default::default()
             };
             if let Some(t) = p.tolerance_mm {
@@ -283,10 +286,14 @@ impl Nestbolt {
                 }
             };
             Self::write_new(&out, serde_json::to_string(&library)?.as_bytes())?;
+            // Keep the combined part/stock summary bounded; complete geometry
+            // and ids remain in the library file.
+            let sheet_limit = library.sheet_outlines.len().min(LIST_LIMIT / 2);
+            let part_limit = LIST_LIMIT - sheet_limit;
             let parts: Vec<Value> = library
                 .parts
                 .iter()
-                .take(LIST_LIMIT)
+                .take(part_limit)
                 .map(|q| {
                     json!({"id": q.id, "source": q.source, "area_mm2": q.area_mm2,
                     "bounds_mm": q.bounds_mm, "holes": q.holes.len()})
@@ -296,9 +303,14 @@ impl Nestbolt {
                 "library_path": self.rel(&out),
                 "part_count": library.parts.len(),
                 "parts": parts,
-                "parts_truncated": library.parts.len() > LIST_LIMIT,
+                "parts_truncated": library.parts.len() > part_limit,
                 "warnings": library.warnings.iter().take(50).collect::<Vec<_>>(),
                 "imports": library.imports,
+                "sheet_outlines": library.sheet_outlines.iter().take(sheet_limit).map(|s| json!({
+                    "id":s.id,"source":s.source,"width_mm":s.width_mm,"height_mm":s.height_mm,
+                    "origin_mm":s.origin_mm,"tolerance_mm":s.tolerance_mm})).collect::<Vec<_>>(),
+                "sheet_outline_count": library.sheet_outlines.len(),
+                "sheet_outlines_truncated": library.sheet_outlines.len() > sheet_limit,
             })))
         })()
         .map_err(tool_error)

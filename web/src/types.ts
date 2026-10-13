@@ -9,7 +9,9 @@ export interface LibraryPart {
   bounds_mm: [number, number, number, number];
   holes: unknown[];
 }
-export interface Library { version: number; tolerance: number; parts: LibraryPart[]; warnings: string[]; imports?: { file: string; report: ImportReport }[] }
+export interface SheetOutline { id: string; source: string; width_mm: number; height_mm: number; origin_mm: Point; outline_mm: Polygon[]; tolerance_mm: number }
+export interface SheetImport { outlines: SheetOutline[]; warnings: string[]; imports: { file: string; report: ImportReport }[] }
+export interface Library { version: number; tolerance: number; parts: LibraryPart[]; warnings: string[]; imports?: { file: string; report: ImportReport }[]; sheet_outlines?: SheetOutline[] }
 export interface ImportReport {
   silent_join_mm: number;
   close_gaps_mm: number | null;
@@ -22,7 +24,7 @@ export interface ImportReport {
   units?: { declared: boolean; mm_per_unit: number; largest_dimension_in_drawing_units: number | null; possible_inches: boolean } | null;
 }
 export interface ImportChannel { name: string; entities: number; geometry_entities: number; selected_entities: number }
-export interface ImportSelection { layers?: string[]; colors?: string[]; dxfUnitMm?: number }
+export interface ImportSelection { layers?: string[]; colors?: string[]; dxfUnitMm?: number; sheetLayers?: string[] }
 
 export type Rotations =
   | { kind: 'free' }
@@ -33,6 +35,7 @@ export interface RequestPart { id: string; quantity: number; rotations: Rotation
 export interface Margins { left: number; right: number; bottom: number; top: number }
 export interface RequestSheet {
   id?: string;
+  from_import?: string;
   width_mm: number;
   height_mm: number;
   count?: number | null;
@@ -40,6 +43,7 @@ export interface RequestSheet {
   defects_mm: Polygon[];
   /** A remnant's usable outline inside width x height; absent or empty is the full rectangle. */
   outline_mm?: Polygon[];
+  outline_tolerance_mm?: number;
 }
 export type Mode = 'all' | 'fill_area' | 'fill_priority';
 export interface NestRequest {

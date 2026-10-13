@@ -41,6 +41,9 @@ pub struct Options {
     pub layers: Option<Vec<String>>,
     /// Explicit DXF ACI numbers ("7" or "aci:7") or SVG/DXF RGB colours.
     pub colors: Option<Vec<String>>,
+    /// Stock-outline layers to offer separately in a part library. None detects
+    /// the SHEET layer; an empty list disables stock-outline discovery.
+    pub sheet_layers: Option<Vec<String>>,
 }
 
 impl Default for Options {
@@ -52,6 +55,7 @@ impl Default for Options {
             close_gaps_mm: None,
             layers: None,
             colors: None,
+            sheet_layers: None,
         }
     }
 }

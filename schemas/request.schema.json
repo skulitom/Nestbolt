@@ -133,7 +133,16 @@
           },
           "type": "array"
         },
+        "from_import": {
+          "default": null,
+          "description": "An imported stock-outline id from Library.sheet_outlines. Omit dimensions\nto use its measured size, or supply those same dimensions explicitly.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "height_mm": {
+          "default": 0.0,
           "format": "double",
           "type": "number"
         },
@@ -160,15 +169,18 @@
           },
           "type": "array"
         },
+        "outline_tolerance_mm": {
+          "default": 0.0,
+          "description": "Curve-to-polygon error of an imported stock outline. Edge clearance is\nincreased by this error as well as the part-library curve tolerance.",
+          "format": "double",
+          "type": "number"
+        },
         "width_mm": {
+          "default": 0.0,
           "format": "double",
           "type": "number"
         }
       },
-      "required": [
-        "width_mm",
-        "height_mm"
-      ],
       "type": "object"
     },
     "Rotations": {

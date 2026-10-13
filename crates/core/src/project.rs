@@ -16,6 +16,9 @@ use crate::curves::Contour;
 use crate::export::Outline;
 use crate::import::{Import, Options as ImportOptions, import_dxf, import_svg};
 
+mod sheet;
+pub use sheet::{SheetImport, SheetOutline};
+
 /// Imported parts in millimetres, with the tolerance of their polygons.
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
@@ -27,6 +30,10 @@ pub struct Library {
     pub warnings: Vec<String>,
     #[serde(default)]
     pub imports: Vec<FileImportReport>,
+    /// Stock outlines are separate from cutting parts and never nested as parts
+    /// merely because they were discovered on a SHEET layer.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sheet_outlines: Vec<SheetOutline>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
@@ -51,9 +58,18 @@ pub struct LibraryPart {
 impl Library {
     /// Import SVG and DXF files; part ids are `<file stem>-<n>`.
     pub fn import(files: &[(String, String)], options: &ImportOptions) -> Result<Self> {
+        Self::read(files, options, true)
+    }
+
+    fn read(
+        files: &[(String, String)],
+        options: &ImportOptions,
+        discover_sheets: bool,
+    ) -> Result<Self> {
         let mut parts = vec![];
         let mut warnings = vec![];
         let mut imports = vec![];
+        let mut sheet_outlines = vec![];
         for (name, text) in files {
             let lower = name.to_ascii_lowercase();
             let import: Import = if lower.ends_with(".svg") {
@@ -85,6 +101,35 @@ impl Library {
                 .and_then(|s| s.to_str())
                 .unwrap_or("part")
                 .to_owned();
+            if discover_sheets {
+                let layers = options.sheet_layers.clone().unwrap_or_else(|| {
+                    import
+                        .report
+                        .layers
+                        .iter()
+                        .filter(|l| l.name.eq_ignore_ascii_case("SHEET") && l.geometry_entities > 0)
+                        .map(|l| l.name.clone())
+                        .collect()
+                });
+                if !layers.is_empty() {
+                    let selected = ImportOptions {
+                        layers: Some(layers),
+                        colors: None,
+                        sheet_layers: None,
+                        ..options.clone()
+                    };
+                    match SheetImport::read(name, text, &selected) {
+                        Ok(sheets) => {
+                            warnings.push(format!("{name}: sheet_outline_available: {} stock outline(s) can be used as sheets; cut selection is unchanged", sheets.outlines.len()));
+                            sheet_outlines.extend(sheets.outlines);
+                        }
+                        Err(error) if options.sheet_layers.is_some() => return Err(error),
+                        Err(error) => warnings.push(format!(
+                            "{name}: SHEET outline could not be used as stock: {error:#}"
+                        )),
+                    }
+                }
+            }
             warnings.extend(import.warnings.into_iter().map(|w| format!("{name}: {w}")));
             imports.push(FileImportReport {
                 file: name.clone(),
@@ -113,6 +158,7 @@ impl Library {
             parts,
             warnings,
             imports,
+            sheet_outlines,
         })
     }
 }
@@ -191,7 +237,13 @@ pub struct RequestPart {
 #[serde(deny_unknown_fields)]
 pub struct RequestSheet {
     pub id: Option<String>,
+    /// An imported stock-outline id from Library.sheet_outlines. Omit dimensions
+    /// to use its measured size, or supply those same dimensions explicitly.
+    #[serde(default)]
+    pub from_import: Option<String>,
+    #[serde(default)]
     pub width_mm: f64,
+    #[serde(default)]
     pub height_mm: f64,
     /// Available sheets of this size; absent means unlimited.
     pub count: Option<u32>,
@@ -204,6 +256,10 @@ pub struct RequestSheet {
     /// whole rectangle.
     #[serde(default)]
     pub outline_mm: Vec<nestbolt_validator::Polygon>,
+    /// Curve-to-polygon error of an imported stock outline. Edge clearance is
+    /// increased by this error as well as the part-library curve tolerance.
+    #[serde(default)]
+    pub outline_tolerance_mm: f64,
 }
 
 /// What to nest. Lengths are millimetres.
@@ -285,23 +341,40 @@ impl Request {
                 },
             );
         }
+        let mut stock_tolerance = 0.0_f64;
         let stocks = self
             .sheets
             .iter()
             .enumerate()
-            .map(|(i, s)| Stock {
+            .map(|(i, s)| {
+                let (width, height, outline, tolerance) = if let Some(id) = &s.from_import {
+                    let imported = library.sheet_outlines.iter().find(|p| &p.id == id)
+                        .with_context(|| format!("unknown sheet outline {id:?}; use an id from the library's sheet_outlines"))?;
+                    ensure!(s.outline_mm.is_empty() && s.outline_tolerance_mm == 0.0,
+                        "sheet {id}: use from_import or an explicit outline, not both");
+                    ensure!((s.width_mm == 0.0 || s.width_mm == imported.width_mm)
+                        && (s.height_mm == 0.0 || s.height_mm == imported.height_mm),
+                        "sheet {id}: omit width_mm/height_mm or use the imported dimensions; imported outlines are not rescaled");
+                    (imported.width_mm, imported.height_mm, imported.outline_mm.clone(), imported.tolerance_mm)
+                } else {
+                    (s.width_mm, s.height_mm, s.outline_mm.clone(), s.outline_tolerance_mm)
+                };
+                ensure!(tolerance.is_finite() && (0.0..=1.0).contains(&tolerance),
+                    "sheet outline tolerance must be between 0 and 1 mm");
+                stock_tolerance = stock_tolerance.max(tolerance);
+                Ok(Stock {
                 id: s
                     .id
                     .clone()
                     .unwrap_or_else(|| format!("sheet-type-{}", i + 1)),
-                width: s.width_mm,
-                height: s.height_mm,
+                width,
+                height,
                 count: s.count,
                 margins: s.margins_mm,
-                outline: s.outline_mm.clone(),
+                outline,
                 defects: s.defects_mm.clone(),
-            })
-            .collect();
+            })})
+            .collect::<Result<Vec<_>>>()?;
         let tolerance = library.tolerance;
         Ok((
             Job {
@@ -311,7 +384,7 @@ impl Request {
                 parts,
                 stocks,
                 clearance: self.spacing_mm + 2.0 * tolerance,
-                edge_clearance: self.edge_spacing_mm + tolerance,
+                edge_clearance: self.edge_spacing_mm + tolerance + stock_tolerance,
                 mode: self.mode,
             },
             outlines,

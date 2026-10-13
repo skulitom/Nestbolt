@@ -55,6 +55,15 @@ pub fn import_files_with_options(files_json: &str, options_json: &str) -> Result
     import_with_options(files_json, parse(options_json, "import options")?)
 }
 
+/// Stock-outline import uses its own selection, preferring SHEET over CUT.
+#[wasm_bindgen]
+pub fn import_sheet(name: &str, text: &str, options_json: &str) -> Result<String, JsValue> {
+    let options = parse(options_json, "sheet import options")?;
+    let imported = nestbolt_core::project::SheetImport::read(name, text, &options)
+        .map_err(|e| fail(format!("{e:#}")))?;
+    serde_json::to_string(&imported).map_err(fail)
+}
+
 /// Decode file bytes using the same DXF/XML rules as the native tools.
 #[wasm_bindgen]
 pub fn decode_drawing(name: &str, bytes: &[u8]) -> Result<String, JsValue> {

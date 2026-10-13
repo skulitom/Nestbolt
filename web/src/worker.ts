@@ -1,5 +1,5 @@
 // One Nestbolt engine per worker: the main thread never runs geometry.
-import init, { decode_drawing, estimate_sheets, export_sheet, import_files_with_options, inspect_files, memory_bytes, nest, nest_job, validate } from './pkg/nestbolt_wasm.js';
+import init, { decode_drawing, estimate_sheets, export_sheet, import_files_with_options, import_sheet, inspect_files, memory_bytes, nest, nest_job, validate } from './pkg/nestbolt_wasm.js';
 
 const ready = init();
 
@@ -16,14 +16,19 @@ self.onmessage = async (event: MessageEvent) => {
         value = inspect_files(JSON.stringify(args.files), '{}');
         break;
       case 'import':
-        value = import_files_with_options(JSON.stringify(args.files), JSON.stringify({
+      case 'import_sheet': {
+        const options = JSON.stringify({
           ...(args.tolerance > 0 ? { tolerance: args.tolerance } : {}),
           ...(args.closeGapsMm !== undefined ? { close_gaps_mm: args.closeGapsMm } : {}),
           ...(args.layers !== undefined ? { layers: args.layers } : {}),
           ...(args.colors !== undefined ? { colors: args.colors } : {}),
           ...(args.dxfUnitMm !== undefined ? { dxf_unit: args.dxfUnitMm } : {}),
-        }));
+          ...(args.sheetLayers !== undefined ? { sheet_layers: args.sheetLayers } : {}),
+        });
+        value = type === 'import_sheet' ? import_sheet(args.file.name, args.file.text, options)
+          : import_files_with_options(JSON.stringify(args.files), options);
         break;
+      }
       case 'nest':
         value = nest(args.library, args.request, args.seconds, args.seed, args.repeatable, args.live ?? 0,
           (t: number, material: number, layout?: string) => self.postMessage({ id, type: 'progress', t, material, layout }));

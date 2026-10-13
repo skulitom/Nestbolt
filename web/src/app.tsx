@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { exportSheet, importFiles, inspectFiles, readDrawingFile, Portfolio } from './engine';
+import { exportSheet, importFiles, importSheet, inspectFiles, readDrawingFile, Portfolio } from './engine';
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
-import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Point, Project, RequestPart, RequestSheet, Rotations } from './types';
+import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Project, RequestPart, RequestSheet, Rotations, SheetOutline } from './types';
 import { unzip, zip } from './zip';
 
 const ROTATIONS: { label: string; value: Rotations }[] = [
@@ -79,6 +79,7 @@ export function App() {
   const [lastFiles, setLastFiles] = useState<{ name: string; text: string }[]>([]);
   const [importChoices, setImportChoices] = useState<Record<string, ImportSelection>>({});
   const [importInventory, setImportInventory] = useState<NonNullable<Library['imports']>>([]);
+  const [sheetMessages, setSheetMessages] = useState<string[]>([]);
   const [progress, setProgress] = useState<{ elapsed: number; best: number | null }>({ elapsed: 0, best: null });
   const [projects, setProjects] = useState<{ name: string; savedAt: string }[]>([]);
   const [examples, setExamples] = useState<Example[]>([]);
@@ -109,6 +110,7 @@ export function App() {
     const retained = (library?.parts ?? []).filter((p) => !files.some((f) => p.source.startsWith(`${f.name}#`)));
     const ids = new Set(retained.map((p) => p.id));
     if (library) setLibrary({ ...library, parts: retained,
+      sheet_outlines: (library.sheet_outlines ?? []).filter((s) => !files.some((f) => s.source.startsWith(`${f.name}#`))),
       warnings: library.warnings.filter((w) => !files.some((f) => w.startsWith(`${f.name}:`))),
       imports: (library.imports ?? []).filter((r) => !files.some((f) => f.name === r.file)) });
     update({ parts: request.parts.filter((p) => ids.has(p.id)) });
@@ -138,12 +140,14 @@ export function App() {
       const imported: Library[] = [];
       for (const file of files) imported.push(await importFiles([file], 0, closeGaps ? gapLimit : undefined, choices[file.name]));
       const merged: Library = { version: 1, tolerance: imported[0].tolerance,
+        sheet_outlines: imported.flatMap((r) => r.sheet_outlines ?? []),
         parts: imported.flatMap((r) => r.parts), warnings: imported.flatMap((r) => r.warnings), imports: imported.flatMap((r) => r.imports ?? []) };
       setImportInventory(merged.imports ?? []);
       const retained = (library?.parts ?? []).filter((p) => !files.some((f) => p.source.startsWith(`${f.name}#`)));
       const parts = [...retained, ...merged.parts];
       const retainedIds = new Set(retained.map((p) => p.id));
       const next: Library = { version: 1, tolerance: merged.tolerance, parts,
+        sheet_outlines: [...(library?.sheet_outlines ?? []).filter((s) => !files.some((f) => s.source.startsWith(`${f.name}#`))), ...(merged.sheet_outlines ?? [])],
         warnings: [...(library?.warnings ?? []).filter((w) => !files.some((f) => w.startsWith(`${f.name}:`))), ...merged.warnings],
         imports: [...(library?.imports ?? []).filter((r) => !files.some((f) => f.name === r.file)), ...(merged.imports ?? [])] };
       setLibrary(next);
@@ -161,23 +165,25 @@ export function App() {
     }
   }
 
-  /** Use the largest closed outline of a drawing as a remnant sheet, moved to the origin. */
+  function useSheetOutline(i: number, outline: SheetOutline) {
+    updateSheet(i, { width_mm: outline.width_mm, height_mm: outline.height_mm,
+      outline_mm: outline.outline_mm, outline_tolerance_mm: outline.tolerance_mm, from_import: undefined });
+    setSheetMessages([`Sheet size ${i + 1}: ${outline.source}, ${outline.width_mm} × ${outline.height_mm} mm. Moved to the sheet origin.`]);
+  }
+
+  /** Prefer a drawing's SHEET boundary over the cuts placed inside it. */
   async function onRemnant(i: number, list: FileList | null) {
     if (!list?.length) return;
-    setError(null);
+    setError(null); setResult(null); setBusy('Importing sheet outline…');
     try {
-      const lib = await importFiles([await readDrawingFile(list[0])]);
-      const largest = lib.parts.reduce<LibraryPart | null>((a, b) => (!a || b.area_mm2 > a.area_mm2 ? b : a), null);
-      if (!largest) throw new Error(`${list[0].name} has no closed outline to use as a remnant`);
-      const [x0, y0, x1, y1] = largest.bounds_mm;
-      const move = (ring: Point[]): Point[] => ring.map(([x, y]) => [x - x0, y - y0]);
-      updateSheet(i, {
-        width_mm: x1 - x0, height_mm: y1 - y0,
-        outline_mm: [{ outer: move(largest.polygon.outer), holes: largest.polygon.holes.map(move) }],
-      });
+      const result = await importSheet(await readDrawingFile(list[0]), closeGaps ? gapLimit : undefined,
+        { dxfUnitMm: importChoices[list[0].name]?.dxfUnitMm });
+      if (result.outlines.length !== 1) throw new Error(`${list[0].name} contains ${result.outlines.length} separate sheet outlines. Import it as a drawing and choose its sheet outline by name, or save the desired outline in a separate file.`);
+      useSheetOutline(i, result.outlines[0]);
+      setSheetMessages([`Sheet size ${i + 1}: ${result.outlines[0].source}, moved to the sheet origin.`, ...result.warnings]);
     } catch (e) {
-      setError(String(e));
-    }
+      setError(`${String(e)}. Sheet size ${i + 1} was not changed.`);
+    } finally { setBusy(null); }
   }
 
   async function run(lib: Library | null = library, req: NestRequest = request, budget = seconds) {
@@ -254,6 +260,7 @@ export function App() {
   function open(p: Project) {
     setLastFiles([]);
     setImportChoices({}); setImportInventory([]);
+    setSheetMessages([]);
     setCloseGaps(false);
     setGapLimit(0.05);
     setName(p.name);
@@ -359,6 +366,18 @@ export function App() {
                       }} /> {entry.name} <small>{entry.entities} entities · {entry.selected_entities} selected outlines/paths</small>
                   </label>)}
                 </fieldset>)}
+                <fieldset>
+                  <legend>Sheet outline layers{importChoices[file]?.sheetLayers === undefined ? ' (automatic SHEET)' : ''}</legend>
+                  {(report.layers ?? []).filter((entry) => entry.geometry_entities > 0).map((entry) => <label key={entry.name}>
+                    <input type="checkbox" disabled={!!busy} aria-label={`Sheet layer ${entry.name} in ${file}`}
+                      checked={importChoices[file]?.sheetLayers?.includes(entry.name) ?? entry.name.toUpperCase() === 'SHEET'}
+                      onChange={(e) => {
+                        const before = importChoices[file]?.sheetLayers ?? (report.layers ?? []).filter((l) => l.name.toUpperCase() === 'SHEET').map((l) => l.name);
+                        const values = (e.target as HTMLInputElement).checked ? [...new Set([...before, entry.name])] : before.filter((v) => v !== entry.name);
+                        setImportChoices((current) => ({ ...current, [file]: { ...current[file], sheetLayers: values } }));
+                      }} /> {entry.name}
+                  </label>)}
+                </fieldset>
                 <button disabled={!!busy} onClick={() => setImportChoices((current) => ({ ...current, [file]: { dxfUnitMm: current[file]?.dxfUnitMm } }))}>Use automatic selection for {file}</button>
               </details>)}
               {lastFiles.length ? <button disabled={!!busy} onClick={() => importDrawings(lastFiles)}>Apply import options</button> : null}
@@ -408,6 +427,7 @@ export function App() {
           </section>
           <section aria-labelledby="sheets-title">
             <h2 id="sheets-title">Sheets</h2>
+            {sheetMessages.length ? <ul class="sheet-messages">{sheetMessages.map((message) => <li>{message}</li>)}</ul> : null}
             {request.sheets.map((s, i) => (
               <fieldset key={i} class="sheet-row">
                 <legend>Sheet size {i + 1}</legend>
@@ -420,11 +440,20 @@ export function App() {
                 {s.outline_mm?.length ? (
                   <span class="remnant">Remnant outline
                     <button class="icon" aria-label={`Use the full rectangle for sheet size ${i + 1}`}
-                      onClick={() => updateSheet(i, { outline_mm: [] })}>×</button></span>
+                      onClick={() => updateSheet(i, { outline_mm: [], outline_tolerance_mm: 0, from_import: undefined })}>×</button></span>
                 ) : (
                   <label class="remnant">Remnant outline <input type="file" accept=".svg,.dxf" aria-label={`Remnant outline for sheet size ${i + 1}`}
-                    onChange={(e) => onRemnant(i, (e.target as HTMLInputElement).files)} /></label>
+                    disabled={!!busy} onChange={(e) => onRemnant(i, (e.target as HTMLInputElement).files)} /></label>
                 )}
+                {library?.sheet_outlines?.length ? <label>Imported sheet outline
+                  <select aria-label={`Imported sheet outline for sheet size ${i + 1}`} value="" disabled={!!busy}
+                    onChange={(e) => {
+                      const outline = library.sheet_outlines?.find((s) => s.id === (e.target as HTMLSelectElement).value);
+                      if (outline) useSheetOutline(i, outline);
+                    }}>
+                    <option value="">Choose an outline…</option>
+                    {library.sheet_outlines.map((o) => <option value={o.id}>{o.id} — {o.width_mm} × {o.height_mm} mm</option>)}
+                  </select></label> : null}
                 <details>
                   <summary>Defects ({s.defects_mm.length})</summary>
                   {s.defects_mm.map((d, k) => {

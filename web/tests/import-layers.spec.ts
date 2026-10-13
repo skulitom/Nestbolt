@@ -1,6 +1,20 @@
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
+test('a custom stock layer is offered separately from the cut selection', async ({ page }) => {
+  await page.goto('/');
+  const source = readFileSync(new URL('../../crates/core/tests/fixtures/prearranged-sheet.svg', import.meta.url), 'utf8').replace('id="SHEET"','id="MATERIAL"');
+  await page.locator('.drop input[type=file]').setInputFiles({ name: 'custom.svg', mimeType: 'image/svg+xml', buffer: Buffer.from(source) });
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(2);
+  await expect(page.getByLabel('Imported sheet outline for sheet size 1')).toHaveCount(0);
+  await page.getByLabel('Sheet layer MATERIAL in custom.svg', { exact: true }).check();
+  await page.getByRole('button', { name: 'Apply import options' }).click();
+  await page.getByLabel('Imported sheet outline for sheet size 1').selectOption('custom-sheet-1');
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(2);
+  await expect(page.locator('fieldset.sheet-row').first().getByLabel('Width')).toHaveValue('200');
+  await expect(page.locator('fieldset.sheet-row').first().getByLabel('Height')).toHaveValue('100');
+});
+
 test('closed retraced holes survive cleanup with a visible warning', async ({ page }) => {
   await page.goto('/');
   await page.locator('.drop input[type=file]').setInputFiles({ name: 'closed-retrace.svg', mimeType: 'image/svg+xml',

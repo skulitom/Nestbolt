@@ -37,6 +37,10 @@ enum Command {
         /// Comma-separated DXF ACI numbers or RGB colours such as #000000.
         #[arg(long, value_delimiter = ',')]
         colors: Option<Vec<String>>,
+        /// Stock-outline layers offered separately from parts (defaults to SHEET).
+        /// Supply the flag without values to disable stock-outline discovery.
+        #[arg(long, value_delimiter = ',', num_args = 0..)]
+        sheet_layers: Option<Vec<String>>,
     },
     /// Nest library parts on sheets and write the layout, report and exports.
     Nest {
@@ -258,12 +262,14 @@ fn main() -> Result<()> {
             close_gaps_mm,
             layers,
             colors,
+            sheet_layers,
         } => {
             let mut options = nestbolt_core::import::Options {
                 tolerance,
                 close_gaps_mm,
                 layers,
                 colors,
+                sheet_layers,
                 ..Default::default()
             };
             if let Some(u) = svg_user_unit_mm {
@@ -301,7 +307,10 @@ fn main() -> Result<()> {
                 "{}",
                 serde_json::to_string_pretty(
                     &serde_json::json!({"library": output, "parts": summary,
-                    "warnings": library.warnings,"imports":library.imports})
+                    "warnings": library.warnings,"imports":library.imports,
+                    "sheet_outlines": library.sheet_outlines.iter().map(|s| serde_json::json!({
+                        "id":s.id,"source":s.source,"width_mm":s.width_mm,"height_mm":s.height_mm,
+                        "origin_mm":s.origin_mm,"tolerance_mm":s.tolerance_mm})).collect::<Vec<_>>()})
                 )?
             );
         }

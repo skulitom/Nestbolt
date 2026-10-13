@@ -480,6 +480,55 @@
         }
       ]
     },
+    "SheetOutline": {
+      "additionalProperties": false,
+      "properties": {
+        "height_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "origin_mm": {
+          "description": "Lower-left corner in the drawing's mm, Y-up frame, before normalization.",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "outline_mm": {
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tolerance_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "width_mm": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "width_mm",
+        "height_mm",
+        "origin_mm",
+        "outline_mm",
+        "tolerance_mm"
+      ],
+      "type": "object"
+    },
     "UnitReport": {
       "properties": {
         "declared": {
@@ -522,6 +571,13 @@
     "parts": {
       "items": {
         "$ref": "#/$defs/LibraryPart"
+      },
+      "type": "array"
+    },
+    "sheet_outlines": {
+      "description": "Stock outlines are separate from cutting parts and never nested as parts\nmerely because they were discovered on a SHEET layer.",
+      "items": {
+        "$ref": "#/$defs/SheetOutline"
       },
       "type": "array"
     },

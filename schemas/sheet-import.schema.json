@@ -1,0 +1,372 @@
+{
+  "$defs": {
+    "Channel": {
+      "properties": {
+        "entities": {
+          "description": "Expanded entity instances, including ignored entities; INSERT counts too.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "geometry_entities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "selected_entities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "entities",
+        "geometry_entities",
+        "selected_entities"
+      ],
+      "type": "object"
+    },
+    "Cleanup": {
+      "properties": {
+        "closed_path_overlaps_preserved": {
+          "description": "Overlapping segment pairs retained because merging/removing a retraced\nedge inside a closed path would disconnect its neighbouring curves.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "duplicate_segments_removed": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "overlapping_segments_merged": {
+          "description": "Each redundant line merged into the union counts once.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "zero_length_segments_removed": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duplicate_segments_removed",
+        "zero_length_segments_removed",
+        "overlapping_segments_merged"
+      ],
+      "type": "object"
+    },
+    "FileImportReport": {
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "report": {
+          "$ref": "#/$defs/ImportReport"
+        }
+      },
+      "required": [
+        "file",
+        "report"
+      ],
+      "type": "object"
+    },
+    "Gap": {
+      "properties": {
+        "from_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "size_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "source": {
+          "type": "string"
+        },
+        "to_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "source",
+        "from_mm",
+        "to_mm",
+        "size_mm"
+      ],
+      "type": "object"
+    },
+    "ImportReport": {
+      "properties": {
+        "cleanup": {
+          "$ref": "#/$defs/Cleanup",
+          "default": {
+            "duplicate_segments_removed": 0,
+            "overlapping_segments_merged": 0,
+            "zero_length_segments_removed": 0
+          }
+        },
+        "close_gaps_mm": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "closed_gaps": {
+          "items": {
+            "$ref": "#/$defs/Gap"
+          },
+          "type": "array"
+        },
+        "colors": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Channel"
+          },
+          "type": "array"
+        },
+        "layers": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Channel"
+          },
+          "type": "array"
+        },
+        "open_contours": {
+          "items": {
+            "$ref": "#/$defs/OpenContour"
+          },
+          "type": "array"
+        },
+        "selection_mode": {
+          "default": "",
+          "type": "string"
+        },
+        "silent_join_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "units": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UnitReport"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "silent_join_mm",
+        "closed_gaps",
+        "open_contours"
+      ],
+      "type": "object"
+    },
+    "OpenContour": {
+      "properties": {
+        "end_gap_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "end_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "source": {
+          "type": "string"
+        },
+        "start_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "suggested_close_gaps_mm": {
+          "description": "None means the endpoints exceed the 1 mm automatic repair limit.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "source",
+        "start_mm",
+        "end_mm",
+        "end_gap_mm"
+      ],
+      "type": "object"
+    },
+    "Polygon": {
+      "additionalProperties": false,
+      "properties": {
+        "holes": {
+          "default": [],
+          "items": {
+            "items": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "outer": {
+          "items": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "outer"
+      ],
+      "type": "object"
+    },
+    "SheetOutline": {
+      "additionalProperties": false,
+      "properties": {
+        "height_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "origin_mm": {
+          "description": "Lower-left corner in the drawing's mm, Y-up frame, before normalization.",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "outline_mm": {
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "source": {
+          "type": "string"
+        },
+        "tolerance_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "width_mm": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "width_mm",
+        "height_mm",
+        "origin_mm",
+        "outline_mm",
+        "tolerance_mm"
+      ],
+      "type": "object"
+    },
+    "UnitReport": {
+      "properties": {
+        "declared": {
+          "type": "boolean"
+        },
+        "largest_dimension_in_drawing_units": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "mm_per_unit": {
+          "format": "double",
+          "type": "number"
+        },
+        "possible_inches": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "declared",
+        "mm_per_unit",
+        "possible_inches"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "imports": {
+      "items": {
+        "$ref": "#/$defs/FileImportReport"
+      },
+      "type": "array"
+    },
+    "outlines": {
+      "items": {
+        "$ref": "#/$defs/SheetOutline"
+      },
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "outlines",
+    "warnings",
+    "imports"
+  ],
+  "title": "SheetImport",
+  "type": "object"
+}

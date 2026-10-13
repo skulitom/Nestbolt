@@ -1,4 +1,4 @@
-import type { ImportSelection, Layout, Library, NestRequest, NestResult, Report } from './types';
+import type { ImportSelection, Layout, Library, NestRequest, NestResult, Report, SheetImport } from './types';
 
 type Progress = (t: number, material: number, layout?: Layout) => void;
 type Pending = { resolve: (v: string) => void; reject: (e: Error) => void; progress?: Progress };
@@ -56,6 +56,10 @@ export async function importFiles(files: { name: string; text: string }[], toler
 
 export async function inspectFiles(files: { name: string; text: string }[]): Promise<NonNullable<Library['imports']>> {
   return JSON.parse(await tool().call('inspect', { files }));
+}
+
+export async function importSheet(file: { name: string; text: string }, closeGapsMm?: number, selection: ImportSelection = {}): Promise<SheetImport> {
+  return JSON.parse(await tool().call('import_sheet', { file, closeGapsMm, ...selection }));
 }
 
 export async function readDrawingFile(file: File): Promise<{ name: string; text: string }> {

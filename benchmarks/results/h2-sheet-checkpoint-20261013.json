@@ -1,0 +1,57 @@
+{
+  "recorded_on": "2026-10-13",
+  "scope": "Shared imported sheet-outline selection and nesting across UI, CLI and MCP",
+  "H2": false,
+  "completed_milestone_percent": 15,
+  "source_sha256": "5d11ec2bbe8ca892f5cf913a35c841248407e543a77a2f7d131e72718034938e",
+  "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+  "held_out_geometry_or_labels_read": false,
+  "reports": {
+    "sheet": "benchmarks/results/h2-sheets-20261013T212538Z.json",
+    "training": "benchmarks/results/h2-import-training-20261013T212539Z.json",
+    "robustness": "benchmarks/results/h2-import-robustness-20261013T212547Z.json"
+  },
+  "sheet_outline_matches": 10,
+  "sheet_outline_attempts": 10,
+  "maximum_stock_boundary_distance_mm": 0.0,
+  "training": {
+    "counts": {
+      "imported": 246,
+      "rejected": 11
+    },
+    "raw_count_matches": 245,
+    "reviewed_count_matches": 246,
+    "changed_import_or_count_results": [],
+    "maximum_elapsed_s": 0.6138374999864027
+  },
+  "robustness": {
+    "counts": {
+      "imported": 36,
+      "rejected": 147
+    },
+    "maximum_elapsed_s": 0.8448396999738179
+  },
+  "validation": {
+    "workspace_tests_passed": 168,
+    "existing_ignored": 1,
+    "final_core_sheet_tests_passed": 5,
+    "final_cli_sheet_test_passed": 1,
+    "browser_tests_passed": 16,
+    "schema_check": true,
+    "strict_all_target_clippy": true,
+    "production_wasm_web_build": true,
+    "native_release_build": true,
+    "frozen_inventory_verified": 1181
+  },
+  "validation_scope": "The full workspace run preceded the additional self-touch stock test and final CLI empty-list test. The complete five-test sheet suite and the CLI sheet import/nest/independent-validation test were rerun after those additions. Both passed. Product core/MCP code is unchanged from the full workspace run.",
+  "development_corrections": [
+    "The initial gap-error assertion inspected only the outer error context; it now checks the full repair message.",
+    "The first browser launch failed before running tests because cmd interpreted the grep pipe. Direct Node invocation completed all four sheet/remnant tests; the twelve import tests also pass."
+  ],
+  "earlier_reports_retained": [
+    "benchmarks/results/h2-sheets-20261013T212155Z.json",
+    "benchmarks/results/h2-import-training-20261013T212236Z.json",
+    "benchmarks/results/h2-import-robustness-20261013T212338Z.json"
+  ],
+  "remaining_H2": "Full fidelity (four dense timeouts, two thin-shape nesting errors), warning/selection completeness, 10,000-case fuzzing, native-project support and held-out scoring clarification remain."
+}

@@ -158,6 +158,8 @@ fn measure(task: &Task) -> Result<serde_json::Value> {
             })
             .collect(),
         sheets: vec![RequestSheet {
+            from_import: None,
+            outline_tolerance_mm: 0.0,
             id: None,
             width_mm: (side * 1.5 + 20.0).max(600.0),
             height_mm: (side * 1.5 + 20.0).max(400.0),

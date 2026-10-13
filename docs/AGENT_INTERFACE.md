@@ -5,7 +5,7 @@ same core as the CLI. It needs no network, account or credentials.
 
 | Tool | What it does |
 | --- | --- |
-| `import_parts` | Reads SVG/DXF files, writes a part library (exact curves plus nesting polygons, mm) and returns part ids, areas, bounds and import warnings |
+| `import_parts` | Reads SVG/DXF files, writes a part library (exact curves plus nesting polygons, mm) and returns part ids, areas, bounds, import warnings and separate stock-outline summaries |
 | `nest` | Nests library parts on fixed sheets with a repeatable budget (`time_budget_s` ≤ 300, `seed`); writes `job.json`, `layout.json`, `report.json` and one SVG and DXF per sheet; sends progress notifications |
 | `validate_layout` | Checks a layout file against a request with the independent validator |
 | `export_layout` | Writes one SVG and one DXF per sheet from a valid layout; arcs and splines stay curves |
@@ -34,8 +34,8 @@ its own directory; the `nest` reply lists them relative to the workspace.
   `NESTBOLT_WORKSPACE` when set. Paths with `..` or outside it are refused.
 - **No overwrites.** Libraries, layouts and exports are always new files; an
   output directory must be new or empty.
-- **Small replies.** Geometry stays in files; lists over 200 entries are
-  truncated and counted; replies stay well under 50 KB.
+- **Small replies.** Geometry stays in files; the combined part/stock summary is
+  capped at 200 entries, with separate total counts and truncation flags.
 - **Repeatable.** `nest` measures its budget in deterministic work, so the same
   library, request, budget and seed give the same layout on the same build. If
   the real-time limit (`time_budget_s`) arrives first, the reply says
@@ -98,3 +98,13 @@ validated with `mcp-publisher validate`, following
 [Cutbolt #2](https://github.com/skulitom/Cutbolt/pull/2) and
 [Inkbolt #1](https://github.com/skulitom/Inkbolt/pull/1). Nothing is published
 until Artem says go.
+
+
+## Imported sheet boundaries
+
+`import_parts` discovers the `SHEET` layer independently of cut selection.
+`sheet_layers` chooses other stock layers. Its reply includes `sheet_outlines`
+summaries and a `sheet_outline_count`; actual polygons stay in the library.
+Use `{"from_import":"arranged-sheet-1","count":1}` as a request sheet. The same
+request is used for nesting, validation, re-export and estimation. See
+[stock selection, normalization and curve clearance](IMPORTING.md#sheet-outlines-in-pre-arranged-nests).
