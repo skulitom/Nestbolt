@@ -221,14 +221,14 @@ def competitors(phase, tools, cpus, dry_run, minutes=None):
         raise SystemExit('some competitor batches failed; their evidence is retained')
 
 
-def strips(phase, dry_run):
+def strips(phase, binary, dry_run):
     """G3: Nestbolt's strip adapter on set S, one process per seed on its own CPU."""
     done = {json.loads(Path(p).read_text(encoding='utf-8')).get('seed') for p in
             glob.glob(str(ROOT/'benchmarks/results/strip-native-*.json'))
             if json.loads(Path(p).read_text(encoding='utf-8')).get('phase') == phase}
     todo = [seed for seed in PHASE_SEEDS[phase] if seed not in done]
     commands = [[sys.executable, 'scripts/strip_pilot.py', '--phase', phase, '--seed', str(seed),
-                 '--cpu', str(CPUS[i % len(CPUS)])] for i, seed in enumerate(todo)]
+                 '--cpu', str(CPUS[i % len(CPUS)]), '--binary', str(binary)] for i, seed in enumerate(todo)]
     if dry_run:
         for c in commands:
             print('would run', ' '.join(c))
@@ -239,7 +239,7 @@ def strips(phase, dry_run):
 
 
 def nestbolt(phase, binary, final, dry_run):
-    strips(phase, dry_run)
+    strips(phase, binary, dry_run)
     slots = [(60, False), (300, True), (30, True)]
     for seconds, long_subset in slots:
         for seed in PHASE_SEEDS[phase]:

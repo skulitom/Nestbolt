@@ -28,6 +28,7 @@ def main():
     parser.add_argument('--cpu', type=int, help='pin the solver processes to this logical CPU')
     parser.add_argument('--offset', type=int, default=0)
     parser.add_argument('--count', type=int, default=13)
+    parser.add_argument('--binary', type=Path, default=ROOT/'target/release/nestbolt.exe')
     args = parser.parse_args()
     if not 1 <= args.seconds <= 300 or args.offset < 0 or not 1 <= args.count <= 13:
         parser.error('Use 1..300 seconds, nonnegative offset and 1..13 cases')
@@ -39,7 +40,7 @@ def main():
     cases = cases[args.offset:args.offset+args.count]
     if not cases:
         parser.error('No development strip cases selected')
-    binary = ROOT/'target/release/nestbolt.exe'
+    binary = args.binary.resolve()
     binary_hash = digest(binary)
     sources = {p: digest(ROOT/p) for p in [
         'Cargo.toml', 'Cargo.lock', 'crates/core/Cargo.toml', 'crates/core/src/strip.rs',
