@@ -24,6 +24,12 @@ The published MIT converter double-applies the parent transform in these samples
 and skips several unsupported shape/sharing cases. See LBRN2.md before using it
 as an oracle; a converted SVG alone is not a completeness check.
 
+**Training-label discrepancy found during N1:** the apparent enclosed island in
+the Iris PE switch plate's R43 label is a polygonization artefact of duplicated
+cutout vertices differing by 6.96e-13 mm. The [reproduction report](../benchmarks/results/h2-r43-label-discrepancy-20261013.md)
+preserves the source and frozen label and explains the diagnosis. H2 scoring has
+not been changed; a reviewed exception is awaiting Artem's decision.
+
 How these were gathered:
 - Compiled from public sources by research agents on 2026-10-13. Nothing was decompiled.
 - Files were only inspected (headers streamed, repository trees listed); none were copied into the repo.

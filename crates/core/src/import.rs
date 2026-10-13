@@ -654,7 +654,7 @@ fn assemble(
     }
     ensure!(
         !parts.is_empty(),
-        "no closed part outlines found; {}",
+        "no closed part outlines found; repair the cut outlines or re-export the drawing with closed, nonzero-area geometry; {}",
         warnings
             .iter()
             .take(8)

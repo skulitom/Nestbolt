@@ -57,7 +57,7 @@ fn explicit_gap_repair_reports_its_size_and_location() {
     let dir = temp("gap-repair");
     let source = dir.join("gap.svg");
     let library = dir.join("library.json");
-    fs::write(&source,r#"<svg width="30mm" viewBox="0 0 30 30"><path id="outline" d="M0 0 H20 V20 H0 V0.2"/></svg>"#).unwrap();
+    fs::write(&source,r#"<svg width="50mm" viewBox="0 0 50 50"><path id="outline" d="M0 0 H20 V20 H0 V0.2"/><rect x="30" width="10" height="10"/></svg>"#).unwrap();
     let failed = nestbolt(&[
         "import".as_ref(),
         source.as_os_str(),
@@ -66,6 +66,7 @@ fn explicit_gap_repair_reports_its_size_and_location() {
     ]);
     assert!(!failed.status.success());
     assert!(String::from_utf8_lossy(&failed.stderr).contains("Close gaps up to 0.200000 mm"));
+    assert!(String::from_utf8_lossy(&failed.stderr).contains("no partial library was created"));
     assert!(!library.exists());
     let repaired = nestbolt(&[
         "import".as_ref(),
@@ -81,7 +82,7 @@ fn explicit_gap_repair_reports_its_size_and_location() {
         String::from_utf8_lossy(&repaired.stderr)
     );
     let response: Value = serde_json::from_slice(&repaired.stdout).unwrap();
-    assert_eq!(response["parts"].as_array().unwrap().len(), 1);
+    assert_eq!(response["parts"].as_array().unwrap().len(), 2);
     assert_eq!(
         response["imports"][0]["report"]["closed_gaps"][0]["size_mm"],
         0.2

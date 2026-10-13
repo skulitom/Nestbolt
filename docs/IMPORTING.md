@@ -24,9 +24,12 @@ Every repaired gap over 0.005 mm is recorded with its source, endpoints and size
 in millimetres. Repair inserts a straight bridge so the original neighbouring
 curve endpoints remain intact. Open contours that remain unimported report their
 endpoints, endpoint gap and a suggested repair tolerance when it is within the
-1 mm limit. Larger gaps require editing the source drawing. Review these reports
-before using the cutting geometry; a partial import is not a claim that every
-source contour was included.
+1 mm limit. Larger gaps require editing the source drawing. If any selected
+contour remains open, the UI, CLI and MCP reject the import without producing a
+partial library. Exclude score/construction layers or repair the cut outlines
+and import again. Low-level geometry inspection still returns the open-contour
+report. In the browser, a failed re-import removes those files' earlier parts
+and clears the previous layout; unrelated files stay available.
 
 Libraries and CLI/MCP responses include an `imports` entry per file:
 

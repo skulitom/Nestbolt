@@ -64,6 +64,22 @@ impl Library {
                 anyhow::bail!("{name}: only .svg and .dxf files can be imported")
             }
             .with_context(|| format!("cannot import {name}"))?;
+            // Low-level imports retain partial geometry for inspection. A
+            // nesting library must not silently omit selected cutting paths.
+            if !import.report.open_contours.is_empty() {
+                let details = import.report.open_contours.iter().take(4).map(|path| {
+                    let fix = path.suggested_close_gaps_mm.map_or_else(
+                        || "join these endpoints in the source drawing (automatic repair is limited to 1 mm)".to_owned(),
+                        |limit| format!("enable Close gaps up to {limit:.6} mm"),
+                    );
+                    format!("{}: open path from ({:.6}, {:.6}) to ({:.6}, {:.6}); end gap {:.6} mm; {fix}",
+                        path.source, path.start_mm[0], path.start_mm[1], path.end_mm[0], path.end_mm[1], path.end_gap_mm)
+                }).collect::<Vec<_>>().join("; ");
+                anyhow::bail!(
+                    "cannot import {name}: {} selected contour(s) remain open; no partial library was created. {details}. If these are score or construction paths, exclude their layer/colour and import again",
+                    import.report.open_contours.len()
+                );
+            }
             let stem = std::path::Path::new(name)
                 .file_stem()
                 .and_then(|s| s.to_str())

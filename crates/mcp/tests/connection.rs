@@ -41,11 +41,12 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
                     .await
             }
         };
-        std::fs::write(workspace.join("gap.svg"),r#"<svg width="30mm" viewBox="0 0 30 30"><path id="outline" d="M0 0 H20 V20 H0 V0.2"/></svg>"#).unwrap();
+        std::fs::write(workspace.join("gap.svg"),r#"<svg width="50mm" viewBox="0 0 50 50"><path id="outline" d="M0 0 H20 V20 H0 V0.2"/><rect x="30" width="10" height="10"/></svg>"#).unwrap();
         let open=call("import_parts",json!({"paths":["gap.svg"]})).await.unwrap_err();
         assert!(format!("{open}").contains("Close gaps up to 0.200000 mm"));
+        assert!(format!("{open}").contains("no partial library was created"));
         let repaired=call("import_parts",json!({"paths":["gap.svg"],"close_gaps_mm":0.2})).await.unwrap().structured_content.unwrap();
-        assert_eq!(repaired["part_count"],1);
+        assert_eq!(repaired["part_count"],2);
         assert_eq!(repaired["imports"][0]["report"]["closed_gaps"][0]["size_mm"],0.2);
         std::fs::write(workspace.join("layers.svg"),r##"<svg width="100mm" viewBox="0 0 100 100"><g id="CUT" stroke="black"><rect width="20" height="20"/></g><g id="SCORE" stroke="red"><rect x="40" width="10" height="10"/><text>label</text></g></svg>"##).unwrap();
         for (selection,expected_x) in [(json!({"paths":["layers.svg"],"layers":["SCORE"]}),40.0),

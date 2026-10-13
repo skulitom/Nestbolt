@@ -11826,3 +11826,13 @@ All 19 focused importer tests, CLI/MCP byte-and-unit checks, ten Chromium/Firefo
 import checks and the full workspace suite pass (one existing ignored test).
 Strict lint, WASM/web build, schemas and dependency-notice verification pass.
 Remaining H2 evidence and scoring clarification are pending. Completion stays 15%.
+
+
+### 2026-10-13 — N1 incomplete drawings and frozen-label discrepancy
+
+- [Checkpoint](benchmarks/results/h2-completeness-checkpoint-20261013.md): UI, CLI and MCP reject selected open paths rather than producing a partial nesting library. Browser failures clear affected stale parts/layouts while preserving unrelated files. Empty/degenerate drawings explicitly request repaired closed cuts.
+- First training [193555Z](benchmarks/results/h2-import-training-20261013T193555Z.json): 246 imports, 11 rejections, 245 exact part/hole-count matches out of 257. First robustness [193601Z](benchmarks/results/h2-import-robustness-20261013T193601Z.json): 35 imports, 148 rejections, no crash/timeout, maximum 0.705 s. These precede the final empty-drawing repair wording and are retained.
+- Final training [193805Z](benchmarks/results/h2-import-training-20261013T193805Z.json): same counts; all 170 generated files match, all nine negative vector fixtures reject. Native lb-14 DXF/SVG also reject with explicit repair values for four open paths each. Final robustness [193814Z](benchmarks/results/h2-import-robustness-20261013T193814Z.json): 35 imports, 148 rejections, no crash/panic/timeout, maximum 1.331 s. Four affinity-pinned CCD0 processes, ten-second per-file limit; unchanged source hashes.
+- [R43 diagnosis](benchmarks/results/h2-r43-label-discrepancy-20261013.md) corrects the previous missing-island interpretation. Two source polylines differ by 6.96e-13 mm; the independent reference counts a duplicate cutout as an island. Reproduction and hashes retained. No product geometry was changed for this case. Frozen input, label and scoring are unchanged; an exception is awaiting Artem's decision, so the mismatch still counts.
+- Full workspace: 158 passed, one existing ignored test. Final wording retested with five gap checks. CLI/MCP mixed-open/closed import and repair pass; Chromium/Firefox import checks 12/12 pass. Strict Clippy, formatting and production WASM/web build pass. Frozen integrity: all 1,181 files verified, no held-out geometry/labels read.
+- H2 remains incomplete; completion stays 15%. Full cut-layer/warning/fidelity, native-project, 10,000-case fuzz, sheet-outline and LightBurn export evidence remain. The earlier held-out negative-denominator question is still pending; no split, threshold or published v1 claim changed.

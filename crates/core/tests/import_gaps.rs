@@ -1,4 +1,5 @@
 use nestbolt_core::import::{Options, import_svg};
+use nestbolt_core::project::Library;
 
 fn drawing(gap: f64) -> String {
     format!(
@@ -103,4 +104,47 @@ fn empty_import_error_names_the_location_and_fix() {
         "{err}"
     );
     assert!(err.contains("Close gaps up to 0.200000 mm"), "{err}");
+}
+
+#[test]
+fn library_rejects_partial_geometry_until_repaired_or_excluded() {
+    let files = vec![("gap.svg".into(), drawing(0.05))];
+    let err = Library::import(&files, &Options::default())
+        .unwrap_err()
+        .to_string();
+    assert!(
+        err.contains("gap.svg: 1 selected contour(s) remain open"),
+        "{err}"
+    );
+    assert!(err.contains("no partial library was created"), "{err}");
+    assert!(err.contains("Close gaps up to 0.050000 mm"), "{err}");
+    let repaired = Library::import(
+        &files,
+        &Options {
+            close_gaps_mm: Some(0.05),
+            ..Options::default()
+        },
+    )
+    .unwrap();
+    assert_eq!(repaired.parts.len(), 2);
+    let layered = vec![("layers.svg".into(), r#"<svg width="100mm" viewBox="0 0 100 100"><g id="CUT"><rect width="20" height="20"/></g><g id="SCORE"><path d="M40 0 H60"/></g></svg>"#.into())];
+    assert_eq!(
+        Library::import(&layered, &Options::default())
+            .unwrap()
+            .parts
+            .len(),
+        1
+    );
+    assert!(
+        Library::import(
+            &layered,
+            &Options {
+                layers: Some(vec!["CUT".into(), "SCORE".into()]),
+                ..Options::default()
+            }
+        )
+        .unwrap_err()
+        .to_string()
+        .contains("exclude their layer/colour")
+    );
 }

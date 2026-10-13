@@ -104,20 +104,34 @@ export function App() {
   const updateSheet = (i: number, change: Partial<RequestSheet>) =>
     update({ sheets: request.sheets.map((s, j) => (j === i ? { ...s, ...change } : s)) });
 
+  function discardFailedImport(files: { name: string }[]) {
+    // Keep unrelated files, but never nest stale parts after a failed re-import.
+    const retained = (library?.parts ?? []).filter((p) => !files.some((f) => p.source.startsWith(`${f.name}#`)));
+    const ids = new Set(retained.map((p) => p.id));
+    if (library) setLibrary({ ...library, parts: retained,
+      warnings: library.warnings.filter((w) => !files.some((f) => w.startsWith(`${f.name}:`))),
+      imports: (library.imports ?? []).filter((r) => !files.some((f) => f.name === r.file)) });
+    update({ parts: request.parts.filter((p) => ids.has(p.id)) });
+  }
+
   async function onFiles(list: FileList | null) {
     if (!list?.length) return;
     setError(null); setBusy('Importing…');
+    setResult(null); setLastFiles([]); setImportChoices({}); setImportInventory([]);
     try {
       const files = await Promise.all([...list].map(readDrawingFile));
       setLastFiles(files);
-      setImportChoices({}); setImportInventory([]);
       setImportInventory(await inspectFiles(files));
       await importDrawings(files, {});
-    } catch (e) { setError(String(e)); setBusy(null); }
+    } catch (e) {
+      discardFailedImport([...list]);
+      setError(`${String(e)}. No parts from this import were kept.`); setBusy(null);
+    }
   }
 
   async function importDrawings(files: { name: string; text: string }[], choices = importChoices) {
     setError(null);
+    setResult(null);
     setBusy('Importing…');
     try {
       // Part ids are `<file stem>-<n>`: importing a file again replaces its parts.
@@ -140,7 +154,8 @@ export function App() {
         ],
       });
     } catch (e) {
-      setError(String(e));
+      discardFailedImport(files);
+      setError(`${String(e)}. No parts from this import were kept. Correct the drawing or options and apply again.`);
     } finally {
       setBusy(null);
     }
