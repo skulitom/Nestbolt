@@ -1,0 +1,927 @@
+{
+ "scope": "Final acceptance phase; all B/M jobs including held-out; one seed of five.",
+ "phase": "final",
+ "long_subset": true,
+ "recorded_at": "2026-10-13T11:31:16.748598+00:00",
+ "seed": 1002,
+ "seconds": 300.0,
+ "reference_seconds": 300,
+ "cpus": [
+  0,
+  2,
+  4,
+  6,
+  8,
+  10,
+  12,
+  14
+ ],
+ "solver_args": [],
+ "binary_sha256": "1dd58ac0ef3347af878271f888b7c326045961ba9d959cc4743acbce04b526de",
+ "baseline": {
+  "path": "benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json",
+  "git_lf_sha256": "5b5ffeaa50bd76f9089d3cb95d61761c736cc5533cffed674d2e591540f3759a"
+ },
+ "sources_at_start": {
+  "scripts/sheets_batch.py": "2255830e3af310f3f44485001e18ba9110ff0102ee3dfe4bd403dae829b2edb6",
+  "crates/core/src/sheets.rs": "382901f0789241cae91b4bdffc652b1b0434c59db10448ded56265a7dd235bd0",
+  "crates/core/src/sheets/vstrip.rs": "4772ea162f1f422ff8b9bd0b0be10cc138dc0a29364c2507033d8db3d42902f3",
+  "crates/core/src/separate.rs": "f65e766367ec9e0990c403cf3cff44c4425a3449d5df6deb8e91e91ba23a6464",
+  "crates/core/src/construct.rs": "1cdeb92d51c507cf2072f03865a54e5a7399bfaa89ba978d08e4febd9bdb27b9",
+  "crates/core/src/optimize.rs": "1a163521a15bf51b78affdc2e90165893052c69b198039ef530076cc19e96815",
+  "crates/core/src/holes.rs": "e6d270e5da85a0ef468d6bbf9870d325420466d47976a8b02af6f732c6ce8849",
+  "crates/core/src/clock.rs": "0172a471bead9645bdba388230cecf8aae45ae4f851fd730db6c34b341fa60e3",
+  "crates/core/src/curves.rs": "03657c60f81fa4cca801b628c407ecc8b920c15a85521dfcf6532de21fca67c9"
+ },
+ "run_directory": "output/sheets-batches/20261013T112107Z-2989a955",
+ "rows": [
+  {
+   "job": "b-albano-nest-mb-free",
+   "job_sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+   "cpu": 0,
+   "exit_code": 0,
+   "wall_seconds": 299.9018921999959,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/b-albano-nest-mb-free",
+   "status": "valid",
+   "material": 2.385299845967919,
+   "sheets": 3,
+   "warm_material": 2.5943749626455723,
+   "accepted_at_seconds": 282.9941482,
+   "elapsed_seconds": 299.7601539,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 2,
+    "failed_insertions": 28,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.2430251,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.5943749626455723
+    },
+    {
+     "elapsed_seconds": 65.8964592,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.4333714289167214
+    },
+    {
+     "elapsed_seconds": 96.2991577,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.403889563392661
+    },
+    {
+     "elapsed_seconds": 129.66255,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.3891424049659413
+    },
+    {
+     "elapsed_seconds": 210.1268376,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.386838482091848
+    },
+    {
+     "elapsed_seconds": 240.2737414,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.3856200021973195
+    },
+    {
+     "elapsed_seconds": 282.9941482,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.385299845967919
+    }
+   ],
+   "layout_sha256": "731c90abf1dfb201cfda8358e26f529944eac58b5db408dd3fc6318a14e28879",
+   "validation_sha256": "fd26400966bd4d7894c08f4f9da762b7b8a9eeb703453e97c642d2ae632fa7ea",
+   "comparison": {
+    "reduction_percent": 8.058782086897608,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-fu-strip-sheet",
+   "job_sha256": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 299.88964660000056,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/b-fu-strip-sheet",
+   "status": "valid",
+   "material": 1.2368507368421053,
+   "sheets": 2,
+   "warm_material": 1.2635180789473686,
+   "accepted_at_seconds": 244.5224198,
+   "elapsed_seconds": 299.7540084,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 1,
+    "failed_insertions": 38,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 17.9676944,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.2635180789473686
+    },
+    {
+     "elapsed_seconds": 51.3565805,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.2375391842105263
+    },
+    {
+     "elapsed_seconds": 244.5224198,
+     "stage": "compress",
+     "sheets": 2,
+     "material": 1.2368507368421053
+    }
+   ],
+   "layout_sha256": "8168b3497f6fcf0490643429dd83626fa1c5f5d15bdd2330b122750d8fc41e31",
+   "validation_sha256": "9ee39c1b55f6122142c7f6f594cf7f3a158563de65841f696cf23221fe51477b",
+   "comparison": {
+    "reduction_percent": 9.614753846153846,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-jakobs2-strip-sheet",
+   "job_sha256": "b908f3ef16fa41e8c4cd7a56edf21f9d77ecda44f1301ec5ba05aaf4c38cccb3",
+   "cpu": 4,
+   "exit_code": 0,
+   "wall_seconds": 299.9678882000153,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/b-jakobs2-strip-sheet",
+   "status": "valid",
+   "material": 0.7334561285714286,
+   "sheets": 1,
+   "warm_material": 1.0857219285714286,
+   "accepted_at_seconds": 299.8356405,
+   "elapsed_seconds": 299.8364452,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 0,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 0.2795976,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.0857219285714286
+    },
+    {
+     "elapsed_seconds": 0.3195766,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.9592766857142857
+    },
+    {
+     "elapsed_seconds": 2.6276314,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.8190160714285715
+    },
+    {
+     "elapsed_seconds": 4.9080531,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7940089285714286
+    },
+    {
+     "elapsed_seconds": 7.9702712,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7813633142857143
+    },
+    {
+     "elapsed_seconds": 11.032939,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7798372571428571
+    },
+    {
+     "elapsed_seconds": 25.6815463,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7697175142857143
+    },
+    {
+     "elapsed_seconds": 29.5077347,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7688647571428571
+    },
+    {
+     "elapsed_seconds": 31.8969538,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7674426428571428
+    },
+    {
+     "elapsed_seconds": 115.0886628,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7610946571428572
+    },
+    {
+     "elapsed_seconds": 117.7732235,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7514834571428571
+    },
+    {
+     "elapsed_seconds": 127.4848883,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7484743857142857
+    },
+    {
+     "elapsed_seconds": 129.892507,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7454087857142857
+    },
+    {
+     "elapsed_seconds": 131.9627045,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7425136
+    },
+    {
+     "elapsed_seconds": 135.586756,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7410091857142858
+    },
+    {
+     "elapsed_seconds": 271.0809935,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7391830285714286
+    },
+    {
+     "elapsed_seconds": 274.5293594,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7370443
+    },
+    {
+     "elapsed_seconds": 278.8069652,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7358207857142857
+    },
+    {
+     "elapsed_seconds": 281.1777913,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7355526
+    },
+    {
+     "elapsed_seconds": 283.465552,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7353130428571428
+    },
+    {
+     "elapsed_seconds": 285.6963515,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7351146142857142
+    },
+    {
+     "elapsed_seconds": 289.7239469,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7340602
+    },
+    {
+     "elapsed_seconds": 292.7494537,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7339350571428571
+    },
+    {
+     "elapsed_seconds": 296.439447,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7335674714285714
+    },
+    {
+     "elapsed_seconds": 299.8356405,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7334561285714286
+    }
+   ],
+   "layout_sha256": "13257474ffa09c7e542921cf1ff9f750a7fe82a170f55132f474077f44776092",
+   "validation_sha256": "93e1c65477e4477e655b87d4b1e6af1ecdf750c9e3424abcc98b9ca5409f07ae",
+   "comparison": {
+    "reduction_percent": 1.0822589181136877,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-shapes0-nest-mb-free",
+   "job_sha256": "957c7e93efe640e15bafe7a986abb1b588cdbf13b299500f70d7c271b720241f",
+   "cpu": 6,
+   "exit_code": 0,
+   "wall_seconds": 299.9058140999987,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/b-shapes0-nest-mb-free",
+   "status": "valid",
+   "material": 5.333367857142857,
+   "sheets": 6,
+   "warm_material": 6.857255238095238,
+   "accepted_at_seconds": 299.7697767,
+   "elapsed_seconds": 299.7736582,
+   "stats": {
+    "direct_insertions": 1,
+    "separated_insertions": 1,
+    "failed_insertions": 27,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 1,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.3187725,
+     "stage": "warm",
+     "sheets": 7,
+     "material": 6.857255238095238
+    },
+    {
+     "elapsed_seconds": 31.8814822,
+     "stage": "eliminate",
+     "sheets": 6,
+     "material": 5.952762714285714
+    },
+    {
+     "elapsed_seconds": 62.3214865,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.736672238095238
+    },
+    {
+     "elapsed_seconds": 116.7766249,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.407017095238096
+    },
+    {
+     "elapsed_seconds": 164.3671219,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.396582857142857
+    },
+    {
+     "elapsed_seconds": 255.3085709,
+     "stage": "compress",
+     "sheets": 6,
+     "material": 5.366652714285714
+    },
+    {
+     "elapsed_seconds": 286.2309602,
+     "stage": "compress",
+     "sheets": 6,
+     "material": 5.334095047619048
+    },
+    {
+     "elapsed_seconds": 299.7697767,
+     "stage": "compress",
+     "sheets": 6,
+     "material": 5.333367857142857
+    }
+   ],
+   "layout_sha256": "d0c20657cdbecebdbed7fe07a473f3c79c0b75e99613cc98535c3d2d8f87b4e4",
+   "validation_sha256": "37a05253c6c2b65bace6a98aaf2b3fecb1fe9f0ad240eb9a85f35a516d8653cd",
+   "comparison": {
+    "reduction_percent": 22.801139089390187,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-swim-nest-mb-given",
+   "job_sha256": "501ca6210869d2b31ef6bfdaa1c302b475f70c907d09cd51af321ff26de52be0",
+   "cpu": 8,
+   "exit_code": 0,
+   "wall_seconds": 299.89689299999736,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/b-swim-nest-mb-given",
+   "status": "valid",
+   "material": 4.306039159034608,
+   "sheets": 5,
+   "warm_material": 4.874921519236421,
+   "accepted_at_seconds": 299.2690987,
+   "elapsed_seconds": 299.7569735,
+   "stats": {
+    "direct_insertions": 3,
+    "separated_insertions": 0,
+    "failed_insertions": 27,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.6687526,
+     "stage": "warm",
+     "sheets": 5,
+     "material": 4.874921519236421
+    },
+    {
+     "elapsed_seconds": 63.6007364,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.441110712613634
+    },
+    {
+     "elapsed_seconds": 93.9515807,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.3126903422461105
+    },
+    {
+     "elapsed_seconds": 126.8296055,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.3082990342362075
+    },
+    {
+     "elapsed_seconds": 233.9522651,
+     "stage": "compress",
+     "sheets": 5,
+     "material": 4.306099240126924
+    },
+    {
+     "elapsed_seconds": 299.2690987,
+     "stage": "compress",
+     "sheets": 5,
+     "material": 4.306039159034608
+    }
+   ],
+   "layout_sha256": "69321ccc461ac50749433045e8234c046e20ff979bc51a89568c64b50406d97e",
+   "validation_sha256": "7c0712a0b8fb1a0548092ec4c2094c3601ba3947be5c0c3cb9fa3807046ec591",
+   "comparison": {
+    "reduction_percent": 7.108097465816499,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-trousers-nest-mb-given",
+   "job_sha256": "f0d25168ab71e56cccd54bf2ef8116290e23c096a2124d9cc2c50d76e30809f4",
+   "cpu": 10,
+   "exit_code": 0,
+   "wall_seconds": 299.89910520002013,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/b-trousers-nest-mb-given",
+   "status": "valid",
+   "material": 2.6668238531073447,
+   "sheets": 3,
+   "warm_material": 3.1807985988700564,
+   "accepted_at_seconds": 262.47678,
+   "elapsed_seconds": 299.7573427,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 27,
+    "failed_insertions": 118,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 1,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 32.1901843,
+     "stage": "warm",
+     "sheets": 4,
+     "material": 3.1807985988700564
+    },
+    {
+     "elapsed_seconds": 33.3084181,
+     "stage": "eliminate",
+     "sheets": 3,
+     "material": 2.9886505649717514
+    },
+    {
+     "elapsed_seconds": 63.828051,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7837994576271186
+    },
+    {
+     "elapsed_seconds": 97.5706881,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7223822259887003
+    },
+    {
+     "elapsed_seconds": 128.5241468,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7195521016949153
+    },
+    {
+     "elapsed_seconds": 159.5575078,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6676642033898306
+    },
+    {
+     "elapsed_seconds": 262.47678,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6668238531073447
+    }
+   ],
+   "layout_sha256": "28f3ce1e5e8e324ed3d304fb53c8f704da50f5eb472257b2ac4b88b6f18c81ab",
+   "validation_sha256": "9fa2521a9c1ba8913cc7fb0068a0d06d56e4688e6e6af3d4fc788ee497573e03",
+   "comparison": {
+    "reduction_percent": 17.621671553228612,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-box-compact-2000",
+   "job_sha256": "30c95d9a1b59b65118e90459e76de32a4999e5cf95e94a3c4a73436cc6d32d50",
+   "cpu": 12,
+   "exit_code": 0,
+   "wall_seconds": 300.07816570001887,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/m-box-compact-2000",
+   "status": "valid",
+   "material": 2.2218045786885243,
+   "sheets": 3,
+   "warm_material": 2.2218045786885243,
+   "accepted_at_seconds": 32.1430976,
+   "elapsed_seconds": 299.9395178,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 32.1430976,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.2218045786885243
+    }
+   ],
+   "layout_sha256": "87ff460bca872d5d043bb89651e8c8ee8ba0b0143ef09a15094211c73f511b58",
+   "validation_sha256": "63fda516383ac59b489867dfefed368cd21dc25bd9091bc7440ecb3b7dabce4c",
+   "comparison": null
+  },
+  {
+   "job": "m-box-mini",
+   "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+   "cpu": 14,
+   "exit_code": 0,
+   "wall_seconds": 299.8985042999848,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/m-box-mini",
+   "status": "valid",
+   "material": 0.666000455,
+   "sheets": 1,
+   "warm_material": 0.666000455,
+   "accepted_at_seconds": 30.1110304,
+   "elapsed_seconds": 299.7577682,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.1110304,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.666000455
+    }
+   ],
+   "layout_sha256": "e490f8afcdd8d108d58baf95d4083944617667b090c7774f788e67ce714507fa",
+   "validation_sha256": "86beaa8c90b25f80dfad612b2ef622a66f205aa91266c25cd9cd047e35c1d4a1",
+   "comparison": {
+    "reduction_percent": -6.756756707471112e-05,
+    "outcome": "tie",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-garment-teagan-2",
+   "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 299.760907399992,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/m-garment-teagan-2",
+   "status": "valid",
+   "material": 1.84987869975,
+   "sheets": 2,
+   "warm_material": 1.9867280085,
+   "accepted_at_seconds": 293.6076835,
+   "elapsed_seconds": 299.679128,
+   "stats": {
+    "direct_insertions": 1,
+    "separated_insertions": 1,
+    "failed_insertions": 37,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.4960859,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.9867280085
+    },
+    {
+     "elapsed_seconds": 67.1826473,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.8632050472500001
+    },
+    {
+     "elapsed_seconds": 100.7554692,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.85007828475
+    },
+    {
+     "elapsed_seconds": 293.6076835,
+     "stage": "compress",
+     "sheets": 2,
+     "material": 1.84987869975
+    }
+   ],
+   "layout_sha256": "69ae95dc54ec345d16d2d8eafab3732b30409643b72f08d4be5c2ea22ee39d24",
+   "validation_sha256": "5fba740819541c93afd30144e0c9f108a64424207056810a0e919aa077c542a1",
+   "comparison": null
+  },
+  {
+   "job": "m-mechanical-defective-stock",
+   "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+   "cpu": 8,
+   "exit_code": 0,
+   "wall_seconds": 299.91863359999843,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/m-mechanical-defective-stock",
+   "status": "valid",
+   "material": 2.6479759524,
+   "sheets": 3,
+   "warm_material": 2.7250362308,
+   "accepted_at_seconds": 299.6726122,
+   "elapsed_seconds": 299.8439853,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 2,
+    "failed_insertions": 25,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.0016617,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.7250362308
+    },
+    {
+     "elapsed_seconds": 67.6121185,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7058353612
+    },
+    {
+     "elapsed_seconds": 103.9464453,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6840392688
+    },
+    {
+     "elapsed_seconds": 136.8501638,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6597310656
+    },
+    {
+     "elapsed_seconds": 198.0209206,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6543586048
+    },
+    {
+     "elapsed_seconds": 235.5815943,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6530039736
+    },
+    {
+     "elapsed_seconds": 277.6289318,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6509527392
+    },
+    {
+     "elapsed_seconds": 299.6726122,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6479759524
+    }
+   ],
+   "layout_sha256": "8d834120a914e881f30980f66a0abfca21b75f02b6e490f360dc4b8d361eacb4",
+   "validation_sha256": "465647d64e65ecc95271e8f842537c6dc82c5eb58643f37586e91966219881e3",
+   "comparison": {
+    "reduction_percent": 20.27530702715723,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-mechanical-mixed-stock",
+   "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+   "cpu": 14,
+   "exit_code": 0,
+   "wall_seconds": 299.9430534999992,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/m-mechanical-mixed-stock",
+   "status": "valid",
+   "material": 0.91065004608,
+   "sheets": 1,
+   "warm_material": 0.9323769936767999,
+   "accepted_at_seconds": 299.6646374,
+   "elapsed_seconds": 299.8913151,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 30.2763653,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.9323769936767999
+    },
+    {
+     "elapsed_seconds": 64.3821949,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9258969966655999
+    },
+    {
+     "elapsed_seconds": 98.5237294,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9176319725631998
+    },
+    {
+     "elapsed_seconds": 129.6184448,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9148934539839999
+    },
+    {
+     "elapsed_seconds": 165.5231344,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.913072318016
+    },
+    {
+     "elapsed_seconds": 232.601424,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9121631322431999
+    },
+    {
+     "elapsed_seconds": 299.6646374,
+     "stage": "compress",
+     "sheets": 1,
+     "material": 0.91065004608
+    }
+   ],
+   "layout_sha256": "3240dcce604649c70b4b197c7e6a36739141828fc2aba589988780bee3cd8c34",
+   "validation_sha256": "6c52f5947a925ff430bd72c6777463712c7084b2ed31950f68a64406152acf1d",
+   "comparison": {
+    "reduction_percent": 10.78367845636179,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-public-gear-6",
+   "job_sha256": "44cf8855053813a21d5190001a7862a1e4690ecbbab5e74bd263e58bfbfb0897",
+   "cpu": 0,
+   "exit_code": 0,
+   "wall_seconds": 301.3132922000077,
+   "directory": "output/sheets-batches/20261013T112107Z-2989a955/m-public-gear-6",
+   "status": "valid",
+   "material": 2.78225621,
+   "sheets": 3,
+   "warm_material": 2.8159074275,
+   "accepted_at_seconds": 293.2044886,
+   "elapsed_seconds": 301.2681225,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 4,
+    "failed_insertions": 14,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 46.3964934,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.8159074275
+    },
+    {
+     "elapsed_seconds": 82.5619455,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.813107395
+    },
+    {
+     "elapsed_seconds": 123.8206004,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.80472566
+    },
+    {
+     "elapsed_seconds": 216.7017787,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.793593575
+    },
+    {
+     "elapsed_seconds": 241.7802182,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7908163200000002
+    },
+    {
+     "elapsed_seconds": 252.2784399,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.7894289925
+    },
+    {
+     "elapsed_seconds": 293.2044886,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.78225621
+    }
+   ],
+   "layout_sha256": "d2038f81aed1a314a0804a2841d87a7dfaaad5b8fee6f672d0fb3066247e74bb",
+   "validation_sha256": "85b0d89d8548852362720d061dd017284aa8d5a330c99f4cd007d3302e1346cd",
+   "comparison": null
+  }
+ ]
+}

@@ -1,8 +1,8 @@
-# Status — 2026-10-12
+# Status — 2026-10-13
 
-**Completion: 80%. M0-M4 are complete (M2 on development evidence; final seeds re-check it in M5). M5 (G2 on final seeds with the held-out jobs, G8) remains.**
+**Completion: 80%. M0-M4 are complete. M5 is not: in the final acceptance run G2 is met at 300 s but not at 60 s (85.7% wins or ties against the 90% required, two jobs more than 1% worse, every loss against Sparrow). G1, G3, G4 and G8 have their final evidence.**
 Percentages count completed milestones only. Development results do not establish the final acceptance gates. All failures and earlier trials remain in
-[BENCHMARKS.md](../BENCHMARKS.md). Ten held-out maker jobs remain unused for tuning.
+[BENCHMARKS.md](../BENCHMARKS.md). The ten held-out maker jobs were used once, in the final acceptance run, and never for tuning.
 
 | Milestone | Weight | State / next requirement |
 | --- | ---: | --- |
@@ -11,7 +11,7 @@ Percentages count completed milestones only. Development results do not establis
 | M2 — Sheet optimiser | 25% | Complete: [development matrix](../benchmarks/results/sheets-m2-60s-s0-20261012T144634Z-10b9520f.md) 225/225 valid at 60 s and 300 s; G3 strip parity median −0.039%, worst +1.65%; G4 8/9 (88.9%). 60 s medians: 48/52 wins/ties, median 8.44% (G2 is M5) |
 | M3 — Part-in-part and import/export | 15% | Complete: [fidelity](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md) on 196 real drawings within 0.0005 mm, curves kept, mm and inch correct; Inkscape and LibreCAD open the exports; [LightBurn 2.1.01](../benchmarks/results/g6-lightburn-20261012T170036Z.md) imports all five at the exact placed sizes |
 | M4 — Browser app and MCP | 20% | Complete: [Pages app](https://skulitom.github.io/Nestbolt/) with five examples and a live view; G5 [quality](../benchmarks/results/g5-browser-60s-s0-20261012T182218Z-032f0985.md) (WebAssembly vs native at 60 s on 65 jobs: median +0.02% Chrome 154, +0.07% Firefox 157, total +0.9%), [scale and responsiveness](../benchmarks/results/g5-scale-20261012T192645Z-39d0cca0.md) (2,000 parts imported, nested and exported, peak 1.05/1.16 GB, longest task 106 ms), hosting re-checked live; G7 real Claude Code run, CLI and UI end-to-end tests for every v1 item, MCPB and `mcp-publisher` validation in a [release dry run](https://github.com/skulitom/Nestbolt/actions/runs/38300373491) |
-| M5 — Final gates | 20% | In progress. G2 median condition 5% (Artem, 2026-10-12). Development at 60 s with the final build (`484ce8b`): median 8.77%, 49/52 wins or ties, none more than 1% worse (Sparrow's own one-sheet jobs now run unmodified Sparrow). G1 search fuzzing added. G8: `scripts/reproduce.py`, sealed final settings, results page. 300 s development check: median 9.61%, 8/9, worst −0.25%. Final acceptance run (seeds 1000-1004, held-out jobs) in progress |
+| M5 — Final gates | 20% | **Not met (G2 at 60 s).** [Final acceptance run](https://skulitom.github.io/Nestbolt/results/) (2026-10-13, seeds 1000-1004, held-out jobs, build `75cbb32`): G1 every layout valid (375/375 at 60 s, 60/60 at 300 s, 60/60 at 30 s, 65/65 strips); G2 at 300 s met (median 9.61%, 11/11, worst +0.84%); G2 at 60 s median 8.52% but 48/56 wins or ties (85.7%) and two jobs more than 1% worse (m-garment-bruce-1 −2.37%, b-jakobs1-strip-sheet −2.09%), all eight losses against Sparrow, seven on one-sheet jobs Nestbolt delegates to Sparrow; G3 median −0.002%, worst +0.72%; G4 10/11; G8 one command and the results page from those records. The first final run (`484ce8b`) crashed on one job (G1); [its page](https://skulitom.github.io/Nestbolt/results/final-484ce8b/) stays published |
 
 | Evidence | Current result | Next step |
 | --- | --- | --- |
@@ -47,16 +47,18 @@ The target frozen from it (10.77231474%) was waived by Artem on 2026-10-12
 ([plan decision 4](PLAN.md)); the G2 median condition is the base 5%.
 Missing finite comparisons remain explicit and never earn free wins.
 
-Next: M5. On 2026-10-12 Artem waived the raised G2 median target (10.77%) after the
-feasibility analysis; G2's median condition is the plan's base 5% (development
-median 8.77%). The other G2 conditions remain: wins or ties on at least 90% of jobs
-and never more than 1% worse, at 60 s and 300 s. With Sparrow's own problem (one
-sheet, hole-free parts, no defects) delegated to unmodified Sparrow, the final build
-`484ce8b` passes on development seeds: 60 s median 8.77%, 49/52 wins or ties, worst
-−0.99%; 300 s median 9.61%, 8/9, worst −0.25%. The final acceptance run (seeds
-1000-1004, held-out jobs included) started on 2026-10-12 with the competitors
-(`python scripts/reproduce.py --phase final`); Nestbolt's frozen binary runs after
-them, then the G8 results page is built from those records alone.
+Final acceptance (2026-10-13). The competitors ran first (Deepnest 870/870 slots,
+SVGnest 870/870, Sparrow 1,000/1,000; one Deepnest harness fault before solving was
+replaced and logged). Nestbolt's frozen `484ce8b` then crashed on b-albano-strip-sheet
+(seed 1004, 60 s): a repacking trial its own check rejected was treated as fatal. The
+fix (`75cbb32`, regression test) was frozen before any G2 number of the final run was
+seen, and Nestbolt's final run was repeated in full against the same competitor
+records. Both runs are published. G2 at 60 s is not met by either, with every loss
+against Sparrow: on seven one-sheet jobs Nestbolt hands Sparrow's own problem to
+Sparrow after its first layout, so Sparrow runs with slightly less time. Further
+tuning against these results would use the held-out jobs, which the plan forbids, so
+M5 stays open until Artem decides how to proceed (for example a fresh held-out set
+and seeds for a new final run).
 
 [Ties, failure coverage and the baseline-gap formula](../benchmarks/STATISTICS.md)
 are now explicit. No competitor result means no free win. The [verified 10.6417% single-seed gap](../benchmarks/results/pilot-gap-feedback-20261011.md)

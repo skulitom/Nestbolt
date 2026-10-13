@@ -1,0 +1,735 @@
+{
+ "scope": "Final acceptance phase; all B/M jobs including held-out; one seed of five.",
+ "phase": "final",
+ "long_subset": true,
+ "recorded_at": "2026-10-13T11:56:50.091546+00:00",
+ "seed": 1003,
+ "seconds": 30.0,
+ "reference_seconds": 300,
+ "cpus": [
+  0,
+  2,
+  4,
+  6,
+  8,
+  10,
+  12,
+  14
+ ],
+ "solver_args": [],
+ "binary_sha256": "1dd58ac0ef3347af878271f888b7c326045961ba9d959cc4743acbce04b526de",
+ "baseline": {
+  "path": "benchmarks/results/baseline-gap-20261012T033547Z-e9539412.json",
+  "git_lf_sha256": "5b5ffeaa50bd76f9089d3cb95d61761c736cc5533cffed674d2e591540f3759a"
+ },
+ "sources_at_start": {
+  "scripts/sheets_batch.py": "2255830e3af310f3f44485001e18ba9110ff0102ee3dfe4bd403dae829b2edb6",
+  "crates/core/src/sheets.rs": "382901f0789241cae91b4bdffc652b1b0434c59db10448ded56265a7dd235bd0",
+  "crates/core/src/sheets/vstrip.rs": "4772ea162f1f422ff8b9bd0b0be10cc138dc0a29364c2507033d8db3d42902f3",
+  "crates/core/src/separate.rs": "f65e766367ec9e0990c403cf3cff44c4425a3449d5df6deb8e91e91ba23a6464",
+  "crates/core/src/construct.rs": "1cdeb92d51c507cf2072f03865a54e5a7399bfaa89ba978d08e4febd9bdb27b9",
+  "crates/core/src/optimize.rs": "1a163521a15bf51b78affdc2e90165893052c69b198039ef530076cc19e96815",
+  "crates/core/src/holes.rs": "e6d270e5da85a0ef468d6bbf9870d325420466d47976a8b02af6f732c6ce8849",
+  "crates/core/src/clock.rs": "0172a471bead9645bdba388230cecf8aae45ae4f851fd730db6c34b341fa60e3",
+  "crates/core/src/curves.rs": "03657c60f81fa4cca801b628c407ecc8b920c15a85521dfcf6532de21fca67c9"
+ },
+ "run_directory": "output/sheets-batches/20261013T115536Z-9f4efb23",
+ "rows": [
+  {
+   "job": "b-albano-nest-mb-free",
+   "job_sha256": "d3e10966806a8b344aadc22121f710bbaa3adfa27acea6b18d860fef420d86e5",
+   "cpu": 0,
+   "exit_code": 0,
+   "wall_seconds": 29.886891899979673,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/b-albano-nest-mb-free",
+   "status": "valid",
+   "material": 2.468302427158866,
+   "sheets": 3,
+   "warm_material": 2.5943749626455723,
+   "accepted_at_seconds": 29.7549697,
+   "elapsed_seconds": 29.7578553,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 2,
+    "failed_insertions": 6,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.2167085,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.5943749626455723
+    },
+    {
+     "elapsed_seconds": 18.7972925,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.536833442100637
+    },
+    {
+     "elapsed_seconds": 23.122359,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.5137343515710833
+    },
+    {
+     "elapsed_seconds": 23.9385635,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.480959714348495
+    },
+    {
+     "elapsed_seconds": 29.7549697,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.468302427158866
+    }
+   ],
+   "layout_sha256": "46f3a6b731dcd794fbc6866718e09b605456c4a1fa4c82fa0654cc940caefef2",
+   "validation_sha256": "fd5e13c3523527ac887e0cac7e3f03cf457bc3a076fb27efa7727a937dd40eda",
+   "comparison": {
+    "reduction_percent": 4.859453324299146,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-fu-strip-sheet",
+   "job_sha256": "96a511d95d8b47237907436f9b825209b945aa67375e82aa890b9c7a375784bc",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 29.86951429999317,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/b-fu-strip-sheet",
+   "status": "valid",
+   "material": 1.2368639736842104,
+   "sheets": 2,
+   "warm_material": 1.3684286842105262,
+   "accepted_at_seconds": 23.0801931,
+   "elapsed_seconds": 29.7522339,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 4,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.0299458,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.3684286842105262
+    },
+    {
+     "elapsed_seconds": 10.564418,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.2373659210526315
+    },
+    {
+     "elapsed_seconds": 23.0801931,
+     "stage": "compress",
+     "sheets": 2,
+     "material": 1.2368639736842104
+    }
+   ],
+   "layout_sha256": "79acaa25fecd50047f1a2a79ae0f819a9e96031969811daf32eaeff01e32db25",
+   "validation_sha256": "a58cf968dcca8a87bb64023bc856a06d082fc4ea4016349a3fe2ced75f9bd30f",
+   "comparison": {
+    "reduction_percent": 9.613786538461543,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-jakobs2-strip-sheet",
+   "job_sha256": "b908f3ef16fa41e8c4cd7a56edf21f9d77ecda44f1301ec5ba05aaf4c38cccb3",
+   "cpu": 4,
+   "exit_code": 0,
+   "wall_seconds": 29.94580990000395,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/b-jakobs2-strip-sheet",
+   "status": "valid",
+   "material": 0.7635955714285714,
+   "sheets": 1,
+   "warm_material": 0.9820927142857142,
+   "accepted_at_seconds": 29.8244584,
+   "elapsed_seconds": 29.8249869,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 0,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 0.2673547,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.9820927142857142
+    },
+    {
+     "elapsed_seconds": 0.3037317,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.9069239428571428
+    },
+    {
+     "elapsed_seconds": 2.7852207,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7955253571428571
+    },
+    {
+     "elapsed_seconds": 9.548582,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7868142142857142
+    },
+    {
+     "elapsed_seconds": 17.4118836,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7813171142857143
+    },
+    {
+     "elapsed_seconds": 19.7794266,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7650803142857143
+    },
+    {
+     "elapsed_seconds": 27.9316584,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7639330571428571
+    },
+    {
+     "elapsed_seconds": 29.8244584,
+     "stage": "sparrow",
+     "sheets": 1,
+     "material": 0.7635955714285714
+    }
+   ],
+   "layout_sha256": "a953d1a58c6be80975af35ee830f6ec8dee999b4bc85306adfd20da209c69622",
+   "validation_sha256": "f95cd118da6e81c7092c98ff9b3eff30fde556b7645dec0d7e300332083d0e44",
+   "comparison": {
+    "reduction_percent": -2.982504451853596,
+    "outcome": "loss",
+    "within_one_percent": false
+   }
+  },
+  {
+   "job": "b-shapes0-nest-mb-free",
+   "job_sha256": "957c7e93efe640e15bafe7a986abb1b588cdbf13b299500f70d7c271b720241f",
+   "cpu": 6,
+   "exit_code": 0,
+   "wall_seconds": 29.894111800007522,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/b-shapes0-nest-mb-free",
+   "status": "valid",
+   "material": 5.381445285714286,
+   "sheets": 6,
+   "warm_material": 7.476466952380952,
+   "accepted_at_seconds": 29.7682566,
+   "elapsed_seconds": 29.7736597,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 11,
+    "failed_insertions": 22,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 2,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.4007871,
+     "stage": "warm",
+     "sheets": 8,
+     "material": 7.476466952380952
+    },
+    {
+     "elapsed_seconds": 3.5510069,
+     "stage": "eliminate",
+     "sheets": 7,
+     "material": 6.95241138095238
+    },
+    {
+     "elapsed_seconds": 6.3037282,
+     "stage": "eliminate",
+     "sheets": 6,
+     "material": 5.99697080952381
+    },
+    {
+     "elapsed_seconds": 11.7013316,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.6731297142857136
+    },
+    {
+     "elapsed_seconds": 17.6928996,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.456346
+    },
+    {
+     "elapsed_seconds": 23.1819406,
+     "stage": "explore",
+     "sheets": 6,
+     "material": 5.405453666666667
+    },
+    {
+     "elapsed_seconds": 28.5451035,
+     "stage": "compress",
+     "sheets": 6,
+     "material": 5.381955761904761
+    },
+    {
+     "elapsed_seconds": 29.7682566,
+     "stage": "compress",
+     "sheets": 6,
+     "material": 5.381445285714286
+    }
+   ],
+   "layout_sha256": "6947bcea78ea605a0bffa714cb1b3ac3ee55a24fc729cd5f2a09599b816284a8",
+   "validation_sha256": "7094a740050e716c08dbb3b0894c429b88fdfaf7060c1d717a666cac4051d57c",
+   "comparison": {
+    "reduction_percent": 22.105233083909106,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-swim-nest-mb-given",
+   "job_sha256": "501ca6210869d2b31ef6bfdaa1c302b475f70c907d09cd51af321ff26de52be0",
+   "cpu": 8,
+   "exit_code": 0,
+   "wall_seconds": 29.88941039997735,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/b-swim-nest-mb-given",
+   "status": "valid",
+   "material": 4.448585244702809,
+   "sheets": 5,
+   "warm_material": 4.983440062144535,
+   "accepted_at_seconds": 29.7622085,
+   "elapsed_seconds": 29.7672414,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 3,
+    "failed_insertions": 18,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.8014737,
+     "stage": "warm",
+     "sheets": 5,
+     "material": 4.983440062144535
+    },
+    {
+     "elapsed_seconds": 9.123488,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.659526045021879
+    },
+    {
+     "elapsed_seconds": 14.1971398,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.464429448553068
+    },
+    {
+     "elapsed_seconds": 23.2724741,
+     "stage": "explore",
+     "sheets": 5,
+     "material": 4.4507703251242985
+    },
+    {
+     "elapsed_seconds": 29.7622085,
+     "stage": "compress",
+     "sheets": 5,
+     "material": 4.448585244702809
+    }
+   ],
+   "layout_sha256": "6ddbd0b7b1e27ae0f52574aa44cd2a2efd16f1e16d78f8908835937f86fc9ed3",
+   "validation_sha256": "b86b2d6ec22a14d0d9dabe036605ed64ccd2d92e3ec745e1d2072f912d10aebf",
+   "comparison": {
+    "reduction_percent": 4.03302624433497,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "b-trousers-nest-mb-given",
+   "job_sha256": "f0d25168ab71e56cccd54bf2ef8116290e23c096a2124d9cc2c50d76e30809f4",
+   "cpu": 10,
+   "exit_code": 0,
+   "wall_seconds": 29.882065799989505,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/b-trousers-nest-mb-given",
+   "status": "valid",
+   "material": 2.6920010847457627,
+   "sheets": 3,
+   "warm_material": 3.1807986440677967,
+   "accepted_at_seconds": 29.5172744,
+   "elapsed_seconds": 29.755556,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 21,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 1,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.6065412,
+     "stage": "warm",
+     "sheets": 4,
+     "material": 3.1807986440677967
+    },
+    {
+     "elapsed_seconds": 4.9934736,
+     "stage": "eliminate",
+     "sheets": 3,
+     "material": 2.997647740112994
+    },
+    {
+     "elapsed_seconds": 10.1151557,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.928504056497175
+    },
+    {
+     "elapsed_seconds": 16.3369621,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.783674858757062
+    },
+    {
+     "elapsed_seconds": 23.2203961,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6947301920903954
+    },
+    {
+     "elapsed_seconds": 29.5172744,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6920010847457627
+    }
+   ],
+   "layout_sha256": "0dfce95bdfce268482128b4a6e966f96de4a4fe2bb908fbffb6d529c0a41d69e",
+   "validation_sha256": "71182263945f00af2e4901467874e1a5152c6c7dd1c99c507e487b583cb8a5e3",
+   "comparison": {
+    "reduction_percent": 16.843945549738216,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-box-compact-2000",
+   "job_sha256": "30c95d9a1b59b65118e90459e76de32a4999e5cf95e94a3c4a73436cc6d32d50",
+   "cpu": 12,
+   "exit_code": 0,
+   "wall_seconds": 31.129435000009835,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/m-box-compact-2000",
+   "status": "valid",
+   "material": 2.2218045786885243,
+   "sheets": 3,
+   "warm_material": 2.2218045786885243,
+   "accepted_at_seconds": 7.7891755,
+   "elapsed_seconds": 30.99958,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 7.7891755,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.2218045786885243
+    }
+   ],
+   "layout_sha256": "87ff460bca872d5d043bb89651e8c8ee8ba0b0143ef09a15094211c73f511b58",
+   "validation_sha256": "63fda516383ac59b489867dfefed368cd21dc25bd9091bc7440ecb3b7dabce4c",
+   "comparison": null
+  },
+  {
+   "job": "m-box-mini",
+   "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+   "cpu": 14,
+   "exit_code": 0,
+   "wall_seconds": 29.886588800000027,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/m-box-mini",
+   "status": "valid",
+   "material": 0.666000455,
+   "sheets": 1,
+   "warm_material": 0.666000455,
+   "accepted_at_seconds": 3.1483957,
+   "elapsed_seconds": 29.7582274,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.1483957,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.666000455
+    }
+   ],
+   "layout_sha256": "114f96f4830dae223e135ce47c35a919b395d18a4f71e7e681282a0167e281b0",
+   "validation_sha256": "86beaa8c90b25f80dfad612b2ef622a66f205aa91266c25cd9cd047e35c1d4a1",
+   "comparison": {
+    "reduction_percent": -6.756756707471112e-05,
+    "outcome": "tie",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-garment-teagan-2",
+   "job_sha256": "453571d175be3d4d3116ce037c9eef166df4fbb2befeac0c8b3642491797a64b",
+   "cpu": 2,
+   "exit_code": 0,
+   "wall_seconds": 29.84308880000026,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/m-garment-teagan-2",
+   "status": "valid",
+   "material": 1.8650530164999999,
+   "sheets": 2,
+   "warm_material": 1.9867280085,
+   "accepted_at_seconds": 22.6180193,
+   "elapsed_seconds": 29.7017198,
+   "stats": {
+    "direct_insertions": 2,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.3135543,
+     "stage": "warm",
+     "sheets": 2,
+     "material": 1.9867280085
+    },
+    {
+     "elapsed_seconds": 11.3634964,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.87816270175
+    },
+    {
+     "elapsed_seconds": 22.6180193,
+     "stage": "explore",
+     "sheets": 2,
+     "material": 1.8650530164999999
+    }
+   ],
+   "layout_sha256": "44dd1f918e3dfe2c4a79c20afd332cdd410e8b8579bbd753d2f7a0c8903e3d7f",
+   "validation_sha256": "e246d94bb02a07f5b40926f2a83b3e5408977e0f7e094ecd95e7e2c16dfefd95",
+   "comparison": null
+  },
+  {
+   "job": "m-mechanical-defective-stock",
+   "job_sha256": "7d498ab996a353ece3959e5b19f9c7918e792fdd87741024af9dfd2cb008fdc9",
+   "cpu": 10,
+   "exit_code": 0,
+   "wall_seconds": 30.002823699993314,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/m-mechanical-defective-stock",
+   "status": "valid",
+   "material": 2.6632795032,
+   "sheets": 3,
+   "warm_material": 2.7325299808,
+   "accepted_at_seconds": 29.651363,
+   "elapsed_seconds": 29.8677907,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 1,
+    "failed_insertions": 17,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 3.0003642,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.7325299808
+    },
+    {
+     "elapsed_seconds": 8.4375961,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.7187429832
+    },
+    {
+     "elapsed_seconds": 15.5652919,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6724396592
+    },
+    {
+     "elapsed_seconds": 22.0839129,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.6670418076
+    },
+    {
+     "elapsed_seconds": 29.651363,
+     "stage": "compress",
+     "sheets": 3,
+     "material": 2.6632795032
+    }
+   ],
+   "layout_sha256": "9e8248643ba3c676d15c0cee07e2cd4630ad5fca0dd59506df980c1cfea8e99b",
+   "validation_sha256": "d8732d592df8dc3f10b07c4efd778c31cd187d3395e843950afeb41d376ebc27",
+   "comparison": {
+    "reduction_percent": 19.814550996567714,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-mechanical-mixed-stock",
+   "job_sha256": "2263d5085967d036f5456162bcc19c3dc76f7f02d367e0df83514de21212a9cb",
+   "cpu": 0,
+   "exit_code": 0,
+   "wall_seconds": 30.1609063000069,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/m-mechanical-mixed-stock",
+   "status": "valid",
+   "material": 0.9203528407680001,
+   "sheets": 1,
+   "warm_material": 0.9226398687744001,
+   "accepted_at_seconds": 29.717029,
+   "elapsed_seconds": 30.0244555,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 0,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 6.5325814,
+     "stage": "warm",
+     "sheets": 1,
+     "material": 0.9226398687744001
+    },
+    {
+     "elapsed_seconds": 13.9239019,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9217305518272002
+    },
+    {
+     "elapsed_seconds": 24.0905904,
+     "stage": "explore",
+     "sheets": 1,
+     "material": 0.9208126921472001
+    },
+    {
+     "elapsed_seconds": 29.717029,
+     "stage": "compress",
+     "sheets": 1,
+     "material": 0.9203528407680002
+    }
+   ],
+   "layout_sha256": "1f51ab84d997875a346fd824c6f0d19fa98941e6523827ce6e8c70f38cc09d44",
+   "validation_sha256": "b4e74e4ce342b965c019580b7951ca487c1610e8ecb4f6c1e793022d11e10f06",
+   "comparison": {
+    "reduction_percent": 9.833096337047353,
+    "outcome": "win",
+    "within_one_percent": true
+   }
+  },
+  {
+   "job": "m-public-gear-6",
+   "job_sha256": "44cf8855053813a21d5190001a7862a1e4690ecbbab5e74bd263e58bfbfb0897",
+   "cpu": 14,
+   "exit_code": 0,
+   "wall_seconds": 36.71108120001736,
+   "directory": "output/sheets-batches/20261013T115536Z-9f4efb23/m-public-gear-6",
+   "status": "valid",
+   "material": 2.894945675,
+   "sheets": 3,
+   "warm_material": 2.9093745325,
+   "accepted_at_seconds": 28.6235916,
+   "elapsed_seconds": 36.5744422,
+   "stats": {
+    "direct_insertions": 0,
+    "separated_insertions": 0,
+    "failed_insertions": 8,
+    "ejections": 0,
+    "ejection_moves": 0,
+    "eliminated_sheets": 0,
+    "compressions": 1,
+    "rejected_layouts": 0
+   },
+   "history": [
+    {
+     "elapsed_seconds": 8.8146387,
+     "stage": "warm",
+     "sheets": 3,
+     "material": 2.9093745325
+    },
+    {
+     "elapsed_seconds": 19.6242717,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.909374485
+    },
+    {
+     "elapsed_seconds": 28.6235916,
+     "stage": "explore",
+     "sheets": 3,
+     "material": 2.894945675
+    }
+   ],
+   "layout_sha256": "a8c0dc2a45c6241c54e95849e72de7fe5fa76f5428b00cf51585af8766b54281",
+   "validation_sha256": "39fdb1c56cce10b25a6b96b2550ffaffaca8a608e96c1474d7b9f331c74a3f34",
+   "comparison": null
+  }
+ ]
+}
