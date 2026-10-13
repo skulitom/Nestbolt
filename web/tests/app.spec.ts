@@ -37,9 +37,11 @@ test('import, nest, export and keep the main thread responsive', async ({ page }
   await expect(sheets.first().locator('path.part')).toHaveCount(9);
 
   const [svg] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'SVG', exact: true }).first().click()]);
-  expect(readFileSync(await svg.path(), 'utf8')).toContain('<svg');
+  expect(readFileSync(await svg.path(), 'utf8')).toContain('<g id="CUT" fill="none" stroke="#000000"');
   const [dxf] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'DXF', exact: true }).first().click()]);
-  expect(readFileSync(await dxf.path(), 'utf8')).toContain('ENTITIES');
+  const dxfText = readFileSync(await dxf.path(), 'utf8');
+  expect(dxfText).toContain('2\nCUT\n70\n0\n62\n7\n420\n0\n');
+  expect(dxfText).toContain('\n8\nCUT\n62\n256\n');
 
   const notices = await page.request.get('/THIRD_PARTY_NOTICES.txt');
   expect(await notices.text()).toContain('## preact');

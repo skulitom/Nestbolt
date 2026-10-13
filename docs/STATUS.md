@@ -6,17 +6,17 @@
 Only completed gate weights count. N0/H1 is complete: the labelled corpus and
 writer-stratified held-out allocation are frozen. N1 implementation is in progress;
 explicit gap repair, layer/colour selection, segment cleanup, byte decoding,
-units reports and rejection of incomplete selected cuts now work through the UI,
-CLI and MCP.
+units reports, rejection of incomplete selected cuts and the locally verified
+export palette now work through the UI, CLI and MCP.
 No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
 due by 2026-11-06. Release and registry publication still require Artem's instruction.
 
 | Milestone | Weight | State / next requirement |
 | --- | ---: | --- |
 | N0 — Messy-file corpus | 15% | **H1 complete.** [Frozen corpus and split](../benchmarks/results/h1-freeze-20261013.md): 534 inputs, 338 labels, 148 renders, 1,181 attributed/checksummed files; 15 real + 10 native held out with lineage isolation |
-| N1 — Import robustness | 25% | In progress: [incomplete-drawing checkpoint](../benchmarks/results/h2-completeness-checkpoint-20261013.md) across three surfaces; 245/257 training vectors match counts, 11 reject with repair instructions (including all nine negatives), one imported mismatch remains a documented frozen-label discrepancy. Robustness 183/183 without crash/timeout. Full selection/fidelity, fuzz and native evidence pending. Two held-out negatives cap literal success at 92%; scoring clarifications remain pending, with split unchanged |
+| N1 — Import robustness | 25% | In progress: [incomplete-drawing checkpoint](../benchmarks/results/h2-completeness-checkpoint-20261013.md) across three surfaces; 245/257 training vectors match counts, 11 reject with repair instructions (including all nine negatives), one imported mismatch remains a documented frozen-label discrepancy. Robustness 183/183 without crash/timeout. [Ten native exports and palette](../benchmarks/results/h2-lightburn-20261013T195848Z.md): saved dimensions within 0.000033 mm; eight exact rounded UI sizes, two spline display differences retained. Full selection/fidelity, fuzz, sheet outlines and native-project support pending. Two held-out negatives cap literal success at 92%; scoring clarifications remain pending, with split unchanged |
 | N2 — LightBurn round-trip | 25% | [Local probes](LBRN2.md) establish origins, shared geometry/bitmaps, text, leads, StartV and layer sub-settings. Reader/writer and H3 pending |
-| N3 — Curve-heavy browser | 15% | Pending; H4 requires measured browser/native quality and scale |
+| N3 — Curve-heavy browser | 15% | Pending; H4 requires measured browser/native quality and scale. Native export preparation also exposed a dense legacy two-copy job exceeding a 20 s cooperative limit and 90 s external limit; the unchanged workload completes in 117–126 s with longer limits. Startup/deadline handling remains open |
 | N4 — Common-line cutting | 15% | Pending; H5 requires compensated geometry, savings and surface evidence |
 | N5 — Lead-in allowances | 5% | Pending; H6 requires footprint validation, start points and surface evidence |
 

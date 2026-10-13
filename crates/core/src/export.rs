@@ -42,6 +42,52 @@ pub struct Options {
     pub sheet_outline: bool,
 }
 
+/// Locally verified LightBurn 2.1.01 operation colours (docs/LBRN2.md).
+#[derive(Clone, Copy)]
+enum Layer {
+    Cut,
+    Common,
+    Leadin,
+    Sheet,
+}
+
+impl Layer {
+    const ALL: [Self; 4] = [Self::Cut, Self::Common, Self::Leadin, Self::Sheet];
+    fn name(self) -> &'static str {
+        match self {
+            Self::Cut => "CUT",
+            Self::Common => "COMMON",
+            Self::Leadin => "LEADIN",
+            Self::Sheet => "SHEET",
+        }
+    }
+    fn rgb(self) -> u32 {
+        match self {
+            Self::Cut => 0x000000,
+            Self::Common => 0x0000ff,
+            Self::Leadin => 0xff0000,
+            Self::Sheet => 0xf36926,
+        }
+    }
+    fn aci(self) -> u8 {
+        match self {
+            Self::Cut => 7,
+            Self::Common => 5,
+            Self::Leadin => 1,
+            Self::Sheet => 30,
+        }
+    }
+}
+
+/// Optional toolpaths in sheet coordinates, in millimetres. These are for
+/// review only; the exporter never generates compensation, leads or cut order.
+/// Open paths stay open. True-size part outlines always remain on CUT.
+#[derive(Default)]
+pub struct ReviewPaths {
+    pub common: Vec<Contour>,
+    pub leadin: Vec<Contour>,
+}
+
 fn outlines<'a>(
     job: &'a Job,
     curves: &'a HashMap<String, Outline>,
@@ -105,7 +151,7 @@ fn num(v: f64) -> String {
     if s == "-0" { "0".into() } else { s.into() }
 }
 
-fn svg_path(contour: &Contour, d: &mut String) {
+fn svg_path(contour: &Contour, d: &mut String, closed: bool) {
     let p = |q: [f64; 2]| format!("{} {}", num(q[0]), num(q[1]));
     write!(d, "M {} ", p(contour.start)).expect("string write");
     for s in &contour.segments {
@@ -150,7 +196,9 @@ fn svg_path(contour: &Contour, d: &mut String) {
         }
         .expect("string write");
     }
-    d.push_str("Z ");
+    if closed {
+        d.push_str("Z ");
+    }
 }
 
 /// One sheet as SVG in millimetres; Y is flipped to SVG's downward axis.
@@ -160,6 +208,25 @@ pub fn svg(
     sheet_id: &str,
     curves: &HashMap<String, Outline>,
     options: Options,
+) -> Result<String> {
+    svg_with_review_paths(
+        job,
+        layout,
+        sheet_id,
+        curves,
+        options,
+        &ReviewPaths::default(),
+    )
+}
+
+/// Export exact outlines and already-computed review toolpaths on separate colours.
+pub fn svg_with_review_paths(
+    job: &Job,
+    layout: &Layout,
+    sheet_id: &str,
+    curves: &HashMap<String, Outline>,
+    options: Options,
+    review: &ReviewPaths,
 ) -> Result<String> {
     let (parts, width, height) = placed(job, layout, sheet_id, curves)?;
     let flip = Affine {
@@ -180,19 +247,21 @@ pub fn svg(
     if options.sheet_outline {
         writeln!(
             out,
-            r##"<rect id="sheet" x="0" y="0" width="{}" height="{}" fill="none" stroke="#888888" stroke-width="0.2"/>"##,
+            r##"<g id="SHEET" fill="none" stroke="#{:06x}" stroke-width="0.2"><rect id="sheet" x="0" y="0" width="{}" height="{}"/></g>"##,
+            Layer::Sheet.rgb(),
             num(width),
             num(height)
         )?;
     }
     writeln!(
         out,
-        r##"<g id="parts" fill="none" stroke="#000000" stroke-width="0.1">"##
+        r##"<g id="CUT" fill="none" stroke="#{:06x}" stroke-width="0.1">"##,
+        Layer::Cut.rgb(),
     )?;
     for (id, contours) in parts {
         let mut d = String::new();
         for c in &contours {
-            svg_path(&c.transformed(&flip), &mut d);
+            svg_path(&c.transformed(&flip), &mut d, true);
         }
         writeln!(
             out,
@@ -201,7 +270,34 @@ pub fn svg(
             d.trim_end()
         )?;
     }
-    out.push_str("</g>\n</svg>\n");
+    out.push_str("</g>\n");
+    for (layer, paths) in [
+        (Layer::Common, &review.common),
+        (Layer::Leadin, &review.leadin),
+    ] {
+        if paths.is_empty() {
+            continue;
+        }
+        writeln!(
+            out,
+            r##"<g id="{}" fill="none" stroke="#{:06x}" stroke-width="0.1">"##,
+            layer.name(),
+            layer.rgb()
+        )?;
+        for (i, path) in paths.iter().enumerate() {
+            let mut d = String::new();
+            svg_path(&path.transformed(&flip), &mut d, false);
+            writeln!(
+                out,
+                r#"<path id="{}-{}" d="{}"/>"#,
+                layer.name(),
+                i + 1,
+                d.trim_end()
+            )?;
+        }
+        out.push_str("</g>\n");
+    }
+    out.push_str("</svg>\n");
     Ok(out)
 }
 
@@ -228,6 +324,9 @@ impl Dxf {
         self.pair(5, handle);
         self.pair(100, "AcDbEntity");
         self.pair(8, layer);
+        // Explicit BYLAYER is required for LightBurn's true-colour tool-layer
+        // import; an explicit ACI 30 entity is instead mapped to cutting C05.
+        self.pair(62, 256);
     }
     fn point(&mut self, code: i32, p: [f64; 2]) {
         self.pair(code, num(p[0]));
@@ -319,13 +418,32 @@ impl Dxf {
     }
 }
 
-/// One sheet as an AutoCAD 2000 (AC1015) DXF in millimetres.
+/// One sheet as an AutoCAD 2007 (AC1021) DXF in millimetres, with true-colour layers.
 pub fn dxf(
     job: &Job,
     layout: &Layout,
     sheet_id: &str,
     curves: &HashMap<String, Outline>,
     options: Options,
+) -> Result<String> {
+    dxf_with_review_paths(
+        job,
+        layout,
+        sheet_id,
+        curves,
+        options,
+        &ReviewPaths::default(),
+    )
+}
+
+/// Export exact outlines and already-computed review toolpaths on separate colours.
+pub fn dxf_with_review_paths(
+    job: &Job,
+    layout: &Layout,
+    sheet_id: &str,
+    curves: &HashMap<String, Outline>,
+    options: Options,
+    review: &ReviewPaths,
 ) -> Result<String> {
     let (parts, width, height) = placed(job, layout, sheet_id, curves)?;
     let mut w = Dxf {
@@ -336,9 +454,36 @@ pub fn dxf(
         (0, "SECTION"),
         (2, "HEADER"),
         (9, "$ACADVER"),
-        (1, "AC1015"),
+        (1, "AC1021"),
         (9, "$INSUNITS"),
         (70, "4"),
+        (0, "ENDSEC"),
+        (0, "SECTION"),
+        (2, "TABLES"),
+        (0, "TABLE"),
+        (2, "LAYER"),
+        (5, "100"),
+        (330, "0"),
+        (100, "AcDbSymbolTable"),
+        (70, "4"),
+    ] {
+        w.pair(code, value);
+    }
+    for layer in Layer::ALL {
+        w.pair(0, "LAYER");
+        w.handle += 1;
+        w.pair(5, format!("{:X}", w.handle));
+        w.pair(330, "100");
+        w.pair(100, "AcDbSymbolTableRecord");
+        w.pair(100, "AcDbLayerTableRecord");
+        w.pair(2, layer.name());
+        w.pair(70, 0);
+        w.pair(62, layer.aci());
+        w.pair(420, layer.rgb());
+        w.pair(6, "CONTINUOUS");
+    }
+    for (code, value) in [
+        (0, "ENDTAB"),
         (0, "ENDSEC"),
         (0, "SECTION"),
         (2, "ENTITIES"),
@@ -366,6 +511,18 @@ pub fn dxf(
             }
         }
     }
+    for (layer, paths) in [
+        (Layer::Common, &review.common),
+        (Layer::Leadin, &review.leadin),
+    ] {
+        for path in paths {
+            let mut from = path.start;
+            for segment in &path.segments {
+                w.segment(layer.name(), from, segment);
+                from = segment.end();
+            }
+        }
+    }
     for (code, value) in [(0, "ENDSEC"), (0, "EOF")] {
         w.pair(code, value);
     }
@@ -386,6 +543,72 @@ mod tests {
         <path id="bracket" d="M 0 0 L 40 0 A 10 10 0 0 1 50 10 L 50 30 C 50 40 40 45 30 40 Q 10 35 0 30 Z M 15 10 A 5 3 20 1 0 25 12 A 5 3 20 1 0 15 10 Z"/>
         <circle id="washer" cx="80" cy="20" r="8"/>
     </svg>"#;
+
+    #[test]
+    fn palette_separates_review_paths_and_keeps_them_open() {
+        let (job, layout, curves) = placed_job();
+        let review = ReviewPaths {
+            common: vec![Contour {
+                start: [10.0, 10.0],
+                segments: vec![Segment::Line { to: [30.0, 10.0] }],
+            }],
+            leadin: vec![Contour {
+                start: [50.0, 10.0],
+                segments: vec![Segment::Line { to: [50.0, 20.0] }],
+            }],
+        };
+        let opts = Options {
+            sheet_outline: true,
+        };
+        let svg = svg_with_review_paths(&job, &layout, "sheet-0", &curves, opts, &review).unwrap();
+        let dxf = dxf_with_review_paths(&job, &layout, "sheet-0", &curves, opts, &review).unwrap();
+        let doc = roxmltree::Document::parse(&svg).unwrap();
+        for (name, rgb, aci) in [
+            ("CUT", "#000000", 7),
+            ("COMMON", "#0000ff", 5),
+            ("LEADIN", "#ff0000", 1),
+            ("SHEET", "#f36926", 30),
+        ] {
+            let g = doc
+                .descendants()
+                .find(|n| n.attribute("id") == Some(name))
+                .unwrap();
+            assert_eq!(g.attribute("stroke"), Some(rgb));
+            let packed = u32::from_str_radix(&rgb[1..], 16).unwrap();
+            assert!(dxf.contains(&format!(
+                "2\n{name}\n70\n0\n62\n{aci}\n420\n{packed}\n6\nCONTINUOUS\n"
+            )));
+        }
+        for name in ["COMMON", "LEADIN"] {
+            let path = doc
+                .descendants()
+                .find(|n| n.attribute("id") == Some(&format!("{name}-1")))
+                .unwrap();
+            assert!(!path.attribute("d").unwrap().contains('Z'));
+            let selected = ImportOptions {
+                layers: Some(vec![name.into()]),
+                ..ImportOptions::default()
+            };
+            for error in [
+                import_svg(&svg, &selected).unwrap_err(),
+                import_dxf(&dxf, &selected).unwrap_err(),
+            ] {
+                assert!(error.to_string().contains("open path"));
+            }
+        }
+        let entities = dxf.split("2\nENTITIES\n").nth(1).unwrap();
+        assert!(!entities.contains("\n420\n"));
+        assert!(entities.contains("\n8\nSHEET\n62\n256\n"));
+        for imported in [
+            import_svg(&svg, &ImportOptions::default()),
+            import_dxf(&dxf, &ImportOptions::default()),
+        ] {
+            let imported = imported.unwrap();
+            assert_eq!(imported.parts.len(), 2);
+            assert!(imported.report.open_contours.is_empty());
+            assert_eq!(imported.report.selection_mode, "named_cut_layers");
+        }
+    }
 
     fn placed_job() -> (Job, Layout, HashMap<String, Outline>) {
         let import = import_svg(SOURCE, &ImportOptions::default()).unwrap();

@@ -134,7 +134,37 @@ uses the same native import options and report model. The existing WebAssembly
 `import_files` entry point remains available; new integrations can pass JSON
 options to `import_files_with_options`.
 
-These are initial N1 capabilities. Full corpus
-fidelity, 10,000-case property testing and native LightBurn export checks still
-need their H2 evidence. The frozen corpus and held-out partition must not change
-in response to these tests.
+## Export colours and LightBurn
+
+SVG groups and DXF layers use the locally verified LightBurn palette:
+
+| Operation | LightBurn layer | SVG / DXF true colour | DXF ACI fallback |
+| --- | --- | --- | --- |
+| CUT | C00 | `#000000` | 7 |
+| COMMON | C01 | `#0000ff` | 5 |
+| LEADIN | C02 | `#ff0000` | 1 |
+| SHEET | T1 | `#f36926` | 30 |
+
+DXF export is now AutoCAD 2007 (`AC1021`), in millimetres. Entities use BYLAYER
+colour; each layer records both its exact RGB and an ACI fallback. SVG uses the
+same RGB strokes. True-size closed part outlines remain on CUT. Exporting and
+re-importing a drawing with these groups automatically selects CUT, while the
+other operation layers remain available for explicit selection.
+
+When including a sheet outline, enable **Settings → Import / Export → Allow
+Importing to Tool Layers** in LightBurn before importing. This is required for
+SHEET to arrive on T1. With the option off, LightBurn can assign that colour to
+a cutting layer. ACI 30 alone is also insufficient; see the [native palette
+probes](LBRN2.md#export-palette-and-dxf-variants). Leave sheet-outline export off
+when a boundary is unnecessary.
+
+The core exporter can accept already-computed COMMON and LEADIN review paths,
+preserving open endpoints. Their generation and user-facing controls belong to
+N4/N5 and are not implemented by this palette change.
+
+The [ten-file native check](../benchmarks/results/h2-lightburn-20261013T195848Z.md)
+records sizes and palette assignments, including a small LightBurn spline-size
+display discrepancy whose saved geometry remains exact within native precision.
+These are initial N1 capabilities. Full corpus fidelity and 10,000-case property
+testing still need their H2 evidence. The frozen corpus and held-out partition
+must not change in response to these tests.

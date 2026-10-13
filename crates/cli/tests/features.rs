@@ -514,6 +514,9 @@ fn svg_and_dxf_in_curves_out_and_re_export() {
     let run = nest(&dir, &library, request.clone(), "3");
     let svg = fs::read_to_string(run.dir.join("sheet-0.svg")).unwrap();
     let dxf = fs::read_to_string(run.dir.join("sheet-0.dxf")).unwrap();
+    assert!(svg.contains(r##"<g id="CUT" fill="none" stroke="#000000""##));
+    assert!(dxf.contains("2\nCUT\n70\n0\n62\n7\n420\n0\n"));
+    assert!(dxf.contains("\n8\nCUT\n62\n256\n"));
     // Curves are transformed, not re-polygonised: SVG arcs/Béziers and DXF arcs.
     assert!(
         svg.contains(" A ") || svg.contains(" C "),

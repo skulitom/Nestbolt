@@ -1,0 +1,10 @@
+{
+  "status": "preparation_failed",
+  "reason": "legacy nest exceeded 90-second external timeout despite a 20-second cooperative limit",
+  "log": "fusion [602.0100628, 200.0000000000001]\nfreecad [510.0100536, 232.0]\nTraceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h2_lightburn_prepare.py\", line 200, in <module>\n    main()\n  File \"C:\\DEV\\Nestbolt\\scripts\\h2_lightburn_prepare.py\", line 161, in main\n    run([binary, 'nest', '--library', case/'library.json', '--request', case/'request.json',\n  File \"C:\\DEV\\Nestbolt\\scripts\\h2_lightburn_prepare.py\", line 40, in run\n    stdout, stderr = proc.communicate(timeout=90)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\artem\\anaconda3\\Lib\\subprocess.py\", line 1209, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\artem\\anaconda3\\Lib\\subprocess.py\", line 1628, in _communicate\n    raise TimeoutExpired(self.args, orig_timeout)\nsubprocess.TimeoutExpired: Command '['C:\\\\DEV\\\\Nestbolt\\\\target\\\\release\\\\nestbolt.exe', 'nest', '--library', 'C:\\\\DEV\\\\Nestbolt\\\\output\\\\h2-lightburn-20261013T194904Z\\\\legacy\\\\library.json', '--request', 'C:\\\\DEV\\\\Nestbolt\\\\output\\\\h2-lightburn-20261013T194904Z\\\\legacy\\\\request.json', '--out-dir', 'C:\\\\DEV\\\\Nestbolt\\\\output\\\\h2-lightburn-20261013T194904Z\\\\legacy\\\\nest', '--seconds', '1', '--repeatable', '--time-limit', '20']' timed out after 90 seconds\n",
+  "held_out_read": false,
+  "source_sha256": "5ec3fc82683221bb666a72760fe63fdab6fd94839a0f7ee918c26bf06aab1e1b",
+  "binary_sha256": "7451ec6bade8cabcbdf575158790f86f51827548eaaa1f171f7f7d86412a3083",
+  "preparation_script_sha256": "9f081be4367c50991bf110cca1b90cef95b52462dba25164e56307a8e3f44e0b",
+  "next_action": "Retain the same source, quantities, rotations and work budget; allow a longer cooperative/runtime limit for this export-only check. No performance pass."
+}

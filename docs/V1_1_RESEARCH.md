@@ -17,6 +17,13 @@ The T1 palette check now also covers **Allow Importing to Tool Layers**: with it
 enabled, exact true-colour BYLAYER geometry maps to T1, while explicit entity
 ACI 30 still maps to C05. The option was restored after testing.
 
+The [N1 native export check](../benchmarks/results/h2-lightburn-20261013T195848Z.md)
+now verifies these colours in Nestbolt's own DXF/SVG exports. All ten nested
+files import; native saved dimensions agree within 0.000033 mm. The two spline
+files show a 0.003275 mm width difference in LightBurn's numeric field despite
+preserving the analytic curve width. Native field readings and saved geometry
+are therefore recorded separately. No full H2 pass is claimed.
+
 The [render-backed label review](../benchmarks/results/n0-labels-20261013.md)
 also establishes a nested text caveat: LightBurn 2.1.01 stores its Text BackupPath
 cache in world coordinates, while the Text XForm remains local to its parent.
@@ -351,7 +358,9 @@ lbrnts's test assets were copied from other repositories, so its MIT licence may
   ([Primecut](https://kineticusa.com/PrimecutHelp/automatic-lead-placement.html)).
 - **Format:** there is no DXF entity for a lead; a drawn lead is open LINE/ARC geometry. LightBurn assigns layers by
   colour.
-- **Nestbolt today:** its DXF has only CUT and SHEET layers and no colours (`crates/core/src/export.rs:224-364`).
+- **Nestbolt at plan writing:** its DXF had only CUT and SHEET layers and no colours.
+  N1 now exports the verified palette and accepts existing review paths; N4/N5
+  generation remains pending (`crates/core/src/export.rs`).
 
 
 ### N0 public-project verification (2026-10-13)

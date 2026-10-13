@@ -102,6 +102,12 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
             "layout_path": "runs/a/layout.json", "out_dir": "export", "sheet_outline": true}))
             .await.unwrap().structured_content.unwrap();
         assert!(exported["files"][0].as_str().unwrap().ends_with(".svg"));
+        let svg = std::fs::read_to_string(workspace.join("export/sheet-0.svg")).unwrap();
+        let dxf = std::fs::read_to_string(workspace.join("export/sheet-0.dxf")).unwrap();
+        assert!(svg.contains(r##"<g id="CUT" fill="none" stroke="#000000""##));
+        assert!(svg.contains(r##"<g id="SHEET" fill="none" stroke="#f36926""##));
+        assert!(dxf.contains("2\nSHEET\n70\n0\n62\n30\n420\n15952166\n"));
+        assert!(dxf.contains("\n8\nSHEET\n62\n256\n"));
         let estimate = call("estimate_sheets", json!({"library_path": library, "request": request}))
             .await.unwrap().structured_content.unwrap();
         assert!(estimate["sheets_lower_bound"].as_f64().unwrap() >= 1.0);

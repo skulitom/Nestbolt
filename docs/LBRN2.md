@@ -117,6 +117,14 @@ inference for files with an explicitly selected start.
 
 ## Export palette and DXF variants
 
+The [N1 product export check](../benchmarks/results/h2-lightburn-20261013T195848Z.md)
+applies the palette below to Nestbolt's AC1021 and SVG outputs. Both native saves
+confirm indices 0/1/2/30 and a Tool setting for 30. Ten nested exports retain
+their analytic dimensions within 0.000033 mm in native saved geometry. Two spline
+width fields differ by 0.003275 mm despite the retained curves; native UI bounds
+are not assumed to be exact analytic bounds. This is separate from H3 project
+preservation, which remains pending.
+
 Local exports [palette.svg](../benchmarks/datasets/shop/probes/palette.svg) and
 [palette.dxf](../benchmarks/datasets/shop/probes/palette.dxf) establish:
 
