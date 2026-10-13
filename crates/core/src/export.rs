@@ -545,6 +545,56 @@ mod tests {
     </svg>"#;
 
     #[test]
+    fn exploded_dxf_retraces_keep_closed_curves_after_cleanup() {
+        let imported = import_svg(
+            include_str!("../tests/fixtures/closed-retrace.svg"),
+            &ImportOptions::default(),
+        )
+        .unwrap();
+        for (mirrored, rotation_radians) in [(false, 0.0), (true, 0.0), (false, 0.37), (true, 0.37)]
+        {
+            let transform = Affine::placement(&RigidTransform {
+                translation: [120.0, 100.0],
+                rotation_radians,
+                mirrored,
+            });
+            let original = &imported.parts[0];
+            let contours: Vec<_> = std::iter::once(&original.outer)
+                .chain(&original.holes)
+                .map(|c| c.transformed(&transform))
+                .collect();
+            let mut w = Dxf { text: "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n".into(), handle: 0x100 };
+            for contour in &contours {
+                let mut from = contour.start;
+                for segment in &contour.segments {
+                    w.segment("CUT", from, segment);
+                    from = segment.end();
+                }
+            }
+            w.text.push_str("0\nENDSEC\n0\nEOF\n");
+            let got = import_dxf(&w.text, &ImportOptions::default()).unwrap();
+            assert!(got.report.open_contours.is_empty());
+            assert_eq!(got.parts.len(), 1);
+            assert_eq!(got.parts[0].holes.len(), 1);
+            assert_eq!(got.report.cleanup.overlapping_segments_merged, 0);
+            if rotation_radians == 0.0 {
+                assert_eq!(got.report.cleanup.closed_path_overlaps_preserved, 2);
+            }
+            for (expected, actual) in contours
+                .iter()
+                .zip(std::iter::once(&got.parts[0].outer).chain(&got.parts[0].holes))
+            {
+                assert!(
+                    hausdorff(
+                        &expected.flatten(0.0005).unwrap(),
+                        &actual.flatten(0.0005).unwrap()
+                    ) <= 0.001
+                );
+            }
+        }
+    }
+
+    #[test]
     fn palette_separates_review_paths_and_keeps_them_open() {
         let (job, layout, curves) = placed_job();
         let review = ReviewPaths {

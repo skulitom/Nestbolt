@@ -555,12 +555,38 @@ fn assemble(
     warnings: &mut Vec<String>,
     report: &mut ImportReport,
 ) -> Result<Vec<ImportedPart>> {
+    let original = pieces.clone();
     let pieces = cleanup::clean(pieces, &mut report.cleanup);
+    let (mut closed, mut open) = chain(pieces, SILENT_JOIN_MM, report);
+    if !open.is_empty()
+        && (report.cleanup.overlapping_segments_merged > 0
+            || report.cleanup.duplicate_segments_removed > 0)
+    {
+        // DXF writes a closed outline as independent LINE/ARC/SPLINE entities.
+        // If cleanup opens it, recover its existing connectivity before trying
+        // cleanup again. This fallback may not heal any gap or accept a partial
+        // drawing: both the original and cleaned candidate must close in full.
+        let mut candidate_report = ImportReport::new(options)?;
+        let (connected, remainder) = chain(original, SILENT_JOIN_MM, &mut candidate_report);
+        if remainder.is_empty() {
+            let candidate = cleanup::clean(connected, &mut candidate_report.cleanup);
+            let (candidate_closed, candidate_open) =
+                chain(candidate, SILENT_JOIN_MM, &mut candidate_report);
+            if candidate_open.is_empty() {
+                closed = candidate_closed;
+                open = candidate_open;
+                report.cleanup = candidate_report.cleanup;
+            }
+        }
+    }
     if report.cleanup != Cleanup::default() {
         warnings.push(format!("cleanup removed {} exact duplicate segment(s), {} zero-length segment(s); merged {} overlapping collinear segment(s)",
             report.cleanup.duplicate_segments_removed, report.cleanup.zero_length_segments_removed, report.cleanup.overlapping_segments_merged));
     }
-    let (mut closed, mut open) = chain(pieces, SILENT_JOIN_MM, report);
+    if report.cleanup.closed_path_overlaps_preserved > 0 {
+        warnings.push(format!("retained {} overlapping segment pair(s) to keep closed paths connected and preserve their exact curves; repair retraced edges in the source drawing to remove them",
+            report.cleanup.closed_path_overlaps_preserved));
+    }
     if let Some(limit) = options.close_gaps_mm.filter(|v| *v > SILENT_JOIN_MM) {
         let (repaired, remaining) = chain(open, limit, report);
         closed.extend(repaired);

@@ -11856,3 +11856,28 @@ The G6 measurement now decodes drawing bytes, accepts frozen per-file import set
 [The 17-case Bézier habit pilot](benchmarks/results/h2-fidelity-20261013T202304Z.md) passes every file: 38 contour comparisons, zero unmatched contours, maximum SVG/DXF distance 0.000000665 mm. Gap, overlap, duplicate, colour, unit and mirrored-block variants use their frozen options. Four physical CCD0 cores, one affinity-pinned process per core; unchanged source/binary/runner hashes. The complete 257-training-vector sweep has started with the same procedure; its final outcome is still pending. No held-out geometry or labels were read. Native project fidelity remains pending N2.
 
 [A separate audit of retained training-import observations](benchmarks/results/h2-cut-layer-audit-20261013.json) finds 246/246 imported cut-layer selections match the frozen labels. Thirteen SVG labels represent an unnamed layer as null, while the importer calls it channel 0; this representation mapping is explicit and no label was changed. Combining layers with the existing part/hole counts gives 245 matches; R43 remains the pending documented label discrepancy. Expected warning coverage is retained but not declared verified. H2 and overall progress remain unchanged at 15%.
+
+
+### 2026-10-13 — bounded dense-drawing startup diagnostic
+
+[Diagnostic](benchmarks/results/h2-startup-20261013T203208Z.json), on the training Iris rev3 bottom plate, leaves the running fidelity sweep unchanged. One separate process on CCD0 physical core 8, 90 s external bound, same source and binary hashes. The native phase log completes hole grouping at 0.04 s; no first-layout/warm phase completes before the 90 s timeout. The imported drawing is one part with 1,828 outer vertices, 2,768 hole vertices and 11 holes. This locates the delay after grouping and before the completed initial layout, without yet distinguishing separator-model preparation from constructor preparation. The timeout and raw phase output are retained. No speed, fidelity or gate pass is claimed.
+
+
+### 2026-10-13 — completed training-vector fidelity sweep (failures retained)
+
+[Full report](benchmarks/results/h2-fidelity-20261013T202338Z.md): all 257 labelled training vectors were attempted with frozen import settings. 239 passed, 11 were rejected, four exceeded the 360 s external limit and three produced measurement errors. The successful measurements compare 4,484 contours with zero unmatched contours; maximum finite SVG distance 0.001414123 mm and DXF 0.000499980 mm. These distances do not turn missing/error measurements into passes.
+
+The four timeouts are dense Iris plates. Two extreme narrow Gherkin shapes fail nesting with no interior pole found; one repaired ARC outline exports to a closed SVG which cleanup incorrectly opens on re-import. The [independently authored closed-path regression](benchmarks/results/h2-closed-backtrack-diagnostic-20261013.json) reproduces that last failure. The bounded startup diagnostic and all original failed observations remain intact. Four CCD0 physical cores, unchanged sources/binary/runner; no held-out geometry or labels read. The 56 native projects remain pending N2. H2 is not passed.
+
+### 2026-10-13 — approved R43 count-scoring exception
+
+Artem explicitly approved [one documented scoring exception](benchmarks/results/h2-r43-scoring-exception-20261013.md): the frozen training R43 duplicate-cutout case is scored as one plate with 37 holes. Original source, label, split, diagnostic and failed reports are preserved and hash-linked. The retained 193805Z observations still have 245 raw count matches; the separately recorded reviewed count is 246/257. Cut layers, warnings, fidelity and all other files remain subject to their original requirements. This does not resolve or change the separate held-out-negative denominator question. H2 remains incomplete and overall progress is 15%.
+
+
+### 2026-10-13 — closed-path retrace repair and regression checkpoint
+
+[Checkpoint](benchmarks/results/h2-closed-retrace-checkpoint-20261013.md): cleanup preserves exact retraces needed to connect a closed contour and reports them. Exploded DXF recovery requires the entire original and recleaned drawing to close at the existing silent tolerance; gap settings are unchanged. The [intermediate attempt](benchmarks/results/h2-fidelity-20261013T205552Z.md) fixed SVG but still failed DXF, and remains recorded. The [final ARC rerun](benchmarks/results/h2-fidelity-20261013T210158Z.md) passes both formats: 24 contour comparisons, zero unmatched, maximum SVG 0.000607954 mm and DXF 0.000000660 mm.
+
+[Training](benchmarks/results/h2-import-training-20261013T210235Z.json): 246 imports and 11 rejections; all prior import/count observations and layer/colour selections unchanged. 245 raw count matches, 246 with the approved hash-scoped R43 exception; maximum 0.629 s. [Robustness](benchmarks/results/h2-import-robustness-20261013T210319Z.json): 36 imports, 147 rejections, no crash/timeout, maximum 0.820 s. The single changed robustness case keeps two closed GDAL polylines with explicit unsupported-3DSOLID warnings. No fidelity claim for that file.
+
+Final validation: 163 workspace tests pass, one existing ignored test; ten Chromium/Firefox import tests, strict Clippy, schemas and production WASM/web build pass. An initial new MCP test assertion incorrectly treated its numeric hole count as an array; corrected and the entire suite rerun. All 1,181 frozen inventory hashes verify. Sources stayed fixed throughout each affinity-pinned benchmark; no held-out geometry or labels read. Four full-sweep timeouts and two nesting errors remain; native-project fidelity and the other H2 requirements are pending. Overall milestone completion stays 15%.

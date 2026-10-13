@@ -148,6 +148,32 @@ fn cleanup_counts_are_in_the_import_report() {
 }
 
 #[test]
+fn closed_retraces_keep_holes_and_report_preserved_overlaps() {
+    let dir = temp("closed-retrace");
+    let source = dir.join("closed.svg");
+    fs::write(
+        &source,
+        include_str!("../../core/tests/fixtures/closed-retrace.svg"),
+    )
+    .unwrap();
+    let library = import(&dir, &[source]);
+    let value: Value = serde_json::from_slice(&fs::read(library).unwrap()).unwrap();
+    assert_eq!(value["parts"].as_array().unwrap().len(), 1);
+    assert_eq!(value["parts"][0]["holes"].as_array().unwrap().len(), 1);
+    assert_eq!(
+        value["imports"][0]["report"]["cleanup"]["closed_path_overlaps_preserved"],
+        2
+    );
+    assert!(
+        value["warnings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|w| w.as_str().unwrap().contains("keep closed paths connected"))
+    );
+}
+
+#[test]
 fn legacy_dxf_bytes_and_missing_units_are_explicit() {
     let dir = temp("encoding-units");
     let source = dir.join("legacy.dxf");

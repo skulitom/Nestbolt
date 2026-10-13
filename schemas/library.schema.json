@@ -32,6 +32,12 @@
     },
     "Cleanup": {
       "properties": {
+        "closed_path_overlaps_preserved": {
+          "description": "Overlapping segment pairs retained because merging/removing a retraced\nedge inside a closed path would disconnect its neighbouring curves.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
         "duplicate_segments_removed": {
           "format": "uint",
           "minimum": 0,

@@ -60,6 +60,12 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
         let cleaned=call("import_parts",json!({"paths":["cleanup.svg"]})).await.unwrap().structured_content.unwrap();
         assert_eq!(cleaned["part_count"],1);
         assert_eq!(cleaned["imports"][0]["report"]["cleanup"],json!({"duplicate_segments_removed":1,"zero_length_segments_removed":1,"overlapping_segments_merged":1}));
+        std::fs::write(workspace.join("closed-retrace.svg"),include_str!("../../core/tests/fixtures/closed-retrace.svg")).unwrap();
+        let retraced=call("import_parts",json!({"paths":["closed-retrace.svg"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(retraced["parts"].as_array().unwrap().len(),1);
+        assert_eq!(retraced["parts"][0]["holes"],1);
+        assert_eq!(retraced["imports"][0]["report"]["cleanup"]["closed_path_overlaps_preserved"],2);
+        assert!(retraced["warnings"].as_array().unwrap().iter().any(|w| w.as_str().unwrap().contains("keep closed paths connected")));
         let legacy="0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1009\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\nCUT_Ø\n70\n1\n90\n4\n10\n0\n20\n0\n10\n20\n20\n0\n10\n20\n20\n10\n10\n0\n20\n10\n0\nENDSEC\n0\nEOF\n";
         std::fs::write(workspace.join("legacy.dxf"),legacy.chars().map(|c|c as u8).collect::<Vec<_>>()).unwrap();
         let decoded=call("import_parts",json!({"paths":["legacy.dxf"],"layers":["CUT_Ø"],"dxf_unit_mm":25.4})).await.unwrap().structured_content.unwrap();

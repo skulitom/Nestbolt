@@ -2,7 +2,7 @@
 use super::{Piece, Point, SILENT_JOIN_MM, Segment, dist, reverse};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize, JsonSchema)]
 pub struct Cleanup {
@@ -10,12 +10,21 @@ pub struct Cleanup {
     pub zero_length_segments_removed: usize,
     /// Each redundant line merged into the union counts once.
     pub overlapping_segments_merged: usize,
+    /// Overlapping segment pairs retained because merging/removing a retraced
+    /// edge inside a closed path would disconnect its neighbouring curves.
+    #[serde(default, skip_serializing_if = "is_zero")]
+    pub closed_path_overlaps_preserved: usize,
+}
+
+fn is_zero(value: &usize) -> bool {
+    *value == 0
 }
 
 struct Atom {
     from: Point,
     segment: Segment,
     owner: usize,
+    closed: bool,
     live: bool,
 }
 
@@ -166,6 +175,15 @@ fn merge_lines(atoms: &mut [Atom], report: &mut Cleanup) {
         let mut current = intervals[0];
         for next in intervals.into_iter().skip(1) {
             if next.0 < current.1 - ROUND_OFF_MM {
+                if atoms[current.4].closed && atoms[current.4].owner == atoms[next.4].owner {
+                    // The path is already connected. A union changes one of
+                    // its ordered endpoints and can detach the adjacent arc
+                    // or curve. Keep the exact closed trace, including short
+                    // bridges inserted by explicit gap repair.
+                    report.closed_path_overlaps_preserved += 1;
+                    current = next;
+                    continue;
+                }
                 let keep = current.4.min(next.4);
                 let discard = current.4.max(next.4);
                 let same_direction =
@@ -191,22 +209,38 @@ fn merge_lines(atoms: &mut [Atom], report: &mut Cleanup) {
 pub(super) fn clean(pieces: Vec<Piece>, report: &mut Cleanup) -> Vec<Piece> {
     let mut atoms = vec![];
     let mut sources = vec![];
-    let mut seen = HashSet::new();
+    let mut seen = HashMap::new();
     for p in pieces {
         let owner = sources.len();
+        let closed = dist(p.start, p.end()) <= SILENT_JOIN_MM;
         sources.push(p.source);
         let mut from = p.start;
         for segment in p.segments {
             let end = segment.end();
             if empty(from, &segment) {
                 report.zero_length_segments_removed += 1;
-            } else if !seen.insert(duplicate_key(from, &segment)) {
-                report.duplicate_segments_removed += 1;
             } else {
+                let key = duplicate_key(from, &segment);
+                if let Some(&first_owner) = seen.get(&key) {
+                    if first_owner != owner || !closed {
+                        report.duplicate_segments_removed += 1;
+                        from = end;
+                        continue;
+                    }
+                    // Removing an out-and-back edge opens the ordered trace.
+                    // Line pairs are counted by merge_lines below; retain and
+                    // count curved retraces here as well.
+                    if !matches!(segment, Segment::Line { .. }) {
+                        report.closed_path_overlaps_preserved += 1;
+                    }
+                } else {
+                    seen.insert(key, owner);
+                }
                 atoms.push(Atom {
                     from,
                     segment,
                     owner,
+                    closed,
                     live: true,
                 });
             }

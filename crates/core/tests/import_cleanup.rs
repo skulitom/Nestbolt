@@ -57,6 +57,50 @@ fn merges_partial_and_contained_collinear_overlaps_without_merging_nearby_lines(
     );
 }
 
+#[test]
+fn cleanup_preserves_closed_retraced_arc_endpoints() {
+    // A short gap-repair bridge doubles back along the following line. Unioning
+    // them would detach the line from the arc and turn this closed hole into
+    // three open paths. This is an independently authored regression drawing.
+    let result = import_svg(
+        include_str!("fixtures/closed-retrace.svg"),
+        &Options::default(),
+    )
+    .unwrap();
+    assert!(result.report.open_contours.is_empty());
+    assert_eq!(result.parts.len(), 1);
+    assert_eq!(result.parts[0].holes.len(), 1);
+    assert_eq!(result.parts[0].holes[0].segments.len(), 10);
+    assert_eq!(result.report.cleanup.overlapping_segments_merged, 0);
+    // Retain the exact extremum of the backtracking line, not just the
+    // intended rectangle: deleting a 0.05 mm spur would violate fidelity.
+    assert!(
+        result.parts[0].holes[0]
+            .segments
+            .iter()
+            .any(|s| s.end() == [40.05, -10.0])
+    );
+    assert_eq!(result.report.cleanup.closed_path_overlaps_preserved, 2);
+    assert!(
+        result
+            .warnings
+            .iter()
+            .any(|w| w.contains("keep closed paths connected"))
+    );
+}
+
+#[test]
+fn exact_retraces_stay_closed_but_a_second_copy_is_removed() {
+    let paths = r#"<path d="M0 0 H20 V20 H0 V10 H-1 H0 V0 Z"/>
+        <path d="M0 0 H20 V20 H0 V10 H-1 H0 V0 Z"/>"#;
+    let result = import_svg(&svg(paths), &Options::default()).unwrap();
+    assert!(result.report.open_contours.is_empty());
+    assert_eq!(result.parts.len(), 1);
+    assert_eq!(result.parts[0].outer.segments.len(), 7);
+    assert_eq!(result.report.cleanup.duplicate_segments_removed, 7);
+    assert_eq!(result.report.cleanup.closed_path_overlaps_preserved, 1);
+}
+
 proptest! {
     #![proptest_config(ProptestConfig::with_cases(1024))]
     #[test]

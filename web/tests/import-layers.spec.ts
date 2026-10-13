@@ -1,4 +1,13 @@
 import { expect, test } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+
+test('closed retraced holes survive cleanup with a visible warning', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles({ name: 'closed-retrace.svg', mimeType: 'image/svg+xml',
+    buffer: readFileSync(new URL('../../crates/core/tests/fixtures/closed-retrace.svg', import.meta.url)) });
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  await expect(page.locator('.warnings')).toContainText('retained 2 overlapping segment pair(s) to keep closed paths connected');
+});
 
 test('legacy DXF text keeps layer names and offers an explicit inches choice', async ({ page }) => {
   await page.goto('/');

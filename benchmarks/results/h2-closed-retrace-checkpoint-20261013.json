@@ -1,0 +1,65 @@
+{
+  "recorded_on": "2026-10-13",
+  "scope": "Closed retrace import cleanup and training-only regression checkpoint",
+  "H2": false,
+  "completed_milestone_percent": 15,
+  "held_out_geometry_or_labels_read": false,
+  "source_sha256": "e141f43cd31ddd50b097ed8b4fac033b9d3596368017492db4dc39ec73b4cec5",
+  "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+  "implementation": "Keep intra-path retraces that would disconnect a closed contour. When redundant-segment cleanup opens exploded entities, recover their original connections only if the entire original and recleaned drawing closes within the existing silent tolerance. Report retained overlaps; do not enlarge the gap tolerance or flatten source curves.",
+  "training": {
+    "report": "benchmarks/results/h2-import-training-20261013T210235Z.json",
+    "counts": {
+      "imported": 246,
+      "rejected": 11
+    },
+    "raw_count_matches": 245,
+    "reviewed_count_matches": 246,
+    "approved_exception": "benchmarks/results/h2-r43-scoring-exception-20261013.json",
+    "maximum_elapsed_s": 0.6288135999930091,
+    "changed_import_or_count_results_from_193805Z": 0,
+    "changed_layer_color_inventories_or_selection_modes_from_193805Z": 0
+  },
+  "robustness": {
+    "report": "benchmarks/results/h2-import-robustness-20261013T210319Z.json",
+    "counts": {
+      "imported": 36,
+      "rejected": 147
+    },
+    "maximum_elapsed_s": 0.8190106000110973,
+    "changed_case": "robustness/osgeo--gdal/de688f06-3d.dxf",
+    "changed_behavior": "Two closed 2D polylines now import; unsupported 3DSOLID warnings remain. This is a bounded robustness observation, not fidelity acceptance."
+  },
+  "fidelity": {
+    "report": "benchmarks/results/h2-fidelity-20261013T210158Z.json",
+    "counts": {
+      "passed": 1
+    },
+    "contours_compared": 24,
+    "max_hausdorff_mm": {
+      "svg": 0.0006079537848895221,
+      "dxf": 6.597047044908394e-07
+    },
+    "unmatched": 0
+  },
+  "validation": {
+    "workspace_tests": {
+      "passed": 163,
+      "failed": 0,
+      "existing_ignored": 1
+    },
+    "chromium_firefox_import_tests": 10,
+    "strict_all_target_clippy": true,
+    "schema_check": true,
+    "release_native_build": true,
+    "production_wasm_web_build": true,
+    "frozen_inventory_files_verified": 1181
+  },
+  "retained_failures": [
+    "benchmarks/results/h2-fidelity-20261013T202338Z.json",
+    "benchmarks/results/h2-closed-backtrack-diagnostic-20261013.json",
+    "benchmarks/results/h2-fidelity-20261013T205552Z.json"
+  ],
+  "development_test_correction": "The first workspace run failed a newly added MCP assertion that incorrectly treated the numeric hole count as an array. Corrected the test; the final full suite passes.",
+  "remaining_fidelity_errors": "Four dense Iris timeouts and two thin Gherkin nesting errors from the full sweep remain unresolved. No full replacement fidelity sweep is claimed. Native-project fidelity awaits N2."
+}

@@ -347,3 +347,8 @@ The LightBurn trial ends about 2026-11-11. Finish every LightBurn step by 2026-1
   If 10% proves unreachable with material within 1%, report the measured trade-off rather than lowering the bar
   silently.
 - **Scope creep into CAM.** Leads stay a reserved-space and start-point feature.
+
+
+## 10. Reviewed decisions
+
+1. **2026-10-13, Artem — R43 scoring exception.** Score the frozen training Iris PE MX/Alps switch plate as one part with 37 holes. The extra labelled part is a duplicate cutout differing by 6.96e-13 mm. Preserve the frozen label, split and failed result. The [approved exception](../benchmarks/results/h2-r43-scoring-exception-20261013.md) pins the exact source/label/manifest hashes; all other H2 requirements and files are unchanged.
