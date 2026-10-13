@@ -56,7 +56,9 @@ async function setUp(page: Page, files: string[], keep: Record<string, number>, 
 
 async function nest(page: Page) {
   await page.getByRole('button', { name: 'Nest' }).click();
-  await expect(page.locator('.summary')).toBeVisible({ timeout: 90_000 });
+  // A result or an error, whichever comes first; an error fails with its own text.
+  await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout: 90_000 });
+  if (await page.locator('.error').count()) throw new Error(`nesting failed: ${await page.locator('.error').innerText()}`);
   await expect(page.locator('.summary')).toContainText('valid');
 }
 
