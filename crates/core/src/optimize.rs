@@ -4,7 +4,9 @@ use anyhow::{Result, ensure};
 use nestbolt_validator::job::{Job, Metrics, Mode, Report, validate};
 use serde::Serialize;
 
-use crate::construct::{Construction, Options as ConstructOptions, PreparedJob, Refinement};
+use crate::construct::{
+    Construction, Options as ConstructOptions, PreparedJob, Refinement, Rejected,
+};
 use crate::control::{Control, Interrupted, StopReason};
 
 #[derive(Clone, Copy, Debug)]
@@ -67,6 +69,30 @@ fn shuffled_order(count: usize, mut state: u64) -> Vec<usize> {
     order
 }
 
+/// The initial construction. A [`Rejected`] one retries with derived seeds, so
+/// a collision the engine missed never ends the search before it has a layout.
+fn initial_construction(
+    prepared: &PreparedJob<'_>,
+    construct: ConstructOptions,
+    control: &mut Control<'_>,
+) -> Result<Construction> {
+    let mut attempt = 0;
+    loop {
+        let options = ConstructOptions {
+            seed: if attempt == 0 {
+                construct.seed
+            } else {
+                seed(construct.seed ^ 0x5851f42d4c957f2d, attempt)
+            },
+            ..construct
+        };
+        match prepared.construct_ordered(options, None, None, Refinement::None, control) {
+            Err(error) if error.is::<Rejected>() && attempt < 7 => attempt += 1,
+            other => return other,
+        }
+    }
+}
+
 fn better(candidate: &Metrics, incumbent: &Metrics, mode: Mode) -> bool {
     match mode {
         Mode::All => {
@@ -122,8 +148,7 @@ pub fn optimize_controlled(
         "search needs 1..=1024 passes"
     );
     let prepared = PreparedJob::new_controlled(job, control)?;
-    let mut best =
-        prepared.construct_ordered(options.construct, None, None, Refinement::None, control)?;
+    let mut best = initial_construction(&prepared, options.construct, control)?;
     let mut validation = validate(job, &best.layout)?;
     let mut history = vec![];
     // Preserve the complete original 64-pass portfolio and its finishing trials.
@@ -162,6 +187,7 @@ pub fn optimize_controlled(
                     match prepared.compress_last_sheet(&best.layout, fraction, trial_seed, control)
                     {
                         Err(error) if error.is::<Interrupted>() => break,
+                        Err(error) if error.is::<Rejected>() => None,
                         other => other?,
                     };
                 let checked = candidate
@@ -286,8 +312,13 @@ pub fn optimize_controlled(
                 )
                 .map(Some)
         };
+        let mut rejected = false;
         let mut candidate = match attempted {
             Err(error) if error.is::<Interrupted>() => break,
+            Err(error) if error.is::<Rejected>() => {
+                rejected = true;
+                None
+            }
             other => other?,
         };
         let checked = if let Some(ref c) = candidate {
@@ -313,6 +344,8 @@ pub fn optimize_controlled(
             pass,
             stage: if pass == 0 {
                 "construct"
+            } else if rejected {
+                "rejected"
             } else if pass == 1 {
                 "refine"
             } else if pass == 2 {
@@ -331,12 +364,12 @@ pub fn optimize_controlled(
             interleaved_copies,
             seed: trial_seed,
             sheet_limit,
-            complete: current.complete,
+            complete: current.complete && !rejected,
             accepted,
             sheets: current.layout.sheets.len(),
-            material: metrics.map(|m| m.normalized_material),
-            placed_area: metrics.map(|m| m.placed_area),
-            placed_priority: metrics.map(|m| m.placed_priority),
+            material: metrics.filter(|_| !rejected).map(|m| m.normalized_material),
+            placed_area: metrics.filter(|_| !rejected).map(|m| m.placed_area),
+            placed_priority: metrics.filter(|_| !rejected).map(|m| m.placed_priority),
             collision_checks: current.collision_checks,
         };
         if pass > 0 && accepted {

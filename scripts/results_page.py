@@ -32,6 +32,9 @@ TIE = 1e-6
 TOOLS = ['deepnest', 'svgnest', 'sparrow']
 NAMES = {'deepnest': 'Deepnest', 'svgnest': 'SVGnest', 'sparrow': 'Sparrow', 'nestbolt': 'Nestbolt', 'lbf': 'jagua-rs LBF'}
 REPO = 'https://github.com/skulitom/Nestbolt/blob/main/'
+# Earlier final builds whose acceptance run was replaced, with the reason; each
+# keeps its own records and page (never mixed with the current build's).
+SUPERSEDED = ROOT/'benchmarks/final-superseded.json'
 
 
 def quartiles(values):
@@ -198,9 +201,10 @@ def budget_table(seconds, paths, phase='development'):
     return {'seconds': seconds, 'records': records, 'summary': summary, 'rows': rows}
 
 
-def strip_parity(phase):
+def strip_parity(phase, binary_sha256=None):
     """G3: Nestbolt's strip adapter against Sparrow on set S, per-job medians over the
-    phase's seeds (failures ranked last); the reference is Sparrow's better setting."""
+    phase's seeds (failures ranked last); the reference is Sparrow's better setting.
+    With `binary_sha256`, only that Nestbolt build's records count."""
     from comparator_batch_report import audit_batch
     from dataset_selection import PHASE_SEEDS
     from reproduce import BATCHES, excluded
@@ -208,7 +212,7 @@ def strip_parity(phase):
     ours, records = {}, []
     for path in sorted(ROOT.glob('benchmarks/results/strip-native-*.json')):
         record = json.loads(path.read_text(encoding='utf-8'))
-        if record.get('phase', 'development') != phase:
+        if record.get('phase', 'development') != phase or (binary_sha256 and record['binary_sha256'] != binary_sha256):
             continue
         records.append({'path': path.relative_to(ROOT).as_posix(), 'binary_sha256': record['binary_sha256']})
         for row in record['rows']:
@@ -408,6 +412,10 @@ waived on 2026-10-12, decision 4).</p>
                    + ', '.join(f'<a href="{REPO}{e(x["path"].replace(".json", ".md"))}">seed {x["seed"]}</a>' for x in b['records'])
                    + f'; competitor medians: {source}. Hover a value for its settings or per-seed results.{failed}</p>')
     out.append(gate_sections(data))
+    for s in data.get('superseded', []):
+        out.append(f"<h2>Earlier final run: build {e(s['commit'])}</h2><p>{e(s['reason'])} "
+                   f"<a href=\"{e(s['page'])}\">Its complete results</a> (binary <code>{e(s['binary_sha256'][:12])}</code>) "
+                   "stay published and are not mixed into this page.</p>")
     out.append(f'''<h2>All gates</h2><p>Gate-by-gate evidence, including every failed and superseded run, is in
 <a href="{REPO}docs/STATUS.md">STATUS.md</a> and <a href="{REPO}BENCHMARKS.md">BENCHMARKS.md</a>. All numbers on this page are in
 <a href="results.json">results.json</a>; rebuild it with <code>python scripts/results_page.py</code>.</p>
@@ -423,6 +431,7 @@ def main():
     parser.add_argument('--phase', choices=['development', 'final'], default='development')
     parser.add_argument('--nestbolt-30', type=Path, nargs='*', default=[], help='30 s records on the long subset (G4)')
     parser.add_argument('--strip', action='store_true', help='include G3 strip parity from the phase records')
+    parser.add_argument('--binary-sha256', help='count only strip records of this Nestbolt build')
     args = parser.parse_args()
     commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     budgets = [budget_table(60, [p.resolve() for p in args.nestbolt_60], args.phase)]
@@ -436,7 +445,10 @@ def main():
     if args.nestbolt_30:
         data['speed'] = speed([p.resolve() for p in args.nestbolt_30], args.phase)
     if args.strip:
-        data['strip'] = strip_parity(args.phase)
+        data['strip'] = strip_parity(args.phase, args.binary_sha256)
+    if args.phase == 'final' and SUPERSEDED.exists():
+        data['superseded'] = [s for s in json.loads(SUPERSEDED.read_text(encoding='utf-8'))['entries']
+                              if s['binary_sha256'] != args.binary_sha256]
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out/'results.json').write_text(json.dumps(data, indent=1) + '\n', encoding='utf-8', newline='\n')
     (args.out/'index.html').write_text(page(data), encoding='utf-8', newline='\n')

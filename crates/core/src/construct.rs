@@ -217,6 +217,45 @@ pub struct Construction {
     pub layout: Layout,
 }
 
+/// A trial layout that failed its own original-geometry check. jagua's
+/// single-precision collision tests can miss a crossing that falls exactly on
+/// a vertex of both outlines (each adjacent edge test rounds just outside, and
+/// neither interior point lies in the other part), so a trial may overlap.
+/// Search loops discard such a trial and keep their checked incumbent.
+#[derive(Debug)]
+pub struct Rejected(pub String);
+
+impl std::fmt::Display for Rejected {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
+    }
+}
+
+impl std::error::Error for Rejected {}
+
+/// Fail with [`Rejected`] unless every violation is an allowed unplaced copy
+/// (`partial`) or there are none at all.
+pub(crate) fn check_trial(
+    report: &nestbolt_validator::job::Report,
+    partial: bool,
+    what: &str,
+) -> Result<()> {
+    let ok = if partial {
+        report.violations.iter().all(|v| v.code == "quantity")
+    } else {
+        report.valid
+    };
+    if ok {
+        Ok(())
+    } else {
+        Err(Rejected(format!(
+            "{what} failed independent original-geometry validation: {:?}",
+            report.violations
+        ))
+        .into())
+    }
+}
+
 #[derive(Clone)]
 struct Region {
     layout: SearchLayout,
@@ -1100,11 +1139,7 @@ impl<'a> PreparedJob<'a> {
         let unplaced =
             job.parts.iter().map(|p| p.quantity).sum::<u32>() - layout.placements.len() as u32;
         let final_check = nestbolt_validator::job::validate(job, &layout)?;
-        ensure!(
-            final_check.violations.iter().all(|v| v.code == "quantity"),
-            "construction failed independent original-geometry validation: {:?}",
-            final_check.violations
-        );
+        check_trial(&final_check, true, "construction")?;
         // Keep stock identity checked here as well as in the final independent pass.
         debug_assert!(
             open.iter()

@@ -190,11 +190,7 @@ impl PreparedJob<'_> {
             placement.transform = tracked.placement.transform;
         }
         let checked = nestbolt_validator::job::validate(self.job, &layout)?;
-        ensure!(
-            checked.valid,
-            "compaction failed independent validation: {:?}",
-            checked.violations
-        );
+        crate::construct::check_trial(&checked, false, "compaction")?;
         // Proxy coordinates use f32 and conservative outlines; accept quality
         // using the independent original-geometry material metric as well.
         if checked

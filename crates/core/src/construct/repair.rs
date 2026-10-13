@@ -384,11 +384,7 @@ impl PreparedJob<'_> {
         let unplaced =
             self.job.parts.iter().map(|p| p.quantity).sum::<u32>() - layout.placements.len() as u32;
         let checked = nestbolt_validator::job::validate(self.job, &layout)?;
-        ensure!(
-            checked.violations.iter().all(|v| v.code == "quantity"),
-            "repair failed independent validation: {:?}",
-            checked.violations
-        );
+        super::check_trial(&checked, true, "repair")?;
         Ok(Construction {
             algorithm: "nestbolt-repair-v6",
             seed: options.seed,

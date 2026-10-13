@@ -152,11 +152,7 @@ impl PreparedJob<'_> {
             target.transform = tracked.placement.transform;
         }
         let checked = nestbolt_validator::job::validate(self.job, &layout)?;
-        ensure!(
-            checked.valid,
-            "compression failed independent validation: {:?}",
-            checked.violations
-        );
+        crate::construct::check_trial(&checked, false, "compression")?;
         if checked.metrics.as_ref().unwrap().material_area >= metrics.material_area {
             return Ok(None);
         }

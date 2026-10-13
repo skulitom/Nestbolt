@@ -20,6 +20,7 @@ the held-out jobs, which ends tuning, so it needs --final-acceptance.
 """
 import argparse
 import glob
+from hashlib import sha256
 import json
 from pathlib import Path
 import subprocess
@@ -221,11 +222,21 @@ def competitors(phase, tools, cpus, dry_run, minutes=None):
         raise SystemExit('some competitor batches failed; their evidence is retained')
 
 
+def records(pattern, phase, binary):
+    """Result records of one phase made by one Nestbolt binary, so the runs of two
+    builds never mix (a superseded final build keeps its own records)."""
+    digest = sha256(Path(binary).read_bytes()).hexdigest()
+    out = []
+    for path in sorted(glob.glob(str(ROOT/'benchmarks/results'/pattern))):
+        record = json.loads(Path(path).read_text(encoding='utf-8'))
+        if record.get('phase', 'development') == phase and record.get('binary_sha256') == digest:
+            out.append((path, record))
+    return out
+
+
 def strips(phase, binary, dry_run):
     """G3: Nestbolt's strip adapter on set S, one process per seed on its own CPU."""
-    done = {json.loads(Path(p).read_text(encoding='utf-8')).get('seed') for p in
-            glob.glob(str(ROOT/'benchmarks/results/strip-native-*.json'))
-            if json.loads(Path(p).read_text(encoding='utf-8')).get('phase') == phase}
+    done = {record.get('seed') for _, record in records('strip-native-*.json', phase, binary)}
     todo = [seed for seed in PHASE_SEEDS[phase] if seed not in done]
     commands = [[sys.executable, 'scripts/strip_pilot.py', '--phase', phase, '--seed', str(seed),
                  '--cpu', str(CPUS[i % len(CPUS)]), '--binary', str(binary)] for i, seed in enumerate(todo)]
@@ -245,9 +256,7 @@ def nestbolt(phase, binary, final, dry_run):
         for seed in PHASE_SEEDS[phase]:
             check_seed(phase, seed)
             label = f'{phase}-{seconds}s-s{seed}'
-            existing = [p for p in glob.glob(str(ROOT/'benchmarks/results'/f'sheets-{label}-*.json'))
-                        if json.loads(Path(p).read_text(encoding='utf-8')).get('phase', 'development') == phase]
-            if existing:
+            if records(f'sheets-{label}-*.json', phase, binary):
                 continue
             command = [sys.executable, 'scripts/sheets_batch.py', '--binary', str(binary), '--seconds', str(seconds),
                        '--seed', str(seed), '--label', label, '--phase', phase,
@@ -263,12 +272,15 @@ def nestbolt(phase, binary, final, dry_run):
                 raise SystemExit(f'Nestbolt batch {label} failed; evidence retained')
 
 
-def report(phase):
-    records = lambda seconds: sorted(glob.glob(str(ROOT/'benchmarks/results'/f'sheets-{phase}-{seconds}s-s*.json')))
-    sixty, long, quick = records(60), records(300), records(30)
+def report(phase, binary, out=None):
+    paths = lambda seconds: [p for p, _ in records(f'sheets-{phase}-{seconds}s-s*.json', phase, binary)]
+    sixty, long, quick = paths(60), paths(300), paths(30)
     if not sixty:
-        raise SystemExit(f'no {phase} Nestbolt records yet')
-    command = [sys.executable, 'scripts/results_page.py', '--phase', phase, '--nestbolt-60', *sixty, '--strip']
+        raise SystemExit(f'no {phase} Nestbolt records of {binary} yet')
+    command = [sys.executable, 'scripts/results_page.py', '--phase', phase, '--nestbolt-60', *sixty, '--strip',
+               '--binary-sha256', sha256(Path(binary).read_bytes()).hexdigest()]
+    if out:
+        command += ['--out', str(out)]
     if long:
         command += ['--nestbolt-300', *long]
     if quick:
@@ -288,6 +300,7 @@ def main():
     parser.add_argument('--binary', type=Path, default=ROOT/'target/release/nestbolt.exe')
     parser.add_argument('--dry-run', action='store_true', help='list what would run')
     parser.add_argument('--minutes', type=float, help='start no competitor batch that could end after this')
+    parser.add_argument('--out', type=Path, help='report directory (default web/public/results)')
     args = parser.parse_args()
     stages = args.only or ['datasets', 'competitors', 'nestbolt', 'report']
     # Competitor runs on held-out jobs inform nothing about Nestbolt; Nestbolt's own
@@ -301,7 +314,7 @@ def main():
     if 'nestbolt' in stages:
         nestbolt(args.phase, args.binary.resolve(), args.final_acceptance, args.dry_run)
     if 'report' in stages and not args.dry_run:
-        report(args.phase)
+        report(args.phase, args.binary.resolve(), args.out)
 
 
 if __name__ == '__main__':

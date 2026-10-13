@@ -32,6 +32,37 @@ fn shallow_overlap_repair_keeps_the_blaz1_development_quality_gain() {
     assert!(result.validation.metrics.unwrap().normalized_material < 9.81);
 }
 
+#[test]
+fn a_trial_the_collision_engine_lets_overlap_is_rejected_not_fatal() {
+    // Development job (never held out). With seed 1004, pass 75 (diversified,
+    // from the right, capped at one sheet) refines two 936 x 659 rectangles to
+    // 0.0117 apart vertically, about the outlines' corner rounding, so every
+    // edge crossing falls on a vertex and jagua's f32 tests miss a 10.5%
+    // overlap. The independent check catches it; the search must carry on.
+    // Found by the final acceptance run of 484ce8b, which stopped with an error.
+    let job: Job = serde_json::from_str(include_str!(
+        "../../../benchmarks/datasets/B/b-albano-strip-sheet.json"
+    ))
+    .unwrap();
+    let result = optimize::optimize(
+        &job,
+        optimize::Options {
+            construct: construct::Options {
+                seed: 1004,
+                ..construct::Options::default()
+            },
+            passes: 76,
+        },
+        |_| {},
+    )
+    .unwrap();
+    assert!(result.validation.valid);
+    assert_eq!(result.completed_passes, 76);
+    let trial = &result.history[75];
+    assert_eq!(trial.stage, "rejected");
+    assert!(!trial.accepted && trial.material.is_none());
+}
+
 fn job() -> Job {
     Job {
         version: 1,
