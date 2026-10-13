@@ -11847,3 +11847,12 @@ Remaining H2 evidence and scoring clarification are pending. Completion stays 15
 - Core palette/round-trip checks and CLI/MCP export checks pass. Final WASM/web build, strict Clippy and both Chromium/Firefox import-nest-export checks pass. Corpus integrity still verifies all 1,181 files. H2 is incomplete; full fidelity, selection completeness, 10,000-case fuzzing, sheet outlines, native-project support and held-out scoring remain. Overall completion stays 15%; no split, frozen label, threshold or published v1 claim changed.
 
 Final checkpoint validation: the full workspace suite passes 159 tests, with one existing ignored upstream Sparrow debug-assertion test. All 41 hashed final evidence artifacts also match their staged Git bytes; native LightBurn CRLF projects are explicitly exempt from line-ending normalization.
+
+
+### 2026-10-13 — H2 fidelity measurement and cut-layer audit
+
+The G6 measurement now decodes drawing bytes, accepts frozen per-file import settings, covers every imported part (the previous 300-part cap is removed), rejects open re-imports and requires one-to-one contour matches. Extra contours and reuse of the same exported contour cannot pass. The matching regression test and strict all-target Clippy pass. Ordinary G6 positional inputs remain supported; no published v1 result is replaced.
+
+[The 17-case Bézier habit pilot](benchmarks/results/h2-fidelity-20261013T202304Z.md) passes every file: 38 contour comparisons, zero unmatched contours, maximum SVG/DXF distance 0.000000665 mm. Gap, overlap, duplicate, colour, unit and mirrored-block variants use their frozen options. Four physical CCD0 cores, one affinity-pinned process per core; unchanged source/binary/runner hashes. The complete 257-training-vector sweep has started with the same procedure; its final outcome is still pending. No held-out geometry or labels were read. Native project fidelity remains pending N2.
+
+[A separate audit of retained training-import observations](benchmarks/results/h2-cut-layer-audit-20261013.json) finds 246/246 imported cut-layer selections match the frozen labels. Thirteen SVG labels represent an unnamed layer as null, while the importer calls it channel 0; this representation mapping is explicit and no label was changed. Combining layers with the existing part/hole counts gives 245 matches; R43 remains the pending documented label discrepancy. Expected warning coverage is retained but not declared verified. H2 and overall progress remain unchanged at 15%.
