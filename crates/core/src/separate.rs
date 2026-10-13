@@ -15,8 +15,8 @@ use jagua_rs::{
     entities::{Item, Layout, LayoutSnapshot, PItemKey},
     geometry::{
         DTransformation,
-        geo_enums::RotationRange,
-        geo_traits::TransformableFrom,
+        geo_enums::{GeoRelation, RotationRange},
+        geo_traits::{CollidesWith, TransformableFrom},
         primitives::{Rect, SPolygon},
     },
 };
@@ -534,11 +534,20 @@ impl Separator {
             charge(&self.clock, &item, evals);
             let (dt, _) = best.expect("the current placement is always a sample");
             // Coordinate descent is unbounded: when an item cannot fit, it may
-            // walk off the container entirely, which jagua's quadtree cannot
-            // register. Such a place is never useful; keep the current one.
+            // walk off the container entirely. Keep its current position rather
+            // than registering a hazard with no edges in the quadtree root.
             let mut buffer = item.shape_cd().as_ref().clone();
             let moved = buffer.transform_from(item.shape_cd().as_ref(), &dt.compose());
             if Rect::intersection(moved.bbox(), self.layout.container().outer_cd().bbox()).is_none()
+            {
+                continue;
+            }
+            // Bounding boxes can overlap at a corner while an angled or concave
+            // outline misses the root completely. Fully contained bounds need
+            // no edge scan; partially outside outlines must actually intersect.
+            let root = self.layout.cde().bbox();
+            if root.relation_to(moved.bbox()) != GeoRelation::Surrounding
+                && !moved.edge_iter().any(|edge| root.collides_with(&edge))
             {
                 continue;
             }

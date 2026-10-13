@@ -86,6 +86,82 @@ fn check(job: &Job, seed: u64) -> Result<(), TestCaseError> {
     Ok(())
 }
 
+#[test]
+fn regression_ci_quadtree_child_edges() {
+    // Exact shrunk Linux CI case; benchmark record preserves the original seed.
+    let height = 87.98196658031742;
+    let parts = [
+        (vec![6.657948396594396, 2.0, 2.0], 0.0, true, 2, 2, true),
+        (
+            vec![
+                2.0,
+                2.0,
+                9.106484315292827,
+                2.0,
+                2.0,
+                10.49551223083212,
+                2.0,
+            ],
+            2.8113386683023682,
+            false,
+            1,
+            1,
+            false,
+        ),
+    ]
+    .into_iter()
+    .enumerate()
+    .map(
+        |(i, (radii, spike, collinear, quantity, rot, mirror))| Part {
+            id: format!("p{i}"),
+            quantity,
+            geometry: vec![Polygon {
+                outer: ring(&radii, spike, false, collinear),
+                holes: vec![],
+            }],
+            rotations: rotations(rot),
+            allow_mirror: mirror,
+            priority: 1.0,
+        },
+    )
+    .collect();
+    let stocks = [("sheet", 30.0, height), ("large", 45.0, height * 1.2)]
+        .into_iter()
+        .map(|(id, width, height)| Stock {
+            id: id.into(),
+            width,
+            height,
+            count: None,
+            margins: Margins {
+                left: 1.0,
+                right: 1.0,
+                bottom: 1.0,
+                top: 1.0,
+            },
+            outline: vec![],
+            defects: vec![],
+        })
+        .collect();
+    let job = Job {
+        version: 1,
+        name: "CI quadtree child-edge regression".into(),
+        units: Units::Mm,
+        clearance: 0.0,
+        edge_clearance: 0.0,
+        mode: Mode::All,
+        parts,
+        stocks,
+    };
+    let result = optimize(&job, options(162), |_, _| {}).unwrap();
+    assert!(
+        result.validation.valid,
+        "{:?}",
+        result.validation.violations
+    );
+    assert_eq!(result.layout.placements.len(), 3);
+    assert!(validate(&job, &result.layout).unwrap().valid);
+}
+
 proptest! {
     #![proptest_config(ProptestConfig::with_cases(24))]
 

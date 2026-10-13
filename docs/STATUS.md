@@ -27,7 +27,7 @@ the fidelity rerun (1,094 contours, maximum 0.003302 mm); four retain their clea
 rejections. The workspace passes 176 tests and the browser checks pass 18 cases.
 H2 is still incomplete and the v1.1 milestone total remains 15%.
 
-Current verification issue: [Linux CI search-fuzz panic](../benchmarks/results/ci-search-panic-20261013.json) at pushed commit `540c867`. The shrunk case and seed are preserved; reproduce and fix before the next checkpoint push. No full-workspace CI pass is claimed.
+The [Linux CI search-fuzz panic](../benchmarks/results/ci-search-panic-20261013.json) at `540c867` is [fixed and locally verified](../benchmarks/results/ci-quadtree-fix-20261013.md): reject separator moves whose actual outline misses the collision grid, even when their bounds overlap it. All 189 workspace tests pass (one existing test ignored), including the saved case; the optimized regression, strict Clippy and WASM check also pass. Cross-platform CI verification follows the next push.
 
 ## v1 — accepted
 
