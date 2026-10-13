@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jlucaso1--lbrn2-to-svg/707bcd1f-bezier_missing_cp.lbrn2",
+  "sha256": "30822c7667c12064ad45e1e5e3876aaf886a40fbb021529a10a2d92005cd2417",
+  "licence": "MIT",
+  "cut_parts": [
+    {
+      "outer_bounds_mm": [
+        10.0,
+        10.0,
+        20.0,
+        20.0
+      ],
+      "outer_size_mm": [
+        10.0,
+        10.0
+      ],
+      "holes": 0,
+      "unit_type": "bounds_proxy",
+      "top_level_shape_indices": [
+        0
+      ]
+    }
+  ],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [
+    0
+  ],
+  "cut_colors": [
+    "#000000"
+  ],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "bounding_rectangle_proxy",
+    "missing_bezier_control_points_native_line_fallback"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L28",
+    "review_note": "Malformed Bezier primitive lacks control points. Published converter and native exporter both produce the same diagonal line; preserve a clear fallback warning and use its rectangle proxy.",
+    "render": "references/public/L28.png",
+    "render_sha256": "0591f578efec009054e8a411bd400e9f07c3c7ddaa7a96fc196e6a83f0689b2a",
+    "native_reference_project": "references/public/L28.lbrn2",
+    "native_reference_svg": "references/public/L28.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 1,
+    "top_level_types": {
+      "Path": 1
+    },
+    "text_without_backup_count": 0,
+    "layers": [],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Path",
+        "fixed": false,
+        "unit_type": "bounds_proxy",
+        "bounds": [
+          10.0,
+          10.0,
+          20.0,
+          20.0
+        ],
+        "holes": 0,
+        "layers": [
+          0
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      }
+    ]
+  }
+}

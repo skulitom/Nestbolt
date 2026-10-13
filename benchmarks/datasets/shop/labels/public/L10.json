@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jtcozart--lightburntemplates/ec0560d4-keychain_template.lbrn2",
+  "sha256": "b4e77848971631ab30c5c9b8182855cbe8e9eafab3dd5961c6ad1d4ee7a6415f",
+  "licence": "Unlicense",
+  "cut_parts": [],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [],
+  "cut_colors": [],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "fixed_tool_or_output_disabled_shapes",
+    "no_movable_shapes"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [
+    {
+      "top_level_shape_index": 0,
+      "layers": [
+        0,
+        2
+      ],
+      "outer_bounds_mm": [
+        24.0,
+        274.000023,
+        93.400002,
+        309.339996
+      ],
+      "every_sheet": true
+    }
+  ],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L10",
+    "review_note": "Keychain template is one Group entirely on output-off layers; no movable units.",
+    "render": "references/public/L10.png",
+    "render_sha256": "dc942a7033d419ce922c5c830ba148ed40f344e0bc666fc9d756b19cabd9dc75",
+    "native_reference_project": "references/public/L10.lbrn2",
+    "native_reference_svg": "references/public/L10.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 1,
+    "top_level_types": {
+      "Group": 1
+    },
+    "text_without_backup_count": 0,
+    "layers": [
+      {
+        "element": "CutSetting",
+        "index": "0",
+        "type": "Cut",
+        "name": "C00",
+        "minPower": "5",
+        "maxPower": "100",
+        "maxPower2": "20",
+        "speed": "100",
+        "dotSpacing": "0",
+        "priority": "0",
+        "doOutput": "0",
+        "tabCount": "1",
+        "tabCountMax": "1",
+        "cut_sublayer": false
+      },
+      {
+        "element": "CutSetting",
+        "index": "2",
+        "type": "Cut",
+        "name": "C02",
+        "minPower": "0",
+        "maxPower": "0",
+        "maxPower2": "20",
+        "speed": "5.83333",
+        "dotSpacing": "0",
+        "bidir": "0",
+        "priority": "1",
+        "doOutput": "0",
+        "tabCount": "1",
+        "tabCountMax": "1",
+        "cut_sublayer": false
+      }
+    ],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Group",
+        "fixed": true,
+        "unit_type": "rigid_group",
+        "bounds": [
+          24.0,
+          274.000023,
+          93.400002,
+          309.339996
+        ],
+        "holes": 0,
+        "layers": [
+          0,
+          2
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      }
+    ]
+  },
+  "expected_layout_failure": "No movable shapes; enable a cutting/output layer or add geometry. Reader/no-op preservation must still succeed."
+}

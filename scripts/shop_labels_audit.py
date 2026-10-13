@@ -2,12 +2,16 @@
 from collections import Counter
 from datetime import datetime, timezone
 from hashlib import sha256
+import argparse
 import json
+from pathlib import Path
 from shop_sources import CORPUS, ROOT
 
 
 def main():
-    manifest=json.loads((CORPUS/'manifest.draft.json').read_text(encoding='utf-8'))
+    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=ROOT/'output/n0-label-audit.json');args=parser.parse_args()
+    path=CORPUS/('manifest.json' if (CORPUS/'manifest.json').exists() else 'manifest.draft.json')
+    manifest=json.loads(path.read_text(encoding='utf-8'))
     counts=Counter(); negative=[]; pending=[]; rendered=set(); errors=[]
     required={'real','lightburn-native','public-lightburn','generated'}
     for row in manifest['files']:
@@ -23,7 +27,10 @@ def main():
             check(key in label,'missing '+key)
         for part in label['cut_parts']:
             b=part['outer_bounds_mm']; size=part['outer_size_mm']
-            check(len(b)==4 and b[2]>b[0] and b[3]>b[1],'degenerate part bounds')
+            if part.get('degenerate_proxy'):
+                check(part.get('unit_type')=='bounds_proxy' and 'zero_area_proxy' in label['expected_warnings'] and bool(label.get('expected_layout_failure')),'unexplained degenerate proxy')
+                check(len(b)==4 and b[2]>=b[0] and b[3]>=b[1] and max(size)>0,'invalid degenerate bounds')
+            else:check(len(b)==4 and b[2]>b[0] and b[3]>b[1],'degenerate part bounds')
             check(max(abs(a-c) for a,c in zip([b[2]-b[0],b[3]-b[1]],size))<1e-7,'inconsistent part sizes')
             check(isinstance(part['holes'],int) and part['holes']>=0,'invalid hole count')
         if label.get('negative_fixture'):
@@ -43,7 +50,8 @@ def main():
             'negative_fixture_policy':'These do not earn an H2 successful-import result; malformed, empty or ambiguous inputs require clear actionable rejection.',
             'pending_labels':pending,'integrity_checks_pass':not errors,'errors':errors,
             'H1':False,'H2':False,'completed_milestone_weight_percent':0}
-    (ROOT/'benchmarks/results/n0-labels-20261013.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
+    args.output.parent.mkdir(parents=True,exist_ok=True)
+    args.output.write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
     print(json.dumps({k:v for k,v in result.items() if k not in ['pending_labels','negative_fixtures','scope','negative_fixture_policy']}))
     print('Remaining labels:',len(pending))
     if errors: raise SystemExit(1)

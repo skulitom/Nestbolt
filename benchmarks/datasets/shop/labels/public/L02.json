@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jtcozart--lightburntemplates/588d1e6e-ZippoLighter.lbrn2",
+  "sha256": "2e4626f80684873144b9e4b226197014ce447168fac6ab3e8b430a25ef5c0169",
+  "licence": "Unlicense",
+  "cut_parts": [],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [],
+  "cut_colors": [],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "fixed_tool_or_output_disabled_shapes",
+    "no_movable_shapes"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [
+    {
+      "top_level_shape_index": 0,
+      "layers": [
+        2
+      ],
+      "outer_bounds_mm": [
+        70.637505,
+        228.415001,
+        109.347512,
+        285.584999
+      ],
+      "every_sheet": true
+    },
+    {
+      "top_level_shape_index": 1,
+      "layers": [
+        2
+      ],
+      "outer_bounds_mm": [
+        70.652507,
+        262.48042399999997,
+        109.36250600000001,
+        285.530435
+      ],
+      "every_sheet": true
+    },
+    {
+      "top_level_shape_index": 2,
+      "layers": [
+        2
+      ],
+      "outer_bounds_mm": [
+        70.65251500000001,
+        228.415005,
+        109.347515,
+        262.480435
+      ],
+      "every_sheet": true
+    }
+  ],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L02",
+    "review_note": "Three disabled red rectangles. Blank native render is expected; dimensions and fixed membership are read from XML and hidden SVG rectangles.",
+    "render": "references/public/L02.png",
+    "render_sha256": "4e952398b67de0b98ec539a42f8ff2fc9ce5a7550854f761d29ca5af31db9828",
+    "native_reference_project": "references/public/L02.lbrn2",
+    "native_reference_svg": "references/public/L02.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 3,
+    "top_level_types": {
+      "Rect": 3
+    },
+    "text_without_backup_count": 0,
+    "layers": [
+      {
+        "element": "CutSetting",
+        "index": "2",
+        "type": "Cut",
+        "name": "C02",
+        "maxPower": "20",
+        "maxPower2": "20",
+        "speed": "8.33333",
+        "dotSpacing": "0",
+        "priority": "0",
+        "doOutput": "0",
+        "cut_sublayer": false
+      }
+    ],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Rect",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          70.637505,
+          228.415001,
+          109.347512,
+          285.584999
+        ],
+        "holes": 0,
+        "layers": [
+          2
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      },
+      {
+        "index": 1,
+        "type": "Rect",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          70.652507,
+          262.48042399999997,
+          109.36250600000001,
+          285.530435
+        ],
+        "holes": 0,
+        "layers": [
+          2
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Rect",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          70.65251500000001,
+          228.415005,
+          109.347515,
+          262.480435
+        ],
+        "holes": 0,
+        "layers": [
+          2
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      }
+    ]
+  },
+  "expected_layout_failure": "No movable shapes; enable a cutting/output layer or add geometry. Reader/no-op preservation must still succeed."
+}

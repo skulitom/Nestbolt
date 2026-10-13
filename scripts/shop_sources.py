@@ -81,7 +81,8 @@ def attribution(lock):
     lines = ['# Shop corpus licences and attribution', '',
              'Source drawings retain the following licences. They are not relicensed',
              'under Nestbolt\'s MIT licence. Source bytes are unchanged. The source',
-             'lock pins downloads and licence evidence; H1 is not yet frozen.', '',
+             'lock pins downloads and licence evidence. The frozen manifest, once present,',
+             'records the H1 checksums and held-out allocation.', '',
              '## Original format probes', '',
              '`probes/geometry.svg` and LightBurn projects made from it are original',
              'Nestbolt test drawings under the repository MIT licence. Writer:',
@@ -141,6 +142,24 @@ def attribution(lock):
         for row in reviewed:
             image = row['reference_render']['path']
             lines.append(f'| [{row["label"]}]({quote(row["label"])}) | [{image}]({quote(image)}) | {row["licence"]} | [{row["path"]}]({quote(row["path"])}) |')
+        lines += ['']
+    public_references=CORPUS/'references/public/manifest.json'
+    if public_references.exists():
+        lines += ['## Auxiliary native references for public projects', '',
+                  'These are LightBurn Pro 2.1.01 native re-saves and SVG exports, plus',
+                  'Inkscape PNG renders, used only for independent geometry/label evidence.',
+                  'Original projects remain unchanged. These references do not count as new',
+                  'N0 inputs and are not evidence of a lossless round-trip: native saving',
+                  'can add text caches and change legacy layer serialization.',
+                  'Each derivative retains the licence and author attribution of its linked source.',
+                  'L33 SVG is empty; its PNG is the MIT converter\'s empty-project diagnostic.',
+                  'The font-warning screenshot is MIT, derived from the MIT word fixture.',
+                  'Original collection/audit metadata is MIT; geometry values retain the',
+                  'source licence in each row. See the [reference manifest](references/public/manifest.json).', '',
+                  '| Reference | Licence | Source / attribution |', '| --- | --- | --- |']
+        for row in json.loads(public_references.read_text(encoding='utf-8'))['rows']:
+            for f in row['files']:
+                lines.append(f'| [{f["path"]}]({quote(f["path"])}) | {f["licence"]} | [{row["source"]}]({quote(row["source"])}) |')
         lines += ['']
     return '\n'.join(lines)
 

@@ -346,3 +346,15 @@ lbrnts's test assets were copied from other repositories, so its MIT licence may
 - **Format:** there is no DXF entity for a lead; a drawn lead is open LINE/ARC geometry. LightBurn assigns layers by
   colour.
 - **Nestbolt today:** its DXF has only CUT and SHEET layers and no colours (`crates/core/src/export.rs:224-364`).
+
+
+### N0 public-project verification (2026-10-13)
+
+The [44-project native reference review](../benchmarks/results/n0-public-labels-20261013.md)
+confirms all exported reference vectors and 151 image rectangles within 0.01 mm.
+The published MIT converter requires documented reference-input normalization for
+Group Y reflections, world-space text caches, compact primitives, Polygon and
+shared bitmap data. Hidden layers may be absent from native SVG. Native re-save
+can also change legacy Scan+Cut to Scan and generate missing text backups; it is
+not evidence of lossless XML preservation. Original source XML remains authoritative.
+See [local observations](LBRN2.md#public-project-reference-normalization-and-native-export-limits).

@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jtcozart--lightburntemplates/82905234-dm-joel-mighty-fine.lbrn2",
+  "sha256": "f502d7917188d11daf1e63a04b43e7fde47cdedddfc9ab3595307939a1758468",
+  "licence": "Unlicense",
+  "cut_parts": [
+    {
+      "outer_bounds_mm": [
+        89.35289300086863,
+        249.58588,
+        154.64741444577635,
+        319.4145723500293
+      ],
+      "outer_size_mm": [
+        65.29452144490772,
+        69.82869235002929
+      ],
+      "holes": 0,
+      "unit_type": "rigid_group",
+      "top_level_shape_indices": [
+        1
+      ]
+    },
+    {
+      "outer_bounds_mm": [
+        91.825728105976,
+        237.13126633938649,
+        152.174427241832,
+        245.67384480841602
+      ],
+      "outer_size_mm": [
+        60.34869913585601,
+        8.542578469029536
+      ],
+      "holes": 0,
+      "unit_type": "bounds_proxy",
+      "top_level_shape_indices": [
+        2
+      ]
+    }
+  ],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [],
+  "cut_colors": [],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "bounding_rectangle_proxy",
+    "fixed_tool_or_output_disabled_shapes"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [
+    {
+      "top_level_shape_index": 0,
+      "layers": [
+        0
+      ],
+      "outer_bounds_mm": [
+        64.619999,
+        225.33501,
+        179.380001,
+        325.66499
+      ],
+      "every_sheet": true
+    }
+  ],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L07",
+    "review_note": "D20 artwork Group and Mighty Fine Text move separately; disabled six-sided Polygon stays fixed.",
+    "render": "references/public/L07.png",
+    "render_sha256": "5305f8a30447ed1ff986c101e2f2e26ca91a074088a0cfb81571f0e29ec88c47",
+    "native_reference_project": "references/public/L07.lbrn2",
+    "native_reference_svg": "references/public/L07.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 3,
+    "top_level_types": {
+      "Polygon": 1,
+      "Group": 1,
+      "Text": 1
+    },
+    "text_without_backup_count": 0,
+    "layers": [
+      {
+        "element": "CutSetting",
+        "index": "0",
+        "type": "Cut",
+        "name": "C00",
+        "minPower": "10",
+        "maxPower": "10",
+        "maxPower2": "20",
+        "speed": "66.6667",
+        "dotSpacing": "0",
+        "priority": "0",
+        "doOutput": "0",
+        "cut_sublayer": false
+      },
+      {
+        "element": "CutSetting",
+        "index": "1",
+        "type": "Scan",
+        "name": "C01",
+        "maxPower": "60",
+        "maxPower2": "20",
+        "speed": "41.6667",
+        "dotSpacing": "0",
+        "bidir": "0",
+        "priority": "1",
+        "tabCount": "1",
+        "tabCountMax": "1",
+        "cut_sublayer": false
+      }
+    ],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Polygon",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          64.619999,
+          225.33501,
+          179.380001,
+          325.66499
+        ],
+        "holes": 0,
+        "layers": [
+          0
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      },
+      {
+        "index": 1,
+        "type": "Group",
+        "fixed": false,
+        "unit_type": "rigid_group",
+        "bounds": [
+          89.35289300086863,
+          249.58588,
+          154.64741444577635,
+          319.4145723500293
+        ],
+        "holes": 0,
+        "layers": [
+          1
+        ],
+        "layer_types": [
+          "Scan"
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Text",
+        "fixed": false,
+        "unit_type": "bounds_proxy",
+        "bounds": [
+          91.825728105976,
+          237.13126633938649,
+          152.174427241832,
+          245.67384480841602
+        ],
+        "holes": 0,
+        "layers": [
+          1
+        ],
+        "layer_types": [
+          "Scan"
+        ]
+      }
+    ]
+  }
+}

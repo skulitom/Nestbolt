@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jtcozart--lightburntemplates/19e0c890-JourneyManCandle-DND-Rouge.lbrn2",
+  "sha256": "092c1e187d18c4d5581dfcfb3fb51dc9acd9f02a633d7b25e8cf4cdac5f12f40",
+  "licence": "Unlicense",
+  "cut_parts": [
+    {
+      "outer_bounds_mm": [
+        37.678793820186,
+        217.61996156280898,
+        90.32097887735938,
+        282.380237008188
+      ],
+      "outer_size_mm": [
+        52.64218505717338,
+        64.760275445379
+      ],
+      "holes": 0,
+      "unit_type": "rigid_group",
+      "top_level_shape_indices": [
+        0
+      ]
+    },
+    {
+      "outer_bounds_mm": [
+        48.51965399999999,
+        202.842038923315,
+        81.31604,
+        208.90941936844482
+      ],
+      "outer_size_mm": [
+        32.79638600000001,
+        6.067380445129828
+      ],
+      "holes": 0,
+      "unit_type": "bounds_proxy",
+      "top_level_shape_indices": [
+        2
+      ]
+    }
+  ],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [],
+  "cut_colors": [],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "bounding_rectangle_proxy",
+    "fixed_tool_or_output_disabled_shapes"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [
+    {
+      "top_level_shape_index": 1,
+      "layers": [
+        0
+      ],
+      "outer_bounds_mm": [
+        13.395000000000003,
+        189.395004,
+        114.60499999999999,
+        290.604996
+      ],
+      "every_sheet": true
+    }
+  ],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L01",
+    "review_note": "Blue sword artwork is one Group, Rouge is a separate Text proxy. Disabled outer ellipse remains fixed.",
+    "render": "references/public/L01.png",
+    "render_sha256": "4834fec0f9aca976f4cd9b6dbabf4498a5cb195dea3530ece844370e8a062ceb",
+    "native_reference_project": "references/public/L01.lbrn2",
+    "native_reference_svg": "references/public/L01.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 3,
+    "top_level_types": {
+      "Group": 1,
+      "Ellipse": 1,
+      "Text": 1
+    },
+    "text_without_backup_count": 0,
+    "layers": [
+      {
+        "element": "CutSetting",
+        "index": "0",
+        "type": "Cut",
+        "name": "C00",
+        "minPower": "10",
+        "maxPower": "10",
+        "maxPower2": "20",
+        "speed": "66.6667",
+        "dotSpacing": "0",
+        "priority": "1",
+        "doOutput": "0",
+        "cut_sublayer": false
+      },
+      {
+        "element": "CutSetting",
+        "index": "1",
+        "type": "Scan",
+        "name": "C01",
+        "maxPower": "40",
+        "maxPower2": "20",
+        "speed": "41.6667",
+        "numPasses": "2",
+        "dotSpacing": "0",
+        "bidir": "0",
+        "priority": "0",
+        "tabCount": "1",
+        "tabCountMax": "1",
+        "cut_sublayer": false
+      }
+    ],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Group",
+        "fixed": false,
+        "unit_type": "rigid_group",
+        "bounds": [
+          37.678793820186,
+          217.61996156280898,
+          90.32097887735938,
+          282.380237008188
+        ],
+        "holes": 0,
+        "layers": [
+          1
+        ],
+        "layer_types": [
+          "Scan"
+        ]
+      },
+      {
+        "index": 1,
+        "type": "Ellipse",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          13.395000000000003,
+          189.395004,
+          114.60499999999999,
+          290.604996
+        ],
+        "holes": 0,
+        "layers": [
+          0
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Text",
+        "fixed": false,
+        "unit_type": "bounds_proxy",
+        "bounds": [
+          48.51965399999999,
+          202.842038923315,
+          81.31604,
+          208.90941936844482
+        ],
+        "holes": 0,
+        "layers": [
+          1
+        ],
+        "layer_types": [
+          "Scan"
+        ]
+      }
+    ]
+  }
+}

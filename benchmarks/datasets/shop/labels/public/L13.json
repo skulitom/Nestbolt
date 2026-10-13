@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jtcozart--lightburntemplates/24bee2a8-printable_area_jig.lbrn2",
+  "sha256": "a13336c9c1af59c1e229cb4d9f2387e45a4ac84c06a067d079f14f1fad30f784",
+  "licence": "Unlicense",
+  "cut_parts": [],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [],
+  "cut_colors": [],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "fixed_tool_or_output_disabled_shapes",
+    "no_movable_shapes"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [
+    {
+      "top_level_shape_index": 0,
+      "layers": [
+        30
+      ],
+      "outer_bounds_mm": [
+        2.643474999999995,
+        -4.914794999999998,
+        358.24348499999996,
+        350.68521499999997
+      ],
+      "every_sheet": true
+    }
+  ],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L13",
+    "review_note": "Printable-area jig is only a T1 rectangle; no movable units.",
+    "render": "references/public/L13.png",
+    "render_sha256": "35e4dac18c669ab1989e1136eb3ca6d80a8b2346b66e542cb66acbad195cc7ed",
+    "native_reference_project": "references/public/L13.lbrn2",
+    "native_reference_svg": "references/public/L13.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 1,
+    "top_level_types": {
+      "Rect": 1
+    },
+    "text_without_backup_count": 0,
+    "layers": [
+      {
+        "element": "CutSetting",
+        "index": "30",
+        "type": "Tool",
+        "name": "T1",
+        "frame": "0",
+        "priority": "0",
+        "cut_sublayer": false
+      }
+    ],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Rect",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          2.643474999999995,
+          -4.914794999999998,
+          358.24348499999996,
+          350.68521499999997
+        ],
+        "holes": 0,
+        "layers": [
+          30
+        ],
+        "layer_types": [
+          "Tool"
+        ]
+      }
+    ]
+  },
+  "expected_layout_failure": "No movable shapes; enable a cutting/output layer or add geometry. Reader/no-op preservation must still succeed."
+}

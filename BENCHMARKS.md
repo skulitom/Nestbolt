@@ -11694,3 +11694,18 @@ Authoring checkpoint only; H1/H2/H3 remain false and completed milestone weight 
 Label review found a coupon overlap in four wide native designs; moved only that group +400 mm in staging and repeated native Save As/DXF/SVG exports. The 12 previous files remain at `8bbc1fb`; recipe preserves old/new hashes. Native saves also renumber shared IDs, write default Group CutIndex=0, update the Text BackupPath world-space cache and regenerate thumbnails. Canonical geometry/settings checks pass. Actual vector bounds across all 15 native DXF/SVG pairs agree within 0.000008 mm; full SVG viewBoxes include bitmaps absent from DXF and are reported separately. Original native line-export failures remain unchanged.
 
 Published MIT lbrn2-to-svg 0.5.3 ran on all 59 native/public projects. Recorded unsupported Polygon/LineOpen/Text/shared-bitmap warnings and confirmed a nested BackupPath double-transform issue against native SVG output; these are oracle limitations, not Nestbolt passes. The report retains worksheet/renderer setup errors and corrected manual counts. All source, label and render hashes, 339 pinned upstream bytes and six collector safeguards pass.
+
+
+## 2026-10-13 — N0 public labels complete, before held-out freeze
+
+[Report](benchmarks/results/n0-public-labels-20261013.md), [label integrity audit](benchmarks/results/n0-public-labels-20261013.json).
+All 338 required labels now exist: 74 real, 50 native, 44 public projects and 170
+generated; 148 unique reviewed renders. All original hashes are unchanged.
+Auxiliary native re-saves and SVGs cover all 44 public projects / 763 top-level
+shapes, without adding to corpus counts. The normalized published MIT reference
+reader agrees with native vectors (worst sample 0.001922815 mm) and all 151 image
+rectangles (worst corner 0.000006404 mm). The failed group comparison is retained.
+Native save is explicitly not a no-op XML oracle; hidden layers, missing text
+caches, legacy mode changes and zero-area open-line proxies are documented.
+No N1 implementation or quality benchmark ran. H1 and the split remain pending;
+completed milestone weight is 0%.

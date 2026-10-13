@@ -215,3 +215,35 @@ CutIndex=0 and regenerated Thumbnail. After resolving those exact changes,
 all geometry/settings are equal except the intended coupon translation and
 updated text cache. Original bytes are in commit `8bbc1fb`; old/new checksums
 are retained in the recipe. [Corrected native audit](../benchmarks/results/n0-native-corrected-20261013.json).
+
+## Public-project reference normalization and native export limits
+
+The [44-project N0 review](../benchmarks/results/n0-public-labels-20261013.md)
+compared the unmodified published package, with explicitly normalized reference
+inputs, against native 2.1.01 SVG exports. In the package, SVG Y reflection is
+applied at every Group as well as every leaf. Multi-child nested Groups therefore
+have an extra reflection; a matching overall bounding box can conceal the error.
+Reference-only conversion composes transforms into leaves and omits Group
+wrappers. Original XML membership is retained separately for labels. This is not
+an implementation or H3 acceptance of the Nestbolt reader.
+
+After normalization, all 44 exported vector sets and all 151 image rectangles
+agree within 0.01 mm with native SVG. The reference manifest documents compact
+primitive expansion, shared bitmap data, regular Polygon support and Text cache
+promotion. Hidden layers (`hide=1`) are omitted entirely from native SVG; disabled
+output alone is exported with `display:none`. Fixed geometry must be retained
+from the project even when it is absent from the visible reference rendering.
+
+Older public text can lack BackupPath. Native re-save supplies a cache for these
+references, but the original remains unchanged and its missing-cache warning is
+part of the label. The L40 Sans Serif warning does not imply altered geometry:
+its existing backup and native SVG bounds agree. A font-dependent approximation
+must not be reported as exact cached geometry.
+
+Native save of legacy L42 changes `Scan+Cut` to `Scan`. Thus native re-save is
+useful as geometry evidence, not a canonical preservation oracle. Original layer
+state, including legacy mode strings and unknown settings, remains authoritative.
+The reference corpus also demonstrates mixed fixed/movable children in L11:
+keep the entire rigid Group fixed and warn, rather than move a disabled child.
+L17's 32 axis-aligned open Paths have degenerate bounds; retain and report them,
+requiring grouping or an explicit nonzero proxy before nesting.

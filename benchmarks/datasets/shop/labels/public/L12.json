@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "file": "public-lightburn/jtcozart--lightburntemplates/a1840be8-leather_keychain_jig.lbrn2",
+  "sha256": "80769291959dc792521d08cba845b7b84bf1417d4133be1990b8a4b56d2aebcf",
+  "licence": "Unlicense",
+  "cut_parts": [
+    {
+      "outer_bounds_mm": [
+        13.029998999999997,
+        307.064999,
+        102.970001,
+        342.935002
+      ],
+      "outer_size_mm": [
+        89.94000199999999,
+        35.870003
+      ],
+      "holes": 0,
+      "unit_type": "closed_shape",
+      "top_level_shape_indices": [
+        1
+      ]
+    }
+  ],
+  "cut_parts_meaning": "Movable nesting units under PLAN_V1_1 section 3. Group cut holes exclude Scan artwork and Text. Exact degenerate open-path bounds remain explicit; no silent geometry inflation.",
+  "cut_layers": [
+    1
+  ],
+  "cut_colors": [
+    "#0000ff"
+  ],
+  "import_options": {},
+  "default_failure": null,
+  "expected_warnings": [
+    "fixed_tool_or_output_disabled_shapes"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "fixed_shapes": [
+    {
+      "top_level_shape_index": 0,
+      "layers": [
+        30
+      ],
+      "outer_bounds_mm": [
+        2.643474999999995,
+        -4.914794999999998,
+        358.24348499999996,
+        350.68521499999997
+      ],
+      "every_sheet": true
+    }
+  ],
+  "derivation": {
+    "method": "Agent visual review of four Inkscape-rendered contact pages, native SVG geometry comparison and original XML membership/layers, before any train/held-out split. Bounds from the unmodified published lbrn2-to-svg@0.5.3 on documented compatibility inputs; all exported vectors and image corners independently validated against native SVG. Source XML supplies layer state and top-level identity; GEOS supplies cut-hole topology. No Nestbolt importer used.",
+    "review_id": "L12",
+    "review_note": "One blue rectangular cut jig plus fixed T1 rectangle.",
+    "render": "references/public/L12.png",
+    "render_sha256": "66c6f9af6a034ee2ac9c488d37cac511f7a822ffae824dcf9d99c87fd409fba1",
+    "native_reference_project": "references/public/L12.lbrn2",
+    "native_reference_svg": "references/public/L12.svg",
+    "reference_audit": "references/public/reference-audit.json",
+    "text_reference_caveat": "Native-generated text caches are reference evidence only; original missing-cache state remains a warning.",
+    "empty_render_diagnostic": false
+  },
+  "source_observations": {
+    "top_level_shape_count": 2,
+    "top_level_types": {
+      "Rect": 2
+    },
+    "text_without_backup_count": 0,
+    "layers": [
+      {
+        "element": "CutSetting",
+        "index": "1",
+        "type": "Cut",
+        "name": "C01",
+        "minPower": "5",
+        "maxPower": "100",
+        "maxPower2": "20",
+        "speed": "5.83333",
+        "dotSpacing": "0",
+        "bidir": "0",
+        "tabsEnabled": "1",
+        "priority": "1",
+        "tabCount": "1",
+        "tabCountMax": "1",
+        "cut_sublayer": false
+      },
+      {
+        "element": "CutSetting",
+        "index": "30",
+        "type": "Tool",
+        "name": "T1",
+        "frame": "0",
+        "priority": "0",
+        "cut_sublayer": false
+      }
+    ],
+    "shapes": [
+      {
+        "index": 0,
+        "type": "Rect",
+        "fixed": true,
+        "unit_type": "closed_shape",
+        "bounds": [
+          2.643474999999995,
+          -4.914794999999998,
+          358.24348499999996,
+          350.68521499999997
+        ],
+        "holes": 0,
+        "layers": [
+          30
+        ],
+        "layer_types": [
+          "Tool"
+        ]
+      },
+      {
+        "index": 1,
+        "type": "Rect",
+        "fixed": false,
+        "unit_type": "closed_shape",
+        "bounds": [
+          13.029998999999997,
+          307.064999,
+          102.970001,
+          342.935002
+        ],
+        "holes": 0,
+        "layers": [
+          1
+        ],
+        "layer_types": [
+          "Cut"
+        ]
+      }
+    ]
+  }
+}
