@@ -15,6 +15,7 @@ import xml.etree.ElementTree as E
 
 import ezdxf
 from ezdxf import bbox
+from svgpathtools import Document
 from shop_sources import CORPUS, ROOT, load_lock
 
 
@@ -107,12 +108,21 @@ def main():
         x, y, w, h = map(float, svg.get('viewBox').split())
         expected = [x, -(y+h), x+w, -y]
         delta = max(abs(a-b) for a, b in zip(expected, dxf['bounds_mm'])) if dxf['parses'] else None
+        # SVG viewBox also encloses bitmaps, which DXF cannot export. Compare
+        # actual vector centrelines, including the hidden tool-layer rectangle.
+        vector_boxes = [p.bbox() for p in Document(str(stem.with_suffix('.svg'))).paths() if p]
+        vector_bounds = [min(b[0] for b in vector_boxes), -max(b[3] for b in vector_boxes),
+                         max(b[1] for b in vector_boxes), -min(b[2] for b in vector_boxes)]
+        vector_delta = max(abs(a-b) for a,b in zip(vector_bounds,dxf['bounds_mm'])) if dxf['parses'] else None
         extra = stem.with_name(stem.name+'-lines.dxf')
         rows.append({'id': design['id'], 'project': project, 'dxf': dxf,
                      'svg_bounds_mm': expected, 'dxf_svg_max_bbox_difference_mm': delta,
+                     'svg_vector_bounds_mm': vector_bounds,
+                     'dxf_svg_vector_bbox_difference_mm': vector_delta,
                      'lines_dxf': dxf_audit(extra) if extra.exists() else None})
         checks[design['id']+'_native_features'] = all(project['checks'].values())
         checks[design['id']+'_standard_dxf_parses'] = dxf['parses']
+        checks[design['id']+'_vector_bounds_match'] = vector_delta is not None and vector_delta < .002
         checks[design['id']+'_source_unchanged'] = sha256((CORPUS/design['source']).read_bytes()).hexdigest() == design['source_sha256']
     checks['fifteen_projects'] = len(rows) == 15
     checks['five_native_lines_exports'] = sum(r['lines_dxf'] is not None for r in rows) == 5
@@ -132,7 +142,7 @@ def main():
     args.output.write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(json.dumps({'collection_checks_pass': result['collection_checks_pass'],
                       'failed': [k for k,v in checks.items() if not v], 'native_outputs': result['native_outputs'],
-                      'bbox_max_mm': max(r['dxf_svg_max_bbox_difference_mm'] for r in rows),
+                      'vector_bbox_max_mm': max(r['dxf_svg_vector_bbox_difference_mm'] for r in rows),
                       'source_counts': dict(counts)}))
     if not result['collection_checks_pass']: raise SystemExit(1)
 

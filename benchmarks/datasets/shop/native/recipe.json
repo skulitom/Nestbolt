@@ -102,6 +102,10 @@
         "lb-06.lbrn2",
         "lb-06.dxf",
         "lb-06.svg"
+      ],
+      "coupon_group_translation_mm": [
+        1600,
+        0
       ]
     },
     {
@@ -118,6 +122,10 @@
         "lb-07.lbrn2",
         "lb-07.dxf",
         "lb-07.svg"
+      ],
+      "coupon_group_translation_mm": [
+        1600,
+        0
       ]
     },
     {
@@ -134,6 +142,10 @@
         "lb-08.lbrn2",
         "lb-08.dxf",
         "lb-08.svg"
+      ],
+      "coupon_group_translation_mm": [
+        1600,
+        0
       ]
     },
     {
@@ -166,6 +178,10 @@
         "lb-10.lbrn2",
         "lb-10.dxf",
         "lb-10.svg"
+      ],
+      "coupon_group_translation_mm": [
+        1600,
+        0
       ]
     },
     {
@@ -267,5 +283,72 @@
     "svg_auto_detect_dpi": true,
     "allow_import_to_tool_layers": false
   },
-  "native_defect": "The five legacy line-conversion DXFs fail ezdxf structure parsing; originals retained. See n0-native-20261013 report."
+  "native_defect": "The five legacy line-conversion DXFs fail ezdxf structure parsing; originals retained. See n0-native-20261013 report.",
+  "pre_freeze_correction": {
+    "reason": "Label topology found coupon overlap with the widest source copies. Coupon XForm moved +400 mm in staging, then LightBurn native Save As and both default exports were repeated. Shared-list IDs were renumbered, default Group CutIndex=0 was serialized, text BackupPath cached world translation also increased +400 mm, and Thumbnail regenerated. Resolving shared lists and these exact native rewrites leaves all geometry/settings equal.",
+    "old_commit": "8bbc1fb",
+    "recorded_at": "2026-10-13",
+    "files": [
+      {
+        "path": "native/lb-06.lbrn2",
+        "old_sha256": "7882b84990e1a409020bf76d9e963998d4e5d82525e5059905a33b9100987e6b",
+        "new_sha256": "d70a6a3c99ce36f3d5f11dab43135c711b5a30ff0752fe958801f47cf0daba48"
+      },
+      {
+        "path": "native/lb-06.dxf",
+        "old_sha256": "5175d20a9b4b3a804a0c644dfbd7521076fe10127bb8fb5987215bf69513e7bf",
+        "new_sha256": "82f63baf28c6b55fcdb0ad98122a81a9527b1b6551ecb51a9678811d06453183"
+      },
+      {
+        "path": "native/lb-06.svg",
+        "old_sha256": "48fdec990bcf67d8a2564223afa6365fd6fce23e0a2580597ed09b798127582a",
+        "new_sha256": "d05b929de9ba37e3166701710a085e80b326d6efe0b2e2165b06c2b291d8c6d3"
+      },
+      {
+        "path": "native/lb-07.lbrn2",
+        "old_sha256": "9fab3241b091a8d5b69caab470edd8d566dc7455cfc08cd710c53b3a3dd66160",
+        "new_sha256": "942d95418ef348c9027a7ea2919dad64576dc972bf4ecc04c9673c86d1a335c1"
+      },
+      {
+        "path": "native/lb-07.dxf",
+        "old_sha256": "1c5645c41ff448234971cfb5d9f2888d73cce103d7143362ff4cac0b74fb5860",
+        "new_sha256": "cf8bd29af72ed6cb5744fcdfa7dee72e9f9888defd2933de47c18b6e4ad5f051"
+      },
+      {
+        "path": "native/lb-07.svg",
+        "old_sha256": "6ece53936dc012f28ad06a4093e87e98472861fed2b21b22b37a13909729de40",
+        "new_sha256": "715d1831ea085443217835df50ddb7028bac273bf6ce28a196de17f8505e9ce9"
+      },
+      {
+        "path": "native/lb-08.lbrn2",
+        "old_sha256": "ea5c5bcec9c430213b56752ae50b03dc6a91b2fda85a5a529c9597fdc8e6a0cb",
+        "new_sha256": "1fd19a8ef9fab2b7368d5796df902a0385d2550fa29530bd8aced5a795513756"
+      },
+      {
+        "path": "native/lb-08.dxf",
+        "old_sha256": "aa08f00ff3cc96d2681fc843c2ad2790cb63f58ef3fe8b6a76b48d750ddb7fa4",
+        "new_sha256": "35637ec0230d9e9e591e4aef8d12b0dcca63ee063284b64db5f8f768a6ccddd0"
+      },
+      {
+        "path": "native/lb-08.svg",
+        "old_sha256": "a7a2031e6ba998323f0964bb5d1561822b295ef6fb75a24935e7ecec2bc5f686",
+        "new_sha256": "613d1c031eb0217cb2bf8e144255364b53b485dddfcd861cddd8808ae3373ee7"
+      },
+      {
+        "path": "native/lb-10.lbrn2",
+        "old_sha256": "3d98c47a181f48247b541e7d95dcd5e0229c586016ead78163d81bf9c16f0376",
+        "new_sha256": "5d567e477fe8b1322ea36eeb2ed27f199e33fdaf576be9ec0b05f07b5bb7c4cc"
+      },
+      {
+        "path": "native/lb-10.dxf",
+        "old_sha256": "2ae339bf70d785c9eaf74f6aa0413f575b15b6ce7c5e5442d234dbdb05cbf062",
+        "new_sha256": "f0f4ad1fa6df477d27fddb296a2741ba2837c35fae7c2e47bfe8bbddcd20a0e8"
+      },
+      {
+        "path": "native/lb-10.svg",
+        "old_sha256": "9a82e0a0f11513810740342a4fbe5f2eec5cc039ad8c186523737aac0edc6ffa",
+        "new_sha256": "95650326d1c76d4bbd1e11ad9c2c93d4f9ad3bf19852da279d58e0dd6b7ee4fe"
+      }
+    ]
+  }
 }

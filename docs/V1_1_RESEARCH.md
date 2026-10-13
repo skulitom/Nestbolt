@@ -17,6 +17,13 @@ The T1 palette check now also covers **Allow Importing to Tool Layers**: with it
 enabled, exact true-colour BYLAYER geometry maps to T1, while explicit entity
 ACI 30 still maps to C05. The option was restored after testing.
 
+The [render-backed label review](../benchmarks/results/n0-labels-20261013.md)
+also establishes a nested text caveat: LightBurn 2.1.01 stores its Text BackupPath
+cache in world coordinates, while the Text XForm remains local to its parent.
+The published MIT converter double-applies the parent transform in these samples
+and skips several unsupported shape/sharing cases. See LBRN2.md before using it
+as an oracle; a converted SVG alone is not a completeness check.
+
 How these were gathered:
 - Compiled from public sources by research agents on 2026-10-13. Nothing was decompiled.
 - Files were only inspected (headers streamed, repository trees listed); none were copied into the repo.

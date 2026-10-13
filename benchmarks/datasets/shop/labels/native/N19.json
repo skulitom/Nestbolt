@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "file": "native/lb-05-lines.dxf",
+  "sha256": "7ced322f9b8bdae4cb837f6ae4bb8ae3f0ecaef66dbf3c013cf8cead7a44149a",
+  "licence": "CC-BY-4.0",
+  "cut_parts": [
+    {
+      "outer_bounds_mm": [
+        515.0,
+        25.0,
+        785.0,
+        175.0
+      ],
+      "outer_size_mm": [
+        270.0,
+        150.0
+      ],
+      "holes": 6,
+      "hole_bounds_mm": [
+        [
+          522.3002399999999,
+          32.299572999999995,
+          528.70024,
+          38.699573
+        ],
+        [
+          646.8002399999999,
+          32.299572999999995,
+          653.20024,
+          38.699573
+        ],
+        [
+          771.3002399999999,
+          32.299572999999995,
+          777.70024,
+          38.699573
+        ],
+        [
+          522.3002399999999,
+          161.29957000000002,
+          528.70024,
+          167.69957
+        ],
+        [
+          646.8002399999999,
+          161.29957000000002,
+          653.20024,
+          167.69957
+        ],
+        [
+          771.3002399999999,
+          161.29957000000002,
+          777.70024,
+          167.69957
+        ]
+      ]
+    },
+    {
+      "outer_bounds_mm": [
+        15.0,
+        25.0,
+        285.0,
+        175.0
+      ],
+      "outer_size_mm": [
+        270.0,
+        150.0
+      ],
+      "holes": 6,
+      "hole_bounds_mm": [
+        [
+          22.300244,
+          32.299572999999995,
+          28.700243999999998,
+          38.699573
+        ],
+        [
+          271.30024000000003,
+          32.299572999999995,
+          277.70024,
+          38.699573
+        ],
+        [
+          22.300244,
+          161.29957000000002,
+          28.700243999999998,
+          167.69957
+        ],
+        [
+          271.30024000000003,
+          161.29957000000002,
+          277.70024,
+          167.69957
+        ],
+        [
+          146.80024,
+          32.299572999999995,
+          153.20023999999998,
+          38.699573
+        ],
+        [
+          146.80024,
+          161.29957000000002,
+          153.20023999999998,
+          167.69957
+        ]
+      ]
+    },
+    {
+      "outer_bounds_mm": [
+        1310.0,
+        82.050781,
+        1350.0,
+        107.05078
+      ],
+      "outer_size_mm": [
+        40.0,
+        24.999999000000003
+      ],
+      "holes": 1,
+      "hole_bounds_mm": [
+        [
+          1318.0,
+          89.050781,
+          1328.0,
+          99.050781
+        ]
+      ]
+    },
+    {
+      "outer_bounds_mm": [
+        1249.59,
+        84.455521,
+        1296.731,
+        126.10616
+      ],
+      "outer_size_mm": [
+        47.141000000000076,
+        41.650639
+      ],
+      "holes": 1,
+      "hole_bounds_mm": [
+        [
+          1272.6426,
+          101.5177,
+          1286.3029,
+          115.17795
+        ]
+      ]
+    }
+  ],
+  "cut_layers": [
+    "Layer_0"
+  ],
+  "cut_colors": [
+    7
+  ],
+  "import_options": {
+    "layers": [
+      "Layer_0"
+    ]
+  },
+  "default_failure": "Malformed legacy POLYLINE/SEQEND records; export again with Export Arcs, Modern DXF or SVG.",
+  "expected_warnings": [
+    "malformed_polyline_records"
+  ],
+  "geometry_tolerance_mm": 0.002,
+  "derivation": {
+    "method": "Native GUI export with Convert Arcs to Lines; raw DXF record inventory and independent ezdxf failure. Intended contours/bounds from paired normal DXF and its reviewed render. No fabricated render or successful parse of malformed bytes.",
+    "review_id": "N19",
+    "paired_dxf": "native/lb-05.dxf",
+    "paired_dxf_sha256": "bc727b8e89d1360631741174ffe24f4db833017b1ab73a590ec63c0ad164f7d3",
+    "render": "renders/native/N17.png",
+    "render_sha256": "af781fd9374fb7ae98b1dbbe7f5af2fb0baf2abae07575eb1d02b32b70d6ae1b",
+    "independent_reader_error": "DXFStructureError: Expected DXF entity POLYLINE or SEQEND",
+    "raw_entity_markers": {
+      "SECTION": 3,
+      "ENDSEC": 3,
+      "TABLE": 1,
+      "LAYER": 31,
+      "ENDTAB": 1,
+      "POLYLINE": 60,
+      "VERTEX": 2999,
+      "SEQEND": 22,
+      "CIRCLE": 29,
+      "EOF": 1
+    }
+  },
+  "source_observations": {
+    "units_code": 4,
+    "entities": {
+      "CIRCLE": 17,
+      "POLYLINE": 58
+    },
+    "ignored_non_geometry": {},
+    "layer_color_counts": [
+      {
+        "layer": "Layer_0",
+        "color": 7,
+        "entities": 24
+      },
+      {
+        "layer": "Layer_2",
+        "color": 1,
+        "entities": 45
+      },
+      {
+        "layer": "Layer_1",
+        "color": 5,
+        "entities": 5
+      },
+      {
+        "layer": "Layer_30",
+        "color": 30,
+        "entities": 1
+      }
+    ],
+    "open_length_mm": 0.0,
+    "duplicate_or_overlapping_length_mm": 510.00010154088613
+  },
+  "negative_fixture": true,
+  "expected_failure": "Malformed legacy POLYLINE/SEQEND records from LightBurn Convert Arcs to Lines. Reject clearly; suggest Export Arcs, Modern DXF or SVG.",
+  "cut_parts_meaning": "Intended paired-project cut parts only. The malformed file is a negative fixture and does not earn a successful-import result."
+}

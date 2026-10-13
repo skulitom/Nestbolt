@@ -798,3 +798,138 @@ source hash, selected element, transformation, label and generator seed.
 | [generated/maker-insert--annotations-construction.dxf](generated/maker-insert--annotations-construction.dxf) | maker-insert | [labels/generated/maker-insert--annotations-construction.json](labels/generated/maker-insert--annotations-construction.json) |
 | [generated/maker-insert--operation-colours.dxf](generated/maker-insert--operation-colours.dxf) | maker-insert | [labels/generated/maker-insert--operation-colours.json](labels/generated/maker-insert--operation-colours.json) |
 | [generated/maker-insert--existing-nest.dxf](generated/maker-insert--existing-nest.dxf) | maker-insert | [labels/generated/maker-insert--existing-nest.json](labels/generated/maker-insert--existing-nest.json) |
+
+## Reviewed labels and reference renders
+
+These derived metadata and renders retain each source drawing's licence.
+Modifications: numerical geometry reading, review annotations and raster
+rendering with ezdxf or Inkscape; some white strokes are rendered black
+for legibility, as recorded in their labels. Original author attribution
+and licence evidence are in the corresponding source section above.
+
+| Label | Render | Licence | Source / attribution |
+| --- | --- | --- | --- |
+| [labels/real/R00.json](labels/real/R00.json) | [renders/real/R00.png](renders/real/R00.png) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf) |
+| [labels/real/R01.json](labels/real/R01.json) | [renders/real/R01.png](renders/real/R01.png) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf) |
+| [labels/real/R02.json](labels/real/R02.json) | [renders/real/R02.png](renders/real/R02.png) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf) |
+| [labels/real/R03.json](labels/real/R03.json) | [renders/real/R03.png](renders/real/R03.png) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf) |
+| [labels/real/R04.json](labels/real/R04.json) | [renders/real/R04.png](renders/real/R04.png) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf) |
+| [labels/real/R05.json](labels/real/R05.json) | [renders/real/R05.png](renders/real/R05.png) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/818cc6f1-art_panel_ref.dxf](real/rev1s10n--tri-hard-slab-v2/818cc6f1-art_panel_ref.dxf) |
+| [labels/real/R06.json](labels/real/R06.json) | [renders/real/R06.png](renders/real/R06.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/913638fb-back.dxf](real/tahnok--lacc/913638fb-back.dxf) |
+| [labels/real/R07.json](labels/real/R07.json) | [renders/real/R07.png](renders/real/R07.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/bbc2ec62-back.svg](real/tahnok--lacc/bbc2ec62-back.svg) |
+| [labels/real/R08.json](labels/real/R08.json) | [renders/real/R08.png](renders/real/R08.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/41a48d30-bottom.dxf](real/tahnok--lacc/41a48d30-bottom.dxf) |
+| [labels/real/R09.json](labels/real/R09.json) | [renders/real/R09.png](renders/real/R09.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/d4823063-bottom.svg](real/tahnok--lacc/d4823063-bottom.svg) |
+| [labels/real/R10.json](labels/real/R10.json) | [renders/real/R10.png](renders/real/R10.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/a0dfd232-front.dxf](real/tahnok--lacc/a0dfd232-front.dxf) |
+| [labels/real/R11.json](labels/real/R11.json) | [renders/real/R11.png](renders/real/R11.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/19c6c65b-front.svg](real/tahnok--lacc/19c6c65b-front.svg) |
+| [labels/real/R12.json](labels/real/R12.json) | [renders/real/R12.png](renders/real/R12.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/13eb7081-side.dxf](real/tahnok--lacc/13eb7081-side.dxf) |
+| [labels/real/R13.json](labels/real/R13.json) | [renders/real/R13.png](renders/real/R13.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/3fec3545-side.svg](real/tahnok--lacc/3fec3545-side.svg) |
+| [labels/real/R14.json](labels/real/R14.json) | [renders/real/R14.png](renders/real/R14.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/f9821974-top.dxf](real/tahnok--lacc/f9821974-top.dxf) |
+| [labels/real/R15.json](labels/real/R15.json) | [renders/real/R15.png](renders/real/R15.png) | CC-BY-SA-4.0 | [real/tahnok--lacc/e985ad48-top.svg](real/tahnok--lacc/e985ad48-top.svg) |
+| [labels/real/R16.json](labels/real/R16.json) | [renders/real/R16.png](renders/real/R16.png) | MIT | [real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf) |
+| [labels/real/R17.json](labels/real/R17.json) | [renders/real/R17.png](renders/real/R17.png) | MIT | [real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf) |
+| [labels/real/R18.json](labels/real/R18.json) | [renders/real/R18.png](renders/real/R18.png) | MIT | [real/josefadamcik--soflekeyboard/58b838e1-shape.dxf](real/josefadamcik--soflekeyboard/58b838e1-shape.dxf) |
+| [labels/real/R19.json](labels/real/R19.json) | [renders/real/R19.png](renders/real/R19.png) | MIT | [real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf](real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf) |
+| [labels/real/R20.json](labels/real/R20.json) | [renders/real/R20.png](renders/real/R20.png) | MIT | [real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf](real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf) |
+| [labels/real/R21.json](labels/real/R21.json) | [renders/real/R21.png](renders/real/R21.png) | MIT | [real/josefadamcik--soflekeyboard/769186bc-sofle_pico_backplate_v3.4.dxf](real/josefadamcik--soflekeyboard/769186bc-sofle_pico_backplate_v3.4.dxf) |
+| [labels/real/R22.json](labels/real/R22.json) | [renders/real/R22.png](renders/real/R22.png) | MIT | [real/josefadamcik--soflekeyboard/0b7d1ad6-sofle_pico_key_plate_v3.5.5.dxf](real/josefadamcik--soflekeyboard/0b7d1ad6-sofle_pico_key_plate_v3.5.5.dxf) |
+| [labels/real/R23.json](labels/real/R23.json) | [renders/real/R23.png](renders/real/R23.png) | MIT | [real/josefadamcik--soflekeyboard/883811f2-OLED_Cover.dxf](real/josefadamcik--soflekeyboard/883811f2-OLED_Cover.dxf) |
+| [labels/real/R24.json](labels/real/R24.json) | [renders/real/R24.png](renders/real/R24.png) | MIT | [real/josefadamcik--soflekeyboard/0ef66e67-sofle_v2_oled_cover_0.1.dxf](real/josefadamcik--soflekeyboard/0ef66e67-sofle_v2_oled_cover_0.1.dxf) |
+| [labels/real/R25.json](labels/real/R25.json) | [renders/real/R25.png](renders/real/R25.png) | MIT | [real/josefadamcik--soflekeyboard/596a5453-sofle_v2_oled_cover_0.1.dxf](real/josefadamcik--soflekeyboard/596a5453-sofle_v2_oled_cover_0.1.dxf) |
+| [labels/real/R26.json](labels/real/R26.json) | [renders/real/R26.png](renders/real/R26.png) | MIT | [real/keebio--iris-case/30a5fb13-iris-rev3-bottom-plate.dxf](real/keebio--iris-case/30a5fb13-iris-rev3-bottom-plate.dxf) |
+| [labels/real/R27.json](labels/real/R27.json) | [renders/real/R27.png](renders/real/R27.png) | MIT | [real/keebio--iris-case/901691cf-iris-switch-plate-3mm-thick.dxf](real/keebio--iris-case/901691cf-iris-switch-plate-3mm-thick.dxf) |
+| [labels/real/R28.json](labels/real/R28.json) | [renders/real/R28.png](renders/real/R28.png) | MIT | [real/keebio--iris-case/34325b83-iris-switch-plate-3mm-thick.svg](real/keebio--iris-case/34325b83-iris-switch-plate-3mm-thick.svg) |
+| [labels/real/R29.json](labels/real/R29.json) | [renders/real/R29.png](renders/real/R29.png) | MIT | [real/keebio--iris-case/c015ff3e-iris-switch-plate-choc.svg](real/keebio--iris-case/c015ff3e-iris-switch-plate-choc.svg) |
+| [labels/real/R30.json](labels/real/R30.json) | [renders/real/R30.png](renders/real/R30.png) | MIT | [real/keebio--iris-case/725b3b48-iris-switch-plate_left.dxf](real/keebio--iris-case/725b3b48-iris-switch-plate_left.dxf) |
+| [labels/real/R31.json](labels/real/R31.json) | [renders/real/R31.png](renders/real/R31.png) | MIT | [real/keebio--iris-case/898419af-iris-switch-plate_right.dxf](real/keebio--iris-case/898419af-iris-switch-plate_right.dxf) |
+| [labels/real/R32.json](labels/real/R32.json) | [renders/real/R32.png](renders/real/R32.png) | MIT | [real/keebio--iris-case/a7a5d250-iris-bottom-plate.svg](real/keebio--iris-case/a7a5d250-iris-bottom-plate.svg) |
+| [labels/real/R33.json](labels/real/R33.json) | [renders/real/R33.png](renders/real/R33.png) | MIT | [real/keebio--iris-case/a94a4999-iris-rev2-bottom_left.dxf](real/keebio--iris-case/a94a4999-iris-rev2-bottom_left.dxf) |
+| [labels/real/R34.json](labels/real/R34.json) | [renders/real/R34.png](renders/real/R34.png) | MIT | [real/keebio--iris-case/ba7cff7b-iris-rev2-bottom_right.dxf](real/keebio--iris-case/ba7cff7b-iris-rev2-bottom_right.dxf) |
+| [labels/real/R35.json](labels/real/R35.json) | [renders/real/R35.png](renders/real/R35.png) | MIT | [real/keebio--iris-case/7f21f24b-iris-PE-bottom-plate.dxf](real/keebio--iris-case/7f21f24b-iris-PE-bottom-plate.dxf) |
+| [labels/real/R36.json](labels/real/R36.json) | [renders/real/R36.png](renders/real/R36.png) | MIT | [real/keebio--iris-case/372b98ea-iris-PE-mid-layer-acrylic.dxf](real/keebio--iris-case/372b98ea-iris-PE-mid-layer-acrylic.dxf) |
+| [labels/real/R37.json](labels/real/R37.json) | [renders/real/R37.png](renders/real/R37.png) | MIT | [real/keebio--iris-case/f460e5ac-iris-PE-mid-normal.dxf](real/keebio--iris-case/f460e5ac-iris-PE-mid-normal.dxf) |
+| [labels/real/R38.json](labels/real/R38.json) | [renders/real/R38.png](renders/real/R38.png) | MIT | [real/keebio--iris-case/56707667-iris-PE-mid-tented.dxf](real/keebio--iris-case/56707667-iris-PE-mid-tented.dxf) |
+| [labels/real/R39.json](labels/real/R39.json) | [renders/real/R39.png](renders/real/R39.png) | MIT | [real/keebio--iris-case/3c117bfd-iris-PE-switch-plate-choc.dxf](real/keebio--iris-case/3c117bfd-iris-PE-switch-plate-choc.dxf) |
+| [labels/real/R40.json](labels/real/R40.json) | [renders/real/R40.png](renders/real/R40.png) | MIT | [real/keebio--iris-case/510bdb6e-iris-PE-switch-plate-mx-1u-only.dxf](real/keebio--iris-case/510bdb6e-iris-PE-switch-plate-mx-1u-only.dxf) |
+| [labels/real/R41.json](labels/real/R41.json) | [renders/real/R41.png](renders/real/R41.png) | MIT | [real/keebio--iris-case/f8cd5b8f-iris-PE-switch-plate-mx-3mm.dxf](real/keebio--iris-case/f8cd5b8f-iris-PE-switch-plate-mx-3mm.dxf) |
+| [labels/real/R42.json](labels/real/R42.json) | [renders/real/R42.png](renders/real/R42.png) | MIT | [real/keebio--iris-case/6fef0dd9-iris-PE-switch-plate-mx-alps-3mm.dxf](real/keebio--iris-case/6fef0dd9-iris-PE-switch-plate-mx-alps-3mm.dxf) |
+| [labels/real/R43.json](labels/real/R43.json) | [renders/real/R43.png](renders/real/R43.png) | MIT | [real/keebio--iris-case/ecaf0a9e-iris-PE-switch-plate-mx-alps.dxf](real/keebio--iris-case/ecaf0a9e-iris-PE-switch-plate-mx-alps.dxf) |
+| [labels/real/R44.json](labels/real/R44.json) | [renders/real/R44.png](renders/real/R44.png) | MIT | [real/keebio--dsp40-case/180a29ac-dsp40-bottom.dxf](real/keebio--dsp40-case/180a29ac-dsp40-bottom.dxf) |
+| [labels/real/R45.json](labels/real/R45.json) | [renders/real/R45.png](renders/real/R45.png) | MIT | [real/keebio--dsp40-case/b0bb5fa2-dsp40-ortho.dxf](real/keebio--dsp40-case/b0bb5fa2-dsp40-ortho.dxf) |
+| [labels/real/R46.json](labels/real/R46.json) | [renders/real/R46.png](renders/real/R46.png) | MIT | [real/keebio--dsp40-case/896dfad8-dsp40-staggered.dxf](real/keebio--dsp40-case/896dfad8-dsp40-staggered.dxf) |
+| [labels/real/R47.json](labels/real/R47.json) | [renders/real/R47.png](renders/real/R47.png) | MIT | [real/caileighf--mechanical_keyboard/d7fc14ad-gherkin_super_slim.dxf](real/caileighf--mechanical_keyboard/d7fc14ad-gherkin_super_slim.dxf) |
+| [labels/real/R48.json](labels/real/R48.json) | [renders/real/R48.png](renders/real/R48.png) | MIT | [real/caileighf--mechanical_keyboard/32c08865-gherkin_super_slim.svg](real/caileighf--mechanical_keyboard/32c08865-gherkin_super_slim.svg) |
+| [labels/real/R49.json](labels/real/R49.json) | [renders/real/R49.png](renders/real/R49.png) | MIT | [real/caileighf--mechanical_keyboard/5659cc35-gherkin_with_steps.dxf](real/caileighf--mechanical_keyboard/5659cc35-gherkin_with_steps.dxf) |
+| [labels/real/R50.json](labels/real/R50.json) | [renders/real/R50.png](renders/real/R50.png) | MIT | [real/caileighf--mechanical_keyboard/ab82c0d1-gherkin_with_steps.svg](real/caileighf--mechanical_keyboard/ab82c0d1-gherkin_with_steps.svg) |
+| [labels/real/R51.json](labels/real/R51.json) | [renders/real/R51.png](renders/real/R51.png) | MIT | [real/caileighf--mechanical_keyboard/800f6c8d-iris-sandwhich.dxf](real/caileighf--mechanical_keyboard/800f6c8d-iris-sandwhich.dxf) |
+| [labels/real/R52.json](labels/real/R52.json) | [renders/real/R52.png](renders/real/R52.png) | MIT | [real/caileighf--mechanical_keyboard/4ea2279e-iris-sandwhich.svg](real/caileighf--mechanical_keyboard/4ea2279e-iris-sandwhich.svg) |
+| [labels/real/R53.json](labels/real/R53.json) | [renders/real/R53.png](renders/real/R53.png) | CC-BY-SA-3.0 | [real/mearm--mearm/b6b2a880-MeArmV1.0.dxf](real/mearm--mearm/b6b2a880-MeArmV1.0.dxf) |
+| [labels/real/R54.json](labels/real/R54.json) | [renders/real/R54.png](renders/real/R54.png) | CC-BY-SA-3.0 | [real/mearm--mearm/f7a7aab7-MeArmV1.1.dxf](real/mearm--mearm/f7a7aab7-MeArmV1.1.dxf) |
+| [labels/real/R55.json](labels/real/R55.json) | [renders/real/R55.png](renders/real/R55.png) | CC-BY-SA-3.0 | [real/mearm--mearm/cd98d30d-MeArmV2.dxf](real/mearm--mearm/cd98d30d-MeArmV2.dxf) |
+| [labels/real/R56.json](labels/real/R56.json) | [renders/real/R56.png](renders/real/R56.png) | CC-BY-SA-3.0 | [real/mearm--mearm/22e2bc45-MeArmV3.dxf](real/mearm--mearm/22e2bc45-MeArmV3.dxf) |
+| [labels/real/R57.json](labels/real/R57.json) | [renders/real/R57.png](renders/real/R57.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/dad63a98-back_plate_standoff.dxf](real/nasa-jpl--open-source-rover/dad63a98-back_plate_standoff.dxf) |
+| [labels/real/R58.json](labels/real/R58.json) | [renders/real/R58.png](renders/real/R58.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/c57f7373-bottom_plate.dxf](real/nasa-jpl--open-source-rover/c57f7373-bottom_plate.dxf) |
+| [labels/real/R59.json](labels/real/R59.json) | [renders/real/R59.png](renders/real/R59.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/ba950163-front_plate_standoff.dxf](real/nasa-jpl--open-source-rover/ba950163-front_plate_standoff.dxf) |
+| [labels/real/R60.json](labels/real/R60.json) | [renders/real/R60.png](renders/real/R60.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/d5274aeb-gap_slat.dxf](real/nasa-jpl--open-source-rover/d5274aeb-gap_slat.dxf) |
+| [labels/real/R61.json](labels/real/R61.json) | [renders/real/R61.png](renders/real/R61.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/1323294d-side_plate.dxf](real/nasa-jpl--open-source-rover/1323294d-side_plate.dxf) |
+| [labels/real/R62.json](labels/real/R62.json) | [renders/real/R62.png](renders/real/R62.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/a14b3446-top_front.dxf](real/nasa-jpl--open-source-rover/a14b3446-top_front.dxf) |
+| [labels/real/R63.json](labels/real/R63.json) | [renders/real/R63.png](renders/real/R63.png) | Apache-2.0 | [real/nasa-jpl--open-source-rover/6a73e74c-top_rear.dxf](real/nasa-jpl--open-source-rover/6a73e74c-top_rear.dxf) |
+| [labels/real/R64.json](labels/real/R64.json) | [renders/real/R64.png](renders/real/R64.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/fc433084-OSM---Bottom-Foam-Left.dxf](real/openstickcommunity--hardware/fc433084-OSM---Bottom-Foam-Left.dxf) |
+| [labels/real/R65.json](labels/real/R65.json) | [renders/real/R65.png](renders/real/R65.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/7d3f3c37-OSM---Bottom-Foam-Right.dxf](real/openstickcommunity--hardware/7d3f3c37-OSM---Bottom-Foam-Right.dxf) |
+| [labels/real/R66.json](labels/real/R66.json) | [renders/real/R66.png](renders/real/R66.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/4db7dfd9-ARC-v1.0---PT---Bottom-Foam.dxf](real/openstickcommunity--hardware/4db7dfd9-ARC-v1.0---PT---Bottom-Foam.dxf) |
+| [labels/real/R67.json](labels/real/R67.json) | [renders/real/R67.png](renders/real/R67.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/3fdb88c4-ARC-v1.0---PT---Top-Plexi.dxf](real/openstickcommunity--hardware/3fdb88c4-ARC-v1.0---PT---Top-Plexi.dxf) |
+| [labels/real/R68.json](labels/real/R68.json) | [renders/real/R68.png](renders/real/R68.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/fb902961-Flatbox-Rev-5-RGB---Art-Case---Top-Plexi.dxf](real/openstickcommunity--hardware/fb902961-Flatbox-Rev-5-RGB---Art-Case---Top-Plexi.dxf) |
+| [labels/real/R69.json](labels/real/R69.json) | [renders/real/R69.png](renders/real/R69.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/9b5bde66-Flatbox-Rev-5-RGB---Premium-Art-Case---Foam-Bottom.dxf](real/openstickcommunity--hardware/9b5bde66-Flatbox-Rev-5-RGB---Premium-Art-Case---Foam-Bottom.dxf) |
+| [labels/real/R70.json](labels/real/R70.json) | [renders/real/R70.png](renders/real/R70.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/f14e70da-Flatbox-Rev-5-RGB---Premium-Art-Case---Top-Plexi.dxf](real/openstickcommunity--hardware/f14e70da-Flatbox-Rev-5-RGB---Premium-Art-Case---Top-Plexi.dxf) |
+| [labels/real/R71.json](labels/real/R71.json) | [renders/real/R71.png](renders/real/R71.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/bf5a4160-Open_Core0-v2.0---Art-template.dxf](real/openstickcommunity--hardware/bf5a4160-Open_Core0-v2.0---Art-template.dxf) |
+| [labels/real/R72.json](labels/real/R72.json) | [renders/real/R72.png](renders/real/R72.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/a0225b10-Open_Core0-v2.0---Bottom-foam.dxf](real/openstickcommunity--hardware/a0225b10-Open_Core0-v2.0---Bottom-foam.dxf) |
+| [labels/real/R73.json](labels/real/R73.json) | [renders/real/R73.png](renders/real/R73.png) | CC-BY-4.0 | [real/openstickcommunity--hardware/36c9c534-Open_Core0-v2.0---Top-Plexi.dxf](real/openstickcommunity--hardware/36c9c534-Open_Core0-v2.0---Top-Plexi.dxf) |
+| [labels/native/N00.json](labels/native/N00.json) | [renders/native/N02.png](renders/native/N02.png) | CC-BY-4.0 | [native/lb-01.lbrn2](native/lb-01.lbrn2) |
+| [labels/native/N01.json](labels/native/N01.json) | [renders/native/N01.png](renders/native/N01.png) | CC-BY-4.0 | [native/lb-01.dxf](native/lb-01.dxf) |
+| [labels/native/N02.json](labels/native/N02.json) | [renders/native/N02.png](renders/native/N02.png) | CC-BY-4.0 | [native/lb-01.svg](native/lb-01.svg) |
+| [labels/native/N03.json](labels/native/N03.json) | [renders/native/N01.png](renders/native/N01.png) | CC-BY-4.0 | [native/lb-01-lines.dxf](native/lb-01-lines.dxf) |
+| [labels/native/N04.json](labels/native/N04.json) | [renders/native/N06.png](renders/native/N06.png) | CC-BY-4.0 | [native/lb-02.lbrn2](native/lb-02.lbrn2) |
+| [labels/native/N05.json](labels/native/N05.json) | [renders/native/N05.png](renders/native/N05.png) | CC-BY-4.0 | [native/lb-02.dxf](native/lb-02.dxf) |
+| [labels/native/N06.json](labels/native/N06.json) | [renders/native/N06.png](renders/native/N06.png) | CC-BY-4.0 | [native/lb-02.svg](native/lb-02.svg) |
+| [labels/native/N07.json](labels/native/N07.json) | [renders/native/N05.png](renders/native/N05.png) | CC-BY-4.0 | [native/lb-02-lines.dxf](native/lb-02-lines.dxf) |
+| [labels/native/N08.json](labels/native/N08.json) | [renders/native/N10.png](renders/native/N10.png) | CC-BY-4.0 | [native/lb-03.lbrn2](native/lb-03.lbrn2) |
+| [labels/native/N09.json](labels/native/N09.json) | [renders/native/N09.png](renders/native/N09.png) | CC-BY-4.0 | [native/lb-03.dxf](native/lb-03.dxf) |
+| [labels/native/N10.json](labels/native/N10.json) | [renders/native/N10.png](renders/native/N10.png) | CC-BY-4.0 | [native/lb-03.svg](native/lb-03.svg) |
+| [labels/native/N11.json](labels/native/N11.json) | [renders/native/N09.png](renders/native/N09.png) | CC-BY-4.0 | [native/lb-03-lines.dxf](native/lb-03-lines.dxf) |
+| [labels/native/N12.json](labels/native/N12.json) | [renders/native/N14.png](renders/native/N14.png) | CC-BY-4.0 | [native/lb-04.lbrn2](native/lb-04.lbrn2) |
+| [labels/native/N13.json](labels/native/N13.json) | [renders/native/N13.png](renders/native/N13.png) | CC-BY-4.0 | [native/lb-04.dxf](native/lb-04.dxf) |
+| [labels/native/N14.json](labels/native/N14.json) | [renders/native/N14.png](renders/native/N14.png) | CC-BY-4.0 | [native/lb-04.svg](native/lb-04.svg) |
+| [labels/native/N15.json](labels/native/N15.json) | [renders/native/N13.png](renders/native/N13.png) | CC-BY-4.0 | [native/lb-04-lines.dxf](native/lb-04-lines.dxf) |
+| [labels/native/N16.json](labels/native/N16.json) | [renders/native/N18.png](renders/native/N18.png) | CC-BY-4.0 | [native/lb-05.lbrn2](native/lb-05.lbrn2) |
+| [labels/native/N17.json](labels/native/N17.json) | [renders/native/N17.png](renders/native/N17.png) | CC-BY-4.0 | [native/lb-05.dxf](native/lb-05.dxf) |
+| [labels/native/N18.json](labels/native/N18.json) | [renders/native/N18.png](renders/native/N18.png) | CC-BY-4.0 | [native/lb-05.svg](native/lb-05.svg) |
+| [labels/native/N19.json](labels/native/N19.json) | [renders/native/N17.png](renders/native/N17.png) | CC-BY-4.0 | [native/lb-05-lines.dxf](native/lb-05-lines.dxf) |
+| [labels/native/N20.json](labels/native/N20.json) | [renders/native/N22.png](renders/native/N22.png) | CC-BY-SA-4.0 | [native/lb-06.lbrn2](native/lb-06.lbrn2) |
+| [labels/native/N21.json](labels/native/N21.json) | [renders/native/N21.png](renders/native/N21.png) | CC-BY-SA-4.0 | [native/lb-06.dxf](native/lb-06.dxf) |
+| [labels/native/N22.json](labels/native/N22.json) | [renders/native/N22.png](renders/native/N22.png) | CC-BY-SA-4.0 | [native/lb-06.svg](native/lb-06.svg) |
+| [labels/native/N23.json](labels/native/N23.json) | [renders/native/N25.png](renders/native/N25.png) | CC-BY-SA-4.0 | [native/lb-07.lbrn2](native/lb-07.lbrn2) |
+| [labels/native/N24.json](labels/native/N24.json) | [renders/native/N24.png](renders/native/N24.png) | CC-BY-SA-4.0 | [native/lb-07.dxf](native/lb-07.dxf) |
+| [labels/native/N25.json](labels/native/N25.json) | [renders/native/N25.png](renders/native/N25.png) | CC-BY-SA-4.0 | [native/lb-07.svg](native/lb-07.svg) |
+| [labels/native/N26.json](labels/native/N26.json) | [renders/native/N28.png](renders/native/N28.png) | CC-BY-SA-4.0 | [native/lb-08.lbrn2](native/lb-08.lbrn2) |
+| [labels/native/N27.json](labels/native/N27.json) | [renders/native/N27.png](renders/native/N27.png) | CC-BY-SA-4.0 | [native/lb-08.dxf](native/lb-08.dxf) |
+| [labels/native/N28.json](labels/native/N28.json) | [renders/native/N28.png](renders/native/N28.png) | CC-BY-SA-4.0 | [native/lb-08.svg](native/lb-08.svg) |
+| [labels/native/N29.json](labels/native/N29.json) | [renders/native/N31.png](renders/native/N31.png) | CC-BY-SA-4.0 | [native/lb-09.lbrn2](native/lb-09.lbrn2) |
+| [labels/native/N30.json](labels/native/N30.json) | [renders/native/N30.png](renders/native/N30.png) | CC-BY-SA-4.0 | [native/lb-09.dxf](native/lb-09.dxf) |
+| [labels/native/N31.json](labels/native/N31.json) | [renders/native/N31.png](renders/native/N31.png) | CC-BY-SA-4.0 | [native/lb-09.svg](native/lb-09.svg) |
+| [labels/native/N32.json](labels/native/N32.json) | [renders/native/N34.png](renders/native/N34.png) | CC-BY-SA-4.0 | [native/lb-10.lbrn2](native/lb-10.lbrn2) |
+| [labels/native/N33.json](labels/native/N33.json) | [renders/native/N33.png](renders/native/N33.png) | CC-BY-SA-4.0 | [native/lb-10.dxf](native/lb-10.dxf) |
+| [labels/native/N34.json](labels/native/N34.json) | [renders/native/N34.png](renders/native/N34.png) | CC-BY-SA-4.0 | [native/lb-10.svg](native/lb-10.svg) |
+| [labels/native/N35.json](labels/native/N35.json) | [renders/native/N37.png](renders/native/N37.png) | MIT | [native/lb-11.lbrn2](native/lb-11.lbrn2) |
+| [labels/native/N36.json](labels/native/N36.json) | [renders/native/N36.png](renders/native/N36.png) | MIT | [native/lb-11.dxf](native/lb-11.dxf) |
+| [labels/native/N37.json](labels/native/N37.json) | [renders/native/N37.png](renders/native/N37.png) | MIT | [native/lb-11.svg](native/lb-11.svg) |
+| [labels/native/N38.json](labels/native/N38.json) | [renders/native/N40.png](renders/native/N40.png) | MIT | [native/lb-12.lbrn2](native/lb-12.lbrn2) |
+| [labels/native/N39.json](labels/native/N39.json) | [renders/native/N39.png](renders/native/N39.png) | MIT | [native/lb-12.dxf](native/lb-12.dxf) |
+| [labels/native/N40.json](labels/native/N40.json) | [renders/native/N40.png](renders/native/N40.png) | MIT | [native/lb-12.svg](native/lb-12.svg) |
+| [labels/native/N41.json](labels/native/N41.json) | [renders/native/N43.png](renders/native/N43.png) | MIT | [native/lb-13.lbrn2](native/lb-13.lbrn2) |
+| [labels/native/N42.json](labels/native/N42.json) | [renders/native/N42.png](renders/native/N42.png) | MIT | [native/lb-13.dxf](native/lb-13.dxf) |
+| [labels/native/N43.json](labels/native/N43.json) | [renders/native/N43.png](renders/native/N43.png) | MIT | [native/lb-13.svg](native/lb-13.svg) |
+| [labels/native/N44.json](labels/native/N44.json) | [renders/native/N46.png](renders/native/N46.png) | MIT | [native/lb-14.lbrn2](native/lb-14.lbrn2) |
+| [labels/native/N45.json](labels/native/N45.json) | [renders/native/N45.png](renders/native/N45.png) | MIT | [native/lb-14.dxf](native/lb-14.dxf) |
+| [labels/native/N46.json](labels/native/N46.json) | [renders/native/N46.png](renders/native/N46.png) | MIT | [native/lb-14.svg](native/lb-14.svg) |
+| [labels/native/N47.json](labels/native/N47.json) | [renders/native/N49.png](renders/native/N49.png) | MIT | [native/lb-15.lbrn2](native/lb-15.lbrn2) |
+| [labels/native/N48.json](labels/native/N48.json) | [renders/native/N48.png](renders/native/N48.png) | MIT | [native/lb-15.dxf](native/lb-15.dxf) |
+| [labels/native/N49.json](labels/native/N49.json) | [renders/native/N49.png](renders/native/N49.png) | MIT | [native/lb-15.svg](native/lb-15.svg) |

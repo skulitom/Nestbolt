@@ -177,12 +177,41 @@ The five line-mode legacy DXFs fail ezdxf 1.4.4 (including recovery) with
 bytes are retained. The raw record stream has unequal POLYLINE/SEQEND counts;
 it also retains CIRCLE records despite the selected line conversion option.
 This is an observed writer output, not a Nestbolt import result. The ordinary
-15 DXFs parse; their bounds agree with the corresponding SVG viewBoxes within
-0.000054 mm. This is a bounding-box check only, not full contour fidelity.
+15 DXFs parse; at initial collection their bounds agreed with the corresponding
+SVG viewBoxes within 0.000054 mm. After the pre-freeze coupon correction described
+below, actual DXF/SVG vector bounds agree within 0.000008 mm. SVG viewBoxes also
+include bitmaps absent from DXF, so full viewBox bounds are retained as a separate
+observation. This is a bounding-box check only, not full contour fidelity.
 
 The installed import/export settings observed for these saves are auto-detected
 DXF units, mm fallback, 0.010 mm auto-close, SVG 96 DPI with auto-detection, and
 0.050 mm output curve tolerance. Export Arcs was selected for the ordinary
 exports, then Convert Arcs to Lines for the five variants, then restored.
 See [the collection report](../benchmarks/results/n0-native-20261013.md), including
-settings screenshots. Labels and H1 remain pending.
+settings screenshots. All 50 native files now have labels; public-project labels
+and the frozen split remain before H1.
+
+## Nested Text BackupPath is a world-space cache (local 2.1.01 observation)
+
+The [label review](../benchmarks/results/n0-labels-20261013.md) found a small
+coupon/source overlap in four wide native samples. Their coupon group X
+translation changed from 1200 to 1600 before another native Save As/export.
+The Text child's XForm stayed `1 0 0 1 80.858231 43.830421`, but its BackupPath
+XForm changed from `1 0 0 1 1280.8583 43.830421` to
+`1 0 0 1 1680.8583 43.830421`. The group and cached backup each moved +400 mm;
+the local Text transform did not. Native SVG text outlines confirm the resulting
+world position. This observation is limited to these native samples/version.
+
+Do not treat this cached BackupPath as an ordinary child path and apply its
+ancestor transforms again. The published `lbrn2-to-svg@0.5.3` converter does so
+for this nested text, causing an oversized text position/bounds. It also warns
+and skips Polygon shapes, compact LineOpen primitives, Text without usable
+backups and shared bitmaps whose Data resides on another shape. Returning an SVG
+does not establish complete independent geometry. H3 needs explicit coverage of
+these oracle limitations using the native exports and local probes.
+
+Native resaving also renumbered shared-list IDs, serialized default Group
+CutIndex=0 and regenerated Thumbnail. After resolving those exact changes,
+all geometry/settings are equal except the intended coupon translation and
+updated text cache. Original bytes are in commit `8bbc1fb`; old/new checksums
+are retained in the recipe. [Corrected native audit](../benchmarks/results/n0-native-corrected-20261013.json).

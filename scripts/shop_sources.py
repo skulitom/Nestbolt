@@ -128,6 +128,20 @@ def attribution(lock):
         for row in generated['files']:
             lines.append(f'| [{row["path"]}]({row["path"]}) | {row["base"]} | [{row["label"]}]({row["label"]}) |')
         lines += ['']
+    draft_manifest = CORPUS / 'manifest.draft.json'
+    if draft_manifest.exists():
+        reviewed = [r for r in json.loads(draft_manifest.read_text(encoding='utf-8'))['files'] if r.get('reference_render')]
+        lines += ['## Reviewed labels and reference renders', '',
+                  'These derived metadata and renders retain each source drawing\'s licence.',
+                  'Modifications: numerical geometry reading, review annotations and raster',
+                  'rendering with ezdxf or Inkscape; some white strokes are rendered black',
+                  'for legibility, as recorded in their labels. Original author attribution',
+                  'and licence evidence are in the corresponding source section above.', '',
+                  '| Label | Render | Licence | Source / attribution |', '| --- | --- | --- | --- |']
+        for row in reviewed:
+            image = row['reference_render']['path']
+            lines.append(f'| [{row["label"]}]({quote(row["label"])}) | [{image}]({quote(image)}) | {row["licence"]} | [{row["path"]}]({quote(row["path"])}) |')
+        lines += ['']
     return '\n'.join(lines)
 
 

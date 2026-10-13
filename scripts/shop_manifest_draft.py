@@ -66,6 +66,8 @@ def main():
                 'writer': {'name': 'LightBurn 2.1.01', 'evidence': 'Hidden Anode desktop native GUI; native/recipe.json and benchmarks/results/n0-native-20261013.md',
                            'export': 'Convert Arcs to Lines' if '-lines.dxf' in name else 'native project' if name.endswith('.lbrn2') else 'default Export Arcs / SVG'},
                 'label': existing.get(relative, {}).get('label'), 'split': None})
+            native_rows[-1].update({k:existing[relative][k] for k in ('label_sha256','reference_render')
+                                    if k in existing.get(relative,{})})
     auxiliaries = []
     for name, writer in [('feature-coupon-input.lbrn2', 'Agent preparation from original MIT probes'),
                          ('tool-layer-enabled.lbrn2', 'LightBurn 2.1.01 native GUI re-import of original palette-truecolor.dxf')]:
