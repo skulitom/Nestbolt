@@ -194,3 +194,236 @@ fn corrupt_shared_lists_and_nonfinite_geometry_fail_with_context() {
         assert!(format!("{error:#}").contains(expected), "{error:#}");
     }
 }
+
+#[test]
+fn nesting_units_attach_contents_but_preserve_groups_and_fixed_shapes() {
+    let xml = r#"<LightBurnProject FormatVersion="1">
+      <CutSetting type="Cut"><index Value="0"/></CutSetting>
+      <CutSetting type="Scan"><index Value="1"/></CutSetting>
+      <CutSetting type="Cut"><index Value="2"/><doOutput Value="0"/></CutSetting>
+      <CutSetting_Img type="Image"><index Value="0"/></CutSetting_Img>
+      <Shape Type="Rect" CutIndex="0" W="40" H="30"/>
+      <Shape Type="Rect" CutIndex="1" W="8" H="6"/>
+      <Shape Type="Bitmap" CutIndex="0" W="2" H="2" Data="aW1hZ2U="/>
+      <Shape Type="Path" CutIndex="1"><VertList>V-5 0V5 0</VertList><PrimList>LineOpen</PrimList></Shape>
+      <Shape Type="Group"><Children><Shape Type="Rect" CutIndex="0" W="4" H="2"/><Shape Type="Rect" CutIndex="0" W="4" H="2"><XForm>1 0 0 1 10 0</XForm></Shape></Children></Shape>
+      <Shape Type="Text" CutIndex="2" Str="uncached fixed content"/>
+    </LightBurnProject>"#;
+    let doc = Document::read(xml, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    assert_eq!(nesting.units.len(), 2);
+    assert_eq!(nesting.units[0].members, vec![0, 1, 2, 3]);
+    assert_eq!(nesting.units[0].area_mm2, 1200.0);
+    assert_eq!(nesting.units[1].members, vec![4]);
+    assert_eq!(nesting.units[1].geometry.len(), 2);
+    assert_eq!(nesting.units[1].area_mm2, 16.0);
+    assert_eq!(nesting.fixed, vec![5]);
+    let movable = xml.replace("doOutput Value=\"0\"", "doOutput Value=\"1\"");
+    assert!(
+        Document::read(&movable, 0.0005)
+            .unwrap()
+            .nesting_units(0.0005)
+            .is_err()
+    );
+}
+
+#[test]
+fn containment_checks_the_whole_rectangle_and_chooses_the_smallest_cut() {
+    let xml = r#"<LightBurnProject FormatVersion="1">
+      <CutSetting type="Cut"><index Value="0"/></CutSetting>
+      <CutSetting type="Scan"><index Value="1"/></CutSetting>
+      <Shape Type="Path" CutIndex="0"><VertList>V0 0V10 0V10 10V6 10V6 3V4 3V4 10V0 10</VertList><PrimList>LineClosed</PrimList></Shape>
+      <Shape Type="Rect" CutIndex="1" W="8" H="2"><XForm>1 0 0 1 5 6</XForm></Shape>
+      <Shape Type="Rect" CutIndex="0" W="6" H="6"><XForm>1 0 0 1 20 10</XForm></Shape>
+      <Shape Type="Rect" CutIndex="0" W="8" H="8"><XForm>1 0 0 1 20 10</XForm></Shape>
+      <Shape Type="Rect" CutIndex="1" W="2" H="2"><XForm>1 0 0 1 20 10</XForm></Shape>
+      <Shape Type="Path" CutIndex="0"><XForm>1 0 0 1 30 0</XForm><VertList>V0 0V10 0V10 10V0 10V3 3V7 3V7 7V3 7</VertList><PrimList>L0 1L1 2L2 3L3 0L4 5L5 6L6 7L7 4</PrimList></Shape>
+      <Shape Type="Rect" CutIndex="1" W="2" H="2"><XForm>1 0 0 1 35 5</XForm></Shape>
+    </LightBurnProject>"#;
+    let doc = Document::read(xml, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    assert_eq!(
+        nesting
+            .units
+            .iter()
+            .map(|u| u.members.clone())
+            .collect::<Vec<_>>(),
+        vec![vec![0], vec![1], vec![2, 4], vec![3], vec![5], vec![6]]
+    );
+    assert_eq!(nesting.units[4].geometry[0].holes.len(), 1);
+    assert!(nesting.warnings.iter().any(|w| w.contains("smallest")));
+}
+
+#[test]
+fn per_sheet_writer_rehomes_independent_resources_and_keeps_fixed_xml() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    let doc = Document::read(PROJECT, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    let t = RigidTransform {
+        translation: [200.0, 100.0],
+        rotation_radians: std::f64::consts::FRAC_PI_2,
+        mirrored: true,
+    };
+    let output = nesting
+        .write_sheet(
+            &[
+                UnitPlacement {
+                    unit: 0,
+                    transform: t,
+                },
+                UnitPlacement {
+                    unit: 3,
+                    transform: RigidTransform::default(),
+                },
+            ],
+            300.0,
+            200.0,
+            true,
+        )
+        .unwrap();
+    let reread = Document::read(&output, 0.0005).unwrap();
+    assert_eq!(reread.scene.top_level.len(), 4); // two units, fixed group, T1
+    let moved = &reread.scene.shapes[0];
+    let transform = nestbolt_core::curves::Affine::placement(&t);
+    let expected = doc.scene.shapes[0].paths[0].curve.transformed(&transform);
+    for (a, b) in moved.paths[0]
+        .curve
+        .flatten(0.0005)
+        .unwrap()
+        .iter()
+        .zip(expected.flatten(0.0005).unwrap())
+    {
+        assert!((a[0] - b[0]).hypot(a[1] - b[1]) < 1e-10);
+    }
+    assert_eq!(reread.scene.shapes[1].bitmap_data_bytes, Some(8));
+    assert!(output.contains("VertID=\"3\" PrimID=\"4\" StartV=\"2\""));
+    assert!(output.contains("<VertList>V0 0c0x1c1x1V1e1 0SV10 5V0 5</VertList>"));
+    assert!(output.contains("<PrimList>LineClosed</PrimList>"));
+    assert!(output.contains("SourceHash=\"0\" W=\"8\" H=\"6\" Data=\"aW1hZ2U=\""));
+    let fixed = &doc.scene.shapes[*doc.scene.top_level.last().unwrap()];
+    assert!(output.contains(&PROJECT[fixed.source_range[0]..fixed.source_range[1]]));
+    assert!(output.contains("<Unknown><Value escaped=\"&amp;&quot;\">opaque</Value></Unknown>"));
+    let before = roxmltree::Document::parse(PROJECT).unwrap();
+    for node in before
+        .root_element()
+        .children()
+        .filter(|n| n.has_tag_name("CutSetting") || n.has_tag_name("CutSetting_Img"))
+    {
+        assert!(output.contains(&PROJECT[node.range()]));
+    }
+    assert_eq!(reread.scene.layers.len(), doc.scene.layers.len());
+    assert!(reread.scene.mirror_x && !reread.scene.mirror_y);
+}
+
+#[test]
+fn identity_sheet_is_byte_identical_and_group_children_never_get_transformed() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    let doc = Document::read(PROJECT, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    let all: Vec<_> = nesting
+        .units
+        .iter()
+        .map(|u| UnitPlacement {
+            unit: u.id,
+            transform: RigidTransform::default(),
+        })
+        .collect();
+    assert_eq!(
+        nesting.write_sheet(&all, 300.0, 200.0, false).unwrap(),
+        PROJECT
+    );
+    let transform = RigidTransform {
+        translation: [100.0, 50.0],
+        rotation_radians: 0.0,
+        mirrored: false,
+    };
+    let output = nesting
+        .write_sheet(&[UnitPlacement { unit: 1, transform }], 300.0, 200.0, false)
+        .unwrap();
+    let xml = roxmltree::Document::parse(PROJECT).unwrap();
+    let group = xml
+        .root_element()
+        .children()
+        .filter(|n| n.has_tag_name("Shape"))
+        .nth(1)
+        .unwrap();
+    let children = group
+        .children()
+        .find(|n| n.has_tag_name("Children"))
+        .unwrap();
+    assert!(output.contains(&PROJECT[children.range()]));
+    let reread = Document::read(&output, 0.0005).unwrap();
+    close(
+        reread
+            .scene
+            .shapes
+            .iter()
+            .find(|s| s.kind == "Text")
+            .unwrap()
+            .bounds_mm
+            .unwrap(),
+        [135.0, 72.0, 137.0, 73.0],
+    );
+}
+
+#[test]
+fn writer_handles_self_closing_shapes_copies_and_tool_setting_conflicts() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    let xml = r#"<LightBurnProject FormatVersion="1"><CutSetting type="Cut"><index Value="0"/></CutSetting><Shape Type="Rect" W="10" H="5" Unknown="a > b &amp; c" /></LightBurnProject>"#;
+    let doc = Document::read(xml, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    let placements: Vec<_> = [20.0, 40.0]
+        .map(|x| UnitPlacement {
+            unit: 0,
+            transform: RigidTransform {
+                translation: [x, 20.0],
+                ..Default::default()
+            },
+        })
+        .into();
+    let output = nesting.write_sheet(&placements, 100.0, 50.0, true).unwrap();
+    assert_eq!(output.matches("Unknown=\"a > b &amp; c\"").count(), 2);
+    let reread = Document::read(&output, 0.0005).unwrap();
+    assert_eq!(reread.scene.top_level.len(), 3);
+    assert_eq!(
+        reread
+            .scene
+            .layers
+            .iter()
+            .find(|l| l.index == 30)
+            .unwrap()
+            .mode,
+        "Tool"
+    );
+    close(
+        reread.scene.shapes[0].bounds_mm.unwrap(),
+        [15.0, 17.5, 25.0, 22.5],
+    );
+    let bad = xml.replace(
+        "</LightBurnProject>",
+        "<CutSetting type=\"Cut\"><index Value=\"30\"/></CutSetting></LightBurnProject>",
+    );
+    let bad = Document::read(&bad, 0.0005).unwrap();
+    assert!(
+        bad.nesting_units(0.0005)
+            .unwrap()
+            .write_sheet(&[], 100.0, 50.0, true)
+            .is_err()
+    );
+    assert!(
+        nesting
+            .write_sheet(
+                &[UnitPlacement {
+                    unit: 99,
+                    transform: RigidTransform::default()
+                }],
+                100.0,
+                50.0,
+                false
+            )
+            .is_err()
+    );
+}

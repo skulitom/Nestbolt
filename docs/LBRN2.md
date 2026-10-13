@@ -296,3 +296,18 @@ geometry, and full H3 reader acceptance remains open. This is a core inspection
 API and diagnostic example: nesting-unit construction, per-sheet preserving
 writes, UI/CLI/MCP integration and new native opening checks remain to be built.
 See [the complete checkpoint](../benchmarks/results/h3-reader-checkpoint-20261013.md).
+
+## Unit assembly and preserving writer checkpoint — 2026-10-13
+
+The core now assembles rigid units and writes version-1 sheet files while keeping
+unrelated XML byte-for-byte. Fifty training projects pass identity writes and
+100 independently checked canonical sheet diffs; six refuse incomplete movable
+text. All 227 unit footprints match the independent reference within 0.000579 mm.
+Two projects with uncached text can still write because that text is fixed; this
+does not establish its geometry. Four outputs have no movable units.
+
+Only top-level placement matrices, omitted units, required shared definitions
+and the optional T1 outline change. Fixed content remains on every output.
+This is still a core API and diagnostic, with legacy conversion, actual search,
+public surfaces and native origin/settings checks pending. See the
+[complete writer checkpoint](../benchmarks/results/h3-writer-checkpoint-20261013.md).

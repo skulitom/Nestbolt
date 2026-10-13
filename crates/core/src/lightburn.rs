@@ -13,6 +13,10 @@ use serde::Serialize;
 use crate::curves::{Affine, Contour, Point, Segment, bounds};
 
 mod path;
+mod units;
+mod writer;
+pub use units::{Nesting, Unit};
+pub use writer::UnitPlacement;
 
 #[derive(Clone, Debug, Serialize)]
 pub struct Path {

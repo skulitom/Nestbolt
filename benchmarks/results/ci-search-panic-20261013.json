@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-13",
+  "status": "open",
+  "commit": "540c867e6787fbdb79165f946fd47f20ff93c289",
+  "workflow_run": "https://github.com/skulitom/Nestbolt/actions/runs/38476307333",
+  "job": "https://github.com/skulitom/Nestbolt/actions/runs/38476307333/job/115567734686",
+  "platform": "ubuntu-latest",
+  "test": "random_polygon_jobs_are_valid_or_clean_errors",
+  "failure": "jagua-rs-1.1.0/src/collision_detection/quadtree/qt_hazard.rs:119: assertion failed: constricted_hazards.iter().filter(|h| h.is_some()).count() > 0",
+  "proptest_regression": "cc 4f6c48cb13c681220fc6d19b0575bfab29931c06f5ddcc26386afd5451fb1480",
+  "shape_fields": ["radii", "spike", "duplicate", "collinear", "quantity", "rotation_kind", "allow_mirror", "hole"],
+  "minimal_input": {
+    "shapes": [
+      [[6.657948396594396, 2.0, 2.0], 0.0, false, true, 2, 2, true, false],
+      [[2.0, 2.0, 9.106484315292827, 2.0, 2.0, 10.49551223083212, 2.0], 2.8113386683023682, false, false, 1, 1, false, false]
+    ],
+    "width": 30.0,
+    "height": 87.98196658031742,
+    "clearance": 0.0,
+    "second_stock": true,
+    "capped": false,
+    "defect": false,
+    "seed": 162
+  },
+  "test_file": "crates/core/tests/search_fuzz.rs",
+  "local_log": "output/ci-38476307333-linux-job.log",
+  "held_out_read": false,
+  "local_reproduction": "pending",
+  "fix": "pending"
+}
