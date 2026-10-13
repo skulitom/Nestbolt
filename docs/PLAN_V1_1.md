@@ -1,275 +1,349 @@
 # Nestbolt v1.1: real shop files — plan for an agent
 
-*Written 2026-10-13 for Artem, after v1 closed on his acceptance (plan decision 5). Hand this whole file to the agent
-that does the work. Read [PLAN.md](PLAN.md) (v1 plan, ground rules), [STATUS.md](STATUS.md) and
-[BENCHMARKS.md](../BENCHMARKS.md) first.*
+*Written 2026-10-13 for Artem, after v1 closed on his acceptance (PLAN.md decision 5). Hand this whole file to the
+agent that does the work.*
+
+*Read first:*
+- [PLAN.md](PLAN.md): the v1 plan and its ground rules;
+- [STATUS.md](STATUS.md);
+- [BENCHMARKS.md](../BENCHMARKS.md);
+- [V1_1_RESEARCH.md](V1_1_RESEARCH.md): every data source, licence, format detail and practice this plan relies on.
+
+*Nothing here needs files or answers from Artem. Data comes from public, permissively licensed sources or is made by the
+agent. Every design choice is decided below (section 3). Artem is asked only about releases, and if a stop rule in
+section 8 fires.*
 
 ## 1. Goal
 
-v1 nests well on clean, frozen benchmark files. v1.1 makes Nestbolt work on the files people actually bring from the
-shop: messy DXFs from Fusion 360, LightBurn and other CAD/CAM tools. It adds the three features laser and plasma users
-ask for most, and closes the browser's known gap on curve-heavy parts.
+v1 nests well on clean benchmark files. v1.1 makes Nestbolt work on the files people actually bring from the shop:
+- messy DXF and SVG files from Fusion 360, Illustrator, Inkscape, FreeCAD, KiCad, SolidWorks and LightBurn;
+- LightBurn projects, nested and written back with their layers and cut settings intact.
 
-In priority order:
-1. **A messy-file corpus** (data first): real and realistically broken DXF/SVG files, with every licence recorded and
-   the expected result labelled by hand.
-2. **Import robustness** on that corpus: gaps, duplicates, layers and colours, open contours, units.
-3. **LightBurn `.lbrn2` round-trip:** open a LightBurn project, nest it, and write it back with every layer and cut
-   setting intact.
-4. **Curve-heavy parts in the browser:** today the WebAssembly build is 16-30% worse than native on the detailed-gear
-   jobs in one worker (G5 report).
-5. **Common-line cutting:** parts sharing a straight edge are cut once (deepnest-next has this as `mergeLines`).
-6. **Lead-ins:** decide the scope first (section 4.6). Most of this belongs to CAM, so the likely slice is reserving
-   room for lead-ins and exporting them on their own layer.
+It also adds common-line cutting and lead-in allowances, and closes the browser's measured gap on curve-heavy parts.
 
-**Why this order.** Most real-world failures happen at import, before nesting starts, and v1's fidelity corpus
-(196 drawings, mostly generated boxes.py files) is clean. The corpus feeds every later workstream. LightBurn is the
-largest maker laser community, and a round-trip that keeps cut settings removes the main reason to stay in LightBurn's
-own nesting (Quick Nest is bounding boxes only; True Nest is in 2.2 early access and Pro-only). The browser curve gap is
-measured and known. Common-line is parity with deepnest-next. Lead-ins mostly belong to the CAM tool.
+| # | Workstream | Why |
+|---|---|---|
+| N0 | Messy-file corpus | Most real failures happen at import; v1's fidelity corpus is clean generated files. Every later workstream is tested on it. |
+| N1 | Import robustness | Gaps, exploded and duplicate segments, layers and colours, units, blocks, text and dimensions. |
+| N2 | LightBurn `.lbrn2` round-trip | LightBurn is the main maker laser tool. Its nesting is weak: Quick Nest packs bounding boxes, True Nest is 2.2 early access and Pro-only, and Nest Selected round-trips through SVGnest.com. The one open nester for its projects (laser-layout, no licence) loses every layer on export. |
+| N3 | Curve-heavy parts in the browser | Measured gap: the browser is 16.9-29.8% worse than native on the four development gear jobs at 60 s (G5 report). |
+| N4 | Common-line cutting | Parity with deepnest-next, done the industrial way: kerf-spaced parts with one shared, compensated cut line. |
+| N5 | Lead-in allowances | Every major cutting tool draws its own leads. The nester's job is to reserve room for them and choose where each contour starts. |
 
-## 2. Starting point (what exists, 2026-10-13)
+## 2. Ground rules
 
-- **Import** (`crates/core/src/import.rs`) handles SVG and DXF lines, arcs, ellipses, Béziers, B-splines, blocks,
-  transforms and units. It converts to mm, chains open runs whose ends meet within the tolerance (default 0.005 mm),
-  repairs self-touching outlines with a warning, and records each part's source element, layer or block as
-  information. It cannot choose which layers or colours are cut, and it does not heal larger gaps.
-- **Export** writes one SVG and one DXF per sheet from the original curves, transformed. G6 fidelity: 196 drawings,
-  within 0.0005 mm (SVG) and 0.0000045 mm (DXF). Inkscape and LibreCAD open the exports, and Artem checked five
-  imports in LightBurn 2.1.01 by hand.
-- **Independent validator** (`crates/validator`, Clipper2): overlap, clearance, containment, transforms, quantities and
-  units. It rejects touching parts whenever clearance > 0; a v1 "exact spacing" variant failed on exactly this
-  (BENCHMARKS.md).
-- **Surfaces:** CLI, browser app (WebAssembly in workers, Pages), MCP server (five tools). v1's rule G7 holds here too:
-  every feature works through the UI, the CLI and the MCP tools, each with an end-to-end test.
-- **Benchmarks:** the final v1 results (build `75cbb32`) are published and accepted. The held-out jobs are spent.
-
-## 3. Ground rules (carried over from PLAN.md section 8, plus these)
+Everything in PLAN.md section 8 applies, plus the following.
 
 - **Licences:**
-  - Every dataset file needs a recorded licence and source (as in `benchmarks/datasets`). Use CC0, CC-BY, CC-BY-SA,
-    MIT, BSD, Apache or public domain only; anything NC/ND, or with an unclear licence, needs Artem's explicit OK.
-  - Keep MIT/MPL notices for any reused code; credit sparrow and jagua-rs.
-- **No closed-tool reverse engineering:** never decompile LightBurn, Fusion or anything else. Learn the `.lbrn2`
-  format only from:
-  - files LightBurn writes (Artem makes them);
-  - public documentation and forum descriptions;
-  - openly licensed parsers, with their licence respected and noted.
-- **No accounts, logins, paid tools or geometry uploads:**
-  - The agent never signs up anywhere.
-  - Download only files that need no login.
-  - Fusion 360 and LightBurn files come from Artem.
-  - Users' geometry never leaves their device.
-- **Benchmark discipline is unchanged:**
+  - Data that may be committed: CC0, CC-BY, CC-BY-SA, MIT, BSD, Apache-2.0, Unlicense, CERN-OHL-P, public domain.
+    Record the source URL, the licence and where it is stated for every file.
+  - GPL, LGPL and MPL data (V1_1_RESEARCH.md section 1.4) may be used only for local testing and is never committed.
+  - NC, ND and unlicensed files are excluded.
+  - Keep MIT/MPL notices for reused code, and credit sparrow and jagua-rs.
+- **Code reuse:**
+  - Never decompile or disassemble LightBurn or any closed program. Never open `Dcs102/lightburn`.
+  - Never copy code from GPL projects (boxes.py, deepnest-next's `main/deepnest.js`) or from unlicensed ones
+    (laser-layout). Describe their behaviour only.
+  - MIT readers such as lbrn2-to-svg may be used as independent test oracles, run from their published packages.
+- **No accounts or uploads:**
+  - Never sign up or log in anywhere. Onshape and Fusion 360 therefore cannot be used. Fusion-written files come from
+    public repositories (V1_1_RESEARCH.md section 1.2).
+  - Never upload geometry. deepnest-next's DXF export sends the SVG to `converter.deepnest.app`, so use its SVG export
+    only.
+- **LightBurn:**
+  - LightBurn Core 2.1.01 is installed as a 30-day trial (installed 2026-10-12 for G6, ending about 2026-11-11). With
+    Artem's approval, given by handing over this plan, the agent drives it in the hidden Anode desktop as it did for G6.
+  - Never reinstall it or reset the trial. Never buy anything.
+  - Do every LightBurn-dependent step first (section 6).
+- **Benchmark discipline:**
   - BENCHMARKS.md is append-only.
   - Runs go on CCD0, one per physical core, at most 8 at once; builds use `output/ccd1.py`.
   - Never edit `crates/` or the batch scripts while a benchmark runs: the harness hashes its sources and refuses to
     record.
-  - Python edits always pass `encoding='utf-8'` and a line-feed `newline` (the Windows default is cp1252).
+  - Python edits always pass `encoding='utf-8'` and a line-feed `newline`.
+- **Held-out jobs:** never tune on the ten v1 held-out maker jobs (`held_out_ids` in `benchmarks/datasets/makers.json`).
+  Every development subset in this plan excludes them.
 - **Claims:**
-  - The README claims nothing beyond the results page.
-  - Solver changes here (sections 4.4 and 4.5) do not change the published v1 numbers.
-  - A new quality claim needs a new final run with a fresh held-out set and fresh seeds, and only Artem starts one.
-- **Release and registry** publication happen only on Artem's explicit instruction.
-- **Progress** is reported only as completed milestone weights (section 6); a milestone counts once its gate has direct
-  evidence.
+  - The published v1 results (build `75cbb32`) stand unchanged. Workstreams N3-N5 change the solver; report their
+    effect on development jobs only.
+  - The README claims nothing beyond the results page. No new quality claim without a new final run, which needs a fresh
+    held-out set and fresh seeds, and only Artem starts one.
+- **Releases:** the first release and registry publication happen only on Artem's explicit instruction.
+- **Surfaces:** every feature works through the UI, the CLI and the MCP tools, each with an end-to-end test (v1's G7
+  rule).
+- **Progress** is reported only as completed milestone weights (section 7).
+
+## 3. Decisions made in this plan
+
+| Topic | Decision | Basis |
+|---|---|---|
+| Gap healing | Keep 0.005 mm as the silent join tolerance. "Close gaps up to X mm" (default off, maximum 1 mm) closes larger gaps and reports each one with its location and size. | Fusion files show gaps in Deepnest; LightBurn's Auto-Join uses 0.05 mm (research 1.5). |
+| Duplicates | Remove exact duplicate and zero-length segments, and merge overlapping collinear segments before chaining. Always report the count. | Exploded and doubled lines in Fusion, LightBurn and Illustrator files. |
+| Layers and colours | Report every layer and colour with entity counts. Cut selection: the user's choice; otherwise layers named like `cut`/`outline`/`profile`; otherwise all closed contours. TEXT, MTEXT, DIMENSION, HATCH, LEADER, SOLID and bend/extent layers are ignored, with a warning. | LightBurn maps by colour and ignores layer names; Fusion flat patterns put bend lines on their own layers. |
+| Units | Use `$INSUNITS` when present. When it is missing and the drawing's largest dimension is under 60 units, warn that it may be in inches and offer inches; never rescale silently. cm (`$INSUNITS=5`) is supported. | MeArm v1 is in cm; LightBurn exports carry no units. |
+| Export colours | DXF layers get colours matching LightBurn's default palette: CUT colour 00, COMMON 01, LEADIN 02, SHEET the T1 tool colour. Verify the palette RGB/ACI values locally before shipping. SVG strokes use the same RGB. | LightBurn assigns layers by colour. |
+| LightBurn units of nesting | (1) Each top-level Group is one rigid unit. (2) Each other top-level closed shape on a Cut or Scan+Cut layer is a unit, together with the other top-level shapes (Scan, Image, Text) whose bounds lie wholly inside its outline. (3) Each remaining top-level shape is its own unit: closed paths by outline, everything else by bounding rectangle. (4) Shapes on Tool layers or on layers with output off stay where they are, in every output file. | boxes.py writes one group per part; engraving normally sits inside the part it marks. |
+| LightBurn output | One file per sheet, `<name>-sheet-<k>.lbrn2`, holding that sheet's units with updated XForms. Everything else is preserved: all CutSettings, UIPrefs, Notes, VariableText, Thumbnail and unknown elements and attributes. Optionally a sheet-outline Rect on tool layer T1 (on by default; adds a T1 CutSetting if missing). | A laser runs one sheet at a time; lossless preservation is the reason to round-trip at all. |
+| Shared geometry | When a sheet file omits the shape that defines a `VertID`/`PrimID` (or a Bitmap's `Data` by `SourceHash`), move the defining lists to the first kept shape with that id. Change nothing else. | Sharing rule, research 2.1. |
+| Transform update | new XForm = placement transform ∘ old XForm, on each top-level member of a unit; children are untouched. The sheet's lower-left corner is the workspace origin. `MirrorX`/`MirrorY` handling is set from local samples (N2 step 1). | Research 2.1 (XForm order; mirror mapping unresolved). |
+| `.lbrn` (legacy) | Import supported; output is written as `.lbrn2`. Only `.lbrn2` is gated. | `.lbrn` is only for very old versions (research 2.1). |
+| Kerf from LightBurn | Read each layer's `kerf` and show it. Never change spacing automatically. | Users set kerf per layer for different jobs. |
+| Common-line model | Parts sit exactly one kerf apart; one centreline toolpath (outlines offset by kerf/2) per shared straight segment goes on a COMMON layer; the closed true-size outlines stay on CUT. Defaults: off; kerf from the user (required, at least 0.05 mm); collinearity tolerance 0.01 mm; minimum shared length 10 mm; straight segments only; sheet edges and part-in-hole off. The search bonus is an option, off by default, normalised as a fraction of total cut length. | Industrial practice (ProNest, Primecut, FastNEST). Deepnest's zero-gap merge loses half a kerf per edge (research 3.1-3.2). |
+| Lead-in scope | Reserve a footprint per contour and choose its start point; export the leads on a LEADIN layer for review only. No G-code, cut order or pierce sequencing. Defaults: off; line; 3 mm; 45° outside, 90° inside holes; arc radius = length / 2; shorten to fit down to 0.5 mm, then flag; pierce disc 2 × kerf; no lead-out or overcut. Placement: outer contours at the most convex corner, otherwise the middle of the longest edge; holes on the longest edge, otherwise the centre; never on a shared common-line segment. | LightBurn, SheetCam, Fusion and CypCut draw their own leads. Corner placement follows Primecut and OMAX; values from Thunder Laser and Hypertherm (research 3.3). |
 
 ## 4. Workstreams
 
-### 4.1 N0: the messy-file corpus (data first)
+### 4.1 N0: the messy-file corpus
 
-**Sources (verify each licence before downloading):**
-- ezdxf's test and example files (MIT): many DXF versions and entity types.
-- KiCad demo projects' board outlines, exported locally with `kicad-cli pcb export dxf`: arcs and segments that do not
-  chain in order. Check each project's licence.
-- Openly licensed laser-cut designs (CC0/CC-BY/CC-BY-SA) that download without an account: Wikimedia Commons,
-  OpenBuilds, Printables or Thingiverse items with such licences.
-- LibreCAD, QCAD and FreeCAD sample drawings, where their licences allow it.
-- **Artem's own files:** 10-20 real exports from his Fusion 360 and LightBurn use (ask him). Keep them out of the
-  public repo unless he says otherwise: a gitignored `private/` folder, with only summaries published.
-- **A deterministic, seeded "shop habits" generator** that damages clean drawings in documented ways. Record each habit
-  with the public source that describes it:
-  - polylines exploded into one LINE per edge, with shuffled order and reversed directions;
-  - gaps and overlaps of 0.001-0.5 mm; duplicate and zero-length segments;
-  - Fusion-style SPLINEs (degree 3, fit points only, many knots); LWPOLYLINE bulges and widths;
-  - nested blocks with mirroring and non-uniform scale;
-  - inch geometry with `$INSUNITS` missing;
-  - TEXT, MTEXT, DIMENSION, HATCH and construction lines on other layers;
-  - LightBurn-style colour-per-operation layers (cut, score, engrave);
-  - a whole existing layout exported with its sheet outline.
+**Contents:**
+- **Real files:** at least 60 from at least 8 of the sources in V1_1_RESEARCH.md section 1.2, including at least 25
+  Fusion-written files, identified by the section 1.1 fingerprint. Prefer whole part sets (a case, a plate, a robot's
+  panels) over single drawings.
+- **LightBurn-written files, made locally in Anode.** No openly licensed ones exist.
+  1. Take 15 openly licensed designs from the real set.
+  2. Import each into LightBurn and save it as `.lbrn2`, after setting up layers (cut, score, engrave), a text, a group,
+     a bitmap, lead-ins and a start point on some, a kerf on one layer, and copies of one part (shared geometry).
+  3. Export each as DXF and as SVG with LightBurn's default export settings, plus 5 more DXFs with "Convert arcs to
+     lines" on.
 
-**Ground truth:**
-- For every file, a small JSON next to it: expected cut parts, holes per part, which layers or colours are cut, outer
-  bounding sizes, and any expected warning.
-- Write these by hand for real files; the generator writes them for generated files.
+  That gives 15 `.lbrn2` + 35 DXF/SVG. Each file keeps the source design's licence, with LightBurn 2.1.01 recorded as
+  the writer.
+- **Public LightBurn projects:** at least 40 `.lbrn2`/`.lbrn` files from section 2.3. Skip the lbrnts assets.
+- **Robustness set:** at least 150 files from the test suites in section 1.3 (ezdxf, GDAL, ACadSharp, dxf-parser,
+  CadQuery). These carry no part labels; the expectation is "imports or fails clearly".
+- **Generated set:** a deterministic, seeded `scripts/shop_habits.py` applies each habit from section 1.5 to 10 clean
+  base drawings (v1 fixtures and maker parts), at least 100 files. The habits:
+  - exploded and shuffled segments;
+  - gaps and overlaps of 0.001-0.5 mm;
+  - duplicates and zero-length segments;
+  - Fusion-style SPLINEs and extrusion (0,0,−1) on arcs;
+  - LWPOLYLINE bulges and widths;
+  - nested and mirrored blocks;
+  - geometry wrapped in one block with an INSERT;
+  - a missing HEADER and missing `$INSUNITS` with inch geometry; cm units;
+  - TEXT, DIMENSION, HATCH and construction lines on other layers;
+  - colour-per-operation layers;
+  - a complete existing nest with its sheet outline.
 
-**Freeze:** checksums plus a manifest, as v1's datasets. Hold out 20% of the real (non-generated) files, never used
-for tuning.
+**Labels:**
+- Every file in the real, LightBurn and generated sets gets a JSON label: cut parts, holes per part, which layers or
+  colours are cut, outer bounding sizes, and expected warnings.
+- Real files are labelled by the agent from a rendering made with ezdxf's drawing add-on (MIT) or Inkscape, together
+  with a reading of the file. Each label records how it was derived.
+- Generated labels come from the generator.
+
+**Freeze:**
+- Under `benchmarks/datasets/shop/`, with a manifest (source, licence, licence location, writer and its evidence,
+  sha256) and per-file attribution in a `LICENSES.md`.
+- Before any import work, hold out 20% of the real and LightBurn-written files, stratified by writer. They are never
+  used for tuning.
 
 **Gate H1:** all of these:
-- at least 150 files, at least 40 of them real exports from at least 5 distinct sources, including Fusion- and
-  LightBurn-written DXF;
-- every licence recorded;
-- ground truth for every file;
-- frozen and checksummed;
-- the held-out split recorded before any import work starts.
+- the counts above are met;
+- every committed file has a recorded permissive licence;
+- every labelled file has its label;
+- the manifest is frozen with checksums;
+- the held-out split is recorded in BENCHMARKS.md before any N1 change.
 
 ### 4.2 N1: import robustness
 
-- **Gap healing:**
-  - Keep the 0.005 mm default join.
-  - Offer "close gaps up to X mm" (UI field, CLI `--close-gaps`, MCP parameter), which reports each closed gap's
-    location and size.
-  - Never close silently beyond the default.
-- **Clean-up:**
-  - Remove exact duplicate and zero-length segments, and merge overlapping collinear pieces before chaining.
-  - Report self-intersections clearly, or repair them where unambiguous (v1 already repairs self-touching outlines).
-- **Layers and colours:**
-  - The import report lists every layer and colour with its entity count.
-  - The user chooses which ones are cut (UI checkboxes, CLI `--layers`/`--colors`, MCP parameter).
-  - Default: layers whose names look like cut or outline layers if any exist, otherwise every closed contour.
-  - TEXT, DIMENSION and HATCH entities are ignored, with a warning.
-- **Open contours:** list each one with its location and gap size; suggest the closing tolerance that would fix it.
-- **Units:** when `$INSUNITS` is missing and the sizes look like inches, warn and offer inches. Never rescale silently.
-- **Pre-arranged layouts:** a file that is already a nested sheet (sheet outline plus parts) imports as parts. The
-  outline can optionally be used as the sheet (v1 already supports remnant outlines).
+Build the section 3 import decisions:
+- gap healing, de-duplication, layer and colour selection, units;
+- ignoring non-geometry entities;
+- blocks with extrusion −1 mirroring;
+- pre-arranged nests: their sheet outline can be used as the sheet (v1 remnant outlines);
+- open-contour reports: location, gap size and the tolerance that would close it.
 
-**Gate H2:** on the frozen corpus:
-- every non-held-out file either imports exactly to its ground truth (parts, holes, cut layers) or fails with a message
-  that names the fix;
-- at least 95% of the held-out real files import exactly, and the rest fail clearly;
-- no crash or hang under fuzzing (extend `crates/core/tests/search_fuzz.rs` and the importer property tests with the
-  generator's habits);
-- exported outlines stay within 0.01 mm of the imports (G6 method, `scripts/g6_fidelity.py`);
-- UI, CLI and MCP parity, with end-to-end tests.
+Surfaces:
+- UI: a layer/colour list with checkboxes, and a close-gaps field.
+- CLI: `--layers`, `--colors`, `--close-gaps`.
+- MCP `import_parts`: the same parameters, and the report returns the layer and colour list.
+- Exports use the section 3 colours.
+
+**Gate H2:**
+- **Labelled, not held out:** 100% either match their label exactly (parts, holes, cut layers) or fail with a message
+  that names the fix. A missing part with no warning is a failure.
+- **Held out:** at least 95% of real and LightBurn files match exactly; the rest fail clearly.
+- **Robustness set:** no crash, panic or hang. Each file imports or fails within 10 s natively.
+- **Fuzzing:** 0 failures in 10,000 proptest cases built from the generator's habits, extending
+  `crates/core/tests/search_fuzz.rs` and the importer property tests.
+- **Fidelity:** every labelled file that imports re-exports within 0.01 mm (G6 method, `scripts/g6_fidelity.py`).
+- **LightBurn check** in Anode, as in G6:
+  - 10 nested exports (5 DXF, 5 SVG) taken from corpus files import at the exact placed sizes;
+  - the CUT, COMMON and LEADIN colours land on separate LightBurn layers.
+  - Record it as `benchmarks/results/h2-lightburn-*.md`, with screenshots.
+- **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
 ### 4.3 N2: LightBurn `.lbrn2` round-trip
 
-- **Learn the format** from projects Artem saves in LightBurn 2.1:
-  - a small set covering rectangles, ellipses, paths with Bézier segments, groups, text, an image, several layers and
-    cut settings, and a few shapes with rotation and mirroring;
-  - write down what was learned in `docs/LBRN2.md`, with which file showed each point;
-  - check for an openly licensed parser before writing one.
-- **Import:**
-  - Read closed vector shapes with their transforms (`XForm`) and their layer (cut setting index).
-  - Text, images and fills either ride with the closed shape they sit inside (a rigid group) or are placed as a block
-    by their outline. Ask Artem which he wants.
-- **Export:**
-  - Write the same document back, changing only the transforms of moved shapes.
-  - Optionally add sheet outlines on a dedicated layer.
-  - Preserve everything else, including unknown elements and attributes: cut settings, notes, ordering.
-  - Several sheets go side by side in one project, or one file each; ask Artem.
-- **Gate H3:**
-  - automated tests: parse then write with no changes gives an XML-equivalent file; nest then write changes only
-    transforms;
-  - the placed geometry passes the independent validator;
-  - Artem opens at least 5 nested projects in LightBurn and confirms positions, layers and cut settings, recorded like
-    v1's LightBurn check;
-  - UI, CLI and MCP support, with end-to-end tests.
+1. **Probe the format locally first** (before the trial ends). Make small projects in Anode that isolate:
+   - each origin corner (`MirrorX`/`MirrorY`);
+   - rotated and mirrored shapes in groups;
+   - text with BackupPath, moved;
+   - a bitmap copied twice (SourceHash sharing);
+   - lead-in settings and a set start point;
+   - several layer types (Cut, Scan, Scan+Cut, Offset, Image, Tool).
+
+   Record each finding, and the file that shows it, in `docs/LBRN2.md`, starting from research section 2.1.
+2. **Reader:**
+   - Parse `.lbrn2` (FormatVersion 1) and `.lbrn` (FormatVersion 0).
+   - Resolve shared VertList/PrimList and Bitmap data; build Rect, Ellipse, Path (line and Bézier primitives,
+     multi-contour), Group, Text (BackupPath) and Bitmap; apply the XForm chain.
+   - Map shapes to layers by CutIndex.
+3. **Units:** form nesting units by the section 3 rules, using their outlines or bounding rectangles in mm. Allowed
+   rotations and mirroring follow the user's settings (default 0/90/180/270, no mirror).
+4. **Writer:**
+   - For each sheet, copy the document and keep the sheet's units.
+   - Update the top-level XForms (placement ∘ old), re-home any omitted shared lists, and add the T1 sheet outline.
+   - Leave every other byte as it was where possible. Use a canonical-XML comparison as the contract.
+5. **Surfaces:**
+   - UI: open `.lbrn2`/`.lbrn`; download per-sheet `.lbrn2` files, or a ZIP of them.
+   - CLI: `nestbolt nest` accepts `.lbrn2` and writes per-sheet files.
+   - MCP: `import_parts` and `export_layout` support `lbrn2`.
+
+**Gate H3:**
+- **Reader:** every public and local sample parses, and each shape's geometry matches lbrn2-to-svg (MIT, independent
+  oracle) within 0.01 mm. Compare bounding boxes and 64 sampled points per contour.
+- **No-op round-trip:** read then write without nesting is canonically XML-equal to the input for every sample.
+- **Nesting round-trip:** a test checks the canonical diff between input and each output. It may contain only
+  top-level XForm values, re-homed shared lists, removed units belonging to other sheets, and the optional T1 outline.
+- **Validity:** the placed units pass the independent validator.
+- **LightBurn check** in Anode, before the trial ends:
+  - 5 nested projects open without warnings: groups, text, a bitmap, shared copies, at least 3 layers with different
+    cut settings and lead-ins, and both a default and a mirrored origin;
+  - shape positions and sizes match Nestbolt's layout (LightBurn's own position/size fields);
+  - every layer's settings are unchanged (compare the cut settings dialog before and after).
+  - Record it as `benchmarks/results/h3-lightburn-*.md`, with screenshots.
+- **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
 ### 4.4 N3: curve-heavy parts in the browser
 
-- **Baseline:**
-  - Define a curve-heavy development subset: gears, signs and letters from set M (never the v1 held-out jobs), plus new
-    curve-heavy examples.
-  - Measure native vs WebAssembly at 60 s and the time per collision check by vertex count.
+- **Development subset** (never the v1 held-out jobs):
+  - m-public-gear-1 to 4 (about 965-1,057 vertices per part);
+  - m-sign-1 to 4;
+  - m-mechanical-cog-washers;
+  - the browser examples `gears` and `letters`.
+- **Baseline:** the G5 report. Native vs Chrome and Firefox at 60 s: gear-1 +29.8%, gear-2 +20.6%, gear-3 +16.9%,
+  gear-4 +21.4%; signs −0.3% to +2.4%.
 - **Levers, measured one at a time** and logged in BENCHMARKS.md, kept or rejected on evidence:
-  - error-bounded, outward-only simplification of collision proxies with a vertex budget per part (exports keep the
-    exact curves);
-  - adaptive flattening tolerance;
-  - per-orientation proxy caching;
-  - WebAssembly SIMD;
-  - worker-count heuristics within the 1.5 GB memory cap.
+  1. Error-bounded, outward-only simplification of collision proxies, with a vertex budget per part. Exports keep the
+     exact curves, and the independent validator still checks the original geometry.
+  2. Adaptive flattening tolerance for proxies.
+  3. Per-orientation proxy caching.
+  4. WebAssembly SIMD.
+  5. Worker-count heuristics within 1.5 GB.
 - **Constraints:**
-  - No WebAssembly threads: GitHub Pages cannot send COOP/COEP headers (PLAN.md section 3).
-  - A v1 trial with a simplified Sparrow model was rejected because marques no longer fit (BENCHMARKS.md). Any
-    simplification must pass the validator and must not lose a job that fit before.
-- **Gate H4:**
-  - on the curve-heavy subset, the browser at 60 s with default workers is within 2% material of native at 60 s,
-    median over 3 development seeds;
-  - a 2,000-curve file imports and shows its first layout with no main-thread task over 200 ms, and peak memory stays
-    under 1.5 GB;
-  - the G5 quality set does not regress beyond noise;
-  - the native development matrix stays within 0.5% of its median.
+  - No WebAssembly threads: GitHub Pages cannot send COOP/COEP headers.
+  - v1 rejected a simplified-Sparrow trial because marques no longer fit (BENCHMARKS.md). The rule here: no job that
+    fitted before may stop fitting.
+
+**Gate H4:**
+- **Quality:** Chrome and Firefox, 60 s, G5 method (`scripts/g5_browser.py`: one worker per job, physical cores only,
+  seeds 0-2).
+  - Median difference from native on the subset: at most 1%.
+  - Every subset job within 5%.
+  - The full G5 development set still within its v1 bounds: median within 2%.
+- **Scale:** a 2,000-part curve-heavy job (letters and gears, generated like `tests/scale.spec.ts`) imports, nests and
+  exports with peak memory under 1.5 GB and no main-thread task over 200 ms.
+- **Native:** the 65-job development matrix (60 s, seeds 0-2) keeps every layout valid, with its median material within
+  0.5% of `75cbb32`'s development results.
 
 ### 4.5 N4: common-line cutting
 
-What it is: parts placed with zero gap along straight edges share one cut. deepnest-next implements it as
-`mergeLines`: the merged collinear length times a time ratio is subtracted from the placement fitness, and merged
-segments appear in the export.
+Build the section 3 model:
+- **Mode:** spacing = kerf in common-line mode, and the validator is unchanged. Parts are at least one kerf apart, and
+  shared edges are those whose kerf/2 centrelines coincide within 0.01 mm.
+- **Export:**
+  - Detect shared straight segments between neighbours: collinear within 0.01 mm, at least 10 mm long.
+  - Write COMMON: centreline toolpaths with each shared segment written once, chained into the fewest paths.
+  - CUT keeps the closed true-size outlines.
+  - The report gives the total cut length and contour count, with and without common lines.
+- **Optional search bonus:** reward merged length as a fraction of total cut length in the placement cost.
+  Off by default.
+- **Surfaces:** UI (a common-line toggle and kerf field), CLI (`--common-line --kerf <mm>`), MCP parameters. The docs
+  state the plasma caveats (good side, pierce at edges, small-part tip-up) and that CAM kerf compensation must be off
+  for the COMMON layer.
 
-1. **Export:**
-   - Detect collinear, overlapping segments between neighbouring parts, with a tolerance tied to the curve tolerance.
-   - Write a "cut paths" layer in which shared segments appear once, and keep the full per-part outlines on another
-     layer for CAM tools that compensate kerf per contour.
-   - Report the total cut length before and after.
-2. **Validator mode:**
-   - Allow zero-gap contact along edges while rejecting any overlap area.
-   - Clearance is 0 in this mode; the kerf is the cutter's job.
-   - The validator's touch handling must stay a separate, tested code path.
-3. **Search preference:**
-   - An optional bonus for merged length in the placement cost, off by default.
-   - Measure the trade-off between material and cut length.
+**Gate H5**, on a common-line set made for N4. Development only: m-box-batch-500, -desktop, -long, -mini, -storage and
+-tool, m-mechanical-large-plates and m-mechanical-panel-hardware, plus 5 new jobs of rectangles and brackets. Kerf 0.2 mm (laser) and 1.5 mm (plasma).
+- **Geometry:** COMMON paths are exactly the outlines offset by kerf/2. No shared segment appears twice, and chain gaps
+  are at most 0.01 mm. Checked by a test with an independent Clipper2 offset.
+- **Savings:** with the bonus on, the median cut-length reduction on the set is at least 10%, with material within 1% of
+  normal mode at the same spacing. With it off, savings are reported but not gated.
+- **Comparison:** deepnest-next's `mergeLines` on the same jobs (its required spacing 0, SVG export), with its merged
+  length reported next to ours. Informational.
+- **LightBurn check** in Anode: one exported DXF and one SVG open with COMMON on its own layer, at the exact sizes.
+- **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
-**Gate H5:**
-- on rectangle- and bracket-heavy development jobs, the cut length falls by a margin set from the first measurements
-  (start the bar at 15%, adjust once measured, record the decision), with material within 1% of normal mode;
-- exports open in Inkscape, LibreCAD and LightBurn with each shared line present once and no gaps;
-- compared on the same jobs with deepnest-next's `mergeLines`, run locally at its pinned revision;
-- UI, CLI and MCP support, with end-to-end tests.
+### 4.6 N5: lead-in allowances
 
-### 4.6 N5: lead-ins (decide scope first)
+Build the section 3 lead-in scope:
+- **Footprint:** each contour's lead path widened by kerf/2, plus a pierce disc of 2 × kerf. It joins that part's
+  collision geometry, so no lead crosses another part, another lead or the sheet margin.
+- **Placement:** each lead is placed by the section 3 rules, shortening to fit.
+- **Export:**
+  - Every contour starts at its lead's attachment point, so LightBurn's own leads land in the reserved space (with
+    "Choose best starting point" off; say so in the docs).
+  - LEADIN geometry goes on its own layer and colour, for review only.
 
-- **First, a one-page memo** for Artem:
-  - who needs lead-ins from a nester (plasma and waterjet more than diode or CO2 lasers);
-  - what the usual CAM tools already do (SheetCam, LightBurn's own cut settings, controller software);
-  - what Nestbolt would have to provide.
-- **Likely slice:**
-  - a per-part lead-in allowance: a line or arc footprint of length L at a chosen corner or edge, inside holes and
-    outside outlines;
-  - the footprint is added to the collision geometry, so a lead-in never crosses a neighbour or the sheet margin;
-  - lead-ins are exported on their own layer.
-  - Cut order and pierce sequencing stay out of scope (CAM).
-- **Gate H6** (only if Artem approves the slice):
-  - the validator checks the lead-in footprints;
-  - exports open in LightBurn and LibreCAD;
-  - the material cost of the allowance is reported;
-  - UI, CLI and MCP support.
+**Gate H6:**
+- the validator checks every footprint against parts, other footprints and margins;
+- exported contour start points equal the attachment points;
+- in Anode, LightBurn with its own lead-ins at the same length shows no lead crossing a neighbour on 3 nested exports
+  (screenshots);
+- the material cost of the allowance on the common-line set is reported;
+- UI, CLI and MCP parity, with end-to-end tests.
 
-## 5. Sequencing
+## 5. Tests and evidence
 
-N0 → N1 → then N2 and N3 in parallel → N4 → N5.
+- Rust unit and property tests for every new geometry routine.
+- Playwright tests for every UI feature in Chromium and Firefox.
+- CLI feature tests in `crates/cli/tests/features.rs`.
+- An MCP stdio test per new tool parameter.
+- Every gate's evidence goes in `benchmarks/results/` (JSON plus Markdown) and a BENCHMARKS.md entry, failures
+  included.
+- Update STATUS.md at each milestone.
 
-- N2 depends on Artem's sample projects, so ask for them on day one.
-- N3 and N4 change the solver: run the development matrix after each kept change.
-- Do not overlap benchmark runs with source edits.
+## 6. Sequencing and dates
 
-## 6. Milestones (progress weights)
+The LightBurn trial ends about 2026-11-11. Finish every LightBurn step by 2026-11-06.
+
+1. **Days 1-3:** the N2 format probe (step 1), and the N0 LightBurn-written files and samples, in Anode.
+2. **N0:** the rest of the corpus; freeze it and record the hold-out (H1).
+3. **N1:** import robustness. Its LightBurn check runs as soon as exports carry colours (H2).
+4. **N2:** the round-trip, with its LightBurn check (H3) before 2026-11-06.
+5. **N3:** browser curves (H4). It may run alongside N2, but never while a benchmark runs.
+6. **N4:** common-line (H5); its LightBurn check before the trial ends if possible, otherwise see section 8.
+7. **N5:** lead-ins (H6); its LightBurn check likewise.
+
+## 7. Milestones (progress weights)
 
 | # | Milestone | Weight | Done when |
 |---|---|---:|---|
 | N0 | Messy-file corpus | 15% | H1 |
 | N1 | Import robustness | 25% | H2 |
-| N2 | LightBurn round-trip | 25% | H3, including Artem's manual check |
+| N2 | LightBurn round-trip | 25% | H3 |
 | N3 | Curve-heavy browser | 15% | H4 |
 | N4 | Common-line cutting | 15% | H5 |
-| N5 | Lead-ins | 5% | Artem's scope decision recorded, and H6 if he approves the slice |
+| N5 | Lead-in allowances | 5% | H6 |
 
-## 7. What the agent needs from Artem
+## 8. Stop rules (tell Artem, then wait)
 
-1. 10-20 of his own Fusion 360 and LightBurn exports, and whether they may be published or stay private.
-2. LightBurn 2.1 sample projects (list in section 4.3), and later a manual check of at least 5 nested projects.
-3. Two LightBurn choices: how text and images should move, and whether sheets come as one file or one each.
-4. The lead-in scope decision, after the memo.
-5. Whether common-line's search bonus may become a default, once measured.
+- **The LightBurn trial has expired** before a gate's LightBurn check. Never reinstall, reset or buy. Report which
+  checks remain; all non-LightBurn evidence stands.
+- **A source's licence turns out not to be permissive** after its files were committed. Remove the files and report.
+- **A lever in N3 or N4 would change the published v1 numbers' meaning** (for example by changing defaults that the
+  benchmark relies on). Keep it behind an option and report.
+- **sparrow/studio ships fixed sheets or part-in-part** (v1 rule): stop and tell Artem before continuing.
 
-## 8. Risks
+## 9. Risks
 
-- **The `.lbrn2` format is undocumented and may change between LightBurn versions.** Preserve unknown content verbatim
-  and test on files from the version Artem uses.
-- **Licences of shop files are often unclear.** Exclude rather than guess.
-- **Zero-gap validation can weaken the validator.** Keep the strict mode as the default, give the touch mode its own
-  tests, and never use it to score benchmarks.
-- **Proxy simplification has failed once before.** Measure each lever against the validator and the "nothing that fit
-  before stops fitting" rule.
-- **Scope creep into CAM.** Lead-ins stay a reserved-space feature unless Artem decides otherwise.
+- **The `.lbrn2` format is undocumented and could change in 2.2** (multi-page projects). Preserve unknown content
+  verbatim, gate on canonical XML, and test on 2.1.01 files.
+- **Real-file labels are judgement calls.** Record how each label was derived, and use two readers (ezdxf and Inkscape)
+  where they disagree.
+- **Proxy simplification has failed once before.** Gate on "nothing that fit before stops fitting" and on the validator.
+- **Common-line savings depend on how often parts meet edge to edge at exactly one kerf.** The bonus exists for that.
+  If 10% proves unreachable with material within 1%, report the measured trade-off rather than lowering the bar
+  silently.
+- **Scope creep into CAM.** Leads stay a reserved-space and start-point feature.
