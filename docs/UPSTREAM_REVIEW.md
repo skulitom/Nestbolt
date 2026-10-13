@@ -1,5 +1,14 @@
 # Upstream review — 2026-10-11
 
+Rechecked 2026-10-13 for v1.1 N0 and the early N2 format probes. The current
+[Sparrow Studio README](https://github.com/JeroenGar/sparrow-studio) still excludes
+nesting in holes and automatic allocation across sheets; the stop rule is not
+triggered. [Sparrow](https://github.com/JeroenGar/sparrow) still describes strip
+packing. [Deepnest releases](https://github.com/deepnest-next/deepnest/releases)
+still list v1.5.6 as latest. [LightBurn's 2.2 early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
+describes Pro-only True Nest, multi-page projects and a REST API. Our format gate
+remains on the installed 2.1.01; no update is installed for this work.
+
 Reviewed before starting M0. Repeat at the start of every milestone. If Sparrow
 Studio ships fixed-sheet allocation or part-in-part, stop and tell Artem.
 

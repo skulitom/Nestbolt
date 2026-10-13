@@ -2,6 +2,14 @@
 
 *Reference for [PLAN_V1_1.md](PLAN_V1_1.md).*
 
+**Local verification update (2026-10-13):** [LBRN2.md](LBRN2.md) records the
+LightBurn 2.1.01 probes and their saved files. They establish the origin flags,
+the `StartV` start-point attribute, lead setting names, independent vertex/primitive
+sharing, image/vector setting families with colliding indices, and modern
+Fill/Line sub-layers. Modern DXF export is AC1021 and Legacy is AC1009, both with `$INSUNITS=4`; the blanket
+"exported DXFs carry no units" statement below does not hold for this export
+variant. Earlier linked reports remain historical evidence, not a schema.
+
 How these were gathered:
 - Compiled from public sources by research agents on 2026-10-13. Nothing was decompiled.
 - Files were only inspected (headers streamed, repository trees listed); none were copied into the repo.

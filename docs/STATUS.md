@@ -1,5 +1,24 @@
 # Status — 2026-10-13
 
+## v1.1 — real shop files
+
+**Completion: 0%.** The goal is active under [PLAN_V1_1.md](PLAN_V1_1.md).
+Only completed gate weights count. Work begins with the LightBurn format probes
+and locally written samples, then the licensed corpus and its frozen hold-out.
+No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
+due by 2026-11-06. Release and registry publication still require Artem's instruction.
+
+| Milestone | Weight | State / next requirement |
+| --- | ---: | --- |
+| N0 — Messy-file corpus | 15% | 74 real files from nine reviewed sources collected with source hashes and licence evidence; 25 full Fusion fingerprints. Labels, LightBurn derivatives, public samples, robustness/generated sets and frozen split still pending H1 |
+| N1 — Import robustness | 25% | Pending H1; H2 requires import/fidelity/fuzz and all three surfaces |
+| N2 — LightBurn round-trip | 25% | [Local probes](LBRN2.md) establish origins, shared geometry/bitmaps, text, leads, StartV and layer sub-settings. Reader/writer and H3 pending |
+| N3 — Curve-heavy browser | 15% | Pending; H4 requires measured browser/native quality and scale |
+| N4 — Common-line cutting | 15% | Pending; H5 requires compensated geometry, savings and surface evidence |
+| N5 — Lead-in allowances | 5% | Pending; H6 requires footprint validation, start points and surface evidence |
+
+## v1 — accepted
+
 **Completion: 100% on Artem's acceptance (plan decision 5, 2026-10-13).** M0-M4 met their gates. M5 closed when Artem accepted the published final run: G1, G3, G4 and G2 at 300 s are met; G2 at 60 s is not met as written (85.7% wins or ties against the 90% required, two jobs more than 1% worse, every loss against Sparrow).
 Percentages count completed milestones only. Development results do not establish the final acceptance gates. All failures and earlier trials remain in
 [BENCHMARKS.md](../BENCHMARKS.md). The ten held-out maker jobs were used once, in the final acceptance run, and never for tuning.

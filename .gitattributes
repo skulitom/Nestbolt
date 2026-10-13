@@ -2,3 +2,8 @@
 *.png binary
 *.zip binary
 *.wasm binary
+# Corpus hashes describe original bytes, including CAD-writer line endings and
+# whitespace. Never normalize licensed source files or native format probes.
+benchmarks/datasets/shop/real/** -text -whitespace
+benchmarks/datasets/shop/licences/** -text -whitespace
+benchmarks/datasets/shop/probes/** -text -whitespace
