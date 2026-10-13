@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-13",
+  "scope": "N2 core reader and no-op preservation checkpoint",
+  "H3": false,
+  "H2": false,
+  "completed_milestone_percent": 15,
+  "held_out_read": false,
+  "source_sha256": "ef5e203cdd69f2080cdc35561a0231fd2430d3cc6488c2620d4d57871984d18f",
+  "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+  "reader": "h3-reader-20261013T220428Z.json",
+  "geometry": "h3-geometry-20261013T220610Z.json",
+  "retained_reader": "h3-reader-20261013T215600Z.json",
+  "retained_geometry_failure": "h3-geometry-20261013T215946Z.json",
+  "reader_projects": 56,
+  "noop_byte_identical": 56,
+  "complete_geometry_projects": 48,
+  "uncached_text_shapes": 122,
+  "uncached_text_projects": 8,
+  "reader_maximum_s": 0.2513448999961838,
+  "compared_shapes": 1550,
+  "compared_contours": 2046,
+  "native_zero_handle_shapes": 8,
+  "validation": {
+    "core_tests_passed": 7,
+    "strict_workspace_clippy": true,
+    "wasm_check": true,
+    "native_diagnostic_build": true,
+    "frozen_hash_inventory_verified": 1181
+  },
+  "retained_trial_corrections": [
+    "Initial strict Clippy rejected two collapsible if statements. They were rewritten before the first corpus reader run.",
+    "The first geometry launch failed to set CPU affinity because the Windows handle signature was not declared. No project comparison began; the corrected signature pins the process to logical CPU 8.",
+    "The initial completed geometry run failed eight shapes because compact Bezier handles may omit zero coordinates. Native SVG evidence corrected both the product reader and the test-only oracle normalization; original failed results remain.",
+    "A later reference run stopped at its training-only native-pair guard: an unused handle on a public LineClosed path had no same-stem SVG. No reference outside the training set was read. The native omitted-zero checks now apply only to handles used by Bezier primitives; line geometry was unaffected."
+  ],
+  "remaining": [
+    "Nesting-unit assembly and bitmap/text bounds proxies",
+    "Lossless per-sheet writer, shared-definition rehoming and canonical diff evidence",
+    "Original uncached-text geometry",
+    "UI/CLI/MCP integration and end-to-end tests",
+    "H3 native opening/settings/origin checks",
+    "All remaining H2/H4/H5/H6 requirements"
+  ]
+}

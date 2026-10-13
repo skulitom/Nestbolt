@@ -1,0 +1,196 @@
+use nestbolt_core::lightburn::Document;
+
+const PROJECT: &str = r#"<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original Nestbolt fixture, MIT; unusual whitespace/unknown XML is intentional. -->
+<LightBurnProject FormatVersion="1" MirrorX="True" MirrorY="False" Future="retain">
+  <CutSetting type="Cut"><index Value="0"/><name Value="CUT"/><kerf Value="0.2"/><future Value="keep"/></CutSetting>
+  <CutSetting_Img type="Image"><index Value="0"/><doOutput Value="1"/></CutSetting_Img>
+  <CutSetting type="Scan"><index Value="1"/><SubLayer type="Cut" index="1"/></CutSetting>
+  <CutSetting type="Tool"><index Value="30"/></CutSetting>
+  <Shape Type="Path" CutIndex="0" VertID="3" PrimID="4" StartV="2"><XForm>1 0 0 1 100 50</XForm></Shape>
+  <Shape Type="Group"><XForm>0 1 -1 0 40 20</XForm><Children>
+    <Shape Type="Path" CutIndex="0" VertID="3"><XForm>1 0 0 1 0 0</XForm><VertList>V0 0c0x1c1x1V1e1 0SV10 5V0 5</VertList><PrimList>LineClosed</PrimList></Shape>
+    <Shape Type="Text" CutIndex="1" Str="cached"><XForm>1 0 0 1 2 3</XForm><BackupPath Type="Path"><XForm>0 1 -1 0 37 22</XForm><VertList>V0 0V1 0V1 2V0 2</VertList><PrimList>LineClosed</PrimList></BackupPath></Shape>
+  </Children></Shape>
+  <Shape Type="Path" CutIndex="1" PrimID="4"><XForm>1 0 0 1 0 0</XForm><VertList>V0 0V5 0V5 5V0 5</VertList><PrimList>LineClosed</PrimList></Shape>
+  <Shape Type="Bitmap" CutIndex="0" SourceHash="0" W="8" H="6"><XForm>1 0 0 1 60 30</XForm></Shape>
+  <Shape Type="Bitmap" CutIndex="0" SourceHash="0" Data="aW1hZ2U=" W="8" H="6"><XForm>1 0 0 1 70 30</XForm></Shape>
+  <Shape Type="Group"><Children><Shape Type="Rect" CutIndex="0" W="3" H="4"/><Shape Type="Rect" CutIndex="30" W="1" H="2"/></Children></Shape>
+  <Unknown><Value escaped="&amp;&quot;">opaque</Value></Unknown>
+</LightBurnProject>"#;
+
+fn close(actual: [f64; 4], expected: [f64; 4]) {
+    for (a, b) in actual.into_iter().zip(expected) {
+        assert!((a - b).abs() < 0.0005, "{actual:?} != {expected:?}");
+    }
+}
+
+#[test]
+fn no_op_preserves_every_byte_and_sharing_resolves_independently() {
+    let doc = Document::read(PROJECT, 0.0005).unwrap();
+    assert_eq!(doc.original_xml().as_bytes(), PROJECT.as_bytes());
+    assert_eq!(doc.scene.top_level.len(), 6);
+    assert!(doc.scene.mirror_x);
+    assert!(!doc.scene.mirror_y);
+    assert_eq!(doc.scene.layers.iter().filter(|l| l.index == 0).count(), 2);
+    assert!(doc.scene.layers.iter().find(|l| l.index == 1).unwrap().cuts);
+    assert_eq!(doc.scene.layers[0].kerf_mm, 0.2);
+    let p = &doc.scene.shapes[0];
+    close(p.bounds_mm.unwrap(), [100.0, 50.0, 110.0, 55.0]);
+    assert_eq!(
+        p.paths[0].curve.start,
+        [110.0, 55.0],
+        "StartV must be honoured"
+    );
+    let bitmaps: Vec<_> = doc
+        .scene
+        .shapes
+        .iter()
+        .filter(|s| s.kind == "Bitmap")
+        .collect();
+    assert_eq!(bitmaps.len(), 2);
+    assert_eq!(bitmaps[0].bitmap_data_bytes, Some(8));
+    assert!(bitmaps.iter().all(|s| s.image_layer && !s.fixed));
+    close(bitmaps[0].bounds_mm.unwrap(), [56.0, 27.0, 64.0, 33.0]);
+    let group = &doc.scene.shapes[*doc.scene.top_level.last().unwrap()];
+    assert!(group.fixed);
+    assert!(
+        doc.scene
+            .warnings
+            .iter()
+            .any(|w| w.contains("whole rigid group fixed"))
+    );
+}
+
+#[test]
+fn group_transform_and_text_cache_apply_once_and_text_moves_with_its_group() {
+    let doc = Document::read(PROJECT, 0.0005).unwrap();
+    let text = doc.scene.shapes.iter().find(|s| s.kind == "Text").unwrap();
+    close(text.bounds_mm.unwrap(), [35.0, 22.0, 37.0, 23.0]);
+    let moved = Document::read(
+        &PROJECT.replace("0 1 -1 0 40 20", "0 1 -1 0 140 70"),
+        0.0005,
+    )
+    .unwrap();
+    let text = moved
+        .scene
+        .shapes
+        .iter()
+        .find(|s| s.kind == "Text")
+        .unwrap();
+    close(text.bounds_mm.unwrap(), [135.0, 72.0, 137.0, 73.0]);
+    assert!(
+        moved
+            .original_xml()
+            .contains("<XForm>0 1 -1 0 37 22</XForm>"),
+        "cached XML remains untouched"
+    );
+}
+
+#[test]
+fn legacy_and_compact_cubic_multicontours_have_the_same_geometry() {
+    let legacy = r#"<LightBurnProject FormatVersion="0"><Shape Type="Path"><XForm>1 0 0 1 0 0</XForm><V vx="0" vy="0" c0x="2" c0y="3"/><V vx="10" vy="0" c1x="8" c1y="3"/><V vx="20" vy="0"/><V vx="25" vy="0"/><P T="B" p0="0" p1="1"/><P T="L" p0="1" p1="0"/><P T="L" p0="2" p1="3"/></Shape></LightBurnProject>"#;
+    let compact = r#"<LightBurnProject FormatVersion="1"><Shape Type="Path"><VertList>V0 0c0x2c0y3V10 0c1x8c1y3V20 0V25 0</VertList><PrimList>B0 1L1 0L2 3</PrimList></Shape></LightBurnProject>"#;
+    let a = Document::read(legacy, 0.0005).unwrap();
+    let b = Document::read(compact, 0.0005).unwrap();
+    assert_eq!(a.scene.shapes[0].paths.len(), 2);
+    for (a, b) in a.scene.shapes[0].paths.iter().zip(&b.scene.shapes[0].paths) {
+        assert_eq!(a.curve, b.curve);
+        assert_eq!(a.closed, b.closed);
+    }
+    assert!(a.scene.shapes[0].paths[0].closed);
+    assert!(!a.scene.shapes[0].paths[1].closed);
+    close(a.scene.shapes[0].bounds_mm.unwrap(), [0.0, 0.0, 25.0, 2.25]);
+}
+
+#[test]
+fn circles_rounded_rectangles_polygons_and_open_paths_keep_their_shape() {
+    let xml = r#"<LightBurnProject><Shape Type="Ellipse" Rx="10" Ry="5"><XForm>0 1 -1 0 20 30</XForm></Shape><Shape Type="Rect" W="20" H="10" Cr="2"/><Shape Type="Polygon" Rx="10" Ry="10" N="4"/><Shape Type="Path"><VertList>V0 0V10 0V10 10</VertList><PrimList>LineOpen</PrimList></Shape></LightBurnProject>"#;
+    let doc = Document::read(xml, 0.0001).unwrap();
+    close(
+        doc.scene.shapes[0].bounds_mm.unwrap(),
+        [15.0, 20.0, 25.0, 40.0],
+    );
+    close(
+        doc.scene.shapes[1].bounds_mm.unwrap(),
+        [-10.0, -5.0, 10.0, 5.0],
+    );
+    close(
+        doc.scene.shapes[2].bounds_mm.unwrap(),
+        [-10.0, -10.0, 10.0, 10.0],
+    );
+    assert!(!doc.scene.shapes[3].paths[0].closed);
+}
+
+#[test]
+fn uncached_text_and_unknown_shapes_are_retained_without_inventing_bounds() {
+    let xml = r#"<LightBurnProject><Shape Type="Text" Str="No font dependency" Font="missing"/><Shape Type="FutureShape" Payload="retain"/></LightBurnProject>"#;
+    let doc = Document::read(xml, 0.0005).unwrap();
+    assert!(
+        doc.scene
+            .shapes
+            .iter()
+            .all(|s| !s.geometry_complete && s.bounds_mm.is_none())
+    );
+    assert!(
+        doc.scene
+            .warnings
+            .iter()
+            .any(|w| w.contains("re-save in LightBurn"))
+    );
+    assert!(
+        doc.scene
+            .warnings
+            .iter()
+            .any(|w| w.contains("convert it to paths"))
+    );
+    assert_eq!(doc.original_xml(), xml);
+}
+
+#[test]
+fn omitted_zero_handle_coordinates_are_not_missing_handles() {
+    use nestbolt_core::curves::Segment;
+    let compact = r#"<LightBurnProject><Shape Type="Path"><VertList>V10 0c0x12c1x1V15 5c0x1c1y2</VertList><PrimList>B0 1L1 0</PrimList></Shape></LightBurnProject>"#;
+    let legacy = r#"<LightBurnProject><Shape Type="Path"><V vx="10" vy="0" c0x="12"/><V vx="15" vy="5" c1y="2"/><P T="B" p0="0" p1="1"/><P T="L" p0="1" p1="0"/></Shape></LightBurnProject>"#;
+    for xml in [compact, legacy] {
+        let document = Document::read(xml, 0.0005).unwrap();
+        assert_eq!(
+            document.scene.shapes[0].paths[0].curve.segments[0],
+            Segment::Cubic {
+                controls: [[12.0, 0.0], [0.0, 2.0]],
+                to: [15.0, 5.0]
+            }
+        );
+    }
+}
+
+#[test]
+fn corrupt_shared_lists_and_nonfinite_geometry_fail_with_context() {
+    for (body, expected) in [
+        (
+            r#"<Shape Type="Path" VertID="7"/>"#,
+            "unresolved LightBurn VertID 7",
+        ),
+        (
+            r#"<Shape Type="Path"><VertList>V0 0V1 0</VertList><PrimList>L0 4</PrimList></Shape>"#,
+            "missing vertex",
+        ),
+        (
+            r#"<Shape Type="Bitmap" W="1" H="1" SourceHash="0"/>"#,
+            "embed the bitmap",
+        ),
+        (r#"<Shape Type="Rect" W="NaN" H="1"/>"#, "non-finite"),
+        (
+            r#"<Shape Type="Path"><VertList>V1e 0</VertList><PrimList>LineClosed</PrimList></Shape>"#,
+            "invalid exponent",
+        ),
+    ] {
+        let error = Document::read(
+            &format!("<LightBurnProject>{body}</LightBurnProject>"),
+            0.0005,
+        )
+        .err()
+        .expect("reject");
+        assert!(format!("{error:#}").contains(expected), "{error:#}");
+    }
+}

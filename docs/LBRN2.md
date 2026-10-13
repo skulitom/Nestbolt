@@ -7,8 +7,9 @@ says **Pro**, although the earlier research described the installation as Core.
 No edition change, activation, update or trial reset was performed here.
 
 The starting reference is [V1_1_RESEARCH.md section 2](V1_1_RESEARCH.md#2-lightburn-lbrn2).
-The probes below confirm only their stated observations. Reader/oracle fidelity,
-lossless nesting exports and H3 remain unproved.
+The probes below confirm only their stated observations. The reader checkpoint
+below adds training geometry evidence; complete source coverage, lossless nesting
+exports and H3 remain unproved.
 
 ## Coordinate systems and origins
 
@@ -255,3 +256,43 @@ The reference corpus also demonstrates mixed fixed/movable children in L11:
 keep the entire rigid Group fixed and warn, rather than move a disabled child.
 L17's 32 axis-aligned open Paths have degenerate bounds; retain and report them,
 requiring grouping or an explicit nonzero proxy before nesting.
+
+## Reader implementation checkpoint — 2026-10-13
+
+The shared Rust `lightburn::Document` reader preserves the entire original XML
+and separately builds a scene in serialized millimetres/Y-up coordinates. It
+reads versions 0 and 1, resolves vertex/primitive IDs independently (including
+forward references), resolves embedded bitmap sharing, applies group transforms,
+honours StartV and distinguishes vector/image settings with the same index.
+Tool/output-off content is marked fixed; a mixed rigid group remains fixed.
+Kerf is reported without changing spacing. No external image paths or fonts load.
+
+[All 56 training projects](../benchmarks/results/h3-reader-20261013T220428Z.json)
+parse and retain byte-identical no-op output. The maximum reader time is 0.252 s.
+[Independent comparisons](../benchmarks/results/h3-geometry-20261013T220610Z.json)
+cover 1,550 leaf shapes and 2,046 contours: 64 samples per contour in each
+direction, bounding boxes and bitmap corners, all below 0.01 mm. The greatest
+contour distance is 0.000906 mm. The published MIT converter remains unmodified;
+the test adapter records the known reference limitations described above.
+
+**New format correction:** compact vertices can omit a handle's zero x or y
+coordinate. `V265 0c0x267.76141c1x1`, for example, has outgoing handle
+(267.76141, 0); the lone incoming `c1x1` is the missing-handle sentinel. A lone
+`c1y154.76143` has x=0. Both the initial product reader and the published oracle
+misread these cases. The first comparison's eight failures remain recorded.
+The repaired reader and test normalization also agree directly with LightBurn's
+frozen SVG exports for all eight affected shapes (maximum 0.000283 mm).
+
+For cached Text, the reader applies the Text's transform chain to backup-local
+vertices. The cached BackupPath XForm matches that world transform in the native
+samples and must not be applied again. Applying the live Text chain also makes
+the inspection geometry follow a moved group without rewriting child XML.
+Actual native opening of nested output still needs the H3 writer check.
+
+Eight older training projects contain 122 Text shapes without backups. The reader
+retains their XML, reports a native re-save instruction and marks their geometry
+incomplete; it does not invent bounds. Thus 48 projects have complete compared
+geometry, and full H3 reader acceptance remains open. This is a core inspection
+API and diagnostic example: nesting-unit construction, per-sheet preserving
+writes, UI/CLI/MCP integration and new native opening checks remain to be built.
+See [the complete checkpoint](../benchmarks/results/h3-reader-checkpoint-20261013.md).

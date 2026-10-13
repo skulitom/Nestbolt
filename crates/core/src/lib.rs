@@ -16,6 +16,7 @@ pub mod curves;
 pub mod export;
 pub mod holes;
 pub mod import;
+pub mod lightburn;
 pub mod optimize;
 pub mod project;
 pub mod rects;

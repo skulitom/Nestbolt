@@ -196,7 +196,7 @@ Example: [printable_area_jig.lbrn2](https://github.com/JTCozart/LightBurnTemplat
 - Each vertex is `V<x> <y>`, optionally followed by `c0x<n>c0y<n>c1x<n>c1y<n>` (no spaces), optionally followed by `S`
   (smooth).
 - `c0` is the outgoing Bézier handle and `c1` the incoming one ([staff](https://forum.lightburnsoftware.com/t/lbrn-or-lbrn2-xml-file-docuumentation/42317)).
-- A handle exists only if both its x and y are present; `c0x1` or `c1x1` alone means none.
+- **Corrected by native evidence, 2026-10-13:** a lone `c0x1` or `c1x1` means none, but another lone x value or a lone y value denotes a handle whose omitted coordinate is zero. The earlier inference that both coordinates must be present was wrong. Native lb-02 through lb-05 SVG exports confirm eight affected shapes; see [the reader checkpoint](../benchmarks/results/h3-reader-checkpoint-20261013.md).
 - Numbers may use exponent form.
 
 **PrimList grammar:**

@@ -217,7 +217,11 @@ fn reverse(start: Point, segments: &[Segment]) -> (Point, Vec<Segment>) {
 
 /// Arcs under a non-similarity map become cubic BÃ©ziers of at most 22.5Â°,
 /// whose radial error is below 1e-7 of the radius; everything else maps exactly.
-fn map_segments(start: Point, segments: &[Segment], a: &Affine) -> (Point, Vec<Segment>) {
+pub(crate) fn map_segments(
+    start: Point,
+    segments: &[Segment],
+    a: &Affine,
+) -> (Point, Vec<Segment>) {
     let similar = {
         let (c0, c1) = ([a.m[0][0], a.m[1][0]], [a.m[0][1], a.m[1][1]]);
         let (n0, n1) = (c0[0].hypot(c0[1]), c1[0].hypot(c1[1]));
