@@ -13,7 +13,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Command {
-    /// Import closed outlines from SVG/DXF files into a part library (mm).
+    /// Import SVG/DXF outlines or one editable LightBurn project into a library (mm).
     Import {
         #[arg(required = true)]
         inputs: Vec<PathBuf>,
@@ -42,7 +42,7 @@ enum Command {
         #[arg(long, value_delimiter = ',', num_args = 0..)]
         sheet_layers: Option<Vec<String>>,
     },
-    /// Nest library parts on sheets and write the layout, report and exports.
+    /// Nest a library JSON or .lbrn/.lbrn2 project and write the layout and exports.
     Nest {
         #[arg(long)]
         library: PathBuf,
@@ -55,8 +55,8 @@ enum Command {
         #[arg(long, default_value_t = 0)]
         seed: u64,
         /// Draw sheet boundaries in exports (in their own group/layer).
-        #[arg(long)]
-        sheet_outline: bool,
+        #[arg(long, num_args = 0..=1, default_missing_value = "true")]
+        sheet_outline: Option<bool>,
         /// Use a repeatable work budget instead of wall-clock time: the same
         /// inputs, budget and seed give the same layout.
         #[arg(long)]
@@ -66,7 +66,7 @@ enum Command {
         #[arg(long, requires = "repeatable")]
         time_limit: Option<f64>,
     },
-    /// Write per-sheet SVG and DXF files for an existing layout.
+    /// Write per-sheet SVG/DXF or preserving .lbrn2 files for an existing layout.
     Export {
         #[arg(long)]
         library: PathBuf,
@@ -76,8 +76,8 @@ enum Command {
         layout: PathBuf,
         #[arg(long)]
         out_dir: PathBuf,
-        #[arg(long)]
-        sheet_outline: bool,
+        #[arg(long, num_args = 0..=1, default_missing_value = "true")]
+        sheet_outline: Option<bool>,
     },
     /// Native strip-parity diagnostic using pinned Sparrow, timed rather than fixed-work.
     Strip {
@@ -222,30 +222,35 @@ fn write_new(path: &std::path::Path, bytes: &[u8]) -> Result<()> {
     Ok(())
 }
 
+fn load_library(path: &std::path::Path) -> Result<nestbolt_core::project::Library> {
+    let name = path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .context("input file name")?;
+    let bytes = fs::read(path).with_context(|| format!("cannot read {}", path.display()))?;
+    let lower = name.to_ascii_lowercase();
+    if lower.ends_with(".lbrn2") || lower.ends_with(".lbrn") {
+        let text = nestbolt_core::import::decode_drawing(name, &bytes)?;
+        nestbolt_core::project::Library::import(&[(name.into(), text)], &Default::default())
+    } else {
+        serde_json::from_slice(&bytes)
+            .context("invalid part library JSON; provide a library or LightBurn project")
+    }
+}
+
 fn exports(
-    job: &nestbolt_validator::job::Job,
+    library: &nestbolt_core::project::Library,
+    request: &nestbolt_core::project::Request,
     layout: &nestbolt_validator::job::Layout,
-    outlines: &std::collections::HashMap<String, nestbolt_core::export::Outline>,
     out_dir: &std::path::Path,
-    sheet_outline: bool,
+    sheet_outline: Option<bool>,
 ) -> Result<Vec<String>> {
-    let options = nestbolt_core::export::Options { sheet_outline };
+    let exports = library.export_files(request, layout, None, sheet_outline)?;
     let mut written = vec![];
-    for sheet in &layout.sheets {
-        for (ext, text) in [
-            (
-                "svg",
-                nestbolt_core::export::svg(job, layout, &sheet.id, outlines, options)?,
-            ),
-            (
-                "dxf",
-                nestbolt_core::export::dxf(job, layout, &sheet.id, outlines, options)?,
-            ),
-        ] {
-            let path = out_dir.join(format!("{}.{ext}", sheet.id));
-            write_new(&path, text.as_bytes())?;
-            written.push(path.display().to_string());
-        }
+    for file in exports {
+        let path = out_dir.join(file.name);
+        write_new(&path, file.text.as_bytes())?;
+        written.push(path.display().to_string());
     }
     Ok(written)
 }
@@ -300,7 +305,7 @@ fn main() -> Result<()> {
                 .iter()
                 .map(|p| {
                     serde_json::json!({"id": p.id, "source": p.source, "area_mm2": p.area_mm2,
-                    "bounds_mm": p.bounds_mm, "holes": p.holes.len()})
+                    "bounds_mm": p.bounds_mm, "holes": p.hole_count()})
                 })
                 .collect();
             println!(
@@ -308,6 +313,7 @@ fn main() -> Result<()> {
                 serde_json::to_string_pretty(
                     &serde_json::json!({"library": output, "parts": summary,
                     "warnings": library.warnings,"imports":library.imports,
+                    "lightburn": library.lightburn.as_ref().map(|p| p.summary()),
                     "sheet_outlines": library.sheet_outlines.iter().map(|s| serde_json::json!({
                         "id":s.id,"source":s.source,"width_mm":s.width_mm,"height_mm":s.height_mm,
                         "origin_mm":s.origin_mm,"tolerance_mm":s.tolerance_mm})).collect::<Vec<_>>()})
@@ -324,13 +330,11 @@ fn main() -> Result<()> {
             repeatable,
             time_limit,
         } => {
-            let library: nestbolt_core::project::Library =
-                serde_json::from_slice(&fs::read(&library)?)
-                    .context("invalid part library JSON")?;
+            let library = load_library(&library)?;
             let request: nestbolt_core::project::Request =
                 serde_json::from_slice(&fs::read(&request)?)
                     .context("invalid nest request JSON")?;
-            let (job, outlines) = request.job(&library)?;
+            let (job, _) = request.job(&library)?;
             fs::create_dir_all(&out_dir)?;
             let result = nestbolt_core::sheets::optimize(
                 &job,
@@ -359,7 +363,7 @@ fn main() -> Result<()> {
                 &out_dir.join("layout.json"),
                 serde_json::to_string_pretty(&result.layout)?.as_bytes(),
             )?;
-            let files = exports(&job, &result.layout, &outlines, &out_dir, sheet_outline)?;
+            let files = exports(&library, &request, &result.layout, &out_dir, sheet_outline)?;
             let names = files
                 .iter()
                 .filter_map(|f| std::path::Path::new(f).file_name())
@@ -379,13 +383,12 @@ fn main() -> Result<()> {
             out_dir,
             sheet_outline,
         } => {
-            let library: nestbolt_core::project::Library =
-                serde_json::from_slice(&fs::read(&library)?)?;
+            let library = load_library(&library)?;
             let request: nestbolt_core::project::Request =
                 serde_json::from_slice(&fs::read(&request)?)?;
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&fs::read(&layout)?)?;
-            let (job, outlines) = request.job(&library)?;
+            let (job, _) = request.job(&library)?;
             let report = nestbolt_validator::job::validate(&job, &layout)?;
             ensure!(
                 report.valid,
@@ -393,7 +396,7 @@ fn main() -> Result<()> {
                 report.violations
             );
             fs::create_dir_all(&out_dir)?;
-            let files = exports(&job, &layout, &outlines, &out_dir, sheet_outline)?;
+            let files = exports(&library, &request, &layout, &out_dir, sheet_outline)?;
             println!(
                 "{}",
                 serde_json::to_string_pretty(&serde_json::json!({"files": files}))?

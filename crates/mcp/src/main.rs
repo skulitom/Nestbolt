@@ -34,7 +34,7 @@ struct Nestbolt {
 
 #[derive(Debug, Deserialize, JsonSchema)]
 struct ImportParams {
-    /// SVG or DXF files, relative to the workspace or absolute inside it.
+    /// SVG/DXF files or one .lbrn/.lbrn2 project, inside the workspace.
     paths: Vec<String>,
     /// Where to write the part library JSON; a new file under `nestbolt/` by default.
     library_path: Option<String>,
@@ -81,9 +81,11 @@ struct ExportParams {
     library_path: String,
     request: Request,
     layout_path: String,
-    /// New output directory for one SVG and one DXF per sheet.
+    /// New output directory; preserving .lbrn2 for LightBurn, SVG/DXF otherwise.
     out_dir: String,
-    /// Draw sheet boundaries in their own group or layer (default false).
+    /// Optional svg, dxf or lbrn2; omit to use the source format default.
+    format: Option<String>,
+    /// Draw sheet boundaries (default true for LightBurn, false for SVG/DXF).
     sheet_outline: Option<bool>,
 }
 
@@ -198,29 +200,18 @@ impl Nestbolt {
 
     fn exports(
         &self,
-        job: &nestbolt_validator::job::Job,
+        library: &Library,
+        request: &Request,
         layout: &nestbolt_validator::job::Layout,
-        outlines: &std::collections::HashMap<String, nestbolt_core::export::Outline>,
         dir: &Path,
-        sheet_outline: bool,
+        options: (Option<&str>, Option<bool>),
     ) -> Result<Vec<String>> {
-        let options = nestbolt_core::export::Options { sheet_outline };
+        let exports = library.export_files(request, layout, options.0, options.1)?;
         let mut files = vec![];
-        for sheet in &layout.sheets {
-            for (ext, text) in [
-                (
-                    "svg",
-                    nestbolt_core::export::svg(job, layout, &sheet.id, outlines, options)?,
-                ),
-                (
-                    "dxf",
-                    nestbolt_core::export::dxf(job, layout, &sheet.id, outlines, options)?,
-                ),
-            ] {
-                let path = dir.join(format!("{}.{ext}", sheet.id));
-                Self::write_new(&path, text.as_bytes())?;
-                files.push(self.rel(&path));
-            }
+        for file in exports {
+            let path = dir.join(file.name);
+            Self::write_new(&path, file.text.as_bytes())?;
+            files.push(self.rel(&path));
         }
         Ok(files)
     }
@@ -229,8 +220,9 @@ impl Nestbolt {
 #[tool_router]
 impl Nestbolt {
     #[tool(
-        description = "Import closed outlines from SVG or DXF files into a part library (mm). \
-        Writes the library to a file and returns part ids, areas, bounds and import warnings. \
+        description = "Import SVG/DXF outlines or one LightBurn lbrn2/lbrn project into a part library (mm). \
+        LightBurn groups stay rigid and original artwork/settings are retained for lbrn2 export. \
+        Writes the library to a file and returns part ids, areas, bounds, layer kerf and import warnings. \
         Use the ids in nest requests."
     )]
     async fn import_parts(
@@ -238,7 +230,7 @@ impl Nestbolt {
         Parameters(p): Parameters<ImportParams>,
     ) -> Result<CallToolResult, ErrorData> {
         (|| -> Result<CallToolResult> {
-            ensure!(!p.paths.is_empty(), "give at least one SVG or DXF path");
+            ensure!(!p.paths.is_empty(), "give an SVG, DXF or LightBurn path");
             let mut options = nestbolt_core::import::Options {
                 close_gaps_mm: p.close_gaps_mm,
                 layers: p.layers,
@@ -296,7 +288,7 @@ impl Nestbolt {
                 .take(part_limit)
                 .map(|q| {
                     json!({"id": q.id, "source": q.source, "area_mm2": q.area_mm2,
-                    "bounds_mm": q.bounds_mm, "holes": q.holes.len()})
+                    "bounds_mm": q.bounds_mm, "holes": q.hole_count()})
                 })
                 .collect();
             Ok(CallToolResult::structured(json!({
@@ -306,6 +298,7 @@ impl Nestbolt {
                 "parts_truncated": library.parts.len() > part_limit,
                 "warnings": library.warnings.iter().take(50).collect::<Vec<_>>(),
                 "imports": library.imports,
+                "lightburn": library.lightburn.as_ref().map(|p| p.summary()),
                 "sheet_outlines": library.sheet_outlines.iter().take(sheet_limit).map(|s| json!({
                     "id":s.id,"source":s.source,"width_mm":s.width_mm,"height_mm":s.height_mm,
                     "origin_mm":s.origin_mm,"tolerance_mm":s.tolerance_mm})).collect::<Vec<_>>(),
@@ -319,7 +312,7 @@ impl Nestbolt {
     #[tool(
         description = "Nest library parts on fixed sheets with a repeatable budget \
         (time_budget_s, at most 300). Writes job.json, layout.json, report.json and one SVG and \
-        DXF per sheet; returns the independently checked metrics. Sends progress notifications."
+        DXF per sheet (preserving LBRN2 for LightBurn); returns the independently checked metrics. Sends progress notifications."
     )]
     async fn nest(
         &self,
@@ -335,7 +328,7 @@ impl Nestbolt {
         }
         let seed = p.seed.unwrap_or(0);
         let library = self.library(&p.library_path).map_err(tool_error)?;
-        let (job, outlines) = p.request.job(&library).map_err(tool_error)?;
+        let (job, _) = p.request.job(&library).map_err(tool_error)?;
         let stamp = format!(
             "{}-seed{seed}",
             std::time::SystemTime::now()
@@ -390,7 +383,7 @@ impl Nestbolt {
                 &dir.join("layout.json"),
                 serde_json::to_string_pretty(&result.layout)?.as_bytes(),
             )?;
-            let files = self.exports(&job, &result.layout, &outlines, &dir, false)?;
+            let files = self.exports(&library, &p.request, &result.layout, &dir, (None, None))?;
             let names = files
                 .iter()
                 .map(|f| f.rsplit('/').next().unwrap_or(f).to_owned())
@@ -438,7 +431,7 @@ impl Nestbolt {
     }
 
     #[tool(
-        description = "Write one SVG and one DXF per sheet for a valid layout, transforming \
+        description = "Write per-sheet SVG/DXF or preserving LBRN2 for a valid layout, transforming \
         the original curves (arcs and splines stay curves). Refuses invalid layouts."
     )]
     async fn export_layout(
@@ -447,7 +440,7 @@ impl Nestbolt {
     ) -> Result<CallToolResult, ErrorData> {
         (|| -> Result<CallToolResult> {
             let library = self.library(&p.library_path)?;
-            let (job, outlines) = p.request.job(&library)?;
+            let (job, _) = p.request.job(&library)?;
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&std::fs::read(self.inside(&p.layout_path)?)?)
                     .context("invalid layout JSON")?;
@@ -458,11 +451,11 @@ impl Nestbolt {
             );
             let dir = self.new_dir(Some(&p.out_dir), "export")?;
             let files = self.exports(
-                &job,
+                &library,
+                &p.request,
                 &layout,
-                &outlines,
                 &dir,
-                p.sheet_outline.unwrap_or(false),
+                (p.format.as_deref(), p.sheet_outline),
             )?;
             Ok(CallToolResult::structured(json!({"files": files})))
         })()
@@ -485,7 +478,12 @@ impl Nestbolt {
                 .parts
                 .iter()
                 .map(|part| {
-                    part.quantity as f64 * nestbolt_core::curves::polygon_area(&part.geometry[0])
+                    part.quantity as f64
+                        * part
+                            .geometry
+                            .iter()
+                            .map(nestbolt_core::curves::polygon_area)
+                            .sum::<f64>()
                 })
                 .sum();
             let usable = |s: &nestbolt_validator::job::Stock| {
@@ -523,9 +521,9 @@ impl ServerHandler for Nestbolt {
             .with_server_info(Implementation::new("nestbolt", env!("CARGO_PKG_VERSION")))
             .with_instructions(format!(
                 "Nestbolt nests parts on fixed sheets for laser, CNC and fabric cutting. \
-                 1) import_parts with SVG/DXF paths inside the workspace ({}). \
+                 1) import_parts with SVG/DXF or LightBurn paths inside the workspace ({}). \
                  2) nest with the library_path, a request (parts by id with quantities, sheets in mm, \
-                 spacing_mm) and time_budget_s. 3) Use the returned SVG/DXF files. validate_layout and \
+                 spacing_mm) and time_budget_s. 3) Use the returned SVG/DXF or preserving LBRN2 files. validate_layout and \
                  export_layout work on layout files; estimate_sheets gives a lower bound only. \
                  Lengths are millimetres. Results always pass an independent geometry check.",
                 self.root.display()

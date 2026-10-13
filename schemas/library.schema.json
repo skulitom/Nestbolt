@@ -208,6 +208,48 @@
       ],
       "type": "object"
     },
+    "Layer": {
+      "properties": {
+        "cuts": {
+          "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "image": {
+          "type": "boolean"
+        },
+        "index": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kerf_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "output": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "index",
+        "image",
+        "name",
+        "mode",
+        "output",
+        "hidden",
+        "cuts",
+        "kerf_mm"
+      ],
+      "type": "object"
+    },
     "LibraryPart": {
       "additionalProperties": false,
       "properties": {
@@ -222,6 +264,13 @@
           },
           "maxItems": 4,
           "minItems": 4,
+          "type": "array"
+        },
+        "components": {
+          "description": "All collision components of a rigid unit. Empty for legacy single-part\nlibraries, whose geometry is the polygon field above.",
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
           "type": "array"
         },
         "holes": {
@@ -252,6 +301,52 @@
         "polygon",
         "area_mm2",
         "bounds_mm"
+      ],
+      "type": "object"
+    },
+    "LightBurnProject": {
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "fixed_top_level": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "layers": {
+          "items": {
+            "$ref": "#/$defs/Layer"
+          },
+          "type": "array"
+        },
+        "mirror_x": {
+          "type": "boolean"
+        },
+        "mirror_y": {
+          "type": "boolean"
+        },
+        "unit_ids": {
+          "description": "Unit index -> library part id. Requests choose quantities and rotations.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "xml": {
+          "description": "Complete original XML, including editable text and embedded image data.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "file",
+        "xml",
+        "unit_ids",
+        "layers",
+        "fixed_top_level",
+        "mirror_x",
+        "mirror_y"
       ],
       "type": "object"
     },
@@ -567,6 +662,17 @@
         "$ref": "#/$defs/FileImportReport"
       },
       "type": "array"
+    },
+    "lightburn": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LightBurnProject"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Original editable project, used for preserving LightBurn exports."
     },
     "parts": {
       "items": {

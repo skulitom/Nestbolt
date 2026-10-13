@@ -40,7 +40,7 @@ impl Path {
     }
 }
 
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Debug, Serialize, serde::Deserialize, schemars::JsonSchema)]
 pub struct Layer {
     pub index: u32,
     pub image: bool,

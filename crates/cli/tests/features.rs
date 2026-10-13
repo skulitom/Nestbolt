@@ -53,6 +53,75 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files() {
+    let dir = temp("lightburn");
+    let source = dir.join("roundtrip.lbrn2");
+    let original = include_str!("../../core/tests/fixtures/roundtrip.lbrn2");
+    fs::write(&source, original).unwrap();
+    let library = import(&dir, std::slice::from_ref(&source));
+    let saved: Value = serde_json::from_slice(&fs::read(&library).unwrap()).unwrap();
+    assert_eq!(saved["lightburn"]["xml"], original);
+    assert_eq!(saved["parts"][0]["components"].as_array().unwrap().len(), 2);
+    let request =
+        json!({"sheets":[{"width_mm":34,"height_mm":24}],"spacing_mm":1,"edge_spacing_mm":0.5});
+    let request_path = dir.join("lightburn-request.json");
+    fs::write(&request_path, serde_json::to_vec(&request).unwrap()).unwrap();
+    for input in [&library, &source] {
+        let run = nest(&dir, input, request.clone(), "1");
+        assert_eq!(run.metrics()["placed_parts"], 3);
+        assert_eq!(run.job["parts"][0]["geometry"].as_array().unwrap().len(), 2);
+        let files = run.report["files"].as_array().unwrap();
+        assert!(files.len() >= 2);
+        for (i, file) in files.iter().enumerate() {
+            assert_eq!(
+                file.as_str().unwrap(),
+                format!("roundtrip-sheet-{}.lbrn2", i + 1)
+            );
+            let xml = fs::read_to_string(run.dir.join(file.as_str().unwrap())).unwrap();
+            assert!(xml.contains("Original MIT rigid-unit integration fixture"));
+            assert!(xml.contains("<kerf Value=\"0.2\""));
+            let doc = nestbolt_core::lightburn::Document::read(&xml, 0.005).unwrap();
+            assert!(doc.scene.mirror_x);
+            assert!(
+                doc.scene
+                    .shapes
+                    .iter()
+                    .any(|s| s.fixed && s.bounds_mm == Some([0.0, 0.0, 34.0, 24.0]))
+            );
+        }
+        let reexport = run.dir.join("without-outline");
+        let output = nestbolt(&[
+            "export".as_ref(),
+            "--library".as_ref(),
+            input.as_os_str(),
+            "--request".as_ref(),
+            request_path.as_os_str(),
+            "--layout".as_ref(),
+            run.dir.join("layout.json").as_os_str(),
+            "--out-dir".as_ref(),
+            reexport.as_os_str(),
+            "--sheet-outline".as_ref(),
+            "false".as_ref(),
+        ]);
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        for file in fs::read_dir(reexport).unwrap() {
+            let xml = fs::read_to_string(file.unwrap().path()).unwrap();
+            let doc = nestbolt_core::lightburn::Document::read(&xml, 0.005).unwrap();
+            assert!(
+                !doc.scene
+                    .shapes
+                    .iter()
+                    .any(|s| s.fixed && s.bounds_mm == Some([0.0, 0.0, 34.0, 24.0]))
+            );
+        }
+    }
+}
+
+#[test]
 fn svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports() {
     let dir = temp("viewport-widths");
     let svg = dir.join("viewport.svg");

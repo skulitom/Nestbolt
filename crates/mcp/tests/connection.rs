@@ -8,6 +8,66 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn lightburn_units_nest_and_export_without_losing_project_settings() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace = std::env::temp_dir().join(format!(
+        "nestbolt-mcp-lightburn-{}-{stamp}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&workspace).unwrap();
+    std::fs::write(
+        workspace.join("roundtrip.lbrn2"),
+        include_str!("../../core/tests/fixtures/roundtrip.lbrn2"),
+    )
+    .unwrap();
+    timeout(Duration::from_secs(120),async {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));
+        command.env("NESTBOLT_WORKSPACE",&workspace);
+        let client = ().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call = |name:&'static str,value:Value| {
+            let client = &client;
+            async move {client.call_tool(CallToolRequestParams::new(name).with_arguments(args(value))).await}
+        };
+        let imported = call("import_parts",json!({"paths":["roundtrip.lbrn2"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(imported["part_count"],3);
+        assert_eq!(imported["lightburn"]["layers"][0]["kerf_mm"],0.2);
+        assert!(imported["lightburn"].get("xml").is_none());
+        let library = imported["library_path"].as_str().unwrap();
+        let request = json!({"sheets":[{"width_mm":34,"height_mm":24}],"spacing_mm":1,"edge_spacing_mm":0.5});
+        let estimate = call("estimate_sheets",json!({"library_path":library,"request":request})).await.unwrap().structured_content.unwrap();
+        let expected:f64 = imported["parts"].as_array().unwrap().iter().map(|p|p["area_mm2"].as_f64().unwrap()).sum();
+        // Import areas use the validator's 1e-6 mm grid; the estimator uses
+        // unrounded bitmap corners. Their area difference is below 0.0001 mm².
+        assert!((estimate["net_part_area_mm2"].as_f64().unwrap()-expected).abs()<1e-4);
+        let nested = call("nest",json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"],true);
+        assert!(nested["files"].as_array().unwrap().len()>=2);
+        for file in nested["files"].as_array().unwrap() {
+            let file = file.as_str().unwrap();
+            assert!(file.ends_with(".lbrn2"));
+            let xml = std::fs::read_to_string(workspace.join(file)).unwrap();
+            assert!(xml.contains("Original MIT rigid-unit integration fixture"));
+            let doc = nestbolt_core::lightburn::Document::read(&xml,0.005).unwrap();
+            assert!(doc.scene.shapes.iter().any(|s|s.fixed&&s.bounds_mm==Some([0.0,0.0,34.0,24.0])));
+        }
+        let exported = call("export_layout",json!({"library_path":library,"request":request,
+            "layout_path":"nested/layout.json","out_dir":"without-outline","format":"lbrn2","sheet_outline":false})).await.unwrap().structured_content.unwrap();
+        for file in exported["files"].as_array().unwrap() {
+            let xml = std::fs::read_to_string(workspace.join(file.as_str().unwrap())).unwrap();
+            let doc = nestbolt_core::lightburn::Document::read(&xml,0.005).unwrap();
+            assert!(!doc.scene.shapes.iter().any(|s|s.fixed&&s.bounds_mm==Some([0.0,0.0,34.0,24.0])));
+        }
+        let lossy = call("export_layout",json!({"library_path":library,"request":request,
+            "layout_path":"nested/layout.json","out_dir":"lossy","format":"svg"})).await.unwrap_err();
+        assert!(lossy.to_string().contains("retain its text"));
+        client.cancel().await.unwrap();
+    }).await.expect("LightBurn MCP session timed out");
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
     let workspace = std::env::temp_dir().join(format!("nestbolt-mcp-{}", std::process::id()));
     let _ = std::fs::remove_dir_all(&workspace);

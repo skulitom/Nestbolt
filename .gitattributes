@@ -6,6 +6,8 @@
 benchmarks/results/h2-lightburn-*/*.lbrn2 -text -whitespace
 benchmarks/results/h3-native-probe-*/*.lbrn2 -text -whitespace
 benchmarks/results/h3-native-probe-*/*.observation.txt -text -whitespace
+# Integration records retain checksummed executable output and browser archives.
+benchmarks/results/h3-surfaces-*/** -text -whitespace
 # Corpus hashes describe original bytes, including CAD-writer line endings and
 # whitespace. Never normalize licensed source files or native format probes.
 benchmarks/datasets/shop/real/** -text -whitespace

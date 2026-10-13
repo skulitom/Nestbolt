@@ -5,10 +5,10 @@ same core as the CLI. It needs no network, account or credentials.
 
 | Tool | What it does |
 | --- | --- |
-| `import_parts` | Reads SVG/DXF files, writes a part library (exact curves plus nesting polygons, mm) and returns part ids, areas, bounds, import warnings and separate stock-outline summaries |
-| `nest` | Nests library parts on fixed sheets with a repeatable budget (`time_budget_s` ≤ 300, `seed`); writes `job.json`, `layout.json`, `report.json` and one SVG and DXF per sheet; sends progress notifications |
+| `import_parts` | Reads SVG/DXF files or one LightBurn project, writes a part library (exact curves plus nesting polygons, mm) and returns part ids, areas, bounds, import warnings and separate stock-outline summaries |
+| `nest` | Nests library parts on fixed sheets with a repeatable budget (`time_budget_s` ≤ 300, `seed`); writes `job.json`, `layout.json`, `report.json` and per-sheet SVG/DXF or preserving LBRN2 files; sends progress notifications |
 | `validate_layout` | Checks a layout file against a request with the independent validator |
-| `export_layout` | Writes one SVG and one DXF per sheet from a valid layout; arcs and splines stay curves |
+| `export_layout` | Writes per-sheet SVG/DXF or preserving LBRN2 files from a valid layout; arcs and splines stay curves |
 | `estimate_sheets` | Net part area over usable sheet area: a necessary lower bound, never a layout; flags parts that fit no sheet |
 
 A `nest` request names library parts and the sheets, in millimetres:
@@ -108,3 +108,21 @@ summaries and a `sheet_outline_count`; actual polygons stay in the library.
 Use `{"from_import":"arranged-sheet-1","count":1}` as a request sheet. The same
 request is used for nesting, validation, re-export and estimation. See
 [stock selection, normalization and curve clearance](IMPORTING.md#sheet-outlines-in-pre-arranged-nests).
+
+
+## LightBurn projects
+
+`import_parts` accepts one `.lbrn2`/`.lbrn` file. Its `lightburn` reply reports the
+source name, unit count, fixed-shape count, origin flags and up to 200 layers,
+including kerf in millimetres. Full XML remains in the library file. Nesting and
+validation derive the rigid units again from that source, including disconnected
+group components; area estimates include every component.
+
+`nest` exports `.lbrn2` automatically for a LightBurn library. `export_layout`
+also accepts `format: "lbrn2"`; omit `format` to use the source default. Its
+`sheet_outline` defaults to true for LightBurn and false for SVG/DXF. Set it to
+false to omit the added T1 boundary. Requests, quantities, rotations, mirrors,
+stock choices, independent validation and no-overwrite rules are shared.
+The LightBurn-to-SVG/DXF path is refused because it would discard project data.
+See [current import limitations](IMPORTING.md#editable-lightburn-projects),
+including pending legacy conversion and mixed fixed/movable groups.

@@ -5,13 +5,16 @@ export interface LibraryPart {
   id: string;
   source: string;
   polygon: Polygon;
+  components?: Polygon[];
   area_mm2: number;
   bounds_mm: [number, number, number, number];
   holes: unknown[];
 }
 export interface SheetOutline { id: string; source: string; width_mm: number; height_mm: number; origin_mm: Point; outline_mm: Polygon[]; tolerance_mm: number }
 export interface SheetImport { outlines: SheetOutline[]; warnings: string[]; imports: { file: string; report: ImportReport }[] }
-export interface Library { version: number; tolerance: number; parts: LibraryPart[]; warnings: string[]; imports?: { file: string; report: ImportReport }[]; sheet_outlines?: SheetOutline[] }
+export interface LightBurnProject { file: string; xml: string; unit_ids: string[]; fixed_top_level: number; mirror_x: boolean; mirror_y: boolean; layers: { index: number; image: boolean; name: string; mode: string; output: boolean; hidden: boolean; cuts: boolean; kerf_mm: number }[] }
+export const partGeometry = (part: LibraryPart): Polygon[] => part.components?.length ? part.components : [part.polygon];
+export interface Library { lightburn?: LightBurnProject; version: number; tolerance: number; parts: LibraryPart[]; warnings: string[]; imports?: { file: string; report: ImportReport }[]; sheet_outlines?: SheetOutline[] }
 export interface ImportReport {
   silent_join_mm: number;
   close_gaps_mm: number | null;
@@ -69,7 +72,7 @@ export interface Metrics {
 export interface Report { valid: boolean; violation_count: number; violations: { code: string; message: string }[]; metrics: Metrics | null }
 export interface NestResult { layout: Layout; validation: Report; seed: number; seconds: number; repeatable: boolean; parts_in_holes: number }
 
-export interface Project {
+export interface Project { lightburnOutline?: boolean;
   version: 1;
   name: string;
   library: Library | null;

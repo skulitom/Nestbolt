@@ -11939,3 +11939,24 @@ JSON; the initial stricter full-settings failure is also retained. No full H3
 claim: these are controlled placements, not five searched projects or the required
 cut-settings dialogue comparison. Device origin/display restored, app closed,
 Anode lease released. No held-out geometry/labels used. Progress remains 15%.
+
+
+### 2026-10-13 UTC — LightBurn public-surface search/export checkpoint
+
+[Report, failures and retained exports](benchmarks/results/h3-surfaces-20261013T233512Z.md).
+The shared Library/Request pipeline now imports rigid LightBurn units, nests them
+through CLI/MCP/WASM and exports preserving per-sheet LBRN2. Browser previews
+include disconnected group components; per-sheet/all-sheet/project downloads
+retain editable XML. Original XML drives validation; T1 defaults on with opt-out.
+All three surfaces have end-to-end tests. The authored MIT fixture places three
+units on two 34 × 24 mm sheets with independent overlap/outside ratios zero.
+Both 32 × 24 mm attempts (one- and five-second work budgets) fail and remain
+recorded. Public imports clearly reject mixed fixed/active groups; legacy output,
+uncached text and five searched native projects/settings dialogues remain open.
+194 workspace tests pass (one existing ignored), 19 optimized CLI tests pass,
+46 enabled browser tests pass (four opt-in checks skipped); final LightBurn tests
+pass in Chromium and Firefox. Strict Clippy, schemas, WASM/browser builds,
+notices and 1,181 frozen hashes pass. Native diagnostics use CCD0 CPU 8;
+builds/tests use CCD1. The native diagnostic and final UI source hashes are
+retained separately. No held-out geometry/labels or published v1 result changed.
+H3 is not complete; completed v1.1 milestone weight remains 15%.

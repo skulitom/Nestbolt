@@ -1,5 +1,6 @@
+import { partGeometry } from './types';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { exportSheet, importFiles, importSheet, inspectFiles, readDrawingFile, Portfolio } from './engine';
+import { exportFilename, exportSheet, importFiles, importSheet, inspectFiles, readDrawingFile, Portfolio } from './engine';
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
@@ -74,6 +75,7 @@ export function App() {
   const [repeatable, setRepeatable] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [lightburnOutline, setLightburnOutline] = useState(true);
   const [closeGaps, setCloseGaps] = useState(false);
   const [gapLimit, setGapLimit] = useState(0.05);
   const [lastFiles, setLastFiles] = useState<{ name: string; text: string }[]>([]);
@@ -106,6 +108,12 @@ export function App() {
     update({ sheets: request.sheets.map((s, j) => (j === i ? { ...s, ...change } : s)) });
 
   function discardFailedImport(files: { name: string }[]) {
+    if (library?.lightburn) {
+      if (files.some(f => f.name === library.lightburn!.file)) {
+        setLibrary(null); update({ parts: [] });
+      }
+      return;
+    }
     // Keep unrelated files, but never nest stale parts after a failed re-import.
     const retained = (library?.parts ?? []).filter((p) => !files.some((f) => p.source.startsWith(`${f.name}#`)));
     const ids = new Set(retained.map((p) => p.id));
@@ -123,7 +131,7 @@ export function App() {
     try {
       const files = await Promise.all([...list].map(readDrawingFile));
       setLastFiles(files);
-      setImportInventory(await inspectFiles(files));
+      if (!files.some(f => /\.lbrn2?$/i.test(f.name))) setImportInventory(await inspectFiles(files));
       await importDrawings(files, {});
     } catch (e) {
       discardFailedImport([...list]);
@@ -136,6 +144,16 @@ export function App() {
     setResult(null);
     setBusy('Importing…');
     try {
+      const projectFiles = files.filter(f => /\.lbrn2?$/i.test(f.name));
+      if (projectFiles.length) {
+        if (files.length !== 1) throw new Error('Open one LightBurn project at a time.');
+        const next = await importFiles(files);
+        setLibrary(next); setImportInventory([]); setCloseGaps(false); setLightburnOutline(true);
+        setName(files[0].name.replace(/\.lbrn2?$/i, ''));
+        update({ parts: next.parts.map(p => ({ id: p.id, quantity: 1, rotations: ROTATIONS[0].value, allow_mirror: false, priority: 1 })) });
+        return;
+      }
+      if (library?.lightburn) throw new Error('Choose New before importing SVG/DXF parts into a separate project.');
       // Part ids are `<file stem>-<n>`: importing a file again replaces its parts.
       const imported: Library[] = [];
       for (const file of files) imported.push(await importFiles([file], 0, closeGaps ? gapLimit : undefined, choices[file.name]));
@@ -255,9 +273,10 @@ export function App() {
     }
   }
 
-  const project = (): Project => ({ version: 1, name, library, request, result, savedAt: new Date().toISOString() });
+  const project = (): Project => ({ lightburnOutline, version: 1, name, library, request, result, savedAt: new Date().toISOString() });
 
   function open(p: Project) {
+    setLightburnOutline(p.lightburnOutline ?? true);
     setLastFiles([]);
     setImportChoices({}); setImportInventory([]);
     setSheetMessages([]);
@@ -274,8 +293,8 @@ export function App() {
     if (!library) return [];
     const files: { name: string; data: string }[] = [];
     for (const sheet of r.layout.sheets) {
-      for (const format of ['svg', 'dxf'] as const) {
-        files.push({ name: `sheets/${sheet.id}.${format}`, data: await exportSheet(library, request, r.layout, sheet.id, format) });
+      for (const format of (library.lightburn ? ['lbrn2'] : ['svg', 'dxf']) as ('svg' | 'dxf' | 'lbrn2')[]) {
+        files.push({ name: `sheets/${exportFilename(library, r.layout, sheet.id, format)}`, data: await exportSheet(library, request, r.layout, sheet.id, format, library.lightburn ? lightburnOutline : false) });
       }
     }
     return files;
@@ -335,10 +354,10 @@ export function App() {
             <label class="drop"
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => { e.preventDefault(); onFiles(e.dataTransfer?.files ?? null); }}>
-              <input type="file" accept=".svg,.dxf" multiple onChange={(e) => onFiles((e.target as HTMLInputElement).files)} />
-              <span>Import SVG or DXF (or drop files here)</span>
+              <input type="file" accept=".svg,.dxf,.lbrn,.lbrn2" multiple onChange={(e) => onFiles((e.target as HTMLInputElement).files)} />
+              <span>Import SVG, DXF or LightBurn (or drop files here)</span>
             </label>
-            <div class="import-options">
+            {!library?.lightburn ? <div class="import-options">
               <label><input type="checkbox" checked={closeGaps} disabled={!!busy}
                 onChange={(e) => setCloseGaps((e.target as HTMLInputElement).checked)} /> Close larger gaps</label>
               {closeGaps ? <label>Close gaps up to (mm)<input type="number" min={0} max={1} step={0.005}
@@ -381,7 +400,7 @@ export function App() {
                 <button disabled={!!busy} onClick={() => setImportChoices((current) => ({ ...current, [file]: { dxfUnitMm: current[file]?.dxfUnitMm } }))}>Use automatic selection for {file}</button>
               </details>)}
               {lastFiles.length ? <button disabled={!!busy} onClick={() => importDrawings(lastFiles)}>Apply import options</button> : null}
-            </div>
+            </div> : null}
             {!library && examples.length ? (
               <div class="examples">
                 <p>Or try an example:</p>
@@ -393,6 +412,15 @@ export function App() {
                 ))}
               </div>
             ) : null}
+            {library?.lightburn ? <details open class="import-channels">
+              <summary>LightBurn layers — preserved</summary>
+              <p class="hint">Groups stay together. Preview shows the space each unit occupies; exported projects retain editable artwork and settings.</p>
+              <table class="lightburn-layers"><thead><tr><th>Layer</th><th>Mode</th><th>Output</th><th>Kerf (mm)</th></tr></thead>
+                <tbody>{library.lightburn.layers.map(l => <tr key={`${l.image}-${l.index}`}>
+                  <td>{l.image ? 'Image' : 'Layer'} {l.index}{l.name ? `: ${l.name}` : ''}</td><td>{l.mode || (l.image ? 'Image' : '—')}</td><td>{l.output ? 'On' : 'Off'}</td><td>{l.kerf_mm}</td>
+                </tr>)}</tbody></table>
+              <label><input type="checkbox" checked={lightburnOutline} onChange={e => setLightburnOutline((e.target as HTMLInputElement).checked)} />Include sheet outline on T1</label>
+            </details> : null}
             {library?.warnings.length ? <ul class="warnings">{library.warnings.slice(0, 5).map((w) => <li>{w}</li>)}</ul> : null}
             {(library?.warnings.length ?? 0) > 5 ? <details><summary>Show all import messages ({library!.warnings.length})</summary>
               <ul class="warnings">{library!.warnings.map((w) => <li>{w}</li>)}</ul></details> : null}
@@ -403,7 +431,7 @@ export function App() {
                   const lp = part(p.id);
                   return (
                     <tr key={p.id}>
-                      <td>{lp ? <PartThumb polygon={lp.polygon} color={colors.get(p.id) ?? '#888'} /> : null}</td>
+                      <td>{lp ? <PartThumb polygons={partGeometry(lp)} color={colors.get(p.id) ?? '#888'} /> : null}</td>
                       <td title={lp?.source}>{label(p.id)}<small>{lp ? `${(lp.area_mm2 / 100).toFixed(1)} cm²` : ''}</small></td>
                       <td><input type="number" min={1} max={2000} value={p.quantity} aria-label={`Quantity of ${p.id}`}
                         onInput={(e) => updatePart(i, { quantity: Math.max(1, Math.round(num(e))) })} /></td>
@@ -555,8 +583,10 @@ export function App() {
                           ? <span class="usage" title="Clear material above the placed parts">offcut {u.width.toFixed(0)} × {u.offcut.toFixed(0)} mm</span>
                           : null;
                       })()}
-                      <button onClick={guarded(async () => download(`${s.id}.svg`, await exportSheet(library, request, result.layout, s.id, 'svg'), 'image/svg+xml'))}>SVG</button>
-                      <button onClick={guarded(async () => download(`${s.id}.dxf`, await exportSheet(library, request, result.layout, s.id, 'dxf'), 'application/dxf'))}>DXF</button>
+                      {library.lightburn ? <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'lbrn2'), await exportSheet(library, request, result.layout, s.id, 'lbrn2', lightburnOutline), 'application/xml'))}>LightBurn</button> : <>
+                        <button onClick={guarded(async () => download(`${s.id}.svg`, await exportSheet(library, request, result.layout, s.id, 'svg'), 'image/svg+xml'))}>SVG</button>
+                        <button onClick={guarded(async () => download(`${s.id}.dxf`, await exportSheet(library, request, result.layout, s.id, 'dxf'), 'application/dxf'))}>DXF</button>
+                      </>}
                     </figcaption>
                   </figure>
                 ))}

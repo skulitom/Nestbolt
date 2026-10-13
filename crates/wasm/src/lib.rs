@@ -1,8 +1,6 @@
 //! WebAssembly entry points for the browser app. Call them from a Web Worker:
 //! `nest` runs for its whole budget on the calling thread. Inputs and outputs
 //! are JSON strings; errors are thrown as JavaScript strings that say what to fix.
-use std::collections::HashMap;
-
 use nestbolt_core::{
     Units,
     project::{Library, Request},
@@ -238,7 +236,7 @@ pub fn validate(
     serde_json::to_string(&report).map_err(fail)
 }
 
-/// One sheet of a valid layout as `"svg"` or `"dxf"` text.
+/// One sheet of a valid layout as `"svg"`, `"dxf"` or preserving `"lbrn2"` text.
 #[wasm_bindgen]
 pub fn export_sheet(
     library_json: &str,
@@ -251,15 +249,9 @@ pub fn export_sheet(
     let library: Library = parse(library_json, "library")?;
     let request: Request = parse(request_json, "request")?;
     let layout: nestbolt_validator::job::Layout = parse(layout_json, "layout")?;
-    let (job, outlines): (_, HashMap<_, _>) =
-        request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
-    let options = nestbolt_core::export::Options { sheet_outline };
-    match format {
-        "svg" => nestbolt_core::export::svg(&job, &layout, sheet_id, &outlines, options),
-        "dxf" => nestbolt_core::export::dxf(&job, &layout, sheet_id, &outlines, options),
-        _ => return Err(fail("format must be svg or dxf")),
-    }
-    .map_err(|e| fail(format!("{e:#}")))
+    library
+        .export_sheet(&request, &layout, sheet_id, format, Some(sheet_outline))
+        .map_err(|e| fail(format!("{e:#}")))
 }
 
 /// Net part area over usable sheet area: a necessary lower bound only.
@@ -271,7 +263,13 @@ pub fn estimate_sheets(library_json: &str, request_json: &str) -> Result<String,
     let area: f64 = job
         .parts
         .iter()
-        .map(|p| p.quantity as f64 * nestbolt_core::curves::polygon_area(&p.geometry[0]))
+        .map(|p| {
+            p.quantity as f64
+                * p.geometry
+                    .iter()
+                    .map(nestbolt_core::curves::polygon_area)
+                    .sum::<f64>()
+        })
         .sum();
     let largest = job
         .stocks

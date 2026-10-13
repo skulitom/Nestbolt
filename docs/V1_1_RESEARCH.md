@@ -389,3 +389,16 @@ shared bitmap data. Hidden layers may be absent from native SVG. Native re-save
 can also change legacy Scan+Cut to Scan and generate missing text backups; it is
 not evidence of lossless XML preservation. Original source XML remains authoritative.
 See [local observations](LBRN2.md#public-project-reference-normalization-and-native-export-limits).
+
+
+### N2 surface integration evidence (2026-10-13 UTC)
+
+The [authored-fixture surface checkpoint](../benchmarks/results/h3-surfaces-20261013T233512Z.md)
+now exercises real search through CLI, MCP and both browser engines. Per-sheet
+LBRN2/ZIP output retains text caches, shared Bitmap data, rigid disconnected
+groups and settings; original XML drives independent validation. The native
+reader/writer observations above remain the format evidence. Surface tests do
+not establish H3's five searched native projects or cut-settings dialogues.
+Legacy output, uncached movable text and groups mixing fixed and active artwork
+still need completion. The latter fail clearly at public import because keeping
+the entire group fixed would otherwise leave active geometry outside the check.

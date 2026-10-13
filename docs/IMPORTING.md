@@ -251,3 +251,38 @@ The shared WebAssembly `import_sheet` entry point returns
 [`SheetImport`](../schemas/sheet-import.schema.json), including selected outlines,
 import warnings and the layer/colour/gap report. Plain remnant drawings without
 a `SHEET` layer still use their closed outlines.
+
+
+## Editable LightBurn projects
+
+Open one `.lbrn2` project in the browser. Groups remain rigid units, with all
+separate components shown in the preview. Layer modes, output flags and kerf
+values are displayed; kerf does not change part spacing automatically. Choose
+quantities, rotations, mirroring and sheet sizes as usual. Download one
+`<project>-sheet-<k>.lbrn2` per sheet, all sheets as a ZIP, or a Project ZIP that
+also retains the original XML and nesting request. The T1 sheet outline is on
+by default and can be turned off. The preview shows collision footprints;
+exports retain editable text, images, curves and project settings.
+
+CLI accepts the original project directly:
+
+```powershell
+nestbolt nest --library drawing.lbrn2 --request request.json --out-dir nested --seconds 30
+nestbolt export --library drawing.lbrn2 --request request.json --layout nested/layout.json --out-dir without-outline --sheet-outline false
+```
+
+`nestbolt import drawing.lbrn2 --output library.json` also works. The library
+keeps the source XML, and nesting/validation re-derive geometry from it rather
+than trusting editable cached preview polygons. Files from different projects
+cannot be combined because their layer settings may conflict. SVG/DXF layer,
+colour, gap and sheet-layer overrides must be cleared for LightBurn imports.
+SVG/DXF export of an imported LightBurn project is refused to avoid losing text,
+images and cut settings.
+
+This is an N2 development checkpoint, not H3 acceptance. Legacy `.lbrn` can be
+read, but conversion to `.lbrn2` is still pending. Movable text without cached
+outlines requires re-saving in LightBurn. Groups mixing active artwork with
+Tool/output-off shapes must be separated before nesting: active fixed artwork
+is not yet independently validated against every output sheet. Full native
+settings verification and the remaining format cases are tracked in
+[LBRN2.md](LBRN2.md).

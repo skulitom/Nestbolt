@@ -16,7 +16,9 @@ use crate::curves::Contour;
 use crate::export::Outline;
 use crate::import::{Import, Options as ImportOptions, import_dxf, import_svg};
 
+mod lightburn;
 mod sheet;
+pub use lightburn::{ExportFile, LightBurnProject};
 pub use sheet::{SheetImport, SheetOutline};
 
 /// Imported parts in millimetres, with the tolerance of their polygons.
@@ -34,6 +36,9 @@ pub struct Library {
     /// merely because they were discovered on a SHEET layer.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub sheet_outlines: Vec<SheetOutline>,
+    /// Original editable project, used for preserving LightBurn exports.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lightburn: Option<LightBurnProject>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
@@ -51,6 +56,10 @@ pub struct LibraryPart {
     pub outer: Contour,
     pub holes: Vec<Contour>,
     pub polygon: nestbolt_validator::Polygon,
+    /// All collision components of a rigid unit. Empty for legacy single-part
+    /// libraries, whose geometry is the polygon field above.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub components: Vec<nestbolt_validator::Polygon>,
     pub area_mm2: f64,
     pub bounds_mm: [f64; 4],
 }
@@ -66,6 +75,13 @@ impl Library {
         options: &ImportOptions,
         discover_sheets: bool,
     ) -> Result<Self> {
+        if files.iter().any(|(name, _)| lightburn::is_project(name)) {
+            ensure!(
+                files.len() == 1,
+                "open one LightBurn project at a time; its layer settings cannot be combined with another drawing"
+            );
+            return Self::import_lightburn(&files[0].0, &files[0].1, options);
+        }
         let mut parts = vec![];
         let mut warnings = vec![];
         let mut imports = vec![];
@@ -142,6 +158,7 @@ impl Library {
                     outer: p.outer,
                     holes: p.holes,
                     polygon: p.polygon,
+                    components: vec![],
                     area_mm2: p.area,
                     bounds_mm: p.bounds,
                 });
@@ -159,7 +176,22 @@ impl Library {
             warnings,
             imports,
             sheet_outlines,
+            lightburn: None,
         })
+    }
+}
+
+impl LibraryPart {
+    pub fn geometry(&self) -> &[nestbolt_validator::Polygon] {
+        if self.components.is_empty() {
+            std::slice::from_ref(&self.polygon)
+        } else {
+            &self.components
+        }
+    }
+
+    pub fn hole_count(&self) -> usize {
+        self.geometry().iter().map(|p| p.holes.len()).sum()
     }
 }
 
@@ -296,6 +328,9 @@ impl Request {
         );
         let by_id: HashMap<&str, &LibraryPart> =
             library.parts.iter().map(|p| (p.id.as_str(), p)).collect();
+        // Original project XML is authoritative for both solver geometry and
+        // preserving exports, even when a library JSON has been edited.
+        let lightburn_geometry = library.lightburn_geometry()?;
         let wanted: Vec<RequestPart> = if self.parts.is_empty() {
             library
                 .parts
@@ -328,7 +363,13 @@ impl Request {
             parts.push(Part {
                 id: w.id.clone(),
                 quantity: w.quantity,
-                geometry: vec![p.polygon.clone()],
+                geometry: match &lightburn_geometry {
+                    Some(geometry) => geometry
+                        .get(&w.id)
+                        .context("unknown LightBurn unit; re-import the project")?
+                        .clone(),
+                    None => p.geometry().to_vec(),
+                },
                 rotations: w.rotations.clone(),
                 allow_mirror: w.allow_mirror,
                 priority: w.priority,

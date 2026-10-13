@@ -343,3 +343,25 @@ report, alongside all ten passing geometry checks. The native serializer is not
 the product's canonical preservation oracle. Full H3 still requires five actual
 searched projects, before/after cut-settings dialogues, complete reader coverage,
 legacy output and all three public surfaces.
+
+
+## Public import/search/export checkpoint — 2026-10-13 UTC
+
+The [surface checkpoint](../benchmarks/results/h3-surfaces-20261013T233512Z.md)
+connects original project XML to the shared Library/Request model, CLI direct
+`.lbrn2` nesting, MCP tools and browser import/download. Disconnected group
+components remain one rigid unit and contribute to previews and area estimates.
+Each exported sheet keeps the original settings, editable artwork, fixed
+inactive shapes and shared-resource definitions. T1 is on by default and can
+be disabled. Validation re-derives geometry from source XML, so editing cached
+preview polygons cannot bypass the check.
+
+The original MIT integration fixture contains a disconnected group, cutting
+rectangle with attached cached Text and Bitmap, another shared Bitmap copy,
+three operation-layer families, a fixed Tool rectangle and a mirrored root.
+CLI, MCP, Chromium and Firefox exercise real search and preserving sheet files.
+This does not replace the five-project native H3 check. Legacy conversion,
+uncached movable text, mixed fixed/active groups and native cut-settings-dialogue
+comparisons remain open. Mixed groups now fail in public imports with a repair
+instruction; the core diagnostic's older whole-group-fixed policy alone is not
+enough to validate active fixed artwork on every sheet.

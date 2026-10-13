@@ -73,7 +73,7 @@ export async function validate(library: Library, request: NestRequest, layout: u
 }
 
 export async function exportSheet(library: Library, request: NestRequest, layout: unknown, sheet: string,
-  format: 'svg' | 'dxf', outline = false): Promise<string> {
+  format: 'svg' | 'dxf' | 'lbrn2', outline = !!library.lightburn): Promise<string> {
   return tool().call('export', { library: JSON.stringify(library), request: JSON.stringify(request),
     layout: JSON.stringify(layout), sheet, format, outline });
 }
@@ -128,4 +128,13 @@ export class Portfolio {
     for (const w of this.workers) w.terminate();
     this.workers = [];
   }
+}
+
+/** Same source-stem and sheet-order naming as the native preserving exporter. */
+export function exportFilename(library: Library, layout: Layout, sheet: string, format: 'svg' | 'dxf' | 'lbrn2'): string {
+  if (format !== 'lbrn2' || !library.lightburn) return `${sheet}.${format}`;
+  const basename = library.lightburn.file.split(/[\\/]/).pop() || 'project';
+  const stem = basename.replace(/\.[^.]*$/, '');
+  const safe = Array.from(stem).map(c => /[a-zA-Z0-9_-]/.test(c) ? c : '-').join('');
+  return `${safe}-sheet-${layout.sheets.findIndex(s => s.id === sheet) + 1}.lbrn2`;
 }

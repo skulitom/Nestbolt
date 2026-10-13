@@ -1,3 +1,4 @@
+import { partGeometry } from './types';
 import { useEffect, useMemo, useRef } from 'preact/hooks';
 import { PALETTE, sheetUsage } from './preview';
 import type { Layout, Library, NestRequest, Point } from './types';
@@ -17,7 +18,7 @@ export function SheetCanvas(props: { library: Library; request: NestRequest; lay
   const canvas = useRef<HTMLCanvasElement>(null);
   const paths = useMemo(() => new Map(library.parts.map((p, i) => {
     const path = new Path2D();
-    for (const r of [p.polygon.outer, ...p.polygon.holes]) ring(path, r);
+    for (const polygon of partGeometry(p)) for (const r of [polygon.outer, ...polygon.holes]) ring(path, r);
     return [p.id, { path, color: PALETTE[i % PALETTE.length] }];
   })), [library]);
   const usage = sheetUsage(library, request, layout, sheet);
