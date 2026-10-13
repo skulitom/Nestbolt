@@ -32,9 +32,9 @@ TIE = 1e-6
 TOOLS = ['deepnest', 'svgnest', 'sparrow']
 NAMES = {'deepnest': 'Deepnest', 'svgnest': 'SVGnest', 'sparrow': 'Sparrow', 'nestbolt': 'Nestbolt', 'lbf': 'jagua-rs LBF'}
 REPO = 'https://github.com/skulitom/Nestbolt/blob/main/'
-# Earlier final builds whose acceptance run was replaced, with the reason; each
-# keeps its own records and page (never mixed with the current build's).
-SUPERSEDED = ROOT/'benchmarks/final-superseded.json'
+# Every frozen final build: its commit and binary, and for one whose acceptance run
+# was replaced, the reason and its own page (never mixed with the current build's).
+BUILDS = ROOT/'benchmarks/final-builds.json'
 
 
 def quartiles(values):
@@ -375,7 +375,8 @@ waived on 2026-10-12, decision 4).</p>
         out.append(f'<tr><td><a href="{e(t["repository"])}">{e(t["name"])}</a></td><td><code>{e(t["revision"][:12])}</code></td>'
                    f'<td>{e(", ".join(t["settings"]))}</td><td><a href="{REPO}{e(t["config"])}">{e(t["config"])}</a></td></tr>')
     nb = {r['binary_sha256'][:8] for b in data['budgets'] for r in b['records']}
-    out.append(f'<tr><td>Nestbolt</td><td><code>{e(data["commit"][:12])}</code></td><td>defaults</td><td>binaries {e(", ".join(sorted(nb)))}</td></tr></table></div>')
+    built = (data.get('build') or {}).get('commit', data['commit'])
+    out.append(f'<tr><td>Nestbolt</td><td><code>{e(built[:12])}</code></td><td>defaults</td><td>binaries {e(", ".join(sorted(nb)))}</td></tr></table></div>')
     for b in data['budgets']:
         s, best = b['summary'], b['summary']['best_of_tools']
         out.append(f'<h2>{b["seconds"]} s budget</h2>')
@@ -449,10 +450,11 @@ def main():
         data['speed'] = speed([p.resolve() for p in args.nestbolt_30], args.phase)
     if args.strip:
         data['strip'] = strip_parity(args.phase, args.binary_sha256)
-    if args.phase == 'final' and SUPERSEDED.exists():
-        entries = json.loads(SUPERSEDED.read_text(encoding='utf-8'))['entries']
-        data['superseded'] = [s for s in entries if s['binary_sha256'] != args.binary_sha256]
-        data['superseded_by'] = next((s for s in entries if s['binary_sha256'] == args.binary_sha256), None)
+    if args.phase == 'final' and BUILDS.exists():
+        builds = json.loads(BUILDS.read_text(encoding='utf-8'))['builds']
+        data['build'] = next((b for b in builds if b['binary_sha256'] == args.binary_sha256), None)
+        data['superseded'] = [b for b in builds if b['superseded'] and b['binary_sha256'] != args.binary_sha256]
+        data['superseded_by'] = data['build'] if data['build'] and data['build']['superseded'] else None
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out/'results.json').write_text(json.dumps(data, indent=1) + '\n', encoding='utf-8', newline='\n')
     (args.out/'index.html').write_text(page(data), encoding='utf-8', newline='\n')
