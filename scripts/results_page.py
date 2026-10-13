@@ -341,6 +341,9 @@ def page(data):
     banner = ('Development results: three seeds per job, held-out jobs excluded. These are not the final '
               'acceptance run, which uses fresh seeds 1000-1004 and adds ten held-out jobs.'
               if phase == 'development' else 'Final acceptance run: seeds 1000-1004, held-out jobs included.')
+    if data.get('superseded_by'):
+        banner = (f"Superseded final acceptance run (seeds 1000-1004, held-out jobs included) of build "
+                  f"{data['superseded_by']['commit']}. {data['superseded_by']['reason']}")
     out = [f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nestbolt results</title><meta name="description" content="Every number behind Nestbolt's comparison with Deepnest, SVGnest and Sparrow.">
 <style>
@@ -419,7 +422,7 @@ waived on 2026-10-12, decision 4).</p>
     out.append(f'''<h2>All gates</h2><p>Gate-by-gate evidence, including every failed and superseded run, is in
 <a href="{REPO}docs/STATUS.md">STATUS.md</a> and <a href="{REPO}BENCHMARKS.md">BENCHMARKS.md</a>. All numbers on this page are in
 <a href="results.json">results.json</a>; rebuild it with <code>python scripts/results_page.py</code>.</p>
-<p class="muted"><a href="../">Back to the Nestbolt app</a></p></main></body></html>''')
+<p class="muted"><a href="{'../../' if data.get('superseded_by') else '../'}">Back to the Nestbolt app</a></p></main></body></html>''')
     return '\n'.join(out)
 
 
@@ -447,8 +450,9 @@ def main():
     if args.strip:
         data['strip'] = strip_parity(args.phase, args.binary_sha256)
     if args.phase == 'final' and SUPERSEDED.exists():
-        data['superseded'] = [s for s in json.loads(SUPERSEDED.read_text(encoding='utf-8'))['entries']
-                              if s['binary_sha256'] != args.binary_sha256]
+        entries = json.loads(SUPERSEDED.read_text(encoding='utf-8'))['entries']
+        data['superseded'] = [s for s in entries if s['binary_sha256'] != args.binary_sha256]
+        data['superseded_by'] = next((s for s in entries if s['binary_sha256'] == args.binary_sha256), None)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out/'results.json').write_text(json.dumps(data, indent=1) + '\n', encoding='utf-8', newline='\n')
     (args.out/'index.html').write_text(page(data), encoding='utf-8', newline='\n')
