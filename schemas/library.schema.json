@@ -25,6 +25,90 @@
       ],
       "type": "object"
     },
+    "FileImportReport": {
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "report": {
+          "$ref": "#/$defs/ImportReport"
+        }
+      },
+      "required": [
+        "file",
+        "report"
+      ],
+      "type": "object"
+    },
+    "Gap": {
+      "properties": {
+        "from_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "size_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "source": {
+          "type": "string"
+        },
+        "to_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "source",
+        "from_mm",
+        "to_mm",
+        "size_mm"
+      ],
+      "type": "object"
+    },
+    "ImportReport": {
+      "properties": {
+        "close_gaps_mm": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "closed_gaps": {
+          "items": {
+            "$ref": "#/$defs/Gap"
+          },
+          "type": "array"
+        },
+        "open_contours": {
+          "items": {
+            "$ref": "#/$defs/OpenContour"
+          },
+          "type": "array"
+        },
+        "silent_join_mm": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "silent_join_mm",
+        "closed_gaps",
+        "open_contours"
+      ],
+      "type": "object"
+    },
     "LibraryPart": {
       "additionalProperties": false,
       "properties": {
@@ -69,6 +153,50 @@
         "polygon",
         "area_mm2",
         "bounds_mm"
+      ],
+      "type": "object"
+    },
+    "OpenContour": {
+      "properties": {
+        "end_gap_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "end_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "source": {
+          "type": "string"
+        },
+        "start_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "suggested_close_gaps_mm": {
+          "description": "None means the endpoints exceed the 1 mm automatic repair limit.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "source",
+        "start_mm",
+        "end_mm",
+        "end_gap_mm"
       ],
       "type": "object"
     },
@@ -258,6 +386,13 @@
   "additionalProperties": false,
   "description": "Imported parts in millimetres, with the tolerance of their polygons.",
   "properties": {
+    "imports": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/FileImportReport"
+      },
+      "type": "array"
+    },
     "parts": {
       "items": {
         "$ref": "#/$defs/LibraryPart"

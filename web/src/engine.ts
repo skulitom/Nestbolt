@@ -50,8 +50,8 @@ class EngineWorker {
 let utility: EngineWorker | null = null;
 const tool = () => (utility ??= new EngineWorker());
 
-export async function importFiles(files: { name: string; text: string }[], tolerance = 0): Promise<Library> {
-  return JSON.parse(await tool().call('import', { files, tolerance }));
+export async function importFiles(files: { name: string; text: string }[], tolerance = 0, closeGapsMm?: number): Promise<Library> {
+  return JSON.parse(await tool().call('import', { files, tolerance, closeGapsMm }));
 }
 
 export async function validate(library: Library, request: NestRequest, layout: unknown): Promise<Report> {

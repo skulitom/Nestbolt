@@ -109,6 +109,11 @@ target/release/nestbolt import examples/parts.svg --output library.json
 target/release/nestbolt nest --library library.json --request examples/nest-request.json --out-dir run --seconds 30
 ```
 
+For drawings with larger gaps, `import --close-gaps 0.05` explicitly repairs up
+to 0.05 mm and reports every repair's position and size. It is off by default;
+the silent join limit remains 0.005 mm. The UI and MCP expose the same option.
+See [import options and reports](docs/IMPORTING.md).
+
 A request names library parts with quantities and the sheets in millimetres:
 
 ```json

@@ -74,6 +74,9 @@ export function App() {
   const [repeatable, setRepeatable] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [closeGaps, setCloseGaps] = useState(false);
+  const [gapLimit, setGapLimit] = useState(0.05);
+  const [lastFiles, setLastFiles] = useState<{ name: string; text: string }[]>([]);
   const [progress, setProgress] = useState<{ elapsed: number; best: number | null }>({ elapsed: 0, best: null });
   const [projects, setProjects] = useState<{ name: string; savedAt: string }[]>([]);
   const [examples, setExamples] = useState<Example[]>([]);
@@ -101,18 +104,30 @@ export function App() {
 
   async function onFiles(list: FileList | null) {
     if (!list?.length) return;
+    setError(null); setBusy('Importing…');
+    try {
+      const files = await Promise.all([...list].map(async (f) => ({ name: f.name, text: await f.text() })));
+      setLastFiles(files);
+      await importDrawings(files);
+    } catch (e) { setError(String(e)); setBusy(null); }
+  }
+
+  async function importDrawings(files: { name: string; text: string }[]) {
     setError(null);
     setBusy('Importing…');
     try {
-      const files = await Promise.all([...list].map(async (f) => ({ name: f.name, text: await f.text() })));
       // Part ids are `<file stem>-<n>`: importing a file again replaces its parts.
-      const merged = await importFiles(files);
-      const parts = [...(library?.parts ?? []).filter((p) => !merged.parts.some((q) => q.id === p.id)), ...merged.parts];
-      const next: Library = { version: 1, tolerance: merged.tolerance, parts, warnings: [...(library?.warnings ?? []), ...merged.warnings] };
+      const merged = await importFiles(files, 0, closeGaps ? gapLimit : undefined);
+      const retained = (library?.parts ?? []).filter((p) => !files.some((f) => p.source.startsWith(`${f.name}#`)));
+      const parts = [...retained, ...merged.parts];
+      const retainedIds = new Set(retained.map((p) => p.id));
+      const next: Library = { version: 1, tolerance: merged.tolerance, parts,
+        warnings: [...(library?.warnings ?? []).filter((w) => !files.some((f) => w.startsWith(`${f.name}:`))), ...merged.warnings],
+        imports: [...(library?.imports ?? []).filter((r) => !files.some((f) => f.name === r.file)), ...(merged.imports ?? [])] };
       setLibrary(next);
       update({
         parts: [
-          ...request.parts.filter((p) => !merged.parts.some((q) => q.id === p.id)),
+          ...request.parts.filter((p) => retainedIds.has(p.id)),
           ...merged.parts.map((p) => ({ id: p.id, quantity: 1, rotations: ROTATIONS[0].value, allow_mirror: false, priority: 1 })),
         ],
       });
@@ -214,6 +229,9 @@ export function App() {
   const project = (): Project => ({ version: 1, name, library, request, result, savedAt: new Date().toISOString() });
 
   function open(p: Project) {
+    setLastFiles([]);
+    setCloseGaps(false);
+    setGapLimit(0.05);
     setName(p.name);
     setLibrary(p.library);
     setRequest(p.request);
@@ -289,6 +307,14 @@ export function App() {
               <input type="file" accept=".svg,.dxf" multiple onChange={(e) => onFiles((e.target as HTMLInputElement).files)} />
               <span>Import SVG or DXF (or drop files here)</span>
             </label>
+            <div class="import-options">
+              <label><input type="checkbox" checked={closeGaps} disabled={!!busy}
+                onChange={(e) => setCloseGaps((e.target as HTMLInputElement).checked)} /> Close larger gaps</label>
+              {closeGaps ? <label>Close gaps up to (mm)<input type="number" min={0} max={1} step={0.005}
+                value={gapLimit} disabled={!!busy} onInput={(e) => setGapLimit(num(e))} /></label> : null}
+              <p class="hint">Gaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.</p>
+              {lastFiles.length ? <button disabled={!!busy} onClick={() => importDrawings(lastFiles)}>Apply import options</button> : null}
+            </div>
             {!library && examples.length ? (
               <div class="examples">
                 <p>Or try an example:</p>
@@ -301,6 +327,8 @@ export function App() {
               </div>
             ) : null}
             {library?.warnings.length ? <ul class="warnings">{library.warnings.slice(0, 5).map((w) => <li>{w}</li>)}</ul> : null}
+            {(library?.warnings.length ?? 0) > 5 ? <details><summary>Show all import messages ({library!.warnings.length})</summary>
+              <ul class="warnings">{library!.warnings.map((w) => <li>{w}</li>)}</ul></details> : null}
             <table class="parts">
               <thead><tr><th></th><th>Part</th><th>Qty</th><th>Rotation</th><th title="Allow mirroring">Mirror</th>{request.mode === 'fill_priority' ? <th>Priority</th> : null}<th></th></tr></thead>
               <tbody>

@@ -28,6 +28,9 @@ enum Command {
         /// Millimetres per DXF unit when $INSUNITS is missing.
         #[arg(long)]
         dxf_unit_mm: Option<f64>,
+        /// Close larger gaps up to this many mm (off by default, maximum 1).
+        #[arg(long = "close-gaps")]
+        close_gaps_mm: Option<f64>,
     },
     /// Nest library parts on sheets and write the layout, report and exports.
     Nest {
@@ -246,9 +249,11 @@ fn main() -> Result<()> {
             tolerance,
             svg_user_unit_mm,
             dxf_unit_mm,
+            close_gaps_mm,
         } => {
             let mut options = nestbolt_core::import::Options {
                 tolerance,
+                close_gaps_mm,
                 ..Default::default()
             };
             if let Some(u) = svg_user_unit_mm {
@@ -286,7 +291,7 @@ fn main() -> Result<()> {
                 "{}",
                 serde_json::to_string_pretty(
                     &serde_json::json!({"library": output, "parts": summary,
-                    "warnings": library.warnings})
+                    "warnings": library.warnings,"imports":library.imports})
                 )?
             );
         }

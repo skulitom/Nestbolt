@@ -9,7 +9,13 @@ export interface LibraryPart {
   bounds_mm: [number, number, number, number];
   holes: unknown[];
 }
-export interface Library { version: number; tolerance: number; parts: LibraryPart[]; warnings: string[] }
+export interface Library { version: number; tolerance: number; parts: LibraryPart[]; warnings: string[]; imports?: { file: string; report: ImportReport }[] }
+export interface ImportReport {
+  silent_join_mm: number;
+  close_gaps_mm: number | null;
+  closed_gaps: { source: string; from_mm: Point; to_mm: Point; size_mm: number }[];
+  open_contours: { source: string; start_mm: Point; end_mm: Point; end_gap_mm: number; suggested_close_gaps_mm: number | null }[];
+}
 
 export type Rotations =
   | { kind: 'free' }

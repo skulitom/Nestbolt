@@ -25,6 +25,14 @@ pub struct Library {
     pub tolerance: f64,
     pub parts: Vec<LibraryPart>,
     pub warnings: Vec<String>,
+    #[serde(default)]
+    pub imports: Vec<FileImportReport>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
+pub struct FileImportReport {
+    pub file: String,
+    pub report: crate::import::ImportReport,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
@@ -45,6 +53,7 @@ impl Library {
     pub fn import(files: &[(String, String)], options: &ImportOptions) -> Result<Self> {
         let mut parts = vec![];
         let mut warnings = vec![];
+        let mut imports = vec![];
         for (name, text) in files {
             let lower = name.to_ascii_lowercase();
             let import: Import = if lower.ends_with(".svg") {
@@ -61,6 +70,10 @@ impl Library {
                 .unwrap_or("part")
                 .to_owned();
             warnings.extend(import.warnings.into_iter().map(|w| format!("{name}: {w}")));
+            imports.push(FileImportReport {
+                file: name.clone(),
+                report: import.report,
+            });
             for (i, p) in import.parts.into_iter().enumerate() {
                 parts.push(LibraryPart {
                     id: format!("{stem}-{}", i + 1),
@@ -83,6 +96,7 @@ impl Library {
             tolerance: options.tolerance,
             parts,
             warnings,
+            imports,
         })
     }
 }

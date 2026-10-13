@@ -11726,3 +11726,32 @@ required clear rejection means literal H2 successful-import coverage can reach
 only 23/25 (92%). H2 remains unpassed; its scoring needs an explicit decision,
 not a silent denominator/threshold change. Independent implementation continues.
 All other gates remain pending. Published v1 claims are unchanged.
+
+
+## 2026-10-13 — N1 importer baseline after H1 freeze
+
+[Training vectors](benchmarks/results/h2-import-training-baseline-20261013T180837Z.md):
+257 files, 240 imported and 17 rejected; 165 match part/hole counts.
+[Robustness](benchmarks/results/h2-import-robustness-20261013T180901Z.md):
+183 files, 85 imported and 98 rejected; no timeouts. These are initial count
+diagnostics, not H2 pass results: layers, clear fixes and fidelity remain to check.
+The executable was rebuilt from unchanged product sources at `53a8a00`; all
+reads are training/robustness, with no held-out reads. Native import attempts
+ran on CCD0 physical cores 0/2/4/6, one process each, bounded at ten seconds.
+N0 remains the only complete milestone (15%).
+
+## 2026-10-13 — N1 gap repair checkpoint (H2 pending)
+
+[Evidence](benchmarks/results/h2-gap-checkpoint-20261013.md). Explicit repair
+up to 1 mm, fixed 0.005 mm silent joins, per-gap coordinates and open-contour
+fixes now work in UI, CLI and MCP. The workspace suite, production WASM/web build,
+schema generation and both Chromium/Firefox gap tests pass. The first MCP test
+asserted the wrong error wrapper; the corrected assertion passes with the same
+product behavior. Frozen inventory verification still passes.
+
+The first training gap diagnostic rejected all 30 arguments because its labels
+request unimplemented `--layers`; that report is retained. A separately labelled
+gap-only checkpoint explicitly skips and records unavailable layer/colour flags:
+30/30 match part/hole counts. This is not H2 fidelity or cut-selection acceptance.
+All reads remain training-only. H2 and the held-out scoring clarification remain
+pending; overall completion stays 15%.

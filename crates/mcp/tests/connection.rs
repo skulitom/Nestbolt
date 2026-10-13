@@ -41,6 +41,12 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
                     .await
             }
         };
+        std::fs::write(workspace.join("gap.svg"),r#"<svg width="30mm" viewBox="0 0 30 30"><path id="outline" d="M0 0 H20 V20 H0 V0.2"/></svg>"#).unwrap();
+        let open=call("import_parts",json!({"paths":["gap.svg"]})).await.unwrap_err();
+        assert!(format!("{open}").contains("Close gaps up to 0.200000 mm"));
+        let repaired=call("import_parts",json!({"paths":["gap.svg"],"close_gaps_mm":0.2})).await.unwrap().structured_content.unwrap();
+        assert_eq!(repaired["part_count"],1);
+        assert_eq!(repaired["imports"][0]["report"]["closed_gaps"][0]["size_mm"],0.2);
         let imported = call("import_parts", json!({"paths": ["parts.svg"]})).await.unwrap();
         let imported = imported.structured_content.unwrap();
         assert_eq!(imported["part_count"], 4);

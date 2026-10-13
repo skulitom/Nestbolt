@@ -10,11 +10,13 @@ use std::collections::HashMap;
 use std::f64::consts::{PI, TAU};
 
 use anyhow::{Context, Result, bail, ensure};
-use serde::Serialize;
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
 
 use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_area};
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Deserialize)]
+#[serde(default, deny_unknown_fields)]
 pub struct Options {
     /// Maximum distance between an exact curve and its nesting polygon, in mm.
     pub tolerance: f64,
@@ -23,6 +25,9 @@ pub struct Options {
     pub svg_user_unit: f64,
     /// Millimetres per DXF drawing unit when `$INSUNITS` is absent or unitless.
     pub dxf_unit: f64,
+    /// Explicit repair of larger gaps, in mm (off by default, at most 1 mm).
+    /// The silent join threshold remains 0.005 mm regardless of curve precision.
+    pub close_gaps_mm: Option<f64>,
 }
 
 impl Default for Options {
@@ -31,6 +36,7 @@ impl Default for Options {
             tolerance: 0.005,
             svg_user_unit: 25.4 / 96.0,
             dxf_unit: 1.0,
+            close_gaps_mm: None,
         }
     }
 }
@@ -52,6 +58,63 @@ pub struct ImportedPart {
 pub struct Import {
     pub parts: Vec<ImportedPart>,
     pub warnings: Vec<String>,
+    pub report: ImportReport,
+}
+
+pub const SILENT_JOIN_MM: f64 = 0.005;
+
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
+pub struct Gap {
+    pub source: String,
+    pub from_mm: Point,
+    pub to_mm: Point,
+    pub size_mm: f64,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
+pub struct OpenContour {
+    pub source: String,
+    pub start_mm: Point,
+    pub end_mm: Point,
+    pub end_gap_mm: f64,
+    /// None means the endpoints exceed the 1 mm automatic repair limit.
+    pub suggested_close_gaps_mm: Option<f64>,
+}
+
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
+pub struct ImportReport {
+    pub silent_join_mm: f64,
+    pub close_gaps_mm: Option<f64>,
+    pub closed_gaps: Vec<Gap>,
+    pub open_contours: Vec<OpenContour>,
+}
+
+impl ImportReport {
+    fn new(options: &Options) -> Result<Self> {
+        ensure!(
+            options.tolerance.is_finite() && options.tolerance > 0.0,
+            "curve tolerance must be a finite positive number in mm"
+        );
+        ensure!(
+            options.svg_user_unit.is_finite()
+                && options.svg_user_unit > 0.0
+                && options.dxf_unit.is_finite()
+                && options.dxf_unit > 0.0,
+            "drawing units must be a finite positive number of mm per unit"
+        );
+        if let Some(gap) = options.close_gaps_mm {
+            ensure!(
+                gap.is_finite() && (0.0..=1.0).contains(&gap),
+                "Close gaps must be between 0 and 1 mm; repair larger gaps in the source drawing"
+            );
+        }
+        Ok(Self {
+            silent_join_mm: SILENT_JOIN_MM,
+            close_gaps_mm: options.close_gaps_mm,
+            closed_gaps: vec![],
+            open_contours: vec![],
+        })
+    }
 }
 
 /// An open run of segments, or a closed loop when `start == end`.
@@ -179,35 +242,63 @@ fn sequential(pieces: Vec<Piece>, tolerance: f64) -> Vec<Piece> {
     chains
 }
 
-fn chain(pieces: Vec<Piece>, tolerance: f64) -> (Vec<Piece>, usize) {
-    let (mut closed, mut open): (Vec<_>, Vec<_>) = sequential(pieces, tolerance)
+fn chain(
+    pieces: Vec<Piece>,
+    tolerance: f64,
+    report: &mut ImportReport,
+) -> (Vec<Piece>, Vec<Piece>) {
+    let (mut closed, mut open): (Vec<_>, Vec<_>) = sequential(pieces, SILENT_JOIN_MM)
         .into_iter()
-        .partition(|p| dist(p.start, p.end()) <= tolerance);
-    let mut left = 0;
+        .partition(|p| dist(p.start, p.end()) <= SILENT_JOIN_MM);
+    let mut left = vec![];
     while let Some(mut current) = open.pop() {
         loop {
             if dist(current.start, current.end()) <= tolerance {
+                let start = current.start;
+                bridge_gap(&mut current, start, report);
                 closed.push(current);
                 break;
             }
             let end = current.end();
             let next = open
                 .iter()
-                .position(|p| dist(p.start, end) <= tolerance || dist(p.end(), end) <= tolerance);
+                .enumerate()
+                .map(|(i, p)| (i, dist(p.start, end).min(dist(p.end(), end))))
+                .filter(|(_, gap)| *gap <= tolerance)
+                .min_by(|a, b| a.1.total_cmp(&b.1))
+                .map(|(i, _)| i);
             let Some(i) = next else {
-                left += 1;
+                left.push(current);
                 break;
             };
             let p = open.swap_remove(i);
-            if dist(p.start, end) <= tolerance {
+            if dist(p.start, end) <= dist(p.end(), end) {
+                bridge_gap(&mut current, p.start, report);
                 current.segments.extend(p.segments);
             } else {
-                let (_, reversed) = reverse(p.start, &p.segments);
+                let (start, reversed) = reverse(p.start, &p.segments);
+                bridge_gap(&mut current, start, report);
                 current.segments.extend(reversed);
             }
         }
     }
     (closed, left)
+}
+
+fn bridge_gap(piece: &mut Piece, to: Point, report: &mut ImportReport) {
+    let from = piece.end();
+    let size = dist(from, to);
+    if size > SILENT_JOIN_MM {
+        report.closed_gaps.push(Gap {
+            source: piece.source.clone(),
+            from_mm: from,
+            to_mm: to,
+            size_mm: size,
+        });
+        // Keep both original curve endpoints. An explicit straight bridge is
+        // easier to review and does not distort a neighbouring Bezier or arc.
+        piece.segments.push(Segment::Line { to });
+    }
 }
 
 /// Snap a closed loop's last segment onto its start point.
@@ -424,13 +515,36 @@ fn assemble(
     pieces: Vec<Piece>,
     options: &Options,
     warnings: &mut Vec<String>,
+    report: &mut ImportReport,
 ) -> Result<Vec<ImportedPart>> {
-    let join = options.tolerance.max(1e-6);
-    let (closed, open) = chain(pieces, join);
-    if open > 0 {
-        warnings.push(format!(
-            "{open} open path(s) could not be closed and were skipped"
-        ));
+    let (mut closed, mut open) = chain(pieces, SILENT_JOIN_MM, report);
+    if let Some(limit) = options.close_gaps_mm.filter(|v| *v > SILENT_JOIN_MM) {
+        let (repaired, remaining) = chain(open, limit, report);
+        closed.extend(repaired);
+        open = remaining;
+    }
+    for gap in &report.closed_gaps {
+        warnings.push(format!("{}: closed gap {:.6} mm from ({:.6}, {:.6}) to ({:.6}, {:.6}) with explicit Close gaps",
+            gap.source,gap.size_mm,gap.from_mm[0],gap.from_mm[1],gap.to_mm[0],gap.to_mm[1]));
+    }
+    for piece in open {
+        let gap = dist(piece.start, piece.end());
+        let suggested = (gap <= 1.0).then_some((gap * 1_000_000.0).ceil() / 1_000_000.0);
+        let fix = if let Some(size) = suggested {
+            format!("enable Close gaps up to {size:.6} mm")
+        } else {
+            "join these endpoints in the source drawing (automatic repair is limited to 1 mm)"
+                .into()
+        };
+        warnings.push(format!("{}: open path from ({:.6}, {:.6}) to ({:.6}, {:.6}); end gap {:.6} mm; {fix}. This contour was not imported",
+            piece.source,piece.start[0],piece.start[1],piece.end()[0],piece.end()[1],gap));
+        report.open_contours.push(OpenContour {
+            source: piece.source,
+            start_mm: piece.start,
+            end_mm: piece.segments.last().map_or(piece.start, Segment::end),
+            end_gap_mm: gap,
+            suggested_close_gaps_mm: suggested,
+        });
     }
     let mut loops = vec![];
     for piece in closed {
@@ -495,7 +609,16 @@ fn assemble(
             area,
         });
     }
-    ensure!(!parts.is_empty(), "no closed part outlines found");
+    ensure!(
+        !parts.is_empty(),
+        "no closed part outlines found; {}",
+        warnings
+            .iter()
+            .take(8)
+            .cloned()
+            .collect::<Vec<_>>()
+            .join("; ")
+    );
     Ok(parts)
 }
 
@@ -854,6 +977,7 @@ fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
 
 /// Import closed outlines from an SVG document. Text and images are ignored.
 pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
+    let mut report = ImportReport::new(options)?;
     let document = roxmltree::Document::parse(text).context("invalid SVG/XML")?;
     let root = document.root_element();
     ensure!(
@@ -962,8 +1086,12 @@ pub fn import_svg(text: &str, options: &Options) -> Result<Import> {
             stack.push((child, ctm, depth));
         }
     }
-    let parts = assemble(pieces, options, &mut warnings)?;
-    Ok(Import { parts, warnings })
+    let parts = assemble(pieces, options, &mut warnings, &mut report)?;
+    Ok(Import {
+        parts,
+        warnings,
+        report,
+    })
 }
 
 impl Affine {
@@ -1398,6 +1526,7 @@ fn dxf_pieces(
 
 /// Import closed outlines from an ASCII DXF drawing (model space only).
 pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
+    let mut report = ImportReport::new(options)?;
     let pairs = dxf_pairs(text)?;
     let mut warnings = vec![];
     let mut unit = None;
@@ -1468,8 +1597,12 @@ pub fn import_dxf(text: &str, options: &Options) -> Result<Import> {
             .context("DXF has no ENTITIES section")?,
     );
     let pieces = dxf_pieces(&entities, &blocks, Affine::scale(scale), 0, &mut warnings)?;
-    let parts = assemble(pieces, options, &mut warnings)?;
-    Ok(Import { parts, warnings })
+    let parts = assemble(pieces, options, &mut warnings, &mut report)?;
+    Ok(Import {
+        parts,
+        warnings,
+        report,
+    })
 }
 
 #[cfg(test)]

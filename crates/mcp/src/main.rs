@@ -44,6 +44,8 @@ struct ImportParams {
     svg_user_unit_mm: Option<f64>,
     /// Millimetres per DXF unit when `$INSUNITS` is missing (default 1).
     dxf_unit_mm: Option<f64>,
+    /// Explicitly close gaps up to this many mm (off by default, maximum 1).
+    close_gaps_mm: Option<f64>,
 }
 
 #[derive(Debug, Deserialize, JsonSchema)]
@@ -232,6 +234,7 @@ impl Nestbolt {
         (|| -> Result<CallToolResult> {
             ensure!(!p.paths.is_empty(), "give at least one SVG or DXF path");
             let mut options = nestbolt_core::import::Options::default();
+            options.close_gaps_mm = p.close_gaps_mm;
             if let Some(t) = p.tolerance_mm {
                 ensure!(t > 0.0 && t <= 1.0, "tolerance_mm must be in (0, 1]");
                 options.tolerance = t;
@@ -288,6 +291,7 @@ impl Nestbolt {
                 "parts": parts,
                 "parts_truncated": library.parts.len() > LIST_LIMIT,
                 "warnings": library.warnings.iter().take(50).collect::<Vec<_>>(),
+                "imports": library.imports,
             })))
         })()
         .map_err(tool_error)

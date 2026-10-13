@@ -38,12 +38,6 @@ pub fn import_files(
     tolerance_mm: f64,
     svg_user_unit_mm: f64,
 ) -> Result<String, JsValue> {
-    #[derive(serde::Deserialize)]
-    struct File {
-        name: String,
-        text: String,
-    }
-    let files: Vec<File> = parse(files_json, "file list")?;
     let mut options = nestbolt_core::import::Options::default();
     if tolerance_mm > 0.0 {
         options.tolerance = tolerance_mm;
@@ -51,6 +45,26 @@ pub fn import_files(
     if svg_user_unit_mm > 0.0 {
         options.svg_user_unit = svg_user_unit_mm;
     }
+    import_with_options(files_json, options)
+}
+
+/// Structured options shared with the native importer. The legacy entry point
+/// remains available for existing integrations and published benchmark runners.
+#[wasm_bindgen]
+pub fn import_files_with_options(files_json: &str, options_json: &str) -> Result<String, JsValue> {
+    import_with_options(files_json, parse(options_json, "import options")?)
+}
+
+fn import_with_options(
+    files_json: &str,
+    options: nestbolt_core::import::Options,
+) -> Result<String, JsValue> {
+    #[derive(serde::Deserialize)]
+    struct File {
+        name: String,
+        text: String,
+    }
+    let files: Vec<File> = parse(files_json, "file list")?;
     let files: Vec<(String, String)> = files.into_iter().map(|f| (f.name, f.text)).collect();
     let library = Library::import(&files, &options).map_err(|e| fail(format!("{e:#}")))?;
     serde_json::to_string(&library).map_err(fail)
