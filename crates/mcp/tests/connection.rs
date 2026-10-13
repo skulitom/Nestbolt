@@ -55,6 +55,10 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
             assert_eq!(selected["parts"][0]["bounds_mm"][0],expected_x);
             assert_eq!(selected["imports"][0]["report"]["layers"].as_array().unwrap().len(),2);
         }
+        std::fs::write(workspace.join("cleanup.svg"),r#"<svg width="100mm" viewBox="0 0 100 100"><path d="M0 0 H12 M8 0 H20 V20 H0 V0 M20 0 V20 M0 0 L0 0"/></svg>"#).unwrap();
+        let cleaned=call("import_parts",json!({"paths":["cleanup.svg"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(cleaned["part_count"],1);
+        assert_eq!(cleaned["imports"][0]["report"]["cleanup"],json!({"duplicate_segments_removed":1,"zero_length_segments_removed":1,"overlapping_segments_merged":1}));
         let imported = call("import_parts", json!({"paths": ["parts.svg"]})).await.unwrap();
         let imported = imported.structured_content.unwrap();
         assert_eq!(imported["part_count"], 4);

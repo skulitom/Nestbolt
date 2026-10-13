@@ -49,6 +49,21 @@ Libraries and CLI/MCP responses include an `imports` entry per file:
 }
 ```
 
+## Duplicate and overlap cleanup
+
+Before joining paths, the importer removes exact duplicate segments (including
+reversed lines and Béziers) and genuinely zero-length segments. Full circles and
+closed Bézier loops are retained. Overlapping collinear lines are merged into
+their union; neighbouring parallel lines are not merged. This does not flatten
+curves or increase the 0.005 mm join threshold.
+
+Every report has `cleanup.duplicate_segments_removed`,
+`cleanup.zero_length_segments_removed` and `cleanup.overlapping_segments_merged`,
+including zero counts. The browser displays these counts beside each file's
+inventory, and nonzero cleanup also appears in its import messages. CLI and MCP
+return the same report. Selection happens first, so excluded operation layers do
+not participate in cleanup of the chosen cutting geometry.
+
 ## Layers and colours
 
 The browser shows a per-file list of layers and colours with entity counts,
@@ -93,7 +108,7 @@ uses the same native import options and report model. The existing WebAssembly
 `import_files` entry point remains available; new integrations can pass JSON
 options to `import_files_with_options`.
 
-These are initial N1 capabilities. Cleanup, full corpus
+These are initial N1 capabilities. Full corpus
 fidelity, 10,000-case property testing and native LightBurn export checks still
 need their H2 evidence. The frozen corpus and held-out partition must not change
 in response to these tests.

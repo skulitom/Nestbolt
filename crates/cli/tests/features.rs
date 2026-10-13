@@ -132,6 +132,20 @@ fn layers_and_colors_select_cuts_and_report_ignored_entities() {
     }
 }
 
+#[test]
+fn cleanup_counts_are_in_the_import_report() {
+    let dir = temp("cleanup");
+    let source = dir.join("cleanup.svg");
+    fs::write(&source,r#"<svg width="100mm" viewBox="0 0 100 100"><path d="M0 0 H12 M8 0 H20 V20 H0 V0 M20 0 V20 M0 0 L0 0"/></svg>"#).unwrap();
+    let library = import(&dir, &[source]);
+    let value: Value = serde_json::from_slice(&fs::read(library).unwrap()).unwrap();
+    assert_eq!(value["parts"].as_array().unwrap().len(), 1);
+    assert_eq!(
+        value["imports"][0]["report"]["cleanup"],
+        json!({"duplicate_segments_removed":1,"zero_length_segments_removed":1,"overlapping_segments_merged":1})
+    );
+}
+
 struct Nested {
     dir: PathBuf,
     report: Value,

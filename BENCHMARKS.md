@@ -11780,3 +11780,27 @@ Clippy found an MCP initializer style violation; the equivalent initializer now
 passes. Universal CSS selectors were corrected to have lower specificity than
 tag selectors, with the six focused tests passing again. Corpus/browser records
 above predate these two final small changes and retain their exact source hashes.
+
+## 2026-10-13 — N1 segment cleanup checkpoint (H2 pending)
+
+[Complete evidence](benchmarks/results/h2-cleanup-checkpoint-20261013.md).
+Exact duplicate and zero-length segments are removed and overlapping collinear
+lines merge before joining, without flattening curves. Per-file counts are
+reported in UI, CLI and MCP. Core/import tests, 1,024 randomized cleanup cases,
+CLI/MCP checks, eight browser checks, WASM/web build and schema generation pass.
+Strict Clippy passes after a test-only Vec-to-array change.
+
+[Training counts](benchmarks/results/h2-import-training-20261013T185545Z.json):
+245/257 match (170/170 generated, 24/24 ordinary native exports, 51/59 real),
+versus 221/257 before cleanup. Eight rejections remain visible. The four other
+count mismatches include three negative fixtures and one topology case.
+[Robustness](benchmarks/results/h2-import-robustness-20261013T185642Z.json):
+82 imported, 101 rejected, no panic/timeout; slowest 0.857 s. No held-out reads.
+
+The first diagnostic aborted in its affinity setup after 224 completed rows;
+[partial output and failure](benchmarks/results/h2-cleanup-harness-failure-20261013T185419Z.json)
+are retained. The runner now creates each owned child suspended, assigns its
+CCD0 physical core, then resumes; there is no before-affinity import window.
+The complete replacement used the same product binary. This is not H2 acceptance:
+fidelity, complete fuzzing and other required evidence remain pending. Overall
+completion remains 15%, with held-out scoring clarification still pending.

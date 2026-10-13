@@ -324,6 +324,7 @@ export function App() {
               <p class="hint">Gaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.</p>
               {importInventory.map(({ file, report }) => <details open key={file} class="import-channels">
                 <summary>Layers and colours — {file}</summary>
+                {report.cleanup ? <p class="hint">Cleanup: {report.cleanup.duplicate_segments_removed} duplicate segments removed; {report.cleanup.zero_length_segments_removed} zero-length segments removed; {report.cleanup.overlapping_segments_merged} collinear overlaps merged.</p> : null}
                 <p class="hint">Automatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.</p>
                 {(['layers', 'colors'] as const).map((kind) => <fieldset>
                   <legend>{kind === 'layers' ? 'Cut layers' : 'Cut colours'}{importChoices[file]?.[kind] === undefined ? ' (automatic)' : ''}</legend>

@@ -30,6 +30,32 @@
       ],
       "type": "object"
     },
+    "Cleanup": {
+      "properties": {
+        "duplicate_segments_removed": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "overlapping_segments_merged": {
+          "description": "Each redundant line merged into the union counts once.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "zero_length_segments_removed": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duplicate_segments_removed",
+        "zero_length_segments_removed",
+        "overlapping_segments_merged"
+      ],
+      "type": "object"
+    },
     "Contour": {
       "description": "A closed boundary: a start point and segments that end where it began.",
       "properties": {
@@ -108,6 +134,14 @@
     },
     "ImportReport": {
       "properties": {
+        "cleanup": {
+          "$ref": "#/$defs/Cleanup",
+          "default": {
+            "duplicate_segments_removed": 0,
+            "overlapping_segments_merged": 0,
+            "zero_length_segments_removed": 0
+          }
+        },
         "close_gaps_mm": {
           "format": "double",
           "type": [

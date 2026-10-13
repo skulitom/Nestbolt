@@ -5,7 +5,7 @@
 **Completion: 15%.** The goal is active under [PLAN_V1_1.md](PLAN_V1_1.md).
 Only completed gate weights count. N0/H1 is complete: the labelled corpus and
 writer-stratified held-out allocation are frozen. N1 implementation is in progress;
-explicit gap repair, layer/colour selection and detailed reports now work through
+explicit gap repair, layer/colour selection, segment cleanup and detailed reports now work through
 the UI, CLI and MCP.
 No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
 due by 2026-11-06. Release and registry publication still require Artem's instruction.
@@ -13,7 +13,7 @@ due by 2026-11-06. Release and registry publication still require Artem's instru
 | Milestone | Weight | State / next requirement |
 | --- | ---: | --- |
 | N0 — Messy-file corpus | 15% | **H1 complete.** [Frozen corpus and split](../benchmarks/results/h1-freeze-20261013.md): 534 inputs, 338 labels, 148 renders, 1,181 attributed/checksummed files; 15 real + 10 native held out with lineage isolation |
-| N1 — Import robustness | 25% | In progress: gap repair and [layer/colour selection](../benchmarks/results/h2-layer-checkpoint-20261013.md) across three surfaces; training vector counts match 221/257 (baseline 165), robustness 183/183 without crash/timeout. Cleanup, fidelity and remaining H2 evidence pending. Two frozen held-out negatives cap literal success at 92%; scoring clarification required, with split unchanged |
+| N1 — Import robustness | 25% | In progress: gap repair, selection and [segment cleanup](../benchmarks/results/h2-cleanup-checkpoint-20261013.md) across three surfaces; training counts match 245/257 (all 170 generated and 24 ordinary native exports), robustness 183/183 without crash/timeout. Units/encoding, fidelity and remaining H2 evidence pending. Two frozen held-out negatives cap literal success at 92%; scoring clarification required, with split unchanged |
 | N2 — LightBurn round-trip | 25% | [Local probes](LBRN2.md) establish origins, shared geometry/bitmaps, text, leads, StartV and layer sub-settings. Reader/writer and H3 pending |
 | N3 — Curve-heavy browser | 15% | Pending; H4 requires measured browser/native quality and scale |
 | N4 — Common-line cutting | 15% | Pending; H5 requires compensated geometry, savings and surface evidence |

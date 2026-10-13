@@ -12,6 +12,7 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import subprocess
+import sys
 import time
 import psutil
 
@@ -45,9 +46,15 @@ def main():
             if key not in options:continue
             if args.baseline or (args.gap_checkpoint and key in ['layers','colors']):unsupported.append(key);continue
             value=options[key];cmd+=[flag,','.join(map(str,value)) if isinstance(value,list) else str(value)]
-        begin=time.perf_counter();proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-        try:psutil.Process(proc.pid).cpu_affinity([2*(index%4)])
-        except psutil.NoSuchProcess:pass
+        # Start suspended on Windows: a fast import can exit before an after-
+        # launch affinity call, and must never run briefly on the wrong core.
+        if sys.platform!='win32':raise RuntimeError('This runner requires Windows for suspended, affinity-pinned process creation')
+        begin=time.perf_counter();proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+            creationflags=subprocess.CREATE_NO_WINDOW|0x00000004)  # CREATE_SUSPENDED
+        try:
+            child=psutil.Process(proc.pid);child.cpu_affinity([2*(index%4)]);child.resume()
+        except BaseException:
+            proc.kill();proc.communicate();raise
         timed_out=False
         try:stdout,stderr=proc.communicate(timeout=10)
         except subprocess.TimeoutExpired:

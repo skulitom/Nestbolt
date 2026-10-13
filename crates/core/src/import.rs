@@ -15,8 +15,10 @@ use serde::{Deserialize, Serialize};
 
 use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_area};
 
+mod cleanup;
 mod selection;
 mod svg_style;
+pub use cleanup::Cleanup;
 pub use selection::Channel;
 use selection::{Drawing, DrawingEntity};
 
@@ -104,6 +106,8 @@ pub struct ImportReport {
     pub colors: Vec<Channel>,
     #[serde(default)]
     pub selection_mode: String,
+    #[serde(default)]
+    pub cleanup: Cleanup,
 }
 
 impl ImportReport {
@@ -133,6 +137,7 @@ impl ImportReport {
             layers: vec![],
             colors: vec![],
             selection_mode: String::new(),
+            cleanup: Cleanup::default(),
         })
     }
 }
@@ -537,6 +542,11 @@ fn assemble(
     warnings: &mut Vec<String>,
     report: &mut ImportReport,
 ) -> Result<Vec<ImportedPart>> {
+    let pieces = cleanup::clean(pieces, &mut report.cleanup);
+    if report.cleanup != Cleanup::default() {
+        warnings.push(format!("cleanup removed {} exact duplicate segment(s), {} zero-length segment(s); merged {} overlapping collinear segment(s)",
+            report.cleanup.duplicate_segments_removed, report.cleanup.zero_length_segments_removed, report.cleanup.overlapping_segments_merged));
+    }
     let (mut closed, mut open) = chain(pieces, SILENT_JOIN_MM, report);
     if let Some(limit) = options.close_gaps_mm.filter(|v| *v > SILENT_JOIN_MM) {
         let (repaired, remaining) = chain(open, limit, report);

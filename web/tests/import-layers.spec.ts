@@ -1,5 +1,13 @@
 import { expect, test } from '@playwright/test';
 
+test('cleanup shows duplicate, zero-length and overlap counts', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles({ name: 'cleanup.svg', mimeType: 'image/svg+xml',
+    buffer: Buffer.from('<svg width="100mm" viewBox="0 0 100 100"><path d="M0 0 H12 M8 0 H20 V20 H0 V0 M20 0 V20 M0 0 L0 0"/></svg>') });
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  await expect(page.locator('.import-channels')).toContainText('1 duplicate segments removed; 1 zero-length segments removed; 1 collinear overlaps merged');
+});
+
 test('layer and colour choices retain counts and replace the selected parts', async ({ page }) => {
   await page.goto('/');
   await page.locator('.drop input[type=file]').setInputFiles({ name: 'layers.svg', mimeType: 'image/svg+xml',
