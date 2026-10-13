@@ -85,11 +85,11 @@ def main():
     header = {pairs[i][1].strip():pairs[i+1][1].strip() for i in range(len(pairs)-1) if pairs[i][0].strip() == '9'}
     checks['modern_dxf_mm'] = header.get('$ACADVER') == 'AC1021' and header.get('$INSUNITS') == '4'
     manifest = json.loads((CORPUS/'manifest.draft.json').read_text(encoding='utf-8'))
-    source_files = [x for s in lock['sources'] for x in s['files']]
+    source_files = [x for s in lock['sources'] for x in s['files'] if x.get('set', 'real') == 'real']
     result = {'recorded_at': datetime.now(timezone.utc).isoformat(),
               'scope': 'Initial N0 collection and N2 native format probes; no gate pass',
               'completed_milestone_weight_percent': 0, 'H1': False, 'H3': False,
-              'counts': {'sources': len(lock['sources']), 'real': len(source_files),
+              'counts': {'sources': sum(any(x.get('set', 'real') == 'real' for x in s['files']) for s in lock['sources']), 'real': len(source_files),
                          'formats': dict(Counter(Path(x['path']).suffix for x in source_files)),
                          'fusion_fingerprints': sum(x['writer']['name'] == 'Fusion 360' for x in manifest['files'])},
               'app_version': '2.1.01', 'title_bar_edition': 'Pro', 'checks': checks,

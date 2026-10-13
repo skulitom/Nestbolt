@@ -96,6 +96,22 @@ def attribution(lock):
         lines += [f'| [{f["path"]}]({quote(f["path"])}) | [source]({f["source_url"]}) |'
                   for f in source['files']]
         lines += ['']
+    native_manifest = CORPUS / 'native/manifest.json'
+    if native_manifest.exists():
+        lines += ['## Native LightBurn derivatives', '',
+                  'These are modified test derivatives saved/exported by LightBurn 2.1.01',
+                  'in the hidden Anode desktop. Each retains its source design licence.',
+                  'Modifications: duplicate and reposition the source design, add an original',
+                  'Nestbolt feature coupon (text, shared bitmaps, score/engrave layers, kerf,',
+                  'lead settings and a start point), then save/export. The original MIT',
+                  'coupon is included under each derivative\'s stated licence.',
+                  'The [recipe](native/recipe.json) and [native manifest](native/manifest.json)',
+                  'record sources, modifications, writer evidence and hashes.', '',
+                  '| File | Licence | Original / attribution |', '| --- | --- | --- |']
+        for row in json.loads(native_manifest.read_text(encoding='utf-8'))['files']:
+            source = f'[{row["derived_from"]}]({quote(row["derived_from"])}) — author notices in its source section above' if row.get('derived_from') else 'Original Nestbolt test geometry; repository MIT notice'
+            lines.append(f'| [{row["path"]}]({quote(row["path"])}) | {row["licence"]} | {source} |')
+        lines += ['']
     return '\n'.join(lines)
 
 

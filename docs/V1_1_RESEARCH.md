@@ -10,6 +10,13 @@ Fill/Line sub-layers. Modern DXF export is AC1021 and Legacy is AC1009, both wit
 "exported DXFs carry no units" statement below does not hold for this export
 variant. Earlier linked reports remain historical evidence, not a schema.
 
+The subsequent [native collection report](../benchmarks/results/n0-native-20261013.md)
+records the 15 real-design projects and 35 exports. Legacy DXF line conversion
+produced five files rejected structurally by ezdxf; their native bytes are kept.
+The T1 palette check now also covers **Allow Importing to Tool Layers**: with it
+enabled, exact true-colour BYLAYER geometry maps to T1, while explicit entity
+ACI 30 still maps to C05. The option was restored after testing.
+
 How these were gathered:
 - Compiled from public sources by research agents on 2026-10-13. Nothing was decompiled.
 - Files were only inspected (headers streamed, repository trees listed); none were copied into the repo.

@@ -112,7 +112,6 @@ inference for files with an explicitly selected start.
 ## Remaining format probes
 
 - Output-off shapes; legacy combined `Scan+Cut` from public projects.
-- Export the default palette to SVG/DXF and verify RGB and ACI values, including T1.
 - Verify the mirror normalization with actual nested outputs during H3.
 - Compare all public/local geometry with the independent published MIT oracle.
 
@@ -135,15 +134,23 @@ with `display:none` in the SVG.
 **ACI 30 is not a lossless T1 round-trip.** Re-importing LightBurn's own DXF puts
 the tool rectangle on C05 (orange), as shown by
 [palette-dxf-reimport.lbrn2](../benchmarks/datasets/shop/probes/palette-dxf-reimport.lbrn2)
-and its screenshot. Adding DXF group 420 true colour does not fix the tool-layer
+and its screenshot. With **Allow Importing to Tool Layers off** (the installed
+default), adding DXF group 420 true colour does not fix the tool-layer
 assignment: [palette-truecolor.dxf](../benchmarks/datasets/shop/probes/palette-truecolor.dxf)
 has two rectangles with exact `#f36926` true colour, one with entity ACI 30 and
 one BYLAYER (layer ACI 30, also exact true colour). Their
 [native re-import](../benchmarks/datasets/shop/probes/palette-truecolor-reimport.lbrn2)
-assigns C05 and C13, respectively, both cutting layers. Use the exact RGB in
-Nestbolt exports and report this import limitation; an approximate ACI must not
-be represented as preserving the T1 operation type. The `.lbrn2` format preserves
-T1 directly and has no such loss.
+assigns C05 and C13, respectively, both cutting layers.
+
+**Follow-up with the option on:** re-importing that same unchanged DXF into a
+new project assigns the explicit-ACI rectangle to C05, but the BYLAYER rectangle
+to **T1**. See [the native save](../benchmarks/datasets/shop/native/tool-layer-enabled.lbrn2)
+and [screenshot](../benchmarks/results/n0-native-20261013/tool-layer-enabled.png).
+Thus exact layer RGB with BYLAYER entities can preserve the tool classification
+when the user enables this import option. Do not promise this for an explicit
+ACI 30 entity or with the option off. Use the exact RGB in Nestbolt exports and
+explain the required LightBurn option. `.lbrn2` preserves T1 directly.
+The setting was restored to off after this probe.
 
 The export dialogue offers Illustrator, AutoCAD Legacy DXF, AutoCAD Modern DXF
 and SVG. The observed Modern DXF is **AC1021 with `$INSUNITS=4`**, explicitly mm.
@@ -153,3 +160,29 @@ check the actual header. These observations correct the older blanket inference
 in the research for the locally installed version and default settings.
 
 Screenshots are under [n2-probes-20261013](../benchmarks/results/n2-probes-20261013/).
+
+## Real-design native corpus (N0 collection)
+
+The [native recipe](../benchmarks/datasets/shop/native/recipe.json) records 15
+licensed real designs imported, duplicated, positioned, saved and exported in
+LightBurn 2.1.01. Each includes an original feature coupon prepared from the
+above native probes, with Cut, Score, Fill, Image and Tool content; its source
+licence and modification notice accompany every derivative. These are 15 native
+projects, 15 SVGs, 15 ordinary legacy DXFs and five additional legacy DXFs with
+Convert Arcs to Lines enabled. The prepared coupon input is explicitly identified
+as agent-authored preparation, not counted as a native corpus design.
+
+The five line-mode legacy DXFs fail ezdxf 1.4.4 (including recovery) with
+`DXFStructureError: Expected DXF entity POLYLINE or SEQEND`. Their original native
+bytes are retained. The raw record stream has unequal POLYLINE/SEQEND counts;
+it also retains CIRCLE records despite the selected line conversion option.
+This is an observed writer output, not a Nestbolt import result. The ordinary
+15 DXFs parse; their bounds agree with the corresponding SVG viewBoxes within
+0.000054 mm. This is a bounding-box check only, not full contour fidelity.
+
+The installed import/export settings observed for these saves are auto-detected
+DXF units, mm fallback, 0.010 mm auto-close, SVG 96 DPI with auto-detection, and
+0.050 mm output curve tolerance. Export Arcs was selected for the ordinary
+exports, then Convert Arcs to Lines for the five variants, then restored.
+See [the collection report](../benchmarks/results/n0-native-20261013.md), including
+settings screenshots. Labels and H1 remain pending.

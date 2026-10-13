@@ -185,3 +185,422 @@ Revision: `99a8e6fda2ae79db1cd91e499074943843f38a6d`. Each selected design has i
 | [real/openstickcommunity--hardware/bf5a4160-Open_Core0-v2.0---Art-template.dxf](real/openstickcommunity--hardware/bf5a4160-Open_Core0-v2.0---Art-template.dxf) | [source](https://github.com/OpenStickCommunity/Hardware/blob/99a8e6fda2ae79db1cd91e499074943843f38a6d/Boards/GP2040-CE%20Official%20Controllers/Open_Core0/Artwork%20template/Open_Core0%20v2.0%20-%20Art%20template.dxf) |
 | [real/openstickcommunity--hardware/a0225b10-Open_Core0-v2.0---Bottom-foam.dxf](real/openstickcommunity--hardware/a0225b10-Open_Core0-v2.0---Bottom-foam.dxf) | [source](https://github.com/OpenStickCommunity/Hardware/blob/99a8e6fda2ae79db1cd91e499074943843f38a6d/Boards/GP2040-CE%20Official%20Controllers/Open_Core0/Laser%20cut%20files/Open_Core0%20v2.0%20-%20Bottom%20foam.dxf) |
 | [real/openstickcommunity--hardware/36c9c534-Open_Core0-v2.0---Top-Plexi.dxf](real/openstickcommunity--hardware/36c9c534-Open_Core0-v2.0---Top-Plexi.dxf) | [source](https://github.com/OpenStickCommunity/Hardware/blob/99a8e6fda2ae79db1cd91e499074943843f38a6d/Boards/GP2040-CE%20Official%20Controllers/Open_Core0/Laser%20cut%20files/Open_Core0%20v2.0%20-%20Top%20Plexi.dxf) |
+
+## JTCozart/LightBurnTemplates
+
+Licence: **Unlicense**. Attribution: JTCozart.
+
+Revision: `fad99906ba091d6c5f98e72922e7e6bbfb34c763`. Public-domain dedication in root LICENSE; no nested licence overrides.
+
+- [Licence evidence](licences/jtcozart--lightburntemplates/LICENSE) ([upstream](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/LICENSE)).
+
+| File | Original |
+| --- | --- |
+| [public-lightburn/jtcozart--lightburntemplates/950d79a1-FlybookLogo.lbrn2](public-lightburn/jtcozart--lightburntemplates/950d79a1-FlybookLogo.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/FlybookLogo.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/19e0c890-JourneyManCandle-DND-Rouge.lbrn2](public-lightburn/jtcozart--lightburntemplates/19e0c890-JourneyManCandle-DND-Rouge.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/JourneyManCandle-DND-Rouge.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/588d1e6e-ZippoLighter.lbrn2](public-lightburn/jtcozart--lightburntemplates/588d1e6e-ZippoLighter.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/ZippoLighter.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/1552c619-basswood-test-power-speed-sample.lbrn2](public-lightburn/jtcozart--lightburntemplates/1552c619-basswood-test-power-speed-sample.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/basswood-test-power-speed-sample.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/bba6012d-black_acrilic_sample_burn.lbrn2](public-lightburn/jtcozart--lightburntemplates/bba6012d-black_acrilic_sample_burn.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/black_acrilic_sample_burn.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/ead74509-black_acrilic_sample_burn_backup.lbrn2](public-lightburn/jtcozart--lightburntemplates/ead74509-black_acrilic_sample_burn_backup.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/black_acrilic_sample_burn_backup.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/ef110e75-dice_tray.lbrn2](public-lightburn/jtcozart--lightburntemplates/ef110e75-dice_tray.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/dice_tray.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/82905234-dm-joel-mighty-fine.lbrn2](public-lightburn/jtcozart--lightburntemplates/82905234-dm-joel-mighty-fine.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/dnd/dm-joel-mighty-fine.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/925a2f6d-flying_fuck.lbrn2](public-lightburn/jtcozart--lightburntemplates/925a2f6d-flying_fuck.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/flying_fuck.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/bc658325-flying_fuck_backup.lbrn2](public-lightburn/jtcozart--lightburntemplates/bc658325-flying_fuck_backup.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/flying_fuck_backup.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/ec0560d4-keychain_template.lbrn2](public-lightburn/jtcozart--lightburntemplates/ec0560d4-keychain_template.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/keychain_template.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/459a2e62-keychain_template_backup.lbrn2](public-lightburn/jtcozart--lightburntemplates/459a2e62-keychain_template_backup.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/keychain_template_backup.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/a1840be8-leather_keychain_jig.lbrn2](public-lightburn/jtcozart--lightburntemplates/a1840be8-leather_keychain_jig.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/leather_keychain_jig.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/24bee2a8-printable_area_jig.lbrn2](public-lightburn/jtcozart--lightburntemplates/24bee2a8-printable_area_jig.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/printable_area_jig.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/37aa6bf0-small_leather_keychain.lbrn2](public-lightburn/jtcozart--lightburntemplates/37aa6bf0-small_leather_keychain.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/small_leather_keychain.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/e5a47192-tree_of_life.lbrn2](public-lightburn/jtcozart--lightburntemplates/e5a47192-tree_of_life.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/tree_of_life.lbrn2) |
+| [public-lightburn/jtcozart--lightburntemplates/8475a8fe-wifi_cube.lbrn2](public-lightburn/jtcozart--lightburntemplates/8475a8fe-wifi_cube.lbrn2) | [source](https://github.com/JTCozart/LightBurnTemplates/blob/fad99906ba091d6c5f98e72922e7e6bbfb34c763/wifi_cube.lbrn2) |
+
+## qbalsdon/etcher
+
+Licence: **MIT**. Attribution: Quintin Balsdon (2021).
+
+Revision: `3e4f8a30d77926dc07d015eb37e7c1ad7c436b82`. Root MIT notice; README describes the repository as the author's laser etcher files.
+
+- [Licence evidence](licences/qbalsdon--etcher/LICENSE) ([upstream](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/LICENSE)).
+- [Licence evidence](licences/qbalsdon--etcher/README.md) ([upstream](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/README.md)).
+
+| File | Original |
+| --- | --- |
+| [public-lightburn/qbalsdon--etcher/9ad72d85-Grid.lbrn2](public-lightburn/qbalsdon--etcher/9ad72d85-Grid.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/Grid.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/aaddc198-card.lbrn2](public-lightburn/qbalsdon--etcher/aaddc198-card.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/card.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/2345db7c-images.lbrn2](public-lightburn/qbalsdon--etcher/2345db7c-images.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/images.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/11a2d34c-iso_keyboard.lbrn2](public-lightburn/qbalsdon--etcher/11a2d34c-iso_keyboard.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/iso_keyboard.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/1636e745-keycap_tester.lbrn2](public-lightburn/qbalsdon--etcher/1636e745-keycap_tester.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/keycap_tester.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/ccc0c1bc-lisa.lbrn2](public-lightburn/qbalsdon--etcher/ccc0c1bc-lisa.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/lisa.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/35112a46-phil_card_test.lbrn2](public-lightburn/qbalsdon--etcher/35112a46-phil_card_test.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/phil_card_test.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/9cfe2526-puppet_hand.lbrn2](public-lightburn/qbalsdon--etcher/9cfe2526-puppet_hand.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/puppet_hand.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/9d02c3f7-switch_plate.lbrn2](public-lightburn/qbalsdon--etcher/9d02c3f7-switch_plate.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/switch_plate.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/f61b67d9-template.lbrn2](public-lightburn/qbalsdon--etcher/f61b67d9-template.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/template.lbrn2) |
+| [public-lightburn/qbalsdon--etcher/08f9f12a-template_one.lbrn2](public-lightburn/qbalsdon--etcher/08f9f12a-template_one.lbrn2) | [source](https://github.com/qbalsdon/etcher/blob/3e4f8a30d77926dc07d015eb37e7c1ad7c436b82/template_one.lbrn2) |
+
+## jlucaso1/lbrn2-to-svg
+
+Licence: **MIT**. Attribution: João Lucas de Oliveira Lopes (2025).
+
+Revision: `7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49`. Root MIT notice applies to the published test artifacts; paired SVG oracle artifacts retained separately.
+
+- [Licence evidence](licences/jlucaso1--lbrn2-to-svg/LICENSE) ([upstream](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/LICENSE)).
+
+| File | Original |
+| --- | --- |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/707bcd1f-bezier_missing_cp.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/707bcd1f-bezier_missing_cp.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/bezier_missing_cp.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/24a42d63-bezier_missing_cp.svg](oracle-svg/jlucaso1--lbrn2-to-svg/24a42d63-bezier_missing_cp.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/bezier_missing_cp.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/a825ad97-butterfly_vectorized.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/a825ad97-butterfly_vectorized.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/butterfly_vectorized.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/aa02bba2-butterfly_vectorized.svg](oracle-svg/jlucaso1--lbrn2-to-svg/aa02bba2-butterfly_vectorized.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/butterfly_vectorized.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/d9cf07af-circle.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/d9cf07af-circle.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/circle.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/e4ed4234-circle.svg](oracle-svg/jlucaso1--lbrn2-to-svg/e4ed4234-circle.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/circle.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/b502ea11-crucifix.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/b502ea11-crucifix.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/crucifix.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/1c5af0d7-crucifix.svg](oracle-svg/jlucaso1--lbrn2-to-svg/1c5af0d7-crucifix.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/crucifix.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/7287dec8-ellipse_stretched.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/7287dec8-ellipse_stretched.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/ellipse_stretched.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/66e3c0ac-ellipse_stretched.svg](oracle-svg/jlucaso1--lbrn2-to-svg/66e3c0ac-ellipse_stretched.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/ellipse_stretched.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/7021aa76-group_empty.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/7021aa76-group_empty.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/group_empty.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/f4da9f1c-group_empty.svg](oracle-svg/jlucaso1--lbrn2-to-svg/f4da9f1c-group_empty.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/group_empty.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/730fc5c9-group_single_child.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/730fc5c9-group_single_child.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/group_single_child.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/aeb81880-group_single_child.svg](oracle-svg/jlucaso1--lbrn2-to-svg/aeb81880-group_single_child.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/group_single_child.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/c850a9d3-image.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/c850a9d3-image.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/image.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/447acbcf-image.svg](oracle-svg/jlucaso1--lbrn2-to-svg/447acbcf-image.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/image.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/c69edc3c-k.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/c69edc3c-k.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/k.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/224e42d4-k.svg](oracle-svg/jlucaso1--lbrn2-to-svg/224e42d4-k.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/k.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/39b8bfb9-line.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/39b8bfb9-line.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/line.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/6db1726c-line.svg](oracle-svg/jlucaso1--lbrn2-to-svg/6db1726c-line.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/line.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/1d00a28b-rings.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/1d00a28b-rings.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/rings.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/e731a6fa-rings.svg](oracle-svg/jlucaso1--lbrn2-to-svg/e731a6fa-rings.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/rings.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/3df50faa-square.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/3df50faa-square.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/square.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/9fa5b1bd-square.svg](oracle-svg/jlucaso1--lbrn2-to-svg/9fa5b1bd-square.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/square.svg) |
+| [public-lightburn/jlucaso1--lbrn2-to-svg/030ca41b-word.lbrn2](public-lightburn/jlucaso1--lbrn2-to-svg/030ca41b-word.lbrn2) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/word.lbrn2) |
+| [oracle-svg/jlucaso1--lbrn2-to-svg/4504e9da-word.svg](oracle-svg/jlucaso1--lbrn2-to-svg/4504e9da-word.svg) | [source](https://github.com/jlucaso1/lbrn2-to-svg/blob/7cea0bf68b7caf4ad8d9b16ea03bd8a90c2c9c49/tests/artifacts/word.svg) |
+
+## benkrasnow/MOPA_Laser_Stainless_Colors
+
+Licence: **MIT**. Attribution: benkrasnow (2025).
+
+Revision: `9d75610dc96d630833a8abf315262bc21bb4723d`. Root MIT notice; only the original colour calibration wheel is selected, excluding cartoon assets.
+
+- [Licence evidence](licences/benkrasnow--mopa_laser_stainless_colors/LICENSE) ([upstream](https://github.com/benkrasnow/MOPA_Laser_Stainless_Colors/blob/9d75610dc96d630833a8abf315262bc21bb4723d/LICENSE)).
+- [Licence evidence](licences/benkrasnow--mopa_laser_stainless_colors/README.md) ([upstream](https://github.com/benkrasnow/MOPA_Laser_Stainless_Colors/blob/9d75610dc96d630833a8abf315262bc21bb4723d/README.md)).
+
+| File | Original |
+| --- | --- |
+| [public-lightburn/benkrasnow--mopa_laser_stainless_colors/d87afb52-color_wheel1.lbrn2](public-lightburn/benkrasnow--mopa_laser_stainless_colors/d87afb52-color_wheel1.lbrn2) | [source](https://github.com/benkrasnow/MOPA_Laser_Stainless_Colors/blob/9d75610dc96d630833a8abf315262bc21bb4723d/color_wheel1.lbrn2) |
+
+## MarcinZukowski/lightburn-tester
+
+Licence: **Apache-2.0**. Attribution: Marcin Zukowski.
+
+Revision: `3f51e497f0d899209f762c8d507a2a08322a6a54`. Root Apache-2.0 licence; README documents the generation of both example projects.
+
+- [Licence evidence](licences/marcinzukowski--lightburn-tester/LICENSE) ([upstream](https://github.com/MarcinZukowski/lightburn-tester/blob/3f51e497f0d899209f762c8d507a2a08322a6a54/LICENSE)).
+- [Licence evidence](licences/marcinzukowski--lightburn-tester/README.md) ([upstream](https://github.com/MarcinZukowski/lightburn-tester/blob/3f51e497f0d899209f762c8d507a2a08322a6a54/README.md)).
+
+| File | Original |
+| --- | --- |
+| [public-lightburn/marcinzukowski--lightburn-tester/724f06f6-example1.lbrn](public-lightburn/marcinzukowski--lightburn-tester/724f06f6-example1.lbrn) | [source](https://github.com/MarcinZukowski/lightburn-tester/blob/3f51e497f0d899209f762c8d507a2a08322a6a54/examples/example1.lbrn) |
+| [public-lightburn/marcinzukowski--lightburn-tester/55e7a832-example2.lbrn](public-lightburn/marcinzukowski--lightburn-tester/55e7a832-example2.lbrn) | [source](https://github.com/MarcinZukowski/lightburn-tester/blob/3f51e497f0d899209f762c8d507a2a08322a6a54/examples/example2.lbrn) |
+
+## mozman/ezdxf
+
+Licence: **MIT**. Attribution: Manfred Moitzi (2020) and contributors.
+
+Revision: `7c64bce52c9d60b9db2dad4d2793c1168c8d3f64`. Root MIT notice; only examples_dxf and integration_tests/data DXFs, excluding separately licensed fonts.
+
+- [Licence evidence](licences/mozman--ezdxf/LICENSE) ([upstream](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/LICENSE)).
+
+| File | Original |
+| --- | --- |
+| [robustness/mozman--ezdxf/a24e32fa-3dface.dxf](robustness/mozman--ezdxf/a24e32fa-3dface.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/3dface.dxf) |
+| [robustness/mozman--ezdxf/4dcf327a-Minimal_DXF_AC1006.dxf](robustness/mozman--ezdxf/4dcf327a-Minimal_DXF_AC1006.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/Minimal_DXF_AC1006.dxf) |
+| [robustness/mozman--ezdxf/4f6d997e-Minimal_DXF_AC1009.dxf](robustness/mozman--ezdxf/4f6d997e-Minimal_DXF_AC1009.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/Minimal_DXF_AC1009.dxf) |
+| [robustness/mozman--ezdxf/e800720a-Minimal_DXF_AC1021.dxf](robustness/mozman--ezdxf/e800720a-Minimal_DXF_AC1021.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/Minimal_DXF_AC1021.dxf) |
+| [robustness/mozman--ezdxf/7bd7d641-VP4.dxf](robustness/mozman--ezdxf/7bd7d641-VP4.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/VP4.dxf) |
+| [robustness/mozman--ezdxf/9f9a3317-acad_table_simple.dxf](robustness/mozman--ezdxf/9f9a3317-acad_table_simple.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/acad_table_simple.dxf) |
+| [robustness/mozman--ezdxf/c0c183e3-acad_table_with_blk_ref.dxf](robustness/mozman--ezdxf/c0c183e3-acad_table_with_blk_ref.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/acad_table_with_blk_ref.dxf) |
+| [robustness/mozman--ezdxf/dc987922-caret_encoding.dxf](robustness/mozman--ezdxf/dc987922-caret_encoding.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/caret_encoding.dxf) |
+| [robustness/mozman--ezdxf/75a4a8ea-circle_radius_le_0.dxf](robustness/mozman--ezdxf/75a4a8ea-circle_radius_le_0.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/circle_radius_le_0.dxf) |
+| [robustness/mozman--ezdxf/a91b6f40-clockwise_arcs_hatch.dxf](robustness/mozman--ezdxf/a91b6f40-clockwise_arcs_hatch.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/clockwise_arcs_hatch.dxf) |
+| [robustness/mozman--ezdxf/3a7be057-colors.dxf](robustness/mozman--ezdxf/3a7be057-colors.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/colors.dxf) |
+| [robustness/mozman--ezdxf/0ca62765-columns_R2007.dxf](robustness/mozman--ezdxf/0ca62765-columns_R2007.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/columns_R2007.dxf) |
+| [robustness/mozman--ezdxf/7c6c6d32-columns_R2018.dxf](robustness/mozman--ezdxf/7c6c6d32-columns_R2018.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/columns_R2018.dxf) |
+| [robustness/mozman--ezdxf/ab73348a-dimension_in_block.dxf](robustness/mozman--ezdxf/ab73348a-dimension_in_block.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/dimension_in_block.dxf) |
+| [robustness/mozman--ezdxf/02c241eb-dimension_in_nested_blocks.dxf](robustness/mozman--ezdxf/02c241eb-dimension_in_nested_blocks.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/dimension_in_nested_blocks.dxf) |
+| [robustness/mozman--ezdxf/ee84b6c1-hatch_issues.dxf](robustness/mozman--ezdxf/ee84b6c1-hatch_issues.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/hatch_issues.dxf) |
+| [robustness/mozman--ezdxf/d39e3dac-hatch_text_box_in_fill.dxf](robustness/mozman--ezdxf/d39e3dac-hatch_text_box_in_fill.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/hatch_text_box_in_fill.dxf) |
+| [robustness/mozman--ezdxf/f562efc4-hatch_text_box_in_hole.dxf](robustness/mozman--ezdxf/f562efc4-hatch_text_box_in_hole.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/hatch_text_box_in_hole.dxf) |
+| [robustness/mozman--ezdxf/bbe02a87-hatch_text_box_overlapping_fill_and_hole.dxf](robustness/mozman--ezdxf/bbe02a87-hatch_text_box_overlapping_fill_and_hole.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/hatch_text_box_overlapping_fill_and_hole.dxf) |
+| [robustness/mozman--ezdxf/9567a76e-hatches_1.dxf](robustness/mozman--ezdxf/9567a76e-hatches_1.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/hatches_1.dxf) |
+| [robustness/mozman--ezdxf/dfbe96e8-hatches_2.dxf](robustness/mozman--ezdxf/dfbe96e8-hatches_2.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/hatches_2.dxf) |
+| [robustness/mozman--ezdxf/02a4d536-images.dxf](robustness/mozman--ezdxf/02a4d536-images.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/image/images.dxf) |
+| [robustness/mozman--ezdxf/37d59a0c-viewports.dxf](robustness/mozman--ezdxf/37d59a0c-viewports.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/image/viewports.dxf) |
+| [robustness/mozman--ezdxf/6c7c8c86-insert_bricscad_level_1.dxf](robustness/mozman--ezdxf/6c7c8c86-insert_bricscad_level_1.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/insert_bricscad_level_1.dxf) |
+| [robustness/mozman--ezdxf/60656b28-mtext_columns_R2000.dxf](robustness/mozman--ezdxf/60656b28-mtext_columns_R2000.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/mtext_columns_R2000.dxf) |
+| [robustness/mozman--ezdxf/ae9ba21d-mtext_columns_R2007.dxf](robustness/mozman--ezdxf/ae9ba21d-mtext_columns_R2007.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/mtext_columns_R2007.dxf) |
+| [robustness/mozman--ezdxf/976e950d-mtext_columns_R2018.dxf](robustness/mozman--ezdxf/976e950d-mtext_columns_R2018.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/mtext_columns_R2018.dxf) |
+| [robustness/mozman--ezdxf/6ac63a88-mtext_complex_inline_codes.dxf](robustness/mozman--ezdxf/6ac63a88-mtext_complex_inline_codes.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/mtext_complex_inline_codes.dxf) |
+| [robustness/mozman--ezdxf/df1c1857-multi_insert_with_attribs.dxf](robustness/mozman--ezdxf/df1c1857-multi_insert_with_attribs.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/multi_insert_with_attribs.dxf) |
+| [robustness/mozman--ezdxf/26a25c01-text.dxf](robustness/mozman--ezdxf/26a25c01-text.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text.dxf) |
+| [robustness/mozman--ezdxf/31bc8c12-text_alignments.dxf](robustness/mozman--ezdxf/31bc8c12-text_alignments.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_alignments.dxf) |
+| [robustness/mozman--ezdxf/804e4106-text_fonts.dxf](robustness/mozman--ezdxf/804e4106-text_fonts.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_fonts.dxf) |
+| [robustness/mozman--ezdxf/04a4eee4-text_in_viewports.dxf](robustness/mozman--ezdxf/04a4eee4-text_in_viewports.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_in_viewports.dxf) |
+| [robustness/mozman--ezdxf/fd4cd01c-text_mirror_shx_font.dxf](robustness/mozman--ezdxf/fd4cd01c-text_mirror_shx_font.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_mirror_shx_font.dxf) |
+| [robustness/mozman--ezdxf/59139d3f-text_mirror_true_type_font.dxf](robustness/mozman--ezdxf/59139d3f-text_mirror_true_type_font.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_mirror_true_type_font.dxf) |
+| [robustness/mozman--ezdxf/08ea48ac-text_negative_extrusion.dxf](robustness/mozman--ezdxf/08ea48ac-text_negative_extrusion.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_negative_extrusion.dxf) |
+| [robustness/mozman--ezdxf/40d79974-text_oblique_rotate.dxf](robustness/mozman--ezdxf/40d79974-text_oblique_rotate.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_oblique_rotate.dxf) |
+| [robustness/mozman--ezdxf/7791ccdd-text_stacked_shx_font.dxf](robustness/mozman--ezdxf/7791ccdd-text_stacked_shx_font.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_stacked_shx_font.dxf) |
+| [robustness/mozman--ezdxf/94e7c525-text_stacked_true_type_font.dxf](robustness/mozman--ezdxf/94e7c525-text_stacked_true_type_font.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/text_stacked_true_type_font.dxf) |
+| [robustness/mozman--ezdxf/0a3aea3a-transform_hatch_pattern.dxf](robustness/mozman--ezdxf/0a3aea3a-transform_hatch_pattern.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/transform_hatch_pattern.dxf) |
+| [robustness/mozman--ezdxf/f0c99083-uncommon.dxf](robustness/mozman--ezdxf/f0c99083-uncommon.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/uncommon.dxf) |
+| [robustness/mozman--ezdxf/a1fa9201-valid_lineweights.dxf](robustness/mozman--ezdxf/a1fa9201-valid_lineweights.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/valid_lineweights.dxf) |
+| [robustness/mozman--ezdxf/c1abbdba-viewport_frozen_layers.dxf](robustness/mozman--ezdxf/c1abbdba-viewport_frozen_layers.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/viewport_frozen_layers.dxf) |
+| [robustness/mozman--ezdxf/a05a4928-visibility.dxf](robustness/mozman--ezdxf/a05a4928-visibility.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/visibility.dxf) |
+| [robustness/mozman--ezdxf/39598bb7-wipeout_door.dxf](robustness/mozman--ezdxf/39598bb7-wipeout_door.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/wipeout_door.dxf) |
+| [robustness/mozman--ezdxf/34f24874-wipeout_random.dxf](robustness/mozman--ezdxf/34f24874-wipeout_random.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/wipeout_random.dxf) |
+| [robustness/mozman--ezdxf/286f1b3a-xclip.dxf](robustness/mozman--ezdxf/286f1b3a-xclip.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/examples_dxf/xclip.dxf) |
+| [robustness/mozman--ezdxf/40dbee05-AC1003_LINE_Example.dxf](robustness/mozman--ezdxf/40dbee05-AC1003_LINE_Example.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/AC1003_LINE_Example.dxf) |
+| [robustness/mozman--ezdxf/3acaa38a-ASCII_R12.dxf](robustness/mozman--ezdxf/3acaa38a-ASCII_R12.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/ASCII_R12.dxf) |
+| [robustness/mozman--ezdxf/7d71a234-Leica_Disto_S910.dxf](robustness/mozman--ezdxf/7d71a234-Leica_Disto_S910.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/Leica_Disto_S910.dxf) |
+| [robustness/mozman--ezdxf/aaf150d9-MODEL.dxf](robustness/mozman--ezdxf/aaf150d9-MODEL.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/MODEL.dxf) |
+| [robustness/mozman--ezdxf/e0914282-POLI-ALL210_12.DXF](robustness/mozman--ezdxf/e0914282-POLI-ALL210_12.DXF) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/POLI-ALL210_12.DXF) |
+| [robustness/mozman--ezdxf/f9622175-R12_with_trash_beyond_EOF.dxf](robustness/mozman--ezdxf/f9622175-R12_with_trash_beyond_EOF.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/R12_with_trash_beyond_EOF.dxf) |
+| [robustness/mozman--ezdxf/c28927bd-acad_table_with_blk_ref.dxf](robustness/mozman--ezdxf/c28927bd-acad_table_with_blk_ref.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/acad_table_with_blk_ref.dxf) |
+| [robustness/mozman--ezdxf/6c5da404-bin_dxf_r12.dxf](robustness/mozman--ezdxf/6c5da404-bin_dxf_r12.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/bin_dxf_r12.dxf) |
+| [robustness/mozman--ezdxf/b763bcc7-bin_dxf_r13.dxf](robustness/mozman--ezdxf/b763bcc7-bin_dxf_r13.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/bin_dxf_r13.dxf) |
+| [robustness/mozman--ezdxf/9bb5b1e1-bin_dxf_r14.dxf](robustness/mozman--ezdxf/9bb5b1e1-bin_dxf_r14.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/bin_dxf_r14.dxf) |
+| [robustness/mozman--ezdxf/039cc900-bin_dxf_r2000.dxf](robustness/mozman--ezdxf/039cc900-bin_dxf_r2000.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/bin_dxf_r2000.dxf) |
+| [robustness/mozman--ezdxf/1143eb8c-cc_dxflib.dxf](robustness/mozman--ezdxf/1143eb8c-cc_dxflib.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/cc_dxflib.dxf) |
+| [robustness/mozman--ezdxf/4ef9f68a-custom_blocks.dxf](robustness/mozman--ezdxf/4ef9f68a-custom_blocks.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/custom_blocks.dxf) |
+| [robustness/mozman--ezdxf/de44548e-duplicate_handles.dxf](robustness/mozman--ezdxf/de44548e-duplicate_handles.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/duplicate_handles.dxf) |
+| [robustness/mozman--ezdxf/6c690a2b-dxf_unicode.dxf](robustness/mozman--ezdxf/6c690a2b-dxf_unicode.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/dxf_unicode.dxf) |
+| [robustness/mozman--ezdxf/672c2029-empty_handles.dxf](robustness/mozman--ezdxf/672c2029-empty_handles.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/empty_handles.dxf) |
+| [robustness/mozman--ezdxf/f8c9e44f-groups.dxf](robustness/mozman--ezdxf/f8c9e44f-groups.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/groups.dxf) |
+| [robustness/mozman--ezdxf/062d7ea0-issue1106.dxf](robustness/mozman--ezdxf/062d7ea0-issue1106.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/issue1106.dxf) |
+| [robustness/mozman--ezdxf/7c7850d4-issue_1359_1.dxf](robustness/mozman--ezdxf/7c7850d4-issue_1359_1.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/issue_1359_1.dxf) |
+| [robustness/mozman--ezdxf/c833a450-issue_1359_2.dxf](robustness/mozman--ezdxf/c833a450-issue_1359_2.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/issue_1359_2.dxf) |
+| [robustness/mozman--ezdxf/a53b2420-layout_broken_links.dxf](robustness/mozman--ezdxf/a53b2420-layout_broken_links.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/layout_broken_links.dxf) |
+| [robustness/mozman--ezdxf/1db39235-layout_broken_links_2.dxf](robustness/mozman--ezdxf/1db39235-layout_broken_links_2.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/layout_broken_links_2.dxf) |
+| [robustness/mozman--ezdxf/227fece6-layout_missing_block_definition.dxf](robustness/mozman--ezdxf/227fece6-layout_missing_block_definition.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/layout_missing_block_definition.dxf) |
+| [robustness/mozman--ezdxf/4a12e36e-layout_missing_block_record.dxf](robustness/mozman--ezdxf/4a12e36e-layout_missing_block_record.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/layout_missing_block_record.dxf) |
+| [robustness/mozman--ezdxf/34b5af9b-mtext_columns_R2007.dxf](robustness/mozman--ezdxf/34b5af9b-mtext_columns_R2007.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/mtext_columns_R2007.dxf) |
+| [robustness/mozman--ezdxf/dcf70f49-mtext_columns_R2018.dxf](robustness/mozman--ezdxf/dcf70f49-mtext_columns_R2018.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/mtext_columns_R2018.dxf) |
+| [robustness/mozman--ezdxf/04d3a1a9-mtext_framed_columns.dxf](robustness/mozman--ezdxf/04d3a1a9-mtext_framed_columns.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/mtext_framed_columns.dxf) |
+| [robustness/mozman--ezdxf/64f950e8-mtext_text_frame.dxf](robustness/mozman--ezdxf/64f950e8-mtext_text_frame.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/mtext_text_frame.dxf) |
+| [robustness/mozman--ezdxf/ac4b806d-no_layouts.dxf](robustness/mozman--ezdxf/ac4b806d-no_layouts.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/no_layouts.dxf) |
+| [robustness/mozman--ezdxf/3d7bcec5-r12_blocks_with_no_names.dxf](robustness/mozman--ezdxf/3d7bcec5-r12_blocks_with_no_names.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/r12_blocks_with_no_names.dxf) |
+| [robustness/mozman--ezdxf/2dcf9372-r2000_blocks_with_no_name_and_no_block_record.dxf](robustness/mozman--ezdxf/2dcf9372-r2000_blocks_with_no_name_and_no_block_record.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/r2000_blocks_with_no_name_and_no_block_record.dxf) |
+| [robustness/mozman--ezdxf/1bf96a71-r2000_blocks_with_no_names.dxf](robustness/mozman--ezdxf/1bf96a71-r2000_blocks_with_no_names.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/r2000_blocks_with_no_names.dxf) |
+| [robustness/mozman--ezdxf/8b5b6af6-recover01.dxf](robustness/mozman--ezdxf/8b5b6af6-recover01.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/recover01.dxf) |
+| [robustness/mozman--ezdxf/423880b0-recover02.dxf](robustness/mozman--ezdxf/423880b0-recover02.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/recover02.dxf) |
+| [robustness/mozman--ezdxf/98681293-small_r13.dxf](robustness/mozman--ezdxf/98681293-small_r13.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/small_r13.dxf) |
+| [robustness/mozman--ezdxf/06616530-small_r14.dxf](robustness/mozman--ezdxf/06616530-small_r14.dxf) | [source](https://github.com/mozman/ezdxf/blob/7c64bce52c9d60b9db2dad4d2793c1168c8d3f64/integration_tests/data/small_r14.dxf) |
+
+## OSGeo/gdal
+
+Licence: **MIT**. Attribution: GDAL/OGR contributors.
+
+Revision: `31a761c30f03fbbcea81ce8c347754984914db5a`. Root GDAL/OGR General MIT-style grant applies to autotest/ogr/data/dxf; no DXF/autotest override in the collected licence inventory. Full notices retained.
+
+- [Licence evidence](licences/osgeo--gdal/LICENSE.TXT) ([upstream](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/LICENSE.TXT)).
+
+| File | Original |
+| --- | --- |
+| [robustness/osgeo--gdal/de688f06-3d.dxf](robustness/osgeo--gdal/de688f06-3d.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/3d.dxf) |
+| [robustness/osgeo--gdal/b5dc52b9-3dface.dxf](robustness/osgeo--gdal/b5dc52b9-3dface.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/3dface.dxf) |
+| [robustness/osgeo--gdal/cc2e98ce-BINARY_wipeout.dxf](robustness/osgeo--gdal/cc2e98ce-BINARY_wipeout.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/BINARY_wipeout.dxf) |
+| [robustness/osgeo--gdal/5cae472e-LWPOLYLINE-OCS.dxf](robustness/osgeo--gdal/5cae472e-LWPOLYLINE-OCS.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/LWPOLYLINE-OCS.dxf) |
+| [robustness/osgeo--gdal/a68190a0-additional-entities.dxf](robustness/osgeo--gdal/a68190a0-additional-entities.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/additional-entities.dxf) |
+| [robustness/osgeo--gdal/43c37672-assorted.dxf](robustness/osgeo--gdal/43c37672-assorted.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/assorted.dxf) |
+| [robustness/osgeo--gdal/a43bbe9c-attrib-nested.dxf](robustness/osgeo--gdal/a43bbe9c-attrib-nested.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/attrib-nested.dxf) |
+| [robustness/osgeo--gdal/262793e7-attrib.dxf](robustness/osgeo--gdal/262793e7-attrib.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/attrib.dxf) |
+| [robustness/osgeo--gdal/a88cb979-bin_dxf_r12.dxf](robustness/osgeo--gdal/a88cb979-bin_dxf_r12.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/bin_dxf_r12.dxf) |
+| [robustness/osgeo--gdal/2c96d659-bin_dxf_r2000.dxf](robustness/osgeo--gdal/2c96d659-bin_dxf_r2000.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/bin_dxf_r2000.dxf) |
+| [robustness/osgeo--gdal/53416c9e-block-basepoint.dxf](robustness/osgeo--gdal/53416c9e-block-basepoint.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/block-basepoint.dxf) |
+| [robustness/osgeo--gdal/578994b2-block-hidden-entities.dxf](robustness/osgeo--gdal/578994b2-block-hidden-entities.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/block-hidden-entities.dxf) |
+| [robustness/osgeo--gdal/c4da4793-block-insert-order.dxf](robustness/osgeo--gdal/c4da4793-block-insert-order.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/block-insert-order.dxf) |
+| [robustness/osgeo--gdal/47583c04-byblock-bylayer-new.dxf](robustness/osgeo--gdal/47583c04-byblock-bylayer-new.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/byblock-bylayer-new.dxf) |
+| [robustness/osgeo--gdal/58969dcf-byblock-bylayer.dxf](robustness/osgeo--gdal/58969dcf-byblock-bylayer.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/byblock-bylayer.dxf) |
+| [robustness/osgeo--gdal/53e2330e-circle.dxf](robustness/osgeo--gdal/53e2330e-circle.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/circle.dxf) |
+| [robustness/osgeo--gdal/564d2559-closed_polyline_with_bulge.dxf](robustness/osgeo--gdal/564d2559-closed_polyline_with_bulge.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/closed_polyline_with_bulge.dxf) |
+| [robustness/osgeo--gdal/6d2eda7a-clusterfuzz-testcase-minimized-dxf_fuzzer-5400376672124928.dxf](robustness/osgeo--gdal/6d2eda7a-clusterfuzz-testcase-minimized-dxf_fuzzer-5400376672124928.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/clusterfuzz-testcase-minimized-dxf_fuzzer-5400376672124928.dxf) |
+| [robustness/osgeo--gdal/6dad40de-clusterfuzz-testcase-minimized-shape_fuzzer-6126814756995072.dxf](robustness/osgeo--gdal/6dad40de-clusterfuzz-testcase-minimized-shape_fuzzer-6126814756995072.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/clusterfuzz-testcase-minimized-shape_fuzzer-6126814756995072.dxf) |
+| [robustness/osgeo--gdal/a90ec7c1-dimension-entities-only.dxf](robustness/osgeo--gdal/a90ec7c1-dimension-entities-only.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/dimension-entities-only.dxf) |
+| [robustness/osgeo--gdal/5844ef26-dimension.dxf](robustness/osgeo--gdal/5844ef26-dimension.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/dimension.dxf) |
+| [robustness/osgeo--gdal/28cef02d-ellipse_z_extrusion_minus_1.dxf](robustness/osgeo--gdal/28cef02d-ellipse_z_extrusion_minus_1.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/ellipse_z_extrusion_minus_1.dxf) |
+| [robustness/osgeo--gdal/b1e560da-elliptical-arc-hatch-min.dxf](robustness/osgeo--gdal/b1e560da-elliptical-arc-hatch-min.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/elliptical-arc-hatch-min.dxf) |
+| [robustness/osgeo--gdal/422798bb-entities_only.dxf](robustness/osgeo--gdal/422798bb-entities_only.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/entities_only.dxf) |
+| [robustness/osgeo--gdal/d336c9e2-frozen-off.dxf](robustness/osgeo--gdal/d336c9e2-frozen-off.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/frozen-off.dxf) |
+| [robustness/osgeo--gdal/c4a91058-hatch.dxf](robustness/osgeo--gdal/c4a91058-hatch.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/hatch.dxf) |
+| [robustness/osgeo--gdal/19ed1da3-hatch_as_multipolygon.dxf](robustness/osgeo--gdal/19ed1da3-hatch_as_multipolygon.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/hatch_as_multipolygon.dxf) |
+| [robustness/osgeo--gdal/db9f3d06-hatch_pattern_generated_by_gdal.dxf](robustness/osgeo--gdal/db9f3d06-hatch_pattern_generated_by_gdal.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/hatch_pattern_generated_by_gdal.dxf) |
+| [robustness/osgeo--gdal/f01a01cf-header_extended.dxf](robustness/osgeo--gdal/f01a01cf-header_extended.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/header_extended.dxf) |
+| [robustness/osgeo--gdal/f05c2a7b-insert-recursive-pair.dxf](robustness/osgeo--gdal/f05c2a7b-insert-recursive-pair.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/insert-recursive-pair.dxf) |
+| [robustness/osgeo--gdal/c6da9e62-insert-too-many-errors.dxf](robustness/osgeo--gdal/c6da9e62-insert-too-many-errors.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/insert-too-many-errors.dxf) |
+| [robustness/osgeo--gdal/c7f80e29-insert_only.dxf](robustness/osgeo--gdal/c7f80e29-insert_only.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/insert_only.dxf) |
+| [robustness/osgeo--gdal/900cfc54-insert_only_col_count_zero.dxf](robustness/osgeo--gdal/900cfc54-insert_only_col_count_zero.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/insert_only_col_count_zero.dxf) |
+| [robustness/osgeo--gdal/56923ba6-leader-mleader.dxf](robustness/osgeo--gdal/56923ba6-leader-mleader.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/leader-mleader.dxf) |
+| [robustness/osgeo--gdal/a4c9979e-linetypes.dxf](robustness/osgeo--gdal/a4c9979e-linetypes.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/linetypes.dxf) |
+| [robustness/osgeo--gdal/93c5b97b-lwpolyline_smooth.dxf](robustness/osgeo--gdal/93c5b97b-lwpolyline_smooth.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/lwpolyline_smooth.dxf) |
+| [robustness/osgeo--gdal/9f4840be-mtext-ocs-reduced.dxf](robustness/osgeo--gdal/9f4840be-mtext-ocs-reduced.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/mtext-ocs-reduced.dxf) |
+| [robustness/osgeo--gdal/224bf07d-ocs2wcs1.dxf](robustness/osgeo--gdal/224bf07d-ocs2wcs1.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/ocs2wcs1.dxf) |
+| [robustness/osgeo--gdal/275932f4-ocs2wcs2.dxf](robustness/osgeo--gdal/275932f4-ocs2wcs2.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/ocs2wcs2.dxf) |
+| [robustness/osgeo--gdal/cabaf30a-ocs2wcs3.dxf](robustness/osgeo--gdal/cabaf30a-ocs2wcs3.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/ocs2wcs3.dxf) |
+| [robustness/osgeo--gdal/c5fc3f48-polyline_smooth.dxf](robustness/osgeo--gdal/c5fc3f48-polyline_smooth.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/polyline_smooth.dxf) |
+| [robustness/osgeo--gdal/12d807d5-solid-less-than-4-vertices.dxf](robustness/osgeo--gdal/12d807d5-solid-less-than-4-vertices.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/solid-less-than-4-vertices.dxf) |
+| [robustness/osgeo--gdal/93fceb48-solid-vertex-ordering.dxf](robustness/osgeo--gdal/93fceb48-solid-vertex-ordering.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/solid-vertex-ordering.dxf) |
+| [robustness/osgeo--gdal/3909bc40-solid.dxf](robustness/osgeo--gdal/3909bc40-solid.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/solid.dxf) |
+| [robustness/osgeo--gdal/113da2a6-spline_closed.dxf](robustness/osgeo--gdal/113da2a6-spline_closed.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/spline_closed.dxf) |
+| [robustness/osgeo--gdal/eb8bd4a4-spline_qcad.dxf](robustness/osgeo--gdal/eb8bd4a4-spline_qcad.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/spline_qcad.dxf) |
+| [robustness/osgeo--gdal/26df4827-spline_weight.dxf](robustness/osgeo--gdal/26df4827-spline_weight.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/spline_weight.dxf) |
+| [robustness/osgeo--gdal/4cd24359-spline_with_very_close_neg_to_zero_knot.dxf](robustness/osgeo--gdal/4cd24359-spline_with_very_close_neg_to_zero_knot.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/spline_with_very_close_neg_to_zero_knot.dxf) |
+| [robustness/osgeo--gdal/6cfac937-text-block-transform.dxf](robustness/osgeo--gdal/6cfac937-text-block-transform.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/text-block-transform.dxf) |
+| [robustness/osgeo--gdal/b2202340-text-fancy.dxf](robustness/osgeo--gdal/b2202340-text-fancy.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/text-fancy.dxf) |
+| [robustness/osgeo--gdal/0f23e4f4-text.dxf](robustness/osgeo--gdal/0f23e4f4-text.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/text.dxf) |
+| [robustness/osgeo--gdal/de3aa97c-transparency.dxf](robustness/osgeo--gdal/de3aa97c-transparency.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/transparency.dxf) |
+| [robustness/osgeo--gdal/3e3780d9-utf-8.dxf](robustness/osgeo--gdal/3e3780d9-utf-8.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/utf-8.dxf) |
+| [robustness/osgeo--gdal/b68545b6-wipeout.dxf](robustness/osgeo--gdal/b68545b6-wipeout.dxf) | [source](https://github.com/OSGeo/gdal/blob/31a761c30f03fbbcea81ce8c347754984914db5a/autotest/ogr/data/dxf/wipeout.dxf) |
+
+## DomCR/ACadSharp
+
+Licence: **MIT**. Attribution: Albert Domenech (2021).
+
+Revision: `e485410a727e0665c3f07c7eedbd8426ae9c3e5e`. Root MIT notice covers the sample drawings; no nested licence overrides.
+
+- [Licence evidence](licences/domcr--acadsharp/LICENSE) ([upstream](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/LICENSE)).
+
+| File | Original |
+| --- | --- |
+| [robustness/domcr--acadsharp/7f024f03-BLOCKALIGNMENTPARAMETER.dxf](robustness/domcr--acadsharp/7f024f03-BLOCKALIGNMENTPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKALIGNMENTPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/b28f6dd1-BLOCKBASEPOINTPARAMETER.dxf](robustness/domcr--acadsharp/b28f6dd1-BLOCKBASEPOINTPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKBASEPOINTPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/971ccfdd-BLOCKFLIPPARAMETER.dxf](robustness/domcr--acadsharp/971ccfdd-BLOCKFLIPPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKFLIPPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/f8f623a4-BLOCKLINEARPARAMETER.dxf](robustness/domcr--acadsharp/f8f623a4-BLOCKLINEARPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKLINEARPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/7c78eb5f-BLOCKLOOKUPPARAMETER.dxf](robustness/domcr--acadsharp/7c78eb5f-BLOCKLOOKUPPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKLOOKUPPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/2e9a725b-BLOCKPOINTPARAMETER.dxf](robustness/domcr--acadsharp/2e9a725b-BLOCKPOINTPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKPOINTPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/3dab12de-BLOCKPOLARPARAMETER.dxf](robustness/domcr--acadsharp/3dab12de-BLOCKPOLARPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKPOLARPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/291b16d1-BLOCKROTATIONPARAMETER.dxf](robustness/domcr--acadsharp/291b16d1-BLOCKROTATIONPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKROTATIONPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/48c56896-BLOCKVISIBILITYPARAMETER.dxf](robustness/domcr--acadsharp/48c56896-BLOCKVISIBILITYPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKVISIBILITYPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/2824c51a-BLOCKXYPARAMETER.dxf](robustness/domcr--acadsharp/2824c51a-BLOCKXYPARAMETER.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/dynamic-blocks/BLOCKXYPARAMETER.dxf) |
+| [robustness/domcr--acadsharp/10018af6-geoloc.dxf](robustness/domcr--acadsharp/10018af6-geoloc.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/geolocation/geoloc.dxf) |
+| [robustness/domcr--acadsharp/8ab91121-geoloc_AC1021.dxf](robustness/domcr--acadsharp/8ab91121-geoloc_AC1021.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/geolocation/geoloc_AC1021.dxf) |
+| [robustness/domcr--acadsharp/c19080e2-sample_AC1009_ascii.dxf](robustness/domcr--acadsharp/c19080e2-sample_AC1009_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1009_ascii.dxf) |
+| [robustness/domcr--acadsharp/db184649-sample_AC1009_binary.dxf](robustness/domcr--acadsharp/db184649-sample_AC1009_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1009_binary.dxf) |
+| [robustness/domcr--acadsharp/305f180b-sample_AC1015_ascii.dxf](robustness/domcr--acadsharp/305f180b-sample_AC1015_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1015_ascii.dxf) |
+| [robustness/domcr--acadsharp/3469ef9c-sample_AC1015_binary.dxf](robustness/domcr--acadsharp/3469ef9c-sample_AC1015_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1015_binary.dxf) |
+| [robustness/domcr--acadsharp/1bdfa3a4-sample_AC1018_ascii.dxf](robustness/domcr--acadsharp/1bdfa3a4-sample_AC1018_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1018_ascii.dxf) |
+| [robustness/domcr--acadsharp/45079e94-sample_AC1018_binary.dxf](robustness/domcr--acadsharp/45079e94-sample_AC1018_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1018_binary.dxf) |
+| [robustness/domcr--acadsharp/c9c12856-sample_AC1021_ascii.dxf](robustness/domcr--acadsharp/c9c12856-sample_AC1021_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1021_ascii.dxf) |
+| [robustness/domcr--acadsharp/3a92596d-sample_AC1021_binary.dxf](robustness/domcr--acadsharp/3a92596d-sample_AC1021_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1021_binary.dxf) |
+| [robustness/domcr--acadsharp/87c56140-sample_AC1024_ascii.dxf](robustness/domcr--acadsharp/87c56140-sample_AC1024_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1024_ascii.dxf) |
+| [robustness/domcr--acadsharp/8fa57635-sample_AC1024_binary.dxf](robustness/domcr--acadsharp/8fa57635-sample_AC1024_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1024_binary.dxf) |
+| [robustness/domcr--acadsharp/ec72b980-sample_AC1027_ascii.dxf](robustness/domcr--acadsharp/ec72b980-sample_AC1027_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1027_ascii.dxf) |
+| [robustness/domcr--acadsharp/d2db9fc0-sample_AC1027_binary.dxf](robustness/domcr--acadsharp/d2db9fc0-sample_AC1027_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1027_binary.dxf) |
+| [robustness/domcr--acadsharp/15d6d283-sample_AC1032_ascii.dxf](robustness/domcr--acadsharp/15d6d283-sample_AC1032_ascii.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1032_ascii.dxf) |
+| [robustness/domcr--acadsharp/8a95c9af-sample_AC1032_binary.dxf](robustness/domcr--acadsharp/8a95c9af-sample_AC1032_binary.dxf) | [source](https://github.com/DomCR/ACadSharp/blob/e485410a727e0665c3f07c7eedbd8426ae9c3e5e/samples/sample_AC1032_binary.dxf) |
+
+## gdsestimating/dxf-parser
+
+Licence: **MIT**. Attribution: GDS Storefront Estimating (2015).
+
+Revision: `0df7a37a4207a1f925b8d0bfffc270ff121446b4`. Root MIT notice covers sample/test drawings; no nested licence overrides.
+
+- [Licence evidence](licences/gdsestimating--dxf-parser/LICENSE) ([upstream](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/LICENSE)).
+
+| File | Original |
+| --- | --- |
+| [robustness/gdsestimating--dxf-parser/adf4878a-api-cw750-details.dxf](robustness/gdsestimating--dxf-parser/adf4878a-api-cw750-details.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/samples/data/api-cw750-details.dxf) |
+| [robustness/gdsestimating--dxf-parser/f039f42c-arc1.dxf](robustness/gdsestimating--dxf-parser/f039f42c-arc1.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/arc1.dxf) |
+| [robustness/gdsestimating--dxf-parser/83543a84-arcs-as-splines.dxf](robustness/gdsestimating--dxf-parser/83543a84-arcs-as-splines.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/arcs-as-splines.dxf) |
+| [robustness/gdsestimating--dxf-parser/2b196c95-blocks.dxf](robustness/gdsestimating--dxf-parser/2b196c95-blocks.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/blocks.dxf) |
+| [robustness/gdsestimating--dxf-parser/a74d2b96-blocks2.dxf](robustness/gdsestimating--dxf-parser/a74d2b96-blocks2.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/blocks2.dxf) |
+| [robustness/gdsestimating--dxf-parser/8510e5ec-ellipse.dxf](robustness/gdsestimating--dxf-parser/8510e5ec-ellipse.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/ellipse.dxf) |
+| [robustness/gdsestimating--dxf-parser/774464d0-extendeddata.dxf](robustness/gdsestimating--dxf-parser/774464d0-extendeddata.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/extendeddata.dxf) |
+| [robustness/gdsestimating--dxf-parser/0240945f-header.dxf](robustness/gdsestimating--dxf-parser/0240945f-header.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/header.dxf) |
+| [robustness/gdsestimating--dxf-parser/9216a755-mleader.dxf](robustness/gdsestimating--dxf-parser/9216a755-mleader.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/mleader.dxf) |
+| [robustness/gdsestimating--dxf-parser/5930068e-mtext-test.dxf](robustness/gdsestimating--dxf-parser/5930068e-mtext-test.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/mtext-test.dxf) |
+| [robustness/gdsestimating--dxf-parser/25284e7d-polylines.dxf](robustness/gdsestimating--dxf-parser/25284e7d-polylines.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/polylines.dxf) |
+| [robustness/gdsestimating--dxf-parser/5ee48467-splines.dxf](robustness/gdsestimating--dxf-parser/5ee48467-splines.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/splines.dxf) |
+| [robustness/gdsestimating--dxf-parser/50068ae5-tables.dxf](robustness/gdsestimating--dxf-parser/50068ae5-tables.dxf) | [source](https://github.com/gdsestimating/dxf-parser/blob/0df7a37a4207a1f925b8d0bfffc270ff121446b4/test/data/tables.dxf) |
+
+## CadQuery/cadquery
+
+Licence: **Apache-2.0**. Attribution: CadQuery Development Team.
+
+Revision: `5f5bc62b255f62e3512105740025361b6c31eddd`. Root Apache-2.0 notice applies to tests/testdata; separately licensed logo font is excluded.
+
+- [Licence evidence](licences/cadquery--cadquery/LICENSE) ([upstream](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/LICENSE)).
+
+| File | Original |
+| --- | --- |
+| [robustness/cadquery--cadquery/a1d49883-1001.dxf](robustness/cadquery--cadquery/a1d49883-1001.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/1001.dxf) |
+| [robustness/cadquery--cadquery/038b9baa-MC-12x31.dxf](robustness/cadquery--cadquery/038b9baa-MC-12x31.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/MC%2012x31.dxf) |
+| [robustness/cadquery--cadquery/f33c64ef-gear.dxf](robustness/cadquery--cadquery/f33c64ef-gear.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/gear.dxf) |
+| [robustness/cadquery--cadquery/f4c86454-genshi.dxf](robustness/cadquery--cadquery/f4c86454-genshi.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/genshi.dxf) |
+| [robustness/cadquery--cadquery/7d5f93da-rational_spline.dxf](robustness/cadquery--cadquery/7d5f93da-rational_spline.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/rational_spline.dxf) |
+| [robustness/cadquery--cadquery/dcf250bc-spline.dxf](robustness/cadquery--cadquery/dcf250bc-spline.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/spline.dxf) |
+| [robustness/cadquery--cadquery/c40605f1-three_layers.dxf](robustness/cadquery--cadquery/c40605f1-three_layers.dxf) | [source](https://github.com/CadQuery/cadquery/blob/5f5bc62b255f62e3512105740025361b6c31eddd/tests/testdata/three_layers.dxf) |
+
+## Native LightBurn derivatives
+
+These are modified test derivatives saved/exported by LightBurn 2.1.01
+in the hidden Anode desktop. Each retains its source design licence.
+Modifications: duplicate and reposition the source design, add an original
+Nestbolt feature coupon (text, shared bitmaps, score/engrave layers, kerf,
+lead settings and a start point), then save/export. The original MIT
+coupon is included under each derivative's stated licence.
+The [recipe](native/recipe.json) and [native manifest](native/manifest.json)
+record sources, modifications, writer evidence and hashes.
+
+| File | Licence | Original / attribution |
+| --- | --- | --- |
+| [native/lb-01.lbrn2](native/lb-01.lbrn2) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf) — author notices in its source section above |
+| [native/lb-01.dxf](native/lb-01.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf) — author notices in its source section above |
+| [native/lb-01.svg](native/lb-01.svg) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf) — author notices in its source section above |
+| [native/lb-01-lines.dxf](native/lb-01-lines.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/cd0234a3-01_Top_4mm.dxf) — author notices in its source section above |
+| [native/lb-02.lbrn2](native/lb-02.lbrn2) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf) — author notices in its source section above |
+| [native/lb-02.dxf](native/lb-02.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf) — author notices in its source section above |
+| [native/lb-02.svg](native/lb-02.svg) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf) — author notices in its source section above |
+| [native/lb-02-lines.dxf](native/lb-02-lines.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/6f0353aa-02_Up_2nd_2mm.dxf) — author notices in its source section above |
+| [native/lb-03.lbrn2](native/lb-03.lbrn2) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf) — author notices in its source section above |
+| [native/lb-03.dxf](native/lb-03.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf) — author notices in its source section above |
+| [native/lb-03.svg](native/lb-03.svg) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf) — author notices in its source section above |
+| [native/lb-03-lines.dxf](native/lb-03-lines.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/efc8cab1-03_Up_1st_2mm.dxf) — author notices in its source section above |
+| [native/lb-04.lbrn2](native/lb-04.lbrn2) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf) — author notices in its source section above |
+| [native/lb-04.dxf](native/lb-04.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf) — author notices in its source section above |
+| [native/lb-04.svg](native/lb-04.svg) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf) — author notices in its source section above |
+| [native/lb-04-lines.dxf](native/lb-04-lines.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf](real/rev1s10n--tri-hard-slab-v2/00e8bf6e-04_Down_2mm.dxf) — author notices in its source section above |
+| [native/lb-05.lbrn2](native/lb-05.lbrn2) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf) — author notices in its source section above |
+| [native/lb-05.dxf](native/lb-05.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf) — author notices in its source section above |
+| [native/lb-05.svg](native/lb-05.svg) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf) — author notices in its source section above |
+| [native/lb-05-lines.dxf](native/lb-05-lines.dxf) | CC-BY-4.0 | [real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf](real/rev1s10n--tri-hard-slab-v2/9fa1f4e8-05_Bottom_4mm.dxf) — author notices in its source section above |
+| [native/lb-06.lbrn2](native/lb-06.lbrn2) | CC-BY-SA-4.0 | [real/tahnok--lacc/913638fb-back.dxf](real/tahnok--lacc/913638fb-back.dxf) — author notices in its source section above |
+| [native/lb-06.dxf](native/lb-06.dxf) | CC-BY-SA-4.0 | [real/tahnok--lacc/913638fb-back.dxf](real/tahnok--lacc/913638fb-back.dxf) — author notices in its source section above |
+| [native/lb-06.svg](native/lb-06.svg) | CC-BY-SA-4.0 | [real/tahnok--lacc/913638fb-back.dxf](real/tahnok--lacc/913638fb-back.dxf) — author notices in its source section above |
+| [native/lb-07.lbrn2](native/lb-07.lbrn2) | CC-BY-SA-4.0 | [real/tahnok--lacc/41a48d30-bottom.dxf](real/tahnok--lacc/41a48d30-bottom.dxf) — author notices in its source section above |
+| [native/lb-07.dxf](native/lb-07.dxf) | CC-BY-SA-4.0 | [real/tahnok--lacc/41a48d30-bottom.dxf](real/tahnok--lacc/41a48d30-bottom.dxf) — author notices in its source section above |
+| [native/lb-07.svg](native/lb-07.svg) | CC-BY-SA-4.0 | [real/tahnok--lacc/41a48d30-bottom.dxf](real/tahnok--lacc/41a48d30-bottom.dxf) — author notices in its source section above |
+| [native/lb-08.lbrn2](native/lb-08.lbrn2) | CC-BY-SA-4.0 | [real/tahnok--lacc/a0dfd232-front.dxf](real/tahnok--lacc/a0dfd232-front.dxf) — author notices in its source section above |
+| [native/lb-08.dxf](native/lb-08.dxf) | CC-BY-SA-4.0 | [real/tahnok--lacc/a0dfd232-front.dxf](real/tahnok--lacc/a0dfd232-front.dxf) — author notices in its source section above |
+| [native/lb-08.svg](native/lb-08.svg) | CC-BY-SA-4.0 | [real/tahnok--lacc/a0dfd232-front.dxf](real/tahnok--lacc/a0dfd232-front.dxf) — author notices in its source section above |
+| [native/lb-09.lbrn2](native/lb-09.lbrn2) | CC-BY-SA-4.0 | [real/tahnok--lacc/13eb7081-side.dxf](real/tahnok--lacc/13eb7081-side.dxf) — author notices in its source section above |
+| [native/lb-09.dxf](native/lb-09.dxf) | CC-BY-SA-4.0 | [real/tahnok--lacc/13eb7081-side.dxf](real/tahnok--lacc/13eb7081-side.dxf) — author notices in its source section above |
+| [native/lb-09.svg](native/lb-09.svg) | CC-BY-SA-4.0 | [real/tahnok--lacc/13eb7081-side.dxf](real/tahnok--lacc/13eb7081-side.dxf) — author notices in its source section above |
+| [native/lb-10.lbrn2](native/lb-10.lbrn2) | CC-BY-SA-4.0 | [real/tahnok--lacc/f9821974-top.dxf](real/tahnok--lacc/f9821974-top.dxf) — author notices in its source section above |
+| [native/lb-10.dxf](native/lb-10.dxf) | CC-BY-SA-4.0 | [real/tahnok--lacc/f9821974-top.dxf](real/tahnok--lacc/f9821974-top.dxf) — author notices in its source section above |
+| [native/lb-10.svg](native/lb-10.svg) | CC-BY-SA-4.0 | [real/tahnok--lacc/f9821974-top.dxf](real/tahnok--lacc/f9821974-top.dxf) — author notices in its source section above |
+| [native/lb-11.lbrn2](native/lb-11.lbrn2) | MIT | [real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf) — author notices in its source section above |
+| [native/lb-11.dxf](native/lb-11.dxf) | MIT | [real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf) — author notices in its source section above |
+| [native/lb-11.svg](native/lb-11.svg) | MIT | [real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/daa393ea-SofleKeyboardBottomPlate_ShapeOnly.dxf) — author notices in its source section above |
+| [native/lb-12.lbrn2](native/lb-12.lbrn2) | MIT | [real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf) — author notices in its source section above |
+| [native/lb-12.dxf](native/lb-12.dxf) | MIT | [real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf) — author notices in its source section above |
+| [native/lb-12.svg](native/lb-12.svg) | MIT | [real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf](real/josefadamcik--soflekeyboard/777cc36c-SofleKeyboardTopPlate_ShapeOnly.dxf) — author notices in its source section above |
+| [native/lb-13.lbrn2](native/lb-13.lbrn2) | MIT | [real/josefadamcik--soflekeyboard/58b838e1-shape.dxf](real/josefadamcik--soflekeyboard/58b838e1-shape.dxf) — author notices in its source section above |
+| [native/lb-13.dxf](native/lb-13.dxf) | MIT | [real/josefadamcik--soflekeyboard/58b838e1-shape.dxf](real/josefadamcik--soflekeyboard/58b838e1-shape.dxf) — author notices in its source section above |
+| [native/lb-13.svg](native/lb-13.svg) | MIT | [real/josefadamcik--soflekeyboard/58b838e1-shape.dxf](real/josefadamcik--soflekeyboard/58b838e1-shape.dxf) — author notices in its source section above |
+| [native/lb-14.lbrn2](native/lb-14.lbrn2) | MIT | [real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf](real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf) — author notices in its source section above |
+| [native/lb-14.dxf](native/lb-14.dxf) | MIT | [real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf](real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf) — author notices in its source section above |
+| [native/lb-14.svg](native/lb-14.svg) | MIT | [real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf](real/josefadamcik--soflekeyboard/773d4973-SofleKeyboard-Eco2_User.dxf) — author notices in its source section above |
+| [native/lb-15.lbrn2](native/lb-15.lbrn2) | MIT | [real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf](real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf) — author notices in its source section above |
+| [native/lb-15.dxf](native/lb-15.dxf) | MIT | [real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf](real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf) — author notices in its source section above |
+| [native/lb-15.svg](native/lb-15.svg) | MIT | [real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf](real/josefadamcik--soflekeyboard/416437bc-sofle_pico_OLED_v3.4.dxf) — author notices in its source section above |
+| [native/feature-coupon-input.lbrn2](native/feature-coupon-input.lbrn2) | MIT | Original Nestbolt test geometry; repository MIT notice |
+| [native/tool-layer-enabled.lbrn2](native/tool-layer-enabled.lbrn2) | MIT | Original Nestbolt test geometry; repository MIT notice |

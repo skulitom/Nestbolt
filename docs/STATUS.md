@@ -10,7 +10,7 @@ due by 2026-11-06. Release and registry publication still require Artem's instru
 
 | Milestone | Weight | State / next requirement |
 | --- | ---: | --- |
-| N0 — Messy-file corpus | 15% | 74 real files from nine reviewed sources collected with source hashes and licence evidence; 25 full Fusion fingerprints. Labels, LightBurn derivatives, public samples, robustness/generated sets and frozen split still pending H1 |
+| N0 — Messy-file corpus | 15% | 74 real files from nine reviewed sources (25 full Fusion fingerprints), 50 native LightBurn outputs from 15 designs, 44 public LightBurn projects and 183 robustness fixtures collected with source hashes/licences. [Native collection checks pass](../benchmarks/results/n0-native-20261013.md); five native legacy line exports retain documented parser failures. Labels, generated habits and frozen split still pending H1 |
 | N1 — Import robustness | 25% | Pending H1; H2 requires import/fidelity/fuzz and all three surfaces |
 | N2 — LightBurn round-trip | 25% | [Local probes](LBRN2.md) establish origins, shared geometry/bitmaps, text, leads, StartV and layer sub-settings. Reader/writer and H3 pending |
 | N3 — Curve-heavy browser | 15% | Pending; H4 requires measured browser/native quality and scale |
