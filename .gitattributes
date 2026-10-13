@@ -4,6 +4,8 @@
 *.wasm binary
 # Native export evidence is hashed as saved by LightBurn, including CRLF.
 benchmarks/results/h2-lightburn-*/*.lbrn2 -text -whitespace
+benchmarks/results/h3-native-probe-*/*.lbrn2 -text -whitespace
+benchmarks/results/h3-native-probe-*/*.observation.txt -text -whitespace
 # Corpus hashes describe original bytes, including CAD-writer line endings and
 # whitespace. Never normalize licensed source files or native format probes.
 benchmarks/datasets/shop/real/** -text -whitespace

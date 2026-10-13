@@ -287,14 +287,16 @@ For cached Text, the reader applies the Text's transform chain to backup-local
 vertices. The cached BackupPath XForm matches that world transform in the native
 samples and must not be applied again. Applying the live Text chain also makes
 the inspection geometry follow a moved group without rewriting child XML.
-Actual native opening of nested output still needs the H3 writer check.
+The later controlled native writer probes below verify moved/rotated cached Text;
+the full H3 check on actual searched layouts remains pending.
 
 Eight older training projects contain 122 Text shapes without backups. The reader
 retains their XML, reports a native re-save instruction and marks their geometry
 incomplete; it does not invent bounds. Thus 48 projects have complete compared
 geometry, and full H3 reader acceptance remains open. This is a core inspection
-API and diagnostic example: nesting-unit construction, per-sheet preserving
-writes, UI/CLI/MCP integration and new native opening checks remain to be built.
+API and diagnostic example. The later checkpoints below add nesting units,
+per-sheet preserving writes and controlled native opening checks; UI/CLI/MCP
+integration and full H3 native acceptance remain pending.
 See [the complete checkpoint](../benchmarks/results/h3-reader-checkpoint-20261013.md).
 
 ## Unit assembly and preserving writer checkpoint — 2026-10-13
@@ -311,3 +313,33 @@ and the optional T1 outline change. Fixed content remains on every output.
 This is still a core API and diagnostic, with legacy conversion, actual search,
 public surfaces and native origin/settings checks pending. See the
 [complete writer checkpoint](../benchmarks/results/h3-writer-checkpoint-20261013.md).
+
+
+## Controlled native writer probes — 2026-10-13 UTC
+
+[Ten native checks](../benchmarks/results/h3-native-probe-20261013T224854Z.md)
+cover moved/rotated Text, a mirrored group, an isolated shared Bitmap copy,
+all four saved origin flags and two source-origin variants under a top-right
+device. Each opens without warning. Native fields differ from analytic placement
+by at most 0.004558 mm; independently converted native saves agree over 13 leaf
+shapes and 50 contours within 0.000499 mm.
+
+Text follows the live transform even when its BackupPath XForm remains stale.
+LightBurn refreshes that cache on Save As. The isolated second Bitmap renders
+with the re-homed Data, and its native saved Data is identical.
+
+Root origin flags are retained by Nestbolt. Opening either source-origin variant
+in the top-right device still shows the expected numeric position; the display
+reflects with the active device axes. Native Save As writes the active device's
+flags. A flag mismatch marks the project dirty without a warning. Thus placement
+coordinates must not receive another reflection merely from these root flags.
+This does not promise identical physical screen orientation across device origins.
+The original bottom-left device origin was restored and verified after testing.
+
+The product's XML diffs preserve all settings. Native Save As removes unused
+settings; in the bitmap-only file it also changes image-layer priority 3 to 0.
+That retained-settings mismatch remains explicit in the failing overall probe
+report, alongside all ten passing geometry checks. The native serializer is not
+the product's canonical preservation oracle. Full H3 still requires five actual
+searched projects, before/after cut-settings dialogues, complete reader coverage,
+legacy output and all three public surfaces.

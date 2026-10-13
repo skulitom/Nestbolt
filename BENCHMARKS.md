@@ -11921,3 +11921,21 @@ Workspace suite: 168 passed, one existing ignored test. Final focused stock test
 - [Original failure and exact shrunk input](benchmarks/results/ci-search-panic-20261013.json), [fix and evidence](benchmarks/results/ci-quadtree-fix-20261013.md). The job reproduces the Linux CI quadtree panic on Windows. The proposed bounds overlap the grid by 2.150572438 mm² while its actual outline has zero overlap and lies 0.125632298 mm outside (independent GEOS check of the captured outline).
 - The separator now preserves the current position if a proposed outline has no edge in the collision grid; fully contained bounds avoid an edge scan. The exact regression places and independently validates all three parts in debug and optimized builds. Both the shrunk case and original proptest seed are retained.
 - Local verification: 189 workspace tests pass, one existing test ignored; strict workspace Clippy, WASM core, formatting and notices pass. The published jagua-rs archive and all local registry files match Cargo.lock; no dependency was modified. Original panic and failed instrumentation build remain recorded. Source hash `8cf47a99029705ff28f986876cdd0c682cbe61af7e120964c95fa11624e6d15f`. Builds/tests on CCD1, independent geometry diagnostic on CCD0 logical CPU 8. No held-out geometry/labels used, no new quality claim, published v1 results unchanged. Cross-platform CI will re-run after push; v1.1 remains 15%.
+
+
+### 2026-10-13 UTC — Controlled native LightBurn writer probes (H3 development)
+
+[Report](benchmarks/results/h3-native-probe-20261013T224854Z.md),
+[measurements and hashes](benchmarks/results/h3-native-probe-20261013T224854Z/native-check.json).
+Eight explicit-placement outputs from original MIT probes, ten native opens:
+moved/rotated Text, mirrored group, isolated shared Bitmap, four saved origins
+and two source origins in a top-right device. All open without warnings. Maximum
+native UI difference 0.004558 mm; independent published MIT conversion of native
+saves passes 13 leaf shapes / 50 contours (64 samples each direction), maximum
+bound difference 0.000499 mm. Nestbolt retains all settings and cached child XML.
+Native Save As refreshes Text caches and removes unused settings; its bitmap-only
+save also renumbers priority 3 to 0. That mismatch remains a failure in the final
+JSON; the initial stricter full-settings failure is also retained. No full H3
+claim: these are controlled placements, not five searched projects or the required
+cut-settings dialogue comparison. Device origin/display restored, app closed,
+Anode lease released. No held-out geometry/labels used. Progress remains 15%.

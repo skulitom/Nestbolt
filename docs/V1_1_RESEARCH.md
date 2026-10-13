@@ -31,11 +31,23 @@ The published MIT converter double-applies the parent transform in these samples
 and skips several unsupported shape/sharing cases. See LBRN2.md before using it
 as an oracle; a converted SVG alone is not a completeness check.
 
+The [controlled preserving-writer probes](../benchmarks/results/h3-native-probe-20261013T224854Z.md)
+confirm moved and rotated editable Text follows its live transform despite an
+unchanged BackupPath cache; native Save As refreshes the cached world transform.
+A re-homed bitmap copy renders correctly. All four saved origin flag combinations
+keep the same numeric placement in a bottom-left device, and both source-origin
+variants tested in a top-right device retain those coordinates while the device
+axes reflect the display. Native Save As rewrites the flags to the active device.
+All ten geometry checks pass, but its bitmap-only save also renumbers image-layer
+priority from 3 to 0. That difference is retained; this is not full H3 acceptance.
+
 **Training-label discrepancy found during N1:** the apparent enclosed island in
 the Iris PE switch plate's R43 label is a polygonization artefact of duplicated
 cutout vertices differing by 6.96e-13 mm. The [reproduction report](../benchmarks/results/h2-r43-label-discrepancy-20261013.md)
-preserves the source and frozen label and explains the diagnosis. H2 scoring has
-not been changed; a reviewed exception is awaiting Artem's decision.
+preserves the source and frozen label and explains the diagnosis. Artem approved
+a [documented scoring exception](../benchmarks/results/h2-r43-scoring-exception-20261013.md)
+on 2026-10-13: the exact hash-scoped case scores one part with 37 holes. The
+original label, split and raw failed result remain unchanged.
 
 How these were gathered:
 - Compiled from public sources by research agents on 2026-10-13. Nothing was decompiled.
@@ -189,8 +201,12 @@ Example: [printable_area_jig.lbrn2](https://github.com/JTCozart/LightBurnTemplat
 - A shape's own XForm applies first, then each enclosing group's ([forum](https://forum.lightburnsoftware.com/t/lbrn2-file-documentation/52174)).
 - Units are mm (inferred).
 - Y points up (strongly inferred from [lbrn2-to-svg](https://github.com/jlucaso1/lbrn2-to-svg) and boxes.py).
-- `MirrorX`/`MirrorY` record the machine origin corner. Sources disagree on the mapping
-  ([LaserPost](https://github.com/nuCarve/laserpost/blob/main/src/lightburn.js) vs the forum), so **verify** locally.
+- `MirrorX`/`MirrorY` record the machine origin corner. The original sources disagreed
+  ([LaserPost](https://github.com/nuCarve/laserpost/blob/main/src/lightburn.js) vs the forum).
+  [Local saved projects](LBRN2.md#coordinate-systems-and-origins) establish bottom-left=False/False,
+  top-left=False/True, top-right=True/True and bottom-right=True/False. The native
+  writer probes above confirm numeric placement uses the active device axes;
+  do not apply these flags again as a per-shape transform.
 
 **VertList grammar:**
 - Each vertex is `V<x> <y>`, optionally followed by `c0x<n>c0y<n>c1x<n>c1y<n>` (no spaces), optionally followed by `S`
