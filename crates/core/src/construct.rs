@@ -433,15 +433,42 @@ fn container_regions(stock: &Stock, index: usize, importer: &Importer) -> Result
         (0.0, stock.height - m.top, stock.width, m.top),
     ] {
         if w > 0.0 && h > 0.0 {
-            zones.push(ExtQualityZone {
-                quality: 0,
-                shape: ExtShape::Rectangle {
-                    x_min: x as f32,
-                    y_min: y as f32,
-                    width: w as f32,
-                    height: h as f32,
-                },
-            });
+            // Jagua's depth-limited pole search can miss a second interior
+            // point in a very thin inflated margin. Partition only these
+            // artificial barriers; their union and its offset stay identical.
+            // Ordinary margins retain their existing collision representation.
+            let count = (w.max(h) / (256.0 * w.min(h))).ceil().max(1.0);
+            ensure!(
+                count <= 4096.0,
+                "sheet margin is too thin relative to its length; increase the margin or reduce the sheet size"
+            );
+            for i in 0..count as usize {
+                let a = i as f64 / count;
+                let b = (i + 1) as f64 / count;
+                let (left, bottom, right, top) = if w > h {
+                    (x + w * a, y, x + w * b, y + h)
+                } else {
+                    (x, y + h * a, x + w, y + h * b)
+                };
+                // Adjacent endpoints use the same f32 value, avoiding seams.
+                zones.push(ExtQualityZone {
+                    quality: 0,
+                    shape: ExtShape::Rectangle {
+                        x_min: left as f32,
+                        y_min: bottom as f32,
+                        width: if count == 1.0 {
+                            w as f32
+                        } else {
+                            right as f32 - left as f32
+                        },
+                        height: if count == 1.0 {
+                            h as f32
+                        } else {
+                            top as f32 - bottom as f32
+                        },
+                    },
+                });
+            }
         }
     }
     let outer = if stock.outline.is_empty() {

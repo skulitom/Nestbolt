@@ -431,3 +431,15 @@ point/bounds errors below 0.000530 mm. Native UI fields differ by at most
 0.003652 mm on the curved mirrored probe. Initial observation/association
 failures are retained, and the device/desktop state was restored. This does
 not resolve uncached Text, mixed fixed/active groups, or full H3 acceptance.
+
+
+### Text portability and native repair evidence (2026-10-14 UTC)
+
+[LightBurn documents backup paths](https://docs.lightburnsoftware.com/legacy/UI/FontsAndText)
+as the saved geometry used when the original font is unavailable. The
+[training audit](../benchmarks/results/h3-text-cache-20261014T005902Z.md) finds
+122 uncached Text objects in eight originals; all cached native re-saves pass
+477 leaf / 1,223 contour comparisons within 0.000500 mm. A font name does not
+identify exact portable geometry. Native Save As also changes settings, so the
+repaired references cannot replace frozen originals in a lossless-round-trip
+claim. Requiring repair before geometry acceptance is proposed, not approved.

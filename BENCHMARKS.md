@@ -12007,3 +12007,47 @@ device origin restored, desktop reset and lease released. Product sources are
 unchanged from cded7fe; this is diagnostic/documentation work, not a new quality
 claim or release. The five-project native H3 requirement is met; uncached Text
 and mixed fixed/active groups still prevent H3 completion. Milestone total 15%.
+
+
+### 2026-10-14 UTC — uncached LightBurn Text diagnosis
+
+[Repair evidence](benchmarks/results/h3-text-cache-20261014T005902Z.md),
+[machine-readable comparisons](benchmarks/results/h3-text-cache-20261014T005902Z.json).
+Eight frozen training originals lack 122 Text BackupPaths. Existing licensed N0
+native re-saves preserve all strings and provide all caches: 477 leaves / 1,223
+contours pass the independent published MIT oracle, maximum point 0.000498792 mm,
+bounds 0.000499712 mm, image corners 0.000028008 mm. Every repaired leaf is
+complete. All eight native saves change canonical settings, so this proves a
+repair path only; original geometry failures, labels and split remain unchanged.
+A proposed repair prerequisite for uncached text is not approved and does not
+close H3. Source/reference/binary hashes are guarded; training is filtered before
+content reads; CCD0 CPU 8 sequential; no held-out geometry/labels opened and no
+product source changed. Completed milestone weight remains 15%.
+
+
+### 2026-10-14 UTC — narrow margin barriers and Gherkin export fidelity
+
+[Repair checkpoint](benchmarks/results/h2-margin-checkpoint-20261014.md),
+[four-file rerun](benchmarks/results/h2-fidelity-20261014T010851Z.md).
+Two previously failing Gherkin DXFs now nest and re-export: 11 total parts,
+358 matched contours, maximum SVG/DXF difference 0.000000695 mm, independently
+valid placements and no omitted/extra contours. The two same-family SVG negatives
+still reject clearly. The constructor partitions only artificial margin barriers
+above aspect ratio 256, with contiguous boundaries; ordinary margin geometry and
+all source curves remain unchanged. The authored large-stock regression failed
+before the fix and passes afterward, as do all 11 constructor tests.
+
+The [bounded dense-Iris profile](benchmarks/results/h2-dense-profile-20261014T011204Z.json)
+retains a timeout: group preparation reports 0.04 s, but no warm-start completion
+arrives within 90 s despite a 20 s cooperative limit. This is not a fidelity pass
+or proof of a specific slow function. Four dense DXF timeouts remain; cumulative
+corrective evidence is 242 passing vectors and 11 clear rejections, not a new
+whole-corpus sweep. All original errors/timeouts and frozen labels remain.
+
+199 workspace tests pass (one existing ignored), 20 optimized CLI tests pass,
+48 browser tests pass (four opt-in benchmark/scale tests skipped). Strict Clippy,
+formatting, notices, optimized WASM/TypeScript/browser build and all 1,181 frozen
+hashes pass. Builds/tests use CCD1; fidelity uses CCD0 cores 0/2/4/6 and the bounded
+profile CPU 8. Product/binary/runner hashes are stable during diagnostics.
+No held-out geometry/labels were interpreted, and no published v1 result or
+quality claim changed. H2/H3 remain incomplete; completed milestone weight 15%.

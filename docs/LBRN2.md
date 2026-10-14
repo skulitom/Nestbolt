@@ -427,3 +427,20 @@ Uncached movable Text and groups mixing fixed and active children still prevent
 full H3 completion. The existing canonical contract forbids splitting a Group;
 the requested clarification is pending, and public import still rejects such
 mixed groups clearly. The frozen corpus and published v1 results are unchanged.
+
+
+## Missing Text backups — 2026-10-14 UTC
+
+The [training-only repair audit](../benchmarks/results/h3-text-cache-20261014T005902Z.md)
+finds 122 uncached Text objects in eight original projects. All specify Arial
+without an embedded font program. The existing N0 native re-saves supply all
+caches and preserve text strings: 477 leaves / 1,223 contours, including all
+122 Text leaves, match the independent oracle within 0.000500 mm. This verifies
+the repair path, not original geometry or a lossless native re-save. All eight
+native saves change canonical settings; original XML remains authoritative.
+
+The proposed treatment is to require an explicit repair for uncached text,
+retain no-op preservation, and evaluate geometry after re-saving/converting
+text to paths. This narrows literal H3 and awaits Artem's decision. No exception
+is applied. Zero-area open paths and mixed fixed/active Groups remain separate
+issues. See [LightBurn's portability explanation](https://docs.lightburnsoftware.com/legacy/UI/FontsAndText).

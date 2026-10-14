@@ -164,6 +164,40 @@ fn a_mirror_required_by_the_remnant_is_exported_as_one_rigid_transform() {
 }
 
 #[test]
+fn narrow_margins_on_large_stock_preserve_clearance_and_source() {
+    for (width, height) in [(8_000.0, 9_000.0), (9_000.0, 8_000.0)] {
+        let mut sheet = stock("large", width, height, Some(1));
+        sheet.margins = Margins {
+            left: 5.0,
+            right: 3.0,
+            bottom: 4.0,
+            top: 2.0,
+        };
+        let source = job(
+            vec![part(
+                "panel",
+                vec![rectangle(-50.0, 10.0, 3_000.0, 3_000.0)],
+                4,
+            )],
+            vec![sheet],
+        );
+        let original = serde_json::to_string(&source).unwrap();
+        let result = construct(
+            &source,
+            Options {
+                random_samples: 0,
+                ..Options::default()
+            },
+        )
+        .unwrap();
+        assert!(result.complete);
+        assert_eq!(result.layout.sheets.len(), 1);
+        assert!(validate(&source, &result.layout).unwrap().valid);
+        assert_eq!(serde_json::to_string(&source).unwrap(), original);
+    }
+}
+
+#[test]
 fn a_long_rectangular_sheet_uses_its_usable_edges_without_random_sampling() {
     let mut sheet = stock("long", 400.0, 20.0, Some(1));
     sheet.margins = Margins {
