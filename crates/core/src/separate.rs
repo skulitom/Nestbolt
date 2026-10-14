@@ -37,6 +37,14 @@ use sparrow::{
 
 use crate::clock::{Clock, Deadline, Work};
 
+/// Ceiling for guided-local-search weights. Sparrow's update has none: a pair
+/// that collides on every iteration grows by up to 2x each time until f32
+/// overflows, and an infinite weight never decays, so every overlap with that
+/// partner then scores the same. With at most 64 poles per surrogate a loss is
+/// below 80 d² for parts of diameter d (under 1e10 at 10 m in millimetres), so
+/// weighted losses and their sums stay far below `f32::MAX`.
+const MAX_WEIGHT: f32 = 1e20;
+
 #[derive(Clone, Copy, Debug)]
 struct Entry {
     loss: f32,
@@ -216,7 +224,7 @@ impl Tracker {
                 GLS_WEIGHT_MIN_INC_RATIO
                     + (GLS_WEIGHT_MAX_INC_RATIO - GLS_WEIGHT_MIN_INC_RATIO) * (e.loss / max)
             };
-            e.weight = (e.weight * multiplier).max(1.0);
+            e.weight = (e.weight * multiplier).clamp(1.0, MAX_WEIGHT);
         }
     }
 
@@ -744,4 +752,78 @@ fn refine_coord_desc(
         }
     }
     (pos, best)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::clock::Timing;
+    use jagua_rs::io::{
+        ext_repr::{ExtContainer, ExtItem, ExtOrientation, ExtRotation, ExtShape},
+        import::Importer,
+    };
+    use sparrow::config::DEFAULT_SPARROW_CONFIG;
+
+    fn square(side: f32) -> ExtShape {
+        ExtShape::Rectangle {
+            x_min: 0.0,
+            y_min: 0.0,
+            width: side,
+            height: side,
+        }
+    }
+
+    #[test]
+    fn weights_stay_finite_when_a_collision_never_clears() {
+        // Two sheet-sized squares can never separate: the same pair collides on
+        // every iteration, so its weight grows by up to 2x each time.
+        let importer = Importer::new(DEFAULT_SPARROW_CONFIG.cde_config, None, None);
+        let container = importer
+            .import_container(&ExtContainer {
+                id: 0,
+                shape: square(10.0),
+                zones: vec![],
+            })
+            .unwrap();
+        let item = importer
+            .import_item(
+                &ExtItem {
+                    id: 0,
+                    orientation: ExtOrientation {
+                        rotation: ExtRotation::Discrete { angles: vec![0.0] },
+                        reflection_axes: vec![],
+                    },
+                    shape: square(10.0),
+                    min_quality: None,
+                },
+                0,
+            )
+            .unwrap();
+        let mut layout = Layout::new(container);
+        let (px, py) = item.shape_orig().pre_transform.translation();
+        for _ in 0..2 {
+            layout.place_item(&item, DTransformation::new(0.0, (-px, -py)));
+        }
+        let clock = Clock::new(Timing::Work, 600.0);
+        let mut sep = Separator::new(layout, 0, EXPLORE, clock.clone());
+        let (_, best) = sep.separate(&Deadline {
+            clock,
+            at: f64::INFINITY,
+        });
+        assert!(best.total_loss() > 0.0, "the squares cannot separate");
+        let max = |tracker: &Tracker| {
+            tracker
+                .pairs
+                .iter()
+                .chain(&tracker.statics)
+                .map(|e| e.weight)
+                .fold(0.0, f32::max)
+        };
+        // Without the ceiling this weight overflows to infinity.
+        assert_eq!(max(&sep.tracker), MAX_WEIGHT);
+        for tracker in [&best, &sep.tracker] {
+            assert!(max(tracker) <= MAX_WEIGHT);
+            assert!(tracker.total_weighted_loss().is_finite());
+        }
+    }
 }

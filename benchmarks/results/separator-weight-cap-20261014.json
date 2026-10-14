@@ -1,0 +1,2087 @@
+{
+ "date": "2026-10-14",
+ "scope": "Development B/M jobs only (no held-out jobs or final records); repeatable work budgets; seed 0. Correctness fix, not a quality claim.",
+ "base_commit": "6c462c2c6c03afe21a3302b3890d1826b9cada05",
+ "binaries": {
+  "probe": {
+   "sha256": "4a6bd0aff705227e1e0179ffdaa645783fc1e734aad14ffdb687f834df5ca108",
+   "source": "6c462c2 plus a temporary NESTBOLT_WEIGHT_PROBE stderr probe (search unchanged)"
+  },
+  "cap": {
+   "sha256": "c88dae208c632720747e36771254b63ad3d6e4f7dd0bf48a061751830abaccc5",
+   "source": "6c462c2 plus MAX_WEIGHT = 1e20 in crates/core/src/separate.rs"
+  }
+ },
+ "cpus": "one process per physical core; CCD0 (0, 2, ..., 14) for 60 s sweeps, CCD1 (16, ..., 22) for 300 s runs",
+ "sweeps": {
+  "baseline_60": {
+   "binary_sha256": "4a6bd0aff705227e1e0179ffdaa645783fc1e734aad14ffdb687f834df5ca108",
+   "seconds": 60.0,
+   "seed": 0,
+   "repeatable": true,
+   "probe": true,
+   "rows": [
+    {
+     "job": "b-albano-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 25.91997420000007,
+     "probe": [
+      "probe: max weight 1.2710855e1",
+      "probe: max weight 1.0790503e2",
+      "probe: max weight 1.1827823e3"
+     ],
+     "status": "valid",
+     "material": 2.4568700285651506,
+     "sheets": 3,
+     "elapsed_seconds": 25.7066777,
+     "repeatable": true,
+     "layout_sha256": "b5367a89be0fa67e35e172e2f6d5b7d867b53452d4b9e08ec84f30b7208396db"
+    },
+    {
+     "job": "b-albano-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 21.10822169999983,
+     "probe": [
+      "probe: max weight 1.2380494e1"
+     ],
+     "status": "valid",
+     "material": 2.794912078883762,
+     "sheets": 3,
+     "elapsed_seconds": 20.8967093,
+     "repeatable": true,
+     "layout_sha256": "5e1703f23d49f84e17ed600acad890bb69ae56e99f47b1f9e2c1ef469b61bdad"
+    },
+    {
+     "job": "b-albano-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 22.6453690000003,
+     "probe": [
+      "probe: max weight 1.0112172e1"
+     ],
+     "status": "valid",
+     "material": 1.7074342004081633,
+     "sheets": 2,
+     "elapsed_seconds": 22.4334136,
+     "repeatable": true,
+     "layout_sha256": "cd80b0bf3ed9f76adcabaf56bbffb16c8b86628eeaf5c831769097dfa847e352"
+    },
+    {
+     "job": "b-blaz1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 25.956474699999944,
+     "probe": [
+      "probe: max weight 1.1811313e1",
+      "probe: max weight 1.0194067e2",
+      "probe: max weight 1.185766e3",
+      "probe: max weight 1.0550832e4",
+      "probe: max weight 1.1896809e5",
+      "probe: max weight 1.0097829e6",
+      "probe: max weight 1.102926e7",
+      "probe: max weight 1.2849725e8",
+      "probe: max weight 1.6346322e9",
+      "probe: max weight 1.2956964e10",
+      "probe: max weight 1.1808451e11",
+      "probe: max weight 1.1925923e12",
+      "probe: max weight 1.3001644e13",
+      "probe: max weight 1.2951626e14",
+      "probe: max weight 1.2649895e15"
+     ],
+     "status": "valid",
+     "material": 9.667055466666667,
+     "sheets": 10,
+     "elapsed_seconds": 25.7440156,
+     "repeatable": true,
+     "layout_sha256": "07c72996ac93e7f3f2c561bc9dcd86df69c42f0cbf965816a6650c9e4fe117a6"
+    },
+    {
+     "job": "b-blaz1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 23.562685999999758,
+     "probe": [
+      "probe: max weight 1.30321e1",
+      "probe: max weight 1.1267239e2",
+      "probe: max weight 1.0358619e3",
+      "probe: max weight 1.3836715e4",
+      "probe: max weight 1.318315e5",
+      "probe: max weight 1.1636905e6",
+      "probe: max weight 1.6191298e7",
+      "probe: max weight 1.398618e8",
+      "probe: max weight 1.3361051e9",
+      "probe: max weight 1.0856687e10",
+      "probe: max weight 1.1631385e11",
+      "probe: max weight 1.4109886e12",
+      "probe: max weight 1.0825098e13",
+      "probe: max weight 1.4228975e14",
+      "probe: max weight 1.0997358e15",
+      "probe: max weight 1.035464e16",
+      "probe: max weight 1.3869321e17",
+      "probe: max weight 1.3314209e18",
+      "probe: max weight 1.1343041e19",
+      "probe: max weight 1.2084454e20",
+      "probe: max weight 1.0677487e21",
+      "probe: max weight 1.3212909e22",
+      "probe: max weight 1.1599655e23",
+      "probe: max weight 1.740933e24",
+      "probe: max weight 1.5079798e25",
+      "probe: max weight 1.5699692e26",
+      "probe: max weight 1.05490835e27",
+      "probe: max weight 1.7122643e28",
+      "probe: max weight 1.2130746e29",
+      "probe: max weight 1.488989e30",
+      "probe: max weight 1.1405115e31",
+      "probe: max weight 1.0433345e32",
+      "probe: max weight 1.2948e33",
+      "probe: max weight 1.0561921e34"
+     ],
+     "status": "valid",
+     "material": 9.667062399999999,
+     "sheets": 10,
+     "elapsed_seconds": 23.3539893,
+     "repeatable": true,
+     "layout_sha256": "00d3b71fd677a34015920edf79ea541e6cd5be82614a3adae785c96c3b9de2ce"
+    },
+    {
+     "job": "b-blaz1-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.114532199999758,
+     "probe": [
+      "probe: max weight 1.43719425e1"
+     ],
+     "status": "valid",
+     "material": 2.8212992,
+     "sheets": 3,
+     "elapsed_seconds": 22.9037168,
+     "repeatable": true,
+     "layout_sha256": "ea17e5995b3928a834ede4e8385f54bfacf219d5c9b0ecd6a4ed1d279e90eb76"
+    },
+    {
+     "job": "b-dagli-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 17.778462200000376,
+     "probe": [
+      "probe: max weight 1.0353069e1"
+     ],
+     "status": "valid",
+     "material": 0.8827026,
+     "sheets": 1,
+     "elapsed_seconds": 17.5662912,
+     "repeatable": true,
+     "layout_sha256": "a83825b19224c6ad67f725e6cf754fb60d1c6d01fa3c6916c39d465b115428fc"
+    },
+    {
+     "job": "b-fu-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 23.66086180000002,
+     "probe": [
+      "probe: max weight 1.1173395e1",
+      "probe: max weight 1.1893712e2",
+      "probe: max weight 1.4458491e3",
+      "probe: max weight 1.0057114e4",
+      "probe: max weight 1.0225272e5",
+      "probe: max weight 1.2721321e6",
+      "probe: max weight 1.0224312e7",
+      "probe: max weight 1.0113646e8",
+      "probe: max weight 1.4604159e9",
+      "probe: max weight 1.1473288e10",
+      "probe: max weight 1.121536e11",
+      "probe: max weight 1.3570731e12"
+     ],
+     "status": "valid",
+     "material": 3.3605192857142856,
+     "sheets": 4,
+     "elapsed_seconds": 23.4477503,
+     "repeatable": true,
+     "layout_sha256": "c84a83f3ea486b167931758b84e2e01242f61d2eab26b02d552e04189bfa5732"
+    },
+    {
+     "job": "b-fu-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 17.956308300000273,
+     "probe": [
+      "probe: max weight 1.3201869e1",
+      "probe: max weight 1.0959141e2",
+      "probe: max weight 1.1531914e3",
+      "probe: max weight 1.1355562e4",
+      "probe: max weight 1.1944404e5",
+      "probe: max weight 1.2784054e6",
+      "probe: max weight 1.1604316e7",
+      "probe: max weight 1.1009113e8",
+      "probe: max weight 1.5124598e9",
+      "probe: max weight 1.0343031e10",
+      "probe: max weight 1.0409612e11",
+      "probe: max weight 1.1780778e12",
+      "probe: max weight 1.0766536e13",
+      "probe: max weight 1.0494755e14",
+      "probe: max weight 1.3895202e15",
+      "probe: max weight 1.1495209e16"
+     ],
+     "status": "valid",
+     "material": 3.4286051904761905,
+     "sheets": 4,
+     "elapsed_seconds": 17.9417588,
+     "repeatable": true,
+     "layout_sha256": "9218de6f0cea2e2f3cd195819570d9fd00ededff53205e3df793e6ad10c2bf1f"
+    },
+    {
+     "job": "b-fu-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 19.086912799999936,
+     "probe": [
+      "probe: max weight 1.0656707e1"
+     ],
+     "status": "valid",
+     "material": 1.236854052631579,
+     "sheets": 2,
+     "elapsed_seconds": 19.0704616,
+     "repeatable": true,
+     "layout_sha256": "7bfbec227fc39c023406fe6eec4037a5d89adb0999190468fd91ba694660b8e5"
+    },
+    {
+     "job": "b-jakobs1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 24.450667200000225,
+     "probe": [
+      "probe: max weight 1.014197e1",
+      "probe: max weight 1.0877337e2"
+     ],
+     "status": "valid",
+     "material": 3.4169415,
+     "sheets": 4,
+     "elapsed_seconds": 24.4344016,
+     "repeatable": true,
+     "layout_sha256": "38358c927b9a365f32fbb1f56e654ed52cf0e71ef1f995ce400d854cb4955ad9"
+    },
+    {
+     "job": "b-jakobs1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 19.092590700000073,
+     "probe": [
+      "probe: max weight 1.348553e1",
+      "probe: max weight 1.03271095e2",
+      "probe: max weight 1.0059921e3"
+     ],
+     "status": "valid",
+     "material": 3.5001628333333334,
+     "sheets": 4,
+     "elapsed_seconds": 19.0775266,
+     "repeatable": true,
+     "layout_sha256": "4b610053d4d95df9aab1c7cd6d20aab8fab67eac7e56630cec3c3dcea259f6b1"
+    },
+    {
+     "job": "b-jakobs1-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 13.204585100000259,
+     "probe": [
+      "probe: max weight 1.0455061e1"
+     ],
+     "status": "valid",
+     "material": 0.70802235,
+     "sheets": 1,
+     "elapsed_seconds": 13.1767043,
+     "repeatable": true,
+     "layout_sha256": "1b8f77d68d359b07b95d3963f5005d9a0704656351d9920e8b4fadc64b45ad62"
+    },
+    {
+     "job": "b-jakobs2-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 23.677739599999768,
+     "probe": [
+      "probe: max weight 1.6e1"
+     ],
+     "status": "valid",
+     "material": 3.2501448749999997,
+     "sheets": 4,
+     "elapsed_seconds": 23.6619357,
+     "repeatable": true,
+     "layout_sha256": "d363a99e973b0a5704fc96d88d42f6b0dd53a4fee156de3790a70105380d7586"
+    },
+    {
+     "job": "b-jakobs2-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 21.998586700000033,
+     "probe": [
+      "probe: max weight 1.1331117e1",
+      "probe: max weight 1.0130507e2"
+     ],
+     "status": "valid",
+     "material": 3.2506459583333336,
+     "sheets": 4,
+     "elapsed_seconds": 21.9828013,
+     "repeatable": true,
+     "layout_sha256": "9cde4c65565706627974d7ad576966ad4c7b492f9e3cebbce8441baded5c018d"
+    },
+    {
+     "job": "b-jakobs2-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 14.751347299999907,
+     "probe": [
+      "probe: max weight 1.2446281e1"
+     ],
+     "status": "valid",
+     "material": 0.7509774857142857,
+     "sheets": 1,
+     "elapsed_seconds": 14.7361025,
+     "repeatable": true,
+     "layout_sha256": "872ea548983cf4984a4e3c2929e51c098d9ee77693dd952dbdf8418b2142bd82"
+    },
+    {
+     "job": "b-mao-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 29.548266599999806,
+     "probe": [
+      "probe: max weight 1.1290122e1"
+     ],
+     "status": "valid",
+     "material": 1.7673158796718322,
+     "sheets": 2,
+     "elapsed_seconds": 29.5300636,
+     "repeatable": true,
+     "layout_sha256": "ebbd37326bb8d96882f1d42e237262cbbb8883d4950ae6f1e486a26b1a13d88b"
+    },
+    {
+     "job": "b-mao-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 27.118803699999717,
+     "probe": [
+      "probe: max weight 1.04549675e1"
+     ],
+     "status": "valid",
+     "material": 1.8663493606806438,
+     "sheets": 2,
+     "elapsed_seconds": 27.1026617,
+     "repeatable": true,
+     "layout_sha256": "27a24e176f8bf3ce8765ab36ef7c4bd7ac9d7cf16241c5ae5c77bb11b58a9285"
+    },
+    {
+     "job": "b-mao-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 17.92881660000012,
+     "probe": [
+      "probe: max weight 1.52e1"
+     ],
+     "status": "valid",
+     "material": 0.8290413066666665,
+     "sheets": 1,
+     "elapsed_seconds": 17.9116044,
+     "repeatable": true,
+     "layout_sha256": "0a4d876546d5bbe9b740039bad3e7d5be665c0a0814410c4a7abfa87851ebc12"
+    },
+    {
+     "job": "b-marques-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 22.685983899999883,
+     "probe": [
+      "probe: max weight 1.0644326e1"
+     ],
+     "status": "valid",
+     "material": 1.0385423846153847,
+     "sheets": 2,
+     "elapsed_seconds": 22.6695466,
+     "repeatable": true,
+     "layout_sha256": "48a6cc5cbae11dce7c2e7cd06652d6f91b5c993df2ba71ebb1d9f672a6e34f73"
+    },
+    {
+     "job": "b-shapes0-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 27.14762189999965,
+     "probe": [
+      "probe: max weight 1.6e1"
+     ],
+     "status": "valid",
+     "material": 5.412816238095238,
+     "sheets": 6,
+     "elapsed_seconds": 27.131662,
+     "repeatable": true,
+     "layout_sha256": "565a5f3f1998ab368b2984fc780d386ed91001ead393f8f37ce2ceb6b133ff5f"
+    },
+    {
+     "job": "b-shapes0-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 22.8178883999999,
+     "probe": [
+      "probe: max weight 1.0345734e1"
+     ],
+     "status": "valid",
+     "material": 5.64243319047619,
+     "sheets": 6,
+     "elapsed_seconds": 22.7999307,
+     "repeatable": true,
+     "layout_sha256": "e179110afeba6153c222ed3ab35e54768dac58b550d21a955da669404de15eaf"
+    },
+    {
+     "job": "b-shapes0-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 26.771146300000055,
+     "probe": [
+      "probe: max weight 1.0387986e1"
+     ],
+     "status": "valid",
+     "material": 2.4997188500000003,
+     "sheets": 3,
+     "elapsed_seconds": 26.7536333,
+     "repeatable": true,
+     "layout_sha256": "7eff67415c449427928db1c0521a59b24209b7d06b05b1fd00a35fd460e20f38"
+    },
+    {
+     "job": "b-shapes1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 28.85356550000006,
+     "probe": [
+      "probe: max weight 1.6e1"
+     ],
+     "status": "valid",
+     "material": 5.412816238095238,
+     "sheets": 6,
+     "elapsed_seconds": 28.8362045,
+     "repeatable": true,
+     "layout_sha256": "565a5f3f1998ab368b2984fc780d386ed91001ead393f8f37ce2ceb6b133ff5f"
+    },
+    {
+     "job": "b-shapes1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 22.580950399999892,
+     "probe": [
+      "probe: max weight 1.0083989e1",
+      "probe: max weight 1.2104837e2"
+     ],
+     "status": "valid",
+     "material": 5.812036428571428,
+     "sheets": 6,
+     "elapsed_seconds": 22.565454,
+     "repeatable": true,
+     "layout_sha256": "3e69c5c3843f16c4c7066690af746a29a241fba3a95d8d849926f12de81570ae"
+    },
+    {
+     "job": "b-shapes1-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 21.886422299999595,
+     "probe": [
+      "probe: max weight 1.0018053e1"
+     ],
+     "status": "valid",
+     "material": 2.225133325,
+     "sheets": 3,
+     "elapsed_seconds": 21.8700801,
+     "repeatable": true,
+     "layout_sha256": "963aee18ae3c648a70833b10f9852637360c797943859620e3c0c161b3ae9de2"
+    },
+    {
+     "job": "b-shirts-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 28.643482999999833,
+     "probe": [
+      "probe: max weight 1.0048219e1"
+     ],
+     "status": "valid",
+     "material": 6.926588051282052,
+     "sheets": 7,
+     "elapsed_seconds": 28.6271906,
+     "repeatable": true,
+     "layout_sha256": "ff04727b2b69d6ebfaed6253785a4f5f21180be2f83e139bdbcf7d0a18b35569"
+    },
+    {
+     "job": "b-shirts-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 25.388240000000224,
+     "probe": [
+      "probe: max weight 1.6921165e1",
+      "probe: max weight 1.4240935e2",
+      "probe: max weight 1.0956088e3",
+      "probe: max weight 1.0242067e4"
+     ],
+     "status": "valid",
+     "material": 7.727161846153845,
+     "sheets": 8,
+     "elapsed_seconds": 25.3710542,
+     "repeatable": true,
+     "layout_sha256": "9e1c48d8f229f26cb57b6f1d1c8306015f4791f6a3a4bfcdf1540a06842f7c19"
+    },
+    {
+     "job": "b-shirts-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.171157199999925,
+     "probe": [
+      "probe: max weight 1.048393e1"
+     ],
+     "status": "valid",
+     "material": 2.47858585,
+     "sheets": 3,
+     "elapsed_seconds": 23.1562832,
+     "repeatable": true,
+     "layout_sha256": "e43896c923dc13c73cce768c47bbc5e50967b9344a954be4b8c29a93c602994e"
+    },
+    {
+     "job": "b-swim-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 28.708221500000036,
+     "probe": [
+      "probe: max weight 1.1761469e1"
+     ],
+     "status": "valid",
+     "material": 4.33444272708489,
+     "sheets": 5,
+     "elapsed_seconds": 28.6900966,
+     "repeatable": true,
+     "layout_sha256": "cac96144a14f92d77d81ee56f2bf577d0a32250d9d901933c4ade58433bb88d3"
+    },
+    {
+     "job": "b-swim-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 27.232020400000238,
+     "probe": [
+      "probe: max weight 1.0672397e1"
+     ],
+     "status": "valid",
+     "material": 4.403249614031981,
+     "sheets": 5,
+     "elapsed_seconds": 27.2155408,
+     "repeatable": true,
+     "layout_sha256": "4e48aa3eef76e161607cbe227c8cbf2d0654a9d609c1d10f35ee75e024f31bf2"
+    },
+    {
+     "job": "b-swim-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 25.182360200000403,
+     "probe": [
+      "probe: max weight 1.3646172e1"
+     ],
+     "status": "valid",
+     "material": 1.5912338683936023,
+     "sheets": 2,
+     "elapsed_seconds": 25.1667988,
+     "repeatable": true,
+     "layout_sha256": "88d02e90551690e62f8ba0cdefb0cc0c43c217d071d49d5d2fe2af4e40b3f94e"
+    },
+    {
+     "job": "b-trousers-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 30.237033599999904,
+     "probe": [
+      "probe: max weight 1.4727985e1"
+     ],
+     "status": "valid",
+     "material": 2.581012836158192,
+     "sheets": 3,
+     "elapsed_seconds": 30.2214907,
+     "repeatable": true,
+     "layout_sha256": "67f520c258c6ec6198ae0ac0592908de9276fb0bd54899064b668036d4a5906c"
+    },
+    {
+     "job": "b-trousers-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 28.69990740000003,
+     "probe": [
+      "probe: max weight 1.2535986e1"
+     ],
+     "status": "valid",
+     "material": 2.667050813559322,
+     "sheets": 3,
+     "elapsed_seconds": 28.6851998,
+     "repeatable": true,
+     "layout_sha256": "74062d82a23f5e05e5eb26cf0d319a214769b2c3b59d581a0d3f3e0d6b51d404"
+    },
+    {
+     "job": "b-trousers-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.373882700000195,
+     "probe": [
+      "probe: max weight 1.52e1"
+     ],
+     "status": "valid",
+     "material": 2.0889102658227845,
+     "sheets": 3,
+     "elapsed_seconds": 23.358219,
+     "repeatable": true,
+     "layout_sha256": "3dc99c16f7c8ea6600999894fb37f2547c1d7da319491072c7ad8958793d1a40"
+    },
+    {
+     "job": "m-box-batch-500",
+     "exit_code": 0,
+     "process_seconds": 15.838871000000381,
+     "probe": [
+      "probe: max weight 1.0158304e1"
+     ],
+     "status": "valid",
+     "material": 2.0375410840163934,
+     "sheets": 3,
+     "elapsed_seconds": 15.821886,
+     "repeatable": true,
+     "layout_sha256": "78b26d7602ca44070caa01e78b9339155f2cd18e88235cffca0d28641a584253"
+    },
+    {
+     "job": "m-box-desktop",
+     "exit_code": 0,
+     "process_seconds": 17.78426490000038,
+     "probe": [
+      "probe: max weight 1.0816354e1"
+     ],
+     "status": "valid",
+     "material": 0.83533622,
+     "sheets": 1,
+     "elapsed_seconds": 17.7690064,
+     "repeatable": true,
+     "layout_sha256": "192bd773b936b424569e6b60851462e019ab4159086012a7f3bd595961c2161d"
+    },
+    {
+     "job": "m-box-long",
+     "exit_code": 0,
+     "process_seconds": 16.81574079999973,
+     "probe": [
+      "probe: max weight 1.1649154e1"
+     ],
+     "status": "valid",
+     "material": 0.309344762295082,
+     "sheets": 1,
+     "elapsed_seconds": 16.7996683,
+     "repeatable": true,
+     "layout_sha256": "a28c101844aec6d5f1433ecb0fe9d9b78eb9d71315a5967a24f36dbde20c285c"
+    },
+    {
+     "job": "m-box-mini",
+     "exit_code": 0,
+     "process_seconds": 18.773105199999918,
+     "probe": [
+      "probe: max weight 1.2075021e1"
+     ],
+     "status": "valid",
+     "material": 0.666000455,
+     "sheets": 1,
+     "elapsed_seconds": 18.759056,
+     "repeatable": true,
+     "layout_sha256": "0a1211e60506f60fc2a2ad53c8065790660846989159fcd42e805e9ea9041a5b"
+    },
+    {
+     "job": "m-box-storage",
+     "exit_code": 0,
+     "process_seconds": 16.89342910000005,
+     "probe": [
+      "probe: max weight 1.1471384e1"
+     ],
+     "status": "valid",
+     "material": 0.5183611557377049,
+     "sheets": 1,
+     "elapsed_seconds": 16.8772155,
+     "repeatable": true,
+     "layout_sha256": "f771d9130d7e832b3b81c3477440dbb7345386f9f77e10d1f427b10bf4dbdb49"
+    },
+    {
+     "job": "m-box-tool",
+     "exit_code": 0,
+     "process_seconds": 18.516131000000314,
+     "probe": [
+      "probe: max weight 1.0618787e1"
+     ],
+     "status": "valid",
+     "material": 1.32900015,
+     "sheets": 2,
+     "elapsed_seconds": 18.4998556,
+     "repeatable": true,
+     "layout_sha256": "ba637b594fc270a8d8d8489cef896eaac06542d0558da47083e414d3e7597d2b"
+    },
+    {
+     "job": "m-garment-bruce-1",
+     "exit_code": 0,
+     "process_seconds": 17.608587700000044,
+     "probe": [
+      "probe: max weight 1.0257818e1"
+     ],
+     "status": "valid",
+     "material": 0.199021199,
+     "sheets": 1,
+     "elapsed_seconds": 17.5922922,
+     "repeatable": true,
+     "layout_sha256": "e7eaa866a30e618063f68692f8bd84be7e0b681d3f2411a419ce11380e11c9fa"
+    },
+    {
+     "job": "m-garment-bruce-2",
+     "exit_code": 0,
+     "process_seconds": 16.314883200000168,
+     "probe": [
+      "probe: max weight 1.1697936e1"
+     ],
+     "status": "valid",
+     "material": 0.430407463,
+     "sheets": 1,
+     "elapsed_seconds": 16.2981629,
+     "repeatable": true,
+     "layout_sha256": "dbacebfcc915c42ba1b0b4b8508e83ca2f436b8a15a17ee6e0178b689fca8612"
+    },
+    {
+     "job": "m-garment-bruce-3",
+     "exit_code": 0,
+     "process_seconds": 20.896816599999966,
+     "probe": [
+      "probe: max weight 1.1941308e1"
+     ],
+     "status": "valid",
+     "material": 0.9974053418333334,
+     "sheets": 1,
+     "elapsed_seconds": 20.8468693,
+     "repeatable": true,
+     "layout_sha256": "b85f1a2d3cb58cdf487f3c6f7c70148dfded1f89be4f4a38731ab973792889fd"
+    },
+    {
+     "job": "m-garment-teagan-1",
+     "exit_code": 0,
+     "process_seconds": 16.682490200000302,
+     "probe": [
+      "probe: max weight 1.3717999e1"
+     ],
+     "status": "valid",
+     "material": 0.7683839476666666,
+     "sheets": 1,
+     "elapsed_seconds": 16.6651419,
+     "repeatable": true,
+     "layout_sha256": "aa71b339074994060e0173406ccc06c3b00d44d8558a29619787a131bf4d2a01"
+    },
+    {
+     "job": "m-garment-teagan-2",
+     "exit_code": 0,
+     "process_seconds": 30.443328500000007,
+     "probe": [
+      "probe: max weight 1.444e1"
+     ],
+     "status": "valid",
+     "material": 1.8641388849999998,
+     "sheets": 2,
+     "elapsed_seconds": 30.4259688,
+     "repeatable": true,
+     "layout_sha256": "d65eaa4a0f1c53de42bf72fe5f2f02a3b2f7c263b6004415d93a7a6a8be4e58f"
+    },
+    {
+     "job": "m-garment-teagan-3",
+     "exit_code": 0,
+     "process_seconds": 27.4588348999996,
+     "probe": [
+      "probe: max weight 1.1761469e1"
+     ],
+     "status": "valid",
+     "material": 4.39702706,
+     "sheets": 5,
+     "elapsed_seconds": 27.4426989,
+     "repeatable": true,
+     "layout_sha256": "4a694237366fad25a95b9955778900e0a53a85ffbbfa3c596f109e04e3a5750c"
+    },
+    {
+     "job": "m-mechanical-batch-1000",
+     "exit_code": 0,
+     "process_seconds": 25.037724400000116,
+     "probe": [
+      "probe: max weight 1.4084049e1"
+     ],
+     "status": "valid",
+     "material": 1.0323342904000001,
+     "sheets": 2,
+     "elapsed_seconds": 25.021646,
+     "repeatable": true,
+     "layout_sha256": "6aa066e7d34273bfa9d4b3063f16785b318fece853a23037dc23a5b97999b3dc"
+    },
+    {
+     "job": "m-mechanical-cog-washers",
+     "exit_code": 0,
+     "process_seconds": 36.80197080000016,
+     "probe": [
+      "probe: max weight 1.1046006e1"
+     ],
+     "status": "valid",
+     "material": 1.8711431225,
+     "sheets": 2,
+     "elapsed_seconds": 36.7842585,
+     "repeatable": true,
+     "layout_sha256": "aa12fbba0ad7db0d2cad4bb0465bc5c376fc037da3e06da2a14c5778ccf16866"
+    },
+    {
+     "job": "m-mechanical-defective-stock",
+     "exit_code": 0,
+     "process_seconds": 34.70689440000024,
+     "probe": [
+      "probe: max weight 1.1614189e1"
+     ],
+     "status": "valid",
+     "material": 2.671451002,
+     "sheets": 3,
+     "elapsed_seconds": 34.6904551,
+     "repeatable": true,
+     "layout_sha256": "dc48725731b609649613a1565a4896ce223541a9b72aa5e80d4495e089221f59"
+    },
+    {
+     "job": "m-mechanical-frame-inserts",
+     "exit_code": 0,
+     "process_seconds": 28.83536490000006,
+     "probe": [
+      "probe: max weight 1.2514405e1"
+     ],
+     "status": "valid",
+     "material": 0.5566616491803278,
+     "sheets": 1,
+     "elapsed_seconds": 28.8186866,
+     "repeatable": true,
+     "layout_sha256": "4c0d3a166f4a8ffb1d42ae340c73a7f77ac99b567d922a803e5166d290043e7c"
+    },
+    {
+     "job": "m-mechanical-large-plates",
+     "exit_code": 0,
+     "process_seconds": 29.47306720000006,
+     "probe": [
+      "probe: max weight 1.0539655e1"
+     ],
+     "status": "valid",
+     "material": 1.1304801510000002,
+     "sheets": 2,
+     "elapsed_seconds": 29.4559261,
+     "repeatable": true,
+     "layout_sha256": "5928499800847a0167a8ccaf03d9d66b4b95b63202b47c0df7239bd283208260"
+    },
+    {
+     "job": "m-mechanical-mixed-stock",
+     "exit_code": 0,
+     "process_seconds": 41.14525159999994,
+     "probe": [
+      "probe: max weight 1.119011e1"
+     ],
+     "status": "valid",
+     "material": 0.9223769148544,
+     "sheets": 1,
+     "elapsed_seconds": 41.1275644,
+     "repeatable": true,
+     "layout_sha256": "a37d08e38f6eff4f3658bbc9e32ff1dace0e39331e5e8e66305156b99949c385"
+    },
+    {
+     "job": "m-mechanical-mounting-kit",
+     "exit_code": 0,
+     "process_seconds": 26.563164600000164,
+     "probe": [
+      "probe: max weight 1.2907808e1"
+     ],
+     "status": "valid",
+     "material": 2.5158146324999997,
+     "sheets": 3,
+     "elapsed_seconds": 26.5471822,
+     "repeatable": true,
+     "layout_sha256": "c213f3b680064416ec342c0f86e0bd3c64372eb71c54e30182b529841451555f"
+    },
+    {
+     "job": "m-mechanical-panel-hardware",
+     "exit_code": 0,
+     "process_seconds": 29.847417999999834,
+     "probe": [
+      "probe: max weight 1.0162665e1"
+     ],
+     "status": "valid",
+     "material": 1.5390513812,
+     "sheets": 2,
+     "elapsed_seconds": 29.8294998,
+     "repeatable": true,
+     "layout_sha256": "6bc12bcad0eb3a06836279905d60ce50c3f81ea9ebc03c041c81ca74d7f15d73"
+    },
+    {
+     "job": "m-mechanical-remnant-kit",
+     "exit_code": 0,
+     "process_seconds": 32.711426200000005,
+     "probe": [
+      "probe: max weight 1.4664604e1"
+     ],
+     "status": "valid",
+     "material": 0.6523536836065574,
+     "sheets": 1,
+     "elapsed_seconds": 32.6924721,
+     "repeatable": true,
+     "layout_sha256": "da078d35a4d34fae03a840f021a956eab776dcdecb8b089bfb56347c8539b14d"
+    },
+    {
+     "job": "m-mechanical-small-brackets",
+     "exit_code": 0,
+     "process_seconds": 29.910621900000024,
+     "probe": [
+      "probe: max weight 1.0536428e1"
+     ],
+     "status": "valid",
+     "material": 5.673214390000001,
+     "sheets": 6,
+     "elapsed_seconds": 29.8922307,
+     "repeatable": true,
+     "layout_sha256": "382a3d4518e65ea8d659a98579443be23d5759af957a0c910a25b12fe22e2d52"
+    },
+    {
+     "job": "m-public-gear-1",
+     "exit_code": 0,
+     "process_seconds": 48.48588070000005,
+     "probe": [
+      "probe: max weight 1.4329519e1"
+     ],
+     "status": "valid",
+     "material": 0.941014095,
+     "sheets": 1,
+     "elapsed_seconds": 48.4699632,
+     "repeatable": true,
+     "layout_sha256": "1100866759fddca941a4ec2767fe55dff81a31073336438662d72807d869aa5e"
+    },
+    {
+     "job": "m-public-gear-2",
+     "exit_code": 0,
+     "process_seconds": 32.26693989999967,
+     "probe": [
+      "probe: max weight 1.30321e1"
+     ],
+     "status": "valid",
+     "material": 0.8248489674999999,
+     "sheets": 1,
+     "elapsed_seconds": 32.2394815,
+     "repeatable": true,
+     "layout_sha256": "15d9cf5c3b45d1ff768cdeb634eb9661e3de71eb1d531999dad01b529b4bf410"
+    },
+    {
+     "job": "m-public-gear-3",
+     "exit_code": 0,
+     "process_seconds": 36.657217500000115,
+     "probe": [
+      "probe: max weight 1.0356706e1"
+     ],
+     "status": "valid",
+     "material": 0.5216432422131148,
+     "sheets": 1,
+     "elapsed_seconds": 36.6393463,
+     "repeatable": true,
+     "layout_sha256": "bde8f787eb060835c61a6e839644043749c18dc8f44654815d6158730be3b654"
+    },
+    {
+     "job": "m-public-gear-4",
+     "exit_code": 0,
+     "process_seconds": 29.063968299999942,
+     "probe": [
+      "probe: max weight 1.0614725e1"
+     ],
+     "status": "valid",
+     "material": 0.5545981412,
+     "sheets": 1,
+     "elapsed_seconds": 29.0483416,
+     "repeatable": true,
+     "layout_sha256": "b91fc5d37b810cd910e3be69e7628937a6794348b77646895b1b5fdfe4b4ffd3"
+    },
+    {
+     "job": "m-sign-1",
+     "exit_code": 0,
+     "process_seconds": 15.207675299999664,
+     "probe": [
+      "probe: max weight 1.4199377e1"
+     ],
+     "status": "valid",
+     "material": 0.725246515,
+     "sheets": 1,
+     "elapsed_seconds": 15.1908717,
+     "repeatable": true,
+     "layout_sha256": "1411eff09c6d0c04c82a57021dc2394850767dff7d00d8da4465ab73ce2c8339"
+    },
+    {
+     "job": "m-sign-2",
+     "exit_code": 0,
+     "process_seconds": 24.731455900000128,
+     "probe": [
+      "probe: max weight 1.2527313e1"
+     ],
+     "status": "valid",
+     "material": 0.59463152,
+     "sheets": 1,
+     "elapsed_seconds": 24.7143474,
+     "repeatable": true,
+     "layout_sha256": "2ba4e671b41840b0c7ac8266abbc23779040c2bb581d55efb75021c03963e74d"
+    },
+    {
+     "job": "m-sign-3",
+     "exit_code": 0,
+     "process_seconds": 21.598784299999807,
+     "probe": [
+      "probe: max weight 1.3717999e1"
+     ],
+     "status": "valid",
+     "material": 0.14242946639344253,
+     "sheets": 1,
+     "elapsed_seconds": 21.5822164,
+     "repeatable": true,
+     "layout_sha256": "7f50af3471cc55de642afb12fc6341ed5963598c704be0316feb587c1172264a"
+    },
+    {
+     "job": "m-sign-4",
+     "exit_code": 0,
+     "process_seconds": 16.721216800000093,
+     "probe": [
+      "probe: max weight 1.30321e1"
+     ],
+     "status": "valid",
+     "material": 0.3390111655737705,
+     "sheets": 1,
+     "elapsed_seconds": 16.7058832,
+     "repeatable": true,
+     "layout_sha256": "d926b6895ad5ff1d7112c3fb55b4b041887c8a4cd1b9e85a12ff6f6e86261553"
+    }
+   ]
+  },
+  "cap_60": {
+   "binary_sha256": "c88dae208c632720747e36771254b63ad3d6e4f7dd0bf48a061751830abaccc5",
+   "seconds": 60.0,
+   "seed": 0,
+   "repeatable": true,
+   "probe": false,
+   "rows": [
+    {
+     "job": "b-albano-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 25.701260000000275,
+     "probe": [],
+     "status": "valid",
+     "material": 2.4568700285651506,
+     "sheets": 3,
+     "elapsed_seconds": 25.4217263,
+     "repeatable": true,
+     "layout_sha256": "b5367a89be0fa67e35e172e2f6d5b7d867b53452d4b9e08ec84f30b7208396db"
+    },
+    {
+     "job": "b-albano-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 21.765957300000082,
+     "probe": [],
+     "status": "valid",
+     "material": 2.794912078883762,
+     "sheets": 3,
+     "elapsed_seconds": 21.4876326,
+     "repeatable": true,
+     "layout_sha256": "5e1703f23d49f84e17ed600acad890bb69ae56e99f47b1f9e2c1ef469b61bdad"
+    },
+    {
+     "job": "b-albano-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 24.048540899999807,
+     "probe": [],
+     "status": "valid",
+     "material": 1.7074342004081633,
+     "sheets": 2,
+     "elapsed_seconds": 23.7742864,
+     "repeatable": true,
+     "layout_sha256": "cd80b0bf3ed9f76adcabaf56bbffb16c8b86628eeaf5c831769097dfa847e352"
+    },
+    {
+     "job": "b-blaz1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 26.01904599999989,
+     "probe": [],
+     "status": "valid",
+     "material": 9.667055466666667,
+     "sheets": 10,
+     "elapsed_seconds": 25.7435061,
+     "repeatable": true,
+     "layout_sha256": "07c72996ac93e7f3f2c561bc9dcd86df69c42f0cbf965816a6650c9e4fe117a6"
+    },
+    {
+     "job": "b-blaz1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 24.481396700000005,
+     "probe": [],
+     "status": "valid",
+     "material": 9.666874133333334,
+     "sheets": 10,
+     "elapsed_seconds": 24.2055619,
+     "repeatable": true,
+     "layout_sha256": "b00113b79469d8e4596be0ab2e66423830fe7cdc5e197ff4659132a6bac7c21c"
+    },
+    {
+     "job": "b-blaz1-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.82976570000028,
+     "probe": [],
+     "status": "valid",
+     "material": 2.8212992,
+     "sheets": 3,
+     "elapsed_seconds": 23.5933139,
+     "repeatable": true,
+     "layout_sha256": "ea17e5995b3928a834ede4e8385f54bfacf219d5c9b0ecd6a4ed1d279e90eb76"
+    },
+    {
+     "job": "b-dagli-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 18.889653700000054,
+     "probe": [],
+     "status": "valid",
+     "material": 0.8827026,
+     "sheets": 1,
+     "elapsed_seconds": 18.6130237,
+     "repeatable": true,
+     "layout_sha256": "a83825b19224c6ad67f725e6cf754fb60d1c6d01fa3c6916c39d465b115428fc"
+    },
+    {
+     "job": "b-fu-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 23.674617900000158,
+     "probe": [],
+     "status": "valid",
+     "material": 3.3605192857142856,
+     "sheets": 4,
+     "elapsed_seconds": 23.4012482,
+     "repeatable": true,
+     "layout_sha256": "c84a83f3ea486b167931758b84e2e01242f61d2eab26b02d552e04189bfa5732"
+    },
+    {
+     "job": "b-fu-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 18.046739200000047,
+     "probe": [],
+     "status": "valid",
+     "material": 3.4286051904761905,
+     "sheets": 4,
+     "elapsed_seconds": 18.0316327,
+     "repeatable": true,
+     "layout_sha256": "9218de6f0cea2e2f3cd195819570d9fd00ededff53205e3df793e6ad10c2bf1f"
+    },
+    {
+     "job": "b-fu-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 18.813388399999894,
+     "probe": [],
+     "status": "valid",
+     "material": 1.236854052631579,
+     "sheets": 2,
+     "elapsed_seconds": 18.7963107,
+     "repeatable": true,
+     "layout_sha256": "7bfbec227fc39c023406fe6eec4037a5d89adb0999190468fd91ba694660b8e5"
+    },
+    {
+     "job": "b-jakobs1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 26.967962799999896,
+     "probe": [],
+     "status": "valid",
+     "material": 3.4169415,
+     "sheets": 4,
+     "elapsed_seconds": 26.9517209,
+     "repeatable": true,
+     "layout_sha256": "38358c927b9a365f32fbb1f56e654ed52cf0e71ef1f995ce400d854cb4955ad9"
+    },
+    {
+     "job": "b-jakobs1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 20.280819200000224,
+     "probe": [],
+     "status": "valid",
+     "material": 3.5001628333333334,
+     "sheets": 4,
+     "elapsed_seconds": 20.2628253,
+     "repeatable": true,
+     "layout_sha256": "4b610053d4d95df9aab1c7cd6d20aab8fab67eac7e56630cec3c3dcea259f6b1"
+    },
+    {
+     "job": "b-jakobs1-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 14.145688999999948,
+     "probe": [],
+     "status": "valid",
+     "material": 0.70802235,
+     "sheets": 1,
+     "elapsed_seconds": 14.1277933,
+     "repeatable": true,
+     "layout_sha256": "1b8f77d68d359b07b95d3963f5005d9a0704656351d9920e8b4fadc64b45ad62"
+    },
+    {
+     "job": "b-jakobs2-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 23.97468170000002,
+     "probe": [],
+     "status": "valid",
+     "material": 3.2501448749999997,
+     "sheets": 4,
+     "elapsed_seconds": 23.9580811,
+     "repeatable": true,
+     "layout_sha256": "d363a99e973b0a5704fc96d88d42f6b0dd53a4fee156de3790a70105380d7586"
+    },
+    {
+     "job": "b-jakobs2-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 21.634022299999742,
+     "probe": [],
+     "status": "valid",
+     "material": 3.2506459583333336,
+     "sheets": 4,
+     "elapsed_seconds": 21.616965,
+     "repeatable": true,
+     "layout_sha256": "9cde4c65565706627974d7ad576966ad4c7b492f9e3cebbce8441baded5c018d"
+    },
+    {
+     "job": "b-jakobs2-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 14.5584159,
+     "probe": [],
+     "status": "valid",
+     "material": 0.7509774857142857,
+     "sheets": 1,
+     "elapsed_seconds": 14.5434393,
+     "repeatable": true,
+     "layout_sha256": "872ea548983cf4984a4e3c2929e51c098d9ee77693dd952dbdf8418b2142bd82"
+    },
+    {
+     "job": "b-mao-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 29.196075500000006,
+     "probe": [],
+     "status": "valid",
+     "material": 1.7673158796718322,
+     "sheets": 2,
+     "elapsed_seconds": 29.1803181,
+     "repeatable": true,
+     "layout_sha256": "ebbd37326bb8d96882f1d42e237262cbbb8883d4950ae6f1e486a26b1a13d88b"
+    },
+    {
+     "job": "b-mao-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 27.047022899999774,
+     "probe": [],
+     "status": "valid",
+     "material": 1.8663493606806438,
+     "sheets": 2,
+     "elapsed_seconds": 27.030668,
+     "repeatable": true,
+     "layout_sha256": "27a24e176f8bf3ce8765ab36ef7c4bd7ac9d7cf16241c5ae5c77bb11b58a9285"
+    },
+    {
+     "job": "b-mao-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 18.274579200000062,
+     "probe": [],
+     "status": "valid",
+     "material": 0.8290413066666665,
+     "sheets": 1,
+     "elapsed_seconds": 18.2585877,
+     "repeatable": true,
+     "layout_sha256": "0a4d876546d5bbe9b740039bad3e7d5be665c0a0814410c4a7abfa87851ebc12"
+    },
+    {
+     "job": "b-marques-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 22.965110899999672,
+     "probe": [],
+     "status": "valid",
+     "material": 1.0385423846153847,
+     "sheets": 2,
+     "elapsed_seconds": 22.9480009,
+     "repeatable": true,
+     "layout_sha256": "48a6cc5cbae11dce7c2e7cd06652d6f91b5c993df2ba71ebb1d9f672a6e34f73"
+    },
+    {
+     "job": "b-shapes0-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 27.585213300000305,
+     "probe": [],
+     "status": "valid",
+     "material": 5.412816238095238,
+     "sheets": 6,
+     "elapsed_seconds": 27.5690494,
+     "repeatable": true,
+     "layout_sha256": "565a5f3f1998ab368b2984fc780d386ed91001ead393f8f37ce2ceb6b133ff5f"
+    },
+    {
+     "job": "b-shapes0-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 24.141093700000056,
+     "probe": [],
+     "status": "valid",
+     "material": 5.64243319047619,
+     "sheets": 6,
+     "elapsed_seconds": 24.1236539,
+     "repeatable": true,
+     "layout_sha256": "e179110afeba6153c222ed3ab35e54768dac58b550d21a955da669404de15eaf"
+    },
+    {
+     "job": "b-shapes0-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.78282450000006,
+     "probe": [],
+     "status": "valid",
+     "material": 2.4997188500000003,
+     "sheets": 3,
+     "elapsed_seconds": 23.7645971,
+     "repeatable": true,
+     "layout_sha256": "7eff67415c449427928db1c0521a59b24209b7d06b05b1fd00a35fd460e20f38"
+    },
+    {
+     "job": "b-shapes1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 33.378653100000065,
+     "probe": [],
+     "status": "valid",
+     "material": 5.412816238095238,
+     "sheets": 6,
+     "elapsed_seconds": 33.3623169,
+     "repeatable": true,
+     "layout_sha256": "565a5f3f1998ab368b2984fc780d386ed91001ead393f8f37ce2ceb6b133ff5f"
+    },
+    {
+     "job": "b-shapes1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 23.56001759999981,
+     "probe": [],
+     "status": "valid",
+     "material": 5.812036428571428,
+     "sheets": 6,
+     "elapsed_seconds": 23.5435204,
+     "repeatable": true,
+     "layout_sha256": "3e69c5c3843f16c4c7066690af746a29a241fba3a95d8d849926f12de81570ae"
+    },
+    {
+     "job": "b-shapes1-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.335880299999644,
+     "probe": [],
+     "status": "valid",
+     "material": 2.225133325,
+     "sheets": 3,
+     "elapsed_seconds": 23.3171186,
+     "repeatable": true,
+     "layout_sha256": "963aee18ae3c648a70833b10f9852637360c797943859620e3c0c161b3ae9de2"
+    },
+    {
+     "job": "b-shirts-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 30.246015700000044,
+     "probe": [],
+     "status": "valid",
+     "material": 6.926588051282052,
+     "sheets": 7,
+     "elapsed_seconds": 30.2278868,
+     "repeatable": true,
+     "layout_sha256": "ff04727b2b69d6ebfaed6253785a4f5f21180be2f83e139bdbcf7d0a18b35569"
+    },
+    {
+     "job": "b-shirts-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 27.165115599999808,
+     "probe": [],
+     "status": "valid",
+     "material": 7.727161846153845,
+     "sheets": 8,
+     "elapsed_seconds": 27.1493304,
+     "repeatable": true,
+     "layout_sha256": "9e1c48d8f229f26cb57b6f1d1c8306015f4791f6a3a4bfcdf1540a06842f7c19"
+    },
+    {
+     "job": "b-shirts-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 25.609589300000152,
+     "probe": [],
+     "status": "valid",
+     "material": 2.47858585,
+     "sheets": 3,
+     "elapsed_seconds": 25.592834,
+     "repeatable": true,
+     "layout_sha256": "e43896c923dc13c73cce768c47bbc5e50967b9344a954be4b8c29a93c602994e"
+    },
+    {
+     "job": "b-swim-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 31.0123951999999,
+     "probe": [],
+     "status": "valid",
+     "material": 4.33444272708489,
+     "sheets": 5,
+     "elapsed_seconds": 30.9952279,
+     "repeatable": true,
+     "layout_sha256": "cac96144a14f92d77d81ee56f2bf577d0a32250d9d901933c4ade58433bb88d3"
+    },
+    {
+     "job": "b-swim-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 29.147581100000025,
+     "probe": [],
+     "status": "valid",
+     "material": 4.403249614031981,
+     "sheets": 5,
+     "elapsed_seconds": 29.1318152,
+     "repeatable": true,
+     "layout_sha256": "4e48aa3eef76e161607cbe227c8cbf2d0654a9d609c1d10f35ee75e024f31bf2"
+    },
+    {
+     "job": "b-swim-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 25.626947100000052,
+     "probe": [],
+     "status": "valid",
+     "material": 1.5912338683936023,
+     "sheets": 2,
+     "elapsed_seconds": 25.6102696,
+     "repeatable": true,
+     "layout_sha256": "88d02e90551690e62f8ba0cdefb0cc0c43c217d071d49d5d2fe2af4e40b3f94e"
+    },
+    {
+     "job": "b-trousers-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 36.667319099999986,
+     "probe": [],
+     "status": "valid",
+     "material": 2.581012836158192,
+     "sheets": 3,
+     "elapsed_seconds": 36.6495278,
+     "repeatable": true,
+     "layout_sha256": "67f520c258c6ec6198ae0ac0592908de9276fb0bd54899064b668036d4a5906c"
+    },
+    {
+     "job": "b-trousers-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 30.64930430000004,
+     "probe": [],
+     "status": "valid",
+     "material": 2.667050813559322,
+     "sheets": 3,
+     "elapsed_seconds": 30.6310569,
+     "repeatable": true,
+     "layout_sha256": "74062d82a23f5e05e5eb26cf0d319a214769b2c3b59d581a0d3f3e0d6b51d404"
+    },
+    {
+     "job": "b-trousers-strip-sheet",
+     "exit_code": 0,
+     "process_seconds": 23.98485750000009,
+     "probe": [],
+     "status": "valid",
+     "material": 2.0889102658227845,
+     "sheets": 3,
+     "elapsed_seconds": 23.9686805,
+     "repeatable": true,
+     "layout_sha256": "3dc99c16f7c8ea6600999894fb37f2547c1d7da319491072c7ad8958793d1a40"
+    },
+    {
+     "job": "m-box-batch-500",
+     "exit_code": 0,
+     "process_seconds": 16.023181600000044,
+     "probe": [],
+     "status": "valid",
+     "material": 2.0375410840163934,
+     "sheets": 3,
+     "elapsed_seconds": 16.0054035,
+     "repeatable": true,
+     "layout_sha256": "78b26d7602ca44070caa01e78b9339155f2cd18e88235cffca0d28641a584253"
+    },
+    {
+     "job": "m-box-desktop",
+     "exit_code": 0,
+     "process_seconds": 18.09919029999992,
+     "probe": [],
+     "status": "valid",
+     "material": 0.83533622,
+     "sheets": 1,
+     "elapsed_seconds": 18.0825917,
+     "repeatable": true,
+     "layout_sha256": "192bd773b936b424569e6b60851462e019ab4159086012a7f3bd595961c2161d"
+    },
+    {
+     "job": "m-box-long",
+     "exit_code": 0,
+     "process_seconds": 16.892794100000174,
+     "probe": [],
+     "status": "valid",
+     "material": 0.309344762295082,
+     "sheets": 1,
+     "elapsed_seconds": 16.8770595,
+     "repeatable": true,
+     "layout_sha256": "a28c101844aec6d5f1433ecb0fe9d9b78eb9d71315a5967a24f36dbde20c285c"
+    },
+    {
+     "job": "m-box-mini",
+     "exit_code": 0,
+     "process_seconds": 19.246192399999927,
+     "probe": [],
+     "status": "valid",
+     "material": 0.666000455,
+     "sheets": 1,
+     "elapsed_seconds": 19.2294298,
+     "repeatable": true,
+     "layout_sha256": "0a1211e60506f60fc2a2ad53c8065790660846989159fcd42e805e9ea9041a5b"
+    },
+    {
+     "job": "m-box-storage",
+     "exit_code": 0,
+     "process_seconds": 15.939417499999763,
+     "probe": [],
+     "status": "valid",
+     "material": 0.5183611557377049,
+     "sheets": 1,
+     "elapsed_seconds": 15.9243306,
+     "repeatable": true,
+     "layout_sha256": "f771d9130d7e832b3b81c3477440dbb7345386f9f77e10d1f427b10bf4dbdb49"
+    },
+    {
+     "job": "m-box-tool",
+     "exit_code": 0,
+     "process_seconds": 18.424376199999642,
+     "probe": [],
+     "status": "valid",
+     "material": 1.32900015,
+     "sheets": 2,
+     "elapsed_seconds": 18.4094035,
+     "repeatable": true,
+     "layout_sha256": "ba637b594fc270a8d8d8489cef896eaac06542d0558da47083e414d3e7597d2b"
+    },
+    {
+     "job": "m-garment-bruce-1",
+     "exit_code": 0,
+     "process_seconds": 17.2795600999998,
+     "probe": [],
+     "status": "valid",
+     "material": 0.199021199,
+     "sheets": 1,
+     "elapsed_seconds": 17.2637575,
+     "repeatable": true,
+     "layout_sha256": "e7eaa866a30e618063f68692f8bd84be7e0b681d3f2411a419ce11380e11c9fa"
+    },
+    {
+     "job": "m-garment-bruce-2",
+     "exit_code": 0,
+     "process_seconds": 16.133871200000158,
+     "probe": [],
+     "status": "valid",
+     "material": 0.430407463,
+     "sheets": 1,
+     "elapsed_seconds": 16.118069,
+     "repeatable": true,
+     "layout_sha256": "dbacebfcc915c42ba1b0b4b8508e83ca2f436b8a15a17ee6e0178b689fca8612"
+    },
+    {
+     "job": "m-garment-bruce-3",
+     "exit_code": 0,
+     "process_seconds": 19.74149699999998,
+     "probe": [],
+     "status": "valid",
+     "material": 0.9974053418333334,
+     "sheets": 1,
+     "elapsed_seconds": 19.7232117,
+     "repeatable": true,
+     "layout_sha256": "b85f1a2d3cb58cdf487f3c6f7c70148dfded1f89be4f4a38731ab973792889fd"
+    },
+    {
+     "job": "m-garment-teagan-1",
+     "exit_code": 0,
+     "process_seconds": 16.081028900000092,
+     "probe": [],
+     "status": "valid",
+     "material": 0.7683839476666666,
+     "sheets": 1,
+     "elapsed_seconds": 16.0650862,
+     "repeatable": true,
+     "layout_sha256": "aa71b339074994060e0173406ccc06c3b00d44d8558a29619787a131bf4d2a01"
+    },
+    {
+     "job": "m-garment-teagan-2",
+     "exit_code": 0,
+     "process_seconds": 36.26474859999962,
+     "probe": [],
+     "status": "valid",
+     "material": 1.8641388849999998,
+     "sheets": 2,
+     "elapsed_seconds": 36.2475311,
+     "repeatable": true,
+     "layout_sha256": "d65eaa4a0f1c53de42bf72fe5f2f02a3b2f7c263b6004415d93a7a6a8be4e58f"
+    },
+    {
+     "job": "m-garment-teagan-3",
+     "exit_code": 0,
+     "process_seconds": 26.875402900000154,
+     "probe": [],
+     "status": "valid",
+     "material": 4.39702706,
+     "sheets": 5,
+     "elapsed_seconds": 26.8583185,
+     "repeatable": true,
+     "layout_sha256": "4a694237366fad25a95b9955778900e0a53a85ffbbfa3c596f109e04e3a5750c"
+    },
+    {
+     "job": "m-mechanical-batch-1000",
+     "exit_code": 0,
+     "process_seconds": 24.186007900000277,
+     "probe": [],
+     "status": "valid",
+     "material": 1.0323342904000001,
+     "sheets": 2,
+     "elapsed_seconds": 24.1690268,
+     "repeatable": true,
+     "layout_sha256": "6aa066e7d34273bfa9d4b3063f16785b318fece853a23037dc23a5b97999b3dc"
+    },
+    {
+     "job": "m-mechanical-cog-washers",
+     "exit_code": 0,
+     "process_seconds": 34.85697029999983,
+     "probe": [],
+     "status": "valid",
+     "material": 1.8711431225,
+     "sheets": 2,
+     "elapsed_seconds": 34.8409421,
+     "repeatable": true,
+     "layout_sha256": "aa12fbba0ad7db0d2cad4bb0465bc5c376fc037da3e06da2a14c5778ccf16866"
+    },
+    {
+     "job": "m-mechanical-defective-stock",
+     "exit_code": 0,
+     "process_seconds": 33.35040930000014,
+     "probe": [],
+     "status": "valid",
+     "material": 2.671451002,
+     "sheets": 3,
+     "elapsed_seconds": 33.3332972,
+     "repeatable": true,
+     "layout_sha256": "dc48725731b609649613a1565a4896ce223541a9b72aa5e80d4495e089221f59"
+    },
+    {
+     "job": "m-mechanical-frame-inserts",
+     "exit_code": 0,
+     "process_seconds": 24.22426080000014,
+     "probe": [],
+     "status": "valid",
+     "material": 0.5566616491803278,
+     "sheets": 1,
+     "elapsed_seconds": 24.2077284,
+     "repeatable": true,
+     "layout_sha256": "4c0d3a166f4a8ffb1d42ae340c73a7f77ac99b567d922a803e5166d290043e7c"
+    },
+    {
+     "job": "m-mechanical-large-plates",
+     "exit_code": 0,
+     "process_seconds": 28.51121749999993,
+     "probe": [],
+     "status": "valid",
+     "material": 1.1304801510000002,
+     "sheets": 2,
+     "elapsed_seconds": 28.4952873,
+     "repeatable": true,
+     "layout_sha256": "5928499800847a0167a8ccaf03d9d66b4b95b63202b47c0df7239bd283208260"
+    },
+    {
+     "job": "m-mechanical-mixed-stock",
+     "exit_code": 0,
+     "process_seconds": 31.901261800000157,
+     "probe": [],
+     "status": "valid",
+     "material": 0.9223769148544,
+     "sheets": 1,
+     "elapsed_seconds": 31.8856086,
+     "repeatable": true,
+     "layout_sha256": "a37d08e38f6eff4f3658bbc9e32ff1dace0e39331e5e8e66305156b99949c385"
+    },
+    {
+     "job": "m-mechanical-mounting-kit",
+     "exit_code": 0,
+     "process_seconds": 27.994373600000017,
+     "probe": [],
+     "status": "valid",
+     "material": 2.5158146324999997,
+     "sheets": 3,
+     "elapsed_seconds": 27.9782865,
+     "repeatable": true,
+     "layout_sha256": "c213f3b680064416ec342c0f86e0bd3c64372eb71c54e30182b529841451555f"
+    },
+    {
+     "job": "m-mechanical-panel-hardware",
+     "exit_code": 0,
+     "process_seconds": 28.77785440000025,
+     "probe": [],
+     "status": "valid",
+     "material": 1.5390513812,
+     "sheets": 2,
+     "elapsed_seconds": 28.7607347,
+     "repeatable": true,
+     "layout_sha256": "6bc12bcad0eb3a06836279905d60ce50c3f81ea9ebc03c041c81ca74d7f15d73"
+    },
+    {
+     "job": "m-mechanical-remnant-kit",
+     "exit_code": 0,
+     "process_seconds": 33.94475629999988,
+     "probe": [],
+     "status": "valid",
+     "material": 0.6523536836065574,
+     "sheets": 1,
+     "elapsed_seconds": 33.9273089,
+     "repeatable": true,
+     "layout_sha256": "da078d35a4d34fae03a840f021a956eab776dcdecb8b089bfb56347c8539b14d"
+    },
+    {
+     "job": "m-mechanical-small-brackets",
+     "exit_code": 0,
+     "process_seconds": 28.448877000000266,
+     "probe": [],
+     "status": "valid",
+     "material": 5.673214390000001,
+     "sheets": 6,
+     "elapsed_seconds": 28.4293834,
+     "repeatable": true,
+     "layout_sha256": "382a3d4518e65ea8d659a98579443be23d5759af957a0c910a25b12fe22e2d52"
+    },
+    {
+     "job": "m-public-gear-1",
+     "exit_code": 0,
+     "process_seconds": 39.95234900000014,
+     "probe": [],
+     "status": "valid",
+     "material": 0.941014095,
+     "sheets": 1,
+     "elapsed_seconds": 39.9366456,
+     "repeatable": true,
+     "layout_sha256": "1100866759fddca941a4ec2767fe55dff81a31073336438662d72807d869aa5e"
+    },
+    {
+     "job": "m-public-gear-2",
+     "exit_code": 0,
+     "process_seconds": 31.945798699999614,
+     "probe": [],
+     "status": "valid",
+     "material": 0.8248489674999999,
+     "sheets": 1,
+     "elapsed_seconds": 31.930375,
+     "repeatable": true,
+     "layout_sha256": "15d9cf5c3b45d1ff768cdeb634eb9661e3de71eb1d531999dad01b529b4bf410"
+    },
+    {
+     "job": "m-public-gear-3",
+     "exit_code": 0,
+     "process_seconds": 37.2453529000004,
+     "probe": [],
+     "status": "valid",
+     "material": 0.5216432422131148,
+     "sheets": 1,
+     "elapsed_seconds": 37.2291567,
+     "repeatable": true,
+     "layout_sha256": "bde8f787eb060835c61a6e839644043749c18dc8f44654815d6158730be3b654"
+    },
+    {
+     "job": "m-public-gear-4",
+     "exit_code": 0,
+     "process_seconds": 27.48570890000019,
+     "probe": [],
+     "status": "valid",
+     "material": 0.5545981412,
+     "sheets": 1,
+     "elapsed_seconds": 27.4700712,
+     "repeatable": true,
+     "layout_sha256": "b91fc5d37b810cd910e3be69e7628937a6794348b77646895b1b5fdfe4b4ffd3"
+    },
+    {
+     "job": "m-sign-1",
+     "exit_code": 0,
+     "process_seconds": 15.347381000000041,
+     "probe": [],
+     "status": "valid",
+     "material": 0.725246515,
+     "sheets": 1,
+     "elapsed_seconds": 15.330208,
+     "repeatable": true,
+     "layout_sha256": "1411eff09c6d0c04c82a57021dc2394850767dff7d00d8da4465ab73ce2c8339"
+    },
+    {
+     "job": "m-sign-2",
+     "exit_code": 0,
+     "process_seconds": 18.52218720000019,
+     "probe": [],
+     "status": "valid",
+     "material": 0.59463152,
+     "sheets": 1,
+     "elapsed_seconds": 18.5040441,
+     "repeatable": true,
+     "layout_sha256": "2ba4e671b41840b0c7ac8266abbc23779040c2bb581d55efb75021c03963e74d"
+    },
+    {
+     "job": "m-sign-3",
+     "exit_code": 0,
+     "process_seconds": 19.983085800000026,
+     "probe": [],
+     "status": "valid",
+     "material": 0.14242946639344253,
+     "sheets": 1,
+     "elapsed_seconds": 19.9665087,
+     "repeatable": true,
+     "layout_sha256": "7f50af3471cc55de642afb12fc6341ed5963598c704be0316feb587c1172264a"
+    },
+    {
+     "job": "m-sign-4",
+     "exit_code": 0,
+     "process_seconds": 16.22762950000015,
+     "probe": [],
+     "status": "valid",
+     "material": 0.3390111655737705,
+     "sheets": 1,
+     "elapsed_seconds": 16.2118861,
+     "repeatable": true,
+     "layout_sha256": "d926b6895ad5ff1d7112c3fb55b4b041887c8a4cd1b9e85a12ff6f6e86261553"
+    }
+   ]
+  },
+  "baseline_300_high_weight_jobs": {
+   "binary_sha256": "4a6bd0aff705227e1e0179ffdaa645783fc1e734aad14ffdb687f834df5ca108",
+   "seconds": 300.0,
+   "seed": 0,
+   "repeatable": true,
+   "probe": true,
+   "rows": [
+    {
+     "job": "b-blaz1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 150.95544949999976,
+     "probe": [
+      "probe: max weight 1.1608934e1",
+      "probe: max weight 1.08076584e2",
+      "probe: max weight 1.0311703e3",
+      "probe: max weight 1.1245542e4",
+      "probe: max weight 1.13035875e5",
+      "probe: max weight 1.315259e6",
+      "probe: max weight 1.3365531e7",
+      "probe: max weight 1.5352362e8",
+      "probe: max weight 1.6828218e9",
+      "probe: max weight 1.0481918e10",
+      "probe: max weight 1.10928036e11",
+      "probe: max weight 1.2830233e12",
+      "probe: max weight 1.0249948e13",
+      "probe: max weight 1.047255e14",
+      "probe: max weight 1.2094467e15",
+      "probe: max weight 1.1373484e16",
+      "probe: max weight 1.5500204e17",
+      "probe: max weight 1.10165794e18",
+      "probe: max weight 1.6354677e19",
+      "probe: max weight 1.012144e20",
+      "probe: max weight 1.2639145e21",
+      "probe: max weight 1.5577857e22",
+      "probe: max weight 1.056349e23",
+      "probe: max weight 1.0050295e24",
+      "probe: max weight 1.5272308e25",
+      "probe: max weight 1.2565323e26",
+      "probe: max weight 1.2382092e27",
+      "probe: max weight 1.2660124e28",
+      "probe: max weight 1.117328e29",
+      "probe: max weight 1.326758e30",
+      "probe: max weight 1.3113593e31",
+      "probe: max weight 1.0092683e32",
+      "probe: max weight 1.0382926e33",
+      "probe: max weight 1.3968007e34",
+      "probe: max weight 1.0730001e35",
+      "probe: max weight 1.7230536e36",
+      "probe: max weight 1.05766434e37",
+      "probe: weighted loss overflow",
+      "probe: max weight 1.103001e38",
+      "probe: max weight inf"
+     ],
+     "status": "valid",
+     "material": 9.666672266666666,
+     "sheets": 10,
+     "elapsed_seconds": 150.8973913,
+     "repeatable": true,
+     "layout_sha256": "ce0c1bf3c2f45705b4f37cfaf75a994fc7c06c2540c61c3a27cabac0690f314e"
+    },
+    {
+     "job": "b-blaz1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 135.08143229999996,
+     "probe": [
+      "probe: max weight 1.30321e1",
+      "probe: max weight 1.1267239e2",
+      "probe: max weight 1.0358619e3",
+      "probe: max weight 1.3836715e4",
+      "probe: max weight 1.318315e5",
+      "probe: max weight 1.1636905e6",
+      "probe: max weight 1.6191298e7",
+      "probe: max weight 1.398618e8",
+      "probe: max weight 1.3361051e9",
+      "probe: max weight 1.0856687e10",
+      "probe: max weight 1.1631385e11",
+      "probe: max weight 1.4109886e12",
+      "probe: max weight 1.0825098e13",
+      "probe: max weight 1.4228975e14",
+      "probe: max weight 1.0997358e15",
+      "probe: max weight 1.035464e16",
+      "probe: max weight 1.3869321e17",
+      "probe: max weight 1.3314209e18",
+      "probe: max weight 1.1343041e19",
+      "probe: max weight 1.2084454e20",
+      "probe: max weight 1.0677487e21",
+      "probe: max weight 1.192896e22",
+      "probe: max weight 1.1265359e23",
+      "probe: max weight 1.12582734e24",
+      "probe: max weight 1.1915296e25",
+      "probe: max weight 1.909228e26",
+      "probe: max weight 1.15055294e27",
+      "probe: max weight 1.3535865e28",
+      "probe: max weight 1.0036419e29",
+      "probe: max weight 1.1854225e30",
+      "probe: max weight 1.104266e31",
+      "probe: max weight 1.0353159e32",
+      "probe: max weight 1.3520639e33",
+      "probe: max weight 1.3852877e34",
+      "probe: max weight 1.1857987e35",
+      "probe: max weight 1.0548743e36",
+      "probe: max weight 1.0956777e37",
+      "probe: weighted loss overflow",
+      "probe: max weight 1.5412993e38",
+      "probe: max weight inf"
+     ],
+     "status": "valid",
+     "material": 9.666780666666666,
+     "sheets": 10,
+     "elapsed_seconds": 135.0244814,
+     "repeatable": true,
+     "layout_sha256": "908b4ae4169db42cc08ac1daff92071cf8b1111472aa2e21d4e46bfdcea8f74e"
+    },
+    {
+     "job": "b-fu-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 111.7151045999999,
+     "probe": [
+      "probe: max weight 1.1173395e1",
+      "probe: max weight 1.1893712e2",
+      "probe: max weight 1.4458491e3",
+      "probe: max weight 1.0057114e4",
+      "probe: max weight 1.0225272e5",
+      "probe: max weight 1.2721321e6",
+      "probe: max weight 1.0224312e7",
+      "probe: max weight 1.0113646e8",
+      "probe: max weight 1.0185355e9",
+      "probe: max weight 1.1648744e10",
+      "probe: max weight 1.1234609e11",
+      "probe: max weight 1.02163795e12",
+      "probe: max weight 1.0016011e13",
+      "probe: max weight 1.1067609e14",
+      "probe: max weight 1.00335335e15",
+      "probe: max weight 1.2309095e16",
+      "probe: max weight 1.2330716e17",
+      "probe: max weight 1.0408675e18",
+      "probe: max weight 1.0605203e19",
+      "probe: max weight 1.0642174e20",
+      "probe: max weight 1.0446392e21",
+      "probe: max weight 1.3034968e22",
+      "probe: max weight 1.2630019e23",
+      "probe: max weight 1.02216954e24",
+      "probe: max weight 1.1161469e25",
+      "probe: max weight 1.0575175e26",
+      "probe: max weight 1.05196985e27",
+      "probe: max weight 1.0655807e28",
+      "probe: max weight 1.4698492e29",
+      "probe: max weight 1.1036276e30",
+      "probe: max weight 1.1559905e31",
+      "probe: max weight 1.1887093e32",
+      "probe: max weight 1.0616131e33",
+      "probe: max weight 1.0479375e34",
+      "probe: max weight 1.1240313e35",
+      "probe: max weight 1.29925155e36",
+      "probe: weighted loss overflow",
+      "probe: max weight 1.0282711e37",
+      "probe: max weight 1.2874326e38",
+      "probe: max weight inf"
+     ],
+     "status": "valid",
+     "material": 3.3605495714285714,
+     "sheets": 4,
+     "elapsed_seconds": 111.6579884,
+     "repeatable": true,
+     "layout_sha256": "8f49efbd7aa7c98eca9f4271c720e01fdafbc641e6530c9dd0156614b04b4666"
+    },
+    {
+     "job": "b-fu-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 97.22009770000022,
+     "probe": [
+      "probe: max weight 1.3201869e1",
+      "probe: max weight 1.0959141e2",
+      "probe: max weight 1.1531914e3",
+      "probe: max weight 1.1355562e4",
+      "probe: max weight 1.1944404e5",
+      "probe: max weight 1.2784054e6",
+      "probe: max weight 1.1604316e7",
+      "probe: max weight 1.1009113e8",
+      "probe: max weight 1.5124598e9",
+      "probe: max weight 1.0343031e10",
+      "probe: max weight 1.0409612e11",
+      "probe: max weight 1.1780778e12",
+      "probe: max weight 1.0611974e13",
+      "probe: max weight 1.0034411e14",
+      "probe: max weight 1.1734836e15",
+      "probe: max weight 1.207861e16",
+      "probe: max weight 1.0109028e17",
+      "probe: max weight 1.3016988e18",
+      "probe: max weight 1.8220924e19",
+      "probe: max weight 1.1885472e20",
+      "probe: max weight 1.0334759e21",
+      "probe: max weight 1.1406344e22",
+      "probe: max weight 1.3423215e23",
+      "probe: max weight 1.1044962e24",
+      "probe: max weight 1.2380582e25",
+      "probe: max weight 1.1402534e26",
+      "probe: max weight 1.3379515e27",
+      "probe: max weight 1.134759e28",
+      "probe: max weight 1.3469439e29",
+      "probe: max weight 1.2156696e30",
+      "probe: max weight 1.2752833e31",
+      "probe: max weight 1.1466066e32",
+      "probe: max weight 1.4788845e33",
+      "probe: max weight 1.3185453e34",
+      "probe: max weight 1.674815e35",
+      "probe: max weight 1.4164959e36",
+      "probe: weighted loss overflow",
+      "probe: max weight 1.9794998e37",
+      "probe: max weight 1.57731e38",
+      "probe: max weight inf"
+     ],
+     "status": "valid",
+     "material": 3.428576142857143,
+     "sheets": 4,
+     "elapsed_seconds": 97.1629511,
+     "repeatable": true,
+     "layout_sha256": "51a6db744343a3e0f28f10f90e05cbaf4b6fd5549d438fe8fdf52cd2b3981a0e"
+    }
+   ]
+  },
+  "cap_300_high_weight_jobs": {
+   "binary_sha256": "c88dae208c632720747e36771254b63ad3d6e4f7dd0bf48a061751830abaccc5",
+   "seconds": 300.0,
+   "seed": 0,
+   "repeatable": true,
+   "probe": false,
+   "rows": [
+    {
+     "job": "b-blaz1-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 124.22441199999957,
+     "probe": [],
+     "status": "valid",
+     "material": 9.666729866666667,
+     "sheets": 10,
+     "elapsed_seconds": 124.1715599,
+     "repeatable": true,
+     "layout_sha256": "8df23ec32b792ecece33640123520f7ff087c7e571df8cd45d295ff909fa8245"
+    },
+    {
+     "job": "b-blaz1-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 107.97459400000025,
+     "probe": [],
+     "status": "valid",
+     "material": 9.666774666666667,
+     "sheets": 10,
+     "elapsed_seconds": 107.9215588,
+     "repeatable": true,
+     "layout_sha256": "1bc4864b9be2f49ea0093b8729b3c1c5c26e6c5a919424df60490f6ab1e3fa96"
+    },
+    {
+     "job": "b-fu-nest-mb-free",
+     "exit_code": 0,
+     "process_seconds": 93.84571060000007,
+     "probe": [],
+     "status": "valid",
+     "material": 3.3605539523809522,
+     "sheets": 4,
+     "elapsed_seconds": 93.793179,
+     "repeatable": true,
+     "layout_sha256": "996b7ce693694d30fe250f151d8c332305810157b117ae719c01df19ec246400"
+    },
+    {
+     "job": "b-fu-nest-mb-given",
+     "exit_code": 0,
+     "process_seconds": 83.13998609999999,
+     "probe": [],
+     "status": "valid",
+     "material": 3.4285827142857146,
+     "sheets": 4,
+     "elapsed_seconds": 83.0870995,
+     "repeatable": true,
+     "layout_sha256": "d2167cc4d7281c86b80419b79dfaf944036dd637c4abf03be4312799a062baf7"
+    }
+   ]
+  }
+ }
+}

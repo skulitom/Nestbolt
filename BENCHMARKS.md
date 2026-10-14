@@ -12198,3 +12198,28 @@ This validates supplied allowances only. Planning, own-material waste-side fit,
 contour coverage/attachment, shortening, shared-edge exclusion, search/export
 integration, native lead calibration and checks, material cost and public
 surfaces remain pending. H6 is incomplete and milestone weight remains 15%.
+
+
+## 2026-10-14 — separator weight ceiling
+
+[Note](benchmarks/results/separator-weight-cap-20261014.md), based on `6c462c2`:
+the separator's guided-local-search weights, ported from Sparrow 0.3.0, had a
+floor but no ceiling and could overflow f32 to infinity. An infinite weight
+never decays, so every overlap with that partner scored the same until the
+tracker was rebuilt. `MAX_WEIGHT = 1e20` now caps the update. A new unit test
+traps two sheet-sized squares in one sheet; it fails with an infinite weight
+before the change and passes after it.
+
+A temporary weight probe over all 65 development jobs (60 work-seconds, seed 0)
+found weights below 100 on 55 jobs. Four multi-bin blaz1/fu jobs reached 1.4e12
+to 1.1e34, and at 300 work-seconds all four reach infinity, as the `75cbb32`
+final 300 s runs very likely did. Validity was never affected. With the cap, 64
+of 65 repeatable layouts are byte-identical at 60 work-seconds. Only
+blaz1-nest-mb-given changes, and the four 300-second runs move by at most
+0.0006% material with unchanged sheet counts: a robustness fix, not a quality
+gain. `WORK_VERSION` is unchanged. A Sparrow upstream report is drafted, not
+posted.
+
+238 workspace tests pass (one existing ignored), as do the release CLI feature
+and `sparrow_` tests; strict Clippy and formatting pass. Development jobs only:
+no held-out geometry, final record or published result was rerun or changed.
