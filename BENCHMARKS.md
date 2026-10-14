@@ -12170,3 +12170,31 @@ compiler, lint and harness mistakes. Previous checkpoint CI is fully green.
 H6 remains incomplete: lead footprints/generation/shortening, shared-segment
 exclusion, surfaces, material cost and three native searched lead checks remain.
 Completed milestone weight stays 15%; v1 results and claims are unchanged.
+
+
+## 2026-10-14 — N5 independent lead-footprint kernel
+
+[Checkpoint](benchmarks/results/h6-lead-kernel-checkpoint-20261014.md), based on
+`0c67442`: analytic line/arc lead paths are independently transformed and widened
+by half kerf, with a pierce-disc diameter of twice kerf and explicit conservative
+approximation guards. Up to two traversal alternatives share one attachment.
+Supplied footprints are checked against other original parts, other contours'
+leads, stock outlines, margins, defects and edge clearance. Footprint unions
+preserve holes, islands and declared units.
+
+The original two exact-union assertions failed on integer-grid rounding; analytic
+physical coverage remains strict and the saved seed is retained. Review also
+found a real 0.005816 mm endpoint precision fault at the supported large-angle
+limit. The failing regression is retained; rotation composition fixes it.
+All 236 workspace tests pass before the final angle/positive-kerf adjustments
+(one existing ignored); all 49 validator tests pass on the final sources,
+including 14 lead tests and three 64-case property families. Final strict Clippy,
+formatting, validator/browser WASM builds and all 1,181 frozen hashes pass.
+[JSON and retained logs](benchmarks/results/h6-lead-kernel-checks-20261014/checks.json)
+include source hashes, original failures, final results and exact check scope.
+
+CCD1 builds/tests; no held-out geometry/labels or native application opened.
+This validates supplied allowances only. Planning, own-material waste-side fit,
+contour coverage/attachment, shortening, shared-edge exclusion, search/export
+integration, native lead calibration and checks, material cost and public
+surfaces remain pending. H6 is incomplete and milestone weight remains 15%.

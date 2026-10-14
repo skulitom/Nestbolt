@@ -1,0 +1,43 @@
+    Checking getrandom v0.4.3
+    Checking windows-sys v0.61.2
+    Checking nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+    Checking rand v0.10.3
+    Checking tempfile v3.27.0
+    Checking rusty-fork v0.3.1
+    Checking proptest v1.12.0
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates\validator\tests\leads.rs:191:44
+    |
+191 |     assert!(leads::validate(&job, &layout, &[a.clone()]).unwrap().valid);
+    |                                            ^^^^^^^^^^^^ help: try: `std::slice::from_ref(&a)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#cloned_ref_to_slice_refs
+    = note: `-D clippy::cloned-ref-to-slice-refs` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::cloned_ref_to_slice_refs)]`
+
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates\validator\tests\leads.rs:200:44
+    |
+200 |     assert!(leads::validate(&job, &layout, &[a.clone()]).unwrap().valid);
+    |                                            ^^^^^^^^^^^^ help: try: `std::slice::from_ref(&a)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#cloned_ref_to_slice_refs
+
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates\validator\tests\leads.rs:213:57
+    |
+213 |         let report = leads::validate(&altered, &layout, &[a.clone()]).unwrap();
+    |                                                         ^^^^^^^^^^^^ help: try: `std::slice::from_ref(&a)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#cloned_ref_to_slice_refs
+
+error: unnecessary use of `clone` to create a slice from a reference
+   --> crates\validator\tests\leads.rs:267:51
+    |
+267 |     let expected = leads::validate(&job, &layout, &[a.clone()]).unwrap();
+    |                                                   ^^^^^^^^^^^^ help: try: `std::slice::from_ref(&a)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#cloned_ref_to_slice_refs
+
+error: could not compile `nestbolt-validator` (test "leads") due to 4 previous errors
+warning: build failed, waiting for other jobs to finish...

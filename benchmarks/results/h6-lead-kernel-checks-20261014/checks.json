@@ -1,0 +1,208 @@
+{
+  "created_utc": "2026-10-14T04:08:25.611897+00:00",
+  "base_commit": "0c674421c96ce6bcf1e2715ffb5bcdf666aa6822",
+  "scope": "Independent lead-footprint kernel; supplied allowances only; H6 incomplete",
+  "held_out_geometry_or_labels_read": false,
+  "completed_milestone_weight_percent": 15,
+  "source_files": {
+    "crates/validator/src/leads.rs": "d461950d3ee42d611c93aaf0690a5698f4a6823e6c3240ed1289963b8668d4ed",
+    "crates/validator/src/lib.rs": "21b54203163af276bff70fbba07e873963dfeb6b10df50ce51c0f730f50088c9",
+    "crates/validator/src/job.rs": "eeb1d54c077ade3e77db15e40915685640376c9c79cef177a91fe87fb4ac6b9b",
+    "crates/validator/tests/leads.rs": "6e647526bb559d67da2fec3c102132228d73599619cc7d0cf83370154c4d1e98",
+    "crates/validator/tests/leads.proptest-regressions": "2b3f075ca2db676ec5cfda90afbd60c14d80bceb5017568d668ccf8c11597cbf",
+    "Cargo.lock": "747b26b998791228b2aa397cc99b9a08ecb48c9f2a056bd5781d9b95bc85ec95"
+  },
+  "checks": {
+    "workspace_before_final_angle_and_positive_kerf_adjustments": {
+      "passed": 236,
+      "failed": 0,
+      "ignored": 1,
+      "log": "h6-lead-workspace.log"
+    },
+    "final_validator": {
+      "passed": 49,
+      "failed": 0,
+      "ignored": 0,
+      "log": "h6-lead-validator-final3.log"
+    },
+    "final_lead_tests": {
+      "passed": 14,
+      "property_cases_per_family": 64,
+      "property_families": 3,
+      "saved_regression_seeds": 1
+    },
+    "final_clippy": {
+      "pass": true,
+      "scope": "workspace, all targets",
+      "log": "h6-lead-clippy-final3.log"
+    },
+    "final_wasm": {
+      "pass": true,
+      "packages": [
+        "nestbolt-wasm",
+        "nestbolt-validator"
+      ],
+      "log": "h6-lead-wasm-final3.log"
+    },
+    "final_format": {
+      "pass": true,
+      "log": "h6-lead-fmt-final3.log"
+    },
+    "frozen_integrity": {
+      "H1_frozen_integrity": true,
+      "inventory_files": 1181,
+      "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7"
+    }
+  },
+  "commands": {
+    "workspace": "python output/ccd1.py cargo test --workspace",
+    "final_validator": "python output/ccd1.py cargo test -p nestbolt-validator --locked",
+    "final_clippy": "python output/ccd1.py cargo clippy --workspace --all-targets --locked -- -D warnings",
+    "final_wasm": "python output/ccd1.py cargo build -p nestbolt-wasm -p nestbolt-validator --target wasm32-unknown-unknown --locked",
+    "final_format": "python output/ccd1.py cargo fmt --all --check",
+    "frozen_integrity": ".cache/shop-venv/Scripts/python.exe scripts/shop_freeze.py --check"
+  },
+  "environment": {
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.5",
+    "psutil": "5.9.0",
+    "build_test_logical_cpus": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+  },
+  "failures_retained": [
+    {
+      "log": "h6-lead-tests-1.log",
+      "reason": "Two exact-union containment assertions ignored declared integer-grid quantization; analytic physical coverage stays strict."
+    },
+    {
+      "log": "h6-lead-clippy-1.log",
+      "reason": "Four unnecessary test clones, fixed."
+    },
+    {
+      "log": "h6-lead-large-angle-before.log",
+      "reason": "Real large-angle precision defect, fixed by composing rotations."
+    }
+  ],
+  "harness_notes": [
+    "One PowerShell read-only search used unsupported brace expansion and was retried with explicit paths before reading any file."
+  ],
+  "limitations": [
+    "No planner or search integration",
+    "No own-material waste-side or attachment check",
+    "No missing-contour coverage check",
+    "No public surface changes",
+    "No native lead calibration or H6 native acceptance",
+    "No material-cost benchmark"
+  ],
+  "artifacts": {
+    "h6-lead-kernel-check.log": {
+      "raw_local_sha256": "339b409578a3e750a1db3b6db1c1e3373905f1b81e163a3973cf4b82d923878e",
+      "committed_sha256": "3b69a42a744b35939c47508e032803967cfdb2dad141ced8d462e34f1a7d6d54"
+    },
+    "h6-lead-tests-1.log": {
+      "raw_local_sha256": "5e05f683c168f0e6094b7cfbd052e30d109741f568d1908a11d235ad12830d89",
+      "committed_sha256": "ac1d0a2639abc71f13c1701ccb7109488aebcd621ceca95f38cf8d6b53b815da"
+    },
+    "h6-lead-tests-2.log": {
+      "raw_local_sha256": "bec9431e7352c27a1cf876ee1b467879616200d2f977dc32dfadc92e9f79bb4d",
+      "committed_sha256": "426250f1bb386abfbcc964f00abd1749f92f7d024d1d6b65b778fcfb98960e6a"
+    },
+    "h6-lead-tests-3.log": {
+      "raw_local_sha256": "96df988873aa2bcd0692882a46f83eca5fb5439e446e4abb81425fee4e05c51d",
+      "committed_sha256": "d2409980a1d3bc02b52112a4e41cd1b64b20218d4687a87b5ec7ef9b166be6fb"
+    },
+    "h6-lead-clippy-1.log": {
+      "raw_local_sha256": "f8ae3c9de69a0d808fb186a2f92c33d620b657287e1f2dd8d2c1007477ab6ae5",
+      "committed_sha256": "3f1098da9097884bcf526b5af1a9f42e228abcd67b3916ba6c16a688ecb58259"
+    },
+    "h6-lead-workspace.log": {
+      "raw_local_sha256": "04f806a388b39d73d3ecd9512c97cd4e08d269e16737caf3f5e92b59e58b7c42",
+      "committed_sha256": "f28d863419e58a109dafd8e6990b3169e776ad33e74f264a205a9cf5d0036326"
+    },
+    "h6-lead-clippy-final.log": {
+      "raw_local_sha256": "8636a934a25ae70ce711d6f666358757855ca52dccc6b5ab3e787fc30be91728",
+      "committed_sha256": "f9b9e9bebc2ca48c72f68ca357b78ebffdb2bf0e56e972937595d1feba059683"
+    },
+    "h6-lead-wasm.log": {
+      "raw_local_sha256": "bedef2fa9aef5d729226c8464c835ca2a4dfd7f39d62c31c5ad7d8a3dad9a52f",
+      "committed_sha256": "76a8c7dde90cc9a7739d7f18597f5dbad8cc4b5a557eda4ab82db68e5865919e"
+    },
+    "h6-lead-fmt.log": {
+      "raw_local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "committed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h6-lead-large-angle-before.log": {
+      "raw_local_sha256": "85928890e686747032aa344f5c9d81a57504a4e18af1c9d8cb7575aa27f35878",
+      "committed_sha256": "884e683bc2680298a782f181215c3ba731f8e38dab9d8bfd6450ac7fbc7b7de9"
+    },
+    "h6-lead-tests-final.log": {
+      "raw_local_sha256": "486b8f3bad0b4769b16d92269e1611edba8917ef185dca9d21e35316e0100108",
+      "committed_sha256": "553576f7b3bf912ae44377e09b15afe977c87d7e6e3956ad37233f18b069d0ff"
+    },
+    "h6-lead-validator-final.log": {
+      "raw_local_sha256": "a562d2602195941834f7942ae0fd27b6ca2ceedfbf0630789c0ae66e77187604",
+      "committed_sha256": "d80f4d21f79eb804cccc9d512d8ec3d9c77174fbc2cb8e0d76e911b9c64e7fdb"
+    },
+    "h6-lead-clippy-final2.log": {
+      "raw_local_sha256": "145c326972cdc4beb9dcf3e767d50057eea8afeb27a330ba34bf06359f4e0763",
+      "committed_sha256": "46ddf602fee08882a77d3442a9e305d82b8e51bd10a21bbd9b068d5c6fb337cd"
+    },
+    "h6-lead-wasm-final.log": {
+      "raw_local_sha256": "2bde3a0395f698f6b65daa6c8f4a6e185aa862e5a064ef0c972233c48bb1e808",
+      "committed_sha256": "d8103dccdeeb69455d775636649a0bc80f83f5808b4c5bfa95dc728f995d48c5"
+    },
+    "h6-lead-fmt-final2.log": {
+      "raw_local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "committed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h6-lead-validator-final3.log": {
+      "raw_local_sha256": "574793604729263485ad5f52f2217a392aee0f53ca5ee943c9117bbf6255f88c",
+      "committed_sha256": "09ec61af5fd3401578233d84f27c38c6ba43ba65b98b53d18736fa511ed6954a"
+    },
+    "h6-lead-clippy-final3.log": {
+      "raw_local_sha256": "145c326972cdc4beb9dcf3e767d50057eea8afeb27a330ba34bf06359f4e0763",
+      "committed_sha256": "46ddf602fee08882a77d3442a9e305d82b8e51bd10a21bbd9b068d5c6fb337cd"
+    },
+    "h6-lead-wasm-final3.log": {
+      "raw_local_sha256": "23f8f9121cfeb15210a051565da229c080dc1455178c27359f761b47b7d5ba0c",
+      "committed_sha256": "961513da33af03d0a98dc7195a7987c29e610ff3bfb9a4ec90db00055da04610"
+    },
+    "h6-lead-fmt-final3.log": {
+      "raw_local_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "committed_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "h6-lead-frozen.log": {
+      "raw_local_sha256": "c73e800f3d06eea7fcbeed83c644397fc2b489185a9b1732336c0bd377abb000",
+      "committed_sha256": "226361ae8bac5dc34bb4d12279035511a82b1c248c45d72c2eacd79f7e45e162"
+    },
+    "h6-lead-angle-diagnostic.json": {
+      "raw_local_sha256": "b2c4e4fbd4a4048bc72a35f61ff2b8951d59ab605bb4e52d8b21217a7c34de85",
+      "committed_sha256": "b2c4e4fbd4a4048bc72a35f61ff2b8951d59ab605bb4e52d8b21217a7c34de85"
+    },
+    "h6-lead-source-guard.json": {
+      "raw_local_sha256": "9e89acdcc848bf1d04b3fb1122af4ffa7ffe1763b23154c43ac62f1f31c3a640",
+      "committed_sha256": "9e89acdcc848bf1d04b3fb1122af4ffa7ffe1763b23154c43ac62f1f31c3a640"
+    },
+    "ccd1.py": {
+      "raw_local_sha256": "ead9f88301160d68703df4c170325963cae4f2985fe0a6f95046bbdead6194e4",
+      "committed_sha256": "ead9f88301160d68703df4c170325963cae4f2985fe0a6f95046bbdead6194e4"
+    }
+  }
+}

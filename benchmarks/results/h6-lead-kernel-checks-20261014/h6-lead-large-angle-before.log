@@ -1,0 +1,22 @@
+   Compiling nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.37s
+     Running tests\leads.rs (target\debug\deps\leads-80ab5913f001ed8e.exe)
+
+running 1 test
+test large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations ... FAILED
+
+failures:
+
+---- large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations stdout ----
+
+thread 'large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations' (138800) panicked at crates\validator\tests\leads.rs:394:5:
+assertion failed: (p[0] - expected[0]).hypot(p[1] - expected[1]) < 1e-7
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 13 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p nestbolt-validator --test leads`

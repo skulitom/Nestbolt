@@ -8,11 +8,13 @@
 use anyhow::{Result, ensure};
 use clipper2_rust::{
     ClipType, Clipper64, ClipperOffset, EndType, FillRule, JoinType, Path64, Paths64, Point64,
+    PolyTree64,
 };
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 pub mod job;
+pub mod leads;
 pub mod sparrow;
 
 #[cfg(test)]
@@ -175,6 +177,45 @@ impl Footprint {
             boolean(&self.paths, &other.paths, ClipType::Difference)?,
             self.units,
         ))
+    }
+
+    /// Union touching or overlapping allowance components without double-counting
+    /// their area. Both operands must use the same declared coordinate units.
+    pub fn union(&self, other: &Self) -> Result<Self> {
+        self.check_clearance(other, 0.0)?;
+        Self::from_paths(
+            boolean(&self.paths, &other.paths, ClipType::Union)?,
+            self.units,
+        )
+        .ok_or_else(|| anyhow::anyhow!("geometry union has no area"))
+    }
+
+    /// Canonical non-overlapping components, in the original declared units.
+    /// Islands inside holes are separate components, retaining their own holes.
+    pub fn polygons(&self) -> Result<Vec<Polygon>> {
+        let mut engine = Clipper64::new();
+        engine.add_subject(&self.paths);
+        let mut tree = PolyTree64::new();
+        ensure!(
+            engine.execute_tree(ClipType::Union, FillRule::NonZero, &mut tree, &mut vec![])
+                && engine.error_code() == 0,
+            "geometry union topology failed"
+        );
+        let scale = SCALE * self.units.to_mm();
+        let ring = |i: usize| {
+            tree.nodes[i]
+                .polygon()
+                .iter()
+                .map(|p| [p.x as f64 / scale, p.y as f64 / scale])
+                .collect()
+        };
+        Ok((1..tree.nodes.len())
+            .filter(|&i| !tree.is_hole(i))
+            .map(|i| Polygon {
+                outer: ring(i),
+                holes: tree.nodes[i].children().iter().map(|&j| ring(j)).collect(),
+            })
+            .collect())
     }
 
     pub(crate) fn boundary_tolerance(&self) -> Result<Self> {

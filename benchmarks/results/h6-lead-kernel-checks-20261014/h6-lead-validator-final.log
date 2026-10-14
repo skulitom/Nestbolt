@@ -1,0 +1,93 @@
+   Compiling nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.76s
+     Running unittests src\lib.rs (target\debug\deps\nestbolt_validator-4098530526d5628e.exe)
+
+running 4 tests
+test distance_tests::queries_keep_input_checks_after_warming_and_do_not_allocate_for_distant_pairs ... ok
+test distance_tests::reused_clearance_envelopes_match_fresh_queries_for_different_neighbours ... ok
+test distance_tests::pruning_preserves_near_touching_curves_and_multiple_components ... ok
+test distance_tests::pruned_distances_equal_exhaustive_distances_at_all_supported_scales ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+     Running tests\adversarial.rs (target\debug\deps\adversarial-4d726e6f77241bb8.exe)
+
+running 1 test
+test seeded_adversarial_polygon_fuzz ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests\geometry.rs (target\debug\deps\geometry-f2d70c412fb360a4.exe)
+
+running 12 tests
+test normalizes_duplicate_closing_and_collinear_points ... ok
+test overlap_is_measured_against_the_smaller_part ... ok
+test rigid_transform_mirrors_then_rotates_then_translates ... ok
+test rejects_invalid_rings_and_hole_topology ... ok
+test containment_respects_defects_and_boundary_spacing ... ok
+test slivers_and_small_overlap_remain_measurable ... ok
+test diagonal_clearance_uses_euclidean_distance ... ok
+test units_are_explicit_and_inches_are_converted ... ok
+test parts_fit_inside_holes_with_clearance ... ok
+test contact_and_clearance_are_distinguished ... ok
+test winding_and_quarter_turns_preserve_area ... ok
+test rectangle_intersections_agree_with_analytic_area ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\job.rs (target\debug\deps\job-9e4b727744b2331e.exe)
+
+running 13 tests
+test equal_stock_metric_matches_the_plan_formula ... ok
+test mixed_stock_metric_uses_actual_area_and_one_trailing_offcut ... ok
+test a_completely_defective_sheet_allows_only_an_empty_fill_result ... ok
+test enforces_stock_limits_and_rejects_empty_or_duplicate_sheets ... ok
+test fill_modes_allow_missing_parts_but_never_extra_copies ... ok
+test rejects_duplicates_missing_copies_unknown_parts_and_nonrigid_fields ... ok
+test step_list_free_and_mirror_rules_are_checked ... ok
+test tiny_pair_overlaps_are_accumulated_per_part ... ok
+test unit_mismatch_invalid_inputs_and_excessive_demand_are_rejected ... ok
+test remnant_outline_and_overlapping_defects_are_supported ... ok
+test parts_can_nest_in_holes_and_disconnected_components_stay_rigid ... ok
+test margins_edges_defects_and_interpart_clearance_are_separate ... ok
+test validates_two_thousand_distinct_copies ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests\leads.rs (target\debug\deps\leads-80ab5913f001ed8e.exe)
+
+running 14 tests
+test large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations ... ok
+test stroke_and_pierce_have_the_declared_physical_sizes ... ok
+test union_preserves_holes_islands_and_units_without_double_counting ... ok
+test sheets_are_isolated_and_original_layout_must_be_valid ... ok
+test transformation_matches_independent_matrix_at_every_sample ... ok
+test malformed_paths_and_unknown_contours_fail_explicitly ... ok
+test hole_leads_check_nested_parts_and_other_contours_of_the_owner ... ok
+test inch_jobs_keep_paths_in_mm_but_translate_using_inches ... ok
+test detects_other_parts_and_crossing_leads_before_export ... ok
+test stock_edges_margins_remnants_and_defects_check_the_whole_lead ... ok
+test both_native_traversal_directions_reserve_room ... ok
+test union_roundtrip_matches_analytic_overlapping_rectangles ... ok
+test analytic_swept_discs_are_contained ... ok
+test extreme_arc_sizes_keep_physical_coverage_or_fail_with_a_bounded_cost ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.63s
+
+     Running tests\sparrow.rs (target\debug\deps\sparrow-63ad78014aa3ecd4.exe)
+
+running 5 tests
+test rejects_nonrigid_transform_fields_and_duplicate_source_ids ... ok
+test accepts_float32_angle_rounding_but_not_arbitrary_angles ... ok
+test checks_original_geometry_instead_of_embedded_solver_input ... ok
+test empty_rotation_list_is_fixed_while_null_is_free ... ok
+test quantities_rotations_containment_and_unknown_items_fail ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nestbolt_validator
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

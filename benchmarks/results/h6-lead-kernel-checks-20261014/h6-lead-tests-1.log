@@ -1,0 +1,53 @@
+   Compiling nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.66s
+     Running tests\leads.rs (target\debug\deps\leads-80ab5913f001ed8e.exe)
+
+running 12 tests
+test stroke_and_pierce_have_the_declared_physical_sizes ... ok
+test sheets_are_isolated_and_original_layout_must_be_valid ... ok
+test inch_jobs_keep_paths_in_mm_but_translate_using_inches ... ok
+test transformation_matches_independent_matrix_at_every_sample ... ok
+test union_preserves_holes_islands_and_units_without_double_counting ... ok
+test malformed_paths_and_unknown_contours_fail_explicitly ... ok
+test hole_leads_check_nested_parts_and_other_contours_of_the_owner ... ok
+test detects_other_parts_and_crossing_leads_before_export ... ok
+test stock_edges_margins_remnants_and_defects_check_the_whole_lead ... ok
+test both_native_traversal_directions_reserve_room ... FAILED
+test union_roundtrip_matches_analytic_overlapping_rectangles ... FAILED
+test analytic_swept_discs_are_contained ... ok
+
+failures:
+
+---- both_native_traversal_directions_reserve_room stdout ----
+
+thread 'both_native_traversal_directions_reserve_room' (68952) panicked at crates\validator\tests\leads.rs:126:9:
+assertion `left == right` failed
+  left: 4.3625e-9
+ right: 0.0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- union_roundtrip_matches_analytic_overlapping_rectangles stdout ----
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: Saving this and future failures in C:\DEV\Nestbolt\crates\validator\tests\leads.proptest-regressions
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc 6a2739dbdb0f1c9ba358f09b31438224ba3b799f6ab3821de33fa59f159a2a4e
+
+thread 'union_roundtrip_matches_analytic_overlapping_rectangles' (351388) panicked at crates\validator\tests\leads.rs:383:1:
+Test failed: assertion failed: `(left == right)` 
+  left: `2.79703265e-5`,
+ right: `0.0` at crates\validator\tests\leads.rs:398.
+minimal failing input: w = 96.38181688843548, h = 24.703920323061116, fraction = 0.6411477547275155, mirrored = true, rotation = -0.8086625119888508
+	successes: 9
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    both_native_traversal_directions_reserve_room
+    union_roundtrip_matches_analytic_overlapping_rectangles
+
+test result: FAILED. 10 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+error: test failed, to rerun pass `-p nestbolt-validator --test leads`

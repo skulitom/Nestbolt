@@ -226,6 +226,12 @@ fn prepare_stock(stock: &Stock, units: Units) -> Result<PreparedStock> {
     })
 }
 
+/// The lead checker uses the identical stock/margin/defect contract, while it
+/// independently rebuilds every lead footprint from analytic path parameters.
+pub(crate) fn usable_stock(stock: &Stock, units: Units) -> Result<Option<Footprint>> {
+    Ok(prepare_stock(stock, units)?.usable)
+}
+
 fn validate_rotations(rotations: &Rotations) -> Result<()> {
     match rotations {
         Rotations::Free => Ok(()),
