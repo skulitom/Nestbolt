@@ -11984,3 +11984,26 @@ pass. Diagnostics use CCD0 CPU 8; builds/tests use CCD1. No held-out geometry or
 labels were opened, no published v1 result changed, and no H3 completion claimed.
 Uncached text, mixed fixed/active groups and full native H3 checks remain.
 Completed milestone weight stays 15%.
+
+
+### 2026-10-14 UTC — five searched native LightBurn projects
+
+[Native report and complete evidence](benchmarks/results/h3-lightburn-20261014T001636Z.md).
+Four frozen training projects plus an authored MIT mirrored-origin probe each
+produce one independently valid sheet at a three-second repeatable work budget,
+2 mm spacing and edge clearance, on CCD0 CPU 8 sequentially. Five canonical
+diffs pass. All five open without warnings in LightBurn Pro 2.1.01. All 16 unit
+positions/sizes match native fields within 0.003652 mm; 34 paired dialog pages
+check 648 unchanged controls, and all 23 original setting instances remain exact.
+Native baseline/output references yield 409 leaf comparisons and 537 contours:
+maximum point difference 0.0005267 mm, bounds 0.0005297 mm, image corners
+0.00001073 mm. New T1 defaults in the authored probe are explicitly separated
+from original settings. The first incomplete Sofle observation and the initial
+left/right labels on identical LACC copies fail and remain recorded; recapture
+and an explicit selection-to-unit mapping pass without changing measured values
+or geometry. All screenshots, observations, native saves and source guards remain.
+Frozen hash-only integrity passes for 1,181 files. The test app was closed,
+device origin restored, desktop reset and lease released. Product sources are
+unchanged from cded7fe; this is diagnostic/documentation work, not a new quality
+claim or release. The five-project native H3 requirement is met; uncached Text
+and mixed fixed/active groups still prevent H3 completion. Milestone total 15%.

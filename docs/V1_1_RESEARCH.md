@@ -418,3 +418,16 @@ metadata. The failed and corrected native results are retained. All original
 settings remain exact; native normalization of the newly generated T1 name and
 priority is recorded separately. This completes the legacy output implementation,
 not the five-project H3 gate or the remaining uncached-text/mixed-group cases.
+
+
+### N2 five-project native evidence (2026-10-14 UTC)
+
+The [five actual searched projects](../benchmarks/results/h3-lightburn-20261014T001636Z.md) complete the native H3 opening,
+position/size and cut-settings-dialogue requirement: 16 units, both device
+origins, shared images/vectors, groups, editable cached text, kerf and leads.
+All 23 original settings remain exact; 34 paired dialog pages check 648 controls.
+The independent native reference covers 409 leaves/537 contours with maximum
+point/bounds errors below 0.000530 mm. Native UI fields differ by at most
+0.003652 mm on the curved mirrored probe. Initial observation/association
+failures are retained, and the device/desktop state was restored. This does
+not resolve uncached Text, mixed fixed/active groups, or full H3 acceptance.

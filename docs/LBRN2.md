@@ -401,3 +401,29 @@ exports. Legacy conversion is now implemented; uncached movable text, mixed
 fixed/active groups and the five-project native settings-dialogue check still
 prevent H3 completion. Neither this authored probe nor these checks touch the
 frozen corpus or change published v1 results.
+
+
+## Five searched native projects — 2026-10-14 UTC
+
+The [five-project native check](../benchmarks/results/h3-lightburn-20261014T001636Z.md) now passes on four frozen training
+projects and the original MIT top-right-origin probe. Each actual CLI search
+produces one independently valid sheet with an allowed canonical XML diff.
+All 16 placed units match LightBurn's position/size fields within 0.003652 mm.
+All 23 original setting instances remain canonically equal through native
+baseline and output saves; 34 dialog-page comparisons check 648 controls.
+The four native design projects include cached editable Text, shared vectors,
+three shared Bitmaps, groups, Cut/Score/Fill/Image settings, kerf and arc leads.
+
+Native baseline/output geometry produces 409 independent leaf comparisons and
+537 contours; maximum sampled point/bounds differences are 0.000527/0.000530 mm.
+The curved origin probe's larger 0.003652 mm UI width discrepancy is retained
+and is below the 0.01 mm threshold. The newly generated Tool setting alone gets
+native name T1 and priority 3; every original setting remains exact. Initial
+incomplete accessibility and selection-label failures remain alongside the
+passing result. Device origin and size were restored and the test app closed.
+
+This satisfies H3's five searched native projects and settings-dialogue check.
+Uncached movable Text and groups mixing fixed and active children still prevent
+full H3 completion. The existing canonical contract forbids splitting a Group;
+the requested clarification is pending, and public import still rejects such
+mixed groups clearly. The frozen corpus and published v1 results are unchanged.

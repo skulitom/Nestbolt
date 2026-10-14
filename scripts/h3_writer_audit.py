@@ -66,9 +66,13 @@ def audit(source, payload):
         after_meta = [n for n in written if n.tag != 'Shape']
         t1 = [n for n in root.findall('CutSetting') if n.find('index') is not None and n.find('index').get('Value') == '30']
         if not t1:
-            extra = after_meta.pop()
-            assert extra.tag == 'CutSetting' and extra.get('type') == 'Tool'
-            assert extra.find('index').get('Value') == '30'
+            added = [n for n in after_meta if n.tag == 'CutSetting' and n.find('index') is not None and n.find('index').get('Value') == '30']
+            assert len(added) == 1, 'missing or repeated new T1 setting'
+            extra = added[0]
+            assert extra.get('type') == 'Tool'
+            # Native LightBurn ignores an outline appended after Notes, so the
+            # new setting is inserted before shapes, not after root metadata.
+            after_meta.remove(extra)
         assert list(map(canonical,before_meta)) == list(map(canonical,after_meta)), 'document settings changed'
         retained_defs = set()
         for index in kept:
