@@ -1,0 +1,43 @@
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 30.33s
+     Running tests\contour_starts.rs (target\debug\deps\contour_starts-efd68d05bba03449.exe)
+
+running 3 tests
+test each_curve_subdivides_exactly_and_derivatives_keep_direction ... ok
+test restarting_circle_retains_arcs_and_rejects_invalid_or_open_contours ... ok
+test restarts_preserve_geometry_and_commute_with_rigid_transforms ... FAILED
+
+failures:
+
+---- restarts_preserve_geometry_and_commute_with_rigid_transforms stdout ----
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+
+thread 'restarts_preserve_geometry_and_commute_with_rigid_transforms' (55564) panicked at crates\core\tests\contour_starts.rs:154:40:
+called `Result::unwrap()` on an `Err` value: contour has fewer than three distinct points
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'restarts_preserve_geometry_and_commute_with_rigid_transforms' (55564) panicked at crates\core\tests\contour_starts.rs:154:40:
+called `Result::unwrap()` on an `Err` value: contour has fewer than three distinct points
+
+thread 'restarts_preserve_geometry_and_commute_with_rigid_transforms' (55564) panicked at crates\core\tests\contour_starts.rs:154:40:
+called `Result::unwrap()` on an `Err` value: contour has fewer than three distinct points
+proptest: FileFailurePersistence::SourceParallel set, but failed to find lib.rs or main.rs
+proptest: Saving this and future failures in C:\DEV\Nestbolt\crates\core\tests\contour_starts.proptest-regressions
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc 3c4cb61da252a4ef4904a8584e67e2da4aa5b6dce3e96eef6bf46447714c6179
+
+thread 'restarts_preserve_geometry_and_commute_with_rigid_transforms' (55564) panicked at crates\core\tests\contour_starts.rs:143:1:
+Test failed: called `Result::unwrap()` on an `Err` value: contour has fewer than three distinct points.
+minimal failing input: t = 0.001, angle = 0.0, mirrored = false, index = 0
+	successes: 6
+	local rejects: 0
+	global rejects: 0
+
+
+
+failures:
+    restarts_preserve_geometry_and_commute_with_rigid_transforms
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p nestbolt-core --test contour_starts`

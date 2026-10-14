@@ -1,0 +1,24 @@
+    Checking nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+error: approximate value of `f64::consts::TAU` found
+   --> crates\core\src\export\ordered.rs:238:62
+    |
+238 |             rotation in -PI..PI, start in -PI..PI, sweep in -6.28_f64..6.28
+    |                                                              ^^^^^^^^
+    |
+    = help: consider using the constant directly
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#approx_constant
+    = note: `-D clippy::approx-constant` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::approx_constant)]`
+
+error: approximate value of `f{32, 64}::consts::TAU` found
+   --> crates\core\src\export\ordered.rs:238:72
+    |
+238 |             rotation in -PI..PI, start in -PI..PI, sweep in -6.28_f64..6.28
+    |                                                                        ^^^^
+    |
+    = help: consider using the constant directly
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#approx_constant
+
+    Checking nestbolt-cli v0.1.0 (C:\DEV\Nestbolt\crates\cli)
+error: could not compile `nestbolt-core` (lib test) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

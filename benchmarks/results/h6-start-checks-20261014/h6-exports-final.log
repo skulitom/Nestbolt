@@ -1,0 +1,27 @@
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.09s
+     Running unittests src\lib.rs (target\debug\deps\nestbolt_core-6e2a826a548616f1.exe)
+
+running 6 tests
+test export::ordered::tests::cubic_spans_stay_within_the_ellipse_error_bound ... ok
+test export::tests::palette_separates_review_paths_and_keeps_them_open ... ok
+test export::tests::exploded_dxf_retraces_keep_closed_curves_after_cleanup ... ok
+test export::tests::exported_sheets_round_trip_within_hundredth_of_a_millimetre ... ok
+test export::tests::chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats ... FAILED
+test export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring ... ok
+
+failures:
+
+---- export::tests::chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats stdout ----
+
+thread 'export::tests::chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats' (386532) panicked at crates\core\src\export.rs:906:21:
+svg changed contour geometry by 0.0010167101297534177 mm
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    export::tests::chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 38 filtered out; finished in 2.03s
+
+error: test failed, to rerun pass `-p nestbolt-core --lib`

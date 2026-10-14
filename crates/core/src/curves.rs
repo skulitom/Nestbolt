@@ -8,6 +8,8 @@ use nestbolt_validator::RigidTransform;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
+mod starts;
+
 pub type Point = [f64; 2];
 
 /// One boundary segment, always in millimetres or the job's declared units.

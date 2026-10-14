@@ -1,6 +1,7 @@
 //! Per-sheet SVG and DXF export of placed parts. Each placement applies its
 //! rigid transform to the part's original contours, so lines, arcs, Béziers
-//! and splines are written as curves, never re-polygonised. Parts without
+//! and splines are written as curves, never re-polygonised. Ordered DXF starts
+//! use bounded cubic spans for non-circular arcs (see `ordered`). Parts without
 //! source curves (polygon jobs) are written as straight segments.
 use std::collections::HashMap;
 use std::f64::consts::{PI, TAU};
@@ -86,6 +87,35 @@ impl Layer {
 pub struct ReviewPaths {
     pub common: Vec<Contour>,
     pub leadin: Vec<Contour>,
+    /// Exact start overrides in contour order (outer, then holes), keyed by
+    /// `part_id#copy_index`. None retains that contour's original start.
+    /// Overrides for placements on other sheets are ignored.
+    pub starts: HashMap<String, Vec<Option<ContourStart>>>,
+}
+
+mod ordered;
+
+#[derive(Clone, Copy, Debug)]
+pub struct ContourStart {
+    pub segment: usize,
+    pub parameter: f64,
+}
+
+fn apply_starts(parts: &mut [(String, Vec<Contour>)], review: &ReviewPaths) -> Result<()> {
+    for (id, contours) in parts {
+        if let Some(starts) = review.starts.get(id) {
+            ensure!(
+                starts.len() == contours.len(),
+                "contour start count differs for {id}"
+            );
+            for (contour, start) in contours.iter_mut().zip(starts) {
+                if let Some(start) = start {
+                    *contour = contour.restarted(start.segment, start.parameter)?;
+                }
+            }
+        }
+    }
+    Ok(())
 }
 
 fn outlines<'a>(
@@ -228,7 +258,8 @@ pub fn svg_with_review_paths(
     options: Options,
     review: &ReviewPaths,
 ) -> Result<String> {
-    let (parts, width, height) = placed(job, layout, sheet_id, curves)?;
+    let (mut parts, width, height) = placed(job, layout, sheet_id, curves)?;
+    apply_starts(&mut parts, review)?;
     let flip = Affine {
         m: [[1.0, 0.0], [0.0, -1.0]],
         t: [0.0, height],
@@ -445,7 +476,8 @@ pub fn dxf_with_review_paths(
     options: Options,
     review: &ReviewPaths,
 ) -> Result<String> {
-    let (parts, width, height) = placed(job, layout, sheet_id, curves)?;
+    let (mut parts, width, height) = placed(job, layout, sheet_id, curves)?;
+    apply_starts(&mut parts, review)?;
     let mut w = Dxf {
         text: String::new(),
         handle: 0x100,
@@ -502,8 +534,12 @@ pub fn dxf_with_review_paths(
             );
         }
     }
-    for (_, contours) in parts {
-        for c in &contours {
+    for (id, contours) in parts {
+        for (index, c) in contours.iter().enumerate() {
+            if review.starts.get(&id).is_some_and(|s| s[index].is_some()) {
+                w.ordered_contour("CUT", c)?;
+                continue;
+            }
             let mut from = c.start;
             for s in &c.segments {
                 w.segment("CUT", from, s);
@@ -606,6 +642,7 @@ mod tests {
                 start: [50.0, 10.0],
                 segments: vec![Segment::Line { to: [50.0, 20.0] }],
             }],
+            ..Default::default()
         };
         let opts = Options {
             sheet_outline: true,
@@ -804,6 +841,82 @@ mod tests {
                 && dxf.contains("ELLIPSE")
                 && dxf.contains("SPLINE")
                 && dxf.contains("CIRCLE")
+        );
+    }
+
+    #[test]
+    fn chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats() {
+        let (job, layout, curves) = placed_job();
+        let (placed, _, height) = placed(&job, &layout, "sheet-0", &curves).unwrap();
+        let mut review = ReviewPaths::default();
+        for (id, contours) in &placed {
+            review.starts.insert(
+                id.clone(),
+                vec![
+                    Some(ContourStart {
+                        segment: 0,
+                        parameter: 0.37,
+                    });
+                    contours.len()
+                ],
+            );
+        }
+        let options = Options {
+            sheet_outline: false,
+        };
+        let svg =
+            svg_with_review_paths(&job, &layout, "sheet-0", &curves, options, &review).unwrap();
+        let dxf =
+            dxf_with_review_paths(&job, &layout, "sheet-0", &curves, options, &review).unwrap();
+        let import_options = ImportOptions {
+            tolerance: 0.0001,
+            ..Default::default()
+        };
+        for (format, imported) in [
+            ("svg", import_svg(&svg, &import_options)),
+            ("dxf", import_dxf(&dxf, &import_options)),
+        ] {
+            let imported = imported.unwrap();
+            assert_eq!(imported.parts.len(), job.parts.len());
+            let mut rings: Vec<_> = imported
+                .parts
+                .iter()
+                .flat_map(|p| {
+                    std::iter::once(p.polygon.outer.clone()).chain(p.polygon.holes.iter().cloned())
+                })
+                .collect();
+            if format == "svg" {
+                for ring in &mut rings {
+                    for p in ring {
+                        p[1] += height;
+                    }
+                }
+            }
+            assert_eq!(
+                rings.len(),
+                placed.iter().map(|(_, c)| c.len()).sum::<usize>()
+            );
+            for (_, contours) in &placed {
+                for contour in contours {
+                    let source = contour.flatten(0.0001).unwrap();
+                    let best = rings
+                        .iter()
+                        .map(|r| hausdorff(&source, r))
+                        .fold(f64::INFINITY, f64::min);
+                    assert!(
+                        best < 0.01,
+                        "{format} changed contour geometry by {best} mm"
+                    );
+                }
+            }
+        }
+        let first = placed[0].0.clone();
+        review.starts.insert(first, vec![]);
+        assert!(
+            svg_with_review_paths(&job, &layout, "sheet-0", &curves, options, &review).is_err()
+        );
+        assert!(
+            dxf_with_review_paths(&job, &layout, "sheet-0", &curves, options, &review).is_err()
         );
     }
 }

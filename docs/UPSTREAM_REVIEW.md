@@ -56,3 +56,11 @@ solver. [Deepnest releases](https://github.com/deepnest-next/deepnest/releases)
 still mark v1.5.6 latest. The [LightBurn early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
 still describes 2.2 True Nest as Pro-only. This is a capability/documentation
 review, not a performance measurement or software update.
+
+Rechecked on 2026-10-14 during the N4/N5 implementation checkpoint. The
+[Studio README](https://github.com/JeroenGar/sparrow-studio) still explicitly
+excludes nesting in holes and automatic allocation across sheets. The stop
+condition is not triggered. [Sparrow](https://github.com/JeroenGar/sparrow)
+still describes strip packing, [Deepnest releases](https://github.com/deepnest-next/deepnest/releases)
+still mark v1.5.6 latest, and the [LightBurn early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
+still describes 2.2 Pro True Nest. No competitor code or software was changed.

@@ -1,0 +1,31 @@
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 20.68s
+     Running unittests src\lib.rs (target\debug\deps\nestbolt_core-6e2a826a548616f1.exe)
+
+running 2 tests
+test export::ordered::tests::rational_cubics_stay_exactly_on_rotated_ellipses ... ok
+test export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring ... FAILED
+
+failures:
+
+---- export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring stdout ----
+proptest: Saving this and future failures in C:\DEV\Nestbolt\crates\core\proptest-regressions\export\ordered.txt
+proptest: If this test was run on a CI system, you may wish to add the following line to your copy of the file. (You may need to create it.)
+cc 5d3b6e66de6809efecacb0592ba5187bb70b67459415949abf1b8f48e2e93724
+
+thread 'export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring' (279556) panicked at crates\core\src\export\ordered.rs:216:5:
+Test failed: circle must retain its arcs at crates\core\src\export\ordered.rs:241.
+minimal failing input: t = 0.001, angle = 0.0, mirror = false, radius = 87.87713921159784
+	successes: 0
+	local rejects: 0
+	global rejects: 0
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 41 filtered out; finished in 0.24s
+
+error: test failed, to rerun pass `-p nestbolt-core --lib`

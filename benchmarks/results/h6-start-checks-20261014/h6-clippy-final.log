@@ -1,0 +1,24 @@
+    Checking nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+    Checking nestbolt-cli v0.1.0 (C:\DEV\Nestbolt\crates\cli)
+    Checking nestbolt-wasm v0.1.0 (C:\DEV\Nestbolt\crates\wasm)
+error: using `chunks_exact` with a constant chunk size
+   --> crates\core\src\export\ordered.rs:251:33
+    |
+251 |             let first_x = codes.chunks_exact(2).find(|p| p[0]=="10").unwrap()[1].parse::<f64>().unwrap();
+    |                                 ^^^^^^^^^^^^^^^ help: consider using `as_chunks` instead: `as_chunks::<2>().0.iter()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#chunks_exact_to_as_chunks
+    = note: `-D clippy::chunks-exact-to-as-chunks` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::chunks_exact_to_as_chunks)]`
+
+error: using `chunks_exact` with a constant chunk size
+   --> crates\core\src\export\ordered.rs:252:33
+    |
+252 |             let first_y = codes.chunks_exact(2).find(|p| p[0]=="20").unwrap()[1].parse::<f64>().unwrap();
+    |                                 ^^^^^^^^^^^^^^^ help: consider using `as_chunks` instead: `as_chunks::<2>().0.iter()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#chunks_exact_to_as_chunks
+
+    Checking nestbolt-mcp v0.1.0 (C:\DEV\Nestbolt\crates\mcp)
+error: could not compile `nestbolt-core` (lib test) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

@@ -444,3 +444,20 @@ retain no-op preservation, and evaluate geometry after re-saving/converting
 text to paths. This narrows literal H3 and awaits Artem's decision. No exception
 is applied. Zero-area open paths and mixed fixed/active Groups remain separate
 issues. See [LightBurn's portability explanation](https://docs.lightburnsoftware.com/legacy/UI/FontsAndText).
+
+## Ordered contour export probes — 2026-10-14 UTC
+
+The [N5 start-point checkpoint](../benchmarks/results/h6-contour-starts-checkpoint-20261014.md)
+records native SVG/DXF seam behavior. SVG retains four selected starts, including
+elliptical and Bézier interiors. Closed DXF rational splines can lose a collinear
+start and LightBurn approximates the tested ellipse outside 0.01 mm. Ordered DXF
+now uses closed polylines for straight/circular contours and bounded polynomial
+splines for other curves. A mixed contour starting on a straight edge needs its
+open spline followed by that LINE. Five final native DXF starts match within
+0.000011 mm; maximum geometry error is 0.000449 mm.
+
+The spline/line join reverses native winding in the mixed probe. Lead-footprint
+work must cover the actual native direction and verify native leads explicitly.
+These red markers are not lead allowances, and these authored probes do not
+close H6. “Choose best starting point” must be off for the eventual native lead
+check. Failed rational, subdivision and mixed-contour probes remain published.

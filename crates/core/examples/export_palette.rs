@@ -59,6 +59,7 @@ fn main() -> Result<()> {
     let review = ReviewPaths {
         common: vec![rectangle(40.0)],
         leadin: vec![rectangle(70.0)],
+        ..Default::default()
     };
     let options = Options {
         sheet_outline: true,

@@ -12147,3 +12147,26 @@ H5 remains incomplete: search bonus, 13-job savings/material gate and Deepnest
 comparison pending. Curved drawings retain conservative spacing; documented
 SVG/DXF workflow requires CAM to replace shared CUT sections and disable
 compensation on COMMON. Completed milestone weight remains 15%.
+
+
+## 2026-10-14 — N5 contour-start foundations and native format probes
+
+[Checkpoint](benchmarks/results/h6-contour-starts-checkpoint-20261014.md), based on
+`f2118dd`: exact segment splitting/derivatives, cyclic starts and optional ordered
+SVG/DXF exports. Authored CPU-0 preparation and CPU-8 independent audits; CCD1
+builds/tests. No held-out geometry opened. All native failures are preserved:
+rational ellipse errors 0.012190/0.012810 mm, and two collinear start losses of
+14.8 mm. Closed polylines, bounded cubic splines and a mixed spline/LINE encoding
+fix the tested cases. Five final native DXF starts differ by at most 0.000011 mm,
+geometry by 0.000449 mm; four native SVG starts also pass. Mixed DXF native winding
+reverses, explicitly recorded for future lead-footprint construction. Markers are
+not leads; authored layouts are not the H6 searched-native gate.
+
+222 workspace tests pass (one existing ignored), then all seven export tests pass
+again after the final seam encoding, including the additional ellipse property.
+50 browser tests pass (four opt-in skipped). Final strict Clippy, formatting and
+WASM build pass; schemas and all 1,181 frozen hashes match. Check logs retain test,
+compiler, lint and harness mistakes. Previous checkpoint CI is fully green.
+H6 remains incomplete: lead footprints/generation/shortening, shared-segment
+exclusion, surfaces, material cost and three native searched lead checks remain.
+Completed milestone weight stays 15%; v1 results and claims are unchanged.
