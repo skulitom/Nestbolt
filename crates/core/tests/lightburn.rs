@@ -104,6 +104,90 @@ fn legacy_and_compact_cubic_multicontours_have_the_same_geometry() {
 }
 
 #[test]
+fn legacy_sheet_conversion_keeps_original_xml_and_only_adds_compact_geometry() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    let legacy = include_str!("fixtures/legacy.lbrn");
+    for source in [legacy.to_owned(), legacy.replace(" FormatVersion='0'", "")] {
+        let doc = Document::read(&source, 0.0005).unwrap();
+        assert_eq!(doc.original_xml(), source);
+        let nesting = doc.nesting_units(0.0005).unwrap();
+        assert_eq!(nesting.units.len(), 1);
+        assert_eq!(nesting.units[0].geometry.len(), 2);
+        let placement = UnitPlacement {
+            unit: 0,
+            transform: RigidTransform::default(),
+        };
+        let output = nesting
+            .write_sheet(std::slice::from_ref(&placement), 100.0, 100.0, false)
+            .unwrap();
+        let modern = Document::read(&output, 0.0005).unwrap();
+        assert_eq!(modern.scene.format_version, 1);
+        assert_eq!(modern.scene.shapes.len(), doc.scene.shapes.len());
+        for (before, after) in doc.scene.shapes.iter().zip(&modern.scene.shapes) {
+            assert_eq!(before.bounds_mm, after.bounds_mm);
+            assert_eq!(before.paths.len(), after.paths.len());
+            for (a, b) in before.paths.iter().zip(&after.paths) {
+                assert_eq!(a.curve, b.curve);
+                assert_eq!(a.closed, b.closed);
+            }
+        }
+        let xml = roxmltree::Document::parse(&source).unwrap();
+        for node in xml.descendants().filter(|n| {
+            n.is_element()
+                && matches!(
+                    n.tag_name().name(),
+                    "V" | "P" | "Unknown" | "Notes" | "CutSetting"
+                )
+        }) {
+            assert!(output.contains(&source[node.range()]), "source data lost");
+        }
+        assert!(output.contains("<!-- keep this comment -->"));
+        assert_eq!(output.matches("<VertList>").count(), 2);
+        assert_eq!(output.matches("<PrimList>").count(), 2);
+        assert_eq!(
+            modern
+                .nesting_units(0.0005)
+                .unwrap()
+                .write_sheet(&[placement], 100.0, 100.0, false)
+                .unwrap(),
+            output,
+            "conversion must be idempotent"
+        );
+    }
+}
+
+#[test]
+fn legacy_conversion_includes_text_backups_fixed_paths_and_partial_handles() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    let legacy = r#"<LightBurnProject FormatVersion="0"><CutSetting type="Tool"><index Value="30"/></CutSetting><Shape Type="Group"><Children><Shape Type="Text" Str="cache" H="2"><BackupPath Type="Path"><V vx="10" vy="0" c0x="12"/><V vx="15" vy="5" c1y="2"/><P T="B" p0="0" p1="1"/><P T="L" p0="1" p1="0"/></BackupPath></Shape></Children></Shape><Shape Type="Path" CutIndex="30"><V vx="0" vy="0" c0x="1"/><V vx="4" vy="4" c1x="1"/><P T="B" p0="0" p1="1"/></Shape></LightBurnProject>"#;
+    let doc = Document::read(legacy, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    let transform = RigidTransform {
+        translation: [20.0, 40.0],
+        rotation_radians: std::f64::consts::FRAC_PI_2,
+        mirrored: true,
+    };
+    let output = nesting
+        .write_sheet(&[UnitPlacement { unit: 0, transform }], 100.0, 100.0, false)
+        .unwrap();
+    let modern = Document::read(&output, 0.0005).unwrap();
+    assert_eq!(modern.scene.format_version, 1);
+    assert_eq!(output.matches("<VertList>").count(), 2);
+    let moved = doc.scene.shapes[1].paths[0]
+        .curve
+        .transformed(&nestbolt_core::curves::Affine::placement(&transform));
+    assert_eq!(modern.scene.shapes[1].paths[0].curve, moved);
+    assert_eq!(
+        modern.scene.shapes[2].paths[0].curve,
+        doc.scene.shapes[2].paths[0].curve
+    );
+    assert!(output.contains("V0 0c0x1c1x1V4 4c0x1c1x1"));
+    assert!(output.contains("V10 0c0x12c1x1V15 5c0x1c1y2"));
+}
+
+#[test]
 fn circles_rounded_rectangles_polygons_and_open_paths_keep_their_shape() {
     let xml = r#"<LightBurnProject><Shape Type="Ellipse" Rx="10" Ry="5"><XForm>0 1 -1 0 20 30</XForm></Shape><Shape Type="Rect" W="20" H="10" Cr="2"/><Shape Type="Polygon" Rx="10" Ry="10" N="4"/><Shape Type="Path"><VertList>V0 0V10 0V10 10</VertList><PrimList>LineOpen</PrimList></Shape></LightBurnProject>"#;
     let doc = Document::read(xml, 0.0001).unwrap();
@@ -426,4 +510,58 @@ fn writer_handles_self_closing_shapes_copies_and_tool_setting_conflicts() {
             )
             .is_err()
     );
+}
+
+#[test]
+fn tool_setting_precedes_shapes_and_outline_precedes_trailing_notes() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    for xml in [
+        r#"<LightBurnProject FormatVersion="1"><Shape Type="Rect" W="10" H="5"/><Notes Notes="keep"/><Future/></LightBurnProject>"#,
+        r#"<LightBurnProject FormatVersion="1"><Notes Notes="keep"/><Future/></LightBurnProject>"#,
+        r#"<LightBurnProject FormatVersion="1"><CutSetting type="Cut"><index Value="0"/></CutSetting><Notes Notes="keep"/><Future/></LightBurnProject>"#,
+        r#"<LightBurnProject FormatVersion="1"/>"#,
+    ] {
+        let doc = Document::read(xml, 0.0005).unwrap();
+        let nesting = doc.nesting_units(0.0005).unwrap();
+        let placements: Vec<_> = nesting
+            .units
+            .iter()
+            .map(|u| UnitPlacement {
+                unit: u.id,
+                transform: RigidTransform::default(),
+            })
+            .collect();
+        let output = nesting.write_sheet(&placements, 100.0, 50.0, true).unwrap();
+        let tree = roxmltree::Document::parse(&output).unwrap();
+        let children: Vec<_> = tree
+            .root_element()
+            .children()
+            .filter(|n| n.is_element())
+            .collect();
+        let setting = children
+            .iter()
+            .position(|n| n.has_tag_name("CutSetting"))
+            .unwrap();
+        let first_shape = children
+            .iter()
+            .position(|n| n.has_tag_name("Shape"))
+            .unwrap();
+        let outline = children
+            .iter()
+            .position(|n| n.attribute("CutIndex") == Some("30"))
+            .unwrap();
+        assert!(setting < first_shape);
+        assert!(
+            children
+                .iter()
+                .enumerate()
+                .filter(|(_, n)| n.has_tag_name("CutSetting"))
+                .all(|(i, _)| i < first_shape)
+        );
+        if let Some(notes) = children.iter().position(|n| n.has_tag_name("Notes")) {
+            assert!(outline < notes);
+            assert!(output.contains("<Notes Notes=\"keep\"/><Future/>"));
+        }
+    }
 }

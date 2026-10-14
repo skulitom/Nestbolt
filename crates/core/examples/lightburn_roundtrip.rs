@@ -24,13 +24,6 @@ fn main() -> Result<()> {
             return Ok(());
         }
     };
-    if doc.scene.format_version != 1 {
-        println!(
-            "{}",
-            json!({"status":"legacy_writer_pending", "nesting":nesting})
-        );
-        return Ok(());
-    }
     let identity: Vec<_> = nesting
         .units
         .iter()

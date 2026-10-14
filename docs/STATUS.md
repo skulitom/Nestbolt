@@ -1,4 +1,4 @@
-# Status — 2026-10-13
+# Status — 2026-10-14
 
 ## v1.1 — real shop files
 
@@ -15,7 +15,7 @@ due by 2026-11-06. Release and registry publication still require Artem's instru
 | --- | ---: | --- |
 | N0 — Messy-file corpus | 15% | **H1 complete.** [Frozen corpus and split](../benchmarks/results/h1-freeze-20261013.md): 534 inputs, 338 labels, 148 renders, 1,181 attributed/checksummed files; 15 real + 10 native held out with lineage isolation |
 | N1 — Import robustness | 25% | In progress: [incomplete-drawing checkpoint](../benchmarks/results/h2-completeness-checkpoint-20261013.md) across three surfaces; 245/257 training vectors match counts, 11 reject with repair instructions (including all nine negatives), the single frozen-label count discrepancy now has an approved, hash-scoped scoring exception (246 reviewed matches). Robustness 183/183 without crash/timeout. [Ten native exports and palette](../benchmarks/results/h2-lightburn-20261013T195848Z.md): saved dimensions within 0.000033 mm; eight exact rounded UI sizes, two spline display differences retained. [Cut layers](../benchmarks/results/h2-cut-layer-audit-20261013.json) match all 246 prior imports; [full vector fidelity sweep](../benchmarks/results/h2-fidelity-20261013T202338Z.md): 239 pass, 11 reject, four time out and three error; [closed-path repair](../benchmarks/results/h2-closed-retrace-checkpoint-20261013.md) now passes the ARC SVG/DXF rerun, with four timeouts and two nesting errors still open. [Imported stock outlines](../benchmarks/results/h2-sheet-checkpoint-20261013.md) work across all surfaces; all ten labelled pre-arranged nests match their stock geometry. Full fidelity, warning coverage, fuzz and native-project support remain pending. Two held-out negatives cap literal success at 92%; the held-out denominator clarification remains pending, with split unchanged |
-| N2 — LightBurn round-trip | 25% | [Reader checkpoint](../benchmarks/results/h3-reader-checkpoint-20261013.md): 56 training projects parse with byte-identical no-op output; 1,550 comparable shapes pass independent geometry checks. Eight projects retain 122 uncached Text shapes with explicit incomplete geometry. [Core units/writer checkpoint](../benchmarks/results/h3-writer-checkpoint-20261013.md): 50 projects pass 100 canonical sheet diffs; 227 unit footprints match the independent reference within 0.000579 mm. Six projects refuse incomplete movable text. [Controlled native writer probes](../benchmarks/results/h3-native-probe-20261013T224854Z.md) pass ten opening/geometry checks, including moved Text, a re-homed Bitmap and both device origins; native bitmap priority normalization remains recorded. [Public surfaces](../benchmarks/results/h3-surfaces-20261013T233512Z.md) now import, search and export preserving sheet files through CLI, MCP, Chromium and Firefox. Legacy output, uncached text, mixed fixed/active groups and full native H3 checks remain pending |
+| N2 — LightBurn round-trip | 25% | [Reader checkpoint](../benchmarks/results/h3-reader-checkpoint-20261013.md): 56 training projects parse with byte-identical no-op output; 1,550 comparable shapes pass independent geometry checks. Eight projects retain 122 uncached Text shapes with explicit incomplete geometry. [Core units/writer checkpoint](../benchmarks/results/h3-writer-checkpoint-20261013.md): 50 projects pass 100 canonical sheet diffs; 227 unit footprints match the independent reference within 0.000579 mm. Six projects refuse incomplete movable text. [Controlled native writer probes](../benchmarks/results/h3-native-probe-20261013T224854Z.md) pass ten opening/geometry checks, including moved Text, a re-homed Bitmap and both device origins; native bitmap priority normalization remains recorded. [Public surfaces](../benchmarks/results/h3-surfaces-20261013T233512Z.md) now import, search and export preserving sheet files through CLI, MCP, Chromium and Firefox. [Legacy conversion](../benchmarks/results/h3-legacy-20261013T235803Z.md) now works across all surfaces and matches native conversion; the native check also found and fixed T1 being silently omitted after Notes. Uncached text, mixed fixed/active groups and full native H3 checks remain pending |
 | N3 — Curve-heavy browser | 15% | Pending; H4 requires measured browser/native quality and scale. Native export preparation also exposed a dense legacy two-copy job exceeding a 20 s cooperative limit and 90 s external limit; the unchanged workload completes in 117–126 s with longer limits. Startup/deadline handling remains open; the [authored LightBurn surface diagnostic](../benchmarks/results/h3-surfaces-20261013T233512Z.md) also retains a 32 × 24 mm search failure at one- and five-second work budgets |
 | N4 — Common-line cutting | 15% | Pending; H5 requires compensated geometry, savings and surface evidence |
 | N5 — Lead-in allowances | 5% | Pending; H6 requires footprint validation, start points and surface evidence |
@@ -33,6 +33,14 @@ Latest N2 surface checkpoint: 194 workspace tests pass (one existing ignored),
 19 optimized CLI feature tests and 46 enabled browser tests pass. LightBurn import,
 real search, per-sheet LBRN2 and ZIP exports work through CLI/MCP/UI; native H3
 acceptance and the documented remaining format cases are still open.
+
+Latest N2 format checkpoint: [legacy conversion and native T1 ordering](../benchmarks/results/h3-legacy-20261013T235803Z.md).
+The native identity save matches the entire native-converted project; 37 independent
+leaf comparisons pass within 0.000497 mm. A six-unit search exports one validated
+sheet, including T1 after the ordering fix. Initial failures and generated Tool
+default normalization remain documented. 198 workspace tests pass (one ignored),
+the final 18 focused core tests and two optimized CLI LightBurn tests pass, and
+four focused browser tests pass. H3 remains incomplete; milestone weight stays 15%.
 
 ## v1 — accepted
 

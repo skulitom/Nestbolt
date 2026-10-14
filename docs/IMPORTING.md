@@ -255,7 +255,7 @@ a `SHEET` layer still use their closed outlines.
 
 ## Editable LightBurn projects
 
-Open one `.lbrn2` project in the browser. Groups remain rigid units, with all
+Open one `.lbrn` or `.lbrn2` project in the browser. Groups remain rigid units, with all
 separate components shown in the preview. Layer modes, output flags and kerf
 values are displayed; kerf does not change part spacing automatically. Choose
 quantities, rotations, mirroring and sheet sizes as usual. Download one
@@ -279,8 +279,12 @@ colour, gap and sheet-layer overrides must be cleared for LightBurn imports.
 SVG/DXF export of an imported LightBurn project is refused to avoid losing text,
 images and cut settings.
 
-This is an N2 development checkpoint, not H3 acceptance. Legacy `.lbrn` can be
-read, but conversion to `.lbrn2` is still pending. Movable text without cached
+Legacy `.lbrn` projects export as modern `.lbrn2`: compact path data is added,
+while the original path elements, attributes and comments are retained. Native
+LightBurn checks confirm that the retained legacy data does not duplicate cuts.
+The source stored in the library or Project ZIP remains unchanged.
+
+This is an N2 development checkpoint, not H3 acceptance. Movable text without cached
 outlines requires re-saving in LightBurn. Groups mixing active artwork with
 Tool/output-off shapes must be separated before nesting: active fixed artwork
 is not yet independently validated against every output sheet. Full native

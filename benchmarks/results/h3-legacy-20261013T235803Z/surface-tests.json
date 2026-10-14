@@ -1,0 +1,36 @@
+{
+  "source_digest": "1ae594b0f818cabd78db2f9bc4e12d81accf122b54bb1df7f36c0b41571eced2",
+  "workspace_tests": {
+    "passed": 198,
+    "ignored": 1,
+    "log": "workspace-tests.log",
+    "note": "Full suite after the T1 insertion fix; final focused tests also cover empty projects after the fallback refinement."
+  },
+  "final_core_lightburn_tests": {
+    "passed": 18,
+    "command": "python output/ccd1.py cargo test -p nestbolt-core --test lightburn --test project_lightburn"
+  },
+  "optimized_cli": {
+    "passed": 2,
+    "log": "release-cli-tests.log"
+  },
+  "browser": {
+    "passed": 4,
+    "browsers": [
+      "chromium",
+      "firefox"
+    ],
+    "command": "npx playwright test tests/lightburn.spec.ts --workers=2",
+    "scope": "Legacy import, two copies/two sheets, modern XML, retained unknown attributes and StartV; modern rigid-unit and ZIP regression"
+  },
+  "clippy_strict": true,
+  "formatting": true,
+  "browser_build": true,
+  "typescript_tests": true,
+  "notices": true,
+  "frozen_inventory": {
+    "files": 1181,
+    "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7"
+  },
+  "affinity": "Builds and automated tests: CCD1 CPUs 16-31. Diagnostic: CCD0 CPU 8."
+}

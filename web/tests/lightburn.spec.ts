@@ -5,6 +5,43 @@ import { fileURLToPath } from 'node:url';
 const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/roundtrip.lbrn2', import.meta.url));
 const source = readFileSync(fixture, 'utf8');
 
+test('legacy LightBurn paths become editable modern sheet files', async ({ page }, info) => {
+  const legacy = fileURLToPath(new URL('../../crates/core/tests/fixtures/legacy.lbrn', import.meta.url));
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles(legacy);
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  await page.getByLabel('Quantity of legacy-unit-1').fill('2');
+  const sheet = page.locator('fieldset.sheet-row').first();
+  await sheet.getByLabel('Width').fill('34');
+  await sheet.getByLabel('Height').fill('14');
+  await sheet.getByLabel('Margin').fill('0');
+  await page.getByLabel('Edge spacing').fill('0.5');
+  await page.getByLabel('Time').fill('1');
+  await page.getByText('Advanced').click();
+  await page.getByLabel('Workers').fill('1');
+  await page.getByRole('button', { name: 'Nest', exact: true }).click();
+  await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout: 90_000 });
+  await expect(page.locator('.error')).toHaveCount(0);
+  await expect(page.locator('.summary')).toContainText('valid');
+  await expect(page.locator('.summary')).toContainText('2/2');
+  await expect(page.getByRole('button', { name: 'LightBurn', exact: true })).toHaveCount(2);
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download all sheets (ZIP)' }).click()]);
+  await download.saveAs(info.outputPath('legacy-sheets.zip'));
+  const files = entries(await download.path());
+  expect(files.size).toBe(2);
+  const checked = await page.evaluate(outputs => outputs.map(xml => {
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
+    return {
+      valid: !doc.querySelector('parsererror'), version: doc.documentElement.getAttribute('FormatVersion'),
+      vertices: doc.querySelectorAll('VertList').length, primitives: doc.querySelectorAll('PrimList').length,
+      retained: doc.querySelector('V[Future]')?.getAttribute('Future'), start: doc.querySelector('Shape[StartV]')?.getAttribute('StartV'),
+      opaque: doc.querySelector('Unknown V')?.getAttribute('vx'),
+    };
+  }), [...files.values()]);
+  for (const value of checked) expect(value).toEqual({ valid: true, version: '1', vertices: 2, primitives: 2, retained: 'a & b', start: '1', opaque: 'opaque' });
+  await page.screenshot({ path: info.outputPath('legacy-layout.png'), fullPage: true });
+});
+
 function entries(path: string): Map<string, string> {
   const data = readFileSync(path), files = new Map<string, string>();
   for (let at = 0; data.readUInt32LE(at) === 0x04034b50;) {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original MIT legacy integration fixture. Unknown V/P data must survive conversion. -->
+<LightBurnProject FormatVersion='0' MirrorX="True" MirrorY="False" Future="retain">
+  <CutSetting type="Cut"><index Value="0"/><name Value="CUT"/><speed Value="20"/><maxPower Value="35"/><kerf Value="0.2"/></CutSetting>
+  <Shape Type="Group"><XForm>1 0 0 1 20 30</XForm><Children>
+    <Shape Type="Path" CutIndex="0" StartV="1"><XForm>1 0 0 1 0 0</XForm>
+      <V vx="0" vy="0" c0x="4" Future="a &amp; b"/><!-- keep this comment -->
+      <V vx="10" vy="0" c1x="6"/>
+      <V vx="10" vy="10"/><V vx="0" vy="10"/>
+      <P T="B" p0="0" p1="1" Extra="retain"/><P T="L" p0="1" p1="2"/><P T="L" p0="2" p1="3"/><P T="L" p0="3" p1="0"/>
+    </Shape>
+    <Shape Type="Path" CutIndex="0"><XForm>1 0 0 1 20 0</XForm>
+      <V vx="0" vy="0"/><V vx="10" vy="0"/><V vx="10" vy="10"/><V vx="0" vy="10"/>
+      <P T="L" p0="0" p1="1"/><P T="L" p0="1" p1="2"/><P T="L" p0="2" p1="3"/><P T="L" p0="3" p1="0"/>
+    </Shape>
+  </Children></Shape>
+  <Notes Notes="legacy geometry and unknown attributes stay editable"/>
+  <Unknown><Shape Type="Path"><V vx="opaque"/></Shape></Unknown>
+</LightBurnProject>

@@ -365,3 +365,39 @@ uncached movable text, mixed fixed/active groups and native cut-settings-dialogu
 comparisons remain open. Mixed groups now fail in public imports with a repair
 instruction; the core diagnostic's older whole-group-fixed policy alone is not
 enough to validate active fixed artwork on every sheet.
+
+## Legacy conversion and native element order — 2026-10-14 UTC
+
+The [legacy checkpoint](../benchmarks/results/h3-legacy-20261013T235803Z.md)
+uses the original MIT features probe saved by LightBurn 2.1.01 as `.lbrn`.
+Typing that extension in Save As produces `FormatVersion="0"`, with 285 `V`
+and 285 `P` elements including editable Text's BackupPath. Merely changing the
+root version loses paths in native LightBurn; the failed variant is retained.
+
+The writer now adds equivalent VertList/PrimList data, uses the native `c0x1`
+and `c1x1` absent-handle markers, and writes FormatVersion 1. It preserves the
+original V/P XML, unknown attributes and comments. Only recognized Shape trees
+and Text backups are converted; opaque project metadata stays untouched. A
+missing format attribute is treated as legacy. The original document no-op
+remains byte-identical, and converting an already modern sheet is idempotent.
+
+Native saves of the original legacy project and the converted identity sheet
+are canonically equal across the **entire project**. A real CLI search places
+all six units on one sheet, with independent overlap/outside ratios zero.
+Three native reference comparisons cover 37 leaves and 85 contours; maximum
+bidirectional point difference is 0.000497 mm, below the 0.01 mm gate tolerance.
+
+This check exposed an existing outline bug: adding T1 after Notes makes
+LightBurn silently omit the setting and rectangle. New settings now precede
+shapes, and the outline follows existing shapes before trailing metadata. The
+corrected native UI shows seven objects and the complete 300 × 200 mm outline.
+The failed file and report remain beside the correction. Native Save As changes
+only the **newly generated** T1 name from SHEET to T1 and supplies priority 4;
+all four original settings remain canonically identical. The initial strict
+comparison of the new default fields is retained separately and documented.
+
+CLI, MCP, Chromium and Firefox exercise legacy import, real nesting and modern
+exports. Legacy conversion is now implemented; uncached movable text, mixed
+fixed/active groups and the five-project native settings-dialogue check still
+prevent H3 completion. Neither this authored probe nor these checks touch the
+frozen corpus or change published v1 results.

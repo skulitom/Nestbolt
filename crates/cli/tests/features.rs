@@ -122,6 +122,32 @@ fn lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files() {
 }
 
 #[test]
+fn legacy_lightburn_nests_and_exports_modern_paths() {
+    let dir = temp("legacy-lightburn");
+    let source = dir.join("legacy.lbrn");
+    let original = include_str!("../../core/tests/fixtures/legacy.lbrn");
+    fs::write(&source, original).unwrap();
+    let library = import(&dir, std::slice::from_ref(&source));
+    let saved: Value = serde_json::from_slice(&fs::read(library).unwrap()).unwrap();
+    assert_eq!(saved["lightburn"]["xml"], original);
+    let run = nest(
+        &dir,
+        &source,
+        json!({"sheets":[{"width_mm":34,"height_mm":14}],"spacing_mm":1,"edge_spacing_mm":0.5}),
+        "1",
+    );
+    assert_eq!(run.metrics()["placed_parts"], 1);
+    assert_eq!(run.report["files"], json!(["legacy-sheet-1.lbrn2"]));
+    let xml = fs::read_to_string(run.dir.join("legacy-sheet-1.lbrn2")).unwrap();
+    let doc = nestbolt_core::lightburn::Document::read(&xml, 0.005).unwrap();
+    assert_eq!(doc.scene.format_version, 1);
+    assert_eq!(xml.matches("<VertList>").count(), 2);
+    assert_eq!(xml.matches("<PrimList>").count(), 2);
+    assert!(xml.contains("Future=\"a &amp; b\""));
+    assert!(xml.contains("StartV=\"1\""));
+}
+
+#[test]
 fn svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports() {
     let dir = temp("viewport-widths");
     let svg = dir.join("viewport.svg");

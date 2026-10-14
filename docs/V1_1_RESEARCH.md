@@ -402,3 +402,19 @@ not establish H3's five searched native projects or cut-settings dialogues.
 Legacy output, uncached movable text and groups mixing fixed and active artwork
 still need completion. The latter fail clearly at public import because keeping
 the entire group fixed would otherwise leave active geometry outside the check.
+
+### N2 legacy conversion evidence (2026-10-14 UTC)
+
+The [native legacy-format check](../benchmarks/results/h3-legacy-20261013T235803Z.md)
+confirms that FormatVersion 1 requires compact path lists. Original legacy V/P
+elements can remain alongside them without extra cuts, preserving unknown XML.
+Native saves of the original legacy project and Nestbolt's converted identity
+sheet are canonically identical. Partial controls and absent-handle markers
+are preserved. CLI, MCP and both browsers now exercise this conversion.
+
+Native LightBurn silently ignores a new T1 setting/rectangle appended after
+Notes; the writer now puts settings before shapes and the outline before trailing
+metadata. The failed and corrected native results are retained. All original
+settings remain exact; native normalization of the newly generated T1 name and
+priority is recorded separately. This completes the legacy output implementation,
+not the five-project H3 gate or the remaining uncached-text/mixed-group cases.

@@ -63,6 +63,19 @@ async fn lightburn_units_nest_and_export_without_losing_project_settings() {
         let lossy = call("export_layout",json!({"library_path":library,"request":request,
             "layout_path":"nested/layout.json","out_dir":"lossy","format":"svg"})).await.unwrap_err();
         assert!(lossy.to_string().contains("retain its text"));
+        std::fs::write(workspace.join("legacy.lbrn"), include_str!("../../core/tests/fixtures/legacy.lbrn")).unwrap();
+        let legacy = call("import_parts",json!({"paths":["legacy.lbrn"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(legacy["part_count"],1);
+        let legacy_nested = call("nest",json!({"library_path":legacy["library_path"],
+            "request":{"sheets":[{"width_mm":34,"height_mm":14}],"spacing_mm":1,"edge_spacing_mm":0.5},
+            "out_dir":"legacy-nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(legacy_nested["validation"]["valid"],true);
+        assert_eq!(legacy_nested["files"].as_array().unwrap().len(),1);
+        let xml = std::fs::read_to_string(workspace.join(legacy_nested["files"][0].as_str().unwrap())).unwrap();
+        assert_eq!(nestbolt_core::lightburn::Document::read(&xml,0.005).unwrap().scene.format_version,1);
+        assert_eq!(xml.matches("<VertList>").count(),2);
+        assert_eq!(xml.matches("<PrimList>").count(),2);
+        assert!(xml.contains("Future=\"a &amp; b\""));
         client.cancel().await.unwrap();
     }).await.expect("LightBurn MCP session timed out");
 }

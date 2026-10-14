@@ -11960,3 +11960,27 @@ notices and 1,181 frozen hashes pass. Native diagnostics use CCD0 CPU 8;
 builds/tests use CCD1. The native diagnostic and final UI source hashes are
 retained separately. No held-out geometry/labels or published v1 result changed.
 H3 is not complete; completed v1.1 milestone weight remains 15%.
+
+
+### 2026-10-14 UTC — legacy LightBurn conversion and T1 ordering
+
+[Report and retained native evidence](benchmarks/results/h3-legacy-20261013T235803Z.md).
+Legacy V/P geometry now exports compact LBRN2 while retaining original XML,
+comments, unknown attributes, text backups and curve-handle semantics. Native
+saves of the authored legacy source and converted identity sheet are entirely
+canonically equal. Three independent comparisons cover 37 leaves/85 contours,
+maximum bidirectional point difference 0.0004963 mm. A real six-unit search fits
+one 300 × 200 mm sheet with overlap/outside ratios zero. Its first export lost
+the T1 outline in native LightBurn because it followed Notes; the correction
+places new settings before shapes and the outline before trailing metadata.
+The failed file/report and corrected re-export of the identical layout remain.
+All original cut settings are exact; normalization of the newly generated T1
+name/priority is explicitly recorded, with the stricter failed comparison kept.
+CLI/MCP/Chromium/Firefox cover legacy import, nesting and modern exports.
+198 workspace tests pass (one existing ignored); final 18 focused core tests,
+two optimized CLI LightBurn tests and four focused browser tests pass. Strict
+Clippy, formatting, WASM/browser builds, TypeScript, notices and frozen hashes
+pass. Diagnostics use CCD0 CPU 8; builds/tests use CCD1. No held-out geometry or
+labels were opened, no published v1 result changed, and no H3 completion claimed.
+Uncached text, mixed fixed/active groups and full native H3 checks remain.
+Completed milestone weight stays 15%.

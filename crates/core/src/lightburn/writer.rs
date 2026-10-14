@@ -7,7 +7,7 @@ use nestbolt_validator::RigidTransform;
 use roxmltree::Node;
 use serde::{Deserialize, Serialize};
 
-use super::{Nesting, Resources, child, values, xform};
+use super::{Nesting, Resources, child, number, values, xform};
 use crate::curves::Affine;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -186,6 +186,112 @@ fn moved_fragment(
     patch(&source[node.range()], node.range().start, changes)
 }
 
+/// Format 1 ignores legacy V/P elements. Add the equivalent compact lists while
+/// retaining the original elements (including unknown attributes and comments).
+/// Native 2.1.01 probes confirm that these retained elements are not extra cuts.
+/// Restrict conversion to the same shape tree understood by the reader: opaque
+/// project metadata must not be mistaken for path geometry.
+fn modernize_legacy(source: &str) -> Result<String> {
+    fn shape(source: &str, node: Node, changes: &mut Vec<Patch>) -> Result<()> {
+        if node.attribute("Type") == Some("Group") {
+            if let Some(children) = child(node, "Children") {
+                for n in children.children().filter(|n| n.has_tag_name("Shape")) {
+                    shape(source, n, changes)?;
+                }
+            }
+            return Ok(());
+        }
+        let path = match node.attribute("Type") {
+            Some("Path") => node,
+            Some("Text") => match child(node, "BackupPath") {
+                Some(backup) => backup,
+                None => return Ok(()),
+            },
+            _ => return Ok(()),
+        };
+        let mut lists = String::new();
+        if child(path, "VertList").is_none() && path.attribute("VertID").is_none() {
+            let mut vertices = String::new();
+            for v in path.children().filter(|n| n.has_tag_name("V")) {
+                vertices.push_str(&format!(
+                    "V{} {}",
+                    number(v, "vx", None)?,
+                    number(v, "vy", None)?
+                ));
+                // Native legacy-to-modern saves explicitly mark absent handles.
+                // Keep partial coordinates and the lone x=1 sentinel as-is:
+                // filling in a zero y would turn the sentinel into a real handle.
+                for (x, y) in [("c0x", "c0y"), ("c1x", "c1y")] {
+                    if v.attribute(x).is_none() && v.attribute(y).is_none() {
+                        vertices.push_str(&format!("{x}1"));
+                    } else {
+                        for name in [x, y] {
+                            if v.attribute(name).is_some() {
+                                vertices.push_str(&format!("{name}{}", number(v, name, None)?));
+                            }
+                        }
+                    }
+                }
+            }
+            if !vertices.is_empty() {
+                lists.push_str(&format!("<VertList>{vertices}</VertList>"));
+            }
+        }
+        if child(path, "PrimList").is_none() && path.attribute("PrimID").is_none() {
+            let mut primitives = String::new();
+            for p in path.children().filter(|n| n.has_tag_name("P")) {
+                let kind = p.attribute("T").context("missing legacy primitive type")?;
+                ensure!(matches!(kind, "L" | "B"), "unknown legacy primitive {kind}");
+                let index = |name| -> Result<usize> {
+                    Ok(p.attribute(name)
+                        .context("missing legacy primitive index")?
+                        .parse()?)
+                };
+                primitives.push_str(&format!("{kind}{} {}", index("p0")?, index("p1")?));
+            }
+            if !primitives.is_empty() {
+                lists.push_str(&format!("<PrimList>{primitives}</PrimList>"));
+            }
+        }
+        if !lists.is_empty() {
+            additions(
+                source,
+                path,
+                Additions {
+                    children: lists,
+                    ..Default::default()
+                },
+                changes,
+            );
+        }
+        Ok(())
+    }
+
+    let xml = roxmltree::Document::parse(source)?;
+    let root = xml.root_element();
+    let mut changes = vec![];
+    if let Some(attribute) = root.attribute_node("FormatVersion") {
+        changes.push(Patch {
+            range: attribute.range_value(),
+            value: "1".into(),
+        });
+    } else {
+        additions(
+            source,
+            root,
+            Additions {
+                attributes: " FormatVersion=\"1\"".into(),
+                ..Default::default()
+            },
+            &mut changes,
+        );
+    }
+    for node in root.children().filter(|n| n.has_tag_name("Shape")) {
+        shape(source, node, &mut changes)?;
+    }
+    patch(source, 0, changes)
+}
+
 impl Nesting<'_> {
     /// Write a single sheet. Placements may repeat a unit to request additional
     /// copies. Fixed top-level shapes survive once, at their original transform.
@@ -201,10 +307,6 @@ impl Nesting<'_> {
         ensure!(
             width_mm.is_finite() && height_mm.is_finite() && width_mm > 0.0 && height_mm > 0.0,
             "LightBurn sheet width and height must be finite and positive"
-        );
-        ensure!(
-            self.document.scene.format_version == 1,
-            "legacy LightBurn writing needs conversion; re-save this .lbrn as .lbrn2 in LightBurn before nesting export"
         );
         let source = &self.document.source;
         let xml = roxmltree::Document::parse(source)?;
@@ -264,7 +366,7 @@ impl Nesting<'_> {
             }
         }
         let mut changes = vec![];
-        for (i, node) in top.into_iter().enumerate() {
+        for (i, node) in top.iter().copied().enumerate() {
             let mut value = String::new();
             if let Some(transforms) = moves.get(&i) {
                 for &transform in transforms {
@@ -295,33 +397,66 @@ impl Nesting<'_> {
                 setting.is_none_or(|l| l.mode == "Tool"),
                 "LightBurn index 30 already has a non-Tool setting; disable the sheet outline or repair T1 in the source project"
             );
-            let mut outline = String::new();
+            let mut setting_xml = String::new();
             if setting.is_none() {
-                outline.push_str("<CutSetting type=\"Tool\"><index Value=\"30\"/><name Value=\"SHEET\"/></CutSetting>");
+                setting_xml.push_str("<CutSetting type=\"Tool\"><index Value=\"30\"/><name Value=\"SHEET\"/></CutSetting>");
             }
-            outline.push_str(&format!("<Shape Type=\"Rect\" CutIndex=\"30\" W=\"{width_mm}\" H=\"{height_mm}\"><XForm>1 0 0 1 {} {}</XForm></Shape>", width_mm/2.0, height_mm/2.0));
-            // Insert before the root's closing tag, preserving all root metadata.
-            if source.as_bytes()[opening_end(source, root) - 2] == b'/' {
+            let outline = format!(
+                "<Shape Type=\"Rect\" CutIndex=\"30\" W=\"{width_mm}\" H=\"{height_mm}\"><XForm>1 0 0 1 {} {}</XForm></Shape>",
+                width_mm / 2.0,
+                height_mm / 2.0
+            );
+            // Native 2.1.01 stops loading geometry after Notes. Keep the new
+            // setting ahead of shapes and the outline beside the existing
+            // shapes, before trailing metadata. Root-end insertion loses T1.
+            if let (Some(first), Some(last)) = (top.first(), top.last()) {
+                if !setting_xml.is_empty() {
+                    let start = first.range().start;
+                    changes.push(Patch {
+                        range: start..start,
+                        value: setting_xml,
+                    });
+                }
+                let end = last.range().end;
+                changes.push(Patch {
+                    range: end..end,
+                    value: outline,
+                });
+            } else if source.as_bytes()[opening_end(source, root) - 2] == b'/' {
                 additions(
                     source,
                     root,
                     Additions {
                         attributes: String::new(),
-                        children: outline,
+                        children: setting_xml + &outline,
                     },
                     &mut changes,
                 );
             } else {
-                let end = source[..root.range().end]
-                    .rfind("</")
-                    .context("missing project closing tag")?;
+                // With no original shapes, keep existing layer settings ahead
+                // of the first new shape too, and do not put it after Notes.
+                let at = root
+                    .children()
+                    .rfind(|n| n.has_tag_name("CutSetting") || n.has_tag_name("CutSetting_Img"))
+                    .map(|n| n.range().end)
+                    .or_else(|| child(root, "Notes").map(|n| n.range().start))
+                    .unwrap_or(
+                        source[..root.range().end]
+                            .rfind("</")
+                            .context("missing project closing tag")?,
+                    );
                 changes.push(Patch {
-                    range: end..end,
-                    value: outline,
+                    range: at..at,
+                    value: setting_xml + &outline,
                 });
             }
         }
         let result = patch(source, 0, changes)?;
+        let result = if self.document.scene.format_version == 0 {
+            modernize_legacy(&result)?
+        } else {
+            result
+        };
         // Catch malformed range edits or unresolved references before exporting.
         super::Document::read(&result, self.tolerance_mm)?;
         Ok(result)
