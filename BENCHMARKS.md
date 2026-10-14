@@ -12078,3 +12078,50 @@ formatting and the optimized WASM/TypeScript/browser build pass. Builds/tests us
 CCD1; diagnostics use CCD0. No held-out geometry/labels are read, no source curves
 are simplified, and no v1 quality claim or result changes. H2/H3 remain incomplete;
 completed milestone weight remains 15%. This does not establish H4.
+
+
+### 2026-10-14 UTC — complete H2 vector fidelity after deadline repair
+
+[Full training sweep](benchmarks/results/h2-fidelity-20261014T012836Z.md):
+246 passed, 11 rejected with repair guidance, no timeout/error. All 5,138 contour
+comparisons match without missing/extra contours; maximum SVG 0.003301680 mm,
+DXF 0.000499980 mm (limit 0.01 mm). Every successful layout is independently
+valid. All four formerly timed-out Iris DXFs pass, retaining checked incumbents
+and reporting non-repeatable after the real deadline (241.354–243.512 s total).
+The other 242 successful cases complete their fixed work budgets.
+
+Original settings unchanged: one-second work, 240 s cooperative, 360 s external;
+four CCD0 physical cores 0/2/4/6, one process each. Source, executable and runner
+hash guards pass. Frozen manifest is unchanged; no held-out geometry/labels
+read. R43 retains its original discrepancy and approved scoring exception.
+Earlier failures remain published. This closes the vector export-fidelity gap,
+not H2/H3 or H4; milestone weight remains 15%.
+
+
+### 2026-10-14 UTC — shop-habit properties and diagnostic coverage
+
+[Checkpoint](benchmarks/results/h2-habits-checkpoint-20261014.md).
+[Four fixed-seed property batches](benchmarks/results/h2-habit-fuzz-20261014T015256Z.md)
+pass 10,000 importer cases and 1,008 feasible nesting cases (including eight saved
+regression replays), with all 17 N0 habits in every batch. Bounds, analytic area,
+off-centre holes, counts and diagnostics are checked; every nesting result
+passes the independent original-polygon validator. No corpus geometry is read.
+
+[Current training imports](benchmarks/results/h2-import-training-20261014T015939Z.json)
+retain 245 raw exact part/hole matches and the approved R43 exception (246 reviewed),
+with 11 clear rejections. [Warning/cut-layer audit](benchmarks/results/h2-warning-audit-20261014T015958Z.md)
+passes every import and verifies that all 246 libraries' geometry and stock
+outlines exactly match the complete fidelity run. Undefined layers and duplicate
+handles now warn; block instances and HANDSEED do not create false duplicates.
+Independent ezdxf/GEOS review confirms Gherkin's labelled open linework is a
+7.888067184 mm retrace in a closed SPLINE. The source/import distance is
+0.000371576 mm; all 104 contours remain, and the self-touch warning describes it.
+No label or scoring exception is introduced for this file.
+
+[Robustness](benchmarks/results/h2-import-robustness-20261014T015959Z.json): 183/183
+finish without crash or timeout, slowest 1.275 s (36 import, 147 reject).
+205 workspace tests (one existing ignored), 20 optimized CLI tests, 48 browser
+tests (four opt-in skipped), strict Clippy, formatting and optimized browser/WASM
+build pass. All 1,181 frozen hashes match. Benchmarks run on CCD0 physical cores,
+builds/tests on CCD1; all source/binary/runner guards pass. Held-out geometry and
+labels remain unread. H2/H3 are incomplete; completed milestone weight 15%.

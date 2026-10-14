@@ -13,6 +13,34 @@ use nestbolt_validator::{
 };
 use proptest::prelude::*;
 
+#[path = "support/shop_habits.rs"]
+mod shop_habits;
+
+proptest! {
+    #![proptest_config(shop_habits::config(17, concat!(env!("CARGO_MANIFEST_DIR"), "/tests/search_fuzz.proptest-regressions")))]
+    #[test]
+    fn imported_shop_habits_nest_with_original_geometry(
+        habit in 0u8..17, w in 20u32..80, h in 20u32..80,
+        x in -100i32..100, y in -100i32..100, seed in any::<u64>(),
+        quantity in 1u32..4, mirror in any::<bool>(),
+    ) {
+        let library=shop_habits::checked_library(habit,w,h,x,y,seed)?;
+        let request:Request=serde_json::from_value(serde_json::json!({
+            "parts":[{"id":library.parts[0].id,"quantity":quantity,
+                      "rotations":{"kind":"step","degrees":90},"allow_mirror":mirror}],
+            "sheets":[{"width_mm":260,"height_mm":260,
+                       "margins_mm":{"left":2,"right":3,"bottom":4,"top":5}}],
+            "spacing_mm":1,"edge_spacing_mm":1
+        })).unwrap();
+        let (job,_)=request.job(&library).unwrap();
+        let result=optimize(&job,Options {seconds:0.01,time_limit:Some(10.0),seed,
+            timing:Timing::Work,..Options::default()},|_,_|{})
+            .map_err(|e|TestCaseError::fail(format!("feasible shop fixture: {e:#}")))?;
+        prop_assert_eq!(result.layout.placements.len(),quantity as usize);
+        prop_assert!(validate(&job,&result.layout).unwrap().valid);
+    }
+}
+
 fn options(seed: u64) -> Options {
     Options {
         seconds: 2.0,

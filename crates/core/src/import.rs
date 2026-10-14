@@ -6,7 +6,7 @@
 //! end to end; anything still open is reported and skipped. Nesting polygons
 //! are chord flattenings within `tolerance` of the exact curves; callers widen
 //! clearances by that tolerance so the true curves keep the requested gaps.
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::f64::consts::{PI, TAU};
 
 use anyhow::{Context, Result, bail, ensure};
@@ -1836,6 +1836,33 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                     || e.get(70).is_some_and(|f| f as u32 & 1 != 0),
             },
         );
+    }
+    // Diagnose original records before INSERT expansion: repeated references
+    // to one block are not duplicate entity handles. HEADER's HANDSEED is not
+    // an entity either. Layer 0 is the implicit default in minimal DXFs.
+    let mut handles = BTreeMap::<String, usize>::new();
+    let mut undefined_layers = BTreeMap::<String, usize>::new();
+    for section in ["BLOCKS", "ENTITIES"] {
+        for entity in dxf_entities(sections.get(section).map_or(&[], Vec::as_slice)) {
+            if let Some(handle) = entity.text(5) {
+                let handle = handle.trim_start_matches('0').to_ascii_uppercase();
+                if !handle.is_empty() {
+                    *handles.entry(handle).or_default() += 1;
+                }
+            }
+            if let Some(layer) = entity.text(8)
+                && layer != "0"
+                && !layers.contains_key(&layer.to_lowercase())
+            {
+                *undefined_layers.entry(layer.to_owned()).or_default() += 1;
+            }
+        }
+    }
+    for (handle, count) in handles.into_iter().filter(|(_, count)| *count > 1) {
+        warnings.push(format!("duplicate entity handle {handle} occurs in {count} DXF records; records are read separately. Audit or re-export the drawing to restore unique handles"));
+    }
+    for (layer, count) in undefined_layers {
+        warnings.push(format!("undefined layer {layer:?} is referenced by {count} DXF record(s); default layer properties are assumed. Define the layer or re-export to preserve its colour and visibility"));
     }
     dxf_pieces(
         &entities,

@@ -41,17 +41,28 @@ independently valid, all 24 SVG/DXF contour comparisons match, maximum distance
 **0.000000595 mm**, and `repeatable` is correctly false. No contour is omitted or
 silently simplified. The former 30/90/360-second failed records are preserved.
 
-## Full verification in progress
+## Full verification
 
-A new full 257-file training SVG/DXF fidelity sweep is running with the original
-one-second repeatable work budget, 240-second cooperative limit and 360-second
-external limit. Its outcome is not yet claimed. Product/binary/runner hashes are
-guarded throughout; four CCD0 physical cores each run one case at a time. Builds
-and tests run on CCD1. No held-out geometry or labels are read.
+The [complete 257-file training vector sweep](h2-fidelity-20261014T012836Z.md)
+finished with **246 passes, 11 clear rejections, zero timeouts and zero errors**.
+All **5,138** SVG/DXF contour comparisons match, with no missing/extra contours.
+Maximum distances are **0.003301680 mm SVG** and **0.000499980 mm DXF**, both
+below 0.01 mm. Every returned layout passes the independent validator.
+The original one-second work budget, 240-second cooperative limit and 360-second
+external timeout were retained, with one case on each of four CCD0 physical cores.
+Product/binary/runner guards passed. No held-out geometry or labels were read.
+
+All four formerly timed-out Iris files now pass. Their total command times are
+241.354–243.512 seconds; all correctly report `repeatable: false` after hitting
+the cooperative deadline. The other 242 successful cases complete their work
+budgets. The raw R43 count mismatch is retained and governed only by its earlier
+approved scoring exception; frozen labels and the split are unchanged. The
+original failed full sweep and failed bounded probes remain available.
 
 The expired-clock regression, strict Clippy, all 200 workspace tests (one
 existing ignored), 20 optimized CLI feature tests and 48 Chromium/Firefox tests
 (four opt-in benchmark/scale cases skipped) pass. The optimized WASM and browser
-build also pass. The full fidelity result will be added after its terminal
-result is verified. H2/H3 are not complete; completed
-milestone weight remains 15%. This is not H4 performance or quality acceptance.
+build also pass. H2/H3 are not complete: warning coverage, the required habit
+fuzzing, native-project cases and held-out acceptance remain separate work.
+Completed milestone weight remains 15%. This is not H4 performance or quality
+acceptance.
