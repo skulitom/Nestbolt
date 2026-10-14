@@ -57,6 +57,21 @@ pub struct Grouped {
     pub riders_placed: u32,
 }
 
+impl Grouped {
+    pub(crate) fn identity(job: &Job) -> Self {
+        Self {
+            job: job.clone(),
+            members: (0..job.parts.len())
+                .map(|host| Member {
+                    host,
+                    riders: vec![],
+                })
+                .collect(),
+            riders_placed: 0,
+        }
+    }
+}
+
 fn angle_set(rotations: &Rotations) -> Option<Vec<f64>> {
     match rotations {
         Rotations::Free => None,

@@ -340,8 +340,9 @@ impl Nestbolt {
             .map_err(tool_error)?;
         let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel::<(f64, f64)>();
         let solve_job = job.clone();
+        let allow_part_in_hole = p.request.common_line.is_none();
         let handle = tokio::task::spawn_blocking(move || {
-            nestbolt_core::sheets::optimize(
+            nestbolt_core::sheets::optimize_with_part_in_hole(
                 &solve_job,
                 nestbolt_core::sheets::Options {
                     seconds: budget,
@@ -349,6 +350,7 @@ impl Nestbolt {
                     timing: nestbolt_core::clock::Timing::Work,
                     ..Default::default()
                 },
+                allow_part_in_hole,
                 |progress, _| {
                     let _ = tx.send((progress.elapsed_seconds, progress.material));
                 },
@@ -389,7 +391,9 @@ impl Nestbolt {
                 .map(|f| f.rsplit('/').next().unwrap_or(f).to_owned())
                 .collect();
             let repeatable = result.repeatable;
-            let report = nestbolt_core::project::NestReport::new(result, budget, names);
+            let common_line = p.request.common_line_reports(&library, &result.layout)?;
+            let mut report = nestbolt_core::project::NestReport::new(result, budget, names);
+            report.common_line = common_line;
             Self::write_new(
                 &dir.join("report.json"),
                 serde_json::to_string_pretty(&report)?.as_bytes(),
@@ -457,7 +461,8 @@ impl Nestbolt {
                 &dir,
                 (p.format.as_deref(), p.sheet_outline),
             )?;
-            Ok(CallToolResult::structured(json!({"files": files})))
+            Ok(CallToolResult::structured(json!({"files": files,
+                "common_line":p.request.common_line_reports(&library,&layout)?})))
         })()
         .map_err(tool_error)
     }

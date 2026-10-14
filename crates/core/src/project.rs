@@ -216,6 +216,8 @@ pub struct NestReport {
     /// Exported sheets, relative to the report's directory.
     pub files: Vec<String>,
     pub validation: nestbolt_validator::job::Report,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub common_line: Option<Vec<crate::common_line::Report>>,
 }
 
 impl NestReport {
@@ -232,6 +234,7 @@ impl NestReport {
             unsupported: result.unsupported,
             files,
             validation: result.validation,
+            common_line: None,
         }
     }
 }
@@ -306,6 +309,9 @@ pub struct Request {
     /// Minimum gap between parts (kerf plus margin).
     #[serde(default)]
     pub spacing_mm: f64,
+    /// Optional compensated common-line cutting. Its kerf replaces part spacing.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub common_line: Option<crate::common_line::Options>,
     /// Minimum gap between parts and the sheet edge or a defect.
     #[serde(default)]
     pub edge_spacing_mm: f64,
@@ -318,9 +324,29 @@ fn default_mode() -> Mode {
 }
 
 impl Request {
+    pub fn common_line_reports(
+        &self,
+        library: &Library,
+        layout: &nestbolt_validator::job::Layout,
+    ) -> Result<Option<Vec<crate::common_line::Report>>> {
+        self.common_line
+            .map(|options| {
+                let (job, curves) = self.job(library)?;
+                crate::common_line::analyze(&job, layout, &curves, options)
+            })
+            .transpose()
+    }
+
     /// Derive the polygon job and the exact outlines for export. Clearances
     /// grow by the library tolerance so the true curves keep the requested gaps.
     pub fn job(&self, library: &Library) -> Result<(Job, HashMap<String, Outline>)> {
+        if let Some(options) = self.common_line {
+            options.validate()?;
+            ensure!(
+                library.lightburn.is_none(),
+                "common-line toolpaths use SVG/DXF cutting outlines; export the cuts from LightBurn as SVG/DXF and import them here. Editable project exports retain their original layers and settings"
+            );
+        }
         ensure!(!self.sheets.is_empty(), "add at least one sheet size");
         ensure!(
             self.spacing_mm >= 0.0 && self.edge_spacing_mm >= 0.0,
@@ -416,7 +442,21 @@ impl Request {
                 defects: s.defects_mm.clone(),
             })})
             .collect::<Result<Vec<_>>>()?;
-        let tolerance = library.tolerance;
+        // Straight source segments have no flattening error. In common mode
+        // they can meet at exactly one kerf, without a fictitious curve guard.
+        // Curved drawings retain the original conservative error allowance.
+        let tolerance = if self.common_line.is_some()
+            && outlines.values().all(|o| {
+                std::iter::once(&o.outer).chain(&o.holes).all(|c| {
+                    c.segments
+                        .iter()
+                        .all(|s| matches!(s, crate::curves::Segment::Line { .. }))
+                })
+            }) {
+            0.0
+        } else {
+            library.tolerance
+        };
         Ok((
             Job {
                 version: 1,
@@ -424,7 +464,8 @@ impl Request {
                 units: Units::Mm,
                 parts,
                 stocks,
-                clearance: self.spacing_mm + 2.0 * tolerance,
+                clearance: self.common_line.map_or(self.spacing_mm, |o| o.kerf_mm)
+                    + 2.0 * tolerance,
                 edge_clearance: self.edge_spacing_mm + tolerance + stock_tolerance,
                 mode: self.mode,
             },

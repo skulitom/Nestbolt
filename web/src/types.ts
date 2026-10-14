@@ -54,6 +54,7 @@ export interface NestRequest {
   parts: RequestPart[];
   sheets: RequestSheet[];
   spacing_mm: number;
+  common_line?: { kerf_mm: number };
   edge_spacing_mm: number;
   mode: Mode;
 }
@@ -70,7 +71,8 @@ export interface Metrics {
   material_area: number;
 }
 export interface Report { valid: boolean; violation_count: number; violations: { code: string; message: string }[]; metrics: Metrics | null }
-export interface NestResult { layout: Layout; validation: Report; seed: number; seconds: number; repeatable: boolean; parts_in_holes: number }
+export interface CommonLineReport { sheet_id: string; kerf_mm: number; shared_length_mm: number; saved_length_mm: number; saved_fraction: number; cut_length_without_common_mm: number; cut_length_with_common_mm: number; contours_without_common: number; paths_with_common: number }
+export interface NestResult { layout: Layout; validation: Report; seed: number; seconds: number; repeatable: boolean; parts_in_holes: number; common_line?: CommonLineReport[] | null }
 
 export interface Project { lightburnOutline?: boolean;
   version: 1;

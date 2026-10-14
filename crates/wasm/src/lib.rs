@@ -132,7 +132,7 @@ pub fn nest(
     let request: Request = parse(request_json, "request")?;
     let (job, _) = request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
     let mut shown = f64::NEG_INFINITY;
-    let result = nestbolt_core::sheets::optimize(
+    let result = nestbolt_core::sheets::optimize_with_part_in_hole(
         &job,
         nestbolt_core::sheets::Options {
             seconds,
@@ -144,6 +144,7 @@ pub fn nest(
             },
             ..Default::default()
         },
+        request.common_line.is_none(),
         |p, layout| {
             let live = (live_interval_s > 0.0 && p.elapsed_seconds - shown >= live_interval_s)
                 .then(layout)
@@ -163,6 +164,9 @@ pub fn nest(
         },
     )
     .map_err(|e| fail(format!("{e:#}")))?;
+    let common_line = request
+        .common_line_reports(&library, &result.layout)
+        .map_err(|e| fail(format!("{e:#}")))?;
     serde_json::to_string(&serde_json::json!({
         "layout": result.layout,
         "validation": result.validation,
@@ -171,6 +175,7 @@ pub fn nest(
         "repeatable": result.repeatable,
         "parts_in_holes": result.riders,
         "elapsed_seconds": result.elapsed_seconds,
+        "common_line":common_line,
     }))
     .map_err(fail)
 }

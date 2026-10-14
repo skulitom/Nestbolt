@@ -53,6 +53,70 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn common_line_cli_flags_override_spacing_and_export_compensated_paths() {
+    let dir = temp("common-line");
+    let source = dir.join("panel.svg");
+    fs::write(
+        &source,
+        include_str!("../../core/tests/fixtures/common-panels.svg"),
+    )
+    .unwrap();
+    let library = import(&dir, &[source]);
+    let request = dir.join("request.json");
+    let output = dir.join("common");
+    fs::write(
+        &request,
+        serde_json::to_vec(&json!({"parts":[{"id":"panel-1","quantity":2}],
+        "sheets":[{"width_mm":86,"height_mm":36}],"spacing_mm":5,"edge_spacing_mm":1}))
+        .unwrap(),
+    )
+    .unwrap();
+    let args: &[&std::ffi::OsStr] = &[
+        "nest".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request.as_os_str(),
+        "--out-dir".as_ref(),
+        output.as_os_str(),
+        "--seconds".as_ref(),
+        "1".as_ref(),
+        "--repeatable".as_ref(),
+        "--time-limit".as_ref(),
+        "15".as_ref(),
+        "--common-line".as_ref(),
+        "--kerf".as_ref(),
+        "0.2".as_ref(),
+    ];
+    let run = nestbolt(args);
+    assert!(
+        run.status.success(),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    let report: Value = serde_json::from_slice(&run.stdout).unwrap();
+    assert_eq!(report["validation"]["valid"], true);
+    assert_eq!(report["parts_in_holes"], 0);
+    assert!(
+        (report["common_line"][0]["shared_length_mm"]
+            .as_f64()
+            .unwrap()
+            - 30.0)
+            .abs()
+            < 0.01
+    );
+    let job: Value = serde_json::from_slice(&fs::read(output.join("job.json")).unwrap()).unwrap();
+    assert_eq!(job["clearance"], 0.2);
+    let request: Value =
+        serde_json::from_slice(&fs::read(output.join("request.json")).unwrap()).unwrap();
+    assert_eq!(request["common_line"]["kerf_mm"], 0.2);
+    for file in report["files"].as_array().unwrap() {
+        let text = fs::read_to_string(output.join(file.as_str().unwrap())).unwrap();
+        assert!(text.contains("COMMON"));
+    }
+}
+
+#[test]
 fn lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files() {
     let dir = temp("lightburn");
     let source = dir.join("roundtrip.lbrn2");

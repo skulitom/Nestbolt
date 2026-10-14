@@ -65,6 +65,12 @@ enum Command {
         /// machine slower than the reference PC, allow more so the work finishes.
         #[arg(long, requires = "repeatable")]
         time_limit: Option<f64>,
+        /// Add compensated shared straight toolpaths on COMMON; spacing = kerf.
+        #[arg(long, requires = "kerf")]
+        common_line: bool,
+        /// Physical kerf in mm, at least 0.05. COMMON needs no CAM compensation.
+        #[arg(long, requires = "common_line")]
+        kerf: Option<f64>,
     },
     /// Write per-sheet SVG/DXF or preserving .lbrn2 files for an existing layout.
     Export {
@@ -329,14 +335,21 @@ fn main() -> Result<()> {
             sheet_outline,
             repeatable,
             time_limit,
+            common_line,
+            kerf,
         } => {
             let library = load_library(&library)?;
-            let request: nestbolt_core::project::Request =
+            let mut request: nestbolt_core::project::Request =
                 serde_json::from_slice(&fs::read(&request)?)
                     .context("invalid nest request JSON")?;
+            if common_line {
+                request.common_line = Some(nestbolt_core::common_line::Options {
+                    kerf_mm: kerf.context("--common-line requires --kerf")?,
+                });
+            }
             let (job, _) = request.job(&library)?;
             fs::create_dir_all(&out_dir)?;
-            let result = nestbolt_core::sheets::optimize(
+            let result = nestbolt_core::sheets::optimize_with_part_in_hole(
                 &job,
                 nestbolt_core::sheets::Options {
                     seconds,
@@ -349,6 +362,7 @@ fn main() -> Result<()> {
                     time_limit,
                     ..Default::default()
                 },
+                request.common_line.is_none(),
                 |p, _| eprintln!("{}", serde_json::to_string(p).expect("finite progress")),
             )?;
             ensure!(
@@ -360,6 +374,10 @@ fn main() -> Result<()> {
                 serde_json::to_string_pretty(&job)?.as_bytes(),
             )?;
             write_new(
+                &out_dir.join("request.json"),
+                serde_json::to_string_pretty(&request)?.as_bytes(),
+            )?;
+            write_new(
                 &out_dir.join("layout.json"),
                 serde_json::to_string_pretty(&result.layout)?.as_bytes(),
             )?;
@@ -369,7 +387,9 @@ fn main() -> Result<()> {
                 .filter_map(|f| std::path::Path::new(f).file_name())
                 .map(|f| f.to_string_lossy().into_owned())
                 .collect();
-            let report = nestbolt_core::project::NestReport::new(result, seconds, names);
+            let common_line = request.common_line_reports(&library, &result.layout)?;
+            let mut report = nestbolt_core::project::NestReport::new(result, seconds, names);
+            report.common_line = common_line;
             write_new(
                 &out_dir.join("report.json"),
                 serde_json::to_string_pretty(&report)?.as_bytes(),

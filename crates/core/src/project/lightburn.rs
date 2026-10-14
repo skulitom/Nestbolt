@@ -97,8 +97,19 @@ impl Library {
         let options = crate::export::Options {
             sheet_outline: sheet_outline.unwrap_or(self.lightburn.is_some()),
         };
+        let common = request
+            .common_line
+            .map(|o| crate::common_line::analyze(&job, layout, &outlines, o))
+            .transpose()?;
         let mut files = vec![];
         for sheet in &layout.sheets {
+            let review = crate::export::ReviewPaths {
+                common: common
+                    .as_ref()
+                    .and_then(|r| r.iter().find(|r| r.sheet_id == sheet.id))
+                    .map_or_else(Vec::new, |r| r.paths.clone()),
+                ..Default::default()
+            };
             for format in &formats {
                 let (name, text) = match *format {
                     "lbrn2" => (
@@ -107,11 +118,15 @@ impl Library {
                     ),
                     "svg" => (
                         format!("{}.svg", sheet.id),
-                        crate::export::svg(&job, layout, &sheet.id, &outlines, options)?,
+                        crate::export::svg_with_review_paths(
+                            &job, layout, &sheet.id, &outlines, options, &review,
+                        )?,
                     ),
                     "dxf" => (
                         format!("{}.dxf", sheet.id),
-                        crate::export::dxf(&job, layout, &sheet.id, &outlines, options)?,
+                        crate::export::dxf_with_review_paths(
+                            &job, layout, &sheet.id, &outlines, options, &review,
+                        )?,
                     ),
                     _ => unreachable!(),
                 };
@@ -275,6 +290,17 @@ impl Library {
         let options = crate::export::Options {
             sheet_outline: sheet_outline.unwrap_or(self.lightburn.is_some()),
         };
+        let common = request
+            .common_line
+            .map(|o| crate::common_line::analyze(&job, layout, &outlines, o))
+            .transpose()?;
+        let review = crate::export::ReviewPaths {
+            common: common
+                .as_ref()
+                .and_then(|r| r.iter().find(|r| r.sheet_id == sheet_id))
+                .map_or_else(Vec::new, |r| r.paths.clone()),
+            ..Default::default()
+        };
         match (&self.lightburn, format) {
             (Some(_), "lbrn2") => {
                 self.write_lightburn(&job, layout, sheet_id, options.sheet_outline)
@@ -282,8 +308,12 @@ impl Library {
             (Some(_), _) => anyhow::bail!(
                 "export this LightBurn project as lbrn2 to retain its text, images and layer settings"
             ),
-            (None, "svg") => crate::export::svg(&job, layout, sheet_id, &outlines, options),
-            (None, "dxf") => crate::export::dxf(&job, layout, sheet_id, &outlines, options),
+            (None, "svg") => crate::export::svg_with_review_paths(
+                &job, layout, sheet_id, &outlines, options, &review,
+            ),
+            (None, "dxf") => crate::export::dxf_with_review_paths(
+                &job, layout, sheet_id, &outlines, options, &review,
+            ),
             (None, "lbrn2") => anyhow::bail!("lbrn2 export requires an imported LightBurn project"),
             _ => anyhow::bail!("format must be svg, dxf or lbrn2"),
         }

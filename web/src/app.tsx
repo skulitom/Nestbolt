@@ -324,7 +324,8 @@ export function App() {
   const guarded = (work: () => Promise<void>) => () => { work().catch((e) => setError(String(e))); };
 
   const metrics = result?.validation.metrics;
-  const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy;
+  const commonValid = !request.common_line || (!library?.lightburn && Number.isFinite(request.common_line.kerf_mm) && request.common_line.kerf_mm >= 0.05);
+  const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy && commonValid;
 
   return (
     <div class="app">
@@ -513,7 +514,7 @@ export function App() {
           <section aria-labelledby="settings-title">
             <h2 id="settings-title">Settings</h2>
             <div class="grid">
-              <label>Part spacing <input type="number" min={0} step={0.1} value={request.spacing_mm} onInput={(e) => update({ spacing_mm: num(e) })} /> mm</label>
+              <label>Part spacing <input type="number" min={0} step={0.1} disabled={!!request.common_line} value={request.common_line?.kerf_mm ?? request.spacing_mm} onInput={(e) => update({ spacing_mm: num(e) })} /> mm</label>
               <label>Edge spacing <input type="number" min={0} step={0.1} value={request.edge_spacing_mm} onInput={(e) => update({ edge_spacing_mm: num(e) })} /> mm</label>
               <label>Goal <select value={request.mode} onChange={(e) => update({ mode: (e.target as HTMLSelectElement).value as Mode })}>
                 <option value="all">Place every part</option>
@@ -522,6 +523,13 @@ export function App() {
               </select></label>
               <label>Time <input type="number" min={1} max={300} value={seconds} onInput={(e) => setSeconds(Math.min(300, Math.max(1, num(e))))} /> s</label>
             </div>
+            <label class="check"><input type="checkbox" disabled={!!library?.lightburn && !request.common_line} checked={!!request.common_line} onChange={(e) => update({ common_line: (e.target as HTMLInputElement).checked ? { kerf_mm: 0 } : undefined })} /> Common-line cutting</label>
+            {request.common_line ? <>
+              <label>Kerf <input type="number" min={0.05} step={0.05} required value={request.common_line.kerf_mm} onInput={(e) => update({ common_line: { kerf_mm: num(e) } })} /> mm</label>
+              <p class="hint">Enter the cut width (at least 0.05 mm). Part spacing uses this kerf; parts stay outside holes. Shared straight cuts go on COMMON with compensation included.</p>
+              <p class="hint">CUT keeps the closed outlines. In CAM, replace their shared sections with COMMON and turn off kerf compensation for COMMON.</p>
+            </> : null}
+            {library?.lightburn ? <p class="hint">For common-line cutting, export the cut outlines from LightBurn as SVG or DXF and import them here.</p> : null}
             <details class="advanced">
               <summary>Advanced</summary>
               <div class="grid">
@@ -570,6 +578,10 @@ export function App() {
                 <div><dt>Check</dt><dd>{result.validation.valid ? 'valid' : 'invalid'}</dd></div>
                 {result.parts_in_holes ? <div><dt>In holes</dt><dd>{result.parts_in_holes}</dd></div> : null}
               </dl>
+              {result.common_line?.length ? <div class="common-line-report">
+                <h3>Common-line cuts</h3>
+                {result.common_line.map((r) => <p key={r.sheet_id}>{r.sheet_id}: {r.cut_length_without_common_mm.toFixed(1)} → {r.cut_length_with_common_mm.toFixed(1)} mm of cutting; {r.saved_length_mm.toFixed(1)} mm saved ({(100 * r.saved_fraction).toFixed(1)}%). {r.contours_without_common} closed contours become {r.paths_with_common} cutting paths after replacing the shared sections.</p>)}
+              </div> : null}
               <button onClick={guarded(async () => download('sheets.zip', zip(await exportsFor(result)), 'application/zip'))}>Download all sheets (ZIP)</button>
               <div class="sheets">
                 {result.layout.sheets.map((s) => (

@@ -1,5 +1,52 @@
 {
   "$defs": {
+    "Contour": {
+      "description": "A closed boundary: a start point and segments that end where it began.",
+      "properties": {
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/Segment"
+          },
+          "type": "array"
+        },
+        "start": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "start",
+        "segments"
+      ],
+      "type": "object"
+    },
+    "Coverage": {
+      "description": "Arc-length coverage on one original outer contour, for reporting and for\nexcluding future lead attachment points. Intervals may wrap around length.",
+      "properties": {
+        "from_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "part_copy": {
+          "type": "string"
+        },
+        "to_mm": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "part_copy",
+        "from_mm",
+        "to_mm"
+      ],
+      "type": "object"
+    },
     "Metrics": {
       "properties": {
         "full_stock_area": {
@@ -134,6 +181,270 @@
       ],
       "type": "object"
     },
+    "Report2": {
+      "properties": {
+        "collinearity_tolerance_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "contours_without_common": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cut_length_with_common_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "cut_length_without_common_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "kerf_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "minimum_shared_length_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "paths": {
+          "items": {
+            "$ref": "#/$defs/Contour"
+          },
+          "type": "array"
+        },
+        "paths_with_common": {
+          "description": "Unshared source path pieces plus COMMON paths. Closed CUT reference\ncontours remain in the export and are not an extra cutting pass.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "saved_fraction": {
+          "format": "double",
+          "type": "number"
+        },
+        "saved_length_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "shared_edges": {
+          "items": {
+            "$ref": "#/$defs/SharedEdge"
+          },
+          "type": "array"
+        },
+        "shared_length_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "sheet_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sheet_id",
+        "kerf_mm",
+        "collinearity_tolerance_mm",
+        "minimum_shared_length_mm",
+        "shared_edges",
+        "paths",
+        "shared_length_mm",
+        "cut_length_without_common_mm",
+        "cut_length_with_common_mm",
+        "saved_length_mm",
+        "saved_fraction",
+        "contours_without_common",
+        "paths_with_common"
+      ],
+      "type": "object"
+    },
+    "Segment": {
+      "description": "One boundary segment, always in millimetres or the job's declared units.",
+      "oneOf": [
+        {
+          "properties": {
+            "kind": {
+              "const": "line",
+              "type": "string"
+            },
+            "to": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "to"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Elliptical arc in centre form: `center + R(rotation) (rx cos t, ry sin t)`\nfor `t` from `start` to `start + sweep` (radians; positive is\ncounter-clockwise in a Y-up frame).",
+          "properties": {
+            "center": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "arc",
+              "type": "string"
+            },
+            "radii": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "rotation": {
+              "format": "double",
+              "type": "number"
+            },
+            "start": {
+              "format": "double",
+              "type": "number"
+            },
+            "sweep": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "center",
+            "radii",
+            "rotation",
+            "start",
+            "sweep"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "control": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "quad",
+              "type": "string"
+            },
+            "to": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "control",
+            "to"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "controls": {
+              "items": {
+                "items": {
+                  "format": "double",
+                  "type": "number"
+                },
+                "maxItems": 2,
+                "minItems": 2,
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "cubic",
+              "type": "string"
+            },
+            "to": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "controls",
+            "to"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "SharedEdge": {
+      "properties": {
+        "from_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "maximum_offset_difference_mm": {
+          "description": "Distance to the other edge's half-kerf offset, bounded by COLLINEAR_MM.",
+          "format": "double",
+          "type": "number"
+        },
+        "owners": {
+          "items": {
+            "$ref": "#/$defs/Coverage"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "to_mm": {
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "from_mm",
+        "to_mm",
+        "owners",
+        "maximum_offset_difference_mm"
+      ],
+      "type": "object"
+    },
     "Units": {
       "enum": [
         "mm",
@@ -163,6 +474,15 @@
   "properties": {
     "algorithm": {
       "type": "string"
+    },
+    "common_line": {
+      "items": {
+        "$ref": "#/$defs/Report2"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
     },
     "elapsed_s": {
       "format": "double",

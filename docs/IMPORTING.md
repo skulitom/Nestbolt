@@ -290,3 +290,7 @@ Tool/output-off shapes must be separated before nesting: active fixed artwork
 is not yet independently validated against every output sheet. Full native
 settings verification and the remaining format cases are tracked in
 [LBRN2.md](LBRN2.md).
+
+For compensated shared cuts in SVG/DXF workflows, see
+[Common-line cutting](COMMON_LINES.md), including the required CAM layer setup
+and current development limitations.

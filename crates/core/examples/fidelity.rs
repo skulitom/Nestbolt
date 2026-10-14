@@ -174,6 +174,7 @@ fn measure(task: &Task) -> Result<serde_json::Value> {
             outline_mm: vec![],
         }],
         spacing_mm: 1.0,
+        common_line: None,
         edge_spacing_mm: 1.0,
         mode: nestbolt_validator::job::Mode::All,
     };

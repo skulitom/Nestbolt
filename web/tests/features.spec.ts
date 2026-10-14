@@ -65,6 +65,30 @@ async function nest(page: Page) {
 const metric = async (page: Page, name: string) =>
   Number(await page.locator('.summary div', { hasText: name }).locator('dd').innerText());
 
+test('common-line kerf overrides spacing and exports its own compensated layer', async ({ page }, testInfo) => {
+  const source = fileURLToPath(new URL('../../crates/core/tests/fixtures/common-panels.svg', import.meta.url));
+  const sheet = await setUp(page, [source], { 'common-panels-1': 2 }, 86, 36, 1);
+  await sheet.getByLabel('Margin').fill('0');
+  await page.getByLabel('Repeatable', { exact: true }).check();
+  await page.getByLabel('Part spacing').fill('5');
+  await page.getByLabel('Common-line cutting', { exact: true }).check();
+  await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+  await page.getByLabel('Kerf mm', { exact: true }).fill('0.2');
+  await expect(page.getByLabel('Part spacing')).toBeDisabled();
+  await expect(page.getByLabel('Part spacing')).toHaveValue('0.2');
+  await nest(page);
+  const saved = await project(page);
+  await testInfo.attach('common-line-project', { body: JSON.stringify(saved), contentType: 'application/json' });
+  await expect(page.locator('.common-line-report')).toContainText('30.0 mm saved');
+  const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download all sheets (ZIP)' }).click()]);
+  const svg = zipEntry(await archive.path(), `sheets/${saved.result.layout.sheets[0].id}.svg`);
+  expect(svg).toContain('id="COMMON"');
+  expect(svg).toContain('stroke="#0000ff"');
+  await page.getByLabel('Common-line cutting', { exact: true }).uncheck();
+  await expect(page.getByLabel('Part spacing')).toHaveValue('5');
+  await expect(page.locator('.common-line-report')).toHaveCount(0);
+});
+
 test('DXF and SVG import; exports keep arcs and curves', async ({ page }) => {
   await page.goto('/');
   await page.locator('.drop input[type=file]').setInputFiles([example('fidelity/plate-in.dxf'), example('fidelity/curves-mm.svg')]);

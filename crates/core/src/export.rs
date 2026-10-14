@@ -114,7 +114,7 @@ fn outlines<'a>(
 type Placed = (Vec<(String, Vec<Contour>)>, f64, f64);
 
 /// Placed contours of one sheet in sheet coordinates (Y up), with the stock.
-fn placed(
+pub(crate) fn placed(
     job: &Job,
     layout: &Layout,
     sheet_id: &str,

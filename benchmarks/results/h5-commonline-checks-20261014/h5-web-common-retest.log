@@ -1,0 +1,48 @@
+[WebServer] (node:64112) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 2 workers
+
+(node:425064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:364884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  2 [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer (608ms)
+  x  1 [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer (1.8s)
+
+
+  1) [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+
+    Error: nesting failed: Error: could not place every part in 1 s: allow more time, more sheets or fewer parts
+
+      59 |   // A result or an error, whichever comes first; an error fails with its own text.
+      60 |   await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout: 90_000 });
+    > 61 |   if (await page.locator('.error').count()) throw new Error(`nesting failed: ${await page.locator('.error').innerText()}`);
+         |                                                   ^
+      62 |   await expect(page.locator('.summary')).toContainText('valid');
+      63 | }
+      64 |
+        at nest (C:\DEV\Nestbolt\web\tests\features.spec.ts:61:51)
+        at C:\DEV\Nestbolt\web\tests\features.spec.ts:77:3
+
+    Error Context: test-results\features-common-line-kerf--41588-s-its-own-compensated-layer-chromium\error-context.md
+
+  2) [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+
+    Error: nesting failed: Error: could not place every part in 1 s: allow more time, more sheets or fewer parts
+
+      59 |   // A result or an error, whichever comes first; an error fails with its own text.
+      60 |   await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout: 90_000 });
+    > 61 |   if (await page.locator('.error').count()) throw new Error(`nesting failed: ${await page.locator('.error').innerText()}`);
+         |                                                   ^
+      62 |   await expect(page.locator('.summary')).toContainText('valid');
+      63 | }
+      64 |
+        at nest (C:\DEV\Nestbolt\web\tests\features.spec.ts:61:51)
+        at C:\DEV\Nestbolt\web\tests\features.spec.ts:77:3
+
+    Error Context: test-results\features-common-line-kerf--41588-s-its-own-compensated-layer-firefox\error-context.md
+
+  2 failed
+    [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+    [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer

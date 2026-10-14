@@ -546,6 +546,17 @@ fn least_filled(sheets: &[SPProblem]) -> Option<usize> {
 pub fn optimize(
     job: &Job,
     options: Options,
+    progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
+) -> Result<SheetResult> {
+    optimize_with_part_in_hole(job, options, true, progress)
+}
+
+/// Common-line mode reserves every hole and therefore skips the rider pre-pass.
+/// The ordinary entry point retains its original behavior and budgets.
+pub fn optimize_with_part_in_hole(
+    job: &Job,
+    options: Options,
+    allow_part_in_hole: bool,
     mut progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
     ensure!(
@@ -570,7 +581,11 @@ pub fn optimize(
     };
     // Part-in-part first: filled hosts become rigid groups for the search. The
     // pre-pass stops early once every host is filled; this caps slow ones.
-    let grouped = crate::holes::group(job, &clock, budget * HOLE_SHARE, options.seed)?;
+    let grouped = if allow_part_in_hole {
+        crate::holes::group(job, &clock, budget * HOLE_SHARE, options.seed)?
+    } else {
+        crate::holes::Grouped::identity(job)
+    };
     let debug = std::env::var_os("NESTBOLT_DEBUG").is_some();
     if debug {
         eprintln!(

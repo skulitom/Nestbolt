@@ -10,6 +10,7 @@ use jagua_rs::probs::bpp::io::ext_repr::ExtBPInstance;
 use serde::{Deserialize, Serialize};
 
 pub mod clock;
+pub mod common_line;
 pub mod construct;
 pub mod control;
 pub mod curves;

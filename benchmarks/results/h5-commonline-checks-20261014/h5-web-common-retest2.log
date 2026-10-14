@@ -1,0 +1,70 @@
+[WebServer] (node:270856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 2 workers
+
+(node:92272) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8932) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  1 [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer (5.5s)
+  x  2 [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer (6.8s)
+
+
+  1) [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.common-line-report')
+    Expected substring: "30.0 mm saved"
+    Received string:    "Common-line cutssheet-0: 280.0 → 280.0 mm of cutting; 0.0 mm saved (0.0%). 2 closed contours become 2 cutting paths after replacing the shared sections."
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('.common-line-report') with timeout 5000ms
+      - waiting for locator('.common-line-report')
+        14 × locator resolved to <div class="common-line-report">…</div>
+           - unexpected value "Common-line cutssheet-0: 280.0 → 280.0 mm of cutting; 0.0 mm saved (0.0%). 2 closed contours become 2 cutting paths after replacing the shared sections."
+
+
+      77 |   await expect(page.getByLabel('Part spacing')).toHaveValue('0.2');
+      78 |   await nest(page);
+    > 79 |   await expect(page.locator('.common-line-report')).toContainText('30.0 mm saved');
+         |                                                     ^
+      80 |   const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download all sheets (ZIP)' }).click()]);
+      81 |   const saved = await project(page);
+      82 |   const svg = zipEntry(await archive.path(), `${saved.result.layout.sheets[0].id}.svg`);
+        at C:\DEV\Nestbolt\web\tests\features.spec.ts:79:53
+
+    Error Context: test-results\features-common-line-kerf--41588-s-its-own-compensated-layer-chromium\error-context.md
+
+  2) [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('.common-line-report')
+    Expected substring: "30.0 mm saved"
+    Received string:    "Common-line cutssheet-0: 280.0 → 280.0 mm of cutting; 0.0 mm saved (0.0%). 2 closed contours become 2 cutting paths after replacing the shared sections."
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('.common-line-report') with timeout 5000ms
+      - waiting for locator('.common-line-report')
+        14 × locator resolved to <div class="common-line-report">…</div>
+           - unexpected value "Common-line cutssheet-0: 280.0 → 280.0 mm of cutting; 0.0 mm saved (0.0%). 2 closed contours become 2 cutting paths after replacing the shared sections."
+
+
+      77 |   await expect(page.getByLabel('Part spacing')).toHaveValue('0.2');
+      78 |   await nest(page);
+    > 79 |   await expect(page.locator('.common-line-report')).toContainText('30.0 mm saved');
+         |                                                     ^
+      80 |   const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download all sheets (ZIP)' }).click()]);
+      81 |   const saved = await project(page);
+      82 |   const svg = zipEntry(await archive.path(), `${saved.result.layout.sheets[0].id}.svg`);
+        at C:\DEV\Nestbolt\web\tests\features.spec.ts:79:53
+
+    Error Context: test-results\features-common-line-kerf--41588-s-its-own-compensated-layer-firefox\error-context.md
+
+  2 failed
+    [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+    [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer

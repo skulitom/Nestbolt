@@ -8,6 +8,45 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn common_line_parameter_controls_spacing_and_export_report() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace = std::env::temp_dir().join(format!(
+        "nestbolt-mcp-common-{}-{stamp}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&workspace).unwrap();
+    std::fs::write(
+        workspace.join("panel.svg"),
+        include_str!("../../core/tests/fixtures/common-panels.svg"),
+    )
+    .unwrap();
+    timeout(Duration::from_secs(90),async {
+        let mut command=Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));command.env("NESTBOLT_WORKSPACE",&workspace);
+        let client=().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call=|name:&'static str,value:Value|{let client=&client;async move {
+            client.call_tool(CallToolRequestParams::new(name).with_arguments(args(value))).await
+        }};
+        let imported=call("import_parts",json!({"paths":["panel.svg"]})).await.unwrap().structured_content.unwrap();
+        let library=&imported["library_path"];
+        let request=json!({"parts":[{"id":"panel-1","quantity":2}],"sheets":[{"width_mm":86,"height_mm":36}],
+            "spacing_mm":5,"edge_spacing_mm":1,"common_line":{"kerf_mm":0.2}});
+        let nested=call("nest",json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"],true);assert_eq!(nested["parts_in_holes"],0);
+        assert!((nested["common_line"][0]["saved_length_mm"].as_f64().unwrap()-30.0).abs()<0.01);
+        let exported=call("export_layout",json!({"library_path":library,"request":request,"layout_path":"nested/layout.json", "out_dir":"exported","format":"svg"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["common_line"],exported["common_line"]);
+        let svg=std::fs::read_to_string(workspace.join(exported["files"][0].as_str().unwrap())).unwrap();assert!(svg.contains("id=\"COMMON\""));
+        let mut bad=request;bad["common_line"]["kerf_mm"]=json!(0.01);
+        let error=call("nest",json!({"library_path":library,"request":bad,"out_dir":"bad","time_budget_s":1})).await.unwrap_err();
+        assert!(error.to_string().contains("at least 0.05"));
+        client.cancel().await.unwrap();
+    }).await.unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn lightburn_units_nest_and_export_without_losing_project_settings() {
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

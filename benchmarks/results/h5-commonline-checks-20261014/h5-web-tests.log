@@ -1,0 +1,178 @@
++ cargo build --locked --release -p nestbolt-wasm --target wasm32-unknown-unknown
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+   Compiling nestbolt-wasm v0.1.0 (C:\DEV\Nestbolt\crates\wasm)
+    Finished `release` profile [optimized] target(s) in 35.86s
++ wasm-bindgen --target web --out-dir C:\DEV\Nestbolt\web\src\pkg C:\DEV\Nestbolt\target\wasm32-unknown-unknown\release\nestbolt_wasm.wasm
++ npm run build
+
+> nestbolt-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v7.1.12 building for production...
+transforming...
+✓ 17 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/bench.html                                 0.70 kB │ gzip:     0.40 kB
+dist/index.html                                 2.14 kB │ gzip:     1.11 kB
+dist/assets/worker-sKXWYM7a.js                  8.02 kB
+dist/assets/nestbolt_wasm_bg-DALPJ9HJ.wasm  3,175.16 kB │ gzip: 1,069.89 kB
+dist/assets/main-Bvyd4uHH.css                   6.54 kB │ gzip:     2.13 kB
+dist/assets/bench-BO_eptSe.js                   0.08 kB │ gzip:     0.09 kB
+dist/assets/engine-z4TUlnsw.js                  3.59 kB │ gzip:     1.68 kB
+dist/assets/main-LvoZXQwo.js                   45.80 kB │ gzip:    16.98 kB
+✓ built in 309ms
++ npx tsc -p tsconfig.tests.json
++ npx playwright test
+[WebServer] (node:190196) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 54 tests using 16 workers
+
+(node:83224) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:232912) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:295000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:77972) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:57168) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:110420) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:52288) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:180384) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:376620) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:212276) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:215548) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:295844) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:322448) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:82404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:423552) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:377864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  11 [chromium] › tests\pages.spec.ts:7:1 › the deployed app nests the example from GitHub Pages
+  -   5 [chromium] › tests\scale.spec.ts:10:1 › a 2,000-part job imports, nests and exports
+  ok  4 [chromium] › tests\import-viewport.spec.ts:7:1 › SVG page geometry agrees with browser coordinates and width warnings are visible (864ms)
+  ok  3 [chromium] › tests\import-layers.spec.ts:4:1 › a custom stock layer is offered separately from the cut selection (1.0s)
+  ok  2 [chromium] › tests\import-gaps.spec.ts:3:1 › explicit gap repair reports locations and can be reapplied without stale parts (1.1s)
+  ok 17 [chromium] › tests\import-layers.spec.ts:18:1 › closed retraced holes survive cleanup with a visible warning (265ms)
+  ok 18 [chromium] › tests\import-gaps.spec.ts:27:1 › failed batches keep unrelated files and failed replacements remove stale parts (298ms)
+  ok 19 [chromium] › tests\import-layers.spec.ts:26:1 › legacy DXF text keeps layer names and offers an explicit inches choice (293ms)
+  -   9 [firefox] › tests\pages.spec.ts:7:1 › the deployed app nests the example from GitHub Pages
+  ok 20 [chromium] › tests\import-layers.spec.ts:39:1 › cleanup shows duplicate, zero-length and overlap counts (274ms)
+  ok 15 [chromium] › tests\lightburn.spec.ts:8:1 › legacy LightBurn paths become editable modern sheet files (2.3s)
+  ok 21 [chromium] › tests\import-layers.spec.ts:47:1 › layer and colour choices retain counts and replace the selected parts (565ms)
+  ok 23 [chromium] › tests\import-layers.spec.ts:68:1 › open-only drawings still expose the inventory and gap repair (345ms)
+  ok 14 [firefox] › tests\import-viewport.spec.ts:7:1 › SVG page geometry agrees with browser coordinates and width warnings are visible (1.7s)
+  ok 22 [chromium] › tests\lightburn.spec.ts:57:1 › LightBurn rigid units nest and download as editable per-sheet projects (2.3s)
+  -  13 [firefox] › tests\scale.spec.ts:10:1 › a 2,000-part job imports, nests and exports
+  ok  8 [firefox] › tests\import-gaps.spec.ts:3:1 › explicit gap repair reports locations and can be reapplied without stale parts (4.5s)
+  ok 24 [firefox] › tests\import-gaps.spec.ts:27:1 › failed batches keep unrelated files and failed replacements remove stale parts (368ms)
+  ok 10 [firefox] › tests\import-layers.spec.ts:4:1 › a custom stock layer is offered separately from the cut selection (3.9s)
+  ok 16 [firefox] › tests\lightburn.spec.ts:8:1 › legacy LightBurn paths become editable modern sheet files (3.6s)
+  ok  1 [chromium] › tests\app.spec.ts:22:1 › import, nest, export and keep the main thread responsive (6.4s)
+  ok 25 [firefox] › tests\import-layers.spec.ts:18:1 › closed retraced holes survive cleanup with a visible warning (375ms)
+  ok 28 [firefox] › tests\import-layers.spec.ts:26:1 › legacy DXF text keeps layer names and offers an explicit inches choice (532ms)
+  ok 29 [firefox] › tests\import-layers.spec.ts:39:1 › cleanup shows duplicate, zero-length and overlap counts (436ms)
+  ok 30 [firefox] › tests\import-layers.spec.ts:47:1 › layer and colour choices retain counts and replace the selected parts (838ms)
+  ok 26 [firefox] › tests\lightburn.spec.ts:57:1 › LightBurn rigid units nest and download as editable per-sheet projects (2.3s)
+  ok 31 [firefox] › tests\import-layers.spec.ts:68:1 › open-only drawings still expose the inventory and gap repair (588ms)
+  ok  7 [firefox] › tests\app.spec.ts:22:1 › import, nest, export and keep the main thread responsive (8.3s)
+  ok 27 [chromium] › tests\app.spec.ts:54:1 › the example boxes import and nest in one click (13.0s)
+  ok 33 [chromium] › tests\app.spec.ts:62:1 › a loading state, then a live view in the sheet's proportions, in a window that does not scroll (4.1s)
+  ok 34 [chromium] › tests\app.spec.ts:77:1 › projects save to the browser and to a ZIP (522ms)
+  ok 32 [firefox] › tests\app.spec.ts:54:1 › the example boxes import and nest in one click (13.7s)
+  ok 35 [chromium] › tests\app.spec.ts:95:1 › defects, several sheet sizes and fill mode reach the solver (5.4s)
+  ok 36 [firefox] › tests\app.spec.ts:62:1 › a loading state, then a live view in the sheet's proportions, in a window that does not scroll (4.5s)
+  ok 37 [firefox] › tests\app.spec.ts:77:1 › projects save to the browser and to a ZIP (796ms)
+  ok 38 [firefox] › tests\app.spec.ts:95:1 › defects, several sheet sizes and fill mode reach the solver (6.0s)
+  x   6 [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer (3.0m)
+(node:171884) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x  12 [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer (3.0m)
+(node:416896) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 39 [chromium] › tests\features.spec.ts:89:1 › DXF and SVG import; exports keep arcs and curves (5.4s)
+  ok 40 [firefox] › tests\features.spec.ts:89:1 › DXF and SVG import; exports keep arcs and curves (6.6s)
+  ok 41 [chromium] › tests\features.spec.ts:107:1 › fewest sheets with margins; the last sheet keeps one offcut (5.3s)
+  ok 42 [firefox] › tests\features.spec.ts:107:1 › fewest sheets with margins; the last sheet keeps one offcut (5.7s)
+  ok 43 [chromium] › tests\features.spec.ts:120:1 › a capped sheet count fails in place-all mode and fills by area or priority (9.2s)
+  ok 45 [chromium] › tests\features.spec.ts:139:1 › small parts are placed inside the holes of larger parts (3.3s)
+  ok 44 [firefox] › tests\features.spec.ts:120:1 › a capped sheet count fails in place-all mode and fills by area or priority (9.9s)
+  ok 46 [chromium] › tests\features.spec.ts:149:1 › a remnant outline from a drawing is used as the sheet (5.3s)
+  ok 47 [firefox] › tests\features.spec.ts:139:1 › small parts are placed inside the holes of larger parts (3.6s)
+  ok 48 [chromium] › tests\features.spec.ts:161:1 › a prearranged drawing keeps CUT parts separate from its SHEET boundary (1.2s)
+  ok 50 [chromium] › tests\features.spec.ts:181:1 › rotation lists, steps, free rotation, mirroring and spacing reach the solver (5.4s)
+  ok 49 [firefox] › tests\features.spec.ts:149:1 › a remnant outline from a drawing is used as the sheet (5.8s)
+  ok 52 [firefox] › tests\features.spec.ts:161:1 › a prearranged drawing keeps CUT parts separate from its SHEET boundary (1.5s)
+  ok 53 [firefox] › tests\features.spec.ts:181:1 › rotation lists, steps, free rotation, mirroring and spacing reach the solver (5.8s)
+  ok 51 [chromium] › tests\features.spec.ts:208:1 › hundreds of copies of a part (8.3s)
+  ok 54 [firefox] › tests\features.spec.ts:208:1 › hundreds of copies of a part (8.8s)
+
+
+  1) [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.fill: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Kerf', { exact: true })
+
+
+      72 |   await page.getByLabel('Common-line cutting', { exact: true }).check();
+      73 |   await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+    > 74 |   await page.getByLabel('Kerf', { exact: true }).fill('0.2');
+         |                                                  ^
+      75 |   await expect(page.getByLabel('Part spacing')).toBeDisabled();
+      76 |   await expect(page.getByLabel('Part spacing')).toHaveValue('0.2');
+      77 |   await nest(page);
+        at C:\DEV\Nestbolt\web\tests\features.spec.ts:74:50
+
+    Error Context: test-results\features-common-line-kerf--41588-s-its-own-compensated-layer-chromium\error-context.md
+
+  2) [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+
+    Test timeout of 180000ms exceeded.
+
+    Error: locator.fill: Test timeout of 180000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Kerf', { exact: true })
+
+
+      72 |   await page.getByLabel('Common-line cutting', { exact: true }).check();
+      73 |   await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+    > 74 |   await page.getByLabel('Kerf', { exact: true }).fill('0.2');
+         |                                                  ^
+      75 |   await expect(page.getByLabel('Part spacing')).toBeDisabled();
+      76 |   await expect(page.getByLabel('Part spacing')).toHaveValue('0.2');
+      77 |   await nest(page);
+        at C:\DEV\Nestbolt\web\tests\features.spec.ts:74:50
+
+    Error Context: test-results\features-common-line-kerf--41588-s-its-own-compensated-layer-firefox\error-context.md
+
+  2 failed
+    [chromium] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+    [firefox] › tests\features.spec.ts:68:1 › common-line kerf overrides spacing and exports its own compensated layer
+  4 skipped
+  48 passed (3.9m)
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\scripts\build_web.py", line 68, in <module>
+    main()
+  File "C:\DEV\Nestbolt\scripts\build_web.py", line 64, in main
+    run(['npx', 'playwright', 'test'], cwd=ROOT/'web')
+  File "C:\DEV\Nestbolt\scripts\build_web.py", line 19, in run
+    subprocess.run(command, cwd=cwd, check=True, shell=sys.platform == 'win32' and command[0] in ('npm', 'npx'))
+  File "C:\Users\artem\anaconda3\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['npx', 'playwright', 'test']' returned non-zero exit status 1.

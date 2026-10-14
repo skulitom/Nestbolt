@@ -12125,3 +12125,25 @@ tests (four opt-in skipped), strict Clippy, formatting and optimized browser/WAS
 build pass. All 1,181 frozen hashes match. Benchmarks run on CCD0 physical cores,
 builds/tests on CCD1; all source/binary/runner guards pass. Held-out geometry and
 labels remain unread. H2/H3 are incomplete; completed milestone weight 15%.
+
+
+## 2026-10-14 — compensated common-line geometry and native checkpoint
+
+[H5 checkpoint](benchmarks/results/h5-commonline-checkpoint-20261014.md):
+half-kerf COMMON paths, deduplication/minimum trails, length/path reports and
+kerf controls work through UI/CLI/MCP. Independent Clipper2 offsets pass six
+integration tests (including 64 randomized cases) and three unit tests.
+Actual repeatable two-panel search exports open in LightBurn Pro 2.1.01 with
+C00 CUT and separate blue C01 COMMON, at 80.200 × 30.000 mm (SVG, kerf 0.2)
+and 81.500 × 30.000 mm (DXF, kerf 1.5). Saved dimensions differ by at most
+0.0000026 mm, half-kerf offsets by 0.000007 mm. Native artifacts, hashes and
+failed preparation/oracle/test probes are retained. The established H3 oracle
+normalization handles nested group transforms; production geometry is unchanged.
+
+216 workspace tests (one ignored), 50 browser tests (four opt-in skipped),
+strict Clippy, formatting, optimized builds, TypeScript and schema checks pass.
+All 1,181 frozen hashes match. No held-out geometry/labels opened.
+H5 remains incomplete: search bonus, 13-job savings/material gate and Deepnest
+comparison pending. Curved drawings retain conservative spacing; documented
+SVG/DXF workflow requires CAM to replace shared CUT sections and disable
+compensation on COMMON. Completed milestone weight remains 15%.
