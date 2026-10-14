@@ -641,6 +641,13 @@ fn optimize_job(
         Timing::Work => budget,
     };
     let model = Model::new(job);
+    if std::env::var_os("NESTBOLT_DEBUG").is_some() {
+        eprintln!(
+            "debug phase model: real {:.2} clock {:.2}",
+            clock.real(),
+            clock.now()
+        );
+    }
     // Several stock sizes or remnant outlines: the separator then works on the
     // one rectangular size the warm start used, a sub-job whose layouts stay
     // valid for the whole job.
@@ -1017,6 +1024,16 @@ fn warm_start(
     finish: f64,
     seconds: f64,
 ) -> Result<crate::optimize::SearchResult> {
+    let explain_interruption = |e: anyhow::Error| {
+        if e.is::<crate::control::Interrupted>() {
+            anyhow::anyhow!(
+                "no complete layout within {} s: these parts are many or detailed; allow more time",
+                seconds
+            )
+        } else {
+            e
+        }
+    };
     let construct = crate::optimize::Options {
         construct: ConstructOptions {
             seed,
@@ -1040,21 +1057,13 @@ fn warm_start(
                     complete.set(true);
                 }
             })
-            .map_err(|e| {
-                if e.is::<crate::control::Interrupted>() {
-                    anyhow::anyhow!(
-                        "no complete layout within {} s: these parts are many or detailed; allow more time",
-                        seconds
-                    )
-                } else {
-                    e
-                }
-            })?
+            .map_err(explain_interruption)?
         }
         Timing::Work => {
             // A deterministic collision-check quota; if it cannot finish the
-            // first construction, construct once without a quota. Checks on
-            // detailed outlines cost more: weight by the root vertex count.
+            // first construction, construct once without a quota, still subject
+            // to the real deadline. Checks on detailed outlines cost more:
+            // weight by the root vertex count.
             let vertices = job
                 .parts
                 .iter()
@@ -1063,11 +1072,19 @@ fn warm_start(
                 / job.parts.len().max(1) as f64;
             let weight = (vertices / 16.0).sqrt().max(1.0);
             let quota = ((warm_until - clock.now()).max(0.0) * CHECKS_PER_SECOND / weight) as u64;
-            let mut control = Control::new(Some(quota.max(1)), None);
+            let mut deadline = || clock.now().is_infinite().then_some(StopReason::Deadline);
+            let mut control = Control::new(Some(quota.max(1)), Some(&mut deadline));
             let warm =
                 match crate::optimize::optimize_controlled(job, construct, &mut control, |_| {}) {
-                    Err(e) if e.is::<crate::control::Interrupted>() => {
-                        let mut unlimited = Control::unlimited();
+                    Err(e)
+                        if matches!(
+                            e.downcast_ref::<crate::control::Interrupted>(),
+                            Some(crate::control::Interrupted(StopReason::WorkLimit))
+                        ) =>
+                    {
+                        let mut deadline =
+                            || clock.now().is_infinite().then_some(StopReason::Deadline);
+                        let mut once_control = Control::new(None, Some(&mut deadline));
                         let once = crate::optimize::Options {
                             passes: 1,
                             ..construct
@@ -1075,16 +1092,17 @@ fn warm_start(
                         let warm = crate::optimize::optimize_controlled(
                             job,
                             once,
-                            &mut unlimited,
+                            &mut once_control,
                             |_| {},
-                        )?;
+                        )
+                        .map_err(explain_interruption)?;
                         clock.charge(
                             Work::ConstructorCheck,
-                            unlimited.collision_checks() as f64 * weight,
+                            once_control.collision_checks() as f64 * weight,
                         );
                         warm
                     }
-                    other => other?,
+                    other => other.map_err(explain_interruption)?,
                 };
             clock.charge(
                 Work::ConstructorCheck,
@@ -1191,6 +1209,21 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn expired_repeatable_warm_start_does_not_retry_without_a_deadline() {
+        let job = job(
+            Rotations::List {
+                degrees: vec![0.0, 90.0],
+            },
+            false,
+        );
+        let clock = Clock::new(Timing::Work, 0.0);
+        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0);
+        assert!(clock.hit_hard_limit());
+        let error = result.expect_err("an expired deadline must stop the initial construction");
+        assert!(error.to_string().contains("allow more time"), "{error:#}");
     }
 
     #[test]

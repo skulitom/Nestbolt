@@ -147,9 +147,28 @@ pub fn optimize_controlled(
         (1..=1024).contains(&options.passes),
         "search needs 1..=1024 passes"
     );
+    let debug_started = std::env::var_os("NESTBOLT_DEBUG").map(|_| jagua_rs::Instant::now());
     let prepared = PreparedJob::new_controlled(job, control)?;
+    if let Some(started) = debug_started {
+        eprintln!(
+            "debug warm prepared: {:.2} s",
+            started.elapsed().as_secs_f64()
+        );
+    }
     let mut best = initial_construction(&prepared, options.construct, control)?;
+    if let Some(started) = debug_started {
+        eprintln!(
+            "debug warm constructed: {:.2} s",
+            started.elapsed().as_secs_f64()
+        );
+    }
     let mut validation = validate(job, &best.layout)?;
+    if let Some(started) = debug_started {
+        eprintln!(
+            "debug warm validated: {:.2} s",
+            started.elapsed().as_secs_f64()
+        );
+    }
     let mut history = vec![];
     // Preserve the complete original 64-pass portfolio and its finishing trials.
     // Longer runs continue from that checked incumbent in further 64-pass blocks.

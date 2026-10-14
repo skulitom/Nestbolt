@@ -12051,3 +12051,30 @@ hashes pass. Builds/tests use CCD1; fidelity uses CCD0 cores 0/2/4/6 and the bou
 profile CPU 8. Product/binary/runner hashes are stable during diagnostics.
 No held-out geometry/labels were interpreted, and no published v1 result or
 quality claim changed. H2/H3 remain incomplete; completed milestone weight 15%.
+
+
+### 2026-10-14 UTC — repeatable warm-start deadline repair
+
+[Diagnosis, failed probes and corrected pilot](benchmarks/results/h2-work-deadline-checkpoint-20261014.md).
+Training Iris 30a5fb13 builds its model in 0.46–0.54 s and reaches a valid initial
+layout at about 1.28 s, contradicting the earlier preparation-bottleneck hypothesis.
+Two new 30-second failed probes retain the phase evidence. Repeatable warm search
+was missing the real-deadline probe, and its one-construction fallback retried
+any interruption without a deadline. Both now respect the real limit; fallback
+is restricted to work-quota exhaustion. Completed work budgets keep the same
+coefficients and geometry. Interrupted results are explicitly non-repeatable.
+
+The deterministic expired-clock regression fails before and passes after the fix.
+A 20 s cooperative-limit pilot now finishes nesting in 20.503 s and the full
+fidelity command in 22.178 s. The layout is independently valid, all 24 contour
+comparisons match within 0.000000595 mm, and repeatable is correctly false.
+Original 30/90/360-second failures remain. This proves the pilot, not all four
+formerly timed-out files; a fresh full 257-file training vector fidelity sweep
+is still running under its original 240 s cooperative / 360 s external limits.
+
+200 workspace tests pass (one existing ignored), 20 optimized CLI tests pass,
+48 browser tests pass (four opt-in benchmark/scale tests skipped). Strict Clippy,
+formatting and the optimized WASM/TypeScript/browser build pass. Builds/tests use
+CCD1; diagnostics use CCD0. No held-out geometry/labels are read, no source curves
+are simplified, and no v1 quality claim or result changes. H2/H3 remain incomplete;
+completed milestone weight remains 15%. This does not establish H4.
