@@ -192,6 +192,9 @@ Surfaces:
    - Map shapes to layers by CutIndex.
 3. **Units:** form nesting units by the section 3 rules, using their outlines or bounding rectangles in mm. Allowed
    rotations and mirroring follow the user's settings (default 0/90/180/270, no mirror).
+   Open-stroke bounding axes narrower than two curve tolerances are widened symmetrically to that width
+   (at least two 0.000001 mm validator grid units), equally inside groups and standalone. This protects collision geometry;
+   the original open paths remain unchanged in the preserving output.
 4. **Writer:**
    - For each sheet, copy the document and keep the sheet's units.
    - Update the top-level XForms (placement ∘ old), re-home any omitted shared lists, and add the T1 sheet outline.
@@ -219,6 +222,11 @@ Surfaces:
   - every layer's settings are unchanged (compare the cut settings dialog before and after).
   - Record it as `benchmarks/results/h3-lightburn-*.md`, with screenshots.
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
+
+**N2 development checkpoint, 2026-10-15:** the [open-stroke and training audit](../benchmarks/results/h3-open-line-fix-20261015.md)
+resolves repaired L17 and verifies all eight repairs, 435 original/repaired unit footprints and 114 canonical sheet diffs.
+Two new native saves preserve their open paths; the five earlier native layouts revalidate. All public-surface tests pass.
+The three frozen native held-out projects remain unevaluated, so H3 is still open and completed weight remains 20%.
 
 ### 4.4 N3: curve-heavy parts in the browser
 

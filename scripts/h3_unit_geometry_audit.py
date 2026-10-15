@@ -43,12 +43,12 @@ def main():
         scene_bytes=(ROOT/project['scene_path']).read_bytes();assert sha256(scene_bytes).hexdigest()==project['scene_sha256']
         scene=json.loads(scene_bytes)['scene'];cache={};checks=[];expected_units={}
         shape_hashes={r['index']:r['oracle_svg_sha256'] for r in oracle[row['path']]['shapes']}
-        def geometry(index,grouped=False):
-            key=index,grouped
+        def geometry(index):
+            key=index
             if key in cache:return cache[key]
             shape=scene['shapes'][index]
             if shape['kind']=='Group':
-                value=union_all([geometry(i,True) for i in shape['children']])
+                value=union_all([geometry(i) for i in shape['children']])
             else:
                 svg=Path(project['svg_directory'])/f'{index}.svg'
                 assert sha256(svg.read_bytes()).hexdigest()==shape_hashes[index]
@@ -67,8 +67,11 @@ def main():
                     bounds.extend((min(p[0] for p in image),max(p[0] for p in image),min(p[1] for p in image),max(p[1] for p in image)) for image in images)
                     x0=min(b[0] for b in bounds);x1=max(b[1] for b in bounds)
                     y0=-max(b[3] for b in bounds);y1=-min(b[2] for b in bounds)
-                    if grouped and x0==x1:x0-=.0005;x1+=.0005
-                    if grouped and y0==y1:y0-=.0005;y1+=.0005
+                    # The documented open-stroke collision envelope applies to
+                    # both standalone and grouped shapes; reference paths stay exact.
+                    cx,cy=(x0+x1)/2,(y0+y1)/2
+                    dx,dy=max(.0005,(x1-x0)/2),max(.0005,(y1-y0)/2)
+                    x0,x1,y0,y1=cx-dx,cx+dx,cy-dy,cy+dy
                     value=box(x0,y0,x1,y1)
             cache[key]=value
             return value

@@ -12537,3 +12537,16 @@ All 290 workspace tests pass (one ignored), 25 optimized CLI tests and 82 enable
 
 
 Correction to the preceding H3 checkpoint: the first refused L17 path is vertical and has zero **width**, not zero height. Its endpoints have X = 200 mm; Y ranges from -0.000030517578 to 429.99997 mm. The raw diagnostic correctly says zero-width or zero-height; this corrects the prose axis only. The failure classification, original geometry, all measurements and H3 status are unchanged.
+
+
+## 2026-10-15 — H3 open-stroke support and training audit
+
+[Full report](benchmarks/results/h3-open-line-fix-20261015.md), [JSON](benchmarks/results/h3-open-line-fix-20261015.json), [raw integrity](benchmarks/results/h3-open-line-fix-20261015/integrity.json).
+
+The repaired L17 project now imports and nests all 73 units on one 900 × 900 mm sheet, with 1 mm spacing/edge spacing, seed 0 and a 60 s budget (8.736 s actual). Conservative bounding axes have a minimum width of two curve tolerances; source open paths are not converted to rectangles. The initial grid-only attempt failed on a 0.000019 mm axis in the solver and is retained with its source snapshot.
+
+All 56 original training projects retain byte-identical no-op results. All 64 original/repair inspection payloads match the preceding audit exactly, preserving its 1,550 original leaf comparisons. All eight repairs import; fresh checks pass 477 leaves/1,223 contours, including 122 Text leaves, within 0.000500 mm. Independent checks pass 225 original and 210 repaired unit footprints. Combined diagnostic output passes 114 canonical sheet diffs and independent validity on 53 nonempty projects/435 units. Three diagnostic payloads change: L17, repaired L21 and native/lb-14; the other 61 remain identical. Four no-movable original cases receive no validity credit.
+
+The new authored and L17 searched outputs open without warnings in LightBurn Pro 2.1.01. Native saves preserve 4/32 open paths and pass 93 leaf comparisons within 0.000516 mm; all original L17 settings and supplied authored setting values remain unchanged. The five older native-checked layouts revalidate; their re-exports differ only in XML line endings and at most 2.274e-13 mm numeric XForm replay. Initial strict byte/canonical comparison failures are retained. The hidden desktop and owned application were restored/closed.
+
+Final checks: 293 workspace tests (one existing ignored), 26 optimized CLI tests, 84 enabled Chromium/Firefox tests (four opt-in skipped), strict lint, formatting, native/WASM builds and TypeScript all pass. Builds/tests ran on CCD1; guarded audits/searches used CCD0 physical cores without source/executable edits. The frozen manifest and all 1,181 inventory hashes remain unchanged. Three frozen native held-out projects remain unevaluated, so H3 is incomplete and milestone weight stays 20%. No new final quality run, release, published v1 claim or solver-wide default changed.

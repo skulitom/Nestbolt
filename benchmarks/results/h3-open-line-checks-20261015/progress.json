@@ -1,0 +1,103 @@
+[
+  {
+    "name": "format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--check"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.5193551999982446,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "workspace-tests",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 308.3847081999993,
+    "log_sha256": "1df7b86d2938af1ffd4e8d76c9d705dfa8d9eb1f74ba28755abba5dc01edb064"
+  },
+  {
+    "name": "cli-release",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "-p",
+      "nestbolt-cli",
+      "--test",
+      "features",
+      "--locked"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 8.680844999995315,
+    "log_sha256": "056920b40a1c839d3b419d309bb5acb3972ab4ae434338d121adc8e46cbcb0cf"
+  },
+  {
+    "name": "clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 6.740697300003376,
+    "log_sha256": "80e26103d11d6a1261944e7c6520b3f16f18a523dd1d5b20be65b50bdb4d81a8"
+  },
+  {
+    "name": "release",
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-cli",
+      "-p",
+      "nestbolt-mcp"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 86.57935670000734,
+    "log_sha256": "2a3d5972b8317364c69014c54e01328082f551af06ccd84759328652fb15597e"
+  },
+  {
+    "name": "examples",
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-core",
+      "--example",
+      "lightburn_inspect",
+      "--example",
+      "lightburn_roundtrip"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 32.136396000001696,
+    "log_sha256": "5ce79e14ad979d2cbbf6bbb823956f3b22ef5dae360c1a0a401907faec577407"
+  },
+  {
+    "name": "web",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/build_web.py",
+      "--test"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 131.7982398000022,
+    "log_sha256": "7f4b7721a2644edd007e4c8eb734c9e52b35489ac415adabde0005b4dec03f30"
+  }
+]

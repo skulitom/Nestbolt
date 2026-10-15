@@ -8,6 +8,50 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn standalone_lightburn_open_lines_nest_and_export_over_stdio() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace = std::env::temp_dir().join(format!(
+        "nestbolt-mcp-open-lines-{}-{stamp}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&workspace).unwrap();
+    let source = include_str!("../../core/tests/fixtures/open-lines.lbrn2");
+    std::fs::write(workspace.join("open-lines.lbrn2"), source).unwrap();
+    timeout(Duration::from_secs(90), async {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));
+        command.env("NESTBOLT_WORKSPACE", &workspace);
+        let client = ().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call = |name: &'static str, value: Value| { let client = &client; async move {
+            client.call_tool(CallToolRequestParams::new(name).with_arguments(args(value))).await
+        }};
+        let imported = call("import_parts", json!({"paths":["open-lines.lbrn2"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(imported["part_count"], 4);
+        let library = &imported["library_path"];
+        let saved: Value = serde_json::from_slice(&std::fs::read(workspace.join(library.as_str().unwrap())).unwrap()).unwrap();
+        assert_eq!(saved["lightburn"]["xml"], source);
+        let request = json!({"sheets":[{"width_mm":100,"height_mm":80}],"spacing_mm":1,"edge_spacing_mm":1});
+        let nested = call("nest", json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"], true);
+        assert_eq!(nested["validation"]["metrics"]["placed_parts"], 4);
+        let checked = call("validate_layout", json!({"library_path":library,"request":request,"layout_path":"nested/layout.json"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(checked["valid"], true);
+        let exported = call("export_layout", json!({"library_path":library,"request":request,"layout_path":"nested/layout.json","out_dir":"exported","format":"lbrn2"})).await.unwrap().structured_content.unwrap();
+        let mut paths = 0;
+        for file in exported["files"].as_array().unwrap() {
+            let text = std::fs::read_to_string(workspace.join(file.as_str().unwrap())).unwrap();
+            paths += text.matches("<PrimList>L0 1</PrimList>").count();
+            assert!(!text.contains("LineClosed"));
+            assert!(text.contains("<Notes Value=\"Keep these paths open\"/>"));
+        }
+        assert_eq!(paths, 4);
+        client.cancel().await.unwrap();
+    }).await.expect("open-line MCP session timed out");
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn lightburn_repair_prerequisites_are_explicit_over_stdio() {
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

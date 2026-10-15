@@ -1,0 +1,371 @@
+{
+  "scope": "Audit approved LightBurn repair prerequisites without changing frozen inputs.\n\nAll original training projects retain byte-identical inspection/no-op results.\nThe eight approved native text repairs are auxiliary inputs, with writer diffs\nchecked against their own bytes. This is not an original-geometry success or\nheld-out acceptance. Every independent rejection remains in the record.\n",
+  "guards": {
+    "product": "05b0f957d2a0ad9cf99553f161ec6a017e9a1c8d1d3e5cd6aab744bdb8d57c11",
+    "benchmarks/datasets/shop/manifest.json": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+    "benchmarks/results/h3-text-cache-20261014T005902Z.json": "36ab7bd2171339c0c2f6f7ead915d066e189601e6d38a6a0503df51a557d3021",
+    "scripts/h3_reviewed_prerequisites.py": "bda39045af6fb2bc921dc711492178a2bb1dc1e02c983777e26e72651d6b0352",
+    "scripts/h3_writer_audit.py": "5144004a30641ffbd97db6f7cd9925396711e7304e50cf01b433725d60087b75",
+    "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+    "target/release/nestbolt.exe": "0654083668c8753589444ce15a628c675fe3129723df0bc4d64d91e0f16c918a",
+    "target/release/examples/lightburn_inspect.exe": "2ba7ab0b5393eac8299b745a35960ef3edc5226ecf5d58b3dc1d562a42b0c62c",
+    "target/release/examples/lightburn_roundtrip.exe": "0837f333b9d061e5fe3ff5bc48734571036a729fed2d6ba2d3e95969403183a3"
+  },
+  "cases": [
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/950d79a1-FlybookLogo.lbrn2",
+      "sha256": "43a297dd4eebc6f72f8af30ea85d8e96abc2a78c22e21836a713ea357d92596d",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/19e0c890-JourneyManCandle-DND-Rouge.lbrn2",
+      "sha256": "092c1e187d18c4d5581dfcfb3fb51dc9acd9f02a633d7b25e8cf4cdac5f12f40",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/588d1e6e-ZippoLighter.lbrn2",
+      "sha256": "2e4626f80684873144b9e4b226197014ce447168fac6ab3e8b430a25ef5c0169",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/1552c619-basswood-test-power-speed-sample.lbrn2",
+      "sha256": "ceb33ef7aa7aa3973e6bb1cc84a82e859bd06547ecdfbfa78c4f2512fa3e2718",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/bba6012d-black_acrilic_sample_burn.lbrn2",
+      "sha256": "b899f919ca51fca96254a95582d2f40432a81dae34922443df8391d333d33220",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/ead74509-black_acrilic_sample_burn_backup.lbrn2",
+      "sha256": "01728f6cdd9f4c2d6e8a327a5564fa5d5db10da81412f5b5f513517fb6c0c8ab",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/ef110e75-dice_tray.lbrn2",
+      "sha256": "160b11bdd7e2958dfd90a1630498216253129272cc55fa0ac7f6aa88b9ad3464",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/82905234-dm-joel-mighty-fine.lbrn2",
+      "sha256": "f502d7917188d11daf1e63a04b43e7fde47cdedddfc9ab3595307939a1758468",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/925a2f6d-flying_fuck.lbrn2",
+      "sha256": "973504a40af422b7cb49dde394bade30097e4735ad0c30efef11a2cd3ae1262d",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/bc658325-flying_fuck_backup.lbrn2",
+      "sha256": "65fda9aad7060a83f383dbeb99c67ee97505530f3b2bc7dee62185b96f55133c",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/ec0560d4-keychain_template.lbrn2",
+      "sha256": "b4e77848971631ab30c5c9b8182855cbe8e9eafab3dd5961c6ad1d4ee7a6415f",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/459a2e62-keychain_template_backup.lbrn2",
+      "sha256": "94db6e32cfd5dfea820ba910ae716798cfa790238c5ca1ac70c2a0d0b749e7d4",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/a1840be8-leather_keychain_jig.lbrn2",
+      "sha256": "80769291959dc792521d08cba845b7b84bf1417d4133be1990b8a4b56d2aebcf",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/24bee2a8-printable_area_jig.lbrn2",
+      "sha256": "a13336c9c1af59c1e229cb4d9f2387e45a4ac84c06a067d079f14f1fad30f784",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/37aa6bf0-small_leather_keychain.lbrn2",
+      "sha256": "3fe47c03dd7f3ef1a3a6689be630d015feae4afd752fb12d3c25baae92acf90d",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/e5a47192-tree_of_life.lbrn2",
+      "sha256": "472dca7bc51b0b4183f0ea0cf7c800e8a13b0808f93ccbd621e79e42d49c2395",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jtcozart--lightburntemplates/8475a8fe-wifi_cube.lbrn2",
+      "sha256": "6034ff62db8b9138528bd0a72009314606c0829f66d0fceed57a5919686e18bd",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/9ad72d85-Grid.lbrn2",
+      "sha256": "33da98f5d7c6da46a4979edf6c405ef83794128fda2032ec114624c2639a2917",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/aaddc198-card.lbrn2",
+      "sha256": "c628d7715d3481f7352e06e19ecf6b1b08e29f50b3d720bd845ac17d9ccb12cc",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/2345db7c-images.lbrn2",
+      "sha256": "f2926be84e5004476c1ae775b948849c01370dc11f7d11d011b7ca8d97b13d42",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/11a2d34c-iso_keyboard.lbrn2",
+      "sha256": "4a7da12d2da39e1c0a7b55ef25c39c1abde447437328a8b037b6a3f9fbb66523",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/1636e745-keycap_tester.lbrn2",
+      "sha256": "83b5240fc2a7a252e696923728705cc79f3d4c3e17c00432477b453ebbf6dd4d",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/ccc0c1bc-lisa.lbrn2",
+      "sha256": "87aa18ce9120ebd70d5590920d390bd43b882e7ecb69994f5e7582efdae88f9f",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/35112a46-phil_card_test.lbrn2",
+      "sha256": "5d67a6a4f94c1e36f757d14c465f1335af196824a424cc2ab9e4f1c73a11cabe",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/9cfe2526-puppet_hand.lbrn2",
+      "sha256": "3b2ac72b28d59e3dfd809808e5294879fe55ce2574d273a02b2749e55b49b201",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/9d02c3f7-switch_plate.lbrn2",
+      "sha256": "7af0b940489a5af934d9d39bafc1f4376a516d468d66b9e4445a2c49f8ab624b",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/f61b67d9-template.lbrn2",
+      "sha256": "fded1fddb7c054695e961e3461545943acbe9c44b10022c3c36b0c9e430b461d",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/qbalsdon--etcher/08f9f12a-template_one.lbrn2",
+      "sha256": "0e7d6ba3f3454e9fd54da3a09f4d8c5f8fb830f0549893c06994f1884e89fd83",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/707bcd1f-bezier_missing_cp.lbrn2",
+      "sha256": "30822c7667c12064ad45e1e5e3876aaf886a40fbb021529a10a2d92005cd2417",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/a825ad97-butterfly_vectorized.lbrn2",
+      "sha256": "0e861ccb65a6e1803a33d8acabc4848f160dbdcff11a4ac9d78d7263c85e6bef",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/d9cf07af-circle.lbrn2",
+      "sha256": "8d2eca519015f1f9d419c750c9522b032eaa3bb23e3c2b66a6b02f52c4a6d175",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/b502ea11-crucifix.lbrn2",
+      "sha256": "82a6e90682313c0956683687e16b4a536e425e4598ee5622f8efc80c4e744278",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/7287dec8-ellipse_stretched.lbrn2",
+      "sha256": "0994fe498af5270a218de89461bc3e7cb5a46ff9a02107ea566b1033a393fa3a",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/7021aa76-group_empty.lbrn2",
+      "sha256": "55e804f0111eb0ce058b20bf9b1b5927a1d40ca5f36faa698caee1888e531de3",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/730fc5c9-group_single_child.lbrn2",
+      "sha256": "7743d424325a2cdef8cee1ba80a6e1b2685774c3d8a9b5671a6785c48f639f40",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/c850a9d3-image.lbrn2",
+      "sha256": "4fb85fd5c301d599295ac04d700946e8388d9ecf69e3e3e6a85332a4ff4d664b",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/c69edc3c-k.lbrn2",
+      "sha256": "1c25a7f61c4fcd2e947ad721a9c9c355a45ae20e353edf08e09db4194ef66ff5",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/39b8bfb9-line.lbrn2",
+      "sha256": "a5e4e7f7af83ca67c5ef3c0299d27eeaf7e7b6e850ff49e58d6ddcb8387f1c1c",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/1d00a28b-rings.lbrn2",
+      "sha256": "e075412aacb6ae61238a25c97693ba852caabf11c22777a7dcb59812952c0880",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/3df50faa-square.lbrn2",
+      "sha256": "75e15f922a48e2401a5d0c0be8967e542eba17170344d8230f6959d92caeee49",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/jlucaso1--lbrn2-to-svg/030ca41b-word.lbrn2",
+      "sha256": "1b327b11950c13fd1e5573fd012c8cc53425f593b5f1233e58792992ed9ff6af",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/benkrasnow--mopa_laser_stainless_colors/d87afb52-color_wheel1.lbrn2",
+      "sha256": "4f568e686f4b88bea51c64bf8658f3658beb284e3e89b54a7746e24987335078",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/marcinzukowski--lightburn-tester/724f06f6-example1.lbrn",
+      "sha256": "181072c4c881dbca5af7c510b63bf6d7dceb9c05bc8f1d2f4364d26eaa077552",
+      "kind": "original"
+    },
+    {
+      "path": "public-lightburn/marcinzukowski--lightburn-tester/55e7a832-example2.lbrn",
+      "sha256": "63e434bef0eda39b4e2ab4620375fda850df3cf6407a79f3810c122082bc9d4f",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-02.lbrn2",
+      "sha256": "9eebb595e3340022072e5a664f6403078ab38037e9728d948ae47a183da11598",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-03.lbrn2",
+      "sha256": "4b334a0479a5feb78e25d48969c2337512031789486285faf00d84f5dd70d725",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-04.lbrn2",
+      "sha256": "7d989deefbddd9fcd62a114d085cfa39ec9ad8a9b57afac34766dd26ada9dd49",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-05.lbrn2",
+      "sha256": "e6ee73a65e2fad2c2812f9f3202dfcc565a2cbd46641a9a980cb4c0d0f084777",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-07.lbrn2",
+      "sha256": "942d95418ef348c9027a7ea2919dad64576dc972bf4ecc04c9673c86d1a335c1",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-09.lbrn2",
+      "sha256": "9f9abdf3cd23bf17c9f8cdd1ad1b7000247bae292f4da2dac0d8dd38e6d00b57",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-10.lbrn2",
+      "sha256": "5d567e477fe8b1322ea36eeb2ed27f199e33fdaf576be9ec0b05f07b5bb7c4cc",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-11.lbrn2",
+      "sha256": "3e5c16c7186d65a1d55cf846df0028b53e79b38d94ff8a1a8f4ec216a8680fe8",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-12.lbrn2",
+      "sha256": "2b2ba781f394ecc19f4e73ac6293e5ec7aded371c43b94ec13266c20fba444e4",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-13.lbrn2",
+      "sha256": "e912bb2503586fa6cc054c388bc9c8eb9ec3926293b8c6570a8748f46f3b5ccc",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-14.lbrn2",
+      "sha256": "9fb56c1cf947455d3c5d85f9540d21929f74f444866bfcf54034f8658c21ed3b",
+      "kind": "original"
+    },
+    {
+      "path": "native/lb-15.lbrn2",
+      "sha256": "392a094470dc0b5cbe984636647280086f57965a53cd4a25e603f661e8cdb046",
+      "kind": "original"
+    },
+    {
+      "path": "references/public/L17.lbrn2",
+      "sha256": "f878a6d59975727522c3d52ada8f68d23b7ffa13e02d430f2d2c05850fdcb2ac",
+      "kind": "native-repair",
+      "original": "public-lightburn/qbalsdon--etcher/9ad72d85-Grid.lbrn2",
+      "original_sha256": "33da98f5d7c6da46a4979edf6c405ef83794128fda2032ec114624c2639a2917",
+      "repair_id": "L17"
+    },
+    {
+      "path": "references/public/L20.lbrn2",
+      "sha256": "be201211cd40f9fd760b4a8ed20bac93ae5fdc3c1a3fdd8283b448689c4562b5",
+      "kind": "native-repair",
+      "original": "public-lightburn/qbalsdon--etcher/11a2d34c-iso_keyboard.lbrn2",
+      "original_sha256": "4a7da12d2da39e1c0a7b55ef25c39c1abde447437328a8b037b6a3f9fbb66523",
+      "repair_id": "L20"
+    },
+    {
+      "path": "references/public/L21.lbrn2",
+      "sha256": "5c6db019d9643f61b48f8518861e3a3cc8c69e3e4321ddc349926d64318bc69a",
+      "kind": "native-repair",
+      "original": "public-lightburn/qbalsdon--etcher/1636e745-keycap_tester.lbrn2",
+      "original_sha256": "83b5240fc2a7a252e696923728705cc79f3d4c3e17c00432477b453ebbf6dd4d",
+      "repair_id": "L21"
+    },
+    {
+      "path": "references/public/L22.lbrn2",
+      "sha256": "695b619917a69932dcaaa2918b314efc1a0868070cd5fe03a14a7a1342de17a4",
+      "kind": "native-repair",
+      "original": "public-lightburn/qbalsdon--etcher/ccc0c1bc-lisa.lbrn2",
+      "original_sha256": "87aa18ce9120ebd70d5590920d390bd43b882e7ecb69994f5e7582efdae88f9f",
+      "repair_id": "L22"
+    },
+    {
+      "path": "references/public/L26.lbrn2",
+      "sha256": "6a8405a650813c9fb53d78c7a7de71b5db340522ca6d38f12f7837d300a2251a",
+      "kind": "native-repair",
+      "original": "public-lightburn/qbalsdon--etcher/f61b67d9-template.lbrn2",
+      "original_sha256": "fded1fddb7c054695e961e3461545943acbe9c44b10022c3c36b0c9e430b461d",
+      "repair_id": "L26"
+    },
+    {
+      "path": "references/public/L27.lbrn2",
+      "sha256": "9a1520fe1b31e4313c584410a0e03cf196ba18033246896b75fb5be23f6e41a9",
+      "kind": "native-repair",
+      "original": "public-lightburn/qbalsdon--etcher/08f9f12a-template_one.lbrn2",
+      "original_sha256": "0e7d6ba3f3454e9fd54da3a09f4d8c5f8fb830f0549893c06994f1884e89fd83",
+      "repair_id": "L27"
+    },
+    {
+      "path": "references/public/L42.lbrn2",
+      "sha256": "e01672ef063a5ef9daf0362e3923cd37f256c24bf7ce37ac475dcc5b16a2d728",
+      "kind": "native-repair",
+      "original": "public-lightburn/marcinzukowski--lightburn-tester/724f06f6-example1.lbrn",
+      "original_sha256": "181072c4c881dbca5af7c510b63bf6d7dceb9c05bc8f1d2f4364d26eaa077552",
+      "repair_id": "L42"
+    },
+    {
+      "path": "references/public/L43.lbrn2",
+      "sha256": "ea6b2b0e5c2e48ec93d7042b896e6bd92ccb16e24d8874c3b618fd23771fb68d",
+      "kind": "native-repair",
+      "original": "public-lightburn/marcinzukowski--lightburn-tester/55e7a832-example2.lbrn",
+      "original_sha256": "63e434bef0eda39b4e2ab4620375fda850df3cf6407a79f3810c122082bc9d4f",
+      "repair_id": "L43"
+    }
+  ],
+  "cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "held_out_geometry_read": false,
+  "approved_decisions": [
+    5,
+    6
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "workspace_tests": {
+    "passed": 293,
+    "failed": 0,
+    "ignored": 1
+  },
+  "optimized_cli_tests": {
+    "passed": 26,
+    "failed": 0
+  },
+  "browser_tests": {
+    "passed": 84,
+    "failed": 0,
+    "skipped": 4
+  },
+  "format": "pass",
+  "strict_clippy": "pass",
+  "native_cli_mcp_examples_build": "pass",
+  "wasm_web_and_typescript": "pass",
+  "product_source_sha256": "900bc495dd05823debbbf19893b283814c2d214d01ca8555b7abfddf6b410888",
+  "wasm_sha256": "1eeaeef28cd8c297a825516dbe5e2460acc9e7add3fd220641d1d71798476c3a",
+  "cpu_affinity": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "commands": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.545656099988264,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "workspace-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 301.12063799999305,
+      "log_sha256": "1405ff5c9b384716a98e6e744be0c544a314f3b9f530e58689c282eb722a3452"
+    },
+    {
+      "name": "cli-release",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 7.4792166000115685,
+      "log_sha256": "a4debbe3aeeb0d024ccef919281274f024aea1aca50a56aff15d5bcfd976cd62"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 3.3299005000008037,
+      "log_sha256": "c55603747ed7b34a955d17eaf608623e01c62763113782617f75604f506d03a1"
+    },
+    {
+      "name": "release",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 85.04890919999161,
+      "log_sha256": "1a1c794c1fe4ddaa315f273c954fa76576153cc6f66a1e283e301892b6f34c35"
+    },
+    {
+      "name": "examples",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "lightburn_inspect",
+        "--example",
+        "lightburn_roundtrip"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 30.70844639999268,
+      "log_sha256": "ad4529225d86ce1797df62c29401715be3f7792fa66a4d54f9eab0980474fb12"
+    },
+    {
+      "name": "web",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py",
+        "--test"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 115.04227970000647,
+      "log_sha256": "52d56390f13ca14d852aabb1e2e60ac6ebf03cf58784d1b3b0e6e7a7f2d55b4b"
+    }
+  ],
+  "archive": {
+    "path": "logs.zip",
+    "sha256": "0ad8bbaa4dd2c6d5e55566a03d7aa4320c6676789e915950cf369b71fa084cdd",
+    "bytes": 13981,
+    "members": {
+      "format.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "workspace-tests.log": {
+        "sha256": "1405ff5c9b384716a98e6e744be0c544a314f3b9f530e58689c282eb722a3452",
+        "bytes": 30400
+      },
+      "cli-release.log": {
+        "sha256": "a4debbe3aeeb0d024ccef919281274f024aea1aca50a56aff15d5bcfd976cd62",
+        "bytes": 1878
+      },
+      "clippy.log": {
+        "sha256": "c55603747ed7b34a955d17eaf608623e01c62763113782617f75604f506d03a1",
+        "bytes": 324
+      },
+      "release.log": {
+        "sha256": "1a1c794c1fe4ddaa315f273c954fa76576153cc6f66a1e283e301892b6f34c35",
+        "bytes": 251
+      },
+      "examples.log": {
+        "sha256": "ad4529225d86ce1797df62c29401715be3f7792fa66a4d54f9eab0980474fb12",
+        "bytes": 127
+      },
+      "web.log": {
+        "sha256": "52d56390f13ca14d852aabb1e2e60ac6ebf03cf58784d1b3b0e6e7a7f2d55b4b",
+        "bytes": 16981
+      }
+    },
+    "crc_and_member_hashes_verified": true
+  }
+}

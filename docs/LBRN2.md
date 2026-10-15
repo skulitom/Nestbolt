@@ -27,6 +27,13 @@ Artem approved these requirements on 2026-10-15 in
   the regrouped project. Nestbolt rejects the mixed group before nesting; it
   does not split the group automatically or place its active cuts on every sheet.
 
+Standalone open paths can be nested without grouping. A bounding-box axis narrower
+than two curve tolerances is widened symmetrically to that width (at least two
+0.000001 mm validator grid units). The same rule protects grouped
+strokes and engraving attachment checks. This is collision geometry only:
+the original open path, vertices, settings and editability are preserved in the
+LightBurn output; the protective rectangle is never exported as a cut.
+
 The [eight-project native repair audit](../benchmarks/results/h3-text-cache-20261014T005902Z.md)
 retains the original 122 missing text caches and verifies every repaired leaf
 against the independent reader. Its historical “not approved” status is
@@ -545,3 +552,10 @@ bounding rectangle and is explicitly refused. Its full repaired geometry check
 passes, but this does not make it a valid nesting result. The current checks pass
 290 workspace tests, 25 optimized CLI tests and 82 enabled browser tests. Overall
 completion remains 20%; the open-line footprint and full H3 audit are next.
+
+
+## Open strokes and H3 training verification — 2026-10-15 UTC
+
+The [open-stroke checkpoint](../benchmarks/results/h3-open-line-fix-20261015.md) resolves the repaired L17 rejection. Bounding axes narrower than two curve tolerances receive a symmetric conservative footprint; original open paths and cut settings remain exact in the preserving export. The first grid-only attempt still failed on seventeen nearly horizontal strokes and remains archived. All eight native repairs now import, with 477 independently compared leaves and 210 unit footprints. Original training adds 225 independently compared units; 114 canonical diagnostic sheet diffs pass.
+
+L17 nests 73 units on one sheet. Two new native saves preserve 36 open paths in total and pass 93 leaf comparisons within 0.000516 mm. The earlier five native-checked layouts revalidate with unchanged canonical contents apart from sub-picometre top-level XForm replay. All 293 workspace, 26 optimized CLI and 84 enabled browser tests pass. Three frozen native held-out projects remain unevaluated, so H3 is still open and completion remains 20%. Frozen inputs, labels, split and all failures remain intact.

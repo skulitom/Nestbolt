@@ -3,7 +3,7 @@ use std::collections::HashSet;
 
 use anyhow::{Context, Result, ensure};
 use clipper2_rust::{ClipType, Clipper64, FillRule, Paths64, Point64, PolyTree64};
-use nestbolt_validator::{Footprint, Polygon, RigidTransform, Units};
+use nestbolt_validator::{Footprint, GRID, Polygon, RigidTransform, Units};
 use serde::Serialize;
 
 use super::{Document, Scene, Shape};
@@ -92,7 +92,23 @@ fn box_polygon(bounds: [f64; 4]) -> Polygon {
     nestbolt_validator::job::rectangle(x0, y0, x1 - x0, y1 - y0)
 }
 
-fn geometry(scene: &Scene, index: usize, tolerance: f64, grouped: bool) -> Result<Vec<Polygon>> {
+fn nesting_bounds(mut bounds: [f64; 4], tolerance: f64) -> [f64; 4] {
+    // Open strokes need a nonzero collision footprint, whether grouped or not.
+    // Almost-axis-aligned strokes can also collapse in the solver's floating
+    // point representation. Reserve at least two curve tolerances on each
+    // axis, adding at most one on each side. Stored/exported paths stay exact.
+    let padding = tolerance.max(GRID);
+    for axis in 0..2 {
+        let extra = (2.0 * padding - (bounds[axis + 2] - bounds[axis])) * 0.5;
+        if extra > 0.0 {
+            bounds[axis] -= extra;
+            bounds[axis + 2] += extra;
+        }
+    }
+    bounds
+}
+
+fn geometry(scene: &Scene, index: usize, tolerance: f64) -> Result<Vec<Polygon>> {
     let shape = &scene.shapes[index];
     ensure!(
         shape.geometry_complete,
@@ -102,7 +118,7 @@ fn geometry(scene: &Scene, index: usize, tolerance: f64, grouped: bool) -> Resul
     let polygons = if shape.kind == "Group" {
         let mut components = vec![];
         for &child in &shape.children {
-            components.extend(geometry(scene, child, tolerance, true)?);
+            components.extend(geometry(scene, child, tolerance)?);
         }
         union(&paths(&components), FillRule::NonZero)?
     } else if closed(shape) {
@@ -130,21 +146,9 @@ fn geometry(scene: &Scene, index: usize, tolerance: f64, grouped: bool) -> Resul
         // or an engraving that occupies the same material.
         union(&input, FillRule::EvenOdd)?
     } else {
-        let [mut x0,mut y0,mut x1,mut y1] = shape.bounds_mm.with_context(||
+        let bounds = shape.bounds_mm.with_context(||
             format!("LightBurn shape {index} has no measurable bounds; group it with a closed outline before nesting"))?;
-        if grouped {
-            // An axis-aligned score inside a rigid group has no area by itself.
-            // Reserve at most one curve tolerance on either side of that axis,
-            // so it also stays protected if it protrudes outside a closed child.
-            if x0 == x1 {
-                x0 -= tolerance;
-                x1 += tolerance;
-            }
-            if y0 == y1 {
-                y0 -= tolerance;
-                y1 += tolerance;
-            }
-        }
+        let [x0, y0, x1, y1] = nesting_bounds(bounds, tolerance);
         ensure!(
             x1 > x0 && y1 > y0,
             "LightBurn shape {index} has a zero-width or zero-height bounding rectangle; group it with a closed outline before nesting"
@@ -203,7 +207,7 @@ impl Document {
                     "LightBurn top-level shape {top} has incomplete geometry; re-save text in LightBurn to cache its outlines, or convert unsupported shapes to paths before nesting"
                 );
                 if closed(&scene.shapes[i]) && cut(scene, &scene.shapes[i]) {
-                    let g = geometry(scene, i, tolerance_mm, false)?;
+                    let g = geometry(scene, i, tolerance_mm)?;
                     footprints.push(Some(Footprint::from_polygons(
                         &g,
                         Units::Mm,
@@ -235,17 +239,10 @@ impl Document {
             }
             // Containment of the entire rectangle catches concavities and holes;
             // testing only its corners would attach engravings across a notch.
-            let Some(mut b) = shape.bounds_mm else {
+            let Some(b) = shape.bounds_mm else {
                 continue;
             };
-            if b[0] == b[2] {
-                b[0] -= tolerance_mm;
-                b[2] += tolerance_mm;
-            }
-            if b[1] == b[3] {
-                b[1] -= tolerance_mm;
-                b[3] += tolerance_mm;
-            }
+            let b = nesting_bounds(b, tolerance_mm);
             let bounds = Footprint::new(&box_polygon(b), Units::Mm, RigidTransform::default())?;
             let mut containing = vec![];
             for &parent in &candidates {
@@ -280,7 +277,7 @@ impl Document {
                 continue;
             }
             if polygons.is_empty() {
-                polygons = geometry(scene, scene.top_level[top], tolerance_mm, false)?;
+                polygons = geometry(scene, scene.top_level[top], tolerance_mm)?;
             }
             let mut members = vec![top];
             members.extend(&attachments[top]);

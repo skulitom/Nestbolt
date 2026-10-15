@@ -498,6 +498,40 @@ fn lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files() {
 }
 
 #[test]
+fn standalone_lightburn_open_lines_nest_without_becoming_closed_cuts() {
+    let dir = temp("open-lines");
+    let source = dir.join("open-lines.lbrn2");
+    let original = include_str!("../../core/tests/fixtures/open-lines.lbrn2");
+    fs::write(&source, original).unwrap();
+    let library = import(&dir, std::slice::from_ref(&source));
+    let saved: Value = serde_json::from_slice(&fs::read(&library).unwrap()).unwrap();
+    assert_eq!(saved["lightburn"]["xml"], original);
+    assert_eq!(saved["parts"].as_array().unwrap().len(), 4);
+    for input in [&library, &source] {
+        let run = nest(
+            &dir,
+            input,
+            json!({"sheets":[{"width_mm":100,"height_mm":80}],"spacing_mm":1,"edge_spacing_mm":1}),
+            "1",
+        );
+        assert_eq!(run.metrics()["placed_parts"], 4);
+        let mut paths = 0;
+        for file in run.report["files"].as_array().unwrap() {
+            let xml = fs::read_to_string(run.dir.join(file.as_str().unwrap())).unwrap();
+            let doc = nestbolt_core::lightburn::Document::read(&xml, 0.005).unwrap();
+            for shape in doc.scene.shapes.iter().filter(|s| !s.fixed) {
+                assert_eq!(shape.kind, "Path");
+                assert_eq!(shape.paths.len(), 1);
+                assert!(!shape.paths[0].closed);
+                paths += 1;
+            }
+            assert!(xml.contains("<Notes Value=\"Keep these paths open\"/>"));
+        }
+        assert_eq!(paths, 4);
+    }
+}
+
+#[test]
 fn legacy_lightburn_nests_and_exports_modern_paths() {
     let dir = temp("legacy-lightburn");
     let source = dir.join("legacy.lbrn");

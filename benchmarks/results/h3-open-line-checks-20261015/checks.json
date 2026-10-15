@@ -1,0 +1,189 @@
+{
+  "workspace_tests": {
+    "passed": 293,
+    "failed": 0,
+    "ignored": 1
+  },
+  "optimized_cli_tests": {
+    "passed": 26,
+    "failed": 0
+  },
+  "browser_tests": {
+    "passed": 84,
+    "failed": 0,
+    "skipped": 4
+  },
+  "strict_clippy": "pass",
+  "format": "pass",
+  "native_examples_build": "pass",
+  "native_cli_mcp_build": "pass",
+  "wasm_and_web_build": "pass",
+  "product_and_test_typescript": "pass",
+  "product_source_sha256": "05b0f957d2a0ad9cf99553f161ec6a017e9a1c8d1d3e5cd6aab744bdb8d57c11",
+  "wasm_sha256": "27abe773b72f76c819aa0f09dbe7cf72626c75897a848ee66a1736a652bae610",
+  "cpu_affinity": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "commands": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.5193551999982446,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "workspace-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 308.3847081999993,
+      "log_sha256": "1df7b86d2938af1ffd4e8d76c9d705dfa8d9eb1f74ba28755abba5dc01edb064"
+    },
+    {
+      "name": "cli-release",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 8.680844999995315,
+      "log_sha256": "056920b40a1c839d3b419d309bb5acb3972ab4ae434338d121adc8e46cbcb0cf"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 6.740697300003376,
+      "log_sha256": "80e26103d11d6a1261944e7c6520b3f16f18a523dd1d5b20be65b50bdb4d81a8"
+    },
+    {
+      "name": "release",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 86.57935670000734,
+      "log_sha256": "2a3d5972b8317364c69014c54e01328082f551af06ccd84759328652fb15597e"
+    },
+    {
+      "name": "examples",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "lightburn_inspect",
+        "--example",
+        "lightburn_roundtrip"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 32.136396000001696,
+      "log_sha256": "5ce79e14ad979d2cbbf6bbb823956f3b22ef5dae360c1a0a401907faec577407"
+    },
+    {
+      "name": "web",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py",
+        "--test"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 131.7982398000022,
+      "log_sha256": "7f4b7721a2644edd007e4c8eb734c9e52b35489ac415adabde0005b4dec03f30"
+    }
+  ],
+  "archive": {
+    "path": "logs.zip",
+    "sha256": "299a075fd93f5944ff0336c57a7066405798b0c4d1686cc2d2b877563a4c7e40",
+    "bytes": 13990,
+    "members": {
+      "format.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "workspace-tests.log": {
+        "sha256": "1df7b86d2938af1ffd4e8d76c9d705dfa8d9eb1f74ba28755abba5dc01edb064",
+        "bytes": 30400
+      },
+      "cli-release.log": {
+        "sha256": "056920b40a1c839d3b419d309bb5acb3972ab4ae434338d121adc8e46cbcb0cf",
+        "bytes": 1878
+      },
+      "clippy.log": {
+        "sha256": "80e26103d11d6a1261944e7c6520b3f16f18a523dd1d5b20be65b50bdb4d81a8",
+        "bytes": 324
+      },
+      "release.log": {
+        "sha256": "2a3d5972b8317364c69014c54e01328082f551af06ccd84759328652fb15597e",
+        "bytes": 251
+      },
+      "examples.log": {
+        "sha256": "5ce79e14ad979d2cbbf6bbb823956f3b22ef5dae360c1a0a401907faec577407",
+        "bytes": 127
+      },
+      "web.log": {
+        "sha256": "7f4b7721a2644edd007e4c8eb734c9e52b35489ac415adabde0005b4dec03f30",
+        "bytes": 16977
+      }
+    },
+    "crc_and_member_hashes_verified": true
+  },
+  "preliminary_test_failure": {
+    "command": "cargo test -p nestbolt-core --test lightburn --locked",
+    "passed": 16,
+    "failed": 1,
+    "reason": "New test incorrectly used the closed-contour flatten API for a two-point open path; switched its assertion to Path::points. Product code was unchanged by this test correction.",
+    "final_focused_tests_passed": 17,
+    "optimized_open_line_cli_test": "pass"
+  }
+}

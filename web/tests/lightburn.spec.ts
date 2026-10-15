@@ -5,6 +5,50 @@ import { fileURLToPath } from 'node:url';
 const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/roundtrip.lbrn2', import.meta.url));
 const source = readFileSync(fixture, 'utf8');
 
+test('standalone LightBurn strokes nest and download as unchanged open paths', async ({ page }, info) => {
+  const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/open-lines.lbrn2', import.meta.url));
+  const original = readFileSync(fixture, 'utf8');
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles(fixture);
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(4);
+  const sheet = page.locator('fieldset.sheet-row').first();
+  await sheet.getByLabel('Width').fill('100');
+  await sheet.getByLabel('Height').fill('80');
+  await sheet.getByLabel('Margin').fill('0');
+  await page.getByLabel('Edge spacing').fill('1');
+  await page.getByLabel('Part spacing').fill('1');
+  await page.getByLabel('Time').fill('1');
+  await page.getByText('Advanced').click();
+  await page.getByLabel('Workers').fill('1');
+  await page.getByRole('button', { name: 'Nest', exact: true }).click();
+  await expect(page.locator('.summary, [role=alert]').first()).toBeVisible({ timeout: 90_000 });
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(page.locator('.summary')).toContainText('4/4');
+  await expect(page.locator('.summary')).toContainText('valid');
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP', exact: true }).click()]);
+  await download.saveAs(info.outputPath('open-lines.zip'));
+  const files = entries(await download.path());
+  const saved = JSON.parse(files.get('project.json')!);
+  expect(saved.library.lightburn.xml).toBe(original);
+  expect(saved.result.validation.valid).toBe(true);
+  const outputs = [...files.entries()].filter(([name]) => name.endsWith('.lbrn2')).map(([, text]) => text);
+  expect(outputs.length).toBeGreaterThan(0);
+  await page.evaluate(({ original, outputs }) => {
+    const parser = new DOMParser();
+    const before = parser.parseFromString(original, 'text/xml');
+    const originals = Array.from(before.querySelectorAll('Shape[Type="Path"]'));
+    const exported = outputs.flatMap(xml => Array.from(parser.parseFromString(xml, 'text/xml').querySelectorAll('Shape[Type="Path"]')));
+    if (exported.length !== originals.length) throw new Error('Missing or repeated open cut');
+    for (const shape of originals) {
+      const copies = exported.filter(s => s.getAttribute('Label') === shape.getAttribute('Label'));
+      if (copies.length !== 1) throw new Error('Open cut identity changed');
+      for (const tag of ['VertList', 'PrimList']) {
+        if (copies[0].querySelector(tag)?.outerHTML !== shape.querySelector(tag)?.outerHTML) throw new Error('Open path geometry changed');
+      }
+    }
+  }, { original, outputs });
+});
+
 test('LightBurn repair instructions reject incomplete replacements and allow a supported re-import', async ({ page }) => {
   await page.goto('/');
   const input = page.locator('.drop input[type=file]');

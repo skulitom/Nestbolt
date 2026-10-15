@@ -755,3 +755,10 @@ warnings; their complete geometry evidence still comes from the repaired inputs.
 All 290 workspace, 25 optimized CLI and 82 browser tests pass. A verified archive
 preserves 4,354 raw members, plus six separately archived check logs. H3 remains
 open on the open-line case and the complete requirement audit; completion is 20%.
+
+
+## N2 open-stroke verification — 2026-10-15 UTC
+
+The [open-stroke checkpoint](../benchmarks/results/h3-open-line-fix-20261015.md) resolves the repaired L17 rejection. Bounding axes narrower than two curve tolerances receive a symmetric conservative footprint; original open paths and cut settings remain exact in the preserving export. The first grid-only attempt still failed on seventeen nearly horizontal strokes and remains archived. All eight native repairs now import, with 477 independently compared leaves and 210 unit footprints. Original training adds 225 independently compared units; 114 canonical diagnostic sheet diffs pass.
+
+L17 nests 73 units on one sheet. Two new native saves preserve 36 open paths in total and pass 93 leaf comparisons within 0.000516 mm. The earlier five native-checked layouts revalidate with unchanged canonical contents apart from sub-picometre top-level XForm replay. All 293 workspace, 26 optimized CLI and 84 enabled browser tests pass. Three frozen native held-out projects remain unevaluated, so H3 is still open and completion remains 20%. Frozen inputs, labels, split and all failures remain intact.

@@ -26,6 +26,103 @@ fn close(actual: [f64; 4], expected: [f64; 4]) {
 }
 
 #[test]
+fn standalone_open_strokes_have_protected_footprints_and_keep_exact_paths() {
+    use nestbolt_core::{curves::Affine, lightburn::UnitPlacement};
+    use nestbolt_validator::{Footprint, RigidTransform, Units};
+    let source = include_str!("fixtures/open-lines.lbrn2");
+    let doc = Document::read(source, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    assert_eq!(nesting.units.len(), 4);
+    close(nesting.units[0].bounds_mm, [9.9995, 10.0, 10.0005, 30.0]);
+    close(
+        nesting.units[1].bounds_mm,
+        [20.0, 214.9995095, 40.0, 215.0005095],
+    );
+    close(nesting.units[2].bounds_mm, [-0.0005, 10.0, 0.0005, 30.0]);
+    close(nesting.units[3].bounds_mm, [60.0, 10.0, 72.0, 26.0]);
+    for (index, unit) in nesting.units.iter().enumerate() {
+        assert_eq!(unit.members, vec![index]);
+        assert!(
+            Footprint::from_polygons(&unit.geometry, Units::Mm, RigidTransform::default())
+                .unwrap()
+                .area()
+                > 0.0
+        );
+        let original = &doc.scene.shapes[doc.scene.top_level[index]];
+        for mirrored in [false, true] {
+            for rotation_radians in [0.0, std::f64::consts::FRAC_PI_2, 0.37] {
+                let transform = RigidTransform {
+                    translation: [100.0, 80.0],
+                    rotation_radians,
+                    mirrored,
+                };
+                let output = nesting
+                    .write_sheet(
+                        &[UnitPlacement {
+                            unit: index,
+                            transform,
+                        }],
+                        300.0,
+                        200.0,
+                        false,
+                    )
+                    .unwrap();
+                let reread = Document::read(&output, 0.0005).unwrap();
+                assert_eq!(reread.scene.top_level.len(), 1);
+                let actual = &reread.scene.shapes[0];
+                assert_eq!(actual.paths.len(), 1);
+                assert!(!actual.paths[0].closed);
+                let expected: Vec<_> = original.paths[0]
+                    .points(0.0005)
+                    .unwrap()
+                    .into_iter()
+                    .map(|point| Affine::placement(&transform).apply(point))
+                    .collect();
+                let actual = actual.paths[0].points(0.0005).unwrap();
+                assert_eq!(actual.len(), expected.len());
+                for (a, b) in actual.iter().zip(expected) {
+                    assert!((a[0] - b[0]).hypot(a[1] - b[1]) < 1e-10);
+                }
+                let xml = roxmltree::Document::parse(source).unwrap();
+                let shape = xml
+                    .root_element()
+                    .children()
+                    .filter(|n| n.has_tag_name("Shape"))
+                    .nth(index)
+                    .unwrap();
+                for node in shape
+                    .children()
+                    .filter(|n| n.has_tag_name("VertList") || n.has_tag_name("PrimList"))
+                {
+                    assert!(output.contains(&source[node.range()]));
+                }
+                assert!(!output.contains("Type=\"Rect\""));
+            }
+        }
+    }
+    let identity: Vec<_> = nesting
+        .units
+        .iter()
+        .map(|u| UnitPlacement {
+            unit: u.id,
+            transform: RigidTransform::default(),
+        })
+        .collect();
+    assert_eq!(
+        nesting.write_sheet(&identity, 100.0, 100.0, false).unwrap(),
+        source
+    );
+    // The minimum validator-grid padding also protects very small tolerances.
+    assert!(doc.nesting_units(1e-9).is_ok());
+    let grouped = source.replace("  <Shape Type=\"Path\" CutIndex=\"0\" Label=\"vertical\">", "  <Shape Type=\"Group\"><Children><Shape Type=\"Path\" CutIndex=\"0\" Label=\"vertical\">")
+        .replacen("</PrimList></Shape>", "</PrimList></Shape></Children></Shape>", 1);
+    let grouped = Document::read(&grouped, 0.0005).unwrap();
+    let grouped = grouped.nesting_units(0.0005).unwrap();
+    assert_eq!(grouped.units[0].bounds_mm, nesting.units[0].bounds_mm);
+    assert_eq!(grouped.units[0].area_mm2, nesting.units[0].area_mm2);
+}
+
+#[test]
 fn no_op_preserves_every_byte_and_sharing_resolves_independently() {
     let doc = Document::read(PROJECT, 0.0005).unwrap();
     assert_eq!(doc.original_xml().as_bytes(), PROJECT.as_bytes());

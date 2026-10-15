@@ -1,0 +1,268 @@
+{
+  "scope": "Current-build revalidation and re-export of the five previously native-checked saved layouts. Only XML line endings and at-most-1e-9 top-level numeric replay differences are allowed; all remaining canonical XML must match. No new search or quality claim.",
+  "guards": {
+    "product": "900bc495dd05823debbbf19893b283814c2d214d01ca8555b7abfddf6b410888",
+    "benchmarks/datasets/shop/manifest.json": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+    "benchmarks/results/h3-text-cache-20261014T005902Z.json": "36ab7bd2171339c0c2f6f7ead915d066e189601e6d38a6a0503df51a557d3021",
+    "scripts/h3_reviewed_prerequisites.py": "bda39045af6fb2bc921dc711492178a2bb1dc1e02c983777e26e72651d6b0352",
+    "scripts/h3_writer_audit.py": "5144004a30641ffbd97db6f7cd9925396711e7304e50cf01b433725d60087b75",
+    "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+    "target/release/nestbolt.exe": "3e2d43d495bdc9ad1f8e672dbdd7cb122af17dea3e48dad32eba5cffb24e77f5",
+    "target/release/examples/lightburn_inspect.exe": "eae2ec85611687bc85b26c32bec47af685c1be1a69f94f65b95f1b4cdebb202e",
+    "target/release/examples/lightburn_roundtrip.exe": "98e7b73c4999fff6ca9d9004010dec1d1297397914d97f827edaf939d82bec6d"
+  },
+  "source_guards_passed": true,
+  "held_out_geometry_read": false,
+  "initial_attempts": [
+    {
+      "folder": "../previous-five",
+      "failure": "Strict byte comparison; normalized XML text equal for TriHard."
+    },
+    {
+      "folder": "../previous-five-final",
+      "failure": "Strict canonical comparison; LACC bottom replay changes top-level translations by up to 2.2737367544323206e-13 mm."
+    }
+  ],
+  "rows": [
+    {
+      "name": "tri-hard",
+      "source_sha256": "9eebb595e3340022072e5a664f6403078ab38037e9728d948ae47a183da11598",
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-02.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\tri-hard\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\tri-hard\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.037795100011862814,
+        "cpu": 8
+      },
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-02.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\tri-hard\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\tri-hard\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-open-line-native-20261015\\previous-five-verified\\tri-hard\\exported"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.045876300006057136,
+        "cpu": 8
+      },
+      "valid": true,
+      "comparisons": [
+        {
+          "name": "lb-02-sheet-1.lbrn2",
+          "byte_equal": true,
+          "equal_after_xml_line_ending_normalization": true,
+          "canonical_equal_after_numeric_xform_check": true,
+          "maximum_top_level_xform_difference": 0,
+          "prior_sha256": "af84eaee168c6599eb84714d4d31af9e7f7920285e2c2a9d9b38a3f648b8c8a4",
+          "current_sha256": "af84eaee168c6599eb84714d4d31af9e7f7920285e2c2a9d9b38a3f648b8c8a4"
+        }
+      ]
+    },
+    {
+      "name": "lacc-bottom",
+      "source_sha256": "942d95418ef348c9027a7ea2919dad64576dc972bf4ecc04c9673c86d1a335c1",
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-07.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-bottom\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-bottom\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.029385899993940257,
+        "cpu": 8
+      },
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-07.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-bottom\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-bottom\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-open-line-native-20261015\\previous-five-verified\\lacc-bottom\\exported"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03838729999552015,
+        "cpu": 8
+      },
+      "valid": true,
+      "comparisons": [
+        {
+          "name": "lb-07-sheet-1.lbrn2",
+          "byte_equal": false,
+          "equal_after_xml_line_ending_normalization": false,
+          "canonical_equal_after_numeric_xform_check": true,
+          "maximum_top_level_xform_difference": 2.2737367544323206e-13,
+          "prior_sha256": "ec004ac2c1b940c3849e8bddfa43ad1271927f53e52c6890855bf43c1fba2161",
+          "current_sha256": "73d1a32ee9d7845daa53ccea1fbbe3f7bf265e7c5b140cf3dd0eca7afc44ae0d"
+        }
+      ]
+    },
+    {
+      "name": "lacc-side",
+      "source_sha256": "9f9abdf3cd23bf17c9f8cdd1ad1b7000247bae292f4da2dac0d8dd38e6d00b57",
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-09.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-side\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-side\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.04325420000532176,
+        "cpu": 8
+      },
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-09.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-side\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\lacc-side\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-open-line-native-20261015\\previous-five-verified\\lacc-side\\exported"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.04443540000647772,
+        "cpu": 8
+      },
+      "valid": true,
+      "comparisons": [
+        {
+          "name": "lb-09-sheet-1.lbrn2",
+          "byte_equal": true,
+          "equal_after_xml_line_ending_normalization": true,
+          "canonical_equal_after_numeric_xform_check": true,
+          "maximum_top_level_xform_difference": 0,
+          "prior_sha256": "bf10e531b3522a9328db9ef069bfbf3f1bd057c6681536d9e8bc8f1ee866c839",
+          "current_sha256": "bf10e531b3522a9328db9ef069bfbf3f1bd057c6681536d9e8bc8f1ee866c839"
+        }
+      ]
+    },
+    {
+      "name": "sofle",
+      "source_sha256": "3e5c16c7186d65a1d55cf846df0028b53e79b38d94ff8a1a8f4ec216a8680fe8",
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-11.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\sofle\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\sofle\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03424520000407938,
+        "cpu": 8
+      },
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\native\\lb-11.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\sofle\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\sofle\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-open-line-native-20261015\\previous-five-verified\\sofle\\exported"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.02747129999625031,
+        "cpu": 8
+      },
+      "valid": true,
+      "comparisons": [
+        {
+          "name": "lb-11-sheet-1.lbrn2",
+          "byte_equal": false,
+          "equal_after_xml_line_ending_normalization": false,
+          "canonical_equal_after_numeric_xform_check": true,
+          "maximum_top_level_xform_difference": 5.684341886080802e-14,
+          "prior_sha256": "5a90c0b723d240a48e01455c7f29cd808f3cf030875c0f1d44df051cdfa0dd3d",
+          "current_sha256": "cf40476e3b3becee3a1dc0fdbce9ada7f3e15d9c58fe9d5334b898aeee6e6711"
+        }
+      ]
+    },
+    {
+      "name": "mirrored-origin",
+      "source_sha256": "c770154209ec1aad2fab214f4c3297c19535efc9890f217322c6b034b1208e05",
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\probes\\origin-top-right.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\mirrored-origin\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\mirrored-origin\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.032758799992734566,
+        "cpu": 8
+      },
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\shop\\probes\\origin-top-right.lbrn2",
+          "--request",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\mirrored-origin\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-lightburn-20261014T001636Z\\mirrored-origin\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-open-line-native-20261015\\previous-five-verified\\mirrored-origin\\exported"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.02416260000609327,
+        "cpu": 8
+      },
+      "valid": true,
+      "comparisons": [
+        {
+          "name": "origin-top-right-sheet-1.lbrn2",
+          "byte_equal": false,
+          "equal_after_xml_line_ending_normalization": false,
+          "canonical_equal_after_numeric_xform_check": true,
+          "maximum_top_level_xform_difference": 2.842170943040401e-14,
+          "prior_sha256": "cb80caa30516807d511a11cd699819d7c37bcb3c73ee857ee00e9b780427e1bb",
+          "current_sha256": "2dd4a9b85f9e8b3f5fd2357430e84c7dd7bc0c832078835daeeb63ef6c1db83b"
+        }
+      ]
+    }
+  ]
+}
