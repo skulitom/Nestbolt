@@ -616,3 +616,25 @@ using a pinned executable confirm both saved layouts and every metric. Future
 benchmarks must wait for optimized CLI tests as well as explicit release builds.
 H4 is still open on scale, browser quality and the native matrix. No held-out
 geometry, gate threshold, default, release or final acceptance changes.
+
+### 2026-10-15: exact preview reuse retained
+
+The [preview-cache comparison](../benchmarks/results/h4-preview-cache-20261015.md)
+removes repeated full-vertex extent scans and per-copy SVG path construction.
+Bounds use original vertices with bounded orientation caches; weak keys release
+old library/layout snapshots. Shared SVG paths retain every component/hole point
+and full coordinate precision, with independent matrix/extent tests including
+arbitrary rotations and reflection.
+
+Chrome's nesting/preview Long Task falls from 1,608 to 111 ms, and its heartbeat
+gap from 2,092.6 to 209.2 ms. Firefox's gap falls from 733 to 370 ms. Both saved
+layouts are byte-identical and fresh metrics agree exactly. This is a one-run
+development comparison, not the quality matrix. Unlike the prior batch, every
+source/asset/validator guard passes. The full browser suite passes 66 enabled
+tests; original test and teardown failures remain recorded.
+
+Keep the cache. Two effective workers still peak above 2 GB, and unchanged ZIP
+assembly still stalls for 2.8/1.6 seconds. Next measure one worker to distinguish
+memory and CPU contention from drawing costs, then move archive assembly off the
+main thread. H4 remains open without changing its 1.5 GB / 200 ms limits or any
+native solver setting.

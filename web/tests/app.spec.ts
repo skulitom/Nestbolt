@@ -34,7 +34,7 @@ test('import, nest, export and keep the main thread responsive', async ({ page }
   await expect(page.locator('.summary')).toContainText('9/9');
   const sheets = page.locator('svg.sheet');
   expect(await sheets.count()).toBeGreaterThanOrEqual(1);
-  await expect(sheets.first().locator('path.part')).toHaveCount(9);
+  await expect(sheets.first().locator('use.part')).toHaveCount(9);
 
   const [svg] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'SVG', exact: true }).first().click()]);
   expect(readFileSync(await svg.path(), 'utf8')).toContain('<g id="CUT" fill="none" stroke="#000000"');

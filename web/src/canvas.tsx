@@ -10,8 +10,8 @@ const ring = (path: Path2D, points: Point[]) => {
 
 /**
  * The live preview: one sheet drawn on a canvas from cached part paths, so a
- * 2,000-part layout redraws in a few milliseconds and the page stays
- * responsive while the workers search. Final results use the SVG preview.
+ * copies reuse geometry while the workers search. Exact extents are shared
+ * with the final SVG preview and computed once per received layout.
  */
 export function SheetCanvas(props: { library: Library; request: NestRequest; layout: Layout; sheet: string }) {
   const { library, request, layout, sheet } = props;

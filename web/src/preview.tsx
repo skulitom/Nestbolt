@@ -1,4 +1,5 @@
-import { partGeometry } from './types';
+import { useId } from 'preact/hooks';
+import { layoutBounds, previewParts, svgMatrix } from './preview-geometry';
 import type { Layout, LeadReport, Library, NestRequest, Point, Polygon, Transform } from './types';
 
 const PALETTE = ['#4e79a7', '#f28e2b', '#59a14f', '#e15759', '#76b7b2', '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ac'];
@@ -31,15 +32,7 @@ function stockOf(request: NestRequest, layout: Layout, sheet: string) {
 /** The box around a sheet's placed parts and the clear offcut above them, in mm. */
 export function sheetUsage(library: Library, request: NestRequest, layout: Layout, sheet: string, leads?: LeadReport) {
   const stock = stockOf(request, layout, sheet);
-  const polygons = new Map(library.parts.map((p) => [p.id, partGeometry(p)]));
-  let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
-  for (const p of layout.placements) {
-    if (p.sheet_id !== sheet) continue;
-    for (const point of polygons.get(p.part_id)?.flatMap(g => g.outer) ?? []) {
-      const [x, y] = apply(p.transform, point);
-      [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x), Math.max(y1, y)];
-    }
-  }
+  let [x0, y0, x1, y1] = layoutBounds(library, layout).get(sheet) ?? [Infinity, Infinity, -Infinity, -Infinity];
   for (const p of leads?.parts ?? []) {
     if (p.sheet_id !== sheet) continue;
     const b = p.bounds_mm;
@@ -51,16 +44,19 @@ export function sheetUsage(library: Library, request: NestRequest, layout: Layou
 }
 
 export function SheetPreview(props: { library: Library; request: NestRequest; layout: Layout; sheet: string; leads?: LeadReport }) {
+  const id = useId();
   const { library, request, layout, sheet, leads } = props;
   const stock = stockOf(request, layout, sheet);
   const width = stock.width_mm;
   const height = stock.height_mm;
   const color = new Map(library.parts.map((p, i) => [p.id, PALETTE[i % PALETTE.length]]));
-  const polygons = new Map(library.parts.map((p) => [p.id, partGeometry(p)]));
+  const parts = previewParts(library);
+  const ids = new Map(library.parts.map((p, i) => [p.id, `${id}-part-${i}`]));
   const m = stock.margins_mm;
   const usage = sheetUsage(library, request, layout, sheet, leads);
   return (
     <svg class="sheet" viewBox={`-1 -1 ${width + 2} ${height + 2}`} role="img" aria-label={`Layout of ${sheet}`}>
+      <defs>{Array.from(parts, ([key, part]) => <path key={key} id={ids.get(key)} d={part.path} vector-effect="non-scaling-stroke" />)}</defs>
       {stock.outline_mm?.length
         ? stock.outline_mm.map((o, i) => <path key={`o${i}`} d={pathData(o, null, height)} class="stock" fill-rule="evenodd" />)
         : <rect x={0} y={0} width={width} height={height} class="stock" />}
@@ -74,12 +70,11 @@ export function SheetPreview(props: { library: Library; request: NestRequest; la
       {layout.placements
         .filter((p) => p.sheet_id === sheet)
         .map((p) => {
-          const polygon = polygons.get(p.part_id);
-          return polygon ? (
-            <path key={`${p.part_id}#${p.copy_index}`} d={polygon.map(g => pathData(g, p.transform, height)).join(' ')}
+          return parts.has(p.part_id) ? (
+            <use key={`${p.part_id}#${p.copy_index}`} href={`#${ids.get(p.part_id)}`} transform={`matrix(${svgMatrix(p.transform, height).join(' ')})`}
               fill={color.get(p.part_id)} fill-rule="evenodd" class="part">
               <title>{`${p.part_id} #${p.copy_index + 1}`}</title>
-            </path>
+            </use>
           ) : null;
         })}
       {leads?.parts.filter(p => p.sheet_id === sheet).flatMap(p => {

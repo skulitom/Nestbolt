@@ -268,6 +268,15 @@ without relabelling that run. Preview caching, export assembly and worker memory
 are the next measured levers. H4 quality/native matrices and all original gate
 conditions remain open; completion stays 20%.
 
+**N3 preview checkpoint, 2026-10-15:** [exact preview reuse](../benchmarks/results/h4-preview-cache-20261015.md)
+reduces Chrome's nesting/preview Long Task from 1,608 to 111 ms; the same saved
+layouts and native-validated metrics are retained in both browsers. Whole scale
+still fails memory and responsiveness: nesting heartbeat gaps are 209/370 ms,
+export gaps 2,801/1,569 ms, and working sets 2.099/2.074 GB. All source/executable
+guards pass; all 66 enabled browser tests pass. Keep the cache, then measure
+worker count and off-thread ZIP assembly separately. Quality/native gates and
+the 20% completed milestone total are unchanged.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:
