@@ -275,6 +275,12 @@ Build the section 3 model:
 - **LightBurn check** in Anode: one exported DXF and one SVG open with COMMON on its own layer, at the exact sizes.
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
+**Development checkpoint 2026-10-15:** the optional bonus is implemented, off by
+default, with UI/CLI/MCP round trips. Its [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md)
+validates all layouts and reaches 13.12% / 13.43% median cut savings at 10 seconds,
+seed 0. Material outliers remain, as do the full budget/seed matrix and Deepnest
+comparison. H5 is not complete; no gate or input requirement is changed.
+
 ### 4.6 N5: lead-in allowances
 
 Build the section 3 lead-in scope:

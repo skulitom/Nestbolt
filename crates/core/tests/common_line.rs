@@ -82,9 +82,17 @@ fn fixture(
 }
 
 fn report(job: &Job, layout: &Layout, kerf: f64) -> common_line::Report {
-    common_line::analyze(job, layout, &HashMap::new(), Options { kerf_mm: kerf })
-        .unwrap()
-        .remove(0)
+    common_line::analyze(
+        job,
+        layout,
+        &HashMap::new(),
+        Options {
+            kerf_mm: kerf,
+            search_bonus: false,
+        },
+    )
+    .unwrap()
+    .remove(0)
 }
 
 /// Independent offset oracle: direct Clipper2 integer miter offset of the
@@ -273,19 +281,43 @@ fn minimum_length_spacing_and_physical_units_are_enforced() {
     let (mut job, layout) = fixture(40.0, 10.0, 0.2, 0.0, false, 0.0);
     assert!((report(&job, &layout, 0.2).shared_length_mm - 10.0).abs() < 1e-8);
     for kerf in [0.0, 0.049, f64::INFINITY, f64::NAN] {
-        assert!(Options { kerf_mm: kerf }.validate().is_err());
+        assert!(
+            Options {
+                kerf_mm: kerf,
+                search_bonus: false
+            }
+            .validate()
+            .is_err()
+        );
     }
     job.clearance = 0.1;
     assert!(
-        common_line::analyze(&job, &layout, &HashMap::new(), Options { kerf_mm: 0.2 })
-            .unwrap_err()
-            .to_string()
-            .contains("spacing = kerf")
+        common_line::analyze(
+            &job,
+            &layout,
+            &HashMap::new(),
+            Options {
+                kerf_mm: 0.2,
+                search_bonus: false
+            }
+        )
+        .unwrap_err()
+        .to_string()
+        .contains("spacing = kerf")
     );
     job.clearance = 0.2;
     job.units = Units::Unitless;
     assert!(
-        common_line::analyze(&job, &layout, &HashMap::new(), Options { kerf_mm: 0.2 }).is_err()
+        common_line::analyze(
+            &job,
+            &layout,
+            &HashMap::new(),
+            Options {
+                kerf_mm: 0.2,
+                search_bonus: false
+            }
+        )
+        .is_err()
     );
 }
 
@@ -303,7 +335,16 @@ fn holes_sheet_edges_and_other_sheets_are_not_shared() {
         stock_id: "stock".into(),
     });
     layout.placements[1].sheet_id = "other".into();
-    let r = common_line::analyze(&job, &layout, &HashMap::new(), Options { kerf_mm: 0.2 }).unwrap();
+    let r = common_line::analyze(
+        &job,
+        &layout,
+        &HashMap::new(),
+        Options {
+            kerf_mm: 0.2,
+            search_bonus: false,
+        },
+    )
+    .unwrap();
     assert!(r.iter().all(|r| r.paths.is_empty()));
     // A valid part inside a host hole is rejected for common-line mode.
     job.parts[0].quantity = 1;
@@ -326,10 +367,18 @@ fn holes_sheet_edges_and_other_sheets_are_not_shared() {
         },
     };
     assert!(
-        common_line::analyze(&job, &layout, &HashMap::new(), Options { kerf_mm: 0.2 })
-            .unwrap_err()
-            .to_string()
-            .contains("part-in-hole disabled")
+        common_line::analyze(
+            &job,
+            &layout,
+            &HashMap::new(),
+            Options {
+                kerf_mm: 0.2,
+                search_bonus: false
+            }
+        )
+        .unwrap_err()
+        .to_string()
+        .contains("part-in-hole disabled")
     );
 }
 
@@ -356,9 +405,17 @@ fn curved_portions_are_counted_but_never_polygonized_into_common_lines() {
             holes: vec![],
         },
     )]);
-    let r = common_line::analyze(&job, &layout, &curves, Options { kerf_mm: 0.2 })
-        .unwrap()
-        .remove(0);
+    let r = common_line::analyze(
+        &job,
+        &layout,
+        &curves,
+        Options {
+            kerf_mm: 0.2,
+            search_bonus: false,
+        },
+    )
+    .unwrap()
+    .remove(0);
     assert!((r.shared_length_mm - 30.0).abs() < 1e-8);
     assert!(r.cut_length_without_common_mm > 280.0);
     assert!((r.saved_length_mm - 30.0).abs() < 1e-8);

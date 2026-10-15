@@ -12336,3 +12336,22 @@ The [owner-cache pilot](benchmarks/results/h6-material-pilot-owner-cache-2026101
 [Raw run](benchmarks/results/h6-material-development-20261015T125126Z/results.json) retains 155 fully scored successes and one comparison failure, with every raw archive. The remaining layout passes both geometry validations; JSON round-trip noise changes the order of two COMMON edge/path entries. The corrected comparator pairs only those unordered collections, then checks all unrounded values at the unchanged 1e-9 tolerance. It rejects moved coordinates, duplicate paths and changed owners. [Archive audit and fresh saved-layout revalidation](benchmarks/results/h6-material-recheck-20261015/reconciled.json) verify all 156 archives, with maximum numeric difference 2.9104e-11. No search was repeated and no original result was overwritten.
 
 Product `77dfa55`, committed-source hash `cb41abcead76b0f6f7e01aeecb4b506112d89e6d37a790f856b05cce43172201`, binary `b36bfd0a835c873523b260a0f279b7fed1df7afcc2025e782ff17fa35f4ff147`. Three original native-previewed coupons still have 24 independently checked reservations and unchanged starts/plans; separate outer/hole/shortened settings evidence and all public surface checks stand. H6/N5 is complete; N0+N5 gives **20%** overall milestone completion. H5 savings/bonus/Deepnest and N1–N3 requirements remain open. No held-out geometry, final acceptance, release, registry publication or published v1 quality claim changed.
+
+## 2026-10-15 — H5 optional common-line bonus pilot (development only)
+
+The [search-bonus checkpoint](benchmarks/results/h5-common-bonus-checkpoint-20261015.md)
+adds opt-in normalized cutting savings to a bounded placement refinement, with
+unchanged default search and independent validation. The [three-arm pilot](benchmarks/results/h5-common-pilot-20261015T134229Z/README.md)
+uses all 13 frozen cutting jobs, both kerfs, seed 0 and 10 seconds: normal mode
+at the same spacing, common-line bonus off, and bonus on. All 78 layouts and
+fresh public revalidations pass. Original inputs/logs/exports/results are retained
+in 78 checksummed archives; no held-out geometry was read.
+
+Median cut saving: bonus off 8.586% / 7.270%, bonus on 13.120% / 13.430%
+(laser/plasma). Median material cost versus normal is 0% for both; worst cost is
++6.205% / +5.364%, with three outlier jobs per kerf above +1%. Normal mode used
+21 and 49 hole riders on the mechanical jobs; common-line mode forbids them.
+The 60-second/three-seed matrix and Deepnest SVG comparison remain outstanding.
+This pilot does not complete H5, relax its thresholds, or change v1 claims.
+A subsequent platform-independent seed-index fix leaves seed-0 arithmetic
+unchanged; the pilot retains its original source and executable hashes.

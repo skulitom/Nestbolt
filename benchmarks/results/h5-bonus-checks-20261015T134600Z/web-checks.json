@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.tests.json"
+    ],
+    "exit_code": 0,
+    "seconds": 0.9765591621398926,
+    "log": "web-0.log"
+  },
+  {
+    "command": [
+      "node",
+      "node_modules/@playwright/test/cli.js",
+      "test",
+      "tests/features.spec.ts",
+      "--grep",
+      "common-line",
+      "--workers",
+      "2"
+    ],
+    "exit_code": 0,
+    "seconds": 7.656391143798828,
+    "log": "web-1.log"
+  }
+]

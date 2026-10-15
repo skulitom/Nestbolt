@@ -1,0 +1,97 @@
+[
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.6506071090698242,
+    "log": "0.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "nestbolt-core",
+      "--lib",
+      "common_line"
+    ],
+    "exit_code": 0,
+    "seconds": 0.426774263381958,
+    "log": "1.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "nestbolt-core",
+      "--test",
+      "common_line"
+    ],
+    "exit_code": 0,
+    "seconds": 0.3792288303375244,
+    "log": "2.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "seconds": 5.094132423400879,
+    "log": "3.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-cli",
+      "--test",
+      "features",
+      "common_line"
+    ],
+    "exit_code": 0,
+    "seconds": 60.996034383773804,
+    "log": "4.log"
+  },
+  {
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-mcp",
+      "--test",
+      "connection",
+      "common_line"
+    ],
+    "exit_code": 0,
+    "seconds": 89.72010850906372,
+    "log": "5.log"
+  },
+  {
+    "command": [
+      "python",
+      "scripts/build_web.py"
+    ],
+    "exit_code": 0,
+    "seconds": 56.678237438201904,
+    "log": "6.log"
+  }
+]

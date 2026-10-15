@@ -14,6 +14,7 @@ use crate::export::{Outline, placed};
 
 mod chains;
 pub(crate) mod length;
+pub(crate) mod search;
 
 pub const COLLINEAR_MM: f64 = 0.01;
 pub const MIN_SHARED_MM: f64 = 10.0;
@@ -23,6 +24,9 @@ const EPS: f64 = 1e-8;
 #[serde(deny_unknown_fields)]
 pub struct Options {
     pub kerf_mm: f64,
+    /// Spend the last tenth of the search aligning shared cuts. Off by default.
+    #[serde(default)]
+    pub search_bonus: bool,
 }
 
 impl Options {

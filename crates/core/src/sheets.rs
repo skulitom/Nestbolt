@@ -87,6 +87,12 @@ pub struct Stats {
     pub eliminated_sheets: u64,
     pub compressions: u64,
     pub rejected_layouts: u64,
+    #[serde(skip_serializing_if = "is_zero")]
+    pub common_line_moves: u64,
+}
+
+fn is_zero(n: &u64) -> bool {
+    *n == 0
 }
 
 #[derive(Debug, Serialize)]
@@ -559,7 +565,7 @@ pub fn optimize_with_part_in_hole(
     allow_part_in_hole: bool,
     progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
-    optimize_with_areas(job, options, allow_part_in_hole, None, progress)
+    optimize_with_areas(job, options, allow_part_in_hole, None, None, progress)
 }
 
 /// Search reserved cutting envelopes while valuing the original material.
@@ -579,6 +585,25 @@ pub fn optimize_with_material(
         options,
         allow_part_in_hole,
         Some(&areas),
+        None,
+        progress,
+    )
+}
+
+/// Opt-in cutting placement cost; the ordinary solver and its defaults are unchanged.
+pub(crate) fn optimize_with_common_bonus(
+    collision: &Job,
+    bonus: &crate::common_line::search::Bonus<'_>,
+    options: Options,
+    progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
+) -> Result<SheetResult> {
+    let areas = crate::scoring::MaterialAreas::new(bonus.job, collision)?;
+    optimize_with_areas(
+        collision,
+        options,
+        false,
+        Some(&areas),
+        Some(bonus),
         progress,
     )
 }
@@ -588,6 +613,7 @@ fn optimize_with_areas(
     options: Options,
     allow_part_in_hole: bool,
     material: Option<&crate::scoring::MaterialAreas>,
+    bonus: Option<&crate::common_line::search::Bonus<'_>>,
     mut progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
     ensure!(
@@ -644,7 +670,22 @@ fn optimize_with_areas(
     } else {
         material
     };
-    let mut result = optimize_job(&grouped.job, options, &clock, budget, fill_material, live)?;
+    let search_budget = if bonus.is_some() {
+        budget * 0.9
+    } else {
+        budget
+    };
+    let mut result = optimize_job(
+        &grouped.job,
+        options,
+        &clock,
+        search_budget,
+        fill_material,
+        live,
+    )?;
+    if let Some(bonus) = bonus {
+        bonus.refine(job, &mut result, &clock, budget, &mut progress)?;
+    }
     if debug {
         eprintln!(
             "debug phase search: real {:.2} clock {:.2}",

@@ -54,7 +54,7 @@ export interface NestRequest {
   parts: RequestPart[];
   sheets: RequestSheet[];
   spacing_mm: number;
-  common_line?: { kerf_mm: number };
+  common_line?: { kerf_mm: number; search_bonus?: boolean };
   lead_in?: LeadOptions;
   edge_spacing_mm: number;
   mode: Mode;

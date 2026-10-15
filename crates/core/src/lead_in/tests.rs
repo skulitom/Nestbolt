@@ -386,7 +386,10 @@ fn final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches() {
             &original,
             &layout,
             &HashMap::new(),
-            crate::common_line::Options { kerf_mm: 0.2 },
+            crate::common_line::Options {
+                kerf_mm: 0.2,
+                search_bonus: false,
+            },
         )
         .unwrap();
         assert_eq!(common[0].shared_edges.len(), 1);

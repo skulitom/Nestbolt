@@ -11,7 +11,7 @@ const fixture = (name: string) => fileURLToPath(new URL(`./fixtures/${name}`, im
 
 type Layout = { sheets: { id: string; stock_id: string }[];
   placements: { part_id: string; transform: { rotation_radians: number; mirrored: boolean } }[] };
-type ProjectFile = { request: { spacing_mm: number; edge_spacing_mm: number; sheets: { count?: number | null }[] };
+type ProjectFile = { request: { common_line?: { kerf_mm: number; search_bonus?: boolean }; spacing_mm: number; edge_spacing_mm: number; sheets: { count?: number | null }[] };
   result: { layout: Layout; validation: { valid: boolean } } };
 
 /** Read one entry of the app's stored (uncompressed) ZIP. */
@@ -109,7 +109,8 @@ test('lead allowances expose flags, reserve offcuts and export a separate review
   await expect(page.locator('.lead-report')).toHaveCount(0);
 });
 
-test('common-line kerf overrides spacing and exports its own compensated layer', async ({ page }, testInfo) => {
+for (const bonus of [false, true]) {
+test(`common-line kerf overrides spacing and exports its own compensated layer (bonus ${bonus})`, async ({ page }, testInfo) => {
   const source = fileURLToPath(new URL('../../crates/core/tests/fixtures/common-panels.svg', import.meta.url));
   const sheet = await setUp(page, [source], { 'common-panels-1': 2 }, 86, 36, 1);
   await sheet.getByLabel('Margin').fill('0');
@@ -117,11 +118,15 @@ test('common-line kerf overrides spacing and exports its own compensated layer',
   await page.getByLabel('Part spacing').fill('5');
   await page.getByLabel('Common-line cutting', { exact: true }).check();
   await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+  await expect(page.getByLabel('Search for more shared cuts')).not.toBeChecked();
+  if (bonus) await page.getByLabel('Search for more shared cuts').check();
   await page.getByLabel('Kerf mm', { exact: true }).fill('0.2');
+  await expect(page.getByLabel('Search for more shared cuts')).toBeChecked({ checked: bonus });
   await expect(page.getByLabel('Part spacing')).toBeDisabled();
   await expect(page.getByLabel('Part spacing')).toHaveValue('0.2');
   await nest(page);
   const saved = await project(page);
+  expect(!!saved.request.common_line?.search_bonus).toBe(bonus);
   await testInfo.attach('common-line-project', { body: JSON.stringify(saved), contentType: 'application/json' });
   await expect(page.locator('.common-line-report')).toContainText('30.0 mm saved');
   const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Download all sheets (ZIP)' }).click()]);
@@ -132,6 +137,7 @@ test('common-line kerf overrides spacing and exports its own compensated layer',
   await expect(page.getByLabel('Part spacing')).toHaveValue('5');
   await expect(page.locator('.common-line-report')).toHaveCount(0);
 });
+}
 
 test('DXF and SVG import; exports keep arcs and curves', async ({ page }) => {
   await page.goto('/');

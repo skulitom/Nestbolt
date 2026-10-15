@@ -533,3 +533,15 @@ Artem approved [plan decision 4](PLAN_V1_1.md#10-reviewed-decisions): new contou
 ### Local update — 2026-10-15: H6 material costs and gate closure
 
 The [completed H6 evidence](../benchmarks/results/h6-complete-20261015.md) now includes all 156 layouts on the frozen 13-job development set, both kerfs and three seeds. Default lead allowances add median material costs of +1.0696% (0.2 mm laser) and +6.0951% (1.5 mm plasma), measured against the same common-line workflow without leads. Plasma small-hole flags remain explicit; this is not a promise of automatic leads for every contour. One report-order comparator error was resolved on the same saved layout with unchanged numerical tolerance; original failures remain. Original native coupons and mixed settings revalidate unchanged. H6 is complete and overall v1.1 completion is 20%; no published v1 quality claim or held-out allocation changes.
+
+### 2026-10-15: common-line placement bonus development result
+
+The [first 13-job bonus pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md)
+uses normalized saved cutting length in a local placement cost, off by default.
+All 78 layouts validate. At ten seconds and seed 0, median cut savings are
+13.12% laser and 13.43% plasma; median material cost is zero, but three jobs per
+kerf exceed +1% relative to ordinary nesting. Normal mode places 21 and 49 copies
+inside holes in the two mechanical jobs, which common-line mode intentionally
+forbids. This distinction must remain visible in the full H5 comparison; the
+pilot does not relax the material gate or complete H5. Deepnest's zero-spacing
+SVG merge comparison and the required 60-second/three-seed measurements remain.

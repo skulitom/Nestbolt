@@ -111,20 +111,33 @@ impl PreparedRequest {
         progress: impl FnMut(&crate::sheets::Progress, &dyn Fn() -> Option<Layout>),
     ) -> Result<(crate::sheets::SheetResult, CuttingReport)> {
         let allow_part_in_hole = self.common_options.is_none();
-        let mut result = match &self.leads {
-            Some(leads) => crate::sheets::optimize_with_material(
-                &leads.collision_job,
-                &self.job,
+        let mut result = if let Some(common) = self.common_options.filter(|o| o.search_bonus) {
+            crate::sheets::optimize_with_common_bonus(
+                self.leads.as_ref().map_or(&self.job, |p| &p.collision_job),
+                &crate::common_line::search::Bonus {
+                    job: &self.job,
+                    outlines: &self.outlines,
+                    options: common,
+                },
                 options,
-                allow_part_in_hole,
                 progress,
-            )?,
-            None => crate::sheets::optimize_with_part_in_hole(
-                &self.job,
-                options,
-                allow_part_in_hole,
-                progress,
-            )?,
+            )?
+        } else {
+            match &self.leads {
+                Some(leads) => crate::sheets::optimize_with_material(
+                    &leads.collision_job,
+                    &self.job,
+                    options,
+                    allow_part_in_hole,
+                    progress,
+                )?,
+                None => crate::sheets::optimize_with_part_in_hole(
+                    &self.job,
+                    options,
+                    allow_part_in_hole,
+                    progress,
+                )?,
+            }
         };
         let report = self.report(&result.layout)?;
         ensure!(

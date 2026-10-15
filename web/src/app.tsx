@@ -530,7 +530,9 @@ export function App() {
             </div>
             <label class="check"><input type="checkbox" disabled={!!library?.lightburn && !request.common_line} checked={!!request.common_line} onChange={(e) => update({ common_line: (e.target as HTMLInputElement).checked ? { kerf_mm: request.lead_in?.kerf_mm ?? 0 } : undefined })} /> Common-line cutting</label>
             {request.common_line ? <>
-              <label>Kerf <input type="number" min={0.05} step={0.05} required value={request.common_line.kerf_mm} onInput={(e) => update({ common_line: { kerf_mm: num(e) }, ...(lead ? { lead_in: { ...lead, kerf_mm: num(e) } } : {}) })} /> mm</label>
+              <label>Kerf <input type="number" min={0.05} step={0.05} required value={request.common_line.kerf_mm} onInput={(e) => update({ common_line: { ...request.common_line!, kerf_mm: num(e) }, ...(lead ? { lead_in: { ...lead, kerf_mm: num(e) } } : {}) })} /> mm</label>
+              <label class="check"><input type="checkbox" checked={!!request.common_line.search_bonus} onChange={(e) => update({ common_line: { ...request.common_line!, search_bonus: (e.target as HTMLInputElement).checked } })} /> Search for more shared cuts</label>
+              <p class="hint">Use part of the search time to align shared cuts. Compare cutting savings and material use before cutting.</p>
               <p class="hint">Enter the cut width (at least 0.05 mm). Part spacing uses this kerf; parts stay outside holes. Shared straight cuts go on COMMON with compensation included.</p>
               <p class="hint">CUT keeps the closed outlines. In CAM, replace their shared sections with COMMON and turn off kerf compensation for COMMON.</p>
             </> : null}
@@ -538,7 +540,7 @@ export function App() {
             <label class="check"><input type="checkbox" checked={!!lead} onChange={(e) => update({ lead_in: (e.target as HTMLInputElement).checked ? { kerf_mm: request.common_line?.kerf_mm ?? 0, length_mm: 3, style: 'line', outer_angle_degrees: 45, hole_angle_degrees: 90 } : undefined })} /> Lead-in allowances</label>
             {lead ? <>
               <div class="grid">
-                <label>Lead kerf <input type="number" min={0.001} max={1000} step={0.05} value={lead.kerf_mm} onInput={(e) => update({ lead_in: { ...lead, kerf_mm: num(e) }, ...(request.common_line ? { common_line: { kerf_mm: num(e) } } : {}) })} /> mm</label>
+                <label>Lead kerf <input type="number" min={0.001} max={1000} step={0.05} value={lead.kerf_mm} onInput={(e) => update({ lead_in: { ...lead, kerf_mm: num(e) }, ...(request.common_line ? { common_line: { ...request.common_line, kerf_mm: num(e) } } : {}) })} /> mm</label>
                 <label>Lead length <input type="number" min={0.5} max={50} step={0.1} value={lead.length_mm} onInput={(e) => update({ lead_in: { ...lead, length_mm: num(e) } })} /> mm</label>
                 <label>Lead style <select value={lead.style} onChange={(e) => update({ lead_in: { ...lead, style: (e.target as HTMLSelectElement).value as 'line' | 'arc' } })}><option value="line">Line</option><option value="arc">Arc</option></select></label>
                 <label>Outer lead angle <input type="number" min={0} max={90} step={0.01} value={lead.outer_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, outer_angle_degrees: num(e) } })} /> °</label>

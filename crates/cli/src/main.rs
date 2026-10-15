@@ -68,6 +68,9 @@ enum Command {
         /// Add compensated shared straight toolpaths on COMMON; spacing = kerf.
         #[arg(long, requires = "kerf")]
         common_line: bool,
+        /// Reward shared cutting length during placement; off by default.
+        #[arg(long, requires = "common_line")]
+        common_line_bonus: bool,
         /// Physical kerf in mm; common-line needs at least 0.05, leads need > 0.
         #[arg(long)]
         kerf: Option<f64>,
@@ -351,6 +354,7 @@ fn main() -> Result<()> {
             repeatable,
             time_limit,
             common_line,
+            common_line_bonus,
             kerf,
             lead_in,
             lead_length,
@@ -365,6 +369,7 @@ fn main() -> Result<()> {
             if common_line {
                 request.common_line = Some(nestbolt_core::common_line::Options {
                     kerf_mm: kerf.context("--common-line requires --kerf")?,
+                    search_bonus: common_line_bonus,
                 });
             }
             if lead_in {
