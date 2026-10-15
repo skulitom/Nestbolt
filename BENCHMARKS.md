@@ -12250,3 +12250,15 @@ on CPU 0. Projects, settings, screenshots, original assumptions and harness
 failures are retained. Optimization flags and hidden display were restored,
 the owned application closed and the lease released. These are calibration
 coupons, not the three nested exports required by H6. Goal progress stays 15%.
+
+
+## 2026-10-15 — preserve the frozen Openclipart source during an outage
+
+[CI source-fetch diagnosis and repair](benchmarks/results/ci-openclipart-outage-20261015.md):
+both maker rebuilds at `2eecbf1` stopped on Openclipart HTTP 504 responses before
+running generators. The exact cached CC0 original is now bundled with attribution;
+setup still verifies the existing frozen SHA-256. Three offline/corruption/download
+tests pass, and all 40 frozen maker jobs, curve sources, notices and ten held-out
+reservations pass the integrity check. No geometry was inspected for tuning,
+no source pin or dataset changed, and no benchmark was rerun. Clean CI rebuilds
+on the repaired commit remain to be verified separately.

@@ -1,0 +1,274 @@
+2026-10-15T08:32:19.9262016Z Current runner version: '2.337.0'
+2026-10-15T08:32:19.9283867Z ##[group]Runner Image Provisioner
+2026-10-15T08:32:19.9284613Z Hosted Compute Agent
+2026-10-15T08:32:19.9285154Z Version: 20261012.601
+2026-10-15T08:32:19.9285695Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-15T08:32:19.9286309Z Build Date: 2026-10-12T17:48:21Z
+2026-10-15T08:32:19.9287271Z Worker ID: {9bcdae62-be2a-49e3-991e-b87aa139020e}
+2026-10-15T08:32:19.9287894Z Region: westus3
+2026-10-15T08:32:19.9288382Z Cloud: Azure
+2026-10-15T08:32:19.9288844Z ##[endgroup]
+2026-10-15T08:32:19.9290074Z ##[group]Operating System
+2026-10-15T08:32:19.9290646Z Ubuntu
+2026-10-15T08:32:19.9291115Z 24.04.5
+2026-10-15T08:32:19.9291528Z LTS
+2026-10-15T08:32:19.9292020Z ##[endgroup]
+2026-10-15T08:32:19.9292524Z ##[group]Runner Image
+2026-10-15T08:32:19.9293372Z Image: ubuntu-24.04
+2026-10-15T08:32:19.9293873Z Version: 20261012.334.1
+2026-10-15T08:32:19.9294938Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-15T08:32:19.9296189Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-15T08:32:19.9297212Z ##[endgroup]
+2026-10-15T08:32:19.9298137Z ##[group]GITHUB_TOKEN Permissions
+2026-10-15T08:32:19.9299968Z Contents: read
+2026-10-15T08:32:19.9300468Z Metadata: read
+2026-10-15T08:32:19.9300916Z ##[endgroup]
+2026-10-15T08:32:19.9302734Z Secret source: Actions
+2026-10-15T08:32:19.9303504Z Cache mode: write
+2026-10-15T08:32:19.9304320Z Prepare workflow directory
+2026-10-15T08:32:19.9566361Z Prepare all required actions
+2026-10-15T08:32:19.9608857Z Getting action download info
+2026-10-15T08:32:20.2744663Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-15T08:32:20.4067379Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-15T08:32:20.5319323Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-15T08:32:20.7342296Z Complete job name: maker-rebuild (ubuntu-latest)
+2026-10-15T08:32:20.7950097Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-15T08:32:20.7950960Z with:
+2026-10-15T08:32:20.7951315Z   persist-credentials: false
+2026-10-15T08:32:20.7951732Z   repository: skulitom/Nestbolt
+2026-10-15T08:32:20.7954911Z   token: ***
+2026-10-15T08:32:20.7955258Z   ssh-strict: true
+2026-10-15T08:32:20.7955612Z   ssh-user: git
+2026-10-15T08:32:20.7955944Z   clean: true
+2026-10-15T08:32:20.7956309Z   sparse-checkout-cone-mode: true
+2026-10-15T08:32:20.7956721Z   fetch-depth: 1
+2026-10-15T08:32:20.7957203Z   fetch-tags: false
+2026-10-15T08:32:20.7957559Z   show-progress: true
+2026-10-15T08:32:20.7957912Z   lfs: false
+2026-10-15T08:32:20.7958236Z   submodules: false
+2026-10-15T08:32:20.7958589Z   set-safe-directory: true
+2026-10-15T08:32:20.7958988Z   allow-unsafe-pr-checkout: false
+2026-10-15T08:32:20.7959626Z ##[endgroup]
+2026-10-15T08:32:20.8775853Z Syncing repository: skulitom/Nestbolt
+2026-10-15T08:32:20.8777578Z ##[group]Getting Git version info
+2026-10-15T08:32:20.8778234Z Working directory is '/home/runner/work/Nestbolt/Nestbolt'
+2026-10-15T08:32:20.8779061Z [command]/usr/bin/git version
+2026-10-15T08:32:20.9216070Z git version 2.55.0
+2026-10-15T08:32:20.9246283Z ##[endgroup]
+2026-10-15T08:32:20.9252435Z Temporarily overriding HOME='/home/runner/work/_temp/087fc658-2886-4fdf-9189-024e13291d71' before making global git config changes
+2026-10-15T08:32:20.9253786Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T08:32:20.9257294Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-10-15T08:32:20.9533560Z Deleting the contents of '/home/runner/work/Nestbolt/Nestbolt'
+2026-10-15T08:32:20.9537940Z ##[group]Determining repository object format
+2026-10-15T08:32:20.9539797Z ##[endgroup]
+2026-10-15T08:32:20.9540390Z ##[group]Initializing the repository
+2026-10-15T08:32:20.9543548Z [command]/usr/bin/git init /home/runner/work/Nestbolt/Nestbolt
+2026-10-15T08:32:20.9617809Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-15T08:32:20.9618883Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-15T08:32:20.9619638Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-15T08:32:20.9620218Z hint: call:
+2026-10-15T08:32:20.9620538Z hint:
+2026-10-15T08:32:20.9620941Z hint: 	git config --global init.defaultBranch <name>
+2026-10-15T08:32:20.9621427Z hint:
+2026-10-15T08:32:20.9621883Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-15T08:32:20.9622596Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-15T08:32:20.9623157Z hint:
+2026-10-15T08:32:20.9623480Z hint: 	git branch -m <name>
+2026-10-15T08:32:20.9623863Z hint:
+2026-10-15T08:32:20.9624351Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-15T08:32:20.9628849Z Initialized empty Git repository in /home/runner/work/Nestbolt/Nestbolt/.git/
+2026-10-15T08:32:20.9637148Z [command]/usr/bin/git remote add origin https://github.com/skulitom/Nestbolt
+2026-10-15T08:32:20.9678614Z ##[endgroup]
+2026-10-15T08:32:20.9679224Z ##[group]Disabling automatic garbage collection
+2026-10-15T08:32:20.9681544Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-15T08:32:20.9712425Z ##[endgroup]
+2026-10-15T08:32:20.9713294Z ##[group]Setting up auth
+2026-10-15T08:32:20.9713938Z Removing SSH command configuration
+2026-10-15T08:32:20.9719748Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T08:32:20.9754224Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-15T08:32:21.0038257Z Removing HTTP extra header
+2026-10-15T08:32:21.0045560Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T08:32:21.0082074Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-15T08:32:21.0289964Z Removing includeIf entries pointing to credentials config files
+2026-10-15T08:32:21.0295427Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T08:32:21.0325871Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-15T08:32:21.0520282Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-15T08:32:21.0554605Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:21.0583893Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:21.0615674Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:21.0645641Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:21.0708816Z ##[endgroup]
+2026-10-15T08:32:21.0709670Z ##[group]Fetching the repository
+2026-10-15T08:32:21.0714566Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2eecbf17f258f51fb91f6869987b4914e62747e9:refs/remotes/origin/main
+2026-10-15T08:32:26.4464774Z From https://github.com/skulitom/Nestbolt
+2026-10-15T08:32:26.4466229Z  * [new ref]         2eecbf17f258f51fb91f6869987b4914e62747e9 -> origin/main
+2026-10-15T08:32:26.4475230Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-15T08:32:26.4516717Z   origin/main
+2026-10-15T08:32:26.4525782Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-15T08:32:26.4550882Z 2eecbf17f258f51fb91f6869987b4914e62747e9
+2026-10-15T08:32:26.4559499Z ##[endgroup]
+2026-10-15T08:32:26.4560418Z ##[group]Determining the checkout info
+2026-10-15T08:32:26.4561439Z ##[endgroup]
+2026-10-15T08:32:26.4562040Z [command]/usr/bin/git sparse-checkout disable
+2026-10-15T08:32:26.4607645Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-15T08:32:26.4640919Z ##[group]Checking out the ref
+2026-10-15T08:32:26.4642066Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-15T08:32:27.6834356Z Switched to a new branch 'main'
+2026-10-15T08:32:27.6837142Z branch 'main' set up to track 'origin/main'.
+2026-10-15T08:32:27.6904514Z ##[endgroup]
+2026-10-15T08:32:27.6946843Z [command]/usr/bin/git log -1 --format=%H
+2026-10-15T08:32:27.6970867Z 2eecbf17f258f51fb91f6869987b4914e62747e9
+2026-10-15T08:32:27.6979954Z ##[group]Removing auth
+2026-10-15T08:32:27.6980441Z Removing SSH command configuration
+2026-10-15T08:32:27.6983591Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T08:32:27.7013920Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-15T08:32:27.7211736Z Removing HTTP extra header
+2026-10-15T08:32:27.7214808Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T08:32:27.7245987Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-15T08:32:27.7439600Z Removing includeIf entries pointing to credentials config files
+2026-10-15T08:32:27.7442537Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T08:32:27.7467890Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-10-15T08:32:27.7468829Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T08:32:27.7469722Z includeif.gitdir:/github/workspace/.git.path
+2026-10-15T08:32:27.7470446Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T08:32:27.7476732Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-10-15T08:32:27.7499959Z /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7508673Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7540226Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T08:32:27.7561830Z /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7571181Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7606727Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-15T08:32:27.7636595Z /github/runner_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7644314Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7673896Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T08:32:27.7694283Z /github/runner_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7703898Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config
+2026-10-15T08:32:27.7734922Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-15T08:32:27.7926203Z Removing credentials config '/home/runner/work/_temp/git-credentials-06fbd8bd-5e2b-4138-aef2-cb8ac4b7d76d.config'
+2026-10-15T08:32:27.8016684Z ##[endgroup]
+2026-10-15T08:32:27.8287662Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+2026-10-15T08:32:27.8288115Z with:
+2026-10-15T08:32:27.8288352Z   python-version: 3.11.5
+2026-10-15T08:32:27.8288611Z   check-latest: false
+2026-10-15T08:32:27.8290801Z   token: ***
+2026-10-15T08:32:27.8291048Z   update-environment: true
+2026-10-15T08:32:27.8291318Z   allow-prereleases: false
+2026-10-15T08:32:27.8291573Z   freethreaded: false
+2026-10-15T08:32:27.8291824Z ##[endgroup]
+2026-10-15T08:32:27.9301289Z ##[group]Installed versions
+2026-10-15T08:32:27.9423666Z Version 3.11.5 was not found in the local cache
+2026-10-15T08:32:29.1344401Z Version 3.11.5 is available for downloading
+2026-10-15T08:32:29.1345404Z Download from "https://github.com/actions/python-versions/releases/download/3.11.5-11113174019/python-3.11.5-linux-24.04-x64.tar.gz"
+2026-10-15T08:32:29.8158591Z Extract downloaded archive
+2026-10-15T08:32:29.8261736Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/6955e2ab-8bcb-4a59-9c62-e9518b66ce77 -f /home/runner/work/_temp/f9464fd9-0b3c-4340-b0e2-8c3a480cfb13
+2026-10-15T08:32:31.5197599Z Execute installation script
+2026-10-15T08:32:31.5282705Z Check if Python hostedtoolcache folder exist...
+2026-10-15T08:32:31.5283070Z Create Python 3.11.5 folder
+2026-10-15T08:32:31.5293857Z Copy Python binaries to hostedtoolcache folder
+2026-10-15T08:32:31.9308243Z Create additional symlinks (Required for the UsePythonVersion Azure Pipelines task and the setup-python GitHub Action)
+2026-10-15T08:32:31.9342651Z Upgrading pip...
+2026-10-15T08:32:34.0636332Z Looking in links: /tmp/tmpl8k7_qce
+2026-10-15T08:32:34.0643335Z Requirement already satisfied: setuptools in /opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages (65.5.0)
+2026-10-15T08:32:34.0649964Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/site-packages (23.2.1)
+2026-10-15T08:32:35.1144206Z Collecting pip
+2026-10-15T08:32:35.1145519Z Obtaining dependency information for pip from https://files.pythonhosted.org/packages/f3/6e/1736e5b4ae2b778ef2f81c47d797de9f891d4d8acb047a24ca37a60294dd/pip-26.2.1-py3-none-any.whl.metadata
+2026-10-15T08:32:35.1467582Z Downloading pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+2026-10-15T08:32:35.1558380Z Downloading pip-26.2.1-py3-none-any.whl (1.8 MB)
+2026-10-15T08:32:35.2285395Z ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 25.7 MB/s eta 0:00:00
+2026-10-15T08:32:35.2285802Z 
+2026-10-15T08:32:35.2634258Z Installing collected packages: pip
+2026-10-15T08:32:35.2634716Z Attempting uninstall: pip
+2026-10-15T08:32:35.2649491Z Found existing installation: pip 23.2.1
+2026-10-15T08:32:35.2930774Z Uninstalling pip-23.2.1:
+2026-10-15T08:32:35.2978372Z Successfully uninstalled pip-23.2.1
+2026-10-15T08:32:36.0061206Z Successfully installed pip-26.2.1
+2026-10-15T08:32:36.0640560Z Create complete file
+2026-10-15T08:32:36.0671169Z Successfully set up CPython (3.11.5)
+2026-10-15T08:32:36.0672270Z ##[endgroup]
+2026-10-15T08:32:36.0844310Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-15T08:32:36.0844660Z with:
+2026-10-15T08:32:36.0845028Z   node-version: 24.19.0
+2026-10-15T08:32:36.0845246Z   always-auth: false
+2026-10-15T08:32:36.0845436Z   check-latest: false
+2026-10-15T08:32:36.0847597Z   token: ***
+2026-10-15T08:32:36.0847773Z env:
+2026-10-15T08:32:36.0847993Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:36.0848349Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.5/x64/lib/pkgconfig
+2026-10-15T08:32:36.0848680Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:36.0848970Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:36.0849258Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:36.0849540Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.5/x64/lib
+2026-10-15T08:32:36.0849790Z ##[endgroup]
+2026-10-15T08:32:36.1970684Z Attempting to download 24.19.0...
+2026-10-15T08:32:36.2053620Z (node:2258) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-15T08:32:36.2054279Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-15T08:32:37.2294601Z Acquiring 24.19.0 - x64 from https://github.com/actions/node-versions/releases/download/24.19.0-30872449280/node-24.19.0-linux-x64.tar.gz
+2026-10-15T08:32:37.7746108Z Extracting ...
+2026-10-15T08:32:37.7845272Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/df208816-e6ac-46ea-9127-aa8b6a642863 -f /home/runner/work/_temp/47048f08-d561-4851-811f-b4bad74d03bb
+2026-10-15T08:32:38.8231430Z Adding to the cache ...
+2026-10-15T08:32:45.4997358Z ##[group]Environment details
+2026-10-15T08:32:45.8787694Z node: v24.19.0
+2026-10-15T08:32:45.8788014Z npm: 11.17.0
+2026-10-15T08:32:45.8788187Z yarn: 1.22.22
+2026-10-15T08:32:45.8788591Z ##[endgroup]
+2026-10-15T08:32:45.8927844Z ##[group]Run python scripts/maker_setup.py
+2026-10-15T08:32:45.8928154Z [36;1mpython scripts/maker_setup.py[0m
+2026-10-15T08:32:46.0326279Z shell: /usr/bin/bash -e {0}
+2026-10-15T08:32:46.0326558Z env:
+2026-10-15T08:32:46.0326801Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:46.0327334Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.5/x64/lib/pkgconfig
+2026-10-15T08:32:46.0327681Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:46.0327976Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:46.0328297Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.5/x64
+2026-10-15T08:32:46.0328592Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.5/x64/lib
+2026-10-15T08:32:46.0328860Z ##[endgroup]
+2026-10-15T08:32:46.0939883Z Cloning into '/home/runner/work/Nestbolt/Nestbolt/.cache/upstream/boxes'...
+2026-10-15T08:32:50.2132612Z HEAD is now at b82a6c9 TrayLayout: read the --input file again on the command line (#975)
+2026-10-15T08:33:52.1620963Z Retrying https://openclipart.org/download/22109 after The read operation timed out
+2026-10-15T08:33:57.3505491Z Retrying https://openclipart.org/download/22109 after HTTP Error 504: Gateway Time-out
+2026-10-15T08:34:07.5393470Z Retrying https://openclipart.org/download/22109 after HTTP Error 504: Gateway Time-out
+2026-10-15T08:34:27.7357415Z Traceback (most recent call last):
+2026-10-15T08:34:27.7358157Z   File "/home/runner/work/Nestbolt/Nestbolt/scripts/maker_setup.py", line 72, in <module>
+2026-10-15T08:34:27.7358744Z     main()
+2026-10-15T08:34:27.7359249Z   File "/home/runner/work/Nestbolt/Nestbolt/scripts/maker_setup.py", line 53, in main
+2026-10-15T08:34:27.7359804Z     data = fetch(download['url'])
+2026-10-15T08:34:27.7360136Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:27.7360675Z   File "/home/runner/work/Nestbolt/Nestbolt/scripts/maker_setup.py", line 23, in fetch
+2026-10-15T08:34:27.7361556Z     return urlopen(Request(url, headers={'User-Agent': 'Nestbolt benchmark source fetcher'}), timeout=60).read()
+2026-10-15T08:34:27.7362307Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:27.7363497Z   File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/urllib/request.py", line 216, in urlopen
+2026-10-15T08:34:27.7364148Z     return opener.open(url, data, timeout)
+2026-10-15T08:34:27.7364521Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:27.7365171Z   File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/urllib/request.py", line 525, in open
+2026-10-15T08:34:27.7365780Z     response = meth(req, response)
+2026-10-15T08:34:27.7366109Z                ^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:27.7366770Z   File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/urllib/request.py", line 634, in http_response
+2026-10-15T08:34:27.7367376Z     response = self.parent.error(
+2026-10-15T08:34:27.7367598Z                ^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:27.7368037Z   File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/urllib/request.py", line 563, in error
+2026-10-15T08:34:27.7368420Z     return self._call_chain(*args)
+2026-10-15T08:34:27.7368641Z            ^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:27.7369061Z   File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/urllib/request.py", line 496, in _call_chain
+2026-10-15T08:34:27.7369427Z     result = func(*args)
+2026-10-15T08:34:27.7369610Z              ^^^^^^^^^^^
+2026-10-15T08:34:27.7370010Z   File "/opt/hostedtoolcache/Python/3.11.5/x64/lib/python3.11/urllib/request.py", line 643, in http_error_default
+2026-10-15T08:34:27.7370470Z     raise HTTPError(req.full_url, code, msg, hdrs, fp)
+2026-10-15T08:34:27.7370814Z urllib.error.HTTPError: HTTP Error 504: Gateway Time-out
+2026-10-15T08:34:27.7471696Z ##[error]Process completed with exit code 1.
+2026-10-15T08:34:27.7590271Z Post job cleanup.
+2026-10-15T08:34:27.8269062Z [command]/usr/bin/git version
+2026-10-15T08:34:27.8303379Z git version 2.55.0
+2026-10-15T08:34:27.8334547Z Temporarily overriding HOME='/home/runner/work/_temp/02d6cf2c-fa28-45d8-ae7e-5cbde281debe' before making global git config changes
+2026-10-15T08:34:27.8335713Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T08:34:27.8338884Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-10-15T08:34:27.8368848Z Removing SSH command configuration
+2026-10-15T08:34:27.8374250Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T08:34:27.8403914Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-15T08:34:27.8635904Z Removing HTTP extra header
+2026-10-15T08:34:27.8641972Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T08:34:27.8672801Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-15T08:34:27.8892777Z Removing includeIf entries pointing to credentials config files
+2026-10-15T08:34:27.8899022Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T08:34:27.8929725Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-15T08:34:27.9280159Z Cleaning up orphan processes
+2026-10-15T08:34:27.9519875Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

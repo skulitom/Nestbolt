@@ -1,0 +1,438 @@
+2026-10-15T08:32:20.4728666Z Current runner version: '2.337.0'
+2026-10-15T08:32:20.4764243Z ##[group]Runner Image Provisioner
+2026-10-15T08:32:20.4765683Z Hosted Compute Agent
+2026-10-15T08:32:20.4766587Z Version: 20260901.588
+2026-10-15T08:32:20.4767785Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-15T08:32:20.4769334Z Build Date: 2026-09-01T19:56:44Z
+2026-10-15T08:32:20.4770591Z Worker ID: {509eea87-0119-4c92-b7c2-c41de6e2628b}
+2026-10-15T08:32:20.4771772Z Azure Region: eastus
+2026-10-15T08:32:20.4772648Z ##[endgroup]
+2026-10-15T08:32:20.4775016Z ##[group]Operating System
+2026-10-15T08:32:20.4776171Z Microsoft Windows Server 2025
+2026-10-15T08:32:20.4777225Z 10.0.26100
+2026-10-15T08:32:20.4778089Z Datacenter
+2026-10-15T08:32:20.4778965Z ##[endgroup]
+2026-10-15T08:32:20.4779907Z ##[group]Runner Image
+2026-10-15T08:32:20.4780959Z Image: windows-2025-vs2026
+2026-10-15T08:32:20.4782026Z Version: 20260925.250.1
+2026-10-15T08:32:20.4785044Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260925.250/images/windows/Windows2025-VS2026-Readme.md
+2026-10-15T08:32:20.4788125Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260925.250
+2026-10-15T08:32:20.4789882Z ##[endgroup]
+2026-10-15T08:32:20.4791811Z ##[group]GITHUB_TOKEN Permissions
+2026-10-15T08:32:20.4794916Z Contents: read
+2026-10-15T08:32:20.4796091Z Metadata: read
+2026-10-15T08:32:20.4797096Z ##[endgroup]
+2026-10-15T08:32:20.4800300Z Secret source: Actions
+2026-10-15T08:32:20.4801764Z Cache mode: write
+2026-10-15T08:32:20.4803700Z Prepare workflow directory
+2026-10-15T08:32:20.5303328Z Prepare all required actions
+2026-10-15T08:32:20.5372345Z Getting action download info
+2026-10-15T08:32:20.7168849Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-15T08:32:20.8689140Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-15T08:32:21.0512404Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-15T08:32:21.3812529Z Complete job name: maker-rebuild (windows-latest)
+2026-10-15T08:32:21.5741113Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-15T08:32:21.5742589Z with:
+2026-10-15T08:32:21.5743052Z   persist-credentials: false
+2026-10-15T08:32:21.5743887Z   repository: skulitom/Nestbolt
+2026-10-15T08:32:21.5749691Z   token: ***
+2026-10-15T08:32:21.5750432Z   ssh-strict: true
+2026-10-15T08:32:21.5751152Z   ssh-user: git
+2026-10-15T08:32:21.5751801Z   clean: true
+2026-10-15T08:32:21.5752240Z   sparse-checkout-cone-mode: true
+2026-10-15T08:32:21.5752958Z   fetch-depth: 1
+2026-10-15T08:32:21.5753531Z   fetch-tags: false
+2026-10-15T08:32:21.5754075Z   show-progress: true
+2026-10-15T08:32:21.5754652Z   lfs: false
+2026-10-15T08:32:21.5755179Z   submodules: false
+2026-10-15T08:32:21.5755832Z   set-safe-directory: true
+2026-10-15T08:32:21.5756549Z   allow-unsafe-pr-checkout: false
+2026-10-15T08:32:21.5757603Z ##[endgroup]
+2026-10-15T08:32:21.8260120Z Syncing repository: skulitom/Nestbolt
+2026-10-15T08:32:21.8263880Z ##[group]Getting Git version info
+2026-10-15T08:32:21.8265121Z Working directory is 'D:\a\Nestbolt\Nestbolt'
+2026-10-15T08:32:21.9487333Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-15T08:32:22.4382473Z git version 2.55.0.windows.5
+2026-10-15T08:32:22.4474203Z ##[endgroup]
+2026-10-15T08:32:22.4501804Z Temporarily overriding HOME='D:\a\_temp\8a008c8d-f523-4660-ac4b-36f7de07fff6' before making global git config changes
+2026-10-15T08:32:22.4504348Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T08:32:22.4518648Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Nestbolt\Nestbolt
+2026-10-15T08:32:22.6470158Z Deleting the contents of 'D:\a\Nestbolt\Nestbolt'
+2026-10-15T08:32:22.6478810Z ##[group]Determining repository object format
+2026-10-15T08:32:22.6482476Z ##[endgroup]
+2026-10-15T08:32:22.6483911Z ##[group]Initializing the repository
+2026-10-15T08:32:22.6493828Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\Nestbolt\Nestbolt
+2026-10-15T08:32:22.8374675Z Initialized empty Git repository in D:/a/Nestbolt/Nestbolt/.git/
+2026-10-15T08:32:22.8446593Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/skulitom/Nestbolt
+2026-10-15T08:32:22.9535105Z ##[endgroup]
+2026-10-15T08:32:22.9537230Z ##[group]Disabling automatic garbage collection
+2026-10-15T08:32:22.9548130Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-10-15T08:32:23.0607873Z ##[endgroup]
+2026-10-15T08:32:23.0610492Z ##[group]Setting up auth
+2026-10-15T08:32:23.0612402Z Removing SSH command configuration
+2026-10-15T08:32:23.0619631Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T08:32:23.1698489Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-15T08:32:25.3156228Z Removing HTTP extra header
+2026-10-15T08:32:25.3168961Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T08:32:25.4992739Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-15T08:32:27.8226933Z Removing includeIf entries pointing to credentials config files
+2026-10-15T08:32:27.8242046Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T08:32:28.0214431Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-15T08:32:29.9878169Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-10-15T08:32:30.1874527Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/Nestbolt/Nestbolt/.git.path D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:30.3678636Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:30.5737034Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:30.7519908Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:30.9492838Z ##[endgroup]
+2026-10-15T08:32:30.9493330Z ##[group]Fetching the repository
+2026-10-15T08:32:30.9513051Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2eecbf17f258f51fb91f6869987b4914e62747e9:refs/remotes/origin/main
+2026-10-15T08:32:37.3272740Z From https://github.com/skulitom/Nestbolt
+2026-10-15T08:32:37.3277397Z  * [new ref]         2eecbf17f258f51fb91f6869987b4914e62747e9 -> origin/main
+2026-10-15T08:32:37.3332425Z [command]"C:\Program Files\Git\bin\git.exe" branch --list --remote origin/main
+2026-10-15T08:32:37.3713996Z   origin/main
+2026-10-15T08:32:37.3757431Z [command]"C:\Program Files\Git\bin\git.exe" rev-parse refs/remotes/origin/main
+2026-10-15T08:32:37.4017908Z 2eecbf17f258f51fb91f6869987b4914e62747e9
+2026-10-15T08:32:37.4048317Z ##[endgroup]
+2026-10-15T08:32:37.4048734Z ##[group]Determining the checkout info
+2026-10-15T08:32:37.4050342Z ##[endgroup]
+2026-10-15T08:32:37.4059606Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-10-15T08:32:37.4492200Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-10-15T08:32:37.4798501Z ##[group]Checking out the ref
+2026-10-15T08:32:37.4807705Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force -B main refs/remotes/origin/main
+2026-10-15T08:32:38.5382614Z Updating files:  52% (1792/3423)
+2026-10-15T08:32:38.5656038Z Updating files:  53% (1815/3423)
+2026-10-15T08:32:38.5990907Z Updating files:  54% (1849/3423)
+2026-10-15T08:32:38.6201236Z Updating files:  55% (1883/3423)
+2026-10-15T08:32:38.6363441Z Updating files:  56% (1917/3423)
+2026-10-15T08:32:38.6816579Z Updating files:  57% (1952/3423)
+2026-10-15T08:32:38.7112228Z Updating files:  58% (1986/3423)
+2026-10-15T08:32:38.7525562Z Updating files:  59% (2020/3423)
+2026-10-15T08:32:38.7845539Z Updating files:  60% (2054/3423)
+2026-10-15T08:32:38.8235433Z Updating files:  61% (2089/3423)
+2026-10-15T08:32:38.8511064Z Updating files:  62% (2123/3423)
+2026-10-15T08:32:38.8818341Z Updating files:  63% (2157/3423)
+2026-10-15T08:32:38.9185192Z Updating files:  64% (2191/3423)
+2026-10-15T08:32:38.9430024Z Updating files:  65% (2225/3423)
+2026-10-15T08:32:38.9571053Z Updating files:  66% (2260/3423)
+2026-10-15T08:32:38.9710622Z Updating files:  67% (2294/3423)
+2026-10-15T08:32:38.9803775Z Updating files:  68% (2328/3423)
+2026-10-15T08:32:38.9931546Z Updating files:  69% (2362/3423)
+2026-10-15T08:32:39.0008398Z Updating files:  70% (2397/3423)
+2026-10-15T08:32:39.0185471Z Updating files:  71% (2431/3423)
+2026-10-15T08:32:39.0280689Z Updating files:  72% (2465/3423)
+2026-10-15T08:32:39.0457214Z Updating files:  73% (2499/3423)
+2026-10-15T08:32:39.0613704Z Updating files:  74% (2534/3423)
+2026-10-15T08:32:39.0816149Z Updating files:  75% (2568/3423)
+2026-10-15T08:32:39.1180107Z Updating files:  76% (2602/3423)
+2026-10-15T08:32:39.1809249Z Updating files:  77% (2636/3423)
+2026-10-15T08:32:39.2628995Z Updating files:  78% (2670/3423)
+2026-10-15T08:32:39.2741102Z Updating files:  79% (2705/3423)
+2026-10-15T08:32:39.2900799Z Updating files:  80% (2739/3423)
+2026-10-15T08:32:39.3048173Z Updating files:  81% (2773/3423)
+2026-10-15T08:32:39.3184232Z Updating files:  82% (2807/3423)
+2026-10-15T08:32:39.3296295Z Updating files:  83% (2842/3423)
+2026-10-15T08:32:39.3423444Z Updating files:  84% (2876/3423)
+2026-10-15T08:32:39.3541708Z Updating files:  85% (2910/3423)
+2026-10-15T08:32:39.3673071Z Updating files:  86% (2944/3423)
+2026-10-15T08:32:39.3838985Z Updating files:  87% (2979/3423)
+2026-10-15T08:32:39.3968053Z Updating files:  88% (3013/3423)
+2026-10-15T08:32:39.4107970Z Updating files:  89% (3047/3423)
+2026-10-15T08:32:39.4225990Z Updating files:  90% (3081/3423)
+2026-10-15T08:32:39.4334679Z Updating files:  91% (3115/3423)
+2026-10-15T08:32:39.4422736Z Updating files:  92% (3150/3423)
+2026-10-15T08:32:39.4543657Z Updating files:  93% (3184/3423)
+2026-10-15T08:32:39.4635207Z Updating files:  94% (3218/3423)
+2026-10-15T08:32:39.4866643Z Updating files:  95% (3252/3423)
+2026-10-15T08:32:39.4953337Z Updating files:  96% (3287/3423)
+2026-10-15T08:32:39.5044423Z Updating files:  97% (3321/3423)
+2026-10-15T08:32:39.5129071Z Updating files:  98% (3355/3423)
+2026-10-15T08:32:39.5234986Z Updating files:  99% (3389/3423)
+2026-10-15T08:32:39.5235428Z Updating files: 100% (3423/3423)
+2026-10-15T08:32:39.5235845Z Updating files: 100% (3423/3423), done.
+2026-10-15T08:32:39.5406958Z Switched to a new branch 'main'
+2026-10-15T08:32:39.5424927Z branch 'main' set up to track 'origin/main'.
+2026-10-15T08:32:39.5620880Z ##[endgroup]
+2026-10-15T08:32:39.5972892Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-10-15T08:32:39.6270561Z 2eecbf17f258f51fb91f6869987b4914e62747e9
+2026-10-15T08:32:39.6319039Z ##[group]Removing auth
+2026-10-15T08:32:39.6319333Z Removing SSH command configuration
+2026-10-15T08:32:39.6327399Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T08:32:39.6675991Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-15T08:32:40.2316952Z Removing HTTP extra header
+2026-10-15T08:32:40.2326662Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T08:32:40.2645423Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-15T08:32:40.8479333Z Removing includeIf entries pointing to credentials config files
+2026-10-15T08:32:40.8492125Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T08:32:40.8822609Z includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git.path
+2026-10-15T08:32:40.8823155Z includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T08:32:40.8823536Z includeif.gitdir:/github/workspace/.git.path
+2026-10-15T08:32:40.8824054Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T08:32:40.8876060Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git.path
+2026-10-15T08:32:40.9155538Z D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:40.9198464Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git.path D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:40.9511177Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T08:32:40.9776921Z D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:40.9823128Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:41.0125568Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-15T08:32:41.0394194Z /github/runner_temp/git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:41.0435628Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:41.0739125Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T08:32:41.1000719Z /github/runner_temp/git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:41.1040764Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:32:41.1335263Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-15T08:32:41.6908112Z Removing credentials config 'D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config'
+2026-10-15T08:32:41.6927950Z ##[endgroup]
+2026-10-15T08:32:41.7376380Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+2026-10-15T08:32:41.7377088Z with:
+2026-10-15T08:32:41.7377296Z   python-version: 3.11.5
+2026-10-15T08:32:41.7377527Z   check-latest: false
+2026-10-15T08:32:41.7380367Z   token: ***
+2026-10-15T08:32:41.7380571Z   update-environment: true
+2026-10-15T08:32:41.7380805Z   allow-prereleases: false
+2026-10-15T08:32:41.7381018Z   freethreaded: false
+2026-10-15T08:32:41.7381210Z ##[endgroup]
+2026-10-15T08:32:41.9132507Z ##[group]Installed versions
+2026-10-15T08:32:41.9150650Z Version 3.11.5 was not found in the local cache
+2026-10-15T08:32:42.5361972Z Version 3.11.5 is available for downloading
+2026-10-15T08:32:42.5364023Z Download from "https://github.com/actions/python-versions/releases/download/3.11.5-11113174019/python-3.11.5-win32-x64.zip"
+2026-10-15T08:32:42.9029824Z Extract downloaded archive
+2026-10-15T08:32:43.0090719Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command "$ErrorActionPreference = 'Stop' ; try { Add-Type -AssemblyName System.IO.Compression.ZipFile } catch { } ; try { [System.IO.Compression.ZipFile]::ExtractToDirectory('D:\a\_temp\python-3.11.5-win32-x64.zip', 'D:\a\_temp\95f7a30e-14f1-4379-a43d-43f2d6d87201', $true) } catch { if (($_.Exception.GetType().FullName -eq 'System.Management.Automation.MethodException') -or ($_.Exception.GetType().FullName -eq 'System.Management.Automation.RuntimeException') ){ Expand-Archive -LiteralPath 'D:\a\_temp\python-3.11.5-win32-x64.zip' -DestinationPath 'D:\a\_temp\95f7a30e-14f1-4379-a43d-43f2d6d87201' -Force } else { throw $_ } } ;"
+2026-10-15T08:32:43.4988641Z Execute installation script
+2026-10-15T08:32:46.1695060Z Check if Python hostedtoolcache folder exist...
+2026-10-15T08:32:46.1697096Z 
+2026-10-15T08:32:46.1831136Z Check if current Python version is installed...
+2026-10-15T08:32:46.1833323Z 
+2026-10-15T08:32:46.2010151Z Python3.11 (x64) was found in C:\hostedtoolcache\windows\Python...
+2026-10-15T08:32:46.2011659Z 
+2026-10-15T08:32:46.2308371Z Deleting C:\hostedtoolcache\windows\Python\3.11.9\x64...
+2026-10-15T08:32:46.2309912Z 
+2026-10-15T08:32:52.2560369Z VERBOSE: Performing the operation "Remove File" on target "C:\hostedtoolcache\windows\Python\3.11.9\x64.complete".
+2026-10-15T08:32:52.2562193Z 
+2026-10-15T08:32:52.2572301Z Remove registry entries for Python 3.11(x64)...
+2026-10-15T08:32:52.2573980Z 
+2026-10-15T08:32:52.7363657Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7364835Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\08E356D12B90BA045903D
+2026-10-15T08:32:52.7366191Z 71FE236F2A8".
+2026-10-15T08:32:52.7366393Z 
+2026-10-15T08:32:52.7387860Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7389196Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\196CDFA95E0451B438F5A
+2026-10-15T08:32:52.7389805Z 925A44C76C2".
+2026-10-15T08:32:52.7389926Z 
+2026-10-15T08:32:52.7412219Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7413584Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\3EB19F9AB3B14BC41A969
+2026-10-15T08:32:52.7414620Z 11ED37DB0AE".
+2026-10-15T08:32:52.7414841Z 
+2026-10-15T08:32:52.7435345Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7436308Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\68A2CA7599CEC9E4F99F5
+2026-10-15T08:32:52.7437010Z 1AD8AD8F1EA".
+2026-10-15T08:32:52.7437738Z 
+2026-10-15T08:32:52.7461039Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7462629Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\9E63B5246AE44B74883C7
+2026-10-15T08:32:52.7463188Z E89AB091388".
+2026-10-15T08:32:52.7465533Z 
+2026-10-15T08:32:52.7483077Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7484446Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\B210470B58B99404AB105
+2026-10-15T08:32:52.7486384Z AA8C8C42263".
+2026-10-15T08:32:52.7486566Z 
+2026-10-15T08:32:52.7503659Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7504320Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\C987830C5BCD3D24C815B
+2026-10-15T08:32:52.7504937Z 39CDD2BB609".
+2026-10-15T08:32:52.7505150Z 
+2026-10-15T08:32:52.7524410Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7525090Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\DBA30EEC9F5D4014FB5A2
+2026-10-15T08:32:52.7525626Z 570118B7DF1".
+2026-10-15T08:32:52.7526355Z 
+2026-10-15T08:32:52.7547803Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.7548479Z HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products\F07CEC9269D9B2746B1AE
+2026-10-15T08:32:52.7549094Z A5787739658".
+2026-10-15T08:32:52.7549310Z 
+2026-10-15T08:32:52.8255879Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.8257592Z HKEY_CLASSES_ROOT\Installer\Products\08E356D12B90BA045903D71FE236F2A8".
+2026-10-15T08:32:52.8258068Z 
+2026-10-15T08:32:52.8376105Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.8376813Z HKEY_CLASSES_ROOT\Installer\Products\196CDFA95E0451B438F5A925A44C76C2".
+2026-10-15T08:32:52.8377885Z 
+2026-10-15T08:32:52.8635289Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.8636231Z HKEY_CLASSES_ROOT\Installer\Products\3EB19F9AB3B14BC41A96911ED37DB0AE".
+2026-10-15T08:32:52.8637016Z 
+2026-10-15T08:32:52.8819257Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.8819995Z HKEY_CLASSES_ROOT\Installer\Products\68A2CA7599CEC9E4F99F51AD8AD8F1EA".
+2026-10-15T08:32:52.8820486Z 
+2026-10-15T08:32:52.9079868Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.9080744Z HKEY_CLASSES_ROOT\Installer\Products\9E63B5246AE44B74883C7E89AB091388".
+2026-10-15T08:32:52.9081782Z 
+2026-10-15T08:32:52.9232776Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.9233455Z HKEY_CLASSES_ROOT\Installer\Products\B210470B58B99404AB105AA8C8C42263".
+2026-10-15T08:32:52.9234408Z 
+2026-10-15T08:32:52.9339878Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.9340577Z HKEY_CLASSES_ROOT\Installer\Products\C987830C5BCD3D24C815B39CDD2BB609".
+2026-10-15T08:32:52.9341108Z 
+2026-10-15T08:32:52.9483608Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.9484316Z HKEY_CLASSES_ROOT\Installer\Products\DBA30EEC9F5D4014FB5A2570118B7DF1".
+2026-10-15T08:32:52.9485766Z 
+2026-10-15T08:32:52.9616798Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:52.9617291Z HKEY_CLASSES_ROOT\Installer\Products\F07CEC9269D9B2746B1AEA5787739658".
+2026-10-15T08:32:52.9618182Z 
+2026-10-15T08:32:53.0393268Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0394171Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{1D653E80-09B2-40AB-9530-7DF12E632F8A}".
+2026-10-15T08:32:53.0394622Z 
+2026-10-15T08:32:53.0424762Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0426119Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{29CEC70F-9D96-472B-B6A1-AE7578376985}".
+2026-10-15T08:32:53.0426941Z 
+2026-10-15T08:32:53.0481383Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0483637Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{425B36E9-4EA6-47B4-88C3-E798BA903188}".
+2026-10-15T08:32:53.0484482Z 
+2026-10-15T08:32:53.0543511Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0544845Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{57AC2A86-EC99-4E9C-9FF9-15DAA88D1FAE}".
+2026-10-15T08:32:53.0545953Z 
+2026-10-15T08:32:53.0669006Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0669856Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{9AFDC691-40E5-4B15-835F-9A524AC4672C}".
+2026-10-15T08:32:53.0670558Z 
+2026-10-15T08:32:53.0707403Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0708089Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{A9F91BE3-1B3B-4CB4-A169-19E13DD70BEA}".
+2026-10-15T08:32:53.0708792Z 
+2026-10-15T08:32:53.0739502Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0740450Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{B074012B-9B85-4049-BA01-A58A8C4C2236}".
+2026-10-15T08:32:53.0741539Z 
+2026-10-15T08:32:53.0788993Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0789756Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{C038789C-DCB5-42D3-8C51-3BC9DDB26B90}".
+2026-10-15T08:32:53.0791711Z 
+2026-10-15T08:32:53.0840094Z VERBOSE: Performing the operation "Remove Key" on target "Item: 
+2026-10-15T08:32:53.0841424Z HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Uninstall\{CEE03ABD-D5F9-4104-BFA5-520711B8D71F}".
+2026-10-15T08:32:53.0842234Z 
+2026-10-15T08:32:53.1549351Z Create Python 3.11.5 folder in C:\hostedtoolcache\windows\Python
+2026-10-15T08:32:53.1551018Z 
+2026-10-15T08:32:53.1594765Z Copy Python binaries to C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:32:53.1596867Z 
+2026-10-15T08:32:53.1715319Z Install Python 3.11.5 in C:\hostedtoolcache\windows\Python...
+2026-10-15T08:32:53.1716072Z 
+2026-10-15T08:33:32.2635293Z Create python3 symlink
+2026-10-15T08:33:32.2635663Z 
+2026-10-15T08:33:32.3024119Z 
+2026-10-15T08:33:32.3025020Z 
+2026-10-15T08:33:32.3031749Z Directory: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:32.3032495Z 
+2026-10-15T08:33:32.3032545Z 
+2026-10-15T08:33:32.3045051Z Mode                 LastWriteTime         Length Name
+2026-10-15T08:33:32.3050502Z ----                 -------------         ------ ----
+2026-10-15T08:33:32.3067537Z -a---l        10/15/2026   8:33 AM              0 python3.exe
+2026-10-15T08:33:32.3068512Z 
+2026-10-15T08:33:32.3079963Z Install and upgrade Pip
+2026-10-15T08:33:32.3081347Z 
+2026-10-15T08:33:34.8783592Z Looking in links: c:\Users\RUNNER~1\AppData\Local\Temp\tmpf4sl6kk_
+2026-10-15T08:33:34.8784195Z 
+2026-10-15T08:33:34.8797359Z Requirement already satisfied: setuptools in c:\hostedtoolcache\windows\python\3.11.5\x64\lib\site-packages (65.5.0)
+2026-10-15T08:33:34.8809119Z Requirement already satisfied: pip in c:\hostedtoolcache\windows\python\3.11.5\x64\lib\site-packages (23.2.1)
+2026-10-15T08:33:36.4234996Z Collecting pip
+2026-10-15T08:33:36.4239423Z Obtaining dependency information for pip from https://files.pythonhosted.org/packages/f3/6e/1736e5b4ae2b778ef2f81c47d797de9f891d4d8acb047a24ca37a60294dd/pip-26.2.1-py3-none-any.whl.metadata
+2026-10-15T08:33:36.6651663Z Downloading pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+2026-10-15T08:33:36.6845301Z Downloading pip-26.2.1-py3-none-any.whl (1.8 MB)
+2026-10-15T08:33:36.8989248Z 
+2026-10-15T08:33:36.8991271Z ---------------------------------------- 1.8/1.8 MB 10.5 MB/s eta
+2026-10-15T08:33:36.8991825Z 0:00:00
+2026-10-15T08:33:36.8993796Z 
+2026-10-15T08:33:36.9797772Z Installing collected packages: pip
+2026-10-15T08:33:36.9800494Z Attempting uninstall: pip
+2026-10-15T08:33:36.9832319Z Found existing installation: pip 23.2.1
+2026-10-15T08:33:37.1533381Z Uninstalling pip-23.2.1:
+2026-10-15T08:33:37.1805169Z Successfully uninstalled pip-23.2.1
+2026-10-15T08:33:39.8855269Z Successfully installed pip-26.2.1
+2026-10-15T08:33:40.7611714Z Create complete file
+2026-10-15T08:33:40.7612045Z 
+2026-10-15T08:33:40.7626980Z 
+2026-10-15T08:33:40.7627132Z 
+2026-10-15T08:33:40.8104500Z Successfully set up CPython (3.11.5)
+2026-10-15T08:33:40.8105509Z ##[endgroup]
+2026-10-15T08:33:40.8477412Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-15T08:33:40.8477869Z with:
+2026-10-15T08:33:40.8478059Z   node-version: 24.19.0
+2026-10-15T08:33:40.8478273Z   always-auth: false
+2026-10-15T08:33:40.8478480Z   check-latest: false
+2026-10-15T08:33:40.8481029Z   token: ***
+2026-10-15T08:33:40.8481213Z env:
+2026-10-15T08:33:40.8481477Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:40.8481952Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.5\x64/lib/pkgconfig
+2026-10-15T08:33:40.8482404Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:40.8482813Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:40.8483470Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:40.8483786Z ##[endgroup]
+2026-10-15T08:33:41.0406402Z Attempting to download 24.19.0...
+2026-10-15T08:33:41.0614331Z (node:8812) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-15T08:33:41.0615595Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-15T08:33:41.5320501Z Acquiring 24.19.0 - x64 from https://github.com/actions/node-versions/releases/download/24.19.0-30872449280/node-24.19.0-win32-x64.7z
+2026-10-15T08:33:41.8292365Z Extracting ...
+2026-10-15T08:33:44.1810100Z Adding to the cache ...
+2026-10-15T08:33:48.3062550Z ##[group]Environment details
+2026-10-15T08:33:49.4918176Z node: v24.19.0
+2026-10-15T08:33:49.4918438Z npm: 11.17.0
+2026-10-15T08:33:49.4918625Z yarn: 1.22.22
+2026-10-15T08:33:49.4919139Z ##[endgroup]
+2026-10-15T08:33:49.5275064Z ##[group]Run python scripts/maker_setup.py
+2026-10-15T08:33:49.5275568Z [36;1mpython scripts/maker_setup.py[0m
+2026-10-15T08:33:49.5406163Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-15T08:33:49.5406554Z env:
+2026-10-15T08:33:49.5406842Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:49.5407777Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.5\x64/lib/pkgconfig
+2026-10-15T08:33:49.5408318Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:49.5408739Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:49.5409160Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.5\x64
+2026-10-15T08:33:49.5409506Z ##[endgroup]
+2026-10-15T08:33:50.0253480Z Cloning into 'D:\a\Nestbolt\Nestbolt\.cache\upstream\boxes'...
+2026-10-15T08:33:52.2071492Z HEAD is now at b82a6c9 TrayLayout: read the --input file again on the command line (#975)
+2026-10-15T08:33:53.1063016Z Retrying https://openclipart.org/download/22109 after <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1006)>
+2026-10-15T08:33:58.3003998Z Retrying https://openclipart.org/download/22109 after HTTP Error 504: Gateway Time-out
+2026-10-15T08:34:08.4954631Z Retrying https://openclipart.org/download/22109 after HTTP Error 504: Gateway Time-out
+2026-10-15T08:34:28.7002491Z Traceback (most recent call last):
+2026-10-15T08:34:28.7003772Z   File "D:\a\Nestbolt\Nestbolt\scripts\maker_setup.py", line 72, in <module>
+2026-10-15T08:34:28.7004621Z     main()
+2026-10-15T08:34:28.7005332Z   File "D:\a\Nestbolt\Nestbolt\scripts\maker_setup.py", line 53, in main
+2026-10-15T08:34:28.7006359Z     data = fetch(download['url'])
+2026-10-15T08:34:28.7006912Z            ^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:28.7007656Z   File "D:\a\Nestbolt\Nestbolt\scripts\maker_setup.py", line 23, in fetch
+2026-10-15T08:34:28.7008820Z     return urlopen(Request(url, headers={'User-Agent': 'Nestbolt benchmark source fetcher'}), timeout=60).read()
+2026-10-15T08:34:28.7010467Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:28.7011808Z   File "C:\hostedtoolcache\windows\Python\3.11.5\x64\Lib\urllib\request.py", line 216, in urlopen
+2026-10-15T08:34:28.7014233Z     return opener.open(url, data, timeout)
+2026-10-15T08:34:28.7014820Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:28.7015793Z   File "C:\hostedtoolcache\windows\Python\3.11.5\x64\Lib\urllib\request.py", line 525, in open
+2026-10-15T08:34:28.7019576Z     response = meth(req, response)
+2026-10-15T08:34:28.7020117Z                ^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:28.7021086Z   File "C:\hostedtoolcache\windows\Python\3.11.5\x64\Lib\urllib\request.py", line 634, in http_response
+2026-10-15T08:34:28.7023684Z     response = self.parent.error(
+2026-10-15T08:34:28.7024247Z                ^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:28.7025159Z   File "C:\hostedtoolcache\windows\Python\3.11.5\x64\Lib\urllib\request.py", line 563, in error
+2026-10-15T08:34:28.7028295Z     return self._call_chain(*args)
+2026-10-15T08:34:28.7028808Z            ^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T08:34:28.7029734Z   File "C:\hostedtoolcache\windows\Python\3.11.5\x64\Lib\urllib\request.py", line 496, in _call_chain
+2026-10-15T08:34:28.7032172Z     result = func(*args)
+2026-10-15T08:34:28.7032601Z              ^^^^^^^^^^^
+2026-10-15T08:34:28.7033498Z   File "C:\hostedtoolcache\windows\Python\3.11.5\x64\Lib\urllib\request.py", line 643, in http_error_default
+2026-10-15T08:34:28.7037028Z     raise HTTPError(req.full_url, code, msg, hdrs, fp)
+2026-10-15T08:34:28.7037765Z urllib.error.HTTPError: HTTP Error 504: Gateway Time-out
+2026-10-15T08:34:28.8145837Z ##[error]Process completed with exit code 1.
+2026-10-15T08:34:28.8395613Z Post job cleanup.
+2026-10-15T08:34:29.0406360Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-15T08:34:29.0717774Z git version 2.55.0.windows.5
+2026-10-15T08:34:29.0795761Z Temporarily overriding HOME='D:\a\_temp\44566641-e1a6-462d-90ce-f9a8a0a1ff52' before making global git config changes
+2026-10-15T08:34:29.0797532Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T08:34:29.0808494Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\Nestbolt\Nestbolt
+2026-10-15T08:34:29.1165901Z Removing SSH command configuration
+2026-10-15T08:34:29.1177652Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T08:34:29.1502548Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-15T08:34:29.7020443Z Removing HTTP extra header
+2026-10-15T08:34:29.7032318Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T08:34:29.7340976Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-15T08:34:30.2749018Z Removing includeIf entries pointing to credentials config files
+2026-10-15T08:34:30.2761221Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T08:34:30.3027438Z includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git.path
+2026-10-15T08:34:30.3028259Z includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T08:34:30.3078651Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git.path
+2026-10-15T08:34:30.3350397Z D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:34:30.3400200Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git.path D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:34:30.3726496Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T08:34:30.4002790Z D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:34:30.4055170Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/Nestbolt/Nestbolt/.git/worktrees/*.path D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config
+2026-10-15T08:34:30.4370957Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-15T08:34:30.9839902Z Removing credentials config 'D:\a\_temp\git-credentials-e4e0b84e-3949-4652-9a83-d042c4d938f9.config'
+2026-10-15T08:34:31.0051477Z Cleaning up orphan processes
+2026-10-15T08:34:31.0748503Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

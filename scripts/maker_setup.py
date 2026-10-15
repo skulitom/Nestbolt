@@ -27,6 +27,18 @@ def fetch(url, attempts=4):
             print(f'Retrying {url} after {error}', flush=True)
             time.sleep(5 * 2 ** attempt)
 
+
+def source_data(download, bundled=CONFIG / 'source-downloads'):
+    """Use an attributed byte-exact local copy when present, still checking the pin."""
+    name = download['cache_name']
+    if Path(name).name != name or name in ('.', '..'):
+        raise ValueError(f'Invalid source cache name: {name}')
+    saved = bundled / name
+    data = saved.read_bytes() if saved.exists() else fetch(download['url'])
+    if sha256(data).hexdigest() != download['sha256']:
+        raise ValueError(f'Source checksum mismatch: {name}')
+    return data
+
 def main():
     config = json.loads((CONFIG / 'sources.json').read_bytes())
     if sys.version_info[:2] != (3, 11):
@@ -50,10 +62,7 @@ def main():
         for download in source.get('downloads', []):
             path = cache / download['cache_name']
             if not path.exists():
-                data = fetch(download['url'])
-                if sha256(data).hexdigest() != download['sha256']:
-                    raise ValueError(f'Source checksum mismatch: {download["cache_name"]}')
-                path.write_bytes(data)
+                path.write_bytes(source_data(download))
             elif sha256(path.read_bytes()).hexdigest() != download['sha256']:
                 raise ValueError(f'Cached source checksum mismatch: {path.name}')
     environment = ROOT / '.cache/maker-venv'
