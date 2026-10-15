@@ -1,0 +1,154 @@
+{
+  "scope": "Equal-work development replay for collision-score pruning; never quality gates.\n\nLetters and gear-1, seeds 0/1, 20 work seconds with a 120-second hard limit.\nValidate all originals and compare exact layouts, counters and metric values.\nWall times are diagnostic only. Use the unmodified reference binary first.\n",
+  "guards": {
+    "product": "277762671b6163cf799b2d015c9fff8e94d2dd3e964555f50e8b47c60aef5ebc",
+    "files": {
+      "output\\bin\\nestbolt-before-score-pruning-8b985b7.exe": "ae539d3ac99aaa874c369ad2a7b5f58f94f460f284a93de2a1f7db5381aadaef",
+      "scripts\\h4_score_replay.py": "835d90fe7bb71bbdc3be8a0f4b00e3dbb7c7ae718fe28eaccd4110e130dd2ceb",
+      "scripts\\h4_quality.py": "52a166ab0639d9fa208660c473b723aef92f33ae0313b9c7e316d15e1149e550",
+      "scripts\\h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+      "benchmarks\\datasets\\M\\m-public-gear-1.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+      "benchmarks\\datasets\\browser-quality\\letters\\job.json": "05194dcc572af812eb75c7f7a5d07004352b4c5c78e77415b7f304c29eb792f7"
+    }
+  },
+  "cases": [
+    {
+      "category": "public-art",
+      "held_out": false,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 50,
+        "secondary_scale": 0.65,
+        "copies_each": 20
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 40,
+      "files": {
+        "maker-assets/m-public-gear-1/curves.json": "9f9ba1193ef7bbe5c333e052d154fc41a750aea1944a69a9d36bae79e6608caa",
+        "M/m-public-gear-1.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+        "maker-assets/m-public-gear-1/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-1/parts.svg": "cf6e485956509bc00c3aa733306270d513e5c89563a6328c3fa3b2e725655616"
+      },
+      "path": "benchmarks/datasets/M/m-public-gear-1.json",
+      "sha256": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671"
+    },
+    {
+      "id": "example-letters",
+      "path": "benchmarks/datasets/browser-quality/letters/job.json",
+      "sha256": "05194dcc572af812eb75c7f7a5d07004352b4c5c78e77415b7f304c29eb792f7",
+      "parts": 45,
+      "copies": 156,
+      "declared_glyph_quantities": 147,
+      "maximum_geometry_json_roundtrip_difference": 5.684341886080802e-14,
+      "source": "web/public/examples/letters.svg",
+      "source_sha256": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "example": {
+        "id": "letters",
+        "title": "letters inside letters",
+        "file": "letters.svg",
+        "summary": "147 glyphs in four sizes; small ones nest inside the holes of large ones.",
+        "quantities": {
+          "letter-N-80mm": 1,
+          "letter-E-80mm": 1,
+          "letter-S-80mm": 1,
+          "letter-T-80mm": 1,
+          "letter-B-80mm": 1,
+          "letter-O-80mm": 1,
+          "letter-L-80mm": 1,
+          "letter-a-28mm": 2,
+          "letter-e-28mm": 2,
+          "letter-g-28mm": 2,
+          "letter-o-28mm": 2,
+          "letter-p-28mm": 2,
+          "letter-q-28mm": 2,
+          "letter-d-28mm": 2,
+          "letter-b-28mm": 2,
+          "sign-64-28mm": 2,
+          "sign-38-28mm": 2,
+          "letter-8-28mm": 2,
+          "letter-0-28mm": 2,
+          "letter-a-14mm": 4,
+          "letter-e-14mm": 4,
+          "letter-o-14mm": 4,
+          "letter-B-14mm": 4,
+          "letter-D-14mm": 4,
+          "letter-P-14mm": 4,
+          "letter-R-14mm": 4,
+          "letter-Q-14mm": 4,
+          "sign-37-14mm": 4,
+          "letter-9-14mm": 4,
+          "letter-6-14mm": 4,
+          "letter-a-7mm": 6,
+          "letter-e-7mm": 6,
+          "letter-o-7mm": 6,
+          "letter-s-7mm": 6,
+          "letter-g-7mm": 6,
+          "letter-b-7mm": 6,
+          "letter-d-7mm": 6,
+          "letter-p-7mm": 6,
+          "letter-q-7mm": 6,
+          "letter-8-7mm": 6,
+          "letter-0-7mm": 6,
+          "sign-64-7mm": 6
+        },
+        "rotations": {
+          "kind": "list",
+          "degrees": [
+            0,
+            90,
+            180,
+            270
+          ]
+        },
+        "sheet": [
+          600,
+          400
+        ],
+        "margin": 5,
+        "spacing": 1,
+        "edge": 1,
+        "seconds": 30
+      },
+      "import_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "import",
+          "C:\\DEV\\Nestbolt\\web\\public\\examples\\letters.svg",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\library.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.036388199994689785,
+        "cpu": 0
+      },
+      "job_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\project_job.exe",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\library.json",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\request.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03166340000461787,
+        "cpu": 0
+      },
+      "library": "benchmarks/datasets/browser-quality/letters/library.json",
+      "request": "benchmarks/datasets/browser-quality/letters/request.json"
+    }
+  ],
+  "seeds": [
+    0,
+    1
+  ],
+  "seconds": 20,
+  "timing": "work",
+  "time_limit": 120,
+  "cpus": [
+    8,
+    10
+  ],
+  "reference": null,
+  "held_out_read": false
+}

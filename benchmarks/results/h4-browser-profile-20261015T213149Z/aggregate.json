@@ -1,0 +1,143 @@
+{
+  "note": "Aggregate every call node by function name. Percentages describe summed sample deltas, not complete wall time. The gear coverage gap is unexplained.",
+  "rows": [
+    {
+      "job": "m-public-gear-1",
+      "sample_count": 13935,
+      "profile_span_seconds": 60.296467,
+      "sampled_seconds": 42.588584,
+      "unattributed_span_seconds": 17.707883,
+      "top_functions": [
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+          "sampled_seconds": 23.626319,
+          "sampled_percent": 55.47570917126524
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[7b76e7c0c021698e]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+          "sampled_seconds": 10.357778,
+          "sampled_percent": 24.320550314610134
+        },
+        {
+          "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+          "sampled_seconds": 2.305443,
+          "sampled_percent": 5.413288687879362
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+          "sampled_seconds": 1.218778,
+          "sampled_percent": 2.8617481154104585
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+          "sampled_seconds": 0.622093,
+          "sampled_percent": 1.4607036477193043
+        },
+        {
+          "function": "nestbolt_validator[d9460d1bc4cb4ebe]::make_ring",
+          "sampled_seconds": 0.524909,
+          "sampled_percent": 1.2325110409869464
+        },
+        {
+          "function": "<nestbolt_core[7b76e7c0c021698e]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+          "sampled_seconds": 0.428214,
+          "sampled_percent": 1.0054666292732344
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::fail_fast::pole::POINode>::new",
+          "sampled_seconds": 0.355981,
+          "sampled_percent": 0.8358601450567129
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collides::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter>",
+          "sampled_seconds": 0.280078,
+          "sampled_percent": 0.6576363280826618
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+          "sampled_seconds": 0.27324,
+          "sampled_percent": 0.6415803821981967
+        },
+        {
+          "function": "nestbolt_validator[d9460d1bc4cb4ebe]::boundary_distance",
+          "sampled_seconds": 0.247171,
+          "sampled_percent": 0.5803691430548619
+        },
+        {
+          "function": "nestbolt_validator[d9460d1bc4cb4ebe]::segments_touch",
+          "sampled_seconds": 0.242084,
+          "sampled_percent": 0.5684246275950382
+        }
+      ]
+    },
+    {
+      "job": "example-letters",
+      "sample_count": 13469,
+      "profile_span_seconds": 59.982087,
+      "sampled_seconds": 59.981924,
+      "unattributed_span_seconds": 0.000163,
+      "top_functions": [
+        {
+          "function": "<&mut <nestbolt_core[7b76e7c0c021698e]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+          "sampled_seconds": 32.939584,
+          "sampled_percent": 54.91585098203919
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+          "sampled_seconds": 10.241592,
+          "sampled_percent": 17.074463966844412
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[7b76e7c0c021698e]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+          "sampled_seconds": 8.075925,
+          "sampled_percent": 13.463931233683
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::fail_fast::pole::POINode>::new",
+          "sampled_seconds": 4.418648,
+          "sampled_percent": 7.3666326541976215
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+          "sampled_seconds": 1.040982,
+          "sampled_percent": 1.735492846144782
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+          "sampled_seconds": 0.35448,
+          "sampled_percent": 0.590978041984782
+        },
+        {
+          "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+          "sampled_seconds": 0.348235,
+          "sampled_percent": 0.5805665720225981
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+          "sampled_seconds": 0.241572,
+          "sampled_percent": 0.40274133253878286
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::new",
+          "sampled_seconds": 0.173226,
+          "sampled_percent": 0.2887970049110129
+        },
+        {
+          "function": "<nestbolt_core[7b76e7c0c021698e]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+          "sampled_seconds": 0.171237,
+          "sampled_percent": 0.28548100591104747
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <jagua_rs[9574aa9211a00dca]::collision_detection::cd_engine::CDEngine>::collect_poly_collisions<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector>::{closure#0}>",
+          "sampled_seconds": 0.140719,
+          "sampled_percent": 0.2346023445329963
+        },
+        {
+          "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collides::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter>",
+          "sampled_seconds": 0.133496,
+          "sampled_percent": 0.22256038335815972
+        }
+      ]
+    }
+  ]
+}

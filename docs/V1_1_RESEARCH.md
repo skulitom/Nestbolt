@@ -787,3 +787,16 @@ H1, H3 and H6 now total **45%**. H2, H4 and H5 remain open. This changes no thre
 ### 2026-10-15: isolated browser compiler pilot
 
 The [fat-LTO pilot](../benchmarks/results/h4-lto-probe-20261015.md) keeps source and search settings unchanged, and measures both compiler variants on the eleven H4 development jobs at 60 seconds, seed 0, in both browsers. All 44 layouts and eight additional public example validations pass with exact metric agreement. Relative to thin LTO, Chrome median material changes by -0.045601% and charged-work rate by +0.325196%; Firefox changes by +0.094779% material and -3.552800% charged-work rate, with a worst material increase of +3.365375%. These single-seed diagnostics do not justify changing the build. The candidate stays unintegrated; the original bindings/site were preserved and verified. All outputs and both builds are archived. H4 remains open and completion remains 45%.
+
+
+### 2026-10-15: bounded collision scoring passes the H4 subset
+
+[CPU profiles](../benchmarks/results/h4-browser-profile-20261015.md) identify weighted collision scoring as 54.915851% of letters' sampled time. Gear-1 remains dominated by edge/quadtree work and has an explicit 17.707883-second sampling gap. The [bounded-score implementation and full comparison](../benchmarks/results/h4-score-pruning-20261015.md) retain exact reference arithmetic and reject only already-worse partial scores. All eight candidate equal-work comparisons match the baseline exactly across two executable variants; geometry, randomness, work coefficients and search settings are unchanged.
+
+All 99 native/Chrome/Firefox layouts and 18 extra public example checks validate with exact metric agreement. Chrome passes the original +1% median/+5% worst subset bounds at +0.710335% / +3.316424%; Firefox passes at +0.664508% / +3.268252%. The scoring change is retained. All 297 workspace, 26 optimized CLI and 84 enabled browser tests pass. Mixed short native timings establish no speed gain; historical seed-0 browser charged-work-rate increases are trajectory-dependent diagnostics. The original failed subset and the report-only archive-inventory error remain preserved.
+
+Full G5 development quality, the 195-run native comparison against frozen 75cbb32 and current-build scale confirmation remain outstanding. The older M4 binary and final seeds are not substitutes for that development comparison. H4 stays open and completed weight stays 45%.
+
+### 2026-10-15: common-line final-sheet assignment inspection
+
+[Read-only inspection of twelve retained H5 median layouts](../benchmarks/results/h5-last-sheet-inspection-20261015.md) verifies every source archive and used job/layout hash. For one 0.2 mm large-plates bonus assignment, even filled outer area divided by gross sheet area exceeds the material guard. Compressing that same final sheet cannot pass; changing its assignment may. The other weak bounds do not prove packability. This supports a future exchange strategy while preserving holes, validity and the deadline. No new searches, relaxed threshold or H5 completion claim.

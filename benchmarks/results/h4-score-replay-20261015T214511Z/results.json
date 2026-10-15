@@ -1,0 +1,348 @@
+{
+  "scope": "Equal-work development replay for collision-score pruning; never quality gates.\n\nLetters and gear-1, seeds 0/1, 20 work seconds with a 120-second hard limit.\nValidate all originals and compare exact layouts, counters and metric values.\nWall times are diagnostic only. Use the unmodified reference binary first.\n",
+  "rows": [
+    {
+      "job": "m-public-gear-1",
+      "seed": 0,
+      "passed": true,
+      "directory": "benchmarks/results/h4-score-replay-20261015T214511Z/s0/m-public-gear-1",
+      "run": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "sheets",
+          "--job",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-public-gear-1.json",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s0\\m-public-gear-1\\layout.json",
+          "--seconds",
+          "20",
+          "--seed",
+          "0",
+          "--repeatable",
+          "--time-limit",
+          "120"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 9.7595491999964,
+        "cpu": 8
+      },
+      "validation": {
+        "status": "valid",
+        "material": 0.980021415,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-public-gear-1.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s0\\m-public-gear-1\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.296912899997551,
+          "cpu": 8
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 9.5876965,
+        "accepted_at_seconds": 9.05999348447786,
+        "layout_sha256": "a46d2185bd02099bd4eff7be62e909dd8b9c5dc52a6f295a401326f579104cd8"
+      },
+      "counts": {
+        "evaluations": 207498.0,
+        "evaluated_vertices": 303232356.0,
+        "tracked_items": 897.0,
+        "registered_items": 914.0,
+        "containers": 32.0,
+        "constructor_checks": 372318.1673911441,
+        "tracked_vertices": 1307232.0,
+        "validated_vertices": 79770.0,
+        "rect_operations": 10305258.0
+      },
+      "work": 10.01036023247786,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 3,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 1,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 40,
+        "requested_parts": 40,
+        "placed_area": 19084.109068241523,
+        "placed_priority": 40.0,
+        "full_stock_area": 60000.0,
+        "material_area": 58801.2849,
+        "normalized_material": 0.980021415,
+        "utilization": 0.3245525858949644,
+        "trailing_offcut_area": 1198.7151000000013,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 196.004283
+      },
+      "identical_layout_counters_history_validation": true
+    },
+    {
+      "job": "example-letters",
+      "seed": 0,
+      "passed": true,
+      "directory": "benchmarks/results/h4-score-replay-20261015T214511Z/s0/example-letters",
+      "run": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "sheets",
+          "--job",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\job.json",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s0\\example-letters\\layout.json",
+          "--seconds",
+          "20",
+          "--seed",
+          "0",
+          "--repeatable",
+          "--time-limit",
+          "120"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 13.671497500006808,
+        "cpu": 10
+      },
+      "validation": {
+        "status": "valid",
+        "material": 0.29933324999999994,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\job.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s0\\example-letters\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.1570161999989068,
+          "cpu": 10
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 13.5015195,
+        "accepted_at_seconds": 10.139726607971152,
+        "layout_sha256": "a3ca5c8c3be9a60e3c0cb1082b11c0e75e43d9c3ddaf03de4a2150150a64ee04"
+      },
+      "counts": {
+        "evaluations": 385190.0,
+        "evaluated_vertices": 108849776.0,
+        "tracked_items": 11811.0,
+        "registered_items": 11811.0,
+        "containers": 76.0,
+        "constructor_checks": 192074.30758846077,
+        "tracked_vertices": 2902716.0,
+        "validated_vertices": 104807.0,
+        "rect_operations": 60000083.0
+      },
+      "work": 10.139726607971152,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 156,
+        "requested_parts": 156,
+        "placed_area": 41376.265033156866,
+        "placed_priority": 156.0,
+        "full_stock_area": 240000.0,
+        "material_area": 71839.97999999998,
+        "normalized_material": 0.29933324999999994,
+        "utilization": 0.5759503974410471,
+        "trailing_offcut_area": 168160.02000000002,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 119.7333
+      },
+      "identical_layout_counters_history_validation": true
+    },
+    {
+      "job": "m-public-gear-1",
+      "seed": 1,
+      "passed": true,
+      "directory": "benchmarks/results/h4-score-replay-20261015T214511Z/s1/m-public-gear-1",
+      "run": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "sheets",
+          "--job",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-public-gear-1.json",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s1\\m-public-gear-1\\layout.json",
+          "--seconds",
+          "20",
+          "--seed",
+          "1",
+          "--repeatable",
+          "--time-limit",
+          "120"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 10.066695100002107,
+        "cpu": 8
+      },
+      "validation": {
+        "status": "valid",
+        "material": 0.9811528350000001,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-public-gear-1.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s1\\m-public-gear-1\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.3058947999961674,
+          "cpu": 8
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 10.0376173,
+        "accepted_at_seconds": 7.90167107613733,
+        "layout_sha256": "7ffc63e841d1bb91bfc41d70386adb65ae5780255fe05f6b40224893d466d5e6"
+      },
+      "counts": {
+        "evaluations": 228962.0,
+        "evaluated_vertices": 334614404.0,
+        "tracked_items": 661.0,
+        "registered_items": 618.0,
+        "containers": 26.0,
+        "constructor_checks": 372634.7704549322,
+        "tracked_vertices": 959412.0,
+        "validated_vertices": 60310.0,
+        "rect_operations": 10310382.0
+      },
+      "work": 10.00901087213733,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 2,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 1,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 40,
+        "requested_parts": 40,
+        "placed_area": 19084.109068241523,
+        "placed_priority": 40.0,
+        "full_stock_area": 60000.0,
+        "material_area": 58869.1701,
+        "normalized_material": 0.9811528350000001,
+        "utilization": 0.3241783268869544,
+        "trailing_offcut_area": 1130.829899999997,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 196.23056699999998
+      },
+      "identical_layout_counters_history_validation": true
+    },
+    {
+      "job": "example-letters",
+      "seed": 1,
+      "passed": true,
+      "directory": "benchmarks/results/h4-score-replay-20261015T214511Z/s1/example-letters",
+      "run": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "sheets",
+          "--job",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\job.json",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s1\\example-letters\\layout.json",
+          "--seconds",
+          "20",
+          "--seed",
+          "1",
+          "--repeatable",
+          "--time-limit",
+          "120"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 13.112302399997134,
+        "cpu": 10
+      },
+      "validation": {
+        "status": "valid",
+        "material": 0.2976472375,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\job.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-score-replay-20261015T214511Z\\s1\\example-letters\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.15086480000172742,
+          "cpu": 10
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 13.0815739,
+        "accepted_at_seconds": 10.132503419971929,
+        "layout_sha256": "d58396e9798018cb7dd8ef66ee43a89a7ea2132151707f60fa42084a2fe4d54e"
+      },
+      "counts": {
+        "evaluations": 349738.0,
+        "evaluated_vertices": 87134356.0,
+        "tracked_items": 12474.0,
+        "registered_items": 12474.0,
+        "containers": 82.0,
+        "constructor_checks": 203099.69038877077,
+        "tracked_vertices": 3080583.0,
+        "validated_vertices": 104099.0,
+        "rect_operations": 60004688.0
+      },
+      "work": 10.132503419971929,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 156,
+        "requested_parts": 156,
+        "placed_area": 41376.26503315686,
+        "placed_priority": 156.0,
+        "full_stock_area": 240000.0,
+        "material_area": 71435.337,
+        "normalized_material": 0.2976472375,
+        "utilization": 0.579212848581604,
+        "trailing_offcut_area": 168564.663,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 119.05889499999999
+      },
+      "identical_layout_counters_history_validation": true
+    }
+  ],
+  "all_passed": true,
+  "guards_unchanged": true,
+  "gate_evidence": false
+}

@@ -174,6 +174,15 @@ Surfaces:
   - Record it as `benchmarks/results/h2-lightburn-*.md`, with screenshots.
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
+**N1 native accounting update, 2026-10-15:** the [completed H3 review](../benchmarks/results/h3-complete-20261015.md)
+accounts for all 59 original projects: 48 imported originals match unit membership,
+physical cutting holes, fixed shapes and cutting layers; all eleven original
+rejections remain explicit. Approved repairs supply complete geometry checks for
+the 122 uncached Text objects without changing the original files or labels. This
+supports H2's native accounting but does not replace its complete warning/fidelity
+review or remaining reserved evaluation. The original held-out success threshold
+and pending denominator clarification remain unchanged. H2 is still open.
+
 ### 4.3 N2: LightBurn `.lbrn2` round-trip
 
 1. **Probe the format locally first** (before the trial ends). Make small projects in Anode that isolate:
@@ -340,7 +349,18 @@ is still 20% and no gate thresholds change.
 **N3 compiler follow-up, 2026-10-15:** the [isolated fat-LTO pilot](../benchmarks/results/h4-lto-probe-20261015.md)
 validates all 44 layouts, but the small Chrome improvement comes with worse Firefox
 material use and charged-work rate. The compiler change is not integrated. The
-original failed subset remains authoritative; H4 stays open and completion is 45%.
+original failed subset remained authoritative at that checkpoint; H4 stayed open
+and completion was 45%.
+
+**N3 bounded-score checkpoint, 2026-10-15:** the [profile-led scoring change](../benchmarks/results/h4-score-pruning-20261015.md)
+preserves reference arithmetic and equal-score behavior while stopping already-worse
+collision scores early. All eight equal-work candidate comparisons are exact. All
+99 development layouts and 18 extra public example validations pass. Chrome and
+Firefox both pass the unchanged subset limits: median +0.710335% / +0.664508%,
+worst +3.316424% / +3.268252%. The change is retained; full G5, the 195-run native
+comparison and current-build scale confirmation remain open. All 297 workspace,
+26 optimized CLI and 84 enabled browser tests pass. No geometry, search setting,
+gate or held-out allocation changes; H4 remains incomplete and completion is 45%.
 
 ### 4.5 N4: common-line cutting
 

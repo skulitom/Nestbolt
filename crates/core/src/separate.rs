@@ -37,6 +37,8 @@ use sparrow::{
 
 use crate::clock::{Clock, Deadline, Work};
 
+mod score;
+
 /// Ceiling for guided-local-search weights. Sparrow's update has none: a pair
 /// that collides on every iteration grows by up to 2x each time until f32
 /// overflows, and an infinite weight never decays, so every overlap with that
@@ -320,7 +322,29 @@ impl SampleEvaluator for Evaluator<'_> {
         let ignored = collector.len();
         let mut loss = 0.0;
         let mut stop = |hazard: BasicHazardEntity| {
-            loss += weighted(layout, tracker, *key, &hazard, shape);
+            // Any collision ranks below a clear placement, regardless of its
+            // numerical loss. Keep checking geometry, but skip quantification.
+            if matches!(upper_bound, Some(SampleEval::Clear { .. })) {
+                return true;
+            }
+            let value = match hazard {
+                BasicHazardEntity::PlacedItem { pk, .. }
+                    if Some(layout.placed_items()[pk].item().idx()) != tracker.pinned =>
+                {
+                    score::pair(
+                        layout.placed_items()[pk].shape(),
+                        shape,
+                        tracker.pair_weight(*key, pk),
+                        loss,
+                        bound,
+                    )
+                }
+                _ => Some(weighted(layout, tracker, *key, &hazard, shape)),
+            };
+            let Some(value) = value else {
+                return true;
+            };
+            loss += value;
             loss > bound
         };
         let cde = layout.cde();
@@ -771,6 +795,99 @@ mod tests {
             width: side,
             height: side,
         }
+    }
+
+    #[test]
+    fn bounded_samples_match_full_scores_for_items_blockers_and_exterior() {
+        let importer = Importer::new(DEFAULT_SPARROW_CONFIG.cde_config, None, None);
+        let container = importer
+            .import_container(&ExtContainer {
+                id: 0,
+                shape: square(80.0),
+                zones: vec![],
+            })
+            .unwrap();
+        let items: Vec<_> = [10.0, 24.0]
+            .into_iter()
+            .enumerate()
+            .map(|(i, side)| {
+                importer
+                    .import_item(
+                        &ExtItem {
+                            id: i as u64,
+                            shape: square(side),
+                            orientation: ExtOrientation {
+                                rotation: ExtRotation::Continuous {},
+                                reflection_axes: vec![90.0],
+                            },
+                            min_quality: None,
+                        },
+                        i,
+                    )
+                    .unwrap()
+            })
+            .collect();
+        let mut layout = Layout::new(container);
+        let key = layout.place_item(&items[0], DTransformation::new(0.0, (12.0, 12.0)));
+        layout.place_item(&items[0], DTransformation::new(0.0, (18.0, 12.0)));
+        layout.place_item(&items[1], DTransformation::new(0.0, (32.0, 32.0)));
+        let tracker = Tracker::pinned(&layout, Some(1));
+        let (mut clear, mut collisions) = (0, 0);
+        for position in [
+            (-15.0, -15.0),
+            (12.0, 12.0),
+            (18.0, 12.0),
+            (32.0, 32.0),
+            (65.0, 65.0),
+            (90.0, 30.0),
+        ] {
+            for reflected in [false, true] {
+                for rotation in [0.0, 0.37, 1.57] {
+                    let dt = DTransformation::new(rotation, position).with_reflection(reflected);
+                    let full =
+                        Evaluator::new(&layout, &items[0], key, &tracker).evaluate_sample(dt, None);
+                    let score = match full {
+                        SampleEval::Clear { loss } => {
+                            clear += 1;
+                            loss
+                        }
+                        SampleEval::Collision { loss } => {
+                            collisions += 1;
+                            loss
+                        }
+                        SampleEval::Invalid => panic!("unbounded sample cannot be pruned"),
+                    };
+                    for bound in [
+                        SampleEval::Clear { loss: 0.0 },
+                        SampleEval::Collision {
+                            loss: score.next_down().max(0.0),
+                        },
+                        SampleEval::Collision { loss: score },
+                        SampleEval::Collision {
+                            loss: score.next_up(),
+                        },
+                        SampleEval::Invalid,
+                    ] {
+                        let expected = match (full, bound) {
+                            (SampleEval::Collision { .. }, SampleEval::Clear { .. }) => {
+                                SampleEval::Invalid
+                            }
+                            (
+                                SampleEval::Collision { loss },
+                                SampleEval::Collision { loss: limit },
+                            ) if loss > limit => SampleEval::Invalid,
+                            _ => full,
+                        };
+                        assert_eq!(
+                            Evaluator::new(&layout, &items[0], key, &tracker)
+                                .evaluate_sample(dt, Some(bound)),
+                            expected
+                        );
+                    }
+                }
+            }
+        }
+        assert!(clear > 0 && collisions > 0);
     }
 
     #[test]
