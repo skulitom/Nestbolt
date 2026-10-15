@@ -300,9 +300,12 @@ now derives coverage from the original job, independently evaluates original
 curve attachments and checks owner material as well as neighbours and stock.
 The final check is shared by all public surfaces. Explicit flags remain unresolved
 contours. The [rigid-group checkpoint](../benchmarks/results/h6-lead-group-checkpoint-20261015.md)
-adds multipart planning and separate cutting files under reviewed decision 4;
-the required allowance-cost comparison is still pending. This evidence does not
-change the gate or its completion state.
+adds multipart planning and separate cutting files under reviewed decision 4.
+**H6 completed on 2026-10-15:** [gate evidence and material-cost report](../benchmarks/results/h6-complete-20261015.md)
+cover all five requirements. All 156 development layouts validate; median material
+cost is +1.0696% for laser and +6.0951% for plasma, with unresolved small-hole
+contours explicitly flagged. Original native-previewed starts/plans revalidate
+unchanged. No gate threshold, held-out split or published v1 claim changed.
 
 ## 5. Tests and evidence
 

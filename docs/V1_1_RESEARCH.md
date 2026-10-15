@@ -528,3 +528,8 @@ remain pending.
 ## Local update — grouped lead cutting files (2026-10-15)
 
 Artem approved [plan decision 4](PLAN_V1_1.md#10-reviewed-decisions): new contour starts and LEADIN review paths belong in separate SVG/DXF cutting files, while the editable LBRN2 retains its original starts/settings. The [authored group/native check](../benchmarks/results/h6-lead-group-checkpoint-20261015.md) confirms preserved children/settings and native import of disconnected cuts, holes, an island and open paths. All thirty native contour comparisons and sixteen closed-contour starts pass the 0.01 mm tolerance. This is local format/feature evidence, not an allowance-cost benchmark or H6 completion. Engraving and image bounds are protected artwork, never cutting-file geometry.
+
+
+### Local update — 2026-10-15: H6 material costs and gate closure
+
+The [completed H6 evidence](../benchmarks/results/h6-complete-20261015.md) now includes all 156 layouts on the frozen 13-job development set, both kerfs and three seeds. Default lead allowances add median material costs of +1.0696% (0.2 mm laser) and +6.0951% (1.5 mm plasma), measured against the same common-line workflow without leads. Plasma small-hole flags remain explicit; this is not a promise of automatic leads for every contour. One report-order comparator error was resolved on the same saved layout with unchanged numerical tolerance; original failures remain. Original native coupons and mixed settings revalidate unchanged. H6 is complete and overall v1.1 completion is 20%; no published v1 quality claim or held-out allocation changes.

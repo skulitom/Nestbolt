@@ -47,6 +47,27 @@ def equivalent(a, b, path='report'):
     return 0
 
 
+def equivalent_common(a, b):
+    # COMMON has no cutting-order contract. A JSON f64 round trip can reorder
+    # edges with equal X bounds. Pair these two unordered collections using
+    # stable keys, then compare their UNROUNDED coordinates at the same 1e-9
+    # tolerance. Keep segment order, owner order, multiplicity and every field.
+    def key(value):
+        def stable(v):
+            if isinstance(v,float): return round(v,8)
+            if isinstance(v,dict): return {k:stable(x) for k,x in v.items()}
+            if isinstance(v,list): return [stable(x) for x in v]
+            return v
+        return json.dumps(stable(value),sort_keys=True)
+    def canonical(reports):
+        result=deepcopy(reports)
+        for report in result:
+            for field in ['shared_edges','paths']:
+                report[field].sort(key=key)
+        return result
+    return equivalent(canonical(a),canonical(b),'common_line')
+
+
 def run(command, folder, name, cpu, timeout):
     started=time.perf_counter()
     with (folder/(name+'-stdout.json')).open('wb') as out, (folder/(name+'-stderr.log')).open('wb') as err:
@@ -92,7 +113,7 @@ def case(row, job, kerf, seed, leads, seconds, work, evidence, cpus):
         checked=json.loads((folder/'validate-stdout.json').read_text(encoding='utf-8'))
         assert report['validation']['valid'] and checked['valid']
         delta=equivalent(checked['metrics'],report['validation']['metrics'],'metrics')
-        delta=max(delta,equivalent(checked['common_line'],report['common_line'],'common_line'))
+        delta=max(delta,equivalent_common(checked['common_line'],report['common_line']))
         record['material']=checked['metrics']['normalized_material']
         record['metrics']=checked['metrics']
         record['cut_without_common_mm']=sum(s['cut_length_without_common_mm'] for s in report['common_line'])
