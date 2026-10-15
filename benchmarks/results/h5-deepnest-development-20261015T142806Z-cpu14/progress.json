@@ -1,0 +1,316 @@
+{
+  "scope": "Bounded Anode-only H5 Deepnest comparison: original parts, spacing zero, SVG export.\n\nRun one batch per physical CCD0 core, no more than three cases per Anode job.\nAll failures, native candidates, inputs and outputs are archived. No uploads.\n",
+  "started_at": "20261015T142806Z",
+  "revision": "1e7ba6e2382557f337ad481ca3251fc22032ca0f",
+  "guards": {
+    "product": "0ad15c12922fef7a55fca39b7683b485e1fb4b7f0e73846ab0d8884b9e4e167f",
+    "binary": "4cec132d9540524a0007b2a0894d6682064d42709ee971b48860d4199712137a",
+    "manifest": "922d36732c6e7624b1c5501c8320effb12b33f37d7361cc5d5856b28d19ca814",
+    "runner_sources": {
+      "scripts/deepnest.py": "84afc9bc64bf6f1a28ca91dc3fde180312e10e20d356156f35f72e63b325d2b2",
+      "scripts/deepnest_io.py": "b2da81051067c1f06bbdfba12bb07041188ca2eb154eb0527ea899081efadaac",
+      "scripts/svgnest.py": "a93df65af226ce3bc65cac7b65b6d98f6b284b0e091f1019ccd1b46eb804b08d",
+      "scripts/svgnest_io.py": "6d81807070f7e09cf5bd5be83bf378f4b6b0410b4cc343316f70f2ce435df782",
+      "scripts/svg_export_transform.py": "8082f1f8d3eb690905be9177e4c8a67151eebbca37f8df6bf078592ec03d10d0",
+      "scripts/benchmark_io.py": "d256c7656e78519e0912059de0c04451931193341d1ea28f66601894868a8062",
+      "benchmarks/deepnest/tool.json": "979115cc9519df35837bd3dbd909ca1e3e254bb8935ae93c57ae9572b2954db2",
+      "benchmarks/browser/deepnest.mjs": "13e6ff2bc4405b65b6336777f16a56b1f09865925e57221be68907607f74025a",
+      "benchmarks/browser/deepnest-lifecycle.mjs": "cc0ccae51c899193f0d2e3ab26660c2b0e6d32058bc2b8620b5e7365ace2b093",
+      "benchmarks/browser/deepnest-preload.cjs": "7060538ec59a54425f60cef7f6a5be128afd12e8e18d6f9be3e63d43e10bb6c0",
+      "benchmarks/browser/deepnest-bootstrap.cjs": "e7ef12810d26d3d9d5e919c22b14d5e897fa99245148137af3f052319b05d975",
+      "benchmarks/browser/cpu-limit.mjs": "6b04a91f8ab1a17964561d42650fdb29a5d4c54ae915718e49397df304843b37",
+      "benchmarks/browser/cpu-job.ps1": "96527e058cb1ee3e635a1d1280e31a34c111a29e780f82b89e1ae0a106829de2",
+      "benchmarks/browser/package.json": "2fe9b297484ee275290a5ded89619a360fbc5304e1d94623d9559f09057e2cc9",
+      "benchmarks/browser/cpu-tree-job.ps1": "9383013823a4fd9c52f539e0dd1ee5eee466cb1e8dfa468208f7a9b5acfccd22",
+      "benchmarks/browser/package-lock.json": "1f17b99d985a6fb13cdf2c5413a7df263332133acf1541a1604de530b6bb5f6e",
+      "scripts/stock_inputs.py": "d50235f05b836a9d6ab7d88b25283cd77fe25a6a05178ec380648fb5cad710af",
+      "crates/validator/examples/stock_adapter.rs": "8a5b68963bc68a31df92f8fc62fb977846f05f6f93d3af8f2001ebcd2807dfb4",
+      "scripts/dataset_selection.py": "7563c472331d6161e67937d6f8cd75c8e6cc67672111c7e97c8e8d7f1f205553",
+      "scripts/comparison_cases.py": "765cc2db97ac7798e4727622790dba734774a589f6cd8e2aeafc3aa8f6281548",
+      "scripts/matrix_plan.py": "2ade0404b4773bd831bb4f499abe18e148fa8bd244006a235ad3eae70b0cf787",
+      "benchmarks/matrix-plan.json": "3321c4fe4f15d79644f27afc9076e398d3e31eac79c273e0794857d0b7f8f7e1",
+      "scripts/h5_deepnest_cost.py": "08095afe75387699c1222d215618b961e8653336b4a5c2d51126b949a3792a8f",
+      "scripts/h5_deepnest_svg.py": "3bfb72b63f1cb963cf36eee6ac01d287630caa522a1592edf4eecabcdfb0efb5",
+      "scripts/cutting_development_set.py": "04b849cd11d9c9f4f601835965f15a846918d1c42b5436ece4f02c10916a960d",
+      "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+      "benchmarks/browser/deepnest-cut-export.mjs": "0c7b3f02bf516aeed2dfe9d8d4522359c2a5896e2043bcf4d5a0bf04b740ee36"
+    },
+    "export_service": "1ca3be3e934574a57e2672fa7cb4d7d6882cbbbc8f662512747414bed524b9b8"
+  },
+  "jobs": [
+    "m-mechanical-large-plates",
+    "m-mechanical-panel-hardware",
+    "c-rect-equal"
+  ],
+  "seed": 0,
+  "seconds": 60,
+  "cpu": 14,
+  "settings": {
+    "curveTolerance": 0.005,
+    "endpointTolerance": 0.001,
+    "rotations": 4,
+    "free_rotation_samples": 4,
+    "populationSize": 10,
+    "mutationRate": 10,
+    "threads": 1,
+    "placementType": "box",
+    "mergeLines": true,
+    "timeRatio": 0.5,
+    "scale": 25.4,
+    "simplify": false
+  },
+  "setup_cpus": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "search_affinity_stage": "after import, before timed solve",
+  "python_dependencies": {
+    "psutil": "5.9.8",
+    "svgpathtools": "1.8.0",
+    "shapely": "2.1.2"
+  },
+  "held_out_geometry_read": false,
+  "network_blocked": true,
+  "no_dxf_conversion": true,
+  "work_directory": "output/h5-deepnest-development-20261015T142806Z-cpu14",
+  "rows": [
+    {
+      "job": "m-mechanical-large-plates",
+      "original_job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "seed": 0,
+      "seconds": 60,
+      "cpu": 14,
+      "status": "valid",
+      "score": 1.297109018,
+      "controller": {
+        "exit_code": 0,
+        "elapsed_wall_seconds": 91.26472410000133
+      },
+      "native_status": "completed",
+      "native_errors": [],
+      "candidates": 1,
+      "validation_process": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--job",
+          "C:\\DEV\\Nestbolt\\output\\h5-deepnest-development-20261015T142806Z-cpu14\\m-mechanical-large-plates-s0\\zero-spacing-job.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-deepnest-development-20261015T142806Z-cpu14\\m-mechanical-large-plates-s0\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.07481740000366699,
+        "cpu": 14
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 66,
+          "requested_parts": 66,
+          "placed_area": 2791081.8468156597,
+          "placed_priority": 66.0,
+          "full_stock_area": 9000000.0,
+          "material_area": 5836990.581,
+          "normalized_material": 1.297109018,
+          "utilization": 0.478171380968288,
+          "trailing_offcut_area": 3163009.4189999998,
+          "last_sheet_id": "0000-0001",
+          "last_sheet_used_height": 891.327054
+        }
+      },
+      "svg_audit": {
+        "tolerance_mm": 0.001,
+        "source_cut_length_mm": 111168.02189345921,
+        "exports": {
+          "unmerged": {
+            "length_mm": 111168.02189345921,
+            "segments": 11454,
+            "extra_length_mm": 0.0,
+            "missing_length_mm": 0.0,
+            "width_mm": 2987.0,
+            "height_mm": 2974.0,
+            "mm_per_native_unit": 1.0
+          },
+          "merged": {
+            "length_mm": 94414.63081442,
+            "segments": 11368,
+            "extra_length_mm": 0.0,
+            "missing_length_mm": 0.0,
+            "width_mm": 2987.0,
+            "height_mm": 2974.0,
+            "mm_per_native_unit": 1.0
+          }
+        },
+        "native_merged_length_mm": 35023.39107884923,
+        "export_saved_length_mm": 16753.39107903921,
+        "export_saved_fraction": 0.15070332991168325
+      },
+      "artifacts": {
+        "browser-result.json": "6592ca01810794997ec2a4d9f707cd58aea91b444efdaa7e77321ef40f9b696a",
+        "candidates.jsonl": "0214d8cf7aaef288102ad6e87701a2f1e4160b2da3a0da0022ec53d09a2363b4",
+        "cuts-merged.svg": "3b5a18dbe2b8660d8ead71f259182834fb96d0b96eb43cf70381e25c0ca978e8",
+        "cuts-unmerged.svg": "59a39de06674d0d26a9c5f4732913d949eb5ad37ce20091607c3f949173f495b",
+        "direct-inspection.json": "55c44a5078a28e54836a8803bb6a439c78cae0a44db9ca59f007d7673c1396d4",
+        "layout.json": "cfb4736028241dc60185387e5ac198f599cd90dfc7ed9f7f212ba3c50fca60b8",
+        "original-job.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+        "request.json": "b03095d69ec358ba9532b2bc22e729eb42cc43d5d3b498ee6cbd45904be94ba6",
+        "stage-progress.json": "8c503badbac539e4333905a7592d81f0b5ce17ad33e7156130d40c5257891033",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "8fb855a3b157993906191d209b2498bcf4e6158092b9c87265eab4d25f002ea5",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "b76d09079581b98c360c312d4ac9e42b66d13e1a8239f4f684da34a808da4d5d",
+        "zero-spacing-job.json": "be1ac4f709f82ddd160a09d6d79c66e089b78d42180a737b144477428948e6cc"
+      },
+      "archive": "m-mechanical-large-plates-s0.zip",
+      "archive_sha256": "86b838e6247330285a4057f007f9b903af1e5e841629d7cdb2465d57dad5df69"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "original_job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "seed": 0,
+      "seconds": 60,
+      "cpu": 14,
+      "status": "no_layout",
+      "score": null,
+      "controller": {
+        "exit_code": 0,
+        "elapsed_wall_seconds": 74.89592899999843
+      },
+      "native_status": "no_layout",
+      "native_errors": [],
+      "candidates": 0,
+      "artifacts": {
+        "browser-result.json": "73201f540ce01871f161fb6f4104f849fab6d6072afc0aa8807326b85747bc33",
+        "direct-inspection.json": "55c44a5078a28e54836a8803bb6a439c78cae0a44db9ca59f007d7673c1396d4",
+        "original-job.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+        "request.json": "c512446361c615cf07a52e8810e8b64551bb02129cdaf3a88c7592beba3bfb66",
+        "stage-progress.json": "db0f7a4d1d9f6f146e1ffe9dde876f535415584814bad77f1ae7b995d4cd22d0",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "9a6965e5b2d8275f11c4e2bf865c12e2ecf4c90c55ac20d3f685cd41a2827902",
+        "zero-spacing-job.json": "e698519a63770b116fa553befc6b3680fcbe6aae70860d8a4e133f21a0dfadd5"
+      },
+      "archive": "m-mechanical-panel-hardware-s0.zip",
+      "archive_sha256": "02958b5b26ab2cdc126f0d5b6c579672f49478e0126eacd50d43de3a8eec27d7"
+    },
+    {
+      "job": "c-rect-equal",
+      "original_job_sha256": "dd389cf9d9f9407373f1971a43755cb91f65d1798f1eb9c2aca1883fcf9497d7",
+      "seed": 0,
+      "seconds": 60,
+      "cpu": 14,
+      "status": "valid",
+      "score": 1.56,
+      "controller": {
+        "exit_code": 0,
+        "elapsed_wall_seconds": 62.87236860000121
+      },
+      "native_status": "completed",
+      "native_errors": [],
+      "candidates": 7,
+      "validation_process": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--job",
+          "C:\\DEV\\Nestbolt\\output\\h5-deepnest-development-20261015T142806Z-cpu14\\c-rect-equal-s0\\zero-spacing-job.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-deepnest-development-20261015T142806Z-cpu14\\c-rect-equal-s0\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.032182900002226233,
+        "cpu": 14
+      },
+      "validation": {
+        "valid": true,
+        "backend": "clipper2-rust 1.2.0",
+        "units": "mm",
+        "maximum_overlap_ratio": 0.0,
+        "maximum_total_overlap_ratio": 0.0,
+        "maximum_outside_ratio": 0.0,
+        "violation_count": 0,
+        "violations": [],
+        "metrics": {
+          "sheets_used": 2,
+          "placed_parts": 60,
+          "requested_parts": 60,
+          "placed_area": 72000.0,
+          "placed_priority": 60.0,
+          "full_stock_area": 120000.0,
+          "material_area": 93600.0,
+          "normalized_material": 1.56,
+          "utilization": 0.7692307692307693,
+          "trailing_offcut_area": 26400.0,
+          "last_sheet_id": "0000-0001",
+          "last_sheet_used_height": 112.0
+        }
+      },
+      "svg_audit": {
+        "tolerance_mm": 0.001,
+        "source_cut_length_mm": 8400.0,
+        "exports": {
+          "unmerged": {
+            "length_mm": 8400.0,
+            "segments": 240,
+            "extra_length_mm": 0.0,
+            "missing_length_mm": 0.0,
+            "width_mm": 198.0,
+            "height_mm": 596.0,
+            "mm_per_native_unit": 1.0
+          },
+          "merged": {
+            "length_mm": 5270.0000006,
+            "segments": 105,
+            "extra_length_mm": 0.0,
+            "missing_length_mm": 0.0,
+            "width_mm": 198.0,
+            "height_mm": 596.0,
+            "mm_per_native_unit": 1.0
+          }
+        },
+        "native_merged_length_mm": 2939.9999988,
+        "export_saved_length_mm": 3129.9999994,
+        "export_saved_fraction": 0.37261904754761904
+      },
+      "artifacts": {
+        "browser-result.json": "84bb01ac39ec7784e49f17a0a83edfea7123a0a5e96c849182ae7216b86fcd33",
+        "candidates.jsonl": "515bae2b8f8f374691bd37a8923a4b899bcf9b27d9fa2d27ed012341dad86c5f",
+        "cuts-merged.svg": "378972b54ced5ca482f65d8fe8c9b4792c46a27224fc709b818bc9abc1fd656d",
+        "cuts-unmerged.svg": "3e324932ebe63cadffcc6d3b7fe388b70e8d0bfd790afbd0926a9b1f870d096c",
+        "direct-inspection.json": "55c44a5078a28e54836a8803bb6a439c78cae0a44db9ca59f007d7673c1396d4",
+        "layout.json": "0682abdf299b261f3883a58d83075c98413600f76496a0254acfe46974946ed0",
+        "original-job.json": "dd389cf9d9f9407373f1971a43755cb91f65d1798f1eb9c2aca1883fcf9497d7",
+        "request.json": "8ba1c71aa7a36f3a0cee2822e5438b613dbd33804e31bd83fce3e5f417a7cc88",
+        "stage-progress.json": "d845018abf55e31ebc7808affdbc042d9fc52dd7fbf99838b268e3576f237837",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "bd45d0f0266a8cda18c73e1b67bd8a84e376ac2faa11a0f80474de2e9b0d3814",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "cf027ff93ddb3d36f71023b5ddcaaed7742aecf23aa1b4a3520e32cba7f35614",
+        "zero-spacing-job.json": "bb2d34ced29cd6ff19b0fe87fe5c1c703dc9b4f615b3d5dbaf98d8b791d4e60f"
+      },
+      "archive": "c-rect-equal-s0.zip",
+      "archive_sha256": "948a262dbed5a52be3e8193a083a784b1e7427d3069f86b31a9be031a6a1904f"
+    }
+  ]
+}

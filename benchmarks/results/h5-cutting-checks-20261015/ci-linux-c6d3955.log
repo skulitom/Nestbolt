@@ -1,0 +1,1857 @@
+﻿2026-10-15T14:24:22.6940223Z Current runner version: '2.337.0'
+2026-10-15T14:24:22.6967510Z ##[group]Runner Image Provisioner
+2026-10-15T14:24:22.6968709Z Hosted Compute Agent
+2026-10-15T14:24:22.6969379Z Version: 20261002.596
+2026-10-15T14:24:22.6970071Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-15T14:24:22.6970942Z Build Date: 2026-10-02T22:28:27Z
+2026-10-15T14:24:22.6971702Z Worker ID: {d5922d85-2a31-4ed8-af1b-95c04858d202}
+2026-10-15T14:24:22.6972479Z Region: northcentralus
+2026-10-15T14:24:22.6973136Z Cloud: Azure
+2026-10-15T14:24:22.6973717Z ##[endgroup]
+2026-10-15T14:24:22.6975125Z ##[group]Operating System
+2026-10-15T14:24:22.6975828Z Ubuntu
+2026-10-15T14:24:22.6976360Z 24.04.5
+2026-10-15T14:24:22.6977001Z LTS
+2026-10-15T14:24:22.6977550Z ##[endgroup]
+2026-10-15T14:24:22.6978383Z ##[group]Runner Image
+2026-10-15T14:24:22.6979055Z Image: ubuntu-24.04
+2026-10-15T14:24:22.6979662Z Version: 20261004.327.1
+2026-10-15T14:24:22.6981086Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-15T14:24:22.6982717Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-15T14:24:22.6983759Z ##[endgroup]
+2026-10-15T14:24:22.6985338Z ##[group]GITHUB_TOKEN Permissions
+2026-10-15T14:24:22.6987639Z Contents: read
+2026-10-15T14:24:22.6988568Z Metadata: read
+2026-10-15T14:24:22.6989309Z ##[endgroup]
+2026-10-15T14:24:22.6991529Z Secret source: Actions
+2026-10-15T14:24:22.6992627Z Cache mode: write
+2026-10-15T14:24:22.6993598Z Prepare workflow directory
+2026-10-15T14:24:22.7341313Z Prepare all required actions
+2026-10-15T14:24:22.7391658Z Getting action download info
+2026-10-15T14:24:23.0036284Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-15T14:24:23.1177440Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-15T14:24:23.3570909Z Complete job name: checks (ubuntu-latest)
+2026-10-15T14:24:23.4332241Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-15T14:24:23.4333259Z with:
+2026-10-15T14:24:23.4333716Z   persist-credentials: false
+2026-10-15T14:24:23.4334236Z   repository: skulitom/Nestbolt
+2026-10-15T14:24:23.4338100Z   token: ***
+2026-10-15T14:24:23.4338567Z   ssh-strict: true
+2026-10-15T14:24:23.4339019Z   ssh-user: git
+2026-10-15T14:24:23.4339452Z   clean: true
+2026-10-15T14:24:23.4339900Z   sparse-checkout-cone-mode: true
+2026-10-15T14:24:23.4340431Z   fetch-depth: 1
+2026-10-15T14:24:23.4340866Z   fetch-tags: false
+2026-10-15T14:24:23.4341316Z   show-progress: true
+2026-10-15T14:24:23.4341761Z   lfs: false
+2026-10-15T14:24:23.4342187Z   submodules: false
+2026-10-15T14:24:23.4342634Z   set-safe-directory: true
+2026-10-15T14:24:23.4343141Z   allow-unsafe-pr-checkout: false
+2026-10-15T14:24:23.4343853Z ##[endgroup]
+2026-10-15T14:24:23.5364763Z Syncing repository: skulitom/Nestbolt
+2026-10-15T14:24:23.5367028Z ##[group]Getting Git version info
+2026-10-15T14:24:23.5368136Z Working directory is '/home/runner/work/Nestbolt/Nestbolt'
+2026-10-15T14:24:23.5369265Z [command]/usr/bin/git version
+2026-10-15T14:24:23.5436084Z git version 2.55.0
+2026-10-15T14:24:23.5462132Z ##[endgroup]
+2026-10-15T14:24:23.5488122Z Temporarily overriding HOME='/home/runner/work/_temp/c8b98e35-4e52-4835-b5ab-c442bed3f3ce' before making global git config changes
+2026-10-15T14:24:23.5490291Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T14:24:23.5491459Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-10-15T14:24:23.5543645Z Deleting the contents of '/home/runner/work/Nestbolt/Nestbolt'
+2026-10-15T14:24:23.5556418Z ##[group]Determining repository object format
+2026-10-15T14:24:23.5564564Z ##[endgroup]
+2026-10-15T14:24:23.5566210Z ##[group]Initializing the repository
+2026-10-15T14:24:23.5661463Z [command]/usr/bin/git init /home/runner/work/Nestbolt/Nestbolt
+2026-10-15T14:24:23.5663285Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-15T14:24:23.5664869Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-15T14:24:23.5666681Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-15T14:24:23.5667937Z hint: call:
+2026-10-15T14:24:23.5668585Z hint:
+2026-10-15T14:24:23.5669391Z hint: 	git config --global init.defaultBranch <name>
+2026-10-15T14:24:23.5670367Z hint:
+2026-10-15T14:24:23.5671005Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-15T14:24:23.5671940Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-15T14:24:23.5672700Z hint:
+2026-10-15T14:24:23.5673133Z hint: 	git branch -m <name>
+2026-10-15T14:24:23.5673643Z hint:
+2026-10-15T14:24:23.5674353Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-15T14:24:23.5675483Z Initialized empty Git repository in /home/runner/work/Nestbolt/Nestbolt/.git/
+2026-10-15T14:24:23.5686268Z [command]/usr/bin/git remote add origin https://github.com/skulitom/Nestbolt
+2026-10-15T14:24:23.5730254Z ##[endgroup]
+2026-10-15T14:24:23.5731464Z ##[group]Disabling automatic garbage collection
+2026-10-15T14:24:23.5735438Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-15T14:24:23.5771452Z ##[endgroup]
+2026-10-15T14:24:23.5772589Z ##[group]Setting up auth
+2026-10-15T14:24:23.5773484Z Removing SSH command configuration
+2026-10-15T14:24:23.5779600Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T14:24:23.5814871Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-15T14:24:23.6191753Z Removing HTTP extra header
+2026-10-15T14:24:23.6199141Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T14:24:23.6241522Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-15T14:24:23.6490222Z Removing includeIf entries pointing to credentials config files
+2026-10-15T14:24:23.6497020Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T14:24:23.6536012Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-15T14:24:23.6800363Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-15T14:24:23.6844822Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:23.6882604Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:23.6922659Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:23.6960072Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:23.6994838Z ##[endgroup]
+2026-10-15T14:24:23.6995599Z ##[group]Fetching the repository
+2026-10-15T14:24:23.7003246Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c6d3955598a8e242a3eacb2e8104aed1e6b4c1ef:refs/remotes/origin/main
+2026-10-15T14:24:29.2820296Z From https://github.com/skulitom/Nestbolt
+2026-10-15T14:24:29.2822294Z  * [new ref]         c6d3955598a8e242a3eacb2e8104aed1e6b4c1ef -> origin/main
+2026-10-15T14:24:29.2831069Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-15T14:24:29.2865551Z   origin/main
+2026-10-15T14:24:29.2876001Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-15T14:24:29.2905157Z c6d3955598a8e242a3eacb2e8104aed1e6b4c1ef
+2026-10-15T14:24:29.2910179Z ##[endgroup]
+2026-10-15T14:24:29.2911906Z ##[group]Determining the checkout info
+2026-10-15T14:24:29.2913368Z ##[endgroup]
+2026-10-15T14:24:29.2916414Z [command]/usr/bin/git sparse-checkout disable
+2026-10-15T14:24:29.3182430Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-15T14:24:29.3221639Z ##[group]Checking out the ref
+2026-10-15T14:24:29.3225740Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-15T14:24:30.3446307Z Updating files:  73% (3046/4125)
+2026-10-15T14:24:30.3557963Z Updating files:  74% (3053/4125)
+2026-10-15T14:24:30.3616527Z Updating files:  75% (3094/4125)
+2026-10-15T14:24:30.3691832Z Updating files:  76% (3135/4125)
+2026-10-15T14:24:30.3783192Z Updating files:  77% (3177/4125)
+2026-10-15T14:24:30.3864133Z Updating files:  78% (3218/4125)
+2026-10-15T14:24:30.4208808Z Updating files:  79% (3259/4125)
+2026-10-15T14:24:30.4738269Z Updating files:  80% (3300/4125)
+2026-10-15T14:24:30.5817325Z Updating files:  81% (3342/4125)
+2026-10-15T14:24:30.5878605Z Updating files:  82% (3383/4125)
+2026-10-15T14:24:30.5956541Z Updating files:  83% (3424/4125)
+2026-10-15T14:24:30.6014754Z Updating files:  84% (3465/4125)
+2026-10-15T14:24:30.6070237Z Updating files:  85% (3507/4125)
+2026-10-15T14:24:30.6117574Z Updating files:  86% (3548/4125)
+2026-10-15T14:24:30.6187311Z Updating files:  87% (3589/4125)
+2026-10-15T14:24:30.6289106Z Updating files:  88% (3630/4125)
+2026-10-15T14:24:30.6360478Z Updating files:  89% (3672/4125)
+2026-10-15T14:24:30.6420685Z Updating files:  90% (3713/4125)
+2026-10-15T14:24:30.6457199Z Updating files:  91% (3754/4125)
+2026-10-15T14:24:30.6489926Z Updating files:  92% (3795/4125)
+2026-10-15T14:24:30.6521764Z Updating files:  93% (3837/4125)
+2026-10-15T14:24:30.6574681Z Updating files:  94% (3878/4125)
+2026-10-15T14:24:30.6599718Z Updating files:  95% (3919/4125)
+2026-10-15T14:24:30.6626015Z Updating files:  96% (3960/4125)
+2026-10-15T14:24:30.6658912Z Updating files:  97% (4002/4125)
+2026-10-15T14:24:30.6683342Z Updating files:  98% (4043/4125)
+2026-10-15T14:24:30.6721225Z Updating files:  99% (4084/4125)
+2026-10-15T14:24:30.6721763Z Updating files: 100% (4125/4125)
+2026-10-15T14:24:30.6722264Z Updating files: 100% (4125/4125), done.
+2026-10-15T14:24:30.6786327Z Switched to a new branch 'main'
+2026-10-15T14:24:30.6793010Z branch 'main' set up to track 'origin/main'.
+2026-10-15T14:24:30.6876670Z ##[endgroup]
+2026-10-15T14:24:30.6937515Z [command]/usr/bin/git log -1 --format=%H
+2026-10-15T14:24:30.6971166Z c6d3955598a8e242a3eacb2e8104aed1e6b4c1ef
+2026-10-15T14:24:30.6982616Z ##[group]Removing auth
+2026-10-15T14:24:30.6983616Z Removing SSH command configuration
+2026-10-15T14:24:30.6986344Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T14:24:30.7025729Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-15T14:24:30.7295071Z Removing HTTP extra header
+2026-10-15T14:24:30.7300372Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T14:24:30.7340704Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-15T14:24:30.7589789Z Removing includeIf entries pointing to credentials config files
+2026-10-15T14:24:30.7593371Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T14:24:30.7625450Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-10-15T14:24:30.7626156Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T14:24:30.7626598Z includeif.gitdir:/github/workspace/.git.path
+2026-10-15T14:24:30.7627001Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T14:24:30.7635079Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-10-15T14:24:30.7664054Z /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7675707Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7714861Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-15T14:24:30.7742178Z /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7787686Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7831072Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-15T14:24:30.7860736Z /github/runner_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7876643Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7912834Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-15T14:24:30.7939777Z /github/runner_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7948733Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config
+2026-10-15T14:24:30.7989793Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-15T14:24:30.8235156Z Removing credentials config '/home/runner/work/_temp/git-credentials-62a7c6d7-60f4-4270-ab71-981bbef20400.config'
+2026-10-15T14:24:30.8244736Z ##[endgroup]
+2026-10-15T14:24:30.8501027Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+2026-10-15T14:24:30.8501485Z with:
+2026-10-15T14:24:30.8501752Z   python-version: 3.13
+2026-10-15T14:24:30.8501992Z   check-latest: false
+2026-10-15T14:24:30.8504222Z   token: ***
+2026-10-15T14:24:30.8504473Z   update-environment: true
+2026-10-15T14:24:30.8504751Z   allow-prereleases: false
+2026-10-15T14:24:30.8504990Z   freethreaded: false
+2026-10-15T14:24:30.8505219Z ##[endgroup]
+2026-10-15T14:24:30.9866293Z ##[group]Installed versions
+2026-10-15T14:24:30.9952276Z Successfully set up CPython (3.13.16)
+2026-10-15T14:24:30.9958909Z ##[endgroup]
+2026-10-15T14:24:31.0126350Z ##[group]Run rustup show
+2026-10-15T14:24:31.0126718Z [36;1mrustup show[0m
+2026-10-15T14:24:31.0494198Z shell: /usr/bin/bash -e {0}
+2026-10-15T14:24:31.0494530Z env:
+2026-10-15T14:24:31.0494850Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:31.0495346Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+2026-10-15T14:24:31.0495792Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:31.0496187Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:31.0496587Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:31.0496983Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib
+2026-10-15T14:24:31.0497328Z ##[endgroup]
+2026-10-15T14:24:31.0970853Z Default host: x86_64-unknown-linux-gnu
+2026-10-15T14:24:31.0971388Z rustup home:  /home/runner/.rustup
+2026-10-15T14:24:31.0971902Z 
+2026-10-15T14:24:31.0994139Z info: syncing channel updates for 1.98.1-x86_64-unknown-linux-gnu
+2026-10-15T14:24:31.2102439Z info: latest update on 2026-09-03 for version 1.98.1 (48a229cea 2026-09-01)
+2026-10-15T14:24:31.2104525Z info: downloading 6 components
+2026-10-15T14:24:41.2892865Z warn: the missing active toolchain `1.98.1-x86_64-unknown-linux-gnu` has been auto-installed
+2026-10-15T14:24:41.2893634Z installed toolchains
+2026-10-15T14:24:41.2893981Z --------------------
+2026-10-15T14:24:41.2894493Z warn: auto-installation is deprecated for most `rustup` commands
+2026-10-15T14:24:41.2895234Z warn: scripts relying on this behavior in `rustup` may stop working in the future
+2026-10-15T14:24:41.2895980Z warn: to install the active toolchain, use `rustup install` instead
+2026-10-15T14:24:41.2896721Z warn: see <https://github.com/rust-lang/rustup/issues/4836> for more info
+2026-10-15T14:24:41.2897241Z stable-x86_64-unknown-linux-gnu (default)
+2026-10-15T14:24:41.2897531Z 
+2026-10-15T14:24:41.2897627Z active toolchain
+2026-10-15T14:24:41.2897978Z ----------------
+2026-10-15T14:24:41.2898241Z name: 1.98.1-x86_64-unknown-linux-gnu
+2026-10-15T14:24:41.2898673Z active because: overridden by '/home/runner/work/Nestbolt/Nestbolt/rust-toolchain.toml'
+2026-10-15T14:24:41.2899104Z installed targets:
+2026-10-15T14:24:41.3039865Z   wasm32-unknown-unknown
+2026-10-15T14:24:41.3040165Z   x86_64-unknown-linux-gnu
+2026-10-15T14:24:41.3149203Z ##[group]Run python scripts/check.py
+2026-10-15T14:24:41.3149547Z [36;1mpython scripts/check.py[0m
+2026-10-15T14:24:41.3221494Z shell: /usr/bin/bash -e {0}
+2026-10-15T14:24:41.3221749Z env:
+2026-10-15T14:24:41.3222040Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:41.3222472Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+2026-10-15T14:24:41.3222900Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:41.3223278Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:41.3223677Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-15T14:24:41.3224051Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib
+2026-10-15T14:24:41.3224377Z ##[endgroup]
+2026-10-15T14:24:42.0167082Z Running: cargo fmt --all --check
+2026-10-15T14:24:42.4980713Z Running: cargo fmt --manifest-path benchmarks/sparrow-repro/Cargo.toml --check
+2026-10-15T14:24:42.5601135Z Running: cargo clippy --workspace --all-targets --locked -- -D warnings
+2026-10-15T14:24:42.6393596Z     Updating crates.io index
+2026-10-15T14:24:42.6397024Z     Updating git repository `https://github.com/JeroenGar/sparrow.git`
+2026-10-15T14:24:44.4960785Z  Downloading crates ...
+2026-10-15T14:24:44.5263409Z   Downloaded anstyle-query v1.1.5
+2026-10-15T14:24:44.5282032Z   Downloaded approx v0.5.1
+2026-10-15T14:24:44.5302253Z   Downloaded cpufeatures v0.3.1
+2026-10-15T14:24:44.5324375Z   Downloaded anstream v1.0.0
+2026-10-15T14:24:44.5349639Z   Downloaded autocfg v1.5.1
+2026-10-15T14:24:44.5378570Z   Downloaded cfg_aliases v0.2.2
+2026-10-15T14:24:44.5392205Z   Downloaded anstyle v1.0.14
+2026-10-15T14:24:44.5410510Z   Downloaded colorchoice v1.0.5
+2026-10-15T14:24:44.5422995Z   Downloaded ctrlc v3.5.2
+2026-10-15T14:24:44.5452545Z   Downloaded proc-macro-crate v3.5.0
+2026-10-15T14:24:44.5471263Z   Downloaded anstyle-parse v1.0.0
+2026-10-15T14:24:44.5494013Z   Downloaded anyhow v1.0.104
+2026-10-15T14:24:44.5564276Z   Downloaded arrayvec v0.7.8
+2026-10-15T14:24:44.5597005Z   Downloaded clap_derive v4.6.7
+2026-10-15T14:24:44.5631626Z   Downloaded core_detect v1.0.0
+2026-10-15T14:24:44.5658250Z   Downloaded crossbeam-epoch v0.9.21
+2026-10-15T14:24:44.5705683Z   Downloaded futures-channel v0.3.34
+2026-10-15T14:24:44.5730551Z   Downloaded crossbeam-utils v0.8.23
+2026-10-15T14:24:44.5768988Z   Downloaded darling v0.24.1
+2026-10-15T14:24:44.5849931Z   Downloaded chacha20 v0.10.2
+2026-10-15T14:24:44.5874774Z   Downloaded clap v4.6.7
+2026-10-15T14:24:44.5978027Z   Downloaded clap_lex v1.1.1
+2026-10-15T14:24:44.5989193Z   Downloaded crossbeam-deque v0.8.8
+2026-10-15T14:24:44.6004902Z   Downloaded defmt v1.1.1
+2026-10-15T14:24:44.6056877Z   Downloaded dtoa v1.0.11
+2026-10-15T14:24:44.6073592Z   Downloaded futures-io v0.3.34
+2026-10-15T14:24:44.6082951Z   Downloaded futures-macro v0.3.34
+2026-10-15T14:24:44.6094152Z   Downloaded ordered-float v5.5.0
+2026-10-15T14:24:44.6112451Z   Downloaded polycool v0.4.0
+2026-10-15T14:24:44.6130040Z   Downloaded ref-cast v1.0.27
+2026-10-15T14:24:44.6161445Z   Downloaded numfmt v1.2.0
+2026-10-15T14:24:44.6173005Z   Downloaded once_cell v1.21.4
+2026-10-15T14:24:44.6199989Z   Downloaded pastey v0.2.3
+2026-10-15T14:24:44.6213403Z   Downloaded pin-project-lite v0.2.17
+2026-10-15T14:24:44.6276584Z   Downloaded darling_macro v0.24.1
+2026-10-15T14:24:44.6284015Z   Downloaded dyn-clone v1.0.20
+2026-10-15T14:24:44.6301948Z   Downloaded either v1.19.0
+2026-10-15T14:24:44.6317577Z   Downloaded errno v0.3.14
+2026-10-15T14:24:44.6334159Z   Downloaded float-cmp v0.10.0
+2026-10-15T14:24:44.6346297Z   Downloaded fnv v1.0.7
+2026-10-15T14:24:44.6356036Z   Downloaded futures-task v0.3.34
+2026-10-15T14:24:44.6369330Z   Downloaded is_terminal_polyfill v1.70.2
+2026-10-15T14:24:44.6379266Z   Downloaded wasm-bindgen-shared v0.2.129
+2026-10-15T14:24:44.6391157Z   Downloaded defmt-parser v1.0.0
+2026-10-15T14:24:44.6401283Z   Downloaded equivalent v1.0.2
+2026-10-15T14:24:44.6412219Z   Downloaded proc-macro2 v1.0.107
+2026-10-15T14:24:44.6443698Z   Downloaded rustversion v1.0.23
+2026-10-15T14:24:44.6473630Z   Downloaded serde_derive_internals v0.30.0
+2026-10-15T14:24:44.6489829Z   Downloaded defmt-macros v1.1.1
+2026-10-15T14:24:44.6529248Z   Downloaded futures-core v0.3.34
+2026-10-15T14:24:44.6543787Z   Downloaded ref-cast-impl v1.0.27
+2026-10-15T14:24:44.6552595Z   Downloaded rstar v0.12.2
+2026-10-15T14:24:44.6581466Z   Downloaded float_next_after v2.0.0
+2026-10-15T14:24:44.6595518Z   Downloaded futures-sink v0.3.34
+2026-10-15T14:24:44.6604870Z   Downloaded hash32 v0.3.1
+2026-10-15T14:24:44.6620411Z   Downloaded jiff-static v0.2.38
+2026-10-15T14:24:44.6630107Z   Downloaded rawpointer v0.2.1
+2026-10-15T14:24:44.6639606Z   Downloaded cfg-if v1.0.5
+2026-10-15T14:24:44.6653380Z   Downloaded document-features v0.2.12
+2026-10-15T14:24:44.6666620Z   Downloaded rayon-core v1.13.0
+2026-10-15T14:24:44.6707117Z   Downloaded rmcp-macros v3.5.1
+2026-10-15T14:24:44.6721097Z   Downloaded roxmltree v0.21.1
+2026-10-15T14:24:44.6863426Z   Downloaded rusty-fork v0.3.1
+2026-10-15T14:24:44.6879072Z   Downloaded fastrand v2.5.0
+2026-10-15T14:24:44.6893842Z   Downloaded heck v0.5.0
+2026-10-15T14:24:44.6907591Z   Downloaded i_float v1.16.0
+2026-10-15T14:24:44.6932890Z   Downloaded ident_case v1.0.1
+2026-10-15T14:24:44.6942324Z   Downloaded itoa v1.0.18
+2026-10-15T14:24:44.6957444Z   Downloaded num_cpus v1.17.0
+2026-10-15T14:24:44.6993075Z   Downloaded rand_xorshift v0.5.0
+2026-10-15T14:24:44.7005844Z   Downloaded utf8parse v0.2.2
+2026-10-15T14:24:44.7017286Z   Downloaded wait-timeout v0.2.1
+2026-10-15T14:24:44.7035113Z   Downloaded wasm-bindgen-macro v0.2.129
+2026-10-15T14:24:44.7046118Z   Downloaded bit-set v0.11.1
+2026-10-15T14:24:44.7063215Z   Downloaded byteorder v1.5.0
+2026-10-15T14:24:44.7081673Z   Downloaded darling_core v0.24.1
+2026-10-15T14:24:44.7147332Z   Downloaded num-complex v0.4.6
+2026-10-15T14:24:44.7162971Z   Downloaded num-integer v0.1.47
+2026-10-15T14:24:44.7180539Z   Downloaded schemars v1.2.2
+2026-10-15T14:24:44.7369716Z   Downloaded schemars_derive v1.2.2
+2026-10-15T14:24:44.7390541Z   Downloaded unarray v0.1.4
+2026-10-15T14:24:44.7404088Z   Downloaded futures-executor v0.3.34
+2026-10-15T14:24:44.7419237Z   Downloaded i_key_sort v0.10.3
+2026-10-15T14:24:44.7451137Z   Downloaded i_shape v1.18.0
+2026-10-15T14:24:44.7491552Z   Downloaded matrixmultiply v0.3.11
+2026-10-15T14:24:44.7525255Z   Downloaded stable_deref_trait v1.2.1
+2026-10-15T14:24:44.7534780Z   Downloaded test-case v3.4.0
+2026-10-15T14:24:44.7552336Z   Downloaded test-case-core v3.4.0
+2026-10-15T14:24:44.7566841Z   Downloaded tokio-macros v2.7.2
+2026-10-15T14:24:44.7578515Z   Downloaded version_check v0.9.5
+2026-10-15T14:24:44.7591927Z   Downloaded bit-vec v0.10.1
+2026-10-15T14:24:44.7606616Z   Downloaded bitflags v1.3.2
+2026-10-15T14:24:44.7642717Z   Downloaded geographiclib-rs v0.2.7
+2026-10-15T14:24:44.7660730Z   Downloaded i_tree v0.18.0
+2026-10-15T14:24:44.7688677Z   Downloaded iana-time-zone v0.1.65
+2026-10-15T14:24:44.7719576Z   Downloaded litrs v1.0.0
+2026-10-15T14:24:44.7751592Z   Downloaded num-traits v0.2.19
+2026-10-15T14:24:44.7779728Z   Downloaded quick-error v1.2.3
+2026-10-15T14:24:44.7793063Z   Downloaded rand_pcg v0.10.2
+2026-10-15T14:24:44.7808650Z   Downloaded siphasher v1.0.4
+2026-10-15T14:24:44.7825178Z   Downloaded strsim v0.11.1
+2026-10-15T14:24:44.7839424Z   Downloaded tap v1.0.1
+2026-10-15T14:24:44.7849416Z   Downloaded test-case-macros v3.4.0
+2026-10-15T14:24:44.7858234Z   Downloaded bitflags v2.13.2
+2026-10-15T14:24:44.7907005Z   Downloaded borsh-derive v1.8.1
+2026-10-15T14:24:44.7942753Z   Downloaded bytes v1.12.1
+2026-10-15T14:24:44.7980984Z   Downloaded clipper2-rust v1.2.0
+2026-10-15T14:24:44.8023230Z   Downloaded euclid v0.22.14
+2026-10-15T14:24:44.8058037Z   Downloaded futures v0.3.34
+2026-10-15T14:24:44.8112314Z   Downloaded geo-types v0.7.20
+2026-10-15T14:24:44.8139864Z   Downloaded getrandom v0.4.3
+2026-10-15T14:24:44.8181760Z   Downloaded heapless v0.8.0
+2026-10-15T14:24:44.8223583Z   Downloaded log v0.4.34
+2026-10-15T14:24:44.8251792Z   Downloaded sif-itree v0.4.1
+2026-10-15T14:24:44.8264847Z   Downloaded toml_datetime v1.1.2+spec-1.1.0
+2026-10-15T14:24:44.8279091Z   Downloaded web-time v1.1.0
+2026-10-15T14:24:44.8298324Z   Downloaded zmij v1.0.23
+2026-10-15T14:24:44.8318055Z   Downloaded borsh v1.8.1
+2026-10-15T14:24:44.8397556Z   Downloaded clap_builder v4.6.7
+2026-10-15T14:24:44.8467534Z   Downloaded indexmap v2.14.2
+2026-10-15T14:24:44.8513794Z   Downloaded jagua-rs v1.1.0
+2026-10-15T14:24:44.8586022Z   Downloaded memchr v2.8.3
+2026-10-15T14:24:44.8647137Z   Downloaded quote v1.0.47
+2026-10-15T14:24:44.8681304Z   Downloaded signal-hook-registry v1.4.8
+2026-10-15T14:24:44.8694439Z   Downloaded svg v0.18.0
+2026-10-15T14:24:44.8717945Z   Downloaded thiserror-impl v2.0.21
+2026-10-15T14:24:44.8733458Z   Downloaded tokio-stream v0.1.19
+2026-10-15T14:24:44.8790402Z   Downloaded tracing-attributes v0.1.31
+2026-10-15T14:24:44.8819896Z   Downloaded unicode-ident v1.0.26
+2026-10-15T14:24:44.8850556Z   Downloaded bumpalo v3.20.3
+2026-10-15T14:24:44.8878774Z   Downloaded js-sys v0.3.106
+2026-10-15T14:24:44.8912365Z   Downloaded rand_core v0.10.1
+2026-10-15T14:24:44.8930211Z   Downloaded slab v0.4.12
+2026-10-15T14:24:44.8944387Z   Downloaded smallvec v1.16.3
+2026-10-15T14:24:44.8959249Z   Downloaded tempfile v3.27.0
+2026-10-15T14:24:44.8986812Z   Downloaded thiserror v2.0.21
+2026-10-15T14:24:44.9057693Z   Downloaded toml_parser v1.1.5+spec-1.1.0
+2026-10-15T14:24:44.9083639Z   Downloaded tracing-core v0.1.36
+2026-10-15T14:24:44.9112876Z   Downloaded chrono v0.4.45
+2026-10-15T14:24:44.9185432Z   Downloaded jiff-core v0.1.1
+2026-10-15T14:24:44.9224597Z   Downloaded mio v1.2.4
+2026-10-15T14:24:44.9289645Z   Downloaded serde_core v1.0.229
+2026-10-15T14:24:44.9318847Z   Downloaded serde_derive v1.0.229
+2026-10-15T14:24:44.9351417Z   Downloaded svgtypes v0.16.1
+2026-10-15T14:24:44.9377509Z   Downloaded rand_distr v0.6.0
+2026-10-15T14:24:44.9415779Z   Downloaded serde v1.0.229
+2026-10-15T14:24:44.9455615Z   Downloaded slotmap v1.1.1
+2026-10-15T14:24:44.9485871Z   Downloaded toml_edit v0.25.17+spec-1.1.0
+2026-10-15T14:24:44.9527167Z   Downloaded uuid v1.28.0
+2026-10-15T14:24:44.9560374Z   Downloaded wasm-bindgen v0.2.129
+2026-10-15T14:24:44.9590258Z   Downloaded hashbrown v0.17.1
+2026-10-15T14:24:44.9648009Z   Downloaded itertools v0.15.0
+2026-10-15T14:24:44.9725648Z   Downloaded libm v0.2.16
+2026-10-15T14:24:44.9842894Z   Downloaded process-wrap v10.0.1
+2026-10-15T14:24:44.9924254Z   Downloaded futures-util v0.3.34
+2026-10-15T14:24:45.0065524Z   Downloaded kurbo v0.13.1
+2026-10-15T14:24:45.0120727Z   Downloaded rand v0.10.3
+2026-10-15T14:24:45.0161674Z   Downloaded ndarray v0.17.2
+2026-10-15T14:24:45.0261752Z   Downloaded wasm-bindgen-macro-support v0.2.129
+2026-10-15T14:24:45.0289144Z   Downloaded i_overlay v4.5.2
+2026-10-15T14:24:45.0532460Z   Downloaded rayon v1.12.0
+2026-10-15T14:24:45.0635548Z   Downloaded serde_json v1.0.154
+2026-10-15T14:24:45.0714167Z   Downloaded tokio-util v0.7.20
+2026-10-15T14:24:45.0801579Z   Downloaded winnow v1.0.4
+2026-10-15T14:24:45.0907109Z   Downloaded fern v0.7.1
+2026-10-15T14:24:45.0952623Z   Downloaded proptest v1.12.0
+2026-10-15T14:24:45.1057416Z   Downloaded nix v0.31.3
+2026-10-15T14:24:45.1180642Z   Downloaded syn v3.0.8
+2026-10-15T14:24:45.1292988Z   Downloaded regex-syntax v0.8.11
+2026-10-15T14:24:45.1367002Z   Downloaded syn v2.0.119
+2026-10-15T14:24:45.1480200Z   Downloaded rustix v1.1.5
+2026-10-15T14:24:45.1765884Z   Downloaded geo v0.33.1
+2026-10-15T14:24:45.1979467Z   Downloaded robust v1.2.0
+2026-10-15T14:24:45.2043943Z   Downloaded jiff v0.2.38
+2026-10-15T14:24:45.2207481Z   Downloaded tracing v0.1.44
+2026-10-15T14:24:45.2376294Z   Downloaded rmcp v3.5.1
+2026-10-15T14:24:45.2576836Z   Downloaded libc v0.2.190
+2026-10-15T14:24:45.3093093Z   Downloaded tokio v1.53.2
+2026-10-15T14:24:45.3578425Z   Downloaded encoding_rs v0.8.35
+2026-10-15T14:24:45.3787945Z   Downloaded linux-raw-sys v0.12.1
+2026-10-15T14:24:45.5359592Z    Compiling proc-macro2 v1.0.107
+2026-10-15T14:24:45.5360142Z    Compiling unicode-ident v1.0.26
+2026-10-15T14:24:45.5369185Z    Compiling quote v1.0.47
+2026-10-15T14:24:45.5369569Z    Compiling libm v0.2.16
+2026-10-15T14:24:45.6106240Z    Compiling autocfg v1.5.1
+2026-10-15T14:24:46.7458354Z    Compiling libc v0.2.190
+2026-10-15T14:24:46.8069710Z    Compiling num-traits v0.2.19
+2026-10-15T14:24:47.0060413Z     Checking cfg-if v1.0.5
+2026-10-15T14:24:47.0329075Z     Checking rand_core v0.10.1
+2026-10-15T14:24:47.1109412Z    Compiling getrandom v0.4.3
+2026-10-15T14:24:47.3149209Z    Compiling serde_core v1.0.229
+2026-10-15T14:24:48.0484851Z    Compiling syn v3.0.8
+2026-10-15T14:24:48.6079360Z     Checking memchr v2.8.3
+2026-10-15T14:24:49.3599469Z    Compiling zmij v1.0.23
+2026-10-15T14:24:49.7158974Z     Checking bitflags v2.13.2
+2026-10-15T14:24:49.8289498Z    Compiling serde v1.0.229
+2026-10-15T14:24:50.1509233Z     Checking cpufeatures v0.3.1
+2026-10-15T14:24:50.1769004Z     Checking chacha20 v0.10.2
+2026-10-15T14:24:50.3359072Z    Compiling serde_json v1.0.154
+2026-10-15T14:24:50.4019025Z     Checking itoa v1.0.18
+2026-10-15T14:24:50.4673348Z     Checking rand v0.10.3
+2026-10-15T14:24:50.7357710Z    Compiling anyhow v1.0.104
+2026-10-15T14:24:50.9118929Z    Compiling ref-cast v1.0.27
+2026-10-15T14:24:51.4045467Z     Checking dyn-clone v1.0.20
+2026-10-15T14:24:51.4518867Z     Checking clipper2-rust v1.2.0
+2026-10-15T14:24:51.4519391Z     Checking once_cell v1.21.4
+2026-10-15T14:24:51.5630045Z    Compiling crossbeam-utils v0.8.23
+2026-10-15T14:24:51.6338768Z    Compiling heapless v0.8.0
+2026-10-15T14:24:51.9492358Z    Compiling thiserror v2.0.21
+2026-10-15T14:24:52.0119271Z    Compiling cfg_aliases v0.2.2
+2026-10-15T14:24:52.0498930Z     Checking smallvec v1.16.3
+2026-10-15T14:24:52.1770167Z    Compiling crossbeam-epoch v0.9.21
+2026-10-15T14:24:52.3789252Z    Compiling serde_derive_internals v0.30.0
+2026-10-15T14:24:52.3829613Z     Checking byteorder v1.5.0
+2026-10-15T14:24:52.4929036Z     Checking hash32 v0.3.1
+2026-10-15T14:24:52.5609053Z    Compiling nix v0.31.3
+2026-10-15T14:24:52.9899331Z     Checking stable_deref_trait v1.2.1
+2026-10-15T14:24:53.0236691Z    Compiling crossbeam-deque v0.8.8
+2026-10-15T14:24:53.5838885Z     Checking i_float v1.16.0
+2026-10-15T14:24:53.6696781Z    Compiling matrixmultiply v0.3.11
+2026-10-15T14:24:53.7028215Z    Compiling version_check v0.9.5
+2026-10-15T14:24:53.8429559Z     Checking utf8parse v0.2.2
+2026-10-15T14:24:53.8848997Z    Compiling rayon-core v1.13.0
+2026-10-15T14:24:53.9959129Z     Checking anstyle-parse v1.0.0
+2026-10-15T14:24:54.1299361Z     Checking i_shape v1.18.0
+2026-10-15T14:24:54.4759094Z     Checking rstar v0.12.2
+2026-10-15T14:24:54.8339940Z    Compiling slotmap v1.1.1
+2026-10-15T14:24:54.9834677Z     Checking approx v0.5.1
+2026-10-15T14:24:55.0567144Z     Checking anstyle v1.0.14
+2026-10-15T14:24:55.1819108Z     Checking rawpointer v0.2.1
+2026-10-15T14:24:55.2139007Z     Checking is_terminal_polyfill v1.70.2
+2026-10-15T14:24:55.2498923Z     Checking log v0.4.34
+2026-10-15T14:24:55.3698919Z     Checking anstyle-query v1.1.5
+2026-10-15T14:24:55.4059113Z     Checking i_tree v0.18.0
+2026-10-15T14:24:55.6059237Z     Checking i_key_sort v0.10.3
+2026-10-15T14:24:55.7108820Z     Checking colorchoice v1.0.5
+2026-10-15T14:24:55.7528955Z     Checking either v1.19.0
+2026-10-15T14:24:55.8969067Z     Checking anstream v1.0.0
+2026-10-15T14:24:56.0523139Z     Checking i_overlay v4.5.2
+2026-10-15T14:24:56.2179752Z    Compiling test-case-core v3.4.0
+2026-10-15T14:24:57.4359909Z     Checking num-complex v0.4.6
+2026-10-15T14:24:57.7158841Z     Checking num-integer v0.1.47
+2026-10-15T14:24:57.9079197Z     Checking geographiclib-rs v0.2.7
+2026-10-15T14:24:58.0999310Z     Checking rand_pcg v0.10.2
+2026-10-15T14:24:58.1586254Z    Compiling heck v0.5.0
+2026-10-15T14:24:59.0993807Z    Compiling rustix v1.1.5
+2026-10-15T14:24:59.7819300Z     Checking robust v1.2.0
+2026-10-15T14:25:00.0529098Z    Compiling litrs v1.0.0
+2026-10-15T14:25:01.4678954Z     Checking arrayvec v0.7.8
+2026-10-15T14:25:01.5858627Z     Checking sif-itree v0.4.1
+2026-10-15T14:25:01.6459385Z     Checking float_next_after v2.0.0
+2026-10-15T14:25:01.6769590Z     Checking strsim v0.11.1
+2026-10-15T14:25:01.8228930Z     Checking clap_lex v1.1.1
+2026-10-15T14:25:01.9338924Z     Checking clap_builder v4.6.7
+2026-10-15T14:25:03.5609064Z     Checking polycool v0.4.0
+2026-10-15T14:25:03.7219927Z    Compiling document-features v0.2.12
+2026-10-15T14:25:05.5200372Z     Checking ndarray v0.17.2
+2026-10-15T14:25:08.5579700Z     Checking rayon v1.12.0
+2026-10-15T14:25:09.0029442Z     Checking itertools v0.15.0
+2026-10-15T14:25:10.2209003Z     Checking rand_distr v0.6.0
+2026-10-15T14:25:10.2488979Z     Checking float-cmp v0.10.0
+2026-10-15T14:25:10.3108552Z     Checking ordered-float v5.5.0
+2026-10-15T14:25:10.5698844Z     Checking dtoa v1.0.11
+2026-10-15T14:25:10.6199050Z     Checking svg v0.18.0
+2026-10-15T14:25:10.6358690Z     Checking linux-raw-sys v0.12.1
+2026-10-15T14:25:10.9031034Z     Checking jiff-core v0.1.1
+2026-10-15T14:25:11.0308859Z     Checking web-time v1.1.0
+2026-10-15T14:25:11.1968951Z     Checking numfmt v1.2.0
+2026-10-15T14:25:11.3349060Z     Checking kurbo v0.13.1
+2026-10-15T14:25:11.6695874Z     Checking jiff v0.2.38
+2026-10-15T14:25:12.1538934Z     Checking ctrlc v3.5.2
+2026-10-15T14:25:12.2179381Z     Checking fern v0.7.1
+2026-10-15T14:25:12.3750407Z     Checking num_cpus v1.17.0
+2026-10-15T14:25:12.4339000Z     Checking tap v1.0.1
+2026-10-15T14:25:12.4758997Z     Checking siphasher v1.0.4
+2026-10-15T14:25:12.4818627Z     Checking fastrand v2.5.0
+2026-10-15T14:25:12.5898947Z     Checking svgtypes v0.16.1
+2026-10-15T14:25:12.5943670Z     Checking tempfile v3.27.0
+2026-10-15T14:25:12.7669107Z     Checking wait-timeout v0.2.1
+2026-10-15T14:25:12.8428943Z     Checking roxmltree v0.21.1
+2026-10-15T14:25:12.9549050Z     Checking encoding_rs v0.8.35
+2026-10-15T14:25:13.2369648Z     Checking quick-error v1.2.3
+2026-10-15T14:25:13.2831295Z     Checking fnv v1.0.7
+2026-10-15T14:25:13.3258805Z     Checking bit-vec v0.10.1
+2026-10-15T14:25:13.4709067Z     Checking bit-set v0.11.1
+2026-10-15T14:25:13.5598830Z     Checking rusty-fork v0.3.1
+2026-10-15T14:25:13.6949238Z     Checking rand_xorshift v0.5.0
+2026-10-15T14:25:13.7398916Z     Checking regex-syntax v0.8.11
+2026-10-15T14:25:13.9889490Z     Checking core_detect v1.0.0
+2026-10-15T14:25:14.0119408Z     Checking unarray v0.1.4
+2026-10-15T14:25:14.0499179Z     Checking pin-project-lite v0.2.17
+2026-10-15T14:25:14.0548703Z     Checking futures-core v0.3.34
+2026-10-15T14:25:14.0818569Z     Checking futures-sink v0.3.34
+2026-10-15T14:25:14.1115716Z     Checking futures-task v0.3.34
+2026-10-15T14:25:14.1198802Z     Checking futures-channel v0.3.34
+2026-10-15T14:25:14.1868863Z     Checking slab v0.4.12
+2026-10-15T14:25:14.2586959Z     Checking futures-io v0.3.34
+2026-10-15T14:25:14.2727091Z    Compiling wasm-bindgen-shared v0.2.129
+2026-10-15T14:25:14.3198989Z     Checking errno v0.3.14
+2026-10-15T14:25:14.3769002Z     Checking signal-hook-registry v1.4.8
+2026-10-15T14:25:14.4899682Z     Checking mio v1.2.4
+2026-10-15T14:25:14.6348850Z    Compiling rustversion v1.0.23
+2026-10-15T14:25:14.7873856Z    Compiling ident_case v1.0.1
+2026-10-15T14:25:15.2449037Z     Checking proptest v1.12.0
+2026-10-15T14:25:15.2676018Z     Checking bytes v1.12.1
+2026-10-15T14:25:15.7289015Z    Compiling darling_core v0.24.1
+2026-10-15T14:25:16.2427655Z    Compiling syn v2.0.119
+2026-10-15T14:25:21.9478950Z     Checking tracing-core v0.1.36
+2026-10-15T14:25:22.4002497Z    Compiling serde_derive v1.0.229
+2026-10-15T14:25:22.6689414Z    Compiling ref-cast-impl v1.0.27
+2026-10-15T14:25:27.0519373Z    Compiling schemars_derive v1.2.2
+2026-10-15T14:25:45.0808915Z     Checking chrono v0.4.45
+2026-10-15T14:25:45.9439100Z    Compiling thiserror-impl v2.0.21
+2026-10-15T14:25:46.2418965Z    Compiling test-case-macros v3.4.0
+2026-10-15T14:25:47.9899533Z     Checking schemars v1.2.2
+2026-10-15T14:25:48.2388775Z    Compiling clap_derive v4.6.7
+2026-10-15T14:25:48.7400070Z     Checking nestbolt-validator v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-15T14:25:50.2729396Z    Compiling futures-macro v0.3.34
+2026-10-15T14:25:54.3770006Z     Checking test-case v3.4.0
+2026-10-15T14:25:54.4053898Z    Compiling tokio-macros v2.7.2
+2026-10-15T14:26:00.7349052Z     Checking futures-util v0.3.34
+2026-10-15T14:26:02.8869370Z     Checking geo-types v0.7.20
+2026-10-15T14:26:02.9749013Z     Checking futures-executor v0.3.34
+2026-10-15T14:26:03.0599536Z    Compiling tracing-attributes v0.1.31
+2026-10-15T14:26:03.2150093Z     Checking geo v0.33.1
+2026-10-15T14:26:04.8724831Z     Checking tokio v1.53.2
+2026-10-15T14:26:06.1609226Z     Checking jagua-rs v1.1.0
+2026-10-15T14:26:07.5028957Z     Checking clap v4.6.7
+2026-10-15T14:26:07.5359235Z    Compiling darling_macro v0.24.1
+2026-10-15T14:26:07.7999702Z     Checking sparrow v0.3.0 (https://github.com/JeroenGar/sparrow.git?rev=4629b22795ae6b25b3b460ccde6fb36a71292b6d#4629b227)
+2026-10-15T14:26:07.8459028Z     Checking hashbrown v0.17.1
+2026-10-15T14:26:08.3059390Z    Compiling bumpalo v3.20.3
+2026-10-15T14:26:08.3169762Z     Checking nestbolt-core v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/core)
+2026-10-15T14:26:08.5419537Z     Checking equivalent v1.0.2
+2026-10-15T14:26:11.1319265Z    Compiling darling v0.24.1
+2026-10-15T14:26:11.1709106Z     Checking indexmap v2.14.2
+2026-10-15T14:26:11.7589298Z    Compiling wasm-bindgen-macro-support v0.2.129
+2026-10-15T14:26:12.6779233Z     Checking futures v0.3.34
+2026-10-15T14:26:12.7119520Z    Compiling wasm-bindgen v0.2.129
+2026-10-15T14:26:12.9808940Z    Compiling rmcp v3.5.1
+2026-10-15T14:26:13.2689724Z    Compiling rmcp-macros v3.5.1
+2026-10-15T14:26:13.3559176Z     Checking tokio-util v0.7.20
+2026-10-15T14:26:13.6909065Z     Checking tokio-stream v0.1.19
+2026-10-15T14:26:13.9979267Z     Checking uuid v1.28.0
+2026-10-15T14:26:14.2399213Z    Compiling pastey v0.2.3
+2026-10-15T14:26:16.1989768Z     Checking nestbolt-cli v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/cli)
+2026-10-15T14:26:19.5728957Z     Checking tracing v0.1.44
+2026-10-15T14:26:19.6953728Z     Checking process-wrap v10.0.1
+2026-10-15T14:26:33.1549599Z     Checking nestbolt-mcp v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/mcp)
+2026-10-15T14:26:47.7715035Z    Compiling wasm-bindgen-macro v0.2.129
+2026-10-15T14:26:48.7137365Z     Checking js-sys v0.3.106
+2026-10-15T14:26:52.3514352Z     Checking nestbolt-wasm v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/wasm)
+2026-10-15T14:26:52.4951809Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 2m 09s
+2026-10-15T14:26:52.5678090Z Running: cargo test --workspace --locked
+2026-10-15T14:26:52.7670500Z    Compiling unicode-ident v1.0.26
+2026-10-15T14:26:52.7672391Z    Compiling libm v0.2.16
+2026-10-15T14:26:52.7673347Z    Compiling cfg-if v1.0.5
+2026-10-15T14:26:52.7705830Z    Compiling libc v0.2.190
+2026-10-15T14:26:52.8015656Z    Compiling rand_core v0.10.1
+2026-10-15T14:26:52.8431300Z    Compiling proc-macro2 v1.0.107
+2026-10-15T14:26:52.9050946Z    Compiling memchr v2.8.3
+2026-10-15T14:26:54.4219447Z    Compiling quote v1.0.47
+2026-10-15T14:26:54.8239067Z    Compiling syn v3.0.8
+2026-10-15T14:26:55.1419451Z    Compiling num-traits v0.2.19
+2026-10-15T14:26:55.1559045Z    Compiling getrandom v0.4.3
+2026-10-15T14:26:55.3731921Z    Compiling serde_core v1.0.229
+2026-10-15T14:26:55.4679139Z    Compiling bitflags v2.13.2
+2026-10-15T14:26:55.9129701Z    Compiling itoa v1.0.18
+2026-10-15T14:26:55.9888420Z    Compiling zmij v1.0.23
+2026-10-15T14:26:56.1448821Z    Compiling cpufeatures v0.3.1
+2026-10-15T14:26:56.1749249Z    Compiling chacha20 v0.10.2
+2026-10-15T14:26:56.3889427Z    Compiling rand v0.10.3
+2026-10-15T14:26:56.4649273Z    Compiling anyhow v1.0.104
+2026-10-15T14:26:57.1809308Z    Compiling dyn-clone v1.0.20
+2026-10-15T14:26:57.2679021Z    Compiling clipper2-rust v1.2.0
+2026-10-15T14:26:57.3329134Z    Compiling once_cell v1.21.4
+2026-10-15T14:26:57.5098907Z    Compiling strsim v0.11.1
+2026-10-15T14:26:57.8734278Z    Compiling serde_json v1.0.154
+2026-10-15T14:26:58.8449122Z    Compiling serde_derive_internals v0.30.0
+2026-10-15T14:27:01.6188956Z    Compiling smallvec v1.16.3
+2026-10-15T14:27:01.8089719Z    Compiling byteorder v1.5.0
+2026-10-15T14:27:01.9539401Z    Compiling hash32 v0.3.1
+2026-10-15T14:27:02.0338983Z    Compiling crossbeam-utils v0.8.23
+2026-10-15T14:27:02.7295720Z    Compiling stable_deref_trait v1.2.1
+2026-10-15T14:27:02.7618871Z    Compiling heapless v0.8.0
+2026-10-15T14:27:03.2409618Z    Compiling crossbeam-epoch v0.9.21
+2026-10-15T14:27:03.7155059Z    Compiling i_float v1.16.0
+2026-10-15T14:27:03.8749398Z    Compiling utf8parse v0.2.2
+2026-10-15T14:27:03.9219535Z    Compiling anstyle-parse v1.0.0
+2026-10-15T14:27:04.0799010Z    Compiling i_shape v1.18.0
+2026-10-15T14:27:04.9429581Z    Compiling nix v0.31.3
+2026-10-15T14:27:06.9139050Z    Compiling crossbeam-deque v0.8.8
+2026-10-15T14:27:07.0759454Z    Compiling rstar v0.12.2
+2026-10-15T14:27:07.4868926Z    Compiling approx v0.5.1
+2026-10-15T14:27:07.5739184Z    Compiling anstyle-query v1.1.5
+2026-10-15T14:27:07.6126176Z    Compiling colorchoice v1.0.5
+2026-10-15T14:27:07.6678943Z    Compiling rawpointer v0.2.1
+2026-10-15T14:27:07.7053424Z    Compiling anstyle v1.0.14
+2026-10-15T14:27:07.9238920Z    Compiling either v1.19.0
+2026-10-15T14:27:08.1089398Z    Compiling log v0.4.34
+2026-10-15T14:27:08.3338960Z    Compiling i_key_sort v0.10.3
+2026-10-15T14:27:08.5409116Z    Compiling is_terminal_polyfill v1.70.2
+2026-10-15T14:27:08.5849098Z    Compiling i_tree v0.18.0
+2026-10-15T14:27:08.6919845Z    Compiling anstream v1.0.0
+2026-10-15T14:27:08.8248960Z    Compiling i_overlay v4.5.2
+2026-10-15T14:27:09.2749336Z    Compiling matrixmultiply v0.3.11
+2026-10-15T14:27:14.6133726Z    Compiling rayon-core v1.13.0
+2026-10-15T14:27:15.0038926Z    Compiling test-case-core v3.4.0
+2026-10-15T14:27:17.1679578Z    Compiling num-complex v0.4.6
+2026-10-15T14:27:17.5779208Z    Compiling num-integer v0.1.47
+2026-10-15T14:27:18.1939180Z    Compiling geographiclib-rs v0.2.7
+2026-10-15T14:27:19.3341342Z    Compiling rand_pcg v0.10.2
+2026-10-15T14:27:19.4567612Z    Compiling clap_lex v1.1.1
+2026-10-15T14:27:19.8328898Z    Compiling robust v1.2.0
+2026-10-15T14:27:21.0499062Z    Compiling float_next_after v2.0.0
+2026-10-15T14:27:21.0887331Z    Compiling sif-itree v0.4.1
+2026-10-15T14:27:21.1588880Z    Compiling arrayvec v0.7.8
+2026-10-15T14:27:21.3288960Z    Compiling polycool v0.4.0
+2026-10-15T14:27:22.9232850Z    Compiling clap_builder v4.6.7
+2026-10-15T14:27:27.8799006Z    Compiling ndarray v0.17.2
+2026-10-15T14:27:28.2898994Z    Compiling serde_derive v1.0.229
+2026-10-15T14:27:29.5379154Z    Compiling ref-cast-impl v1.0.27
+2026-10-15T14:27:33.8359526Z    Compiling ref-cast v1.0.27
+2026-10-15T14:27:33.8429333Z    Compiling schemars_derive v1.2.2
+2026-10-15T14:27:33.8768960Z    Compiling thiserror-impl v2.0.21
+2026-10-15T14:27:43.4275347Z    Compiling test-case-macros v3.4.0
+2026-10-15T14:27:50.2138690Z    Compiling serde v1.0.229
+2026-10-15T14:27:50.5119020Z    Compiling thiserror v2.0.21
+2026-10-15T14:27:50.5539302Z    Compiling geo-types v0.7.20
+2026-10-15T14:27:50.8889239Z    Compiling chrono v0.4.45
+2026-10-15T14:27:50.9919050Z    Compiling geo v0.33.1
+2026-10-15T14:27:51.4060166Z    Compiling clap_derive v4.6.7
+2026-10-15T14:27:54.4239474Z    Compiling schemars v1.2.2
+2026-10-15T14:27:54.5259595Z    Compiling rayon v1.12.0
+2026-10-15T14:27:57.0960119Z    Compiling nestbolt-validator v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-15T14:27:57.1169381Z    Compiling slotmap v1.1.1
+2026-10-15T14:27:57.5929167Z    Compiling itertools v0.15.0
+2026-10-15T14:27:59.3711814Z    Compiling rand_distr v0.6.0
+2026-10-15T14:28:00.0149800Z    Compiling float-cmp v0.10.0
+2026-10-15T14:28:00.0888720Z    Compiling ordered-float v5.5.0
+2026-10-15T14:28:00.4019784Z    Compiling web-time v1.1.0
+2026-10-15T14:28:00.4379200Z    Compiling dtoa v1.0.11
+2026-10-15T14:28:00.5359032Z    Compiling linux-raw-sys v0.12.1
+2026-10-15T14:28:00.8408915Z    Compiling jiff-core v0.1.1
+2026-10-15T14:28:03.6379250Z    Compiling svg v0.18.0
+2026-10-15T14:28:03.6709769Z    Compiling jiff v0.2.38
+2026-10-15T14:28:06.7555228Z    Compiling jagua-rs v1.1.0
+2026-10-15T14:28:10.1909321Z    Compiling clap v4.6.7
+2026-10-15T14:28:10.2299482Z    Compiling rustix v1.1.5
+2026-10-15T14:28:13.9560178Z    Compiling numfmt v1.2.0
+2026-10-15T14:28:14.8769511Z    Compiling test-case v3.4.0
+2026-10-15T14:28:14.9126955Z    Compiling kurbo v0.13.1
+2026-10-15T14:28:17.1968823Z    Compiling fern v0.7.1
+2026-10-15T14:28:19.6948709Z    Compiling ctrlc v3.5.2
+2026-10-15T14:28:19.8086341Z    Compiling num_cpus v1.17.0
+2026-10-15T14:28:19.9579288Z    Compiling fastrand v2.5.0
+2026-10-15T14:28:20.2016086Z    Compiling tap v1.0.1
+2026-10-15T14:28:20.2534406Z    Compiling siphasher v1.0.4
+2026-10-15T14:28:20.3659767Z    Compiling sparrow v0.3.0 (https://github.com/JeroenGar/sparrow.git?rev=4629b22795ae6b25b3b460ccde6fb36a71292b6d#4629b227)
+2026-10-15T14:28:20.4359413Z    Compiling svgtypes v0.16.1
+2026-10-15T14:28:21.1687028Z    Compiling tempfile v3.27.0
+2026-10-15T14:28:22.6378829Z    Compiling wait-timeout v0.2.1
+2026-10-15T14:28:22.8162521Z    Compiling roxmltree v0.21.1
+2026-10-15T14:28:23.2849028Z    Compiling encoding_rs v0.8.35
+2026-10-15T14:28:25.9699081Z    Compiling quick-error v1.2.3
+2026-10-15T14:28:26.0159265Z    Compiling bit-vec v0.10.1
+2026-10-15T14:28:26.2948807Z    Compiling fnv v1.0.7
+2026-10-15T14:28:26.3459045Z    Compiling rusty-fork v0.3.1
+2026-10-15T14:28:27.7949028Z    Compiling bit-set v0.11.1
+2026-10-15T14:28:27.9129434Z    Compiling rand_xorshift v0.5.0
+2026-10-15T14:28:28.0028820Z    Compiling regex-syntax v0.8.11
+2026-10-15T14:28:30.7548968Z    Compiling unarray v0.1.4
+2026-10-15T14:28:30.8048854Z    Compiling core_detect v1.0.0
+2026-10-15T14:28:30.9282633Z    Compiling proptest v1.12.0
+2026-10-15T14:28:34.4429761Z    Compiling nestbolt-core v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/core)
+2026-10-15T14:28:37.8918980Z    Compiling pin-project-lite v0.2.17
+2026-10-15T14:28:37.9360319Z    Compiling futures-core v0.3.34
+2026-10-15T14:28:38.0358966Z    Compiling futures-sink v0.3.34
+2026-10-15T14:28:38.0859675Z    Compiling futures-channel v0.3.34
+2026-10-15T14:28:38.2889278Z    Compiling futures-macro v0.3.34
+2026-10-15T14:28:40.1059040Z    Compiling slab v0.4.12
+2026-10-15T14:28:40.2419237Z    Compiling futures-task v0.3.34
+2026-10-15T14:28:40.3444556Z    Compiling futures-io v0.3.34
+2026-10-15T14:28:40.4949025Z    Compiling errno v0.3.14
+2026-10-15T14:28:40.6189075Z    Compiling signal-hook-registry v1.4.8
+2026-10-15T14:28:41.1269275Z    Compiling tokio-macros v2.7.2
+2026-10-15T14:28:45.7489351Z    Compiling mio v1.2.4
+2026-10-15T14:28:46.7529339Z    Compiling bytes v1.12.1
+2026-10-15T14:28:47.9991784Z    Compiling darling_core v0.24.1
+2026-10-15T14:28:48.4789144Z    Compiling futures-util v0.3.34
+2026-10-15T14:28:51.4779172Z    Compiling tokio v1.53.2
+2026-10-15T14:28:51.5689118Z    Compiling wasm-bindgen-shared v0.2.129
+2026-10-15T14:28:52.5149395Z    Compiling syn v2.0.119
+2026-10-15T14:29:04.1119254Z    Compiling wasm-bindgen-macro-support v0.2.129
+2026-10-15T14:29:18.1684318Z    Compiling darling_macro v0.24.1
+2026-10-15T14:29:21.6039822Z    Compiling futures-executor v0.3.34
+2026-10-15T14:29:22.1706601Z    Compiling tracing-core v0.1.36
+2026-10-15T14:29:23.4764380Z    Compiling hashbrown v0.17.1
+2026-10-15T14:29:24.1739439Z    Compiling equivalent v1.0.2
+2026-10-15T14:29:24.2068998Z    Compiling indexmap v2.14.2
+2026-10-15T14:29:24.5709453Z    Compiling tracing-attributes v0.1.31
+2026-10-15T14:29:28.0099582Z    Compiling futures v0.3.34
+2026-10-15T14:29:28.0548793Z    Compiling darling v0.24.1
+2026-10-15T14:29:28.0971601Z    Compiling rmcp-macros v3.5.1
+2026-10-15T14:29:40.7369471Z    Compiling tracing v0.1.44
+2026-10-15T14:29:41.0808900Z    Compiling process-wrap v10.0.1
+2026-10-15T14:29:41.1090070Z    Compiling tokio-util v0.7.20
+2026-10-15T14:29:42.2799054Z    Compiling tokio-stream v0.1.19
+2026-10-15T14:29:42.7407338Z    Compiling uuid v1.28.0
+2026-10-15T14:29:43.4559013Z    Compiling rmcp v3.5.1
+2026-10-15T14:30:27.1979387Z    Compiling wasm-bindgen-macro v0.2.129
+2026-10-15T14:30:27.6158919Z    Compiling wasm-bindgen v0.2.129
+2026-10-15T14:30:29.1828993Z    Compiling js-sys v0.3.106
+2026-10-15T14:30:29.9579830Z    Compiling nestbolt-cli v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/cli)
+2026-10-15T14:30:33.9139712Z    Compiling nestbolt-mcp v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/mcp)
+2026-10-15T14:30:38.8183753Z    Compiling nestbolt-wasm v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/wasm)
+2026-10-15T14:31:52.2019371Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 4m 59s
+2026-10-15T14:31:52.2203893Z      Running unittests src/main.rs (target/debug/deps/nestbolt-8aea59b352999602)
+2026-10-15T14:31:52.2215697Z 
+2026-10-15T14:31:52.2215976Z running 0 tests
+2026-10-15T14:31:52.2216295Z 
+2026-10-15T14:31:52.2218689Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:31:52.2219214Z 
+2026-10-15T14:31:52.2219530Z      Running tests/controlled_search.rs (target/debug/deps/controlled_search-6ec91b5ac0148c8f)
+2026-10-15T14:31:52.2229074Z 
+2026-10-15T14:31:52.2229266Z running 2 tests
+2026-10-15T14:31:52.2930401Z test stopping_before_a_layout_exists_does_not_create_an_output_file ... ok
+2026-10-15T14:31:52.3650313Z test work_limit_writes_only_the_last_valid_completed_layout ... ok
+2026-10-15T14:31:52.3650833Z 
+2026-10-15T14:31:52.3651218Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+2026-10-15T14:31:52.3651602Z 
+2026-10-15T14:31:52.3652473Z      Running tests/features.rs (target/debug/deps/features-668860a9a481576a)
+2026-10-15T14:31:52.3665648Z 
+2026-10-15T14:31:52.3665812Z running 23 tests
+2026-10-15T14:31:52.3718725Z test cleanup_counts_are_in_the_import_report ... ok
+2026-10-15T14:31:52.3719694Z test closed_retraces_keep_holes_and_report_preserved_overlaps ... ok
+2026-10-15T14:31:52.3773186Z test explicit_gap_repair_reports_its_size_and_location ... ok
+2026-10-15T14:31:53.3205938Z test fill_modes_place_the_most_area_or_priority ... ok
+2026-10-15T14:31:53.3308616Z test layers_and_colors_select_cuts_and_report_ignored_entities ... ok
+2026-10-15T14:31:57.6169102Z test common_line_cli_flags_override_spacing_and_export_compensated_paths ... ok
+2026-10-15T14:31:57.6210168Z test legacy_dxf_bytes_and_missing_units_are_explicit ... ok
+2026-10-15T14:32:00.5259862Z test legacy_lightburn_nests_and_exports_modern_paths ... ok
+2026-10-15T14:32:03.9758927Z test lead_flags_defaults_validation_and_repeat_export_match_the_request ... ok
+2026-10-15T14:32:04.7609126Z test lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files ... ok
+2026-10-15T14:32:06.7848999Z test part_and_edge_spacing_are_kept ... ok
+2026-10-15T14:32:08.7919992Z test prearranged_sheet_is_discovered_and_used_without_nesting_the_boundary ... ok
+2026-10-15T14:32:10.1758948Z test lightburn_leads_export_cutting_files_beside_the_preserved_project ... ok
+2026-10-15T14:32:11.5018690Z test defects_and_remnant_outlines_stay_clear ... ok
+2026-10-15T14:32:15.2728504Z test rotation_lists_steps_free_and_mirroring ... ok
+2026-10-15T14:32:22.7298969Z test repeatable_budgets_give_the_same_layout ... ok
+2026-10-15T14:32:22.9131202Z test fewest_sheets_with_the_offcut_at_one_end ... ok
+2026-10-15T14:32:26.5330259Z test svg_and_dxf_in_curves_out_and_re_export ... ok
+2026-10-15T14:32:26.5369210Z test svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports ... ok
+2026-10-15T14:32:26.5380441Z test version_names_the_command ... ok
+2026-10-15T14:32:27.7645211Z test small_parts_go_inside_holes ... ok
+2026-10-15T14:32:36.1895371Z test several_sheet_sizes_margins_and_capped_counts ... ok
+2026-10-15T14:33:08.7901103Z test quantities_from_one_to_hundreds has been running for over 60 seconds
+2026-10-15T14:34:27.0265795Z test quantities_from_one_to_hundreds ... ok
+2026-10-15T14:34:27.0266186Z 
+2026-10-15T14:34:27.0266463Z test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 154.66s
+2026-10-15T14:34:27.0266822Z 
+2026-10-15T14:34:27.0269472Z      Running tests/inspect.rs (target/debug/deps/inspect-ddbb216c5b1d3e04)
+2026-10-15T14:34:27.0282307Z 
+2026-10-15T14:34:27.0282484Z running 2 tests
+2026-10-15T14:34:27.0306625Z test missing_input_fails_cleanly ... ok
+2026-10-15T14:34:27.0402057Z test inspect_prints_machine_readable_json ... ok
+2026-10-15T14:34:27.0402411Z 
+2026-10-15T14:34:27.0402841Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:27.0403265Z 
+2026-10-15T14:34:27.0404156Z      Running tests/strip.rs (target/debug/deps/strip-bd15bcd3c9896e45)
+2026-10-15T14:34:27.0415833Z 
+2026-10-15T14:34:27.0416100Z running 1 test
+2026-10-15T14:34:27.0744875Z test strip_cli_writes_a_valid_layout_and_preserves_existing_files ... ok
+2026-10-15T14:34:27.0745293Z 
+2026-10-15T14:34:27.0745630Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+2026-10-15T14:34:27.0746091Z 
+2026-10-15T14:34:27.0747009Z      Running tests/validate.rs (target/debug/deps/validate-9ed66a4778e7451e)
+2026-10-15T14:34:27.0757985Z 
+2026-10-15T14:34:27.0758136Z running 2 tests
+2026-10-15T14:34:27.0784853Z test validates_nested_example_and_prints_independently_computed_metrics ... ok
+2026-10-15T14:34:27.0787672Z test invalid_layout_has_a_failing_exit_code_and_no_quality_score ... ok
+2026-10-15T14:34:27.0788256Z 
+2026-10-15T14:34:27.0788515Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:27.0788904Z 
+2026-10-15T14:34:27.0790285Z      Running unittests src/lib.rs (target/debug/deps/nestbolt_core-2755c4e702f1d07f)
+2026-10-15T14:34:27.0804130Z 
+2026-10-15T14:34:27.0804274Z running 71 tests
+2026-10-15T14:34:27.0818878Z test common_line::chains::tests::loop_attached_to_a_branch_does_not_get_stranded_in_an_extra_path ... ok
+2026-10-15T14:34:27.0820518Z test common_line::chains::tests::overlap_union_and_crossing_have_no_retraced_edges_and_minimum_trails ... ok
+2026-10-15T14:34:27.0821682Z test common_line::search::tests::cannot_cross_a_stock_defect_to_share_a_cut ... ok
+2026-10-15T14:34:27.0822708Z test common_line::search::tests::lead_reservation_envelopes_remain_binding ... ok
+2026-10-15T14:34:27.0823703Z test common_line::search::tests::aligns_original_edges_with_repeatable_valid_moves ... ok
+2026-10-15T14:34:27.0824635Z test common_line::search::tests::search_bonus_is_opt_in ... ok
+2026-10-15T14:34:27.0861066Z test common_line::length::tests::lengths_preserve_circles_straight_beziers_and_subdivision ... ok
+2026-10-15T14:34:27.1129052Z test construct::repair::relax::tests::fixed_obstacle_cannot_be_solved_as_a_movable_pair ... ok
+2026-10-15T14:34:27.1869026Z test construct::order_tests::diversified_first_orientation_keeps_trying_when_an_angle_does_not_fit ... ok
+2026-10-15T14:34:27.2038646Z test construct::order_tests::diversified_anchors_preserve_constraints_and_replay_both_allowed_orientations ... ok
+2026-10-15T14:34:27.2078516Z test curves::tests::cubic_flattening_converges_and_bounds_error ... ok
+2026-10-15T14:34:27.2088615Z test curves::tests::flattened_circle_stays_within_tolerance ... ok
+2026-10-15T14:34:27.2089393Z test curves::tests::transformed_arcs_match_transformed_samples ... ok
+2026-10-15T14:34:27.2090238Z test export::ordered::tests::cubic_spans_stay_within_the_ellipse_error_bound ... ok
+2026-10-15T14:34:27.2091361Z test construct::order_tests::interleaved_order_preserves_copy_identity_and_rejects_missing_or_duplicate_copies ... ok
+2026-10-15T14:34:27.2182207Z test construct::repair::relax::tests::overlapping_group_separates_repeatably_with_exact_angles_and_defects ... ok
+2026-10-15T14:34:27.2199226Z test construct::repair::relax::tests::interrupted_trial_restores_receiver_and_contact_cache ... ok
+2026-10-15T14:34:27.2236410Z test export::ordered::tests::ellipse_cubics_meet_the_bound_across_scale_and_eccentricity ... ok
+2026-10-15T14:34:27.2258573Z test export::tests::exploded_dxf_retraces_keep_closed_curves_after_cleanup ... ok
+2026-10-15T14:34:27.2288306Z test export::tests::palette_separates_review_paths_and_keeps_them_open ... ok
+2026-10-15T14:34:27.3028889Z test export::tests::exported_sheets_round_trip_within_hundredth_of_a_millimetre ... ok
+2026-10-15T14:34:27.4049712Z test holes::tests::the_first_host_is_filled_even_when_the_share_has_run_out ... ok
+2026-10-15T14:34:27.4193068Z test import::fuzz::arbitrary_text_never_panics ... ok
+2026-10-15T14:34:27.4268430Z test import::fuzz::damaged_files_never_panic ... ok
+2026-10-15T14:34:27.4416432Z test holes::tests::inserts_ride_inside_frames_and_expand_validly ... ok
+2026-10-15T14:34:27.4417625Z test import::tests::bspline_knot_insertion_reproduces_the_curve ... ok
+2026-10-15T14:34:27.4438423Z test import::tests::dxf_lines_arcs_bulges_and_splines_close_into_parts ... ok
+2026-10-15T14:34:27.4459071Z test import::tests::dxf_relief_loops_in_file_order_stay_in_their_outline ... ok
+2026-10-15T14:34:27.4498206Z test import::tests::rings_must_stay_simple_in_single_precision ... ok
+2026-10-15T14:34:27.4508691Z test import::tests::self_touching_relief_loops_get_a_covering_nesting_outline ... ok
+2026-10-15T14:34:27.4588273Z test import::tests::svg_arcs_match_the_endpoint_definition ... ok
+2026-10-15T14:34:27.4607649Z test import::tests::svg_frame_with_hole_and_rounded_rectangle ... ok
+2026-10-15T14:34:27.4618169Z test lead_in::tests::angles_require_native_hundredth_degree_precision ... ok
+2026-10-15T14:34:27.4638654Z test lead_in::tests::exclusions_wrap_the_source_seam_and_all_excluded_contours_are_flagged ... ok
+2026-10-15T14:34:27.4639920Z test lead_in::tests::final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches ... ok
+2026-10-15T14:34:27.4742840Z test import::fuzz::random_paths_import_finite_parts ... ok
+2026-10-15T14:34:27.5169161Z test lead_in::tests::final_report_accounts_for_flags_reselects_near_edges_and_refuses_invalid_layouts ... ok
+2026-10-15T14:34:27.5169989Z test lead_in::tests::invalid_source_and_exclusion_inputs_fail_clearly ... ok
+2026-10-15T14:34:27.5790115Z test lead_in::tests::mm_and_inch_jobs_reserve_the_same_physical_geometry ... ok
+2026-10-15T14:34:27.5928766Z test lead_in::tests::narrow_hole_shortens_and_tiny_hole_is_flagged_without_losing_coverage ... ok
+2026-10-15T14:34:27.5929945Z test lead_in::tests::native_line_and_arc_calibrations_have_the_expected_length_radius_and_tangent ... ok
+2026-10-15T14:34:27.6018512Z test lead_in::tests::native_tenth_mm_setting_is_the_actual_reserved_path_length ... ok
+2026-10-15T14:34:27.6028482Z test lead_in::tests::near_zero_arc_uses_a_bounded_chord_without_a_remote_invalid_centre ... ok
+2026-10-15T14:34:27.6058583Z test lead_in::tests::owner_rejects_interior_path_and_pierce_but_allows_a_tangent_arc_join ... ok
+2026-10-15T14:34:27.6088338Z test lead_in::tests::path_length_attachment_and_waste_side_survive_arbitrary_heading ... ok
+2026-10-15T14:34:27.6458977Z test export::tests::chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats ... ok
+2026-10-15T14:34:27.6478778Z test lead_in::tests::rectangle_uses_a_convex_corner_and_retains_original_job_and_physical_envelope ... ok
+2026-10-15T14:34:27.7159260Z test lead_in::tests::final_validation_rebuilds_mixed_curves_in_physical_units ... ok
+2026-10-15T14:34:27.7179181Z test lead_in::tests::smooth_round_hole_starts_towards_its_centre_and_keeps_exact_curve_start ... ok
+2026-10-15T14:34:27.7208410Z test lead_in::tests::subdivided_hole_edge_is_chosen_by_its_full_length ... ok
+2026-10-15T14:34:27.7218451Z test project::tests::request_builds_a_checked_job_with_widened_clearances ... ok
+2026-10-15T14:34:27.7518753Z test rects::tests::rules_limits_and_budgets_are_respected ... ok
+2026-10-15T14:34:28.2014932Z test rects::tests::shorter_targets_find_upright_bands ... ok
+2026-10-15T14:34:28.3747123Z test lead_in::tests::reused_owner_fit_checks_keep_copy_obstacles_and_exclusions_independent ... ok
+2026-10-15T14:34:28.5779275Z test scoring::tests::fill_modes_value_parts_not_reserved_waste_and_keep_priority_primary ... ok
+2026-10-15T14:34:28.5798651Z test scoring::tests::source_material_must_match_metadata_and_fit_the_reserved_geometry ... ok
+2026-10-15T14:34:29.0769021Z test lead_in::tests::planned_search_validates_original_parts_every_allowance_and_exported_starts ... ok
+2026-10-15T14:34:29.2149443Z test scoring::tests::reserved_cutting_space_stays_out_of_the_reported_offcut ... ok
+2026-10-15T14:34:29.2198674Z test sheets::tests::expired_repeatable_warm_start_does_not_retry_without_a_deadline ... ok
+2026-10-15T14:34:29.3338999Z test separate::tests::weights_stay_finite_when_a_collision_never_clears ... ok
+2026-10-15T14:34:33.1048768Z test sheets::tests::defects_stay_clear_in_sheet_search ... ok
+2026-10-15T14:34:33.1597497Z test sheets::tests::remnant_outline_keeps_the_general_search ... ok
+2026-10-15T14:34:33.1610512Z test sheets::tests::sparrow_hands_back_when_its_strip_cannot_fit_the_sheet ... ignored, upstream Sparrow debug assertion
+2026-10-15T14:34:35.3688957Z test sheets::tests::several_stock_sizes_search_one_size ... ok
+2026-10-15T14:34:35.4928712Z test sheets::tests::strip_frame_round_trips_contract_transforms ... ok
+2026-10-15T14:34:35.8399842Z test export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring ... ok
+2026-10-15T14:34:35.8418496Z test strip::tests::exported_reflection_preserves_copy_ids_and_scores_original_vertices ... ok
+2026-10-15T14:34:35.8428399Z test strip::tests::phase_timeouts_never_extend_the_global_budget ... ok
+2026-10-15T14:34:37.3389261Z test sheets::tests::strip_frame_round_trips_random_jobs ... ok
+2026-10-15T14:34:37.4539051Z test sheets::tests::sparrow_takes_one_sheet_of_hole_free_parts ... ok
+2026-10-15T14:34:39.2035433Z test sheets::tests::short_sheet_searches_are_independently_valid ... ok
+2026-10-15T14:34:39.2035922Z 
+2026-10-15T14:34:39.2036282Z test result: ok. 70 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 12.12s
+2026-10-15T14:34:39.2036818Z 
+2026-10-15T14:34:39.2043005Z      Running tests/common_line.rs (target/debug/deps/common_line-d20f2152c23db58d)
+2026-10-15T14:34:39.2057243Z 
+2026-10-15T14:34:39.2057404Z running 6 tests
+2026-10-15T14:34:39.2078562Z test holes_sheet_edges_and_other_sheets_are_not_shared ... ok
+2026-10-15T14:34:39.2079467Z test minimum_length_spacing_and_physical_units_are_enforced ... ok
+2026-10-15T14:34:39.2080276Z test compensated_pair_preserves_cut_size_and_exports_one_shared_path ... ok
+2026-10-15T14:34:39.2081138Z test partial_matches_subdivisions_and_layout_order_preserve_shared_length ... ok
+2026-10-15T14:34:39.2097286Z test analytic_common_offsets_match_independent_clipper ... ok
+2026-10-15T14:34:39.2115264Z test curved_portions_are_counted_but_never_polygonized_into_common_lines ... ok
+2026-10-15T14:34:39.2115610Z 
+2026-10-15T14:34:39.2115874Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:39.2116210Z 
+2026-10-15T14:34:39.2118479Z      Running tests/compact.rs (target/debug/deps/compact-358b3664a3b1f92b)
+2026-10-15T14:34:39.2129595Z 
+2026-10-15T14:34:39.2129752Z running 4 tests
+2026-10-15T14:34:39.2218622Z test fill_compaction_keeps_the_original_selection ... ok
+2026-10-15T14:34:39.2255785Z test interruption_and_invalid_inputs_do_not_change_the_source ... ok
+2026-10-15T14:34:39.2271980Z test relocation_can_choose_a_shorter_permitted_orientation_and_repeats ... ok
+2026-10-15T14:34:39.2274467Z test compaction_reduces_material_preserves_copies_and_repeats ... ok
+2026-10-15T14:34:39.2274988Z 
+2026-10-15T14:34:39.2275413Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:39.2275974Z 
+2026-10-15T14:34:39.2278085Z      Running tests/compress.rs (target/debug/deps/compress-0b33812567892f94)
+2026-10-15T14:34:39.2290082Z 
+2026-10-15T14:34:39.2290284Z running 2 tests
+2026-10-15T14:34:39.2374194Z test compression_separates_clamped_parts_and_preserves_other_sheets ... ok
+2026-10-15T14:34:39.2431095Z test fixed_defects_or_interruption_never_modify_the_source ... ok
+2026-10-15T14:34:39.2431567Z 
+2026-10-15T14:34:39.2431962Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:39.2432507Z 
+2026-10-15T14:34:39.2434854Z      Running tests/construct.rs (target/debug/deps/construct-9b77ebf533712331)
+2026-10-15T14:34:39.2446943Z 
+2026-10-15T14:34:39.2447207Z running 11 tests
+2026-10-15T14:34:39.2503161Z test exact_list_angles_and_mirror_are_rebuilt_in_source_coordinates ... ok
+2026-10-15T14:34:39.2504178Z test a_mirror_required_by_the_remnant_is_exported_as_one_rigid_transform ... ok
+2026-10-15T14:34:39.2658560Z test contact_candidates_interlock_concave_parts_without_random_sampling ... ok
+2026-10-15T14:34:39.2778693Z test mixed_stock_limits_and_fill_do_not_invent_sheets ... ok
+2026-10-15T14:34:39.2847975Z test refinement_closes_a_gap_above_a_sloping_remnant_edge ... ok
+2026-10-15T14:34:39.2908557Z test refinement_keeps_a_mirrored_remnant_valid_without_changing_permissions ... ok
+2026-10-15T14:34:39.3018537Z test holed_and_disconnected_parts_preserve_source_and_repeat ... ok
+2026-10-15T14:34:39.3249287Z test a_long_rectangular_sheet_uses_its_usable_edges_without_random_sampling ... ok
+2026-10-15T14:34:39.3254345Z test split_remnant_regions_share_one_stock_copy_and_avoid_defects ... ok
+2026-10-15T14:34:39.3266219Z test refinement_keeps_holes_components_defects_and_exact_angles_in_source_space ... ok
+2026-10-15T14:34:40.3142576Z test narrow_margins_on_large_stock_preserve_clearance_and_source ... ok
+2026-10-15T14:34:40.3142936Z 
+2026-10-15T14:34:40.3143196Z test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.07s
+2026-10-15T14:34:40.3143538Z 
+2026-10-15T14:34:40.3146880Z      Running tests/contour_starts.rs (target/debug/deps/contour_starts-0e32b03acedfda79)
+2026-10-15T14:34:40.3160796Z 
+2026-10-15T14:34:40.3160938Z running 3 tests
+2026-10-15T14:34:40.3164336Z test restarting_circle_retains_arcs_and_rejects_invalid_or_open_contours ... ok
+2026-10-15T14:34:40.3165192Z test each_curve_subdivides_exactly_and_derivatives_keep_direction ... ok
+2026-10-15T14:34:40.6514008Z test restarts_preserve_geometry_and_commute_with_rigid_transforms ... ok
+2026-10-15T14:34:40.6514528Z 
+2026-10-15T14:34:40.6514793Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+2026-10-15T14:34:40.6515141Z 
+2026-10-15T14:34:40.6516706Z      Running tests/import_cleanup.rs (target/debug/deps/import_cleanup-29ef482e7d3399e0)
+2026-10-15T14:34:40.6531561Z 
+2026-10-15T14:34:40.6531837Z running 6 tests
+2026-10-15T14:34:40.6538500Z test exact_retraces_stay_closed_but_a_second_copy_is_removed ... ok
+2026-10-15T14:34:40.6539322Z test cleanup_preserves_closed_retraced_arc_endpoints ... ok
+2026-10-15T14:34:40.6548815Z test merges_partial_and_contained_collinear_overlaps_without_merging_nearby_lines ... ok
+2026-10-15T14:34:40.6549480Z test removes_forward_reverse_and_zero_segments_without_dropping_circles ... ok
+2026-10-15T14:34:40.6550406Z test reversed_beziers_are_duplicates_but_a_nonempty_closed_curve_is_not_zero ... ok
+2026-10-15T14:34:40.6872325Z test shuffled_overlaps_and_duplicates_keep_the_exact_rectangle ... ok
+2026-10-15T14:34:40.6872817Z 
+2026-10-15T14:34:40.6873204Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+2026-10-15T14:34:40.6873763Z 
+2026-10-15T14:34:40.6875119Z      Running tests/import_encoding.rs (target/debug/deps/import_encoding-9bc9fbf303198cfd)
+2026-10-15T14:34:40.6887049Z 
+2026-10-15T14:34:40.6887219Z running 5 tests
+2026-10-15T14:34:40.6892415Z test dxf_unicode_escapes_decode_surrogate_pairs_without_loss ... ok
+2026-10-15T14:34:40.6893208Z test legacy_declared_and_default_codepages_keep_unicode_layer_names ... ok
+2026-10-15T14:34:40.6894024Z test modern_utf8_ignores_legacy_codepage_and_bad_bytes_have_a_fix ... ok
+2026-10-15T14:34:40.6894784Z test missing_units_suggest_inches_without_rescaling_and_headers_take_precedence ... ok
+2026-10-15T14:34:40.6895484Z test xml_bom_and_declared_encoding_decode_without_replacement_characters ... ok
+2026-10-15T14:34:40.6895983Z 
+2026-10-15T14:34:40.6896347Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:40.6896780Z 
+2026-10-15T14:34:40.6897035Z      Running tests/import_gaps.rs (target/debug/deps/import_gaps-9fd3fec0359a970d)
+2026-10-15T14:34:40.6906834Z 
+2026-10-15T14:34:40.6906997Z running 5 tests
+2026-10-15T14:34:40.6912068Z test empty_import_error_names_the_location_and_fix ... ok
+2026-10-15T14:34:40.6912717Z test explicit_gap_repair_keeps_original_curve_endpoints ... ok
+2026-10-15T14:34:40.6913235Z test curve_precision_does_not_enable_gap_healing ... ok
+2026-10-15T14:34:40.6914809Z test repair_limit_is_one_mm_and_default_join_is_silent ... ok
+2026-10-15T14:34:40.6915365Z test library_rejects_partial_geometry_until_repaired_or_excluded ... ok
+2026-10-15T14:34:40.6915650Z 
+2026-10-15T14:34:40.6915889Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:40.6916248Z 
+2026-10-15T14:34:40.6918276Z      Running tests/import_habits.rs (target/debug/deps/import_habits-49947628bca4b687)
+2026-10-15T14:34:40.6929381Z 
+2026-10-15T14:34:40.6929524Z running 2 tests
+2026-10-15T14:34:40.6950745Z test every_shop_habit_has_an_analytic_fixture ... ok
+2026-10-15T14:34:40.6994976Z test random_shop_habits_preserve_analytic_parts ... ok
+2026-10-15T14:34:40.6995357Z 
+2026-10-15T14:34:40.6995763Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:40.6996334Z 
+2026-10-15T14:34:40.6998216Z      Running tests/import_layers.rs (target/debug/deps/import_layers-a7e7a83741d8f66b)
+2026-10-15T14:34:40.7009434Z 
+2026-10-15T14:34:40.7009579Z running 6 tests
+2026-10-15T14:34:40.7014398Z test insert_extrusion_mirrors_its_position_after_local_scale_and_rotation ... ok
+2026-10-15T14:34:40.7015283Z test inventory_is_available_for_open_only_drawings ... ok
+2026-10-15T14:34:40.7018871Z test dxf_layer_and_color_inherit_through_blocks_with_base_points ... ok
+2026-10-15T14:34:40.7019650Z test malformed_polyline_has_a_reexport_fix ... ok
+2026-10-15T14:34:40.7020386Z test svg_css_specificity_and_use_inheritance_choose_the_right_colour ... ok
+2026-10-15T14:34:40.7021257Z test svg_defaults_and_explicit_filters_preserve_inventory ... ok
+2026-10-15T14:34:40.7021629Z 
+2026-10-15T14:34:40.7022180Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:40.7022781Z      Running tests/import_metadata.rs (target/debug/deps/import_metadata-2b4f4d6afcd4cfd5)
+2026-10-15T14:34:40.7023271Z 
+2026-10-15T14:34:40.7033476Z 
+2026-10-15T14:34:40.7033612Z running 2 tests
+2026-10-15T14:34:40.7037883Z test block_instances_and_header_seed_are_not_duplicate_handles ... ok
+2026-10-15T14:34:40.7038793Z test duplicate_handles_and_undefined_annotation_layers_are_reported_without_dropping_parts ... ok
+2026-10-15T14:34:40.7039295Z 
+2026-10-15T14:34:40.7039541Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:40.7040315Z 
+2026-10-15T14:34:40.7040568Z      Running tests/import_sheet.rs (target/debug/deps/import_sheet-67d1f78b9f9fc930)
+2026-10-15T14:34:40.7051686Z 
+2026-10-15T14:34:40.7051976Z running 5 tests
+2026-10-15T14:34:40.7068755Z test references_do_not_silently_resize_stock_or_accept_conflicting_geometry ... ok
+2026-10-15T14:34:40.7096127Z test custom_stock_layers_and_disabled_discovery_do_not_change_cut_parts ... ok
+2026-10-15T14:34:40.7097010Z test stock_cannot_gain_material_from_the_part_proxy_self_touch_repair ... ok
+2026-10-15T14:34:40.7097612Z test stock_selection_is_separate_and_normalizes_the_whole_sheet_with_holes ... ok
+2026-10-15T14:34:40.7103467Z test curved_stock_error_is_reserved_at_edges_and_explicit_gap_repair_is_required ... ok
+2026-10-15T14:34:40.7103844Z 
+2026-10-15T14:34:40.7104114Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:40.7104462Z 
+2026-10-15T14:34:40.7106455Z      Running tests/import_viewport.rs (target/debug/deps/import_viewport-d9705306efb39131)
+2026-10-15T14:34:40.7117614Z 
+2026-10-15T14:34:40.7117941Z running 6 tests
+2026-10-15T14:34:40.7123413Z test ambiguous_or_invalid_pages_name_the_repair_instead_of_guessing_a_size ... ok
+2026-10-15T14:34:40.7126230Z test either_absolute_dimension_sets_the_scale_and_missing_dimensions_use_user_units ... ok
+2026-10-15T14:34:40.7127356Z test aspect_ratio_meet_slice_none_and_alignment_keep_physical_dimensions ... ok
+2026-10-15T14:34:40.7128639Z test modern_and_legacy_polyline_widths_warn_without_expanding_cut_centrelines ... ok
+2026-10-15T14:34:40.7129520Z test nonuniform_page_mapping_retains_curved_boundaries ... ok
+2026-10-15T14:34:40.7130177Z test root_transform_acts_outside_viewbox_in_viewport_units ... ok
+2026-10-15T14:34:40.7130831Z      Running tests/inspection.rs (target/debug/deps/inspection-fe4b473a00cc910f)
+2026-10-15T14:34:40.7131151Z 
+2026-10-15T14:34:40.7131449Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:40.7132055Z 
+2026-10-15T14:34:40.7142266Z 
+2026-10-15T14:34:40.7142422Z running 7 tests
+2026-10-15T14:34:40.7168482Z test refuses_item_holes_instead_of_silently_filling_them ... ok
+2026-10-15T14:34:40.7169141Z test rejects_duplicate_ids ... ok
+2026-10-15T14:34:40.7169712Z test rejects_invalid_rotation_spacing_and_empty_stock ... ok
+2026-10-15T14:34:40.7170491Z test rejects_overflow_and_excessive_demand_before_geometry_import ... ok
+2026-10-15T14:34:40.7238515Z test inactive_items_do_not_contribute_area ... ok
+2026-10-15T14:34:40.7343572Z test imports_real_geometry_and_preserves_declared_units ... ok
+2026-10-15T14:34:41.0162800Z test rectangular_area_scales_with_quantity ... ok
+2026-10-15T14:34:41.0163210Z 
+2026-10-15T14:34:41.0163617Z test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s
+2026-10-15T14:34:41.0164156Z 
+2026-10-15T14:34:41.0167291Z      Running tests/lead_lightburn.rs (target/debug/deps/lead_lightburn-f0bb9d9eca928526)
+2026-10-15T14:34:41.0181696Z 
+2026-10-15T14:34:41.0181832Z running 2 tests
+2026-10-15T14:34:41.0321817Z test engraving_text_and_bitmap_bounds_never_become_cut_contours ... ok
+2026-10-15T14:34:41.2086034Z test cutting_sidecars_keep_disconnected_pieces_holes_islands_and_open_paths ... ok
+2026-10-15T14:34:41.2086531Z 
+2026-10-15T14:34:41.2086828Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+2026-10-15T14:34:41.2087171Z 
+2026-10-15T14:34:41.2089971Z      Running tests/lead_surfaces.rs (target/debug/deps/lead_surfaces-de27b553dde08bd3)
+2026-10-15T14:34:41.2104004Z 
+2026-10-15T14:34:41.2104165Z running 2 tests
+2026-10-15T14:34:41.2141125Z test lead_request_rejects_invalid_options_and_accepts_preserved_project_sidecars ... ok
+2026-10-15T14:34:41.2210915Z test final_common_starts_are_exported_from_each_copy_and_offcuts_use_reserved_space ... ok
+2026-10-15T14:34:41.2211504Z 
+2026-10-15T14:34:41.2211893Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:34:41.2212911Z 
+2026-10-15T14:34:41.2213646Z      Running tests/lightburn.rs (target/debug/deps/lightburn-f595e44a88bb5584)
+2026-10-15T14:34:41.2225139Z 
+2026-10-15T14:34:41.2225305Z running 15 tests
+2026-10-15T14:34:41.2237197Z test circles_rounded_rectangles_polygons_and_open_paths_keep_their_shape ... ok
+2026-10-15T14:34:41.2240560Z test corrupt_shared_lists_and_nonfinite_geometry_fail_with_context ... ok
+2026-10-15T14:34:41.2241261Z test containment_checks_the_whole_rectangle_and_chooses_the_smallest_cut ... ok
+2026-10-15T14:34:41.2241772Z test legacy_and_compact_cubic_multicontours_have_the_same_geometry ... ok
+2026-10-15T14:34:41.2242282Z test group_transform_and_text_cache_apply_once_and_text_moves_with_its_group ... ok
+2026-10-15T14:34:41.2242843Z test identity_sheet_is_byte_identical_and_group_children_never_get_transformed ... ok
+2026-10-15T14:34:41.2243431Z test legacy_conversion_includes_text_backups_fixed_paths_and_partial_handles ... ok
+2026-10-15T14:34:41.2244222Z test no_op_preserves_every_byte_and_sharing_resolves_independently ... ok
+2026-10-15T14:34:41.2245155Z      Running tests/optimize.rs (target/debug/deps/optimize-cc6010e09cf4f175)
+2026-10-15T14:34:41.2245855Z test omitted_zero_handle_coordinates_are_not_missing_handles ... ok
+2026-10-15T14:34:41.2246547Z test nesting_units_attach_contents_but_preserve_groups_and_fixed_shapes ... ok
+2026-10-15T14:34:41.2247607Z test tool_setting_precedes_shapes_and_outline_precedes_trailing_notes ... ok
+2026-10-15T14:34:41.2248578Z test uncached_text_and_unknown_shapes_are_retained_without_inventing_bounds ... ok
+2026-10-15T14:34:41.2249395Z test per_sheet_writer_rehomes_independent_resources_and_keeps_fixed_xml ... ok
+2026-10-15T14:34:41.2250156Z test legacy_sheet_conversion_keeps_original_xml_and_only_adds_compact_geometry ... ok
+2026-10-15T14:34:41.2250692Z test writer_handles_self_closing_shapes_copies_and_tool_setting_conflicts ... ok
+2026-10-15T14:34:41.2251009Z 
+2026-10-15T14:34:41.2251261Z test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:34:41.2251608Z 
+2026-10-15T14:34:41.2256620Z 
+2026-10-15T14:34:41.2256761Z running 10 tests
+2026-10-15T14:34:41.3028964Z test cancellation_before_initial_layout_is_typed_and_after_progress_keeps_the_layout ... ok
+2026-10-15T14:34:41.3058261Z test fill_priority_search_never_reduces_the_incumbents_priority ... ok
+2026-10-15T14:34:41.3329934Z test impossible_stock_is_not_reported_as_a_successful_improvement ... ok
+2026-10-15T14:34:41.3618854Z test collision_limit_stops_mid_pass_and_preserves_the_valid_incumbent_deterministically ... ok
+2026-10-15T14:34:43.5613404Z test interrupted_sheet_repair_cannot_leak_removed_or_displaced_parts ... ok
+2026-10-15T14:34:44.3771001Z test longer_search_preserves_the_first_finished_block_and_shared_work_limit ... ok
+2026-10-15T14:34:45.4876998Z test repacking_preserves_a_valid_incumbent_and_accounts_for_every_pass ... ok
+2026-10-15T14:34:46.5142070Z test finishing_preserves_every_repacking_pass_and_the_incumbent_on_interruption ... ok
+2026-10-15T14:34:47.4334653Z test shallow_overlap_repair_keeps_the_blaz1_development_quality_gain ... ok
+2026-10-15T14:35:38.6292268Z test a_trial_the_collision_engine_lets_overlap_is_rejected_not_fatal ... ok
+2026-10-15T14:35:38.6292787Z 
+2026-10-15T14:35:38.6293275Z test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 57.40s
+2026-10-15T14:35:38.6293822Z 
+2026-10-15T14:35:38.6298507Z      Running tests/project_lightburn.rs (target/debug/deps/project_lightburn-d237c2cd5c060c25)
+2026-10-15T14:35:38.6312274Z 
+2026-10-15T14:35:38.6312417Z running 3 tests
+2026-10-15T14:35:38.6323499Z test missing_source_and_mixed_fixed_groups_fail_before_nesting ... ok
+2026-10-15T14:35:38.6350046Z test source_xml_drives_validation_and_incomplete_or_lossy_exports_are_refused ... ok
+2026-10-15T14:35:38.6373908Z test rigid_components_and_source_settings_survive_library_and_per_sheet_exports ... ok
+2026-10-15T14:35:38.6374913Z 
+2026-10-15T14:35:38.6375333Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-15T14:35:38.6375822Z 
+2026-10-15T14:35:38.6378650Z      Running tests/repair.rs (target/debug/deps/repair-ff44aa756ef59f0c)
+2026-10-15T14:35:38.6390276Z 
+2026-10-15T14:35:38.6390410Z running 9 tests
+2026-10-15T14:35:38.6488544Z test an_unplaced_donor_stops_the_trial_without_adding_later_smaller_parts ... ok
+2026-10-15T14:35:38.6489624Z test defects_are_never_displaced_to_admit_a_part ... ok
+2026-10-15T14:35:38.6598443Z test moving_a_blocker_fits_both_parts_on_one_sheet_and_repeats ... ok
+2026-10-15T14:35:38.6758495Z test failed_ejection_restores_the_unchanged_receiver_and_never_opens_stock ... ok
+2026-10-15T14:35:38.6818328Z test repair_rejects_invalid_sources_donors_and_excess_work ... ok
+2026-10-15T14:35:38.7044760Z test failed_two_part_reinsertion_rolls_back_another_receiver_sheet ... ok
+2026-10-15T14:35:38.7086084Z test two_blockers_move_together_to_remove_a_sheet_and_repeat ... ok
+2026-10-15T14:35:38.7100750Z test repair_keeps_mirrored_off_origin_geometry_and_split_remnant_identity ... ok
+2026-10-15T14:35:47.7711530Z test late_shapes_repairs_cannot_admit_coincident_parts ... ok
+2026-10-15T14:35:47.7711993Z 
+2026-10-15T14:35:47.7712376Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.13s
+2026-10-15T14:35:47.7712883Z 
+2026-10-15T14:35:47.7718642Z      Running tests/search_fuzz.rs (target/debug/deps/search_fuzz-c149fbce762a008a)
+2026-10-15T14:35:47.7731979Z 
+2026-10-15T14:35:47.7732175Z running 4 tests
+2026-10-15T14:35:49.7839704Z test regression_ci_quadtree_child_edges ... ok
+2026-10-15T14:35:51.0845200Z test imported_shop_habits_nest_with_original_geometry ... ok
+2026-10-15T14:36:12.8801345Z test random_polygon_jobs_are_valid_or_clean_errors ... ok
+2026-10-15T14:36:29.1615558Z test random_curved_svg_parts_nest_validly ... ok
+2026-10-15T14:36:29.1615845Z 
+2026-10-15T14:36:29.1616121Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 41.39s
+2026-10-15T14:36:29.1616522Z 
+2026-10-15T14:36:29.1628179Z      Running tests/strip.rs (target/debug/deps/strip-bf18032a7cc9d5fc)
+2026-10-15T14:36:29.1642482Z 
+2026-10-15T14:36:29.1642621Z running 2 tests
+2026-10-15T14:36:29.1646493Z test strip_adapter_rejects_unrepresented_constraints_and_invalid_budgets ... ok
+2026-10-15T14:36:30.4420398Z test native_strip_search_returns_original_geometry_and_units_within_its_envelope ... ok
+2026-10-15T14:36:30.4420986Z 
+2026-10-15T14:36:30.4421375Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.28s
+2026-10-15T14:36:30.4421882Z 
+2026-10-15T14:36:30.4424873Z      Running unittests src/main.rs (target/debug/deps/nestbolt_mcp-585eaf7c89643f59)
+2026-10-15T14:36:30.4437180Z 
+2026-10-15T14:36:30.4438036Z running 0 tests
+2026-10-15T14:36:30.4438237Z 
+2026-10-15T14:36:30.4438504Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:30.4438937Z 
+2026-10-15T14:36:30.4439971Z      Running tests/connection.rs (target/debug/deps/connection-10badbb2b60bcc27)
+2026-10-15T14:36:30.4452177Z 
+2026-10-15T14:36:30.4452335Z running 5 tests
+2026-10-15T14:36:31.6709299Z test lead_allowances_report_flags_and_revalidate_identically ... ok
+2026-10-15T14:36:31.8939661Z test lightburn_lead_sidecars_keep_the_editable_project_and_revalidate ... ok
+2026-10-15T14:36:32.4972523Z test common_line_parameter_controls_spacing_and_export_report ... ok
+2026-10-15T14:36:32.5101937Z test lightburn_units_nest_and_export_without_losing_project_settings ... ok
+2026-10-15T14:36:37.2682459Z test tools_import_nest_validate_export_and_estimate_inside_the_workspace ... ok
+2026-10-15T14:36:37.2682937Z 
+2026-10-15T14:36:37.2683205Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.82s
+2026-10-15T14:36:37.2683561Z 
+2026-10-15T14:36:37.2686618Z      Running unittests src/lib.rs (target/debug/deps/nestbolt_validator-5999d7ed22983984)
+2026-10-15T14:36:37.2700884Z 
+2026-10-15T14:36:37.2701053Z running 4 tests
+2026-10-15T14:36:37.2722057Z test distance_tests::queries_keep_input_checks_after_warming_and_do_not_allocate_for_distant_pairs ... ok
+2026-10-15T14:36:37.2760480Z test distance_tests::reused_clearance_envelopes_match_fresh_queries_for_different_neighbours ... ok
+2026-10-15T14:36:37.5042240Z test distance_tests::pruning_preserves_near_touching_curves_and_multiple_components ... ok
+2026-10-15T14:36:37.7798133Z test distance_tests::pruned_distances_equal_exhaustive_distances_at_all_supported_scales ... ok
+2026-10-15T14:36:37.7798741Z 
+2026-10-15T14:36:37.7799016Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.51s
+2026-10-15T14:36:37.7799400Z 
+2026-10-15T14:36:37.7802136Z      Running tests/adversarial.rs (target/debug/deps/adversarial-e13ed2022aa961d0)
+2026-10-15T14:36:37.7816535Z 
+2026-10-15T14:36:37.7816676Z running 1 test
+2026-10-15T14:36:37.8006875Z test seeded_adversarial_polygon_fuzz ... ok
+2026-10-15T14:36:37.8007284Z 
+2026-10-15T14:36:37.8007678Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+2026-10-15T14:36:37.8008360Z 
+2026-10-15T14:36:37.8009975Z      Running tests/geometry.rs (target/debug/deps/geometry-96a378b476fcfaad)
+2026-10-15T14:36:37.8021897Z 
+2026-10-15T14:36:37.8022162Z running 12 tests
+2026-10-15T14:36:37.8026665Z test containment_respects_defects_and_boundary_spacing ... ok
+2026-10-15T14:36:37.8027519Z test contact_and_clearance_are_distinguished ... ok
+2026-10-15T14:36:37.8028644Z test normalizes_duplicate_closing_and_collinear_points ... ok
+2026-10-15T14:36:37.8029432Z test diagonal_clearance_uses_euclidean_distance ... ok
+2026-10-15T14:36:37.8030007Z test overlap_is_measured_against_the_smaller_part ... ok
+2026-10-15T14:36:37.8031205Z test rejects_invalid_rings_and_hole_topology ... ok
+2026-10-15T14:36:37.8031719Z test parts_fit_inside_holes_with_clearance ... ok
+2026-10-15T14:36:37.8032261Z test rectangle_intersections_agree_with_analytic_area ... ok
+2026-10-15T14:36:37.8032877Z test rigid_transform_mirrors_then_rotates_then_translates ... ok
+2026-10-15T14:36:37.8033479Z test units_are_explicit_and_inches_are_converted ... ok
+2026-10-15T14:36:37.8034146Z test slivers_and_small_overlap_remain_measurable ... ok
+2026-10-15T14:36:37.8035319Z test winding_and_quarter_turns_preserve_area ... ok
+2026-10-15T14:36:37.8035710Z 
+2026-10-15T14:36:37.8036128Z test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:37.8036711Z 
+2026-10-15T14:36:37.8038416Z      Running tests/job.rs (target/debug/deps/job-cad8b8e010feaada)
+2026-10-15T14:36:37.8049739Z 
+2026-10-15T14:36:37.8049880Z running 13 tests
+2026-10-15T14:36:37.8055445Z test a_completely_defective_sheet_allows_only_an_empty_fill_result ... ok
+2026-10-15T14:36:37.8056238Z test enforces_stock_limits_and_rejects_empty_or_duplicate_sheets ... ok
+2026-10-15T14:36:37.8056906Z test equal_stock_metric_matches_the_plan_formula ... ok
+2026-10-15T14:36:37.8057550Z test mixed_stock_metric_uses_actual_area_and_one_trailing_offcut ... ok
+2026-10-15T14:36:37.8061011Z test fill_modes_allow_missing_parts_but_never_extra_copies ... ok
+2026-10-15T14:36:37.8061752Z test margins_edges_defects_and_interpart_clearance_are_separate ... ok
+2026-10-15T14:36:37.8062379Z test rejects_duplicates_missing_copies_unknown_parts_and_nonrigid_fields ... ok
+2026-10-15T14:36:37.8062888Z test remnant_outline_and_overlapping_defects_are_supported ... ok
+2026-10-15T14:36:37.8063639Z test parts_can_nest_in_holes_and_disconnected_components_stay_rigid ... ok
+2026-10-15T14:36:37.8064490Z test step_list_free_and_mirror_rules_are_checked ... ok
+2026-10-15T14:36:37.8065218Z test tiny_pair_overlaps_are_accumulated_per_part ... ok
+2026-10-15T14:36:37.8079359Z test unit_mismatch_invalid_inputs_and_excessive_demand_are_rejected ... ok
+2026-10-15T14:36:37.8561524Z test validates_two_thousand_distinct_copies ... ok
+2026-10-15T14:36:37.8561902Z 
+2026-10-15T14:36:37.8562686Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+2026-10-15T14:36:37.8563090Z 
+2026-10-15T14:36:37.8565747Z      Running tests/lead_sources.rs (target/debug/deps/lead_sources-3fed17b319ced3ff)
+2026-10-15T14:36:37.8579629Z 
+2026-10-15T14:36:37.8579789Z running 11 tests
+2026-10-15T14:36:37.8588675Z test collision_guard_expands_rounding_slivers_but_refuses_missing_material ... ok
+2026-10-15T14:36:37.8628490Z test component_and_hole_coverage_is_derived_from_original_job ... ok
+2026-10-15T14:36:37.8658416Z test altered_start_and_inward_lead_fail_even_when_partial_checks_pass ... ok
+2026-10-15T14:36:37.8659209Z test exact_curved_neighbour_is_checked_beyond_its_coarse_search_polygon ... ok
+2026-10-15T14:36:37.8659991Z test independent_coverage_requires_one_decision_for_each_placed_contour ... ok
+2026-10-15T14:36:37.8660766Z test native_cutting_coverage_uses_source_paths_instead_of_collision_proxy ... ok
+2026-10-15T14:36:37.8661546Z test ordinary_material_components_cannot_overlap_or_use_native_metadata ... ok
+2026-10-15T14:36:37.8662268Z test source_degeneracy_and_resource_limits_fail_explicitly ... ok
+2026-10-15T14:36:37.8813972Z test complete_checks_preserve_units_rotation_and_mirroring ... ok
+2026-10-15T14:36:37.9810853Z test independent_bezier_samples_and_flattening_match_de_casteljau ... ok
+2026-10-15T14:36:38.1987602Z test independent_ellipse_flattening_respects_physical_error ... ok
+2026-10-15T14:36:38.1988307Z 
+2026-10-15T14:36:38.1989248Z test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+2026-10-15T14:36:38.1989759Z 
+2026-10-15T14:36:38.1991464Z      Running tests/leads.rs (target/debug/deps/leads-4b4fd8e8d8dc4510)
+2026-10-15T14:36:38.2006264Z 
+2026-10-15T14:36:38.2006541Z running 15 tests
+2026-10-15T14:36:38.2028582Z test detects_other_parts_and_crossing_leads_before_export ... ok
+2026-10-15T14:36:38.2048978Z test both_native_traversal_directions_reserve_room ... ok
+2026-10-15T14:36:38.2050011Z test hole_leads_check_nested_parts_and_other_contours_of_the_owner ... ok
+2026-10-15T14:36:38.2051084Z test large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations ... ok
+2026-10-15T14:36:38.2052699Z test inch_jobs_keep_paths_in_mm_but_translate_using_inches ... ok
+2026-10-15T14:36:38.2066610Z test malformed_paths_and_unknown_contours_fail_explicitly ... ok
+2026-10-15T14:36:38.2067704Z test reserved_metrics_keep_original_material_and_exclude_leads_from_the_offcut_in_both_units ... ok
+2026-10-15T14:36:38.2083563Z test sheets_are_isolated_and_original_layout_must_be_valid ... ok
+2026-10-15T14:36:38.2084529Z test stock_edges_margins_remnants_and_defects_check_the_whole_lead ... ok
+2026-10-15T14:36:38.2085494Z test stroke_and_pierce_have_the_declared_physical_sizes ... ok
+2026-10-15T14:36:38.2099599Z test union_preserves_holes_islands_and_units_without_double_counting ... ok
+2026-10-15T14:36:38.2100596Z test transformation_matches_independent_matrix_at_every_sample ... ok
+2026-10-15T14:36:38.2113592Z test union_roundtrip_matches_analytic_overlapping_rectangles ... ok
+2026-10-15T14:36:38.4030303Z test analytic_swept_discs_are_contained ... ok
+2026-10-15T14:36:39.4303247Z test extreme_arc_sizes_keep_physical_coverage_or_fail_with_a_bounded_cost ... ok
+2026-10-15T14:36:39.4303753Z 
+2026-10-15T14:36:39.4304113Z test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.23s
+2026-10-15T14:36:39.4304588Z 
+2026-10-15T14:36:39.4316030Z      Running tests/sparrow.rs (target/debug/deps/sparrow-97457a71a63ef69e)
+2026-10-15T14:36:39.4329983Z 
+2026-10-15T14:36:39.4330121Z running 5 tests
+2026-10-15T14:36:39.4334826Z test accepts_float32_angle_rounding_but_not_arbitrary_angles ... ok
+2026-10-15T14:36:39.4335858Z test checks_original_geometry_instead_of_embedded_solver_input ... ok
+2026-10-15T14:36:39.4336748Z test empty_rotation_list_is_fixed_while_null_is_free ... ok
+2026-10-15T14:36:39.4337425Z test rejects_nonrigid_transform_fields_and_duplicate_source_ids ... ok
+2026-10-15T14:36:39.4338294Z test quantities_rotations_containment_and_unknown_items_fail ... ok
+2026-10-15T14:36:39.4339196Z 
+2026-10-15T14:36:39.4339564Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:39.4340083Z 
+2026-10-15T14:36:39.4340441Z      Running unittests src/lib.rs (target/debug/deps/nestbolt_wasm-2a0ea29b9d488191)
+2026-10-15T14:36:39.4349851Z 
+2026-10-15T14:36:39.4350049Z running 0 tests
+2026-10-15T14:36:39.4350374Z 
+2026-10-15T14:36:39.4350750Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:39.4351262Z 
+2026-10-15T14:36:39.4351808Z    Doc-tests nestbolt_core
+2026-10-15T14:36:39.8412363Z 
+2026-10-15T14:36:39.8412830Z running 0 tests
+2026-10-15T14:36:39.8413086Z 
+2026-10-15T14:36:39.8413508Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:39.8414047Z 
+2026-10-15T14:36:39.8430784Z    Doc-tests nestbolt_validator
+2026-10-15T14:36:40.0389663Z 
+2026-10-15T14:36:40.0390202Z running 0 tests
+2026-10-15T14:36:40.0390440Z 
+2026-10-15T14:36:40.0390864Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:40.0391354Z 
+2026-10-15T14:36:40.0407100Z    Doc-tests nestbolt_wasm
+2026-10-15T14:36:40.0847241Z 
+2026-10-15T14:36:40.0847670Z running 0 tests
+2026-10-15T14:36:40.0848054Z 
+2026-10-15T14:36:40.0848681Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:36:40.0849044Z 
+2026-10-15T14:36:40.0889861Z Running: cargo test --release --locked -p nestbolt-cli --test features
+2026-10-15T14:36:40.2130740Z    Compiling proc-macro2 v1.0.107
+2026-10-15T14:36:40.2131456Z    Compiling unicode-ident v1.0.26
+2026-10-15T14:36:40.2131903Z    Compiling quote v1.0.47
+2026-10-15T14:36:40.2132358Z    Compiling libm v0.2.16
+2026-10-15T14:36:40.2709029Z    Compiling autocfg v1.5.1
+2026-10-15T14:36:40.3521567Z    Compiling libc v0.2.190
+2026-10-15T14:36:40.5619419Z    Compiling num-traits v0.2.19
+2026-10-15T14:36:40.6282297Z    Compiling cfg-if v1.0.5
+2026-10-15T14:36:40.7058935Z    Compiling serde_core v1.0.229
+2026-10-15T14:36:40.9530311Z    Compiling crossbeam-utils v0.8.23
+2026-10-15T14:36:41.0649127Z    Compiling syn v3.0.8
+2026-10-15T14:36:41.0918951Z    Compiling rand_core v0.10.1
+2026-10-15T14:36:41.2069077Z    Compiling heapless v0.8.0
+2026-10-15T14:36:41.6130089Z    Compiling byteorder v1.5.0
+2026-10-15T14:36:41.7489492Z    Compiling smallvec v1.16.3
+2026-10-15T14:36:41.9268893Z    Compiling crossbeam-epoch v0.9.21
+2026-10-15T14:36:42.0339085Z    Compiling getrandom v0.4.3
+2026-10-15T14:36:42.0939148Z    Compiling hash32 v0.3.1
+2026-10-15T14:36:42.3045424Z    Compiling thiserror v2.0.21
+2026-10-15T14:36:42.4829498Z    Compiling crossbeam-deque v0.8.8
+2026-10-15T14:36:42.5969055Z    Compiling stable_deref_trait v1.2.1
+2026-10-15T14:36:42.6221769Z    Compiling zmij v1.0.23
+2026-10-15T14:36:42.6578904Z    Compiling serde v1.0.229
+2026-10-15T14:36:42.7518951Z    Compiling cpufeatures v0.3.1
+2026-10-15T14:36:42.7900970Z    Compiling chacha20 v0.10.2
+2026-10-15T14:36:43.3619944Z    Compiling i_float v1.16.0
+2026-10-15T14:36:43.4729182Z    Compiling matrixmultiply v0.3.11
+2026-10-15T14:36:43.5072008Z    Compiling itoa v1.0.18
+2026-10-15T14:36:43.5569508Z    Compiling utf8parse v0.2.2
+2026-10-15T14:36:43.6016723Z    Compiling memchr v2.8.3
+2026-10-15T14:36:43.6360578Z    Compiling serde_json v1.0.154
+2026-10-15T14:36:43.7219111Z    Compiling anyhow v1.0.104
+2026-10-15T14:36:43.8749401Z    Compiling cfg_aliases v0.2.2
+2026-10-15T14:36:43.9026984Z    Compiling version_check v0.9.5
+2026-10-15T14:36:44.1109020Z    Compiling rayon-core v1.13.0
+2026-10-15T14:36:44.1825942Z    Compiling slotmap v1.1.1
+2026-10-15T14:36:44.2715089Z    Compiling nix v0.31.3
+2026-10-15T14:36:44.5146191Z    Compiling anstyle-parse v1.0.0
+2026-10-15T14:36:44.5549008Z    Compiling i_shape v1.18.0
+2026-10-15T14:36:44.6393767Z    Compiling rand v0.10.3
+2026-10-15T14:36:44.6438652Z    Compiling rstar v0.12.2
+2026-10-15T14:36:45.1449058Z    Compiling approx v0.5.1
+2026-10-15T14:36:45.2344007Z    Compiling ref-cast v1.0.27
+2026-10-15T14:36:45.2975378Z    Compiling is_terminal_polyfill v1.70.2
+2026-10-15T14:36:45.3229923Z    Compiling i_key_sort v0.10.3
+2026-10-15T14:36:45.3429032Z    Compiling log v0.4.34
+2026-10-15T14:36:45.3799597Z    Compiling either v1.19.0
+2026-10-15T14:36:45.4929266Z    Compiling serde_derive v1.0.229
+2026-10-15T14:36:45.5068487Z    Compiling thiserror-impl v2.0.21
+2026-10-15T14:36:45.5098466Z    Compiling anstyle-query v1.1.5
+2026-10-15T14:36:45.5519015Z    Compiling colorchoice v1.0.5
+2026-10-15T14:36:45.5568845Z    Compiling i_tree v0.18.0
+2026-10-15T14:36:45.5989123Z    Compiling rawpointer v0.2.1
+2026-10-15T14:36:45.6352766Z    Compiling anstyle v1.0.14
+2026-10-15T14:36:45.7934690Z    Compiling i_overlay v4.5.2
+2026-10-15T14:36:45.7960577Z    Compiling anstream v1.0.0
+2026-10-15T14:36:46.6259179Z    Compiling geo-types v0.7.20
+2026-10-15T14:36:47.0775270Z    Compiling test-case-core v3.4.0
+2026-10-15T14:36:47.7919015Z    Compiling ref-cast-impl v1.0.27
+2026-10-15T14:36:49.0858827Z    Compiling serde_derive_internals v0.30.0
+2026-10-15T14:36:49.3398847Z    Compiling num-integer v0.1.47
+2026-10-15T14:36:49.5769426Z    Compiling num-complex v0.4.6
+2026-10-15T14:36:49.6773751Z    Compiling geographiclib-rs v0.2.7
+2026-10-15T14:36:49.9357063Z    Compiling rand_pcg v0.10.2
+2026-10-15T14:36:49.9987166Z    Compiling strsim v0.11.1
+2026-10-15T14:36:50.0429046Z    Compiling robust v1.2.0
+2026-10-15T14:36:50.1241738Z    Compiling heck v0.5.0
+2026-10-15T14:36:50.2570895Z    Compiling float_next_after v2.0.0
+2026-10-15T14:36:50.2948869Z    Compiling bitflags v2.13.2
+2026-10-15T14:36:50.4919518Z    Compiling sif-itree v0.4.1
+2026-10-15T14:36:50.4988733Z    Compiling arrayvec v0.7.8
+2026-10-15T14:36:50.5068946Z    Compiling clap_lex v1.1.1
+2026-10-15T14:36:50.5599760Z    Compiling litrs v1.0.0
+2026-10-15T14:36:50.6709043Z    Compiling polycool v0.4.0
+2026-10-15T14:36:50.7128953Z    Compiling clap_builder v4.6.7
+2026-10-15T14:36:51.0029311Z    Compiling document-features v0.2.12
+2026-10-15T14:36:51.2838967Z    Compiling geo v0.33.1
+2026-10-15T14:36:51.3708916Z    Compiling clap_derive v4.6.7
+2026-10-15T14:36:52.1869044Z    Compiling schemars_derive v1.2.2
+2026-10-15T14:36:52.9999124Z    Compiling ndarray v0.17.2
+2026-10-15T14:36:54.1159463Z    Compiling rayon v1.12.0
+2026-10-15T14:36:56.3249074Z    Compiling test-case-macros v3.4.0
+2026-10-15T14:36:56.5679116Z    Compiling itertools v0.15.0
+2026-10-15T14:36:56.6229928Z    Compiling rand_distr v0.6.0
+2026-10-15T14:36:57.1598862Z    Compiling ordered-float v5.5.0
+2026-10-15T14:36:57.4710890Z    Compiling float-cmp v0.10.0
+2026-10-15T14:36:57.5509003Z    Compiling web-time v1.1.0
+2026-10-15T14:36:57.5909380Z    Compiling jiff-core v0.1.1
+2026-10-15T14:36:57.8128900Z    Compiling dyn-clone v1.0.20
+2026-10-15T14:36:57.8808999Z    Compiling dtoa v1.0.11
+2026-10-15T14:36:57.9736244Z    Compiling svg v0.18.0
+2026-10-15T14:36:58.3259007Z    Compiling numfmt v1.2.0
+2026-10-15T14:36:58.7449175Z    Compiling jagua-rs v1.1.0
+2026-10-15T14:36:58.8115051Z    Compiling jiff v0.2.38
+2026-10-15T14:36:59.1061450Z    Compiling schemars v1.2.2
+2026-10-15T14:36:59.5309016Z    Compiling test-case v3.4.0
+2026-10-15T14:36:59.5598980Z    Compiling clap v4.6.7
+2026-10-15T14:36:59.6028859Z    Compiling ctrlc v3.5.2
+2026-10-15T14:36:59.7311690Z    Compiling kurbo v0.13.1
+2026-10-15T14:37:01.8078953Z    Compiling fern v0.7.1
+2026-10-15T14:37:02.4362822Z    Compiling num_cpus v1.17.0
+2026-10-15T14:37:02.6178901Z    Compiling clipper2-rust v1.2.0
+2026-10-15T14:37:03.0689373Z    Compiling siphasher v1.0.4
+2026-10-15T14:37:03.2138889Z    Compiling tap v1.0.1
+2026-10-15T14:37:03.2749309Z    Compiling sparrow v0.3.0 (https://github.com/JeroenGar/sparrow.git?rev=4629b22795ae6b25b3b460ccde6fb36a71292b6d#4629b227)
+2026-10-15T14:37:05.5599923Z    Compiling nestbolt-validator v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-15T14:37:05.5729079Z    Compiling svgtypes v0.16.1
+2026-10-15T14:37:06.6269496Z    Compiling roxmltree v0.21.1
+2026-10-15T14:37:08.0839521Z    Compiling encoding_rs v0.8.35
+2026-10-15T14:37:09.0313378Z    Compiling nestbolt-core v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/core)
+2026-10-15T14:37:31.0304907Z    Compiling nestbolt-cli v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/cli)
+2026-10-15T14:38:06.6491289Z     Finished `release` profile [optimized] target(s) in 1m 26s
+2026-10-15T14:38:06.6573518Z      Running tests/features.rs (target/release/deps/features-df8c0f290f555c78)
+2026-10-15T14:38:06.6588352Z 
+2026-10-15T14:38:06.6588582Z running 23 tests
+2026-10-15T14:38:06.6619136Z test cleanup_counts_are_in_the_import_report ... ok
+2026-10-15T14:38:06.6620109Z test closed_retraces_keep_holes_and_report_preserved_overlaps ... ok
+2026-10-15T14:38:06.6670193Z test explicit_gap_repair_reports_its_size_and_location ... ok
+2026-10-15T14:38:07.1158752Z test fill_modes_place_the_most_area_or_priority ... ok
+2026-10-15T14:38:07.1188482Z test layers_and_colors_select_cuts_and_report_ignored_entities ... ok
+2026-10-15T14:38:07.5449997Z test common_line_cli_flags_override_spacing_and_export_compensated_paths ... ok
+2026-10-15T14:38:07.5498948Z test legacy_dxf_bytes_and_missing_units_are_explicit ... ok
+2026-10-15T14:38:08.1879034Z test legacy_lightburn_nests_and_exports_modern_paths ... ok
+2026-10-15T14:38:09.2393810Z test fewest_sheets_with_the_offcut_at_one_end ... ok
+2026-10-15T14:38:09.5219194Z test defects_and_remnant_outlines_stay_clear ... ok
+2026-10-15T14:38:09.5439645Z test lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files ... ok
+2026-10-15T14:38:10.0078845Z test part_and_edge_spacing_are_kept ... ok
+2026-10-15T14:38:10.3239174Z test prearranged_sheet_is_discovered_and_used_without_nesting_the_boundary ... ok
+2026-10-15T14:38:11.4716936Z test quantities_from_one_to_hundreds ... ok
+2026-10-15T14:38:11.7356481Z test lightburn_leads_export_cutting_files_beside_the_preserved_project ... ok
+2026-10-15T14:38:11.9098926Z test lead_flags_defaults_validation_and_repeat_export_match_the_request ... ok
+2026-10-15T14:38:13.2714124Z test rotation_lists_steps_free_and_mirroring ... ok
+2026-10-15T14:38:13.4498781Z test small_parts_go_inside_holes ... ok
+2026-10-15T14:38:13.4528946Z test svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports ... ok
+2026-10-15T14:38:13.4533182Z test version_names_the_command ... ok
+2026-10-15T14:38:14.1737244Z test repeatable_budgets_give_the_same_layout ... ok
+2026-10-15T14:38:14.7866672Z test svg_and_dxf_in_curves_out_and_re_export ... ok
+2026-10-15T14:38:22.5171103Z test several_sheet_sizes_margins_and_capped_counts ... ok
+2026-10-15T14:38:22.5171425Z 
+2026-10-15T14:38:22.5171699Z test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.86s
+2026-10-15T14:38:22.5172064Z 
+2026-10-15T14:38:22.5224954Z Running: cargo test --release --locked -p nestbolt-core --lib sparrow_
+2026-10-15T14:38:22.6472979Z    Compiling bitflags v2.13.2
+2026-10-15T14:38:22.6501159Z    Compiling rustix v1.1.5
+2026-10-15T14:38:22.6534409Z    Compiling linux-raw-sys v0.12.1
+2026-10-15T14:38:22.6568645Z    Compiling fastrand v2.5.0
+2026-10-15T14:38:22.8449110Z    Compiling once_cell v1.21.4
+2026-10-15T14:38:22.8897175Z    Compiling nix v0.31.3
+2026-10-15T14:38:22.8922310Z    Compiling wait-timeout v0.2.1
+2026-10-15T14:38:23.0047035Z    Compiling fnv v1.0.7
+2026-10-15T14:38:23.0459047Z    Compiling bit-vec v0.10.1
+2026-10-15T14:38:23.1699020Z    Compiling quick-error v1.2.3
+2026-10-15T14:38:23.2118819Z    Compiling rand_xorshift v0.5.0
+2026-10-15T14:38:23.2688963Z    Compiling bit-set v0.11.1
+2026-10-15T14:38:23.2734942Z    Compiling unarray v0.1.4
+2026-10-15T14:38:23.3292168Z    Compiling core_detect v1.0.0
+2026-10-15T14:38:23.3799135Z    Compiling regex-syntax v0.8.11
+2026-10-15T14:38:23.4920763Z    Compiling ctrlc v3.5.2
+2026-10-15T14:38:23.5829415Z    Compiling sparrow v0.3.0 (https://github.com/JeroenGar/sparrow.git?rev=4629b22795ae6b25b3b460ccde6fb36a71292b6d#4629b227)
+2026-10-15T14:38:24.6455345Z    Compiling tempfile v3.27.0
+2026-10-15T14:38:25.1829174Z    Compiling rusty-fork v0.3.1
+2026-10-15T14:38:25.3436808Z    Compiling proptest v1.12.0
+2026-10-15T14:38:29.9281738Z    Compiling nestbolt-core v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/core)
+2026-10-15T14:39:34.1649288Z     Finished `release` profile [optimized] target(s) in 1m 11s
+2026-10-15T14:39:34.1738194Z      Running unittests src/lib.rs (target/release/deps/nestbolt_core-6c8b0c99624e73f9)
+2026-10-15T14:39:34.1754392Z 
+2026-10-15T14:39:34.1754549Z running 2 tests
+2026-10-15T14:39:37.9264046Z test sheets::tests::sparrow_hands_back_when_its_strip_cannot_fit_the_sheet ... ok
+2026-10-15T14:39:37.9555614Z test sheets::tests::sparrow_takes_one_sheet_of_hole_free_parts ... ok
+2026-10-15T14:39:37.9556110Z 
+2026-10-15T14:39:37.9556378Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 69 filtered out; finished in 3.78s
+2026-10-15T14:39:37.9556724Z 
+2026-10-15T14:39:37.9598174Z Running: cargo test --locked -p nestbolt-validator --example stock_adapter
+2026-10-15T14:39:38.0547965Z    Compiling libc v0.2.190
+2026-10-15T14:39:38.0551127Z    Compiling getrandom v0.4.3
+2026-10-15T14:39:38.0568496Z    Compiling syn v3.0.8
+2026-10-15T14:39:38.0594754Z    Compiling serde_core v1.0.229
+2026-10-15T14:39:38.2500179Z    Compiling num-traits v0.2.19
+2026-10-15T14:39:38.4598967Z    Compiling serde v1.0.229
+2026-10-15T14:39:39.8679527Z    Compiling serde_derive_internals v0.30.0
+2026-10-15T14:39:40.6270115Z    Compiling memchr v2.8.3
+2026-10-15T14:39:41.0769088Z    Compiling once_cell v1.21.4
+2026-10-15T14:39:41.2679370Z    Compiling tempfile v3.27.0
+2026-10-15T14:39:42.5155335Z    Compiling serde_json v1.0.154
+2026-10-15T14:39:42.7699363Z    Compiling wait-timeout v0.2.1
+2026-10-15T14:39:43.4188953Z    Compiling rusty-fork v0.3.1
+2026-10-15T14:39:44.9260590Z    Compiling rand v0.10.3
+2026-10-15T14:39:45.5490476Z    Compiling clipper2-rust v1.2.0
+2026-10-15T14:39:46.2899547Z    Compiling proptest v1.12.0
+2026-10-15T14:39:52.4809028Z    Compiling ref-cast-impl v1.0.27
+2026-10-15T14:39:53.8588801Z    Compiling serde_derive v1.0.229
+2026-10-15T14:39:53.9929529Z    Compiling schemars_derive v1.2.2
+2026-10-15T14:39:55.2859760Z    Compiling ref-cast v1.0.27
+2026-10-15T14:40:04.4286213Z    Compiling schemars v1.2.2
+2026-10-15T14:40:05.0840981Z    Compiling nestbolt-validator v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-15T14:40:12.6828016Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 34.69s
+2026-10-15T14:40:12.6880956Z      Running unittests examples/stock_adapter.rs (target/debug/examples/stock_adapter-a5cfa3cdb89a9f32)
+2026-10-15T14:40:12.6894366Z 
+2026-10-15T14:40:12.6894933Z running 4 tests
+2026-10-15T14:40:12.6898685Z test tests::boundary_defect_becomes_notch_and_margins_clip_remnant ... ok
+2026-10-15T14:40:12.6899561Z test tests::asymmetric_margins_and_interior_defect_have_exact_known_area ... ok
+2026-10-15T14:40:12.6900334Z test tests::excess_native_inflation_never_expands_a_stock ... ok
+2026-10-15T14:40:12.6900965Z test tests::split_stock_is_retained_as_two_components_not_two_physical_sheets ... ok
+2026-10-15T14:40:12.6901302Z 
+2026-10-15T14:40:12.6901555Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-15T14:40:12.6901884Z 
+2026-10-15T14:40:12.6941350Z Running: cargo build -p nestbolt-wasm --target wasm32-unknown-unknown --locked
+2026-10-15T14:40:12.7892040Z  Downloading crates ...
+2026-10-15T14:40:12.8630452Z   Downloaded jiff-tzdb-platform v0.1.3
+2026-10-15T14:40:12.8659625Z   Downloaded jiff-tzdb v0.1.9
+2026-10-15T14:40:12.8963702Z    Compiling proc-macro2 v1.0.107
+2026-10-15T14:40:12.8964439Z    Compiling quote v1.0.47
+2026-10-15T14:40:12.8965359Z    Compiling libm v0.2.16
+2026-10-15T14:40:12.8988194Z    Compiling autocfg v1.5.1
+2026-10-15T14:40:13.3154646Z    Compiling wasm-bindgen-shared v0.2.129
+2026-10-15T14:40:13.7609453Z    Compiling rustversion v1.0.23
+2026-10-15T14:40:14.8986568Z    Compiling syn v3.0.8
+2026-10-15T14:40:15.5287091Z    Compiling num-traits v0.2.19
+2026-10-15T14:40:16.6749055Z    Compiling bumpalo v3.20.3
+2026-10-15T14:40:16.9189021Z    Compiling cfg-if v1.0.5
+2026-10-15T14:40:16.9424277Z    Compiling unicode-ident v1.0.26
+2026-10-15T14:40:16.9458805Z    Compiling once_cell v1.21.4
+2026-10-15T14:40:17.0199153Z    Compiling serde_core v1.0.229
+2026-10-15T14:40:17.7359150Z    Compiling rand_core v0.10.1
+2026-10-15T14:40:17.7989213Z    Compiling crossbeam-utils v0.8.23
+2026-10-15T14:40:17.8518957Z    Compiling heapless v0.8.0
+2026-10-15T14:40:18.3049010Z    Compiling byteorder v1.5.0
+2026-10-15T14:40:18.3178716Z    Compiling smallvec v1.16.3
+2026-10-15T14:40:18.4408973Z    Compiling wasm-bindgen v0.2.129
+2026-10-15T14:40:18.4579205Z    Compiling getrandom v0.4.3
+2026-10-15T14:40:18.5089327Z    Compiling crossbeam-epoch v0.9.21
+2026-10-15T14:40:18.6829041Z    Compiling hash32 v0.3.1
+2026-10-15T14:40:18.7819428Z    Compiling serde v1.0.229
+2026-10-15T14:40:19.3898958Z    Compiling wasm-bindgen-macro-support v0.2.129
+2026-10-15T14:40:19.4878957Z    Compiling stable_deref_trait v1.2.1
+2026-10-15T14:40:19.5159048Z    Compiling crossbeam-deque v0.8.8
+2026-10-15T14:40:19.7509629Z    Compiling zmij v1.0.23
+2026-10-15T14:40:20.1808948Z    Compiling thiserror v2.0.21
+2026-10-15T14:40:21.5368843Z    Compiling chacha20 v0.10.2
+2026-10-15T14:40:21.5779088Z    Compiling matrixmultiply v0.3.11
+2026-10-15T14:40:21.7574403Z    Compiling i_float v1.16.0
+2026-10-15T14:40:21.7840604Z    Compiling utf8parse v0.2.2
+2026-10-15T14:40:21.8329243Z    Compiling itoa v1.0.18
+2026-10-15T14:40:21.9289000Z    Compiling serde_json v1.0.154
+2026-10-15T14:40:22.0482702Z    Compiling slab v0.4.12
+2026-10-15T14:40:22.0549106Z    Compiling futures-core v0.3.34
+2026-10-15T14:40:22.1409504Z    Compiling version_check v0.9.5
+2026-10-15T14:40:22.1740363Z    Compiling pin-project-lite v0.2.17
+2026-10-15T14:40:22.2148934Z    Compiling futures-task v0.3.34
+2026-10-15T14:40:22.3114601Z    Compiling rayon-core v1.13.0
+2026-10-15T14:40:22.4219127Z    Compiling anyhow v1.0.104
+2026-10-15T14:40:23.0078889Z    Compiling memchr v2.8.3
+2026-10-15T14:40:23.6218894Z    Compiling slotmap v1.1.1
+2026-10-15T14:40:23.6972796Z    Compiling futures-util v0.3.34
+2026-10-15T14:40:23.7430855Z    Compiling i_shape v1.18.0
+2026-10-15T14:40:24.4888864Z    Compiling anstyle-parse v1.0.0
+2026-10-15T14:40:24.6829016Z    Compiling rstar v0.12.2
+2026-10-15T14:40:25.6009097Z    Compiling approx v0.5.1
+2026-10-15T14:40:25.6569470Z    Compiling libc v0.2.190
+2026-10-15T14:40:25.6779380Z    Compiling colorchoice v1.0.5
+2026-10-15T14:40:25.7621155Z    Compiling log v0.4.34
+2026-10-15T14:40:25.9839352Z    Compiling anstyle-query v1.1.5
+2026-10-15T14:40:26.0248947Z    Compiling is_terminal_polyfill v1.70.2
+2026-10-15T14:40:26.0608087Z    Compiling either v1.19.0
+2026-10-15T14:40:26.2409203Z    Compiling rawpointer v0.2.1
+2026-10-15T14:40:26.2779689Z    Compiling ref-cast v1.0.27
+2026-10-15T14:40:26.9519439Z    Compiling i_tree v0.18.0
+2026-10-15T14:40:27.1809030Z    Compiling i_key_sort v0.10.3
+2026-10-15T14:40:27.3858769Z    Compiling anstyle v1.0.14
+2026-10-15T14:40:27.5429012Z    Compiling anstream v1.0.0
+2026-10-15T14:40:27.5771108Z    Compiling i_overlay v4.5.2
+2026-10-15T14:40:27.9909431Z    Compiling test-case-core v3.4.0
+2026-10-15T14:40:50.2210001Z    Compiling serde_derive_internals v0.30.0
+2026-10-15T14:40:50.3518980Z    Compiling rand_pcg v0.10.2
+2026-10-15T14:40:50.4719280Z    Compiling num-complex v0.4.6
+2026-10-15T14:40:50.8719243Z    Compiling num-integer v0.1.47
+2026-10-15T14:40:51.4298940Z    Compiling geographiclib-rs v0.2.7
+2026-10-15T14:40:52.3529520Z    Compiling litrs v1.0.0
+2026-10-15T14:40:54.2019473Z    Compiling float_next_after v2.0.0
+2026-10-15T14:40:54.2398838Z    Compiling heck v0.5.0
+2026-10-15T14:40:55.5693390Z    Compiling clap_lex v1.1.1
+2026-10-15T14:40:55.8325479Z    Compiling robust v1.2.0
+2026-10-15T14:40:56.9149138Z    Compiling arrayvec v0.7.8
+2026-10-15T14:40:57.0868898Z    Compiling sif-itree v0.4.1
+2026-10-15T14:40:57.1508969Z    Compiling jiff-tzdb v0.1.9
+2026-10-15T14:40:57.2828755Z    Compiling strsim v0.11.1
+2026-10-15T14:40:58.2879676Z    Compiling clap_builder v4.6.7
+2026-10-15T14:41:00.2909460Z    Compiling thiserror-impl v2.0.21
+2026-10-15T14:41:12.2087527Z    Compiling serde_derive v1.0.229
+2026-10-15T14:41:15.3009506Z    Compiling ref-cast-impl v1.0.27
+2026-10-15T14:41:21.2519585Z    Compiling schemars_derive v1.2.2
+2026-10-15T14:41:23.6628999Z    Compiling geo-types v0.7.20
+2026-10-15T14:41:24.0949264Z    Compiling clap_derive v4.6.7
+2026-10-15T14:41:44.0027165Z    Compiling test-case-macros v3.4.0
+2026-10-15T14:41:49.8269086Z    Compiling jiff-tzdb-platform v0.1.3
+2026-10-15T14:41:49.8583853Z    Compiling polycool v0.4.0
+2026-10-15T14:41:50.3358873Z    Compiling document-features v0.2.12
+2026-10-15T14:41:51.2801494Z    Compiling ndarray v0.17.2
+2026-10-15T14:41:53.2820659Z    Compiling rayon v1.12.0
+2026-10-15T14:41:55.4449006Z    Compiling itertools v0.15.0
+2026-10-15T14:41:55.9136797Z    Compiling float-cmp v0.10.0
+2026-10-15T14:41:55.9819280Z    Compiling ordered-float v5.5.0
+2026-10-15T14:41:56.3309474Z    Compiling dyn-clone v1.0.20
+2026-10-15T14:41:56.4165405Z    Compiling dtoa v1.0.11
+2026-10-15T14:41:56.5098987Z    Compiling jiff-core v0.1.1
+2026-10-15T14:41:57.2608999Z    Compiling svg v0.18.0
+2026-10-15T14:41:57.3308839Z    Compiling numfmt v1.2.0
+2026-10-15T14:41:58.1199025Z    Compiling jiff v0.2.38
+2026-10-15T14:41:59.0496123Z    Compiling schemars v1.2.2
+2026-10-15T14:41:59.7768863Z    Compiling num_cpus v1.17.0
+2026-10-15T14:41:59.8120191Z    Compiling test-case v3.4.0
+2026-10-15T14:41:59.8489165Z    Compiling kurbo v0.13.1
+2026-10-15T14:42:04.3569008Z    Compiling clap v4.6.7
+2026-10-15T14:42:04.3898811Z    Compiling fern v0.7.1
+2026-10-15T14:42:06.2169073Z    Compiling clipper2-rust v1.2.0
+2026-10-15T14:42:07.4135391Z    Compiling siphasher v1.0.4
+2026-10-15T14:42:07.5871987Z    Compiling tap v1.0.1
+2026-10-15T14:42:07.6459199Z    Compiling svgtypes v0.16.1
+2026-10-15T14:42:09.8599249Z    Compiling nestbolt-validator v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-15T14:42:12.3811515Z    Compiling roxmltree v0.21.1
+2026-10-15T14:42:13.4781765Z    Compiling encoding_rs v0.8.35
+2026-10-15T14:42:23.0460825Z    Compiling wasm-bindgen-macro v0.2.129
+2026-10-15T14:42:24.3729856Z    Compiling js-sys v0.3.106
+2026-10-15T14:42:24.4769448Z    Compiling rand v0.10.3
+2026-10-15T14:42:24.9205810Z    Compiling rand_distr v0.6.0
+2026-10-15T14:42:24.9219094Z    Compiling geo v0.33.1
+2026-10-15T14:42:31.9619874Z    Compiling web-time v1.1.0
+2026-10-15T14:42:32.0359474Z    Compiling jagua-rs v1.1.0
+2026-10-15T14:42:33.9196589Z    Compiling sparrow v0.3.0 (https://github.com/JeroenGar/sparrow.git?rev=4629b22795ae6b25b3b460ccde6fb36a71292b6d#4629b227)
+2026-10-15T14:42:34.8531179Z    Compiling nestbolt-core v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/core)
+2026-10-15T14:42:59.6045552Z    Compiling nestbolt-wasm v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/wasm)
+2026-10-15T14:43:01.7552132Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 2m 49s
+2026-10-15T14:43:01.7658160Z Running: cargo build -p nestbolt-validator --target wasm32-unknown-unknown --locked
+2026-10-15T14:43:01.8530235Z    Compiling num-traits v0.2.19
+2026-10-15T14:43:01.8530697Z    Compiling syn v3.0.8
+2026-10-15T14:43:02.3915195Z    Compiling clipper2-rust v1.2.0
+2026-10-15T14:43:02.9983482Z    Compiling serde_derive_internals v0.30.0
+2026-10-15T14:43:13.3273260Z    Compiling ref-cast-impl v1.0.27
+2026-10-15T14:43:13.3273839Z    Compiling serde_derive v1.0.229
+2026-10-15T14:43:13.3274272Z    Compiling schemars_derive v1.2.2
+2026-10-15T14:43:15.4656272Z    Compiling ref-cast v1.0.27
+2026-10-15T14:43:23.1649045Z    Compiling serde v1.0.229
+2026-10-15T14:43:25.3892231Z    Compiling schemars v1.2.2
+2026-10-15T14:43:26.0281050Z    Compiling nestbolt-validator v0.1.0 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-15T14:43:31.7492293Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 29.95s
+2026-10-15T14:43:31.7540161Z Running: /opt/hostedtoolcache/Python/3.13.16/x64/bin/python scripts/notices.py --check
+2026-10-15T14:43:31.9057298Z  Downloading crates ...
+2026-10-15T14:43:31.9697394Z   Downloaded block2 v0.6.2
+2026-10-15T14:43:31.9716743Z   Downloaded anstyle-wincon v3.0.11
+2026-10-15T14:43:31.9746284Z   Downloaded android_system_properties v0.1.6
+2026-10-15T14:43:31.9757377Z   Downloaded cc v1.8.0
+2026-10-15T14:43:31.9798527Z   Downloaded windows-strings v0.5.1
+2026-10-15T14:43:31.9817502Z   Downloaded core-foundation-sys v0.8.7
+2026-10-15T14:43:31.9859266Z   Downloaded windows-numerics v0.3.1
+2026-10-15T14:43:31.9874028Z   Downloaded windows-result v0.4.1
+2026-10-15T14:43:31.9893454Z   Downloaded objc2-encode v4.1.0
+2026-10-15T14:43:31.9910076Z   Downloaded wasi v0.11.1+wasi-snapshot-preview1
+2026-10-15T14:43:31.9931804Z   Downloaded windows-core v0.62.2
+2026-10-15T14:43:31.9973373Z   Downloaded windows-future v0.3.2
+2026-10-15T14:43:31.9993814Z   Downloaded windows-threading v0.2.1
+2026-10-15T14:43:32.0004316Z   Downloaded shlex v2.0.1
+2026-10-15T14:43:32.0020078Z   Downloaded windows-implement v0.60.2
+2026-10-15T14:43:32.0034418Z   Downloaded once_cell_polyfill v1.70.2
+2026-10-15T14:43:32.0045472Z   Downloaded windows-collections v0.3.2
+2026-10-15T14:43:32.0058457Z   Downloaded windows-link v0.2.1
+2026-10-15T14:43:32.0066909Z   Downloaded dispatch2 v0.3.1
+2026-10-15T14:43:32.0093665Z   Downloaded iana-time-zone-haiku v0.1.2
+2026-10-15T14:43:32.0103027Z   Downloaded windows-interface v0.59.3
+2026-10-15T14:43:32.0113384Z   Downloaded hermit-abi v0.5.3
+2026-10-15T14:43:32.0123629Z   Downloaded find-msvc-tools v0.1.14
+2026-10-15T14:43:32.0140655Z   Downloaded portable-atomic-util v0.2.8
+2026-10-15T14:43:32.0160124Z   Downloaded r-efi v6.0.0
+2026-10-15T14:43:32.0213514Z   Downloaded portable-atomic v1.15.0
+2026-10-15T14:43:32.0291603Z   Downloaded objc2 v0.6.5
+2026-10-15T14:43:32.0403930Z   Downloaded windows-sys v0.61.2
+2026-10-15T14:43:32.1092086Z   Downloaded windows v0.62.2
+2026-10-15T14:43:32.4668851Z Dependency notices match Cargo.lock.
+2026-10-15T14:43:32.4734942Z Running: node --test mcpb/mcpb.test.mjs
+2026-10-15T14:43:32.6722929Z TAP version 13
+2026-10-15T14:43:32.7468939Z # Tools: added new_tool; dropped import_parts
+2026-10-15T14:43:32.7558508Z # Subtest: metadata stays package-free with the required identity and short description
+2026-10-15T14:43:32.7562842Z ok 1 - metadata stays package-free with the required identity and short description
+2026-10-15T14:43:32.7563631Z   ---
+2026-10-15T14:43:32.7564250Z   duration_ms: 23.206049
+2026-10-15T14:43:32.7564670Z   type: 'test'
+2026-10-15T14:43:32.7564982Z   ...
+2026-10-15T14:43:32.7567206Z # Subtest: workspace version comes from [workspace.package]
+2026-10-15T14:43:32.7568866Z ok 2 - workspace version comes from [workspace.package]
+2026-10-15T14:43:32.7573584Z   ---
+2026-10-15T14:43:32.7573948Z   duration_ms: 1.377779
+2026-10-15T14:43:32.7574305Z   type: 'test'
+2026-10-15T14:43:32.7574559Z   ...
+2026-10-15T14:43:32.7591946Z # Subtest: manifest template has no version and has valid binary-server fields
+2026-10-15T14:43:32.7595732Z ok 3 - manifest template has no version and has valid binary-server fields
+2026-10-15T14:43:32.7596662Z   ---
+2026-10-15T14:43:32.7597072Z   duration_ms: 2.418897
+2026-10-15T14:43:32.7597453Z   type: 'test'
+2026-10-15T14:43:32.7598056Z   ...
+2026-10-15T14:43:32.7645030Z # Subtest: manifest lists exactly the server tools
+2026-10-15T14:43:32.7659808Z ok 4 - manifest lists exactly the server tools
+2026-10-15T14:43:32.7660291Z   ---
+2026-10-15T14:43:32.7664202Z   duration_ms: 1.361284
+2026-10-15T14:43:32.7664978Z   type: 'test'
+2026-10-15T14:43:32.7665488Z   ...
+2026-10-15T14:43:32.7666615Z # Subtest: tool merge keeps curated descriptions, drops absent tools and follows live order without mutation
+2026-10-15T14:43:32.7668157Z ok 5 - tool merge keeps curated descriptions, drops absent tools and follows live order without mutation
+2026-10-15T14:43:32.7669385Z   ---
+2026-10-15T14:43:32.7669874Z   duration_ms: 0.906301
+2026-10-15T14:43:32.7670533Z   type: 'test'
+2026-10-15T14:43:32.7671010Z   ...
+2026-10-15T14:43:32.7673025Z # Subtest: new tool descriptions use the first sentence and normalize whitespace
+2026-10-15T14:43:32.7674594Z ok 6 - new tool descriptions use the first sentence and normalize whitespace
+2026-10-15T14:43:32.7676067Z   ---
+2026-10-15T14:43:32.7676569Z   duration_ms: 0.53221
+2026-10-15T14:43:32.7677084Z   type: 'test'
+2026-10-15T14:43:32.7677398Z   ...
+2026-10-15T14:43:32.7678119Z # Subtest: new tool descriptions stop at a whole word within 160 characters
+2026-10-15T14:43:32.7678855Z ok 7 - new tool descriptions stop at a whole word within 160 characters
+2026-10-15T14:43:32.7679391Z   ---
+2026-10-15T14:43:32.7679665Z   duration_ms: 0.689575
+2026-10-15T14:43:32.7679985Z   type: 'test'
+2026-10-15T14:43:32.7680258Z   ...
+2026-10-15T14:43:32.7680694Z # Subtest: tool merge rejects empty catalogs, invalid names and duplicates
+2026-10-15T14:43:32.7681392Z ok 8 - tool merge rejects empty catalogs, invalid names and duplicates
+2026-10-15T14:43:32.7681909Z   ---
+2026-10-15T14:43:32.7682177Z   duration_ms: 0.787673
+2026-10-15T14:43:32.7682500Z   type: 'test'
+2026-10-15T14:43:32.7682773Z   ...
+2026-10-15T14:43:32.7683187Z # Subtest: new tools require usable descriptions while curated descriptions remain exact
+2026-10-15T14:43:32.7683738Z ok 9 - new tools require usable descriptions while curated descriptions remain exact
+2026-10-15T14:43:32.7684319Z   ---
+2026-10-15T14:43:32.7684502Z   duration_ms: 0.586661
+2026-10-15T14:43:32.7684710Z   type: 'test'
+2026-10-15T14:43:32.7685136Z   ...
+2026-10-15T14:43:32.7693622Z # Tools: added new_tool; dropped import_parts
+2026-10-15T14:43:32.7748955Z # Tools: added new_tool; dropped import_parts
+2026-10-15T14:43:32.7776597Z # Tools: added new_tool; dropped import_parts
+2026-10-15T14:43:32.7793021Z # Subtest: two builds are identical, with exactly the required entries and checksum
+2026-10-15T14:43:32.7793885Z ok 10 - two builds are identical, with exactly the required entries and checksum
+2026-10-15T14:43:32.7794476Z   ---
+2026-10-15T14:43:32.7794758Z   duration_ms: 14.95707
+2026-10-15T14:43:32.7795071Z   type: 'test'
+2026-10-15T14:43:32.7795277Z   ...
+2026-10-15T14:43:32.7901989Z # Subtest: builder refuses a template version, invalid package versions and missing binaries
+2026-10-15T14:43:32.7902989Z ok 11 - builder refuses a template version, invalid package versions and missing binaries
+2026-10-15T14:43:32.7903623Z   ---
+2026-10-15T14:43:32.7903909Z   duration_ms: 10.475969
+2026-10-15T14:43:32.7904240Z   type: 'test'
+2026-10-15T14:43:32.7904546Z   ...
+2026-10-15T14:43:32.7914564Z # Tools: added new_tool; dropped import_parts
+2026-10-15T14:43:32.7938070Z # Subtest: existing different artifacts are preserved
+2026-10-15T14:43:32.7938730Z ok 12 - existing different artifacts are preserved
+2026-10-15T14:43:32.7939207Z   ---
+2026-10-15T14:43:32.7939513Z   duration_ms: 3.334679
+2026-10-15T14:43:32.7939858Z   type: 'test'
+2026-10-15T14:43:32.7940159Z   ...
+2026-10-15T14:43:32.8108379Z # Subtest: native archives are deterministic and carry both binaries, docs and licenses
+2026-10-15T14:43:32.8109344Z ok 13 - native archives are deterministic and carry both binaries, docs and licenses
+2026-10-15T14:43:32.8110009Z   ---
+2026-10-15T14:43:32.8110314Z   duration_ms: 17.585992
+2026-10-15T14:43:32.8110671Z   type: 'test'
+2026-10-15T14:43:32.8110968Z   ...
+2026-10-15T14:43:32.8148444Z # Subtest: registry entry stamps Cargo version despite stale metadata and preserves inputs
+2026-10-15T14:43:32.8149412Z ok 14 - registry entry stamps Cargo version despite stale metadata and preserves inputs
+2026-10-15T14:43:32.8150045Z   ---
+2026-10-15T14:43:32.8150324Z   duration_ms: 3.915111
+2026-10-15T14:43:32.8150661Z   type: 'test'
+2026-10-15T14:43:32.8150933Z   ...
+2026-10-15T14:43:32.8158432Z # Tools: added new_tool; dropped import_parts
+2026-10-15T14:43:32.8204701Z # Subtest: a Cargo-only version bump needs no manifest or metadata edits
+2026-10-15T14:43:32.8205437Z ok 15 - a Cargo-only version bump needs no manifest or metadata edits
+2026-10-15T14:43:32.8206201Z   ---
+2026-10-15T14:43:32.8207408Z   duration_ms: 5.213851
+2026-10-15T14:43:32.8208213Z   type: 'test'
+2026-10-15T14:43:32.8208494Z   ...
+2026-10-15T14:43:32.8269439Z # Subtest: registry entry rejects bad tags, version mismatch and packages in metadata
+2026-10-15T14:43:32.8270309Z ok 16 - registry entry rejects bad tags, version mismatch and packages in metadata
+2026-10-15T14:43:32.8270901Z   ---
+2026-10-15T14:43:32.8271180Z   duration_ms: 6.81836
+2026-10-15T14:43:32.8271497Z   type: 'test'
+2026-10-15T14:43:32.8271725Z   ...
+2026-10-15T14:43:32.8334777Z # Subtest: registry output cannot overwrite metadata or bundle, including hard-link aliases
+2026-10-15T14:43:32.8335867Z ok 17 - registry output cannot overwrite metadata or bundle, including hard-link aliases
+2026-10-15T14:43:32.8342196Z   ---
+2026-10-15T14:43:32.8342492Z   duration_ms: 3.007947
+2026-10-15T14:43:32.8342816Z   type: 'test'
+2026-10-15T14:43:32.8343092Z   ...
+2026-10-15T14:43:32.8343468Z # Subtest: ZIP reader rejects malformed archives and detects CRC corruption
+2026-10-15T14:43:32.8343946Z ok 18 - ZIP reader rejects malformed archives and detects CRC corruption
+2026-10-15T14:43:32.8344307Z   ---
+2026-10-15T14:43:32.8344505Z   duration_ms: 0.318358
+2026-10-15T14:43:32.8344722Z   type: 'test'
+2026-10-15T14:43:32.8344910Z   ...
+2026-10-15T14:43:32.8352377Z # Subtest: verifier rejects incompatible manifest versions and launch commands
+2026-10-15T14:43:32.8353370Z ok 19 - verifier rejects incompatible manifest versions and launch commands
+2026-10-15T14:43:32.8354310Z   ---
+2026-10-15T14:43:32.8354586Z   duration_ms: 2.784562
+2026-10-15T14:43:32.8354897Z   type: 'test'
+2026-10-15T14:43:32.8355144Z   ...
+2026-10-15T14:43:32.8356062Z # Subtest: non-Windows verification requires explicit allow-skip
+2026-10-15T14:43:32.8358539Z ok 20 - non-Windows verification requires explicit allow-skip
+2026-10-15T14:43:32.8359015Z   ---
+2026-10-15T14:43:32.8359292Z   duration_ms: 0.417146
+2026-10-15T14:43:32.8359601Z   type: 'test'
+2026-10-15T14:43:32.8359866Z   ...
+2026-10-15T14:43:32.8361279Z # Subtest: real release binaries pass the archive version smoke test
+2026-10-15T14:43:32.8362427Z ok 21 - real release binaries pass the archive version smoke test # SKIP No release binaries
+2026-10-15T14:43:32.8363307Z   ---
+2026-10-15T14:43:32.8363609Z   duration_ms: 1.448726
+2026-10-15T14:43:32.8363927Z   type: 'test'
+2026-10-15T14:43:32.8364480Z   ...
+2026-10-15T14:43:32.8365100Z # Subtest: real release server passes the standalone bundle smoke test
+2026-10-15T14:43:32.8365981Z ok 22 - real release server passes the standalone bundle smoke test # SKIP Windows only
+2026-10-15T14:43:32.8366600Z   ---
+2026-10-15T14:43:32.8366889Z   duration_ms: 0.271307
+2026-10-15T14:43:32.8367356Z   type: 'test'
+2026-10-15T14:43:32.8367992Z   ...
+2026-10-15T14:43:32.8501942Z 1..22
+2026-10-15T14:43:32.8502168Z # tests 22
+2026-10-15T14:43:32.8504263Z # suites 0
+2026-10-15T14:43:32.8504517Z # pass 20
+2026-10-15T14:43:32.8504761Z # fail 0
+2026-10-15T14:43:32.8504995Z # cancelled 0
+2026-10-15T14:43:32.8505265Z # skipped 2
+2026-10-15T14:43:32.8505519Z # todo 0
+2026-10-15T14:43:32.8505831Z # duration_ms 202.494082
+2026-10-15T14:43:32.8555588Z Running: /opt/hostedtoolcache/Python/3.13.16/x64/bin/python scripts/smoke.py --verify-only
+2026-10-15T14:43:32.9481942Z Smoke fixtures match their frozen checksums.
+2026-10-15T14:43:32.9541456Z Running: /opt/hostedtoolcache/Python/3.13.16/x64/bin/python scripts/test_m0.py
+2026-10-15T14:43:33.9001317Z ...
+2026-10-15T14:43:33.9001852Z ----------------------------------------------------------------------
+2026-10-15T14:43:33.9002349Z Ran 3 tests in 0.002s
+2026-10-15T14:43:33.9002504Z 
+2026-10-15T14:43:33.9002588Z OK
+2026-10-15T14:43:33.9164786Z Running: /opt/hostedtoolcache/Python/3.13.16/x64/bin/python scripts/schemas.py --check
+2026-10-15T14:45:00.9437575Z Schema is stale: request.schema.json; run python scripts/schemas.py
+2026-10-15T14:45:00.9723450Z Traceback (most recent call last):
+2026-10-15T14:45:00.9764186Z   File "/home/runner/work/Nestbolt/Nestbolt/scripts/check.py", line 70, in <module>
+2026-10-15T14:45:00.9764691Z     main()
+2026-10-15T14:45:00.9765218Z     ~~~~^^
+2026-10-15T14:45:00.9765620Z   File "/home/runner/work/Nestbolt/Nestbolt/scripts/check.py", line 66, in main
+2026-10-15T14:45:00.9766076Z     subprocess.run(command, cwd=ROOT, check=True)
+2026-10-15T14:45:00.9766386Z     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-15T14:45:00.9766873Z   File "/opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/subprocess.py", line 578, in run
+2026-10-15T14:45:00.9767400Z     raise CalledProcessError(retcode, process.args,
+2026-10-15T14:45:00.9767995Z                              output=stdout, stderr=stderr)
+2026-10-15T14:45:00.9768709Z subprocess.CalledProcessError: Command '['/opt/hostedtoolcache/Python/3.13.16/x64/bin/python', 'scripts/schemas.py', '--check']' returned non-zero exit status 1.
+2026-10-15T14:45:00.9846833Z ##[error]Process completed with exit code 1.
+2026-10-15T14:45:00.9991837Z Post job cleanup.
+2026-10-15T14:45:01.0908025Z [command]/usr/bin/git version
+2026-10-15T14:45:01.0959158Z git version 2.55.0
+2026-10-15T14:45:01.1002953Z Temporarily overriding HOME='/home/runner/work/_temp/ce8f564e-40a4-4730-a5db-960dc9cd04d7' before making global git config changes
+2026-10-15T14:45:01.1004169Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-15T14:45:01.1009169Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-10-15T14:45:01.1043477Z Removing SSH command configuration
+2026-10-15T14:45:01.1050537Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-15T14:45:01.1086945Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-15T14:45:01.1358323Z Removing HTTP extra header
+2026-10-15T14:45:01.1360987Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-15T14:45:01.1405859Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-15T14:45:01.1685762Z Removing includeIf entries pointing to credentials config files
+2026-10-15T14:45:01.1693803Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-15T14:45:01.1733330Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-15T14:45:01.2172639Z Cleaning up orphan processes

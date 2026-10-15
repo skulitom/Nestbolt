@@ -545,3 +545,29 @@ inside holes in the two mechanical jobs, which common-line mode intentionally
 forbids. This distinction must remain visible in the full H5 comparison; the
 pilot does not relax the material gate or complete H5. Deepnest's zero-spacing
 SVG merge comparison and the required 60-second/three-seed measurements remain.
+
+
+### 2026-10-15: full common-line comparison and material shortfall
+
+The [60-second, three-seed measurement](../benchmarks/results/h5-cutting-development-20261015.md)
+retains 234/234 valid Nestbolt layouts and 35/39 valid native Deepnest outcomes.
+The four native failures are no-layout results (all three panel-hardware seeds
+and batch-500 seed 1), retained and unscored. The comparison calls the pinned
+app's public SVG export service, with network requests blocked. Independent
+source-line coverage and physical-scale checks distinguish native reported
+merged length from actual SVG savings; these values can differ substantially.
+Deepnest uses zero spacing and is not kerf compensated.
+
+Nestbolt's median savings are 13.0311% laser and 13.1005% plasma. Median material
+cost is zero, but the two mechanical jobs remain above +1%: plates +5.219% /
++4.345%, panel-hardware +6.508% / +5.596% (laser / plasma). Normal mode places
+21 / 49 copies in holes in every seed; both common-line arms place none.
+The bonus-off arm already has material outliers, so the final alignment phase
+alone does not explain them. This is a measured association, not a proof that
+better packing under the common-line restrictions is impossible. Every other
+job is within +1%. H5 remains open; its material condition is unchanged.
+
+All 273 archives and 3,654 internal recorded files pass hash verification. The
+frozen shop inventory remains 1,181 files. The JSON report includes per-job
+three-seed medians, inclusive quartiles and failures. Overall completion remains
+20% (H1 and H6); no new final acceptance or published v1 claim follows.

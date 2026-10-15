@@ -43,8 +43,8 @@ setup. The export does not generate machine code or choose pierces or cut order.
 
 The report compares the original total contour length with the length after
 replacing shared sections, and reports the original contour count and resulting
-path count. These describe geometry, not cycle time or pierce savings. With the
-search bonus still pending, layouts may have no shared edges and zero savings.
+path count. These describe geometry, not cycle time or pierce savings. Some
+layouts have no shared edges and zero savings, even with the optional search.
 Curved drawings retain the conservative flattening allowance used for collision
 checks; this can prevent their otherwise straight edges from meeting the 0.01 mm
 detection tolerance. Ordinary nesting is unchanged.
@@ -62,4 +62,9 @@ and [OSH Cut's explanation of retention tabs](https://www.oshcut.com/design-guid
 
 [The geometry and native-import checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md)
 includes independent Clipper2 tests and native LightBurn SVG/DXF saves. H5 remains
-open: the search bonus is implemented and its [first development pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md) is valid, but the three-seed savings/material gate and Deepnest comparison are not complete. No production quality claim or new held-out result is made.
+open: the [60-second, three-seed development comparison](../benchmarks/results/h5-cutting-development-20261015.md)
+validates all 234 Nestbolt layouts and reaches 13.03% laser / 13.10% plasma median
+cut savings. Both mechanical jobs exceed the +1% material limit, up to +6.51%.
+The native Deepnest SVG comparison is also recorded, including its four
+no-layout results. These development findings make no production quality claim
+or new held-out claim.

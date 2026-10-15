@@ -276,10 +276,15 @@ Build the section 3 model:
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
 **Development checkpoint 2026-10-15:** the optional bonus is implemented, off by
-default, with UI/CLI/MCP round trips. Its [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md)
-validates all layouts and reaches 13.12% / 13.43% median cut savings at 10 seconds,
-seed 0. Material outliers remain, as do the full budget/seed matrix and Deepnest
-comparison. H5 is not complete; no gate or input requirement is changed.
+default, with UI/CLI/MCP round trips. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md),
+the [60-second, three-seed measurement](../benchmarks/results/h5-cutting-development-20261015.md)
+validates all 234 Nestbolt layouts. Median cut savings are 13.0311% laser and
+13.1005% plasma, meeting the savings condition. Both mechanical jobs exceed the
+material guard: +5.219% / +6.508% laser and +4.345% / +5.596% plasma; every other
+job is within +1%. Normal mode uses 21 and 49 hole riders, versus zero in common
+mode. The native Deepnest SVG comparison is complete: 35 valid runs and four
+unscored no-layout outcomes. H5 remains open on material; no gate or input
+requirement is changed.
 
 ### 4.6 N5: lead-in allowances
 

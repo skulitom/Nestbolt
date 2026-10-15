@@ -1,0 +1,34 @@
+{
+ "ci_run": "https://github.com/skulitom/Nestbolt/actions/runs/38751045879",
+ "ci_job": 116477315562,
+ "ci_product_commit": "c6d3955598a8e242a3eacb2e8104aed1e6b4c1ef",
+ "ci_failure": "Generated request.schema.json omitted the optional search_bonus property. Prior runtime checks passed. Later checks did not run.",
+ "correction": "Regenerated schemas from the unchanged Rust model; only request.schema.json gains search_bonus with default false.",
+ "commands": [
+  {
+   "argv": [
+    "python",
+    "output/ccd1.py",
+    "python",
+    "scripts/schemas.py"
+   ],
+   "exit_code": 0
+  },
+  {
+   "argv": [
+    "python",
+    "output/ccd1.py",
+    "python",
+    "scripts/schemas.py",
+    "--check"
+   ],
+   "exit_code": 0
+  }
+ ],
+ "benchmark_product_changed": false,
+ "files": {
+  "ci-linux-c6d3955.log": "d98a95255fd88a8d39333216bfc3bb5ccba599deca2b316215ad581c8b8a677f",
+  "schema-check.log": "044ca376c2adbed3d5da0f69684fee14a7887a50b317226726d8eac37e6134fa",
+  "schema-generate.log": "8dd2db5ca21ab93bf95efd18341fad8b51b490c09dcc6127114f06421ab80eef"
+ }
+}

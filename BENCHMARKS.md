@@ -12379,3 +12379,55 @@ passes box, rectangle and bracket layout/SVG checks at five seconds, seed 0;
 three cases finish in about 29 seconds total. Oracle rejection tests and the
 existing 13 Python/three Node comparator tests pass. The full 60-second,
 three-seed development comparison is next; H5 remains open.
+
+
+## 2026-10-15 — H5 full-budget savings and native SVG comparison; material gate remains open
+
+[Full report](benchmarks/results/h5-cutting-development-20261015.md),
+[aggregate with medians/IQR](benchmarks/results/h5-cutting-development-20261015.json),
+and [verification](benchmarks/results/h5-cutting-checks-20261015/verification.json).
+Product checkpoint `c6d3955`; the same frozen 13 development jobs, both 0.2 mm
+laser and 1.5 mm plasma kerfs, 60 seconds, seeds 0–2. Normal/common-off/common-bonus
+arms give **234/234 independently valid Nestbolt layouts**. Six physical CCD0
+solver cores plus two for native Deepnest keep total concurrency at eight.
+Product, binary, all batch sources and input hashes remained unchanged.
+
+Median bonus cut savings are **13.0311% laser / 13.1005% plasma**, above the 10%
+savings gate. Median material cost is zero. Both mechanical jobs exceed +1%:
+large plates +5.219% laser / +4.345% plasma, panel hardware +6.508% / +5.596%.
+All eleven other jobs meet the material guard. Normal mode places 21 / 49 copies
+inside holes in those mechanical jobs in every seed; both common-line arms
+place none. Bonus-off already has the material shortfall. This does not prove
+that better hole-free packing is impossible; it identifies the remaining work.
+H5 is **not complete** and no condition is waived or silently redefined.
+
+The pinned native Deepnest SVG comparison accounts for all **39** runs:
+**35 valid**, four `no_layout` (panel hardware seeds 0, 1, 2; batch-500 seed 1).
+Each valid placement passes the independent layout validator and an independent
+original-line SVG audit at 0.001 mm coverage tolerance. Both merged and unmerged
+exports, physical units, original rings, native candidates and failures remain
+archived. Native reported merged length and actual SVG cut savings are reported
+separately next to Nestbolt's savings. Deepnest's required zero spacing is not
+kerf compensated; its comparison is informational. All HTTP/HTTPS is blocked,
+and no native DXF conversion or geometry upload occurs.
+
+All **273 ZIP archives and 3,654 recorded internal files** pass hash checks.
+The aggregate reproduces byte-identically with `scripts/h5_cutting_report.py`.
+Maximum Nestbolt nest/export process wall time is 60.6293 s; fresh report checks
+match within 2.9103830456733704e-11 under the unchanged 1e-9 tolerance. The frozen
+shop manifest and all 1,181 inventory files are unchanged. Heat observations
+before/after retain ACPI 16.9 °C and CPU 4201 MHz; no CPU die sensor is available.
+All native test windows are closed and the Anode lease released.
+
+CI on `c6d3955` passed runtime tests before the Linux schema check found that
+`request.schema.json` omitted the new `search_bonus` property. The [original
+CI log and local correction checks](benchmarks/results/h5-cutting-checks-20261015/checks.json)
+are retained. Regenerating from the unchanged Rust model adds only that optional
+boolean with default false; the schema consistency check passes. The original
+failed CI result is not relabelled as passing. Local schema generation used CCD1
+and did not change the benchmark binary or product sources.
+
+The plan, research notes and status now distinguish completed measurements from
+the remaining material condition. Weighted v1.1 completion remains **20%** (H1
+and H6). No held-out tuning, final acceptance, release, registry publication or
+change to published v1 results occurred.
