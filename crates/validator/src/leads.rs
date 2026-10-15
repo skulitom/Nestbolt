@@ -385,7 +385,7 @@ pub struct Report {
 /// This partial API does not certify coverage, source attachment or owner safety.
 /// Final exports must use `validate_complete` with original source curves.
 pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<Report> {
-    validate_impl(job, layout, allowances, None)
+    validate_impl(job, layout, allowances, None, None)
 }
 
 fn validate_impl(
@@ -393,6 +393,7 @@ fn validate_impl(
     layout: &Layout,
     allowances: &[Allowance],
     source_bodies_mm: Option<&HashMap<&str, Vec<crate::Polygon>>>,
+    source_contour_counts: Option<&HashMap<&str, usize>>,
 ) -> Result<Report> {
     let original_report = crate::job::validate(job, layout)?;
     ensure!(
@@ -463,11 +464,16 @@ fn validate_impl(
             seen.insert((key, allowance.contour_index)),
             "duplicate contour allowance"
         );
-        let count: usize = parts[key.0]
-            .geometry
-            .iter()
-            .map(|p| 1 + p.holes.len())
-            .sum();
+        let count = source_contour_counts.map_or_else(
+            || {
+                parts[key.0]
+                    .geometry
+                    .iter()
+                    .map(|p| 1 + p.holes.len())
+                    .sum()
+            },
+            |counts| counts[key.0],
+        );
         ensure!(
             allowance.contour_index < count,
             "lead contour index is out of range"

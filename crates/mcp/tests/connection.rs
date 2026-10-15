@@ -8,6 +8,51 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn lightburn_lead_sidecars_keep_the_editable_project_and_revalidate() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace = std::env::temp_dir().join(format!(
+        "nestbolt-mcp-lead-group-{}-{stamp}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&workspace).unwrap();
+    std::fs::write(
+        workspace.join("lead-group.lbrn2"),
+        include_str!("../../core/tests/fixtures/lead-group.lbrn2"),
+    )
+    .unwrap();
+    timeout(Duration::from_secs(90),async {
+        let mut command=Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));command.env("NESTBOLT_WORKSPACE",&workspace);
+        let client=().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call=|name:&'static str,value:Value|{let client=&client;async move {
+            client.call_tool(CallToolRequestParams::new(name).with_arguments(args(value))).await
+        }};
+        let imported=call("import_parts",json!({"paths":["lead-group.lbrn2"]})).await.unwrap().structured_content.unwrap();
+        let library=&imported["library_path"];
+        let request=json!({"parts":[{"id":"lead-group-unit-1","quantity":2}],"sheets":[{"width_mm":150,"height_mm":100}],
+            "spacing_mm":0.2,"edge_spacing_mm":1,"lead_in":{"kerf_mm":0.2}});
+        let nested=call("nest",json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"],true);
+        assert_eq!(nested["lead_in"]["expected_contours"],10);
+        assert_eq!(nested["lead_in"]["reserved_contours"],8);
+        assert_eq!(nested["lead_in"]["flagged_contours"],2);
+        assert_eq!(nested["files"].as_array().unwrap().len(),3);
+        let checked=call("validate_layout",json!({"library_path":library,"request":request,"layout_path":"nested/layout.json"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["lead_in"],checked["lead_in"]);
+        let exported=call("export_layout",json!({"library_path":library,"request":request,"layout_path":"nested/layout.json","out_dir":"exported"})).await.unwrap().structured_content.unwrap();
+        for file in exported["files"].as_array().unwrap() {
+            let name=file.as_str().unwrap();let text=std::fs::read_to_string(workspace.join(name)).unwrap();
+            assert_eq!(text,std::fs::read_to_string(workspace.join("nested").join(std::path::Path::new(name).file_name().unwrap())).unwrap());
+            if name.ends_with(".lbrn2") { assert!(text.contains("<leadIn Value=\"0\"/>")); assert!(!text.contains("LEADIN")); }
+            else { assert!(name.contains("-cuts."));assert!(text.contains("LEADIN")); }
+        }
+        client.cancel().await.unwrap();
+    }).await.unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn lead_allowances_report_flags_and_revalidate_identically() {
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

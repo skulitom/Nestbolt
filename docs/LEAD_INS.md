@@ -116,9 +116,31 @@ outlines and starts remained unchanged within 0.00000224 mm in both saved projec
 
 ## Current scope
 
-SVG/DXF cutting parts with one outer contour and optional holes are supported.
-Editable LightBurn projects and rigid units with several disconnected components
-are explicitly rejected by the lead planner; normal preserving project exports
-remain available without lead overrides. Multi-component planning and material-cost measurements on the
-common-line development set remain unfinished. These public controls and tests
-are a development checkpoint, not completion of H6 or a new quality claim.
+SVG/DXF cutting parts and original LightBurn cutting paths are supported. Rigid
+groups can contain disconnected pieces, holes and nested islands. Contour indices
+visit each component's outer boundary and holes, followed by open cuts. Open cuts
+retain their source path and receive an explicit flag; no automatic lead or start
+change is applied to them. Engraving, cached text on engraving layers, images and
+their protected bounds never become cutting contours.
+
+For a LightBurn source, enabling leads exports three files per sheet:
+
+- `<name>-sheet-<k>.lbrn2` preserves the editable project, including original
+  starts, child shapes and layer settings; only the existing placement/sheet
+  changes apply.
+- `<name>-sheet-<k>-cuts.svg` and `.dxf` carry the original cutting curves with
+  checked starts and the LEADIN review layer. They do not carry engraving,
+  images or the project's operation settings. Apply the setup above to these files.
+
+Use the cutting file for the cut pass and retain the project for its editable
+artwork. If combining them in CAM, disable the project's duplicate cut paths.
+The browser offers all three downloads and includes them in its ZIP exports;
+CLI/MCP default exports do the same. An explicit format still selects one file
+type. Sheet outlines default on for LBRN2 and off for cutting files.
+
+This follows [reviewed decision 4](PLAN_V1_1.md#10-reviewed-decisions). Incomplete
+uncached text and mixed fixed/active groups retain their existing import errors.
+Native common-line cutting is still separate: import SVG/DXF cut parts for that
+mode. Material-cost measurements on the common-line development set remain
+unfinished. These controls are a development checkpoint, not completion of H6
+or a new quality claim.

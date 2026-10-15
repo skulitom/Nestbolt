@@ -22,9 +22,10 @@ const MIN_LENGTH_MM: f64 = 0.5;
 const EPS: f64 = 1e-9;
 
 mod layout;
+pub mod source;
 #[cfg(test)]
 mod tests;
-pub use layout::{LayoutPlan, PlacedPartPlan, finalize};
+pub use layout::{LayoutPlan, PlacedPartPlan, finalize, finalize_sources};
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, Serialize, JsonSchema)]
 #[serde(rename_all = "snake_case")]
@@ -497,12 +498,26 @@ pub fn prepare(
     options: Options,
     exclusions: &HashMap<String, Vec<Exclusion>>,
 ) -> Result<Prepared> {
-    prepare_filtered(job, curves, options, exclusions, |_, _, _| Ok(true))
+    prepare_sources(
+        job,
+        &source::from_outlines(job, curves)?,
+        options,
+        exclusions,
+    )
+}
+
+pub fn prepare_sources(
+    job: &Job,
+    sources: &source::Sources,
+    options: Options,
+    exclusions: &HashMap<String, Vec<Exclusion>>,
+) -> Result<Prepared> {
+    prepare_filtered(job, sources, options, exclusions, |_, _, _| Ok(true))
 }
 
 fn prepare_filtered(
     job: &Job,
-    curves: &HashMap<String, Outline>,
+    sources: &source::Sources,
     options: Options,
     exclusions: &HashMap<String, Vec<Exclusion>>,
     mut accept: impl FnMut(&str, usize, &[Path]) -> Result<bool>,
@@ -517,46 +532,42 @@ fn prepare_filtered(
     let mut collision_job = job.clone();
     let mut plans = vec![];
     for (part, enlarged) in job.parts.iter().zip(&mut collision_job.parts) {
-        ensure!(
-            part.geometry.len() == 1,
-            "lead planning needs exact cutting contours for a multi-component rigid unit"
-        );
-        ensure!(
-            part.geometry[0].outer.len() >= 3
-                && part.geometry[0].holes.iter().all(|ring| ring.len() >= 3),
-            "lead source rings need at least three points"
-        );
-        let outline = curves
+        let source = sources
             .get(&part.id)
-            .cloned()
-            .unwrap_or_else(|| Outline::from_polygon(&part.geometry[0]));
+            .context("part has no original cutting source")?;
         let scale = Affine::scale(job.units.to_mm());
-        let contours: Vec<_> = std::iter::once(&outline.outer)
-            .chain(&outline.holes)
-            .map(|c| c.transformed(&scale))
+        let contours: Vec<_> = source
+            .contours()
+            .map(|(c, hole, closed)| (c.transformed(&scale), hole, closed))
             .collect();
-        ensure!(
-            contours.len() == 1 + part.geometry[0].holes.len(),
-            "source contour count differs from the part geometry"
-        );
-        let polygon = Polygon {
-            outer: contours[0].flatten(leads::ENVELOPE_TOLERANCE_MM)?,
-            holes: contours[1..]
-                .iter()
-                .map(|c| c.flatten(leads::ENVELOPE_TOLERANCE_MM))
-                .collect::<Result<_>>()?,
-        };
-        let body = Footprint::new(&polygon, Units::Mm, RigidTransform::default())?;
-        let owner = leads::Owner::new(body.clone(), options.kerf_mm)?;
-        let mut original = part.geometry[0].clone();
-        for p in original
-            .outer
-            .iter_mut()
-            .chain(original.holes.iter_mut().flatten())
-        {
-            *p = mul(*p, job.units.to_mm());
+        if let Some(spans) = exclusions.get(&part.id) {
+            ensure!(
+                spans.iter().all(|s| s.contour_index < contours.len()
+                    && s.from_mm.is_finite()
+                    && s.to_mm.is_finite()
+                    && s.from_mm >= 0.0
+                    && s.to_mm >= s.from_mm),
+                "invalid lead attachment exclusion"
+            );
         }
-        let material = Footprint::new(&original, Units::Mm, RigidTransform::default())?;
+        if !source.cutting_contours {
+            ensure!(
+                source.components.len() == part.geometry.len()
+                    && source
+                        .components
+                        .iter()
+                        .zip(&part.geometry)
+                        .all(|(c, p)| c.holes.len() == p.holes.len())
+                    && source.open.is_empty()
+                    && source.extra_material.is_empty(),
+                "source contour count differs from the part geometry"
+            );
+        }
+        let body = source.material_mm(job.units)?;
+        let owner = leads::Owner::new(body.clone(), options.kerf_mm)?;
+        let material =
+            Footprint::from_polygons(&part.geometry, job.units, RigidTransform::default())?
+                .with_units(Units::Mm);
         let mut combined = body.union(&material)?;
         let mut previous: Vec<Footprint> = vec![];
         let mut plan = PartPlan {
@@ -565,7 +576,11 @@ fn prepare_filtered(
             reservations: vec![],
             flags: vec![],
         };
-        for (index, c) in contours.iter().enumerate() {
+        for (index, (c, hole, closed)) in contours.iter().enumerate() {
+            if !closed {
+                plan.flags.push(Flag { contour_index: index, reason: "Open cutting contour has no enclosed waste side; its original path is exported without a lead or start change".into() });
+                continue;
+            }
             ensure!(
                 sub(c.start, c.end()).iter().all(|v| v.abs() <= 1e-8),
                 "lead contours must be closed"
@@ -576,9 +591,8 @@ fn prepare_filtered(
                 "lead contour has no area"
             );
             let winding = area.signum();
-            let hole = index > 0;
-            let side = if hole { winding } else { -winding };
-            let angle = if hole {
+            let side = if *hole { winding } else { -winding };
+            let angle = if *hole {
                 options.hole_angle_degrees
             } else {
                 options.outer_angle_degrees
@@ -589,18 +603,8 @@ fn prepare_filtered(
                 .enumerate()
                 .map(|(i, s)| length::segment(from(c, i), s))
                 .sum();
-            if let Some(spans) = exclusions.get(&part.id) {
-                ensure!(
-                    spans.iter().all(|s| s.contour_index < contours.len()
-                        && s.from_mm.is_finite()
-                        && s.to_mm.is_finite()
-                        && s.from_mm >= 0.0
-                        && s.to_mm >= s.from_mm),
-                    "invalid lead attachment exclusion"
-                );
-            }
             let mut reservation = None;
-            for candidate in candidates(c, hole, winding)? {
+            for candidate in candidates(c, *hole, winding)? {
                 if exclusions.get(&part.id).is_some_and(|spans| {
                     spans.iter().any(|span| {
                         span.contour_index == index

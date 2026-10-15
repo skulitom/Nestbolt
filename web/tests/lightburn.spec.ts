@@ -5,6 +5,70 @@ import { fileURLToPath } from 'node:url';
 const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/roundtrip.lbrn2', import.meta.url));
 const source = readFileSync(fixture, 'utf8');
 
+test('LightBurn leads download separate cutting files and preserve the editable group', async ({ page }, info) => {
+  const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/lead-group.lbrn2', import.meta.url));
+  const original = readFileSync(fixture,'utf8');
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles(fixture);
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  await page.getByLabel('Quantity of lead-group-unit-1').fill('2');
+  const sheet = page.locator('fieldset.sheet-row').first();
+  await sheet.getByLabel('Width').fill('150');
+  await sheet.getByLabel('Height').fill('100');
+  await sheet.getByLabel('Margin').fill('0');
+  await page.getByLabel('Edge spacing').fill('1');
+  await page.getByLabel('Part spacing').fill('0.2');
+  await page.getByLabel('Time').fill('1');
+  await page.getByText('Advanced').click();
+  await page.getByLabel('Workers').fill('1');
+  await page.getByLabel('Lead-in allowances', { exact:true }).check();
+  await expect(page.getByRole('button', { name:'Nest', exact:true })).toBeDisabled();
+  await page.getByLabel('Lead kerf').fill('0.2');
+  await expect(page.getByText('Download the cutting SVG or DXF', { exact:false })).toBeVisible();
+  await page.getByRole('button', { name:'Nest', exact:true }).click();
+  await expect(page.locator('.summary, [role=alert]').first()).toBeVisible({ timeout:90_000 });
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(page.locator('.lead-report')).toContainText('8/10 contours have checked space');
+  await expect(page.locator('.lead-report')).toContainText('2 need manual attention');
+  await expect(page.locator('.lead-report')).toContainText('Open cutting contour');
+  const [svg] = await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Cutting SVG',exact:true}).click()]);
+  expect(svg.suggestedFilename()).toBe('lead-group-sheet-1-cuts.svg');
+  const svgText = readFileSync(await svg.path(),'utf8');
+  const [dxf] = await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Cutting DXF',exact:true}).click()]);
+  expect(dxf.suggestedFilename()).toBe('lead-group-sheet-1-cuts.dxf');
+  const [project] = await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Project ZIP',exact:true}).click()]);
+  await project.saveAs(info.outputPath('lead-group.zip'));
+  const files=entries(await project.path());
+  const saved=JSON.parse(files.get('project.json')!);
+  expect(saved.library.lightburn.xml).toBe(original);
+  expect(saved.result.lead_in.validation.source_checked).toBe(true);
+  expect(saved.result.lead_in.validation.coverage).toEqual({expected_contours:10,reserved_contours:8,flagged_contours:2});
+  expect(files.get('sheets/lead-group-sheet-1-cuts.svg')).toBe(svgText);
+  expect(files.get('sheets/lead-group-sheet-1-cuts.dxf')).toBe(readFileSync(await dxf.path(),'utf8'));
+  await page.evaluate(({ original, output, cuts }) => {
+    const parser=new DOMParser();
+    const before=parser.parseFromString(original,'text/xml');
+    const after=parser.parseFromString(output,'text/xml');
+    const sourceChildren=before.querySelector('Children')!.outerHTML;
+    const groups=after.querySelectorAll('LightBurnProject > Shape[Type="Group"] > Children');
+    if(groups.length !== 2 || Array.from(groups).some(g=>g.outerHTML!==sourceChildren)) throw new Error('Editable group children changed');
+    for(const setting of Array.from(before.querySelectorAll('CutSetting'))) {
+      if(!Array.from(after.querySelectorAll('CutSetting')).some(s=>s.outerHTML===setting.outerHTML)) throw new Error('Cut settings changed');
+    }
+    const svg=parser.parseFromString(cuts,'image/svg+xml');
+    const paths=svg.querySelectorAll('#CUT path');
+    if(paths.length!==2) throw new Error('Rigid copy coverage changed');
+    for(const path of Array.from(paths)) {
+      const d=path.getAttribute('d')!;
+      if((d.match(/M/g)||[]).length!==5 || (d.match(/Z/g)||[]).length!==4) throw new Error('Original cut coverage or open path changed');
+    }
+    if(svg.querySelector('#SHEET')) throw new Error('Unexpected sheet outline in cutting file');
+    if(!svg.querySelector('#LEADIN')) throw new Error('Missing lead review paths');
+  },{original,output:files.get('sheets/lead-group-sheet-1.lbrn2')!,cuts:svgText});
+  await page.locator('.results').evaluate(el=>el.scrollTo(0,el.scrollHeight));
+  await page.screenshot({path:info.outputPath('lead-group.png'),fullPage:true});
+});
+
 test('legacy LightBurn paths become editable modern sheet files', async ({ page }, info) => {
   const legacy = fileURLToPath(new URL('../../crates/core/tests/fixtures/legacy.lbrn', import.meta.url));
   await page.goto('/');

@@ -1,0 +1,538 @@
+   Compiling nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+   Compiling nestbolt-wasm v0.1.0 (C:\DEV\Nestbolt\crates\wasm)
+   Compiling nestbolt-cli v0.1.0 (C:\DEV\Nestbolt\crates\cli)
+   Compiling nestbolt-mcp v0.1.0 (C:\DEV\Nestbolt\crates\mcp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 17s
+     Running unittests src\main.rs (target\debug\deps\nestbolt-b5c11c487c03163b.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\controlled_search.rs (target\debug\deps\controlled_search-cb04e9616db390d2.exe)
+
+running 2 tests
+test stopping_before_a_layout_exists_does_not_create_an_output_file ... ok
+test work_limit_writes_only_the_last_valid_completed_layout ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.36s
+
+     Running tests\features.rs (target\debug\deps\features-9c77e07586b6dbb5.exe)
+
+running 23 tests
+test version_names_the_command ... ok
+test cleanup_counts_are_in_the_import_report ... ok
+test closed_retraces_keep_holes_and_report_preserved_overlaps ... ok
+test svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports ... ok
+test explicit_gap_repair_reports_its_size_and_location ... ok
+test layers_and_colors_select_cuts_and_report_ignored_entities ... ok
+test legacy_dxf_bytes_and_missing_units_are_explicit ... ok
+test fill_modes_place_the_most_area_or_priority ... ok
+test part_and_edge_spacing_are_kept ... ok
+test prearranged_sheet_is_discovered_and_used_without_nesting_the_boundary ... ok
+test legacy_lightburn_nests_and_exports_modern_paths ... ok
+test common_line_cli_flags_override_spacing_and_export_compensated_paths ... ok
+test rotation_lists_steps_free_and_mirroring ... ok
+test svg_and_dxf_in_curves_out_and_re_export ... ok
+test lightburn_import_and_direct_nest_preserve_editable_units_and_sheet_files ... ok
+test small_parts_go_inside_holes ... ok
+test lightburn_leads_export_cutting_files_beside_the_preserved_project ... ok
+test lead_flags_defaults_validation_and_repeat_export_match_the_request ... ok
+test repeatable_budgets_give_the_same_layout ... ok
+test defects_and_remnant_outlines_stay_clear ... ok
+test several_sheet_sizes_margins_and_capped_counts ... ok
+test fewest_sheets_with_the_offcut_at_one_end ... ok
+test quantities_from_one_to_hundreds has been running for over 60 seconds
+test quantities_from_one_to_hundreds ... ok
+
+test result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 149.35s
+
+     Running tests\inspect.rs (target\debug\deps\inspect-651a401562bb738d.exe)
+
+running 2 tests
+test missing_input_fails_cleanly ... ok
+test inspect_prints_machine_readable_json ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests\strip.rs (target\debug\deps\strip-cd17445dc6efeedd.exe)
+
+running 1 test
+test strip_cli_writes_a_valid_layout_and_preserves_existing_files ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests\validate.rs (target\debug\deps\validate-6597d86c10ff291f.exe)
+
+running 2 tests
+test validates_nested_example_and_prints_independently_computed_metrics ... ok
+test invalid_layout_has_a_failing_exit_code_and_no_quality_score ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running unittests src\lib.rs (target\debug\deps\nestbolt_core-b9034739b71efd40.exe)
+
+running 66 tests
+test common_line::chains::tests::loop_attached_to_a_branch_does_not_get_stranded_in_an_extra_path ... ok
+test common_line::chains::tests::overlap_union_and_crossing_have_no_retraced_edges_and_minimum_trails ... ok
+test curves::tests::transformed_arcs_match_transformed_samples ... ok
+test curves::tests::flattened_circle_stays_within_tolerance ... ok
+test import::tests::svg_arcs_match_the_endpoint_definition ... ok
+test curves::tests::cubic_flattening_converges_and_bounds_error ... ok
+test import::tests::bspline_knot_insertion_reproduces_the_curve ... ok
+test export::ordered::tests::cubic_spans_stay_within_the_ellipse_error_bound ... ok
+test import::tests::rings_must_stay_simple_in_single_precision ... ok
+test import::tests::dxf_lines_arcs_bulges_and_splines_close_into_parts ... ok
+test import::tests::self_touching_relief_loops_get_a_covering_nesting_outline ... ok
+test lead_in::tests::angles_require_native_hundredth_degree_precision ... ok
+test import::tests::svg_frame_with_hole_and_rounded_rectangle ... ok
+test import::tests::dxf_relief_loops_in_file_order_stay_in_their_outline ... ok
+test lead_in::tests::exclusions_wrap_the_source_seam_and_all_excluded_contours_are_flagged ... ok
+test lead_in::tests::invalid_source_and_exclusion_inputs_fail_clearly ... ok
+test lead_in::tests::native_line_and_arc_calibrations_have_the_expected_length_radius_and_tangent ... ok
+test export::tests::palette_separates_review_paths_and_keeps_them_open ... ok
+test lead_in::tests::path_length_attachment_and_waste_side_survive_arbitrary_heading ... ok
+test lead_in::tests::near_zero_arc_uses_a_bounded_chord_without_a_remote_invalid_centre ... ok
+test lead_in::tests::rectangle_uses_a_convex_corner_and_retains_original_job_and_physical_envelope ... ok
+test lead_in::tests::owner_rejects_interior_path_and_pierce_but_allows_a_tangent_arc_join ... ok
+test export::tests::exploded_dxf_retraces_keep_closed_curves_after_cleanup ... ok
+test project::tests::request_builds_a_checked_job_with_widened_clearances ... ok
+test lead_in::tests::native_tenth_mm_setting_is_the_actual_reserved_path_length ... ok
+test lead_in::tests::subdivided_hole_edge_is_chosen_by_its_full_length ... ok
+test sheets::tests::expired_repeatable_warm_start_does_not_retry_without_a_deadline ... ok
+test lead_in::tests::smooth_round_hole_starts_towards_its_centre_and_keeps_exact_curve_start ... ok
+test common_line::length::tests::lengths_preserve_circles_straight_beziers_and_subdivision ... ok
+test lead_in::tests::final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches ... ok
+test scoring::tests::source_material_must_match_metadata_and_fit_the_reserved_geometry ... ok
+test sheets::tests::sparrow_hands_back_when_its_strip_cannot_fit_the_sheet ... ignored, upstream Sparrow debug assertion
+test construct::repair::relax::tests::fixed_obstacle_cannot_be_solved_as_a_movable_pair ... ok
+test construct::repair::relax::tests::overlapping_group_separates_repeatably_with_exact_angles_and_defects ... ok
+test import::fuzz::arbitrary_text_never_panics ... ok
+test import::fuzz::damaged_files_never_panic ... ok
+test export::ordered::tests::ellipse_cubics_meet_the_bound_across_scale_and_eccentricity ... ok
+test lead_in::tests::narrow_hole_shortens_and_tiny_hole_is_flagged_without_losing_coverage ... ok
+test strip::tests::exported_reflection_preserves_copy_ids_and_scores_original_vertices ... ok
+test rects::tests::rules_limits_and_budgets_are_respected ... ok
+test import::fuzz::random_paths_import_finite_parts ... ok
+test strip::tests::phase_timeouts_never_extend_the_global_budget ... ok
+test lead_in::tests::mm_and_inch_jobs_reserve_the_same_physical_geometry ... ok
+test export::tests::exported_sheets_round_trip_within_hundredth_of_a_millimetre ... ok
+test lead_in::tests::final_report_accounts_for_flags_reselects_near_edges_and_refuses_invalid_layouts ... ok
+test construct::repair::relax::tests::interrupted_trial_restores_receiver_and_contact_cache ... ok
+test construct::order_tests::interleaved_order_preserves_copy_identity_and_rejects_missing_or_duplicate_copies ... ok
+test construct::order_tests::diversified_first_orientation_keeps_trying_when_an_angle_does_not_fit ... ok
+test holes::tests::the_first_host_is_filled_even_when_the_share_has_run_out ... ok
+test construct::order_tests::diversified_anchors_preserve_constraints_and_replay_both_allowed_orientations ... ok
+test sheets::tests::strip_frame_round_trips_contract_transforms ... ok
+test holes::tests::inserts_ride_inside_frames_and_expand_validly ... ok
+test export::tests::chosen_starts_preserve_holes_and_mirrored_curves_in_both_formats ... ok
+test lead_in::tests::final_validation_rebuilds_mixed_curves_in_physical_units ... ok
+test scoring::tests::fill_modes_value_parts_not_reserved_waste_and_keep_priority_primary ... ok
+test rects::tests::shorter_targets_find_upright_bands ... ok
+test separate::tests::weights_stay_finite_when_a_collision_never_clears ... ok
+test scoring::tests::reserved_cutting_space_stays_out_of_the_reported_offcut ... ok
+test lead_in::tests::planned_search_validates_original_parts_every_allowance_and_exported_starts ... ok
+test sheets::tests::strip_frame_round_trips_random_jobs ... ok
+test sheets::tests::remnant_outline_keeps_the_general_search ... ok
+test export::ordered::tests::ordered_circular_polylines_keep_geometry_after_mirroring ... ok
+test sheets::tests::sparrow_takes_one_sheet_of_hole_free_parts ... ok
+test sheets::tests::defects_stay_clear_in_sheet_search ... ok
+test sheets::tests::several_stock_sizes_search_one_size ... ok
+test sheets::tests::short_sheet_searches_are_independently_valid ... ok
+
+test result: ok. 65 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 6.10s
+
+     Running tests\common_line.rs (target\debug\deps\common_line-607cc6ed1fe1cbae.exe)
+
+running 6 tests
+test partial_matches_subdivisions_and_layout_order_preserve_shared_length ... ok
+test minimum_length_spacing_and_physical_units_are_enforced ... ok
+test holes_sheet_edges_and_other_sheets_are_not_shared ... ok
+test compensated_pair_preserves_cut_size_and_exports_one_shared_path ... ok
+test analytic_common_offsets_match_independent_clipper ... ok
+test curved_portions_are_counted_but_never_polygonized_into_common_lines ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\compact.rs (target\debug\deps\compact-b9d25a7158e163a4.exe)
+
+running 4 tests
+test fill_compaction_keeps_the_original_selection ... ok
+test interruption_and_invalid_inputs_do_not_change_the_source ... ok
+test relocation_can_choose_a_shorter_permitted_orientation_and_repeats ... ok
+test compaction_reduces_material_preserves_copies_and_repeats ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\compress.rs (target\debug\deps\compress-43e192dd25558bff.exe)
+
+running 2 tests
+test compression_separates_clamped_parts_and_preserves_other_sheets ... ok
+test fixed_defects_or_interruption_never_modify_the_source ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\construct.rs (target\debug\deps\construct-3014d48835a6658a.exe)
+
+running 11 tests
+test exact_list_angles_and_mirror_are_rebuilt_in_source_coordinates ... ok
+test a_mirror_required_by_the_remnant_is_exported_as_one_rigid_transform ... ok
+test refinement_closes_a_gap_above_a_sloping_remnant_edge ... ok
+test refinement_keeps_a_mirrored_remnant_valid_without_changing_permissions ... ok
+test mixed_stock_limits_and_fill_do_not_invent_sheets ... ok
+test split_remnant_regions_share_one_stock_copy_and_avoid_defects ... ok
+test contact_candidates_interlock_concave_parts_without_random_sampling ... ok
+test refinement_keeps_holes_components_defects_and_exact_angles_in_source_space ... ok
+test holed_and_disconnected_parts_preserve_source_and_repeat ... ok
+test a_long_rectangular_sheet_uses_its_usable_edges_without_random_sampling ... ok
+test narrow_margins_on_large_stock_preserve_clearance_and_source ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.62s
+
+     Running tests\contour_starts.rs (target\debug\deps\contour_starts-dd87e323a6a5f73d.exe)
+
+running 3 tests
+test each_curve_subdivides_exactly_and_derivatives_keep_direction ... ok
+test restarting_circle_retains_arcs_and_rejects_invalid_or_open_contours ... ok
+test restarts_preserve_geometry_and_commute_with_rigid_transforms ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests\import_cleanup.rs (target\debug\deps\import_cleanup-3b2ecfc7b33fa6c4.exe)
+
+running 6 tests
+test merges_partial_and_contained_collinear_overlaps_without_merging_nearby_lines ... ok
+test exact_retraces_stay_closed_but_a_second_copy_is_removed ... ok
+test removes_forward_reverse_and_zero_segments_without_dropping_circles ... ok
+test reversed_beziers_are_duplicates_but_a_nonempty_closed_curve_is_not_zero ... ok
+test cleanup_preserves_closed_retraced_arc_endpoints ... ok
+test shuffled_overlaps_and_duplicates_keep_the_exact_rectangle ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests\import_encoding.rs (target\debug\deps\import_encoding-502aca8c16297d0f.exe)
+
+running 5 tests
+test dxf_unicode_escapes_decode_surrogate_pairs_without_loss ... ok
+test modern_utf8_ignores_legacy_codepage_and_bad_bytes_have_a_fix ... ok
+test xml_bom_and_declared_encoding_decode_without_replacement_characters ... ok
+test legacy_declared_and_default_codepages_keep_unicode_layer_names ... ok
+test missing_units_suggest_inches_without_rescaling_and_headers_take_precedence ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\import_gaps.rs (target\debug\deps\import_gaps-7dda57c2f0abf266.exe)
+
+running 5 tests
+test empty_import_error_names_the_location_and_fix ... ok
+test explicit_gap_repair_keeps_original_curve_endpoints ... ok
+test repair_limit_is_one_mm_and_default_join_is_silent ... ok
+test curve_precision_does_not_enable_gap_healing ... ok
+test library_rejects_partial_geometry_until_repaired_or_excluded ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\import_habits.rs (target\debug\deps\import_habits-bc34644bd2aa5639.exe)
+
+running 2 tests
+test every_shop_habit_has_an_analytic_fixture ... ok
+test random_shop_habits_preserve_analytic_parts ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\import_layers.rs (target\debug\deps\import_layers-cd8be8895ead6cf7.exe)
+
+running 6 tests
+test malformed_polyline_has_a_reexport_fix ... ok
+test insert_extrusion_mirrors_its_position_after_local_scale_and_rotation ... ok
+test inventory_is_available_for_open_only_drawings ... ok
+test svg_css_specificity_and_use_inheritance_choose_the_right_colour ... ok
+test dxf_layer_and_color_inherit_through_blocks_with_base_points ... ok
+test svg_defaults_and_explicit_filters_preserve_inventory ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\import_metadata.rs (target\debug\deps\import_metadata-80346f356aea3621.exe)
+
+running 2 tests
+test block_instances_and_header_seed_are_not_duplicate_handles ... ok
+test duplicate_handles_and_undefined_annotation_layers_are_reported_without_dropping_parts ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\import_sheet.rs (target\debug\deps\import_sheet-74a5e90f219aec76.exe)
+
+running 5 tests
+test custom_stock_layers_and_disabled_discovery_do_not_change_cut_parts ... ok
+test references_do_not_silently_resize_stock_or_accept_conflicting_geometry ... ok
+test stock_cannot_gain_material_from_the_part_proxy_self_touch_repair ... ok
+test stock_selection_is_separate_and_normalizes_the_whole_sheet_with_holes ... ok
+test curved_stock_error_is_reserved_at_edges_and_explicit_gap_repair_is_required ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\import_viewport.rs (target\debug\deps\import_viewport-15da1dc5ef2afd5c.exe)
+
+running 6 tests
+test ambiguous_or_invalid_pages_name_the_repair_instead_of_guessing_a_size ... ok
+test either_absolute_dimension_sets_the_scale_and_missing_dimensions_use_user_units ... ok
+test root_transform_acts_outside_viewbox_in_viewport_units ... ok
+test modern_and_legacy_polyline_widths_warn_without_expanding_cut_centrelines ... ok
+test aspect_ratio_meet_slice_none_and_alignment_keep_physical_dimensions ... ok
+test nonuniform_page_mapping_retains_curved_boundaries ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\inspection.rs (target\debug\deps\inspection-34f9f5b914206fd9.exe)
+
+running 7 tests
+test refuses_item_holes_instead_of_silently_filling_them ... ok
+test rejects_duplicate_ids ... ok
+test rejects_overflow_and_excessive_demand_before_geometry_import ... ok
+test rejects_invalid_rotation_spacing_and_empty_stock ... ok
+test inactive_items_do_not_contribute_area ... ok
+test imports_real_geometry_and_preserves_declared_units ... ok
+test rectangular_area_scales_with_quantity ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+
+     Running tests\lead_lightburn.rs (target\debug\deps\lead_lightburn-62ce2d81e70db43b.exe)
+
+running 2 tests
+test engraving_text_and_bitmap_bounds_never_become_cut_contours ... ok
+test cutting_sidecars_keep_disconnected_pieces_holes_islands_and_open_paths ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests\lead_surfaces.rs (target\debug\deps\lead_surfaces-afd297f700a06859.exe)
+
+running 2 tests
+test lead_request_rejects_invalid_options_and_accepts_preserved_project_sidecars ... ok
+test final_common_starts_are_exported_from_each_copy_and_offcuts_use_reserved_space ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\lightburn.rs (target\debug\deps\lightburn-d7b5b8b1fe5de761.exe)
+
+running 15 tests
+test corrupt_shared_lists_and_nonfinite_geometry_fail_with_context ... ok
+test legacy_and_compact_cubic_multicontours_have_the_same_geometry ... ok
+test no_op_preserves_every_byte_and_sharing_resolves_independently ... ok
+test circles_rounded_rectangles_polygons_and_open_paths_keep_their_shape ... ok
+test uncached_text_and_unknown_shapes_are_retained_without_inventing_bounds ... ok
+test omitted_zero_handle_coordinates_are_not_missing_handles ... ok
+test group_transform_and_text_cache_apply_once_and_text_moves_with_its_group ... ok
+test nesting_units_attach_contents_but_preserve_groups_and_fixed_shapes ... ok
+test writer_handles_self_closing_shapes_copies_and_tool_setting_conflicts ... ok
+test tool_setting_precedes_shapes_and_outline_precedes_trailing_notes ... ok
+test legacy_conversion_includes_text_backups_fixed_paths_and_partial_handles ... ok
+test containment_checks_the_whole_rectangle_and_chooses_the_smallest_cut ... ok
+test identity_sheet_is_byte_identical_and_group_children_never_get_transformed ... ok
+test per_sheet_writer_rehomes_independent_resources_and_keeps_fixed_xml ... ok
+test legacy_sheet_conversion_keeps_original_xml_and_only_adds_compact_geometry ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\optimize.rs (target\debug\deps\optimize-2a260800a8c9f8c0.exe)
+
+running 10 tests
+test impossible_stock_is_not_reported_as_a_successful_improvement ... ok
+test fill_priority_search_never_reduces_the_incumbents_priority ... ok
+test cancellation_before_initial_layout_is_typed_and_after_progress_keeps_the_layout ... ok
+test collision_limit_stops_mid_pass_and_preserves_the_valid_incumbent_deterministically ... ok
+test repacking_preserves_a_valid_incumbent_and_accounts_for_every_pass ... ok
+test interrupted_sheet_repair_cannot_leak_removed_or_displaced_parts ... ok
+test longer_search_preserves_the_first_finished_block_and_shared_work_limit ... ok
+test shallow_overlap_repair_keeps_the_blaz1_development_quality_gain ... ok
+test finishing_preserves_every_repacking_pass_and_the_incumbent_on_interruption ... ok
+test a_trial_the_collision_engine_lets_overlap_is_rejected_not_fatal ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 50.36s
+
+     Running tests\project_lightburn.rs (target\debug\deps\project_lightburn-49f2363bdb8563cf.exe)
+
+running 3 tests
+test missing_source_and_mixed_fixed_groups_fail_before_nesting ... ok
+test source_xml_drives_validation_and_incomplete_or_lossy_exports_are_refused ... ok
+test rigid_components_and_source_settings_survive_library_and_per_sheet_exports ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\repair.rs (target\debug\deps\repair-8c8ec7bba0a99d01.exe)
+
+running 9 tests
+test repair_rejects_invalid_sources_donors_and_excess_work ... ok
+test an_unplaced_donor_stops_the_trial_without_adding_later_smaller_parts ... ok
+test defects_are_never_displaced_to_admit_a_part ... ok
+test moving_a_blocker_fits_both_parts_on_one_sheet_and_repeats ... ok
+test two_blockers_move_together_to_remove_a_sheet_and_repeat ... ok
+test failed_ejection_restores_the_unchanged_receiver_and_never_opens_stock ... ok
+test repair_keeps_mirrored_off_origin_geometry_and_split_remnant_identity ... ok
+test failed_two_part_reinsertion_rolls_back_another_receiver_sheet ... ok
+test late_shapes_repairs_cannot_admit_coincident_parts ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 8.37s
+
+     Running tests\search_fuzz.rs (target\debug\deps\search_fuzz-9ed72b38a4c68ca1.exe)
+
+running 4 tests
+test imported_shop_habits_nest_with_original_geometry ... ok
+test regression_ci_quadtree_child_edges ... ok
+test random_polygon_jobs_are_valid_or_clean_errors ... ok
+test random_curved_svg_parts_nest_validly ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 34.65s
+
+     Running tests\strip.rs (target\debug\deps\strip-e69b95bda6371d62.exe)
+
+running 2 tests
+test strip_adapter_rejects_unrepresented_constraints_and_invalid_budgets ... ok
+test native_strip_search_returns_original_geometry_and_units_within_its_envelope ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.02s
+
+     Running unittests src\main.rs (target\debug\deps\nestbolt_mcp-a8b0649d62e1cd3f.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\connection.rs (target\debug\deps\connection-aa2e5b39ac90fe30.exe)
+
+running 5 tests
+test common_line_parameter_controls_spacing_and_export_report ... ok
+test lightburn_lead_sidecars_keep_the_editable_project_and_revalidate ... ok
+test lead_allowances_report_flags_and_revalidate_identically ... ok
+test lightburn_units_nest_and_export_without_losing_project_settings ... ok
+test tools_import_nest_validate_export_and_estimate_inside_the_workspace ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.57s
+
+     Running unittests src\lib.rs (target\debug\deps\nestbolt_validator-7e608c8d3f74c115.exe)
+
+running 4 tests
+test distance_tests::queries_keep_input_checks_after_warming_and_do_not_allocate_for_distant_pairs ... ok
+test distance_tests::reused_clearance_envelopes_match_fresh_queries_for_different_neighbours ... ok
+test distance_tests::pruning_preserves_near_touching_curves_and_multiple_components ... ok
+test distance_tests::pruned_distances_equal_exhaustive_distances_at_all_supported_scales ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.20s
+
+     Running tests\adversarial.rs (target\debug\deps\adversarial-d6b23ec9c792e611.exe)
+
+running 1 test
+test seeded_adversarial_polygon_fuzz ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests\geometry.rs (target\debug\deps\geometry-c51c563caa2e5ee1.exe)
+
+running 12 tests
+test overlap_is_measured_against_the_smaller_part ... ok
+test slivers_and_small_overlap_remain_measurable ... ok
+test normalizes_duplicate_closing_and_collinear_points ... ok
+test rejects_invalid_rings_and_hole_topology ... ok
+test units_are_explicit_and_inches_are_converted ... ok
+test rigid_transform_mirrors_then_rotates_then_translates ... ok
+test contact_and_clearance_are_distinguished ... ok
+test diagonal_clearance_uses_euclidean_distance ... ok
+test parts_fit_inside_holes_with_clearance ... ok
+test containment_respects_defects_and_boundary_spacing ... ok
+test rectangle_intersections_agree_with_analytic_area ... ok
+test winding_and_quarter_turns_preserve_area ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests\job.rs (target\debug\deps\job-c016edc4c849ce74.exe)
+
+running 13 tests
+test a_completely_defective_sheet_allows_only_an_empty_fill_result ... ok
+test unit_mismatch_invalid_inputs_and_excessive_demand_are_rejected ... ok
+test fill_modes_allow_missing_parts_but_never_extra_copies ... ok
+test equal_stock_metric_matches_the_plan_formula ... ok
+test enforces_stock_limits_and_rejects_empty_or_duplicate_sheets ... ok
+test mixed_stock_metric_uses_actual_area_and_one_trailing_offcut ... ok
+test rejects_duplicates_missing_copies_unknown_parts_and_nonrigid_fields ... ok
+test remnant_outline_and_overlapping_defects_are_supported ... ok
+test step_list_free_and_mirror_rules_are_checked ... ok
+test parts_can_nest_in_holes_and_disconnected_components_stay_rigid ... ok
+test tiny_pair_overlaps_are_accumulated_per_part ... ok
+test margins_edges_defects_and_interpart_clearance_are_separate ... ok
+test validates_two_thousand_distinct_copies ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests\lead_sources.rs (target\debug\deps\lead_sources-f00fc83ad24bd4ac.exe)
+
+running 11 tests
+test source_degeneracy_and_resource_limits_fail_explicitly ... ok
+test collision_guard_expands_rounding_slivers_but_refuses_missing_material ... ok
+test ordinary_material_components_cannot_overlap_or_use_native_metadata ... ok
+test component_and_hole_coverage_is_derived_from_original_job ... ok
+test altered_start_and_inward_lead_fail_even_when_partial_checks_pass ... ok
+test native_cutting_coverage_uses_source_paths_instead_of_collision_proxy ... ok
+test independent_coverage_requires_one_decision_for_each_placed_contour ... ok
+test exact_curved_neighbour_is_checked_beyond_its_coarse_search_polygon ... ok
+test complete_checks_preserve_units_rotation_and_mirroring ... ok
+test independent_bezier_samples_and_flattening_match_de_casteljau ... ok
+test independent_ellipse_flattening_respects_physical_error ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests\leads.rs (target\debug\deps\leads-5b919f0734d29574.exe)
+
+running 15 tests
+test large_start_angles_do_not_erase_short_sweeps_or_rigid_rotations ... ok
+test stroke_and_pierce_have_the_declared_physical_sizes ... ok
+test malformed_paths_and_unknown_contours_fail_explicitly ... ok
+test inch_jobs_keep_paths_in_mm_but_translate_using_inches ... ok
+test union_preserves_holes_islands_and_units_without_double_counting ... ok
+test sheets_are_isolated_and_original_layout_must_be_valid ... ok
+test hole_leads_check_nested_parts_and_other_contours_of_the_owner ... ok
+test reserved_metrics_keep_original_material_and_exclude_leads_from_the_offcut_in_both_units ... ok
+test detects_other_parts_and_crossing_leads_before_export ... ok
+test stock_edges_margins_remnants_and_defects_check_the_whole_lead ... ok
+test both_native_traversal_directions_reserve_room ... ok
+test transformation_matches_independent_matrix_at_every_sample ... ok
+test union_roundtrip_matches_analytic_overlapping_rectangles ... ok
+test analytic_swept_discs_are_contained ... ok
+test extreme_arc_sizes_keep_physical_coverage_or_fail_with_a_bounded_cost ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.66s
+
+     Running tests\sparrow.rs (target\debug\deps\sparrow-0c91243fa8778e3d.exe)
+
+running 5 tests
+test rejects_nonrigid_transform_fields_and_duplicate_source_ids ... ok
+test checks_original_geometry_instead_of_embedded_solver_input ... ok
+test empty_rotation_list_is_fixed_while_null_is_free ... ok
+test accepts_float32_angle_rounding_but_not_arbitrary_angles ... ok
+test quantities_rotations_containment_and_unknown_items_fail ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src\lib.rs (target\debug\deps\nestbolt_wasm-cf3d44407c7d3d97.exe)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nestbolt_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nestbolt_validator
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nestbolt_wasm
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

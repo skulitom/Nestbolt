@@ -293,8 +293,8 @@ export function App() {
     if (!library) return [];
     const files: { name: string; data: string }[] = [];
     for (const sheet of r.layout.sheets) {
-      for (const format of (library.lightburn ? ['lbrn2'] : ['svg', 'dxf']) as ('svg' | 'dxf' | 'lbrn2')[]) {
-        files.push({ name: `sheets/${exportFilename(library, r.layout, sheet.id, format)}`, data: await exportSheet(library, request, r.layout, sheet.id, format, library.lightburn ? lightburnOutline : false) });
+      for (const format of (library.lightburn ? (request.lead_in ? ['lbrn2', 'svg', 'dxf'] : ['lbrn2']) : ['svg', 'dxf']) as ('svg' | 'dxf' | 'lbrn2')[]) {
+        files.push({ name: `sheets/${exportFilename(library, r.layout, sheet.id, format)}`, data: await exportSheet(library, request, r.layout, sheet.id, format, format === 'lbrn2' ? lightburnOutline : false) });
       }
     }
     return files;
@@ -326,7 +326,7 @@ export function App() {
   const metrics = result?.validation.metrics;
   const commonValid = !request.common_line || (!library?.lightburn && Number.isFinite(request.common_line.kerf_mm) && request.common_line.kerf_mm >= 0.05);
   const lead = request.lead_in;
-  const leadValid = !lead || (!library?.lightburn && Number.isFinite(lead.kerf_mm) && lead.kerf_mm > 0 && lead.kerf_mm <= 1000
+  const leadValid = !lead || (Number.isFinite(lead.kerf_mm) && lead.kerf_mm > 0 && lead.kerf_mm <= 1000
     && lead.length_mm >= 0.5 && lead.length_mm <= 50
     && [lead.outer_angle_degrees, lead.hole_angle_degrees].every(a => Number.isFinite(a) && a >= 0 && a <= 90 && Math.abs(a * 100 - Math.round(a * 100)) <= 1e-9)
     && (!request.common_line || request.common_line.kerf_mm === lead.kerf_mm));
@@ -535,7 +535,7 @@ export function App() {
               <p class="hint">CUT keeps the closed outlines. In CAM, replace their shared sections with COMMON and turn off kerf compensation for COMMON.</p>
             </> : null}
             {library?.lightburn ? <p class="hint">For common-line cutting, export the cut outlines from LightBurn as SVG or DXF and import them here.</p> : null}
-            <label class="check"><input type="checkbox" disabled={!!library?.lightburn && !lead} checked={!!lead} onChange={(e) => update({ lead_in: (e.target as HTMLInputElement).checked ? { kerf_mm: request.common_line?.kerf_mm ?? 0, length_mm: 3, style: 'line', outer_angle_degrees: 45, hole_angle_degrees: 90 } : undefined })} /> Lead-in allowances</label>
+            <label class="check"><input type="checkbox" checked={!!lead} onChange={(e) => update({ lead_in: (e.target as HTMLInputElement).checked ? { kerf_mm: request.common_line?.kerf_mm ?? 0, length_mm: 3, style: 'line', outer_angle_degrees: 45, hole_angle_degrees: 90 } : undefined })} /> Lead-in allowances</label>
             {lead ? <>
               <div class="grid">
                 <label>Lead kerf <input type="number" min={0.001} max={1000} step={0.05} value={lead.kerf_mm} onInput={(e) => update({ lead_in: { ...lead, kerf_mm: num(e) }, ...(request.common_line ? { common_line: { kerf_mm: num(e) } } : {}) })} /> mm</label>
@@ -546,6 +546,7 @@ export function App() {
               </div>
               <p class="hint">Enter the measured kerf. Length is the distance along the lead, including an arc. Space is reserved for both cutting directions. Small holes may need a shorter lead or a manual start.</p>
               <p class="hint">In LightBurn, turn off Choose best starting point and LEADIN layer output. Use the reported length and style; outer angles are positive, hole angles negative. Keep lead-out and overcut off.</p>
+              {library?.lightburn ? <p class="hint">Download the cutting SVG or DXF for the new starts and lead review paths. The LightBurn file preserves the editable project with its original starts and settings. Cutting files contain cut paths only; keep the project for engraving and images. Open cuts need a manual start.</p> : null}
             </> : null}
             <details class="advanced">
               <summary>Advanced</summary>
@@ -621,10 +622,11 @@ export function App() {
                           ? <span class="usage" title="Clear material above the placed parts">offcut {u.width.toFixed(0)} × {u.offcut.toFixed(0)} mm</span>
                           : null;
                       })()}
-                      {library.lightburn ? <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'lbrn2'), await exportSheet(library, request, result.layout, s.id, 'lbrn2', lightburnOutline), 'application/xml'))}>LightBurn</button> : <>
-                        <button onClick={guarded(async () => download(`${s.id}.svg`, await exportSheet(library, request, result.layout, s.id, 'svg'), 'image/svg+xml'))}>SVG</button>
-                        <button onClick={guarded(async () => download(`${s.id}.dxf`, await exportSheet(library, request, result.layout, s.id, 'dxf'), 'application/dxf'))}>DXF</button>
-                      </>}
+                      {library.lightburn ? <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'lbrn2'), await exportSheet(library, request, result.layout, s.id, 'lbrn2', lightburnOutline), 'application/xml'))}>LightBurn</button> : null}
+                      {!library.lightburn || lead ? <>
+                        <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'svg'), await exportSheet(library, request, result.layout, s.id, 'svg'), 'image/svg+xml'))}>{library.lightburn ? 'Cutting SVG' : 'SVG'}</button>
+                        <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'dxf'), await exportSheet(library, request, result.layout, s.id, 'dxf'), 'application/dxf'))}>{library.lightburn ? 'Cutting DXF' : 'DXF'}</button>
+                      </> : null}
                     </figcaption>
                   </figure>
                 ))}

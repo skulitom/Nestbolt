@@ -91,6 +91,15 @@ pub struct ReviewPaths {
     /// `part_id#copy_index`. None retains that contour's original start.
     /// Overrides for placements on other sheets are ignored.
     pub starts: HashMap<String, Vec<Option<ContourStart>>>,
+    /// Original cutting paths in world mm, reconstructed from the retained
+    /// source document. Non-cutting artwork never belongs in this map.
+    pub original_cuts: HashMap<String, Vec<CutPath>>,
+}
+
+#[derive(Clone, Debug)]
+pub struct CutPath {
+    pub curve: Contour,
+    pub closed: bool,
 }
 
 mod ordered;
@@ -108,8 +117,12 @@ fn apply_starts(parts: &mut [(String, Vec<Contour>)], review: &ReviewPaths) -> R
                 starts.len() == contours.len(),
                 "contour start count differs for {id}"
             );
-            for (contour, start) in contours.iter_mut().zip(starts) {
+            for (index, (contour, start)) in contours.iter_mut().zip(starts).enumerate() {
                 if let Some(start) = start {
+                    ensure!(
+                        review.original_cuts.get(id).is_none_or(|p| p[index].closed),
+                        "open cut cannot receive a closed contour start"
+                    );
                     *contour = contour.restarted(start.segment, start.parameter)?;
                 }
             }
@@ -121,18 +134,23 @@ fn apply_starts(parts: &mut [(String, Vec<Contour>)], review: &ReviewPaths) -> R
 fn outlines<'a>(
     job: &'a Job,
     curves: &'a HashMap<String, Outline>,
-) -> Result<HashMap<&'a str, std::borrow::Cow<'a, Outline>>> {
+) -> Result<HashMap<&'a str, Vec<std::borrow::Cow<'a, Outline>>>> {
     let mut map = HashMap::new();
     for part in &job.parts {
         let outline = match curves.get(&part.id) {
-            Some(o) => std::borrow::Cow::Borrowed(o),
+            Some(o) => vec![std::borrow::Cow::Borrowed(o)],
             None => {
                 ensure!(
-                    part.geometry.len() == 1,
-                    "part {} has several polygons but no source curves",
+                    part.geometry
+                        .iter()
+                        .all(|p| p.outer.len() >= 3 && p.holes.iter().all(|h| h.len() >= 3)),
+                    "part {} has an invalid source ring",
                     part.id
                 );
-                std::borrow::Cow::Owned(Outline::from_polygon(&part.geometry[0]))
+                part.geometry
+                    .iter()
+                    .map(|p| std::borrow::Cow::Owned(Outline::from_polygon(p)))
+                    .collect()
             }
         };
         map.insert(part.id.as_str(), outline);
@@ -168,11 +186,35 @@ pub(crate) fn placed(
             .get(p.part_id.as_str())
             .with_context(|| format!("unknown part {}", p.part_id))?;
         let a = Affine::placement(&p.transform).then(Affine::scale(scale));
-        let mut contours = vec![outline.outer.transformed(&a)];
-        contours.extend(outline.holes.iter().map(|h| h.transformed(&a)));
+        let contours = outline
+            .iter()
+            .flat_map(|o| std::iter::once(&o.outer).chain(&o.holes))
+            .map(|c| c.transformed(&a))
+            .collect();
         out.push((format!("{}#{}", p.part_id, p.copy_index), contours));
     }
     Ok((out, stock.width * scale, stock.height * scale))
+}
+
+fn placed_with_review(
+    job: &Job,
+    layout: &Layout,
+    sheet_id: &str,
+    curves: &HashMap<String, Outline>,
+    review: &ReviewPaths,
+) -> Result<Placed> {
+    let (mut parts, width, height) = placed(job, layout, sheet_id, curves)?;
+    if !review.original_cuts.is_empty() {
+        for (id, contours) in &mut parts {
+            let original = review
+                .original_cuts
+                .get(id)
+                .context("missing original cutting paths for placed copy")?;
+            *contours = original.iter().map(|p| p.curve.clone()).collect();
+        }
+    }
+    apply_starts(&mut parts, review)?;
+    Ok((parts, width, height))
 }
 
 fn num(v: f64) -> String {
@@ -258,8 +300,7 @@ pub fn svg_with_review_paths(
     options: Options,
     review: &ReviewPaths,
 ) -> Result<String> {
-    let (mut parts, width, height) = placed(job, layout, sheet_id, curves)?;
-    apply_starts(&mut parts, review)?;
+    let (parts, width, height) = placed_with_review(job, layout, sheet_id, curves, review)?;
     let flip = Affine {
         m: [[1.0, 0.0], [0.0, -1.0]],
         t: [0.0, height],
@@ -290,9 +331,16 @@ pub fn svg_with_review_paths(
         Layer::Cut.rgb(),
     )?;
     for (id, contours) in parts {
+        if contours.is_empty() {
+            continue;
+        }
         let mut d = String::new();
-        for c in &contours {
-            svg_path(&c.transformed(&flip), &mut d, true);
+        for (index, c) in contours.iter().enumerate() {
+            let closed = review
+                .original_cuts
+                .get(&id)
+                .is_none_or(|paths| paths[index].closed);
+            svg_path(&c.transformed(&flip), &mut d, closed);
         }
         writeln!(
             out,
@@ -476,8 +524,7 @@ pub fn dxf_with_review_paths(
     options: Options,
     review: &ReviewPaths,
 ) -> Result<String> {
-    let (mut parts, width, height) = placed(job, layout, sheet_id, curves)?;
-    apply_starts(&mut parts, review)?;
+    let (parts, width, height) = placed_with_review(job, layout, sheet_id, curves, review)?;
     let mut w = Dxf {
         text: String::new(),
         handle: 0x100,
@@ -537,6 +584,13 @@ pub fn dxf_with_review_paths(
     for (id, contours) in parts {
         for (index, c) in contours.iter().enumerate() {
             if review.starts.get(&id).is_some_and(|s| s[index].is_some()) {
+                ensure!(
+                    review
+                        .original_cuts
+                        .get(&id)
+                        .is_none_or(|p| p[index].closed),
+                    "open cut cannot receive a closed contour start"
+                );
                 w.ordered_contour("CUT", c)?;
                 continue;
             }

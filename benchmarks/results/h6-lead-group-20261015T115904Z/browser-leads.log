@@ -1,0 +1,87 @@
+[WebServer] (node:72788) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 2 workers
+
+(node:15764) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:47544) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › tests\features.spec.ts:68:1 › lead allowances expose flags, reserve offcuts and export a separate review layer (2.7s)
+  ok  3 [chromium] › tests\features.spec.ts:112:1 › common-line kerf overrides spacing and exports its own compensated layer (1.5s)
+(node:55524) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   2 [chromium] › tests\lightburn.spec.ts:8:1 › LightBurn leads download separate cutting files and preserve the editable group (5.9s)
+(node:82988) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  5 [chromium] › tests\lightburn.spec.ts:72:1 › legacy LightBurn paths become editable modern sheet files (1.4s)
+  ok  4 [firefox] › tests\features.spec.ts:68:1 › lead allowances expose flags, reserve offcuts and export a separate review layer (3.9s)
+  ok  6 [chromium] › tests\lightburn.spec.ts:121:1 › LightBurn rigid units nest and download as editable per-sheet projects (1.8s)
+(node:81904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  7 [firefox] › tests\features.spec.ts:112:1 › common-line kerf overrides spacing and exports its own compensated layer (1.3s)
+  x   8 [firefox] › tests\lightburn.spec.ts:8:1 › LightBurn leads download separate cutting files and preserve the editable group (6.8s)
+(node:83356) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  9 [firefox] › tests\lightburn.spec.ts:72:1 › legacy LightBurn paths become editable modern sheet files (2.5s)
+  ok 10 [firefox] › tests\lightburn.spec.ts:121:1 › LightBurn rigid units nest and download as editable per-sheet projects (2.0s)
+
+
+  1) [chromium] › tests\lightburn.spec.ts:8:1 › LightBurn leads download separate cutting files and preserve the editable group 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.error')
+    Expected: 0
+    Received: 2
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.error') with timeout 5000ms
+      - waiting for locator('.error')
+        14 × locator resolved to 2 elements
+           - unexpected value "2"
+
+
+      28 |   await page.getByRole('button', { name:'Nest', exact:true }).click();
+      29 |   await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout:90_000 });
+    > 30 |   await expect(page.locator('.error')).toHaveCount(0);
+         |                                        ^
+      31 |   await expect(page.locator('.lead-report')).toContainText('8/10 contours have checked space');
+      32 |   await expect(page.locator('.lead-report')).toContainText('2 need manual attention');
+      33 |   await expect(page.locator('.lead-report')).toContainText('Open cutting contour');
+        at C:\DEV\Nestbolt\web\tests\lightburn.spec.ts:30:40
+
+    Error Context: test-results\lightburn-LightBurn-leads--ef11f-preserve-the-editable-group-chromium\error-context.md
+
+  2) [firefox] › tests\lightburn.spec.ts:8:1 › LightBurn leads download separate cutting files and preserve the editable group 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  locator('.error')
+    Expected: 0
+    Received: 2
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" locator('.error') with timeout 5000ms
+      - waiting for locator('.error')
+        14 × locator resolved to 2 elements
+           - unexpected value "2"
+
+
+      28 |   await page.getByRole('button', { name:'Nest', exact:true }).click();
+      29 |   await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout:90_000 });
+    > 30 |   await expect(page.locator('.error')).toHaveCount(0);
+         |                                        ^
+      31 |   await expect(page.locator('.lead-report')).toContainText('8/10 contours have checked space');
+      32 |   await expect(page.locator('.lead-report')).toContainText('2 need manual attention');
+      33 |   await expect(page.locator('.lead-report')).toContainText('Open cutting contour');
+        at C:\DEV\Nestbolt\web\tests\lightburn.spec.ts:30:40
+
+    Error Context: test-results\lightburn-LightBurn-leads--ef11f-preserve-the-editable-group-firefox\error-context.md
+
+  2 failed
+    [chromium] › tests\lightburn.spec.ts:8:1 › LightBurn leads download separate cutting files and preserve the editable group 
+    [firefox] › tests\lightburn.spec.ts:8:1 › LightBurn leads download separate cutting files and preserve the editable group 
+  8 passed (25.3s)

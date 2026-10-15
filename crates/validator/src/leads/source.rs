@@ -47,11 +47,26 @@ pub struct Component {
     pub holes: Vec<Contour>,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+#[derive(Clone, Copy, Debug, Default, Deserialize, Serialize, JsonSchema, PartialEq, Eq)]
+#[serde(rename_all = "snake_case")]
+pub enum Basis {
+    #[default]
+    MaterialBoundaries,
+    /// Original cutting paths can differ from a rigid unit's collision proxy.
+    CuttingContours,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct Part {
     pub part_id: String,
     pub components: Vec<Component>,
+    #[serde(default)]
+    pub open_contours: Vec<Contour>,
+    #[serde(default)]
+    pub extra_material: Vec<Component>,
+    #[serde(default)]
+    pub basis: Basis,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, JsonSchema)]
@@ -212,7 +227,7 @@ impl Contour {
         })
     }
 
-    fn check(&self, units: Units) -> Result<()> {
+    fn check(&self, units: Units, closed: bool) -> Result<()> {
         let scale = units.to_mm();
         ensure!(
             valid_point(self.start, scale)
@@ -226,14 +241,14 @@ impl Contour {
             from = segment.point(from, 1.0);
         }
         ensure!(
-            distance(from, self.start) * scale <= 8.0 * GRID,
+            !closed || distance(from, self.start) * scale <= 8.0 * GRID,
             "original source contour is not closed"
         );
         Ok(())
     }
 
     pub fn point_mm(&self, start: Start, units: Units) -> Result<Point> {
-        self.check(units)?;
+        self.check(units, true)?;
         ensure!(
             start.segment < self.segments.len()
                 && start.parameter.is_finite()
@@ -250,7 +265,7 @@ impl Contour {
     }
 
     pub fn flatten_mm(&self, units: Units) -> Result<Vec<Point>> {
-        self.check(units)?;
+        self.check(units, true)?;
         let scale = units.to_mm();
         let mm = |p: Point| p.map(|v| v * scale);
         let mut points = vec![mm(self.start)];
@@ -291,6 +306,10 @@ impl Contour {
         points.dedup();
         ensure!(points.len() >= 3, "original source contour collapsed");
         Ok(points)
+    }
+
+    pub(super) fn check_open(&self, units: Units) -> Result<()> {
+        self.check(units, false)
     }
 }
 

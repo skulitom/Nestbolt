@@ -59,6 +59,8 @@ pub fn validate_complete(
     let parts: HashMap<_, _> = job.parts.iter().map(|p| (p.id.as_str(), p)).collect();
     let mut originals = HashMap::new();
     let mut contours = HashMap::new();
+    let mut counts = HashMap::new();
+    let mut closed_counts = HashMap::new();
     for source in sources {
         let id = source.part_id.as_str();
         let part = parts.get(id).context("unknown original source part")?;
@@ -66,30 +68,57 @@ pub fn validate_complete(
             !originals.contains_key(id),
             "duplicate original source part"
         );
-        ensure!(
-            source.components.len() == part.geometry.len(),
-            "original source component count differs from job"
-        );
-        for (component, polygon) in source.components.iter().zip(&part.geometry) {
+        if source.basis == source::Basis::MaterialBoundaries {
             ensure!(
-                component.holes.len() == polygon.holes.len(),
-                "original source hole count differs from job"
+                source.open_contours.is_empty() && source.extra_material.is_empty(),
+                "material boundaries cannot contain extra cutting metadata"
             );
+            ensure!(
+                source.components.len() == part.geometry.len(),
+                "original source component count differs from job"
+            );
+            for (component, polygon) in source.components.iter().zip(&part.geometry) {
+                ensure!(
+                    component.holes.len() == polygon.holes.len(),
+                    "original source hole count differs from job"
+                );
+            }
         }
-        originals.insert(
-            id,
-            source
-                .components
-                .iter()
-                .map(|c| c.polygon_mm(job.units))
-                .collect::<Result<Vec<_>>>()?,
-        );
+        for open in &source.open_contours {
+            open.check_open(job.units)?;
+        }
+        let polygons = source
+            .components
+            .iter()
+            .chain(&source.extra_material)
+            .map(|c| c.polygon_mm(job.units))
+            .collect::<Result<Vec<_>>>()?;
+        let body = if source.basis == source::Basis::MaterialBoundaries {
+            // Ordinary components must remain disjoint. Only native cutting
+            // metadata can include overlapping protected artwork bounds.
+            Footprint::from_polygons(&polygons, Units::Mm, RigidTransform::default())?
+        } else {
+            let mut body: Option<Footprint> = None;
+            for polygon in &polygons {
+                let next = Footprint::new(polygon, Units::Mm, RigidTransform::default())?;
+                body = Some(match body {
+                    Some(previous) => previous.union(&next)?,
+                    None => next,
+                });
+            }
+            body.context("original source has no protected material")?
+        };
+        originals.insert(id, body.polygons()?);
+        let closed_count: usize = source.components.iter().map(|c| 1 + c.holes.len()).sum();
+        closed_counts.insert(id, closed_count);
+        counts.insert(id, closed_count + source.open_contours.len());
         contours.insert(
             id,
             source
                 .components
                 .iter()
                 .flat_map(|c| std::iter::once(&c.outer).chain(&c.holes))
+                .chain(&source.open_contours)
                 .collect::<Vec<_>>(),
         );
     }
@@ -97,16 +126,12 @@ pub fn validate_complete(
         .placements
         .iter()
         .flat_map(|p| {
-            let count: usize = parts[p.part_id.as_str()]
-                .geometry
-                .iter()
-                .map(|g| 1 + g.holes.len())
-                .sum();
+            let count = counts[p.part_id.as_str()];
             (0..count).map(move |index| (p.part_id.as_str(), p.copy_index, index))
         })
         .collect();
     let allowances: Vec<_> = attached.iter().map(|a| a.allowance.clone()).collect();
-    let mut report = validate_impl(job, layout, &allowances, Some(&originals))?;
+    let mut report = validate_impl(job, layout, &allowances, Some(&originals), Some(&counts))?;
     report.coverage = Some(Coverage {
         expected_contours: expected.len(),
         reserved_contours: attached.len(),
@@ -123,6 +148,10 @@ pub fn validate_complete(
             "lead refers to an unknown placed contour"
         );
         ensure!(seen.insert(key), "duplicate contour decision");
+        ensure!(
+            key.2 < closed_counts[key.0],
+            "open cutting contours require an explicit flag, not a lead"
+        );
         let label = format!("{}#{} contour {}", key.0, key.1, key.2);
         let point = contours[key.0][key.2].point_mm(attached.start, job.units)?;
         for path in &a.paths {

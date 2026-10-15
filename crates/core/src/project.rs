@@ -350,10 +350,6 @@ impl Request {
     pub fn job(&self, library: &Library) -> Result<(Job, HashMap<String, Outline>)> {
         if let Some(options) = self.lead_in {
             options.validate()?;
-            ensure!(
-                library.lightburn.is_none(),
-                "lead allowances currently use SVG/DXF cutting outlines; export the cuts from LightBurn as SVG/DXF and import them here. Editable project exports retain their original starts and settings"
-            );
             if let Some(common) = self.common_line {
                 ensure!(
                     (common.kerf_mm - options.kerf_mm).abs() < 1e-9,

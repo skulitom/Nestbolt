@@ -1,0 +1,266 @@
+{
+  "date": "2026-10-15T12:07:29.681579+00:00",
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.5149999999994179
+    },
+    {
+      "name": "lint",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 16.140999999995984
+    },
+    {
+      "name": "workspace",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 337.2810000000027
+    },
+    {
+      "name": "cli-release",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 85.26599999999598
+    },
+    {
+      "name": "schemas",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/schemas.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 8.25
+    },
+    {
+      "name": "browser-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 50.04700000000594
+    },
+    {
+      "name": "browser-types",
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "cwd": "web",
+      "exit_code": 2,
+      "seconds": 7.23399999999674
+    },
+    {
+      "name": "browser-types-fixed",
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "cwd": "web",
+      "exit_code": 0,
+      "seconds": 1.4530000000013388
+    },
+    {
+      "name": "browser-leads",
+      "command": [
+        "npx.cmd",
+        "playwright",
+        "test",
+        "--workers=2",
+        "--grep",
+        "LightBurn|lead allowances|common-line"
+      ],
+      "cwd": "web",
+      "exit_code": 1,
+      "seconds": 27.360000000000582
+    },
+    {
+      "name": "browser-types-fixed-2",
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "cwd": "web",
+      "exit_code": 0,
+      "seconds": 1.4219999999986612
+    },
+    {
+      "name": "browser-leads-fixed",
+      "command": [
+        "npx.cmd",
+        "playwright",
+        "test",
+        "--workers=2",
+        "--grep",
+        "LightBurn leads"
+      ],
+      "cwd": "web",
+      "exit_code": 0,
+      "seconds": 5.671999999998661
+    },
+    {
+      "name": "frozen-integrity",
+      "command": [
+        "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+        "scripts/shop_freeze.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 9.406000000002678
+    },
+    {
+      "name": "native-layout-recheck",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/h6_lead_source_recheck.py",
+        "benchmarks/results/h6-lead-settings-20261015T102840Z",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h6-lead-group-20261015T115904Z\\recheck"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.8439999999973224
+    }
+  ],
+  "affinity": "Parent CPU16-31; native-layout recheck subprocesses CPU0",
+  "held_out_geometry_read": false,
+  "source_working_sha256": "dc7edf38ea9557509de1459c2e718f2fe810e9d15b0013851fd6d012e36a505b",
+  "binary_sha256": "8dbcb0d698aeb5aa9e5d550e5122abcd792b7883dc18fa6eb9cfc0b659381923",
+  "workspace_passed": 278,
+  "workspace_ignored": 1,
+  "optimized_cli_passed": 23,
+  "focused_browser_passed": 10,
+  "browser_scope": "Eight initial passing cases plus two corrected group cases; original failed attempts retained",
+  "native_audit": "native-audit-20261015T121808910588Z.json",
+  "native_audit_cpu_affinity": [
+    0
+  ],
+  "note": "No new native lead generation, cost benchmark, held-out geometry or final acceptance run",
+  "source_committed_sha256": "116ce5984d2999ddb767b6f031a1485d7ed424211c3db09090cc19a1eeb8eabc",
+  "source_normalization_differences": [
+    {
+      "path": "crates/core/Sparrow_LICENSE",
+      "difference": "Existing unmodified working CRLF versus Git LF only"
+    },
+    {
+      "path": "crates/core/src/sheets/vstrip.rs",
+      "difference": "Existing unmodified working CRLF versus Git LF only"
+    }
+  ],
+  "native_audit_inventory_note": "Final audit pins immutable native/search inputs. Retained earlier audits include aggregate manifests at their then-current state; use the final audit and this inventory for final artifact verification.",
+  "base_ci": {
+    "commit": "1df328cbeeab5682437ec678d15f9e3785e7de5e",
+    "run_id": 38728144553,
+    "result": "success",
+    "passed_jobs": 6,
+    "scope": "Previous committed baseline, not this checkpoint"
+  },
+  "artifacts": {
+    "browser/chromium/lead-group.png": "c7455f78a057a7095958422c83b7e8a837843bb7b516a826c78a39ee06ea2db9",
+    "browser/chromium/lead-group.zip": "310ca1a83aa065495edad86c0592ff0b9ad3dcc0ff115d00e175fefae5b943eb",
+    "browser/firefox/lead-group.png": "f2749e1933d47ba958610ef70988d2d8908f803e36dcd605dd4e83ba12682846",
+    "browser/firefox/lead-group.zip": "665b804c1562036d0d582d50d90aa752cad0dc2052e21a0fa303c4d3431eed65",
+    "browser-build.log": "aef791c6e41b1fd2b1a68bb676e517a273468ae53ae829bae45b5205d302e337",
+    "browser-chromium-failed.md": "2c14abc82e75373242d9215a130f8fa54d038f3fe48f043a3b062b690e5084dc",
+    "browser-firefox-failed.md": "e01a6e8399b848e0eb495df7a6cc3de9ad0829bc9d2ee2a3fc61629ea40d9837",
+    "browser-leads-fixed.log": "016af33375ed9cc8913fca6d9f02d05858c68fc646d393ffbd8d9d1f7036c1bb",
+    "browser-leads.log": "a55d43a6f6e221a2e8e6c2dadc7cc17c92ec69dbcf5f9e379a6108e050891e98",
+    "browser-types-fixed-2.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser-types-fixed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browser-types.log": "d7b46d99f41b6d8fad5272f30eed527303cea9c54ea18d25e1971810e70095cd",
+    "cli-release.log": "4436c1a01e0c2fcebe80d10ec4bca4b2bdc2efb4b45086a41e6fda05fa138c2e",
+    "development-failures.json": "69c0f81f30a4f09fdd1faaeff1c0691ea704a819e753b6517530e6c1003d43e4",
+    "format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frozen-integrity.log": "c73e800f3d06eea7fcbeed83c644397fc2b489185a9b1732336c0bd377abb000",
+    "LICENSES.md": "b809d3121499d45e5fef3a04a21ba5be865fcc84e7dd4b543472812aa355d884",
+    "lint.log": "43918378876e65974b6e2a2543a34085628c46a94c6d3c68366eae1e79729e84",
+    "native/dxf-observation.json": "74d5aa2face84938e3260bda904c961e53404f48a5f5fd1413d38937fb2bccde",
+    "native/dxf.lbrn2": "9c5deb253604b04c7d2d46f4bf62b0c2dafcc5675dc80241800c5c27c481f203",
+    "native/dxf.png": "0704513afa5594900c573f5fe7e8d564f9605e5f1e927008f0412b36e42cb879",
+    "native/original.lbrn2": "a53bce9642b9a4bb7764e87bd5f818f04634f48c3a719ec1e66082399761670a",
+    "native/preserved-observation.json": "74d5aa2face84938e3260bda904c961e53404f48a5f5fd1413d38937fb2bccde",
+    "native/preserved.lbrn2": "f42dde41e1f18554f0ff6f01ec37d23bebc2e51e7ff2c91670d5fa9377614146",
+    "native/preserved.png": "41ef43932e37bef0abebf779de8ae664ead91257d6140377d02db227811e6e27",
+    "native/svg-observation.json": "74d5aa2face84938e3260bda904c961e53404f48a5f5fd1413d38937fb2bccde",
+    "native/svg.lbrn2": "c1fc060d9e3bfed98363774aff9617d14185beb036e1418c879d47c3e075af92",
+    "native/svg.png": "bee8c11749893fb5ed8f6f73a10b0bddc3917c846960cea5d955fa6e153bc912",
+    "native-audit-20261015T121125965006Z.json": "f7ed31b629913613ab85eca676450ebd6665a59437b4ef10349e0b2316eff16a",
+    "native-audit-20261015T121302104770Z.json": "970c56f0a9810b76cfa611bf30780c9987066a28c83546a641dd9a6e6505ffb4",
+    "native-audit-20261015T121808910588Z.json": "a8fb19aa01e5e649df49d26d8b42d731b320cdb500cacd850bb1ce47c949c447",
+    "native-audit-cpu0.log": "1496fc0385409b68b1c7a4653a6f54d3908301222c30c4591fd6a291235e3cc9",
+    "native-layout-recheck.log": "d847607be324441c9d156bc70bfc9400176b827f047aa31f0c9c0fd6b2a62578",
+    "recheck/arc/export.log": "c02023c88ecc2e571709c71e85c0dc07d34501802cfb5873f501bfc3dd7fe6d1",
+    "recheck/arc/report.json": "c366c11c15d84695eba51658d4ac84784f80a5f3d2f0b1b2bad527ce90622cf9",
+    "recheck/arc/sheet-0.dxf": "51c8b3f736fa4a452f930911ad005c6e54021d0aeaaa2c0fdd250ca7ef067300",
+    "recheck/arc/sheet-0.svg": "b0a8088b55912c649b4b466ea710786b70f4c34180cb1c5976852efc66847552",
+    "recheck/checks.json": "6ca5a28abd7b70ee6344b46eadb5517317080c28b4f332d9dee4aed1ea218fa0",
+    "recheck/line/export.log": "a9d5cf00c1360d081d9de502e048bcf30cb801f9b8ad762aa930aaf6ab77e76b",
+    "recheck/line/report.json": "8870228254ad3dad0c10a277e48499d9a1f14a73a65d441e40e91ae7c3be2766",
+    "recheck/line/sheet-0.dxf": "34687bf8c022b7f51b149fffbc6e7e39b4899d3e076159c519cf454f8a48ff2a",
+    "recheck/line/sheet-0.svg": "500e36814b8d5ae2189709618ff00f06d0f61321d9ad3037219296c528112c8c",
+    "schemas.log": "044ca376c2adbed3d5da0f69684fee14a7887a50b317226726d8eac37e6134fa",
+    "search/checked.json": "4b29f965ef99f79c986bb940c56a08e82437f7d94a045acd698ade93f6ba0106",
+    "search/import.log": "f66ca9c71f01c33f5f2dd63c7067a327e2a8354545789c2fd932c4050b9e694b",
+    "search/lead-group.lbrn2": "235609498095d0c87a0c00fd543800eb3170fcb2b66b800cf779f033f5697d5a",
+    "search/library.json": "2bd64fc0670ecd14398e0607ae81e9461a22abe6a6bcbaa58ea40dbc29251c87",
+    "search/nested/job.json": "4d10ac634403ffb2d45fd8bd243d112e3a53989f5ec50a0c02910dae7851733f",
+    "search/nested/layout.json": "590d7c458200c622cbdcd555d00460e5d49226c5206b15da51dd9e2384a5610e",
+    "search/nested/lead-group-sheet-1-cuts.dxf": "09df0786b2759821ad8a4096e0c6fb54cf3280f2709c720325c5c4979a38114f",
+    "search/nested/lead-group-sheet-1-cuts.svg": "c78ece5170031a61bed051b05e40172ebcae162769b722a9a8f0080e8c83dd3e",
+    "search/nested/lead-group-sheet-1.lbrn2": "3bd05e8c5723a6adc6e41e6fa51773456a43bae3333234cf1d6a0506f48e4631",
+    "search/nested/report.json": "9325dc9a30073025b255e6a2eb05c741b91ddb91c4c8c4cf726d245e2da3ec25",
+    "search/nested/request.json": "9bde4e4f94c249e3e7ab8ec449bad7893db6ba319a0c88cfb1458d94cea4715d",
+    "search/preparation.json": "7af01649f3c40a0d46dbc6aa98e500b9b615061e881fb88cc3e63fef0ff8cec0",
+    "search/preserving/lead-group-sheet-1.lbrn2": "3bd05e8c5723a6adc6e41e6fa51773456a43bae3333234cf1d6a0506f48e4631",
+    "search/preserving-request.json": "f5997a3d1a81c42da49e7d98929012f9c329efa17f994492b8a2a1a1acc25b6a",
+    "search/reexport/lead-group-sheet-1-cuts.dxf": "09df0786b2759821ad8a4096e0c6fb54cf3280f2709c720325c5c4979a38114f",
+    "search/reexport/lead-group-sheet-1-cuts.svg": "c78ece5170031a61bed051b05e40172ebcae162769b722a9a8f0080e8c83dd3e",
+    "search/reexport/lead-group-sheet-1.lbrn2": "3bd05e8c5723a6adc6e41e6fa51773456a43bae3333234cf1d6a0506f48e4631",
+    "search/request.json": "af982cb6a55cf80c67522b85c9b8800e61c04827c79c0ad91e323c718705ffe8",
+    "workspace.log": "1dc238beeaf3c9fa4efb3da4bc6da6bdf4f350de341ee0b68c9cac86798c2c83"
+  }
+}

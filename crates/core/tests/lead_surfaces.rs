@@ -87,7 +87,7 @@ fn final_common_starts_are_exported_from_each_copy_and_offcuts_use_reserved_spac
 }
 
 #[test]
-fn lead_request_rejects_invalid_options_and_unsupported_project_rewrites() {
+fn lead_request_rejects_invalid_options_and_accepts_preserved_project_sidecars() {
     let svg = Library::import(
         &[(
             "panel.svg".into(),
@@ -127,11 +127,5 @@ fn lead_request_rejects_invalid_options_and_unsupported_project_rewrites() {
         json!({"sheets":[{"width_mm":100,"height_mm":50}],"lead_in":{"kerf_mm":0.2}}),
     )
     .unwrap();
-    assert!(
-        r.prepare(&lb)
-            .err()
-            .unwrap()
-            .to_string()
-            .contains("original starts and settings")
-    );
+    assert!(r.prepare(&lb).is_ok());
 }

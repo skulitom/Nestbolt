@@ -523,3 +523,8 @@ material remains an error; the validator's zero-outside-area requirement is
 unchanged. This is a containment repair, not a relaxed area tolerance or a
 performance/material-cost claim. Multipart planning and broader H6 acceptance
 remain pending.
+
+
+## Local update — grouped lead cutting files (2026-10-15)
+
+Artem approved [plan decision 4](PLAN_V1_1.md#10-reviewed-decisions): new contour starts and LEADIN review paths belong in separate SVG/DXF cutting files, while the editable LBRN2 retains its original starts/settings. The [authored group/native check](../benchmarks/results/h6-lead-group-checkpoint-20261015.md) confirms preserved children/settings and native import of disconnected cuts, holes, an island and open paths. All thirty native contour comparisons and sixteen closed-contour starts pass the 0.01 mm tolerance. This is local format/feature evidence, not an allowance-cost benchmark or H6 completion. Engraving and image bounds are protected artwork, never cutting-file geometry.

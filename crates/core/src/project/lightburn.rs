@@ -15,6 +15,8 @@ use crate::{
     lightburn::{Document, Layer, UnitPlacement},
 };
 
+mod cutting;
+
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct LightBurnProject {
@@ -83,7 +85,11 @@ impl Library {
         let prepared = request.prepare(self)?;
         let report = prepared.report(layout)?;
         let (job, outlines) = (&prepared.job, &prepared.outlines);
+        let sidecars = self.lightburn.is_some() && request.lead_in.is_some();
         let formats = match (self.lightburn.is_some(), format) {
+            (true, None) if sidecars => vec!["lbrn2", "svg", "dxf"],
+            (true, Some("svg")) if sidecars => vec!["svg"],
+            (true, Some("dxf")) if sidecars => vec!["dxf"],
             (true, None | Some("lbrn2")) => vec!["lbrn2"],
             (true, _) => anyhow::bail!(
                 "export this LightBurn project as lbrn2 to retain its text, images and layer settings"
@@ -96,26 +102,35 @@ impl Library {
             }
             _ => anyhow::bail!("format must be svg, dxf or lbrn2"),
         };
-        let options = crate::export::Options {
-            sheet_outline: sheet_outline.unwrap_or(self.lightburn.is_some()),
-        };
         let mut files = vec![];
         for sheet in &layout.sheets {
             let review = report.review(layout, &sheet.id)?;
             for format in &formats {
+                let options = crate::export::Options {
+                    sheet_outline: sheet_outline.unwrap_or(*format == "lbrn2"),
+                };
+                let cut_name = |extension| {
+                    if sidecars {
+                        self.lightburn_filename(layout, &sheet.id).map(|name| {
+                            format!("{}-cuts.{extension}", name.trim_end_matches(".lbrn2"))
+                        })
+                    } else {
+                        Ok(format!("{}.{extension}", sheet.id))
+                    }
+                };
                 let (name, text) = match *format {
                     "lbrn2" => (
                         self.lightburn_filename(layout, &sheet.id)?,
                         self.write_lightburn(job, layout, &sheet.id, options.sheet_outline)?,
                     ),
                     "svg" => (
-                        format!("{}.svg", sheet.id),
+                        cut_name("svg")?,
                         crate::export::svg_with_review_paths(
                             job, layout, &sheet.id, outlines, options, &review,
                         )?,
                     ),
                     "dxf" => (
-                        format!("{}.dxf", sheet.id),
+                        cut_name("dxf")?,
                         crate::export::dxf_with_review_paths(
                             job, layout, &sheet.id, outlines, options, &review,
                         )?,
@@ -282,13 +297,19 @@ impl Library {
         let report = prepared.report(layout)?;
         let (job, outlines) = (&prepared.job, &prepared.outlines);
         let options = crate::export::Options {
-            sheet_outline: sheet_outline.unwrap_or(self.lightburn.is_some()),
+            sheet_outline: sheet_outline.unwrap_or(format == "lbrn2"),
         };
         let review = report.review(layout, sheet_id)?;
         match (&self.lightburn, format) {
             (Some(_), "lbrn2") => {
                 self.write_lightburn(job, layout, sheet_id, options.sheet_outline)
             }
+            (Some(_), "svg") if request.lead_in.is_some() => crate::export::svg_with_review_paths(
+                job, layout, sheet_id, outlines, options, &review,
+            ),
+            (Some(_), "dxf") if request.lead_in.is_some() => crate::export::dxf_with_review_paths(
+                job, layout, sheet_id, outlines, options, &review,
+            ),
             (Some(_), _) => anyhow::bail!(
                 "export this LightBurn project as lbrn2 to retain its text, images and layer settings"
             ),

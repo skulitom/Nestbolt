@@ -254,6 +254,10 @@ pub fn analyze(
 ) -> Result<Vec<Report>> {
     options.validate()?;
     ensure!(
+        job.parts.iter().all(|p| p.geometry.len() == 1),
+        "common-line cutting requires one outer component per part"
+    );
+    ensure!(
         job.units != nestbolt_validator::Units::Unitless,
         "common-line kerf needs physical mm or inch units"
     );

@@ -53,6 +53,79 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn lightburn_leads_export_cutting_files_beside_the_preserved_project() {
+    let dir = temp("lightburn-leads");
+    let source = dir.join("lead-group.lbrn2");
+    fs::write(
+        &source,
+        include_str!("../../core/tests/fixtures/lead-group.lbrn2"),
+    )
+    .unwrap();
+    let library = import(&dir, &[source]);
+    let run = nest(
+        &dir,
+        &library,
+        json!({
+            "parts":[{"id":"lead-group-unit-1","quantity":2}],
+            "sheets":[{"width_mm":150,"height_mm":100}],"spacing_mm":0.2,"edge_spacing_mm":1,
+            "lead_in":{"kerf_mm":0.2}
+        }),
+        "1",
+    );
+    assert_eq!(run.report["validation"]["valid"], true);
+    assert_eq!(run.report["lead_in"]["expected_contours"], 10);
+    assert_eq!(run.report["lead_in"]["reserved_contours"], 8);
+    assert_eq!(run.report["lead_in"]["flagged_contours"], 2);
+    assert_eq!(run.report["files"].as_array().unwrap().len(), 3);
+    let checked = nestbolt(&[
+        "validate".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        run.dir.join("request.json").as_os_str(),
+        "--layout".as_ref(),
+        run.dir.join("layout.json").as_os_str(),
+    ]);
+    assert!(
+        checked.status.success(),
+        "{}",
+        String::from_utf8_lossy(&checked.stderr)
+    );
+    let checked: Value = serde_json::from_slice(&checked.stdout).unwrap();
+    assert_eq!(checked["lead_in"], run.report["lead_in"]);
+    let again = dir.join("again");
+    let exported = nestbolt(&[
+        "export".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        run.dir.join("request.json").as_os_str(),
+        "--layout".as_ref(),
+        run.dir.join("layout.json").as_os_str(),
+        "--out-dir".as_ref(),
+        again.as_os_str(),
+    ]);
+    assert!(
+        exported.status.success(),
+        "{}",
+        String::from_utf8_lossy(&exported.stderr)
+    );
+    for name in run.report["files"].as_array().unwrap() {
+        let name = name.as_str().unwrap();
+        let text = fs::read_to_string(run.dir.join(name)).unwrap();
+        assert_eq!(text, fs::read_to_string(again.join(name)).unwrap());
+        if name.ends_with(".lbrn2") {
+            assert!(text.contains("<Notes>Preserve original starts"));
+            assert!(text.contains("<leadIn Value=\"0\"/>"));
+            assert!(!text.contains("LEADIN"));
+        } else {
+            assert!(name.contains("-cuts."));
+            assert!(text.contains("LEADIN"));
+        }
+    }
+}
+
+#[test]
 fn lead_flags_defaults_validation_and_repeat_export_match_the_request() {
     let dir = temp("leads");
     let source = dir.join("leads.svg");

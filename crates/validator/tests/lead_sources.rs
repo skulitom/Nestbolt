@@ -30,6 +30,7 @@ fn fixture() -> (Job, Layout, Vec<source::Part>, AttachedAllowance) {
             .iter()
             .map(|p| Component::from_polygon(p).unwrap())
             .collect(),
+        ..Default::default()
     }];
     let job = Job {
         version: 1,
@@ -99,6 +100,95 @@ fn flag(id: &str, contour_index: usize) -> Flag {
         contour_index,
         reason: "No safe candidate".into(),
     }
+}
+
+#[test]
+fn native_cutting_coverage_uses_source_paths_instead_of_collision_proxy() {
+    let (job, layout, mut sources, lead) = fixture();
+    sources[0].basis = source::Basis::CuttingContours;
+    sources[0]
+        .components
+        .push(Component::from_polygon(&rectangle(12.0, 0.0, 4.0, 4.0)).unwrap());
+    sources[0].open_contours.push(Contour {
+        start: [1.0, 1.0],
+        segments: vec![Segment::Line { to: [2.0, 1.0] }],
+    });
+    let flags = [flag("part", 1), flag("part", 2)];
+    let report =
+        leads::validate_complete(&job, &layout, &sources, std::slice::from_ref(&lead), &flags)
+            .unwrap();
+    assert!(report.valid && report.source_checked);
+    assert_eq!(report.coverage.unwrap().expected_contours, 3);
+    assert!(
+        !leads::validate_complete(
+            &job,
+            &layout,
+            &sources,
+            std::slice::from_ref(&lead),
+            &flags[..1]
+        )
+        .unwrap()
+        .valid
+    );
+    let mut open_lead = lead.clone();
+    open_lead.allowance.contour_index = 2;
+    assert!(
+        leads::validate_complete(
+            &job,
+            &layout,
+            &sources,
+            &[lead.clone(), open_lead],
+            &flags[..1]
+        )
+        .unwrap_err()
+        .to_string()
+        .contains("open cutting contours")
+    );
+    sources[0]
+        .extra_material
+        .push(Component::from_polygon(&rectangle(4.0, -4.0, 2.0, 2.0)).unwrap());
+    let blocked = leads::validate_complete(&job, &layout, &sources, &[lead], &flags).unwrap();
+    assert!(!blocked.valid);
+    assert!(
+        blocked
+            .violations
+            .iter()
+            .any(|v| v.contains("own original material"))
+    );
+}
+
+#[test]
+fn ordinary_material_components_cannot_overlap_or_use_native_metadata() {
+    let (mut job, layout, mut sources, _) = fixture();
+    job.parts[0].geometry.push(rectangle(20.0, 0.0, 10.0, 10.0));
+    sources[0]
+        .components
+        .push(Component::from_polygon(&rectangle(5.0, 0.0, 10.0, 10.0)).unwrap());
+    assert!(
+        leads::validate_complete(
+            &job,
+            &layout,
+            &sources,
+            &[],
+            &[flag("part", 0), flag("part", 1)]
+        )
+        .is_err()
+    );
+    sources[0].components[1] = Component::from_polygon(&job.parts[0].geometry[1]).unwrap();
+    let extra = sources[0].components[0].clone();
+    sources[0].extra_material.push(extra);
+    assert!(
+        leads::validate_complete(
+            &job,
+            &layout,
+            &sources,
+            &[],
+            &[flag("part", 0), flag("part", 1)]
+        )
+        .unwrap_err()
+        .to_string()
+        .contains("extra cutting metadata")
+    );
 }
 
 #[test]
@@ -232,6 +322,7 @@ fn exact_curved_neighbour_is_checked_beyond_its_coarse_search_polygon() {
             },
             holes: vec![],
         }],
+        ..Default::default()
     });
     assert!(
         leads::validate(&job, &layout, std::slice::from_ref(&lead.allowance))

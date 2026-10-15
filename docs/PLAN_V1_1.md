@@ -299,8 +299,10 @@ The [independent source-validation checkpoint](../benchmarks/results/h6-lead-sou
 now derives coverage from the original job, independently evaluates original
 curve attachments and checks owner material as well as neighbours and stock.
 The final check is shared by all public surfaces. Explicit flags remain unresolved
-contours; multipart planning and the required allowance-cost comparison are still
-pending. This evidence does not change the gate or its completion state.
+contours. The [rigid-group checkpoint](../benchmarks/results/h6-lead-group-checkpoint-20261015.md)
+adds multipart planning and separate cutting files under reviewed decision 4;
+the required allowance-cost comparison is still pending. This evidence does not
+change the gate or its completion state.
 
 ## 5. Tests and evidence
 
@@ -364,3 +366,5 @@ The LightBurn trial ends about 2026-11-11. Finish every LightBurn step by 2026-1
 2. **2026-10-13, Artem — periodic pushes to main.** Commit and push verified checkpoints to `origin/main` from time to time while pursuing this goal. Fetch and reconcile remote changes first, preserve unrelated work, and use ordinary non-forced pushes. This authorizes repository updates; releases, registry publication and a new final acceptance run still follow their existing approval rules.
 
 3. **2026-10-15, Artem — match LightBurn arc length.** Native 2.1.01 calibration shows that a 3 mm arc uses radius about 3.82 mm at 45° and 1.91 mm at 90°. Artem chose “Match LightBurn’s arc length and update the plan.” This supersedes the original `radius = length / 2` rule: use arc length `L`, sweep `abs(angle)` and radius `L / abs(angle in radians)`, with the zero-angle straight limit. Preserve the native calibration, original rule and failed assumptions in the [calibration report](../benchmarks/results/h6-lead-native-calibration-20261015.md). This changes no milestone gate or held-out allocation; native hole/corner/direction coverage and searched-export checks remain required.
+
+4. **2026-10-15, Artem — separate cutting exports for LightBurn leads.** Keep the editable `.lbrn2` sheet export under N2's preservation rules. For a lead-enabled imported LightBurn project, place new contour starts and LEADIN review paths in separate SVG/DXF cutting files alongside that preserved project. Those cutting files contain original cutting curves; engraving, images and their bounding rectangles must not become cut outlines. Group membership remains rigid. This resolves the output-format choice without permitting changes to the preserved project's child geometry or settings.

@@ -1,0 +1,43 @@
+{
+  "scope": "Development diagnostics retained; none are waived product failures",
+  "failures": [
+    {
+      "case": "Rust test compilation",
+      "error": "E0502: test borrowed sources[0] mutably and immutably in one push",
+      "resolution": "Clone the component before pushing it."
+    },
+    {
+      "case": "Open source test",
+      "error": "contour has fewer than three distinct points",
+      "resolution": "Compare exact source curve definitions; open lines must not use closed-polygon flattening."
+    },
+    {
+      "case": "Mirrored layout test",
+      "error": "lead report absent for a layout whose request prohibited mirroring/arbitrary rotation",
+      "resolution": "Explicitly enable mirror and free rotation in the test request; assert original layout validity."
+    },
+    {
+      "case": "Browser test types",
+      "log": "browser-types.log",
+      "resolution": "Use Array.from for NodeLists with the existing TypeScript DOM library."
+    },
+    {
+      "case": "Browser result assertion",
+      "log": "browser-leads.log",
+      "pages": [
+        "browser-chromium-failed.md",
+        "browser-firefox-failed.md"
+      ],
+      "resolution": "The result was valid; .error matched two required open-cut flags. Check role=alert and independently require both flags. Corrected Chromium/Firefox checks pass."
+    },
+    {
+      "case": "Native view shortcut",
+      "observation": "V flipped the selected preserving project while trying to frame it; Ctrl+Z immediately undid Scale Selection, then the observed Frame Selection button was used.",
+      "resolution": "Saved baseline/output native cut geometry subsequently matches within 2.8643e-14 mm and settings match exactly. No source or Nestbolt output was overwritten."
+    },
+    {
+      "case": "First native vector audit affinity",
+      "resolution": "Initial unpinned functional audit passed; repeat under CPU0 gives identical results. Neither is timing evidence."
+    }
+  ]
+}

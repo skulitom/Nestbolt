@@ -485,3 +485,10 @@ now expose these settings, flag unreserved contours and list shortened lengths.
 The separate-layer/default-angle/shortened-length workflow still needs a native
 check. These previews do not complete H6; multi-component planning, broader
 independent coverage/owner auditing and material-cost evidence remain.
+
+
+## Lead cutting files alongside preserved projects — 2026-10-15 UTC
+
+[Reviewed decision 4](PLAN_V1_1.md#10-reviewed-decisions) keeps editable LBRN2 child geometry, starts and settings unchanged while separate SVG/DXF cutting files carry new starts and LEADIN review paths. The [group checkpoint](../benchmarks/results/h6-lead-group-checkpoint-20261015.md) implements this through UI/CLI/MCP, including disconnected pieces, holes, islands and flagged open cuts. Protected engraving and image bounds do not become cut paths. See [the export workflow](LEAD_INS.md#current-scope) before combining cutting files with the editable project.
+
+An actual two-group search opens/saves in LightBurn Pro 2.1.01. Thirty independent native contour comparisons pass; sixteen SVG/DXF closed-contour starts match within 0.000002237 mm. Maximum contour differences are 0.001819 mm for SVG and 0.000008422 mm for DXF. Open paths remain open, and the preserved project's cut settings equal its native baseline. This session did not generate native leads or inspect a new cutting preview; the earlier native lead tests remain separate. Uncached text and mixed fixed/active groups remain unresolved, and H3/H6 are not complete.
