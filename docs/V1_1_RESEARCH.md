@@ -571,3 +571,7 @@ All 273 archives and 3,654 internal recorded files pass hash verification. The
 frozen shop inventory remains 1,181 files. The JSON report includes per-job
 three-seed medians, inclusive quartiles and failures. Overall completion remains
 20% (H1 and H6); no new final acceptance or published v1 claim follows.
+
+### 2026-10-15: two material-search hypotheses rejected
+
+The [48-run mechanical diagnostic](../benchmarks/results/h5-material-probes-20261015.md) tests longer initial repacking and rigid complementary-bracket pairs. All original-job validations pass, with 228,580 filled-outer pair checks independently confirming that holes remain reserved. Both hypotheses worsen every job/kerf median, so neither changes production behavior. Pair preparation is explicitly outside the 60-second search budget; it is exploratory evidence, not H5 acceptance. The original material guard remains open, and no impossibility claim follows from these failed heuristics.

@@ -286,6 +286,8 @@ mode. The native Deepnest SVG comparison is complete: 35 valid runs and four
 unscored no-layout outcomes. H5 remains open on material; no gate or input
 requirement is changed.
 
+**N4 material follow-up, 2026-10-15:** [48 diagnostic runs](../benchmarks/results/h5-material-probes-20261015.md) validate, but longer initial packing and rigid complementary-bracket pairs both worsen the mechanical-job medians. Neither lever is integrated. H5 remains open on the original +1% material condition; these results do not prove it unreachable.
+
 ### 4.6 N5: lead-in allowances
 
 Build the section 3 lead-in scope:

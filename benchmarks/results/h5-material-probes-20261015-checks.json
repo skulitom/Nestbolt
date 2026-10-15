@@ -1,0 +1,107 @@
+{
+  "source_commit": "2c530e7def5f093f4f780e9855018b3732f58963",
+  "diagnostics": [
+    {
+      "folder": "h5-schedule-probe-20261015T152046Z",
+      "results_sha256": "433d28ed64c078f6b6de0a4605449e4cd716fba92dc89c0dfbdd95b2f287b973",
+      "archives": 36,
+      "hashed_members": 540,
+      "valid": 36,
+      "total": 36,
+      "maximum_metric_difference": 0,
+      "maximum_search_process_wall_seconds": 59.99965249998786
+    },
+    {
+      "folder": "h5-pair-probe-20261015T152814Z",
+      "results_sha256": "dcfaa642625a8cca09fca9161e017ba074308568ef2202f1e15978deda89edd6",
+      "archives": 12,
+      "hashed_members": 204,
+      "valid": 12,
+      "total": 12,
+      "maximum_metric_difference": 0.0,
+      "maximum_search_process_wall_seconds": 59.838681099994574,
+      "maximum_pattern_preparation_seconds_outside_search_budget": 0.5854917999968166
+    }
+  ],
+  "pattern_transform_audit": {
+    "orientations": [
+      0,
+      90,
+      180,
+      270
+    ],
+    "mirrored": [
+      false,
+      true
+    ],
+    "copies_per_case": 5,
+    "cases": 8,
+    "maximum_hausdorff_mm": 3.2155493553843715e-13,
+    "fixed_rotation_pair_rejected": true
+  },
+  "thermal_observation": {
+    "acpi_query": "Access denied",
+    "cpu_mhz": 4201,
+    "cpu_die_temperature_available": false
+  },
+  "cutting_manifest_sha256": "922d36732c6e7624b1c5501c8320effb12b33f37d7361cc5d5856b28d19ca814",
+  "shop_manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+  "cli_sha256": "4cec132d9540524a0007b2a0894d6682064d42709ee971b48860d4199712137a",
+  "probe_sha256": "3143b53b7064e1e24d6e3a8574fd92b9b2af7c24e4ea50fe6f5fc6ca629f0c68",
+  "baseline_ci": {
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "2c530e7def5f093f4f780e9855018b3732f58963",
+    "url": "https://github.com/skulitom/Nestbolt/actions/runs/38757915004",
+    "jobs": [
+      {
+        "name": "checks (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "web",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "maker-rebuild (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "benchmark-smoke",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "maker-rebuild (windows-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "checks (windows-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "local_checks": [
+    {
+      "command": "python output/ccd1.py cargo build --release --locked -p nestbolt-core --example sheet_schedule",
+      "exit_code": 0
+    },
+    {
+      "command": "python output/ccd1.py cargo clippy --locked -p nestbolt-core --example sheet_schedule -- -D warnings",
+      "exit_code": 0
+    },
+    {
+      "command": "python output/ccd1.py cargo fmt --all --check",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m py_compile scripts/h5_schedule_probe.py scripts/h5_pair_patterns.py",
+      "exit_code": 0
+    }
+  ]
+}

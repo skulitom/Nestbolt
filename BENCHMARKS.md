@@ -12431,3 +12431,13 @@ The plan, research notes and status now distinguish completed measurements from
 the remaining material condition. Weighted v1.1 completion remains **20%** (H1
 and H6). No held-out tuning, final acceptance, release, registry publication or
 change to published v1 results occurred.
+
+## 2026-10-15 — H5 material hypotheses: 48 valid diagnostics, neither adopted
+
+[Report](benchmarks/results/h5-material-probes-20261015.md), [schedule raw record](benchmarks/results/h5-schedule-probe-20261015T152046Z/results.json), [pair raw record](benchmarks/results/h5-pair-probe-20261015T152814Z/results.json). Baseline `2c530e7`; the unchanged public CLI hash is recorded in the report. The diagnostic example uses the existing sheet solver with holes reserved and bonus off. Both frozen mechanical jobs, both kerfs, development seeds 0–2; each solve gets 60 seconds on one CCD0 physical core, at most eight at once. Builds/lint and pair preparation use CCD1.
+
+All 36 schedule and 12 pairing cases validate and export. Increasing initial packing from 10% to 50% or 85% worsens every job/kerf median. Geometry-selected rigid bracket pairs also worsen every median despite smaller combined collision hulls. Pair preparation is additional (at most 0.586 s), so that exploratory arm is not an equal-total-time product comparison. No lever is integrated and no product default changes.
+
+All 48 archives/744 recorded members pass hashes. Independent filled-outer audit checks 228,580 same-sheet pairs, with minimum kerf slack about 0.000002 mm; no part is hidden in a hole. Eight odd-count/rotation/reflection expansion cases pass within 3.22e-13 mm. Maximum search process walls are 59.9997/59.8387 s; saved versus fresh material agrees exactly. Example build, formatting, strict lint and Python syntax checks pass. Frozen manifest hashes are unchanged. CPU observation 4201 MHz; ACPI query denied and CPU die temperature unavailable.
+
+The strict H5 material condition remains unmet. These experiments do not prove infeasibility. Overall completion stays 20%; no held-out tuning, final acceptance, release or registry publication occurred. All raw outcomes and the exact experiment sources are retained.

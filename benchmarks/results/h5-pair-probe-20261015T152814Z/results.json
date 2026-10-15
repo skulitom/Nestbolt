@@ -1,0 +1,1767 @@
+{
+  "scope": "Equal-budget, development-only probe of existing sheet search schedules.\n\nReserve holes, disable common-line bonus, and retain all outcomes. This probes\nthe material shortfall on the two frozen mechanical jobs; it is not H5 evidence\nfor a new product implementation. No product defaults or geometry are changed.\n",
+  "started_at": "20261015T152814Z",
+  "guards": {
+    "product": "a93435af2d5240d2bc9a73302f3c040ed67650a427c69faa2e0c410d0d6599b7",
+    "probe": "3143b53b7064e1e24d6e3a8574fd92b9b2af7c24e4ea50fe6f5fc6ca629f0c68",
+    "cli": "4cec132d9540524a0007b2a0894d6682064d42709ee971b48860d4199712137a",
+    "runner": "f15dd13d898068a300707b8258bf11294e8057dd7b6a23b7314436af6e4fc0f0",
+    "pair_patterns": "44cba8977958400cbbe364a0bf1ce7dc6b565b0fa65d120127381b163693a6ee",
+    "manifest": "922d36732c6e7624b1c5501c8320effb12b33f37d7361cc5d5856b28d19ca814",
+    "dataset_script": "04b849cd11d9c9f4f601835965f15a846918d1c42b5436ece4f02c10916a960d",
+    "shared_runner": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107"
+  },
+  "product_commit": "2c530e7def5f093f4f780e9855018b3732f58963",
+  "jobs": [
+    "m-mechanical-large-plates",
+    "m-mechanical-panel-hardware"
+  ],
+  "kerfs_mm": [
+    0.2,
+    1.5
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "options": {
+    "seconds": 60,
+    "warm": [
+      0.1
+    ],
+    "compress": 0.25,
+    "window": 12,
+    "pair_complements": true
+  },
+  "cpus": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14
+  ],
+  "held_out_geometry_read": false,
+  "finished_at": "2026-10-15T15:30:16.970735+00:00",
+  "rows": [
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 0,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.5566583000036189,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            300.0,
+            325.200002
+          ],
+          "filled_clearance": 0.20000199999998358,
+          "pair_hull_area": 97560.0006,
+          "two_single_hulls_area": 115000.0,
+          "original_id": "bracket",
+          "pairs": 6
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\nested",
+          "60",
+          "0",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.80930160000571,
+        "cpu": 0
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.1522053000080632,
+        "cpu": 0
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.181298278,
+      "warm_material": 1.2048460386666668,
+      "history": [
+        {
+          "elapsed_seconds": 7.1353442,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2048460386666668
+        },
+        {
+          "elapsed_seconds": 20.2661057,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.2035325906666667
+        },
+        {
+          "elapsed_seconds": 28.3247063,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.195150803
+        },
+        {
+          "elapsed_seconds": 46.6679533,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1818077180000002
+        },
+        {
+          "elapsed_seconds": 59.7495704,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.181298278
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 3,
+        "failed_insertions": 8,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 59.7495704,
+      "elapsed_seconds": 59.7535156,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s0-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.21771689999150112,
+        "cpu": 0
+      },
+      "artifacts": {
+        "expanded-layout.json": "ebce5bf570b19c929251ee5622460087f6421009f0d78946494893e2ada19f94",
+        "export/sheet-0.dxf": "432486f06ddfcb35e801cfd1dcba57f4d20c796575095102d27660de8e4de01f",
+        "export/sheet-0.svg": "b560ab6bfcf7d89570968f60bb16f9e3dfe5ece64494cf83b1346a20c6997d0d",
+        "export/sheet-1.dxf": "8ccbf9ff01aa702cf31c6c09ea6953f46dc82929b736741fa6a1dba2e1926c7b",
+        "export/sheet-1.svg": "bb2d3176a5ed3b985dfdbfbebfa1b167bb26c5dfd52c7496e049bf7e07df5961",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "051f038756376b1a5c916575dfb2ec8b496410eee5079c61508e76ca6339ac8a",
+        "grouped-job.json": "2cc1b0db006c63a689937eadc55e9ee4e49e617117e2648e390dcda82fa3a2d7",
+        "job.json": "d435f94d98c53eb4dcffbc4cf170e3251f09e8e3cbdc230d73d38c01cd8c04a4",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/layout.json": "c1d032a215436dfe9da5c77fdf47c61ed025f76b93c7cf5eefdf7d5b95aab017",
+        "nested/result.json": "b2566d8961c0e33c29095e74a9e7d34ce4f1419bd4eb4a8032f84677c166c646",
+        "request.json": "48828d84190341ff9d65c55937ca98c924a468feca34200aec20632d5a4d58a0",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "936e6089cedb50c75f8271130137856d6dc78eadc2803bc3634895f7abeeded7"
+      },
+      "archive": "m-mechanical-large-plates-k0.2-s0-w0.1.zip",
+      "archive_sha256": "1ea11b50e5d7503a62ac7a1d901eff3a1ca00d7f2a7ffb2c28ed7ec04a0a832c"
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 2,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.5854917999968166,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            300.0,
+            325.200002
+          ],
+          "filled_clearance": 0.20000199999998358,
+          "pair_hull_area": 97560.0006,
+          "two_single_hulls_area": 115000.0,
+          "original_id": "bracket",
+          "pairs": 6
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\nested",
+          "60",
+          "1",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.82982450000418,
+        "cpu": 2
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.15502800000831485,
+        "cpu": 2
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.1912114366666666,
+      "warm_material": 1.204849854,
+      "history": [
+        {
+          "elapsed_seconds": 7.1732115,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.204849854
+        },
+        {
+          "elapsed_seconds": 15.9762809,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.2036113013333334
+        },
+        {
+          "elapsed_seconds": 28.604579,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1975525163333334
+        },
+        {
+          "elapsed_seconds": 49.5840056,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1969479426666667
+        },
+        {
+          "elapsed_seconds": 59.7489989,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1912114366666666
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 8,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 59.7489989,
+      "elapsed_seconds": 59.7530174,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s1-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.21702949999598786,
+        "cpu": 2
+      },
+      "artifacts": {
+        "expanded-layout.json": "dc1af4c46a2d049eeea739b02e1a58ae921c1389bb8f87c9bf42525709d82a9f",
+        "export/sheet-0.dxf": "d21cb866d174bcfa98e06f5a9dbcd30eba2f170ae3470bef278adf1e6e3dcfc7",
+        "export/sheet-0.svg": "b8290a1a5aaa75f9fb32fc497e5c8c5f07a55cfd4700fd8711ccf850bfce3471",
+        "export/sheet-1.dxf": "4ffd31fcaa4315dcd82c7d037e50bf0aa545a60e517ae59b9224c9c88ded420c",
+        "export/sheet-1.svg": "98d3e46b9a3d5410c8a94bd777b692f9055154e58b6e3adbd882c42aaa644f02",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "7b0bcd07bcdfa5f9715929c225dadb1037f0eeee17e924807d5ac967eacdb78b",
+        "grouped-job.json": "2cc1b0db006c63a689937eadc55e9ee4e49e617117e2648e390dcda82fa3a2d7",
+        "job.json": "d435f94d98c53eb4dcffbc4cf170e3251f09e8e3cbdc230d73d38c01cd8c04a4",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/layout.json": "002dbd1af56372d06813ff905ba630bb6113edab39cf5c8a5a0ec4914aa9043a",
+        "nested/result.json": "33fb528a079bad4bbf493faa935b89308c55bcb16b0f3ba83c0b8df2ece248f1",
+        "request.json": "48828d84190341ff9d65c55937ca98c924a468feca34200aec20632d5a4d58a0",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "a898121fd6685695319091e4953c30c455cf02a01bb6a14e07e839dd3b805333"
+      },
+      "archive": "m-mechanical-large-plates-k0.2-s1-w0.1.zip",
+      "archive_sha256": "cb261e17ab95091da0c8e357f903577a93c26168ae5a505fcf0fec83b0ff20bc"
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 4,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.4938512999942759,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            300.0,
+            325.200002
+          ],
+          "filled_clearance": 0.20000199999998358,
+          "pair_hull_area": 97560.0006,
+          "two_single_hulls_area": 115000.0,
+          "original_id": "bracket",
+          "pairs": 6
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\nested",
+          "60",
+          "2",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.743499899996095,
+        "cpu": 4
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.17885320000641514,
+        "cpu": 4
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.1667279903333332,
+      "warm_material": 1.2123864136666669,
+      "history": [
+        {
+          "elapsed_seconds": 7.0614808,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2123864136666669
+        },
+        {
+          "elapsed_seconds": 24.985804,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1690900236666666
+        },
+        {
+          "elapsed_seconds": 46.631421,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1667279903333332
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 9,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 46.631421,
+      "elapsed_seconds": 59.6993115,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k0.2-s2-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.25150919999578036,
+        "cpu": 4
+      },
+      "artifacts": {
+        "expanded-layout.json": "575b76ee09156d4312d09c4498b2e3ad03afa19d5d72add375fbc2c526428cdf",
+        "export/sheet-0.dxf": "cace2216cc35985751c8dea853af044a95c6339c28f1bdaeb76bbd8800f2177a",
+        "export/sheet-0.svg": "483388799d2af13ad6d7ab0a94562fcb714f20d5ce4362f3447d86b8abdc88b1",
+        "export/sheet-1.dxf": "06ff72e50216e6956122151f7c76bd598fcb456f40ce8a2fb103c833ece3de25",
+        "export/sheet-1.svg": "e95383d4e3916c740818d37f770441a4d873357ae8e6c2f1fb7f1a611bd8364d",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "c26747b902cd677ed822bdc01bc3de5ccc90de26a322330ce8d365c356e1c228",
+        "grouped-job.json": "2cc1b0db006c63a689937eadc55e9ee4e49e617117e2648e390dcda82fa3a2d7",
+        "job.json": "d435f94d98c53eb4dcffbc4cf170e3251f09e8e3cbdc230d73d38c01cd8c04a4",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/layout.json": "76e2c15b0623af741e9acdeeb74060130e83c3b4f4c5862b7544d38fe52d72cb",
+        "nested/result.json": "d49568fc8dbf5cfa0b2478ce425be60c3acf133b8ae3252588f5c0cae542dc41",
+        "request.json": "48828d84190341ff9d65c55937ca98c924a468feca34200aec20632d5a4d58a0",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "595bf823b44c9c9a4ca5099cd2cc65bb0044cfa9b6892b27a139cf9cef98abbd"
+      },
+      "archive": "m-mechanical-large-plates-k0.2-s2-w0.1.zip",
+      "archive_sha256": "1b08299196e70a74ad5a0f97d2a06e3176bf4f0f1b319de43e0194c4b61ade75"
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 6,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.5401145999931032,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            300.0,
+            326.500002
+          ],
+          "filled_clearance": 1.500001999999995,
+          "pair_hull_area": 97950.0006,
+          "two_single_hulls_area": 115000.0,
+          "original_id": "bracket",
+          "pairs": 6
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\nested",
+          "60",
+          "0",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.80356670000765,
+        "cpu": 6
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.15665910000097938,
+        "cpu": 6
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.1915415156666664,
+      "warm_material": 1.2048460386666668,
+      "history": [
+        {
+          "elapsed_seconds": 7.1050827,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2048460386666668
+        },
+        {
+          "elapsed_seconds": 23.4609533,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.2032377986666667
+        },
+        {
+          "elapsed_seconds": 46.639645,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1987283583333332
+        },
+        {
+          "elapsed_seconds": 59.3588089,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1915869239999999
+        },
+        {
+          "elapsed_seconds": 59.7575337,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1915415156666664
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 2,
+        "failed_insertions": 9,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 59.7575337,
+      "elapsed_seconds": 59.7601776,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s0-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2052135999983875,
+        "cpu": 6
+      },
+      "artifacts": {
+        "expanded-layout.json": "310026a81536703f76162782d625b4c516c4cb7157469d5c85ca54610175dd0e",
+        "export/sheet-0.dxf": "623669237438549c84c48ef7dc94fcd3ca4bb9ff59590e74c52d19ef7b83c7da",
+        "export/sheet-0.svg": "e2c8119190a93cf64173e37ed6659806bf08261976102c0aa0482345fec8e023",
+        "export/sheet-1.dxf": "510df890d641712c6764a38c571de8bd95db3d99792d5bd2a04c7ede77776c08",
+        "export/sheet-1.svg": "a9663881e0e204d9e4792d11160f1d4dfcc43bab356ab43e8a46de73c1260a94",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "149754f2b09ffb58aad52362489c01c371f71930b2aad92f0c085228cfa2a7e5",
+        "grouped-job.json": "849601c3d768fe82b1323026115ab8fd76f4373eea0f8e805c7cec8e2681f00f",
+        "job.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/layout.json": "ea862a9af598f5f1d92b2dcc71d6e813838d792decd30a18d775fe4d949892b3",
+        "nested/result.json": "2940b20f5b71793d5c12d0d822be05bf9a19f928b6323fa05ce07a149ff2b996",
+        "request.json": "1a1077ef54a39e39cde920a9aa3a96b8a0cdf742c97eba6d1066cd7fd8ace70e",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "d5c6a468479fed369d617644753de40edad5903f10b3404899b35f113215cd13"
+      },
+      "archive": "m-mechanical-large-plates-k1.5-s0-w0.1.zip",
+      "archive_sha256": "72f6929ab278163b2702e6ef81a432c8e2b7a3aae4f568320547b801484486ac"
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 8,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.5729666000115685,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            300.0,
+            326.500002
+          ],
+          "filled_clearance": 1.500001999999995,
+          "pair_hull_area": 97950.0006,
+          "two_single_hulls_area": 115000.0,
+          "original_id": "bracket",
+          "pairs": 6
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\nested",
+          "60",
+          "1",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.80544130000635,
+        "cpu": 8
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.15443640000012238,
+        "cpu": 8
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.182712006,
+      "warm_material": 1.204849854,
+      "history": [
+        {
+          "elapsed_seconds": 7.1153809,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.204849854
+        },
+        {
+          "elapsed_seconds": 14.4444695,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.2036336366666667
+        },
+        {
+          "elapsed_seconds": 24.6782758,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.197556809
+        },
+        {
+          "elapsed_seconds": 45.7638398,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1854956153333331
+        },
+        {
+          "elapsed_seconds": 57.5994845,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1843097386666668
+        },
+        {
+          "elapsed_seconds": 59.7341526,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.182712006
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 8,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 59.7341526,
+      "elapsed_seconds": 59.7371431,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s1-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2124671999918064,
+        "cpu": 8
+      },
+      "artifacts": {
+        "expanded-layout.json": "310319ef80f7a5380a8b6465441a4a22a8ea90c1f0abce3c5a55f2a486af63dc",
+        "export/sheet-0.dxf": "603ac465bf0e38589f23061ec38cd5190ad5b1e4af8248a4a413ac2e50a83cc4",
+        "export/sheet-0.svg": "88d9133a6730c4c7601f724ee6c5a684393999dafe387debef81cb9e8dbff587",
+        "export/sheet-1.dxf": "82c1e154982f9ec361223b5adb9485d34b8a7e784ed7e7c10931d04c9c5cdb73",
+        "export/sheet-1.svg": "55eac770858588f90f74eb89f2cc2766cc2e4fd7d0f8dd49b88dd5370eb3c668",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "6eafb5c2ef8c82c4773501181fdeb00a3ef32005e08f1594e63583918dea1f7c",
+        "grouped-job.json": "849601c3d768fe82b1323026115ab8fd76f4373eea0f8e805c7cec8e2681f00f",
+        "job.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/layout.json": "e03f16bc0d647254132aee05ed3d422621fce5c296bd5ff41c4c76e10480ad46",
+        "nested/result.json": "72118e837859922d2b72791838b4c62145baa4f39b6cdd929dd540497859cd39",
+        "request.json": "1a1077ef54a39e39cde920a9aa3a96b8a0cdf742c97eba6d1066cd7fd8ace70e",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "f236c9bd018b22dc410ab164d6103786b9be230787d52050900a3df1f47cb15a"
+      },
+      "archive": "m-mechanical-large-plates-k1.5-s1-w0.1.zip",
+      "archive_sha256": "c6a6ddab29d03499d952e61022bc1875c7cf26d5467adbed5660c016afe14872"
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 10,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.5639325000083772,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            300.0,
+            326.500002
+          ],
+          "filled_clearance": 1.500001999999995,
+          "pair_hull_area": 97950.0006,
+          "two_single_hulls_area": 115000.0,
+          "original_id": "bracket",
+          "pairs": 6
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\nested",
+          "60",
+          "2",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.838681099994574,
+        "cpu": 10
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.15590119999251328,
+        "cpu": 10
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.1731755736666665,
+      "warm_material": 1.2123864136666669,
+      "history": [
+        {
+          "elapsed_seconds": 7.1341418,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2123864136666669
+        },
+        {
+          "elapsed_seconds": 46.6555101,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1737475656666667
+        },
+        {
+          "elapsed_seconds": 59.7589762,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1731755736666665
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 10,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 59.7589762,
+      "elapsed_seconds": 59.7617422,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-large-plates-k1.5-s2-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.23530320001009386,
+        "cpu": 10
+      },
+      "artifacts": {
+        "expanded-layout.json": "179f2a0110e1eecd6f8637ab5e8a5a3bfc8bddd46024f2345411ee0617a09e8f",
+        "export/sheet-0.dxf": "5a90802bab5f4e45b570712bc629969e8eb700a509caccd62183ddf0c29aff02",
+        "export/sheet-0.svg": "d5230cd6e1480caf8c397c280ff556811e39505b798108e2d4bf3787890e95fb",
+        "export/sheet-1.dxf": "a5e2d998ea6f0e3b82aad2347d944b4b3e452da20c3c3a58cca14c86db9ca3ad",
+        "export/sheet-1.svg": "2ec73753c4ad95f25765571df7e8439a4eafa1ded843d357e0ce03b94166af94",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "3e8de49b9144888dbfe51439e065f879af98440c1babd73c9d074a11ed754858",
+        "grouped-job.json": "849601c3d768fe82b1323026115ab8fd76f4373eea0f8e805c7cec8e2681f00f",
+        "job.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/layout.json": "0b1d1f189be8793e019063e66a2914b16e99d0cb1a28a06a6a533b754975e73a",
+        "nested/result.json": "abcc1be95dfc3d5006a46433b08231625f44fee874c941db68f597677f1c4ee9",
+        "request.json": "1a1077ef54a39e39cde920a9aa3a96b8a0cdf742c97eba6d1066cd7fd8ace70e",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "108e0ae564058814f2dbdc168fbed9dabcafbb4684a0da93ea3ca2b46de9724f"
+      },
+      "archive": "m-mechanical-large-plates-k1.5-s2-w0.1.zip",
+      "archive_sha256": "894caa1a2d17de052830f31198dfccda0ff2a95be6aad4ed5bd0b5823c56a181"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 12,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.5272560000012163,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            180.0,
+            195.200002
+          ],
+          "filled_clearance": 0.200002000000012,
+          "pair_hull_area": 35136.000360000005,
+          "two_single_hulls_area": 41400.0,
+          "original_id": "bracket",
+          "pairs": 20
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\nested",
+          "60",
+          "0",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.70184540000628,
+        "cpu": 12
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.28821810000226833,
+        "cpu": 12
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.6496134072,
+      "warm_material": 1.68146709,
+      "history": [
+        {
+          "elapsed_seconds": 6.7434571,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.68146709
+        },
+        {
+          "elapsed_seconds": 19.7594267,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6763839116000003
+        },
+        {
+          "elapsed_seconds": 28.3078961,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.65127454
+        },
+        {
+          "elapsed_seconds": 42.177553,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6496134072
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 18,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 42.177553,
+      "elapsed_seconds": 59.64995,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s0-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.3947529999859398,
+        "cpu": 12
+      },
+      "artifacts": {
+        "expanded-layout.json": "8751cff8ba8298f69f0256e79fc6577921cc09464b5090ad74fad5dc9bf1491c",
+        "export/sheet-0.dxf": "b506b7aa9fc91ba5cfd19e9db43165d1727d2995f9cfb05774ae3359ddcc1180",
+        "export/sheet-0.svg": "7d3746f04ce3d65501d64633b9b4900bb6462ec2d816d87d3fde5ec87563260b",
+        "export/sheet-1.dxf": "92ea086c65d1a1e166d0a7807015bec1fc293b0f808321abc644b286464c819f",
+        "export/sheet-1.svg": "c219588cc8fc67c0a2cbf31ffd4fe51dad6a985b4d05b321b8796975f12f8c48",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "6b55f86a2750cf712263cc3233e98da0eaa80277b445ca9cc31c67b0c44c1212",
+        "grouped-job.json": "e9d54f71abeb01911a59b6ac52091197deff9f96939c94ad266a5c14e9942be9",
+        "job.json": "10ce9b4459478664d06afc70cf341eb950d738563dc6ba074854317dca3825c1",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/layout.json": "166fd842975364453ce6cb91ef3648ac97aef8395f293ee7f2f227c8dcd2d7fd",
+        "nested/result.json": "1fa44b7b1cd51386d98eba67ebc4ca6c1cb5f412b59a978d0598dfd86d725251",
+        "request.json": "3ef0a7140275de75d1927fdcdff67a15a3a31336d3b60a551528e7ad6c8c1656",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "2a53c84b4611f2b68ec690f337d06288e403ea50b6267a7e0c49217793ec5534"
+      },
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-w0.1.zip",
+      "archive_sha256": "20e6824bba47c1303c202b3f451143f09fdf1086c5443ae91b1571baa521511f"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 14,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.502839299995685,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            180.0,
+            195.200002
+          ],
+          "filled_clearance": 0.200002000000012,
+          "pair_hull_area": 35136.000360000005,
+          "two_single_hulls_area": 41400.0,
+          "original_id": "bracket",
+          "pairs": 20
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\nested",
+          "60",
+          "1",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.62787389999721,
+        "cpu": 14
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.28622989999712445,
+        "cpu": 14
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.6712421168,
+      "warm_material": 1.6958780688,
+      "history": [
+        {
+          "elapsed_seconds": 7.1414829,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.6958780688
+        },
+        {
+          "elapsed_seconds": 20.8094092,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6890454368
+        },
+        {
+          "elapsed_seconds": 34.6591373,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6822821088
+        },
+        {
+          "elapsed_seconds": 44.0135876,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6805937892000002
+        },
+        {
+          "elapsed_seconds": 46.7335806,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6755270780000002
+        },
+        {
+          "elapsed_seconds": 50.1728714,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6718651632
+        },
+        {
+          "elapsed_seconds": 57.208729,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6712421168
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 21,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 57.208729,
+      "elapsed_seconds": 59.5877858,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s1-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.46907600000849925,
+        "cpu": 14
+      },
+      "artifacts": {
+        "expanded-layout.json": "52cb3acb969ebe7cc3384d0d53d5ef9fa252cfd9fdf19894cdc04fcab56c1b0f",
+        "export/sheet-0.dxf": "9cd19e21d6f6dcb720a8a8b10a24be25293a5fd52bf6c76434b6b9abb1fa6279",
+        "export/sheet-0.svg": "a041d2783dae8f50eb329798ecb85067d45f8615025445ff2cd73e2fd4bccb7f",
+        "export/sheet-1.dxf": "1938e1fdcdf1b9f0995dddf969df9a373c463ae0a5505419499e94d4c9843155",
+        "export/sheet-1.svg": "d95149e222e99a2c6c0ba21bb39d97fd3197ae45bcb252c1a8ade5beecc57234",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "22244c3c99ea8594dbb257df5465c4f37d976dfb685ec0587a7ebd5bc3680d9c",
+        "grouped-job.json": "e9d54f71abeb01911a59b6ac52091197deff9f96939c94ad266a5c14e9942be9",
+        "job.json": "10ce9b4459478664d06afc70cf341eb950d738563dc6ba074854317dca3825c1",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/layout.json": "5ce65b38d53bc0bd716dea8e64878d46c07cac8971867797e77a75bc65fc8b0e",
+        "nested/result.json": "c4ff9e87c5cc9225cc18cf897cd6a4cf7f30a8595837fdd2cd6353a82eb4d1b5",
+        "request.json": "3ef0a7140275de75d1927fdcdff67a15a3a31336d3b60a551528e7ad6c8c1656",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "b85dec0ab93e1721881982a841b8c593b9a799461d4bf3c8998aec5c50bc45a5"
+      },
+      "archive": "m-mechanical-panel-hardware-k0.2-s1-w0.1.zip",
+      "archive_sha256": "e3af79591e9a22ea1ce44e4cd1e0405900b93c658ced0731672e6478db4f0496"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 4,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.24215940000431146,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            180.0,
+            195.200002
+          ],
+          "filled_clearance": 0.200002000000012,
+          "pair_hull_area": 35136.000360000005,
+          "two_single_hulls_area": 41400.0,
+          "original_id": "bracket",
+          "pairs": 20
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\nested",
+          "60",
+          "2",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.68280650000088,
+        "cpu": 4
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.25282249999872874,
+        "cpu": 4
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.649625558,
+      "warm_material": 1.68146709,
+      "history": [
+        {
+          "elapsed_seconds": 6.7643331,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.68146709
+        },
+        {
+          "elapsed_seconds": 14.7947353,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6713264904000003
+        },
+        {
+          "elapsed_seconds": 21.0714946,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6629177984
+        },
+        {
+          "elapsed_seconds": 27.9988113,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.659594978
+        },
+        {
+          "elapsed_seconds": 45.2445392,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6562806548
+        },
+        {
+          "elapsed_seconds": 46.6286769,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.649625558
+        }
+      ],
+      "stats": {
+        "direct_insertions": 1,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 46.6286769,
+      "elapsed_seconds": 59.6441707,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k0.2-s2-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.3865453000034904,
+        "cpu": 4
+      },
+      "artifacts": {
+        "expanded-layout.json": "68dd03ce773f09e4cc656b48c23953ecd0a0f0cfdb260482f87ccaa78062bba4",
+        "export/sheet-0.dxf": "b29b1f5057e8e840a0aefb4bb8d93644b288e52b4b7a1a3b66c45983803c7a0c",
+        "export/sheet-0.svg": "e2e55f3705d34749ebbad126b07802ade0f2484fb63b34252947545977e942d2",
+        "export/sheet-1.dxf": "dd92b000d262158d06e6ef6655e65c111bdf4278a1cf8e280e138d000cc3d081",
+        "export/sheet-1.svg": "dfff676140ee6cc4a690898d1700736002e550e1cc93835a7726505d3aefcd17",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "66218a1c6d72c7030990aacf82bc4d5fbae8257c02b82c932983e7a678fb7089",
+        "grouped-job.json": "e9d54f71abeb01911a59b6ac52091197deff9f96939c94ad266a5c14e9942be9",
+        "job.json": "10ce9b4459478664d06afc70cf341eb950d738563dc6ba074854317dca3825c1",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/layout.json": "f4a41ce1733a16d902c704687498127ca535d19a9c88968fa06d6a8aad50810a",
+        "nested/result.json": "5b75f181542b8424ad61a30481f9a3c692ecc770040a1785ca2228c9473f60cc",
+        "request.json": "3ef0a7140275de75d1927fdcdff67a15a3a31336d3b60a551528e7ad6c8c1656",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "7d4735e01399a37c8548f96c3e9abccdc45a507e255495b4434c59e466c4f333"
+      },
+      "archive": "m-mechanical-panel-hardware-k0.2-s2-w0.1.zip",
+      "archive_sha256": "f25ecf226fbeee2ebe6774b64be94a62d986d4779965a4989f5d41762d6b6f44"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 6,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.32533419999526814,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            180.0,
+            196.500002
+          ],
+          "filled_clearance": 1.500001999999995,
+          "pair_hull_area": 35370.00036,
+          "two_single_hulls_area": 41400.0,
+          "original_id": "bracket",
+          "pairs": 20
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\nested",
+          "60",
+          "0",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.62777300000016,
+        "cpu": 6
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.27157009999791626,
+        "cpu": 6
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.6693561704,
+      "warm_material": 1.68146709,
+      "history": [
+        {
+          "elapsed_seconds": 6.7656095,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.68146709
+        },
+        {
+          "elapsed_seconds": 26.3503957,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6797494024000001
+        },
+        {
+          "elapsed_seconds": 34.6960089,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6763987143999999
+        },
+        {
+          "elapsed_seconds": 46.6324348,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.669655584
+        },
+        {
+          "elapsed_seconds": 55.4011241,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6693561704
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 16,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 55.4011241,
+      "elapsed_seconds": 59.5894506,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s0-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.4157114999979967,
+        "cpu": 6
+      },
+      "artifacts": {
+        "expanded-layout.json": "376b5789f3ec2bfe46218b3fa6080c83126551f3bfa19e2847430d5a9197fa9b",
+        "export/sheet-0.dxf": "3472998f481c56f9dc5150eafa31ab552460a06ba0d15f65195c35876f4a5871",
+        "export/sheet-0.svg": "17b4e466345c40b15d980197327b0e46f56d3d1e40467100b980a4ab5fea64cc",
+        "export/sheet-1.dxf": "0f3c74c0cdadf7e1fc1ce7adb7faa3e30ee2d356e3b5fa045f1f9ee60d41a365",
+        "export/sheet-1.svg": "9989032346ecba116e1d9f8ea5633836c36cc09a0be2af404cbc9cec2ccb1584",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "7468f5c729c5619a7ddf11013e685d9a3447dfb78b8001033fc7f8421d62fa90",
+        "grouped-job.json": "1ebabd06b9121d8b8ff385927ac260e615a35727ad54e53438445e37121db2cb",
+        "job.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/layout.json": "718d6b92043be10ecca4a32d1efdbf9786410dbf24c861bfb7c1ca0ac7f830c6",
+        "nested/result.json": "75708b16f13f75b0f3cffeac4f70a84d84fbed9ec15c27c2b3dc153e541032c1",
+        "request.json": "418552610b8fa2c73b4125135a8b39a91ed56230beaf6e6a98ac54718225432f",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "a704db9b852a112ce801f7eedb897867c53d46552a064598d984c4381cbc9d85"
+      },
+      "archive": "m-mechanical-panel-hardware-k1.5-s0-w0.1.zip",
+      "archive_sha256": "723f2db88dbbbd2e137f66aea25b79f5a6531979e64bccd47290cc9801555580"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 0,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.2955451999878278,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            180.0,
+            196.500002
+          ],
+          "filled_clearance": 1.500001999999995,
+          "pair_hull_area": 35370.00036,
+          "two_single_hulls_area": 41400.0,
+          "original_id": "bracket",
+          "pairs": 20
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\nested",
+          "60",
+          "1",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.78106690000277,
+        "cpu": 0
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2939970000006724,
+        "cpu": 0
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.6653166724000001,
+      "warm_material": 1.7162750532,
+      "history": [
+        {
+          "elapsed_seconds": 6.8164392,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.7162750532
+        },
+        {
+          "elapsed_seconds": 16.1705118,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6939487683999996
+        },
+        {
+          "elapsed_seconds": 27.7205616,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6854294288
+        },
+        {
+          "elapsed_seconds": 46.6420123,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6752783748
+        },
+        {
+          "elapsed_seconds": 56.6577298,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6665466476
+        },
+        {
+          "elapsed_seconds": 59.7265543,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6653166724000001
+        }
+      ],
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 24,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 59.7265543,
+      "elapsed_seconds": 59.7331458,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s1-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.4325325000099838,
+        "cpu": 0
+      },
+      "artifacts": {
+        "expanded-layout.json": "679e6df147b7a1a99f5e73c9dfb2e7dc151342d20e8d46ac28cc798318ca9c98",
+        "export/sheet-0.dxf": "b88dfbc0da4601e7eb93071b6fa8ad2dad6bac6fd2318a5ac0bf7ca42e0341af",
+        "export/sheet-0.svg": "afed4304a71f9b8b57af5680421ca979b6dee8cd6987350d03c13b1204c326f9",
+        "export/sheet-1.dxf": "f669ca4b845765881f0883e04ebe550cddd5d525a2ad3353c5c17243c4e38494",
+        "export/sheet-1.svg": "c6f09c0d5ab3418580894be4015faf2c4161c19a549e142e89b73792d15a5d4c",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "f9d6505463a25bb6d844764dcee62619caaa7566e948c0ecc54b4beca96f1f70",
+        "grouped-job.json": "1ebabd06b9121d8b8ff385927ac260e615a35727ad54e53438445e37121db2cb",
+        "job.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/layout.json": "a44b20adf0ad6a920e062bbf57700c40187effd335df59705d95c96fc1f7214e",
+        "nested/result.json": "ae33dfdac6841db826dcf23ec3f88ec8fdcb2a6067b22dfebed7cd0a3d3dd09d",
+        "request.json": "418552610b8fa2c73b4125135a8b39a91ed56230beaf6e6a98ac54718225432f",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "da64916c369b54d3584aedf3441cc9b96cf37c1567cbbd504b50b8d1a71b21a0"
+      },
+      "archive": "m-mechanical-panel-hardware-k1.5-s1-w0.1.zip",
+      "archive_sha256": "e5d536affa9a90e9c16197e57d8218e2cc9850eaf3a9ef0ccff91f642bf5f7c2"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "warm_fraction": 0.1,
+      "compress_fraction": 0.25,
+      "window": 12,
+      "seconds": 60,
+      "cpu": 8,
+      "status": "valid",
+      "pattern_preparation_seconds_outside_search_budget": 0.270319200004451,
+      "patterns": {
+        "bracket-experimental-pair": {
+          "rotation_quarters": 2,
+          "translation": [
+            180.0,
+            196.500002
+          ],
+          "filled_clearance": 1.500001999999995,
+          "pair_hull_area": 35370.00036,
+          "two_single_hulls_area": 41400.0,
+          "original_id": "bracket",
+          "pairs": 20
+        }
+      },
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\sheet_schedule.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\grouped-job.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\nested",
+          "60",
+          "2",
+          "0.1",
+          "0.25",
+          "12"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.65763769998739,
+        "cpu": 8
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\expanded-layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2586920000030659,
+        "cpu": 8
+      },
+      "maximum_metric_roundtrip_difference": 0.0,
+      "material": 1.68146709,
+      "warm_material": 1.68146709,
+      "history": [
+        {
+          "elapsed_seconds": 6.7549393,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.68146709
+        }
+      ],
+      "stats": {
+        "direct_insertions": 1,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "accepted_at_seconds": 6.7549393,
+      "elapsed_seconds": 59.6153817,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\expanded-layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-pair-probe-20261015T152814Z\\m-mechanical-panel-hardware-k1.5-s2-w0.1\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.39504869999655057,
+        "cpu": 8
+      },
+      "artifacts": {
+        "expanded-layout.json": "620752a92393ece55930deb23b15f4a9e4ff5c0f664994eaa36236ec5583af0b",
+        "export/sheet-0.dxf": "1f06a95d81be80ac6c51458f9065e4a98d87eb6046e16ae36097315655520c61",
+        "export/sheet-0.svg": "0f084a103c1d80d391af51944344918169e74aa31df7c14b977882cc1704982d",
+        "export/sheet-1.dxf": "4fd5a052d22cd3f60b14f32c808526529b7ae3484c82e33495583cb3b0365ac7",
+        "export/sheet-1.svg": "bd7df7dbb494fbd6dad1ceed936109155beb846a42ce557b2fb2ab1fe52dce5b",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "cc742bb38f80c8623b781b4509e0e384fb2a0905a871c2c334291db71228f1d2",
+        "grouped-job.json": "1ebabd06b9121d8b8ff385927ac260e615a35727ad54e53438445e37121db2cb",
+        "job.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/layout.json": "796198761c22bb14c644e4d5b6ceafde79674d0baac3b9da1d52d7b47b6142ba",
+        "nested/result.json": "d559fe0f26490e299f81a2d89482a447c4a6f315f061b79ed5f61ef20724304d",
+        "request.json": "418552610b8fa2c73b4125135a8b39a91ed56230beaf6e6a98ac54718225432f",
+        "search-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "a3e3a3072d284dd65329b7abece29b6a7b2165127a9e8a8e8703da7d925cfef2"
+      },
+      "archive": "m-mechanical-panel-hardware-k1.5-s2-w0.1.zip",
+      "archive_sha256": "8856a1a95df43fa94289dc69d897d8c41b575b04370cc76c1d634b42d16b4330"
+    }
+  ],
+  "medians": [
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "warm_fraction": 0.1,
+      "complete": true,
+      "material": 1.181298278,
+      "warm_material": 1.204849854
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "warm_fraction": 0.1,
+      "complete": true,
+      "material": 1.182712006,
+      "warm_material": 1.204849854
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "warm_fraction": 0.1,
+      "complete": true,
+      "material": 1.649625558,
+      "warm_material": 1.68146709
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "warm_fraction": 0.1,
+      "complete": true,
+      "material": 1.6693561704,
+      "warm_material": 1.68146709
+    }
+  ],
+  "valid": 12,
+  "total": 12
+}
