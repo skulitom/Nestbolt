@@ -1,0 +1,63 @@
+{
+  "created_utc": "2026-10-15T23:19:46.334371+00:00",
+  "cases": 128,
+  "generation_seed": 20261016,
+  "scope": "Functional generated-curve cases on isolated candidate, no corpus/held-out inputs; no performance claim.",
+  "steps": {
+    "curves": {
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--manifest-path",
+        "C:\\DEV\\Nestbolt\\output\\ci-curve-probe\\Cargo.toml",
+        "-p",
+        "nestbolt-core",
+        "--test",
+        "search_fuzz",
+        "random_curved_svg_parts_nest_validly",
+        "--",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0
+    },
+    "binary": {
+      "command": [
+        "cargo",
+        "build",
+        "--offline",
+        "--manifest-path",
+        "C:\\DEV\\Nestbolt\\output\\ci-curve-probe\\Cargo.toml"
+      ],
+      "exit_code": 0
+    },
+    "exact_case": {
+      "command": [
+        "C:\\DEV\\Nestbolt\\target\\debug\\nestbolt-ci-curve-probe.exe",
+        "search",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\ci-curve-flat-index-probe-20261016\\fuzz\\exact"
+      ],
+      "exit_code": 0
+    }
+  },
+  "third_party_lock_entries_match": true,
+  "independent_validation": {
+    "command": [
+      "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+      "validate",
+      "--job",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\ci-curve-flat-index-probe-20261016\\fuzz\\exact\\job.json",
+      "--layout",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\ci-curve-flat-index-probe-20261016\\fuzz\\exact\\layout.json"
+    ],
+    "exit_code": 0,
+    "elapsed_wall_seconds": 0.055069099995307624,
+    "cpu": 16
+  },
+  "valid": true,
+  "metric_delta": 0,
+  "placements": 8,
+  "guards_unchanged": true
+}

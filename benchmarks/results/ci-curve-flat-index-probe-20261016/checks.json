@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-10-15T23:16:41.535920+00:00",
+  "scope": "Isolated configuration hypothesis in output/candidate-core; no production integration or performance claim.",
+  "original_holes_sha256": "64aedfdca66df487445c5b381b09c21614f931c951eb75a0486370839be009d6",
+  "candidate_holes_sha256": "12248100ec0515bd2f1ba191df72a48f7d2aa57d5ca8ad6372ab0c2046cf5f7e",
+  "product_digest": "921ad6f59b0dae0b243ba9cd8e98a03dd4d6a3b6404d4e4251414105f26beb7c",
+  "steps": {
+    "build": {
+      "command": [
+        "cargo",
+        "build",
+        "--offline",
+        "--manifest-path",
+        "C:\\DEV\\Nestbolt\\output\\ci-curve-probe\\Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "14609d16523c778babc677d89a387ef91da75bee055b83a18de61a30185435e6"
+    },
+    "search": {
+      "command": [
+        "C:\\DEV\\Nestbolt\\target\\debug\\nestbolt-ci-curve-probe.exe",
+        "search",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\ci-curve-flat-index-probe-20261016\\search"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "6ae588215f07e151900ed1f56754589867ebf2422d763d69a06ba6d3346085e0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "valid": true,
+  "placements": 8,
+  "guards_unchanged": true
+}

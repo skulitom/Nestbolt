@@ -25,6 +25,12 @@ in a standalone Windows debug build. The [retained failure](../benchmarks/result
 blocks release pending repair and verification. The guarded H4 comparison
 continues with unchanged source and binaries; no gate weight changes.
 
+An [isolated hole-index candidate](../benchmarks/results/ci-curve-flat-index-probe-20261016.md)
+passes the exact eight-copy case and 128 generated curve tests with debug
+assertions enabled. Its aligned-lock result also passes the existing independent
+CLI validator with exact metrics. This is an unintegrated functional experiment;
+production checks and performance review remain required after H4 finishes.
+
 Latest repository reconciliation (2026-10-15): [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
 is tagged at `6c462c2`, and the [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654)
 succeeded; the registry entry is active with the Windows MCPB. This software release
