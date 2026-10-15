@@ -39,3 +39,22 @@ A future exchange experiment should preserve valid incumbents, account for
 all original parts, keep holes reserved and share the existing deadline. All
 H5 material/savings requirements and the frozen development inputs remain
 unchanged. H5 stays open; completed milestone weight remains 45%.
+
+## Read-only source follow-up, 2026-10-15
+
+The current solver already moves parts between sheets in
+`crates/core/src/sheets/vstrip.rs`. Its `fill_gaps` samples direct insertion;
+`relocate` inserts one final-sheet part into a receiver and separates that
+receiver without evicting another part. Global `disrupt` can swap parts across
+sheets, preferring large dissimilar parts and otherwise sampling a fallback.
+Therefore a new generic swap mechanism would duplicate existing work.
+
+The narrower unmeasured hypothesis is a directed exchange: move a final-sheet
+part into a receiver while moving a smaller blocker back, then repair and
+independently validate both sheets within the existing deadline. The target
+must come from an actual obstruction or measurable material improvement,
+with exact quantity accounting and the previous valid incumbent preserved.
+The optional common-line refinement currently only translates parts on their
+existing sheets, so it cannot perform this exchange. This source inspection
+does not establish that an exchange will fit or improve H5; no implementation
+or benchmark change was made while the H4 matrix was running.
