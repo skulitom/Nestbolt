@@ -14,7 +14,9 @@ smoke test of the bundled server, the Node tests and MCPB 2.1.2 validation; and
 `mcp-publisher validate` of the generated registry entry. After every check
 passes, it attests the archives and bundle and creates the GitHub release with
 checksums. Reruns skip identical release assets and fail on different bytes; they
-never replace assets. Only the highest stable tag becomes Latest.
+never replace assets. Tags with a prerelease suffix produce a GitHub prerelease
+and never become Latest. Only the highest stable tag becomes Latest. A rerun
+refuses to change an existing release's preview status.
 
 Pull requests that touch the distribution workflows, `mcpb/` or `server.json`,
 and manual Release runs with an empty tag, run the same builds and checks as a
@@ -39,11 +41,17 @@ git tag vX.Y.Z
 git push origin vX.Y.Z
 ```
 
-The tag must be `v` plus that version, a stable `X.Y.Z`. A manual Release run
-also requires an existing tag. Never reuse a tag for changed bytes. The manifest
+The tag must be `v` plus that version: `X.Y.Z` for a stable release, or a SemVer
+prerelease such as `0.2.0-alpha.1` for a preview. Build metadata (`+...`) is not
+accepted. A manual Release run also requires an existing tag. Never reuse a tag
+for changed bytes. The manifest
 template has no version: the builder inserts Cargo's. `server.json` stays
 metadata-only; the entry writer stamps the release version, bundle URL and
 SHA-256 into a generated copy and never edits the source metadata.
+
+Preview builds still validate their generated metadata, but the separate
+**Publish to MCP Registry** workflow accepts stable tags only. A GitHub preview
+does not publish a new registry version.
 
 The builder reads the server's live tool catalog and logs added or dropped names;
 `mcpb/manifest.json` keeps curated one-line descriptions as display overrides.

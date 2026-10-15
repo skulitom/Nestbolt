@@ -1,0 +1,101 @@
+{
+  "created_utc": "2026-10-15T23:17:52.041112+00:00",
+  "files": {
+    ".github/workflows/release.yml": "e297563ac7ac9d26aee1df1589369022c0345dcdcde4dee0af25bb2d374c2da4",
+    "mcpb/build.mjs": "a888da52423b917a88a9ba7af69390a1737ed99b36fbc4b6dc2550406ff375fa",
+    "mcpb/release.mjs": "36767a9f5dcc55889386c085274dbc9ba23cdc7d6e94f286836b9ec3af155808",
+    "mcpb/mcpb.test.mjs": "cc20d2c0b64c29934ef43271ee66017422fe24487c2b6bae03908812f8667c4a",
+    "mcpb/PUBLISHING.md": "472ea58b491a2ebb51938cfc492b824dd8e5f6ca996c28a6d69d6ce92820b9da"
+  },
+  "packaging_tests": {
+    "command": [
+      "python",
+      "output/ccd1.py",
+      "node",
+      "--test",
+      "--test-skip-pattern=^real release",
+      "mcpb/mcpb.test.mjs"
+    ],
+    "exit_code": 0,
+    "passed": 21,
+    "platform_skips": 1,
+    "real_binary_tests_excluded": 2,
+    "evidence": "Observed tool execution in this turn; no separate raw test log was captured."
+  },
+  "workflow_yaml_parsed": true,
+  "bash_syntax": [
+    {
+      "job": "build",
+      "step": "Validate release version (dry runs use the Cargo version)",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "build",
+      "step": "Install Rust and confirm native target",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "build",
+      "step": "Build locked release binaries",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "build",
+      "step": "Check both executables and package the native archive",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "build",
+      "step": "Build and verify Windows bundle",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "registry-entry",
+      "step": "mcp-publisher validate (no login, nothing published)",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "release",
+      "step": "Write checksums for every release asset (except SHA256SUMS itself)",
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "job": "release",
+      "step": "Publish GitHub release without replacing assets",
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "local_policy_cli": [
+    {
+      "command": [
+        "node",
+        "mcpb/release.mjs",
+        "v0.1.0"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"prerelease\":false,\"latest\":true}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "mcpb/release.mjs",
+        "v0.2.0-alpha.1"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Release requires an existing valid version tag.\n"
+    }
+  ],
+  "no_tag_or_release_created": true,
+  "native_packaging_dry_run_pending": true,
+  "measured_H4_guards_unchanged": true
+}

@@ -6,7 +6,8 @@ import { readFile, writeFile, mkdir, mkdtemp, rm, access, link } from 'node:fs/p
 import path from 'node:path';
 import { gunzipSync } from 'node:zlib';
 import { archive, DOCUMENTS, smoke } from './archive.mjs';
-import { root, cargoVersion, assembleMcpb, buildMcpb, registryEntry, BUNDLE_NAME, SERVER, json, mergeTools } from './build.mjs';
+import { root, cargoVersion, assembleMcpb, buildMcpb, registryEntry, BUNDLE_NAME, SERVER, VERSION, json, mergeTools } from './build.mjs';
+import { releasePolicy } from './release.mjs';
 import { readZip, writeZip, sha256 } from './zip.mjs';
 import { checkManifest, inside, verifyMcpb, ENTRIES } from './verify.mjs';
 
@@ -50,7 +51,7 @@ test('metadata stays package-free with the required identity and short descripti
 });
 
 test('workspace version comes from [workspace.package]', async () => {
-  assert.match(await cargoVersion(), /^\d+\.\d+\.\d+$/);
+  assert.match(await cargoVersion(), VERSION);
   assert.equal(await cargoVersion(base), version);
 });
 
@@ -149,7 +150,7 @@ test('builder refuses a template version, invalid package versions and missing b
     await assert.rejects(assembleFixture({ base, binary }), /must not contain version/);
   } finally { await writeJSON(path.join(base, 'mcpb/manifest.json'), template); }
   try {
-    for (const value of ['1.0', 'v1.0.0', '01.0.0', '1.0.0-beta']) {
+    for (const value of ['1.0', 'v1.0.0', '01.0.0', '1.0.0-beta.01', '1.0.0-', '1.0.0-alpha..1', '1.0.0+build', '1.0.0-alpha/1', '1.0.0-alpha_1']) {
       await writeFile(path.join(base, 'Cargo.toml'), cargo(value));
       await assert.rejects(assembleFixture({ base, binary }), /version must have the form X.Y.Z/);
     }
@@ -221,9 +222,42 @@ test('a Cargo-only version bump needs no manifest or metadata edits', async () =
   } finally { await writeFile(path.join(base, 'Cargo.toml'), cargo(version)); }
 });
 
+test('preview versions survive bundle, all native archives and generated metadata', async () => {
+  const preview = '0.2.0-alpha.1';
+  try {
+    await writeFile(path.join(base, 'Cargo.toml'), cargo(preview));
+    const next = await buildFixture({ base, binary, out: path.join(temp, 'preview') });
+    checkManifest(next.manifest, preview);
+    assert.equal(JSON.parse(readZip(next.bytes).get('manifest.json').read()).version, preview);
+    const entry = await registryEntry({ base, tag: `v${preview}`, bundle: next.bundle, out: path.join(temp, 'preview-entry.json') });
+    assert.equal(entry.version, preview);
+    assert.equal(entry.packages[0].version, preview);
+    assert.equal(entry.packages[0].identifier, `https://github.com/skulitom/Nestbolt/releases/download/v${preview}/${BUNDLE_NAME}`);
+    for (const [target, extension] of [['x86_64-pc-windows-msvc', 'zip'], ['x86_64-unknown-linux-gnu', 'tar.gz'], ['aarch64-apple-darwin', 'tar.gz']]) {
+      const packed = await archive({ target, cli: binary, server: binary, base, out: path.join(temp, 'preview-archives'), check: false });
+      assert.equal(path.basename(packed.file), `nestbolt-v${preview}-${target}.${extension}`);
+      assert.deepEqual(await readFile(packed.file), packed.bytes);
+    }
+    assert.deepEqual(JSON.parse(await readFile(path.join(base, 'server.json'))), metadata);
+    assert.deepEqual(JSON.parse(await readFile(path.join(base, 'mcpb/manifest.json'))), template);
+  } finally { await writeFile(path.join(base, 'Cargo.toml'), cargo(version)); }
+});
+
+test('preview releases never replace Latest and stable tags sort numerically', () => {
+  const tags = ['v0.2.0', 'v0.10.0', 'v0.1.0', 'v1.0.0-alpha.1', 'not-a-version', 'v01.0.0'];
+  assert.deepEqual(releasePolicy('v1.0.0-alpha.1', tags), { prerelease: true, latest: false });
+  assert.deepEqual(releasePolicy('v0.10.0', tags), { prerelease: false, latest: true });
+  assert.deepEqual(releasePolicy('v0.2.0', tags), { prerelease: false, latest: false });
+  assert.deepEqual(releasePolicy('v0.2.0-rc.1', ['v0.2.0-rc.1']), { prerelease: true, latest: false });
+  assert.throws(() => releasePolicy('v0.2.1', tags), /existing valid version tag/);
+  for (const tag of ['v01.0.0', 'v1.0.0-alpha.01', 'v1.0.0-alpha\n', 'v1.0.0+build']) {
+    assert.throws(() => releasePolicy(tag, [...tags, tag]), /existing valid version tag/);
+  }
+});
+
 test('registry entry rejects bad tags, version mismatch and packages in metadata', async () => {
   const options = { base, tag: `v${version}`, bundle: build.bundle, out: path.join(temp, 'refused.json') };
-  for (const tag of ['7.8.9', 'v1.2', 'v01.2.3', 'v1.2.3-beta', '../v1.2.3', 'v1.2.3\n']) await assert.rejects(registryEntry({ ...options, tag }), /Tag must have the form/);
+  for (const tag of ['7.8.9', 'v1.2', 'v01.2.3', 'v1.2.3-beta.01', '../v1.2.3', 'v1.2.3\n']) await assert.rejects(registryEntry({ ...options, tag }), /Tag must have the form/);
   await assert.rejects(registryEntry({ ...options, tag: 'v7.8.10' }), /Tag and Cargo.toml versions must match/);
   try {
     await writeJSON(path.join(base, 'server.json'), { ...metadata, packages: [] });

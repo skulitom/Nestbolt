@@ -7,7 +7,9 @@ import { writeZip, readZip, sha256 } from './zip.mjs';
 import { inside, mcpFolders, startMcp } from './mcp-client.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
-export const VERSION = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$(?![\s\S])/;
+// SemVer without build metadata: release filenames and URLs use the exact version.
+// Numeric prerelease identifiers cannot have leading zeroes.
+export const VERSION = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9]\d*|\d*[A-Za-z-][0-9A-Za-z-]*))*)?$(?![\s\S])/;
 export const BUNDLE_NAME = 'nestbolt-windows-x64.mcpb';
 export const SERVER = 'server/nestbolt-mcp.exe';
 export const json = value => Buffer.from(JSON.stringify(value, null, 2) + '\n');
@@ -18,7 +20,7 @@ export async function cargoVersion(base = root) {
   const cargo = await readFile(path.join(base, 'Cargo.toml'), 'utf8');
   const section = /^\[workspace\.package\][ \t]*\r?\n([\s\S]*?)(?=^\[|$(?![\s\S]))/m.exec(cargo)?.[1];
   const versions = [...(section ?? '').matchAll(/^[ \t]*version[ \t]*=[ \t]*["']([^"']+)["'][ \t]*(?:#.*)?\r?$/gm)];
-  if (versions.length !== 1 || !VERSION.test(versions[0][1])) throw new Error('Cargo.toml [workspace.package] version must have the form X.Y.Z.');
+  if (versions.length !== 1 || !VERSION.test(versions[0][1])) throw new Error('Cargo.toml [workspace.package] version must have the form X.Y.Z or X.Y.Z-prerelease, without build metadata.');
   return versions[0][1];
 }
 
@@ -125,7 +127,7 @@ async function checkOutput(destination, sources) {
 }
 
 export async function registryEntry({ base = root, tag, bundle, out = path.join(root, 'target/dist/mcpb/server.registry.json') }) {
-  if (typeof tag !== 'string' || !tag.startsWith('v') || !VERSION.test(tag.slice(1))) throw new Error('Tag must have the form vX.Y.Z.');
+  if (typeof tag !== 'string' || !tag.startsWith('v') || !VERSION.test(tag.slice(1))) throw new Error('Tag must have the form vX.Y.Z or vX.Y.Z-prerelease, without build metadata.');
   if (!bundle) throw new Error('--bundle is required.');
   const metadataPath = path.resolve(base, 'server.json'), bundlePath = path.resolve(bundle), destination = path.resolve(out);
   await checkOutput(destination, [metadataPath, bundlePath]);

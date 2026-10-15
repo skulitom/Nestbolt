@@ -27,8 +27,9 @@ quality claim for this preview.
   after fixes. Require green CI on the release commit.
 - Set the release version, finish the release notes and ensure the workflow
   marks the release as a preview without replacing the current stable Latest.
-  The existing packaging accepts stable `X.Y.Z` versions only; preview handling
-  must be tested before pushing a tag.
+  [Packaging now accepts SemVer prerelease versions](../benchmarks/results/preview-packaging-20261016.md)
+  and explicitly keeps previews out of Latest. Its tests cover version propagation and channel selection;
+  the native packaging dry run remains required before pushing a tag.
 - Run the packaging dry run for Windows x64, Linux x64 and macOS arm64. Verify
   archives, Windows MCPB, version agreement, checksums and provenance. Verify
   the downloaded Windows bundle after publication.

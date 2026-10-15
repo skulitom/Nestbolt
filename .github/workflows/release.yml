@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Existing version tag to release, in the form vX.Y.Z; leave empty for a dry run of the current commit'
+        description: 'Existing version tag, vX.Y.Z or vX.Y.Z-prerelease; leave empty for a dry run of the current commit'
         required: false
         default: ''
         type: string
@@ -62,7 +62,7 @@ jobs:
           import { cargoVersion, VERSION } from './mcpb/build.mjs';
           const version = await cargoVersion();
           const tag = process.env.DRY_RUN === 'true' ? `v${version}` : process.env.RELEASE_TAG;
-          if (!tag.startsWith('v') || !VERSION.test(tag.slice(1)) || tag !== `v${version}`) throw new Error('Tag must be vX.Y.Z and match Cargo.toml.');
+          if (!tag.startsWith('v') || !VERSION.test(tag.slice(1)) || tag !== `v${version}`) throw new Error('Tag must be a valid version and match Cargo.toml, including any prerelease suffix.');
           const server = JSON.parse(readFileSync('server.json'));
           if (Object.hasOwn(server, 'packages')) throw new Error('server.json must remain metadata-only.');
           appendFileSync(process.env.GITHUB_ENV, `RELEASE_TAG=${tag}\n`);
@@ -165,6 +165,10 @@ jobs:
           pattern: nestbolt-build-*
           path: target/dist/release
           merge-multiple: true
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          package-manager-cache: false
       - name: Write checksums for every release asset (except SHA256SUMS itself)
         shell: bash
         run: |
@@ -194,11 +198,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          highest=$(git tag --list 'v*' | grep -E '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' | sort -V | tail -n 1)
-          latest=false
-          if [[ "$RELEASE_TAG" == "$highest" ]]; then latest=true; fi
+          policy=$(node mcpb/release.mjs "$RELEASE_TAG")
+          prerelease=$(jq -r '.prerelease' <<< "$policy")
+          latest=$(jq -r '.latest' <<< "$policy")
           assets=(target/dist/release/*.zip target/dist/release/*.tar.gz target/dist/release/*.mcpb target/dist/release/*.sha256 target/dist/release/SHA256SUMS)
-          if gh release view "$RELEASE_TAG" -R "$GITHUB_REPOSITORY" --json assets > target-release.json; then
+          if gh release view "$RELEASE_TAG" -R "$GITHUB_REPOSITORY" --json assets,isPrerelease > target-release.json; then
+            if ! jq -e --argjson expected "$prerelease" '.isPrerelease == $expected' target-release.json > /dev/null; then
+              echo "::error::Existing release preview status differs from its tag; refusing to change it."
+              exit 1
+            fi
             mkdir -p target/existing-release
             missing=()
             # Compare every existing asset before uploading any missing ones. Never use --clobber.
@@ -218,6 +226,6 @@ jobs:
             if (( ${#missing[@]} )); then gh release upload "$RELEASE_TAG" "${missing[@]}" -R "$GITHUB_REPOSITORY"; fi
           else
             gh release create "$RELEASE_TAG" "${assets[@]}" -R "$GITHUB_REPOSITORY" \
-              --verify-tag --title "Nestbolt $RELEASE_TAG" --notes-file mcpb/RELEASE_NOTES.md --generate-notes "--latest=$latest"
+              --verify-tag --title "Nestbolt $RELEASE_TAG" --notes-file mcpb/RELEASE_NOTES.md --generate-notes "--prerelease=$prerelease" "--latest=$latest"
           fi
           printf 'Release %s: archives, checksums and Windows MCPB attached. Test the downloaded bundle before dispatching Publish to MCP Registry.\n' "$RELEASE_TAG" >> "$GITHUB_STEP_SUMMARY"

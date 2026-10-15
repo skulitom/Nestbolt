@@ -56,6 +56,12 @@ Latest N1 review: [all 56 training native diagnostic records](../benchmarks/resu
 
 Latest N4 inspection: [saved final-sheet assignments](../benchmarks/results/h5-last-sheet-inspection-20261015.md) show that one failed large-plates assignment cannot meet the material guard by compression alone. This supports investigating exchanges between sheets, not a whole-problem impossibility claim or a gate change. No new H5 searches ran.
 
+The [historical relocation-counter review](../benchmarks/results/h5-relocation-inspection-20261016.md)
+verifies all 36 archived schedule results. Default-schedule trials already have
+12 successful and 180 failed separated insertions; ordinary receiver insertion
+is active. A directed exchange that also returns a blocker to the last sheet
+remains a distinct, unmeasured hypothesis. No new search or H5 credit.
+
 Earlier N3 follow-up: the [isolated compiler pilot](../benchmarks/results/h4-lto-probe-20261015.md) validates all 44 layouts and eight additional example library/request checks. Fat LTO gives a small Chrome improvement but worse Firefox material and charged-work rate; it is not integrated. The production build, original failed quality subset and H4 thresholds are unchanged. Completion remains 45%.
 
 The following earlier checkpoint notes retain the completion percentages and failures recorded at their dates. The current total is the 45% stated above.
