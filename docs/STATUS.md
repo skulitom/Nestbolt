@@ -38,6 +38,8 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 
 Latest N2 checkpoint: [H3 completed](../benchmarks/results/h3-complete-20261015.md). The plan was committed before the three reserved projects were opened; all passed with 199 leaves / 247 contours, a maximum point difference below 0.000500 mm, nine allowed canonical sheet comparisons and exact validation metrics. The five native-checked layouts revalidate on the current build; all 298 original native evidence files and 1,181 frozen inventory files retain their hashes. Milestone completion is now 45%. H2 import acceptance, H4 browser/native performance and H5 material use remain open.
 
+Latest N3 follow-up: the [isolated compiler pilot](../benchmarks/results/h4-lto-probe-20261015.md) validates all 44 layouts and eight additional example library/request checks. Fat LTO gives a small Chrome improvement but worse Firefox material and charged-work rate; it is not integrated. The production build, original failed quality subset and H4 thresholds are unchanged. Completion remains 45%.
+
 The following earlier checkpoint notes retain the completion percentages and failures recorded at their dates. The current total is the 45% stated above.
 
 Latest N4 follow-up: [48 material diagnostics](../benchmarks/results/h5-material-probes-20261015.md) all validate, but extra warm-start time and rigid bracket pairing worsen every mechanical-job/kerf median. Both remain unintegrated; H5 stays open and completion remains 20%.

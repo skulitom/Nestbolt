@@ -337,6 +337,11 @@ is still 20% and no gate thresholds change.
 
 **N3 quality checkpoint, 2026-10-15:** [all 99 subset layouts validate](../benchmarks/results/h4-quality-checkpoint-20261015.md). Firefox passes at +0.486636% median material; Chrome narrowly misses at +1.014665% against +1%. All individual jobs remain within +5%. The complete G5 and 195-run native comparisons are still open. The original thresholds and completed weight of 20% are unchanged.
 
+**N3 compiler follow-up, 2026-10-15:** the [isolated fat-LTO pilot](../benchmarks/results/h4-lto-probe-20261015.md)
+validates all 44 layouts, but the small Chrome improvement comes with worse Firefox
+material use and charged-work rate. The compiler change is not integrated. The
+original failed subset remains authoritative; H4 stays open and completion is 45%.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:

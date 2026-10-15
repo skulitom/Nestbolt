@@ -1,0 +1,40 @@
+[
+  {
+    "command": [
+      "cargo",
+      "build",
+      "--locked",
+      "--release",
+      "-p",
+      "nestbolt-wasm",
+      "--target",
+      "wasm32-unknown-unknown"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 94.16504790000909
+  },
+  {
+    "command": [
+      "wasm-bindgen",
+      "--target",
+      "web",
+      "--out-dir",
+      "C:\\DEV\\Nestbolt\\output\\h4-lto-probe-20261015T211442Z\\bindings-fat",
+      "C:\\DEV\\Nestbolt\\.cache\\h4-fat-lto-target\\wasm32-unknown-unknown\\release\\nestbolt_wasm.wasm"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.47878859999764245
+  },
+  {
+    "command": [
+      "C:\\Program Files\\nodejs\\node.EXE",
+      "C:\\DEV\\Nestbolt\\web\\node_modules\\vite\\bin\\vite.js",
+      "build",
+      "--outDir",
+      "C:\\DEV\\Nestbolt\\output\\h4-lto-probe-20261015T211442Z\\site-fat",
+      "--emptyOutDir"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 1.7691159999958472
+  }
+]

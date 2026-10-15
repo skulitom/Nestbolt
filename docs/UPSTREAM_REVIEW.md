@@ -64,3 +64,12 @@ condition is not triggered. [Sparrow](https://github.com/JeroenGar/sparrow)
 still describes strip packing, [Deepnest releases](https://github.com/deepnest-next/deepnest/releases)
 still mark v1.5.6 latest, and the [LightBurn early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
 still describes 2.2 Pro True Nest. No competitor code or software was changed.
+
+Rechecked on 2026-10-15 while returning to N3 after H3 completion. The
+[Studio README](https://github.com/JeroenGar/sparrow-studio) still excludes
+automatic allocation across sheets and nesting inside holes, so the stop
+condition is not triggered. [Sparrow](https://github.com/JeroenGar/sparrow)
+still describes a strip solver. [Deepnest's release list](https://github.com/deepnest-next/deepnest/releases)
+still marks v1.5.6 as latest; the [LightBurn 2.2 early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
+still limits True Nest to Pro. These are current documentation observations,
+not new performance measurements or installed-software changes.
