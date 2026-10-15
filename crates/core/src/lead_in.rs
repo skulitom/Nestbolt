@@ -512,14 +512,27 @@ pub fn prepare_sources(
     options: Options,
     exclusions: &HashMap<String, Vec<Exclusion>>,
 ) -> Result<Prepared> {
-    prepare_filtered(job, sources, options, exclusions, |_, _, _| Ok(true))
+    prepare_filtered(
+        job,
+        sources,
+        options,
+        exclusions,
+        &mut OwnerFitCache::new(),
+        |_, _, _| Ok(true),
+    )
 }
+
+// Scoped to one preparation/finalization with fixed source geometry, units and
+// lead options. Local owner fit is identical for every rigid copy. Never cache
+// previous leads, exclusions, stock or the placement-dependent accept callback.
+type OwnerFitCache = HashMap<(String, usize, usize, u64, u64), bool>;
 
 fn prepare_filtered(
     job: &Job,
     sources: &source::Sources,
     options: Options,
     exclusions: &HashMap<String, Vec<Exclusion>>,
+    owner_fit: &mut OwnerFitCache,
     mut accept: impl FnMut(&str, usize, &[Path]) -> Result<bool>,
 ) -> Result<Prepared> {
     options.validate()?;
@@ -657,27 +670,41 @@ fn prepare_filtered(
                         path(attachment, forward, side, actual, angle, options.style)?,
                         path(attachment, reverse, -side, actual, angle, options.style)?,
                     ];
-                    let shape = leads::footprint(&paths, options.kerf_mm)?;
-                    if owner.fits(&paths)?
-                        && previous
+                    let key = (
+                        part.id.clone(),
+                        index,
+                        start.segment,
+                        start.parameter.to_bits(),
+                        actual.to_bits(),
+                    );
+                    let fits = match owner_fit.entry(key) {
+                        std::collections::hash_map::Entry::Occupied(entry) => *entry.get(),
+                        std::collections::hash_map::Entry::Vacant(entry) => {
+                            *entry.insert(owner.fits(&paths)?)
+                        }
+                    };
+                    if fits {
+                        let shape = leads::footprint(&paths, options.kerf_mm)?;
+                        if previous
                             .iter()
                             .map(|p| shape.compare(p, 0.0))
                             .collect::<Result<Vec<_>>>()?
                             .iter()
                             .all(|p| p.overlap_area == 0.0)
-                        && accept(&part.id, index, &paths)?
-                    {
-                        reservation = Some((
-                            Reservation {
-                                contour_index: index,
-                                start,
-                                length_mm: actual,
-                                shortened: actual < options.length_mm - EPS,
-                                paths,
-                            },
-                            shape,
-                        ));
-                        break;
+                            && accept(&part.id, index, &paths)?
+                        {
+                            reservation = Some((
+                                Reservation {
+                                    contour_index: index,
+                                    start,
+                                    length_mm: actual,
+                                    shortened: actual < options.length_mm - EPS,
+                                    paths,
+                                },
+                                shape,
+                            ));
+                            break;
+                        }
                     }
                     if len <= MIN_LENGTH_MM + EPS {
                         break;

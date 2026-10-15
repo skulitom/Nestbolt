@@ -1,0 +1,224 @@
+{
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.5159999999959837
+    },
+    {
+      "name": "lint",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 4.25
+    },
+    {
+      "name": "lead-unit",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "lead_in::tests"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 59.43800000000192
+    },
+    {
+      "name": "lead-integration",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--test",
+        "lead_lightburn",
+        "--test",
+        "lead_surfaces"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.4210000000020955
+    },
+    {
+      "name": "mcp-leads",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "nestbolt-mcp",
+        "--test",
+        "connection",
+        "lead"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 30.437999999994645
+    },
+    {
+      "name": "cli-release",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 67.90600000000268
+    },
+    {
+      "name": "cli-build",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--bin",
+        "nestbolt"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.26600000000325963
+    },
+    {
+      "name": "browser-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 45.29699999999866
+    },
+    {
+      "name": "browser-leads",
+      "command": [
+        "npx.cmd",
+        "playwright",
+        "test",
+        "--workers=2",
+        "--grep",
+        "LightBurn leads|lead allowances"
+      ],
+      "cwd": "web",
+      "exit_code": 0,
+      "seconds": 8.796999999998661
+    },
+    {
+      "name": "frozen-integrity",
+      "command": [
+        "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+        "scripts/shop_freeze.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 1.8280000000013388
+    },
+    {
+      "name": "native-layout-recheck",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/h6_lead_source_recheck.py",
+        "benchmarks/results/h6-lead-settings-20261015T102840Z",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h6-material-checks-20261015T124147Z\\recheck"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.6089999999967404
+    }
+  ],
+  "date": "2026-10-15T12:45:27.102986+00:00",
+  "affinity": "CPU16-31; retained native-layout recheck CPU0",
+  "held_out_geometry_read": false,
+  "source_working_sha256": "15e24f097df57b6b2c59127ff25ae859e982f6dfb4040ccf6733a3d05c4a386e",
+  "source_committed_sha256": "cb41abcead76b0f6f7e01aeecb4b506112d89e6d37a790f856b05cce43172201",
+  "existing_CRLF_to_LF_only": [
+    "crates/core/Sparrow_LICENSE",
+    "crates/core/src/sheets/vstrip.rs"
+  ],
+  "binary_sha256": "b36bfd0a835c873523b260a0f279b7fed1df7afcc2025e782ff17fa35f4ff147",
+  "optimized_owner_cache_regression": "cargo test --release --locked -p nestbolt-core reused_owner_fit_checks: passed",
+  "original_native_coupon_recheck": "coupons/checks.json",
+  "counts": {
+    "lead_unit_property": 18,
+    "core_lead_integration": 4,
+    "mcp_lead_integration": 2,
+    "optimized_cli_features": 23,
+    "focused_browser": 4
+  },
+  "frozen_integrity_files": 1181,
+  "pilot_archives_verified": 28,
+  "artifacts": {
+    "browser-build.log": "c414d15530ef952d0c6b8ede0e6cf56ad1f7f36a4e22d6b2ad0080b1077d029b",
+    "browser-leads.log": "3e033564ebe47117a76f9d4caa456ef011bac3d85bcb3d1894cf89065afd8d9d",
+    "cli-build.log": "09f2b93c4bce5bfb43dca18ca8d9c1dca2831c7d2ffb73b00b96f8f73a607f86",
+    "cli-release.log": "9ae4bad38bc15b0047e5bbf6b967d023e198bb2c8a56fb44fafead61a7fde70f",
+    "coupons/arc45/arc45.svg": "e261f535ed0e76315d5cbd4d82808ffb69c4ac07f3bd5a44cf6c24bc65b1c10d",
+    "coupons/arc45/export/sheet-0.dxf": "50097ba0746d8f82ef9611575d4ddf4c1deb6f1a36b4a906afce436d97d24051",
+    "coupons/arc45/export/sheet-0.svg": "5103123445c051b02e91319a1d939074cb64634f4844b25be031c9777ec07093",
+    "coupons/arc45/layout.json": "145da8c5bc45825cb5622336608673a6dbf71d8008faf0c1e74e4132d595d9bc",
+    "coupons/arc45/library.json": "e2130ed58e769ecbb7107a8995ab0d7d6bd13c62f76be9a5a072b9ea12509589",
+    "coupons/arc45/report.json": "1451e8864b8870d368b9da9e8a8a84662852e2de4054f1f9649f29a1b95174b7",
+    "coupons/arc45/request.json": "bbd7400ccd59c956916aedf1ead27ec60779116e9b5f924c31c039635f02d1fb",
+    "coupons/arc90/arc90.svg": "f632b1d47440c96b8d710567dc4991c564057df7c038a06a98c2f0b11ba286b5",
+    "coupons/arc90/export/sheet-0.dxf": "20f6f6c070f7d49b3ddf3ffadb56ae60a82c0945e59f3cb891f11f5e7bff8976",
+    "coupons/arc90/export/sheet-0.svg": "1afde4abb32c15c6648ede818d62a659945757c788eea117f1c56e430819c653",
+    "coupons/arc90/layout.json": "29585be765af8e38f6592f53111764f37501838dedb49e53783012c2e83fe20a",
+    "coupons/arc90/library.json": "277753ac95874fe1887e5ad0789ea85cfa9b53df022a077b87aaf1f48a55c06a",
+    "coupons/arc90/report.json": "f9d2952b33e89b52272197d40d2c5c20142d7e50f4e645a8d753cd0acfe4bc13",
+    "coupons/arc90/request.json": "25001d3e062cea33107c4a0afe0f480e7cdb01ac30ca3f0c4ea1c4311e75d91d",
+    "coupons/checks.json": "65a9e69998ed59ee9196f727257c03f00ff035b6dd611bd5641f70e5b8109c0c",
+    "coupons/line45/export/sheet-0.dxf": "ec70ff5fb3ebf7e8d6376ac11a1ce5e8272e312c8a722f93c757a5e47afe5541",
+    "coupons/line45/export/sheet-0.svg": "0a9225ed7bb01848842f8f1152be6c102d70f682bc7d46bfde95c4fd513147fc",
+    "coupons/line45/layout.json": "204e110dd0a46d3259308a6193821acc80f8e5d5dc5e781ed362bee94861df50",
+    "coupons/line45/library.json": "dbea4fece4a5d297ae853cb9f2ac5a760b25a0236fba7902955b154bcd42adfa",
+    "coupons/line45/line45.svg": "f632b1d47440c96b8d710567dc4991c564057df7c038a06a98c2f0b11ba286b5",
+    "coupons/line45/report.json": "cfb6c33a5b0abc103623ec097d635b7cf096a3e19cb20cecbfd6f2cb94903720",
+    "coupons/line45/request.json": "18b2e391e9459a0ce66b6c8a8f6d2c0ee0aa899bf4a29a8cddc13506f30a6cb2",
+    "format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frozen-integrity.log": "c73e800f3d06eea7fcbeed83c644397fc2b489185a9b1732336c0bd377abb000",
+    "lead-integration.log": "a8b7f14b1e0386aae5a1a8b1959ef91ca2a16d6a52244a4aaae7a2e4b49372a3",
+    "lead-unit.log": "6240b06c0974638d60521ac302e688f6d8e5fb6328fda072e56194ca4298ba96",
+    "LICENSES.md": "fcfa7f13c822209b25402382357761ae3835055946b0ff5e97b2acf8ba2d1d6a",
+    "lint.log": "b7bcc4c83f8189a3bd760de1e79b1e030a155c7c2ddd06b681c5a1552e60c2a8",
+    "mcp-leads.log": "2e312a3d8e6e3eb9fb880627280a4e85c22eceff0874ebe74d1ddca632a48ba6",
+    "native-layout-recheck.log": "d847607be324441c9d156bc70bfc9400176b827f047aa31f0c9c0fd6b2a62578",
+    "recheck/arc/export.log": "f47051deaefca14a3d82b5e40ffe10357125a040e9334cfa9ca21bd6db7d5f10",
+    "recheck/arc/report.json": "c366c11c15d84695eba51658d4ac84784f80a5f3d2f0b1b2bad527ce90622cf9",
+    "recheck/arc/sheet-0.dxf": "51c8b3f736fa4a452f930911ad005c6e54021d0aeaaa2c0fdd250ca7ef067300",
+    "recheck/arc/sheet-0.svg": "b0a8088b55912c649b4b466ea710786b70f4c34180cb1c5976852efc66847552",
+    "recheck/checks.json": "5a71c732529f9ef59422ee098cec0e78ddf63fdbecc9d262dd9b2bb07b30e2da",
+    "recheck/line/export.log": "f0d06f50e2062af3de7addb01cb67070ff2187169cec1b4356b10ee1bb324ab5",
+    "recheck/line/report.json": "8870228254ad3dad0c10a277e48499d9a1f14a73a65d441e40e91ae7c3be2766",
+    "recheck/line/sheet-0.dxf": "34687bf8c022b7f51b149fffbc6e7e39b4899d3e076159c519cf454f8a48ff2a",
+    "recheck/line/sheet-0.svg": "500e36814b8d5ae2189709618ff00f06d0f61321d9ad3037219296c528112c8c"
+  }
+}

@@ -138,6 +138,68 @@ fn prepare_plain(job: &Job, options: Options) -> Prepared {
 }
 
 #[test]
+fn reused_owner_fit_checks_keep_copy_obstacles_and_exclusions_independent() {
+    let mut polygon = rectangle(0.0, 0.0, 30.0, 20.0);
+    polygon.holes.push(rectangle(10.0, 10.0, 0.4, 0.4).outer);
+    let original = job(polygon);
+    let sources = source::from_outlines(&original, &HashMap::new()).unwrap();
+    for style in [Style::Line, Style::Arc] {
+        let options = Options { style, ..options() };
+        let mut cache = OwnerFitCache::new();
+        for (accept, exclude) in [(true, false), (false, false), (true, true), (true, false)] {
+            let exclusions = if exclude {
+                HashMap::from([(
+                    "plate".into(),
+                    vec![Exclusion {
+                        contour_index: 0,
+                        from_mm: 0.0,
+                        to_mm: 100.0,
+                    }],
+                )])
+            } else {
+                HashMap::new()
+            };
+            let cached = prepare_filtered(
+                &original,
+                &sources,
+                options,
+                &exclusions,
+                &mut cache,
+                |_, _, _| Ok(accept),
+            )
+            .unwrap();
+            let fresh = prepare_filtered(
+                &original,
+                &sources,
+                options,
+                &exclusions,
+                &mut OwnerFitCache::new(),
+                |_, _, _| Ok(accept),
+            )
+            .unwrap();
+            assert_eq!(
+                serde_json::to_value(&cached.parts).unwrap(),
+                serde_json::to_value(&fresh.parts).unwrap()
+            );
+            assert_eq!(
+                serde_json::to_value(&cached.collision_job).unwrap(),
+                serde_json::to_value(&fresh.collision_job).unwrap()
+            );
+            assert_eq!(
+                cached.parts[0].reservations.len(),
+                usize::from(accept && !exclude)
+            );
+            assert_eq!(
+                cached.parts[0].flags.len(),
+                2 - usize::from(accept && !exclude)
+            );
+        }
+        assert!(cache.values().any(|fits| !fits));
+        assert!(cache.values().any(|fits| *fits));
+    }
+}
+
+#[test]
 fn native_tenth_mm_setting_is_the_actual_reserved_path_length() {
     for style in [Style::Line, Style::Arc] {
         let result = prepare_plain(

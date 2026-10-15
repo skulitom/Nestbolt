@@ -1,0 +1,902 @@
+{
+  "scope": "Paired public-CLI allowance cost on the frozen H5/H6 development set.\n\nBoth arms use common-line mode, with its search bonus off, at the same kerf.\nOnly the lead setting differs. All outcomes, flags and raw files are retained;\nfailures receive no material score. This is not final acceptance or H5 savings.\n",
+  "started_at": "20261015T123025Z",
+  "product_commit": "1619370987e32ae9071814ff3943a5dfa4fc2954",
+  "guards": {
+    "product": "dc7edf38ea9557509de1459c2e718f2fe810e9d15b0013851fd6d012e36a505b",
+    "binary": "8dbcb0d698aeb5aa9e5d550e5122abcd792b7883dc18fa6eb9cfc0b659381923",
+    "runner": "3180ad8c940ad95505932ca636bc176ba50e711632ae4afd8ec0b9a99a6a0768",
+    "dataset_script": "04b849cd11d9c9f4f601835965f15a846918d1c42b5436ece4f02c10916a960d",
+    "manifest": "922d36732c6e7624b1c5501c8320effb12b33f37d7361cc5d5856b28d19ca814"
+  },
+  "jobs": [
+    "m-box-batch-500",
+    "m-box-mini",
+    "c-bracket-mixed"
+  ],
+  "kerfs_mm": [
+    0.2,
+    1.5
+  ],
+  "seeds": [
+    0
+  ],
+  "seconds": 2.0,
+  "cpus": [
+    0,
+    2,
+    4,
+    6
+  ],
+  "wall_timeout_seconds": 182.0,
+  "validation_timeout_seconds": 180,
+  "held_out_geometry_read": false,
+  "work_directory": "output/h6-material-pilot-20261015T123025Z",
+  "finished_at": "2026-10-15T12:31:09.539254+00:00",
+  "rows": [
+    {
+      "job": "c-bracket-mixed",
+      "job_sha256": "a02e94fa53d9700ebda49d75ac59653e42c57b0bcc50caf86377516657da27aa",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "baseline",
+      "seconds": 2.0,
+      "cpu": 0,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-baseline\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-baseline\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 1.8355043000046862,
+        "cpu": 0
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-baseline\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-baseline\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.030147400000714697,
+        "cpu": 0
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "5c77e1b620bf814321e0d1b2a388842103dc101f490b99f4ca9c079202f73b33",
+        "nest-stderr.log": "73a4771594237e13666140436a81d064a406cf24f38cc2a16a42433579a53a72",
+        "nest-stdout.json": "4a5e9a2fd6a73dcb211adc7a8cf413c539a06ce530db577b211790f90b57f306",
+        "nested/job.json": "d158c6dee22e7ec7cb0efe6807c151d9aaac8699d2908af419f0191a3df4ad14",
+        "nested/layout.json": "6e266dafb389274081c229d428b406daa8f8a94bd8409b6cba4e824df3454993",
+        "nested/report.json": "4dd5ea2cd9fb69e73e87342644c5154f792b30af3ba0dcf17cfb48e5bf2f31f1",
+        "nested/request.json": "e2575ad85685bbb388eea50a72846401281f669298c8e319372f3724ce91dcba",
+        "nested/sheet-0.dxf": "598f41f4203191e3756628cb961728339b351cb21b3edab893873c5717137ae8",
+        "nested/sheet-0.svg": "eeca50b7f8b941209a79e071236b81bbedadd3d17e3e48cdaa9448bfcb131935",
+        "nested/sheet-1.dxf": "24d8864686371e2918708a76ae3fa90eb7b77d191b4c5aa68bd62b91c2068c72",
+        "nested/sheet-1.svg": "8be74e0dee511b2e6c569ae70e944472bca54cc35220c2e8780145fea5c90921",
+        "request.json": "bb94c5c09fb69062a2c1acb2da7c67551ad00e10e89d2ff890911d2ef8bb43f8",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "7b5763766af97ddafc96d6fd5b591de5387e353ff3f603873a292615d339e459"
+      },
+      "archive": "c-bracket-mixed-k0.2-s0-baseline.zip",
+      "archive_sha256": "0b1f94c7e4990148fefbeb939e3e763df3ca982d0e88e69ed72033b6be67d93f"
+    },
+    {
+      "job": "c-bracket-mixed",
+      "job_sha256": "a02e94fa53d9700ebda49d75ac59653e42c57b0bcc50caf86377516657da27aa",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "leads",
+      "seconds": 2.0,
+      "cpu": 6,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-leads\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-leads\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 2.002924799999164,
+        "cpu": 6
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-leads\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k0.2-s0-leads\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.1298330999998143,
+        "cpu": 6
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "5c77e1b620bf814321e0d1b2a388842103dc101f490b99f4ca9c079202f73b33",
+        "nest-stderr.log": "52dddc3c0246e01a8e5dbf8fdb56d9f71775f81eb3fd2211a916f00d92c16b93",
+        "nest-stdout.json": "e828b4fb7b82dc51477389d516d73ee10d9b207f6e7de3b888eb4f59a11b49cc",
+        "nested/job.json": "d158c6dee22e7ec7cb0efe6807c151d9aaac8699d2908af419f0191a3df4ad14",
+        "nested/layout.json": "07a516400c05832706154349eb1ae9588696eec539d5272dd66c0ad2b5bfa348",
+        "nested/report.json": "10c94013f1406220bd5bd608c1b213ef1c3c3b65ab9e02d185ac78700eb2d15b",
+        "nested/request.json": "30d44f467eec97cfdbfb4024952511afa87dfbcf9726ce3af16e8634606a0854",
+        "nested/sheet-0.dxf": "ab9a31cbcaf98830ce7699dbef3847fb31a850d914e3a7a60ae6987c07c8a0f5",
+        "nested/sheet-0.svg": "71e0896ba710092cbd6a0aa8519abb35ea9def73a25e69edaffcd710974d2902",
+        "nested/sheet-1.dxf": "6e19f39782af1afb3dc8aca0b12643f933faa0458066f7ca34d2dd3c8aa0a6aa",
+        "nested/sheet-1.svg": "e15d5ba60ce33ad12c0e59adf765b5c6ee52ebbb93e0f8b5959ef6bb1175e2cf",
+        "nested/sheet-2.dxf": "70c1c6fdc261e332366524f74ac9e09f483c9f445b436245c6f921727d9ccc7f",
+        "nested/sheet-2.svg": "f3e896c262e3355b1453d43dbaad2a03df8ad4214725af288decd82a2c801278",
+        "request.json": "9fe0b40d14d65875d3a156d1b5dc3a9b291174a2117d51db0236a83f4ed3e7d5",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "2a6a3c8ee8084fbf14ef389fe4d1bfe202b197d379dac9a01f79b4dd26ed7a8b"
+      },
+      "archive": "c-bracket-mixed-k0.2-s0-leads.zip",
+      "archive_sha256": "3b470cacb815aff098154bb6dd1416314fc31a741ccf79580ec99d0122621d89"
+    },
+    {
+      "job": "c-bracket-mixed",
+      "job_sha256": "a02e94fa53d9700ebda49d75ac59653e42c57b0bcc50caf86377516657da27aa",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "baseline",
+      "seconds": 2.0,
+      "cpu": 0,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-baseline\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-baseline\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 1.8105309999955352,
+        "cpu": 0
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-baseline\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-baseline\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.030639999997220002,
+        "cpu": 0
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "5c77e1b620bf814321e0d1b2a388842103dc101f490b99f4ca9c079202f73b33",
+        "nest-stderr.log": "bd6b608e47b3fb5f43e54eb8e5b99a8bd5c64be9572796e7115e1e36d77fb5ef",
+        "nest-stdout.json": "1c3d470e5c94a08770e271515efe658834fd6e18160d6be68765e9d90400a217",
+        "nested/job.json": "8dabd5ac6edddaee811a273199a88d8b82a606cf1e21b430729957f3516a40f9",
+        "nested/layout.json": "56543d682203e47b28a6dee5c54fb8a74fdb6ed0e1c5e2f73bf52d2c1f84a655",
+        "nested/report.json": "a93720ea6a78f03368e4595303c8477923494d8b0e3b83985603e16f51de4d7a",
+        "nested/request.json": "62751960142989c49ce7db76403e199bafccc9e64401ea7475848f3861cdf58a",
+        "nested/sheet-0.dxf": "e6c675e0045a8d1cbd9ddc0d90b57da86c7ffe907255190974347c55898173c3",
+        "nested/sheet-0.svg": "a4630858deb32acb8346220f33e71f5ec4cfc6d362085d4d68f42a65284217b0",
+        "nested/sheet-1.dxf": "cd6d18b25d539a75e72949afb9563a580bd6a9122b924e2fce5e546b029934eb",
+        "nested/sheet-1.svg": "4e09c053911f307b9c12a141a65702b6009296f4c60b0ebdf3653c01d612b2d4",
+        "request.json": "832122a6a48d66ba427f7e9fbd97d79a230d41d757bec7b1396d01bfc35c81a5",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "d4d0018c5dab4ec792e354f4070f0053623423663985b8be5487577318bd5704"
+      },
+      "archive": "c-bracket-mixed-k1.5-s0-baseline.zip",
+      "archive_sha256": "9a49d4a38be077d97672d571c51b3dad0bda120a9ffc0225cf71c1613771bf38"
+    },
+    {
+      "job": "c-bracket-mixed",
+      "job_sha256": "a02e94fa53d9700ebda49d75ac59653e42c57b0bcc50caf86377516657da27aa",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "leads",
+      "seconds": 2.0,
+      "cpu": 6,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-leads\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-leads\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 2.4161893999989843,
+        "cpu": 6
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-leads\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\c-bracket-mixed-k1.5-s0-leads\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.3523821999988286,
+        "cpu": 6
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "5c77e1b620bf814321e0d1b2a388842103dc101f490b99f4ca9c079202f73b33",
+        "nest-stderr.log": "05758f8c5299f09f95dde3d4fe6e31fb7bd63bc31c674f42c75c5823c78272d8",
+        "nest-stdout.json": "490c7107ed58c90998e642e82af0ba3e89fb30df65c163bfb6f4d70553001be9",
+        "nested/job.json": "8dabd5ac6edddaee811a273199a88d8b82a606cf1e21b430729957f3516a40f9",
+        "nested/layout.json": "2ddf5c874f5555a6d2baae24ac6699779f942d94b65a40a5c317180e6f2f140a",
+        "nested/report.json": "0c0e9a866279a7a1d138109b11b303e9115616912283150b75fa369bee4d2cb0",
+        "nested/request.json": "aa39922daf2c800fc27cf3d700ecb6dc2a55f51754ff97caff7bb7d142463fbc",
+        "nested/sheet-0.dxf": "5f70ee2d636eb86738a6832905b6b01ae7af4bea593277884d9fb5609e816984",
+        "nested/sheet-0.svg": "9d7325f7f08df53fd4096b824f8f1d55054f9fce905520e579ca32e753a64cb8",
+        "nested/sheet-1.dxf": "334eaceb8f207569f5cc40fadc27b19a7fa0640c632d222996093bbf5828c18c",
+        "nested/sheet-1.svg": "5a2229476ae255724b7c7efdbc446d3fa0b839054a4ae9ee221ff57dddb30f6f",
+        "nested/sheet-2.dxf": "b596de3a4fcb9f0da1639f0fabbfac7f6e4b72257c6e7071f6514dfe86043008",
+        "nested/sheet-2.svg": "c53e2b5cf966043acc601e1bb65cb2898871597372985e49b0f3020285352f8b",
+        "request.json": "88ac33279560de95977d1662996a7d736ec46725c62564daa27d38697df8dc51",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "cc1c773ecb6c45bdfa3bfedaf140adf10918ef906ee76b1edd793d8ab9bdb5d6"
+      },
+      "archive": "c-bracket-mixed-k1.5-s0-leads.zip",
+      "archive_sha256": "95a4be43e86986096adca60245f9dbe4afbd058f40df3479fa264fb426f2b54d"
+    },
+    {
+      "job": "m-box-batch-500",
+      "job_sha256": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "baseline",
+      "seconds": 2.0,
+      "cpu": 0,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-baseline\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-baseline\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 3.308014299997012,
+        "cpu": 0
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-baseline\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-baseline\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.30591419999836944,
+        "cpu": 0
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "cd3cada04562924733ba6be0aeeb7376346761ecb54c47bcb4a17dd57662cb04",
+        "nest-stderr.log": "efa1ed75e3fec8f84a2ce85332664f52ddb34f3dd02906be05d16545c537789c",
+        "nest-stdout.json": "0b860926d6e3c0ccd91a173f35707c42444413d49594c4a3ed3fcb1866a5ee69",
+        "nested/job.json": "8191fc54775f2235111b41320c4982678317fc01006a2d4bc8eb8089dbbeac12",
+        "nested/layout.json": "49d36db78d032a033bd89e9da519ee4bcda41bde7fc8badd70cb5040fb8ea0b9",
+        "nested/report.json": "538035ff9567052f8a387277452b782de5d8f2490a0d03b86fb8b76cca621cd0",
+        "nested/request.json": "a7113c281586fcb024a4557876da2b3a2d438aa02a56309d47c65aafff47272b",
+        "nested/sheet-0.dxf": "6cfb3a5a7353e15240f40a395c353ffd3bf6a345e9da5726100cf38a8968cc0b",
+        "nested/sheet-0.svg": "8bf29335f3b959288b8b56d78b9dc9cb5ecf73d38ecbe0721538541e212ccd31",
+        "nested/sheet-1.dxf": "543cec5fd0558e373a76e61be58312186b67d1e691f0a0ad812447b23e002264",
+        "nested/sheet-1.svg": "433cadd4859b663ff07ff140ce8957d62ee9d529a986eb8f923eb72bf64c6aa3",
+        "nested/sheet-2.dxf": "4ca98873cce2e626e982794efb06a231406e376bcabb9f4502bd8e8110556e62",
+        "nested/sheet-2.svg": "3d6f738b6b5b19911604f22c739460c936c5c4336e604d94b25ea336ff2ad5ed",
+        "request.json": "498261fc70c4388f28eea9f3ccad48dee3b4eb43d456adc9df997d1c9fc37655",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "f3279d25ee0f82d1dfeee7a6a374496297fd3c3b93233c14a07fb91a86a45629"
+      },
+      "archive": "m-box-batch-500-k0.2-s0-baseline.zip",
+      "archive_sha256": "5cfbf4da6de818fd593d1fab98b0bf52880016bc926d47249dc2339e1d80cbfd"
+    },
+    {
+      "job": "m-box-batch-500",
+      "job_sha256": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "leads",
+      "seconds": 2.0,
+      "cpu": 2,
+      "status": "valid",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-leads\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-leads\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 32.29865240000072,
+        "cpu": 2
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-leads\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k0.2-s0-leads\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 11.548468000000867,
+        "cpu": 2
+      },
+      "material": 2.139953718032787,
+      "metrics": {
+        "sheets_used": 3,
+        "placed_parts": 500,
+        "requested_parts": 500,
+        "placed_area": 5511600.0,
+        "placed_priority": 500.0,
+        "full_stock_area": 8930400.0,
+        "material_area": 6370214.22784,
+        "normalized_material": 2.139953718032787,
+        "utilization": 0.8652142303020888,
+        "trailing_offcut_area": 2560185.77216,
+        "last_sheet_id": "sheet-2",
+        "last_sheet_used_height": 341.487072
+      },
+      "cut_without_common_mm": 335200.0,
+      "cut_with_common_mm": 335200.0,
+      "coverage": {
+        "expected_contours": 4300,
+        "reserved_contours": 4300,
+        "flagged_contours": 0
+      },
+      "artifacts": {
+        "library.json": "cd3cada04562924733ba6be0aeeb7376346761ecb54c47bcb4a17dd57662cb04",
+        "nest-stderr.log": "364dbeb329f03c90c6797f59924a99b5d4900ea8377e2f37d0ece297dbd20336",
+        "nest-stdout.json": "d5b296417acfdbfaa4cc36c1835cf2cdf45f6ee2ec54cfce61a237c5828ad101",
+        "nested/job.json": "8191fc54775f2235111b41320c4982678317fc01006a2d4bc8eb8089dbbeac12",
+        "nested/layout.json": "b1208b25133459425a293379e7131dc7e1c0f9e887f08b1e4e0f4605778b19c9",
+        "nested/report.json": "fcf8691d98ebf51846ab35757aa56dea3db887c7469138355d8e6548bd8f56e7",
+        "nested/request.json": "b5c8cf6800f64ce21fa8adace1ceda69122c04ab31494feead5859668154895d",
+        "nested/sheet-0.dxf": "4901abb34b7c2b80d6f42806e13858b9c2d2b751f96c59afca795c0974c54308",
+        "nested/sheet-0.svg": "1df2994f0eebec3fca942fdfd2d160729c1b2427610a37987401dde53885923c",
+        "nested/sheet-1.dxf": "199ca52f1adc19461b0c50e97615b63d2b9d2067c6b6bbfe721e52151b97fe64",
+        "nested/sheet-1.svg": "4c8233c3ebeecb3cb08f3abd8118b946e7b26c86eecc1fbc8cc119655226bef3",
+        "nested/sheet-2.dxf": "ad6f4d7a3f12ff2750d434a253a8abe12d5c6daa2cab9a3ea54faccf365f8b50",
+        "nested/sheet-2.svg": "d6818b13513573814012715f2681504057d5b390fb58dcefcb001b5fa92d5b91",
+        "request.json": "0b474a61ce659a42da24f89173ccb85e63e03264d6ad10b4d9f3333d1fe8cd65",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "1e32f6cf7bf0b5f6d114f2d3da298ea1e03f9b25f718103344ba35bc76e96f75"
+      },
+      "archive": "m-box-batch-500-k0.2-s0-leads.zip",
+      "archive_sha256": "2d0a9b8831783b488bbb4b6b4687b02f68c5cc85cd39a86274158225076b1a80"
+    },
+    {
+      "job": "m-box-batch-500",
+      "job_sha256": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "baseline",
+      "seconds": 2.0,
+      "cpu": 4,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-baseline\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-baseline\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 3.2206498000014108,
+        "cpu": 4
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-baseline\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-baseline\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.29627569999865955,
+        "cpu": 4
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "cd3cada04562924733ba6be0aeeb7376346761ecb54c47bcb4a17dd57662cb04",
+        "nest-stderr.log": "ccb4a6cac15d1f0b6837b036c78c294e8660bc6112443d4f1697b8495d97093f",
+        "nest-stdout.json": "dd1306022f5c3b5c5875fe7863e51b786119bb9378d7d22f35c38d42a58f7a93",
+        "nested/job.json": "b4255bbb8df9649455653a7e8b79f77bccb5d20875aad66130905669eaec13be",
+        "nested/layout.json": "6a6bdb26d73839ff17a544f529486ae6176aa6a41c0ded4378fbf27cf8640f7f",
+        "nested/report.json": "687e52d40e7caf6a6f622cd0ccbad4831d934907afda5981ea0b968e2f47b65f",
+        "nested/request.json": "4c3487caf4febab55b4624e36a9ba9b38f701f06dceb80e145fd8ebc09126659",
+        "nested/sheet-0.dxf": "8935340625bc7ce0d7c2afae53019e1772b7e6895e374c5978dca59f1f91cd36",
+        "nested/sheet-0.svg": "2d03891273dd4592e6a87c6dd797fd4799b33f33c6422ba813c205f8a6da2a4a",
+        "nested/sheet-1.dxf": "8d732da6139c5b2efe0fdc7d63dae133a46018f95e05319a90e7f8d13bc153f3",
+        "nested/sheet-1.svg": "fb9147630865c3bb2681fb29b8566759faa2a9bdf0fec74df85f64eb5ec8c42a",
+        "nested/sheet-2.dxf": "7d018f9feda20865519eac34311bb2c75bb59f53e0d1628f670a456838a67efb",
+        "nested/sheet-2.svg": "46380bad72cbfe275c60c584ae2eba57032971b99f05fb20e00f514cedfc693d",
+        "request.json": "dac062b502ce7a5ca0d271fc1992735eb2217470171108c9b921b9cc2f2c4c3d",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "85dd9c23c62aa76b6df1eafd7bc46b695a6a2ec627723ccd7f3340251b6192d9"
+      },
+      "archive": "m-box-batch-500-k1.5-s0-baseline.zip",
+      "archive_sha256": "9d98f99dc4c5a7d304fdad019e2558e21bcdba6cb4f59d329485ed9ed0537fe6"
+    },
+    {
+      "job": "m-box-batch-500",
+      "job_sha256": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "leads",
+      "seconds": 2.0,
+      "cpu": 6,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-leads\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-batch-500-k1.5-s0-leads\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 1,
+        "elapsed_wall_seconds": 3.6901058000003104,
+        "cpu": 6
+      },
+      "artifacts": {
+        "library.json": "cd3cada04562924733ba6be0aeeb7376346761ecb54c47bcb4a17dd57662cb04",
+        "nest-stderr.log": "805e76abd7e311ea20dbc27e76ff9c2df2970720ed35f6d2be96c95ee894e60e",
+        "nest-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "request.json": "2858c24e222994d1f7e0a4e74041fa9cb1aaf55b4d15f7d122eaa95534fd96ba"
+      },
+      "archive": "m-box-batch-500-k1.5-s0-leads.zip",
+      "archive_sha256": "cb78e53ca4e7efa320bb80e19b4f3ea50cce11fd7f5c2709df473597a0d3b0c6"
+    },
+    {
+      "job": "m-box-mini",
+      "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "baseline",
+      "seconds": 2.0,
+      "cpu": 4,
+      "status": "valid",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-baseline\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-baseline\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 1.8119841000007,
+        "cpu": 4
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-baseline\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-baseline\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.030286000001069624,
+        "cpu": 4
+      },
+      "material": 0.6600004500000001,
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 20,
+        "requested_parts": 20,
+        "placed_area": 29904.0,
+        "placed_priority": 20.0,
+        "full_stock_area": 60000.0,
+        "material_area": 39600.027,
+        "normalized_material": 0.6600004500000001,
+        "utilization": 0.7551510002758332,
+        "trailing_offcut_area": 20399.972999999998,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 132.00009
+      },
+      "cut_without_common_mm": 4704.0,
+      "cut_with_common_mm": 4644.0,
+      "artifacts": {
+        "library.json": "1b129feb62b5fa34d0ceec8ed9609849849cc5f0834f0466ecdefe50f8092a70",
+        "nest-stderr.log": "9d88096f35a06771d765abb58de67bdd26dd8ae27159184cb4b3e04ed3468373",
+        "nest-stdout.json": "b221eb14e365079faa66d652f315448f94d4cdd3d5ecaa4be8f0f0c20b92063a",
+        "nested/job.json": "e96493a0b3e71262eb06bcb31c63be008b7abb5cd3f350376d982ea19dea25f4",
+        "nested/layout.json": "94eeaead94269d2d06187f7c55a2c28252afffc91373667b97a94d869554cb1c",
+        "nested/report.json": "4cccafe91522eec6f3266370992cf063d48dba2ab840f4c4ae885bc633c02425",
+        "nested/request.json": "f14eecdac5b710bf864c44c19330d66f01fafd24aa568118c852513d4d4ef3f1",
+        "nested/sheet-0.dxf": "103cbd32d38f5c3a355ab38aac63c9fe9088e2c248b65693330458f0afb0c2f0",
+        "nested/sheet-0.svg": "67ded5281fbd1d0f57016de05137aae449a04cc4ceebb30c99c55c25e240d107",
+        "request.json": "93ccd4d25e3a90435f7cded798d28e414d83985eedef934112d926d588a5920a",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "0787385e29d645f8bb2a2bf7cbc9f5d4bbfd423b4eb698bd2948d58c164db846"
+      },
+      "archive": "m-box-mini-k0.2-s0-baseline.zip",
+      "archive_sha256": "07402e19d8833fd3303d67a3fdc54b6f38c3438f56baa0f21e54ef4cd2bab5b3"
+    },
+    {
+      "job": "m-box-mini",
+      "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "leads",
+      "seconds": 2.0,
+      "cpu": 6,
+      "status": "valid",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-leads\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-leads\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 1.974047800002154,
+        "cpu": 6
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-leads\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k0.2-s0-leads\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.12596659999690019,
+        "cpu": 6
+      },
+      "material": 0.711866235,
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 20,
+        "requested_parts": 20,
+        "placed_area": 29904.0,
+        "placed_priority": 20.0,
+        "full_stock_area": 60000.0,
+        "material_area": 42711.9741,
+        "normalized_material": 0.711866235,
+        "utilization": 0.7001315352455226,
+        "trailing_offcut_area": 17288.0259,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 142.373247
+      },
+      "cut_without_common_mm": 4704.0,
+      "cut_with_common_mm": 4704.0,
+      "coverage": {
+        "expected_contours": 68,
+        "reserved_contours": 68,
+        "flagged_contours": 0
+      },
+      "artifacts": {
+        "library.json": "1b129feb62b5fa34d0ceec8ed9609849849cc5f0834f0466ecdefe50f8092a70",
+        "nest-stderr.log": "729eda7cf7f7c6977f3fea548dd15fc51800e2a8a3daf65b9b1950b7093f303e",
+        "nest-stdout.json": "4bf19413856d22972e3dfffb44ec12aefae71648e55d345b00b643174abbe40b",
+        "nested/job.json": "e96493a0b3e71262eb06bcb31c63be008b7abb5cd3f350376d982ea19dea25f4",
+        "nested/layout.json": "d6f0446560bd8f8a63736239fafea2556e06cab1dcac7758f888056c5de27a3b",
+        "nested/report.json": "5108e5e5812507eff99049021df50a4bd6b6d6491ca5c182b6a649ff2ecd950f",
+        "nested/request.json": "1e2fadb4d2af859776624781095eea83c9c41055d1247d4dc9106b6c4bddcb1c",
+        "nested/sheet-0.dxf": "164bdb90fe9725074344bf014e21c35fcd5266675bd96cfd0c1114d135bb55fa",
+        "nested/sheet-0.svg": "68c74660660b5a9f08cd4bac8e47545fcc522979d1876d3679af28795d6801dd",
+        "request.json": "d949eaff09fcd15a5b17afad5b7b784204e674c1a54e085aac11284b15bd15d7",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "8f67b3fa8cc0bc085bf16579f59d702f080f2ffe2d9f558c6fe0bd76dadfeec2"
+      },
+      "archive": "m-box-mini-k0.2-s0-leads.zip",
+      "archive_sha256": "debeb6fa6688e07bd5c81f10b6cc3cf6e067031afa1705a2cc0945cb31961624"
+    },
+    {
+      "job": "m-box-mini",
+      "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "baseline",
+      "seconds": 2.0,
+      "cpu": 0,
+      "status": "valid",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-baseline\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-baseline\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 1.8118729000052554,
+        "cpu": 0
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-baseline\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-baseline\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-baseline\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.030787399999098852,
+        "cpu": 0
+      },
+      "material": 0.72332115,
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 20,
+        "requested_parts": 20,
+        "placed_area": 29904.0,
+        "placed_priority": 20.0,
+        "full_stock_area": 60000.0,
+        "material_area": 43399.269,
+        "normalized_material": 0.72332115,
+        "utilization": 0.6890438638494119,
+        "trailing_offcut_area": 16600.731,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 144.66423
+      },
+      "cut_without_common_mm": 4704.0,
+      "cut_with_common_mm": 4704.0,
+      "artifacts": {
+        "library.json": "1b129feb62b5fa34d0ceec8ed9609849849cc5f0834f0466ecdefe50f8092a70",
+        "nest-stderr.log": "97e39ea8de4783ffeb0ab982583b0dabf7b81dd084c1fb11836f3506f7ea68b1",
+        "nest-stdout.json": "4fc1e45acb84e2e26d21dd0e8949d620d6ebf28a3546a9ca98ecad0e59050716",
+        "nested/job.json": "a2024847efad7143c5ddb2479fb34d1b4ac13e776c04dc3e7aa62c78966d2422",
+        "nested/layout.json": "d929fbe5057aa1c70212987754e1fcdb66e3793e8c5c252147be54b2f8c10605",
+        "nested/report.json": "98ba259a6f4ae2a68533f8c35a1d4ffc0ffe954ea6413581f9d549cedb901b21",
+        "nested/request.json": "21ba59d53f70aaaf352c4c051aa918e85e1df4400906a324d88a94b438046ffe",
+        "nested/sheet-0.dxf": "971483d09f5020b1b4070f6b58b1b48cf75ce6285a317e94bd74fd8e85512ca2",
+        "nested/sheet-0.svg": "cd46055fdb8af15fb26f082fc0f464603a673b989d30b01ad6cfb98e28cc84d1",
+        "request.json": "9234ad3233d7ac7a5a8a66d6072af68b26c636fa7e5cc5cb503222588ea8d9bd",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "8a3f88d83af7c542f5fefe3880ffb9ced09086ad0695576d39c6f695095278ae"
+      },
+      "archive": "m-box-mini-k1.5-s0-baseline.zip",
+      "archive_sha256": "a8ce33d2a4e13b9dadb52427e2dcd2848eb72000ad56d7752bbab4aaec985576"
+    },
+    {
+      "job": "m-box-mini",
+      "job_sha256": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "leads",
+      "seconds": 2.0,
+      "cpu": 4,
+      "status": "failed",
+      "nest": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "nest",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-leads\\request.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-leads\\nested",
+          "--seconds",
+          "2.0",
+          "--seed",
+          "0"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 6.483504999996512,
+        "cpu": 4
+      },
+      "revalidation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-leads\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-leads\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h6-material-pilot-20261015T123025Z\\m-box-mini-k1.5-s0-leads\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 2.028349200001685,
+        "cpu": 4
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h6_material_cost.py\", line 73, in case\n    assert checked['common_line']==report['common_line']\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "artifacts": {
+        "library.json": "1b129feb62b5fa34d0ceec8ed9609849849cc5f0834f0466ecdefe50f8092a70",
+        "nest-stderr.log": "8907111c36e2950d0017c508080fc49a1e3fbffd042196245e2b4a4873d4b7df",
+        "nest-stdout.json": "f9367f1f6525595bd48e176ac3a7bbda8aa8adff9e87effd91ab415d37d35626",
+        "nested/job.json": "a2024847efad7143c5ddb2479fb34d1b4ac13e776c04dc3e7aa62c78966d2422",
+        "nested/layout.json": "32349b0e9f5765dbe8a4b2c0243d8a5ea1c7450a8690944f120870ba9c89a7cf",
+        "nested/report.json": "2781b53c8e7f081f4c59b51e9b9e691b4fe095e9722662fa413e1dfd88d1693f",
+        "nested/request.json": "9304a9cec219fa5464820854589017aa89a219e2a14a6dfcf6e0356c1d62f7c3",
+        "nested/sheet-0.dxf": "fea425ebe49bc7259dc6f712b7eb574f674c6551a7a3ca7855e90ba6a4de8df8",
+        "nested/sheet-0.svg": "61b3c2aece2eb2323eadce50f790846bc57e45c208733702be3ac1020bec9eb5",
+        "request.json": "8fc56b0b9ae2629c9aab065391acc0f173d7d7264bb733b947cc54cbe099f817",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "ff2878c113eb0ce0efcfe4f421916bb9cf65e18fc8ee343ba5fa53580900f648"
+      },
+      "archive": "m-box-mini-k1.5-s0-leads.zip",
+      "archive_sha256": "cd47f6eddd12e41cfcfaea6408485033c2d1394c64b4eb8bc3c009f43675ee69"
+    }
+  ],
+  "pairs": [
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seeds": [
+        0
+      ],
+      "complete": false
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seeds": [
+        0
+      ],
+      "complete": false
+    },
+    {
+      "job": "m-box-batch-500",
+      "kerf_mm": 0.2,
+      "seeds": [
+        0
+      ],
+      "complete": false
+    },
+    {
+      "job": "m-box-batch-500",
+      "kerf_mm": 1.5,
+      "seeds": [
+        0
+      ],
+      "complete": false
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seeds": [
+        0
+      ],
+      "complete": true,
+      "baseline_median": 0.6600004500000001,
+      "leads_median": 0.711866235,
+      "material_cost_percent": 7.858446914695283,
+      "maximum_flagged_contours": 0,
+      "minimum_reserved_contours": 68,
+      "expected_contours": 68
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seeds": [
+        0
+      ],
+      "complete": false
+    }
+  ],
+  "valid": 4,
+  "total": 12
+}

@@ -1,0 +1,228 @@
+{
+  "valid": true,
+  "backend": "clipper2-rust 1.2.0",
+  "units": "mm",
+  "maximum_overlap_ratio": 0.0,
+  "maximum_total_overlap_ratio": 0.0,
+  "maximum_outside_ratio": 0.0,
+  "violation_count": 0,
+  "violations": [],
+  "metrics": {
+    "sheets_used": 1,
+    "placed_parts": 2,
+    "requested_parts": 2,
+    "placed_area": 391.68,
+    "placed_priority": 2.0,
+    "full_stock_area": 2100.0,
+    "material_area": 894.6696,
+    "normalized_material": 0.42603314285714283,
+    "utilization": 0.43779290142416827,
+    "trailing_offcut_area": 1205.3304,
+    "last_sheet_id": "sheet-0",
+    "last_sheet_used_height": 14.911159999999999
+  },
+  "lead_in": {
+    "options": {
+      "kerf_mm": 0.2,
+      "length_mm": 3.0,
+      "style": "arc",
+      "outer_angle_degrees": 45.0,
+      "hole_angle_degrees": 90.0
+    },
+    "expected_contours": 6,
+    "reserved_contours": 4,
+    "flagged_contours": 2,
+    "parts": [
+      {
+        "copy_index": 0,
+        "sheet_id": "sheet-0",
+        "bounds_mm": [
+          1.005006,
+          1.005006,
+          23.906159,
+          13.906159
+        ],
+        "part_id": "leads-1",
+        "contour_count": 3,
+        "reservations": [
+          {
+            "contour_index": 0,
+            "start": {
+              "segment": 0,
+              "parameter": 0.0
+            },
+            "length_mm": 3.0,
+            "shortened": false,
+            "paths": [
+              {
+                "kind": "arc",
+                "center_mm": [
+                  0.0,
+                  3.819718634205488
+                ],
+                "radius_mm": 3.819718634205488,
+                "start_radians": -2.356194490192345,
+                "sweep_radians": 0.7853981633974483
+              },
+              {
+                "kind": "arc",
+                "center_mm": [
+                  -3.819718634205488,
+                  0.0
+                ],
+                "radius_mm": 3.819718634205488,
+                "start_radians": 0.7853981633974483,
+                "sweep_radians": -0.7853981633974483
+              }
+            ]
+          },
+          {
+            "contour_index": 2,
+            "start": {
+              "segment": 0,
+              "parameter": 0.5
+            },
+            "length_mm": 1.2,
+            "shortened": true,
+            "paths": [
+              {
+                "kind": "arc",
+                "center_mm": [
+                  14.999999999999998,
+                  -4.763943726841098
+                ],
+                "radius_mm": 0.7639437268410976,
+                "start_radians": 3.141592653589793,
+                "sweep_radians": -1.5707963267948966
+              },
+              {
+                "kind": "arc",
+                "center_mm": [
+                  14.999999999999998,
+                  -4.763943726841098
+                ],
+                "radius_mm": 0.7639437268410976,
+                "start_radians": 0.0,
+                "sweep_radians": 1.5707963267948966
+              }
+            ]
+          }
+        ],
+        "flags": [
+          {
+            "contour_index": 1,
+            "reason": "Could not reserve a waste-side lead of at least 0.5 mm at the candidate starts; check the geometry, kerf, neighbouring leads and shared-edge exclusions"
+          }
+        ]
+      },
+      {
+        "copy_index": 1,
+        "sheet_id": "sheet-0",
+        "bounds_mm": [
+          24.116165,
+          1.005006,
+          47.017318,
+          13.906159
+        ],
+        "part_id": "leads-1",
+        "contour_count": 3,
+        "reservations": [
+          {
+            "contour_index": 0,
+            "start": {
+              "segment": 0,
+              "parameter": 0.0
+            },
+            "length_mm": 3.0,
+            "shortened": false,
+            "paths": [
+              {
+                "kind": "arc",
+                "center_mm": [
+                  0.0,
+                  3.819718634205488
+                ],
+                "radius_mm": 3.819718634205488,
+                "start_radians": -2.356194490192345,
+                "sweep_radians": 0.7853981633974483
+              },
+              {
+                "kind": "arc",
+                "center_mm": [
+                  -3.819718634205488,
+                  0.0
+                ],
+                "radius_mm": 3.819718634205488,
+                "start_radians": 0.7853981633974483,
+                "sweep_radians": -0.7853981633974483
+              }
+            ]
+          },
+          {
+            "contour_index": 2,
+            "start": {
+              "segment": 0,
+              "parameter": 0.5
+            },
+            "length_mm": 1.2,
+            "shortened": true,
+            "paths": [
+              {
+                "kind": "arc",
+                "center_mm": [
+                  14.999999999999998,
+                  -4.763943726841098
+                ],
+                "radius_mm": 0.7639437268410976,
+                "start_radians": 3.141592653589793,
+                "sweep_radians": -1.5707963267948966
+              },
+              {
+                "kind": "arc",
+                "center_mm": [
+                  14.999999999999998,
+                  -4.763943726841098
+                ],
+                "radius_mm": 0.7639437268410976,
+                "start_radians": 0.0,
+                "sweep_radians": 1.5707963267948966
+              }
+            ]
+          }
+        ],
+        "flags": [
+          {
+            "contour_index": 1,
+            "reason": "Could not reserve a waste-side lead of at least 0.5 mm at the candidate starts; check the geometry, kerf, neighbouring leads and shared-edge exclusions"
+          }
+        ]
+      }
+    ],
+    "validation": {
+      "valid": true,
+      "checked_contours": 4,
+      "violation_count": 0,
+      "violations": [],
+      "coverage": {
+        "expected_contours": 6,
+        "reserved_contours": 4,
+        "flagged_contours": 2
+      },
+      "source_checked": true,
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 2,
+        "requested_parts": 2,
+        "placed_area": 391.68,
+        "placed_priority": 2.0,
+        "full_stock_area": 2100.0,
+        "material_area": 894.6696,
+        "normalized_material": 0.42603314285714283,
+        "utilization": 0.43779290142416827,
+        "trailing_offcut_area": 1205.3304,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 14.911159999999999
+      }
+    }
+  }
+}

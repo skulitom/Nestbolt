@@ -140,6 +140,7 @@ pub fn finalize_sources(
     }
     let mut parts = vec![];
     let mut selected: Vec<(&str, Footprint)> = vec![];
+    let mut owner_fit = OwnerFitCache::new();
     let mut expected = 0;
     let mut reserved = 0;
     let mut flagged = 0;
@@ -167,6 +168,7 @@ pub fn finalize_sources(
             sources,
             options,
             &HashMap::from([(part.id.clone(), exclusions)]),
+            &mut owner_fit,
             |_, _, paths| {
                 let shape = world(paths, placement, job.units, options.kerf_mm)?;
                 let inside = shape.inside(
