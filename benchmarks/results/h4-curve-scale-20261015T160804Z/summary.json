@@ -1,0 +1,216 @@
+{
+  "scope": "H4 scale: frozen 2,000 letters/gears through the actual browser app.\n\nDefault workers, 60-second search, all original geometry and exports retained.\nWhole browser process-tree RSS/private memory must be below 1.5e9 bytes. A 20 ms\nevent-loop heartbeat conservatively gates responsiveness in both browsers; when\navailable, Long Tasks entries must also stay <=200 ms. Missing telemetry fails.\n",
+  "baseline_commit": "c6ec635cd164a94348c76afa81339284163a932f",
+  "guards": {
+    "product": "a93435af2d5240d2bc9a73302f3c040ed67650a427c69faa2e0c410d0d6599b7",
+    "python_runner": "d0a94946a559e361232b571b7b0b284502fe21e84467d6730219503e7b0c5262",
+    "browser_runner": "eee54bde789dfee4de4b2fb5df31f28963105b6b1e6af2de18e8794b33753077",
+    "fixture_manifest": "1373e56958c6c0d6902d9802b762a5fa499f7b4e54f1510daeaf42227beba2d9",
+    "fixture": "f95f04ab7ab8a077e78da706aabb29aac85c978351944eff752ec80b7b2e04f2",
+    "validator": "4cec132d9540524a0007b2a0894d6682064d42709ee971b48860d4199712137a",
+    "built_site": {
+      "assets/bench-CyIZcUT5.js": "1f1bbcaf53c777518766d7bf0d3e57e86f9580b871eb13141f6eb8640ccc22cf",
+      "assets/engine-7Pbx7_0J.js": "4b013f53f7c3ccb5c984997df0acf44fb8e1be0fc670e31e1ab512517a5c5965",
+      "assets/main-0oCYIGbN.js": "334e93563dd06013d7875a722af4d49696fcbc88bf19b31c1f0eef808e14be2d",
+      "assets/main-mA8Hn3k0.css": "957b6388afa9d1602d51a80b74ea6fd900f5910f0c2961e27470ef2f4919a8b7",
+      "assets/nestbolt_wasm_bg-DjdY9fdQ.wasm": "4b9cad0791319c472341e52abaff9c43d1f17f8278947f563b28ee822477ee38",
+      "assets/worker-D8W0hcCI.js": "553fef2231fd43b354fc4ec4247dce3fbe5d305a13191f33275a357029fa8bf9",
+      "bench.html": "366b034c2ea6509da1bc62d062ae803717385c6df60f18aa15dc6cf3a3de7e1c",
+      "examples/boxes.svg": "7dbffb99b16666c8ce2d11e73538a7761cd2f43a845eb1793cfe08c60fa201d0",
+      "examples/examples.json": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+      "examples/gears.svg": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "examples/letters.svg": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "examples/LICENSES.txt": "f8a4965587f7ff36098453a66bf12ffd938bc347e41a48f1baf918a87a232a82",
+      "examples/mechanical.svg": "fce476d786fe1075e4991d6b26e8a36a194c193faa461d4d602d2ad8f59c1409",
+      "examples/sewing.svg": "549457bd2cb3698ca9b4e3a2a071d3fb5e6a67c41ef23df3b311da22095a1a9a",
+      "index.html": "2f9817a57befc17bc8a6a93582b4891ef22f1e4072eb898c4590388fdbbeae65",
+      "results/final-484ce8b/index.html": "45192de7938f7fadcca4efed0cfe51f4f97a733658faa5e1b536ea62292d11e3",
+      "results/final-484ce8b/results.json": "65531883c8446dceacff3246a1c4e46727b3253b1a2677a7ef875d96d9a4fc2d",
+      "results/index.html": "4145368c1d0929574096b69e3adee945510cbd61ec80de8cdd790fb74a7d28d1",
+      "results/results.json": "495bf4b8d89652aee32f75c21c1c51dbeaeda0c6ac3d710ff5a56c0933b62878",
+      "THIRD_PARTY_NOTICES.txt": "7b8557902f6891966b64ec2d2f0d4dbff69b193e497fe29172aa237f6fe0aa5f"
+    }
+  },
+  "cpus": [
+    0,
+    2
+  ],
+  "memory_limit_bytes": 1500000000,
+  "responsiveness_limit_ms": 200,
+  "memory_sample_seconds": 0.2,
+  "external_timeout_seconds": 900,
+  "held_out_geometry_read": false,
+  "fixture": {
+    "version": 1,
+    "scope": "H4 development scale; no held-out geometry",
+    "svg": "letters-gears-2000.svg",
+    "sha256": "f95f04ab7ab8a077e78da706aabb29aac85c978351944eff752ec80b7b2e04f2",
+    "copies_per_part": 500,
+    "total_parts": 2000,
+    "ids": [
+      "letter-S-80mm",
+      "letter-B-80mm",
+      "gear-1",
+      "gear-2"
+    ],
+    "sheet_mm": [
+      1250,
+      2500
+    ],
+    "spacing_mm": 1.5,
+    "edge_spacing_mm": 1.5,
+    "seconds": 60,
+    "workers": "app default (effective cap two above 1000 parts)",
+    "sources": [
+      {
+        "path": "web/public/examples/letters.svg",
+        "sha256": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a"
+      },
+      {
+        "path": "web/public/examples/gears.svg",
+        "sha256": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff"
+      }
+    ],
+    "license_record": "web/public/examples/LICENSES.txt",
+    "licenses": {
+      "letters": "Bitstream Vera / DejaVu outlined drawing geometry, as prescribed by PLAN_V1_1",
+      "gears": "Steren Openclipart gear, public domain / CC0"
+    },
+    "generator_sha256": "3d4ebe663532a4d5cb45ac4a24beae6932f939102f606a6be2fd8e995d06fb46"
+  },
+  "results": [
+    {
+      "browser": "chrome",
+      "status": "failed",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\DEV\\Nestbolt\\web\\bench\\scale.mjs",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T160804Z\\chrome\\plan.json"
+      ],
+      "exit_code": 1,
+      "elapsed_wall_seconds": 62.33206039998913,
+      "peak_rss_bytes": 856920064,
+      "peak_private_bytes": 625741824,
+      "samples": 267,
+      "affinity_errors": [],
+      "app": {
+        "browser": "chrome",
+        "version": "155.0.8059.41",
+        "status": "failed",
+        "marks": {
+          "import_start": 1041.4000000059605,
+          "import_done": 1339.7000000029802,
+          "nest_start": 1397.4000000059605,
+          "nest_failed": 61262.60000000894
+        },
+        "console_errors": [],
+        "environment": {
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "logical_cpus": 32,
+          "visibility": "visible"
+        },
+        "workers_field": "4",
+        "app_error": "Error: no complete layout within 60 s: these parts are many or detailed; allow more time",
+        "error": "Error: Error: no complete layout within 60 s: these parts are many or detailed; allow more time",
+        "visible_text": "Nestbolt\nSave\nOpen saved\u2026\nDelete\nProject ZIP\nOpen ZIP\nNew\n\nFree, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.\n\nParts\nImport SVG, DXF or LightBurn (or drop files here)\n Close larger gaps\n\nGaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.\n\nLayers and colours \u2014 letters-gears-2000.svg\n\nCleanup: 0 duplicate segments removed; 1 zero-length segments removed; 0 collinear overlaps merged.\n\nAutomatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.\n\nCut layers (automatic)\n0\n4 entities \u00b7 4 selected outlines/paths\nCut colours (automatic)\n#000000\n2 entities \u00b7 2 selected outlines/paths\n#20363f\n2 entities \u00b7 2 selected outlines/paths\nSheet outline layers (automatic SHEET)\n0\nUse automatic selection for letters-gears-2000.svg\nApply import options\nletters-gears-2000.svg: cleanup removed 0 exact duplicate segment(s), 1 zero-length segment(s); merged 0 overlapping collinear segment(s)\n\tPart\tQty\tRotation\tMirror\t\n\n\tletter-S-80mm (letters-gears-2000-1)\n31.3 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tletter-B-80mm (letters-gears-2000-2)\n40.0 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tgear-1 (letters-gears-2000-3)\n6.7 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tgear-2 (letters-gears-2000-4)\n2.8 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\nSheets\nSheet size 1\nWidth  mm\nHeight  mm\nCount \nMargin  mm\nRemnant outline \nDefects (0)\nAdd sheet size\u2026\nDiode laser 300\u00d7200\nCO2 bed 600\u00d7400\nPlywood 1220\u00d72440\nSheet metal 1250\u00d72500\nSheet metal 1500\u00d73000\nFabric roll 1500 \u00d7 10 m\nSettings\nPart spacing  mm\nEdge spacing  mm\nGoal \nPlace every part\nFill the sheets (most area)\nFill by priority\nTime  s\nCommon-line cutting\nLead-in allowances\nAdvanced\nNest\n\nError: no complete layout within 60 s: these parts are many or detailed; allow more time\n\nResult\n\nImport parts, choose sheets and press Nest, or try the example boxes.\n\nBuilt on jagua-rs and sparrow by Jeroen Gardeyn et al. MIT licensed; third-party notices. Benchmark results against Deepnest, SVGnest and Sparrow.",
+        "import_seconds": 0.2982999999970198,
+        "maximum_long_task_ms": 0,
+        "maximum_event_loop_gap_ms": 33.29999999701977,
+        "responsive": true
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h4_scale.py\", line 159, in case\n    assert record['exit_code'] == 0 and record.get('app', {}).get('status') == 'completed'\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "passes": false,
+      "artifacts": {
+        "app.json": "94db16719935b6c2876f04a184541e2fa031af086c1921534802fafc86d73484",
+        "case.json": "9558c4cea39cd47968aa1701b482a25bba76e66fa5ca8d5f0615f650897f0390",
+        "memory.json": "25b23b2463a15cc6fa47112a31867ea8be394de084d5053fdcf272dc8e1159cc",
+        "plan.json": "b085923e15fabb4041dac6f5cb4d79abb5d940c680ff0c28a0226498693cbfae",
+        "progress.json": "04fee4f8ba00342479cb03ca69c1b1c3597ef7f86aea3ca984cdfe42cf1b1c20",
+        "screen.png": "f4884db2b0d732b05a9e9d81aaf95b903c5038855bc2492ba8c0a2c55346faad",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "8317308ac3aaf1eab1aaed596096c037390e534241bd2036a721cc7e1ce1def8"
+      }
+    },
+    {
+      "browser": "firefox",
+      "status": "failed",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\DEV\\Nestbolt\\web\\bench\\scale.mjs",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T160804Z\\firefox\\plan.json"
+      ],
+      "exit_code": 1,
+      "elapsed_wall_seconds": 62.50507610000204,
+      "peak_rss_bytes": 894517248,
+      "peak_private_bytes": 780832768,
+      "samples": 269,
+      "affinity_errors": [],
+      "app": {
+        "browser": "firefox",
+        "version": "157.0",
+        "status": "failed",
+        "marks": {
+          "import_start": 300,
+          "import_done": 767,
+          "nest_start": 871,
+          "nest_failed": 60813
+        },
+        "console_errors": [],
+        "environment": {
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+          "logical_cpus": 32,
+          "visibility": "visible"
+        },
+        "workers_field": "4",
+        "app_error": "Error: no complete layout within 60 s: these parts are many or detailed; allow more time",
+        "error": "Error: Error: no complete layout within 60 s: these parts are many or detailed; allow more time",
+        "visible_text": "Nestbolt\nSave\nDelete\nProject ZIP\nOpen ZIP\nNew\n\nFree, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.\n\nParts\nImport SVG, DXF or LightBurn (or drop files here)\n Close larger gaps\n\nGaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.\n\nLayers and colours \u2014 letters-gears-2000.svg\n\nCleanup: 0 duplicate segments removed; 1 zero-length segments removed; 0 collinear overlaps merged.\n\nAutomatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.\n\nCut layers (automatic)\n0\n4 entities \u00b7 4 selected outlines/paths\nCut colours (automatic)\n#000000\n2 entities \u00b7 2 selected outlines/paths\n#20363f\n2 entities \u00b7 2 selected outlines/paths\nSheet outline layers (automatic SHEET)\n0\nUse automatic selection for letters-gears-2000.svg\nApply import options\nletters-gears-2000.svg: cleanup removed 0 exact duplicate segment(s), 1 zero-length segment(s); merged 0 overlapping collinear segment(s)\n\tPart\tQty\tRotation\tMirror\t\n\n\tletter-S-80mm (letters-gears-2000-1)\n31.3 cm\u00b2\n\t\t\t\t\u00d7\n\n\tletter-B-80mm (letters-gears-2000-2)\n40.0 cm\u00b2\n\t\t\t\t\u00d7\n\n\tgear-1 (letters-gears-2000-3)\n6.7 cm\u00b2\n\t\t\t\t\u00d7\n\n\tgear-2 (letters-gears-2000-4)\n2.8 cm\u00b2\n\t\t\t\t\u00d7\nSheets\nSheet size 1\nWidth  mm\nHeight  mm\nCount \nMargin  mm\nRemnant outline \nDefects (0)\nSettings\nPart spacing  mm\nEdge spacing  mm\nGoal \nTime  s\nCommon-line cutting\nLead-in allowances\nAdvanced\nNest\n\nError: no complete layout within 60 s: these parts are many or detailed; allow more time\n\nResult\n\nImport parts, choose sheets and press Nest, or try the example boxes.\n\nBuilt on jagua-rs and sparrow by Jeroen Gardeyn et al. MIT licensed; third-party notices. Benchmark results against Deepnest, SVGnest and Sparrow.",
+        "import_seconds": 0.467,
+        "maximum_long_task_ms": null,
+        "maximum_event_loop_gap_ms": 67,
+        "responsive": true
+      },
+      "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h4_scale.py\", line 159, in case\n    assert record['exit_code'] == 0 and record.get('app', {}).get('status') == 'completed'\n                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+      "passes": false,
+      "artifacts": {
+        "app.json": "0c8f552f9f763b92c5b19cbd4c113238f288202c23b84ea794dc85923101e3be",
+        "case.json": "e530d970e01782a62317635c415ad6e9dfd63d1cd8c138c850c098fa8b1a16f6",
+        "memory.json": "1ad6b6ad5fedeccc89bf2c7b8c417f02309beffc81151fbdd669d26cefff8def",
+        "plan.json": "9e321544cc0608050344bb72562374143e976da8bdddbc8ec760b753d63de88c",
+        "progress.json": "bfcade92bc4ccb64fa590f07a5b40889e825df77cf726c44e39f36508d381844",
+        "screen.png": "3d74bce2a9bf95bd1e7678add52ef8a396681b0ee9edd6a9fe85be9bc07a867e",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "ab286e7b82515071a8efc3a10b00f0e5faf293cdf1746f78e69e60369aeb5b16"
+      }
+    }
+  ],
+  "passes": false,
+  "raw_archive": {
+    "path": "raw.zip",
+    "sha256": "7039288d90c9db70d9e1ec1feb446a98e2eb5b1cedbb94c51f456e8ae0e54993",
+    "members": {
+      "chrome/app.json": "94db16719935b6c2876f04a184541e2fa031af086c1921534802fafc86d73484",
+      "chrome/case.json": "9558c4cea39cd47968aa1701b482a25bba76e66fa5ca8d5f0615f650897f0390",
+      "chrome/memory.json": "25b23b2463a15cc6fa47112a31867ea8be394de084d5053fdcf272dc8e1159cc",
+      "chrome/plan.json": "b085923e15fabb4041dac6f5cb4d79abb5d940c680ff0c28a0226498693cbfae",
+      "chrome/progress.json": "04fee4f8ba00342479cb03ca69c1b1c3597ef7f86aea3ca984cdfe42cf1b1c20",
+      "chrome/screen.png": "f4884db2b0d732b05a9e9d81aaf95b903c5038855bc2492ba8c0a2c55346faad",
+      "chrome/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "chrome/stdout.log": "8317308ac3aaf1eab1aaed596096c037390e534241bd2036a721cc7e1ce1def8",
+      "firefox/app.json": "0c8f552f9f763b92c5b19cbd4c113238f288202c23b84ea794dc85923101e3be",
+      "firefox/case.json": "e530d970e01782a62317635c415ad6e9dfd63d1cd8c138c850c098fa8b1a16f6",
+      "firefox/memory.json": "1ad6b6ad5fedeccc89bf2c7b8c417f02309beffc81151fbdd669d26cefff8def",
+      "firefox/plan.json": "9e321544cc0608050344bb72562374143e976da8bdddbc8ec760b753d63de88c",
+      "firefox/progress.json": "bfcade92bc4ccb64fa590f07a5b40889e825df77cf726c44e39f36508d381844",
+      "firefox/screen.png": "3d74bce2a9bf95bd1e7678add52ef8a396681b0ee9edd6a9fe85be9bc07a867e",
+      "firefox/stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "firefox/stdout.log": "ab286e7b82515071a8efc3a10b00f0e5faf293cdf1746f78e69e60369aeb5b16",
+      "h4_scale.py": "d0a94946a559e361232b571b7b0b284502fe21e84467d6730219503e7b0c5262",
+      "plan.json": "5abaf71dc9d4d7ef22c46944d19c3cbe14e0da392760a505d85992cdf46e8dcd",
+      "progress.json": "2cfd1c4d8ff3c4b8f084e1d27597b6ce4b5067922d8bc749b51ca48639db06ff",
+      "results.json": "4ce933633759fb7bb732f38c4220e5a97b5e46d5bb4a0a0da639362582962c6c",
+      "scale.mjs": "eee54bde789dfee4de4b2fb5df31f28963105b6b1e6af2de18e8794b33753077"
+    },
+    "note": "Full original results/progress/app/case/memory records, logs and screenshots are unmodified archive members; this summary omits only duplicated telemetry arrays."
+  }
+}

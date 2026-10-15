@@ -36,6 +36,15 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 
 Latest N4 follow-up: [48 material diagnostics](../benchmarks/results/h5-material-probes-20261015.md) all validate, but extra warm-start time and rigid bracket pairing worsen every mechanical-job/kerf median. Both remain unintegrated; H5 stays open and completion remains 20%.
 
+Latest N3 checkpoint: the [frozen 2,000-part letters/gears scale baseline](../benchmarks/results/h4-curve-scale-baseline-20261015.md)
+fails initial packing in both Chrome and Firefox at 60 seconds. Memory peaks at
+0.87/0.92 GB and observed responsiveness remains below 200 ms before failure;
+export is not reached. Native also fails at 60 seconds, but a 300-second
+diagnostic completes with all 2,000 placements valid on three sheets. Its first
+warm layout arrives at 138.21 seconds. An independent shelf layout also validates,
+so a fast conservative starting layout is a concrete next experiment. No solver
+change is integrated, H4 remains open and completion stays 20%.
+
 Latest N1 checkpoint: [complete vector fidelity, shop-habit fuzzing and diagnostic coverage](../benchmarks/results/h2-habits-checkpoint-20261014.md).
 All 246 importable vectors re-export within 0.01 mm; the other 11 reject clearly.
 The new 10,000 import and 1,008 nesting cases pass, and expected diagnostics and

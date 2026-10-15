@@ -575,3 +575,18 @@ three-seed medians, inclusive quartiles and failures. Overall completion remains
 ### 2026-10-15: two material-search hypotheses rejected
 
 The [48-run mechanical diagnostic](../benchmarks/results/h5-material-probes-20261015.md) tests longer initial repacking and rigid complementary-bracket pairs. All original-job validations pass, with 228,580 filled-outer pair checks independently confirming that holes remain reserved. Both hypotheses worsen every job/kerf median, so neither changes production behavior. Pair preparation is explicitly outside the 60-second search budget; it is exploratory evidence, not H5 acceptance. The original material guard remains open, and no impossibility claim follows from these failed heuristics.
+
+### 2026-10-15: N3 competitor refresh
+
+The official [Sparrow Studio README](https://github.com/JeroenGar/sparrow-studio)
+and [application description](https://sparrowstudio.app/) still describe strip
+packing without automatic fixed-sheet allocation or nesting inside holes. The
+plan's competitor stop condition is not triggered by this check. The official
+[Deepnest releases](https://github.com/deepnest-next/deepnest/releases) list
+1.5.6. LightBurn's [2.2 feature documentation](https://docs.lightburnsoftware.com/2.2/NewFeatures/)
+still places True Nest in Pro; the release directories list
+[2.1.04 stable](https://release.lightburnsoftware.com/LightBurn/Release/) and
+[2.2.00-RC-6](https://release.lightburnsoftware.com/LightBurn/RC/).
+These are a current availability check, not new competitor measurements. The
+locally installed LightBurn 2.1.01 trial and all pinned benchmark dependencies
+remain unchanged.

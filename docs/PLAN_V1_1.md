@@ -248,6 +248,15 @@ Surfaces:
 - **Native:** the 65-job development matrix (60 s, seeds 0-2) keeps every layout valid, with its median material within
   0.5% of `75cbb32`'s development results.
 
+**N3 scale baseline, 2026-10-15:** the required [frozen letters/gears workload](../benchmarks/datasets/browser-curves/README.md)
+now runs through the actual app. Both browsers fail to complete initial packing
+within 60 seconds; memory stays below 1.5 GB, but no browser export is reached.
+The [retained baseline and native diagnosis](../benchmarks/results/h4-curve-scale-baseline-20261015.md)
+include an independently valid three-sheet feasibility layout and a valid
+300-second native result. Neither is an H4 pass. An earlier conservative starting
+layout is the next hypothesis; production defaults and all gate thresholds remain
+unchanged.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:
