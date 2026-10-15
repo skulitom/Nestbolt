@@ -183,6 +183,15 @@ supports H2's native accounting but does not replace its complete warning/fideli
 review or remaining reserved evaluation. The original held-out success threshold
 and pending denominator clarification remain unchanged. H2 is still open.
 
+**N1 current regression review, 2026-10-15:** the [native diagnostic review](../benchmarks/results/h2-native-warning-review-20261015.md)
+identifies twelve accepted training files missing expected explanatory messages.
+The [current vector export replay](../benchmarks/results/h2-export-replay-20261015.md)
+matches all 246 accepted libraries and validates their saved layouts, without
+new searches. Of 492 exports, 491 are byte-identical; one retained byte mismatch
+passes a separate geometric bound of 0.000491918 mm against the unchanged
+0.01 mm limit. Native messages and the remaining reserved acceptance are still
+required. Original failures, labels and the held-out denominator remain intact.
+
 ### 4.3 N2: LightBurn `.lbrn2` round-trip
 
 1. **Probe the format locally first** (before the trial ends). Make small projects in Anode that isolate:
