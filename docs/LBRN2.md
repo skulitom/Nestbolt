@@ -11,6 +11,12 @@ The probes below confirm only their stated observations. Historical checkpoints
 retain their original outcomes. Current approved repair prerequisites are below;
 the complete gate status is tracked in [STATUS.md](STATUS.md).
 
+**Current status, 2026-10-15: H3 complete.** The [requirement review](../benchmarks/results/h3-complete-20261015.md)
+covers all 59 original projects, eight approved native repairs, the once-only
+three-project reserved evaluation and current revalidation of the five native
+layouts. Dated checkpoints below retain their original incomplete states and
+failures; they do not supersede this completion record.
+
 ## Required preparation for older or mixed projects
 
 Artem approved these requirements on 2026-10-15 in
@@ -158,11 +164,16 @@ for lead allowances, a reader must honor this explicit override rather than assu
 the first vertex is always the start. This corrects the research's first-point
 inference for files with an explicitly selected start.
 
-## Remaining format probes
+## Completed format probe checks
 
-- Output-off shapes; legacy combined `Scan+Cut` from public projects.
-- Verify the mirror normalization with actual nested outputs during H3.
-- Compare all public/local geometry with the independent published MIT oracle.
+- Output-off and Tool shapes remain fixed; mixed active/fixed groups require
+  regrouping. Legacy `Scan+Cut` is recognized, while native repair's conversion
+  to Scan is retained as an original-layer mismatch for L42.
+- [Actual nested native projects](../benchmarks/results/h3-lightburn-20261014T001636Z.md)
+  verify default and mirrored origins, with current-build replay in the completion report.
+- [Full geometry coverage](../benchmarks/results/h3-complete-20261015.md) includes
+  the three reserved projects and all prepared Text geometry under the approved
+  prerequisite. Uncached original text is never credited as exact geometry.
 
 ## Export palette and DXF variants
 
@@ -172,7 +183,7 @@ confirm indices 0/1/2/30 and a Tool setting for 30. Ten nested exports retain
 their analytic dimensions within 0.000033 mm in native saved geometry. Two spline
 width fields differ by 0.003275 mm despite the retained curves; native UI bounds
 are not assumed to be exact analytic bounds. This is separate from H3 project
-preservation, which remains pending.
+preservation, whose current completion evidence is linked above.
 
 Local exports [palette.svg](../benchmarks/datasets/shop/probes/palette.svg) and
 [palette.dxf](../benchmarks/datasets/shop/probes/palette.dxf) establish:
@@ -300,10 +311,12 @@ must not be reported as exact cached geometry.
 Native save of legacy L42 changes `Scan+Cut` to `Scan`. Thus native re-save is
 useful as geometry evidence, not a canonical preservation oracle. Original layer
 state, including legacy mode strings and unknown settings, remains authoritative.
-The reference corpus also demonstrates mixed fixed/movable children in L11:
-keep the entire rigid Group fixed and warn, rather than move a disabled child.
-L17's 32 axis-aligned open Paths have degenerate bounds; retain and report them,
-requiring grouping or an explicit nonzero proxy before nesting.
+The reference corpus also demonstrates mixed fixed/movable children in L11.
+The initial fixed-group handling was insufficient: under reviewed decision 6,
+nesting now rejects it with instructions to group active artwork separately.
+L17's 32 axis-aligned open Paths have degenerate bounds. The completed open-stroke
+implementation gives them conservative collision footprints as described above,
+while preserving their original editable open paths in the output.
 
 ## Reader implementation checkpoint — 2026-10-13
 

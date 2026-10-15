@@ -223,12 +223,25 @@ Surfaces:
   - Record it as `benchmarks/results/h3-lightburn-*.md`, with screenshots.
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
-**N2 development checkpoint, 2026-10-15:** the [open-stroke and training audit](../benchmarks/results/h3-open-line-fix-20261015.md)
+**Earlier N2 development checkpoint, 2026-10-15:** the [open-stroke and training audit](../benchmarks/results/h3-open-line-fix-20261015.md)
 resolves repaired L17 and verifies all eight repairs, 435 original/repaired unit footprints and 114 canonical sheet diffs.
 Two new native saves preserve their open paths; the five earlier native layouts revalidate. All public-surface tests pass.
-The three frozen native held-out projects remain unevaluated, so H3 is still open and completed weight remains 20%.
+At that checkpoint, the three frozen native held-out projects remained unevaluated,
+so H3 was still open and completed weight was 20%.
 
-**N2 missing-settings checkpoint, 2026-10-15:** [native defaults and training-label checks](../benchmarks/results/h3-missing-layer-native-20261015.md) resolve L36's remaining attachment mismatch. All 45 imported originals now match unit membership, physical cut holes, fixed shapes and cutting layers. Omitted T1/T2 settings keep shapes fixed, and omitted Line settings retain original cuts in sidecars. All eight repairs match membership and holes; L42's already documented native Scan+Cut-to-Scan change remains explicit. All 64 reader payloads are unchanged and 114 canonical writer comparisons pass. The three reserved native projects remain unevaluated; no gate or completed weight changes.
+**Earlier N2 missing-settings checkpoint, 2026-10-15:** [native defaults and training-label checks](../benchmarks/results/h3-missing-layer-native-20261015.md) resolve L36's remaining attachment mismatch. All 45 imported originals now match unit membership, physical cut holes, fixed shapes and cutting layers. Omitted T1/T2 settings keep shapes fixed, and omitted Line settings retain original cuts in sidecars. All eight repairs match membership and holes; L42's already documented native Scan+Cut-to-Scan change remains explicit. All 64 reader payloads are unchanged and 114 canonical writer comparisons pass. At that checkpoint, the three reserved native projects remained unevaluated and no gate or completed weight changed.
+
+**H3 completed on 2026-10-15:** the [complete requirement review](../benchmarks/results/h3-complete-20261015.md)
+accounts for all 59 original projects and eight approved repairs. After a committed
+training calibration and frozen plan, all three reserved native projects pass
+once: 199 leaves / 247 contours, exact membership/hole/layer labels, nine allowed
+canonical sheet comparisons and three independently valid actual searches.
+Combined evidence covers 1,749 comparable original leaves, 477 repaired leaves,
+120 diagnostic sheet comparisons and 443 diagnostic units. The five native-checked
+layouts revalidate on the current build with unchanged settings and contents;
+all public-surface tests pass. The original 122 uncached Text objects, L42's native
+repair layer change and all historical failures remain explicit. Reserved inputs
+remain evaluation-only. N0/H1 + N2/H3 + N5/H6 now total **45%**; H2/H4/H5 remain open.
 
 ### 4.4 N3: curve-heavy parts in the browser
 
