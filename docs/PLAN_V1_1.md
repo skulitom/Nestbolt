@@ -362,6 +362,17 @@ comparison and current-build scale confirmation remain open. All 297 workspace,
 26 optimized CLI and 84 enabled browser tests pass. No geometry, search setting,
 gate or held-out allocation changes; H4 remains incomplete and completion is 45%.
 
+**N3 current-build scale confirmation, 2026-10-15:** [all four workflows pass](../benchmarks/results/h4-current-scale-20261015.md)
+on the retained bounded-score build. Curve-heavy Chrome/Firefox working-set peaks
+are 1.257/1.352 GB, private peaks 1.223/1.275 GB and maximum heartbeat gaps
+87.8/175 ms. Original G5 also passes with quick start off and two search workers.
+Every 2,000-part layout independently validates with exact metric agreement;
+both curve-heavy layouts and all twelve cutting exports match the previous
+passing scale bytes. The committed full development comparison has started,
+retaining all thresholds and 699 new attempts plus 81 verified reused results.
+Temperature readings were unavailable and are recorded as a limitation. H4
+remains open pending the full results and requirement review; completion is 45%.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:

@@ -800,3 +800,10 @@ Full G5 development quality, the 195-run native comparison against frozen 75cbb3
 ### 2026-10-15: common-line final-sheet assignment inspection
 
 [Read-only inspection of twelve retained H5 median layouts](../benchmarks/results/h5-last-sheet-inspection-20261015.md) verifies every source archive and used job/layout hash. For one 0.2 mm large-plates bonus assignment, even filled outer area divided by gross sheet area exceeds the material guard. Compressing that same final sheet cannot pass; changing its assignment may. The other weak bounds do not prove packability. This supports a future exchange strategy while preserving holes, validity and the deadline. No new searches, relaxed threshold or H5 completion claim.
+
+
+### 2026-10-15: current-build browser scale confirmation
+
+[All four scale workflows pass](../benchmarks/results/h4-current-scale-20261015.md) on the retained bounded-score build. The required 2,000-part letters/gears drawing uses one automatic search worker with Quick initial layout enabled; original G5 uses two with that option off. Chrome/Firefox curve-heavy working-set peaks are 1.257/1.352 GB, private peaks 1.223/1.275 GB and maximum heartbeat gaps 87.8/175 ms. G5 peaks and pauses also pass. Firefox's Long Tasks API is unavailable; its conservative UI heartbeat remains the responsiveness evidence.
+
+All four layouts independently validate, with exact metrics. Curve-heavy layout bytes and all twelve SVG/DXF exports match the earlier passing worker-policy measurement. Two verified archives preserve all 68 raw members. The complete 65-job development matrix has started under its committed plan, with 699 new attempts plus 81 matching reused results. Temperature providers returned no reading; 4201 MHz is a clock observation, not thermal evidence. H4 remains open and completion remains 45% until the full comparisons and requirement audit pass.
