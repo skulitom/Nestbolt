@@ -95,7 +95,7 @@ pub struct ReviewPaths {
 
 mod ordered;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, schemars::JsonSchema)]
 pub struct ContourStart {
     pub segment: usize,
     pub parameter: f64,

@@ -26,3 +26,9 @@ frozen checksum. `maker_freeze.py --check` also passes for all 40 frozen maker
 jobs, curve sources, notices and ten held-out reservations. These are source
 integrity checks, not new benchmark runs. CI must separately confirm the clean
 Linux and Windows rebuilds after this repair.
+
+Follow-up: both clean maker rebuilds in [run 38709347553](https://github.com/skulitom/Nestbolt/actions/runs/38709347553)
+passed at repaired commit `43684ad`. The frozen source could be rebuilt on Linux
+and Windows without the unavailable Openclipart endpoint. This statement covers
+those two completed jobs; other jobs in that run were still completing when
+this follow-up was recorded.

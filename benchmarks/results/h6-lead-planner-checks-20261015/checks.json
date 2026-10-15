@@ -1,0 +1,208 @@
+{
+  "base_commit": "43684ad582478943582eecc54ae6b116a91e324f",
+  "source_sha256": "88f2fd3cc8bf581691182392a2eca02de5381d7035b22e801283de27aa0cb4f9",
+  "source_files": {
+    "crates/core/src/lead_in.rs": "f8f02ebf18c7d5b5c37b779249ec93498fb2fa1a32740975d0d7350137ab84ee",
+    "crates/core/src/lead_in/tests.rs": "7a4a87e9d297c162d1c56ed30a45f320cb03136a3ae63e5ceb4bba0fcd809375",
+    "crates/core/src/export.rs": "74f9ea932353007b4cb6112392cb9222ebb709152843ead7ca81f6d7a261cc56",
+    "crates/core/src/lib.rs": "576d0f325f23471a28eb3f7265de9b3267aba4955ced5742af31fbdd0bebb521",
+    "crates/core/src/common_line.rs": "15c5d7b1ea136ba139bc0ba7e9b4540fe2d36c65a7ee77a1be50d48405390581",
+    "crates/core/src/common_line/length.rs": "4463a8f244a1c21bfeade37711523d40fe323791bea0de97edf221e6856beae5",
+    "crates/validator/src/leads.rs": "56573a074e2126c1cd2514038e24e9e6d9bcc8608d1aa74096f15083716d5527",
+    "crates/core/examples/lead_coupons.rs": "208019039e5ec60ccaf63c84b4d73cf4e989361a68241ef9aad5da103773bcd5",
+    "scripts/h6_lead_prepare.py": "197b13ccd452511d796203ca36eab39bcfc7cdc9faa4bddd686fd5f772475515",
+    "scripts/h6_lead_audit.py": "f5298dc80fcbb4b3072b41d04c5ed1145bb293d35e194fda42b443f389796ecd",
+    "scripts/h6_lead_oracle.mjs": "eb74844649b623ed37accb8661eae1891e3fcde8b7e3aa1e1c2aa3b0b7eb96e6"
+  },
+  "checks": [
+    {
+      "name": "workspace",
+      "command": "cargo test --workspace --locked",
+      "exit_code": 0,
+      "log": "final-workspace-tests.log",
+      "test_totals": [
+        250,
+        0,
+        1
+      ],
+      "cpu_affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "release_leads",
+      "command": "cargo test -p nestbolt-core --release --locked lead_in::",
+      "exit_code": 0,
+      "log": "release-lead-tests.log",
+      "test_totals": [
+        12,
+        0,
+        0
+      ],
+      "cpu_affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "clippy",
+      "command": "cargo clippy --workspace --all-targets --locked -- -D warnings",
+      "exit_code": 0,
+      "log": "final-clippy.log",
+      "test_totals": null,
+      "cpu_affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "wasm",
+      "command": "cargo build -p nestbolt-wasm -p nestbolt-validator --target wasm32-unknown-unknown --locked",
+      "exit_code": 0,
+      "log": "wasm.log",
+      "test_totals": null,
+      "cpu_affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "format",
+      "command": "cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log": "fmt.log",
+      "test_totals": null,
+      "cpu_affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "coupon_build",
+      "command": "cargo build -p nestbolt-core --example lead_coupons --release --locked",
+      "exit_code": 0,
+      "log": "coupon-build.log",
+      "test_totals": null,
+      "cpu_affinity": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    }
+  ],
+  "held_out_read": false,
+  "frozen_inventory": {
+    "H1_frozen_integrity": true,
+    "inventory_files": 1181,
+    "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7"
+  },
+  "earlier_successful_checks": [
+    "first-tests.log",
+    "first-clippy.log",
+    "integrated-tests.log",
+    "workspace-tests.log"
+  ],
+  "native_audit_initial_failure": "DXF union has multiple coordinate sequences; winding is undefined for this helper representation. Retained native-audit.log. Final audit keeps all geometry/start checks and reports unknown DXF winding.",
+  "native_final_audit": "benchmarks/results/h6-lead-coupons-20261015T091012Z/geometry-audit-20261015T092107567923Z.json",
+  "logs": {
+    "first-tests.log": "dcb285c5dcb8c4381bdcc4579237d48ab0e52ebea4baed6113bebe2249d81caa",
+    "first-clippy.log": "0990cfd39e391758ecd9d3b56bc8186574ca912f40f05aeb14dda62bd849ed37",
+    "integrated-tests.log": "9ff2acdef32d8985377ecda67cce61f56ff8752a5bf09ecb380ff391321b3dcf",
+    "workspace-tests.log": "a1dbc20263a5a0a5870289f1f6806d55f0660ef703d161ef03ae68a52bb8246f",
+    "final-workspace-tests.log": "34193c0bf6845ddd07fcbff10297a63be8b531719ff2fce4e71f8fbd059e8fd8",
+    "final-clippy.log": "4513d4063d631b91928c7fe228899234e3f0e354e626b874d979c26bdf3ef654",
+    "release-lead-tests.log": "46fb99ca5e2eab5dbe4c44ec2225d4635f425404daf68a25fa3ed83550a333f7",
+    "coupon-build.log": "9440c522ad07789da7c3d24d123f5a34ede4bf798a20493ffdfec2fdc44e304a",
+    "coupon-prepare.log": "ba83ce9630af32e2db6c2ea875abc1fe79d4e93791ef4e9bb02723e806d187a0",
+    "wasm.log": "f1e0aabcf2a22f4b7a22ef957d31757495d200bb1308324323e37da159086059",
+    "fmt.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frozen-integrity.log": "c73e800f3d06eea7fcbeed83c644397fc2b489185a9b1732336c0bd377abb000",
+    "native-audit.log": "619d6ec07748c4171adff91c46ff7763a5bc665cf5a904e432b6b7c6dda69603",
+    "native-audit-rerun.log": "e082026a9b2d32d16816e7fc7da416a5e05989052ce0248f6496e1d9e7e7653f"
+  },
+  "h6_complete": false
+}

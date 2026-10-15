@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\DEV\Nestbolt\scripts\h2_lightburn_prepare.py", line 46, in run
+    raise RuntimeError(stderr.decode('utf-8', errors='replace'))
+RuntimeError: Traceback (most recent call last):
+
+  File "C:\DEV\Nestbolt\scripts\h6_lead_audit.py", line 142, in <module>
+
+    main()
+
+  File "C:\DEV\Nestbolt\scripts\h6_lead_audit.py", line 107, in main
+
+    dxf_rows = match(rows, references, [d[0] for d in dxf], [d[1] for d in dxf], 0.00005)
+
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "C:\DEV\Nestbolt\scripts\h6_lead_audit.py", line 43, in match
+
+    'winding_reversed': area_sign(ref)*area_sign(shapes[i]) < 0,
+
+                                       ^^^^^^^^^^^^^^^^^^^^
+
+  File "C:\DEV\Nestbolt\scripts\h6_start_audit.py", line 36, in area_sign
+
+    xy = np.array(shape.coords)
+
+                  ^^^^^^^^^^^^
+
+  File "C:\DEV\Nestbolt\.cache\shop-venv\Lib\site-packages\shapely\geometry\base.py", line 1033, in coords
+
+    raise NotImplementedError(
+
+NotImplementedError: Sub-geometries may have coordinate sequences, but multi-part geometries do not
+
+

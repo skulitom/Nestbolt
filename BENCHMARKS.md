@@ -12262,3 +12262,12 @@ tests pass, and all 40 frozen maker jobs, curve sources, notices and ten held-ou
 reservations pass the integrity check. No geometry was inspected for tuning,
 no source pin or dataset changed, and no benchmark was rerun. Clean CI rebuilds
 on the repaired commit remain to be verified separately.
+
+
+## 2026-10-15 — lead planner and three searched native previews
+
+[Planner/native checkpoint](benchmarks/results/h6-lead-planner-checkpoint-20261015.md): the core reserves calibrated line/arc leads in both directions, checks owner material, shortens or flags every contour, and keeps original geometry for material metrics. 250 workspace tests pass (one existing ignored), 12 optimized lead tests, strict lint, formatting and validator/browser WASM builds pass. All 1,181 frozen hashes remain unchanged. [Logs and source hashes](benchmarks/results/h6-lead-planner-checks-20261015/checks.json).
+
+Three authored jobs were actually searched on CPU 0 (one repeatable work-second, seed 0): 12 placements and 24 allowances independently valid. LightBurn 2.1.01 previews show native 3 mm line/45-degree and arc/45-/90-degree leads clear of neighbours. All 24 saved native starts match within 0.000002569 mm; maximum contour error is 0.00245745 mm. [Native files, screenshots and audit](benchmarks/results/h6-lead-coupons-20261015T091012Z/geometry-audit-20261015T092107567923Z.json). The first audit harness failure is retained. Public surfaces, final coverage/owner checks, common-line integration and material cost remain pending; H6 stays open and progress stays 15%.
+
+The Openclipart repair at 43684ad also passes both clean maker rebuilds on Linux and Windows in CI run 38709347553. No held-out geometry, final acceptance run or published benchmark was changed.

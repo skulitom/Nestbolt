@@ -251,6 +251,88 @@ pub fn footprint(paths: &[Path], kerf_mm: f64) -> Result<Footprint> {
     Ok(shape)
 }
 
+/// Waste-side checks in local millimetres. The normal boundary cut already
+/// removes a half-kerf band. A lead may join that band, but must not cut deeper
+/// into the part; its piercing disc must remain wholly in waste. Source curves
+/// should be flattened to ENVELOPE_TOLERANCE_MM before constructing `body`.
+pub struct Owner {
+    body: Footprint,
+    protected: Option<Footprint>,
+    centre_protected: Option<Footprint>,
+    kerf_mm: f64,
+}
+
+impl Owner {
+    pub fn new(body: Footprint, kerf_mm: f64) -> Result<Self> {
+        ensure!(body.units == Units::Mm, "lead owner must use millimetres");
+        ensure!(
+            kerf_mm.is_finite() && kerf_mm > 0.0 && kerf_mm <= 1000.0,
+            "lead kerf must be positive, finite and at most 1000 mm"
+        );
+        let erode = |amount: f64| -> Result<Option<Footprint>> {
+            let mut offset = ClipperOffset::new(2.0, ENVELOPE_TOLERANCE_MM * SCALE, false, false);
+            offset.add_paths(&body.paths, JoinType::Round, EndType::Polygon);
+            let mut paths = vec![];
+            offset.execute(-amount * SCALE, &mut paths);
+            ensure!(offset.error_code() == 0, "lead owner inset failed");
+            Ok(Footprint::from_paths(paths, Units::Mm))
+        };
+        // Covers source flattening, round offsets and the conservative lead
+        // envelope, without granting the whole owner an overlap exemption.
+        let tolerance = 8.0 * ENVELOPE_TOLERANCE_MM + 8.0 * GRID;
+        Ok(Self {
+            protected: erode(kerf_mm / 2.0 + tolerance)?,
+            centre_protected: erode(tolerance)?,
+            body,
+            kerf_mm,
+        })
+    }
+
+    pub fn fits(&self, paths: &[Path]) -> Result<bool> {
+        let envelope = footprint(paths, self.kerf_mm)?;
+        let Some(protected) = &self.protected else {
+            // The ordinary kerf consumes this entire part; do not call a lead
+            // safe merely because the protected set is empty.
+            return Ok(false);
+        };
+        if envelope.compare(protected, 0.0)?.overlap_area > 0.0 {
+            return Ok(false);
+        }
+        if let Some(interior) = &self.centre_protected
+            && footprint(paths, 2.0 * GRID)?
+                .compare(interior, 0.0)?
+                .overlap_area
+                > 0.0
+        {
+            return Ok(false);
+        }
+        for path in paths {
+            let p = path.point(0.0);
+            let mut offset = ClipperOffset::new(2.0, ENVELOPE_TOLERANCE_MM * SCALE, false, false);
+            offset.add_path(
+                &vec![Point64::new(
+                    (p[0] * SCALE).round() as i64,
+                    (p[1] * SCALE).round() as i64,
+                )],
+                JoinType::Round,
+                EndType::Round,
+            );
+            let mut paths = vec![];
+            offset.execute(
+                (self.kerf_mm + 2.0 * ENVELOPE_TOLERANCE_MM + 4.0 * GRID) * SCALE,
+                &mut paths,
+            );
+            ensure!(offset.error_code() == 0, "lead pierce check failed");
+            let disc =
+                Footprint::from_paths(paths, Units::Mm).context("lead pierce check collapsed")?;
+            if disc.compare(&self.body, 0.0)?.overlap_area > 0.0 {
+                return Ok(false);
+            }
+        }
+        Ok(true)
+    }
+}
+
 #[derive(Debug, Serialize, JsonSchema)]
 pub struct Report {
     pub valid: bool,

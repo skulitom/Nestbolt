@@ -40,7 +40,7 @@ fn simpson(f: &impl Fn(f64) -> f64, a: f64, b: f64, tolerance: f64, depth: u8) -
     }
 }
 
-pub(super) fn segment(from: Point, s: &Segment) -> f64 {
+pub(crate) fn segment(from: Point, s: &Segment) -> f64 {
     match s {
         Segment::Line { to } => distance(from, *to),
         Segment::Quad { control, to } => bezier(&[from, *control, *to], TOL, 24),

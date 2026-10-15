@@ -13,7 +13,7 @@ use crate::curves::{Contour, Point, Segment, contains, signed_area};
 use crate::export::{Outline, placed};
 
 mod chains;
-mod length;
+pub(crate) mod length;
 
 pub const COLLINEAR_MM: f64 = 0.01;
 pub const MIN_SHARED_MM: f64 = 10.0;

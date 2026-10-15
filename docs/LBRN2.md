@@ -461,3 +461,25 @@ work must cover the actual native direction and verify native leads explicitly.
 These red markers are not lead allowances, and these authored probes do not
 close H6. “Choose best starting point” must be off for the eventual native lead
 check. Failed rational, subdivision and mixed-contour probes remain published.
+
+## Calibrated leads and searched previews — 2026-10-15 UTC
+
+Native 3 mm arc leads use 3 mm of arc length: radius approximately 3.82 mm at
+45° and 1.91 mm at 90°. [Plan decision 3](PLAN_V1_1.md#10-reviewed-decisions)
+records Artem's approval to replace the original fixed-radius rule.
+[Calibration evidence](../benchmarks/results/h6-lead-native-calibration-20261015.md)
+preserves that original assumption and the native measurements.
+
+The [lead-planner checkpoint](../benchmarks/results/h6-lead-planner-checkpoint-20261015.md)
+adds three actual searched native previews: line 45° on rectangular panels,
+arc 45° on rings, and arc 90° on rectangular panels. Each has four copies and
+eight contours. Native settings use length 3 mm, no overcut/lead-out, best-start
+selection off and best-direction selection on. Both directions are reserved.
+LEADIN/C02 and the sheet outline are output-disabled. The 24 saved native starts
+match within 0.000002569 mm; the largest contour difference is 0.00245745 mm.
+
+Each coupon uses one angle for both outer and hole contours. LightBurn stores
+`leadAngle` per layer; applying different outer/hole angles or different shortened
+lengths needs separate settings. The defaults and shortened-lead workflow remain
+to be exposed and verified. These native previews do not complete H6: public
+surface integration, final coverage reporting and material-cost evidence remain.
