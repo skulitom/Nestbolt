@@ -90,6 +90,8 @@ test('lead allowances expose flags, reserve offcuts and export a separate review
   expect(saved.request.lead_in.style).toBe('arc');
   expect(saved.result.validation.metrics.placed_area).toBeCloseTo(391.68, 5);
   expect(saved.result.lead_in.validation.valid).toBe(true);
+  expect(saved.result.lead_in.validation.source_checked).toBe(true);
+  expect(saved.result.lead_in.validation.coverage).toEqual({ expected_contours: 6, reserved_contours: 4, flagged_contours: 2 });
   expect(saved.result.lead_in.parts.flatMap((p: { reservations: { shortened: boolean }[] }) => p.reservations).filter((r: { shortened: boolean }) => r.shortened)).toHaveLength(2);
   await expect(page.locator('.lead-report')).toContainText('1.2 mm lead.');
   const svg = zipEntry(await archive.path(), `sheets/${saved.result.layout.sheets[0].id}.svg`);

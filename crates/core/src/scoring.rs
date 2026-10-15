@@ -43,9 +43,10 @@ impl MaterialAreas {
                 collision.units,
                 RigidTransform::default(),
             )?;
+            let missing = body.inside(&reserved, 0.0)?.outside_area;
             ensure!(
-                body.inside(&reserved, 0.0)?.outside_area == 0.0,
-                "collision envelope omits original material for {}",
+                missing == 0.0,
+                "collision envelope omits {missing:.12} mm² of original material for {}",
                 source.id
             );
             ensure!(

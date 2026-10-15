@@ -1,0 +1,199 @@
+{
+  "date": "2026-10-15T11:31:51.509487+00:00",
+  "checks": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 0.48400000000401633
+    },
+    {
+      "name": "lint",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 3.9219999999986612
+    },
+    {
+      "name": "workspace",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 309.15699999999924
+    },
+    {
+      "name": "cli-release",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 64.84300000000076
+    },
+    {
+      "name": "schemas",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/schemas.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 2.4530000000013388
+    },
+    {
+      "name": "browser-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "seconds": 44.09399999999732
+    },
+    {
+      "name": "browser-types",
+      "command": [
+        "npx.cmd",
+        "tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "cwd": "web",
+      "exit_code": 0,
+      "seconds": 1.5469999999986612
+    },
+    {
+      "name": "browser-leads",
+      "command": [
+        "npx.cmd",
+        "playwright",
+        "test",
+        "--grep",
+        "lead allowances|common-line"
+      ],
+      "cwd": "web",
+      "exit_code": 0,
+      "seconds": 8.93800000000192
+    },
+    {
+      "name": "frozen-integrity",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/shop_freeze.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 1,
+      "seconds": 0.17199999999866122
+    },
+    {
+      "name": "frozen-integrity-venv",
+      "command": [
+        "python",
+        "output/ccd1.py",
+        ".cache/shop-venv/Scripts/python.exe",
+        "scripts/shop_freeze.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "supersedes": "frozen-integrity",
+      "log": "frozen-integrity-venv.log"
+    },
+    {
+      "name": "native-layout-recheck",
+      "command": [
+        "python",
+        "scripts/h6_lead_source_recheck.py",
+        "benchmarks/results/h6-lead-settings-20261015T102840Z",
+        "benchmarks\\results\\h6-lead-source-20261015T112252Z\\recheck"
+      ],
+      "exit_code": 0,
+      "log": "native-layout-recheck.log"
+    }
+  ],
+  "affinity": "Parent CPU16-31; native-layout recheck subprocesses CPU0",
+  "held_out_geometry_read": false,
+  "base_commit": "d9d34645a9e0513adaec4de6aa9ed3b63be013c0",
+  "source_working_sha256": "dd822df63be2249f72b44eec0b0cf609a88bed3899ce01ad567f9b14d1482156",
+  "binary_sha256": "b71cdfe3c034c9774e239abbcba8a753e339d30d2a30a59e3da46fb654329683",
+  "test_summary": {
+    "workspace_passed": 272,
+    "workspace_ignored": 1,
+    "release_cli_passed": 22,
+    "focused_browser_passed": 4
+  },
+  "frozen_integrity": {
+    "H1_frozen_integrity": true,
+    "inventory_files": 1181,
+    "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7"
+  },
+  "final_required_checks_pass": true,
+  "limitations": [
+    "No new native session or solver benchmark",
+    "Public multi-component lead planning pending",
+    "Common-line-set material-cost comparison pending",
+    "H6 incomplete; completed milestone weight 15%"
+  ],
+  "source_committed_sha256": "9ca01e3a78fdc5ecbd02311fa64b314d2c1d4a9c368ab80144bf97f000dcfaa4",
+  "source_normalization_differences": [
+    {
+      "path": "crates/core/Sparrow_LICENSE",
+      "difference": "Working CRLF versus Git LF only"
+    },
+    {
+      "path": "crates/core/src/sheets/vstrip.rs",
+      "difference": "Working CRLF versus Git LF only"
+    }
+  ],
+  "artifacts": {
+    "browser-build.log": "3f33a468e773aa1f40361e2d5c5eb70cad2d808d7f106da475ce014780749e18",
+    "browser-leads.log": "10e53d520eb32de45b653e626821072c2fad0ef83c8fd73626b94e8c08cac88a",
+    "browser-types.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cli-release.log": "518b5a446b4a2809fca610740d392c7a211f4c42996fc841a67a52ed7b107f31",
+    "development-failures.json": "ac24db7092c6960dacc68c8bbd4e725c6b1fccfa4d926860ff790597aeb172e2",
+    "format.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "frozen-integrity-venv.log": "c73e800f3d06eea7fcbeed83c644397fc2b489185a9b1732336c0bd377abb000",
+    "frozen-integrity.log": "caa61032165938a8e1f7007a4f707b92184706b07db9932bf710b8af936676e5",
+    "lint.log": "743170cfcb785711490e78ef646d0dc86ac4c91e32257cf380223426611a10cd",
+    "native-layout-recheck.log": "d847607be324441c9d156bc70bfc9400176b827f047aa31f0c9c0fd6b2a62578",
+    "recheck/arc/export.log": "6a91a4c2b1554dfd6b7a44e28627f060eee9bc84a9081d1bc6edb2c2c2cfaf8d",
+    "recheck/arc/report.json": "c366c11c15d84695eba51658d4ac84784f80a5f3d2f0b1b2bad527ce90622cf9",
+    "recheck/arc/sheet-0.dxf": "51c8b3f736fa4a452f930911ad005c6e54021d0aeaaa2c0fdd250ca7ef067300",
+    "recheck/arc/sheet-0.svg": "b0a8088b55912c649b4b466ea710786b70f4c34180cb1c5976852efc66847552",
+    "recheck/checks.json": "9551bc62998060842e4b284820a0d4c525e454c877c4176cb057db01217c0010",
+    "recheck/line/export.log": "0d08e4eb06ec80ff2e9405c3c8a8765d1d5b5e6fbb1ddd65986bc7dc9c3b8bd0",
+    "recheck/line/report.json": "8870228254ad3dad0c10a277e48499d9a1f14a73a65d441e40e91ae7c3be2766",
+    "recheck/line/sheet-0.dxf": "34687bf8c022b7f51b149fffbc6e7e39b4899d3e076159c519cf454f8a48ff2a",
+    "recheck/line/sheet-0.svg": "500e36814b8d5ae2189709618ff00f06d0f61321d9ad3037219296c528112c8c",
+    "schemas.log": "044ca376c2adbed3d5da0f69684fee14a7887a50b317226726d8eac37e6134fa",
+    "workspace.log": "fd363751fce6fe7446f2109783b059ea15af159e5ef22088c914511021567763"
+  }
+}

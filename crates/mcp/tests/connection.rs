@@ -34,6 +34,8 @@ async fn lead_allowances_report_flags_and_revalidate_identically() {
         let nested=call("nest",json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
         assert_eq!(nested["validation"]["valid"],true);
         assert_eq!(nested["lead_in"]["expected_contours"],6);assert_eq!(nested["lead_in"]["flagged_contours"],2);
+        assert_eq!(nested["lead_in"]["validation"]["source_checked"],true);
+        assert_eq!(nested["lead_in"]["validation"]["coverage"],json!({"expected_contours":6,"reserved_contours":4,"flagged_contours":2}));
         assert_eq!(nested["lead_in"]["options"]["length_mm"],3.0);
         let checked=call("validate_layout",json!({"library_path":library,"request":request,"layout_path":"nested/layout.json"})).await.unwrap().structured_content.unwrap();
         assert_eq!(nested["lead_in"],checked["lead_in"]);

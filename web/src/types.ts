@@ -79,7 +79,8 @@ export interface LeadOptions { kerf_mm: number; length_mm: number; style: 'line'
 export type LeadPath = { kind: 'line'; from_mm: Point; to_mm: Point } | { kind: 'arc'; center_mm: Point; radius_mm: number; start_radians: number; sweep_radians: number };
 export interface LeadReport {
   options: LeadOptions; expected_contours: number; reserved_contours: number; flagged_contours: number;
-  validation: { valid: boolean; checked_contours: number };
+  validation: { valid: boolean; checked_contours: number; source_checked: boolean;
+    coverage: { expected_contours: number; reserved_contours: number; flagged_contours: number } | null };
   parts: { part_id: string; copy_index: number; sheet_id: string; bounds_mm: [number, number, number, number];
     reservations: { contour_index: number; length_mm: number; shortened: boolean; paths: LeadPath[] }[];
     flags: { contour_index: number; reason: string }[] }[];

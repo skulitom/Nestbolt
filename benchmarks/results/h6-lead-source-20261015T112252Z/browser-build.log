@@ -1,0 +1,25 @@
++ cargo build --locked --release -p nestbolt-wasm --target wasm32-unknown-unknown
+   Compiling nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+   Compiling nestbolt-wasm v0.1.0 (C:\DEV\Nestbolt\crates\wasm)
+    Finished `release` profile [optimized] target(s) in 41.83s
++ wasm-bindgen --target web --out-dir C:\DEV\Nestbolt\web\src\pkg C:\DEV\Nestbolt\target\wasm32-unknown-unknown\release\nestbolt_wasm.wasm
++ npm run build
+
+> nestbolt-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v7.1.12 building for production...
+transforming...
+✓ 18 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/bench.html                                 0.70 kB │ gzip:     0.40 kB
+dist/index.html                                 2.14 kB │ gzip:     1.11 kB
+dist/assets/worker-Lkly_pKl.js                  8.02 kB
+dist/assets/nestbolt_wasm_bg-B_wgAChF.wasm  3,436.66 kB │ gzip: 1,161.04 kB
+dist/assets/main-mA8Hn3k0.css                   6.65 kB │ gzip:     2.16 kB
+dist/assets/bench-ry_XoY8n.js                   0.08 kB │ gzip:     0.09 kB
+dist/assets/engine-Bw6GyRrp.js                  3.78 kB │ gzip:     1.73 kB
+dist/assets/main-VvjffWiT.js                   49.88 kB │ gzip:    18.23 kB
+✓ built in 303ms

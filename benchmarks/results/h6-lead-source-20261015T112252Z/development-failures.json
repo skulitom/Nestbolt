@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-15",
+  "scope": "Development test observations before the recorded final check batch; no benchmark or held-out evaluation",
+  "failures": [
+    {
+      "test": "complete_checks_preserve_units_rotation_and_mirroring",
+      "observation": "The initial test expected placed_area to be expressed in squared job units. The established Metrics contract uses physical mm², including inch jobs.",
+      "minimal_case": {"angle": 0.0, "mirror": false, "inches": true},
+      "seed": "962c04411fa3ff450c420b9ec50c5e5eee459b5c25fcda914ffb4ea869ccf992",
+      "repair": "Corrected the assertion to 100 mm². Production metrics were unchanged. Retained the seed in crates/validator/tests/lead_sources.proptest-regressions."
+    },
+    {
+      "test": "final_validation_rebuilds_mixed_curves_in_physical_units",
+      "observation": "The original strict material check rejected the collision union before final source validation: collision envelope omits 0.000000001010 mm² of original material for plate.",
+      "missing_area_mm2": 0.000000001010,
+      "repair": "Canonical collision output is reconstructed and checked against original material. If necessary, apply the existing two-grid outward margin and repeat the strict zero-outside-area check once. Larger omissions still fail.",
+      "regression": "Mixed line/cubic/quadratic/arc source passes with reflection and rotation in mm and inches. A separate test proves a 0.001 mm missing strip is rejected."
+    }
+  ],
+  "test_fixture_compilation_corrections": [
+    "Supplied the required Job.name field in the new validator test fixture.",
+    "Borrowed Affine for the existing Contour.transformed API in the new core fixture."
+  ]
+}

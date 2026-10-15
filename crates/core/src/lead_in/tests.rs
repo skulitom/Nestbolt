@@ -215,6 +215,75 @@ fn invalid_source_and_exclusion_inputs_fail_clearly() {
 }
 
 #[test]
+fn final_validation_rebuilds_mixed_curves_in_physical_units() {
+    use nestbolt_validator::job::{Layout, Placement, Sheet};
+    let outer = Contour {
+        start: [0.0, 0.0],
+        segments: vec![
+            Segment::Line { to: [20.0, 0.0] },
+            Segment::Cubic {
+                controls: [[25.0, 0.0], [25.0, 20.0]],
+                to: [20.0, 20.0],
+            },
+            Segment::Quad {
+                control: [10.0, 25.0],
+                to: [0.0, 20.0],
+            },
+            Segment::Arc {
+                center: [0.0, 10.0],
+                radii: [10.0, 10.0],
+                rotation: 0.0,
+                start: PI / 2.0,
+                sweep: PI,
+            },
+        ],
+    };
+    for units in [Units::Mm, Units::Inch] {
+        let outer = outer.transformed(&Affine::scale(1.0 / units.to_mm()));
+        let mut original = job(Polygon {
+            outer: outer.flatten(0.005 / units.to_mm()).unwrap(),
+            holes: vec![],
+        });
+        original.parts[0].quantity = 1;
+        original.units = units;
+        original.clearance /= units.to_mm();
+        original.edge_clearance /= units.to_mm();
+        original.stocks[0].width /= units.to_mm();
+        original.stocks[0].height /= units.to_mm();
+        let curves = HashMap::from([(
+            "plate".into(),
+            Outline {
+                outer,
+                holes: vec![],
+            },
+        )]);
+        let layout = Layout {
+            version: 1,
+            units,
+            sheets: vec![Sheet {
+                id: "sheet-0".into(),
+                stock_id: "sheet".into(),
+            }],
+            placements: vec![Placement {
+                part_id: "plate".into(),
+                copy_index: 0,
+                sheet_id: "sheet-0".into(),
+                transform: RigidTransform {
+                    translation: [40.0 / units.to_mm(), 40.0 / units.to_mm()],
+                    rotation_radians: 0.3,
+                    mirrored: true,
+                },
+            }],
+        };
+        let initial = prepare(&original, &curves, options(), &HashMap::new()).unwrap();
+        let report = finalize(&original, &curves, &layout, options(), &initial, &[]).unwrap();
+        assert!(report.validation.valid && report.validation.source_checked);
+        assert_eq!(report.reserved_contours, 1);
+        assert_eq!(report.validation.coverage.unwrap().expected_contours, 1);
+    }
+}
+
+#[test]
 fn final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches() {
     use nestbolt_validator::job::{Layout, Placement, Sheet};
     for units in [Units::Mm, Units::Inch] {
@@ -277,6 +346,16 @@ fn final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches() {
             (2, 2, 0)
         );
         assert_eq!(report.parts[0].plan.reservations[0].start.segment, 0);
+        assert!(report.validation.source_checked);
+        let coverage = report.validation.coverage.as_ref().unwrap();
+        assert_eq!(
+            (
+                coverage.expected_contours,
+                coverage.reserved_contours,
+                coverage.flagged_contours
+            ),
+            (2, 2, 0)
+        );
         assert_eq!(report.parts[1].plan.reservations[0].start.segment, 1);
         assert_eq!(
             report.validation.metrics.as_ref().unwrap().placed_area,

@@ -295,6 +295,13 @@ Build the section 3 lead-in scope:
 - the material cost of the allowance on the common-line set is reported;
 - UI, CLI and MCP parity, with end-to-end tests.
 
+The [independent source-validation checkpoint](../benchmarks/results/h6-lead-source-checkpoint-20261015.md)
+now derives coverage from the original job, independently evaluates original
+curve attachments and checks owner material as well as neighbours and stock.
+The final check is shared by all public surfaces. Explicit flags remain unresolved
+contours; multipart planning and the required allowance-cost comparison are still
+pending. This evidence does not change the gate or its completion state.
+
 ## 5. Tests and evidence
 
 - Rust unit and property tests for every new geometry routine.

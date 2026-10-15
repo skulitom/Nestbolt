@@ -556,11 +556,8 @@ fn prepare_filtered(
         {
             *p = mul(*p, job.units.to_mm());
         }
-        let mut combined = body.union(&Footprint::new(
-            &original,
-            Units::Mm,
-            RigidTransform::default(),
-        )?)?;
+        let material = Footprint::new(&original, Units::Mm, RigidTransform::default())?;
+        let mut combined = body.union(&material)?;
         let mut previous: Vec<Footprint> = vec![];
         let mut plan = PartPlan {
             part_id: part.id.clone(),
@@ -698,8 +695,7 @@ fn prepare_filtered(
                 });
             }
         }
-        enlarged.geometry = combined
-            .polygons()?
+        enlarged.geometry = leads::collision_polygons(&combined, &material)?
             .into_iter()
             .map(|mut polygon| {
                 for p in polygon

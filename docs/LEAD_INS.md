@@ -52,6 +52,15 @@ Existing valid layouts can also acquire leads by reselecting starts, shortening,
 or reporting flags. Standalone export recomputes this plan from the source
 request and layout, rather than trusting saved report JSON.
 
+The final validator derives contour coverage from the original job. Every placed
+contour must have exactly one allowance or a nonempty explicit flag. It evaluates
+the original line, quadratic/cubic Bézier or elliptical-arc start independently,
+checks both reserved lead endpoints against it within 0.000008 mm, and rebuilds
+the original material boundary to 0.0001 mm. Each lead and pierce must clear its
+own material as well as other copies, leads and usable stock. The ordinary
+half-kerf cut at the attachment remains permitted. Coverage includes flags;
+it does not certify that a flagged contour has a safe lead.
+
 `report.json` and MCP/browser results include `lead_in` with options, expected,
 reserved and flagged contour counts, and one record per placed copy. Each record
 lists source contour indices, exact start parameters, actual lengths, shortened
@@ -59,6 +68,13 @@ status, analytic paths for both directions, flags and world-space bounds. Indice
 are zero based in JSON; the browser displays copy and contour numbers starting
 at one. Browser previews draw one lead direction in red and include all reserved
 space in the offcut extent.
+
+`lead_in.validation` includes independently derived `coverage` counts and
+`source_checked: true`. The kernel's older partial footprint API explicitly
+returns `coverage: null` and `source_checked: false`; it is not the final export
+check. [Source-validation evidence](../benchmarks/results/h6-lead-source-checkpoint-20261015.md)
+includes adversarial attachments, missing decisions, inward leads and curved
+neighbours that extend beyond their search polygons.
 
 Validate a public request including its leads with:
 
@@ -103,7 +119,6 @@ outlines and starts remained unchanged within 0.00000224 mm in both saved projec
 SVG/DXF cutting parts with one outer contour and optional holes are supported.
 Editable LightBurn projects and rigid units with several disconnected components
 are explicitly rejected by the lead planner; normal preserving project exports
-remain available without lead overrides. Multi-component planning, the broader
-independent final coverage/owner audit and material-cost measurements on the
+remain available without lead overrides. Multi-component planning and material-cost measurements on the
 common-line development set remain unfinished. These public controls and tests
 are a development checkpoint, not completion of H6 or a new quality claim.

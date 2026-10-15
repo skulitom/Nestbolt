@@ -15,6 +15,10 @@ use crate::{
     job::{Job, Layout, Metrics, Mode, Placement, Rotations, usable_stock},
 };
 
+mod complete;
+pub mod source;
+pub use complete::{AttachedAllowance, Coverage, Flag, validate_complete};
+
 /// Each chord/round-join error is covered by additional outward radius.
 pub const ENVELOPE_TOLERANCE_MM: f64 = 0.0001;
 const MAX_PATH_POINTS: usize = 10_000;
@@ -262,6 +266,34 @@ pub struct Owner {
     kerf_mm: f64,
 }
 
+/// Canonical collision polygons must still contain the original material after
+/// integer intersection rounding. Repair a nanometre-scale union sliver with
+/// the kernel's two-grid outward margin, then recheck strict containment. A
+/// genuinely incomplete envelope remains an error; no area tolerance is used.
+pub fn collision_polygons(
+    envelope: &Footprint,
+    material: &Footprint,
+) -> Result<Vec<crate::Polygon>> {
+    ensure!(
+        envelope.units == Units::Mm && material.units == Units::Mm,
+        "lead collision containment requires millimetres"
+    );
+    let mut guarded = envelope.clone();
+    for attempt in 0..=1 {
+        let polygons = guarded.polygons()?;
+        let rebuilt = Footprint::from_polygons(&polygons, Units::Mm, RigidTransform::default())?;
+        if material.inside(&rebuilt, 0.0)?.outside_area == 0.0 {
+            return Ok(polygons);
+        }
+        ensure!(
+            attempt == 0,
+            "lead collision envelope omits original material after quantization guard"
+        );
+        guarded = guarded.boundary_tolerance()?;
+    }
+    unreachable!()
+}
+
 impl Owner {
     pub fn new(body: Footprint, kerf_mm: f64) -> Result<Self> {
         ensure!(body.units == Units::Mm, "lead owner must use millimetres");
@@ -339,6 +371,10 @@ pub struct Report {
     pub checked_contours: usize,
     pub violation_count: usize,
     pub violations: Vec<String>,
+    /// None for the partial footprint-only API.
+    pub coverage: Option<Coverage>,
+    /// Attachment and owner checks used independently evaluated source curves.
+    pub source_checked: bool,
     /// Original placed area, with stock consumption/offcuts enclosing the
     /// independently rebuilt lead envelopes as well as the original parts.
     pub metrics: Option<Metrics>,
@@ -346,8 +382,18 @@ pub struct Report {
 
 /// Check every supplied allowance against original parts on its sheet, other
 /// contours' allowances (including the same part), margins, remnants and defects.
-/// Coverage/flagging of contours without a lead is reported by the lead planner.
+/// This partial API does not certify coverage, source attachment or owner safety.
+/// Final exports must use `validate_complete` with original source curves.
 pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<Report> {
+    validate_impl(job, layout, allowances, None)
+}
+
+fn validate_impl(
+    job: &Job,
+    layout: &Layout,
+    allowances: &[Allowance],
+    source_bodies_mm: Option<&HashMap<&str, Vec<crate::Polygon>>>,
+) -> Result<Report> {
     let original_report = crate::job::validate(job, layout)?;
     ensure!(
         original_report.valid,
@@ -359,6 +405,8 @@ pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<
         checked_contours: allowances.len(),
         violation_count: 0,
         violations: vec![],
+        coverage: None,
+        source_checked: false,
         metrics: None,
     };
     let mut issue = |text: String| {
@@ -378,11 +426,17 @@ pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<
         .placements
         .iter()
         .map(|p| {
-            let mut shape = Footprint::from_polygons(
-                &parts[p.part_id.as_str()].geometry,
-                job.units,
-                p.transform,
-            )?;
+            let mut shape = if let Some(bodies) = source_bodies_mm {
+                let mut transform = p.transform;
+                transform.translation = transform.translation.map(|v| v * job.units.to_mm());
+                Footprint::from_polygons(&bodies[p.part_id.as_str()], Units::Mm, transform)?
+            } else {
+                Footprint::from_polygons(
+                    &parts[p.part_id.as_str()].geometry,
+                    job.units,
+                    p.transform,
+                )?
+            };
             shape.units = Units::Mm; // Internal coordinates are already physical mm.
             Ok((p, shape))
         })

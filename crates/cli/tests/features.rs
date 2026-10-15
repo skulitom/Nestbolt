@@ -96,6 +96,13 @@ fn lead_flags_defaults_validation_and_repeat_export_match_the_request() {
     assert_eq!(leads["expected_contours"], 6);
     assert_eq!(leads["reserved_contours"], 4);
     assert_eq!(leads["flagged_contours"], 2);
+    assert_eq!(leads["validation"]["source_checked"], true);
+    assert_eq!(
+        leads["validation"]["coverage"],
+        json!({
+            "expected_contours": 6, "reserved_contours": 4, "flagged_contours": 2
+        })
+    );
     assert_eq!(
         leads["parts"]
             .as_array()

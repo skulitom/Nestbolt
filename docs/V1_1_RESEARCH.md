@@ -505,3 +505,21 @@ the preview observation, not the independent 0.01 mm vector clearance gate.
 The earlier [three searched coupons](../benchmarks/results/h6-lead-planner-checkpoint-20261015.md)
 cover outer corners, holes and reversal; zero-angle native coverage and broader
 H6 acceptance remain unfinished. No held-out geometry was used.
+
+### Independent lead source validation (2026-10-15)
+
+The [source-validation checkpoint](../benchmarks/results/h6-lead-source-checkpoint-20261015.md)
+rebuilds coverage from placed original contours and evaluates their source
+segments independently of the planner. Bernstein polynomial evaluation and
+bounded subdivision cover quadratic/cubic Béziers; elliptical arcs use a second
+derivative chord-error bound. Physical flattening tolerance is 0.0001 mm and
+attachment tolerance is 0.000008 mm. Owner material is rebuilt from those source
+curves, and each supplied lead's stroke and pierce are checked against it.
+
+A mixed-curve regression also exposed a 0.000000001010 mm² sliver lost by rounded
+polygon union. The collision export now retries strict containment with the
+kernel's two-grid (0.000002 mm) outward margin when necessary. Larger missing
+material remains an error; the validator's zero-outside-area requirement is
+unchanged. This is a containment repair, not a relaxed area tolerance or a
+performance/material-cost claim. Multipart planning and broader H6 acceptance
+remain pending.

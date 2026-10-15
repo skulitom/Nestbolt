@@ -68,6 +68,37 @@ fn world(paths: &[Path], placement: &Placement, units: Units, kerf: f64) -> Resu
     leads::footprint(&paths, kerf)
 }
 
+// Copy source definitions only. The validator evaluates and flattens them using
+// its own implementation; no planner polygon or sampled start is accepted.
+fn source_contour(contour: &Contour) -> leads::source::Contour {
+    use leads::source::Segment as S;
+    leads::source::Contour {
+        start: contour.start,
+        segments: contour
+            .segments
+            .iter()
+            .map(|segment| match *segment {
+                Segment::Line { to } => S::Line { to },
+                Segment::Quad { control, to } => S::Quad { control, to },
+                Segment::Cubic { controls, to } => S::Cubic { controls, to },
+                Segment::Arc {
+                    center,
+                    radii,
+                    rotation,
+                    start,
+                    sweep,
+                } => S::Arc {
+                    center,
+                    radii,
+                    rotation,
+                    start,
+                    sweep,
+                },
+            })
+            .collect(),
+    }
+}
+
 /// Recheck each placed copy and avoid its actual shared segments. A newly
 /// selected lead must clear stock, all other original reservation envelopes,
 /// and every already selected new lead. Keeping unused original reservations
@@ -219,16 +250,61 @@ pub fn finalize(
     let allowances: Vec<_> = parts
         .iter()
         .flat_map(|p| {
-            p.plan.reservations.iter().map(|r| leads::Allowance {
+            p.plan
+                .reservations
+                .iter()
+                .map(|r| leads::AttachedAllowance {
+                    allowance: leads::Allowance {
+                        part_id: p.plan.part_id.clone(),
+                        copy_index: p.copy_index,
+                        contour_index: r.contour_index,
+                        kerf_mm: options.kerf_mm,
+                        paths: r.paths.clone(),
+                    },
+                    start: leads::source::Start {
+                        segment: r.start.segment,
+                        parameter: r.start.parameter,
+                    },
+                })
+        })
+        .collect();
+    let flags: Vec<_> = parts
+        .iter()
+        .flat_map(|p| {
+            p.plan.flags.iter().map(|f| leads::Flag {
                 part_id: p.plan.part_id.clone(),
                 copy_index: p.copy_index,
-                contour_index: r.contour_index,
-                kerf_mm: options.kerf_mm,
-                paths: r.paths.clone(),
+                contour_index: f.contour_index,
+                reason: f.reason.clone(),
             })
         })
         .collect();
-    let validation = leads::validate(job, layout, &allowances)?;
+    let sources = job
+        .parts
+        .iter()
+        .map(|p| {
+            let components = if let Some(outline) = curves.get(&p.id) {
+                ensure!(
+                    p.geometry.len() == 1,
+                    "multipart source outline is ambiguous"
+                );
+                vec![leads::source::Component {
+                    outer: source_contour(&outline.outer),
+                    holes: outline.holes.iter().map(source_contour).collect(),
+                }]
+            } else {
+                p.geometry
+                    .iter()
+                    .map(leads::source::Component::from_polygon)
+                    .collect::<Result<_>>()?
+            };
+            Ok(leads::source::Part {
+                part_id: p.id.clone(),
+                components,
+            })
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let validation = leads::validate_complete(job, layout, &sources, &allowances, &flags)?;
     ensure!(
         validation.valid,
         "final lead allowances failed independent validation: {:?}",

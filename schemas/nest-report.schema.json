@@ -65,6 +65,31 @@
       ],
       "type": "object"
     },
+    "Coverage2": {
+      "properties": {
+        "expected_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "flagged_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reserved_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "expected_contours",
+        "reserved_contours",
+        "flagged_contours"
+      ],
+      "type": "object"
+    },
     "Flag": {
       "properties": {
         "contour_index": {
@@ -500,6 +525,17 @@
           "minimum": 0,
           "type": "integer"
         },
+        "coverage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Coverage2"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "None for the partial footprint-only API."
+        },
         "metrics": {
           "anyOf": [
             {
@@ -510,6 +546,10 @@
             }
           ],
           "description": "Original placed area, with stock consumption/offcuts enclosing the\nindependently rebuilt lead envelopes as well as the original parts."
+        },
+        "source_checked": {
+          "description": "Attachment and owner checks used independently evaluated source curves.",
+          "type": "boolean"
         },
         "valid": {
           "type": "boolean"
@@ -530,7 +570,8 @@
         "valid",
         "checked_contours",
         "violation_count",
-        "violations"
+        "violations",
+        "source_checked"
       ],
       "type": "object"
     },
