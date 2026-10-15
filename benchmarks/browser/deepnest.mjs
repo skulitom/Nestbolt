@@ -213,6 +213,10 @@ try {
   checkpoint('budget_finished')
   if (startupError) result.errors.push(startupError)
   result.status = result.last ? 'completed' : 'no_layout'
+  if (request.common_line_export && result.last) {
+    const { saveCutExports } = await import('./deepnest-cut-export.mjs')
+    result.cut_exports = await saveCutExports(page, result.last.native, output)
+  }
   writeFileSync(join(output, 'browser-result.json'), JSON.stringify(result, null, 2)+'\n')
   await closeOwnedApp()
   checkpoint('app_closed')

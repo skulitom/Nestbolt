@@ -1,0 +1,39 @@
+[
+  {
+    "command": [
+      ".cache/shop-venv/Scripts/python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_h5_deepnest_svg.py"
+    ],
+    "exit_code": 0,
+    "log": "checks-0.log"
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_deepnest*.py"
+    ],
+    "exit_code": 0,
+    "log": "checks-1.log"
+  },
+  {
+    "command": [
+      "node",
+      "--test",
+      "benchmarks/browser/deepnest-lifecycle.test.mjs"
+    ],
+    "exit_code": 0,
+    "log": "checks-2.log"
+  }
+]

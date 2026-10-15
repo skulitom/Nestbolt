@@ -12355,3 +12355,27 @@ The 60-second/three-seed matrix and Deepnest SVG comparison remain outstanding.
 This pilot does not complete H5, relax its thresholds, or change v1 claims.
 A subsequent platform-independent seed-index fix leaves seed-0 arithmetic
 unchanged; the pilot retains its original source and executable hashes.
+
+## 2026-10-15 — H5 Deepnest SVG comparator preparation
+
+The optional comparator extension calls pinned Deepnest-next's public SVG export
+service, without modifying or copying its engine. Spacing is zero and mergeLines
+is on; network requests remain blocked and no DXF conversion is called. Both
+merged and unmerged SVGs are checked independently against original source rings
+and the saved native rigid placements, at 0.001 mm. Native reported merged length
+and actual exported savings are retained separately.
+
+The first rectangle pilot produced a valid layout but exposed an oracle omission
+for standard SVG `line` elements. The [original failure](benchmarks/results/h5-deepnest-pilot-20261015T140533Z-cpu14/results.json)
+remains; [rechecking the unchanged exports](benchmarks/results/h5-deepnest-pilot-recheck-20261015.json)
+passes with line support. An expanded pilot validated a box, then its startup
+watchdog/cleanup stalled; the [interrupted run](benchmarks/results/h5-deepnest-pilot-corrected-20261015T140811Z-cpu14/interruption.json)
+retains that result and raw interrupted files. All owned processes were stopped.
+The corrected setup now uses CCD1 for startup and the existing loaded-tree CPU
+pinning immediately before timed search, with bounded process cleanup.
+
+The [corrected three-case pilot](benchmarks/results/h5-deepnest-pilot-setup-20261015T141725Z-cpu14/results.json)
+passes box, rectangle and bracket layout/SVG checks at five seconds, seed 0;
+three cases finish in about 29 seconds total. Oracle rejection tests and the
+existing 13 Python/three Node comparator tests pass. The full 60-second,
+three-seed development comparison is next; H5 remains open.
