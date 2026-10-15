@@ -110,9 +110,7 @@ impl Library {
                     !shape.fixed && shape.geometry_complete,
                     "cutting sidecar requires complete movable source geometry"
                 );
-                let cutting = document.scene.layers.iter().any(|l| {
-                    l.index == shape.cut_index && l.image == shape.image_layer && l.output && l.cuts
-                });
+                let cutting = document.scene.is_cutting(shape);
                 if cutting {
                     ensure!(
                         !shape.paths.is_empty(),

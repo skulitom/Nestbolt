@@ -397,6 +397,72 @@ fn corrupt_shared_lists_and_nonfinite_geometry_fail_with_context() {
 }
 
 #[test]
+fn omitted_settings_attach_text_and_images_but_keep_tool_shapes_fixed() {
+    use nestbolt_core::lightburn::UnitPlacement;
+    use nestbolt_validator::RigidTransform;
+    let source = r#"<LightBurnProject FormatVersion="1">
+      <Shape Type="Rect" CutIndex="0" W="40" H="30"/>
+      <Shape Type="Text" CutIndex="0" Str="cached"><BackupPath Type="Path"><VertList>V0 0V2 0V0 2</VertList><PrimList>LineClosed</PrimList></BackupPath></Shape>
+      <Shape Type="Bitmap" CutIndex="0" W="2" H="2" Data="aW1hZ2U="/>
+      <Shape Type="Ellipse" CutIndex="1" Rx="3" Ry="3"><XForm>1 0 0 1 50 0</XForm></Shape>
+      <Shape Type="Rect" CutIndex="30" W="3" H="4"/>
+      <Shape Type="Rect" CutIndex="31" W="5" H="6"/>
+    </LightBurnProject>"#;
+    let document = Document::read(source, 0.0005).unwrap();
+    assert!(document.scene.layers.is_empty());
+    assert_eq!(document.original_xml(), source);
+    let nesting = document.nesting_units(0.0005).unwrap();
+    assert_eq!(nesting.units.len(), 2);
+    assert_eq!(nesting.units[0].members, [0, 1, 2]);
+    assert_eq!(nesting.units[1].members, [3]);
+    assert_eq!(nesting.fixed, [4, 5]);
+    assert_eq!(nesting.warnings.len(), 6);
+    let moved = nesting
+        .write_sheet(
+            &[UnitPlacement {
+                unit: 0,
+                transform: RigidTransform {
+                    translation: [100.0, 80.0],
+                    ..Default::default()
+                },
+            }],
+            300.0,
+            200.0,
+            false,
+        )
+        .unwrap();
+    assert!(!moved.contains("<CutSetting"));
+    let reread = Document::read(&moved, 0.0005).unwrap();
+    assert_eq!(reread.scene.top_level.len(), 5);
+    for (source_index, output_index) in [(4, 3), (5, 4)] {
+        assert_eq!(
+            document.scene.shapes[source_index].world_xform,
+            reread.scene.shapes[output_index].world_xform
+        );
+        assert!(reread.scene.shapes[output_index].fixed);
+    }
+    let mixed = source
+        .replace(
+            "<Shape Type=\"Rect\" CutIndex=\"0\"",
+            "<Shape Type=\"Group\"><Children><Shape Type=\"Rect\" CutIndex=\"0\"",
+        )
+        .replace(
+            "</LightBurnProject>",
+            "</Children></Shape></LightBurnProject>",
+        );
+    let error = Document::read(&mixed, 0.0005)
+        .unwrap()
+        .nesting_units(0.0005)
+        .err()
+        .unwrap();
+    assert!(
+        error
+            .to_string()
+            .contains("group movable artwork separately")
+    );
+}
+
+#[test]
 fn nesting_units_attach_contents_but_preserve_groups_and_fixed_shapes() {
     let xml = r#"<LightBurnProject FormatVersion="1">
       <CutSetting type="Cut"><index Value="0"/></CutSetting>

@@ -95,6 +95,24 @@ the original MIT [checker bitmap](../benchmarks/datasets/shop/probes/checker.png
 
 ## Layer settings and leads
 
+### Omitted layer settings
+
+The [2026-10-15 native probe](../benchmarks/results/h3-missing-layer-native-20261015.md)
+opens omitted vector settings at indices 0 and 1 as Line and indices 30 and 31
+as T1/T2 Tool. Reopening after an explicit Fill project restores those modes;
+the native save does retain the intervening layer order through `priority`.
+The original training L36 project also opens and saves with index 0 as Line.
+
+Nestbolt uses Line for omitted vector settings 0–29 when assigning contained
+artwork and collecting original cutting paths. Omitted T1/T2 settings still
+keep shapes fixed. Image settings remain a separate family, so a Bitmap does
+not become a cut merely because the same numeric vector layer is Line.
+Missing-setting warnings remain. Nestbolt does not insert defaults into the
+editable source or invent speed, power, priority or other machine settings;
+the preserving export retains the original XML settings exactly.
+
+### Stored layer settings
+
 The CUT layer was set to 1,200 mm/min, 35% power and 0.2 mm outward kerf in the UI.
 It serializes as `speed=20`, `maxPower=35`, `kerf=0.2`: speed is mm/s even when the
 UI is displaying mm/min. Keep these settings unchanged during nesting.

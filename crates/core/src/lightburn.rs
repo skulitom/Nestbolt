@@ -85,6 +85,22 @@ pub struct Scene {
     pub warnings: Vec<String>,
 }
 
+impl Scene {
+    /// Effective cutting behaviour without inserting settings into the source.
+    /// Native 2.1.01 opens omitted vector settings 0-29 as Line, independently
+    /// of the previous document. Bitmap settings are a separate family.
+    pub(crate) fn is_cutting(&self, shape: &Shape) -> bool {
+        !shape.fixed
+            && self
+                .layers
+                .iter()
+                .find(|l| l.index == shape.cut_index && l.image == shape.image_layer)
+                .map_or(!shape.image_layer && shape.cut_index < 30, |l| {
+                    l.output && l.cuts
+                })
+    }
+}
+
 /// Keeps the entire source, including unknown XML, attribute order, whitespace,
 /// settings, embedded images and comments. A no-op write is byte-identical.
 pub struct Document {
@@ -399,7 +415,10 @@ fn read_shape(
         .layers
         .iter()
         .find(|l| l.index == cut_index && l.image == image_layer);
-    let fixed = layer.is_some_and(|l| !l.output || l.mode == "Tool");
+    // T1/T2 remain fixed even when their CutSetting elements are omitted.
+    let fixed = layer.map_or(matches!(cut_index, 30 | 31), |l| {
+        !l.output || l.mode == "Tool"
+    });
     let mut shape = Shape {
         kind: kind.clone(),
         parent,

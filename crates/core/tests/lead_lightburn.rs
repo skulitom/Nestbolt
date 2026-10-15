@@ -12,6 +12,68 @@ use serde_json::json;
 
 const SOURCE: &str = include_str!("fixtures/lead-group.lbrn2");
 
+fn without_settings(source: &str, indices: &[&str], image: bool) -> String {
+    let xml = roxmltree::Document::parse(source).unwrap();
+    let mut output = source.to_owned();
+    for node in xml.root_element().children().filter(|n| {
+        n.has_tag_name(if image {
+            "CutSetting_Img"
+        } else {
+            "CutSetting"
+        }) && n.children().any(|c| {
+            c.has_tag_name("index") && indices.contains(&c.attribute("Value").unwrap_or(""))
+        })
+    }) {
+        output = output.replace(&source[node.range()], "");
+    }
+    output
+}
+
+#[test]
+fn omitted_line_and_tool_settings_preserve_original_cutting_sidecars() {
+    let missing = without_settings(SOURCE, &["0", "30"], false);
+    let (reference, request, layout) = setup(SOURCE);
+    let (library, _, _) = setup(&missing);
+    assert_eq!(library.parts.len(), reference.parts.len());
+    assert_eq!(library.lightburn.as_ref().unwrap().fixed_top_level, 1);
+    let expected = request
+        .cutting_report(&reference, &layout)
+        .unwrap()
+        .review(&layout, "sheet-0")
+        .unwrap();
+    let report = request.cutting_report(&library, &layout).unwrap();
+    assert!(report.validation.valid);
+    assert_eq!(report.lead_in.as_ref().unwrap().expected_contours, 5);
+    let actual = report.review(&layout, "sheet-0").unwrap();
+    assert_eq!(actual.original_cuts.len(), expected.original_cuts.len());
+    for (id, paths) in &expected.original_cuts {
+        let actual = &actual.original_cuts[id];
+        assert_eq!(actual.len(), paths.len());
+        for (a, b) in actual.iter().zip(paths) {
+            assert_eq!(a.closed, b.closed);
+            assert_eq!(a.curve, b.curve);
+        }
+    }
+    let files = library
+        .export_files(&request, &layout, None, Some(false))
+        .unwrap();
+    assert_eq!(files.len(), 3);
+    assert!(!files[0].text.contains("<CutSetting type=\"Cut\""));
+    for i in [1, 2] {
+        assert_eq!(
+            files[i].text,
+            reference
+                .export_files(&request, &layout, None, Some(false))
+                .unwrap()[i]
+                .text
+        );
+    }
+    let missing_image = without_settings(include_str!("fixtures/roundtrip.lbrn2"), &["0"], true);
+    let (library, request, layout) = setup(&missing_image);
+    let report = request.cutting_report(&library, &layout).unwrap();
+    assert_eq!(report.lead_in.as_ref().unwrap().expected_contours, 3);
+}
+
 fn setup(text: &str) -> (Library, Request, Layout) {
     let library = Library::import(
         &[("lead-group.lbrn2".into(), text.into())],

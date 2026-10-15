@@ -80,13 +80,6 @@ fn closed(shape: &Shape) -> bool {
         && shape.paths.iter().all(|p| p.closed)
 }
 
-fn cut(scene: &Scene, shape: &Shape) -> bool {
-    scene
-        .layers
-        .iter()
-        .any(|l| l.index == shape.cut_index && l.image == shape.image_layer && l.cuts)
-}
-
 fn box_polygon(bounds: [f64; 4]) -> Polygon {
     let [x0, y0, x1, y1] = bounds;
     nestbolt_validator::job::rectangle(x0, y0, x1 - x0, y1 - y0)
@@ -206,7 +199,7 @@ impl Document {
                     scene.shapes[i].geometry_complete,
                     "LightBurn top-level shape {top} has incomplete geometry; re-save text in LightBurn to cache its outlines, or convert unsupported shapes to paths before nesting"
                 );
-                if closed(&scene.shapes[i]) && cut(scene, &scene.shapes[i]) {
+                if closed(&scene.shapes[i]) && scene.is_cutting(&scene.shapes[i]) {
                     let g = geometry(scene, i, tolerance_mm)?;
                     footprints.push(Some(Footprint::from_polygons(
                         &g,
@@ -226,7 +219,7 @@ impl Document {
             .enumerate()
             .filter_map(|(top, &i)| {
                 let shape = &scene.shapes[i];
-                (!shape.fixed && closed(shape) && cut(scene, shape)).then_some(top)
+                (!shape.fixed && closed(shape) && scene.is_cutting(shape)).then_some(top)
             })
             .collect();
         let mut attachments = vec![vec![]; scene.top_level.len()];
@@ -234,7 +227,10 @@ impl Document {
         let mut warnings = scene.warnings.clone();
         for (top, &i) in scene.top_level.iter().enumerate() {
             let shape = &scene.shapes[i];
-            if shape.fixed || shape.kind == "Group" || (cut(scene, shape) && shape.kind != "Text") {
+            if shape.fixed
+                || shape.kind == "Group"
+                || (scene.is_cutting(shape) && shape.kind != "Text")
+            {
                 continue;
             }
             // Containment of the entire rectangle catches concavities and holes;

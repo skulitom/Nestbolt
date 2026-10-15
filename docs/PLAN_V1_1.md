@@ -228,6 +228,8 @@ resolves repaired L17 and verifies all eight repairs, 435 original/repaired unit
 Two new native saves preserve their open paths; the five earlier native layouts revalidate. All public-surface tests pass.
 The three frozen native held-out projects remain unevaluated, so H3 is still open and completed weight remains 20%.
 
+**N2 missing-settings checkpoint, 2026-10-15:** [native defaults and training-label checks](../benchmarks/results/h3-missing-layer-native-20261015.md) resolve L36's remaining attachment mismatch. All 45 imported originals now match unit membership, physical cut holes, fixed shapes and cutting layers. Omitted T1/T2 settings keep shapes fixed, and omitted Line settings retain original cuts in sidecars. All eight repairs match membership and holes; L42's already documented native Scan+Cut-to-Scan change remains explicit. All 64 reader payloads are unchanged and 114 canonical writer comparisons pass. The three reserved native projects remain unevaluated; no gate or completed weight changes.
+
 ### 4.4 N3: curve-heavy parts in the browser
 
 - **Development subset** (never the v1 held-out jobs):

@@ -1,0 +1,102 @@
+{
+  "reader_writer_audit": "benchmarks/results/h3-reviewed-prerequisites-20261015T204219Z",
+  "source_guards_passed": true,
+  "noop_reads": 64,
+  "canonical_sheet_checks": 114,
+  "units": 434,
+  "labels": {
+    "original": {
+      "membership_matches": 45,
+      "physical_cut_holes_match": 45,
+      "fixed_matches": 45,
+      "cut_layers_match": 45,
+      "passed": 45
+    },
+    "native-repair": {
+      "membership_matches": 8,
+      "physical_cut_holes_match": 8,
+      "fixed_matches": 8,
+      "cut_layers_match": 7,
+      "passed": 7
+    }
+  },
+  "held_out_geometry_read": false,
+  "workspace-tests": {
+    "passed": 295,
+    "failed": 0,
+    "ignored": 1
+  },
+  "release-cli-tests": {
+    "passed": 26,
+    "failed": 0,
+    "ignored": 0
+  },
+  "browser_tests": {
+    "passed": 84,
+    "skipped": 4
+  },
+  "strict_clippy": true,
+  "formatting": true,
+  "frozen_inventory_files": 1181,
+  "cli_sha256": "ae539d3ac99aaa874c369ad2a7b5f58f94f460f284a93de2a1f7db5381aadaef",
+  "wasm_sha256": "1d3a89e263138279b6830e2b98334fa9ebc61fbc8677744b80e440f5fc83139c",
+  "L36_search": {
+    "validation": {
+      "command": [
+        "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+        "validate",
+        "--library",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-missing-layer-native-20261015\\L36-search\\library.json",
+        "--request",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-missing-layer-native-20261015\\L36-search\\request.json",
+        "--layout",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-missing-layer-native-20261015\\L36-search\\nested\\layout.json"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_seconds": 0.1287962000060361,
+      "cpu": 0
+    },
+    "metric_delta": 0,
+    "canonical": [
+      {
+        "sheet": "sheet-0",
+        "units": 2,
+        "kept_top_level": 3,
+        "fixed_shapes": 0,
+        "rehomes": {},
+        "max_transform_error": 0.0,
+        "canonical_diff_allowed": true
+      }
+    ],
+    "units": 2,
+    "expected_contours": 3,
+    "reserved_contours": 3,
+    "flagged_contours": 0,
+    "lead_validation": {
+      "valid": true,
+      "checked_contours": 3,
+      "violation_count": 0,
+      "violations": [],
+      "coverage": {
+        "expected_contours": 3,
+        "reserved_contours": 3,
+        "flagged_contours": 0
+      },
+      "source_checked": true,
+      "metrics": {
+        "sheets_used": 1,
+        "placed_parts": 2,
+        "requested_parts": 2,
+        "placed_area": 66.0866494024615,
+        "placed_priority": 2.0,
+        "full_stock_area": 2500.0,
+        "material_area": 550.6615000000002,
+        "normalized_material": 0.22026460000000006,
+        "utilization": 0.1200132012179197,
+        "trailing_offcut_area": 1949.3384999999998,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 11.01323
+      }
+    }
+  }
+}
