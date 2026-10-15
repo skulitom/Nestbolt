@@ -17,12 +17,13 @@ test('standalone LightBurn strokes nest and download as unchanged open paths', a
   await sheet.getByLabel('Margin').fill('0');
   await page.getByLabel('Edge spacing').fill('1');
   await page.getByLabel('Part spacing').fill('1');
-  await page.getByLabel('Time').fill('1');
+  // This checks preservation; a busy CI host need not pack in one wall second.
+  await page.getByLabel('Time').fill('10');
   await page.getByText('Advanced').click();
   await page.getByLabel('Workers').fill('1');
   await page.getByRole('button', { name: 'Nest', exact: true }).click();
   await expect(page.locator('.summary, [role=alert]').first()).toBeVisible({ timeout: 90_000 });
-  await expect(page.getByRole('alert')).toHaveCount(0);
+  expect(await page.getByRole('alert').allTextContents()).toEqual([]);
   await expect(page.locator('.summary')).toContainText('4/4');
   await expect(page.locator('.summary')).toContainText('valid');
   const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP', exact: true }).click()]);
