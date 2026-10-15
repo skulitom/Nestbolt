@@ -74,6 +74,12 @@ impl Options {
                 .all(|a| a.is_finite() && (0.0..=90.0).contains(a)),
             "lead angle magnitudes must be between 0 and 90 degrees"
         );
+        ensure!(
+            [self.outer_angle_degrees, self.hole_angle_degrees]
+                .iter()
+                .all(|a| (a * 100.0 - (a * 100.0).round()).abs() <= EPS),
+            "lead angles must use at most two decimal places to match LightBurn settings"
+        );
         Ok(())
     }
 }
@@ -639,10 +645,10 @@ fn prepare_filtered(
                     options.length_mm
                 };
                 while len + EPS >= MIN_LENGTH_MM {
-                    // Use the same micrometre precision as the displayed CAM
-                    // setting. Rounding only the report could describe a path
-                    // different from the one whose footprint was reserved.
-                    let actual = (len * 1000.0 + EPS).floor() / 1000.0;
+                    // LightBurn 2.1.01 accepts tenths of a millimetre here.
+                    // Round down before constructing either direction, so its
+                    // native setting cannot round up beyond the reservation.
+                    let actual = (len * 10.0 + EPS).floor() / 10.0;
                     if actual < MIN_LENGTH_MM {
                         break;
                     }

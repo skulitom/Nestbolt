@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\DEV\Nestbolt\scripts\h2_lightburn_prepare.py", line 46, in run
+    raise RuntimeError(stderr.decode('utf-8', errors='replace'))
+RuntimeError: Traceback (most recent call last):
+
+  File "C:\DEV\Nestbolt\scripts\h6_lead_settings_audit.py", line 164, in <module>
+
+    main()
+
+  File "C:\DEV\Nestbolt\scripts\h6_lead_settings_audit.py", line 140, in main
+
+    raster = raster_check(folder, style, report, layout, references)
+
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "C:\DEV\Nestbolt\scripts\h6_lead_settings_audit.py", line 40, in raster_check
+
+    rgb = np.asarray(Image.open(folder/f'{style}-native-preview.png').convert('RGB')).astype(int)
+
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "C:\DEV\Nestbolt\.cache\shop-venv\Lib\site-packages\PIL\Image.py", line 3639, in open
+
+    fp = builtins.open(filename, "rb")
+
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\DEV\\Nestbolt\\benchmarks\\results\\h6-lead-settings-20261015T102840Z\\line-native-preview.png'
+
+

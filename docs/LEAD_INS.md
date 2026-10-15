@@ -17,7 +17,8 @@ program generates the actual leads.
 
 Only `kerf_mm` is required. Defaults are length 3 mm, style `line`, outer angle
 45° and hole angle 90°. Kerf must be positive (maximum 1000 mm); length must be
-0.5–50 mm; angle magnitudes must be 0–90°. Arc length follows LightBurn:
+0.5–50 mm; angle magnitudes must be 0–90° with at most two decimal places.
+Arc length follows LightBurn:
 `radius = length / abs(angle in radians)`, with a straight limit at zero angle.
 This replaces the original fixed-radius assumption under
 [plan decision 3](PLAN_V1_1.md#10-reviewed-decisions).
@@ -38,9 +39,9 @@ the trailing offcut from original parts plus the actual final lead footprints.
 Starts prefer outer convex corners, then long straight edges, then curves.
 Hole starts favour a long straight edge or a point toward the interior of a
 smooth hole. Leads shorten in trials down to 0.5 mm. Each trial rounds its length
-down to 0.001 mm before constructing the path, so the reported three-decimal
-setting describes the actual reserved lead. Each placed contour has
-one reservation or an explicit flag; a flag means the tested candidates did
+down to 0.1 mm before constructing the path, matching LightBurn 2.1.01's native
+length field. The reported setting describes the actual reserved lead. Each
+placed contour has one reservation or an explicit flag; a flag means the tested candidates did
 not fit, not a proof that every conceivable start is impossible.
 
 After placement, each copy is checked against stock, other copies and leads.
@@ -71,8 +72,9 @@ return the final lead report and include reserved space in material metrics.
 
 ## LightBurn setup
 
-1. Keep **Choose best starting point** off. Both cutting directions have reserved
-   space, so the checked coupons allowed **Choose best direction**.
+1. Use millimetres when entering these settings. Keep **Choose best starting point**
+   off. Both cutting directions have reserved space, so the checked coupons
+   allowed **Choose best direction**.
 2. Disable output for **LEADIN / C02**. It shows the allowance; it is not another
    cut to run. Disable the sheet-outline layer too. SVG/DXF sheet colours can map
    to C05 in LightBurn; colour alone does not guarantee a Tool layer.
@@ -89,7 +91,12 @@ return the final lead report and include reserved space in material metrics.
 The [three searched native coupons](../benchmarks/results/h6-lead-planner-checkpoint-20261015.md)
 verified line/arc previews and 24 contour starts in LightBurn Pro 2.1.01. Each
 coupon used one angle for outer and hole contours. The separate-layer workflow
-for different defaults and shortened lengths still needs its native check.
+for different defaults and shortened lengths is now checked in the
+[mixed-settings native follow-up](../benchmarks/results/h6-lead-settings-checkpoint-20261015.md):
+3.0 mm outer leads at +45°, 1.7 mm straight or 1.2 mm arc hole leads at −90°,
+and native leads off for the two flagged tiny holes. After importing, ungroup
+the contours and assign the different settings to separate layers. The cut
+outlines and starts remained unchanged within 0.00000224 mm in both saved projects.
 
 ## Current scope
 

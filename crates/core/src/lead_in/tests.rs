@@ -138,7 +138,7 @@ fn prepare_plain(job: &Job, options: Options) -> Prepared {
 }
 
 #[test]
-fn reported_micrometre_length_is_the_actual_reserved_path_length() {
+fn native_tenth_mm_setting_is_the_actual_reserved_path_length() {
     for style in [Style::Line, Style::Arc] {
         let result = prepare_plain(
             &job(rectangle(0.0, 0.0, 20.0, 10.0)),
@@ -149,7 +149,7 @@ fn reported_micrometre_length_is_the_actual_reserved_path_length() {
             },
         );
         let reservation = &result.parts[0].reservations[0];
-        assert_eq!(reservation.length_mm, 1.234);
+        assert_eq!(reservation.length_mm, 1.2);
         assert!(reservation.shortened);
         for path in &reservation.paths {
             let length = match path {
@@ -165,6 +165,31 @@ fn reported_micrometre_length_is_the_actual_reserved_path_length() {
             };
             assert!((length - reservation.length_mm).abs() < 1e-9);
         }
+    }
+}
+
+#[test]
+fn angles_require_native_hundredth_degree_precision() {
+    for angle in [0.0, 0.01, 45.12, 89.99, 90.0] {
+        assert!(
+            Options {
+                outer_angle_degrees: angle,
+                hole_angle_degrees: angle,
+                ..options()
+            }
+            .validate()
+            .is_ok()
+        );
+    }
+    for (outer, hole) in [(45.001, 90.0), (45.0, 89.999)] {
+        let error = Options {
+            outer_angle_degrees: outer,
+            hole_angle_degrees: hole,
+            ..options()
+        }
+        .validate()
+        .unwrap_err();
+        assert!(error.to_string().contains("two decimal places"));
     }
 }
 

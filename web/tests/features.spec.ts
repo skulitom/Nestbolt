@@ -75,6 +75,9 @@ test('lead allowances expose flags, reserve offcuts and export a separate review
   await page.getByLabel('Lead length').fill('0.4');
   await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
   await page.getByLabel('Lead length').fill('3');
+  await page.getByLabel('Outer lead angle').fill('45.001');
+  await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+  await page.getByLabel('Outer lead angle').fill('45');
   await page.getByLabel('Lead style').selectOption('arc');
   await page.getByRole('button', { name: 'Nest', exact: true }).click();
   await expect(page.locator('.lead-report')).toContainText('4/6 contours have checked space', { timeout: 90_000 });
@@ -88,7 +91,7 @@ test('lead allowances expose flags, reserve offcuts and export a separate review
   expect(saved.result.validation.metrics.placed_area).toBeCloseTo(391.68, 5);
   expect(saved.result.lead_in.validation.valid).toBe(true);
   expect(saved.result.lead_in.parts.flatMap((p: { reservations: { shortened: boolean }[] }) => p.reservations).filter((r: { shortened: boolean }) => r.shortened)).toHaveLength(2);
-  await expect(page.locator('.lead-report')).toContainText('mm lead.');
+  await expect(page.locator('.lead-report')).toContainText('1.2 mm lead.');
   const svg = zipEntry(await archive.path(), `sheets/${saved.result.layout.sheets[0].id}.svg`);
   expect(svg).toContain('id="LEADIN"');expect(svg).toContain('stroke="#ff0000"');
   const dxf = zipEntry(await archive.path(), `sheets/${saved.result.layout.sheets[0].id}.dxf`);

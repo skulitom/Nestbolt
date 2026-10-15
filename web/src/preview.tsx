@@ -93,7 +93,7 @@ export function SheetPreview(props: { library: Library; request: NestRequest; la
           });
           return <polyline class="lead-preview" key={`${p.part_id}-${p.copy_index}-${r.contour_index}`} fill="none" stroke="#ff0000" stroke-width={0.3}
             points={points.map(point => { const [x, y] = apply(placed.transform, point); return `${x},${height - y}`; }).join(' ')}>
-            <title>{`${p.part_id} #${p.copy_index + 1}, contour ${r.contour_index + 1}: ${r.length_mm.toFixed(3)} mm lead`}</title>
+            <title>{`${p.part_id} #${p.copy_index + 1}, contour ${r.contour_index + 1}: ${r.length_mm.toFixed(1)} mm lead`}</title>
           </polyline>;
         });
       })}

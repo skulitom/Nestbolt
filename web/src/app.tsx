@@ -328,7 +328,7 @@ export function App() {
   const lead = request.lead_in;
   const leadValid = !lead || (!library?.lightburn && Number.isFinite(lead.kerf_mm) && lead.kerf_mm > 0 && lead.kerf_mm <= 1000
     && lead.length_mm >= 0.5 && lead.length_mm <= 50
-    && [lead.outer_angle_degrees, lead.hole_angle_degrees].every(a => Number.isFinite(a) && a >= 0 && a <= 90)
+    && [lead.outer_angle_degrees, lead.hole_angle_degrees].every(a => Number.isFinite(a) && a >= 0 && a <= 90 && Math.abs(a * 100 - Math.round(a * 100)) <= 1e-9)
     && (!request.common_line || request.common_line.kerf_mm === lead.kerf_mm));
   const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy && commonValid && leadValid;
 
@@ -541,8 +541,8 @@ export function App() {
                 <label>Lead kerf <input type="number" min={0.001} max={1000} step={0.05} value={lead.kerf_mm} onInput={(e) => update({ lead_in: { ...lead, kerf_mm: num(e) }, ...(request.common_line ? { common_line: { kerf_mm: num(e) } } : {}) })} /> mm</label>
                 <label>Lead length <input type="number" min={0.5} max={50} step={0.1} value={lead.length_mm} onInput={(e) => update({ lead_in: { ...lead, length_mm: num(e) } })} /> mm</label>
                 <label>Lead style <select value={lead.style} onChange={(e) => update({ lead_in: { ...lead, style: (e.target as HTMLSelectElement).value as 'line' | 'arc' } })}><option value="line">Line</option><option value="arc">Arc</option></select></label>
-                <label>Outer lead angle <input type="number" min={0} max={90} value={lead.outer_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, outer_angle_degrees: num(e) } })} /> °</label>
-                <label>Hole lead angle <input type="number" min={0} max={90} value={lead.hole_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, hole_angle_degrees: num(e) } })} /> °</label>
+                <label>Outer lead angle <input type="number" min={0} max={90} step={0.01} value={lead.outer_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, outer_angle_degrees: num(e) } })} /> °</label>
+                <label>Hole lead angle <input type="number" min={0} max={90} step={0.01} value={lead.hole_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, hole_angle_degrees: num(e) } })} /> °</label>
               </div>
               <p class="hint">Enter the measured kerf. Length is the distance along the lead, including an arc. Space is reserved for both cutting directions. Small holes may need a shorter lead or a manual start.</p>
               <p class="hint">In LightBurn, turn off Choose best starting point and LEADIN layer output. Use the reported length and style; outer angles are positive, hole angles negative. Keep lead-out and overcut off.</p>
@@ -604,7 +604,7 @@ export function App() {
                 <p>{result.lead_in.reserved_contours}/{result.lead_in.expected_contours} contours have checked space. {result.lead_in.flagged_contours} need manual attention.</p>
                 {result.lead_in.parts.flatMap(p => [
                   ...p.flags.map(f => <p class="error" key={`${p.part_id}-${p.copy_index}-f${f.contour_index}`}>{p.part_id} #{p.copy_index + 1}, contour {f.contour_index + 1}: {f.reason} Disable the native lead for this contour or change its start manually.</p>),
-                  ...p.reservations.filter(r => r.shortened).map(r => <p key={`${p.part_id}-${p.copy_index}-s${r.contour_index}`}>{p.part_id} #{p.copy_index + 1}, contour {r.contour_index + 1}: use a {r.length_mm.toFixed(3)} mm lead.</p>),
+                  ...p.reservations.filter(r => r.shortened).map(r => <p key={`${p.part_id}-${p.copy_index}-s${r.contour_index}`}>{p.part_id} #{p.copy_index + 1}, contour {r.contour_index + 1}: use a {r.length_mm.toFixed(1)} mm lead.</p>),
                 ])}
                 <p class="hint">LEADIN is a red review layer. Assign separate cut settings to contours with different angles or shortened lengths before enabling LightBurn’s own leads.</p>
               </div> : null}

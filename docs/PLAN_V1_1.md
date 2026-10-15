@@ -281,6 +281,7 @@ Build the section 3 lead-in scope:
 - **Footprint:** each contour's lead path widened by kerf/2, plus a pierce disc of 2 × kerf. It joins that part's
   collision geometry, so no lead crosses another part, another lead or the sheet margin.
 - **Placement:** each lead is placed by the section 3 rules, shortening to fit.
+  Native 2.1.01 entry precision is 0.1 mm for length and 0.01° for angle: round each length trial down before constructing/validating its paths, and reject angle settings that cannot be entered exactly. Preserve the [native precision failure and mixed-settings check](../benchmarks/results/h6-lead-settings-checkpoint-20261015.md); this refines the implementation, not the H6 gate.
 - **Export:**
   - Every contour starts at its lead's attachment point, so LightBurn's own leads land in the reserved space (with
     "Choose best starting point" off; say so in the docs).

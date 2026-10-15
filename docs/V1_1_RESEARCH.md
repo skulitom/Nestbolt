@@ -483,3 +483,25 @@ plan's original 1.5 mm radius. Artem approved matching LightBurn's definition
 raster tolerance and preserves native projects/settings/screenshots. This is
 calibration on an outer straight edge, not H6's three searched-export checks.
 Hole, corner, direction and zero-angle behavior still need native coverage.
+
+### Native lead setting precision and separate layers (2026-10-15)
+
+The [mixed-settings follow-up](../benchmarks/results/h6-lead-settings-checkpoint-20261015.md)
+imports an actual searched public SVG, assigns its contours to native layers,
+and preserves the six original contours and starts. LightBurn Pro 2.1.01 in mm
+accepts one decimal place for lead length and displays two for angle. Setting
+1.162 mm through the native control produces and saves 1.2 mm. The earlier
+three-decimal report assumption is therefore superseded: round each trial down
+to 0.1 mm before constructing and validating its paths; reject angles needing
+more than two decimal places. The original input attempt and saved project stay
+in the evidence folder.
+
+Two native previews verify outer +45°/3.0 mm settings and separate hole −90°
+settings (1.7 mm line, 1.2 mm arc), with native leads off on flagged 0.4 mm holes.
+All 12 saved native contour starts/outlines match the public exports within
+0.00000224 mm. Raster samples of all eight leads match a reserved direction
+within 0.026764 mm under the declared 0.075 mm raster tolerance. This supports
+the preview observation, not the independent 0.01 mm vector clearance gate.
+The earlier [three searched coupons](../benchmarks/results/h6-lead-planner-checkpoint-20261015.md)
+cover outer corners, holes and reversal; zero-angle native coverage and broader
+H6 acceptance remain unfinished. No held-out geometry was used.
