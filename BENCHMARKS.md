@@ -12687,3 +12687,17 @@ The existing optimized CLI also runs the exact saved polygon job once on CCD1 CP
 ## 2026-10-16: isolated hole-index candidate passes the exact failure and 128 curve cases
 
 [Candidate report](benchmarks/results/ci-curve-flat-index-probe-20261016.md). In a separate output workspace, only hole grouping uses a flat collision index (`quadtree_depth: 0`), avoiding the dependency's faulty quadrant classification while retaining debug assertions and independent checks. The exact shrunk CI case returns eight valid placements. An expanded generated-curve property passes 128 cases at generation seed 20261016, with all third-party lock entries matching production; the aligned-lock exact case has byte-identical input/job and passes the existing standalone CLI validator with metric delta zero. This isolated debug workspace does not reproduce the production engine's development optimization profile, so it is functional evidence only. No performance/quality acceptance claim, production source change, dependency patch or held-out evaluation. H4 guards remain unchanged. Integrate and check performance after the current matrix; release and milestone status remain open.
+
+
+## 2026-10-16 — isolated native diagnostic candidate
+
+At source checkpoint 73eb689, the isolated reader candidate passes all 56 frozen
+training native projects: 45 imports retain exact library geometry, source XML
+and every non-warning field; eleven rejection messages remain identical. All 23
+focused authored tests pass with optimized engine crates and debug assertions.
+The first 55/56 wording result and dependency-inventory preflight failure remain
+preserved. No search or reserved geometry was opened, and production H4 guards
+remain unchanged. These are functional checks on CCD1, not performance results.
+See [the report](benchmarks/results/h2-native-diagnostics-candidate-20261016.md)
+for both verified archives, source snapshots and limitations. Production
+integration and remaining H2 verification are outstanding; completion stays 45%.
