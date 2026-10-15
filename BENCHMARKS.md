@@ -12223,3 +12223,30 @@ posted.
 238 workspace tests pass (one existing ignored), as do the release CLI feature
 and `sparrow_` tests; strict Clippy and formatting pass. Development jobs only:
 no held-out geometry, final record or published result was rerun or changed.
+
+
+## 2026-10-15 — reconcile independent changes and calibrate native arc leads
+
+[Repository reconciliation](benchmarks/results/reconciliation-20261015.md):
+verified v0.1.0's release and active MCP Registry entry, and integrated the
+independent weight-ceiling fix by fast-forward, preserving its two commits.
+Copied the jagua-rs 2.0 experiment's report/JSON byte-for-byte from `c691aed`;
+its dependency and solver port stay experimental. Published v1 numbers and
+held-out allocations are unchanged. The 138 recorded weight-cap rows agree
+with the report; no benchmark was rerun. The four original 300-work-second
+pairs used CCD1, so they are overflow diagnostics, not speed-gate evidence.
+
+Fresh CCD1 checks: 238 workspace tests pass (one existing ignored), 21 optimized
+CLI tests, two optimized Sparrow integration tests, strict Clippy, formatting
+and the WASM build pass. All 1,181 frozen inventory hashes remain unchanged.
+[Logs and source hashes](benchmarks/results/reconciliation-20261015/checks.json).
+
+[Native lead calibration](benchmarks/results/h6-lead-native-calibration-20261015.md)
+resumed in LightBurn Pro 2.1.01. The 3 mm line matches; 3 mm arcs at 45°/90°
+use radii about 3.82/1.91 mm, contradicting the plan's original 1.5 mm radius.
+Artem approved matching LightBurn's arc-length definition; plan decision 3
+records the change. The independent raster audit passes at 0.05 mm tolerance
+on CPU 0. Projects, settings, screenshots, original assumptions and harness
+failures are retained. Optimization flags and hidden display were restored,
+the owned application closed and the lease released. These are calibration
+coupons, not the three nested exports required by H6. Goal progress stays 15%.

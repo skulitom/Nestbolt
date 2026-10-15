@@ -443,3 +443,43 @@ as the saved geometry used when the original font is unavailable. The
 identify exact portable geometry. Native Save As also changes settings, so the
 repaired references cannot replace frozen originals in a lossless-round-trip
 claim. Requiring repair before geometry acceptance is proposed, not approved.
+
+
+### N3 engine experiment and separator overflow (reviewed 2026-10-15)
+
+The [2026-10-14 jagua-rs 2.0 spike](../benchmarks/results/jagua-2-spike-20261014.md)
+compares a locally ported Nestbolt/Sparrow build with pinned 1.1.0 on twelve
+v1 development jobs. Eight of twelve repeatable layouts are identical, with
+median 1.50x speed-up for those eight. Short wall-clock runs show a median
+1.70x separator-evaluation rate, against 1.01x in the identical-build control.
+Four repeatable layouts diverge, and the faster debug build exposes upstream
+Sparrow's infinite-weight assertion. These are recorded experimental findings,
+not browser measurements, a completed H4 gate, or a new published quality claim.
+
+The report and its raw JSON are preserved byte-for-byte from `c691aed` on
+`spike/jagua-2`. The experimental dependency/solver port remains on that branch;
+production still uses jagua-rs 1.1.0 and Sparrow `4629b22`. A future port needs
+compatible upstream versions, repeatable-work recalibration and the full H4
+checks. Published v1 results and held-out isolation remain unchanged.
+
+The independent [weight-ceiling fix](../benchmarks/results/separator-weight-cap-20261014.md)
+from `83aa089` is integrated. Its 138 recorded development layouts all pass the
+standalone validator; 64/65 layouts remain identical at 60 work-seconds. The
+four 300-work-second pairs ran on CCD1, a recorded deviation from the plan's
+CCD0 benchmark placement; they support the overflow diagnosis, not a speed gate.
+The cap applies to Nestbolt's separator only. Delegated upstream Sparrow still
+uses its pinned original implementation; its [issue draft](upstream-drafts/sparrow-gls-weight-overflow.md)
+is preserved and has not been posted. The reported bound is for shop-scale
+geometry, not a proof over every coordinate accepted by the public validator.
+
+
+### Native arc-length definition (2026-10-15)
+
+[Three authored calibration previews](../benchmarks/results/h6-lead-native-calibration-20261015.md)
+show LightBurn Pro 2.1.01 interpreting arc length literally: 3 mm at 45° has
+radius about 3.82 mm; 3 mm at 90° has radius about 1.91 mm. Both reject the
+plan's original 1.5 mm radius. Artem approved matching LightBurn's definition
+([decision 3](PLAN_V1_1.md#10-reviewed-decisions)). The audit uses a 0.05 mm
+raster tolerance and preserves native projects/settings/screenshots. This is
+calibration on an outer straight edge, not H6's three searched-export checks.
+Hole, corner, direction and zero-angle behavior still need native coverage.

@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-15",
+  "base_commit": "6c462c2c6c03afe21a3302b3890d1826b9cada05",
+  "integrated_commit": "d740ac01708e5ee72033ee04ef848f8b8a72ae9f",
+  "checks": [
+    {
+      "name": "workspace-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "passed": 238,
+      "failed": 0,
+      "ignored": 1,
+      "original_log_sha256": "ae4f826613dcc3ed4c5a84caf863792f9dcda319054bdc977bb3c3089fc5326a",
+      "committed_log_sha256": "96cd371f0139d30aa941d2955ad121ea9cab236dd32baa5c8ac86c3c9f38c395"
+    },
+    {
+      "name": "fmt",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5620000000053551,
+      "original_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "committed_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "seconds": 5.110000000000582,
+      "original_log_sha256": "aef3d2978d84ccdf1201513bb8d4104c8706a94b72898ffb290ed12147d7bb5b",
+      "committed_log_sha256": "aef3d2978d84ccdf1201513bb8d4104c8706a94b72898ffb290ed12147d7bb5b"
+    },
+    {
+      "name": "release-features",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features"
+      ],
+      "exit_code": 0,
+      "seconds": 68.18699999999808,
+      "original_log_sha256": "555035e01f51de1f1b61062c6a48894e6be61adb9a3a6ea0f34aa920a17b4673",
+      "committed_log_sha256": "555035e01f51de1f1b61062c6a48894e6be61adb9a3a6ea0f34aa920a17b4673"
+    },
+    {
+      "name": "release-sparrow",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "sparrow_"
+      ],
+      "exit_code": 0,
+      "seconds": 65.73500000000058,
+      "original_log_sha256": "e5fe297f604a385574bbf667b1d78a25e290b1a2f844832c550269690c6da0c2",
+      "committed_log_sha256": "e5fe297f604a385574bbf667b1d78a25e290b1a2f844832c550269690c6da0c2"
+    },
+    {
+      "name": "wasm",
+      "command": [
+        "cargo",
+        "build",
+        "-p",
+        "nestbolt-wasm",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "seconds": 19.10899999999674,
+      "original_log_sha256": "c9031f0e1384b236730f6829dd4a7163c22d3cf873b1b97459b50b289c254cde",
+      "committed_log_sha256": "c9031f0e1384b236730f6829dd4a7163c22d3cf873b1b97459b50b289c254cde"
+    }
+  ],
+  "source_normalized_lf_sha256": {
+    "crates/core/src/separate.rs": "6180187632d4ec13858f9125f0d199333bceba946f1912fd4eaf2326d1664887",
+    "Cargo.toml": "42b7378a73c41ea41ee8681c0dd69f8c253cc161ad55ccc0f99a7c30c14e28d6",
+    "Cargo.lock": "747b26b998791228b2aa397cc99b9a08ecb48c9f2a056bd5781d9b95bc85ec95",
+    "benchmarks/results/jagua-2-spike-20261014.md": "7fc7f90298cad6c219f52c910509c267a5dce91975ddb493b31578d46be3a1fe",
+    "benchmarks/results/jagua-2-spike-20261014.json": "cfddabcfba327afa0a284edc6e9c5f8ad2bedd89940295a18f5c4e8e365d18c7",
+    "scripts/h6_lead_calibration_audit.py": "c24802108233bbb1792858e448e6ad936e1f08b7fae7812e772dd1a0e412f401"
+  },
+  "frozen_inventory": {
+    "files": 1181,
+    "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+    "check_passed": true
+  },
+  "spike_report_origin": "c691aed",
+  "spike_code_integrated": false,
+  "benchmarks_rerun": false,
+  "held_out_used_for_tuning": false
+}
