@@ -257,6 +257,17 @@ include an independently valid three-sheet feasibility layout and a valid
 layout is the next hypothesis; production defaults and all gate thresholds remain
 unchanged.
 
+**N3 early-start checkpoint, 2026-10-15:** the [six-trial probe and public-surface implementation](../benchmarks/results/h4-quick-start-20261015.md)
+add an optional Quick initial layout, off by default. The frozen 2,000-part job
+gets a checked native incumbent in 7.38 seconds; both browsers now finish and
+export valid three-sheet layouts. Scale still fails: working memory peaks at
+2.19/2.12 GB and heartbeat gaps at 2,862/1,620 ms. A concurrent CLI test build
+changes the validator binary and correctly fails the final harness guard;
+unchanged browser assets and separate pinned-binary artifact checks are recorded
+without relabelling that run. Preview caching, export assembly and worker memory
+are the next measured levers. H4 quality/native matrices and all original gate
+conditions remain open; completion stays 20%.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:

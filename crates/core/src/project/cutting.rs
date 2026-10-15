@@ -10,6 +10,7 @@ pub struct PreparedRequest {
     leads: Option<crate::lead_in::Prepared>,
     lead_options: Option<crate::lead_in::Options>,
     common_options: Option<crate::common_line::Options>,
+    quick_start: bool,
 }
 
 #[derive(Debug, Serialize, JsonSchema)]
@@ -54,6 +55,7 @@ impl Request {
             leads,
             lead_options: self.lead_in,
             common_options: self.common_line,
+            quick_start: self.quick_start,
         })
     }
 
@@ -107,9 +109,10 @@ impl PreparedRequest {
 
     pub fn optimize(
         &self,
-        options: crate::sheets::Options,
+        mut options: crate::sheets::Options,
         progress: impl FnMut(&crate::sheets::Progress, &dyn Fn() -> Option<Layout>),
     ) -> Result<(crate::sheets::SheetResult, CuttingReport)> {
+        options.quick_start |= self.quick_start;
         let allow_part_in_hole = self.common_options.is_none();
         let mut result = if let Some(common) = self.common_options.filter(|o| o.search_bonus) {
             crate::sheets::optimize_with_common_bonus(

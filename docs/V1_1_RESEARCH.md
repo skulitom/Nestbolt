@@ -590,3 +590,29 @@ still places True Nest in Pro; the release directories list
 These are a current availability check, not new competitor measurements. The
 locally installed LightBurn 2.1.01 trial and all pinned benchmark dependencies
 remain unchanged.
+
+### 2026-10-15: early rectangle incumbent exposes browser costs
+
+The [early-start checkpoint](../benchmarks/results/h4-quick-start-20261015.md)
+tests the existing rectangle packer before ordinary construction. Six isolated
+trials on the frozen curve-heavy job all validate; with existing hole grouping,
+500 riders and material 2.2468772308 match the prior long native diagnostic.
+The integrated option produces a checked native incumbent at 7.38 seconds.
+It is off by default, exposed and saved through UI/CLI/MCP, preserving the
+meaning of published v1 settings under the plan's option rule.
+
+Both browsers now finish all 2,000 placements and export their original cutting
+geometry, but peak working memory is 2.190/2.123 GB and the largest observed
+heartbeat gaps are 2,861.8/1,620 ms. Chrome's repeated live-preview tasks, final
+preview task and download-assembly task point to exact-geometry caching and
+off-thread ZIP assembly as distinct next hypotheses. Worker memory needs a
+separate measurement. Neither proxy simplification nor geometry tolerance was
+changed in this experiment.
+
+The original harness fails its final guard because optimized CLI tests rebuild
+the validator executable concurrently. Its original outputs and failure remain;
+product sources and browser build hashes are unchanged, and separate checks
+using a pinned executable confirm both saved layouts and every metric. Future
+benchmarks must wait for optimized CLI tests as well as explicit release builds.
+H4 is still open on scale, browser quality and the native matrix. No held-out
+geometry, gate threshold, default, release or final acceptance changes.

@@ -134,6 +134,12 @@ to `nestbolt nest` or `nestbolt sheets` for a deterministic work budget instead 
 wall-clock time: the same inputs, budget and seed then give the same layout. On a
 machine much slower than the reference PC, `--time-limit <seconds>` allows more real
 time for the same work (the default is `--seconds`).
+The optional `--quick-start` setting tries a conservative initial arrangement
+before improving it. It is off by default and may use more material. The browser
+calls it **Quick initial layout** under Advanced; request JSON and MCP use
+`"quick_start": true`. Original geometry, spacing, stock limits and rotation
+permissions still apply. Unsupported stock or angle rules use the ordinary
+constructor.
 File formats are described by the [JSON Schemas](schemas/README.md).
 
 ## Browser app

@@ -51,6 +51,7 @@ export interface RequestSheet {
 export type Mode = 'all' | 'fill_area' | 'fill_priority';
 export interface NestRequest {
   name?: string;
+  quick_start?: boolean;
   parts: RequestPart[];
   sheets: RequestSheet[];
   spacing_mm: number;

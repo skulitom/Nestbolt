@@ -54,6 +54,8 @@ def validate_export(folder):
         assert len(library['parts']) == 4 and sum(p['quantity'] for p in request['parts']) == 2000
         assert len(result['layout']['placements']) == 2000
         assert request['spacing_mm'] == request['edge_spacing_mm'] == 1.5
+        plan = json.loads((folder/'plan.json').read_text(encoding='utf-8'))
+        assert bool(request.get('quick_start')) == plan['quick_start']
         assert all(s['width_mm'] == 1250 and s['height_mm'] == 2500 for s in request['sheets'])
         assert all(s['margins_mm'] == dict.fromkeys(['left', 'right', 'bottom', 'top'], 5)
                    and s['count'] is None and not s['defects_mm'] for s in request['sheets'])
@@ -88,11 +90,11 @@ def validate_export(folder):
             'metrics': checked['metrics']}
 
 
-def case(browser, url, out):
+def case(browser, url, out, quick_start):
     folder = out/browser
     folder.mkdir()
     plan = {'browser': browser, 'url': url, 'out': str(folder), 'seconds': 60,
-            'svg': str(FIXTURE/'letters-gears-2000.svg')}
+            'svg': str(FIXTURE/'letters-gears-2000.svg'), 'quick_start': quick_start}
     write(folder/'plan.json', plan)
     stop = threading.Event()
     samples = []
@@ -172,6 +174,7 @@ def case(browser, url, out):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--browser', choices=['chrome', 'firefox'], action='append')
+    parser.add_argument('--quick-start', action='store_true', help='Enable the opt-in early rectangle incumbent')
     args = parser.parse_args()
     fixture = json.loads((FIXTURE/'manifest.json').read_text(encoding='utf-8'))
     assert digest(FIXTURE/fixture['svg']) == fixture['sha256']
@@ -186,7 +189,7 @@ def main():
     plan = {'scope': __doc__, 'baseline_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
             'guards': before, 'cpus': CPUS, 'memory_limit_bytes': LIMIT, 'responsiveness_limit_ms': 200,
             'memory_sample_seconds': 0.2, 'external_timeout_seconds': 900,
-            'held_out_geometry_read': False, 'fixture': fixture}
+            'held_out_geometry_read': False, 'fixture': fixture, 'quick_start': args.quick_start}
     write(out/'plan.json', plan)
     for source in [Path(__file__), ROOT/'web/bench/scale.mjs']:
         (out/source.name).write_bytes(source.read_bytes())
@@ -195,7 +198,7 @@ def main():
     rows = []
     try:
         for browser in args.browser or ['chrome', 'firefox']:
-            row = case(browser, f'http://127.0.0.1:{server.server_address[1]}/', out)
+            row = case(browser, f'http://127.0.0.1:{server.server_address[1]}/', out, args.quick_start)
             rows.append(row)
             write(out/'progress.json', rows)
             print(json.dumps({k: row[k] for k in ['browser', 'status', 'passes', 'peak_rss_bytes', 'peak_private_bytes']}), flush=True)

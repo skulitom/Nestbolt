@@ -61,6 +61,9 @@ enum Command {
         /// inputs, budget and seed give the same layout.
         #[arg(long)]
         repeatable: bool,
+        /// Try a quick conservative initial layout, then improve it; off by default.
+        #[arg(long)]
+        quick_start: bool,
         /// Real-time limit for a repeatable budget (default: --seconds). On a
         /// machine slower than the reference PC, allow more so the work finishes.
         #[arg(long, requires = "repeatable")]
@@ -130,6 +133,9 @@ enum Command {
         /// Use a repeatable work budget instead of wall-clock time.
         #[arg(long)]
         repeatable: bool,
+        /// Try a quick conservative initial layout before improving it.
+        #[arg(long)]
+        quick_start: bool,
         /// Real-time limit for a repeatable budget (default: --seconds).
         #[arg(long, requires = "repeatable")]
         time_limit: Option<f64>,
@@ -352,6 +358,7 @@ fn main() -> Result<()> {
             seed,
             sheet_outline,
             repeatable,
+            quick_start,
             time_limit,
             common_line,
             common_line_bonus,
@@ -366,6 +373,7 @@ fn main() -> Result<()> {
             let mut request: nestbolt_core::project::Request =
                 serde_json::from_slice(&fs::read(&request)?)
                     .context("invalid nest request JSON")?;
+            request.quick_start |= quick_start;
             if common_line {
                 request.common_line = Some(nestbolt_core::common_line::Options {
                     kerf_mm: kerf.context("--common-line requires --kerf")?,
@@ -501,6 +509,7 @@ fn main() -> Result<()> {
             compress_fraction,
             window,
             repeatable,
+            quick_start,
             time_limit,
         } => {
             let job = serde_json::from_slice(&fs::read(&job)?)?;
@@ -509,6 +518,7 @@ fn main() -> Result<()> {
                 nestbolt_core::sheets::Options {
                     seconds,
                     seed,
+                    quick_start,
                     warm_fraction,
                     compress_fraction,
                     window,

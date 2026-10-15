@@ -24,6 +24,10 @@ A `nest` request names library parts and the sheets, in millimetres:
 
 Rotations default to 0/90/180/270 degrees and mirroring to off. Parts may be
 placed inside the holes of larger parts. See `examples/nest-request.json`.
+The optional request field `"quick_start": true` tries a conservative rectangle
+arrangement before improving it. It is off by default, may use more material,
+and retains original-geometry validation and all placement constraints. Stocks
+or angles outside that shortcut fall back to the ordinary constructor.
 The library, request and `report.json` formats are JSON Schemas in
 [schemas/](../schemas/README.md). `report.json` lists exported files relative to
 its own directory; the `nest` reply lists them relative to the workspace.
@@ -87,17 +91,9 @@ process, lists the five tools, imports `examples/parts.svg`, nests twice with
 the same seed (identical layouts when repeatable), validates, exports and
 estimates, and checks that a path outside the workspace is refused.
 
-G7 still requires a real client: Claude Code run with
-`claude -p --mcp-config <file> --strict-mcp-config`, listing the tools, importing
-a sample SVG, nesting with a 10-second budget and exporting, with the result
-passing the independent validator. That run uses Artem's Claude Code account.
+G7 passed in the [recorded real Claude Code run](../benchmarks/results/g7-claude-20261012T145002Z-3180a8d5.md): the client listed tools, imported a sample SVG, nested with a 10-second budget and exported a layout accepted by the independent validator. The two earlier attempts remain in the evidence.
 
-Release packaging remains M4 work: Windows/Linux/macOS archives with notices and
-checksums, a tag-triggered release workflow, an MCPB bundle and `server.json`
-validated with `mcp-publisher validate`, following
-[Cutbolt #2](https://github.com/skulitom/Cutbolt/pull/2) and
-[Inkbolt #1](https://github.com/skulitom/Inkbolt/pull/1). Nothing is published
-until Artem says go.
+[v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) was released on 2026-10-14, with native archives, notices, checksums and the Windows MCPB. The [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654) also succeeded. Current source includes ongoing v1.1 work beyond that release; [Status](STATUS.md) distinguishes completed gates from outstanding requirements. Further releases and registry publication still require Artem's instruction.
 
 
 ## Imported sheet boundaries
@@ -123,6 +119,12 @@ also accepts `format: "lbrn2"`; omit `format` to use the source default. Its
 `sheet_outline` defaults to true for LightBurn and false for SVG/DXF. Set it to
 false to omit the added T1 boundary. Requests, quantities, rotations, mirrors,
 stock choices, independent validation and no-overwrite rules are shared.
-The LightBurn-to-SVG/DXF path is refused because it would discard project data.
+With lead allowances enabled, separate SVG/DXF cutting files contain original
+cutting curves with the chosen starts and LEADIN review paths, alongside the
+preserved editable project. Engraving, images and their bounding rectangles do
+not become cuts. Without that cutting-sidecar workflow, arbitrary conversion
+to SVG/DXF is refused because it would discard project data.
 See [current import limitations](IMPORTING.md#editable-lightburn-projects),
-including pending legacy conversion and mixed fixed/movable groups.
+including uncached text and mixed fixed/movable groups, and
+[lead setup](LEAD_INS.md) for the separate cutting files. Legacy `.lbrn` inputs
+write modern `.lbrn2` sheet files.

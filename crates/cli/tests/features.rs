@@ -53,6 +53,68 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn quick_start_flag_and_request_nest_validate_and_preserve_the_choice() {
+    let dir = temp("quick-start");
+    let library = import(&dir, &[example("parts.svg")]);
+    for flag in [false, true] {
+        let mut request = json!({"parts":[{"id":"parts-3","quantity":8}],
+            "sheets":[{"width_mm":300,"height_mm":150,"count":1}],
+            "spacing_mm":1,"edge_spacing_mm":1});
+        if !flag {
+            request["quick_start"] = json!(true);
+        }
+        let input = dir.join(format!("request-{flag}.json"));
+        let output = dir.join(format!("out-{flag}"));
+        fs::write(&input, serde_json::to_vec(&request).unwrap()).unwrap();
+        let mut args = vec![
+            "nest".as_ref(),
+            "--library".as_ref(),
+            library.as_os_str(),
+            "--request".as_ref(),
+            input.as_os_str(),
+            "--out-dir".as_ref(),
+            output.as_os_str(),
+            "--seconds".as_ref(),
+            "1".as_ref(),
+            "--repeatable".as_ref(),
+            "--time-limit".as_ref(),
+            "30".as_ref(),
+        ];
+        if flag {
+            args.push("--quick-start".as_ref());
+        }
+        let nested = nestbolt(&args);
+        assert!(
+            nested.status.success(),
+            "{}",
+            String::from_utf8_lossy(&nested.stderr)
+        );
+        let saved: Value =
+            serde_json::from_slice(&fs::read(output.join("request.json")).unwrap()).unwrap();
+        assert_eq!(saved["quick_start"], true);
+        let checked = nestbolt(&[
+            "validate".as_ref(),
+            "--library".as_ref(),
+            library.as_os_str(),
+            "--request".as_ref(),
+            output.join("request.json").as_os_str(),
+            "--layout".as_ref(),
+            output.join("layout.json").as_os_str(),
+        ]);
+        assert!(
+            checked.status.success(),
+            "{}",
+            String::from_utf8_lossy(&checked.stderr)
+        );
+        let report: Value = serde_json::from_slice(&checked.stdout).unwrap();
+        assert_eq!(report["metrics"]["placed_parts"], 8);
+        let report: Value =
+            serde_json::from_slice(&fs::read(output.join("report.json")).unwrap()).unwrap();
+        assert!(!report["files"].as_array().unwrap().is_empty());
+    }
+}
+
+#[test]
 fn lightburn_leads_export_cutting_files_beside_the_preserved_project() {
     let dir = temp("lightburn-leads");
     let source = dir.join("lead-group.lbrn2");

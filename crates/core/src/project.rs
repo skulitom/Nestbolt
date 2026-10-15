@@ -307,6 +307,10 @@ pub struct RequestSheet {
 #[serde(deny_unknown_fields)]
 pub struct Request {
     pub name: Option<String>,
+    /// Start with conservative bounding rectangles, then improve the layout.
+    /// Off by default; may trade material quality for a quicker first layout.
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub quick_start: bool,
     /// Parts to place; all library parts with default settings when empty.
     #[serde(default)]
     pub parts: Vec<RequestPart>,
@@ -329,6 +333,10 @@ pub struct Request {
 
 fn default_mode() -> Mode {
     Mode::All
+}
+
+fn is_false(value: &bool) -> bool {
+    !value
 }
 
 impl Request {

@@ -552,6 +552,8 @@ export function App() {
             </> : null}
             <details class="advanced">
               <summary>Advanced</summary>
+              <label class="check"><input type="checkbox" checked={!!request.quick_start} onChange={(e) => update({ quick_start: (e.target as HTMLInputElement).checked || undefined })} /> Quick initial layout</label>
+              <p class="hint">Start with a simple arrangement, then improve it. May use more material.</p>
               <div class="grid">
                 <label title={`Jobs of more than ${LARGE_JOB} parts use at most two workers, to limit memory`}>Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
                 <label>Seed <input type="number" min={0} value={seed} onInput={(e) => setSeed(Math.max(0, Math.round(num(e))))} /></label>

@@ -11,7 +11,7 @@ const fixture = (name: string) => fileURLToPath(new URL(`./fixtures/${name}`, im
 
 type Layout = { sheets: { id: string; stock_id: string }[];
   placements: { part_id: string; transform: { rotation_radians: number; mirrored: boolean } }[] };
-type ProjectFile = { request: { common_line?: { kerf_mm: number; search_bonus?: boolean }; spacing_mm: number; edge_spacing_mm: number; sheets: { count?: number | null }[] };
+type ProjectFile = { request: { quick_start?: boolean; common_line?: { kerf_mm: number; search_bonus?: boolean }; spacing_mm: number; edge_spacing_mm: number; sheets: { count?: number | null }[] };
   result: { layout: Layout; validation: { valid: boolean } } };
 
 /** Read one entry of the app's stored (uncompressed) ZIP. */
@@ -138,6 +138,28 @@ test(`common-line kerf overrides spacing and exports its own compensated layer (
   await expect(page.locator('.common-line-report')).toHaveCount(0);
 });
 }
+
+test('quick initial layout is optional and survives project export and reopening', async ({ page }) => {
+  await setUp(page, [example('parts.svg')], { 'parts-3': 8 }, 300, 150, 1);
+  const quick = page.getByLabel('Quick initial layout', { exact: true });
+  await expect(quick).not.toBeChecked();
+  await quick.check();
+  await page.getByLabel('Repeatable', { exact: true }).check();
+  await nest(page);
+  await expect(page.locator('.summary')).toContainText('8/8');
+  const saved = await project(page);
+  expect(saved.request.quick_start).toBe(true);
+  expect(saved.result.validation.valid).toBe(true);
+  const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP', exact: true }).click()]);
+  const path = await archive.path();
+  expect(zipEntry(path, `sheets/${saved.result.layout.sheets[0].id}.svg`)).toContain('<svg');
+  await page.getByRole('button', { name: 'New', exact: true }).click();
+  await page.locator('input[type=file][accept=".zip"]').setInputFiles(path);
+  await expect(quick).toBeChecked();
+  await expect(page.locator('.summary')).toContainText('8/8');
+  await quick.uncheck();
+  expect((await project(page)).request.quick_start).toBeUndefined();
+});
 
 test('DXF and SVG import; exports keep arcs and curves', async ({ page }) => {
   await page.goto('/');

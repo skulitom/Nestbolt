@@ -52,6 +52,11 @@ try {
   await page.getByLabel('Part spacing').fill('1.5');
   await page.getByLabel('Edge spacing').fill('1.5');
   await page.getByLabel('Time').fill(String(plan.seconds));
+  if (plan.quick_start) {
+    await page.getByText('Advanced', { exact: true }).click();
+    await page.getByLabel('Quick initial layout', { exact: true }).check();
+  }
+  await expect(page.getByLabel('Quick initial layout', { exact: true })).toBeChecked({ checked: !!plan.quick_start });
   record.workers_field = await page.getByLabel('Workers').inputValue();
   await mark('nest_start');
   await page.getByRole('button', { name: 'Nest', exact: true }).click();

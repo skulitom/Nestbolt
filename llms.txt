@@ -1,18 +1,20 @@
 # Nestbolt
 
-> Free, open-source (MIT) nesting of parts on fixed sheets for laser, CNC, plasma, waterjet, fabric and leather cutting. Native CLI, stdio MCP server and an in-browser WebAssembly app share one Rust engine. Work in progress: no release has been published, and the final quality gates are not yet met.
+> Free, open-source (MIT) nesting of parts on fixed sheets for laser, CNC, plasma, waterjet, fabric and leather cutting. Native CLI, stdio MCP server and an in-browser WebAssembly app share one Rust engine. v0.1.0 was released on 2026-10-14. The v1.1 real-shop-file plan is in progress; see Status for completed gates and remaining work.
 
 - [README](README.md): what works, quick start, browser build and development commands.
 - [Agent interface](docs/AGENT_INTERFACE.md): MCP tools, request format, workspace rules and how to connect Claude Code, Codex or Claude Desktop.
 - [Search contract](docs/SEARCH_CONTRACT.md): time and work budgets, seeds, repeatability and what a result guarantees.
 - [Schemas](schemas/README.md): JSON Schemas for the part library, nest request, nest report and the independent validator's job, layout and report.
 - [Status](docs/STATUS.md): completed milestones, evidence and remaining work.
-- [Plan](docs/PLAN.md): authoritative scope, acceptance gates G1–G8 and milestones.
+- [v1 plan](docs/PLAN.md): original scope, acceptance gates G1–G8 and ground rules.
+- [v1.1 plan](docs/PLAN_V1_1.md): real shop files, LightBurn preservation, browser curves and cutting allowances, with gates H1–H6.
 - [Benchmarks](BENCHMARKS.md): append-only log of every run, including failures.
 - [Licences](THIRD_PARTY_NOTICES): dependency inventory; jagua-rs (MPL-2.0) is unmodified and the separator is adapted from Sparrow (MIT).
 
 The MCP server `nestbolt-mcp` has five tools: import_parts, nest, validate_layout, export_layout and estimate_sheets.
 All paths must be inside its workspace (working directory or NESTBOLT_WORKSPACE); it never overwrites files.
 `nest` budgets (time_budget_s, at most 300) are deterministic work: the same inputs, budget and seed repeat the layout unless the reply says "repeatable": false.
+Optional request field `quick_start: true` tries a conservative initial arrangement before improving it; it defaults to false and may change material use. Keep this setting when replaying a job.
 Every returned layout has passed the independent Clipper2 validator. Exports keep the original arcs and curves.
 estimate_sheets is a lower bound, not a layout. No files are uploaded anywhere. Nestbolt gives no machine-safety or fit certification.

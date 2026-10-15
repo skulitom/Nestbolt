@@ -8,6 +8,45 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn quick_start_request_nests_revalidates_and_exports_over_stdio() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace =
+        std::env::temp_dir().join(format!("nestbolt-mcp-quick-{}-{stamp}", std::process::id()));
+    std::fs::create_dir_all(&workspace).unwrap();
+    std::fs::write(
+        workspace.join("panel.svg"),
+        include_str!("../../core/tests/fixtures/common-panels.svg"),
+    )
+    .unwrap();
+    timeout(Duration::from_secs(90), async {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));
+        command.env("NESTBOLT_WORKSPACE", &workspace);
+        let client = ().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call = |name: &'static str, value: Value| { let client = &client; async move {
+            client.call_tool(CallToolRequestParams::new(name).with_arguments(args(value))).await
+        }};
+        let imported = call("import_parts", json!({"paths":["panel.svg"]})).await.unwrap().structured_content.unwrap();
+        let library = &imported["library_path"];
+        let request = json!({"quick_start":true,"parts":[{"id":"panel-1","quantity":4}],
+            "sheets":[{"width_mm":200,"height_mm":100,"count":1}],"spacing_mm":1,"edge_spacing_mm":1});
+        let nested = call("nest", json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"], true);
+        assert_eq!(nested["validation"]["metrics"]["placed_parts"], 4);
+        let checked = call("validate_layout", json!({"library_path":library,"request":request,"layout_path":"nested/layout.json"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(checked["valid"], true);
+        let exported = call("export_layout", json!({"library_path":library,"request":request,"layout_path":"nested/layout.json","out_dir":"exported","format":"svg"})).await.unwrap().structured_content.unwrap();
+        assert!(!exported["files"].as_array().unwrap().is_empty());
+        for file in exported["files"].as_array().unwrap() {
+            assert!(std::fs::read_to_string(workspace.join(file.as_str().unwrap())).unwrap().contains("<svg"));
+        }
+        client.cancel().await.unwrap();
+    }).await.unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn lightburn_lead_sidecars_keep_the_editable_project_and_revalidate() {
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

@@ -27,6 +27,15 @@ stops at a cooperative checkpoint, returns its best checked layout and reports
 `--time-limit` raises that real-time limit (never below the budget) without
 changing the work, so a slower machine can still finish it and get the same layout.
 
+The opt-in `quick_start` request field (CLI `--quick-start`, browser **Quick
+initial layout**) tries the existing conservative rectangle packer before the
+ordinary constructor. Its rectangle operations and original-geometry validation
+are charged to the same clock. A valid incumbent enters the usual sheet search;
+unsupported or unsuccessful rectangle attempts fall back to construction.
+The option is off by default. It changes the search schedule and can change
+material use, so retain it as part of the input when comparing or replaying runs.
+The published v1 benchmark defaults and work coefficients remain unchanged.
+
 ## Calibration
 
 The coefficients were fitted on 16 development jobs (20-second wall-clock runs on

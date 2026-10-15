@@ -41,6 +41,9 @@ pub struct Options {
     /// Total wall-clock budget, including the warm start and final checks.
     pub seconds: f64,
     pub seed: u64,
+    /// Try a conservative rectangle incumbent before ordinary construction.
+    /// Opt-in: skips the ordinary warm start only when independently valid.
+    pub quick_start: bool,
     /// Share of the budget given to the deterministic repacking warm start.
     pub warm_fraction: f64,
     /// Share of the separator time reserved for Sparrow's compression phase.
@@ -60,6 +63,7 @@ impl Default for Options {
         Self {
             seconds: 60.0,
             seed: 0,
+            quick_start: false,
             warm_fraction: 0.1,
             compress_fraction: 0.25,
             window: 12,
@@ -768,8 +772,13 @@ fn optimize_job(
     // the fallback and unmodified Sparrow gets the rest of the budget, as its
     // own command-line run would. Its layouts count only when they fit the sheet.
     let quick = model.is_ok() && sparrow_shaped(job) && clock.timing() == Timing::Wall;
-    let mut warm = None;
-    if quick {
+    let mut warm = if options.quick_start {
+        rectangle_warm_start(job, options.seed, clock, budget)?
+    } else {
+        None
+    };
+    let rectangle_started = warm.is_some();
+    if warm.is_none() && quick {
         let first = warm_start(
             job,
             options.seed,
@@ -783,7 +792,7 @@ fn optimize_job(
             warm = Some(first);
         }
     }
-    let delegated = warm.is_some();
+    let delegated = warm.is_some() && !rectangle_started;
     let warm = match warm {
         Some(warm) => warm,
         None => warm_start(
@@ -804,7 +813,7 @@ fn optimize_job(
     let mut warm = warm;
     // Packed bounding rectangles suit near-rectangular parts; keep them if better.
     let operations = (budget * RECT_SHARE * RECT_OPERATIONS_PER_SECOND) as u64;
-    if let Some((layout, used)) = (!delegated)
+    if let Some((layout, used)) = (!delegated && !rectangle_started)
         .then(|| crate::rects::pack(job, options.seed, operations))
         .flatten()
     {
@@ -1126,6 +1135,66 @@ fn used_stock<'j>(job: &'j Job, layout: &Layout) -> Option<&'j nestbolt_validato
         .flatten()
 }
 
+/// An optional first incumbent. Unsupported stocks/rotations, exhausted stock
+/// caps and unsuccessful rectangle trials return to the original constructor.
+/// Source geometry and permitted placements remain authoritative.
+fn rectangle_warm_start(
+    job: &Job,
+    seed: u64,
+    clock: &Clock,
+    budget: f64,
+) -> Result<Option<crate::optimize::SearchResult>> {
+    if clock.now() >= budget {
+        return Ok(None);
+    }
+    // Keep the ordinary constructor's source-contract preflight before the
+    // rectangle packer allocates copies or evaluates orientations.
+    let preflight = validate(
+        job,
+        &Layout {
+            version: 1,
+            units: job.units,
+            sheets: vec![],
+            placements: vec![],
+        },
+    )?;
+    ensure!(
+        preflight.violations.iter().all(|v| v.code == "quantity"),
+        "invalid source job"
+    );
+    let operations = (budget * RECT_SHARE * RECT_OPERATIONS_PER_SECOND) as u64;
+    let Some((layout, used)) = crate::rects::pack(job, seed, operations) else {
+        return Ok(None);
+    };
+    clock.charge(Work::RectOperation, used as f64);
+    let validation = validate(job, &layout)?;
+    clock.validated(job, &layout);
+    if !validation.valid {
+        return Ok(None);
+    }
+    Ok(Some(crate::optimize::SearchResult {
+        algorithm: "nestbolt-rectangle-start",
+        seed,
+        requested_passes: 0,
+        completed_passes: 0,
+        best: crate::construct::Construction {
+            algorithm: "nestbolt-rectangle-start",
+            seed,
+            collision_checks: 0,
+            surrogate_rejections: 0,
+            proxy_notes: vec![],
+            complete: true,
+            unplaced: 0,
+            layout,
+        },
+        validation,
+        history: vec![],
+        polishing: vec![],
+        collision_checks: 0,
+        stopped: None,
+    }))
+}
+
 /// The repacking warm start: stops at `warm_until` once it has a complete
 /// layout, and at `finish` regardless.
 fn warm_start(
@@ -1331,6 +1400,98 @@ mod tests {
                         assert!((back.translation[i] - rt.translation[i]).abs() < 1e-4);
                     }
                 }
+            }
+        }
+    }
+
+    #[test]
+    fn quick_start_validates_stock_limits_rotations_and_expired_budgets() {
+        let mut job = job(
+            Rotations::List {
+                degrees: vec![90.0],
+            },
+            false,
+        );
+        job.parts[0].quantity = 14;
+        let clock = Clock::new(Timing::Work, 30.0);
+        let first = rectangle_warm_start(&job, 0, &clock, 1.0).unwrap().unwrap();
+        assert!(validate(&job, &first.best.layout).unwrap().valid);
+        assert!(
+            first
+                .best
+                .layout
+                .placements
+                .iter()
+                .all(
+                    |p| p.transform.rotation_radians == std::f64::consts::FRAC_PI_2
+                        && !p.transform.mirrored
+                )
+        );
+        job.stocks[0].count = Some(1);
+        assert!(
+            rectangle_warm_start(&job, 0, &Clock::new(Timing::Work, 30.0), 1.0)
+                .unwrap()
+                .is_none()
+        );
+        job.stocks[0].count = None;
+        job.parts[0].rotations = Rotations::List {
+            degrees: vec![45.0],
+        };
+        assert!(
+            rectangle_warm_start(&job, 0, &Clock::new(Timing::Work, 30.0), 1.0)
+                .unwrap()
+                .is_none()
+        );
+        let expired = Clock::new(Timing::Work, 0.0);
+        assert!(
+            rectangle_warm_start(&job, 0, &expired, 1.0)
+                .unwrap()
+                .is_none()
+        );
+        assert_eq!(expired.counts().rect_operations, 0.0);
+        job.version = 2;
+        assert!(rectangle_warm_start(&job, 0, &Clock::new(Timing::Work, 30.0), 1.0).is_err());
+    }
+
+    #[test]
+    fn quick_start_replays_and_falls_back_for_non_quarter_turns() {
+        for degrees in [90.0, 45.0] {
+            let mut job = job(
+                Rotations::List {
+                    degrees: vec![degrees],
+                },
+                false,
+            );
+            job.parts[0].quantity = 4;
+            let options = Options {
+                seconds: 1.0,
+                quick_start: true,
+                timing: Timing::Work,
+                time_limit: Some(30.0),
+                ..Default::default()
+            };
+            let a = optimize(&job, options, |_, _| {}).unwrap();
+            let b = optimize(&job, options, |_, _| {}).unwrap();
+            assert!(a.validation.valid && a.repeatable && b.repeatable);
+            assert_eq!(
+                serde_json::to_value(&a.layout).unwrap(),
+                serde_json::to_value(&b.layout).unwrap()
+            );
+            assert!(validate(&job, &a.layout).unwrap().valid);
+            if degrees == 45.0 {
+                let original = optimize(
+                    &job,
+                    Options {
+                        quick_start: false,
+                        ..options
+                    },
+                    |_, _| {},
+                )
+                .unwrap();
+                assert_eq!(
+                    serde_json::to_value(&a.layout).unwrap(),
+                    serde_json::to_value(&original.layout).unwrap()
+                );
             }
         }
     }

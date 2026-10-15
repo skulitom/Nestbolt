@@ -15,6 +15,8 @@ independent validator check meaning and geometry.
   quantities, rotations, mirroring, priorities, sheet sizes with counts, margins,
   defects and remnant outlines, part and edge spacing, and the fill mode. Clearances
   grow by the library tolerance so the true curves keep the requested gaps.
+  Optional `quick_start` tries a conservative initial arrangement before the
+  normal improvement search; it defaults to false and may change material use.
 - [nest-report.schema.json](nest-report.schema.json): the `report.json` written
   next to `job.json` and `layout.json` by `nestbolt nest` and the `nest` tool:
   seed, budget, whether the run is repeatable, parts placed in holes, exported
