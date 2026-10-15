@@ -110,9 +110,11 @@ def case(browser, url, out, quick_start, workers, validator):
         root.cpu_affinity(CPUS)
         root.resume()
         def watch():
+            process_types = {}
             while not stop.is_set():
                 rss = private = largest = 0
                 names = []
+                details = []
                 try:
                     children = root.children(recursive=True)
                 except psutil.Error:
@@ -130,10 +132,17 @@ def case(browser, url, out, quick_start, workers, validator):
                         private += getattr(info, 'private', 0)
                         largest = max(largest, info.rss)
                         names.append(name)
+                        if child.pid not in process_types:
+                            arguments = child.cmdline()
+                            process_types[child.pid] = next((a[7:] for a in arguments if a.startswith('--type=')),
+                                'content' if '-contentproc' in arguments else 'browser')
+                        details.append({'pid': child.pid, 'name': name, 'type': process_types[child.pid],
+                                        'rss': info.rss, 'private': getattr(info, 'private', 0)})
                     except psutil.Error:
                         continue
                 samples.append({'seconds': time.perf_counter()-started, 'rss': rss,
-                                'private': private, 'largest': largest, 'processes': names})
+                                'private': private, 'largest': largest, 'processes': names,
+                                'epoch_ms': time.time()*1000, 'details': details})
                 stop.wait(0.2)
         watcher = threading.Thread(target=watch, daemon=True)
         watcher.start()

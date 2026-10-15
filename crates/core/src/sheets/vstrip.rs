@@ -645,10 +645,11 @@ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
         let mut relocating = 0.0;
         'windows: while !order.is_empty() && self.clock.now() < explore_until {
             let size = window.min(order.len());
-            let frozen = order[..order.len() - size].to_vec();
-            let window = order[order.len() - size..].to_vec();
+            // Both groups are read-only here. Cloning SPProblem also clones its
+            // full collision index; borrow the originals for this window.
+            let (frozen, window) = order.split_at(order.len() - size);
             let empty = strip.layout(
-                &window,
+                window,
                 Shape {
                     sheets: size,
                     last: self.model.full_width,
@@ -664,8 +665,11 @@ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
                     },
                 ),
             };
+            // This full-width layout was needed only to measure the last sheet.
+            // Release its collision index before constructing the search state.
+            drop(empty);
             let mut sep = Separator::new(
-                strip.layout(&window, shape)?,
+                strip.layout(window, shape)?,
                 self.rng.next_u64(),
                 EXPLORE,
                 self.clock.clone(),
@@ -740,14 +744,14 @@ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
                         strip.apply(&mut sep, shape)?;
                         best = (sep.layout.save(), shape);
                         self.stats.eliminated_sheets += 1;
-                        self.accept_window(&strip, &frozen, &best.0, shape, "eliminate")?;
+                        self.accept_window(&strip, frozen, &best.0, shape, "eliminate")?;
                         pending = false;
                         checked = self.clock.now();
                         filled = false;
                         if !frozen.is_empty() && shape.sheets < size {
                             // Pull the next fixed sheet into the window.
                             let layout = JLayout::from_snapshot(&best.0);
-                            order = frozen.clone();
+                            order = frozen.to_vec();
                             order.extend(strip.split(&layout, shape.sheets)?);
                             continue 'windows;
                         }
@@ -797,13 +801,13 @@ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
                     timed("disrupt", || disrupt(&mut sep));
                 }
                 if pending && self.clock.now() - checked > self.check_every {
-                    self.accept_window(&strip, &frozen, &best.0, best.1, "explore")?;
+                    self.accept_window(&strip, frozen, &best.0, best.1, "explore")?;
                     pending = false;
                     checked = self.clock.now();
                 }
             }
             if pending {
-                self.accept_window(&strip, &frozen, &best.0, best.1, "explore")?;
+                self.accept_window(&strip, frozen, &best.0, best.1, "explore")?;
             }
             // Compression: smaller, time-decaying shrinks from the best layout.
             sep.config = COMPRESS;
@@ -827,13 +831,13 @@ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
                     pending = true;
                 }
                 if pending && self.clock.now() - checked > self.check_every {
-                    self.accept_window(&strip, &frozen, &best.0, best.1, "compress")?;
+                    self.accept_window(&strip, frozen, &best.0, best.1, "compress")?;
                     pending = false;
                     checked = self.clock.now();
                 }
             }
             if pending {
-                self.accept_window(&strip, &frozen, &best.0, best.1, "compress")?;
+                self.accept_window(&strip, frozen, &best.0, best.1, "compress")?;
             }
             self.stats.compressions += 1;
             break;

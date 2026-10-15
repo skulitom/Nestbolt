@@ -10,7 +10,7 @@ const browser = await engine.launch({ headless: true,
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });
 const page = await context.newPage();
 page.setDefaultTimeout(30_000);
-const record = { browser: plan.browser, version: browser.version(), status: 'running', marks: {}, console_errors: [], worker_events: [], maximum_workers: 0 };
+const record = { browser: plan.browser, version: browser.version(), status: 'running', marks: {}, marks_epoch_ms: {}, console_errors: [], worker_events: [], maximum_workers: 0 };
 const activeWorkers = new Set();
 page.on('worker', worker => {
   const event = { url: worker.url(), opened_at_ms: Date.now() };
@@ -25,8 +25,24 @@ await context.route('**/*', route => {
   return url.origin === new URL(plan.url).origin ? route.continue() : route.abort();
 });
 await page.addInitScript(() => {
-  const stats = window.h4Stats = { long_tasks: [], event_loop_gaps: [],
+  const stats = window.h4Stats = { long_tasks: [], event_loop_gaps: [], worker_messages: [],
     long_tasks_supported: PerformanceObserver.supportedEntryTypes.includes('longtask') };
+  // Observe existing metadata only: do not parse/copy result strings or alter
+  // the worker's execution. Completed engine calls already report WASM memory.
+  const NativeWorker = window.Worker;
+  let workerId = 0;
+  window.Worker = class extends NativeWorker {
+    constructor(url, options) {
+      super(url, options);
+      const worker = workerId++;
+      this.addEventListener('message', event => {
+        const data = event.data;
+        stats.worker_messages.push({ worker, url: String(url), at_ms: performance.now(), epoch_ms: Date.now(),
+          type: data.type, memory_bytes: data.memory ?? null, elapsed_seconds: data.t ?? null,
+          layout_characters: typeof data.layout === 'string' ? data.layout.length : 0 });
+      });
+    }
+  };
   if (stats.long_tasks_supported) new PerformanceObserver(list => {
     for (const entry of list.getEntries()) stats.long_tasks.push([entry.startTime, entry.duration]);
   }).observe({ type: 'longtask', buffered: true });
@@ -40,7 +56,9 @@ await page.addInitScript(() => {
   setTimeout(tick, 20);
 });
 const mark = async name => {
-  record.marks[name] = await page.evaluate(() => performance.now());
+  const time = await page.evaluate(() => ({ relative: performance.now(), epoch: Date.now() }));
+  record.marks[name] = time.relative;
+  record.marks_epoch_ms[name] = time.epoch;
   await writeFile(`${plan.out}/progress.json`, JSON.stringify({ phase: name, ...record }, null, 2));
   console.log(JSON.stringify({ phase: name }));
 };

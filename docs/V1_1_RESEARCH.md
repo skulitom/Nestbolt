@@ -665,3 +665,29 @@ rejection and worker cleanup. The old raw results and six check logs remain
 archived with hashes. Production worker defaults are unchanged. Next investigate
 search-worker memory and Firefox live-preview responsiveness before considering
 a default worker heuristic; browser quality and the native matrix remain open.
+
+
+### 2026-10-15: redundant collision-layout lifetimes reduced
+
+The [memory diagnosis and retained change](../benchmarks/results/h4-layout-lifetimes-20261015.md)
+locate Chrome's remaining peak during nesting: its search engine reports
+694,157,312 bytes, versus 2,359,296 for the import utility. The sheet-window
+search unnecessarily cloned its read-only input sheets and retained a temporary
+full-width collision layout. Borrowing those inputs and dropping the temporary
+before search reduce Chrome engine memory to 390,266,880 bytes, without changing
+geometry, operations, random choices or work coefficients.
+
+Both browsers now pass the frozen scale workflow with one selected worker:
+working sets 1.206/1.350 GB, private peaks 1.228/1.277 GB, maximum heartbeat gaps
+106.7/184 ms. The unchanged default two-worker policy still fails: working sets
+1.573/1.543 GB, private peaks 1.789/1.611 GB and Firefox heartbeat 290 ms. The
+one-worker success is kept separate from those failed default-setting results.
+All layouts remain byte-identical; 24 SVG/DXF comparisons match exactly.
+
+Eight authored before/after repeatable pairs preserve every result field except
+elapsed wall time, and all 16 outcomes validate independently. All 287 workspace
+tests and 74 enabled browser tests pass; builds, types, strict lint, formatting
+and source guards pass. Three browser archives, the replay archive and original
+check logs retain all 181 recorded members with hashes. Next revise the worker
+policy from measured complexity, then verify the old G5 workload and continue
+H4 quality/native gates. No gate, held-out allocation or published v1 claim changes.

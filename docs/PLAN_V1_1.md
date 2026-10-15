@@ -287,6 +287,16 @@ Firefox records a 202 ms nesting heartbeat gap. All source/executable guards and
 remaining Firefox delay. No thresholds or open quality/native gates change;
 completion remains 20%.
 
+**N3 memory checkpoint, 2026-10-15:** [collision-layout lifetime reduction](../benchmarks/results/h4-layout-lifetimes-20261015.md)
+removes redundant collision-index copies without changing search operations.
+Chrome search-engine memory falls from 694 to 390 MB; both browsers pass scale
+with one explicitly selected worker. The unchanged default two-worker setting
+still fails memory, with Firefox also reaching a 290 ms heartbeat gap. All saved
+layouts and 24 compared cutting files are byte-identical; eight repeatable pairs
+retain every result field except elapsed wall time. All 287 workspace and 74
+enabled browser tests pass. Next adjust and verify the worker policy; no gate
+thresholds or outstanding quality/native requirements change. Completion is 20%.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:
