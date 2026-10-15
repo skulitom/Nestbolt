@@ -12701,3 +12701,16 @@ remain unchanged. These are functional checks on CCD1, not performance results.
 See [the report](benchmarks/results/h2-native-diagnostics-candidate-20261016.md)
 for both verified archives, source snapshots and limitations. Production
 integration and remaining H2 verification are outstanding; completion stays 45%.
+
+
+## 2026-10-16 — optimized engine check of the isolated curve repair
+
+The isolated hole-index candidate passes the exact CI input (eight independently
+valid placements) and 128 generated curve property cases with engine crates and
+dependencies at opt-level 3, debug assertions enabled. The generation seed is
+20261016. A separate exact-input regression is prepared and passes; it retains
+the original work budget/seed with a longer real-time ceiling for slower CI.
+See [the report](benchmarks/results/ci-curve-optimized-profile-20261016.md).
+These are functional CCD1 checks, not timing or quality measurements. Production
+H4 guards remain unchanged; integration and measured performance remain pending.
+No gate or completed milestone weight changes.

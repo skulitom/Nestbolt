@@ -20,8 +20,11 @@ quality claim for this preview.
   same jagua-rs quadrant assertion; see the
   [failure record](../benchmarks/results/release-readiness-20261016.md).
   An [isolated flat-index candidate](../benchmarks/results/ci-curve-flat-index-probe-20261016.md)
-  passes the exact case and 128 generated curve cases. It still needs production
-  integration, regression checks and performance review after H4 finishes.
+  passes the exact case and 128 generated curve cases. The
+  [optimized engine follow-up](../benchmarks/results/ci-curve-optimized-profile-20261016.md)
+  also passes those checks and prepares an exact authored regression. It still
+  needs production integration, full regression checks and performance review
+  after H4 finishes.
 - Complete the missing LightBurn import explanations identified by the
   [native diagnostic review](../benchmarks/results/h2-native-warning-review-20261015.md),
   without changing artwork or preservation semantics. Product changes wait for
