@@ -1,0 +1,191 @@
+{
+  "records": {
+    "native": [
+      {
+        "job": "example-gears",
+        "seed": 0,
+        "status": "valid",
+        "cpu": 2,
+        "directory": "benchmarks/results/h4-quality-20261015T200454Z/native/s0/example-gears",
+        "run": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "sheets",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\job.json",
+            "--output",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-quality-20261015T200454Z\\native\\s0\\example-gears\\layout.json",
+            "--seconds",
+            "5.0",
+            "--seed",
+            "0"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 4.993386799993459,
+          "cpu": 2
+        },
+        "material": 0.99018765,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\job.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-quality-20261015T200454Z\\native\\s0\\example-gears\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.3010892000020249,
+          "cpu": 2
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 4.9552501,
+        "accepted_at_seconds": 4.686469,
+        "layout_sha256": "adf31bec6f2fabd7287c8c0569f0ba9c7dcbc640fa2652657c4b22c9fa540e9d"
+      },
+      {
+        "job": "example-letters",
+        "seed": 0,
+        "status": "failed",
+        "cpu": 0,
+        "directory": "benchmarks/results/h4-quality-20261015T200454Z/native/s0/example-letters",
+        "run": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "sheets",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\job.json",
+            "--output",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-quality-20261015T200454Z\\native\\s0\\example-letters\\layout.json",
+            "--seconds",
+            "5.0",
+            "--seed",
+            "0"
+          ],
+          "exit_code": 1,
+          "elapsed_wall_seconds": 10.747181600003387,
+          "cpu": 0
+        },
+        "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h4_quality.py\", line 101, in native\n    assert record['run']['exit_code'] == 0, 'Native search failed'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Native search failed\n"
+      }
+    ],
+    "chrome": [
+      {
+        "job": "example-letters",
+        "seed": 0,
+        "status": "failed",
+        "directory": "benchmarks/results/h4-quality-20261015T200454Z/chrome/s0/example-letters",
+        "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h4_quality.py\", line 176, in browser\n    assert (target/'layout.json').exists(), (target/'error.txt').read_text(encoding='utf-8') if (target/'error.txt').exists() else 'No browser output'\nAssertionError: Error: page.evaluate: Error: no complete layout within 5 s: these parts are many or detailed; allow more time\n    at worker.onmessage (http://127.0.0.1:64232/assets/engine-CMTXKrBr.js:1:1500)\n"
+      },
+      {
+        "job": "example-gears",
+        "seed": 0,
+        "status": "valid",
+        "directory": "benchmarks/results/h4-quality-20261015T200454Z/chrome/s0/example-gears",
+        "material": 1.304161915,
+        "sheets": 2,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\job.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-quality-20261015T200454Z\\chrome\\s0\\example-gears\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.28179110000201035,
+          "cpu": 0
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 5.1481,
+        "accepted_at_seconds": 4.7617,
+        "layout_sha256": "7739307302f297e60dbffaf4b2eb7eb673badd40aa35de5b24ac07ab3c0ba860",
+        "wasm_memory_bytes": 16842752
+      }
+    ],
+    "firefox": [
+      {
+        "job": "example-letters",
+        "seed": 0,
+        "status": "failed",
+        "directory": "benchmarks/results/h4-quality-20261015T200454Z/firefox/s0/example-letters",
+        "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h4_quality.py\", line 176, in browser\n    assert (target/'layout.json').exists(), (target/'error.txt').read_text(encoding='utf-8') if (target/'error.txt').exists() else 'No browser output'\nAssertionError: Error: page.evaluate: no complete layout within 5 s: these parts are many or detailed; allow more time\nf/this.worker.onmessage@http://127.0.0.1:64232/assets/engine-CMTXKrBr.js:1:1500\nEventHandlerNonNull*f@http://127.0.0.1:64232/assets/engine-CMTXKrBr.js:1:1214\nN@http://127.0.0.1:64232/assets/engine-CMTXKrBr.js:1:2633\n@debugger eval code line 370 > eval:1:26\nevaluate@debugger eval code:372:16\n@debugger eval code:1:44\n@debugger eval code:1:62\n\n"
+      },
+      {
+        "job": "example-gears",
+        "seed": 0,
+        "status": "valid",
+        "directory": "benchmarks/results/h4-quality-20261015T200454Z/firefox/s0/example-gears",
+        "material": 1.304230635,
+        "sheets": 2,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\job.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-quality-20261015T200454Z\\firefox\\s0\\example-gears\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.28939510000054725,
+          "cpu": 0
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 5.09,
+        "accepted_at_seconds": 4.737,
+        "layout_sha256": "e8ba8a5f581767fb04f70755c0c8327acd7ae869fcc20cfb3f5e2f835d475037",
+        "wasm_memory_bytes": 16842752
+      }
+    ]
+  },
+  "summary": {
+    "complete_development_subset": false,
+    "medians": {
+      "native": {
+        "example-letters": null,
+        "example-gears": null
+      },
+      "chrome": {
+        "example-letters": null,
+        "example-gears": null
+      },
+      "firefox": {
+        "example-letters": null,
+        "example-gears": null
+      }
+    },
+    "comparisons": {
+      "chrome": {
+        "valid": 1,
+        "attempted": 2,
+        "per_job_difference_percent": {
+          "example-letters": null,
+          "example-gears": null
+        },
+        "median_difference_percent": null,
+        "worst_difference_percent": null,
+        "total_difference_percent": null,
+        "passes_subset": false
+      },
+      "firefox": {
+        "valid": 1,
+        "attempted": 2,
+        "per_job_difference_percent": {
+          "example-letters": null,
+          "example-gears": null
+        },
+        "median_difference_percent": null,
+        "worst_difference_percent": null,
+        "total_difference_percent": null,
+        "passes_subset": false
+      }
+    },
+    "passes_subset": false,
+    "H4_complete": false,
+    "full_G5_and_native_matrix_evaluated": false,
+    "guards_unchanged": true
+  }
+}

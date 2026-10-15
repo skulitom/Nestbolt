@@ -1,0 +1,192 @@
+{
+  "scope": "Freeze H4's two shipped examples using their actual public request settings.\n\nThe other nine subset jobs are already in the frozen development manifest.\nDo not regenerate this folder after a measurement; its hashes are the inputs.\n",
+  "commit": "9364ec41a5f0c34930ceeaacc641077a662a9043",
+  "seconds": 60,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "quick_start": false,
+  "source_manifest": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+  "licenses": "web/public/examples/LICENSES.txt",
+  "cli_sha256": "3e2d43d495bdc9ad1f8e672dbdd7cb122af17dea3e48dad32eba5cffb24e77f5",
+  "helper_sha256": "2fb4416fc7522c786ab1afcaccdc62212d2be864699bfed7c213f0404bd4813b",
+  "generator_sha256": "b21f8eb260ea4e7d989e687b675da38b6a464e551a8c523ca37d8f7d2fb2d837",
+  "cases": [
+    {
+      "id": "example-letters",
+      "path": "benchmarks/datasets/browser-quality/letters/job.json",
+      "sha256": "05194dcc572af812eb75c7f7a5d07004352b4c5c78e77415b7f304c29eb792f7",
+      "parts": 45,
+      "copies": 156,
+      "declared_glyph_quantities": 147,
+      "maximum_geometry_json_roundtrip_difference": 5.684341886080802e-14,
+      "source": "web/public/examples/letters.svg",
+      "source_sha256": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "example": {
+        "id": "letters",
+        "title": "letters inside letters",
+        "file": "letters.svg",
+        "summary": "147 glyphs in four sizes; small ones nest inside the holes of large ones.",
+        "quantities": {
+          "letter-N-80mm": 1,
+          "letter-E-80mm": 1,
+          "letter-S-80mm": 1,
+          "letter-T-80mm": 1,
+          "letter-B-80mm": 1,
+          "letter-O-80mm": 1,
+          "letter-L-80mm": 1,
+          "letter-a-28mm": 2,
+          "letter-e-28mm": 2,
+          "letter-g-28mm": 2,
+          "letter-o-28mm": 2,
+          "letter-p-28mm": 2,
+          "letter-q-28mm": 2,
+          "letter-d-28mm": 2,
+          "letter-b-28mm": 2,
+          "sign-64-28mm": 2,
+          "sign-38-28mm": 2,
+          "letter-8-28mm": 2,
+          "letter-0-28mm": 2,
+          "letter-a-14mm": 4,
+          "letter-e-14mm": 4,
+          "letter-o-14mm": 4,
+          "letter-B-14mm": 4,
+          "letter-D-14mm": 4,
+          "letter-P-14mm": 4,
+          "letter-R-14mm": 4,
+          "letter-Q-14mm": 4,
+          "sign-37-14mm": 4,
+          "letter-9-14mm": 4,
+          "letter-6-14mm": 4,
+          "letter-a-7mm": 6,
+          "letter-e-7mm": 6,
+          "letter-o-7mm": 6,
+          "letter-s-7mm": 6,
+          "letter-g-7mm": 6,
+          "letter-b-7mm": 6,
+          "letter-d-7mm": 6,
+          "letter-p-7mm": 6,
+          "letter-q-7mm": 6,
+          "letter-8-7mm": 6,
+          "letter-0-7mm": 6,
+          "sign-64-7mm": 6
+        },
+        "rotations": {
+          "kind": "list",
+          "degrees": [
+            0,
+            90,
+            180,
+            270
+          ]
+        },
+        "sheet": [
+          600,
+          400
+        ],
+        "margin": 5,
+        "spacing": 1,
+        "edge": 1,
+        "seconds": 30
+      },
+      "import_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "import",
+          "C:\\DEV\\Nestbolt\\web\\public\\examples\\letters.svg",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\library.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.036388199994689785,
+        "cpu": 0
+      },
+      "job_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\project_job.exe",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\library.json",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\letters\\request.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03166340000461787,
+        "cpu": 0
+      },
+      "library": "benchmarks/datasets/browser-quality/letters/library.json",
+      "request": "benchmarks/datasets/browser-quality/letters/request.json"
+    },
+    {
+      "id": "example-gears",
+      "path": "benchmarks/datasets/browser-quality/gears/job.json",
+      "sha256": "aa4ee1aff9159ae7e86fb4aa9e78f9bb86613f6c952e997417e87d8bc921c779",
+      "parts": 2,
+      "copies": 40,
+      "declared_glyph_quantities": 40,
+      "maximum_geometry_json_roundtrip_difference": 1.4210854715202004e-14,
+      "source": "web/public/examples/gears.svg",
+      "source_sha256": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "example": {
+        "id": "gears",
+        "title": "interlocking gears",
+        "file": "gears.svg",
+        "summary": "40 gears in two sizes with free rotation, so teeth can mesh, on a 300 \u00d7 200 mm bed.",
+        "quantities": {
+          "gear-1": 20,
+          "gear-2": 20
+        },
+        "rotations": {
+          "kind": "free"
+        },
+        "sheet": [
+          300,
+          200
+        ],
+        "margin": 5,
+        "spacing": 1,
+        "edge": 1,
+        "seconds": 20
+      },
+      "import_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "import",
+          "C:\\DEV\\Nestbolt\\web\\public\\examples\\gears.svg",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\library.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03704569999536034,
+        "cpu": 0
+      },
+      "job_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\project_job.exe",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\library.json",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\request.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03340219998790417,
+        "cpu": 0
+      },
+      "library": "benchmarks/datasets/browser-quality/gears/library.json",
+      "request": "benchmarks/datasets/browser-quality/gears/request.json"
+    }
+  ],
+  "files": {
+    "gears/import-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gears/import-stdout.json": "a23061b7c6e7b0191dec9d7fb80c30f463d8b5abd387cc1ae5aca76062a7edbc",
+    "gears/job-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gears/job-stdout.json": "aa4ee1aff9159ae7e86fb4aa9e78f9bb86613f6c952e997417e87d8bc921c779",
+    "gears/job.json": "aa4ee1aff9159ae7e86fb4aa9e78f9bb86613f6c952e997417e87d8bc921c779",
+    "gears/library.json": "7ac051dd657418faadab50b21a97f141e0ddea5e605c204cd79e7b3b3cb23301",
+    "gears/request.json": "37079113745e85c110fb3b6115d17fe5789dd88d9beb55c9533ffb9e1d49aa84",
+    "letters/import-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "letters/import-stdout.json": "67b03ad90c944ca4eaec7e76a5a8595ea0027f08f517dd8fcd34b7bb05f28935",
+    "letters/job-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "letters/job-stdout.json": "05194dcc572af812eb75c7f7a5d07004352b4c5c78e77415b7f304c29eb792f7",
+    "letters/job.json": "05194dcc572af812eb75c7f7a5d07004352b4c5c78e77415b7f304c29eb792f7",
+    "letters/library.json": "eed889130e46fcbe4d32e78de6f60a637d21affc8aa577e578b4f3dfde15ac1d",
+    "letters/request.json": "5a1c46368611f4e7c601737d0d420a3cea48ac4f52f47636bfebcc920321e791"
+  }
+}
