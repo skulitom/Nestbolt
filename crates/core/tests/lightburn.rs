@@ -15,7 +15,7 @@ const PROJECT: &str = r#"<?xml version="1.0" encoding="UTF-8"?>
   <Shape Type="Path" CutIndex="1" PrimID="4"><XForm>1 0 0 1 0 0</XForm><VertList>V0 0V5 0V5 5V0 5</VertList><PrimList>LineClosed</PrimList></Shape>
   <Shape Type="Bitmap" CutIndex="0" SourceHash="0" W="8" H="6"><XForm>1 0 0 1 60 30</XForm></Shape>
   <Shape Type="Bitmap" CutIndex="0" SourceHash="0" Data="aW1hZ2U=" W="8" H="6"><XForm>1 0 0 1 70 30</XForm></Shape>
-  <Shape Type="Group"><Children><Shape Type="Rect" CutIndex="0" W="3" H="4"/><Shape Type="Rect" CutIndex="30" W="1" H="2"/></Children></Shape>
+  <Shape Type="Group"><Children><Shape Type="Rect" CutIndex="30" W="3" H="4"/><Shape Type="Rect" CutIndex="30" W="1" H="2"/></Children></Shape>
   <Unknown><Value escaped="&amp;&quot;">opaque</Value></Unknown>
 </LightBurnProject>"#;
 
@@ -54,11 +54,31 @@ fn no_op_preserves_every_byte_and_sharing_resolves_independently() {
     close(bitmaps[0].bounds_mm.unwrap(), [56.0, 27.0, 64.0, 33.0]);
     let group = &doc.scene.shapes[*doc.scene.top_level.last().unwrap()];
     assert!(group.fixed);
-    assert!(
-        doc.scene
-            .warnings
-            .iter()
-            .any(|w| w.contains("whole rigid group fixed"))
+    assert!(doc.scene.warnings.is_empty());
+}
+
+#[test]
+fn mixed_fixed_groups_require_regrouping_even_for_the_low_level_writer() {
+    let source = include_str!("fixtures/mixed-fixed.lbrn2");
+    for xml in [source.to_owned(), source.replace("type=\"Tool\"", "type=\"Cut\"").replace(
+        "<index Value=\"30\"/>", "<index Value=\"30\"/><doOutput Value=\"0\"/>"),
+        source.replace("<Shape Type=\"Rect\" CutIndex=\"0\" W=\"20\" H=\"10\"/>",
+            "<Shape Type=\"Group\"><Children><Shape Type=\"Rect\" CutIndex=\"0\" W=\"20\" H=\"10\"/></Children></Shape>")]
+    {
+        let doc = Document::read(&xml, 0.0005).unwrap();
+        assert_eq!(doc.original_xml(), xml);
+        assert!(doc.scene.warnings.iter().any(|w| w.contains("group movable artwork separately")));
+        let error = doc.nesting_units(0.0005).err().expect("mixed group must fail");
+        assert!(error.to_string().contains("ungroup it in LightBurn"));
+    }
+    let fixed = source.replace("CutIndex=\"0\" W=\"20\"", "CutIndex=\"30\" W=\"20\"");
+    let doc = Document::read(&fixed, 0.0005).unwrap();
+    let nesting = doc.nesting_units(0.0005).unwrap();
+    assert!(nesting.units.is_empty());
+    assert_eq!(nesting.fixed, vec![0]);
+    assert_eq!(
+        nesting.write_sheet(&[], 100.0, 100.0, false).unwrap(),
+        fixed
     );
 }
 

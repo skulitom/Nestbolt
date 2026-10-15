@@ -557,7 +557,7 @@ fn read_shape(
         }
         let any_fixed = child_indices.iter().any(|&i| scene.shapes[i].fixed);
         if any_fixed && child_indices.iter().any(|&i| !scene.shapes[i].fixed) {
-            scene.warnings.push(format!("Group shape {index} contains both fixed and movable children; keep the whole rigid group fixed"));
+            scene.warnings.push(format!("Group shape {index} contains both fixed and movable children; ungroup it in LightBurn and group movable artwork separately before nesting"));
         }
         let complete = child_indices
             .iter()

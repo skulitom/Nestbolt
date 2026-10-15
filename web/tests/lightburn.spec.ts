@@ -5,6 +5,27 @@ import { fileURLToPath } from 'node:url';
 const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/roundtrip.lbrn2', import.meta.url));
 const source = readFileSync(fixture, 'utf8');
 
+test('LightBurn repair instructions reject incomplete replacements and allow a supported re-import', async ({ page }) => {
+  await page.goto('/');
+  const input = page.locator('.drop input[type=file]');
+  const upload = (text: string) => input.setInputFiles({ name: 'repair.lbrn2', mimeType: 'application/xml', buffer: Buffer.from(text) });
+  for (const [file, message] of [
+    ['uncached-text.lbrn2', 're-save text in LightBurn'],
+    ['mixed-fixed.lbrn2', 'group movable artwork separately'],
+  ]) {
+    await upload(source);
+    await expect(page.locator('table.parts tbody tr')).toHaveCount(3);
+    await upload(readFileSync(fileURLToPath(new URL(`../../crates/core/tests/fixtures/${file}`, import.meta.url)), 'utf8'));
+    await expect(page.getByRole('alert')).toContainText(message);
+    await expect(page.locator('table.parts tbody tr')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'LightBurn', exact: true })).toHaveCount(0);
+  }
+  await upload(source);
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(3);
+});
+
 test('LightBurn leads download separate cutting files and preserve the editable group', async ({ page }, info) => {
   const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/lead-group.lbrn2', import.meta.url));
   const original = readFileSync(fixture,'utf8');

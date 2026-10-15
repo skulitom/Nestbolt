@@ -82,7 +82,6 @@ impl Library {
             return Ok(None);
         };
         let document = Document::read(&project.xml, self.tolerance)?;
-        check_fixed_groups(&document)?;
         let nesting = document.nesting_units(self.tolerance)?;
         let mut sources = Sources::new();
         for unit in &nesting.units {

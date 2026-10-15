@@ -1,0 +1,163 @@
+{
+  "workspace_tests": {
+    "passed": 290,
+    "failed": 0,
+    "ignored": 1
+  },
+  "optimized_cli_tests": {
+    "passed": 25,
+    "failed": 0
+  },
+  "browser_tests": {
+    "passed": 82,
+    "failed": 0,
+    "skipped": 4
+  },
+  "strict_clippy": "pass",
+  "format": "pass",
+  "native_examples_build": "pass",
+  "wasm_and_web_build": "pass",
+  "product_and_test_typescript": "pass",
+  "product_source_sha256": "7a68bac307cd5c2cb45006db005623d6bb52dbf34b96880f424e9e026a7ae103",
+  "wasm_sha256": "888dba8f210c6163676e45186179cf9cdc69df4708db98bda4a63ab2e95bb391",
+  "cpu_affinity": [
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "commands": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.5253329999977723,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "workspace-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 289.53564489999553,
+      "log_sha256": "f68ac1cd407cc9c65db61532a55d8d6ec71ec930692430ea7bcd1b4524179c5d"
+    },
+    {
+      "name": "cli-release",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 67.86086119999527,
+      "log_sha256": "46f99ac4d983d7d4db06f37cac765099f3111e5d4fdf51720c98d590a7eb44b0"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 3.78855170001043,
+      "log_sha256": "bc4566dcc64db4743e3cafd851a85ab1da7e5d6ae16145d7dba5c74056ab6df7"
+    },
+    {
+      "name": "release",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "lightburn_inspect",
+        "--example",
+        "lightburn_roundtrip"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 31.913222899995162,
+      "log_sha256": "f33eb4e0dfd22020798f2bfabab150262eed8282dffecb1f1792bba33629a9b6"
+    },
+    {
+      "name": "web",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py",
+        "--test"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 117.26259500000742,
+      "log_sha256": "540eb6447f84794133930664b841cb2eb7ffcee1a50aaedaea3922de01d6a29f"
+    }
+  ],
+  "archive": {
+    "path": "logs.zip",
+    "bytes": 13706,
+    "sha256": "1a0226ac4ee75ec0f513cdf8c351ed4118addd46983ea115b3a8abf08374c7d0",
+    "members": {
+      "format.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "workspace-tests.log": {
+        "sha256": "f68ac1cd407cc9c65db61532a55d8d6ec71ec930692430ea7bcd1b4524179c5d",
+        "bytes": 30168
+      },
+      "cli-release.log": {
+        "sha256": "46f99ac4d983d7d4db06f37cac765099f3111e5d4fdf51720c98d590a7eb44b0",
+        "bytes": 1927
+      },
+      "clippy.log": {
+        "sha256": "bc4566dcc64db4743e3cafd851a85ab1da7e5d6ae16145d7dba5c74056ab6df7",
+        "bytes": 324
+      },
+      "release.log": {
+        "sha256": "f33eb4e0dfd22020798f2bfabab150262eed8282dffecb1f1792bba33629a9b6",
+        "bytes": 218
+      },
+      "web.log": {
+        "sha256": "540eb6447f84794133930664b841cb2eb7ffcee1a50aaedaea3922de01d6a29f",
+        "bytes": 16707
+      }
+    },
+    "crc_and_member_hashes_verified": true
+  }
+}

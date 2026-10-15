@@ -1,0 +1,22 @@
+{
+  "scope": "Preliminary local checks before the archived full check sequence",
+  "trials": [
+    {
+      "command": "python output/ccd1.py cargo test -p nestbolt-core --test lightburn --test project_lightburn",
+      "outcome": "compile failure",
+      "error": "E0425: cannot find function check_fixed_groups in crates/core/src/project/lightburn/cutting.rs:85",
+      "correction": "Removed the remaining duplicate call; the immediately following Document::nesting_units now performs the same guard centrally."
+    },
+    {
+      "command": "python output/ccd1.py cargo test -p nestbolt-core --test lightburn --test project_lightburn",
+      "outcome": "passed",
+      "tests_passed": 19,
+      "tests_failed": 0
+    }
+  ],
+  "fixture_note": "The old low-level writer fixture mixed an active rectangle with a Tool rectangle. Its writer-success variant now contains two Tool rectangles; a new separate fixture retains the prohibited mixed case and checks Tool/output-off/nested variants reject while inspection remains byte-identical.",
+  "pre_execution_test_corrections": [
+    "Used the MCP library_path parameter for the rejected destination instead of an unsupported output field.",
+    "Used the existing roundtrip fixture's three imported units in the browser recovery check."
+  ]
+}

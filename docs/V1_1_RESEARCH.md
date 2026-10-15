@@ -718,3 +718,40 @@ logs, with verified CRC/SHA-256. Source/site/runner/fixture/executable guards an
 the frozen shop manifest pass. Original failures remain unchanged. Continue the
 eleven-job quality subset, full G5 comparison and 195-run native matrix; H4 stays
 open and overall completion is 20%. No held-out geometry or gate changes.
+
+
+### 2026-10-15: reviewed LightBurn repair and grouping prerequisites
+
+Artem approved the [documented text repair prerequisite and mixed-group rejection](PLAN_V1_1.md#10-reviewed-decisions).
+Eight original projects lack 122 embedded text outlines; their original XML,
+labels, split and failed geometry checks remain unchanged. Native repaired
+copies must still pass the full independent geometry comparison. A native repair
+save can normalize settings and is not credited as lossless original-project
+preservation. The [approval record](../benchmarks/results/h3-reviewed-decisions-20261015.json)
+pins each original, label and native reference to its verified hash.
+
+Groups mixing output-enabled artwork with Tool/output-off shapes must reject
+with instructions to ungroup in LightBurn and group movable artwork separately.
+The lower-level unit/writer API previously retained such a group as fixed while
+the public importer rejected it. The guard now lives in unit preparation so both
+paths enforce the approved rule. Read-only inspection and original XML remain
+available. Dedicated Tool, output-off and nested-group checks retain the rejected
+case; the writer-success fixture now uses only fixed children in its fixed group.
+
+Current-build corpus, native-repair and public-interface checks are underway.
+No original failed result is relabelled, and H3's other requirements remain open
+until the evidence audit is complete. Overall completion remains 20%.
+
+
+The [completed prerequisite verification](../benchmarks/results/h3-approved-prerequisites-20261015.md)
+passes all 56 original no-op checks, 1,550 comparable original leaves, all 477
+repaired leaves / 1,223 contours, and 112 canonical output diffs. The original
+122 missing text caches are not relabelled as verified. Seven repaired projects
+import and produce valid diagnostic layouts; repaired L17 separately rejects a
+standalone zero-height open path. Original public import is 45 accepted and 11
+clear rejections (six movable-text prerequisites, one mixed group, four without
+movable units). Two accepted originals have fixed uncached text with explicit
+warnings; their complete geometry evidence still comes from the repaired inputs.
+All 290 workspace, 25 optimized CLI and 82 browser tests pass. A verified archive
+preserves 4,354 raw members, plus six separately archived check logs. H3 remains
+open on the open-line case and the complete requirement audit; completion is 20%.

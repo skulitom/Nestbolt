@@ -53,25 +53,6 @@ pub(super) fn is_project(name: &str) -> bool {
     name.ends_with(".lbrn2") || name.ends_with(".lbrn")
 }
 
-fn check_fixed_groups(document: &Document) -> Result<()> {
-    for &index in &document.scene.top_level {
-        let root = &document.scene.shapes[index];
-        if !root.fixed || root.kind != "Group" {
-            continue;
-        }
-        let mut remaining = root.children.clone();
-        while let Some(child) = remaining.pop() {
-            let shape = &document.scene.shapes[child];
-            ensure!(
-                shape.kind == "Group" || shape.fixed,
-                "LightBurn group {index} mixes output-enabled artwork with Tool/output-off shapes; ungroup it and group movable artwork separately before nesting. Fixed active artwork cannot yet be checked against every sheet"
-            );
-            remaining.extend(&shape.children);
-        }
-    }
-    Ok(())
-}
-
 impl Library {
     /// Prepare every export before any surface writes files. An explicit format
     /// selects one; otherwise use the source format's preserving default.
@@ -161,7 +142,6 @@ impl Library {
         );
         let document = Document::read(text, options.tolerance)
             .with_context(|| format!("cannot import {name}"))?;
-        check_fixed_groups(&document)?;
         let nesting = document.nesting_units(options.tolerance)?;
         ensure!(
             !nesting.units.is_empty(),
@@ -228,7 +208,6 @@ impl Library {
             return Ok(None);
         };
         let document = Document::read(&project.xml, self.tolerance)?;
-        check_fixed_groups(&document)?;
         let nesting = document.nesting_units(self.tolerance)?;
         let ids: HashSet<_> = project.unit_ids.iter().collect();
         ensure!(

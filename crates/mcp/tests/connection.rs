@@ -8,6 +8,70 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn lightburn_repair_prerequisites_are_explicit_over_stdio() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace = std::env::temp_dir().join(format!(
+        "nestbolt-mcp-repair-{}-{stamp}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&workspace).unwrap();
+    timeout(Duration::from_secs(60), async {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));
+        command.env("NESTBOLT_WORKSPACE", &workspace);
+        let client = ().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        for (name, source, message) in [
+            (
+                "uncached-text.lbrn2",
+                include_str!("../../core/tests/fixtures/uncached-text.lbrn2"),
+                "re-save text in LightBurn",
+            ),
+            (
+                "mixed-fixed.lbrn2",
+                include_str!("../../core/tests/fixtures/mixed-fixed.lbrn2"),
+                "group movable artwork separately",
+            ),
+        ] {
+            std::fs::write(workspace.join(name), source).unwrap();
+            let error = client
+                .call_tool(
+                    CallToolRequestParams::new("import_parts").with_arguments(args(
+                        json!({"paths":[name], "library_path":"rejected.json"}),
+                    )),
+                )
+                .await
+                .unwrap_err();
+            assert!(error.to_string().contains(message), "{error}");
+            assert!(!workspace.join("rejected.json").exists());
+            assert_eq!(
+                std::fs::read_to_string(workspace.join(name)).unwrap(),
+                source
+            );
+        }
+        std::fs::write(
+            workspace.join("supported.lbrn2"),
+            include_str!("../../core/tests/fixtures/roundtrip.lbrn2"),
+        )
+        .unwrap();
+        let imported = client
+            .call_tool(
+                CallToolRequestParams::new("import_parts")
+                    .with_arguments(args(json!({"paths":["supported.lbrn2"]}))),
+            )
+            .await
+            .unwrap()
+            .structured_content
+            .unwrap();
+        assert!(imported["part_count"].as_u64().unwrap() > 0);
+        client.cancel().await.unwrap();
+    })
+    .await
+    .expect("repair prerequisite MCP session timed out");
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn quick_start_request_nests_revalidates_and_exports_over_stdio() {
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

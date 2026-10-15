@@ -1,0 +1,101 @@
+[
+  {
+    "name": "release-binaries",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+      "cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-cli",
+      "-p",
+      "nestbolt-mcp"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 83.85697269999946,
+    "paths": [],
+    "log_sha256": "abfeda9729adec1868e29504eabf15e5719b67633cbfab805449416b950218f0"
+  },
+  {
+    "name": "reader",
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+      "C:\\DEV\\Nestbolt\\scripts\\h3_reader_audit.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 1.7376147000031779,
+    "paths": [
+      "benchmarks/results/h3-reader-20261015T190547Z.json"
+    ],
+    "log_sha256": "06a795d42e014932530c60fccd86353b77769810f360d64996c07bf4db6cfebd"
+  },
+  {
+    "name": "geometry",
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+      "C:\\DEV\\Nestbolt\\scripts\\h3_geometry_audit.py",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-reader-20261015T190547Z.json"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 26.36465400000452,
+    "paths": [
+      "benchmarks/results/h3-geometry-20261015T190554Z.json"
+    ],
+    "log_sha256": "a6dfc5ffebe4fb4e0942b1adff4d7d36caf0d073c66a82cadaa0d6da35de1fc3"
+  },
+  {
+    "name": "text-repairs",
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+      "C:\\DEV\\Nestbolt\\scripts\\h3_text_cache_audit.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 11.20870420000574,
+    "paths": [
+      "benchmarks/results/h3-text-cache-20261015T190617Z.json"
+    ],
+    "log_sha256": "00f6fdfc438d539a431ede8ce8d49926f1fb5fc6368cddd4ad5ee266d0f31012"
+  },
+  {
+    "name": "writer",
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+      "C:\\DEV\\Nestbolt\\scripts\\h3_writer_audit.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 1.8816976999951294,
+    "paths": [
+      "benchmarks/results/h3-writer-20261015T190627Z.json"
+    ],
+    "log_sha256": "b381b22f14ff29854c43959bd00b2d2c0e24f9975edc5ffe5415a8c63e70b239"
+  },
+  {
+    "name": "unit-geometry",
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+      "C:\\DEV\\Nestbolt\\scripts\\h3_unit_geometry_audit.py",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\h3-writer-20261015T190627Z.json"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 12.020573200003128,
+    "paths": [
+      "benchmarks/results/h3-unit-geometry-20261015T190640Z.json"
+    ],
+    "log_sha256": "3ba2cef08640186d19b3b9ecac9058ab3b4a6585434a01a82b6b246be1932571"
+  },
+  {
+    "name": "reviewed-prerequisites",
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\shop-venv\\Scripts\\python.exe",
+      "C:\\DEV\\Nestbolt\\scripts\\h3_reviewed_prerequisites.py"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 7.224860899994383,
+    "paths": [
+      "benchmarks/results/h3-reviewed-prerequisites-20261015T190641Z"
+    ],
+    "log_sha256": "227fe33e485d7a10003ca8d9320bf876757d152f9aba5f016b0ad2dd0c104dc1"
+  }
+]

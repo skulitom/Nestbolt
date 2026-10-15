@@ -1,0 +1,90 @@
+[
+  {
+    "name": "format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 0.5253329999977723,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "workspace-tests",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 289.53564489999553,
+    "log_sha256": "f68ac1cd407cc9c65db61532a55d8d6ec71ec930692430ea7bcd1b4524179c5d"
+  },
+  {
+    "name": "cli-release",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "-p",
+      "nestbolt-cli",
+      "--test",
+      "features",
+      "--locked"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 67.86086119999527,
+    "log_sha256": "46f99ac4d983d7d4db06f37cac765099f3111e5d4fdf51720c98d590a7eb44b0"
+  },
+  {
+    "name": "clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 3.78855170001043,
+    "log_sha256": "bc4566dcc64db4743e3cafd851a85ab1da7e5d6ae16145d7dba5c74056ab6df7"
+  },
+  {
+    "name": "release",
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-cli",
+      "-p",
+      "nestbolt-mcp",
+      "-p",
+      "nestbolt-core",
+      "--example",
+      "lightburn_inspect",
+      "--example",
+      "lightburn_roundtrip"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 31.913222899995162,
+    "log_sha256": "f33eb4e0dfd22020798f2bfabab150262eed8282dffecb1f1792bba33629a9b6"
+  },
+  {
+    "name": "web",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/build_web.py",
+      "--test"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 117.26259500000742,
+    "log_sha256": "540eb6447f84794133930664b841cb2eb7ffcee1a50aaedaea3922de01d6a29f"
+  }
+]

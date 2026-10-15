@@ -53,6 +53,62 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn lightburn_repair_prerequisites_reject_without_partial_files() {
+    let dir = temp("lightburn-repair");
+    for (name, source, message) in [
+        (
+            "uncached-text.lbrn2",
+            include_str!("../../core/tests/fixtures/uncached-text.lbrn2"),
+            "re-save text in LightBurn",
+        ),
+        (
+            "mixed-fixed.lbrn2",
+            include_str!("../../core/tests/fixtures/mixed-fixed.lbrn2"),
+            "group movable artwork separately",
+        ),
+    ] {
+        let input = dir.join(name);
+        fs::write(&input, source).unwrap();
+        let library = dir.join(format!("{name}.json"));
+        let imported = nestbolt(&[
+            "import".as_ref(),
+            input.as_os_str(),
+            "--output".as_ref(),
+            library.as_os_str(),
+        ]);
+        assert!(!imported.status.success());
+        assert!(String::from_utf8_lossy(&imported.stderr).contains(message));
+        assert!(!library.exists());
+        let request = dir.join("request.json");
+        fs::write(&request, r#"{"sheets":[{"width_mm":100,"height_mm":100}]}"#).unwrap();
+        let output = dir.join(format!("{name}-nested"));
+        let nested = nestbolt(&[
+            "nest".as_ref(),
+            "--library".as_ref(),
+            input.as_os_str(),
+            "--request".as_ref(),
+            request.as_os_str(),
+            "--out-dir".as_ref(),
+            output.as_os_str(),
+            "--seconds".as_ref(),
+            "1".as_ref(),
+        ]);
+        assert!(!nested.status.success());
+        assert!(String::from_utf8_lossy(&nested.stderr).contains(message));
+        assert!(!output.exists() || fs::read_dir(output).unwrap().next().is_none());
+        assert_eq!(fs::read_to_string(input).unwrap(), source);
+    }
+    // A rejected file does not poison a subsequent supported import.
+    let repaired = dir.join("supported.lbrn2");
+    fs::write(
+        &repaired,
+        include_str!("../../core/tests/fixtures/roundtrip.lbrn2"),
+    )
+    .unwrap();
+    assert!(import(&dir, &[repaired]).exists());
+}
+
+#[test]
 fn quick_start_flag_and_request_nest_validate_and_preserve_the_choice() {
     let dir = temp("quick-start");
     let library = import(&dir, &[example("parts.svg")]);

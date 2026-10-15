@@ -161,6 +161,25 @@ fn geometry(scene: &Scene, index: usize, tolerance: f64, grouped: bool) -> Resul
 }
 
 impl Document {
+    fn check_fixed_groups(&self) -> Result<()> {
+        for &index in &self.scene.top_level {
+            let root = &self.scene.shapes[index];
+            if !root.fixed || root.kind != "Group" {
+                continue;
+            }
+            let mut remaining = root.children.clone();
+            while let Some(child) = remaining.pop() {
+                let shape = &self.scene.shapes[child];
+                ensure!(
+                    shape.kind == "Group" || shape.fixed,
+                    "LightBurn group {index} mixes output-enabled artwork with Tool/output-off shapes; ungroup it in LightBurn and group movable artwork separately before nesting"
+                );
+                remaining.extend(&shape.children);
+            }
+        }
+        Ok(())
+    }
+
     /// Assemble the plan's rigid units. Incomplete movable geometry fails the
     /// whole operation; fixed XML may remain without measurable geometry.
     pub fn nesting_units(&self, tolerance_mm: f64) -> Result<Nesting<'_>> {
@@ -168,6 +187,7 @@ impl Document {
             tolerance_mm.is_finite() && tolerance_mm > 0.0 && tolerance_mm <= 0.01,
             "LightBurn nesting tolerance must be positive and no more than 0.01 mm"
         );
+        self.check_fixed_groups()?;
         let scene = &self.scene;
         let mut fixed = vec![];
         let mut footprints = vec![];

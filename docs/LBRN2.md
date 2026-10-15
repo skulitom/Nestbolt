@@ -7,9 +7,32 @@ says **Pro**, although the earlier research described the installation as Core.
 No edition change, activation, update or trial reset was performed here.
 
 The starting reference is [V1_1_RESEARCH.md section 2](V1_1_RESEARCH.md#2-lightburn-lbrn2).
-The probes below confirm only their stated observations. The reader checkpoint
-below adds training geometry evidence; complete source coverage, lossless nesting
-exports and H3 remain unproved.
+The probes below confirm only their stated observations. Historical checkpoints
+retain their original outcomes. Current approved repair prerequisites are below;
+the complete gate status is tracked in [STATUS.md](STATUS.md).
+
+## Required preparation for older or mixed projects
+
+Artem approved these requirements on 2026-10-15 in
+[reviewed decisions 5 and 6](PLAN_V1_1.md#10-reviewed-decisions).
+
+- **Text without embedded outlines:** open the project in LightBurn, verify that
+  the text looks correct, and save a separate copy; alternatively convert the
+  text to paths. Import that prepared copy into Nestbolt. A font name alone does
+  not establish the original glyph geometry, so Nestbolt does not substitute
+  fonts or invent missing outlines. Keep the original project. LightBurn may
+  normalize settings during its save; review those settings before cutting.
+- **Groups mixing active and fixed artwork:** ungroup them in LightBurn, then
+  group the movable artwork separately from Tool/output-disabled shapes. Import
+  the regrouped project. Nestbolt rejects the mixed group before nesting; it
+  does not split the group automatically or place its active cuts on every sheet.
+
+The [eight-project native repair audit](../benchmarks/results/h3-text-cache-20261014T005902Z.md)
+retains the original 122 missing text caches and verifies every repaired leaf
+against the independent reader. Its historical “not approved” status is
+superseded by Artem's decision; its measurements, original failures, frozen
+sources and labels remain unchanged. Reader inspection and no-op preservation
+remain available even for projects that require preparation before nesting.
 
 ## Coordinate systems and origins
 
@@ -505,3 +528,20 @@ The original native starts and reservations revalidate unchanged.
 H6 is complete; H3 remains open for uncached Text and mixed fixed/active groups.
 The separate cutting files do not change that preservation contract. Weighted
 v1.1 completion remains 20% (H1 and H6); see [STATUS.md](STATUS.md).
+
+
+## Approved prerequisites: fresh verification — 2026-10-15 UTC
+
+The [current-build audit](../benchmarks/results/h3-approved-prerequisites-20261015.md)
+supersedes the pending-approval status in historical checkpoints. All 56 original
+training projects retain exact no-op bytes. All 1,550 comparable original leaves
+and all 477 leaves in the eight native repaired projects pass the independent
+geometry checks; the 122 missing original text caches remain explicitly missing.
+The mixed-group case rejects through public import and lower-level unit/writer
+preparation. All 112 produced diagnostic sheets pass the allowed canonical diff.
+
+H3 is still incomplete: repaired L17 has a standalone zero-height open-path
+bounding rectangle and is explicitly refused. Its full repaired geometry check
+passes, but this does not make it a valid nesting result. The current checks pass
+290 workspace tests, 25 optimized CLI tests and 82 enabled browser tests. Overall
+completion remains 20%; the open-line footprint and full H3 audit are next.

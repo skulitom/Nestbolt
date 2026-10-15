@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Authored MIT fixture: a nested Tool shape must not immobilize active cuts. -->
+<LightBurnProject FormatVersion="1" Unknown="retain">
+  <CutSetting type="Cut"><index Value="0"/><doOutput Value="1"/></CutSetting>
+  <CutSetting type="Tool"><index Value="30"/></CutSetting>
+  <Shape Type="Group"><XForm>1 0 0 1 20 30</XForm><Children>
+    <Shape Type="Rect" CutIndex="0" W="20" H="10"/>
+    <Shape Type="Group"><Children><Shape Type="Rect" CutIndex="30" W="30" H="20"/></Children></Shape>
+  </Children></Shape>
+  <Notes>Keep every original byte on inspection.</Notes>
+</LightBurnProject>
