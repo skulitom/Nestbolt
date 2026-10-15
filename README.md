@@ -1,6 +1,6 @@
 # Nestbolt
 
-**8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow**
+In the frozen v1 benchmark, **8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow**
 at equal 60-second budgets, and 9.6% at 300 seconds, in the final benchmark run
 (fresh seeds, ten held-out jobs). Sparrow still wins 8 of the 56 jobs at 60 seconds
 ([details](#how-it-compares), [every number](https://skulitom.github.io/Nestbolt/results/)).
@@ -10,6 +10,17 @@ routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they u
 the least material. It runs [in your browser](https://skulitom.github.io/Nestbolt/)
 (nothing is uploaded), on the command line, and as an MCP server that AI agents
 can call.
+
+[Open the browser app](https://skulitom.github.io/Nestbolt/) ·
+[Download a release](https://github.com/skulitom/Nestbolt/releases) ·
+[Connect an AI agent](docs/AGENT_INTERFACE.md)
+
+The current development build supports editable LightBurn project nesting, lead-in
+allowances and improvements for large curved drawings. The v1.1 plan is still
+in progress; [current verification and remaining work](docs/STATUS.md) distinguish
+completed features from open checks. Downloaded releases contain the features
+listed in their own release notes. The benchmark figures below belong to the
+frozen `75cbb32` build, not a new comparison of the development build.
 
 ![451 letter outlines nested on one sheet, small letters inside the holes of large ones](docs/images/showcase.png)
 
@@ -61,26 +72,43 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
 
 - **Import** SVG and DXF: lines, arcs, ellipses, Béziers, B-splines, blocks,
   transforms and units, converted to millimetres. Each closed outline is a part;
-  outlines inside it are its holes. Real maker files work: all 192 boxes.py
-  example drawings import and nest, including their relief loops at slot corners.
+  outlines inside it are its holes. Choose cutting layers, identify stock outlines,
+  and review repairs and unsupported geometry. See [import options](docs/IMPORTING.md)
+  and the [shop-file verification](docs/STATUS.md).
+- **LightBurn projects** (`.lbrn2` and legacy `.lbrn`): nest groups as rigid units
+  and export an editable `.lbrn2` per sheet, preserving original artwork, text,
+  images and layer settings. Tool and output-disabled shapes stay fixed. Older
+  text may need a separate native save to embed its outlines; mixed active/fixed
+  groups need regrouping before nesting. See [LightBurn preparation](docs/LBRN2.md#required-preparation-for-older-or-mixed-projects).
 - **Nest** on fixed sheets: margins, part and edge spacing, several sheets, several
   stock sizes with limits, defects, remnant outlines, rotations (free, stepped or a
   list such as 0/180 for fabric grain) and mirroring. Small parts can sit inside the holes of larger parts.
   The last sheet is compressed towards one end so the offcut stays usable.
 - **Export** one SVG and one DXF per sheet from the original curves, transformed
-  rather than re-polygonised: on 196 real drawings every exported contour is
-  within 0.0005 mm of its source. LightBurn, Inkscape and LibreCAD open them at
-  the exact size.
+  rather than re-polygonised. LightBurn projects use preserving `.lbrn2` output.
+  [Export fidelity checks](docs/STATUS.md) record the tested files and tolerances.
+- **Lead-in allowances** reserve room for leads and set contour starts, with
+  shortened leads and unresolved contours reported explicitly. Red LEADIN paths
+  are review guides; the cutting program creates the actual leads. Imported
+  LightBurn projects keep their editable contents and receive separate SVG/DXF
+  cutting files. See [lead settings and CAM setup](docs/LEAD_INS.md).
+- **Common-line cutting**, optional and still under development: identify shared
+  straight cuts with kerf compensation. It can reduce cutting distance while
+  increasing material use; two development jobs exceed the planned material
+  limit. The export needs CAM preparation to avoid cutting shared sections twice.
+  See [common-line setup and limitations](docs/COMMON_LINES.md).
 - **Check** every result with an independent Clipper2 validator (overlap,
   spacing, containment, rotations, quantities). Invalid layouts are never returned.
 - **Browser app** (`web/`): the same engine compiled to WebAssembly in Web
-  Workers, several seeds in parallel, a live view of the best layout, projects
+  Workers, automatic worker selection, a live view of the best layout, projects
   saved in the browser or as a ZIP, and five one-click examples. Files never leave
-  the computer. On the 65 development jobs, one browser worker matches the native
-  build within 0.1% at the median (Chrome and Firefox, 60 s).
+  the computer. An optional **Quick initial layout** setting helps start large
+  jobs. Current browser checks and native comparisons are tracked in
+  [Status](docs/STATUS.md).
 - **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`
   and `estimate_sheets`, tested with Claude Code. Its budgets are repeatable:
-  same inputs, budget and seed, same layout. See
+  same build, inputs, work budget and seed give the same layout unless the real-time
+  limit is reached, which is reported explicitly. See
   [the agent interface](docs/AGENT_INTERFACE.md).
 
 The engine builds on [jagua-rs](https://github.com/JeroenGar/jagua-rs) and
@@ -95,7 +123,16 @@ Nestbolt runs unmodified Sparrow for the rest of the budget.
 
 ## Quick start
 
-Install Rust through rustup (the repository selects Rust 1.98.1) and build:
+Use the [browser app](https://skulitom.github.io/Nestbolt/) without installing
+anything, or download native tools for **Windows x64, Linux x64 or macOS Apple
+silicon** from [Releases](https://github.com/skulitom/Nestbolt/releases). Each
+archive contains `nestbolt`, `nestbolt-mcp` and licences; download checksums are
+provided alongside it. The separate Windows MCPB bundle installs the server in
+Claude Desktop; see
+[agent setup](docs/AGENT_INTERFACE.md).
+
+To build the development version, install Rust through rustup (the repository
+selects Rust 1.98.1):
 
 ```sh
 cargo build --release -p nestbolt-cli -p nestbolt-mcp
@@ -146,7 +183,8 @@ File formats are described by the [JSON Schemas](schemas/README.md).
 
 [Open it](https://skulitom.github.io/Nestbolt/) and pick an example (finger-jointed
 boxes, letters inside letters, a 138-part mechanical kit, a FreeSewing T-shirt
-pattern on a fabric roll, interlocking gears), or drop your own SVG and DXF files.
+pattern on a fabric roll, interlocking gears), or drop your own SVG/DXF files or
+one LightBurn project.
 The best layout so far is drawn while the search runs, and each sheet shows the
 box around its parts and the clear offcut left above them.
 
@@ -196,7 +234,8 @@ jobs excluded) and writes an audited report under `benchmarks/results/`.
 | `crates/wasm` | WebAssembly boundary for the browser app |
 | `web` | Browser app (Preact, Vite) and its Playwright tests |
 | `benchmarks` | Frozen datasets, competitor runners and all results |
-| `docs/PLAN.md` | The full plan and its acceptance gates |
+| `docs/PLAN.md` | Original v1 plan and acceptance gates |
+| `docs/PLAN_V1_1.md` | Current shop-file and cutting-feature plan |
 | `docs/STATUS.md` | Milestone evidence and next steps |
 
 Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS.md).

@@ -1,0 +1,29 @@
+{
+  "scope": "Same exact CI input and public search; the earlier build failed only because the primitive trait is private. No product edit.",
+  "before_guard_matches": true,
+  "steps": {
+    "build": {
+      "command": [
+        "cargo",
+        "build",
+        "--offline",
+        "--manifest-path",
+        "C:\\DEV\\Nestbolt\\output\\ci-curve-probe\\Cargo.toml"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "0a64230e9ae765ccac08aa545770df6a7163d586655b6edefc8989d2d7a56aa2"
+    },
+    "search": {
+      "command": [
+        "C:\\DEV\\Nestbolt\\target\\debug\\nestbolt-ci-curve-probe.exe",
+        "search",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\release-readiness-20261016\\search"
+      ],
+      "exit_code": 101,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "56fac0b69135219656256939e9aaf999b0c5f232a6d713df65d8959ad663d502"
+    }
+  },
+  "after_guard_matches": true
+}

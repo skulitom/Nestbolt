@@ -1,0 +1,40 @@
+{
+  "scope": "Functional check on CCD1 CPU 16; no benchmark claim.",
+  "cli_sha256": "5e07f350761f3b5dfb820e404c85982dacd039d0789b8bfca63f66e76bf20bf7",
+  "job_sha256": "cb3a509cba4751e1e4992a7391264bbffb312a21cd8324e25232e14fbafe564e",
+  "search": {
+    "command": [
+      "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+      "sheets",
+      "--job",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\release-readiness-20261016\\search\\job.json",
+      "--output",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\release-readiness-20261016\\release\\layout.json",
+      "--seed",
+      "659",
+      "--seconds",
+      "2",
+      "--repeatable"
+    ],
+    "exit_code": 0,
+    "elapsed_wall_seconds": 1.564709900005255,
+    "cpu": 16
+  },
+  "validation": {
+    "command": [
+      "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+      "validate",
+      "--job",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\release-readiness-20261016\\search\\job.json",
+      "--layout",
+      "C:\\DEV\\Nestbolt\\benchmarks\\results\\release-readiness-20261016\\release\\layout.json"
+    ],
+    "exit_code": 0,
+    "elapsed_wall_seconds": 0.03426200000103563,
+    "cpu": 16
+  },
+  "valid": true,
+  "metric_delta": 0,
+  "placements": 8,
+  "guards_unchanged": true
+}

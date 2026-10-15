@@ -1,0 +1,12 @@
+[package]
+name = "nestbolt-ci-curve-probe"
+version = "0.0.0"
+edition = "2024"
+[workspace]
+[dependencies]
+nestbolt-core = { path = "../../crates/core" }
+nestbolt-validator = { path = "../../crates/validator" }
+jagua-rs = { version = "=1.1.0", features = ["bpp", "spp"] }
+serde_json = "1.0"
+[profile.dev.package."*"]
+opt-level = 3

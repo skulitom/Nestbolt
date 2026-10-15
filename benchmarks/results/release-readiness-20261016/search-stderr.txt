@@ -1,0 +1,97 @@
+
+thread 'main' (40296) panicked at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_traits.rs:122:9:
+edge: Edge { start: Point(21.975176, -22.350315), end: Point(22.223839, -22.143082) }, node: Rect { x_min: 21.743834, y_min: -22.61575, x_max: 22.61575, y_max: -21.743834 }, quadrants: [Rect { x_min: 22.17979, y_min: -22.17979, x_max: 22.61575, y_max: -21.743834 }, Rect { x_min: 21.743834, y_min: -22.17979, x_max: 22.17979, y_max: -21.743834 }, Rect { x_min: 21.743834, y_min: -22.61575, x_max: 22.17979, y_max: -22.17979 }, Rect { x_min: 22.17979, y_min: -22.61575, x_max: 22.61575, y_max: -22.17979 }], classified: [true, true, true, false], f64 oracle: [true, false, true, true]
+stack backtrace:
+   0: std::panicking::panic_handler
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\std\src\panicking.rs:679
+   1: core::panicking::panic_fmt
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\panicking.rs:80
+   2: jagua_rs::collision_detection::quadtree::qt_traits::impl$2::collides_with_quadrants
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_traits.rs:122
+   3: jagua_rs::collision_detection::quadtree::qt_node::QTNode<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity> >::collides<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity>,jagua_rs::geometry::primitives::edge::E
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:120
+   4: jagua_rs::collision_detection::quadtree::qt_node::impl$0::collides::closure$2
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:126
+   5: core::iter::adapters::map::map_try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\map.rs:95
+   6: core::iter::adapters::filter::filter_try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\filter.rs:86
+   7: core::array::iter::iter_inner::impl$10::try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter\iter_inner.rs:265
+   8: core::ops::index_range::impl$1::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\ops\index_range.rs:170
+   9: core::array::iter::iter_inner::PolymorphicIter<slice2$<core::mem::maybe_uninit::MaybeUninit<usize> > >::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter\iter_inner.rs:260
+  10: core::array::iter::impl$4::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter.rs:266
+  11: core::iter::adapters::filter::impl$3::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\filter.rs:157
+  12: core::iter::adapters::map::impl$2::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\map.rs:121
+  13: core::iter::traits::iterator::Iterator::find
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\traits\iterator.rs:2971
+  14: jagua_rs::collision_detection::quadtree::qt_node::QTNode<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity> >::collides<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity>,jagua_rs::geometry::primitives::edge::E
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:127
+  15: jagua_rs::collision_detection::quadtree::qt_node::impl$0::collides::closure$2
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:126
+  16: core::iter::adapters::map::map_try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\map.rs:95
+  17: core::iter::adapters::filter::filter_try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\filter.rs:86
+  18: core::array::iter::iter_inner::impl$10::try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter\iter_inner.rs:265
+  19: core::ops::index_range::impl$1::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\ops\index_range.rs:170
+  20: core::array::iter::iter_inner::PolymorphicIter<slice2$<core::mem::maybe_uninit::MaybeUninit<usize> > >::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter\iter_inner.rs:260
+  21: core::array::iter::impl$4::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter.rs:266
+  22: core::iter::adapters::filter::impl$3::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\filter.rs:157
+  23: core::iter::adapters::map::impl$2::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\map.rs:121
+  24: core::iter::traits::iterator::Iterator::find
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\traits\iterator.rs:2971
+  25: jagua_rs::collision_detection::quadtree::qt_node::QTNode<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity> >::collides<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity>,jagua_rs::geometry::primitives::edge::E
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:127
+  26: jagua_rs::collision_detection::quadtree::qt_node::impl$0::collides::closure$2
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:126
+  27: core::iter::adapters::map::map_try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\map.rs:95
+  28: core::iter::adapters::filter::filter_try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\filter.rs:86
+  29: core::array::iter::iter_inner::impl$10::try_fold::closure$0
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter\iter_inner.rs:265
+  30: core::ops::index_range::impl$1::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\ops\index_range.rs:170
+  31: core::array::iter::iter_inner::PolymorphicIter<slice2$<core::mem::maybe_uninit::MaybeUninit<usize> > >::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter\iter_inner.rs:260
+  32: core::array::iter::impl$4::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\array\iter.rs:266
+  33: core::iter::adapters::filter::impl$3::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\filter.rs:157
+  34: core::iter::adapters::map::impl$2::try_fold
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\adapters\map.rs:121
+  35: core::iter::traits::iterator::Iterator::find
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\iter\traits\iterator.rs:2971
+  36: jagua_rs::collision_detection::quadtree::qt_node::QTNode<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity> >::collides<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity>,jagua_rs::geometry::primitives::edge::E
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_node.rs:127
+  37: jagua_rs::collision_detection::cd_engine::CDEngine<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity> >::detect_poly_collision<enum2$<jagua_rs::collision_detection::hazards::hazard::BasicHazardEntity>,jagua_rs::collision_detection::h
+             at C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\cd_engine.rs:179
+  38: sparrow::eval::lbf_evaluator::impl$1::evaluate_sample
+             at C:\Users\artem\.cargo\git\checkouts\sparrow-0e31558bce8cf283\4629b22\src\eval\lbf_evaluator.rs:42
+  39: sparrow::sample::search::search_placement<sparrow::eval::lbf_evaluator::LBFEvaluator,rand::rngs::xoshiro256plusplus::Xoshiro256PlusPlus>
+             at C:\Users\artem\.cargo\git\checkouts\sparrow-0e31558bce8cf283\4629b22\src\sample\search.rs:56
+  40: nestbolt_core::holes::group
+             at .\crates\core\src\holes.rs:283
+  41: nestbolt_core::sheets::optimize_with_areas<nestbolt_ci_curve_probe::main::closure_env$2>
+             at .\crates\core\src\sheets.rs:646
+  42: nestbolt_core::sheets::optimize_with_part_in_hole<nestbolt_ci_curve_probe::main::closure_env$2>
+             at .\crates\core\src\sheets.rs:572
+  43: nestbolt_core::sheets::optimize<nestbolt_ci_curve_probe::main::closure_env$2>
+             at .\crates\core\src\sheets.rs:561
+  44: nestbolt_ci_curve_probe::main
+             at .\output\ci-curve-probe\src\main.rs:30
+  45: core::ops::function::FnOnce::call_once<void (*)(),tuple$<> >
+             at /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library\core\src\ops\function.rs:250
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.

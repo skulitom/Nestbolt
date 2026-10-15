@@ -1,7 +1,10 @@
 # Publishing Nestbolt
 
-**Nothing is released or listed until Artem says so.** Release packaging is
-ready, but no version tag has been pushed and no registry entry exists.
+**Release and registry publication follow Artem's authorization.** v0.1.0 was
+released and listed in the MCP Registry on 2026-10-14. On 2026-10-16 Artem
+authorized the next GitHub release when ready; see
+[reviewed decision 7](../docs/PLAN_V1_1.md#10-reviewed-decisions). The next preview
+still needs its release checks. Registry publication is a separate step.
 
 Pushing a version tag runs **Release**: locked Rust 1.98.1 builds of `nestbolt`
 and `nestbolt-mcp` for Windows x64 (C runtime linked statically, so no Visual C++

@@ -13,7 +13,17 @@ units reports, rejection of incomplete selected cuts and the locally verified
 export palette and imported stock outlines now work through the UI, CLI and MCP.
 No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
 due by 2026-11-06. v0.1.0 was released and published to the MCP Registry on
-2026-10-14; future releases/publication still require Artem's instruction.
+2026-10-14. On 2026-10-16 Artem authorized the next GitHub release when ready,
+including a README update. A preview is being prepared, pending the full
+performance comparison and release checks; this does not close open v1.1 gates
+or authorize a new final acceptance run. Registry publication remains separate.
+
+**Release readiness, 2026-10-16:** the README has been refreshed and the
+[preview checklist](RELEASE_READINESS.md) records the approved scope. Linux CI
+at `e897e91` found a new curve-search assertion, reproduced with the exact input
+in a standalone Windows debug build. The [retained failure](../benchmarks/results/release-readiness-20261016.md)
+blocks release pending repair and verification. The guarded H4 comparison
+continues with unchanged source and binaries; no gate weight changes.
 
 Latest repository reconciliation (2026-10-15): [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
 is tagged at `6c462c2`, and the [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654)

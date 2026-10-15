@@ -1,0 +1,42 @@
+   Compiling nestbolt-validator v0.1.0 (C:\DEV\Nestbolt\crates\validator)
+   Compiling nestbolt-core v0.1.0 (C:\DEV\Nestbolt\crates\core)
+   Compiling nestbolt-ci-curve-probe v0.0.0 (C:\DEV\Nestbolt\output\ci-curve-probe)
+error[E0603]: module `quadtree` is private
+ --> src\main.rs:1:37
+  |
+1 | use jagua_rs::{collision_detection::quadtree::qt_traits::QTQueryable, geometry::primitives::{Edge, Point, Rect}};
+  |                                     ^^^^^^^^             ----------- trait `QTQueryable` is not publicly re-exported
+  |                                     |
+  |                                     private module
+  |
+note: the module `quadtree` is defined here
+ --> C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\mod.rs:7:1
+  |
+7 | pub(crate) mod quadtree;
+  | ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `collides_with_quadrants` found for struct `Edge` in the current scope
+  --> src\main.rs:9:31
+   |
+ 9 |         println!("{:?}", edge.collides_with_quadrants(&rect, [&quadrants[0], &quadrants[1], &quadrants[2], &quadrants[3]]));
+   |                               ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+  ::: C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\collision_detection\quadtree\qt_traits.rs:13:8
+   |
+13 |     fn collides_with_quadrants(&self, r: &Rect, qs: [&Rect; 4]) -> [bool; 4] {
+   |        ----------------------- the method is available for `Edge` here
+   |
+   = help: items from traits can only be used if the trait is in scope
+help: there is a method `collides_with` with a similar name, but with different arguments
+  --> C:\Users\artem\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\jagua-rs-1.1.0\src\geometry\geo_traits.rs:6:5
+   |
+ 6 |     fn collides_with(&self, other: &T) -> bool;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+help: trait `QTQueryable` which provides `collides_with_quadrants` is implemented but not in scope; perhaps you want to import it
+   |
+ 1 + use jagua_rs::collision_detection::quadtree::qt_traits::QTQueryable;
+   |
+
+Some errors have detailed explanations: E0599, E0603.
+For more information about an error, try `rustc --explain E0599`.
+error: could not compile `nestbolt-ci-curve-probe` (bin "nestbolt-ci-curve-probe") due to 2 previous errors
