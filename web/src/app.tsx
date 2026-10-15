@@ -4,6 +4,7 @@ import { exportArchive, exportFilename, exportSheet, importFiles, importSheet, i
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
+import { workersFor } from './worker-policy';
 import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Project, RequestPart, RequestSheet, Rotations, SheetOutline } from './types';
 import { unzip } from './zip';
 
@@ -44,10 +45,6 @@ function download(name: string, data: string | Uint8Array | Blob, type: string) 
 
 const num = (e: Event) => Number((e.target as HTMLInputElement).value);
 const cores = Math.max(1, Math.min(8, (navigator.hardwareConcurrency || 2) - 1));
-/** Each worker holds its own engine: large jobs use fewer, so the tab stays well under 1.5 GB. */
-const LARGE_JOB = 1000;
-const workersFor = (request: NestRequest, chosen: number) =>
-  request.parts.reduce((n, p) => n + p.quantity, 0) > LARGE_JOB ? Math.min(chosen, 2) : chosen;
 
 /** Until the first layout arrives: the sheet's own shape, shimmering, and what is happening. */
 function Pending(props: { sheet: RequestSheet; label: string }) {
@@ -221,7 +218,7 @@ export function App() {
     setLive(null);
     portfolio.current = new Portfolio();
     try {
-      const r = await portfolio.current.run(lib, req, { seconds: budget, seed, workers: workersFor(req, workers), repeatable, live: 0.5 },
+      const r = await portfolio.current.run(lib, req, { seconds: budget, seed, workers: workersFor(lib, req, workers), repeatable, live: 0.5 },
         (_w, _t, material, layout) => {
           if (best === null || material < best) best = material;
           if (layout && (!shown || material <= shown.material)) shown = { layout, material };
@@ -315,6 +312,7 @@ export function App() {
     && [lead.outer_angle_degrees, lead.hole_angle_degrees].every(a => Number.isFinite(a) && a >= 0 && a <= 90 && Math.abs(a * 100 - Math.round(a * 100)) <= 1e-9)
     && (!request.common_line || request.common_line.kerf_mm === lead.kerf_mm));
   const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy && commonValid && leadValid;
+  const actualWorkers = library ? workersFor(library, request, workers) : workers;
 
   return (
     <div class="app">
@@ -539,10 +537,11 @@ export function App() {
               <label class="check"><input type="checkbox" checked={!!request.quick_start} onChange={(e) => update({ quick_start: (e.target as HTMLInputElement).checked || undefined })} /> Quick initial layout</label>
               <p class="hint">Start with a simple arrangement, then improve it. May use more material.</p>
               <div class="grid">
-                <label title={`Jobs of more than ${LARGE_JOB} parts use at most two workers, to limit memory`}>Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
+                <label title="Complex drawings and large quantities use fewer workers to limit memory">Workers <input type="number" min={1} max={cores} value={workers} onInput={(e) => setWorkers(Math.min(cores, Math.max(1, num(e))))} /></label>
                 <label>Seed <input type="number" min={0} value={seed} onInput={(e) => setSeed(Math.max(0, Math.round(num(e))))} /></label>
                 <label class="check"><input type="checkbox" checked={repeatable} onChange={(e) => setRepeatable((e.target as HTMLInputElement).checked)} /> Repeatable</label>
               </div>
+              {actualWorkers < workers ? <p class="hint">This drawing will use {actualWorkers} {actualWorkers === 1 ? 'worker' : 'workers'} to limit memory.</p> : null}
             </details>
           </section>
           <div class="run">

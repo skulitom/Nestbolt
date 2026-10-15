@@ -85,6 +85,8 @@ try {
   }
   await expect(page.getByLabel('Quick initial layout', { exact: true })).toBeChecked({ checked: !!plan.quick_start });
   record.workers_field = await page.getByLabel('Workers').inputValue();
+  const notice = page.locator('p.hint').filter({ hasText: /^This drawing will use / });
+  record.worker_notice = await notice.count() ? await notice.textContent() : null;
   record.utility_workers_before_nesting = page.workers().length;
   await mark('nest_start');
   await page.getByRole('button', { name: 'Nest', exact: true }).click();
@@ -100,14 +102,37 @@ try {
   await mark('nest_done');
   record.summary = await page.locator('.summary').innerText();
   await mark('export_start');
+  const sheetsOnly = plan.export_mode === 'sheets';
+  const zipName = sheetsOnly ? 'sheets.zip' : 'project.zip';
   const [download] = await Promise.all([
     page.waitForEvent('download', { timeout: 600_000 }),
-    page.getByRole('button', { name: 'Project ZIP', exact: true }).click(),
+    page.getByRole('button', { name: sheetsOnly ? 'Download all sheets (ZIP)' : 'Project ZIP', exact: true }).click(),
   ]);
-  await download.saveAs(`${plan.out}/project.zip`);
-  record.zip_bytes = (await stat(`${plan.out}/project.zip`)).size;
+  await download.saveAs(`${plan.out}/${zipName}`);
+  record.zip_bytes = (await stat(`${plan.out}/${zipName}`)).size;
   if (record.zip_bytes <= 1000) throw new Error('Export is unexpectedly small');
   await mark('export_done');
+  if (sheetsOnly) {
+    // Preserve the original G5 all-sheet download workflow. Capture its actual
+    // saved UI state for independent native validation, without another export.
+    await mark('save_start');
+    await page.getByRole('button', { name: 'Save', exact: true }).click();
+    const name = await page.getByLabel('Project name', { exact: true }).inputValue();
+    await expect(page.getByLabel('Open saved project').locator('option').filter({ hasText: name })).toHaveCount(1);
+    const project = await page.evaluate(name => new Promise((resolve, reject) => {
+      const open = indexedDB.open('nestbolt', 1);
+      open.onerror = () => reject(open.error);
+      open.onsuccess = () => {
+        const db = open.result;
+        const request = db.transaction('projects', 'readonly').objectStore('projects').get(name);
+        request.onsuccess = () => { db.close(); resolve(request.result); };
+        request.onerror = () => { db.close(); reject(request.error); };
+      };
+    }), name);
+    if (!project?.result?.validation?.valid) throw new Error('Saved UI project has no valid result');
+    await writeFile(`${plan.out}/project.json`, JSON.stringify(project, null, 2));
+    await mark('save_done');
+  }
   // Let the observer deliver the task that triggered the download, and let the
   // timer bracket it. No setup or export interval is discarded from the gate.
   await page.waitForTimeout(250);

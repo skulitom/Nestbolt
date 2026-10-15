@@ -5,6 +5,8 @@ Default workers unless explicitly overridden for a recorded diagnostic;
 Whole browser process-tree RSS/private memory must be below 1.5e9 bytes. A 20 ms
 event-loop heartbeat conservatively gates responsiveness in both browsers; when
 available, Long Tasks entries must also stay <=200 ms. Missing telemetry fails.
+The optional g5 fixture rechecks the original simpler scale workflow, retaining
+its all-sheet download and saving the actual UI project locally for validation.
 """
 import argparse
 from datetime import datetime, timezone
@@ -28,6 +30,8 @@ FIXTURE = ROOT/'benchmarks/datasets/browser-curves'
 CLI = ROOT/'target/release/nestbolt.exe'
 CPUS = [0, 2]
 LIMIT = 1_500_000_000
+G5_SVG = ROOT/'benchmarks/datasets/maker-assets/m-mechanical-batch-1000/parts.svg'
+G5_SHA256 = '64275515a7fdf12c57eca0f0a4da1aeae264e7495c87c36abd1d4b1948aaa966'
 
 
 def digest(path):
@@ -38,24 +42,25 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=2)+'\n', encoding='utf-8', newline='\n')
 
 
-def guards(validator=CLI):
+def guards(validator=CLI, fixture='curves'):
     return {'product': source_digest(), 'python_runner': digest(Path(__file__)),
             'browser_runner': digest(ROOT/'web/bench/scale.mjs'),
-            'fixture_manifest': digest(FIXTURE/'manifest.json'),
-            'fixture': digest(FIXTURE/'letters-gears-2000.svg'), 'validator': digest(validator),
+            'fixture_manifest': digest(FIXTURE/'manifest.json' if fixture == 'curves' else ROOT/'benchmarks/datasets/makers.json'),
+            'fixture': digest(FIXTURE/'letters-gears-2000.svg' if fixture == 'curves' else G5_SVG), 'validator': digest(validator),
             'built_site': {p.relative_to(ROOT/'web/dist').as_posix(): digest(p)
                            for p in sorted((ROOT/'web/dist').rglob('*')) if p.is_file()}}
 
 
 def validate_export(folder, validator=CLI):
-    with zipfile.ZipFile(folder/'project.zip') as archive:
+    plan = json.loads((folder/'plan.json').read_text(encoding='utf-8'))
+    g5 = plan.get('fixture', 'curves') == 'g5'
+    with zipfile.ZipFile(folder/('sheets.zip' if g5 else 'project.zip')) as archive:
         assert archive.testzip() is None, 'ZIP CRC failure'
-        project = json.loads(archive.read('project.json'))
+        project = json.loads((folder/'project.json').read_text(encoding='utf-8') if g5 else archive.read('project.json'))
         library, request, result = project['library'], project['request'], project['result']
         assert len(library['parts']) == 4 and sum(p['quantity'] for p in request['parts']) == 2000
         assert len(result['layout']['placements']) == 2000
         assert request['spacing_mm'] == request['edge_spacing_mm'] == 1.5
-        plan = json.loads((folder/'plan.json').read_text(encoding='utf-8'))
         assert bool(request.get('quick_start')) == plan['quick_start']
         assert all(s['width_mm'] == 1250 and s['height_mm'] == 2500 for s in request['sheets'])
         assert all(s['margins_mm'] == dict.fromkeys(['left', 'right', 'bottom', 'top'], 5)
@@ -75,11 +80,12 @@ def validate_export(folder, validator=CLI):
             'proxy_vertices': len(p['polygon']['outer']), 'holes': len(p['holes'])} for p in library['parts']]
         letters = [p for p in contour_segments if '#letter-' in p['source']]
         gears = [p for p in contour_segments if '#gear-' in p['source']]
-        assert len(letters) == len(gears) == 2
-        assert all(p['outer_curved_segments'] > 0 for p in letters)
-        # The shipped gear example represents its curved outline as a dense
-        # polyline. Preserve that exact source, and record its actual complexity.
-        assert all(p['proxy_vertices'] >= 500 for p in gears)
+        if not g5:
+            assert len(letters) == len(gears) == 2
+            assert all(p['outer_curved_segments'] > 0 for p in letters)
+            # The shipped gear example represents its curved outline as a dense
+            # polyline. Preserve that exact source, and record its actual complexity.
+            assert all(p['proxy_vertices'] >= 500 for p in gears)
     validation = checked_run([validator, 'validate', '--library', folder/'library.json',
         '--request', folder/'request.json', '--layout', folder/'layout.json'], folder, 'validate', 4, 180)
     assert validation['exit_code'] == 0, 'Independent native validation failed'
@@ -91,11 +97,13 @@ def validate_export(folder, validator=CLI):
             'metrics': checked['metrics']}
 
 
-def case(browser, url, out, quick_start, workers, validator):
+def case(browser, url, out, quick_start, workers, validator, fixture='curves'):
     folder = out/browser
     folder.mkdir()
     plan = {'browser': browser, 'url': url, 'out': str(folder), 'seconds': 60,
-            'svg': str(FIXTURE/'letters-gears-2000.svg'), 'quick_start': quick_start, 'workers': workers}
+            'svg': str(FIXTURE/'letters-gears-2000.svg' if fixture == 'curves' else G5_SVG),
+            'quick_start': quick_start, 'workers': workers, 'fixture': fixture,
+            'export_mode': 'project' if fixture == 'curves' else 'sheets'}
     write(folder/'plan.json', plan)
     stop = threading.Event()
     samples = []
@@ -188,14 +196,25 @@ def main():
     parser.add_argument('--browser', choices=['chrome', 'firefox'], action='append')
     parser.add_argument('--quick-start', action='store_true', help='Enable the opt-in early rectangle incumbent')
     parser.add_argument('--workers', type=int, choices=range(1, 9), help='Explicit UI worker setting for a diagnostic; otherwise use app defaults')
+    parser.add_argument('--fixture', choices=['curves', 'g5'], default='curves', help='Frozen H4 curves or original G5 development scale drawing')
     args = parser.parse_args()
-    fixture = json.loads((FIXTURE/'manifest.json').read_text(encoding='utf-8'))
-    assert digest(FIXTURE/fixture['svg']) == fixture['sha256']
-    for source in fixture['sources']:
-        assert digest(ROOT/source['path']) == source['sha256']
+    if args.fixture == 'g5' and (args.quick_start or args.workers is not None):
+        parser.error('The G5 regression retains the original worker defaults and leaves Quick initial layout off')
+    if args.fixture == 'curves':
+        fixture = json.loads((FIXTURE/'manifest.json').read_text(encoding='utf-8'))
+        assert digest(FIXTURE/fixture['svg']) == fixture['sha256']
+        for source in fixture['sources']:
+            assert digest(ROOT/source['path']) == source['sha256']
+    else:
+        makers = json.loads((ROOT/'benchmarks/datasets/makers.json').read_text(encoding='utf-8'))
+        assert 'm-mechanical-batch-1000' not in makers['held_out_ids']
+        assert digest(G5_SVG) == G5_SHA256
+        fixture = {'scope': 'Original G5 scale development SVG, identical to published 75cbb32 bytes',
+                   'svg': G5_SVG.relative_to(ROOT).as_posix(), 'sha256': G5_SHA256, 'copies_per_part': 500,
+                   'total_parts': 2000, 'workers': 'app default', 'export': 'all sheets, then local Save for independent validation'}
     assert (ROOT/'web/dist/index.html').is_file()
     psutil.Process().cpu_affinity(list(range(16, 32)))
-    name = 'h4-curve-scale-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
+    name = ('h4-curve-scale-' if args.fixture == 'curves' else 'h4-g5-scale-')+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     out = ROOT/'benchmarks/results'/name
     out.mkdir()
     # Cargo's optimized feature tests can rebuild the standalone CLI. Pin the
@@ -206,12 +225,12 @@ def main():
     original_validator = digest(CLI)
     shutil.copy2(CLI, validator)
     assert digest(validator) == original_validator == digest(CLI), 'Validator changed while pinning'
-    before = guards(validator)
+    before = guards(validator, args.fixture)
     plan = {'scope': __doc__, 'baseline_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
             'guards': before, 'cpus': CPUS, 'memory_limit_bytes': LIMIT, 'responsiveness_limit_ms': 200,
             'memory_sample_seconds': 0.2, 'external_timeout_seconds': 900,
             'held_out_geometry_read': False, 'fixture': fixture, 'quick_start': args.quick_start,
-            'workers_override': args.workers, 'pinned_validator': str(validator),
+            'workers_override': args.workers, 'fixture_kind': args.fixture, 'pinned_validator': str(validator),
             'validator_source': str(CLI), 'validator_source_sha256': original_validator}
     write(out/'plan.json', plan)
     for source in [Path(__file__), ROOT/'web/bench/scale.mjs']:
@@ -221,13 +240,13 @@ def main():
     rows = []
     try:
         for browser in args.browser or ['chrome', 'firefox']:
-            row = case(browser, f'http://127.0.0.1:{server.server_address[1]}/', out, args.quick_start, args.workers, validator)
+            row = case(browser, f'http://127.0.0.1:{server.server_address[1]}/', out, args.quick_start, args.workers, validator, args.fixture)
             rows.append(row)
             write(out/'progress.json', rows)
             print(json.dumps({k: row[k] for k in ['browser', 'status', 'passes', 'peak_rss_bytes', 'peak_private_bytes']}), flush=True)
     finally:
         server.shutdown()
-    assert guards(validator) == before, 'Sources changed during measurement'
+    assert guards(validator, args.fixture) == before, 'Sources changed during measurement'
     record = {**plan, 'results': rows, 'passes': all(r['passes'] for r in rows)}
     write(out/'results.json', record)
     print(json.dumps({'folder': str(out), 'passes': record['passes']}), flush=True)

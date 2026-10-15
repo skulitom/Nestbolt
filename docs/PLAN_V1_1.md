@@ -297,6 +297,17 @@ retain every result field except elapsed wall time. All 287 workspace and 74
 enabled browser tests pass. Next adjust and verify the worker policy; no gate
 thresholds or outstanding quality/native requirements change. Completion is 20%.
 
+**N3 automatic-worker checkpoint, 2026-10-15:** [complexity-based worker selection](../benchmarks/results/h4-worker-policy-20261015.md)
+caps dense drawings at one search worker and retains two for simpler high-copy
+jobs. Both browsers pass the frozen H4 scale workflow with Quick initial layout
+enabled: working sets 1.198/1.350 GB, private peaks 1.261/1.276 GB and heartbeat
+gaps 68/176 ms. The original G5 scale job also passes with Quick initial layout
+off and two effective workers. All four layouts independently validate; H4 layout
+bytes and twelve cutting-file comparisons remain identical. All 80 enabled
+browser tests pass. The threshold is a heuristic, not a universal memory
+guarantee. H4 quality/full-G5/native-matrix requirements remain open; completion
+is still 20% and no gate thresholds change.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:

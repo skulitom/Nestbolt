@@ -1,0 +1,531 @@
+{
+  "scope": "H4 scale: frozen 2,000 letters/gears through the actual browser app.\n\nDefault workers unless explicitly overridden for a recorded diagnostic;\n60-second search, all original geometry and exports retained.\nWhole browser process-tree RSS/private memory must be below 1.5e9 bytes. A 20 ms\nevent-loop heartbeat conservatively gates responsiveness in both browsers; when\navailable, Long Tasks entries must also stay <=200 ms. Missing telemetry fails.\nThe optional g5 fixture rechecks the original simpler scale workflow, retaining\nits all-sheet download and saving the actual UI project locally for validation.\n",
+  "baseline_commit": "5adf8adab7415334d2563a5401d68e6f74c2bcea",
+  "guards": {
+    "product": "a9bd6467cb23894cbaeab287d84ff4506f4b14702aed7b98d094193bf3fe0fa0",
+    "python_runner": "16160d70439f1de149e6935b53a077a895880e4129d78bab2ac15c8b86b3e642",
+    "browser_runner": "5725288ee8398ab86f3f7da61d37c8b35fbd67e431ef6034cdf7a4708711f93e",
+    "fixture_manifest": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+    "fixture": "64275515a7fdf12c57eca0f0a4da1aeae264e7495c87c36abd1d4b1948aaa966",
+    "validator": "53c43910aee3cdc58f1e91b98c48baba1b2475aa03c2433546fbea417e1a1387",
+    "built_site": {
+      "assets/archive-worker-BlLCkEnd.js": "4c3f6c68eeea95243bd52784716d09a648b1e2462e57fdc7f0d4e351c2c11cf6",
+      "assets/bench-C4Vs-j9a.js": "af51777edff2179000e441a5a9dd1bf2f719efba614bc826fb261ce5c5c7c2ab",
+      "assets/engine-DjMSIW8D.js": "73f2bbcbe93ea3f5a90a7091e028053005aaa27cb1652c5cb1bd7a37f663cc75",
+      "assets/main-B7wLOapU.js": "270111d101e7555e0170bc83a878285bc98029342c9eea0ea1c7d88a062a4346",
+      "assets/main-mA8Hn3k0.css": "957b6388afa9d1602d51a80b74ea6fd900f5910f0c2961e27470ef2f4919a8b7",
+      "assets/nestbolt_wasm_bg-2B3FD222.wasm": "0372623e93a629b36a53d8713e26612c3f24036cd77b86d824a917e59bb46f81",
+      "assets/worker-eU8xk_6P.js": "0a67ea4d597afe33645a39958556847cc28cc73632803b94a0a1c31724537b76",
+      "bench.html": "0cbeac501e62e7e4ca6ebd34926c2066973f961960829dc994533f8a0f9728f1",
+      "examples/boxes.svg": "7dbffb99b16666c8ce2d11e73538a7761cd2f43a845eb1793cfe08c60fa201d0",
+      "examples/examples.json": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+      "examples/gears.svg": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "examples/letters.svg": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "examples/LICENSES.txt": "f8a4965587f7ff36098453a66bf12ffd938bc347e41a48f1baf918a87a232a82",
+      "examples/mechanical.svg": "fce476d786fe1075e4991d6b26e8a36a194c193faa461d4d602d2ad8f59c1409",
+      "examples/sewing.svg": "549457bd2cb3698ca9b4e3a2a071d3fb5e6a67c41ef23df3b311da22095a1a9a",
+      "index.html": "b135685d0c0dee54718645289d3cac9039d1b32bc9fe0d2a76b4ab80702321b5",
+      "results/final-484ce8b/index.html": "45192de7938f7fadcca4efed0cfe51f4f97a733658faa5e1b536ea62292d11e3",
+      "results/final-484ce8b/results.json": "65531883c8446dceacff3246a1c4e46727b3253b1a2677a7ef875d96d9a4fc2d",
+      "results/index.html": "4145368c1d0929574096b69e3adee945510cbd61ec80de8cdd790fb74a7d28d1",
+      "results/results.json": "495bf4b8d89652aee32f75c21c1c51dbeaeda0c6ac3d710ff5a56c0933b62878",
+      "THIRD_PARTY_NOTICES.txt": "7b8557902f6891966b64ec2d2f0d4dbff69b193e497fe29172aa237f6fe0aa5f"
+    }
+  },
+  "cpus": [
+    0,
+    2
+  ],
+  "memory_limit_bytes": 1500000000,
+  "responsiveness_limit_ms": 200,
+  "memory_sample_seconds": 0.2,
+  "external_timeout_seconds": 900,
+  "held_out_geometry_read": false,
+  "fixture": {
+    "scope": "Original G5 scale development SVG, identical to published 75cbb32 bytes",
+    "svg": "benchmarks/datasets/maker-assets/m-mechanical-batch-1000/parts.svg",
+    "sha256": "64275515a7fdf12c57eca0f0a4da1aeae264e7495c87c36abd1d4b1948aaa966",
+    "copies_per_part": 500,
+    "total_parts": 2000,
+    "workers": "app default",
+    "export": "all sheets, then local Save for independent validation"
+  },
+  "quick_start": false,
+  "workers_override": null,
+  "fixture_kind": "g5",
+  "pinned_validator": "C:\\DEV\\Nestbolt\\output\\h4-g5-scale-20261015T184142Z\\nestbolt.exe",
+  "validator_source": "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+  "validator_source_sha256": "53c43910aee3cdc58f1e91b98c48baba1b2475aa03c2433546fbea417e1a1387",
+  "results": [
+    {
+      "browser": "chrome",
+      "status": "valid",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\DEV\\Nestbolt\\web\\bench\\scale.mjs",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\chrome\\plan.json"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_seconds": 70.99603059999936,
+      "peak_rss_bytes": 997793792,
+      "peak_private_bytes": 822132736,
+      "samples": 304,
+      "affinity_errors": [],
+      "app": {
+        "browser": "chrome",
+        "version": "155.0.8059.41",
+        "status": "completed",
+        "marks": {
+          "import_start": 1083,
+          "import_done": 1232.6000000089407,
+          "nest_start": 1284.5,
+          "nest_done": 62947.90000000596,
+          "export_start": 62951.5,
+          "export_done": 69399.40000000596,
+          "save_start": 69400.30000001192,
+          "save_done": 69617.30000001192
+        },
+        "marks_epoch_ms": {
+          "import_start": 1792089704991,
+          "import_done": 1792089705140,
+          "nest_start": 1792089705192,
+          "nest_done": 1792089766857,
+          "export_start": 1792089766861,
+          "export_done": 1792089773309,
+          "save_start": 1792089773310,
+          "save_done": 1792089773527
+        },
+        "console_errors": [],
+        "worker_events": [
+          {
+            "url": "http://127.0.0.1:3007/assets/worker-eU8xk_6P.js",
+            "opened_at_ms": 1792089705065
+          },
+          {
+            "url": "http://127.0.0.1:3007/assets/worker-eU8xk_6P.js",
+            "opened_at_ms": 1792089705226,
+            "closed_at_ms": 1792089766791
+          },
+          {
+            "url": "http://127.0.0.1:3007/assets/worker-eU8xk_6P.js",
+            "opened_at_ms": 1792089705229,
+            "closed_at_ms": 1792089766795
+          },
+          {
+            "url": "http://127.0.0.1:3007/assets/archive-worker-BlLCkEnd.js",
+            "opened_at_ms": 1792089766918,
+            "closed_at_ms": 1792089773214
+          }
+        ],
+        "maximum_workers": 3,
+        "environment": {
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "logical_cpus": 32,
+          "visibility": "visible"
+        },
+        "workers_field": "4",
+        "worker_notice": "This drawing will use 2 workers to limit memory.",
+        "utility_workers_before_nesting": 1,
+        "summary": "Sheets\n3\nMaterial\n2.112\nUtilisation\n52.1%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500",
+        "zip_bytes": 5899410,
+        "visible_text": "Nestbolt\nSave\nOpen saved\u2026\nUntitled project\nDelete\nProject ZIP\nOpen ZIP\nNew\n\nFree, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.\n\nParts\nImport SVG, DXF or LightBurn (or drop files here)\n Close larger gaps\n\nGaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.\n\nLayers and colours \u2014 parts.svg\n\nCleanup: 0 duplicate segments removed; 0 zero-length segments removed; 0 collinear overlaps merged.\n\nAutomatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.\n\nCut layers (automatic)\nbracket\n1 entities \u00b7 1 selected outlines/paths\ncog\n1 entities \u00b7 1 selected outlines/paths\nframe\n1 entities \u00b7 1 selected outlines/paths\ninsert\n1 entities \u00b7 1 selected outlines/paths\nCut colours (automatic)\n#20363f\n4 entities \u00b7 4 selected outlines/paths\nSheet outline layers (automatic SHEET)\nbracket\ncog\nframe\ninsert\nUse automatic selection for parts.svg\nApply import options\n\tPart\tQty\tRotation\tMirror\t\n\n\tparts-1\n15.2 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tparts-2\n18.0 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tparts-3\n28.0 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tparts-4\n7.6 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\nSheets\nSheet size 1\nWidth  mm\nHeight  mm\nCount \nMargin  mm\nRemnant outline \nDefects (0)\nAdd sheet size\u2026\nDiode laser 300\u00d7200\nCO2 bed 600\u00d7400\nPlywood 1220\u00d72440\nSheet metal 1250\u00d72500\nSheet metal 1500\u00d73000\nFabric roll 1500 \u00d7 10 m\nSettings\nPart spacing  mm\nEdge spacing  mm\nGoal \nPlace every part\nFill the sheets (most area)\nFill by priority\nTime  s\nCommon-line cutting\nLead-in allowances\nAdvanced\nNest\nResult\nSheets\n3\nMaterial\n2.112\nUtilisation\n52.1%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500\nDownload all sheets (ZIP)\nsheet-0\nSVG\nDXF\nsheet-1\nSVG\nDXF\nsheet-2\noffcut 1250 \u00d7 2226 mm\nSVG\nDXF\nBuilt on jagua-rs and sparrow by Jeroen Gardeyn et al. MIT licensed; third-party notices. Benchmark results against Deepnest, SVGnest and Sparrow.",
+        "import_seconds": 0.1496000000089407,
+        "nest_seconds": 61.66340000000596,
+        "export_seconds": 6.44790000000596,
+        "maximum_long_task_ms": 0,
+        "maximum_event_loop_gap_ms": 47.099999994039536,
+        "responsive": true
+      },
+      "independent_check": {
+        "valid": true,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\output\\h4-g5-scale-20261015T184142Z\\nestbolt.exe",
+            "validate",
+            "--library",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\chrome\\library.json",
+            "--request",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\chrome\\request.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\chrome\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.8443258000042988,
+          "cpu": 4
+        },
+        "maximum_metric_roundtrip_difference": 0,
+        "sheets": 3,
+        "contours": [
+          {
+            "id": "parts-1",
+            "source": "parts.svg#path-3",
+            "outer_segments": 6,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 6,
+            "holes": 3
+          },
+          {
+            "id": "parts-2",
+            "source": "parts.svg#path-5",
+            "outer_segments": 48,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 48,
+            "holes": 1
+          },
+          {
+            "id": "parts-3",
+            "source": "parts.svg#path-7",
+            "outer_segments": 4,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 4,
+            "holes": 1
+          },
+          {
+            "id": "parts-4",
+            "source": "parts.svg#path-9",
+            "outer_segments": 4,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 4,
+            "holes": 1
+          }
+        ],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 2000,
+          "requested_parts": 2000,
+          "placed_area": 3438043.3614246324,
+          "placed_priority": 2000.0,
+          "full_stock_area": 9375000.0,
+          "material_area": 6600589.63375,
+          "normalized_material": 2.1121886828,
+          "utilization": 0.520869127183017,
+          "trailing_offcut_area": 2774410.36625,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 280.471707
+        }
+      },
+      "passes": true,
+      "artifacts": {
+        "app.json": "5ab3a0da77a587beb065a18c1361ae07257f57c9305c64912f49c8dc3b3dfd45",
+        "case.json": "4bdc108f1a493ff0004aede373e9e31a0c22f2da1b573a8148cf5efe19506adf",
+        "layout.json": "bb2a2ca22a1b4c664ddde25e8786eb186291a662ccd7e47bd6e253050667aefc",
+        "library.json": "0dd9364b3af7a755d42ba80bd9b477e23ebd413bbd74a4c0ba02fe2ff5ec8b70",
+        "memory.json": "07724b0083473c2638bea93314f7a6f0aeaa231d9b7b0a7d915995bbf83a19d1",
+        "plan.json": "25001545113ba175d9a4dcda33e92b9583715d38c9184031bdf79c2e1163f77b",
+        "progress.json": "e4d2940c8f818547ba5c2a46cc45647de9bead523a1b8d433a52b2d0b5782b7a",
+        "project.json": "5e9cd42d0956af534d6b44eab860e8a933e780beb8a7ff116f89ca3c7c942e3c",
+        "request.json": "b1421465467f81baa2c58a4ea97cb0ba257a8b59fec0179fa391e8c9a2059526",
+        "screen.png": "19265dabfb52bce6a4c495a0795af8156422877c82fd1dd93c08e51473fdd3bb",
+        "sheets.zip": "ddbb72a0d5f440630bbf0bcea47ecad2d76a0819b849149a893dc2662509297d",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "1ac639c9ad6a591dfd138d88a419a09bf0153dbb1f6f4fe7040c14f3fb8d7abb",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "bfd689ef785ae9a30e9bd3bfc7572d2e20b0b8a7ba3178aecb0d8e0b7e1eb96d"
+      }
+    },
+    {
+      "browser": "firefox",
+      "status": "valid",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\DEV\\Nestbolt\\web\\bench\\scale.mjs",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\firefox\\plan.json"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_seconds": 72.37545399999362,
+      "peak_rss_bytes": 1030209536,
+      "peak_private_bytes": 926539776,
+      "samples": 310,
+      "affinity_errors": [],
+      "app": {
+        "browser": "firefox",
+        "version": "157.0",
+        "status": "completed",
+        "marks": {
+          "import_start": 343,
+          "import_done": 776,
+          "nest_start": 865,
+          "nest_done": 62767,
+          "export_start": 62772,
+          "export_done": 70077,
+          "save_start": 70078,
+          "save_done": 70407
+        },
+        "marks_epoch_ms": {
+          "import_start": 1792089776801,
+          "import_done": 1792089777235,
+          "nest_start": 1792089777323,
+          "nest_done": 1792089839226,
+          "export_start": 1792089839233,
+          "export_done": 1792089846537,
+          "save_start": 1792089846538,
+          "save_done": 1792089846868
+        },
+        "console_errors": [],
+        "worker_events": [
+          {
+            "url": "http://127.0.0.1:3007/assets/worker-eU8xk_6P.js",
+            "opened_at_ms": 1792089777156
+          },
+          {
+            "url": "http://127.0.0.1:3007/assets/worker-eU8xk_6P.js",
+            "opened_at_ms": 1792089777398,
+            "closed_at_ms": 1792089839195
+          },
+          {
+            "url": "http://127.0.0.1:3007/assets/worker-eU8xk_6P.js",
+            "opened_at_ms": 1792089777398,
+            "closed_at_ms": 1792089839211
+          },
+          {
+            "url": "http://127.0.0.1:3007/assets/archive-worker-BlLCkEnd.js",
+            "opened_at_ms": 1792089839280,
+            "closed_at_ms": 1792089846464
+          }
+        ],
+        "maximum_workers": 3,
+        "environment": {
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+          "logical_cpus": 32,
+          "visibility": "visible"
+        },
+        "workers_field": "4",
+        "worker_notice": "This drawing will use 2 workers to limit memory.",
+        "utility_workers_before_nesting": 1,
+        "summary": "Sheets\n3\nMaterial\n2.114\nUtilisation\n52.0%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500",
+        "zip_bytes": 5899914,
+        "visible_text": "Nestbolt\nSave\nDelete\nProject ZIP\nOpen ZIP\nNew\n\nFree, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.\n\nParts\nImport SVG, DXF or LightBurn (or drop files here)\n Close larger gaps\n\nGaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.\n\nLayers and colours \u2014 parts.svg\n\nCleanup: 0 duplicate segments removed; 0 zero-length segments removed; 0 collinear overlaps merged.\n\nAutomatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.\n\nCut layers (automatic)\nbracket\n1 entities \u00b7 1 selected outlines/paths\ncog\n1 entities \u00b7 1 selected outlines/paths\nframe\n1 entities \u00b7 1 selected outlines/paths\ninsert\n1 entities \u00b7 1 selected outlines/paths\nCut colours (automatic)\n#20363f\n4 entities \u00b7 4 selected outlines/paths\nSheet outline layers (automatic SHEET)\nbracket\ncog\nframe\ninsert\nUse automatic selection for parts.svg\nApply import options\n\tPart\tQty\tRotation\tMirror\t\n\n\tparts-1\n15.2 cm\u00b2\n\t\t\t\t\u00d7\n\n\tparts-2\n18.0 cm\u00b2\n\t\t\t\t\u00d7\n\n\tparts-3\n28.0 cm\u00b2\n\t\t\t\t\u00d7\n\n\tparts-4\n7.6 cm\u00b2\n\t\t\t\t\u00d7\nSheets\nSheet size 1\nWidth  mm\nHeight  mm\nCount \nMargin  mm\nRemnant outline \nDefects (0)\nSettings\nPart spacing  mm\nEdge spacing  mm\nGoal \nTime  s\nCommon-line cutting\nLead-in allowances\nAdvanced\nNest\nResult\nSheets\n3\nMaterial\n2.114\nUtilisation\n52.0%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500\nDownload all sheets (ZIP)\nsheet-0\nSVG\nDXF\nsheet-1\nSVG\nDXF\nsheet-2\noffcut 1250 \u00d7 2220 mm\nSVG\nDXF\nBuilt on jagua-rs and sparrow by Jeroen Gardeyn et al. MIT licensed; third-party notices. Benchmark results against Deepnest, SVGnest and Sparrow.",
+        "import_seconds": 0.433,
+        "nest_seconds": 61.902,
+        "export_seconds": 7.305,
+        "maximum_long_task_ms": null,
+        "maximum_event_loop_gap_ms": 81,
+        "responsive": true
+      },
+      "independent_check": {
+        "valid": true,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\output\\h4-g5-scale-20261015T184142Z\\nestbolt.exe",
+            "validate",
+            "--library",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\firefox\\library.json",
+            "--request",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\firefox\\request.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-g5-scale-20261015T184142Z\\firefox\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.6956787000090117,
+          "cpu": 4
+        },
+        "maximum_metric_roundtrip_difference": 0,
+        "sheets": 3,
+        "contours": [
+          {
+            "id": "parts-1",
+            "source": "parts.svg#path-3",
+            "outer_segments": 6,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 6,
+            "holes": 3
+          },
+          {
+            "id": "parts-2",
+            "source": "parts.svg#path-5",
+            "outer_segments": 48,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 48,
+            "holes": 1
+          },
+          {
+            "id": "parts-3",
+            "source": "parts.svg#path-7",
+            "outer_segments": 4,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 4,
+            "holes": 1
+          },
+          {
+            "id": "parts-4",
+            "source": "parts.svg#path-9",
+            "outer_segments": 4,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 4,
+            "holes": 1
+          }
+        ],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 2000,
+          "requested_parts": 2000,
+          "placed_area": 3438043.36142463,
+          "placed_priority": 2000.0,
+          "full_stock_area": 9375000.0,
+          "material_area": 6607636.7524999995,
+          "normalized_material": 2.1144437608,
+          "utilization": 0.5203136144134809,
+          "trailing_offcut_area": 2767363.2475,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 286.109402
+        }
+      },
+      "passes": true,
+      "artifacts": {
+        "app.json": "917ea3ccd35ea24bf4f32578de267ddbee58717d016f5eec62fc3f2a57ea5a48",
+        "case.json": "7ea602d159d2b92739620f61b80f45354eedd009635ab953aa14a579960654b6",
+        "layout.json": "2412a6e53ed5c21ce6f0728b115c51be3399128d51c0c5eaaace645babc5e01e",
+        "library.json": "0dd9364b3af7a755d42ba80bd9b477e23ebd413bbd74a4c0ba02fe2ff5ec8b70",
+        "memory.json": "f5f81fe26c642d22b5e1b22a345176033d8818491da2d00a551e13ca5f081087",
+        "plan.json": "5c479b62fe2000fc0602a8a0ce6f4a6ee7a0b1b3679dd63bba72b6d909a126f1",
+        "progress.json": "dc80652a068a3c28cf960ca930e416315dc4a74a72b670297649790b0d06b934",
+        "project.json": "463dc0017f20649ef3e64b330f3737260b0accaaeb6877f5df9d30bc0fadd07b",
+        "request.json": "b1421465467f81baa2c58a4ea97cb0ba257a8b59fec0179fa391e8c9a2059526",
+        "screen.png": "e7328aca3715a1e6d850b1194caec964603fe5b6badfd059eb3545034d45b1b6",
+        "sheets.zip": "e254d8ec1d1c20106857cede6d95ae76fa3f0ece6041a4262fb6eb770dcf5483",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "c87c7d76587a5777e0df824b2b30cefb0d87d8cc5c8b4caa7f0a75e2486ad398",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "263151b85b1acce2f08552b4649ff42695ce5af2ca9ee5ed8f53bc57e48f16a5"
+      }
+    }
+  ],
+  "passes": true,
+  "source_guards_passed": true,
+  "archive": {
+    "path": "raw.zip",
+    "sha256": "82dfa21108bdd92c787ec90b118db0454fac0e4fa39b00fe902a2e8686bbc2cb",
+    "bytes": 3230764,
+    "members": {
+      "chrome/app.json": {
+        "sha256": "5ab3a0da77a587beb065a18c1361ae07257f57c9305c64912f49c8dc3b3dfd45",
+        "bytes": 179559
+      },
+      "chrome/case.json": {
+        "sha256": "4bdc108f1a493ff0004aede373e9e31a0c22f2da1b573a8148cf5efe19506adf",
+        "bytes": 203127
+      },
+      "chrome/layout.json": {
+        "sha256": "bb2a2ca22a1b4c664ddde25e8786eb186291a662ccd7e47bd6e253050667aefc",
+        "bytes": 569440
+      },
+      "chrome/library.json": {
+        "sha256": "0dd9364b3af7a755d42ba80bd9b477e23ebd413bbd74a4c0ba02fe2ff5ec8b70",
+        "bytes": 54850
+      },
+      "chrome/memory.json": {
+        "sha256": "07724b0083473c2638bea93314f7a6f0aeaa231d9b7b0a7d915995bbf83a19d1",
+        "bytes": 511943
+      },
+      "chrome/plan.json": {
+        "sha256": "25001545113ba175d9a4dcda33e92b9583715d38c9184031bdf79c2e1163f77b",
+        "bytes": 358
+      },
+      "chrome/progress.json": {
+        "sha256": "e4d2940c8f818547ba5c2a46cc45647de9bead523a1b8d433a52b2d0b5782b7a",
+        "bytes": 1810
+      },
+      "chrome/project.json": {
+        "sha256": "5e9cd42d0956af534d6b44eab860e8a933e780beb8a7ff116f89ca3c7c942e3c",
+        "bytes": 735652
+      },
+      "chrome/request.json": {
+        "sha256": "b1421465467f81baa2c58a4ea97cb0ba257a8b59fec0179fa391e8c9a2059526",
+        "bytes": 1312
+      },
+      "chrome/screen.png": {
+        "sha256": "19265dabfb52bce6a4c495a0795af8156422877c82fd1dd93c08e51473fdd3bb",
+        "bytes": 462267
+      },
+      "chrome/sheets.zip": {
+        "sha256": "ddbb72a0d5f440630bbf0bcea47ecad2d76a0819b849149a893dc2662509297d",
+        "bytes": 5899410
+      },
+      "chrome/stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "chrome/stdout.log": {
+        "sha256": "1ac639c9ad6a591dfd138d88a419a09bf0153dbb1f6f4fe7040c14f3fb8d7abb",
+        "bytes": 301
+      },
+      "chrome/validate-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "chrome/validate-stdout.json": {
+        "sha256": "bfd689ef785ae9a30e9bd3bfc7572d2e20b0b8a7ba3178aecb0d8e0b7e1eb96d",
+        "bytes": 651
+      },
+      "firefox/app.json": {
+        "sha256": "917ea3ccd35ea24bf4f32578de267ddbee58717d016f5eec62fc3f2a57ea5a48",
+        "bytes": 109806
+      },
+      "firefox/case.json": {
+        "sha256": "7ea602d159d2b92739620f61b80f45354eedd009635ab953aa14a579960654b6",
+        "bytes": 131761
+      },
+      "firefox/layout.json": {
+        "sha256": "2412a6e53ed5c21ce6f0728b115c51be3399128d51c0c5eaaace645babc5e01e",
+        "bytes": 569038
+      },
+      "firefox/library.json": {
+        "sha256": "0dd9364b3af7a755d42ba80bd9b477e23ebd413bbd74a4c0ba02fe2ff5ec8b70",
+        "bytes": 54850
+      },
+      "firefox/memory.json": {
+        "sha256": "f5f81fe26c642d22b5e1b22a345176033d8818491da2d00a551e13ca5f081087",
+        "bytes": 411194
+      },
+      "firefox/plan.json": {
+        "sha256": "5c479b62fe2000fc0602a8a0ce6f4a6ee7a0b1b3679dd63bba72b6d909a126f1",
+        "bytes": 360
+      },
+      "firefox/progress.json": {
+        "sha256": "dc80652a068a3c28cf960ca930e416315dc4a74a72b670297649790b0d06b934",
+        "bytes": 1695
+      },
+      "firefox/project.json": {
+        "sha256": "463dc0017f20649ef3e64b330f3737260b0accaaeb6877f5df9d30bc0fadd07b",
+        "bytes": 735252
+      },
+      "firefox/request.json": {
+        "sha256": "b1421465467f81baa2c58a4ea97cb0ba257a8b59fec0179fa391e8c9a2059526",
+        "bytes": 1312
+      },
+      "firefox/screen.png": {
+        "sha256": "e7328aca3715a1e6d850b1194caec964603fe5b6badfd059eb3545034d45b1b6",
+        "bytes": 539862
+      },
+      "firefox/sheets.zip": {
+        "sha256": "e254d8ec1d1c20106857cede6d95ae76fa3f0ece6041a4262fb6eb770dcf5483",
+        "bytes": 5899914
+      },
+      "firefox/stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "firefox/stdout.log": {
+        "sha256": "c87c7d76587a5777e0df824b2b30cefb0d87d8cc5c8b4caa7f0a75e2486ad398",
+        "bytes": 288
+      },
+      "firefox/validate-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "firefox/validate-stdout.json": {
+        "sha256": "263151b85b1acce2f08552b4649ff42695ce5af2ca9ee5ed8f53bc57e48f16a5",
+        "bytes": 654
+      },
+      "results.json": {
+        "sha256": "77a8c213d3ac03f16c40cc444a44cc12d8e81a9dc16eaef1cda6e46786813843",
+        "bytes": 423646
+      },
+      "progress.json": {
+        "sha256": "7c6d5d5b72c3f8644301802d76f5db0ddfb143d21670b999b9e2e7c9926f8adf",
+        "bytes": 378415
+      }
+    },
+    "crc_and_member_hashes_verified": true
+  }
+}

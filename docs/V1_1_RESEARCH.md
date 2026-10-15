@@ -691,3 +691,30 @@ and source guards pass. Three browser archives, the replay archive and original
 check logs retain all 181 recorded members with hashes. Next revise the worker
 policy from measured complexity, then verify the old G5 workload and continue
 H4 quality/native gates. No gate, held-out allocation or published v1 claim changes.
+
+
+### 2026-10-15: automatic worker policy passes both scale workloads
+
+The [complexity-based policy](../benchmarks/results/h4-worker-policy-20261015.md)
+counts all component/hole vertices across requested copies. Dense jobs at
+500,000 vertices use one search worker; simpler jobs retain the existing
+two-worker cap above 1,000 copies. This is a conservative heuristic, not a
+universal memory guarantee. The UI reports the effective count. Native/WASM
+bytes, per-worker search defaults and work coefficients are unchanged.
+
+The frozen letters/gears job has 1,418,500 vertices across copies and now passes
+with automatic workers and Quick initial layout enabled in both browsers:
+working sets 1.198/1.350 GB, private peaks 1.261/1.276 GB, heartbeat gaps 68/176 ms.
+Original G5 has 190,500 vertices and retains two workers with quick start off;
+it also passes (private peaks 0.822/0.927 GB, heartbeat gaps 47/81 ms). G5 retains
+the original all-sheet download, with an additional local Save for independent
+validation included in memory/responsiveness telemetry. All four 2,000-part
+layouts validate, with exact native metric agreement. H4 layouts and twelve
+SVG/DXF comparisons remain byte-identical to the prior one-worker results.
+
+All 80 enabled browser tests pass, four remain opt-in skipped, and types/build
+checks pass. Two raw archives preserve 62 members, plus five archived check
+logs, with verified CRC/SHA-256. Source/site/runner/fixture/executable guards and
+the frozen shop manifest pass. Original failures remain unchanged. Continue the
+eleven-job quality subset, full G5 comparison and 195-run native matrix; H4 stays
+open and overall completion is 20%. No held-out geometry or gate changes.
