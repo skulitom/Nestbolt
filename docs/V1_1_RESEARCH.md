@@ -748,7 +748,7 @@ passes all 56 original no-op checks, 1,550 comparable original leaves, all 477
 repaired leaves / 1,223 contours, and 112 canonical output diffs. The original
 122 missing text caches are not relabelled as verified. Seven repaired projects
 import and produce valid diagnostic layouts; repaired L17 separately rejects a
-standalone zero-height open path. Original public import is 45 accepted and 11
+standalone zero-width open path. Original public import is 45 accepted and 11
 clear rejections (six movable-text prerequisites, one mixed group, four without
 movable units). Two accepted originals have fixed uncached text with explicit
 warnings; their complete geometry evidence still comes from the repaired inputs.

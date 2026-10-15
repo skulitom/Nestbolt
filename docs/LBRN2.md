@@ -540,7 +540,7 @@ geometry checks; the 122 missing original text caches remain explicitly missing.
 The mixed-group case rejects through public import and lower-level unit/writer
 preparation. All 112 produced diagnostic sheets pass the allowed canonical diff.
 
-H3 is still incomplete: repaired L17 has a standalone zero-height open-path
+H3 is still incomplete: repaired L17 has a standalone zero-width open-path
 bounding rectangle and is explicitly refused. Its full repaired geometry check
 passes, but this does not make it a valid nesting result. The current checks pass
 290 workspace tests, 25 optimized CLI tests and 82 enabled browser tests. Overall

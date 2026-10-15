@@ -4,7 +4,7 @@
 All eight native text repairs pass complete independent geometry checks. Mixed
 active/fixed groups now reject consistently in public import and the lower-level
 unit/writer API. The repaired L17 project still cannot nest because its first
-standalone open path has a zero-height bounding rectangle. This failure is
+standalone open path has a zero-width bounding rectangle. This failure is
 retained and is not covered by the text or grouping approvals. Completed
 milestone weight remains **20%** (H1 and H6).
 
