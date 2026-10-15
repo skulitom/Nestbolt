@@ -113,6 +113,8 @@ For drawings with larger gaps, `import --close-gaps 0.05` explicitly repairs up
 to 0.05 mm and reports every repair's position and size. It is off by default;
 the silent join limit remains 0.005 mm. The UI and MCP expose the same option.
 See [import options and reports](docs/IMPORTING.md).
+Lead reservations and contour starts are available in the browser, request JSON
+and `nest --lead-in --kerf ...`; see [settings and LightBurn setup](docs/LEAD_INS.md).
 
 A request names library parts with quantities and the sheets in millimetres:
 

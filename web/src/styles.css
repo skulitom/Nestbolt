@@ -105,6 +105,9 @@ figcaption button { padding: 1px 8px; }
   aside .run { position: sticky; bottom: 0; margin-top: auto; padding: 8px 0; background: var(--bg); }
   /* The sheet area takes the rest of the result panel; previews fit inside it. */
   .results { min-height: 0; overflow: hidden; }
+  .results > .lead-report, .results > .common-line-report {
+    flex: 0 1 auto; max-height: 32%; min-height: 0; overflow-y: auto;
+  }
   .results > .sheets, .results > .live, .results > .pending { flex: 1 1 0; min-height: 0; }
   .live, .pending { display: flex; flex-direction: column; }
   .live > .sheets { flex: 1 1 0; min-height: 0; margin-top: 0; }

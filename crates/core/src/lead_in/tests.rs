@@ -38,8 +38,9 @@ fn planned_search_validates_original_parts_every_allowance_and_exported_starts()
         },
     );
     assert!(plan.parts.iter().all(|p| p.flags.is_empty()));
-    let result = crate::sheets::optimize_with_part_in_hole(
+    let result = crate::sheets::optimize_with_material(
         &plan.collision_job,
+        &original,
         crate::sheets::Options {
             seconds: 1.0,
             time_limit: Some(30.0),
@@ -51,6 +52,10 @@ fn planned_search_validates_original_parts_every_allowance_and_exported_starts()
     )
     .unwrap();
     assert!(result.validation.valid);
+    assert_eq!(
+        result.validation.metrics.as_ref().unwrap().placed_area,
+        800.0
+    );
     let validation = nestbolt_validator::job::validate(&original, &result.layout).unwrap();
     assert!(validation.valid);
     assert!((validation.metrics.unwrap().placed_area - 800.0).abs() < 1e-9);
@@ -133,6 +138,37 @@ fn prepare_plain(job: &Job, options: Options) -> Prepared {
 }
 
 #[test]
+fn reported_micrometre_length_is_the_actual_reserved_path_length() {
+    for style in [Style::Line, Style::Arc] {
+        let result = prepare_plain(
+            &job(rectangle(0.0, 0.0, 20.0, 10.0)),
+            Options {
+                length_mm: 1.2349,
+                style,
+                ..options()
+            },
+        );
+        let reservation = &result.parts[0].reservations[0];
+        assert_eq!(reservation.length_mm, 1.234);
+        assert!(reservation.shortened);
+        for path in &reservation.paths {
+            let length = match path {
+                Path::Line {
+                    from_mm: a,
+                    to_mm: b,
+                } => (a[0] - b[0]).hypot(a[1] - b[1]),
+                Path::Arc {
+                    radius_mm,
+                    sweep_radians,
+                    ..
+                } => radius_mm * sweep_radians.abs(),
+            };
+            assert!((length - reservation.length_mm).abs() < 1e-9);
+        }
+    }
+}
+
+#[test]
 fn invalid_source_and_exclusion_inputs_fail_clearly() {
     let empty = job(Polygon {
         outer: vec![],
@@ -151,6 +187,161 @@ fn invalid_source_and_exclusion_inputs_fail_clearly() {
         }],
     )]);
     assert!(prepare(&valid, &HashMap::new(), options(), &inverted).is_err());
+}
+
+#[test]
+fn final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches() {
+    use nestbolt_validator::job::{Layout, Placement, Sheet};
+    for units in [Units::Mm, Units::Inch] {
+        let mut original = job(rectangle(0.0, 0.0, 20.0, 10.0));
+        let scale = units.to_mm();
+        original.units = units;
+        original.clearance /= scale;
+        original.edge_clearance /= scale;
+        original.stocks[0].width /= scale;
+        original.stocks[0].height /= scale;
+        for p in &mut original.parts[0].geometry[0].outer {
+            p[0] /= scale;
+            p[1] /= scale;
+        }
+        let layout = Layout {
+            version: 1,
+            units,
+            sheets: vec![Sheet {
+                id: "sheet-0".into(),
+                stock_id: "sheet".into(),
+            }],
+            placements: [5.0, 25.2]
+                .iter()
+                .enumerate()
+                .map(|(i, x)| Placement {
+                    part_id: "plate".into(),
+                    copy_index: i as u32,
+                    sheet_id: "sheet-0".into(),
+                    transform: RigidTransform {
+                        translation: [x / scale, 5.0 / scale],
+                        ..Default::default()
+                    },
+                })
+                .collect(),
+        };
+        let initial = prepare_plain(&original, options());
+        let common = crate::common_line::analyze(
+            &original,
+            &layout,
+            &HashMap::new(),
+            crate::common_line::Options { kerf_mm: 0.2 },
+        )
+        .unwrap();
+        assert_eq!(common[0].shared_edges.len(), 1);
+        let report = finalize(
+            &original,
+            &HashMap::new(),
+            &layout,
+            options(),
+            &initial,
+            &common,
+        )
+        .unwrap();
+        assert_eq!(
+            (
+                report.expected_contours,
+                report.reserved_contours,
+                report.flagged_contours
+            ),
+            (2, 2, 0)
+        );
+        assert_eq!(report.parts[0].plan.reservations[0].start.segment, 0);
+        assert_eq!(report.parts[1].plan.reservations[0].start.segment, 1);
+        assert_eq!(
+            report.validation.metrics.as_ref().unwrap().placed_area,
+            400.0
+        );
+        let review = report.review(&layout, "sheet-0").unwrap();
+        assert_eq!(review.starts["plate#0"][0].unwrap().segment, 0);
+        assert_eq!(review.starts["plate#1"][0].unwrap().segment, 1);
+        assert_eq!(review.leadin.len(), 2);
+        assert!(
+            leads::validate(&original, &layout, &report.allowances())
+                .unwrap()
+                .valid
+        );
+    }
+}
+
+#[test]
+fn final_report_accounts_for_flags_reselects_near_edges_and_refuses_invalid_layouts() {
+    use nestbolt_validator::job::{Layout, Placement, Sheet};
+    let mut polygon = rectangle(0.0, 0.0, 20.0, 10.0);
+    polygon.holes.push(rectangle(10.0, 4.0, 0.4, 0.4).outer);
+    let mut original = job(polygon);
+    original.parts[0].quantity = 1;
+    let mut layout = Layout {
+        version: 1,
+        units: Units::Mm,
+        sheets: vec![Sheet {
+            id: "sheet-0".into(),
+            stock_id: "sheet".into(),
+        }],
+        placements: vec![Placement {
+            part_id: "plate".into(),
+            copy_index: 0,
+            sheet_id: "sheet-0".into(),
+            transform: RigidTransform {
+                translation: [10.0, 10.0],
+                ..Default::default()
+            },
+        }],
+    };
+    let initial = prepare_plain(&original, options());
+    let report = finalize(
+        &original,
+        &HashMap::new(),
+        &layout,
+        options(),
+        &initial,
+        &[],
+    )
+    .unwrap();
+    assert_eq!(
+        (
+            report.expected_contours,
+            report.reserved_contours,
+            report.flagged_contours
+        ),
+        (2, 1, 1)
+    );
+    assert_eq!(report.parts[0].plan.flags[0].contour_index, 1);
+    layout.placements[0].transform.translation = [1.0, 1.0];
+    assert!(
+        nestbolt_validator::job::validate(&original, &layout)
+            .unwrap()
+            .valid
+    );
+    let revised = finalize(
+        &original,
+        &HashMap::new(),
+        &layout,
+        options(),
+        &initial,
+        &[],
+    )
+    .unwrap();
+    assert!(revised.validation.valid);
+    assert_eq!(revised.reserved_contours + revised.flagged_contours, 2);
+    assert_ne!(revised.parts[0].plan.reservations[0].start.segment, 0);
+    layout.placements[0].transform.translation = [-1.0, -1.0];
+    assert!(
+        finalize(
+            &original,
+            &HashMap::new(),
+            &layout,
+            options(),
+            &initial,
+            &[]
+        )
+        .is_err()
+    );
 }
 
 #[test]

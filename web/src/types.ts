@@ -55,6 +55,7 @@ export interface NestRequest {
   sheets: RequestSheet[];
   spacing_mm: number;
   common_line?: { kerf_mm: number };
+  lead_in?: LeadOptions;
   edge_spacing_mm: number;
   mode: Mode;
 }
@@ -69,10 +70,21 @@ export interface Metrics {
   normalized_material: number;
   utilization: number;
   material_area: number;
+  placed_area: number;
+  placed_priority: number;
 }
 export interface Report { valid: boolean; violation_count: number; violations: { code: string; message: string }[]; metrics: Metrics | null }
 export interface CommonLineReport { sheet_id: string; kerf_mm: number; shared_length_mm: number; saved_length_mm: number; saved_fraction: number; cut_length_without_common_mm: number; cut_length_with_common_mm: number; contours_without_common: number; paths_with_common: number }
-export interface NestResult { layout: Layout; validation: Report; seed: number; seconds: number; repeatable: boolean; parts_in_holes: number; common_line?: CommonLineReport[] | null }
+export interface LeadOptions { kerf_mm: number; length_mm: number; style: 'line' | 'arc'; outer_angle_degrees: number; hole_angle_degrees: number }
+export type LeadPath = { kind: 'line'; from_mm: Point; to_mm: Point } | { kind: 'arc'; center_mm: Point; radius_mm: number; start_radians: number; sweep_radians: number };
+export interface LeadReport {
+  options: LeadOptions; expected_contours: number; reserved_contours: number; flagged_contours: number;
+  validation: { valid: boolean; checked_contours: number };
+  parts: { part_id: string; copy_index: number; sheet_id: string; bounds_mm: [number, number, number, number];
+    reservations: { contour_index: number; length_mm: number; shortened: boolean; paths: LeadPath[] }[];
+    flags: { contour_index: number; reason: string }[] }[];
+}
+export interface NestResult { layout: Layout; validation: Report; seed: number; seconds: number; repeatable: boolean; parts_in_holes: number; common_line?: CommonLineReport[] | null; lead_in?: LeadReport | null }
 
 export interface Project { lightburnOutline?: boolean;
   version: 1;

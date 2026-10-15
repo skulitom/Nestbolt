@@ -130,42 +130,40 @@ pub fn nest(
 ) -> Result<String, JsValue> {
     let library: Library = parse(library_json, "library")?;
     let request: Request = parse(request_json, "request")?;
-    let (job, _) = request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
+    let prepared = request
+        .prepare(&library)
+        .map_err(|e| fail(format!("{e:#}")))?;
     let mut shown = f64::NEG_INFINITY;
-    let result = nestbolt_core::sheets::optimize_with_part_in_hole(
-        &job,
-        nestbolt_core::sheets::Options {
-            seconds,
-            seed: u64::from(seed),
-            timing: if repeatable {
-                nestbolt_core::clock::Timing::Work
-            } else {
-                nestbolt_core::clock::Timing::Wall
+    let (result, cutting) = prepared
+        .optimize(
+            nestbolt_core::sheets::Options {
+                seconds,
+                seed: u64::from(seed),
+                timing: if repeatable {
+                    nestbolt_core::clock::Timing::Work
+                } else {
+                    nestbolt_core::clock::Timing::Wall
+                },
+                ..Default::default()
             },
-            ..Default::default()
-        },
-        request.common_line.is_none(),
-        |p, layout| {
-            let live = (live_interval_s > 0.0 && p.elapsed_seconds - shown >= live_interval_s)
-                .then(layout)
-                .flatten()
-                .and_then(|l| serde_json::to_string(&l).ok());
-            let (t, m) = (
-                JsValue::from_f64(p.elapsed_seconds),
-                JsValue::from_f64(p.material),
-            );
-            let _ = match live {
-                Some(json) => {
-                    shown = p.elapsed_seconds;
-                    progress.call3(&JsValue::NULL, &t, &m, &JsValue::from_str(&json))
-                }
-                None => progress.call2(&JsValue::NULL, &t, &m),
-            };
-        },
-    )
-    .map_err(|e| fail(format!("{e:#}")))?;
-    let common_line = request
-        .common_line_reports(&library, &result.layout)
+            |p, layout| {
+                let live = (live_interval_s > 0.0 && p.elapsed_seconds - shown >= live_interval_s)
+                    .then(layout)
+                    .flatten()
+                    .and_then(|l| serde_json::to_string(&l).ok());
+                let (t, m) = (
+                    JsValue::from_f64(p.elapsed_seconds),
+                    JsValue::from_f64(p.material),
+                );
+                let _ = match live {
+                    Some(json) => {
+                        shown = p.elapsed_seconds;
+                        progress.call3(&JsValue::NULL, &t, &m, &JsValue::from_str(&json))
+                    }
+                    None => progress.call2(&JsValue::NULL, &t, &m),
+                };
+            },
+        )
         .map_err(|e| fail(format!("{e:#}")))?;
     serde_json::to_string(&serde_json::json!({
         "layout": result.layout,
@@ -175,7 +173,8 @@ pub fn nest(
         "repeatable": result.repeatable,
         "parts_in_holes": result.riders,
         "elapsed_seconds": result.elapsed_seconds,
-        "common_line":common_line,
+        "common_line":cutting.common_line,
+        "lead_in":cutting.lead_in,
     }))
     .map_err(fail)
 }
@@ -235,9 +234,9 @@ pub fn validate(
     let library: Library = parse(library_json, "library")?;
     let request: Request = parse(request_json, "request")?;
     let layout: nestbolt_validator::job::Layout = parse(layout_json, "layout")?;
-    let (job, _) = request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
-    let report =
-        nestbolt_validator::job::validate(&job, &layout).map_err(|e| fail(format!("{e:#}")))?;
+    let report = request
+        .cutting_report(&library, &layout)
+        .map_err(|e| fail(format!("{e:#}")))?;
     serde_json::to_string(&report).map_err(fail)
 }
 

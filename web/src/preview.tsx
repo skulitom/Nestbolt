@@ -1,5 +1,5 @@
 import { partGeometry } from './types';
-import type { Layout, Library, NestRequest, Point, Polygon, Transform } from './types';
+import type { Layout, LeadReport, Library, NestRequest, Point, Polygon, Transform } from './types';
 
 const PALETTE = ['#4e79a7', '#f28e2b', '#59a14f', '#e15759', '#76b7b2', '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ac'];
 
@@ -29,7 +29,7 @@ function stockOf(request: NestRequest, layout: Layout, sheet: string) {
 }
 
 /** The box around a sheet's placed parts and the clear offcut above them, in mm. */
-export function sheetUsage(library: Library, request: NestRequest, layout: Layout, sheet: string) {
+export function sheetUsage(library: Library, request: NestRequest, layout: Layout, sheet: string, leads?: LeadReport) {
   const stock = stockOf(request, layout, sheet);
   const polygons = new Map(library.parts.map((p) => [p.id, partGeometry(p)]));
   let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
@@ -40,20 +40,25 @@ export function sheetUsage(library: Library, request: NestRequest, layout: Layou
       [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x), Math.max(y1, y)];
     }
   }
+  for (const p of leads?.parts ?? []) {
+    if (p.sheet_id !== sheet) continue;
+    const b = p.bounds_mm;
+    [x0, y0, x1, y1] = [Math.min(x0, b[0]), Math.min(y0, b[1]), Math.max(x1, b[2]), Math.max(y1, b[3])];
+  }
   if (!Number.isFinite(x0)) return null;
   return { box: [x0, y0, x1, y1] as const, width: stock.width_mm, height: stock.height_mm,
-    offcut: Math.max(0, stock.height_mm - y1) };
+    offcut: request.lead_in && !leads ? 0 : Math.max(0, stock.height_mm - y1) };
 }
 
-export function SheetPreview(props: { library: Library; request: NestRequest; layout: Layout; sheet: string }) {
-  const { library, request, layout, sheet } = props;
+export function SheetPreview(props: { library: Library; request: NestRequest; layout: Layout; sheet: string; leads?: LeadReport }) {
+  const { library, request, layout, sheet, leads } = props;
   const stock = stockOf(request, layout, sheet);
   const width = stock.width_mm;
   const height = stock.height_mm;
   const color = new Map(library.parts.map((p, i) => [p.id, PALETTE[i % PALETTE.length]]));
   const polygons = new Map(library.parts.map((p) => [p.id, partGeometry(p)]));
   const m = stock.margins_mm;
-  const usage = sheetUsage(library, request, layout, sheet);
+  const usage = sheetUsage(library, request, layout, sheet, leads);
   return (
     <svg class="sheet" viewBox={`-1 -1 ${width + 2} ${height + 2}`} role="img" aria-label={`Layout of ${sheet}`}>
       {stock.outline_mm?.length
@@ -77,6 +82,21 @@ export function SheetPreview(props: { library: Library; request: NestRequest; la
             </path>
           ) : null;
         })}
+      {leads?.parts.filter(p => p.sheet_id === sheet).flatMap(p => {
+        const placed = layout.placements.find(q => q.part_id === p.part_id && q.copy_index === p.copy_index);
+        if (!placed) return [];
+        return p.reservations.map(r => {
+          const path = r.paths[0];
+          const points: Point[] = path.kind === 'line' ? [path.from_mm, path.to_mm] : Array.from({ length: 49 }, (_, i) => {
+            const a = path.start_radians + path.sweep_radians * i / 48;
+            return [path.center_mm[0] + path.radius_mm * Math.cos(a), path.center_mm[1] + path.radius_mm * Math.sin(a)];
+          });
+          return <polyline class="lead-preview" key={`${p.part_id}-${p.copy_index}-${r.contour_index}`} fill="none" stroke="#ff0000" stroke-width={0.3}
+            points={points.map(point => { const [x, y] = apply(placed.transform, point); return `${x},${height - y}`; }).join(' ')}>
+            <title>{`${p.part_id} #${p.copy_index + 1}, contour ${r.contour_index + 1}: ${r.length_mm.toFixed(3)} mm lead`}</title>
+          </polyline>;
+        });
+      })}
       {usage ? (
         <rect x={usage.box[0]} y={height - usage.box[3]} width={usage.box[2] - usage.box[0]} height={usage.box[3] - usage.box[1]}
           class="extent"><title>Bounding box of the placed parts</title></rect>

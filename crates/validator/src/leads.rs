@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     ClipType, ClipperOffset, EndType, Footprint, GRID, JoinType, MAX_COORDINATE, Point64,
     RigidTransform, SCALE, Units, boolean,
-    job::{Job, Layout, usable_stock},
+    job::{Job, Layout, Metrics, Mode, Placement, Rotations, usable_stock},
 };
 
 /// Each chord/round-join error is covered by additional outward radius.
@@ -339,14 +339,18 @@ pub struct Report {
     pub checked_contours: usize,
     pub violation_count: usize,
     pub violations: Vec<String>,
+    /// Original placed area, with stock consumption/offcuts enclosing the
+    /// independently rebuilt lead envelopes as well as the original parts.
+    pub metrics: Option<Metrics>,
 }
 
 /// Check every supplied allowance against original parts on its sheet, other
 /// contours' allowances (including the same part), margins, remnants and defects.
 /// Coverage/flagging of contours without a lead is reported by the lead planner.
 pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<Report> {
+    let original_report = crate::job::validate(job, layout)?;
     ensure!(
-        crate::job::validate(job, layout)?.valid,
+        original_report.valid,
         "lead checks require a valid original layout"
     );
     ensure!(allowances.len() <= 100_000, "too many lead allowances");
@@ -355,6 +359,7 @@ pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<
         checked_contours: allowances.len(),
         violation_count: 0,
         violations: vec![],
+        metrics: None,
     };
     let mut issue = |text: String| {
         report.valid = false;
@@ -448,5 +453,87 @@ pub fn validate(job: &Job, layout: &Layout, allowances: &[Allowance]) -> Result<
         }
         built.push((allowance, sheet, shape));
     }
+    if report.valid {
+        report.metrics = Some(reserved_metrics(
+            job,
+            layout,
+            &originals,
+            &built,
+            original_report
+                .metrics
+                .as_ref()
+                .context("original layout has no metrics")?,
+        )?);
+    }
     Ok(report)
+}
+
+fn reserved_metrics(
+    job: &Job,
+    layout: &Layout,
+    originals: &[(&Placement, Footprint)],
+    built: &[(&Allowance, &str, Footprint)],
+    original_metrics: &Metrics,
+) -> Result<Metrics> {
+    if originals.is_empty() {
+        return Ok(original_metrics.clone());
+    }
+    // Each placed copy can have a different start/length after common-line
+    // exclusions. Build independent per-copy geometry in world coordinates.
+    let mut physical = job.clone();
+    physical.parts.clear();
+    physical.mode = Mode::FillArea;
+    physical.clearance = 0.0; // Original spacing and strict lead overlap were checked above.
+    let mut positioned = layout.clone();
+    positioned.placements.clear();
+    let by_id: HashMap<_, _> = job.parts.iter().map(|p| (p.id.as_str(), p)).collect();
+    for (index, (placement, original)) in originals.iter().enumerate() {
+        let mut combined = original.clone();
+        for (lead, _, shape) in built {
+            if lead.part_id == placement.part_id && lead.copy_index == placement.copy_index {
+                combined = combined.union(shape)?;
+            }
+        }
+        let mut part = by_id[placement.part_id.as_str()].clone();
+        part.id = format!("reserved-copy-{index}");
+        part.quantity = 1;
+        part.rotations = Rotations::List { degrees: vec![0.0] };
+        part.allow_mirror = false;
+        part.geometry = combined.polygons()?;
+        for polygon in &mut part.geometry {
+            for point in polygon
+                .outer
+                .iter_mut()
+                .chain(polygon.holes.iter_mut().flatten())
+            {
+                for value in point {
+                    *value /= job.units.to_mm();
+                }
+            }
+        }
+        positioned.placements.push(Placement {
+            part_id: part.id.clone(),
+            copy_index: 0,
+            sheet_id: placement.sheet_id.clone(),
+            transform: RigidTransform::default(),
+        });
+        physical.parts.push(part);
+    }
+    let checked = crate::job::validate(&physical, &positioned)?;
+    ensure!(
+        checked.valid,
+        "reserved lead geometry failed independent stock accounting: {:?}",
+        checked.violations
+    );
+    let mut metrics = checked
+        .metrics
+        .context("reserved lead geometry has no metrics")?;
+    metrics.requested_parts = original_metrics.requested_parts;
+    metrics.placed_area = original_metrics.placed_area;
+    metrics.utilization = if metrics.material_area > 0.0 {
+        metrics.placed_area / metrics.material_area
+    } else {
+        0.0
+    };
+    Ok(metrics)
 }

@@ -1,0 +1,136 @@
+//! One preparation/report path for CLI, MCP, browser and standalone exports.
+use super::*;
+use nestbolt_validator::job::{Layout, Report};
+
+pub struct PreparedRequest {
+    pub job: Job,
+    pub outlines: HashMap<String, Outline>,
+    leads: Option<crate::lead_in::Prepared>,
+    lead_options: Option<crate::lead_in::Options>,
+    common_options: Option<crate::common_line::Options>,
+}
+
+#[derive(Debug, Serialize, JsonSchema)]
+pub struct CuttingReport {
+    #[serde(flatten)]
+    pub validation: Report,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub common_line: Option<Vec<crate::common_line::Report>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lead_in: Option<crate::lead_in::LayoutPlan>,
+}
+
+impl Request {
+    pub fn prepare(&self, library: &Library) -> Result<PreparedRequest> {
+        let (job, outlines) = self.job(library)?;
+        let leads = self
+            .lead_in
+            .map(|options| crate::lead_in::prepare(&job, &outlines, options, &HashMap::new()))
+            .transpose()?;
+        Ok(PreparedRequest {
+            job,
+            outlines,
+            leads,
+            lead_options: self.lead_in,
+            common_options: self.common_line,
+        })
+    }
+
+    /// Recompute from source settings and placed geometry; saved reports are
+    /// never used as authority for export or validation.
+    pub fn cutting_report(&self, library: &Library, layout: &Layout) -> Result<CuttingReport> {
+        self.prepare(library)?.report(layout)
+    }
+}
+
+impl PreparedRequest {
+    pub fn report(&self, layout: &Layout) -> Result<CuttingReport> {
+        let mut validation = nestbolt_validator::job::validate(&self.job, layout)?;
+        if !validation.valid {
+            return Ok(CuttingReport {
+                validation,
+                common_line: None,
+                lead_in: None,
+            });
+        }
+        let common_line = self
+            .common_options
+            .map(|o| crate::common_line::analyze(&self.job, layout, &self.outlines, o))
+            .transpose()?;
+        let lead_in = self
+            .leads
+            .as_ref()
+            .zip(self.lead_options)
+            .map(|(initial, options)| {
+                crate::lead_in::finalize(
+                    &self.job,
+                    &self.outlines,
+                    layout,
+                    options,
+                    initial,
+                    common_line.as_deref().unwrap_or_default(),
+                )
+            })
+            .transpose()?;
+        if let Some(leads) = &lead_in {
+            validation.metrics = leads.validation.metrics.clone();
+        }
+        Ok(CuttingReport {
+            validation,
+            common_line,
+            lead_in,
+        })
+    }
+
+    pub fn optimize(
+        &self,
+        options: crate::sheets::Options,
+        progress: impl FnMut(&crate::sheets::Progress, &dyn Fn() -> Option<Layout>),
+    ) -> Result<(crate::sheets::SheetResult, CuttingReport)> {
+        let allow_part_in_hole = self.common_options.is_none();
+        let mut result = match &self.leads {
+            Some(leads) => crate::sheets::optimize_with_material(
+                &leads.collision_job,
+                &self.job,
+                options,
+                allow_part_in_hole,
+                progress,
+            )?,
+            None => crate::sheets::optimize_with_part_in_hole(
+                &self.job,
+                options,
+                allow_part_in_hole,
+                progress,
+            )?,
+        };
+        let report = self.report(&result.layout)?;
+        ensure!(
+            report.validation.valid,
+            "final layout failed independent validation"
+        );
+        result.validation.metrics = report.validation.metrics.clone();
+        Ok((result, report))
+    }
+}
+
+impl CuttingReport {
+    pub fn review(&self, layout: &Layout, sheet_id: &str) -> Result<crate::export::ReviewPaths> {
+        ensure!(
+            self.validation.valid,
+            "layout failed independent validation: {:?}",
+            self.validation.violations
+        );
+        let mut review = self
+            .lead_in
+            .as_ref()
+            .map(|p| p.review(layout, sheet_id))
+            .transpose()?
+            .unwrap_or_default();
+        review.common = self
+            .common_line
+            .as_ref()
+            .and_then(|reports| reports.iter().find(|r| r.sheet_id == sheet_id))
+            .map_or_else(Vec::new, |r| r.paths.clone());
+        Ok(review)
+    }
+}

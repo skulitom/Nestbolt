@@ -53,6 +53,112 @@ fn import(dir: &Path, inputs: &[PathBuf]) -> PathBuf {
 }
 
 #[test]
+fn lead_flags_defaults_validation_and_repeat_export_match_the_request() {
+    let dir = temp("leads");
+    let source = dir.join("leads.svg");
+    fs::write(&source, include_str!("../../core/tests/fixtures/leads.svg")).unwrap();
+    let library = import(&dir, &[source]);
+    let request = dir.join("request.json");
+    fs::write(
+        &request,
+        serde_json::to_vec(&json!({"parts":[{"id":"leads-1","quantity":2}],
+        "sheets":[{"width_mm":60,"height_mm":35}],"spacing_mm":0.2,"edge_spacing_mm":1}))
+        .unwrap(),
+    )
+    .unwrap();
+    let output = dir.join("nested");
+    let run = nestbolt(&[
+        "nest".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request.as_os_str(),
+        "--out-dir".as_ref(),
+        output.as_os_str(),
+        "--seconds".as_ref(),
+        "1".as_ref(),
+        "--repeatable".as_ref(),
+        "--time-limit".as_ref(),
+        "30".as_ref(),
+        "--lead-in".as_ref(),
+        "--kerf".as_ref(),
+        "0.2".as_ref(),
+        "--lead-style".as_ref(),
+        "arc".as_ref(),
+    ]);
+    assert!(
+        run.status.success(),
+        "{}",
+        String::from_utf8_lossy(&run.stderr)
+    );
+    let report: Value = serde_json::from_slice(&run.stdout).unwrap();
+    let leads = &report["lead_in"];
+    assert_eq!(leads["expected_contours"], 6);
+    assert_eq!(leads["reserved_contours"], 4);
+    assert_eq!(leads["flagged_contours"], 2);
+    assert_eq!(
+        leads["parts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .flat_map(|p| p["reservations"].as_array().unwrap())
+            .filter(|r| r["shortened"] == true)
+            .count(),
+        2
+    );
+    assert_eq!(leads["options"]["style"], "arc");
+    assert_eq!(leads["options"]["length_mm"], 3.0);
+    assert!(
+        (report["validation"]["metrics"]["placed_area"]
+            .as_f64()
+            .unwrap()
+            - 391.68)
+            .abs()
+            < 1e-6
+    );
+    let checked = nestbolt(&[
+        "validate".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        output.join("request.json").as_os_str(),
+        "--layout".as_ref(),
+        output.join("layout.json").as_os_str(),
+    ]);
+    assert!(
+        checked.status.success(),
+        "{}",
+        String::from_utf8_lossy(&checked.stderr)
+    );
+    let checked: Value = serde_json::from_slice(&checked.stdout).unwrap();
+    assert_eq!(checked["lead_in"], *leads);
+    assert_eq!(checked["metrics"], report["validation"]["metrics"]);
+    let again = dir.join("again");
+    let exported = nestbolt(&[
+        "export".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        output.join("request.json").as_os_str(),
+        "--layout".as_ref(),
+        output.join("layout.json").as_os_str(),
+        "--out-dir".as_ref(),
+        again.as_os_str(),
+    ]);
+    assert!(
+        exported.status.success(),
+        "{}",
+        String::from_utf8_lossy(&exported.stderr)
+    );
+    for file in report["files"].as_array().unwrap() {
+        let file = file.as_str().unwrap();
+        let first = fs::read_to_string(output.join(file)).unwrap();
+        assert!(first.contains("LEADIN"));
+        assert_eq!(first, fs::read_to_string(again.join(file)).unwrap());
+    }
+}
+
+#[test]
 fn common_line_cli_flags_override_spacing_and_export_compensated_paths() {
     let dir = temp("common-line");
     let source = dir.join("panel.svg");

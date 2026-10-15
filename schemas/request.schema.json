@@ -49,6 +49,38 @@
       ],
       "type": "object"
     },
+    "Options2": {
+      "additionalProperties": false,
+      "properties": {
+        "hole_angle_degrees": {
+          "default": 90.0,
+          "format": "double",
+          "type": "number"
+        },
+        "kerf_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "length_mm": {
+          "default": 3.0,
+          "format": "double",
+          "type": "number"
+        },
+        "outer_angle_degrees": {
+          "default": 45.0,
+          "format": "double",
+          "type": "number"
+        },
+        "style": {
+          "$ref": "#/$defs/Style",
+          "default": "line"
+        }
+      },
+      "required": [
+        "kerf_mm"
+      ],
+      "type": "object"
+    },
     "Polygon": {
       "additionalProperties": false,
       "properties": {
@@ -251,6 +283,13 @@
           "type": "object"
         }
       ]
+    },
+    "Style": {
+      "enum": [
+        "line",
+        "arc"
+      ],
+      "type": "string"
     }
   },
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -273,6 +312,17 @@
       "description": "Minimum gap between parts and the sheet edge or a defect.",
       "format": "double",
       "type": "number"
+    },
+    "lead_in": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Options2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Reserve cutting leads, choose contour starts and export LEADIN for review."
     },
     "mode": {
       "$ref": "#/$defs/Mode",

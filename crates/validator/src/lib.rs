@@ -330,6 +330,14 @@ impl Footprint {
     pub fn area(&self) -> f64 {
         self.area
     }
+
+    /// Change declared output/clearance units without moving the internally
+    /// stored physical geometry. Polygon coordinates are converted on output;
+    /// area and internal bounds remain mm²/mm (model units for Unitless).
+    pub fn with_units(mut self, units: Units) -> Self {
+        self.units = units;
+        self
+    }
     pub fn bounds(&self) -> [f64; 4] {
         self.bounds
     }

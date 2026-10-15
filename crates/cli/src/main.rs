@@ -68,9 +68,20 @@ enum Command {
         /// Add compensated shared straight toolpaths on COMMON; spacing = kerf.
         #[arg(long, requires = "kerf")]
         common_line: bool,
-        /// Physical kerf in mm, at least 0.05. COMMON needs no CAM compensation.
-        #[arg(long, requires = "common_line")]
+        /// Physical kerf in mm; common-line needs at least 0.05, leads need > 0.
+        #[arg(long)]
         kerf: Option<f64>,
+        /// Reserve leads and export contour starts plus a LEADIN review layer.
+        #[arg(long, requires = "kerf")]
+        lead_in: bool,
+        #[arg(long, requires = "lead_in", default_value_t = 3.0)]
+        lead_length: f64,
+        #[arg(long, requires = "lead_in", default_value = "line", value_parser = ["line", "arc"])]
+        lead_style: String,
+        #[arg(long, requires = "lead_in", default_value_t = 45.0)]
+        lead_outer_angle: f64,
+        #[arg(long, requires = "lead_in", default_value_t = 90.0)]
+        lead_hole_angle: f64,
     },
     /// Write per-sheet SVG/DXF or preserving .lbrn2 files for an existing layout.
     Export {
@@ -173,10 +184,14 @@ enum Command {
         #[arg(long, requires = "refine")]
         contacts: bool,
     },
-    /// Check a complete polygon benchmark job/layout against every declared constraint.
+    /// Check a polygon job, or a library/request including cutting allowances.
     Validate {
-        #[arg(long)]
-        job: PathBuf,
+        #[arg(long, required_unless_present = "library", conflicts_with = "library")]
+        job: Option<PathBuf>,
+        #[arg(long, requires = "request", conflicts_with = "job")]
+        library: Option<PathBuf>,
+        #[arg(long, requires = "library", conflicts_with = "job")]
+        request: Option<PathBuf>,
         #[arg(long)]
         layout: PathBuf,
     },
@@ -337,6 +352,11 @@ fn main() -> Result<()> {
             time_limit,
             common_line,
             kerf,
+            lead_in,
+            lead_length,
+            lead_style,
+            lead_outer_angle,
+            lead_hole_angle,
         } => {
             let library = load_library(&library)?;
             let mut request: nestbolt_core::project::Request =
@@ -347,10 +367,27 @@ fn main() -> Result<()> {
                     kerf_mm: kerf.context("--common-line requires --kerf")?,
                 });
             }
-            let (job, _) = request.job(&library)?;
+            if lead_in {
+                request.lead_in = Some(nestbolt_core::lead_in::Options {
+                    kerf_mm: kerf.context("--lead-in requires --kerf")?,
+                    length_mm: lead_length,
+                    style: if lead_style == "arc" {
+                        nestbolt_core::lead_in::Style::Arc
+                    } else {
+                        nestbolt_core::lead_in::Style::Line
+                    },
+                    outer_angle_degrees: lead_outer_angle,
+                    hole_angle_degrees: lead_hole_angle,
+                });
+            }
+            ensure!(
+                kerf.is_none() || common_line || lead_in,
+                "--kerf requires --common-line or --lead-in"
+            );
+            let prepared = request.prepare(&library)?;
+            let job = &prepared.job;
             fs::create_dir_all(&out_dir)?;
-            let result = nestbolt_core::sheets::optimize_with_part_in_hole(
-                &job,
+            let (result, cutting) = prepared.optimize(
                 nestbolt_core::sheets::Options {
                     seconds,
                     seed,
@@ -362,7 +399,6 @@ fn main() -> Result<()> {
                     time_limit,
                     ..Default::default()
                 },
-                request.common_line.is_none(),
                 |p, _| eprintln!("{}", serde_json::to_string(p).expect("finite progress")),
             )?;
             ensure!(
@@ -387,9 +423,9 @@ fn main() -> Result<()> {
                 .filter_map(|f| std::path::Path::new(f).file_name())
                 .map(|f| f.to_string_lossy().into_owned())
                 .collect();
-            let common_line = request.common_line_reports(&library, &result.layout)?;
             let mut report = nestbolt_core::project::NestReport::new(result, seconds, names);
-            report.common_line = common_line;
+            report.common_line = cutting.common_line;
+            report.lead_in = cutting.lead_in;
             write_new(
                 &out_dir.join("report.json"),
                 serde_json::to_string_pretty(&report)?.as_bytes(),
@@ -639,7 +675,27 @@ fn main() -> Result<()> {
                 .with_context(|| format!("cannot create {}", output.display()))?;
             file.write_all(serde_json::to_string_pretty(&result.layout)?.as_bytes())?;
         }
-        Command::Validate { job, layout } => {
+        Command::Validate {
+            job,
+            library,
+            request,
+            layout,
+        } => {
+            if let Some(library) = library {
+                let library = load_library(&library)?;
+                let request: nestbolt_core::project::Request = serde_json::from_slice(&fs::read(
+                    request.context("--library requires --request")?,
+                )?)?;
+                let layout = serde_json::from_slice(&fs::read(layout)?)?;
+                let report = request.cutting_report(&library, &layout)?;
+                println!("{}", serde_json::to_string_pretty(&report)?);
+                ensure!(
+                    report.validation.valid,
+                    "layout failed independent validation; see the JSON report"
+                );
+                return Ok(());
+            }
+            let job = job.context("provide --job or --library and --request")?;
             let source = fs::read_to_string(&job)
                 .with_context(|| format!("cannot read {}", job.display()))?;
             let result = fs::read_to_string(&layout)

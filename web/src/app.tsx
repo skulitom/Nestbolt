@@ -325,7 +325,12 @@ export function App() {
 
   const metrics = result?.validation.metrics;
   const commonValid = !request.common_line || (!library?.lightburn && Number.isFinite(request.common_line.kerf_mm) && request.common_line.kerf_mm >= 0.05);
-  const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy && commonValid;
+  const lead = request.lead_in;
+  const leadValid = !lead || (!library?.lightburn && Number.isFinite(lead.kerf_mm) && lead.kerf_mm > 0 && lead.kerf_mm <= 1000
+    && lead.length_mm >= 0.5 && lead.length_mm <= 50
+    && [lead.outer_angle_degrees, lead.hole_angle_degrees].every(a => Number.isFinite(a) && a >= 0 && a <= 90)
+    && (!request.common_line || request.common_line.kerf_mm === lead.kerf_mm));
+  const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy && commonValid && leadValid;
 
   return (
     <div class="app">
@@ -523,13 +528,25 @@ export function App() {
               </select></label>
               <label>Time <input type="number" min={1} max={300} value={seconds} onInput={(e) => setSeconds(Math.min(300, Math.max(1, num(e))))} /> s</label>
             </div>
-            <label class="check"><input type="checkbox" disabled={!!library?.lightburn && !request.common_line} checked={!!request.common_line} onChange={(e) => update({ common_line: (e.target as HTMLInputElement).checked ? { kerf_mm: 0 } : undefined })} /> Common-line cutting</label>
+            <label class="check"><input type="checkbox" disabled={!!library?.lightburn && !request.common_line} checked={!!request.common_line} onChange={(e) => update({ common_line: (e.target as HTMLInputElement).checked ? { kerf_mm: request.lead_in?.kerf_mm ?? 0 } : undefined })} /> Common-line cutting</label>
             {request.common_line ? <>
-              <label>Kerf <input type="number" min={0.05} step={0.05} required value={request.common_line.kerf_mm} onInput={(e) => update({ common_line: { kerf_mm: num(e) } })} /> mm</label>
+              <label>Kerf <input type="number" min={0.05} step={0.05} required value={request.common_line.kerf_mm} onInput={(e) => update({ common_line: { kerf_mm: num(e) }, ...(lead ? { lead_in: { ...lead, kerf_mm: num(e) } } : {}) })} /> mm</label>
               <p class="hint">Enter the cut width (at least 0.05 mm). Part spacing uses this kerf; parts stay outside holes. Shared straight cuts go on COMMON with compensation included.</p>
               <p class="hint">CUT keeps the closed outlines. In CAM, replace their shared sections with COMMON and turn off kerf compensation for COMMON.</p>
             </> : null}
             {library?.lightburn ? <p class="hint">For common-line cutting, export the cut outlines from LightBurn as SVG or DXF and import them here.</p> : null}
+            <label class="check"><input type="checkbox" disabled={!!library?.lightburn && !lead} checked={!!lead} onChange={(e) => update({ lead_in: (e.target as HTMLInputElement).checked ? { kerf_mm: request.common_line?.kerf_mm ?? 0, length_mm: 3, style: 'line', outer_angle_degrees: 45, hole_angle_degrees: 90 } : undefined })} /> Lead-in allowances</label>
+            {lead ? <>
+              <div class="grid">
+                <label>Lead kerf <input type="number" min={0.001} max={1000} step={0.05} value={lead.kerf_mm} onInput={(e) => update({ lead_in: { ...lead, kerf_mm: num(e) }, ...(request.common_line ? { common_line: { kerf_mm: num(e) } } : {}) })} /> mm</label>
+                <label>Lead length <input type="number" min={0.5} max={50} step={0.1} value={lead.length_mm} onInput={(e) => update({ lead_in: { ...lead, length_mm: num(e) } })} /> mm</label>
+                <label>Lead style <select value={lead.style} onChange={(e) => update({ lead_in: { ...lead, style: (e.target as HTMLSelectElement).value as 'line' | 'arc' } })}><option value="line">Line</option><option value="arc">Arc</option></select></label>
+                <label>Outer lead angle <input type="number" min={0} max={90} value={lead.outer_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, outer_angle_degrees: num(e) } })} /> °</label>
+                <label>Hole lead angle <input type="number" min={0} max={90} value={lead.hole_angle_degrees} onInput={(e) => update({ lead_in: { ...lead, hole_angle_degrees: num(e) } })} /> °</label>
+              </div>
+              <p class="hint">Enter the measured kerf. Length is the distance along the lead, including an arc. Space is reserved for both cutting directions. Small holes may need a shorter lead or a manual start.</p>
+              <p class="hint">In LightBurn, turn off Choose best starting point and LEADIN layer output. Use the reported length and style; outer angles are positive, hole angles negative. Keep lead-out and overcut off.</p>
+            </> : null}
             <details class="advanced">
               <summary>Advanced</summary>
               <div class="grid">
@@ -582,15 +599,24 @@ export function App() {
                 <h3>Common-line cuts</h3>
                 {result.common_line.map((r) => <p key={r.sheet_id}>{r.sheet_id}: {r.cut_length_without_common_mm.toFixed(1)} → {r.cut_length_with_common_mm.toFixed(1)} mm of cutting; {r.saved_length_mm.toFixed(1)} mm saved ({(100 * r.saved_fraction).toFixed(1)}%). {r.contours_without_common} closed contours become {r.paths_with_common} cutting paths after replacing the shared sections.</p>)}
               </div> : null}
+              {result.lead_in ? <div class="lead-report" tabIndex={0} role="region" aria-label="Lead allowance details">
+                <h3>Lead allowances</h3>
+                <p>{result.lead_in.reserved_contours}/{result.lead_in.expected_contours} contours have checked space. {result.lead_in.flagged_contours} need manual attention.</p>
+                {result.lead_in.parts.flatMap(p => [
+                  ...p.flags.map(f => <p class="error" key={`${p.part_id}-${p.copy_index}-f${f.contour_index}`}>{p.part_id} #{p.copy_index + 1}, contour {f.contour_index + 1}: {f.reason} Disable the native lead for this contour or change its start manually.</p>),
+                  ...p.reservations.filter(r => r.shortened).map(r => <p key={`${p.part_id}-${p.copy_index}-s${r.contour_index}`}>{p.part_id} #{p.copy_index + 1}, contour {r.contour_index + 1}: use a {r.length_mm.toFixed(3)} mm lead.</p>),
+                ])}
+                <p class="hint">LEADIN is a red review layer. Assign separate cut settings to contours with different angles or shortened lengths before enabling LightBurn’s own leads.</p>
+              </div> : null}
               <button onClick={guarded(async () => download('sheets.zip', zip(await exportsFor(result)), 'application/zip'))}>Download all sheets (ZIP)</button>
               <div class="sheets">
                 {result.layout.sheets.map((s) => (
                   <figure key={s.id}>
-                    <SheetPreview library={library} request={request} layout={result.layout} sheet={s.id} />
+                    <SheetPreview library={library} request={request} layout={result.layout} sheet={s.id} leads={result.lead_in ?? undefined} />
                     <figcaption>
                       {s.id}
                       {(() => {
-                        const u = sheetUsage(library, request, result.layout, s.id);
+                        const u = sheetUsage(library, request, result.layout, s.id, result.lead_in ?? undefined);
                         return u && u.offcut > 0.01 * u.height
                           ? <span class="usage" title="Clear material above the placed parts">offcut {u.width.toFixed(0)} × {u.offcut.toFixed(0)} mm</span>
                           : null;

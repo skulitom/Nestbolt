@@ -80,7 +80,9 @@ impl Library {
         format: Option<&str>,
         sheet_outline: Option<bool>,
     ) -> Result<Vec<ExportFile>> {
-        let (job, outlines) = request.job(self)?;
+        let prepared = request.prepare(self)?;
+        let report = prepared.report(layout)?;
+        let (job, outlines) = (&prepared.job, &prepared.outlines);
         let formats = match (self.lightburn.is_some(), format) {
             (true, None | Some("lbrn2")) => vec!["lbrn2"],
             (true, _) => anyhow::bail!(
@@ -97,35 +99,25 @@ impl Library {
         let options = crate::export::Options {
             sheet_outline: sheet_outline.unwrap_or(self.lightburn.is_some()),
         };
-        let common = request
-            .common_line
-            .map(|o| crate::common_line::analyze(&job, layout, &outlines, o))
-            .transpose()?;
         let mut files = vec![];
         for sheet in &layout.sheets {
-            let review = crate::export::ReviewPaths {
-                common: common
-                    .as_ref()
-                    .and_then(|r| r.iter().find(|r| r.sheet_id == sheet.id))
-                    .map_or_else(Vec::new, |r| r.paths.clone()),
-                ..Default::default()
-            };
+            let review = report.review(layout, &sheet.id)?;
             for format in &formats {
                 let (name, text) = match *format {
                     "lbrn2" => (
                         self.lightburn_filename(layout, &sheet.id)?,
-                        self.write_lightburn(&job, layout, &sheet.id, options.sheet_outline)?,
+                        self.write_lightburn(job, layout, &sheet.id, options.sheet_outline)?,
                     ),
                     "svg" => (
                         format!("{}.svg", sheet.id),
                         crate::export::svg_with_review_paths(
-                            &job, layout, &sheet.id, &outlines, options, &review,
+                            job, layout, &sheet.id, outlines, options, &review,
                         )?,
                     ),
                     "dxf" => (
                         format!("{}.dxf", sheet.id),
                         crate::export::dxf_with_review_paths(
-                            &job, layout, &sheet.id, &outlines, options, &review,
+                            job, layout, &sheet.id, outlines, options, &review,
                         )?,
                     ),
                     _ => unreachable!(),
@@ -286,33 +278,25 @@ impl Library {
         format: &str,
         sheet_outline: Option<bool>,
     ) -> Result<String> {
-        let (job, outlines) = request.job(self)?;
+        let prepared = request.prepare(self)?;
+        let report = prepared.report(layout)?;
+        let (job, outlines) = (&prepared.job, &prepared.outlines);
         let options = crate::export::Options {
             sheet_outline: sheet_outline.unwrap_or(self.lightburn.is_some()),
         };
-        let common = request
-            .common_line
-            .map(|o| crate::common_line::analyze(&job, layout, &outlines, o))
-            .transpose()?;
-        let review = crate::export::ReviewPaths {
-            common: common
-                .as_ref()
-                .and_then(|r| r.iter().find(|r| r.sheet_id == sheet_id))
-                .map_or_else(Vec::new, |r| r.paths.clone()),
-            ..Default::default()
-        };
+        let review = report.review(layout, sheet_id)?;
         match (&self.lightburn, format) {
             (Some(_), "lbrn2") => {
-                self.write_lightburn(&job, layout, sheet_id, options.sheet_outline)
+                self.write_lightburn(job, layout, sheet_id, options.sheet_outline)
             }
             (Some(_), _) => anyhow::bail!(
                 "export this LightBurn project as lbrn2 to retain its text, images and layer settings"
             ),
             (None, "svg") => crate::export::svg_with_review_paths(
-                &job, layout, sheet_id, &outlines, options, &review,
+                job, layout, sheet_id, outlines, options, &review,
             ),
             (None, "dxf") => crate::export::dxf_with_review_paths(
-                &job, layout, sheet_id, &outlines, options, &review,
+                job, layout, sheet_id, outlines, options, &review,
             ),
             (None, "lbrn2") => anyhow::bail!("lbrn2 export requires an imported LightBurn project"),
             _ => anyhow::bail!("format must be svg, dxf or lbrn2"),

@@ -143,6 +143,7 @@ fn measure(task: &Task) -> Result<serde_json::Value> {
         .map(|p| (p.bounds_mm[2] - p.bounds_mm[0]).max(p.bounds_mm[3] - p.bounds_mm[1]))
         .fold(0.0, f64::max);
     let request = Request {
+        lead_in: None,
         name: Some(name.clone()),
         parts: library
             .parts

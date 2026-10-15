@@ -1,4 +1,5 @@
 import type { ImportSelection, Layout, Library, NestRequest, NestResult, Report, SheetImport } from './types';
+import { betterResult } from './scoring';
 
 type Progress = (t: number, material: number, layout?: Layout) => void;
 type Pending = { resolve: (v: string) => void; reject: (e: Error) => void; progress?: Progress };
@@ -93,11 +94,6 @@ export async function nestJob(job: string, seconds: number, seed: number, repeat
   }
 }
 
-const key = (r: NestResult): [number, number] => {
-  const m = r.validation.metrics;
-  return m ? [m.sheets_used, m.material_area] : [Infinity, Infinity];
-};
-
 /** Run independent searches (seeds seed, seed+1, ...) and keep the best valid one. */
 export class Portfolio {
   private workers: EngineWorker[] = [];
@@ -118,10 +114,7 @@ export class Portfolio {
       const failure = settled.find((s) => s.status === 'rejected') as PromiseRejectedResult | undefined;
       throw failure?.reason ?? new Error('no valid layout');
     }
-    return ok.reduce((a, b) => {
-      const [ka, kb] = [key(a), key(b)];
-      return kb[0] < ka[0] || (kb[0] === ka[0] && kb[1] < ka[1]) ? b : a;
-    });
+    return ok.reduce((a, b) => betterResult(b, a, request.mode) ? b : a);
   }
 
   stop() {

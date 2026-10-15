@@ -141,6 +141,16 @@ pub fn optimize_controlled(
     job: &Job,
     options: Options,
     control: &mut Control<'_>,
+    progress: impl FnMut(&Progress),
+) -> Result<SearchResult> {
+    optimize_controlled_scored(job, options, control, None, progress)
+}
+
+pub(crate) fn optimize_controlled_scored(
+    job: &Job,
+    options: Options,
+    control: &mut Control<'_>,
+    material: Option<&crate::scoring::MaterialAreas>,
     mut progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
     ensure!(
@@ -148,7 +158,14 @@ pub fn optimize_controlled(
         "search needs 1..=1024 passes"
     );
     let debug_started = std::env::var_os("NESTBOLT_DEBUG").map(|_| jagua_rs::Instant::now());
-    let prepared = PreparedJob::new_controlled(job, control)?;
+    let prepared = PreparedJob::new_controlled_scored(job, material, control)?;
+    let check_layout = |layout: &nestbolt_validator::job::Layout| -> Result<Report> {
+        let mut report = validate(job, layout)?;
+        if let Some(material) = material {
+            material.apply(layout, &mut report)?;
+        }
+        Ok(report)
+    };
     if let Some(started) = debug_started {
         eprintln!(
             "debug warm prepared: {:.2} s",
@@ -162,7 +179,7 @@ pub fn optimize_controlled(
             started.elapsed().as_secs_f64()
         );
     }
-    let mut validation = validate(job, &best.layout)?;
+    let mut validation = check_layout(&best.layout)?;
     if let Some(started) = debug_started {
         eprintln!(
             "debug warm validated: {:.2} s",
@@ -211,7 +228,7 @@ pub fn optimize_controlled(
                     };
                 let checked = candidate
                     .as_ref()
-                    .map(|c| validate(job, &c.layout))
+                    .map(|c| check_layout(&c.layout))
                     .transpose()?;
                 let metrics = checked.as_ref().and_then(|c| c.metrics.as_ref());
                 let accepted = checked.as_ref().is_some_and(|r| r.valid)
@@ -341,7 +358,7 @@ pub fn optimize_controlled(
             other => other?,
         };
         let checked = if let Some(ref c) = candidate {
-            Some(validate(job, &c.layout)?)
+            Some(check_layout(&c.layout)?)
         } else {
             None
         };

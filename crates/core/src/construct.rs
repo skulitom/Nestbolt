@@ -861,6 +861,7 @@ pub fn construct(job: &Job, options: Options) -> Result<Construction> {
 /// Only search state is recreated; source polygons and collision proxies persist.
 pub struct PreparedJob<'a> {
     job: &'a Job,
+    material: Option<&'a crate::scoring::MaterialAreas>,
     items: Vec<Arc<Item>>,
     containers: Vec<Vec<Container>>,
     guard: f64,
@@ -874,6 +875,14 @@ impl<'a> PreparedJob<'a> {
     }
 
     pub(crate) fn new_controlled(job: &'a Job, control: &mut Control<'_>) -> Result<Self> {
+        Self::new_controlled_scored(job, None, control)
+    }
+
+    pub(crate) fn new_controlled_scored(
+        job: &'a Job,
+        material: Option<&'a crate::scoring::MaterialAreas>,
+        control: &mut Control<'_>,
+    ) -> Result<Self> {
         control.checkpoint()?;
         let layout = Layout {
             version: 1,
@@ -953,6 +962,7 @@ impl<'a> PreparedJob<'a> {
             .collect::<Result<_>>()?;
         Ok(Self {
             job,
+            material,
             items,
             containers,
             guard,
@@ -1041,15 +1051,19 @@ impl<'a> PreparedJob<'a> {
             placements: vec![],
         };
         let mut order: Vec<_> = (0..items.len()).collect();
+        let area = |index: usize| {
+            self.material.map_or_else(
+                || f64::from(items[index].area()),
+                |m| m.area(&job.parts[index].id),
+            )
+        };
         order.sort_by(|&a, &b| {
             let priority = if job.mode == Mode::FillPriority {
                 job.parts[b].priority.total_cmp(&job.parts[a].priority)
             } else {
                 std::cmp::Ordering::Equal
             };
-            priority
-                .then(items[b].area().total_cmp(&items[a].area()))
-                .then(a.cmp(&b))
+            priority.then(area(b).total_cmp(&area(a))).then(a.cmp(&b))
         });
         let mut copies: Vec<_> = order
             .into_iter()

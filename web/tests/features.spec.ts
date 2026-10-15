@@ -65,6 +65,45 @@ async function nest(page: Page) {
 const metric = async (page: Page, name: string) =>
   Number(await page.locator('.summary div', { hasText: name }).locator('dd').innerText());
 
+test('lead allowances expose flags, reserve offcuts and export a separate review layer', async ({ page }, testInfo) => {
+  const source = fileURLToPath(new URL('../../crates/core/tests/fixtures/leads.svg', import.meta.url));
+  const sheet = await setUp(page, [source], { 'leads-1': 2 }, 60, 35, 1);
+  await sheet.getByLabel('Margin').fill('0');
+  await page.getByLabel('Lead-in allowances', { exact: true }).check();
+  await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+  await page.getByLabel('Lead kerf').fill('0.2');
+  await page.getByLabel('Lead length').fill('0.4');
+  await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+  await page.getByLabel('Lead length').fill('3');
+  await page.getByLabel('Lead style').selectOption('arc');
+  await page.getByRole('button', { name: 'Nest', exact: true }).click();
+  await expect(page.locator('.lead-report')).toContainText('4/6 contours have checked space', { timeout: 90_000 });
+  await expect(page.locator('.lead-report')).toContainText('2 need manual attention');
+  await expect(page.locator('.lead-preview')).toHaveCount(4);
+  expect(await page.locator('svg.sheet').first().evaluate(el => el.getBoundingClientRect().height)).toBeGreaterThan(150);
+  await expect(page.locator('[role=alert]')).toHaveCount(0);
+  const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP' }).click()]);
+  const saved = JSON.parse(zipEntry(await archive.path(), 'project.json'));
+  expect(saved.request.lead_in.style).toBe('arc');
+  expect(saved.result.validation.metrics.placed_area).toBeCloseTo(391.68, 5);
+  expect(saved.result.lead_in.validation.valid).toBe(true);
+  expect(saved.result.lead_in.parts.flatMap((p: { reservations: { shortened: boolean }[] }) => p.reservations).filter((r: { shortened: boolean }) => r.shortened)).toHaveLength(2);
+  await expect(page.locator('.lead-report')).toContainText('mm lead.');
+  const svg = zipEntry(await archive.path(), `sheets/${saved.result.layout.sheets[0].id}.svg`);
+  expect(svg).toContain('id="LEADIN"');expect(svg).toContain('stroke="#ff0000"');
+  const dxf = zipEntry(await archive.path(), `sheets/${saved.result.layout.sheets[0].id}.dxf`);
+  expect(dxf).toContain('LEADIN');
+  await testInfo.attach('lead-project', { body: JSON.stringify(saved), contentType: 'application/json' });
+  await testInfo.attach('lead-controls', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+  await page.locator('.results').evaluate(el => el.scrollTo(0, el.scrollHeight));
+  await testInfo.attach('lead-preview', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' });
+  await page.getByLabel('Common-line cutting', { exact: true }).check();
+  await page.getByLabel('Kerf mm', { exact: true }).fill('0.3');
+  await expect(page.getByLabel('Lead kerf')).toHaveValue('0.3');
+  await page.getByLabel('Lead-in allowances', { exact: true }).uncheck();
+  await expect(page.locator('.lead-report')).toHaveCount(0);
+});
+
 test('common-line kerf overrides spacing and exports its own compensated layer', async ({ page }, testInfo) => {
   const source = fileURLToPath(new URL('../../crates/core/tests/fixtures/common-panels.svg', import.meta.url));
   const sheet = await setUp(page, [source], { 'common-panels-1': 2 }, 86, 36, 1);

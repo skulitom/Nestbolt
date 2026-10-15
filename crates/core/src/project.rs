@@ -16,7 +16,9 @@ use crate::curves::Contour;
 use crate::export::Outline;
 use crate::import::{Import, Options as ImportOptions, import_dxf, import_svg};
 
+mod cutting;
 mod lightburn;
+pub use cutting::{CuttingReport, PreparedRequest};
 mod sheet;
 pub use lightburn::{ExportFile, LightBurnProject};
 pub use sheet::{SheetImport, SheetOutline};
@@ -218,6 +220,8 @@ pub struct NestReport {
     pub validation: nestbolt_validator::job::Report,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub common_line: Option<Vec<crate::common_line::Report>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lead_in: Option<crate::lead_in::LayoutPlan>,
 }
 
 impl NestReport {
@@ -235,6 +239,7 @@ impl NestReport {
             files,
             validation: result.validation,
             common_line: None,
+            lead_in: None,
         }
     }
 }
@@ -312,6 +317,9 @@ pub struct Request {
     /// Optional compensated common-line cutting. Its kerf replaces part spacing.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub common_line: Option<crate::common_line::Options>,
+    /// Reserve cutting leads, choose contour starts and export LEADIN for review.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lead_in: Option<crate::lead_in::Options>,
     /// Minimum gap between parts and the sheet edge or a defect.
     #[serde(default)]
     pub edge_spacing_mm: f64,
@@ -340,6 +348,19 @@ impl Request {
     /// Derive the polygon job and the exact outlines for export. Clearances
     /// grow by the library tolerance so the true curves keep the requested gaps.
     pub fn job(&self, library: &Library) -> Result<(Job, HashMap<String, Outline>)> {
+        if let Some(options) = self.lead_in {
+            options.validate()?;
+            ensure!(
+                library.lightburn.is_none(),
+                "lead allowances currently use SVG/DXF cutting outlines; export the cuts from LightBurn as SVG/DXF and import them here. Editable project exports retain their original starts and settings"
+            );
+            if let Some(common) = self.common_line {
+                ensure!(
+                    (common.kerf_mm - options.kerf_mm).abs() < 1e-9,
+                    "common-line and lead allowances must use the same kerf"
+                );
+            }
+        }
         if let Some(options) = self.common_line {
             options.validate()?;
             ensure!(

@@ -22,6 +22,7 @@ pub mod lightburn;
 pub mod optimize;
 pub mod project;
 pub mod rects;
+mod scoring;
 pub mod separate;
 pub mod sheets;
 #[cfg(not(target_arch = "wasm32"))]

@@ -25,6 +25,24 @@
       ],
       "type": "object"
     },
+    "ContourStart": {
+      "properties": {
+        "parameter": {
+          "format": "double",
+          "type": "number"
+        },
+        "segment": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "segment",
+        "parameter"
+      ],
+      "type": "object"
+    },
     "Coverage": {
       "description": "Arc-length coverage on one original outer contour, for reporting and for\nexcluding future lead attachment points. Intervals may wrap around length.",
       "properties": {
@@ -44,6 +62,63 @@
         "part_copy",
         "from_mm",
         "to_mm"
+      ],
+      "type": "object"
+    },
+    "Flag": {
+      "properties": {
+        "contour_index": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contour_index",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "LayoutPlan": {
+      "properties": {
+        "expected_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "flagged_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "options": {
+          "$ref": "#/$defs/Options"
+        },
+        "parts": {
+          "items": {
+            "$ref": "#/$defs/PlacedPartPlan"
+          },
+          "type": "array"
+        },
+        "reserved_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "validation": {
+          "$ref": "#/$defs/Report3"
+        }
+      },
+      "required": [
+        "options",
+        "expected_contours",
+        "reserved_contours",
+        "flagged_contours",
+        "parts",
+        "validation"
       ],
       "type": "object"
     },
@@ -119,6 +194,165 @@
         "utilization",
         "trailing_offcut_area",
         "last_sheet_used_height"
+      ],
+      "type": "object"
+    },
+    "Options": {
+      "additionalProperties": false,
+      "properties": {
+        "hole_angle_degrees": {
+          "default": 90.0,
+          "format": "double",
+          "type": "number"
+        },
+        "kerf_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "length_mm": {
+          "default": 3.0,
+          "format": "double",
+          "type": "number"
+        },
+        "outer_angle_degrees": {
+          "default": 45.0,
+          "format": "double",
+          "type": "number"
+        },
+        "style": {
+          "$ref": "#/$defs/Style",
+          "default": "line"
+        }
+      },
+      "required": [
+        "kerf_mm"
+      ],
+      "type": "object"
+    },
+    "Path": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "from_mm": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "line",
+              "type": "string"
+            },
+            "to_mm": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "from_mm",
+            "to_mm"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "center_mm": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "kind": {
+              "const": "arc",
+              "type": "string"
+            },
+            "radius_mm": {
+              "format": "double",
+              "type": "number"
+            },
+            "start_radians": {
+              "format": "double",
+              "type": "number"
+            },
+            "sweep_radians": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "kind",
+            "center_mm",
+            "radius_mm",
+            "start_radians",
+            "sweep_radians"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "PlacedPartPlan": {
+      "properties": {
+        "bounds_mm": {
+          "description": "World-space extent of original material plus final lead footprints.",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "type": "array"
+        },
+        "contour_count": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "copy_index": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "flags": {
+          "items": {
+            "$ref": "#/$defs/Flag"
+          },
+          "type": "array"
+        },
+        "part_id": {
+          "type": "string"
+        },
+        "reservations": {
+          "items": {
+            "$ref": "#/$defs/Reservation"
+          },
+          "type": "array"
+        },
+        "sheet_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "copy_index",
+        "sheet_id",
+        "bounds_mm",
+        "part_id",
+        "contour_count",
+        "reservations",
+        "flags"
       ],
       "type": "object"
     },
@@ -256,6 +490,80 @@
         "saved_fraction",
         "contours_without_common",
         "paths_with_common"
+      ],
+      "type": "object"
+    },
+    "Report3": {
+      "properties": {
+        "checked_contours": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "metrics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metrics"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Original placed area, with stock consumption/offcuts enclosing the\nindependently rebuilt lead envelopes as well as the original parts."
+        },
+        "valid": {
+          "type": "boolean"
+        },
+        "violation_count": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "violations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "valid",
+        "checked_contours",
+        "violation_count",
+        "violations"
+      ],
+      "type": "object"
+    },
+    "Reservation": {
+      "properties": {
+        "contour_index": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "length_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "paths": {
+          "items": {
+            "$ref": "#/$defs/Path"
+          },
+          "type": "array"
+        },
+        "shortened": {
+          "type": "boolean"
+        },
+        "start": {
+          "$ref": "#/$defs/ContourStart"
+        }
+      },
+      "required": [
+        "contour_index",
+        "start",
+        "length_mm",
+        "shortened",
+        "paths"
       ],
       "type": "object"
     },
@@ -445,6 +753,13 @@
       ],
       "type": "object"
     },
+    "Style": {
+      "enum": [
+        "line",
+        "arc"
+      ],
+      "type": "string"
+    },
     "Units": {
       "enum": [
         "mm",
@@ -494,6 +809,16 @@
         "type": "string"
       },
       "type": "array"
+    },
+    "lead_in": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LayoutPlan"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "parts_in_holes": {
       "description": "Copies placed inside the holes of other parts.",

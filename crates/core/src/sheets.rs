@@ -557,6 +557,37 @@ pub fn optimize_with_part_in_hole(
     job: &Job,
     options: Options,
     allow_part_in_hole: bool,
+    progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
+) -> Result<SheetResult> {
+    optimize_with_areas(job, options, allow_part_in_hole, None, progress)
+}
+
+/// Search reserved cutting envelopes while valuing the original material.
+/// Jobs must differ only in geometry; each envelope must contain its original
+/// part. Placed area/utilization use original parts. Stock use and offcuts keep
+/// the complete collision envelope, including lead strokes and pierce space.
+pub fn optimize_with_material(
+    collision: &Job,
+    material: &Job,
+    options: Options,
+    allow_part_in_hole: bool,
+    progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
+) -> Result<SheetResult> {
+    let areas = crate::scoring::MaterialAreas::new(material, collision)?;
+    optimize_with_areas(
+        collision,
+        options,
+        allow_part_in_hole,
+        Some(&areas),
+        progress,
+    )
+}
+
+fn optimize_with_areas(
+    job: &Job,
+    options: Options,
+    allow_part_in_hole: bool,
+    material: Option<&crate::scoring::MaterialAreas>,
     mut progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
     ensure!(
@@ -606,7 +637,14 @@ pub fn optimize_with_part_in_hole(
             }
         })
     };
-    let mut result = optimize_job(&grouped.job, options, &clock, budget, live)?;
+    // All-parts ranking only uses stock consumption, so grouped rider IDs do
+    // not need material scores. Fill modes never create rider groups.
+    let fill_material = if job.mode == Mode::All {
+        None
+    } else {
+        material
+    };
+    let mut result = optimize_job(&grouped.job, options, &clock, budget, fill_material, live)?;
     if debug {
         eprintln!(
             "debug phase search: real {:.2} clock {:.2}",
@@ -626,6 +664,12 @@ pub fn optimize_with_part_in_hole(
         result.validation = validation;
     }
     result.riders = grouped.riders_placed;
+    if let Some(material) = material {
+        material.apply(&result.layout, &mut result.validation)?;
+        if job.mode == Mode::All {
+            material.apply_complete(&mut result.warm_start);
+        }
+    }
     result.elapsed_seconds = started.elapsed().as_secs_f64();
     result.work = clock.work();
     result.counts = clock.counts();
@@ -649,6 +693,7 @@ fn optimize_job(
     options: Options,
     clock: &Clock,
     budget: f64,
+    material: Option<&crate::scoring::MaterialAreas>,
     progress: impl FnMut(&Progress, &dyn Fn() -> Option<Layout>),
 ) -> Result<SheetResult> {
     let finish = match clock.timing() {
@@ -684,7 +729,15 @@ fn optimize_job(
     let quick = model.is_ok() && sparrow_shaped(job) && clock.timing() == Timing::Wall;
     let mut warm = None;
     if quick {
-        let first = warm_start(job, options.seed, clock, 0.0, finish, options.seconds)?;
+        let first = warm_start(
+            job,
+            options.seed,
+            clock,
+            0.0,
+            finish,
+            options.seconds,
+            material,
+        )?;
         if first.best.complete && first.validation.valid {
             warm = Some(first);
         }
@@ -699,6 +752,7 @@ fn optimize_job(
             warm_until,
             finish,
             options.seconds,
+            material,
         )?,
     };
     ensure!(
@@ -770,6 +824,7 @@ fn optimize_job(
                             finish,
                             finish,
                             options.seconds,
+                            material,
                         )?;
                         if more.best.complete
                             && more.validation.valid
@@ -965,6 +1020,7 @@ fn single_size_start(
             now + share,
             (now + 2.0 * share).min(finish),
             options.seconds,
+            None,
         ) else {
             continue;
         };
@@ -1038,6 +1094,7 @@ fn warm_start(
     warm_until: f64,
     finish: f64,
     seconds: f64,
+    material: Option<&crate::scoring::MaterialAreas>,
 ) -> Result<crate::optimize::SearchResult> {
     let explain_interruption = |e: anyhow::Error| {
         if e.is::<crate::control::Interrupted>() {
@@ -1067,11 +1124,17 @@ fn warm_start(
                     .then_some(StopReason::Deadline)
             };
             let mut control = Control::new(None, Some(&mut probe));
-            crate::optimize::optimize_controlled(job, construct, &mut control, |p| {
-                if p.complete && (p.accepted || p.pass > 0) {
-                    complete.set(true);
-                }
-            })
+            crate::optimize::optimize_controlled_scored(
+                job,
+                construct,
+                &mut control,
+                material,
+                |p| {
+                    if p.complete && (p.accepted || p.pass > 0) {
+                        complete.set(true);
+                    }
+                },
+            )
             .map_err(explain_interruption)?
         }
         Timing::Work => {
@@ -1089,36 +1152,41 @@ fn warm_start(
             let quota = ((warm_until - clock.now()).max(0.0) * CHECKS_PER_SECOND / weight) as u64;
             let mut deadline = || clock.now().is_infinite().then_some(StopReason::Deadline);
             let mut control = Control::new(Some(quota.max(1)), Some(&mut deadline));
-            let warm =
-                match crate::optimize::optimize_controlled(job, construct, &mut control, |_| {}) {
-                    Err(e)
-                        if matches!(
-                            e.downcast_ref::<crate::control::Interrupted>(),
-                            Some(crate::control::Interrupted(StopReason::WorkLimit))
-                        ) =>
-                    {
-                        let mut deadline =
-                            || clock.now().is_infinite().then_some(StopReason::Deadline);
-                        let mut once_control = Control::new(None, Some(&mut deadline));
-                        let once = crate::optimize::Options {
-                            passes: 1,
-                            ..construct
-                        };
-                        let warm = crate::optimize::optimize_controlled(
-                            job,
-                            once,
-                            &mut once_control,
-                            |_| {},
-                        )
-                        .map_err(explain_interruption)?;
-                        clock.charge(
-                            Work::ConstructorCheck,
-                            once_control.collision_checks() as f64 * weight,
-                        );
-                        warm
-                    }
-                    other => other.map_err(explain_interruption)?,
-                };
+            let warm = match crate::optimize::optimize_controlled_scored(
+                job,
+                construct,
+                &mut control,
+                material,
+                |_| {},
+            ) {
+                Err(e)
+                    if matches!(
+                        e.downcast_ref::<crate::control::Interrupted>(),
+                        Some(crate::control::Interrupted(StopReason::WorkLimit))
+                    ) =>
+                {
+                    let mut deadline = || clock.now().is_infinite().then_some(StopReason::Deadline);
+                    let mut once_control = Control::new(None, Some(&mut deadline));
+                    let once = crate::optimize::Options {
+                        passes: 1,
+                        ..construct
+                    };
+                    let warm = crate::optimize::optimize_controlled_scored(
+                        job,
+                        once,
+                        &mut once_control,
+                        material,
+                        |_| {},
+                    )
+                    .map_err(explain_interruption)?;
+                    clock.charge(
+                        Work::ConstructorCheck,
+                        once_control.collision_checks() as f64 * weight,
+                    );
+                    warm
+                }
+                other => other.map_err(explain_interruption)?,
+            };
             clock.charge(
                 Work::ConstructorCheck,
                 control.collision_checks() as f64 * weight,
@@ -1235,7 +1303,7 @@ mod tests {
             false,
         );
         let clock = Clock::new(Timing::Work, 0.0);
-        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0);
+        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0, None);
         assert!(clock.hit_hard_limit());
         let error = result.expect_err("an expired deadline must stop the initial construction");
         assert!(error.to_string().contains("allow more time"), "{error:#}");

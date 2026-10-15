@@ -328,7 +328,8 @@ impl Nestbolt {
         }
         let seed = p.seed.unwrap_or(0);
         let library = self.library(&p.library_path).map_err(tool_error)?;
-        let (job, _) = p.request.job(&library).map_err(tool_error)?;
+        let prepared = p.request.prepare(&library).map_err(tool_error)?;
+        let job = prepared.job.clone();
         let stamp = format!(
             "{}-seed{seed}",
             std::time::SystemTime::now()
@@ -339,18 +340,14 @@ impl Nestbolt {
             .new_dir(p.out_dir.as_deref(), &stamp)
             .map_err(tool_error)?;
         let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel::<(f64, f64)>();
-        let solve_job = job.clone();
-        let allow_part_in_hole = p.request.common_line.is_none();
         let handle = tokio::task::spawn_blocking(move || {
-            nestbolt_core::sheets::optimize_with_part_in_hole(
-                &solve_job,
+            prepared.optimize(
                 nestbolt_core::sheets::Options {
                     seconds: budget,
                     seed,
                     timing: nestbolt_core::clock::Timing::Work,
                     ..Default::default()
                 },
-                allow_part_in_hole,
                 |progress, _| {
                     let _ = tx.send((progress.elapsed_seconds, progress.material));
                 },
@@ -368,7 +365,7 @@ impl Nestbolt {
                     .await;
             }
         }
-        let result = handle
+        let (result, cutting) = handle
             .await
             .map_err(|e| tool_error(anyhow::anyhow!("search task failed: {e}")))?
             .map_err(tool_error)?;
@@ -391,9 +388,9 @@ impl Nestbolt {
                 .map(|f| f.rsplit('/').next().unwrap_or(f).to_owned())
                 .collect();
             let repeatable = result.repeatable;
-            let common_line = p.request.common_line_reports(&library, &result.layout)?;
             let mut report = nestbolt_core::project::NestReport::new(result, budget, names);
-            report.common_line = common_line;
+            report.common_line = cutting.common_line;
+            report.lead_in = cutting.lead_in;
             Self::write_new(
                 &dir.join("report.json"),
                 serde_json::to_string_pretty(&report)?.as_bytes(),
@@ -424,12 +421,14 @@ impl Nestbolt {
     ) -> Result<CallToolResult, ErrorData> {
         (|| -> Result<CallToolResult> {
             let library = self.library(&p.library_path)?;
-            let (job, _) = p.request.job(&library)?;
             let path = self.inside(&p.layout_path)?;
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&std::fs::read(&path)?).context("invalid layout JSON")?;
-            let report = nestbolt_validator::job::validate(&job, &layout)?;
-            Ok(CallToolResult::structured(Self::summary(&report)))
+            let report = p.request.cutting_report(&library, &layout)?;
+            let mut reply = Self::summary(&report.validation);
+            reply["common_line"] = serde_json::to_value(report.common_line)?;
+            reply["lead_in"] = serde_json::to_value(report.lead_in)?;
+            Ok(CallToolResult::structured(reply))
         })()
         .map_err(tool_error)
     }
@@ -462,7 +461,8 @@ impl Nestbolt {
                 (p.format.as_deref(), p.sheet_outline),
             )?;
             Ok(CallToolResult::structured(json!({"files": files,
-                "common_line":p.request.common_line_reports(&library,&layout)?})))
+                "common_line":p.request.common_line_reports(&library,&layout)?,
+                "lead_in":p.request.cutting_report(&library,&layout)?.lead_in})))
         })()
         .map_err(tool_error)
     }

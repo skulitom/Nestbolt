@@ -515,3 +515,52 @@ proptest! {
         prop_assert!(b.inside(&rebuilt, 0.0).unwrap().outside_area <= quantization_area);
     }
 }
+
+#[test]
+fn reserved_metrics_keep_original_material_and_exclude_leads_from_the_offcut_in_both_units() {
+    let (mm, placed) = fixture();
+    let mut values = vec![];
+    for units in [Units::Mm, Units::Inch] {
+        let factor = units.to_mm();
+        let mut job = mm.clone();
+        let mut layout = placed.clone();
+        job.units = units;
+        layout.units = units;
+        for part in &mut job.parts {
+            for polygon in &mut part.geometry {
+                for point in &mut polygon.outer {
+                    for v in point {
+                        *v /= factor;
+                    }
+                }
+            }
+        }
+        for stock in &mut job.stocks {
+            stock.width /= factor;
+            stock.height /= factor;
+        }
+        for p in &mut layout.placements {
+            for v in &mut p.transform.translation {
+                *v /= factor;
+            }
+        }
+        let leads = [
+            allowance(0, [5.0, 13.0], [5.0, 10.0]),
+            allowance(1, [5.0, 13.0], [5.0, 10.0]),
+        ];
+        let report = leads::validate(&job, &layout, &leads).unwrap();
+        assert!(report.valid);
+        let metrics = report.metrics.unwrap();
+        assert!((metrics.placed_area - 200.0).abs() < 1e-6);
+        assert_eq!(metrics.placed_priority, 2.0);
+        assert!((33.19..33.21).contains(&(metrics.last_sheet_used_height * factor)));
+        assert!((3319.0..3321.0).contains(&metrics.material_area));
+        assert!((metrics.trailing_offcut_area + metrics.material_area - 10000.0).abs() < 1e-6);
+        values.push(metrics.material_area);
+        let invalid =
+            leads::validate(&job, &layout, &[allowance(0, [5.0, 90.0], [5.0, 10.0])]).unwrap();
+        assert!(!invalid.valid);
+        assert!(invalid.metrics.is_none());
+    }
+    assert!((values[0] - values[1]).abs() < 1e-6);
+}

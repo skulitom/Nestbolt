@@ -8,6 +8,50 @@ fn args(value: Value) -> serde_json::Map<String, Value> {
 }
 
 #[tokio::test(flavor = "current_thread")]
+async fn lead_allowances_report_flags_and_revalidate_identically() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace =
+        std::env::temp_dir().join(format!("nestbolt-mcp-leads-{}-{stamp}", std::process::id()));
+    std::fs::create_dir_all(&workspace).unwrap();
+    std::fs::write(
+        workspace.join("leads.svg"),
+        include_str!("../../core/tests/fixtures/leads.svg"),
+    )
+    .unwrap();
+    timeout(Duration::from_secs(90),async {
+        let mut command=Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));command.env("NESTBOLT_WORKSPACE",&workspace);
+        let client=().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call=|name:&'static str,value:Value|{let client=&client;async move {
+            client.call_tool(CallToolRequestParams::new(name).with_arguments(args(value))).await
+        }};
+        let imported=call("import_parts",json!({"paths":["leads.svg"]})).await.unwrap().structured_content.unwrap();
+        let library=&imported["library_path"];
+        let request=json!({"parts":[{"id":"leads-1","quantity":2}],"sheets":[{"width_mm":60,"height_mm":35}],
+            "spacing_mm":0.2,"edge_spacing_mm":1,"lead_in":{"kerf_mm":0.2}});
+        let nested=call("nest",json!({"library_path":library,"request":request,"out_dir":"nested","time_budget_s":1})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"],true);
+        assert_eq!(nested["lead_in"]["expected_contours"],6);assert_eq!(nested["lead_in"]["flagged_contours"],2);
+        assert_eq!(nested["lead_in"]["options"]["length_mm"],3.0);
+        let checked=call("validate_layout",json!({"library_path":library,"request":request,"layout_path":"nested/layout.json"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["lead_in"],checked["lead_in"]);
+        assert_eq!(nested["validation"]["metrics"],checked["metrics"]);
+        let exported=call("export_layout",json!({"library_path":library,"request":request,"layout_path":"nested/layout.json","out_dir":"exported"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["lead_in"],exported["lead_in"]);
+        for file in exported["files"].as_array().unwrap() {
+            let name=file.as_str().unwrap();let text=std::fs::read_to_string(workspace.join(name)).unwrap();
+            assert!(text.contains("LEADIN"));
+            assert_eq!(text,std::fs::read_to_string(workspace.join("nested").join(std::path::Path::new(name).file_name().unwrap())).unwrap());
+        }
+        let mut bad=request;bad["lead_in"]["length_mm"]=json!(0.4);
+        assert!(call("nest",json!({"library_path":library,"request":bad,"out_dir":"bad","time_budget_s":1})).await.unwrap_err().to_string().contains("between 0.5 and 50"));
+        client.cancel().await.unwrap();
+    }).await.unwrap();
+}
+
+#[tokio::test(flavor = "current_thread")]
 async fn common_line_parameter_controls_spacing_and_export_report() {
     let stamp = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)

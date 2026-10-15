@@ -21,8 +21,10 @@ use crate::{
 const MIN_LENGTH_MM: f64 = 0.5;
 const EPS: f64 = 1e-9;
 
+mod layout;
 #[cfg(test)]
 mod tests;
+pub use layout::{LayoutPlan, PlacedPartPlan, finalize};
 
 #[derive(Clone, Copy, Debug, Default, Deserialize, Serialize, JsonSchema)]
 #[serde(rename_all = "snake_case")]
@@ -36,10 +38,24 @@ pub enum Style {
 #[serde(deny_unknown_fields)]
 pub struct Options {
     pub kerf_mm: f64,
+    #[serde(default = "default_length")]
     pub length_mm: f64,
+    #[serde(default)]
     pub style: Style,
+    #[serde(default = "default_outer_angle")]
     pub outer_angle_degrees: f64,
+    #[serde(default = "default_hole_angle")]
     pub hole_angle_degrees: f64,
+}
+
+fn default_length() -> f64 {
+    3.0
+}
+fn default_outer_angle() -> f64 {
+    45.0
+}
+fn default_hole_angle() -> f64 {
+    90.0
 }
 
 impl Options {
@@ -128,38 +144,48 @@ impl Prepared {
             let plan = plans
                 .get(placement.part_id.as_str())
                 .context("placement has no lead plan")?;
-            let mut starts = vec![None; plan.contour_count];
-            for lead in &plan.reservations {
-                starts[lead.contour_index] = Some(lead.start);
-                let path = lead.paths[0].transformed(placement.transform, layout.units)?;
-                let start = path.point(0.0);
-                let segment = match path {
-                    Path::Line { to_mm, .. } => Segment::Line { to: to_mm },
-                    Path::Arc {
-                        center_mm,
-                        radius_mm,
-                        start_radians,
-                        sweep_radians,
-                    } => Segment::Arc {
-                        center: center_mm,
-                        radii: [radius_mm, radius_mm],
-                        rotation: 0.0,
-                        start: start_radians,
-                        sweep: sweep_radians,
-                    },
-                };
-                review.leadin.push(Contour {
-                    start,
-                    segments: vec![segment],
-                });
-            }
-            review.starts.insert(
-                format!("{}#{}", placement.part_id, placement.copy_index),
-                starts,
-            );
+            append_review(&mut review, plan, placement, layout.units)?;
         }
         Ok(review)
     }
+}
+
+fn append_review(
+    review: &mut crate::export::ReviewPaths,
+    plan: &PartPlan,
+    placement: &nestbolt_validator::job::Placement,
+    units: Units,
+) -> Result<()> {
+    let mut starts = vec![None; plan.contour_count];
+    for lead in &plan.reservations {
+        starts[lead.contour_index] = Some(lead.start);
+        let path = lead.paths[0].transformed(placement.transform, units)?;
+        let start = path.point(0.0);
+        let segment = match path {
+            Path::Line { to_mm, .. } => Segment::Line { to: to_mm },
+            Path::Arc {
+                center_mm,
+                radius_mm,
+                start_radians,
+                sweep_radians,
+            } => Segment::Arc {
+                center: center_mm,
+                radii: [radius_mm, radius_mm],
+                rotation: 0.0,
+                start: start_radians,
+                sweep: sweep_radians,
+            },
+        };
+        review.leadin.push(Contour {
+            start,
+            segments: vec![segment],
+        });
+    }
+    review.starts.insert(
+        format!("{}#{}", placement.part_id, placement.copy_index),
+        starts,
+    );
+    Ok(())
 }
 
 /// Disallowed attachment intervals on local contours, measured in millimetres
@@ -465,6 +491,16 @@ pub fn prepare(
     options: Options,
     exclusions: &HashMap<String, Vec<Exclusion>>,
 ) -> Result<Prepared> {
+    prepare_filtered(job, curves, options, exclusions, |_, _, _| Ok(true))
+}
+
+fn prepare_filtered(
+    job: &Job,
+    curves: &HashMap<String, Outline>,
+    options: Options,
+    exclusions: &HashMap<String, Vec<Exclusion>>,
+    mut accept: impl FnMut(&str, usize, &[Path]) -> Result<bool>,
+) -> Result<Prepared> {
     options.validate()?;
     ensure!(
         exclusions
@@ -565,10 +601,16 @@ pub fn prepare(
                 if exclusions.get(&part.id).is_some_and(|spans| {
                     spans.iter().any(|span| {
                         span.contour_index == index
-                            && ((candidate.distance + EPS >= span.from_mm
-                                && candidate.distance <= span.to_mm + EPS)
-                                || (candidate.distance + perimeter + EPS >= span.from_mm
-                                    && candidate.distance + perimeter <= span.to_mm + EPS))
+                            && ((candidate.distance + crate::common_line::COLLINEAR_MM
+                                >= span.from_mm
+                                && candidate.distance
+                                    <= span.to_mm + crate::common_line::COLLINEAR_MM)
+                                || (candidate.distance
+                                    + perimeter
+                                    + crate::common_line::COLLINEAR_MM
+                                    >= span.from_mm
+                                    && candidate.distance + perimeter
+                                        <= span.to_mm + crate::common_line::COLLINEAR_MM))
                     })
                 }) {
                     continue;
@@ -597,9 +639,16 @@ pub fn prepare(
                     options.length_mm
                 };
                 while len + EPS >= MIN_LENGTH_MM {
+                    // Use the same micrometre precision as the displayed CAM
+                    // setting. Rounding only the report could describe a path
+                    // different from the one whose footprint was reserved.
+                    let actual = (len * 1000.0 + EPS).floor() / 1000.0;
+                    if actual < MIN_LENGTH_MM {
+                        break;
+                    }
                     let paths = vec![
-                        path(attachment, forward, side, len, angle, options.style)?,
-                        path(attachment, reverse, -side, len, angle, options.style)?,
+                        path(attachment, forward, side, actual, angle, options.style)?,
+                        path(attachment, reverse, -side, actual, angle, options.style)?,
                     ];
                     let shape = leads::footprint(&paths, options.kerf_mm)?;
                     if owner.fits(&paths)?
@@ -609,13 +658,14 @@ pub fn prepare(
                             .collect::<Result<Vec<_>>>()?
                             .iter()
                             .all(|p| p.overlap_area == 0.0)
+                        && accept(&part.id, index, &paths)?
                     {
                         reservation = Some((
                             Reservation {
                                 contour_index: index,
                                 start,
-                                length_mm: len,
-                                shortened: len < options.length_mm - EPS,
+                                length_mm: actual,
+                                shortened: actual < options.length_mm - EPS,
                                 paths,
                             },
                             shape,

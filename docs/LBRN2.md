@@ -480,6 +480,8 @@ match within 0.000002569 mm; the largest contour difference is 0.00245745 mm.
 
 Each coupon uses one angle for both outer and hole contours. LightBurn stores
 `leadAngle` per layer; applying different outer/hole angles or different shortened
-lengths needs separate settings. The defaults and shortened-lead workflow remain
-to be exposed and verified. These native previews do not complete H6: public
-surface integration, final coverage reporting and material-cost evidence remain.
+lengths needs separate settings. The [public lead controls and reports](LEAD_INS.md)
+now expose these settings, flag unreserved contours and list shortened lengths.
+The separate-layer/default-angle/shortened-length workflow still needs a native
+check. These previews do not complete H6; multi-component planning, broader
+independent coverage/owner auditing and material-cost evidence remain.
