@@ -10,7 +10,15 @@ const browser = await engine.launch({ headless: true,
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });
 const page = await context.newPage();
 page.setDefaultTimeout(30_000);
-const record = { browser: plan.browser, version: browser.version(), status: 'running', marks: {}, console_errors: [] };
+const record = { browser: plan.browser, version: browser.version(), status: 'running', marks: {}, console_errors: [], worker_events: [], maximum_workers: 0 };
+const activeWorkers = new Set();
+page.on('worker', worker => {
+  const event = { url: worker.url(), opened_at_ms: Date.now() };
+  record.worker_events.push(event);
+  activeWorkers.add(worker);
+  record.maximum_workers = Math.max(record.maximum_workers, activeWorkers.size);
+  worker.on('close', () => { event.closed_at_ms = Date.now(); activeWorkers.delete(worker); });
+});
 page.on('pageerror', error => record.console_errors.push(String(error)));
 await context.route('**/*', route => {
   const url = new URL(route.request().url());
@@ -52,12 +60,14 @@ try {
   await page.getByLabel('Part spacing').fill('1.5');
   await page.getByLabel('Edge spacing').fill('1.5');
   await page.getByLabel('Time').fill(String(plan.seconds));
-  if (plan.quick_start) {
+  if (plan.quick_start || plan.workers != null) {
     await page.getByText('Advanced', { exact: true }).click();
-    await page.getByLabel('Quick initial layout', { exact: true }).check();
+    if (plan.quick_start) await page.getByLabel('Quick initial layout', { exact: true }).check();
+    if (plan.workers != null) await page.getByLabel('Workers').fill(String(plan.workers));
   }
   await expect(page.getByLabel('Quick initial layout', { exact: true })).toBeChecked({ checked: !!plan.quick_start });
   record.workers_field = await page.getByLabel('Workers').inputValue();
+  record.utility_workers_before_nesting = page.workers().length;
   await mark('nest_start');
   await page.getByRole('button', { name: 'Nest', exact: true }).click();
   await page.waitForFunction(() => document.querySelector('[role=alert]')?.textContent

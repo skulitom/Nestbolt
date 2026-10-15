@@ -1,0 +1,87 @@
+{
+  "scope": "H4 scale: frozen 2,000 letters/gears through the actual browser app.\n\nDefault workers unless explicitly overridden for a recorded diagnostic;\n60-second search, all original geometry and exports retained.\nWhole browser process-tree RSS/private memory must be below 1.5e9 bytes. A 20 ms\nevent-loop heartbeat conservatively gates responsiveness in both browsers; when\navailable, Long Tasks entries must also stay <=200 ms. Missing telemetry fails.\n",
+  "baseline_commit": "5256b78fe69a718b5cf314e46f72a02699482419",
+  "guards": {
+    "product": "ecfc02aaaec252ea3700d16fe341e7891b7d7ec24484a7be12f0417b39dfbb6f",
+    "python_runner": "b56763032400e57160d1ed90103cef9a301bddf0e18c70cb38c71642556c72e8",
+    "browser_runner": "048a7b7c5397ba82f239799c6dca1ab51ebce949c9ea071cdce7e2c0c7d775d3",
+    "fixture_manifest": "1373e56958c6c0d6902d9802b762a5fa499f7b4e54f1510daeaf42227beba2d9",
+    "fixture": "f95f04ab7ab8a077e78da706aabb29aac85c978351944eff752ec80b7b2e04f2",
+    "validator": "fc0c7f6fbd64a4775a53781a34caae64dae9c70ac0ed0651fd3bc8a448e4a908",
+    "built_site": {
+      "assets/archive-worker-DKDW6ovz.js": "9fc0391cda8855a0799bb3758f436425bf017451ba8bd93c7fffe64071d5b68c",
+      "assets/bench-DcScQv8Z.js": "1ebdf1b2fb378e81c7224236d5943d1bd1948bb2cf7bded00a6d065c1094a529",
+      "assets/engine-CWq6EneH.js": "4aa1d382bf91a81fc33745b7d9e07479b7484dfb839786289a227602a7180808",
+      "assets/main-CQ7Uo33I.js": "efa7505f8766766dc3dbe5390a0c074c394aabea8832e3072789522442f3b51e",
+      "assets/main-mA8Hn3k0.css": "957b6388afa9d1602d51a80b74ea6fd900f5910f0c2961e27470ef2f4919a8b7",
+      "assets/nestbolt_wasm_bg-BmRBh0wd.wasm": "6295384d13a1f7648cb6fc574714424cd146d83827187e7d774569913b3f2453",
+      "assets/worker-mAiKBgcD.js": "f4e63e4979464afbe0ce556a4b7f19b8fe3638f0f02a324f23f37d4377eec122",
+      "bench.html": "ac3a66036de5f7a918ce7679f47f23853b514c962604d6628d776b05511a2446",
+      "examples/boxes.svg": "7dbffb99b16666c8ce2d11e73538a7761cd2f43a845eb1793cfe08c60fa201d0",
+      "examples/examples.json": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+      "examples/gears.svg": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "examples/letters.svg": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "examples/LICENSES.txt": "f8a4965587f7ff36098453a66bf12ffd938bc347e41a48f1baf918a87a232a82",
+      "examples/mechanical.svg": "fce476d786fe1075e4991d6b26e8a36a194c193faa461d4d602d2ad8f59c1409",
+      "examples/sewing.svg": "549457bd2cb3698ca9b4e3a2a071d3fb5e6a67c41ef23df3b311da22095a1a9a",
+      "index.html": "e362f08520a62ac346468c29911340227638c6b57f88a106d76beb068314d3a0",
+      "results/final-484ce8b/index.html": "45192de7938f7fadcca4efed0cfe51f4f97a733658faa5e1b536ea62292d11e3",
+      "results/final-484ce8b/results.json": "65531883c8446dceacff3246a1c4e46727b3253b1a2677a7ef875d96d9a4fc2d",
+      "results/index.html": "4145368c1d0929574096b69e3adee945510cbd61ec80de8cdd790fb74a7d28d1",
+      "results/results.json": "495bf4b8d89652aee32f75c21c1c51dbeaeda0c6ac3d710ff5a56c0933b62878",
+      "THIRD_PARTY_NOTICES.txt": "7b8557902f6891966b64ec2d2f0d4dbff69b193e497fe29172aa237f6fe0aa5f"
+    }
+  },
+  "cpus": [
+    0,
+    2
+  ],
+  "memory_limit_bytes": 1500000000,
+  "responsiveness_limit_ms": 200,
+  "memory_sample_seconds": 0.2,
+  "external_timeout_seconds": 900,
+  "held_out_geometry_read": false,
+  "fixture": {
+    "version": 1,
+    "scope": "H4 development scale; no held-out geometry",
+    "svg": "letters-gears-2000.svg",
+    "sha256": "f95f04ab7ab8a077e78da706aabb29aac85c978351944eff752ec80b7b2e04f2",
+    "copies_per_part": 500,
+    "total_parts": 2000,
+    "ids": [
+      "letter-S-80mm",
+      "letter-B-80mm",
+      "gear-1",
+      "gear-2"
+    ],
+    "sheet_mm": [
+      1250,
+      2500
+    ],
+    "spacing_mm": 1.5,
+    "edge_spacing_mm": 1.5,
+    "seconds": 60,
+    "workers": "app default (effective cap two above 1000 parts)",
+    "sources": [
+      {
+        "path": "web/public/examples/letters.svg",
+        "sha256": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a"
+      },
+      {
+        "path": "web/public/examples/gears.svg",
+        "sha256": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff"
+      }
+    ],
+    "license_record": "web/public/examples/LICENSES.txt",
+    "licenses": {
+      "letters": "Bitstream Vera / DejaVu outlined drawing geometry, as prescribed by PLAN_V1_1",
+      "gears": "Steren Openclipart gear, public domain / CC0"
+    },
+    "generator_sha256": "3d4ebe663532a4d5cb45ac4a24beae6932f939102f606a6be2fd8e995d06fb46"
+  },
+  "quick_start": true,
+  "workers_override": 1,
+  "pinned_validator": "C:\\DEV\\Nestbolt\\output\\h4-curve-scale-20261015T174342Z\\nestbolt.exe",
+  "validator_source": "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+  "validator_source_sha256": "fc0c7f6fbd64a4775a53781a34caae64dae9c70ac0ed0651fd3bc8a448e4a908"
+}

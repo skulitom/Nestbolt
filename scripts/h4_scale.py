@@ -1,6 +1,7 @@
 """H4 scale: frozen 2,000 letters/gears through the actual browser app.
 
-Default workers, 60-second search, all original geometry and exports retained.
+Default workers unless explicitly overridden for a recorded diagnostic;
+60-second search, all original geometry and exports retained.
 Whole browser process-tree RSS/private memory must be below 1.5e9 bytes. A 20 ms
 event-loop heartbeat conservatively gates responsiveness in both browsers; when
 available, Long Tasks entries must also stay <=200 ms. Missing telemetry fails.
@@ -37,16 +38,16 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=2)+'\n', encoding='utf-8', newline='\n')
 
 
-def guards():
+def guards(validator=CLI):
     return {'product': source_digest(), 'python_runner': digest(Path(__file__)),
             'browser_runner': digest(ROOT/'web/bench/scale.mjs'),
             'fixture_manifest': digest(FIXTURE/'manifest.json'),
-            'fixture': digest(FIXTURE/'letters-gears-2000.svg'), 'validator': digest(CLI),
+            'fixture': digest(FIXTURE/'letters-gears-2000.svg'), 'validator': digest(validator),
             'built_site': {p.relative_to(ROOT/'web/dist').as_posix(): digest(p)
                            for p in sorted((ROOT/'web/dist').rglob('*')) if p.is_file()}}
 
 
-def validate_export(folder):
+def validate_export(folder, validator=CLI):
     with zipfile.ZipFile(folder/'project.zip') as archive:
         assert archive.testzip() is None, 'ZIP CRC failure'
         project = json.loads(archive.read('project.json'))
@@ -79,7 +80,7 @@ def validate_export(folder):
         # The shipped gear example represents its curved outline as a dense
         # polyline. Preserve that exact source, and record its actual complexity.
         assert all(p['proxy_vertices'] >= 500 for p in gears)
-    validation = checked_run([CLI, 'validate', '--library', folder/'library.json',
+    validation = checked_run([validator, 'validate', '--library', folder/'library.json',
         '--request', folder/'request.json', '--layout', folder/'layout.json'], folder, 'validate', 4, 180)
     assert validation['exit_code'] == 0, 'Independent native validation failed'
     checked = json.loads((folder/'validate-stdout.json').read_text(encoding='utf-8'))
@@ -90,11 +91,11 @@ def validate_export(folder):
             'metrics': checked['metrics']}
 
 
-def case(browser, url, out, quick_start):
+def case(browser, url, out, quick_start, workers, validator):
     folder = out/browser
     folder.mkdir()
     plan = {'browser': browser, 'url': url, 'out': str(folder), 'seconds': 60,
-            'svg': str(FIXTURE/'letters-gears-2000.svg'), 'quick_start': quick_start}
+            'svg': str(FIXTURE/'letters-gears-2000.svg'), 'quick_start': quick_start, 'workers': workers}
     write(folder/'plan.json', plan)
     stop = threading.Event()
     samples = []
@@ -159,7 +160,9 @@ def case(browser, url, out, quick_start):
         record['app'] = json.loads((folder/'app.json').read_text(encoding='utf-8'))
     try:
         assert record['exit_code'] == 0 and record.get('app', {}).get('status') == 'completed'
-        record['independent_check'] = validate_export(folder)
+        if workers is not None:
+            assert int(record['app']['workers_field']) == workers, 'Worker setting was not applied'
+        record['independent_check'] = validate_export(folder, validator)
         record['status'] = 'valid'
     except Exception:
         record['error'] = traceback.format_exc()
@@ -175,6 +178,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--browser', choices=['chrome', 'firefox'], action='append')
     parser.add_argument('--quick-start', action='store_true', help='Enable the opt-in early rectangle incumbent')
+    parser.add_argument('--workers', type=int, choices=range(1, 9), help='Explicit UI worker setting for a diagnostic; otherwise use app defaults')
     args = parser.parse_args()
     fixture = json.loads((FIXTURE/'manifest.json').read_text(encoding='utf-8'))
     assert digest(FIXTURE/fixture['svg']) == fixture['sha256']
@@ -185,11 +189,21 @@ def main():
     name = 'h4-curve-scale-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     out = ROOT/'benchmarks/results'/name
     out.mkdir()
-    before = guards()
+    # Cargo's optimized feature tests can rebuild the standalone CLI. Pin the
+    # executable actually used here; its hash remains guarded throughout.
+    work = ROOT/'output'/name
+    work.mkdir()
+    validator = work/'nestbolt.exe'
+    original_validator = digest(CLI)
+    shutil.copy2(CLI, validator)
+    assert digest(validator) == original_validator == digest(CLI), 'Validator changed while pinning'
+    before = guards(validator)
     plan = {'scope': __doc__, 'baseline_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
             'guards': before, 'cpus': CPUS, 'memory_limit_bytes': LIMIT, 'responsiveness_limit_ms': 200,
             'memory_sample_seconds': 0.2, 'external_timeout_seconds': 900,
-            'held_out_geometry_read': False, 'fixture': fixture, 'quick_start': args.quick_start}
+            'held_out_geometry_read': False, 'fixture': fixture, 'quick_start': args.quick_start,
+            'workers_override': args.workers, 'pinned_validator': str(validator),
+            'validator_source': str(CLI), 'validator_source_sha256': original_validator}
     write(out/'plan.json', plan)
     for source in [Path(__file__), ROOT/'web/bench/scale.mjs']:
         (out/source.name).write_bytes(source.read_bytes())
@@ -198,13 +212,13 @@ def main():
     rows = []
     try:
         for browser in args.browser or ['chrome', 'firefox']:
-            row = case(browser, f'http://127.0.0.1:{server.server_address[1]}/', out, args.quick_start)
+            row = case(browser, f'http://127.0.0.1:{server.server_address[1]}/', out, args.quick_start, args.workers, validator)
             rows.append(row)
             write(out/'progress.json', rows)
             print(json.dumps({k: row[k] for k in ['browser', 'status', 'passes', 'peak_rss_bytes', 'peak_private_bytes']}), flush=True)
     finally:
         server.shutdown()
-    assert guards() == before, 'Sources changed during measurement'
+    assert guards(validator) == before, 'Sources changed during measurement'
     record = {**plan, 'results': rows, 'passes': all(r['passes'] for r in rows)}
     write(out/'results.json', record)
     print(json.dumps({'folder': str(out), 'passes': record['passes']}), flush=True)

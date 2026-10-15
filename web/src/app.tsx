@@ -1,11 +1,11 @@
 import { partGeometry } from './types';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { exportFilename, exportSheet, importFiles, importSheet, inspectFiles, readDrawingFile, Portfolio } from './engine';
+import { exportArchive, exportFilename, exportSheet, importFiles, importSheet, inspectFiles, readDrawingFile, Portfolio } from './engine';
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
 import { deleteProject, listProjects, loadProject, saveProject } from './storage';
 import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Project, RequestPart, RequestSheet, Rotations, SheetOutline } from './types';
-import { unzip, zip } from './zip';
+import { unzip } from './zip';
 
 const ROTATIONS: { label: string; value: Rotations }[] = [
   { label: '0/90/180/270°', value: { kind: 'list', degrees: [0, 90, 180, 270] } },
@@ -31,8 +31,8 @@ const blankSheet = (w = 600, h = 400): RequestSheet => ({
 
 const emptyRequest = (): NestRequest => ({ parts: [], sheets: [blankSheet()], spacing_mm: 1, edge_spacing_mm: 1, mode: 'all' });
 
-function download(name: string, data: string | Uint8Array, type: string) {
-  const url = URL.createObjectURL(new Blob([data as BlobPart], { type }));
+function download(name: string, data: string | Uint8Array | Blob, type: string) {
+  const url = URL.createObjectURL(data instanceof Blob ? data : new Blob([data as BlobPart], { type }));
   const a = document.createElement('a');
   a.href = url;
   a.download = name;
@@ -289,24 +289,8 @@ export function App() {
     setError(null);
   }
 
-  async function exportsFor(r: NestResult) {
-    if (!library) return [];
-    const files: { name: string; data: string }[] = [];
-    for (const sheet of r.layout.sheets) {
-      for (const format of (library.lightburn ? (request.lead_in ? ['lbrn2', 'svg', 'dxf'] : ['lbrn2']) : ['svg', 'dxf']) as ('svg' | 'dxf' | 'lbrn2')[]) {
-        files.push({ name: `sheets/${exportFilename(library, r.layout, sheet.id, format)}`, data: await exportSheet(library, request, r.layout, sheet.id, format, format === 'lbrn2' ? lightburnOutline : false) });
-      }
-    }
-    return files;
-  }
-
   async function saveZip() {
-    const files: { name: string; data: string }[] = [{ name: 'project.json', data: JSON.stringify(project(), null, 1) }];
-    if (result) {
-      files.push({ name: 'layout.json', data: JSON.stringify(result.layout, null, 1) });
-      files.push(...(await exportsFor(result)));
-    }
-    download(`${name.replace(/[^\w.-]+/g, '_') || 'nestbolt'}.zip`, zip(files), 'application/zip');
+    download(`${name.replace(/[^\w.-]+/g, '_') || 'nestbolt'}.zip`, await exportArchive(project(), true), 'application/zip');
   }
 
   async function openZip(list: FileList | null) {
@@ -613,7 +597,7 @@ export function App() {
                 ])}
                 <p class="hint">LEADIN is a red review layer. Assign separate cut settings to contours with different angles or shortened lengths before enabling LightBurn’s own leads.</p>
               </div> : null}
-              <button onClick={guarded(async () => download('sheets.zip', zip(await exportsFor(result)), 'application/zip'))}>Download all sheets (ZIP)</button>
+              <button onClick={guarded(async () => download('sheets.zip', await exportArchive(project(), false), 'application/zip'))}>Download all sheets (ZIP)</button>
               <div class="sheets">
                 {result.layout.sheets.map((s) => (
                   <figure key={s.id}>

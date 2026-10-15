@@ -1,4 +1,4 @@
-import type { ImportSelection, Layout, Library, NestRequest, NestResult, Report, SheetImport } from './types';
+import type { ImportSelection, Layout, Library, NestRequest, NestResult, Project, Report, SheetImport } from './types';
 import { betterResult } from './scoring';
 
 type Progress = (t: number, material: number, layout?: Layout) => void;
@@ -123,11 +123,19 @@ export class Portfolio {
   }
 }
 
-/** Same source-stem and sheet-order naming as the native preserving exporter. */
-export function exportFilename(library: Library, layout: Layout, sheet: string, format: 'svg' | 'dxf' | 'lbrn2'): string {
-  if (!library.lightburn) return `${sheet}.${format}`;
-  const basename = library.lightburn.file.split(/[\\/]/).pop() || 'project';
-  const stem = basename.replace(/\.[^.]*$/, '');
-  const safe = Array.from(stem).map(c => /[a-zA-Z0-9_-]/.test(c) ? c : '-').join('');
-  return `${safe}-sheet-${layout.sheets.findIndex(s => s.id === sheet) + 1}${format === 'lbrn2' ? '' : '-cuts'}.${format}`;
+/** One short-lived worker owns export text/ZIP buffers and releases its engine
+ * after returning the finished Blob. No large strings/buffers cross the UI. */
+export function exportArchive(project: Project, includeProject: boolean): Promise<Blob> {
+  const worker = new Worker(new URL('./archive-worker.ts', import.meta.url), { type: 'module' });
+  return new Promise<Blob>((resolve, reject) => {
+    worker.onmessage = event => {
+      if (event.data.type === 'done' && event.data.value instanceof Blob) resolve(event.data.value);
+      else reject(new Error(event.data.message || 'archive worker returned no download'));
+    };
+    worker.onerror = event => reject(new Error(event.message || 'archive worker failed'));
+    worker.onmessageerror = () => reject(new Error('archive worker could not return the download'));
+    worker.postMessage({ project, includeProject });
+  }).finally(() => worker.terminate());
 }
+
+export { exportFilename } from './export-names';

@@ -638,3 +638,30 @@ assembly still stalls for 2.8/1.6 seconds. Next measure one worker to distinguis
 memory and CPU contention from drawing costs, then move archive assembly off the
 main thread. H4 remains open without changing its 1.5 GB / 200 ms limits or any
 native solver setting.
+
+
+### 2026-10-15: background ZIP generation retained; scale still fails
+
+The [worker/archive comparison](../benchmarks/results/h4-background-archive-20261015.md)
+first measures one search worker with unchanged product code, then moves ZIP
+exports to a short-lived worker at that same setting. The worker encodes each
+independently checked cutting file into an immutable Blob piece and returns a
+composite ZIP Blob. Output strings, CRC calculation and archive assembly leave
+the main thread. All twelve SVG/DXF comparisons are byte-identical, and all
+four saved layouts retain the same original geometry and validated metrics.
+
+The export heartbeat gap falls from 2,613.6 to 51.6 ms in Chrome and from 1,621
+to 51 ms in Firefox. Whole working sets fall to 1.419/1.368 GB, but Chrome's
+private-memory peak remains 1.822 GB during nesting. Firefox's private peak is
+1.389 GB, while its nesting heartbeat gap is 202 ms. Both overall scale results
+remain failed under the unchanged strict limits. No rounding, excluded phase or
+alternative memory definition is used to pass the gate. Timings are single-run
+development observations; the unchanged nesting path's faster wall time is not
+credited to the export change.
+
+Both source/site/runner/fixture guards and the exact pinned validator executable
+pass. All 74 enabled browser tests pass, including byte parity, invalid-layout
+rejection and worker cleanup. The old raw results and six check logs remain
+archived with hashes. Production worker defaults are unchanged. Next investigate
+search-worker memory and Firefox live-preview responsiveness before considering
+a default worker heuristic; browser quality and the native matrix remain open.

@@ -1,0 +1,642 @@
+{
+  "scope": "H4 scale: frozen 2,000 letters/gears through the actual browser app.\n\nDefault workers unless explicitly overridden for a recorded diagnostic;\n60-second search, all original geometry and exports retained.\nWhole browser process-tree RSS/private memory must be below 1.5e9 bytes. A 20 ms\nevent-loop heartbeat conservatively gates responsiveness in both browsers; when\navailable, Long Tasks entries must also stay <=200 ms. Missing telemetry fails.\n",
+  "baseline_commit": "5256b78fe69a718b5cf314e46f72a02699482419",
+  "guards": {
+    "product": "ecfc02aaaec252ea3700d16fe341e7891b7d7ec24484a7be12f0417b39dfbb6f",
+    "python_runner": "b56763032400e57160d1ed90103cef9a301bddf0e18c70cb38c71642556c72e8",
+    "browser_runner": "048a7b7c5397ba82f239799c6dca1ab51ebce949c9ea071cdce7e2c0c7d775d3",
+    "fixture_manifest": "1373e56958c6c0d6902d9802b762a5fa499f7b4e54f1510daeaf42227beba2d9",
+    "fixture": "f95f04ab7ab8a077e78da706aabb29aac85c978351944eff752ec80b7b2e04f2",
+    "validator": "fc0c7f6fbd64a4775a53781a34caae64dae9c70ac0ed0651fd3bc8a448e4a908",
+    "built_site": {
+      "assets/archive-worker-DKDW6ovz.js": "9fc0391cda8855a0799bb3758f436425bf017451ba8bd93c7fffe64071d5b68c",
+      "assets/bench-DcScQv8Z.js": "1ebdf1b2fb378e81c7224236d5943d1bd1948bb2cf7bded00a6d065c1094a529",
+      "assets/engine-CWq6EneH.js": "4aa1d382bf91a81fc33745b7d9e07479b7484dfb839786289a227602a7180808",
+      "assets/main-CQ7Uo33I.js": "efa7505f8766766dc3dbe5390a0c074c394aabea8832e3072789522442f3b51e",
+      "assets/main-mA8Hn3k0.css": "957b6388afa9d1602d51a80b74ea6fd900f5910f0c2961e27470ef2f4919a8b7",
+      "assets/nestbolt_wasm_bg-BmRBh0wd.wasm": "6295384d13a1f7648cb6fc574714424cd146d83827187e7d774569913b3f2453",
+      "assets/worker-mAiKBgcD.js": "f4e63e4979464afbe0ce556a4b7f19b8fe3638f0f02a324f23f37d4377eec122",
+      "bench.html": "ac3a66036de5f7a918ce7679f47f23853b514c962604d6628d776b05511a2446",
+      "examples/boxes.svg": "7dbffb99b16666c8ce2d11e73538a7761cd2f43a845eb1793cfe08c60fa201d0",
+      "examples/examples.json": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+      "examples/gears.svg": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "examples/letters.svg": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "examples/LICENSES.txt": "f8a4965587f7ff36098453a66bf12ffd938bc347e41a48f1baf918a87a232a82",
+      "examples/mechanical.svg": "fce476d786fe1075e4991d6b26e8a36a194c193faa461d4d602d2ad8f59c1409",
+      "examples/sewing.svg": "549457bd2cb3698ca9b4e3a2a071d3fb5e6a67c41ef23df3b311da22095a1a9a",
+      "index.html": "e362f08520a62ac346468c29911340227638c6b57f88a106d76beb068314d3a0",
+      "results/final-484ce8b/index.html": "45192de7938f7fadcca4efed0cfe51f4f97a733658faa5e1b536ea62292d11e3",
+      "results/final-484ce8b/results.json": "65531883c8446dceacff3246a1c4e46727b3253b1a2677a7ef875d96d9a4fc2d",
+      "results/index.html": "4145368c1d0929574096b69e3adee945510cbd61ec80de8cdd790fb74a7d28d1",
+      "results/results.json": "495bf4b8d89652aee32f75c21c1c51dbeaeda0c6ac3d710ff5a56c0933b62878",
+      "THIRD_PARTY_NOTICES.txt": "7b8557902f6891966b64ec2d2f0d4dbff69b193e497fe29172aa237f6fe0aa5f"
+    }
+  },
+  "cpus": [
+    0,
+    2
+  ],
+  "memory_limit_bytes": 1500000000,
+  "responsiveness_limit_ms": 200,
+  "memory_sample_seconds": 0.2,
+  "external_timeout_seconds": 900,
+  "held_out_geometry_read": false,
+  "fixture": {
+    "version": 1,
+    "scope": "H4 development scale; no held-out geometry",
+    "svg": "letters-gears-2000.svg",
+    "sha256": "f95f04ab7ab8a077e78da706aabb29aac85c978351944eff752ec80b7b2e04f2",
+    "copies_per_part": 500,
+    "total_parts": 2000,
+    "ids": [
+      "letter-S-80mm",
+      "letter-B-80mm",
+      "gear-1",
+      "gear-2"
+    ],
+    "sheet_mm": [
+      1250,
+      2500
+    ],
+    "spacing_mm": 1.5,
+    "edge_spacing_mm": 1.5,
+    "seconds": 60,
+    "workers": "app default (effective cap two above 1000 parts)",
+    "sources": [
+      {
+        "path": "web/public/examples/letters.svg",
+        "sha256": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a"
+      },
+      {
+        "path": "web/public/examples/gears.svg",
+        "sha256": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff"
+      }
+    ],
+    "license_record": "web/public/examples/LICENSES.txt",
+    "licenses": {
+      "letters": "Bitstream Vera / DejaVu outlined drawing geometry, as prescribed by PLAN_V1_1",
+      "gears": "Steren Openclipart gear, public domain / CC0"
+    },
+    "generator_sha256": "3d4ebe663532a4d5cb45ac4a24beae6932f939102f606a6be2fd8e995d06fb46"
+  },
+  "quick_start": true,
+  "workers_override": 1,
+  "pinned_validator": "C:\\DEV\\Nestbolt\\output\\h4-curve-scale-20261015T174342Z\\nestbolt.exe",
+  "validator_source": "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+  "validator_source_sha256": "fc0c7f6fbd64a4775a53781a34caae64dae9c70ac0ed0651fd3bc8a448e4a908",
+  "results": [
+    {
+      "browser": "chrome",
+      "status": "valid",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\DEV\\Nestbolt\\web\\bench\\scale.mjs",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\chrome\\plan.json"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_seconds": 150.41385500000615,
+      "peak_rss_bytes": 1418719232,
+      "peak_private_bytes": 1822097408,
+      "samples": 639,
+      "affinity_errors": [],
+      "app": {
+        "browser": "chrome",
+        "version": "155.0.8059.41",
+        "status": "completed",
+        "marks": {
+          "import_start": 1184.4000000059605,
+          "import_done": 1366.6000000089407,
+          "nest_start": 1489.800000011921,
+          "nest_done": 83804.90000000596,
+          "export_start": 83808.5,
+          "export_done": 148872.90000000596
+        },
+        "console_errors": [],
+        "worker_events": [
+          {
+            "url": "http://127.0.0.1:50618/assets/worker-mAiKBgcD.js",
+            "opened_at_ms": 1792086224933
+          },
+          {
+            "url": "http://127.0.0.1:50618/assets/worker-mAiKBgcD.js",
+            "opened_at_ms": 1792086225213,
+            "closed_at_ms": 1792086307397
+          },
+          {
+            "url": "http://127.0.0.1:50618/assets/archive-worker-DKDW6ovz.js",
+            "opened_at_ms": 1792086307697,
+            "closed_at_ms": 1792086372290
+          }
+        ],
+        "maximum_workers": 2,
+        "environment": {
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "logical_cpus": 32,
+          "visibility": "visible"
+        },
+        "workers_field": "1",
+        "utility_workers_before_nesting": 1,
+        "summary": "Sheets\n3\nMaterial\n2.247\nUtilisation\n57.6%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500",
+        "zip_bytes": 139495126,
+        "visible_text": "Nestbolt\nSave\nOpen saved\u2026\nDelete\nProject ZIP\nOpen ZIP\nNew\n\nFree, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.\n\nParts\nImport SVG, DXF or LightBurn (or drop files here)\n Close larger gaps\n\nGaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.\n\nLayers and colours \u2014 letters-gears-2000.svg\n\nCleanup: 0 duplicate segments removed; 1 zero-length segments removed; 0 collinear overlaps merged.\n\nAutomatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.\n\nCut layers (automatic)\n0\n4 entities \u00b7 4 selected outlines/paths\nCut colours (automatic)\n#000000\n2 entities \u00b7 2 selected outlines/paths\n#20363f\n2 entities \u00b7 2 selected outlines/paths\nSheet outline layers (automatic SHEET)\n0\nUse automatic selection for letters-gears-2000.svg\nApply import options\nletters-gears-2000.svg: cleanup removed 0 exact duplicate segment(s), 1 zero-length segment(s); merged 0 overlapping collinear segment(s)\n\tPart\tQty\tRotation\tMirror\t\n\n\tletter-S-80mm (letters-gears-2000-1)\n31.3 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tletter-B-80mm (letters-gears-2000-2)\n40.0 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tgear-1 (letters-gears-2000-3)\n6.7 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\n\n\tgear-2 (letters-gears-2000-4)\n2.8 cm\u00b2\n\t\t\n0/90/180/270\u00b0\n0/180\u00b0 (grain)\nFixed 0\u00b0\nEvery 15\u00b0\nFree\n\t\t\u00d7\nSheets\nSheet size 1\nWidth  mm\nHeight  mm\nCount \nMargin  mm\nRemnant outline \nDefects (0)\nAdd sheet size\u2026\nDiode laser 300\u00d7200\nCO2 bed 600\u00d7400\nPlywood 1220\u00d72440\nSheet metal 1250\u00d72500\nSheet metal 1500\u00d73000\nFabric roll 1500 \u00d7 10 m\nSettings\nPart spacing  mm\nEdge spacing  mm\nGoal \nPlace every part\nFill the sheets (most area)\nFill by priority\nTime  s\nCommon-line cutting\nLead-in allowances\nAdvanced\nQuick initial layout\n\nStart with a simple arrangement, then improve it. May use more material.\n\nWorkers \nSeed \nRepeatable\nNest\nResult\nSheets\n3\nMaterial\n2.247\nUtilisation\n57.6%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500\nDownload all sheets (ZIP)\nsheet-0\nSVG\nDXF\nsheet-1\noffcut 1250 \u00d7 25 mm\nSVG\nDXF\nsheet-2\noffcut 1250 \u00d7 1889 mm\nSVG\nDXF\nBuilt on jagua-rs and sparrow by Jeroen Gardeyn et al. MIT licensed; third-party notices. Benchmark results against Deepnest, SVGnest and Sparrow.",
+        "import_seconds": 0.18220000000298023,
+        "nest_seconds": 82.31509999999403,
+        "export_seconds": 65.06440000000596,
+        "maximum_long_task_ms": 68,
+        "maximum_event_loop_gap_ms": 99.40000000596046,
+        "responsive": true
+      },
+      "independent_check": {
+        "valid": true,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\output\\h4-curve-scale-20261015T174342Z\\nestbolt.exe",
+            "validate",
+            "--library",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\chrome\\library.json",
+            "--request",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\chrome\\request.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\chrome\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 6.668303900005412,
+          "cpu": 4
+        },
+        "maximum_metric_roundtrip_difference": 0,
+        "sheets": 3,
+        "contours": [
+          {
+            "id": "letters-gears-2000-1",
+            "source": "letters-gears-2000.svg#letter-S-80mm",
+            "outer_segments": 28,
+            "outer_curved_segments": 24,
+            "proxy_vertices": 527,
+            "holes": 0
+          },
+          {
+            "id": "letters-gears-2000-2",
+            "source": "letters-gears-2000.svg#letter-B-80mm",
+            "outer_segments": 11,
+            "outer_curved_segments": 8,
+            "proxy_vertices": 224,
+            "holes": 2
+          },
+          {
+            "id": "letters-gears-2000-3",
+            "source": "letters-gears-2000.svg#gear-1",
+            "outer_segments": 792,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 792,
+            "holes": 1
+          },
+          {
+            "id": "letters-gears-2000-4",
+            "source": "letters-gears-2000.svg#gear-2",
+            "outer_segments": 792,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 792,
+            "holes": 1
+          }
+        ],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 2000,
+          "requested_parts": 2000,
+          "placed_area": 4043203.700459803,
+          "placed_priority": 2000.0,
+          "full_stock_area": 9375000.0,
+          "material_area": 7021491.3462499995,
+          "normalized_material": 2.2468772308,
+          "utilization": 0.575832611774018,
+          "trailing_offcut_area": 2353508.65375,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 617.193077
+        }
+      },
+      "passes": false,
+      "artifacts": {
+        "app.json": "773ef4f32841176fcb73762369eb0200db9dcdea9a5979c0dd9ac1097fe4e0c6",
+        "case.json": "f12295d1407e5fdc41d312bd217d60327ef28f1bbf1b03a5a62bfaa6e85624a6",
+        "layout.json": "e63e6ed152da3526feee8a9297c21c7c3b96f12ec14abf0e5e5ab9a26bc82873",
+        "library.json": "2315effcf5dea87a197814c7e34be94fa7af2a2facc6c0373ac9c2b67bcde348",
+        "memory.json": "0c27742aaaffd86b2aa84090f43203d526d21b3873fdd0a170351b03ee7e855d",
+        "plan.json": "3e48ad99abd7d0984f2dbf0650823884b0c215d01fa4e6ac7c322dfa3a880df1",
+        "progress.json": "f96964755c3fb3e00cfff5768699e7ff0ab479f17f1cb3c91a28e52bebad84fe",
+        "project.zip": "a8db2fc68a359620fb10193db3dea541b1a294704ec5b208ffe5f86c7df9b5bb",
+        "request.json": "3df0f5d22aaeec2457483afb194933a55bb598fba5c5ea74c6133d3a14634851",
+        "screen.png": "5f125883afc2d963114a23ad7ef7d5a9adf40d7fc27151b4292bb39ce25361d1",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "bea1a2e8913b9025cb97f2dc9037d3b80e60043bbbf3f7899bf3a756c0fbca66",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "215bb586bfc20ff86562442d23c7ebce2413cb1cb40208fb838dc2083ea1f7a1"
+      }
+    },
+    {
+      "browser": "firefox",
+      "status": "valid",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.EXE",
+        "C:\\DEV\\Nestbolt\\web\\bench\\scale.mjs",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\firefox\\plan.json"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_seconds": 153.32459430000745,
+      "peak_rss_bytes": 1367838720,
+      "peak_private_bytes": 1388957696,
+      "samples": 653,
+      "affinity_errors": [],
+      "app": {
+        "browser": "firefox",
+        "version": "157.0",
+        "status": "completed",
+        "marks": {
+          "import_start": 444,
+          "import_done": 736,
+          "nest_start": 976,
+          "nest_done": 83300,
+          "export_start": 83306,
+          "export_done": 150217
+        },
+        "console_errors": [],
+        "worker_events": [
+          {
+            "url": "http://127.0.0.1:50618/assets/worker-mAiKBgcD.js",
+            "opened_at_ms": 1792086383229
+          },
+          {
+            "url": "http://127.0.0.1:50618/assets/worker-mAiKBgcD.js",
+            "opened_at_ms": 1792086383920,
+            "closed_at_ms": 1792086465981
+          },
+          {
+            "url": "http://127.0.0.1:50618/assets/archive-worker-DKDW6ovz.js",
+            "opened_at_ms": 1792086466043,
+            "closed_at_ms": 1792086532577
+          }
+        ],
+        "maximum_workers": 2,
+        "environment": {
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+          "logical_cpus": 32,
+          "visibility": "visible"
+        },
+        "workers_field": "1",
+        "utility_workers_before_nesting": 1,
+        "summary": "Sheets\n3\nMaterial\n2.247\nUtilisation\n57.6%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500",
+        "zip_bytes": 139495126,
+        "visible_text": "Nestbolt\nSave\nDelete\nProject ZIP\nOpen ZIP\nNew\n\nFree, open-source nesting for laser, CNC and other sheet cutting. Everything runs in this browser; files are never uploaded.\n\nParts\nImport SVG, DXF or LightBurn (or drop files here)\n Close larger gaps\n\nGaps up to 0.005 mm join automatically. Larger repairs are listed with their positions.\n\nLayers and colours \u2014 letters-gears-2000.svg\n\nCleanup: 0 duplicate segments removed; 1 zero-length segments removed; 0 collinear overlaps merged.\n\nAutomatic selection prefers cut, outline and profile layers. Tick a choice to set a filter; layer and colour filters apply together. Counts include ignored entities.\n\nCut layers (automatic)\n0\n4 entities \u00b7 4 selected outlines/paths\nCut colours (automatic)\n#000000\n2 entities \u00b7 2 selected outlines/paths\n#20363f\n2 entities \u00b7 2 selected outlines/paths\nSheet outline layers (automatic SHEET)\n0\nUse automatic selection for letters-gears-2000.svg\nApply import options\nletters-gears-2000.svg: cleanup removed 0 exact duplicate segment(s), 1 zero-length segment(s); merged 0 overlapping collinear segment(s)\n\tPart\tQty\tRotation\tMirror\t\n\n\tletter-S-80mm (letters-gears-2000-1)\n31.3 cm\u00b2\n\t\t\t\t\u00d7\n\n\tletter-B-80mm (letters-gears-2000-2)\n40.0 cm\u00b2\n\t\t\t\t\u00d7\n\n\tgear-1 (letters-gears-2000-3)\n6.7 cm\u00b2\n\t\t\t\t\u00d7\n\n\tgear-2 (letters-gears-2000-4)\n2.8 cm\u00b2\n\t\t\t\t\u00d7\nSheets\nSheet size 1\nWidth  mm\nHeight  mm\nCount \nMargin  mm\nRemnant outline \nDefects (0)\nSettings\nPart spacing  mm\nEdge spacing  mm\nGoal \nTime  s\nCommon-line cutting\nLead-in allowances\nAdvanced\nQuick initial layout\n\nStart with a simple arrangement, then improve it. May use more material.\n\nWorkers \nSeed \nRepeatable\nNest\nResult\nSheets\n3\nMaterial\n2.247\nUtilisation\n57.6%\nPlaced\n2000/2000\nCheck\nvalid\nIn holes\n500\nDownload all sheets (ZIP)\nsheet-0\nSVG\nDXF\nsheet-1\noffcut 1250 \u00d7 25 mm\nSVG\nDXF\nsheet-2\noffcut 1250 \u00d7 1889 mm\nSVG\nDXF\nBuilt on jagua-rs and sparrow by Jeroen Gardeyn et al. MIT licensed; third-party notices. Benchmark results against Deepnest, SVGnest and Sparrow.",
+        "import_seconds": 0.292,
+        "nest_seconds": 82.324,
+        "export_seconds": 66.911,
+        "maximum_long_task_ms": null,
+        "maximum_event_loop_gap_ms": 202,
+        "responsive": false
+      },
+      "independent_check": {
+        "valid": true,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\output\\h4-curve-scale-20261015T174342Z\\nestbolt.exe",
+            "validate",
+            "--library",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\firefox\\library.json",
+            "--request",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\firefox\\request.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-curve-scale-20261015T174342Z\\firefox\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 6.461289900005795,
+          "cpu": 4
+        },
+        "maximum_metric_roundtrip_difference": 0,
+        "sheets": 3,
+        "contours": [
+          {
+            "id": "letters-gears-2000-1",
+            "source": "letters-gears-2000.svg#letter-S-80mm",
+            "outer_segments": 28,
+            "outer_curved_segments": 24,
+            "proxy_vertices": 527,
+            "holes": 0
+          },
+          {
+            "id": "letters-gears-2000-2",
+            "source": "letters-gears-2000.svg#letter-B-80mm",
+            "outer_segments": 11,
+            "outer_curved_segments": 8,
+            "proxy_vertices": 224,
+            "holes": 2
+          },
+          {
+            "id": "letters-gears-2000-3",
+            "source": "letters-gears-2000.svg#gear-1",
+            "outer_segments": 792,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 792,
+            "holes": 1
+          },
+          {
+            "id": "letters-gears-2000-4",
+            "source": "letters-gears-2000.svg#gear-2",
+            "outer_segments": 792,
+            "outer_curved_segments": 0,
+            "proxy_vertices": 792,
+            "holes": 1
+          }
+        ],
+        "metrics": {
+          "sheets_used": 3,
+          "placed_parts": 2000,
+          "requested_parts": 2000,
+          "placed_area": 4043203.700459803,
+          "placed_priority": 2000.0,
+          "full_stock_area": 9375000.0,
+          "material_area": 7021491.3462499995,
+          "normalized_material": 2.2468772308,
+          "utilization": 0.575832611774018,
+          "trailing_offcut_area": 2353508.65375,
+          "last_sheet_id": "sheet-2",
+          "last_sheet_used_height": 617.193077
+        }
+      },
+      "passes": false,
+      "artifacts": {
+        "app.json": "9f715d924771e479074a34f3abb8bcb3e10a4cbc2e6ff63a9c6fc675fdc5740f",
+        "case.json": "6e7fe3caf3fe24507199feaff48a2a6687911020b48caf6cea1488152540f263",
+        "layout.json": "e63e6ed152da3526feee8a9297c21c7c3b96f12ec14abf0e5e5ab9a26bc82873",
+        "library.json": "2315effcf5dea87a197814c7e34be94fa7af2a2facc6c0373ac9c2b67bcde348",
+        "memory.json": "fc6668e9f81296831a815bdc0ab70acc3d864bf5bc3f4d418a27094338006366",
+        "plan.json": "7d11a5614ac4414aa8303947bd38c8c838aae307c175d21d94513ecb4dbd3466",
+        "progress.json": "ec2e9749a1ee5e756fea7156615f799ff3c13bc28cb459f48bc11450788dcf87",
+        "project.zip": "78a1672246f526dbc4d1335c2d7892bc839b01f0de392b41f39fbd515086ee4d",
+        "request.json": "3df0f5d22aaeec2457483afb194933a55bb598fba5c5ea74c6133d3a14634851",
+        "screen.png": "ca1584a506df26b1601308ec981ceade22e41fe96dbf03142eef8f0aa70fdb31",
+        "stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.log": "b9cbf1e8b2aaa026138674f60356b7bd823819826ffbd2d5411fdfaf5ef6c894",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "215bb586bfc20ff86562442d23c7ebce2413cb1cb40208fb838dc2083ea1f7a1"
+      }
+    }
+  ],
+  "passes": false,
+  "source_guards_passed": true,
+  "phase_comparison": {
+    "chrome": {
+      "before": {
+        "import": {
+          "seconds": 0.3520999999940395,
+          "long_task_ms": 0,
+          "heartbeat_gap_ms": 28.400000005960464
+        },
+        "nest": {
+          "seconds": 97.43779999999703,
+          "long_task_ms": 68,
+          "heartbeat_gap_ms": 108.29999999701977
+        },
+        "export": {
+          "seconds": 87.1295,
+          "long_task_ms": 2588,
+          "heartbeat_gap_ms": 2613.6000000089407
+        }
+      },
+      "after": {
+        "import": {
+          "seconds": 0.18220000000298023,
+          "long_task_ms": 0,
+          "heartbeat_gap_ms": 23.799999997019768
+        },
+        "nest": {
+          "seconds": 82.31509999999403,
+          "long_task_ms": 68,
+          "heartbeat_gap_ms": 99.40000000596046
+        },
+        "export": {
+          "seconds": 65.06440000000596,
+          "long_task_ms": 0,
+          "heartbeat_gap_ms": 51.6000000089407
+        }
+      },
+      "saved_layout_identical": true,
+      "layout_sha256": "e63e6ed152da3526feee8a9297c21c7c3b96f12ec14abf0e5e5ab9a26bc82873",
+      "cutting_files_byte_identical": {
+        "sheets/sheet-0.dxf": {
+          "sha256": "a5f0d4989620bae5a1b51313c5a06885f39c9f627f0054d7955379903bf37cdf",
+          "bytes": 2407465
+        },
+        "sheets/sheet-0.svg": {
+          "sha256": "4a11335d8fbbe0378b17b353006538f1def1866aa3bc144ee93d9c89d4cd39e4",
+          "bytes": 554991
+        },
+        "sheets/sheet-1.dxf": {
+          "sha256": "c9ebd11b0964c76c4947214af36f8e81f2e1da7d8032de1de3f9e0ac0c792a7b",
+          "bytes": 53001851
+        },
+        "sheets/sheet-1.svg": {
+          "sha256": "8e4eef89a35764b1413fa35ee3281f68af95c3c1ad6ae9bf81c109eeb892e716",
+          "bytes": 10486859
+        },
+        "sheets/sheet-2.dxf": {
+          "sha256": "7d5b1f018b500e4bbc612af0fa70aaef81d6c01734f773c3340b940477ed9f83",
+          "bytes": 59204420
+        },
+        "sheets/sheet-2.svg": {
+          "sha256": "73e99bc1e37b9f1fc2ed389f2da445c5d900ba52c06ea18a6c9a7b642d634317",
+          "bytes": 12328339
+        }
+      }
+    },
+    "firefox": {
+      "before": {
+        "import": {
+          "seconds": 0.578,
+          "long_task_ms": null,
+          "heartbeat_gap_ms": 73
+        },
+        "nest": {
+          "seconds": 98.43,
+          "long_task_ms": null,
+          "heartbeat_gap_ms": 308
+        },
+        "export": {
+          "seconds": 86.878,
+          "long_task_ms": null,
+          "heartbeat_gap_ms": 1621
+        }
+      },
+      "after": {
+        "import": {
+          "seconds": 0.292,
+          "long_task_ms": null,
+          "heartbeat_gap_ms": 55
+        },
+        "nest": {
+          "seconds": 82.324,
+          "long_task_ms": null,
+          "heartbeat_gap_ms": 202
+        },
+        "export": {
+          "seconds": 66.911,
+          "long_task_ms": null,
+          "heartbeat_gap_ms": 51
+        }
+      },
+      "saved_layout_identical": true,
+      "layout_sha256": "e63e6ed152da3526feee8a9297c21c7c3b96f12ec14abf0e5e5ab9a26bc82873",
+      "cutting_files_byte_identical": {
+        "sheets/sheet-0.dxf": {
+          "sha256": "a5f0d4989620bae5a1b51313c5a06885f39c9f627f0054d7955379903bf37cdf",
+          "bytes": 2407465
+        },
+        "sheets/sheet-0.svg": {
+          "sha256": "4a11335d8fbbe0378b17b353006538f1def1866aa3bc144ee93d9c89d4cd39e4",
+          "bytes": 554991
+        },
+        "sheets/sheet-1.dxf": {
+          "sha256": "c9ebd11b0964c76c4947214af36f8e81f2e1da7d8032de1de3f9e0ac0c792a7b",
+          "bytes": 53001851
+        },
+        "sheets/sheet-1.svg": {
+          "sha256": "8e4eef89a35764b1413fa35ee3281f68af95c3c1ad6ae9bf81c109eeb892e716",
+          "bytes": 10486859
+        },
+        "sheets/sheet-2.dxf": {
+          "sha256": "7d5b1f018b500e4bbc612af0fa70aaef81d6c01734f773c3340b940477ed9f83",
+          "bytes": 59204420
+        },
+        "sheets/sheet-2.svg": {
+          "sha256": "73e99bc1e37b9f1fc2ed389f2da445c5d900ba52c06ea18a6c9a7b642d634317",
+          "bytes": 12328339
+        }
+      }
+    }
+  },
+  "archive": {
+    "path": "raw.zip",
+    "sha256": "101a4864ff7af96eca0ea25c8ef57365f9aca2a72d2ecc9fdce2322c2f673da7",
+    "bytes": 50258183,
+    "members": {
+      "chrome/app.json": {
+        "sha256": "773ef4f32841176fcb73762369eb0200db9dcdea9a5979c0dd9ac1097fe4e0c6",
+        "bytes": 348171
+      },
+      "chrome/case.json": {
+        "sha256": "f12295d1407e5fdc41d312bd217d60327ef28f1bbf1b03a5a62bfaa6e85624a6",
+        "bytes": 392562
+      },
+      "chrome/layout.json": {
+        "sha256": "e63e6ed152da3526feee8a9297c21c7c3b96f12ec14abf0e5e5ab9a26bc82873",
+        "bytes": 605164
+      },
+      "chrome/library.json": {
+        "sha256": "2315effcf5dea87a197814c7e34be94fa7af2a2facc6c0373ac9c2b67bcde348",
+        "bytes": 547305
+      },
+      "chrome/memory.json": {
+        "sha256": "0c27742aaaffd86b2aa84090f43203d526d21b3873fdd0a170351b03ee7e855d",
+        "bytes": 172556
+      },
+      "chrome/plan.json": {
+        "sha256": "3e48ad99abd7d0984f2dbf0650823884b0c215d01fa4e6ac7c322dfa3a880df1",
+        "bytes": 302
+      },
+      "chrome/progress.json": {
+        "sha256": "f96964755c3fb3e00cfff5768699e7ff0ab479f17f1cb3c91a28e52bebad84fe",
+        "bytes": 1255
+      },
+      "chrome/project.zip": {
+        "sha256": "a8db2fc68a359620fb10193db3dea541b1a294704ec5b208ffe5f86c7df9b5bb",
+        "bytes": 139495126
+      },
+      "chrome/request.json": {
+        "sha256": "3df0f5d22aaeec2457483afb194933a55bb598fba5c5ea74c6133d3a14634851",
+        "bytes": 1387
+      },
+      "chrome/screen.png": {
+        "sha256": "5f125883afc2d963114a23ad7ef7d5a9adf40d7fc27151b4292bb39ce25361d1",
+        "bytes": 617318
+      },
+      "chrome/stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "chrome/stdout.log": {
+        "sha256": "bea1a2e8913b9025cb97f2dc9037d3b80e60043bbbf3f7899bf3a756c0fbca66",
+        "bytes": 256
+      },
+      "chrome/validate-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "chrome/validate-stdout.json": {
+        "sha256": "215bb586bfc20ff86562442d23c7ebce2413cb1cb40208fb838dc2083ea1f7a1",
+        "bytes": 655
+      },
+      "firefox/app.json": {
+        "sha256": "9f715d924771e479074a34f3abb8bcb3e10a4cbc2e6ff63a9c6fc675fdc5740f",
+        "bytes": 312441
+      },
+      "firefox/case.json": {
+        "sha256": "6e7fe3caf3fe24507199feaff48a2a6687911020b48caf6cea1488152540f263",
+        "bytes": 372301
+      },
+      "firefox/layout.json": {
+        "sha256": "e63e6ed152da3526feee8a9297c21c7c3b96f12ec14abf0e5e5ab9a26bc82873",
+        "bytes": 605164
+      },
+      "firefox/library.json": {
+        "sha256": "2315effcf5dea87a197814c7e34be94fa7af2a2facc6c0373ac9c2b67bcde348",
+        "bytes": 547305
+      },
+      "firefox/memory.json": {
+        "sha256": "fc6668e9f81296831a815bdc0ab70acc3d864bf5bc3f4d418a27094338006366",
+        "bytes": 169846
+      },
+      "firefox/plan.json": {
+        "sha256": "7d11a5614ac4414aa8303947bd38c8c838aae307c175d21d94513ecb4dbd3466",
+        "bytes": 304
+      },
+      "firefox/progress.json": {
+        "sha256": "ec2e9749a1ee5e756fea7156615f799ff3c13bc28cb459f48bc11450788dcf87",
+        "bytes": 1139
+      },
+      "firefox/project.zip": {
+        "sha256": "78a1672246f526dbc4d1335c2d7892bc839b01f0de392b41f39fbd515086ee4d",
+        "bytes": 139495126
+      },
+      "firefox/request.json": {
+        "sha256": "3df0f5d22aaeec2457483afb194933a55bb598fba5c5ea74c6133d3a14634851",
+        "bytes": 1387
+      },
+      "firefox/screen.png": {
+        "sha256": "ca1584a506df26b1601308ec981ceade22e41fe96dbf03142eef8f0aa70fdb31",
+        "bytes": 735605
+      },
+      "firefox/stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "firefox/stdout.log": {
+        "sha256": "b9cbf1e8b2aaa026138674f60356b7bd823819826ffbd2d5411fdfaf5ef6c894",
+        "bytes": 245
+      },
+      "firefox/validate-stderr.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "firefox/validate-stdout.json": {
+        "sha256": "215bb586bfc20ff86562442d23c7ebce2413cb1cb40208fb838dc2083ea1f7a1",
+        "bytes": 655
+      },
+      "results.json": {
+        "sha256": "081665934e154fc85aed478c4f847f574534e9defdb7cfb31df1aa40ef0dfb05",
+        "bytes": 970908
+      },
+      "progress.json": {
+        "sha256": "dd8e4ce88925f6498bdc823399e4e1ca5dff0ffb7fa0aa64ee82db1a1393596a",
+        "bytes": 866646
+      }
+    }
+  }
+}

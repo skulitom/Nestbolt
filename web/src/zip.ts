@@ -65,6 +65,59 @@ export function zip(files: { name: string; data: string | Uint8Array }[]): Uint8
   return out;
 }
 
+/** Stored ZIP with the same byte format as zip(), without a final contiguous
+ * copy or retained input strings. Build off the main thread for large exports. */
+export class ZipBuilder {
+  private local: Blob[] = [];
+  private central: Uint8Array[] = [];
+  private offset = 0;
+  private count = 0;
+
+  add(filename: string, value: string | Uint8Array) {
+    const encoder = new TextEncoder();
+    const name = encoder.encode(filename);
+    const data = typeof value === 'string' ? encoder.encode(value) : value;
+    const size = 30 + name.length + data.length;
+    if (name.length > 0xffff || this.count >= 0xffff || this.offset + size > 0xffffffff) {
+      throw new Error('This ZIP exceeds the supported archive size. Download the sheets separately.');
+    }
+    const crc = crc32(data);
+    const header = new DataView(new ArrayBuffer(30));
+    header.setUint32(0, 0x04034b50, true);
+    header.setUint16(4, 20, true);
+    header.setUint16(6, 0x0800, true);
+    header.setUint32(14, crc, true);
+    header.setUint32(18, data.length, true);
+    header.setUint32(22, data.length, true);
+    header.setUint16(26, name.length, true);
+    this.local.push(new Blob([header.buffer as ArrayBuffer, name as BlobPart, data as BlobPart]));
+    const entry = new DataView(new ArrayBuffer(46));
+    entry.setUint32(0, 0x02014b50, true);
+    entry.setUint16(4, 20, true);
+    entry.setUint16(6, 20, true);
+    entry.setUint16(8, 0x0800, true);
+    entry.setUint32(16, crc, true);
+    entry.setUint32(20, data.length, true);
+    entry.setUint32(24, data.length, true);
+    entry.setUint16(28, name.length, true);
+    entry.setUint32(42, this.offset, true);
+    this.central.push(new Uint8Array(entry.buffer), name);
+    this.offset += size;
+    this.count++;
+  }
+
+  finish(): Blob {
+    const size = this.central.reduce((n, a) => n + a.length, 0);
+    const end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true);
+    end.setUint16(8, this.count, true);
+    end.setUint16(10, this.count, true);
+    end.setUint32(12, size, true);
+    end.setUint32(16, this.offset, true);
+    return new Blob([...this.local, ...this.central.map(p => p as BlobPart), end.buffer as ArrayBuffer], { type: 'application/zip' });
+  }
+}
+
 /** Read the stored (uncompressed) entries of a ZIP written by `zip`. */
 export function unzip(bytes: Uint8Array): Map<string, Uint8Array> {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);

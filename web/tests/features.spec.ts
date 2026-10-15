@@ -1,6 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { zip } from '../src/zip.js';
+import type { Project } from '../src/types.js';
 
 // One end-to-end test per v1 feature through the browser app (the CLI has the
 // same set in crates/cli/tests/features.rs). examples/parts.svg imports as
@@ -159,6 +161,44 @@ test('quick initial layout is optional and survives project export and reopening
   await expect(page.locator('.summary')).toContainText('8/8');
   await quick.uncheck();
   expect((await project(page)).request.quick_start).toBeUndefined();
+});
+
+test('background archives keep individual cutting files and release their workers', async ({ page }) => {
+  await setUp(page, [example('parts.svg')], { 'parts-3': 8 }, 300, 150, 1);
+  await page.getByLabel('Quick initial layout', { exact: true }).check();
+  await nest(page);
+  const saved = await project(page);
+  const sheet = saved.result.layout.sheets[0].id;
+  const baseline: Record<string, string> = {};
+  for (const format of ['SVG', 'DXF']) {
+    const [file] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: format, exact: true }).first().click()]);
+    baseline[format.toLowerCase()] = readFileSync(await file.path(), 'utf8');
+  }
+  for (const name of ['Project ZIP', 'Download all sheets (ZIP)']) {
+    const [file] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name, exact: true }).click()]);
+    const path = await file.path();
+    for (const format of ['svg', 'dxf']) expect(zipEntry(path, `sheets/${sheet}.${format}`)).toBe(baseline[format]);
+    if (name === 'Project ZIP') expect(JSON.parse(zipEntry(path, 'project.json')).result.validation.valid).toBe(true);
+    else expect(() => zipEntry(path, 'project.json')).toThrow();
+    // Only the existing import/individual-export utility remains alive.
+    await expect.poll(() => page.workers().length).toBe(1);
+  }
+});
+
+test('a rejected archive reports the validation error and releases its worker', async ({ page }) => {
+  await setUp(page, [example('parts.svg')], { 'parts-3': 1 }, 300, 150, 1);
+  await page.getByLabel('Quick initial layout', { exact: true }).check();
+  await nest(page);
+  const saved = await project(page) as unknown as Project;
+  saved.result!.layout.placements[0].transform.translation = [-1000, -1000];
+  await page.locator('input[type=file][accept=".zip"]').setInputFiles({ name: 'invalid-layout.zip', mimeType: 'application/zip',
+    buffer: Buffer.from(zip([{ name: 'project.json', data: JSON.stringify(saved) }])) });
+  let downloads = 0;
+  page.on('download', () => downloads++);
+  await page.getByRole('button', { name: 'Project ZIP', exact: true }).click();
+  await expect(page.getByRole('alert')).toContainText('layout failed independent validation');
+  await expect.poll(() => page.workers().length).toBe(1);
+  expect(downloads).toBe(0);
 });
 
 test('DXF and SVG import; exports keep arcs and curves', async ({ page }) => {

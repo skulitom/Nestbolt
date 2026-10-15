@@ -277,6 +277,16 @@ guards pass; all 66 enabled browser tests pass. Keep the cache, then measure
 worker count and off-thread ZIP assembly separately. Quality/native gates and
 the 20% completed milestone total are unchanged.
 
+**N3 archive checkpoint, 2026-10-15:** the [separate one-worker diagnostic and background ZIP change](../benchmarks/results/h4-background-archive-20261015.md)
+reduce export heartbeat gaps from 2,614/1,621 ms to 52/51 ms. All four saved
+layouts and all twelve compared cutting files remain identical and independently
+valid. The worker override is diagnostic; production defaults stay unchanged.
+Scale still fails: Chrome private memory peaks at 1.822 GB during nesting and
+Firefox records a 202 ms nesting heartbeat gap. All source/executable guards and
+74 enabled browser tests pass. Next profile search-worker memory and the
+remaining Firefox delay. No thresholds or open quality/native gates change;
+completion remains 20%.
+
 ### 4.5 N4: common-line cutting
 
 Build the section 3 model:
