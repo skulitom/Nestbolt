@@ -13387,3 +13387,16 @@ outputs is then independently checked within 0.01 mm. No search repeats,
 export regeneration, changed limits or reserved inputs. Original interrupted
 evidence remains unchanged. Visual inspection and complete H4 review follow
 separately; completion stays 45% and no release is created.
+
+
+## 2026-10-16 — Reconnect the unopened common-line pilot after servicing
+
+[The replacement prerequisite plan](benchmarks/results/h5-obstruction-set-recovered-pilot-20261016.md)
+keeps all 72 planned outcomes, jobs, kerfs, seeds, budgets, binaries and limits
+unchanged. Block construction, per-case execution, measurement and scoring
+functions are syntax-tree identical. The new path recognizes the preserved
+402 completed H4 outcomes and 201 recovered Firefox outcomes. It cannot start
+until the recovery and conditional scale sequence finish; passing scales also
+require full curve fidelity, visual review and sealed archives. The original
+unopened plan remains unchanged. No measurement starts and no candidate is
+integrated; H5 remains open and completed milestone weight stays 45%.
