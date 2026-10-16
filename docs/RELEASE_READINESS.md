@@ -2,8 +2,8 @@
 
 Artem authorized the next GitHub release when ready on 2026-10-16. The current
 candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration,
-its isolated browser pilot and current package verification. Full quality,
-scale, exported-curve fidelity and hosted checks are still required. Milestone
+its isolated browser pilot, current package verification and all six hosted
+checks. Full quality, scale and exported-curve fidelity remain required. Milestone
 completion remains 45%; a preview does not close the remaining v1.1 gates.
 
 The README describes LightBurn projects, leads, common-line limits, automatic
@@ -42,9 +42,11 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   also pass through CLI and MCPB: explicit repair/rejection messages, preserved
   editable groups/settings/fixed shapes, separate lead cutting files, matching
   validation reports and byte-identical repeat exports on authored fixtures.
-- [Current hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38854287845)
-  remain in progress. Their completion and current quality/scale confirmation
-  are still required before publishing.
+- [All six hosted checks pass for the tested implementation](../benchmarks/results/preview-depth-hosted-checks-20261016.md).
+  Reviewed evidence is pushed to main as `21835ba`; all product, build and
+  runner inputs match tested commit `23442be`. Its newer main CI run is still
+  underway at this checkpoint. Full current quality/scale/export confirmation
+  remains required before publishing.
 
 The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
 failed Chrome at +1.032679%; `0a9fb44` [failed at +1.046217%](../benchmarks/results/h4-preview-development-20261016.md).

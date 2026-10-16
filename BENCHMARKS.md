@@ -13334,3 +13334,16 @@ the approved R43 exception and original failures preserved. This review runs
 no import/search and claims no new timing or fidelity measurement. Twenty-two
 reserved vectors and the denominator clarification remain pending; H2 stays
 open and completed milestone weight stays 45%.
+
+
+## 2026-10-16 — Current implementation passes all six hosted checks
+
+[Run 38854287845](benchmarks/results/preview-depth-hosted-checks-20261016.md)
+passes all six jobs on `23442be`, including Windows/Linux checks, both browser
+engines, both dataset rebuilds and benchmark smoke. After it finishes, reviewed
+evidence commit `21835ba` is pushed normally to main and the remote identity is
+verified. Product, build, test-runner and packaging-module inputs are unchanged.
+The newer main CI run is still in progress at this checkpoint; no result is
+inferred for it. Full current H4 quality, scale, exported-curve fidelity and
+final review remain required. No release or gate closure occurs; completion
+stays 45%.

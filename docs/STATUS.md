@@ -30,7 +30,7 @@ The [fresh full matrix](../benchmarks/results/h4-preview-depth-release-20261016/
 is now running with unchanged limits. Its [conditional scale/export sequence](../benchmarks/results/h4-preview-depth-scale-plan-20261016/plan.json)
 waits for a quality pass. [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
 pass their checks, including actual Windows import/nest/validation/confinement.
-Current hosted checks remain in progress. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
+[All six hosted checks pass for this code](../benchmarks/results/preview-depth-hosted-checks-20261016.md); reviewed evidence is pushed to main as `21835ba`. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
 confirms the original scope and unshared WASM memory. No common-line experiment
 is integrated. No preview tag or release exists, and completion stays 45%.
 
