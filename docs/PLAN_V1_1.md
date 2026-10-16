@@ -605,3 +605,12 @@ algorithm or budgets. The [four-case diagnostic plan](../benchmarks/results/h5-e
 waits for the H4 pilot to finish and be sealed. Tracing can perturb timing; it
 cannot establish a quality gain or replace the failed paired comparison.
 H5 stays open and completion stays 45%.
+
+
+**N3 tree-depth pilot outcome, 2026-10-16:** [all 99 layouts validate](../benchmarks/results/h4-quadtree-depth-probe-20261016.md).
+Chrome's subset median is +0.689439% and Firefox's
+is +0.639475%, both within the unchanged +1% limit;
+every job is within +5%. Exact independent metrics, coverage, source and affinity
+guards pass. The isolated candidate is eligible for integration checks and a
+fresh full matrix, followed by current scale/package checks. Earlier full-run
+failures are retained. No H4 closure or release; completion stays 45%.

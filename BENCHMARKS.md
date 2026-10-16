@@ -13128,3 +13128,32 @@ It is committed before measurement and waits for the H4 tree-depth pilot to be
 terminal and sealed. Every layout/trace/failure/export will be retained and
 independently checked. No held-out input, repeated quality claim, integration,
 gate credit or release. Original H5 failures remain; completion stays 45%.
+
+
+## 2026-10-16 — Shallower collision-tree pilot passes both browser subsets
+
+[Complete isolated pilot](benchmarks/results/h4-quadtree-depth-probe-20261016.md):
+all 99 layouts validate in 17.614 minutes. The sole algorithm
+setting change is separator-window base quadtree depth four to three, retaining
+aspect scaling, leaf threshold, original geometry, work coefficients and budgets.
+All eleven declared jobs, seeds 0–2 and 60-second physical-core runs are retained.
+Chrome median is **+0.689439%**, worst
+**+2.350728%**. Firefox median is
+**+0.639475%**, worst
+**+3.385773%**. Both meet the original
++1% median/+5% every-job subset limits. All requested parts and independent
+original-geometry metrics agree exactly; example public requests also pass.
+Six browser batches have no affinity deviations, and every guard is unchanged.
+
+The archive retains 1,067 members / 15,259,453 bytes, SHA-256
+`1e90ee17217697d949527d6ec256fcf56a851fda4bfc4a8fa37101c98981e1a5`. CRC and every member size/hash pass.
+Only verified loose duplicates were removed; all original layouts, logs, inputs,
+source, engines and site remain archived. Hazard traversal order may differ,
+so no fixed-work identity or isolated speed claim is made.
+
+The candidate is eligible for integration checks and a fresh full comparison,
+but is not yet integrated. The earlier failed full matrices remain preserved.
+Current scale and package verification also remain; this pilot does not close
+H4 or justify a release. After this session was terminal and sealed, the
+committed four-case H5 stage diagnosis began with no measured overlap.
+Completed milestone weight stays 45%.

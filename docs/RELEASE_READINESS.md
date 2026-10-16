@@ -33,8 +33,10 @@ explicitly the frozen v1 benchmark at `75cbb32`, with no new competitor claim.
   verifies scope and unshared WASM memory; it does not close H4.
 - [Current-build profiling](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
   completes with three valid layouts. Edge/quadtree traversal is the main sampled
-  cost. A shallower collision tree is the next isolated hypothesis, with no
-  established benefit; profiles do not substitute for quality evidence.
+  cost. The [shallower-tree isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
+  now passes both subsets with all 99 layouts valid: Chrome +0.689439%, Firefox
+  +0.639475%, every job within +5%. This candidate is not yet integrated; fresh
+  full comparisons, scale and package checks remain required.
 
 The earlier `0a9fb44` candidate's [completed comparison](../benchmarks/results/h4-preview-development-20261016.md)
 failed Chrome's subset at +1.046217%, against +1%; all results are preserved.
