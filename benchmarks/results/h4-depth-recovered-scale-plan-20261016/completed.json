@@ -1,0 +1,66 @@
+{
+  "stages": [
+    {
+      "index": 0,
+      "command": [
+        "python",
+        "output/h4_depth_reboot_recovery.py",
+        "verify"
+      ],
+      "started": "2026-10-16T09:29:06.657847+00:00",
+      "finished": "2026-10-16T09:29:11.032419+00:00",
+      "exit_code": 0,
+      "log_sha256": "b3e4f57877779056eabd0568ff2d358e7df4ab638da5059303f4b9b468b76574"
+    },
+    {
+      "index": 1,
+      "command": [
+        "python",
+        "output/report_h4_recovered_depth.py"
+      ],
+      "started": "2026-10-16T09:29:11.038395+00:00",
+      "finished": "2026-10-16T09:29:11.297213+00:00",
+      "exit_code": 0,
+      "log_sha256": "7d12746417d415928dccdc0750233eea77fc6275f1f51dd808b11f6abe6e43bd"
+    },
+    {
+      "index": 2,
+      "command": [
+        "python",
+        "scripts/h4_scale.py",
+        "--quick-start"
+      ],
+      "started": "2026-10-16T09:29:11.478421+00:00",
+      "finished": "2026-10-16T09:34:28.773941+00:00",
+      "exit_code": 0,
+      "log_sha256": "204fbff6a614cee553af23e3dde64a120b0d0a3677642e9c66a2cf4007b46683"
+    },
+    {
+      "index": 3,
+      "command": [
+        "python",
+        "scripts/h4_scale.py",
+        "--fixture",
+        "g5"
+      ],
+      "started": "2026-10-16T09:34:28.848070+00:00",
+      "finished": "2026-10-16T09:36:56.123953+00:00",
+      "exit_code": 0,
+      "log_sha256": "1035a933cd904fdc35af8faf9c857831256d0057f650db2aa9cd0deb0cfedb97"
+    },
+    {
+      "index": 4,
+      "command": [
+        "python",
+        "output/check_recovered_depth_scale_exports.py"
+      ],
+      "started": "2026-10-16T09:36:56.130484+00:00",
+      "finished": "2026-10-16T09:38:34.667409+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scale_outcomes_need_review": true,
+  "milestone_closed": false,
+  "release_created": false
+}

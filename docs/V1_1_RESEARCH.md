@@ -930,3 +930,16 @@ configuration in isolation, retaining all original geometry. Fewer tree visits
 may instead increase leaf work, so no optimization is justified without measured
 quality, original-job validation and full regression evidence. No dependency or
 product code changes in this diagnostic; no H4 credit or new public claim.
+
+
+### 2026-10-16: complete browser-performance requirement review
+
+[H4 is complete](../benchmarks/results/h4-depth-complete-20261016.md) on the
+integrated depth-three collision-tree build. All full native and browser
+quality limits pass, as do both 2,000-part scale workflows in both browsers
+and exact saved-curve checks for every curved-workload placement. Peak
+observed RSS is 1.352409 GB; maximum heartbeat gap is 199 ms. These are
+development/scale observations, not a new competitor result or universal
+resource guarantee. The Windows servicing interruption is retained with all
+402 completed pre-restart outcomes; only missing Firefox outcomes were
+recovered. Earlier failed candidates remain preserved. H2/H5 stay open.

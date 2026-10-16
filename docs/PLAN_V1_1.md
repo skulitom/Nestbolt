@@ -664,3 +664,17 @@ The separate Firefox recovery took 27.451 minutes; no continuous original
 session or general speed gain is claimed. Raw evidence is sealed. The new
 conditional scale/export sequence has started; complete H4 review remains
 required. No gate closure or release; completion stays 45%.
+
+
+**N3/H4 complete, 2026-10-16:** [the full requirement audit](../benchmarks/results/h4-depth-complete-20261016.md)
+passes every original condition on the integrated depth-three build: full
+native/G5/subset quality, validity and quantities, both 2,000-part workflows
+in both browsers, memory below 1.5 GB, responsiveness at most 200 ms, exact
+saved curve/control-point fidelity for every curved-workload placement, and
+four actual screenshot reviews. The maximum observed RSS is 1.352409 GB;
+the maximum heartbeat gap is 199 ms. Original source/build/input guards,
+unshared WASM memory, historical failures and the servicing interruption are
+preserved. Sealed archives pass CRC, every-member length and SHA-256 checks.
+N0/H1 (15%) + N2/H3 (25%) + N3/H4 (15%) + N5/H6 (5%) total **60%**. H2/H5
+remain open. The recovery-aware 72-outcome H5 pilot starts only after this
+complete audit; its candidate remains isolated from the qualified preview.

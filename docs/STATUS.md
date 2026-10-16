@@ -2,12 +2,13 @@
 
 ## v1.1 — real shop files
 
-**Completion: 45%.** The goal is active under [PLAN_V1_1.md](PLAN_V1_1.md).
-Only completed gate weights count. N0/H1, N2/H3 and N5/H6 are complete: the labelled
-corpus and split are frozen, LightBurn preservation passes the full requirement
-review including all three reserved projects, and lead allowances have complete
-validation, native, public-surface and material-cost evidence. H2, H4 and H5
-remain open. N1 implementation is in progress;
+**Completion: 60%.** The goal is active under [PLAN_V1_1.md](PLAN_V1_1.md).
+Only completed gate weights count. N0/H1, N2/H3, N3/H4 and N5/H6 are complete:
+the corpus and split are frozen; LightBurn preservation, browser quality/scale
+and lead allowances pass their complete requirement reviews. The
+[H4 completion audit](../benchmarks/results/h4-depth-complete-20261016.md)
+includes full quality, four large-layout workflows and all-placement curve fidelity.
+H2 and H5 remain open. N1 implementation is in progress;
 explicit gap repair, layer/colour selection, segment cleanup, byte decoding,
 units reports, rejection of incomplete selected cuts and the locally verified
 export palette and imported stock outlines now work through the UI, CLI and MCP.
@@ -15,7 +16,7 @@ No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence i
 due by 2026-11-06. v0.1.0 was released and published to the MCP Registry on
 2026-10-14. On 2026-10-16 Artem authorized the next GitHub release when ready,
 including a README update. Preview `0.2.0-alpha.1` is being prepared; a new candidate
-passes its full quality comparison and still needs scale/export review; this does not close open v1.1 gates
+passes its full quality, scale and export-fidelity review; this does not close the remaining v1.1 gates
 or authorize a new final acceptance run. Registry publication remains separate.
 
 **Release readiness, 2026-10-16:** candidate `aba989e` is version
@@ -34,14 +35,16 @@ retains every completed result and the original interruption, then completes
 only the missing Firefox phase under unchanged limits. All 603 current-build
 and 195 frozen-v1 layouts validate. Native median is +0.000614%; curve-subset
 medians are Chrome +0.851159% / Firefox +0.828477%, and every job is within +5%.
-Full G5 aggregate and each-seed limits also pass. Scale/export checks and final
-H4 review remain required. The [recovery-aware scale continuation](../benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
-has started its unchanged 2,000-part workflows.
+Full G5 aggregate and each-seed limits also pass. The
+[complete H4 audit](../benchmarks/results/h4-depth-complete-20261016.md) now passes:
+both 2,000-part workloads in both browsers stay below 1.5 GB and at most 200 ms;
+all curved-workload placements pass independent saved SVG/DXF checks, and all
+four screenshots are reviewed. Original interruptions and failed candidates remain preserved.
 [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
 pass their checks, including actual Windows import/nest/validation/confinement.
 [All six hosted checks pass for this code](../benchmarks/results/preview-depth-hosted-checks-20261016.md); reviewed evidence is pushed to main as `21835ba`. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
 confirms the original scope and unshared WASM memory. No common-line experiment
-is integrated. No preview tag or release exists, and completion stays 45%.
+is integrated. No preview tag or release exists; completed milestone weight is 60%.
 
 The earlier `7eba929` [full comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
 retains 603 new and 195 reused valid outcomes, but Chrome's curve subset fails
@@ -76,9 +79,11 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 | N0 — Messy-file corpus | 15% | **H1 complete.** [Frozen corpus and split](../benchmarks/results/h1-freeze-20261013.md): 534 inputs, 338 labels, 148 renders, 1,181 attributed/checksummed files; 15 real + 10 native held out with lineage isolation |
 | N1 — Import robustness | 25% | In progress: [incomplete-drawing checkpoint](../benchmarks/results/h2-completeness-checkpoint-20261013.md) across three surfaces; 245/257 training vectors match counts, 11 reject with repair instructions (including all nine negatives), the single frozen-label count discrepancy now has an approved, hash-scoped scoring exception (246 reviewed matches). Robustness 183/183 without crash/timeout. [Ten native exports and palette](../benchmarks/results/h2-lightburn-20261013T195848Z.md): saved dimensions within 0.000033 mm; eight exact rounded UI sizes, two spline display differences retained. [Cut layers](../benchmarks/results/h2-cut-layer-audit-20261013.json) match all 246 prior imports; [full vector fidelity sweep](../benchmarks/results/h2-fidelity-20261013T202338Z.md): 239 pass, 11 reject, four time out and three error; [closed-path repair](../benchmarks/results/h2-closed-retrace-checkpoint-20261013.md) now passes the ARC SVG/DXF rerun, and the [large-sheet margin repair](../benchmarks/results/h2-margin-checkpoint-20261014.md) resolves both Gherkin DXF nesting errors (358 contour comparisons below 0.000001 mm). The [complete corrected vector sweep](../benchmarks/results/h2-fidelity-20261014T012836Z.md) passes all 246 importable files and retains 11 clear rejections, with zero timeouts/errors and 5,138 matched contours (maximum SVG 0.003302 mm, DXF 0.000500 mm). All four formerly timed-out Iris files return independently valid incumbents, explicitly non-repeatable at the 240 s cooperative boundary. The [deadline repair and failed probes](../benchmarks/results/h2-work-deadline-checkpoint-20261014.md) remain documented. [Imported stock outlines](../benchmarks/results/h2-sheet-checkpoint-20261013.md) work across all surfaces; all ten labelled pre-arranged nests match their stock geometry. [Diagnostic coverage](../benchmarks/results/h2-warning-audit-20261014T015958Z.md) now passes all 246 imports and cut-layer selections, with unchanged geometry; [habit properties](../benchmarks/results/h2-habit-fuzz-20261014T015256Z.md) pass 10,000 import and 1,008 nesting cases across all 17 habits. A fresh robustness run passes all 183 files within 1.275 s. The [completed H3 audit](../benchmarks/results/h3-complete-20261015.md) now accounts for all 59 original native projects: 48 imported originals match membership, physical cut holes, fixed shapes and cutting layers; 11 original rejections remain explicit. Approved repairs supply the 122 uncached Text geometry checks. The [H2 requirement review](../benchmarks/results/h2-requirements-review-20261016.md) now accounts for all 313 training inputs and connects warning/fidelity evidence to the current source; 291 accepted imports and 22 original clear rejections remain explicit. The remaining reserved evaluation is still open. Two held-out negatives cap literal success at 92%; the held-out denominator clarification remains pending, with split unchanged |
 | N2 — LightBurn round-trip | 25% | **H3 complete.** [Full requirement review](../benchmarks/results/h3-complete-20261015.md): all 59 original projects parse and preserve byte-identical no-op output; 1,749 comparable original leaves and all 477 prepared leaves pass independent geometry checks. All three reserved projects pass their once-only evaluation, including exact labels and three valid actual searches. Combined evidence includes 120 canonical diagnostic sheets and 443 independently checked units. Five native-checked layouts revalidate with unchanged settings/contents. All 295 workspace, 26 optimized CLI and 84 enabled browser tests pass. The approved uncached-text prerequisite, mixed-group rejection and L42 native repair layer change remain explicit; originals and failures are preserved |
-| N3 — Curve-heavy browser | 15% | In progress: automatic worker selection, off-thread export assembly and exact bounded scoring are integrated. Earlier [scale](../benchmarks/results/h4-current-scale-20261015.md) and [full development](../benchmarks/results/h4-full-development-20261016.md) checks pass, but the subsequent release candidate failed Chrome’s +1% subset limit. The current `7eba929` candidate passes [isolated fixed-work/subset checks](../benchmarks/results/h4-score-chunks-probe-20261016.md), all application tests and hosted CI. Its [completed full matrix](../benchmarks/results/h4-preview-score-release-20261016.md) preserves 603 valid new layouts but fails Chrome’s curve-subset median at +1.032679% against +1%; Firefox passes at +0.881781%. Current scale was not started. Further optimization, current quality/scale proof and complete requirement review remain required. All original failures and limits are preserved |
+| N3 — Curve-heavy browser | 15% | **H4 complete.** [Full requirement audit](../benchmarks/results/h4-depth-complete-20261016.md): all 603 current-build layouts and 195 frozen-v1 layouts validate; native median +0.000614%, Chrome/Firefox subset medians +0.851159%/+0.828477%, every job within +5%, full G5 aggregate/per-seed bounds pass. Four 2,000-part scale workflows pass: maximum process-tree RSS 1.352409 GB and maximum heartbeat gap 199 ms. Every saved SVG/DXF curve/control point for all 2,000 placements in both curved-workload outputs passes; four screenshots reviewed and raw archives verified. No WASM threads, unchanged geometry/guards, original failures and servicing interruption preserved. |
 | N4 — Common-line cutting | 15% | In progress: [compensated geometry and native checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md), independent Clipper2 checks and UI/CLI/MCP parity. The optional bonus is off by default. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md), the [full 60-second/three-seed comparison](../benchmarks/results/h5-cutting-development-20261015.md) validates all 234 Nestbolt layouts. Median savings **13.0311% laser / 13.1005% plasma** meet the savings condition. The two mechanical jobs still exceed +1% material: worst **+6.5085% laser / +5.5959% plasma**; all other jobs are within the guard. Normal mode uses 21/49 hole riders; common mode forbids them. Deepnest SVG comparison is complete: 35 valid runs, four no-layout outcomes, native reported merge length and actual SVG savings reported separately. H5 remains open on material. The generated request schema omission was corrected; its original CI failure is retained. No gate/default/frozen input changed |
 | N5 — Lead-in allowances | 5% | **H6 complete.** [Gate evidence and material costs](../benchmarks/results/h6-complete-20261015.md): independent original-source coverage/attachment, owner/neighbour/stock checks, exact contour starts, three searched native previews and separate outer/hole/shortened settings. UI/CLI/MCP support preserving LightBurn projects plus separate SVG/DXF cutting files under Artem’s decision. The current build revalidates all 24 original native-coupon reservations unchanged; lead/core/MCP/CLI/browser checks pass. All 156 development layouts validate across 13 jobs, both kerfs and seeds 0–2. Median material cost is **+1.0696% laser / +6.0951% plasma**, with small-hole plasma flags explicitly reported. One report-order harness failure was corrected using the same saved layout and unchanged 1e-9 tolerance; all original failures remain. No new held-out/final acceptance or release claim |
+
+The [recovery-aware 72-outcome obstruction-set pilot](../benchmarks/results/h5-obstruction-set-recovered-pilot-20261016/plan.json) is now running after the sealed H4 sequence and requirement audit. Its candidate stays isolated; H5 is not closed by a pilot.
 
 Latest N4 experiment: the [isolated directed exchange](../benchmarks/results/h5-directed-exchange-functional-20261016.md)
 passes six focused tests, 80 core tests (one existing ignored), six common-line

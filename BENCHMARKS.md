@@ -13438,3 +13438,28 @@ The fixed current scale workflows have started. All-placement curve fidelity,
 visual review and complete H4 acceptance review still follow. No gate closure,
 new public competitor/speed claim, reserved evaluation or release; completion
 remains 45%.
+
+
+## 2026-10-16 — H4 complete: full quality, four scales and exact curve exports
+
+[The full requirement audit](benchmarks/results/h4-depth-complete-20261016.md)
+closes H4 with every original condition verified. Native and full/subset
+browser quality pass on all 603 current-build and 195 frozen-v1 valid layouts.
+Both 2,000-part curved workflows pass: Chrome RSS/private 1.336766/1.125847 GB,
+heartbeat 78.1 ms; Firefox 1.352409/1.275429 GB, heartbeat 199 ms. Original G5
+scale also passes: Chrome 0.960791/0.811270 GB, 56.1 ms; Firefox
+1.003975/0.898294 GB, 94 ms. Chrome observes no Long Task; Firefox lacks that
+API and uses the unchanged heartbeat check. No interval is omitted.
+
+Every SVG/DXF primitive/control point for all 2,000 curved-workload placements
+in each browser is checked against original library geometry and transforms
+within 0.01 mm; no export is regenerated. Four actual screenshots are reviewed.
+Both raw scale archives pass CRC, every member length/hash and source guards;
+source/builds and unshared WASM remain fixed. The original servicing failure,
+402 retained completed outcomes and earlier failed candidates stay preserved.
+No reserved evaluation, new competitor/speed claim or release is performed.
+
+Completed milestone weight is now 60%: H1 15 + H3 25 + H4 15 + H6 5. H2/H5
+remain open. The isolated 72-outcome obstruction-set pilot starts only after
+the scale/export sequence, sealing and final requirement audit finish. It
+changes no production source and cannot itself complete H5.

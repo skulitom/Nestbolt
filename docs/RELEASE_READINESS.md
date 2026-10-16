@@ -3,9 +3,9 @@
 Artem authorized the next GitHub release when ready on 2026-10-16. The current
 candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration,
 its isolated browser pilot, current package verification and all six hosted
-checks. The recovered full quality comparison now passes; scale and exported-curve
-fidelity remain required. Milestone
-completion remains 45%; a preview does not close the remaining v1.1 gates.
+checks. [The full H4 requirement audit](../benchmarks/results/h4-depth-complete-20261016.md)
+now passes quality, scale, saved-curve fidelity and visual review. Completed
+milestone weight is 60%; H2/H5 remain open and are disclosed in the preview.
 
 The README describes LightBurn projects, leads, common-line limits, automatic
 workers and native downloads. Its benchmark headline remains explicitly tied
@@ -31,18 +31,19 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   All quality conditions pass: native +0.000614%; curve-subset medians Chrome
   +0.851159% / Firefox +0.828477%, worst jobs +2.455588% / +2.561291%; full
   development aggregate and every-seed G5 limits also pass. The original
-  interrupted session remains preserved. Scale and export review are still
-  required; the conditional scale sequence has now started.
+  interrupted session remains preserved. The subsequent scale/export checks
+  and complete H4 review also pass.
 - [Current requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
   verifies the eleven subset cases, all 65 development jobs, original budgets,
   seeds and physical cores, and the exact current WASM's unshared memory.
   This confirms scope and the threading constraint, not quality or scale.
-- Current-build scale and independent checks of every saved SVG/DXF curve for
-  all 2,000 placements in both browsers remain required, followed by screenshot
-  inspection and a complete H4 requirement review.
-  The [recovery-aware continuation](../benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
-  runs those fixed checks only after the recovered full comparison passes;
-  it preserves the original interrupted sequence unchanged.
+- [Current-build scale and exact exported curves pass](../benchmarks/results/h4-depth-complete-20261016.md):
+  both 2,000-part workloads in Chrome and Firefox, maximum RSS 1.352409 GB,
+  maximum heartbeat gap 199 ms, all layouts independently valid. Every curved
+  workload SVG/DXF primitive/control point for all 2,000 placements per browser
+  passes 0.01 mm fidelity; all four actual screenshots are reviewed. Archives,
+  source/build guards and every H4 requirement are verified. The original
+  interrupted sequence remains unchanged.
 - [All three downloaded packages and the Windows MCPB pass](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
   on `23442be`, which contains the same tested product. Architecture, contents,
   permissions, versions and metadata match; the actual downloaded Windows
@@ -61,8 +62,9 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   Reviewed evidence is pushed to main as `21835ba`; all product, build and
   runner inputs match tested commit `23442be`. Its newer main CI run
   [38857882488](https://github.com/skulitom/Nestbolt/actions/runs/38857882488)
-  also passes all six jobs. Full recovered quality/scale/export confirmation
-  remains required before publishing.
+  also passes all six jobs. The recovered quality/scale/export confirmation
+  is now complete. Verify the chosen tag commit retains those tested inputs
+  before publication, then verify the actual published downloads.
 
 The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
 failed Chrome at +1.032679%; `0a9fb44` [failed at +1.046217%](../benchmarks/results/h4-preview-development-20261016.md).
