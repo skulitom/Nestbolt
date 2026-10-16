@@ -26,9 +26,14 @@ The first bundle inventory overlapped this task saving evidence; its failure
 is retained and the same-bundle check passes once competing writes stop.
 The [isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
 validates all 99 layouts and passes Chrome +0.689439% / Firefox +0.639475%.
-The [fresh full matrix](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
-is now running with unchanged limits. Its [conditional scale/export sequence](../benchmarks/results/h4-preview-depth-scale-plan-20261016/plan.json)
-waits for a quality pass. [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
+The [full matrix](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
+was interrupted by Windows servicing at 06:00 UTC after 201 native and 201
+Chrome valid outcomes; Firefox saved no outcomes and scale never began.
+The [recorded recovery](../benchmarks/results/h4-depth-reboot-recovery-20261016.md)
+retains every completed result and the original interruption, then runs only
+the missing Firefox phase under the unchanged limits. Native and Chrome
+quality bounds pass; Firefox, scale/export checks and final H4 review remain
+required. [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
 pass their checks, including actual Windows import/nest/validation/confinement.
 [All six hosted checks pass for this code](../benchmarks/results/preview-depth-hosted-checks-20261016.md); reviewed evidence is pushed to main as `21835ba`. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
 confirms the original scope and unshared WASM memory. No common-line experiment

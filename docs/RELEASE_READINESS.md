@@ -21,10 +21,15 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
 - [The isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
   validates all 99 layouts. Chrome +0.689439% and Firefox +0.639475% meet +1%,
   with every job within +5%. No isolated speed claim follows.
-- [The full comparison plan](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
-  fixes all 67 union jobs, seeds 0–2 and 60 seconds in native/Chrome/Firefox:
-  603 new outcomes plus 195 verified frozen-v1 baselines. Its original bounds
-  and every attempt must pass before scale measurements begin.
+- [The original full comparison](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
+  was interrupted by a Windows servicing restart after 201 native and 201 Chrome
+  valid outcomes. Firefox had started but saved no outcomes; scale never began.
+  The [recovery plan and preserved interruption](../benchmarks/results/h4-depth-reboot-recovery-20261016.md)
+  retain all 402 completed current-build outcomes plus 195 frozen-v1 baselines,
+  then run the missing 201 Firefox outcomes with the unchanged build, jobs,
+  seeds, budgets and limits. Native and Chrome quality bounds pass; full H4
+  acceptance still requires Firefox, scale and export review. The original
+  session is never relabelled as complete or passing.
 - [Current requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
   verifies the eleven subset cases, all 65 development jobs, original budgets,
   seeds and physical cores, and the exact current WASM's unshared memory.
@@ -44,8 +49,9 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   validation reports and byte-identical repeat exports on authored fixtures.
 - [All six hosted checks pass for the tested implementation](../benchmarks/results/preview-depth-hosted-checks-20261016.md).
   Reviewed evidence is pushed to main as `21835ba`; all product, build and
-  runner inputs match tested commit `23442be`. Its newer main CI run is still
-  underway at this checkpoint. Full current quality/scale/export confirmation
+  runner inputs match tested commit `23442be`. Its newer main CI run
+  [38857882488](https://github.com/skulitom/Nestbolt/actions/runs/38857882488)
+  also passes all six jobs. Full recovered quality/scale/export confirmation
   remains required before publishing.
 
 The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)

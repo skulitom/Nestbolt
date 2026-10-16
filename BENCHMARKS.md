@@ -13347,3 +13347,29 @@ The newer main CI run is still in progress at this checkpoint; no result is
 inferred for it. Full current H4 quality, scale, exported-curve fidelity and
 final review remain required. No release or gate closure occurs; completion
 stays 45%.
+
+
+## 2026-10-16 — Windows servicing interrupted H4; preserve and recover Firefox
+
+[The recovery record](benchmarks/results/h4-depth-reboot-recovery-20261016.md)
+preserves the original session as interrupted, never completed or passing.
+Windows servicing requested restart at 05:59:24 UTC; shutdown/boot followed
+at 06:00:07/06:00:33. Both original processes are absent. All 201 native and
+201 Chrome outcomes completed and independently validate; Firefox 157.0 had
+started its first batch but saved no outcome or error. The precise number of
+started workers is unknown. No scale run began. Original files and the one-use
+marker are unchanged; all evidence plus the exact build is archived with CRC,
+every-member SHA-256 and byte-length verification.
+
+All original application, executable/site/input/runner/environment guards
+still match. The recovery retains all 402 completed current-build outcomes
+and 195 frozen-v1 outcomes without score selection, then runs the missing
+201 Firefox outcomes once at the original settings and limits. The new boot
+and OS environment are explicit; the original four-hour session is not
+retroactively extended. A separate one-hour recovery cap applies. Native's
+median is +0.000614% versus frozen v1; Chrome's subset median +0.851159% and
+worst +2.455588% meet the original limits. Full Firefox, scale, all-placement
+curve fidelity and final requirement review remain required. The unopened
+common-line pilot waits. No completed result is rerun or replaced, no
+reserved input is opened, and no release or gate closure occurs. Completion
+stays 45%. Main commit `21835ba` has also passed all six hosted checks.
