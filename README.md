@@ -19,8 +19,11 @@ The current development build supports editable LightBurn project nesting, lead-
 allowances and improvements for large curved drawings. The v1.1 plan is still
 in progress; [current verification and remaining work](docs/STATUS.md) distinguish
 completed features from open checks. Downloaded releases contain the features
-listed in their own release notes. The benchmark figures below belong to the
-frozen `75cbb32` build, not a new comparison of the development build.
+listed in their own release notes. The hosted browser was last deployed from
+[v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348); to try the
+newer browser features, [build the development app locally](#browser-app).
+The benchmark figures below belong to the frozen `75cbb32` build, not a new
+comparison of the development build.
 
 ![451 letter outlines nested on one sheet, small letters inside the holes of large ones](docs/images/showcase.png)
 

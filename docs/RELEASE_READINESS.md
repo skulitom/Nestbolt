@@ -62,5 +62,9 @@ provenance afterward, including the actual downloaded Windows bundle.
   and flagged contours need attention. Lead-enabled LightBurn exports include
   separate SVG/DXF cutting files alongside the preserved editable project.
 
+The hosted browser remains on the [last Pages deployment from v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348).
+The README distinguishes that hosted version from development-browser features;
+this native/MCP preview does not itself dispatch the manual Pages workflow.
+
 The published v1 claims remain unchanged. Registry publication and a new final
 acceptance comparison remain separate actions. No preview tag or release exists yet.
