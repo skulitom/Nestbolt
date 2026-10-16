@@ -26,16 +26,24 @@ quality claim for this preview.
   lint/builds and 23 package tests including the actual Windows MCPB.
 - Recheck affected geometry, native/CLI/MCP/browser behavior and performance
   after fixes. Require green CI on the release commit.
+- All six hosted checks pass on `0a9fb44`
+  ([run](https://github.com/skulitom/Nestbolt/actions/runs/38830004774)).
+  The integrated-build native measurement is complete with 201 valid layouts;
+  its 65-job median difference from frozen v1 is 0%. Browser quality and current
+  scale checks remain in progress or pending, so the release gate stays open.
 - The preview version is `0.2.0-alpha.1`. Finish checking release notes and ensure the workflow
   marks the release as a preview without replacing the current stable Latest.
   [Release notes](../mcpb/RELEASE_NOTES.md) now describe the features, preparation
   steps and outstanding import/common-line limits; review them against the final build.
   [Packaging now accepts SemVer prerelease versions](../benchmarks/results/preview-packaging-20261016.md)
   and explicitly keeps previews out of Latest. Its tests cover version propagation and channel selection;
-  the native packaging dry run remains required before pushing a tag.
-- Run the packaging dry run for Windows x64, Linux x64 and macOS arm64. Verify
-  archives, Windows MCPB, version agreement, checksums and provenance. Verify
-  the downloaded Windows bundle after publication.
+  the [three-platform dry run](../benchmarks/results/preview-release-dryrun-20261016.md)
+  now passes for `0a9fb44`, including the actual downloaded Windows package checks.
+- Windows x64, Linux x64 and macOS arm64 packaging passes on `0a9fb44`.
+  Downloaded archive contents, architectures, versions and Windows MCPB checksum
+  agree. If the final release commit changes package contents, record its own
+  dry run. Published provenance and the downloaded Windows bundle still need
+  verification after publication.
 
 ## Disclosures in the release notes
 

@@ -1,0 +1,186 @@
+{
+  "scope": "Seal the isolated functional experiment without integrating or timing it.",
+  "baseline_commit": "0a9fb440560bf96f5a81bd05e3f50d7df01238b3",
+  "production_unchanged": true,
+  "current_H4_source_build_input_guards_unchanged": true,
+  "changed_existing_sources": [
+    "crates/core/src/sheets.rs",
+    "crates/core/src/sheets/vstrip.rs"
+  ],
+  "added_source": "crates/core/src/sheets/vstrip/exchange.rs",
+  "candidate_source_sha256": {
+    "crates/core/src/sheets.rs": "bb4e021e6af7df33cce971cd4f6453bb45cd82d690d6922909170eaa33e6bbf1",
+    "crates/core/src/sheets/vstrip.rs": "b65ca9a75b6aaefd94f4d62b4a44b9006957d2ea82ec9f64a0dbe9cce3f9978b",
+    "crates/core/src/sheets/vstrip/exchange.rs": "b476ab5121bf0b7cb99d3f049b6a11627d1dea51b3651ea943a3a083c21f4850"
+  },
+  "baseline_binary_sha256": "41a0e9c75b320572cf0e229061cbedde23e0f10259b98081f8c2da761404df3c",
+  "candidate_binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+  "focused_tests": 6,
+  "authored_scenarios": 11,
+  "authored_successful_exchanges": 7,
+  "core_tests_passed": 80,
+  "core_tests_existing_ignored": 1,
+  "common_geometry_tests_passed": 6,
+  "strict_lint_scope": "nestbolt-core --lib --test common_line",
+  "public_fixed_work_runs": 8,
+  "public_checks": {
+    "scope": "Authored fixed-work CLI parity/replay on CCD1; not packing performance.",
+    "all_checks_pass": true,
+    "normal_layout_and_exports_byte_identical": true,
+    "common_layout_and_exports_replay_exactly": true,
+    "all_independently_valid": true,
+    "held_out_inputs_read": false,
+    "records": [
+      {
+        "mode": "normal",
+        "seed": 0,
+        "label": "baseline",
+        "binary_sha256": "41a0e9c75b320572cf0e229061cbedde23e0f10259b98081f8c2da761404df3c",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 12,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "9c1de9e70c4e813ce300e3db296bdbd4dae2f552f8583f6da84ee8f308b9b482",
+          "sheet-0.dxf": "b5ae4c77b9793e98106ebddf662d46f9f0473da8c63818fe33bcd14617a433a9",
+          "sheet-0.svg": "7baa4fcd3f36f38522e417287be15b44277873204f26a3a9a41080706c171df0",
+          "sheet-1.dxf": "23a7dabbbffc28eb96ecb585c7c5d3eb6d062e189c8c9fd7a9c8901109ac54ed",
+          "sheet-1.svg": "340ebc68c73acbc0c9ea151c0da7ce4ef29e8045fdf967672384b092de0bc41d"
+        }
+      },
+      {
+        "mode": "normal",
+        "seed": 0,
+        "label": "candidate",
+        "binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 12,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "9c1de9e70c4e813ce300e3db296bdbd4dae2f552f8583f6da84ee8f308b9b482",
+          "sheet-0.dxf": "b5ae4c77b9793e98106ebddf662d46f9f0473da8c63818fe33bcd14617a433a9",
+          "sheet-0.svg": "7baa4fcd3f36f38522e417287be15b44277873204f26a3a9a41080706c171df0",
+          "sheet-1.dxf": "23a7dabbbffc28eb96ecb585c7c5d3eb6d062e189c8c9fd7a9c8901109ac54ed",
+          "sheet-1.svg": "340ebc68c73acbc0c9ea151c0da7ce4ef29e8045fdf967672384b092de0bc41d"
+        }
+      },
+      {
+        "mode": "common",
+        "seed": 0,
+        "label": "first",
+        "binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 0,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "0f08f2f33aa798944f7fb59238d72aee83a619c7f923d375df0a51ed0f15c597",
+          "sheet-0.dxf": "567e71dd4ffaacbc98f8267ef838b03f537edc41e8ae0ee2710a71959bc2ae65",
+          "sheet-0.svg": "719ce24ae6f620a76b1246ea9046106605e7cd2072a0834e310436f487aed042",
+          "sheet-1.dxf": "ba17b73571206e3d19ef2d216d768f99d6dbe04879274ac383826c2fed5e02cf",
+          "sheet-1.svg": "68354edf9ca66d81a96f7b45a7ad2d8aa639037ee669f612dd261dea45bb8ca8"
+        }
+      },
+      {
+        "mode": "common",
+        "seed": 0,
+        "label": "replay",
+        "binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 0,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "0f08f2f33aa798944f7fb59238d72aee83a619c7f923d375df0a51ed0f15c597",
+          "sheet-0.dxf": "567e71dd4ffaacbc98f8267ef838b03f537edc41e8ae0ee2710a71959bc2ae65",
+          "sheet-0.svg": "719ce24ae6f620a76b1246ea9046106605e7cd2072a0834e310436f487aed042",
+          "sheet-1.dxf": "ba17b73571206e3d19ef2d216d768f99d6dbe04879274ac383826c2fed5e02cf",
+          "sheet-1.svg": "68354edf9ca66d81a96f7b45a7ad2d8aa639037ee669f612dd261dea45bb8ca8"
+        }
+      },
+      {
+        "mode": "normal",
+        "seed": 1,
+        "label": "baseline",
+        "binary_sha256": "41a0e9c75b320572cf0e229061cbedde23e0f10259b98081f8c2da761404df3c",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 12,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "5870d50c77b2afe6334bcac2318bf8e50d9432de3ff0e1d56119dfa63d6d7b08",
+          "sheet-0.dxf": "d19057bf5a1644482ac4d0051b39c2e114337747cbd41c4d641bf0a953d19e62",
+          "sheet-0.svg": "fc3f6799ca4f0bcbff03da7cec63d8df621a822a70df8afd0dbfbab35f1decdb",
+          "sheet-1.dxf": "f2f954932d6c574539b0880eb7e92a81f1995b71e5ff1eaed7d28277a7440533",
+          "sheet-1.svg": "3383d9d250390595f555d1fa72607ecc537f001f314d9921d81ab58e1cbd51da"
+        }
+      },
+      {
+        "mode": "normal",
+        "seed": 1,
+        "label": "candidate",
+        "binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 12,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "5870d50c77b2afe6334bcac2318bf8e50d9432de3ff0e1d56119dfa63d6d7b08",
+          "sheet-0.dxf": "d19057bf5a1644482ac4d0051b39c2e114337747cbd41c4d641bf0a953d19e62",
+          "sheet-0.svg": "fc3f6799ca4f0bcbff03da7cec63d8df621a822a70df8afd0dbfbab35f1decdb",
+          "sheet-1.dxf": "f2f954932d6c574539b0880eb7e92a81f1995b71e5ff1eaed7d28277a7440533",
+          "sheet-1.svg": "3383d9d250390595f555d1fa72607ecc537f001f314d9921d81ab58e1cbd51da"
+        }
+      },
+      {
+        "mode": "common",
+        "seed": 1,
+        "label": "first",
+        "binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 0,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "cf1e0b8f4da9f6499be5be55efef6826a92fc93106f6c9d6c192aa5f611b60b1",
+          "sheet-0.dxf": "c458172786a65af5cacd4ad474f456f75be7f8fcba51518bfea82f36420edc5a",
+          "sheet-0.svg": "70e1d976d62a1278a2301dddf43c183c43c0ca76ebaab8af9a42589642b1fdde",
+          "sheet-1.dxf": "36e37afadd163f906c8318dcdff5a138b34ecf8ce1562fe7995c51b10a9fdcc7",
+          "sheet-1.svg": "4f408b9e0799a886a1bd338d5a8d9ed5bde6e10c0e08d4790283db00f524c558"
+        }
+      },
+      {
+        "mode": "common",
+        "seed": 1,
+        "label": "replay",
+        "binary_sha256": "668181ff4b3ec6d589c7222fd2bdcd0a7e99b0d8ef7c7e6374ec3982ce286356",
+        "valid": true,
+        "repeatable": true,
+        "parts_in_holes": 0,
+        "files": {
+          "job.json": "294c58af70634f5d35618d898319e64720a85b9676297807306b25ab6f0d1a23",
+          "layout.json": "cf1e0b8f4da9f6499be5be55efef6826a92fc93106f6c9d6c192aa5f611b60b1",
+          "sheet-0.dxf": "c458172786a65af5cacd4ad474f456f75be7f8fcba51518bfea82f36420edc5a",
+          "sheet-0.svg": "70e1d976d62a1278a2301dddf43c183c43c0ca76ebaab8af9a42589642b1fdde",
+          "sheet-1.dxf": "36e37afadd163f906c8318dcdff5a138b34ecf8ce1562fe7995c51b10a9fdcc7",
+          "sheet-1.svg": "4f408b9e0799a886a1bd338d5a8d9ed5bde6e10c0e08d4790283db00f524c558"
+        }
+      }
+    ]
+  },
+  "failed_attempts_preserved": [
+    "compile-v1",
+    "functional-v2",
+    "functional-v3",
+    "functional-v4",
+    "lint-v5",
+    "lint-v6"
+  ],
+  "measured_on_CCD0": false,
+  "performance_improvement_established": false,
+  "H5_complete": false,
+  "held_out_geometry_read": false,
+  "integrated": false,
+  "completed_milestone_weight_percent": 45
+}

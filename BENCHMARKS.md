@@ -12757,3 +12757,42 @@ The `0.2.0-alpha.1` performance plan measures 603 new development outcomes acros
 No current-product result is reused from before the hole-index repair. Original
 limits, scales and H4 requirement review remain. No new final/held-out run,
 release or registry entry yet; completion remains 45%.
+
+
+## 2026-10-16 — Preview package download verification and H2 evidence review
+
+[Three-platform dry run](benchmarks/results/preview-release-dryrun-20261016.md)
+passes for `0a9fb44` / `0.2.0-alpha.1`. All downloaded archives have their expected
+architectures, permissions and exact documents; native CI checks both executable
+versions. Downloaded Windows archive and MCPB additionally pass local version and
+import/nest/validate checks. Bundle bytes match the archive server and generated
+checksum/metadata. MCPB and registry metadata validators pass. The release job
+is skipped; no tag, release, attestation or registry publication is created.
+Published-download provenance remains required after the authorized release.
+
+[H2 requirement review](benchmarks/results/h2-requirements-review-20261016.md)
+accounts for all 313 labelled training files: 291 imports and 22 original clear
+rejections, preserving the reviewed R43 exception. Product source comparison
+confirms unchanged ordinary vector readers/exporters, native preserving writer,
+public adapters, validator and all third-party lock records since the vector
+replay. The current core equals the 56-project native diagnostic candidate.
+This is a saved-evidence review, not a new import/timing/desktop measurement.
+Twenty-two reserved vectors and the original denominator clarification remain
+pending. No reserved geometry/labels reopened; H2 remains open and weight 45%.
+
+
+## 2026-10-16 — Isolated directed exchange: functional proof only
+
+[The common-line exchange candidate](benchmarks/results/h5-directed-exchange-functional-20261016.md)
+can return a smaller actual obstruction while inserting a last-sheet part and
+repairing both sheets. Six focused tests cover eleven authored scenarios,
+including frozen sheets, reflection, defects and unchanged state after failed
+repairs or expired/disabled calls. All 80 core tests and six common-line geometry
+tests pass (one existing ignored test); focused strict lint and release build pass.
+Eight authored fixed-work public CLI runs independently validate: ordinary
+baseline/candidate layouts and exports match exactly with twelve hole riders,
+and common-mode replays match exactly with zero riders. No wall-clock material
+or speed benefit is established. The candidate is not integrated; production
+and active H4 guards remain unchanged. Original compile, fixture/oracle and broad
+lint setup failures are retained with the final source, helpers and executables
+in a 292-member verified archive. H5 remains open; completed weight stays 45%.
