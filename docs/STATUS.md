@@ -40,7 +40,10 @@ candidate now [passes its isolated subset](../benchmarks/results/h4-score-chunks
 99/99 valid layouts, Chrome +0.378238% and Firefox +0.432882% median material,
 with every job within +5%. Four fixed-work pairs preserve all result fields
 except elapsed wall time. This does not establish a general speed gain or close
-H4: final integration, the full comparison and scale confirmation remain.
+H4: the [integrated candidate `7eba929`](../benchmarks/results/h4-score-integration-20261016.md)
+passes all local application checks, while its own full comparison, scale
+confirmation and hosted CI remain outstanding. Its package workflow dry run
+passes; downloaded-artifact checks are separate. No release/tag is created.
 
 Latest repository reconciliation (2026-10-15): [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
 is tagged at `6c462c2`, and the [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654)

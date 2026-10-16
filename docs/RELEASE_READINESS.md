@@ -9,24 +9,24 @@ setup, automatic browser workers and native downloads. Its headline comparison
 is explicitly the frozen v1 benchmark at `75cbb32`. It makes no new comparative
 quality claim for this preview.
 
-The initial release candidate is frozen at `0a9fb44`, the commit used by its
-passing CI, package dry run and active performance confirmation. Its completed
+The initial release candidate `0a9fb44` passed CI and packaging, but its completed
 [Chrome subset fails H4](../benchmarks/results/h4-preview-chrome-failure-20261016.md):
 median +1.046217% against the unchanged +1% limit, despite all 201 Chrome layouts
 being valid. The preview will not be tagged from that failed result. The
 [complete original measurement](../benchmarks/results/h4-preview-development-20261016.md)
 is now sealed: all 603 new layouts validate, Firefox passes its subset at
 +0.788924%, and both browsers pass full G5. Chrome's subset failure remains. A
-corrected candidate needs its own checks. Subsequent main commits currently
-contain evidence, status updates and isolated experiment tools; production and
-packaged files remain unchanged.
+corrected candidate needs its own checks.
 
 The [isolated eight-pair score-bound candidate](../benchmarks/results/h4-score-chunks-probe-20261016.md)
 now passes the eleven-job subset: 99 valid layouts, Chrome +0.378238% and Firefox
 +0.432882% median material, with every job within +5%. Four exact fixed-work
-pairs also pass. It remains isolated pending the common-line pilot and the final
-integration decision; the resulting release build still needs full comparison,
-scale and release checks. No general speed claim follows from this subset.
+pairs also pass. It is now integrated in candidate `7eba929`, whose
+[full local application checks](../benchmarks/results/h4-score-integration-20261016.md)
+pass. Its own committed full comparison is starting; current scale checks and
+green hosted CI remain required. The common-line exchange pilot failed its
+material condition and remains unintegrated. No general speed claim follows
+from the subset alone. Later evidence-only commits do not change the candidate.
 
 ## Before publishing
 

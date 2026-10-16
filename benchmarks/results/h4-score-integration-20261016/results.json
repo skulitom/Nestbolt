@@ -1,0 +1,233 @@
+{
+  "all_checks_passed": true,
+  "commands": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "started": "2026-10-16T02:25:36.878044+00:00",
+      "finished": "2026-10-16T02:25:37.660776+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-16T02:25:37.661779+00:00",
+      "finished": "2026-10-16T02:25:51.794545+00:00",
+      "exit_code": 0,
+      "log_sha256": "15aaed124ab82ca92186f128ba1a52bc564bc01ace01940f517f19cc81e5b5d2"
+    },
+    {
+      "label": "workspace-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "started": "2026-10-16T02:25:51.800544+00:00",
+      "finished": "2026-10-16T02:30:33.112662+00:00",
+      "exit_code": 0,
+      "log_sha256": "33237e1095dcba989c7ec7d911a8af089926b1a393a89ee5ade96dac91a470b9"
+    },
+    {
+      "label": "optimized-scores",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "bounded",
+        "--",
+        "--nocapture"
+      ],
+      "started": "2026-10-16T02:30:33.118662+00:00",
+      "finished": "2026-10-16T02:31:51.238805+00:00",
+      "exit_code": 0,
+      "log_sha256": "927d52e66f774dba70f6ee417a4cc1f7ad34b3fc98a3d6105ec45dcfecabbc96"
+    },
+    {
+      "label": "optimized-cli",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features"
+      ],
+      "started": "2026-10-16T02:31:51.244308+00:00",
+      "finished": "2026-10-16T02:32:57.152996+00:00",
+      "exit_code": 0,
+      "log_sha256": "b9979bbcbf6f907e5a618f738b31eca4470c012fb7c525a651671ac6e138acc7"
+    },
+    {
+      "label": "native-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp"
+      ],
+      "started": "2026-10-16T02:32:57.159046+00:00",
+      "finished": "2026-10-16T02:34:24.034470+00:00",
+      "exit_code": 0,
+      "log_sha256": "6fa8f4c53ae08e7b7bd4cbc5bcb575fefd445d52da85e5acf1992382213d91c9"
+    },
+    {
+      "label": "web-build-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "scripts/build_web.py",
+        "--test"
+      ],
+      "started": "2026-10-16T02:34:24.039979+00:00",
+      "finished": "2026-10-16T02:36:22.362881+00:00",
+      "exit_code": 0,
+      "log_sha256": "291d3164181bd5c72b65f0f7da5317751ae1d14db11063ef7aa149bbba85f141"
+    },
+    {
+      "label": "notices",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/notices.py",
+        "--check"
+      ],
+      "started": "2026-10-16T02:36:22.370319+00:00",
+      "finished": "2026-10-16T02:36:24.663428+00:00",
+      "exit_code": 0,
+      "log_sha256": "58c339a54c929140e376ce08f13e780f461c991edfeaaac174347a4e30200861"
+    },
+    {
+      "label": "schemas",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/schemas.py",
+        "--check"
+      ],
+      "started": "2026-10-16T02:36:24.669442+00:00",
+      "finished": "2026-10-16T02:36:31.334174+00:00",
+      "exit_code": 0,
+      "log_sha256": "044ca376c2adbed3d5da0f69684fee14a7887a50b317226726d8eac37e6134fa"
+    },
+    {
+      "label": "packaging-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "node",
+        "--test",
+        "mcpb/mcpb.test.mjs"
+      ],
+      "started": "2026-10-16T02:36:31.340184+00:00",
+      "finished": "2026-10-16T02:36:44.503761+00:00",
+      "exit_code": 0,
+      "log_sha256": "390f6c606005b5b5d135c72837b895238cb1150c2fbea818655b5c96e16c2508"
+    },
+    {
+      "label": "bundle",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "node",
+        "mcpb/build.mjs",
+        "--binary",
+        "C:\\DEV\\Nestbolt\\target\\release\\nestbolt-mcp.exe",
+        "--out",
+        "C:\\DEV\\Nestbolt\\output\\score-chunks-integration-20261016\\bundle"
+      ],
+      "started": "2026-10-16T02:36:44.511101+00:00",
+      "finished": "2026-10-16T02:36:44.914569+00:00",
+      "exit_code": 0,
+      "log_sha256": "fff546452e21fafdfcb4d5d0504d2c6bbafcb56a94c29150d9a4ccff2b6c5ce3"
+    },
+    {
+      "label": "verify-bundle",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "node",
+        "mcpb/verify.mjs",
+        "C:\\DEV\\Nestbolt\\output\\score-chunks-integration-20261016\\bundle\\nestbolt-windows-x64.mcpb"
+      ],
+      "started": "2026-10-16T02:36:44.920570+00:00",
+      "finished": "2026-10-16T02:36:50.511002+00:00",
+      "exit_code": 0,
+      "log_sha256": "d5deb511a005c6f64b27f79c8198a70b8cc59a28a72f16c6ffb3c1a47597189b"
+    }
+  ],
+  "product_digest": "c571ee083d17419941bbd36440c7ff859b5aab72b1bc4139d11a8443bf2fe208",
+  "cli_sha256": "85a84342aa18e827e94b2bdfb24387df029ee8b877fc7e61433cd550f83f876c",
+  "mcp_sha256": "bbb5ac142d333bbb3f9ac3a6f875a7fbedf0c0bc605189249223c4970154bd71",
+  "wasm_sha256": "51ddb8f2eecd4daf12249b9d42998fbfa5e16248e39a1de08ce3ac781b12f472",
+  "candidate_score_sha256": "fbb74bc7e3b6e8dc53230f62b491e3fc5bad37274180658cb16d1cf50c64dff5",
+  "H5_exchange_integrated": false,
+  "release_still_pending": true
+}

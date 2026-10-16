@@ -12899,3 +12899,19 @@ placement within the existing bounded relocation budget; they do not establish
 quality or speed. Their verified raw archive retains 28 members, 86,153 bytes,
 SHA-256 `1efce6bca92e82d124afd95157f965554487566cace211b58c490428b5ed81a4`.
 All original failures, plans and thresholds stand. H5 remains open at 45%.
+
+### 2026-10-16 — Finer-bound candidate integrated; all local release checks pass
+
+Candidate `7eba929` integrates only the tested exact-bound granularity change.
+[All local checks pass](benchmarks/results/h4-score-integration-20261016.md):
+302 workspace tests (one existing ignored), three optimized score tests,
+27 optimized CLI tests, 86 enabled browser tests (four existing opt-in skips),
+strict lint, native/WASM/site builds, types, schemas, notices and 23 package tests
+(one platform skip). The actual Windows MCPB passes its live tool/import/nest/
+validate/confinement checks. The common-line exchange stays unintegrated.
+The verified archive retains 23 members, 6,295,137 bytes, SHA-256
+`2602e2a5c537c8675ef15282220483cc81298ad2e4f42b1926d2e83fe4ba2379`.
+Its new 603-attempt full/subset plan is committed before measurement, reusing only
+195 sealed frozen-v1 outcomes. All thresholds and held-out exclusions stand.
+Hosted CI and final quality/scale confirmation remain required; no tag or release
+is created, and H4 stays open at 45% completion.
