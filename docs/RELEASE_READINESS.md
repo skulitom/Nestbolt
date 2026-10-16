@@ -31,10 +31,10 @@ explicitly the frozen v1 benchmark at `75cbb32`, with no new competitor claim.
   stopped after sealing/reporting the quality failure. No current-build scale
   measurements were started. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
   verifies scope and unshared WASM memory; it does not close H4.
-- [Current-build profiling](../benchmarks/results/h4-current-profile-plan-20261016/plan.json)
-  now investigates the remaining cost on three declared development jobs. It is
-  diagnostic, not a repeated quality gate. No optimization or release is selected
-  from incomplete profiles.
+- [Current-build profiling](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
+  completes with three valid layouts. Edge/quadtree traversal is the main sampled
+  cost. A shallower collision tree is the next isolated hypothesis, with no
+  established benefit; profiles do not substitute for quality evidence.
 
 The earlier `0a9fb44` candidate's [completed comparison](../benchmarks/results/h4-preview-development-20261016.md)
 failed Chrome's subset at +1.046217%, against +1%; all results are preserved.

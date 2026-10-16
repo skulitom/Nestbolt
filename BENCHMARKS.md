@@ -13043,3 +13043,24 @@ sequence stopped after finalization/reporting and started no measurements.
 Current-build CPU profiles are diagnostic only. H4 stays open at 45% completed
 milestone weight; no tag, release, registry entry, held-out evaluation or new
 competitor claim is produced. Current candidate `7eba929` is not release-ready.
+
+
+## 2026-10-16 — Current preview CPU profiles identify traversal cost
+
+[Three completed diagnostic profiles](benchmarks/results/h4-browser-profile-20261016T040030Z.md)
+use unchanged `7eba929`, declared gear-1/sign-1/example-gears, 60 s, seed 0,
+serial Chrome pages on physical CCD0 CPU 8 and 1 ms CDP sampling. All three
+layouts validate against the original jobs, with exact independent metrics;
+public gears library/request also passes. Every guard and affinity check passes.
+Edge collection plus quadrant tests account for 75.668%, 46.512% and 75.229% of
+sampled time respectively. Bounding-box generation adds 5.405%, 9.481%, 7.446%.
+Sample gaps are only 0.000144–0.000154 s. These are diagnostic samples, not a
+quality rerun or a speed claim. A shallower separator-window collision tree is
+the next isolated hypothesis; it may trade traversal for more leaf work.
+
+The raw archive preserves 46 members / 3,925,250 bytes, SHA-256
+`883309e887103c53582c36487dd774e4b7fdf62580d1bffe7f87bef825853825`;
+CRC and every member hash/size pass. Originals and engine/input snapshots remain
+preserved. After this measurement finished, the committed early-exchange H5
+pilot started separately, with no overlap. Production source remains unchanged;
+H4/H5 stay open, completed weight 45%, and no release is created.

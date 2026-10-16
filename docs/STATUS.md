@@ -29,8 +29,9 @@ is now complete with 603 new and 195 reused valid layouts. Native and both full
 G5 comparisons pass; Firefox's subset is +0.881781%, but Chrome fails at
 **+1.032679%** against +1%. Its [conditional scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/stopped.json)
 therefore stopped after sealing the results, with no scale run. The current
-candidate remains unreleased. [Three current-build CPU profiles](../benchmarks/results/h4-current-profile-plan-20261016/plan.json)
-are the next diagnostic; they do not replace quality evidence.
+candidate remains unreleased. [Three current-build CPU profiles](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
+validate and identify edge/quadtree traversal as the main sampled cost. A shallower
+collision-tree configuration is the next isolated hypothesis; no benefit is established.
 No preview tag or release exists yet. The hosted browser remains on
 [v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348), as the README now explains.
 
@@ -75,7 +76,7 @@ remains unintegrated. A [new isolated early call point](../benchmarks/results/h5
 now passes seven focused checks, 82 optimized core tests and authored API/CLI
 repeatability checks. Its full-window test reaches and accepts an exchange;
 ordinary mode remains exact except elapsed wall time. A [new paired pilot](../benchmarks/results/h5-early-exchange-pilot-20261016/plan.json)
-is prepared but unopened until the release quality/scale sequence finishes.
+is now running after the release quality sequence stopped and the separate profiles finished.
 This functional proof does not establish material improvement. The original unopened pilot, revised scheduling rationale,
 shared-target cache failure and all measured outcomes remain preserved. H5 stays
 open; no material limit changes. Only the proven score-bound change is selected
@@ -88,8 +89,8 @@ is sealed with 603 new and 195 reused valid layouts. Native median material is
 +0.000681% versus frozen v1; full G5 Chrome is +0.091358% median/+0.384971% total,
 and Firefox +0.026372%/+0.346902%. All individual-seed G5 checks pass. The curve
 subset remains the failure: Chrome +1.032679% versus +1%; Firefox +0.881781% passes.
-No scale run or release follows. Current CPU profiles will identify the next
-optimization. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
+No scale run or release follows. [Current CPU profiles](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
+identify traversal as the main sampled cost; a shallower collision tree is the next isolated hypothesis. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
 and [independent export-checker preparation](../benchmarks/results/h4-export-fidelity-preparation-20261016.md)
 remain supporting evidence, not H4 closure. Completion stays 45%.
 

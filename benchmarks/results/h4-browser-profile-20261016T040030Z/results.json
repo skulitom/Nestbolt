@@ -1,0 +1,2266 @@
+{
+  "scope": "Profile the failed preview WASM on three declared H4 development jobs, never a gate.\n\nOne isolated Chrome page calls the same WASM nest_job entry point, sampled by\nCDP every millisecond. All processes use physical CCD0 CPU 8; jobs run serially.\nSampling and main-page execution make these diagnostic timings, not app/G5\nmeasurements. Do not edit sources during the session.\n",
+  "rows": [
+    {
+      "job": "m-public-gear-1",
+      "validation": {
+        "status": "valid",
+        "material": 0.940122435,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-public-gear-1.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-browser-profile-20261016T040030Z\\m-public-gear-1\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.3129068999987794,
+          "cpu": 8
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 60.0951,
+        "accepted_at_seconds": 46.6438,
+        "layout_sha256": "292f5ce1d6c5987520b086e5a03a4a1714477f2f7207cdd81af8f3cdbd8a37ab"
+      },
+      "profile": {
+        "sampled_seconds": 60.165248,
+        "sample_count": 19380,
+        "top_self": [
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 17.663372,
+            "inclusive_seconds": 17.753137,
+            "self_percent": 29.358097219178752
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 5.141467,
+            "inclusive_seconds": 5.141467,
+            "self_percent": 8.545576010922451
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.490298,
+            "inclusive_seconds": 4.490298,
+            "self_percent": 7.463275145146913
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.33038,
+            "inclusive_seconds": 4.33038,
+            "self_percent": 7.197477188160182
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.966789,
+            "inclusive_seconds": 25.315061,
+            "self_percent": 6.593156567724943
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.587756,
+            "inclusive_seconds": 3.587756,
+            "self_percent": 5.963169968151714
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.052707,
+            "inclusive_seconds": 2.052707,
+            "self_percent": 3.4117818312657833
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.385824,
+            "inclusive_seconds": 46.778016,
+            "self_percent": 2.303362898130163
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.946321,
+            "inclusive_seconds": 30.75168,
+            "self_percent": 1.5728697735942183
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.898902,
+            "inclusive_seconds": 35.980962,
+            "self_percent": 1.494055172846624
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.838128,
+            "inclusive_seconds": 41.960557,
+            "self_percent": 1.393043372812159
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.743089,
+            "inclusive_seconds": 0.743089,
+            "self_percent": 1.2350800914175573
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collides::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter>[1]",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.710826,
+            "inclusive_seconds": 0.710826,
+            "self_percent": 1.1814561123391363
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.646229,
+            "inclusive_seconds": 0.646229,
+            "self_percent": 1.0740901458596166
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.483396,
+            "inclusive_seconds": 0.483396,
+            "self_percent": 0.8034471992868707
+          },
+          {
+            "function": "(program)",
+            "url": "",
+            "line": -1,
+            "self_seconds": 0.459208,
+            "inclusive_seconds": 0.459208,
+            "self_percent": 0.7632445893017843
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.435657,
+            "inclusive_seconds": 0.435657,
+            "self_percent": 0.7241007300426984
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.430703,
+            "inclusive_seconds": 2.491136,
+            "self_percent": 0.7158667408800509
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.430609,
+            "inclusive_seconds": 0.430609,
+            "self_percent": 0.7157105045091812
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.357597,
+            "inclusive_seconds": 0.389649,
+            "self_percent": 0.5943580586587127
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.356171,
+            "inclusive_seconds": 0.388219,
+            "self_percent": 0.5919879196708372
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.326261,
+            "inclusive_seconds": 0.326261,
+            "self_percent": 0.5422748361313162
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.318843,
+            "inclusive_seconds": 0.318843,
+            "self_percent": 0.5299454595450184
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.314587,
+            "inclusive_seconds": 0.316122,
+            "self_percent": 0.5228716085405316
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.310858,
+            "inclusive_seconds": 0.342914,
+            "self_percent": 0.5166736784663466
+          },
+          {
+            "function": "nestbolt_validator[b7e89540aba4d42d]::make_ring",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.290808,
+            "inclusive_seconds": 0.387918,
+            "self_percent": 0.4833487929776339
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.265831,
+            "inclusive_seconds": 1.229204,
+            "self_percent": 0.44183479473067244
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.25773,
+            "inclusive_seconds": 0.29007,
+            "self_percent": 0.42837021132199105
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.257266,
+            "inclusive_seconds": 0.257266,
+            "self_percent": 0.427599002001953
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.245794,
+            "inclusive_seconds": 2.424933,
+            "self_percent": 0.4085315163996332
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.231938,
+            "inclusive_seconds": 0.975027,
+            "self_percent": 0.3855016104978076
+          },
+          {
+            "function": "nestbolt_validator[b7e89540aba4d42d]::make_ring",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.213784,
+            "inclusive_seconds": 0.285958,
+            "self_percent": 0.35532804585131933
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <jagua_rs[9574aa9211a00dca]::collision_detection::cd_engine::CDEngine>::collect_poly_collisions<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector>::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.211416,
+            "inclusive_seconds": 0.211416,
+            "self_percent": 0.35139221897664247
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.193835,
+            "inclusive_seconds": 0.193835,
+            "self_percent": 0.3221710313568391
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.193065,
+            "inclusive_seconds": 1.74853,
+            "self_percent": 0.32089122278694837
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.155312,
+            "inclusive_seconds": 0.752384,
+            "self_percent": 0.25814237481411195
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.150321,
+            "inclusive_seconds": 0.150321,
+            "self_percent": 0.24984688835654761
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.145635,
+            "inclusive_seconds": 0.145635,
+            "self_percent": 0.24205833905978413
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::fail_fast::pole::POINode>::new",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.132035,
+            "inclusive_seconds": 0.32587,
+            "self_percent": 0.21945392795522092
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::fail_fast::pole::POINode>::new",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.131366,
+            "inclusive_seconds": 0.450209,
+            "self_percent": 0.21834199037956264
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.131356,
+            "inclusive_seconds": 0.142225,
+            "self_percent": 0.21832536948904457
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.11698,
+            "inclusive_seconds": 0.125746,
+            "self_percent": 0.1944311772802798
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.114746,
+            "inclusive_seconds": 0.114746,
+            "self_percent": 0.19071807033854493
+          },
+          {
+            "function": "<&mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.112139,
+            "inclusive_seconds": 0.112139,
+            "self_percent": 0.1863850041804864
+          },
+          {
+            "function": "nestbolt_validator[b7e89540aba4d42d]::boundary_distance",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.111861,
+            "inclusive_seconds": 0.243861,
+            "self_percent": 0.18592294342408427
+          }
+        ],
+        "top_inclusive": [
+          {
+            "function": "(root)",
+            "url": "",
+            "line": -1,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 60.165248,
+            "self_percent": 0.0
+          },
+          {
+            "function": "",
+            "url": "",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "evaluate",
+            "url": "",
+            "line": 363,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "",
+            "url": "",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm.js",
+            "line": 306,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "js-to-wasm::",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job externref shim multivalue shim",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job externref shim",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_wasm[8992da412a4f6599]::nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.631749,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job::<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 58.272541,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::sheets::Search<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>::{closure#3}>>::window_search",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 53.432711,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::separate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.003048,
+            "inclusive_seconds": 52.426044,
+            "self_percent": 0.0050660474299050505
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::separate::refine_coord_desc::<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.049927,
+            "inclusive_seconds": 46.843371,
+            "self_percent": 0.0829831200895241
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.385824,
+            "inclusive_seconds": 46.778016,
+            "self_percent": 2.303362898130163
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.838128,
+            "inclusive_seconds": 41.960557,
+            "self_percent": 1.393043372812159
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.898902,
+            "inclusive_seconds": 35.980962,
+            "self_percent": 1.494055172846624
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.946321,
+            "inclusive_seconds": 30.75168,
+            "self_percent": 1.5728697735942183
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.966789,
+            "inclusive_seconds": 25.315061,
+            "self_percent": 6.593156567724943
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 17.663372,
+            "inclusive_seconds": 17.753137,
+            "self_percent": 29.358097219178752
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 5.141467,
+            "inclusive_seconds": 5.141467,
+            "self_percent": 8.545576010922451
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.490298,
+            "inclusive_seconds": 4.490298,
+            "self_percent": 7.463275145146913
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.33038,
+            "inclusive_seconds": 4.33038,
+            "self_percent": 7.197477188160182
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::sheets::warm_start",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 4.25677,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.101436,
+            "inclusive_seconds": 4.223253,
+            "self_percent": 0.1685956650590055
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.587756,
+            "inclusive_seconds": 3.587756,
+            "self_percent": 5.963169968151714
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.061134,
+            "inclusive_seconds": 2.921724,
+            "self_percent": 0.10161015209311527
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::construct_ordered",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 2.513334,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.430703,
+            "inclusive_seconds": 2.491136,
+            "self_percent": 0.7158667408800509
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.245794,
+            "inclusive_seconds": 2.424933,
+            "self_percent": 0.4085315163996332
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.052707,
+            "inclusive_seconds": 2.052707,
+            "self_percent": 3.4117818312657833
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.193065,
+            "inclusive_seconds": 1.74853,
+            "self_percent": 0.32089122278694837
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::optimize::optimize_controlled_scored::<nestbolt_core[1d7dbdb782c91b56]::sheets::warm_start::{closure#2}>::{closure#1}",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.603502,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_validator[b7e89540aba4d42d]::job::validate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.603502,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_validator[b7e89540aba4d42d]::job::validate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.555474,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::holes::group",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.284433,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.265831,
+            "inclusive_seconds": 1.229204,
+            "self_percent": 0.44183479473067244
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.231938,
+            "inclusive_seconds": 0.975027,
+            "self_percent": 0.3855016104978076
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::move_item",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 0.961575,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.001575,
+            "inclusive_seconds": 0.822644,
+            "self_percent": 0.0026177902565946375
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.014264,
+            "inclusive_seconds": 0.821069,
+            "self_percent": 0.02370803823496248
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.009306,
+            "inclusive_seconds": 0.806805,
+            "self_percent": 0.015467400716107743
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.038809,
+            "inclusive_seconds": 0.797499,
+            "self_percent": 0.06450401401154367
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::construct::refine_translation",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 0.756237,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.155312,
+            "inclusive_seconds": 0.752384,
+            "self_percent": 0.25814237481411195
+          }
+        ]
+      }
+    },
+    {
+      "job": "m-sign-1",
+      "validation": {
+        "status": "valid",
+        "material": 0.7185376699999999,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\M\\m-sign-1.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-browser-profile-20261016T040030Z\\m-sign-1\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.08832490000349935,
+          "cpu": 8
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 59.7192,
+        "accepted_at_seconds": 59.7185,
+        "layout_sha256": "1ab0af98ddc88fc2186747fe75aaeda0891efdf2e6df17e1697ce8532ab1a051"
+      },
+      "profile": {
+        "sampled_seconds": 59.763965,
+        "sample_count": 35892,
+        "top_self": [
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.599107,
+            "inclusive_seconds": 11.270222,
+            "self_percent": 7.695451598634729
+          },
+          {
+            "function": "<&mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.700718,
+            "inclusive_seconds": 3.702242,
+            "self_percent": 6.192223022685995
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.272033,
+            "inclusive_seconds": 3.272033,
+            "self_percent": 5.474926236905467
+          },
+          {
+            "function": "<&mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.99763,
+            "inclusive_seconds": 2.99763,
+            "self_percent": 5.015781667096552
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.852224,
+            "inclusive_seconds": 2.852224,
+            "self_percent": 4.772481210040198
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.817419,
+            "inclusive_seconds": 3.043686,
+            "self_percent": 4.714243775492473
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.668867,
+            "inclusive_seconds": 2.668867,
+            "self_percent": 4.465679276801665
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.330423,
+            "inclusive_seconds": 2.330423,
+            "self_percent": 3.8993781620747554
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.241946,
+            "inclusive_seconds": 16.235142,
+            "self_percent": 3.75133410241439
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.498871,
+            "inclusive_seconds": 3.638219,
+            "self_percent": 2.5079845354972683
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.429847,
+            "inclusive_seconds": 1.429847,
+            "self_percent": 2.3924901903680587
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.350488,
+            "inclusive_seconds": 1.350488,
+            "self_percent": 2.259702815902526
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.229241,
+            "inclusive_seconds": 1.230771,
+            "self_percent": 2.0568263835908476
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.226656,
+            "inclusive_seconds": 1.226656,
+            "self_percent": 2.0525010346954056
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.113005,
+            "inclusive_seconds": 5.0827,
+            "self_percent": 1.86233460246488
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.079699,
+            "inclusive_seconds": 1.079699,
+            "self_percent": 1.8066053683017853
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.063012,
+            "inclusive_seconds": 30.673202,
+            "self_percent": 1.7786838607512068
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.882796,
+            "inclusive_seconds": 0.882796,
+            "self_percent": 1.4771376029016816
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.755667,
+            "inclusive_seconds": 5.698004,
+            "self_percent": 1.264419119447647
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.729518,
+            "inclusive_seconds": 0.76252,
+            "self_percent": 1.2206653290155698
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.672293,
+            "inclusive_seconds": 5.67658,
+            "self_percent": 1.1249136498891932
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.667941,
+            "inclusive_seconds": 17.61296,
+            "self_percent": 1.11763166985323
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.664965,
+            "inclusive_seconds": 0.664965,
+            "self_percent": 1.1126520805639317
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::rects::Packer>::pack",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.636233,
+            "inclusive_seconds": 0.676418,
+            "self_percent": 1.0645762877345906
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.633267,
+            "inclusive_seconds": 20.140442,
+            "self_percent": 1.0596134309361838
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.631451,
+            "inclusive_seconds": 3.533918,
+            "self_percent": 1.0565748105902946
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.509779,
+            "inclusive_seconds": 4.599316,
+            "self_percent": 0.8529872474157295
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.43304,
+            "inclusive_seconds": 2.798963,
+            "self_percent": 0.724583785563759
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.382591,
+            "inclusive_seconds": 6.763394,
+            "self_percent": 0.6401700422654354
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::fail_fast::pole::POINode>::new",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.349338,
+            "inclusive_seconds": 0.569134,
+            "self_percent": 0.5845294903040653
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.338416,
+            "inclusive_seconds": 0.338416,
+            "self_percent": 0.5662542637524134
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.337428,
+            "inclusive_seconds": 0.338966,
+            "self_percent": 0.5646010936523371
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <jagua_rs[9574aa9211a00dca]::collision_detection::cd_engine::CDEngine>::collect_poly_collisions<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector>::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.32714,
+            "inclusive_seconds": 0.491664,
+            "self_percent": 0.5473867070232037
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.307198,
+            "inclusive_seconds": 6.242676,
+            "self_percent": 0.5140187736874553
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.295397,
+            "inclusive_seconds": 4.928588,
+            "self_percent": 0.49427276118644403
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.286062,
+            "inclusive_seconds": 1.39623,
+            "self_percent": 0.47865298093926667
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.262049,
+            "inclusive_seconds": 0.262049,
+            "self_percent": 0.43847325056160513
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.254388,
+            "inclusive_seconds": 0.325905,
+            "self_percent": 0.4256544892896581
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.245986,
+            "inclusive_seconds": 7.153337,
+            "self_percent": 0.41159585044265384
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_hazard::QTHazard<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::constrict",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.229911,
+            "inclusive_seconds": 0.263956,
+            "self_percent": 0.38469837133463286
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.228291,
+            "inclusive_seconds": 5.156879,
+            "self_percent": 0.3819877078102164
+          },
+          {
+            "function": "<&mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.226267,
+            "inclusive_seconds": 0.226267,
+            "self_percent": 0.378601051653785
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <jagua_rs[9574aa9211a00dca]::collision_detection::cd_engine::CDEngine>::collect_poly_collisions<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector>::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.2228,
+            "inclusive_seconds": 0.764942,
+            "self_percent": 0.372799897061716
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.219796,
+            "inclusive_seconds": 0.219796,
+            "self_percent": 0.3677734567979216
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::edge",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.217703,
+            "inclusive_seconds": 0.217703,
+            "self_percent": 0.3642713464543392
+          }
+        ],
+        "top_inclusive": [
+          {
+            "function": "(root)",
+            "url": "",
+            "line": -1,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.763965,
+            "self_percent": 0.0
+          },
+          {
+            "function": "",
+            "url": "",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.635191,
+            "self_percent": 0.0
+          },
+          {
+            "function": "evaluate",
+            "url": "",
+            "line": 363,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.635191,
+            "self_percent": 0.0
+          },
+          {
+            "function": "",
+            "url": "",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm.js",
+            "line": 306,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0
+          },
+          {
+            "function": "js-to-wasm::",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job externref shim multivalue shim",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job externref shim",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_wasm[8992da412a4f6599]::nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.003078,
+            "inclusive_seconds": 59.632534,
+            "self_percent": 0.0051502606963912114
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job::<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.157145,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::sheets::Search<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>::{closure#3}>>::window_search",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 52.963337,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::separate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.149658,
+            "inclusive_seconds": 50.966464,
+            "self_percent": 0.2504151121834035
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::separate::refine_coord_desc::<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.077486,
+            "inclusive_seconds": 30.799014,
+            "self_percent": 0.1296533789215625
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.063012,
+            "inclusive_seconds": 30.673202,
+            "self_percent": 1.7786838607512068
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.633267,
+            "inclusive_seconds": 20.140442,
+            "self_percent": 1.0596134309361838
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.667941,
+            "inclusive_seconds": 17.61296,
+            "self_percent": 1.11763166985323
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.241946,
+            "inclusive_seconds": 16.235142,
+            "self_percent": 3.75133410241439
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.599107,
+            "inclusive_seconds": 11.270222,
+            "self_percent": 7.695451598634729
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.245986,
+            "inclusive_seconds": 7.153337,
+            "self_percent": 0.41159585044265384
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.382591,
+            "inclusive_seconds": 6.763394,
+            "self_percent": 0.6401700422654354
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.138127,
+            "inclusive_seconds": 6.380803,
+            "self_percent": 0.23112087693646163
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.307198,
+            "inclusive_seconds": 6.242676,
+            "self_percent": 0.5140187736874553
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.212896,
+            "inclusive_seconds": 5.935478,
+            "self_percent": 0.3562280380828146
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.755667,
+            "inclusive_seconds": 5.698004,
+            "self_percent": 1.264419119447647
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.672293,
+            "inclusive_seconds": 5.67658,
+            "self_percent": 1.1249136498891932
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.213058,
+            "inclusive_seconds": 5.576424,
+            "self_percent": 0.3564991044352563
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.206487,
+            "inclusive_seconds": 5.363366,
+            "self_percent": 0.3455041846704783
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.228291,
+            "inclusive_seconds": 5.156879,
+            "self_percent": 0.3819877078102164
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.113005,
+            "inclusive_seconds": 5.0827,
+            "self_percent": 1.86233460246488
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.295397,
+            "inclusive_seconds": 4.928588,
+            "self_percent": 0.49427276118644403
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::sheets::warm_start",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 4.897119,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.509779,
+            "inclusive_seconds": 4.599316,
+            "self_percent": 0.8529872474157295
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::construct_ordered",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.001512,
+            "inclusive_seconds": 3.714431,
+            "self_percent": 0.0025299526227886655
+          },
+          {
+            "function": "<&mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.700718,
+            "inclusive_seconds": 3.702242,
+            "self_percent": 6.192223022685995
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.498871,
+            "inclusive_seconds": 3.638219,
+            "self_percent": 2.5079845354972683
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.631451,
+            "inclusive_seconds": 3.533918,
+            "self_percent": 1.0565748105902946
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 3.272033,
+            "inclusive_seconds": 3.272033,
+            "self_percent": 5.474926236905467
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.817419,
+            "inclusive_seconds": 3.043686,
+            "self_percent": 4.714243775492473
+          },
+          {
+            "function": "<&mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0} as core[ed718c3d60ebd546]::ops::function::FnMut<(jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity,)>>::call_mut",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.99763,
+            "inclusive_seconds": 2.99763,
+            "self_percent": 5.015781667096552
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.852224,
+            "inclusive_seconds": 2.852224,
+            "self_percent": 4.772481210040198
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.43304,
+            "inclusive_seconds": 2.798963,
+            "self_percent": 0.724583785563759
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.668867,
+            "inclusive_seconds": 2.668867,
+            "self_percent": 4.465679276801665
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.330423,
+            "inclusive_seconds": 2.330423,
+            "self_percent": 3.8993781620747554
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::move_item",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.912305,
+            "self_percent": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "job": "example-gears",
+      "validation": {
+        "status": "valid",
+        "material": 0.971891635,
+        "sheets": 1,
+        "validation": {
+          "command": [
+            "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+            "validate",
+            "--job",
+            "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\job.json",
+            "--layout",
+            "C:\\DEV\\Nestbolt\\benchmarks\\results\\h4-browser-profile-20261016T040030Z\\example-gears\\layout.json"
+          ],
+          "exit_code": 0,
+          "elapsed_wall_seconds": 0.31906619999790564,
+          "cpu": 8
+        },
+        "maximum_metric_json_roundtrip_difference": 0,
+        "elapsed_seconds": 59.9339,
+        "accepted_at_seconds": 46.5929,
+        "layout_sha256": "2ef1c8f3d9f7fefa5471a4eb2b6902fe4f7b15fff7cebda95b15fea86564023c"
+      },
+      "profile": {
+        "sampled_seconds": 59.972987,
+        "sample_count": 36063,
+        "top_self": [
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 9.375652,
+            "inclusive_seconds": 9.4013,
+            "self_percent": 15.633124960075776
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 6.720002,
+            "inclusive_seconds": 18.611704,
+            "self_percent": 11.20504803270846
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 5.466285,
+            "inclusive_seconds": 5.466285,
+            "self_percent": 9.114578535166174
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 5.082004,
+            "inclusive_seconds": 5.082004,
+            "self_percent": 8.473821722436469
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.760517,
+            "inclusive_seconds": 4.760517,
+            "self_percent": 7.937768715771986
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.595026,
+            "inclusive_seconds": 2.595026,
+            "self_percent": 4.326991416985784
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.461576,
+            "inclusive_seconds": 2.461576,
+            "self_percent": 4.1044745695257765
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.959593,
+            "inclusive_seconds": 25.338949,
+            "self_percent": 3.267459398011975
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.139579,
+            "inclusive_seconds": 43.052903,
+            "self_percent": 1.9001538142497387
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.985897,
+            "inclusive_seconds": 37.847442,
+            "self_percent": 1.643901778645776
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.972653,
+            "inclusive_seconds": 31.393606,
+            "self_percent": 1.6218185030537164
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.905188,
+            "inclusive_seconds": 0.905188,
+            "self_percent": 1.5093261904730542
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.792515,
+            "inclusive_seconds": 0.792515,
+            "self_percent": 1.321453273621339
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.722042,
+            "inclusive_seconds": 0.722042,
+            "self_percent": 1.2039453696044855
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collides::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter>[1]",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.688887,
+            "inclusive_seconds": 0.688887,
+            "self_percent": 1.1486621468428777
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.674063,
+            "inclusive_seconds": 0.674063,
+            "self_percent": 1.1239443518129253
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.669703,
+            "inclusive_seconds": 3.272465,
+            "self_percent": 1.1166744120982335
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.55687,
+            "inclusive_seconds": 0.55687,
+            "self_percent": 0.9285347084679975
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.551342,
+            "inclusive_seconds": 0.551342,
+            "self_percent": 0.9193172252701037
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.507606,
+            "inclusive_seconds": 0.509146,
+            "self_percent": 0.8463910593614422
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::deregister_hazard",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.421701,
+            "inclusive_seconds": 0.424722,
+            "self_percent": 0.7031515705562573
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.388609,
+            "inclusive_seconds": 0.388609,
+            "self_percent": 0.6479733950886922
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.372511,
+            "inclusive_seconds": 1.306493,
+            "self_percent": 0.6211313103347679
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.359468,
+            "inclusive_seconds": 0.359468,
+            "self_percent": 0.5993831856332251
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::circle::Circle as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.347062,
+            "inclusive_seconds": 0.347062,
+            "self_percent": 0.5786972057936685
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.315927,
+            "inclusive_seconds": 0.315927,
+            "self_percent": 0.5267821661108859
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::fail_fast::pole::POINode>::new",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.289501,
+            "inclusive_seconds": 0.479298,
+            "self_percent": 0.48271899480344377
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.286958,
+            "inclusive_seconds": 0.286958,
+            "self_percent": 0.47847875244232874
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.25686,
+            "inclusive_seconds": 0.25686,
+            "self_percent": 0.4282928245678342
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.241763,
+            "inclusive_seconds": 0.241763,
+            "self_percent": 0.40311982459703066
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.221658,
+            "inclusive_seconds": 0.946754,
+            "self_percent": 0.369596398458526
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.215397,
+            "inclusive_seconds": 1.120585,
+            "self_percent": 0.35915669833153385
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.209343,
+            "inclusive_seconds": 2.067178,
+            "self_percent": 0.34906215359925297
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.207214,
+            "inclusive_seconds": 0.207214,
+            "self_percent": 0.3455122220275605
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::CollidesWith<jagua_rs[9574aa9211a00dca]::geometry::primitives::point::Point>>::collides_with",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.189797,
+            "inclusive_seconds": 0.189797,
+            "self_percent": 0.31647081376820535
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.178495,
+            "inclusive_seconds": 0.178495,
+            "self_percent": 0.2976256627004421
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.174014,
+            "inclusive_seconds": 0.174014,
+            "self_percent": 0.2901539654844939
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.153558,
+            "inclusive_seconds": 5.147785,
+            "self_percent": 0.2560452758506092
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.151976,
+            "inclusive_seconds": 3.013209,
+            "self_percent": 0.2534074215779848
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.142346,
+            "inclusive_seconds": 0.142346,
+            "self_percent": 0.23735019234576393
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_hazard::QTHazard<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::constrict",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.133864,
+            "inclusive_seconds": 0.142763,
+            "self_percent": 0.22320715824942985
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.132672,
+            "inclusive_seconds": 3.702751,
+            "self_percent": 0.22121959674944988
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.130288,
+            "inclusive_seconds": 0.151691,
+            "self_percent": 0.2172444737494899
+          },
+          {
+            "function": "<clipper2_rust[3dd4e8a291e9542f]::engine::ClipperBase>::execute_internal",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.129064,
+            "inclusive_seconds": 0.149181,
+            "self_percent": 0.21520355489380577
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.126561,
+            "inclusive_seconds": 0.71888,
+            "self_percent": 0.21103000922732096
+          }
+        ],
+        "top_inclusive": [
+          {
+            "function": "(root)",
+            "url": "",
+            "line": -1,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.972987,
+            "self_percent": 0.0
+          },
+          {
+            "function": "",
+            "url": "",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.885243,
+            "self_percent": 0.0
+          },
+          {
+            "function": "evaluate",
+            "url": "",
+            "line": 363,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.885243,
+            "self_percent": 0.0
+          },
+          {
+            "function": "",
+            "url": "",
+            "line": 0,
+            "self_seconds": 0.001526,
+            "inclusive_seconds": 59.885243,
+            "self_percent": 0.002544478900142159
+          },
+          {
+            "function": "nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm.js",
+            "line": 306,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.883717,
+            "self_percent": 0.0
+          },
+          {
+            "function": "js-to-wasm::",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.883717,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job externref shim multivalue shim",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.883717,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job externref shim",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.883717,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.883717,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_wasm[8992da412a4f6599]::nest_job",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 59.883717,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job::<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.002575,
+            "inclusive_seconds": 58.113934,
+            "self_percent": 0.004293599716819174
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::sheets::Search<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>::{closure#3}>>::window_search",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 53.184359,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::separate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.012102,
+            "inclusive_seconds": 50.619788,
+            "self_percent": 0.02017908496036724
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::separate::refine_coord_desc::<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.027402,
+            "inclusive_seconds": 43.107681,
+            "self_percent": 0.04569057065641903
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.139579,
+            "inclusive_seconds": 43.052903,
+            "self_percent": 1.9001538142497387
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.985897,
+            "inclusive_seconds": 37.847442,
+            "self_percent": 1.643901778645776
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.972653,
+            "inclusive_seconds": 31.393606,
+            "self_percent": 1.6218185030537164
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 1.959593,
+            "inclusive_seconds": 25.338949,
+            "self_percent": 3.267459398011975
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 6.720002,
+            "inclusive_seconds": 18.611704,
+            "self_percent": 11.20504803270846
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 9.375652,
+            "inclusive_seconds": 9.4013,
+            "self_percent": 15.633124960075776
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 5.466285,
+            "inclusive_seconds": 5.466285,
+            "self_percent": 9.114578535166174
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.153558,
+            "inclusive_seconds": 5.147785,
+            "self_percent": 0.2560452758506092
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 5.082004,
+            "inclusive_seconds": 5.082004,
+            "self_percent": 8.473821722436469
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 4.760517,
+            "inclusive_seconds": 4.760517,
+            "self_percent": 7.937768715771986
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::sheets::warm_start",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.00154,
+            "inclusive_seconds": 4.331973,
+            "self_percent": 0.002567822743262729
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.132672,
+            "inclusive_seconds": 3.702751,
+            "self_percent": 0.22121959674944988
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.669703,
+            "inclusive_seconds": 3.272465,
+            "self_percent": 1.1166744120982335
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.151976,
+            "inclusive_seconds": 3.013209,
+            "self_percent": 0.2534074215779848
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::repair_ranked",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.003027,
+            "inclusive_seconds": 2.945185,
+            "self_percent": 0.005047272366140443
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::repair_sheet_controlled",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.112165,
+            "inclusive_seconds": 2.931294,
+            "self_percent": 0.1870258688299117
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon>::generate_bounding_box",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.595026,
+            "inclusive_seconds": 2.595026,
+            "self_percent": 4.326991416985784
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge as jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_traits::QTQueryable>::collides_with_quadrants",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 2.461576,
+            "inclusive_seconds": 2.461576,
+            "self_percent": 4.1044745695257765
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::displacement_candidates::{closure#4}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.06999,
+            "inclusive_seconds": 2.131848,
+            "self_percent": 0.11670254142919378
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.209343,
+            "inclusive_seconds": 2.067178,
+            "self_percent": 0.34906215359925297
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::sheets::Search<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_job<nestbolt_core[1d7dbdb782c91b56]::sheets::optimize_with_areas<nestbolt_wasm[8992da412a4f6599]::nest_job::{closure#0}>::{closure#0}>::{closure#3}>>::relocate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.693395,
+            "self_percent": 0.0
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::displacement_candidates::{closure#4}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.08197,
+            "inclusive_seconds": 1.673249,
+            "self_percent": 0.1366782014709389
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::separate",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.005918,
+            "inclusive_seconds": 1.648757,
+            "self_percent": 0.009867775970538202
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::separate::refine_coord_desc::<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.003416,
+            "inclusive_seconds": 1.455595,
+            "self_percent": 0.005695897721419145
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.03669,
+            "inclusive_seconds": 1.452179,
+            "self_percent": 0.06117754314955165
+          },
+          {
+            "function": "<nestbolt_core[1d7dbdb782c91b56]::separate::Separator>::move_item",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.0,
+            "inclusive_seconds": 1.357403,
+            "self_percent": 0.0
+          },
+          {
+            "function": "nestbolt_core[1d7dbdb782c91b56]::holes::group",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.003071,
+            "inclusive_seconds": 1.331489,
+            "self_percent": 0.005120638730233664
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.031241,
+            "inclusive_seconds": 1.311431,
+            "self_percent": 0.05209178592355255
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, &mut <nestbolt_core[1d7dbdb782c91b56]::separate::Evaluator as sparrow[97e5af1e50c7aae7]::eval::sample_eval::SampleEvaluator>::evaluate_sample::{closure#0}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.372511,
+            "inclusive_seconds": 1.306493,
+            "self_percent": 0.6211313103347679
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::collision_detection::quadtree::qt_node::QTNode<jagua_rs[9574aa9211a00dca]::collision_detection::hazards::hazard::BasicHazardEntity>>::collect_collisions_until::<jagua_rs[9574aa9211a00dca]::geometry::primitives::edge::Edge, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::filter::NoFilter, jagua_rs[9574aa9211a00dca]::collision_detection::hazards::collector::BasicHazardCollector, <nestbolt_core[1d7dbdb782c91b56]::construct::PreparedJob>::displacement_candidates::{closure#4}>",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.08471,
+            "inclusive_seconds": 1.275352,
+            "self_percent": 0.14124692505310765
+          },
+          {
+            "function": "<jagua_rs[9574aa9211a00dca]::geometry::primitives::simple_polygon::SPolygon as jagua_rs[9574aa9211a00dca]::geometry::geo_traits::TransformableFrom>::transform_from",
+            "url": "http://127.0.0.1:7888/pkg/nestbolt_wasm_bg.wasm",
+            "line": 0,
+            "self_seconds": 0.215397,
+            "inclusive_seconds": 1.120585,
+            "self_percent": 0.35915669833153385
+          }
+        ]
+      }
+    }
+  ],
+  "guards_unchanged": true,
+  "gate_evidence": false
+}

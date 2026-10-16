@@ -918,3 +918,15 @@ Chrome's curve subset still fails (+1.032679% median versus +1%); Firefox passes
 not started and the preview stays unreleased. Current profiles on gear-1, sign-1
 and example-gears are planned separately to identify remaining costs after the
 score changes; they cannot substitute for a quality gate.
+
+
+### 2026-10-16 — Current collision-tree diagnosis
+
+[Current profiles](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
+validate gear-1, sign-1 and example-gears. Edge/quadtree traversal accounts for
+roughly 47–76% of sampled time; bounding-box generation adds 5–9%. Sample gaps
+are below 0.000155 s. This supports testing one shallower separator-window tree
+configuration in isolation, retaining all original geometry. Fewer tree visits
+may instead increase leaf work, so no optimization is justified without measured
+quality, original-job validation and full regression evidence. No dependency or
+product code changes in this diagnostic; no H4 credit or new public claim.
