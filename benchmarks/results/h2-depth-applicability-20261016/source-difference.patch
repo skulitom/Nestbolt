@@ -1,0 +1,66 @@
+diff --git a/crates/core/src/separate/score.rs b/crates/core/src/separate/score.rs
+index c0b8aed..c538f99 100644
+--- a/crates/core/src/separate/score.rs
++++ b/crates/core/src/separate/score.rs
+@@ -28,19 +28,21 @@ pub(super) fn pair(
+     let finish = |sum: f32| (sum * std::f32::consts::PI + squared).sqrt() * penalty * weight;
+     let mut sum = 0.0;
+     for p in &a.surrogate().poles {
+-        for q in &b.surrogate().poles {
+-            let penetration = (p.radius + q.radius) - p.center.distance_to(&q.center);
+-            let decayed = if penetration >= epsilon {
+-                penetration
+-            } else {
+-                squared / (-penetration + 2.0 * epsilon)
+-            };
+-            sum += decayed * p.radius.min(q.radius);
+-        }
+-        // Check once per row, retaining the reference's summation order and
+-        // its exact final operations. No score approximation is accepted.
+-        if previous + finish(sum) > bound {
+-            return None;
++        for chunk in b.surrogate().poles.chunks(8) {
++            for q in chunk {
++                let penetration = (p.radius + q.radius) - p.center.distance_to(&q.center);
++                let decayed = if penetration >= epsilon {
++                    penetration
++                } else {
++                    squared / (-penetration + 2.0 * epsilon)
++                };
++                sum += decayed * p.radius.min(q.radius);
++            }
++            // The same exact lower bound, checked before finishing a long row.
++            // Pole order, final arithmetic and strict tie handling are unchanged.
++            if previous + finish(sum) > bound {
++                return None;
++            }
+         }
+     }
+     Some(finish(sum))
+@@ -103,6 +105,12 @@ mod tests {
+                     .clone()
+             })
+             .collect();
++        let pole_counts: Vec<_> = shapes.iter().map(|s| s.surrogate().poles.len()).collect();
++        eprintln!("equivalence fixture pole counts: {pole_counts:?}");
++        assert!(
++            pole_counts.iter().any(|&n| n > 8),
++            "fixture must exercise within-row checks"
++        );
+         let mut rng = Xoshiro256PlusPlus::seed_from_u64(17);
+         let mut pruned = 0;
+         for i in 0..128 {
+diff --git a/crates/core/src/sheets/vstrip.rs b/crates/core/src/sheets/vstrip.rs
+index 40b80c9..319d749 100644
+--- a/crates/core/src/sheets/vstrip.rs
++++ b/crates/core/src/sheets/vstrip.rs
+@@ -148,6 +148,9 @@ impl Strip<'_, '_> {
+         // Keep quadtree cells comparable to one sheet in long strips.
+         let aspect = (self.width(s) / height).max(1.0);
+         let mut cde = DEFAULT_SPARROW_CONFIG.cde_config;
++        // Profile-guided experiment: trade one tree level for more leaf work.
++        // Keep all original geometry, leaf threshold and aspect scaling.
++        cde.quadtree_depth = 3;
+         cde.quadtree_depth += ((aspect / 2.0).max(1.0).log2().ceil() as u8).min(3);
+         // Walls and defects are scored by bounding box, never by surrogate
+         // poles, so a minimal surrogate avoids slow pole searches on thin walls.

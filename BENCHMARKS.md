@@ -13320,3 +13320,17 @@ are retained in a CRC/member-hash-verified archive. This authored functional
 check runs on CCD1 and makes no new performance claim or reserved evaluation.
 Production remains frozen; current full quality, scale/export review and hosted
 checks remain required. No milestone closes and completion stays 45%.
+
+
+## 2026-10-16 — Import evidence applies to the current depth preview
+
+[The current source review](benchmarks/results/h2-depth-applicability-20261016.md)
+finds only the two H4 search files changed since the complete `0a9fb44` import
+review. Every reader/exporter, public adapter and validator source and the full
+Cargo lockfile are unchanged. All prior evidence and frozen-manifest hashes
+match. Current integration and downloaded Windows feature checks pass. The
+313-file training accounting stays 291 accepted / 22 clear rejections with
+the approved R43 exception and original failures preserved. This review runs
+no import/search and claims no new timing or fidelity measurement. Twenty-two
+reserved vectors and the denominator clarification remain pending; H2 stays
+open and completed milestone weight stays 45%.
