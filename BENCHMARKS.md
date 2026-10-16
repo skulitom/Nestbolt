@@ -13463,3 +13463,22 @@ Completed milestone weight is now 60%: H1 15 + H3 25 + H4 15 + H6 5. H2/H5
 remain open. The isolated 72-outcome obstruction-set pilot starts only after
 the scale/export sequence, sealing and final requirement audit finish. It
 changes no production source and cannot itself complete H5.
+
+
+## 2026-10-16 — Atomic obstruction-set pilot: valid, material condition unmet
+
+[All 72 original outcomes validate](benchmarks/results/h5-obstruction-set-recovered-pilot-20261016.md).
+Every per-attempt ZIP passes CRC and all recorded hashes; summaries, independent
+metrics and cut savings are recomputed. Guards stay unchanged. The matched
+four-job, two-kerf, three-seed, three-arm session takes 537.409 seconds.
+Five of eight candidate material pairs fail +1%: large plates +4.754489% /
++4.663095%, panel hardware +5.962959% / +5.771428%, mixed-bracket laser
++1.540301%. Mini-box pairs are unchanged; mixed-bracket plasma is +0.993578%.
+
+The candidate has 147 exchange attempts and ten acceptances, with zero accepted
+on panel hardware. It remains unintegrated; no unchanged-build rerun, new limit
+or replacement of failed outcomes. This does not prove infeasibility or replace
+the original thirteen-job H5 gate. No reserved input or production source is
+changed. H5 remains open; completed milestone weight stays 60%. The separately
+qualified v0.2.0-alpha.1 tag retains the original production common-line behavior
+and its documented limitations.

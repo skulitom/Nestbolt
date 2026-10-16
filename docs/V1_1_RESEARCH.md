@@ -943,3 +943,14 @@ development/scale observations, not a new competitor result or universal
 resource guarantee. The Windows servicing interruption is retained with all
 402 completed pre-restart outcomes; only missing Firefox outcomes were
 recovered. Earlier failed candidates remain preserved. H2/H5 stay open.
+
+
+### 2026-10-16: atomic obstruction-set pilot outcome
+
+[All 72 outcomes validate](../benchmarks/results/h5-obstruction-set-recovered-pilot-20261016.md),
+but five of eight material pairs fail +1%. The complete-group candidate accepts
+ten of 147 exchange attempts; neither panel-hardware kerf accepts an exchange.
+All mechanical medians remain +4.66% to +5.96% above ordinary mode. The original
+full H5 comparison remains authoritative, and this pilot is rejected for
+production integration. New work needs a distinct, evidenced placement
+hypothesis; these observations do not prove global infeasibility.

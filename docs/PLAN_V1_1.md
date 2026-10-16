@@ -678,3 +678,12 @@ preserved. Sealed archives pass CRC, every-member length and SHA-256 checks.
 N0/H1 (15%) + N2/H3 (25%) + N3/H4 (15%) + N5/H6 (5%) total **60%**. H2/H5
 remain open. The recovery-aware 72-outcome H5 pilot starts only after this
 complete audit; its candidate remains isolated from the qualified preview.
+
+
+**N4 obstruction-set outcome, 2026-10-16:** the [72-outcome paired pilot](../benchmarks/results/h5-obstruction-set-recovered-pilot-20261016.md)
+validates every original layout but fails five of eight material pairs. All
+four mechanical medians remain +4.663095% to +5.962959% above ordinary mode;
+mixed-bracket laser is +1.540301%. There are 147 attempts and ten accepted
+exchanges, none on panel hardware. The candidate stays unintegrated and every
+failed outcome/limit is preserved. This is not an infeasibility proof. H5
+remains open and completed milestone weight stays 60%.
