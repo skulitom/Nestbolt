@@ -906,3 +906,15 @@ The new app's Sheets tab does not establish a shipped fixed-sheet solver.
 record this distinction. The plan's shipment stop rule is not triggered. This
 availability check changes no dependency, frozen competitor result or README
 comparison claim; it is not a new benchmark.
+
+
+### 2026-10-16 — Integrated score-bound full outcome
+
+The [current 7eba929 matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
+completes with 603 new and 195 reused valid layouts. Native median is +0.000681%
+versus frozen v1, and both full G5 comparisons pass all aggregate/per-seed limits.
+Chrome's curve subset still fails (+1.032679% median versus +1%); Firefox passes
+(+0.881781%). Original raw outcomes and prior failures remain sealed. Scale is
+not started and the preview stays unreleased. Current profiles on gear-1, sign-1
+and example-gears are planned separately to identify remaining costs after the
+score changes; they cannot substitute for a quality gate.

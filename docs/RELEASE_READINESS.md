@@ -1,7 +1,8 @@
 # Next preview release
 
 Artem authorized the next GitHub release when ready on 2026-10-16. Candidate
-`7eba929` is version `0.2.0-alpha.1`. The v1.1 plan remains at 45% completed
+`7eba929` is version `0.2.0-alpha.1`, but its completed Chrome quality check
+fails and it is not ready for release. The v1.1 plan remains at 45% completed
 milestone weight; publishing a preview does not close its remaining gates.
 
 The README now covers LightBurn projects, lead allowances, common-line setup,
@@ -21,15 +22,19 @@ explicitly the frozen v1 benchmark at `75cbb32`, with no new competitor claim.
   pass for Windows x64, Linux x64 and macOS arm64. The downloaded Windows CLI,
   server and MCPB pass actual version/import/nest/validation checks. Archive
   contents, executable architectures, permissions and checksum/metadata agree.
-- The [full current-build comparison](../benchmarks/results/h4-preview-score-release-20261016/plan.json)
-  is running: 603 new development outcomes plus 195 verified frozen-v1 outcomes.
-  The eleven-job subset, full G5 and native conditions must all pass unchanged.
-- The [committed scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/plan.json)
-  follows only after quality passes. Both 2,000-part workflows must pass in
-  Chrome/Firefox with the existing 1.5 GB and 200 ms limits. Root source, engines
-  and site remain frozen through the sequence. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
-  verifies the declared job set and actual unshared WASM memory. Finish the
-  requirement review after all measured outcomes are available.
+- The [full current-build comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
+  completed with all 603 new and 195 reused layouts valid. Native median is
+  +0.000681% versus frozen v1; both full G5 comparisons pass. Firefox's curve
+  subset passes at +0.881781%, but Chrome fails at **+1.032679%**, against +1%.
+  Every original outcome, metric, source guard and failure is retained.
+- The [conditional scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/stopped.json)
+  stopped after sealing/reporting the quality failure. No current-build scale
+  measurements were started. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
+  verifies scope and unshared WASM memory; it does not close H4.
+- [Current-build profiling](../benchmarks/results/h4-current-profile-plan-20261016/plan.json)
+  now investigates the remaining cost on three declared development jobs. It is
+  diagnostic, not a repeated quality gate. No optimization or release is selected
+  from incomplete profiles.
 
 The earlier `0a9fb44` candidate's [completed comparison](../benchmarks/results/h4-preview-development-20261016.md)
 failed Chrome's subset at +1.046217%, against +1%; all results are preserved.
@@ -40,11 +45,14 @@ a general speed gain. The common-line experiments remain unintegrated.
 
 ## Publication and disclosures
 
-After these remaining checks pass, tag the verified candidate and publish
-`v0.2.0-alpha.1` as a prerelease without replacing stable Latest. The workflow
+A subsequent candidate must pass the unchanged full quality comparison, current
+scale checks and complete requirement review before publication. Keep `7eba929`
+unreleased and retain its failed comparison. Publish the verified
+`v0.2.0-alpha.1` candidate as a prerelease without replacing stable Latest. The workflow
 already enforces that channel. Later evidence-only commits do not change the
-candidate's packaged contents. Check published downloads/checksums and build
-provenance afterward, including the actual downloaded Windows bundle.
+candidate's packaged contents. The existing dry-run package proof remains tied
+to `7eba929`; a changed candidate needs its own package checks. Verify published
+downloads/checksums and provenance afterward, including the actual Windows bundle.
 
 [Release notes](../mcpb/RELEASE_NOTES.md) disclose:
 

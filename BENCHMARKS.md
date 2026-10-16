@@ -13017,3 +13017,29 @@ The guarded launcher waits for the full matrix and its conditional sequence to
 be terminal and sealed, then runs before the unopened H5 pilot. Nothing starts
 here. No product, dependency, deadline, work coefficient, threshold or held-out
 input changes; completion stays 45%. No optimization is selected in advance.
+
+
+## 2026-10-16 — Complete integrated score-bound matrix: Chrome subset still fails
+
+[Full outcome](benchmarks/results/h4-preview-score-release-20261016.md): all 603
+new layouts (201 native, 201 Chrome, 201 Firefox) and 195 verified reused v1
+layouts validate with exact independent metrics and complete requested counts.
+All six browser batches have zero affinity deviations. Original 67-job union,
+60 s, seeds 0–2, eight physical CCD0 cores and every source/build/input guard
+remain unchanged; the full run takes 80.939 minutes.
+
+Native's 65-job median is +0.000681% versus v1 (limit +0.5%). Full G5 Chrome is
++0.091358% median/+0.384971% total, Firefox +0.026372%/+0.346902%; aggregate and
+all individual-seed limits pass. The eleven-job subset remains a failure in
+Chrome at +1.032679% median versus +1%; worst job +3.320700% meets +5%.
+Firefox passes at +0.881781%, worst +3.234662%. These original results are not
+rounded into a pass or replaced by the earlier passing isolated probe.
+
+The verified raw ZIP holds 3,319 members / 9,459,175 bytes, SHA-256
+`0c6530d8f0dc69b91eac3afc6e66a71a0763a83a682e3ba4cbc4e7cbab83b2fe`.
+Every CRC, member hash and size passes. Duplicate loose raw files were removed
+only after checking each against the complete archive. The conditional scale
+sequence stopped after finalization/reporting and started no measurements.
+Current-build CPU profiles are diagnostic only. H4 stays open at 45% completed
+milestone weight; no tag, release, registry entry, held-out evaluation or new
+competitor claim is produced. Current candidate `7eba929` is not release-ready.

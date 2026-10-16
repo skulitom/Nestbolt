@@ -569,3 +569,12 @@ and Firefox +0.432882% median material. Four fixed-work baseline/candidate pairs
 preserve every result field except elapsed wall time. Only bound-check granularity
 changes; the original failure remains. Full comparison, scale and integration
 checks are still required, so H4 and the 45% completion total remain unchanged.
+
+
+**N3 integrated score-bound outcome, 2026-10-16:** the [complete current matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
+retains 603 new and 195 reused valid layouts. Native and full G5 aggregate and
+individual-seed checks pass. Chrome's curve-subset median is +1.032679%, failing
+the unchanged +1% limit; Firefox passes at +0.881781%. The conditional scale
+sequence stops before measurements. Current-build profiling is diagnostic only;
+no unchanged-build repeat, selected seed, threshold adjustment or release follows.
+H4 remains open and completed milestone weight stays 45%.
