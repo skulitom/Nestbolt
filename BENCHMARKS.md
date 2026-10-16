@@ -12929,3 +12929,17 @@ agree. Release publication was skipped. No tag, release, attestation or registry
 publication was created; published download/provenance checks remain required.
 The current H4 full matrix is running against frozen root source/builds. These
 package checks do not change its inputs, thresholds or the 45% completion weight.
+
+
+## 2026-10-16 — Fix the remaining preview scale sequence before measurement
+
+[The committed conditional plan](benchmarks/results/h4-preview-score-scale-plan-20261016/plan.json)
+waits for the already opened `7eba929` matrix, seals and reports its original
+outcomes, and runs scale only if every full/subset quality condition passes.
+It retains the existing 2,000-part curves/G5 fixtures, Chrome/Firefox, 60-second
+budgets and automatic worker policy. Curves uses Quick initial layout; original
+G5 leaves it off. The 1.5 GB and 200 ms limits are unchanged. Scale runs follow
+the matrix sequentially, with no concurrent measured search. Root product/site/
+engine freeze continues through all four workflows. Original failures are
+preserved and never automatically rerun. No reserved inputs, gate closure or
+release publication is authorized by this execution plan itself.
