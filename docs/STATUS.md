@@ -28,8 +28,11 @@ The [isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
 validates all 99 layouts and passes Chrome +0.689439% / Firefox +0.639475%.
 The [fresh full matrix](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
 is now running with unchanged limits. Its [conditional scale/export sequence](../benchmarks/results/h4-preview-depth-scale-plan-20261016/plan.json)
-waits for a quality pass; hosted checks and package proof remain required. No common-line experiment is
-integrated. No preview tag or release exists, and completion stays 45%.
+waits for a quality pass. [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
+pass their checks, including actual Windows import/nest/validation/confinement.
+Current hosted checks remain in progress. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
+confirms the original scope and unshared WASM memory. No common-line experiment
+is integrated. No preview tag or release exists, and completion stays 45%.
 
 The earlier `7eba929` [full comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
 retains 603 new and 195 reused valid outcomes, but Chrome's curve subset fails

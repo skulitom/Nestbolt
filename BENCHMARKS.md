@@ -13284,3 +13284,23 @@ Commit `23442be` is on main. Hosted checks and tagless package dry run
 are underway; downloaded packages will be tested from an isolated directory.
 No preview tag, release or registry publication is created by this work.
 Completed milestone weight remains 45%.
+
+
+## 2026-10-16 — Current preview downloads verified
+
+[The depth-build package proof](benchmarks/results/preview-depth-release-dryrun-20261016.md)
+passes for commit `23442be` / `0.2.0-alpha.1`. All three native archives have
+the expected members, documents, architectures and Unix permissions. Each
+platform's runner checks both executable versions. The actual downloaded
+Windows CLI/MCP versions and MCPB import, nesting, independent validation,
+catalog and file-confinement checks pass locally from an isolated verifier on
+CCD1. Its server bytes match the native archive, and checksum/manifest/metadata
+agree. Linux/macOS binaries were not executed locally on Windows.
+
+All build and metadata-validation jobs passed in
+[38854620093](https://github.com/skulitom/Nestbolt/actions/runs/38854620093);
+publication was skipped. No tag, release, attestation or registry publication
+was created. Current full quality, scale, exported-curve review and hosted
+checks remain required. The measured sources/builds remain frozen and the
+completed milestone total stays 45%. Release notes now also distinguish the
+native/MCP preview from the hosted browser, which remains on v0.1.0.

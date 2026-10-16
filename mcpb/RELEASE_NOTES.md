@@ -23,6 +23,8 @@ its acceptance checks are complete.
 
 The CLI, MCP tools and browser share these features. See the updated
 [README](https://github.com/skulitom/Nestbolt#readme) for setup and examples.
+The hosted browser remains on v0.1.0; the newer browser features require a local
+development build. This release supplies the native tools and MCP bundle.
 
 ### Current limits
 

@@ -1,9 +1,9 @@
 # Next preview release
 
 Artem authorized the next GitHub release when ready on 2026-10-16. The current
-candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration
-and its isolated browser pilot. Full quality, scale, exported-curve fidelity,
-hosted checks and current package verification are still required. Milestone
+candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration,
+its isolated browser pilot and current package verification. Full quality,
+scale, exported-curve fidelity and hosted checks are still required. Milestone
 completion remains 45%; a preview does not close the remaining v1.1 gates.
 
 The README describes LightBurn projects, leads, common-line limits, automatic
@@ -32,12 +32,15 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
 - Current-build scale and independent checks of every saved SVG/DXF curve for
   all 2,000 placements in both browsers remain required, followed by screenshot
   inspection and a complete H4 requirement review.
-- [Current hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38854287845)
-  and a [tagless three-platform package dry run](https://github.com/skulitom/Nestbolt/actions/runs/38854620093)
-  are underway on `23442be`, which contains the same tested product. Actual
-  downloads will be checked from an isolated verifier directory. Publication
-  is disabled for this dry run. The earlier `7eba929` package proof remains
+- [All three downloaded packages and the Windows MCPB pass](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
+  on `23442be`, which contains the same tested product. Architecture, contents,
+  permissions, versions and metadata match; the actual downloaded Windows
+  bundle passes import/nest/validation and confinement from an isolated copy.
+  Dry-run publication was skipped. The earlier `7eba929` package proof remains
   tied to its older executable.
+- [Current hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38854287845)
+  remain in progress. Their completion and current quality/scale confirmation
+  are still required before publishing.
 
 The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
 failed Chrome at +1.032679%; `0a9fb44` [failed at +1.046217%](../benchmarks/results/h4-preview-development-20261016.md).
