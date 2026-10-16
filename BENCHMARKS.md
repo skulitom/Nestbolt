@@ -12853,3 +12853,16 @@ exactly. The verified raw archive retains 3,321 members, 9,440,624 bytes, SHA-25
 `2fb60ac10d366b28a9db204cfd36bd04f05950b38599a3641476b3f0031d923e`.
 The preview stays unreleased, H4 stays open, and completion stays 45%. The
 separately committed exact-score candidate now starts its own development probe.
+
+### 2026-10-16 — Independent H5 pilot scheduling correction, before measurement
+
+The [replacement H5 pilot plan](benchmarks/results/h5-exchange-pilot-v2-preparation-20261016.md)
+preserves the original unopened plan and its exact search/scoring parameters.
+It waits for completed, retained H4 and score-probe measurements instead of
+requiring a passing unrelated H4 gate. Seven harness checks pass, including
+refusal while another measurement is active. The original Chrome failure and
+release hold remain; no H4/H5 threshold, data, binary, budget or comparison
+changes. Neither pilot has opened. The new preparation archive retains six
+verified members (12,938 bytes), SHA-256
+`d9fb002245343268a4118f2e852b51707969ce3ed3b18debb85d2dd3c30bb3d0`.
+This changes scheduling only; the full H5 gate remains open at 45% completion.
