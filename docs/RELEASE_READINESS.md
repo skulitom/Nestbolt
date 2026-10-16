@@ -21,6 +21,13 @@ corrected candidate needs its own checks. Subsequent main commits currently
 contain evidence, status updates and isolated experiment tools; production and
 packaged files remain unchanged.
 
+The [isolated eight-pair score-bound candidate](../benchmarks/results/h4-score-chunks-probe-20261016.md)
+now passes the eleven-job subset: 99 valid layouts, Chrome +0.378238% and Firefox
++0.432882% median material, with every job within +5%. Four exact fixed-work
+pairs also pass. It remains isolated pending the common-line pilot and the final
+integration decision; the resulting release build still needs full comparison,
+scale and release checks. No general speed claim follows from this subset.
+
 ## Before publishing
 
 - The [guarded 65-job comparison](../benchmarks/results/h4-full-development-20261016.md)

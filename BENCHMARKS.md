@@ -12866,3 +12866,18 @@ changes. Neither pilot has opened. The new preparation archive retains six
 verified members (12,938 bytes), SHA-256
 `d9fb002245343268a4118f2e852b51707969ce3ed3b18debb85d2dd3c30bb3d0`.
 This changes scheduling only; the full H5 gate remains open at 45% completion.
+
+### 2026-10-16 — Isolated finer-bound subset passes; full gate still open
+
+The [complete one-use score probe](benchmarks/results/h4-score-chunks-probe-20261016.md)
+validates all eight fixed-work and 99 timed quality outcomes. Four fixed-work
+pairs preserve every result field except elapsed wall time; their +0.204357%
+median wall difference supports no speed claim. Chrome/Firefox subset medians
+are +0.378238%/+0.432882%, with worst jobs +3.103068%/+2.969688%; both pass the
+original +1%/+5% limits. All source/build/input guards pass, all standalone
+metrics agree exactly, and all browser batches have zero affinity deviations.
+The sealed archive retains 651 members, 832,260 bytes, SHA-256
+`2d5119357e95a0dc5c6681a5c902a9c6028e784fff3f26a4b83083adbb3fd911`.
+Historical work-rate differences are explicitly trajectory-dependent diagnostics.
+The original preview failure remains preserved; the candidate is still isolated.
+Full G5/native, scale and integration checks remain. H4 stays open at 45%.

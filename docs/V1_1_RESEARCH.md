@@ -852,6 +852,15 @@ is now sealed with all 603 new layouts valid. Firefox passes the subset at
 remain unchanged, and the release stays pending. This observation does not
 establish a cause for the gap.
 
+The subsequent [isolated eight-pair bound probe](../benchmarks/results/h4-score-chunks-probe-20261016.md)
+passes the unchanged subset with 99 valid layouts: Chrome +0.378238% and Firefox
++0.432882% median material, worst jobs +3.103068%/+2.969688%. Four fixed-work
+pairs preserve all results except elapsed wall time; their +0.204357% median
+wall difference establishes no speed gain. Historical same-job/seed charged-work
+rate medians are -2.993932% native, +7.644946% Chrome and +0.480342% Firefox, but
+different trajectories make those diagnostic rather than isolated throughput.
+The full native/G5 comparison and final integration/scale checks remain required.
+
 The existing collision-scoring profile motivates an isolated investigation of
 checking the same nonnegative partial-score bound within long pole rows. It must
 retain accumulation order, accepted score bits, ties, geometry, work accounting

@@ -545,3 +545,10 @@ is now sealed: all 603 new layouts validate, Firefox passes its subset at
 +0.788924%, and both full G5 comparisons pass. Chrome's subset failure remains;
 no unchanged-build repeat or threshold adjustment is made.
 The preview release remains pending, H4 is incomplete, and completion stays 45%.
+
+The subsequent [isolated score-bound probe](../benchmarks/results/h4-score-chunks-probe-20261016.md)
+passes its unchanged eleven-job limits with 99 valid layouts: Chrome +0.378238%
+and Firefox +0.432882% median material. Four fixed-work baseline/candidate pairs
+preserve every result field except elapsed wall time. Only bound-check granularity
+changes; the original failure remains. Full comparison, scale and integration
+checks are still required, so H4 and the 45% completion total remain unchanged.
