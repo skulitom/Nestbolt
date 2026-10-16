@@ -27,7 +27,9 @@ explicitly the frozen v1 benchmark at `75cbb32`, with no new competitor claim.
 - The [committed scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/plan.json)
   follows only after quality passes. Both 2,000-part workflows must pass in
   Chrome/Firefox with the existing 1.5 GB and 200 ms limits. Root source, engines
-  and site remain frozen through the sequence. Then finish the H4 requirement review.
+  and site remain frozen through the sequence. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
+  verifies the declared job set and actual unshared WASM memory. Finish the
+  requirement review after all measured outcomes are available.
 
 The earlier `0a9fb44` candidate's [completed comparison](../benchmarks/results/h4-preview-development-20261016.md)
 failed Chrome's subset at +1.046217%, against +1%; all results are preserved.

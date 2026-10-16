@@ -12968,3 +12968,20 @@ both kerfs, seeds 0–2, three rotating arms and 60-second budgets, and waits un
 the current release quality/scale sequence finishes. Previous pilots remain
 untouched. No material improvement, integration or H5 closure is claimed.
 Completed milestone weight remains 45%; no held-out inputs are opened.
+
+
+## 2026-10-16 — H4 requirement preflight and competitor shipment review
+
+[The requirement preflight](benchmarks/results/h4-requirement-preflight-20261016.md)
+verifies the exact eleven declared cases, 65-job development scope, budgets,
+seeds, physical cores and current scale guards. Parsing the measured WASM
+binary confirms one defined, unshared memory and no imported memory. Its
+SHA-256 matches the integrated candidate. Actual browser quality/scale outcomes
+remain pending; no partial result closes H4 or changes the 45% completion weight.
+
+[The current competitor shipment review](benchmarks/results/competitor-stop-review-20261016/review.json)
+confirms that Sparrow Studio's published description still excludes automatic
+fixed-sheet allocation and nesting inside holes. The repository's redesigned
+app is explicitly unpublished. Exact commit and README hashes are recorded;
+the plan's shipment stop rule is not triggered. This is an availability check,
+not a new competitor measurement. Pinned dependencies and v1 claims are unchanged.

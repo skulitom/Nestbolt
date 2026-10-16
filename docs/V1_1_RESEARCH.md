@@ -893,3 +893,16 @@ the targeted window test establishes reachability. Both setup failures remain
 preserved. The new matched mechanical/control pilot is prepared but unopened;
 it waits for the active release quality/scale sequence. No material improvement
 or general reachability claim follows from these authored checks.
+
+
+### 2026-10-16: competitor shipment check before the preview
+
+The [published Sparrow Studio description](https://sparrowstudio.app/) still
+explicitly excludes automatic allocation across multiple fixed sheets and
+placing parts inside holes. Its [repository README](https://github.com/JeroenGar/sparrow-studio/blob/2102a9a4ed8d78f4f5ad58bdef25a68fc7b96fe6/README.md)
+now distinguishes the deployed `web/` app from a separate, unpublished redesign.
+The new app's Sheets tab does not establish a shipped fixed-sheet solver.
+[Exact commit/README hashes and the review](../benchmarks/results/competitor-stop-review-20261016/review.json)
+record this distinction. The plan's shipment stop rule is not triggered. This
+availability check changes no dependency, frozen competitor result or README
+comparison claim; it is not a new benchmark.
