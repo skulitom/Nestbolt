@@ -1,0 +1,111 @@
+diff --git a/crates/core/src/lead_in/tests.rs b/crates/core/src/lead_in/tests.rs
+index 842bcc8..9d51976 100644
+--- a/crates/core/src/lead_in/tests.rs
++++ b/crates/core/src/lead_in/tests.rs
+@@ -386,7 +386,10 @@ fn final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches() {
+             &original,
+             &layout,
+             &HashMap::new(),
+-            crate::common_line::Options { kerf_mm: 0.2 },
++            crate::common_line::Options {
++                kerf_mm: 0.2,
++                search_bonus: false,
++            },
+         )
+         .unwrap();
+         assert_eq!(common[0].shared_edges.len(), 1);
+diff --git a/crates/core/src/project/cutting.rs b/crates/core/src/project/cutting.rs
+index 1455c0f..673bb96 100644
+--- a/crates/core/src/project/cutting.rs
++++ b/crates/core/src/project/cutting.rs
+@@ -10,6 +10,7 @@ pub struct PreparedRequest {
+     leads: Option<crate::lead_in::Prepared>,
+     lead_options: Option<crate::lead_in::Options>,
+     common_options: Option<crate::common_line::Options>,
++    quick_start: bool,
+ }
+ 
+ #[derive(Debug, Serialize, JsonSchema)]
+@@ -54,6 +55,7 @@ impl Request {
+             leads,
+             lead_options: self.lead_in,
+             common_options: self.common_line,
++            quick_start: self.quick_start,
+         })
+     }
+ 
+@@ -107,24 +109,38 @@ impl PreparedRequest {
+ 
+     pub fn optimize(
+         &self,
+-        options: crate::sheets::Options,
++        mut options: crate::sheets::Options,
+         progress: impl FnMut(&crate::sheets::Progress, &dyn Fn() -> Option<Layout>),
+     ) -> Result<(crate::sheets::SheetResult, CuttingReport)> {
++        options.quick_start |= self.quick_start;
+         let allow_part_in_hole = self.common_options.is_none();
+-        let mut result = match &self.leads {
+-            Some(leads) => crate::sheets::optimize_with_material(
+-                &leads.collision_job,
+-                &self.job,
++        let mut result = if let Some(common) = self.common_options.filter(|o| o.search_bonus) {
++            crate::sheets::optimize_with_common_bonus(
++                self.leads.as_ref().map_or(&self.job, |p| &p.collision_job),
++                &crate::common_line::search::Bonus {
++                    job: &self.job,
++                    outlines: &self.outlines,
++                    options: common,
++                },
+                 options,
+-                allow_part_in_hole,
+                 progress,
+-            )?,
+-            None => crate::sheets::optimize_with_part_in_hole(
+-                &self.job,
+-                options,
+-                allow_part_in_hole,
+-                progress,
+-            )?,
++            )?
++        } else {
++            match &self.leads {
++                Some(leads) => crate::sheets::optimize_with_material(
++                    &leads.collision_job,
++                    &self.job,
++                    options,
++                    allow_part_in_hole,
++                    progress,
++                )?,
++                None => crate::sheets::optimize_with_part_in_hole(
++                    &self.job,
++                    options,
++                    allow_part_in_hole,
++                    progress,
++                )?,
++            }
+         };
+         let report = self.report(&result.layout)?;
+         ensure!(
+diff --git a/crates/core/src/project/lightburn/cutting.rs b/crates/core/src/project/lightburn/cutting.rs
+index aaaba6f..a1f603f 100644
+--- a/crates/core/src/project/lightburn/cutting.rs
++++ b/crates/core/src/project/lightburn/cutting.rs
+@@ -82,7 +82,6 @@ impl Library {
+             return Ok(None);
+         };
+         let document = Document::read(&project.xml, self.tolerance)?;
+-        check_fixed_groups(&document)?;
+         let nesting = document.nesting_units(self.tolerance)?;
+         let mut sources = Sources::new();
+         for unit in &nesting.units {
+@@ -111,9 +110,7 @@ impl Library {
+                     !shape.fixed && shape.geometry_complete,
+                     "cutting sidecar requires complete movable source geometry"
+                 );
+-                let cutting = document.scene.layers.iter().any(|l| {
+-                    l.index == shape.cut_index && l.image == shape.image_layer && l.output && l.cuts
+-                });
++                let cutting = document.scene.is_cutting(shape);
+                 if cutting {
+                     ensure!(
+                         !shape.paths.is_empty(),

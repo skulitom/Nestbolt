@@ -50,6 +50,10 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   also pass through CLI and MCPB: explicit repair/rejection messages, preserved
   editable groups/settings/fixed shapes, separate lead cutting files, matching
   validation reports and byte-identical repeat exports on authored fixtures.
+- [Completed-feature applicability](../benchmarks/results/preview-depth-completed-features-20261016.md)
+  binds H3/H6 preservation and lead behavior to current source and package checks.
+  It retains the earlier material-cost figures as results of their original
+  build, without reopening reserved projects or claiming a new measurement.
 - [All six hosted checks pass for the tested implementation](../benchmarks/results/preview-depth-hosted-checks-20261016.md).
   Reviewed evidence is pushed to main as `21835ba`; all product, build and
   runner inputs match tested commit `23442be`. Its newer main CI run

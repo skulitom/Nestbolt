@@ -13400,3 +13400,17 @@ until the recovery and conditional scale sequence finish; passing scales also
 require full curve fidelity, visual review and sealed archives. The original
 unopened plan remains unchanged. No measurement starts and no candidate is
 integrated; H5 remains open and completed milestone weight stays 45%.
+
+
+## 2026-10-16 — Bind completed LightBurn/lead evidence to the preview
+
+[The applicability review](benchmarks/results/preview-depth-completed-features-20261016.md)
+confirms unchanged preserving XML/cutting-sidecar sources since H3 and unchanged
+lead geometry, source/layout validation and vector export since H6. Reviewed
+LightBurn changes add explanations and remove duplicate warnings; the retained
+56-training-project check preserves 45 accepted geometries/XML and eleven clear
+rejections. Current integration and actual downloaded CLI/MCPB feature checks
+cover changed adapters. Historical +1.0696%/+6.0951% material costs remain tied
+to their original 77dfa55 build, not relabelled as new preview measurements.
+No reserved geometry, new import/search/native session, release or gate closure;
+completed milestone weight remains 45%.

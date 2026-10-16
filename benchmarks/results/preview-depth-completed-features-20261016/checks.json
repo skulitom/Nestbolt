@@ -1,0 +1,85 @@
+{
+  "scope": "Bind completed H3/H6 evidence to the preview without reopening reserved inputs.",
+  "all_review_checks_pass": true,
+  "product_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+  "current_commit": "bdff270ec92a18a2e5173b60e582ec192df25758",
+  "H3_evidence_commit": "5fb6b5a6620ae63c4d4fb431f2c235c7ea547056",
+  "H6_material_evidence_commit": "77dfa55ceabc7680ce5d332dc7682bc25f6b5ab6",
+  "source_identities": [
+    {
+      "source": "crates/core/src/lightburn/writer.rs",
+      "unchanged_since": "5fb6b5a6620ae63c4d4fb431f2c235c7ea547056",
+      "git_blob_sha256": "102713fc9e5519f4e095f7f6750f5e8be5189e01d2a8b9190509c2dae6615b55"
+    },
+    {
+      "source": "crates/core/src/project/lightburn/cutting.rs",
+      "unchanged_since": "5fb6b5a6620ae63c4d4fb431f2c235c7ea547056",
+      "git_blob_sha256": "22251526a8239bde3d0f902efbadeffbcac8962a6c82a9e301edceb3ed86a14f"
+    },
+    {
+      "source": "crates/core/src/lead_in.rs",
+      "unchanged_since": "77dfa55ceabc7680ce5d332dc7682bc25f6b5ab6",
+      "git_blob_sha256": "ed8ce42af268f7286d127f8ba515ff1bc279dda4d460a141c4309ae1b150ce44"
+    },
+    {
+      "source": "crates/core/src/lead_in/source.rs",
+      "unchanged_since": "77dfa55ceabc7680ce5d332dc7682bc25f6b5ab6",
+      "git_blob_sha256": "4100353d9fdc2eed73df2e17667aa3866d6443d92a71f414937eb631eb016d00"
+    },
+    {
+      "source": "crates/core/src/lead_in/layout.rs",
+      "unchanged_since": "77dfa55ceabc7680ce5d332dc7682bc25f6b5ab6",
+      "git_blob_sha256": "1ad1dc4f555fd62c349b43ed442cb174ec4762fcd2791990689b38ded9baff0b"
+    },
+    {
+      "source": "crates/core/src/export.rs",
+      "unchanged_since": "77dfa55ceabc7680ce5d332dc7682bc25f6b5ab6",
+      "git_blob_sha256": "fd1c4e8ca8390b40fb57d79e3bb2faf95c1b4db98d529f78f7ad3a48210e4649"
+    },
+    {
+      "source": "crates/core/src/export/ordered.rs",
+      "unchanged_since": "77dfa55ceabc7680ce5d332dc7682bc25f6b5ab6",
+      "git_blob_sha256": "55bf79206e48701b53e0f2c9e76158e02cc1d0d55295c739b78f09b0743998e4"
+    }
+  ],
+  "H3_changed_import_paths": [
+    "crates/core/src/lightburn.rs",
+    "crates/core/src/lightburn/path.rs",
+    "crates/core/src/lightburn/units.rs",
+    "crates/core/src/project/lightburn.rs"
+  ],
+  "H3_diff_review": "Warnings for cached text, missing controls and bounding rectangles; warning-list de-duplication. Source geometry operations and preserving writer unchanged.",
+  "H6_adapter_review": "Quick-start propagation and optional common-line bonus route were added. Native mixed-group checks moved into nesting_units; layer-cut classification uses the common scene method. Lead construction/validation/export implementation remains unchanged; integration and downloaded CLI/MCP checks cover the current adapters.",
+  "evidence_sha256": {
+    "benchmarks/results/h3-complete-20261015/checks.json": "9a7a19dacbf29d40aced806ae29beafbc94890f4e34c405cccf83d8456a39bea",
+    "benchmarks/results/h6-material-recheck-20261015/verification.json": "71dd16958623f165b5e61a26dc8f4205434c28e726c375d8f3b19180a61172fd",
+    "benchmarks/results/h6-material-recheck-20261015/reconciled.json": "e1099c49b1c03abfd6166724fdf5054f916a6b52cb7471d47b672b74c1bf3971",
+    "benchmarks/results/h6-complete-20261015.md": "24190573fce0e8e839601f05b04be30933b27cc0e9d25d555802f73253ffa4de",
+    "benchmarks/results/h2-native-warning-probe-20261016-v3/checks.json": "af77b44ca6423aaa6815e2697a44474ded919ffe2b89cff3a68d6352c87d944e",
+    "benchmarks/results/h2-depth-applicability-20261016/checks.json": "78b9c250cb0263d48736c4107f8fbf5174c0af333598163aa6e452ca3478ca89",
+    "benchmarks/results/h4-depth-integration-20261016/checks.json": "cd1dbb7a829f2f54a507fe9934d888ef958172cae82dbeb95e0883c884fcb4dc",
+    "benchmarks/results/preview-depth-features-20261016/checks.json": "097bf235921d7cf61555ec9c7e184c2bc568cca40fbc0589e919201e33772c40"
+  },
+  "current_functional_counts": {
+    "workspace_passed": 302,
+    "workspace_ignored": 1,
+    "optimized_core": 75,
+    "optimized_cli": 27,
+    "browser_passed": 86,
+    "browser_skipped": 4,
+    "packaging_passed": 23,
+    "packaging_skipped": 1
+  },
+  "actual_downloaded_CLI_MCPB_feature_checks_pass": true,
+  "historical_material_costs_not_relabelled_as_current_search_results": true,
+  "historical_H6_costs_percent": {
+    "laser": 1.0696,
+    "plasma": 6.0951
+  },
+  "new_imports": 0,
+  "new_searches": 0,
+  "new_native_sessions": 0,
+  "held_out_geometry_read": false,
+  "gate_weights_changed": false,
+  "release_created": false
+}
