@@ -596,3 +596,12 @@ The [single-use eleven-job pilot](../benchmarks/results/h4-quadtree-depth-probe-
 is committed before measurements, after the earlier H4 and H5 sessions finish.
 No improvement, integration or H4 credit is claimed. Original thresholds and
 failed results remain; completion stays 45%.
+
+
+**N4 stage-diagnostic preparation, 2026-10-16:** [the isolated observer](../benchmarks/results/h5-exchange-diagnosis-preparation-20261016.md)
+passes 82 optimized tests, strict lint and authored accepted/failed/disabled trace
+checks. It only records exchange rejection stages, without changing the rejected
+algorithm or budgets. The [four-case diagnostic plan](../benchmarks/results/h5-exchange-diagnosis-20261016/plan.json)
+waits for the H4 pilot to finish and be sealed. Tracing can perturb timing; it
+cannot establish a quality gain or replace the failed paired comparison.
+H5 stays open and completion stays 45%.

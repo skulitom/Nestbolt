@@ -1,0 +1,89 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-16T04:24:11.453630+00:00",
+      "finished": "2026-10-16T04:24:12.248436+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis-target"
+      ],
+      "started": "2026-10-16T04:24:12.282681+00:00",
+      "finished": "2026-10-16T04:27:10.235239+00:00",
+      "exit_code": 0,
+      "log_sha256": "18874005ef6f6b056a33c54a671287cf109e899892e284e02ed0b062ffea712a"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis-target",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-16T04:27:10.282322+00:00",
+      "finished": "2026-10-16T04:28:40.484949+00:00",
+      "exit_code": 0,
+      "log_sha256": "79cb8a95b8dc51f97d3cceb5b7044b41c7668f80aa352602161d8c3a285cfc66"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis-target"
+      ],
+      "started": "2026-10-16T04:28:40.528519+00:00",
+      "finished": "2026-10-16T04:29:33.393691+00:00",
+      "exit_code": 0,
+      "log_sha256": "4a0f8b9cc6aa94e5282c08bd54e05f116f6037684b9c304a061336060544c8bc"
+    }
+  ],
+  "source_sha256": "e03e44b86150c35f2ce0f853258af106c1622c3364c63eae4ff060f6e7e05886",
+  "binary_sha256": "bdfa4162403e00c23dcb067aac46b70fffa3c639a0f1c1cbee437d6ff4e5c8ac",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

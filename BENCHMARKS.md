@@ -13106,3 +13106,25 @@ independent original-geometry validation and physical CCD0 cores 0,2,…14.
 It requires both previous measured sessions terminal and sealed, and is committed
 before search. Original +1% median/+5% per-job limits and every failure remain.
 No held-out input, integration, release or gate-completion claim. Weight stays 45%.
+
+
+## 2026-10-16 — Directed-exchange repair-stage diagnosis prepared
+
+[Diagnostic preparation](benchmarks/results/h5-exchange-diagnosis-preparation-20261016.md)
+passes 82 optimized core tests, strict lint, the observer build and three
+authored trace checks (accepted exchange, source repair failure, disabled/expired).
+The copy retains the rejected early-exchange algorithm and adds one aggregate
+trace per invocation. Proposal/repair/acceptance logic and budgets stay unchanged;
+tracing can perturb wall time, so no quality or performance claim follows.
+
+Both source copies, exact observer, build/test logs and helpers are retained in
+311 archived members / 2,388,618 bytes, SHA-256
+`3766fe80c377888f3926c3ee5f89fd62cd0ed1593c74d39bab6fd7b1e407d085`.
+CRC and every member hash/size pass. Only the isolated exchange module changes;
+production and the rejected candidate stay untouched. The
+[one-use diagnostic plan](benchmarks/results/h5-exchange-diagnosis-20261016/plan.json)
+fixes both mechanical jobs, both kerfs, seed 0, 60 seconds and serial CCD0 CPU 8.
+It is committed before measurement and waits for the H4 tree-depth pilot to be
+terminal and sealed. Every layout/trace/failure/export will be retained and
+independently checked. No held-out input, repeated quality claim, integration,
+gate credit or release. Original H5 failures remain; completion stays 45%.

@@ -1,0 +1,192 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "label": "accepted",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis-target",
+        "directed_exchange_returns_smaller_actual_obstruction",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "sha256": "865618f39fa1e24f70952df41077b68207e06fa4683fb984a91e08dcd06eae14",
+      "traces": [
+        {
+          "disabled_or_expired": false,
+          "baseline_invalid": false,
+          "receivers": 1,
+          "proposals": 1,
+          "expired_before_attempt": 0,
+          "attempts": [
+            {
+              "incoming_area": 2550.0,
+              "victim_area": 600.0,
+              "blockers": 1,
+              "receiver_loss": 0.0,
+              "source_loss": 0.0,
+              "outcome": "accepted"
+            }
+          ]
+        },
+        {
+          "disabled_or_expired": false,
+          "baseline_invalid": false,
+          "receivers": 1,
+          "proposals": 1,
+          "expired_before_attempt": 0,
+          "attempts": [
+            {
+              "incoming_area": 2550.0,
+              "victim_area": 600.0,
+              "blockers": 1,
+              "receiver_loss": 0.0,
+              "source_loss": 0.0,
+              "outcome": "accepted"
+            }
+          ]
+        },
+        {
+          "disabled_or_expired": false,
+          "baseline_invalid": false,
+          "receivers": 1,
+          "proposals": 1,
+          "expired_before_attempt": 0,
+          "attempts": [
+            {
+              "incoming_area": 2550.0,
+              "victim_area": 600.0,
+              "blockers": 1,
+              "receiver_loss": 0.0,
+              "source_loss": 0.0,
+              "outcome": "accepted"
+            }
+          ]
+        },
+        {
+          "disabled_or_expired": false,
+          "baseline_invalid": false,
+          "receivers": 1,
+          "proposals": 1,
+          "expired_before_attempt": 0,
+          "attempts": [
+            {
+              "incoming_area": 2550.0,
+              "victim_area": 600.0,
+              "blockers": 1,
+              "receiver_loss": 0.0,
+              "source_loss": 0.0,
+              "outcome": "accepted"
+            }
+          ]
+        },
+        {
+          "disabled_or_expired": false,
+          "baseline_invalid": false,
+          "receivers": 1,
+          "proposals": 1,
+          "expired_before_attempt": 0,
+          "attempts": [
+            {
+              "incoming_area": 2550.0,
+              "victim_area": 600.0,
+              "blockers": 1,
+              "receiver_loss": 0.0,
+              "source_loss": 0.0,
+              "outcome": "accepted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "source-failed",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis-target",
+        "directed_exchange_failed_source_repair_leaves_layout_intact",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "sha256": "5a981adf27fcaa6084f61df6f4d6aeabacb80656ceeef23dc21438844c04e799",
+      "traces": [
+        {
+          "disabled_or_expired": false,
+          "baseline_invalid": false,
+          "receivers": 1,
+          "proposals": 1,
+          "expired_before_attempt": 0,
+          "attempts": [
+            {
+              "incoming_area": 900.0,
+              "victim_area": 450.0,
+              "blockers": 1,
+              "receiver_loss": 0.0,
+              "source_loss": 758.8343,
+              "outcome": "source_repair_failed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "disabled",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis-target",
+        "directed_exchange_expired_or_disabled_leaves_layout_intact",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "sha256": "af6f952aeb6fb4651720de1154982b737daa47242d3ae786dae58a629bda799b",
+      "traces": [
+        {
+          "disabled_or_expired": true,
+          "baseline_invalid": false,
+          "receivers": 0,
+          "proposals": 0,
+          "expired_before_attempt": 0,
+          "attempts": []
+        },
+        {
+          "disabled_or_expired": true,
+          "baseline_invalid": false,
+          "receivers": 0,
+          "proposals": 0,
+          "expired_before_attempt": 0,
+          "attempts": []
+        }
+      ]
+    }
+  ]
+}
