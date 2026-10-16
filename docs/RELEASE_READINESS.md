@@ -25,12 +25,19 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   fixes all 67 union jobs, seeds 0–2 and 60 seconds in native/Chrome/Firefox:
   603 new outcomes plus 195 verified frozen-v1 baselines. Its original bounds
   and every attempt must pass before scale measurements begin.
+- [Current requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
+  verifies the eleven subset cases, all 65 development jobs, original budgets,
+  seeds and physical cores, and the exact current WASM's unshared memory.
+  This confirms scope and the threading constraint, not quality or scale.
 - Current-build scale and independent checks of every saved SVG/DXF curve for
   all 2,000 placements in both browsers remain required, followed by screenshot
   inspection and a complete H4 requirement review.
-- Fresh hosted checks and three-platform package/download verification are
-  required for this changed candidate. The earlier `7eba929` package dry run
-  does not certify the new executable.
+- [Current hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38854287845)
+  and a [tagless three-platform package dry run](https://github.com/skulitom/Nestbolt/actions/runs/38854620093)
+  are underway on `23442be`, which contains the same tested product. Actual
+  downloads will be checked from an isolated verifier directory. Publication
+  is disabled for this dry run. The earlier `7eba929` package proof remains
+  tied to its older executable.
 
 The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
 failed Chrome at +1.032679%; `0a9fb44` [failed at +1.046217%](../benchmarks/results/h4-preview-development-20261016.md).

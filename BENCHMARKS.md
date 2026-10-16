@@ -13259,3 +13259,28 @@ only the candidate/baseline identities and explicit prerequisites change.
 It cannot start until the current H4 matrix/scale/export sequence is terminal
 and sealed. All original material/savings limits and failed pilots remain.
 No new H5 measurement or gate credit. Completed milestone weight stays 45%.
+
+
+## 2026-10-16 — Current depth-build scope and package preflight
+
+[The current requirement preflight](benchmarks/results/h4-depth-requirement-preflight-20261016.md)
+verifies all eleven subset cases, the complete 65-job development set, unchanged
+60-second budgets/seeds/physical cores and the actual measured WASM memory
+declaration. Candidate `aba989e`, product digest
+`8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88`,
+has one unshared, non-imported memory. No measurement was repeated and no
+reserved geometry was opened. The full matrix and conditional scale/export
+sequence remain running/pending; this preflight does not close H4.
+
+The next scale sealer is prepared to require both complete scale workflows,
+independent checks of all 2,000 exported placements in each browser, and all
+four screenshot reviews. A different valid sheet arrangement is assessed by
+original-curve fidelity, not assumed byte equality with a previous solver.
+The separate common-line pilot's original-archive verifier is also prepared;
+its committed measurement remains unopened until H4 measurements finish.
+
+Commit `23442be` is on main. Hosted checks and tagless package dry run
+[38854620093](https://github.com/skulitom/Nestbolt/actions/runs/38854620093)
+are underway; downloaded packages will be tested from an isolated directory.
+No preview tag, release or registry publication is created by this work.
+Completed milestone weight remains 45%.
