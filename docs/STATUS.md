@@ -41,8 +41,9 @@ candidate now [passes its isolated subset](../benchmarks/results/h4-score-chunks
 with every job within +5%. Four fixed-work pairs preserve all result fields
 except elapsed wall time. This does not establish a general speed gain or close
 H4: the [integrated candidate `7eba929`](../benchmarks/results/h4-score-integration-20261016.md)
-passes all local application checks, while its own full comparison, scale
-confirmation and hosted CI remain outstanding. Its
+passes all local application checks and [all six hosted CI jobs](https://github.com/skulitom/Nestbolt/actions/runs/38840747952),
+with the [exact candidate record](../benchmarks/results/preview-score-ci-20261016/checks.json) retained.
+Its own full comparison and scale confirmation remain outstanding. Its
 [three-platform package dry run and downloaded Windows checks](../benchmarks/results/preview-score-release-dryrun-20261016.md)
 pass, including actual bundle import/nest/validation. No release/tag is created.
 
@@ -76,8 +77,12 @@ has 72 valid outcomes, but all four mechanical/kerf medians still fail the +1%
 material limit, at +4.175294% to +5.869406%. None of its 24 candidate runs attempts
 an exchange. Two [debug path observations](../benchmarks/results/h5-exchange-path-20261016.md)
 also validate and show that neither reaches the exchange call. The candidate
-remains unintegrated; the existing bounded initial relocation opportunity is a
-future hypothesis. The original unopened pilot, revised scheduling rationale,
+remains unintegrated. A [new isolated early call point](../benchmarks/results/h5-early-exchange-preparation-20261016.md)
+now passes seven focused checks, 82 optimized core tests and authored API/CLI
+repeatability checks. Its full-window test reaches and accepts an exchange;
+ordinary mode remains exact except elapsed wall time. A [new paired pilot](../benchmarks/results/h5-early-exchange-pilot-20261016/plan.json)
+is prepared but unopened until the release quality/scale sequence finishes.
+This functional proof does not establish material improvement. The original unopened pilot, revised scheduling rationale,
 shared-target cache failure and all measured outcomes remain preserved. H5 stays
 open; no material limit changes. Only the proven score-bound change is selected
 for the next release candidate.

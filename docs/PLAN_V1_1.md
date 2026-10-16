@@ -430,6 +430,15 @@ exchange call. The isolated candidate is not integrated. A future experiment may
 test the existing bounded initial relocation opportunity; the complete original
 H5 conditions and failed results remain unchanged.
 
+**N4 early-call preparation, 2026-10-16:** [the isolated candidate](../benchmarks/results/h5-early-exchange-preparation-20261016.md)
+now tries exchange at the initial feasible window, before gap filling can bypass
+it, within the existing bounded relocation opportunity. Seven focused and 82
+optimized core tests pass, as do exact normal-mode and repeated common-mode
+authored API checks. Its full-window test accepts an exchange. The [new 72-outcome
+pilot](../benchmarks/results/h5-early-exchange-pilot-20261016/plan.json) is committed
+before measurement and waits for the current release quality/scale sequence.
+No mechanical quality result, source integration or H5 credit is claimed.
+
 ### 4.6 N5: lead-in allowances
 
 Build the section 3 lead-in scope:

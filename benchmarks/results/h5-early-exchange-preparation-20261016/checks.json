@@ -1,0 +1,386 @@
+{
+  "all_functional_checks_pass": true,
+  "baseline_product_commit": "7eba929420d218d04169c1fdf24481051c8afae5",
+  "isolated_candidate_only": true,
+  "root_production_sources_unchanged": true,
+  "changed_source_paths": [
+    "crates/core/src/sheets.rs",
+    "crates/core/src/sheets/vstrip.rs",
+    "crates/core/src/sheets/vstrip/exchange.rs"
+  ],
+  "stages": [
+    {
+      "arm": "baseline",
+      "name": "format-v1",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-16T02:46:59.788858+00:00",
+      "finished": "2026-10-16T02:47:01.901666+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "arm": "baseline",
+      "name": "observer-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--locked",
+        "--release",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-baseline-target"
+      ],
+      "started": "2026-10-16T02:47:02.085805+00:00",
+      "finished": "2026-10-16T02:48:56.172093+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "5241a2f5cb4f1b730b2d3a25f1b24245720314384e3fb497297dba5de25690ca",
+      "binary_sha256": "74c1f44cf61d4c10c8767157efdbfc2c166ba18f4927a6ef4f29a0806a081d27"
+    },
+    {
+      "arm": "candidate",
+      "name": "format-v1",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-16T02:46:11.192118+00:00",
+      "finished": "2026-10-16T02:46:13.788418+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "arm": "candidate",
+      "name": "exchange-tests-v1",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "sheets::vstrip::exchange::tests",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-candidate-target",
+        "--",
+        "--nocapture"
+      ],
+      "started": "2026-10-16T02:46:13.963169+00:00",
+      "finished": "2026-10-16T02:48:47.621194+00:00",
+      "exit_code": 101,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "7c79e8da59c1d2fdd85042867a588402e4eb6f8c7d46a1deb9971eef058b2553"
+    },
+    {
+      "arm": "candidate",
+      "name": "exchange-tests-v2",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "sheets::vstrip::exchange::tests",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-candidate-target",
+        "--",
+        "--nocapture"
+      ],
+      "started": "2026-10-16T02:49:40.528540+00:00",
+      "finished": "2026-10-16T02:51:31.244776+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "c7bc6ba415c0d7a6482d8b284e6a876a2afa43ef7da1881574993416ef5e0691"
+    },
+    {
+      "arm": "candidate",
+      "name": "observer-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--locked",
+        "--release",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-candidate-target"
+      ],
+      "started": "2026-10-16T02:51:31.407655+00:00",
+      "finished": "2026-10-16T02:53:06.902740+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "c764e11059e9ca8ede60a36808026252ddef51d560f423d990f926c659d68a05",
+      "binary_sha256": "ca0da4c3b9ddb9ccd70105581546dc1ed68bc3072669021f3ed66369cf3fa0b5"
+    },
+    {
+      "arm": "candidate",
+      "name": "core-release-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--locked",
+        "--release",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-candidate-target"
+      ],
+      "started": "2026-10-16T02:53:44.810586+00:00",
+      "finished": "2026-10-16T02:55:47.825174+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "2be4d61386a4866b40c8e4d6f82018a80a9e5d55e3f83d5414de0075de6ac6cc"
+    },
+    {
+      "arm": "candidate",
+      "name": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--examples",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-candidate-target",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-16T02:55:47.942894+00:00",
+      "finished": "2026-10-16T02:56:07.745220+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "7828c8950ad18af9b685d9c87ee4295b5d7a8a67da9b5c2f1b5ad80d9bb62adc"
+    },
+    {
+      "arm": "candidate",
+      "name": "format-check",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "started": "2026-10-16T02:56:07.859907+00:00",
+      "finished": "2026-10-16T02:56:08.577053+00:00",
+      "exit_code": 0,
+      "scope": "CCD1 functional/build verification only; no measured quality or speed claim",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "observer_binaries": {
+    "baseline": {
+      "sha256": "74c1f44cf61d4c10c8767157efdbfc2c166ba18f4927a6ef4f29a0806a081d27",
+      "bytes": 3444224
+    },
+    "candidate": {
+      "sha256": "ca0da4c3b9ddb9ccd70105581546dc1ed68bc3072669021f3ed66369cf3fa0b5",
+      "bytes": 3513344
+    }
+  },
+  "full_optimized_core_tests": 82,
+  "focused_debug_tests": 7,
+  "window_search_reaches_and_accepts_authored_exchange": true,
+  "disabled_and_expired_paths_do_not_exchange": true,
+  "public_checks": {
+    "all_checks_passed": true,
+    "observer_outcomes": 10,
+    "CLI_cross_checks": 4,
+    "normal_full_result_exact_except_elapsed_wall": true,
+    "common_candidate_replay_exact_except_elapsed_wall": true,
+    "independent_metrics_exact": true,
+    "records": [
+      {
+        "arm": "baseline",
+        "mode": "normal",
+        "seed": 0,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5777779111111112
+      },
+      {
+        "arm": "candidate",
+        "mode": "normal",
+        "seed": 0,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5777779111111112
+      },
+      {
+        "arm": "baseline",
+        "mode": "common",
+        "seed": 0,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5778018555555557
+      },
+      {
+        "arm": "candidate",
+        "mode": "common",
+        "seed": 0,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5778018555555557
+      },
+      {
+        "arm": "baseline",
+        "mode": "normal",
+        "seed": 1,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5777779111111112
+      },
+      {
+        "arm": "candidate",
+        "mode": "normal",
+        "seed": 1,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5777779111111112
+      },
+      {
+        "arm": "baseline",
+        "mode": "common",
+        "seed": 1,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 2,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5778018555555557
+      },
+      {
+        "arm": "candidate",
+        "mode": "common",
+        "seed": 1,
+        "repeatable": true,
+        "valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 2,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "material": 1.5778018555555557
+      }
+    ],
+    "guards_unchanged": true,
+    "held_out_geometry_read": false,
+    "quality_or_speed_claim": false
+  },
+  "retained_setup_failures": [
+    "Missing unchanged authored validation-job.json at first compile",
+    "Public checker wrongly expected a nested cutting-report validation field; completed outcomes were hash-verified and reused after correcting that assertion"
+  ],
+  "performance_measurement": false,
+  "held_out_geometry_read": false,
+  "H5_complete": false,
+  "completed_milestone_weight_percent": 45,
+  "next_step": "A new committed matched mechanical/control pilot after current H4 quality/scale measurements finish; no integration from functional evidence."
+}

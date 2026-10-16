@@ -1,91 +1,64 @@
 # Next preview release
 
-Artem authorized the next GitHub release when ready on 2026-10-16. The release
-will be a preview of the current shop-file work. The full v1.1 plan remains at
-45% completed milestone weight; a release does not close its remaining gates.
+Artem authorized the next GitHub release when ready on 2026-10-16. Candidate
+`7eba929` is version `0.2.0-alpha.1`. The v1.1 plan remains at 45% completed
+milestone weight; publishing a preview does not close its remaining gates.
 
-The README now describes LightBurn projects, lead-in allowances, common-line
-setup, automatic browser workers and native downloads. Its headline comparison
-is explicitly the frozen v1 benchmark at `75cbb32`. It makes no new comparative
-quality claim for this preview.
+The README now covers LightBurn projects, lead allowances, common-line setup,
+automatic browser workers and native downloads. Its comparison headline remains
+explicitly the frozen v1 benchmark at `75cbb32`, with no new competitor claim.
 
-The initial release candidate `0a9fb44` passed CI and packaging, but its completed
-[Chrome subset fails H4](../benchmarks/results/h4-preview-chrome-failure-20261016.md):
-median +1.046217% against the unchanged +1% limit, despite all 201 Chrome layouts
-being valid. The preview will not be tagged from that failed result. The
-[complete original measurement](../benchmarks/results/h4-preview-development-20261016.md)
-is now sealed: all 603 new layouts validate, Firefox passes its subset at
-+0.788924%, and both browsers pass full G5. Chrome's subset failure remains. A
-corrected candidate needs its own checks.
+## Candidate checks
 
-The [isolated eight-pair score-bound candidate](../benchmarks/results/h4-score-chunks-probe-20261016.md)
-now passes the eleven-job subset: 99 valid layouts, Chrome +0.378238% and Firefox
-+0.432882% median material, with every job within +5%. Four exact fixed-work
-pairs also pass. It is now integrated in candidate `7eba929`, whose
-[full local application checks](../benchmarks/results/h4-score-integration-20261016.md)
-pass. Its own committed full comparison is running; current scale checks and
-green hosted CI remain required. Its [three-platform package dry run and
-downloaded Windows package verification](../benchmarks/results/preview-score-release-dryrun-20261016.md)
-also pass. The common-line exchange pilot failed its
-material condition and remains unintegrated. No general speed claim follows
-from the subset alone. Later evidence-only commits do not change the candidate.
+- [Local integration checks](../benchmarks/results/h4-score-integration-20261016.md)
+  pass: 302 workspace tests, 27 optimized CLI tests, 86 enabled browser tests,
+  strict lint, native/WASM/site builds, schemas/notices and actual Windows MCPB
+  verification. Existing ignored/skipped tests remain disclosed in that record.
+- [All six hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38840747952)
+  pass on `7eba929`; [the exact record](../benchmarks/results/preview-score-ci-20261016/checks.json)
+  includes Windows/Linux, web, benchmark smoke and maker rebuilds.
+- [The package dry run and downloaded artifacts](../benchmarks/results/preview-score-release-dryrun-20261016.md)
+  pass for Windows x64, Linux x64 and macOS arm64. The downloaded Windows CLI,
+  server and MCPB pass actual version/import/nest/validation checks. Archive
+  contents, executable architectures, permissions and checksum/metadata agree.
+- The [full current-build comparison](../benchmarks/results/h4-preview-score-release-20261016/plan.json)
+  is running: 603 new development outcomes plus 195 verified frozen-v1 outcomes.
+  The eleven-job subset, full G5 and native conditions must all pass unchanged.
+- The [committed scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/plan.json)
+  follows only after quality passes. Both 2,000-part workflows must pass in
+  Chrome/Firefox with the existing 1.5 GB and 200 ms limits. Root source, engines
+  and site remain frozen through the sequence. Then finish the H4 requirement review.
 
-## Before publishing
+The earlier `0a9fb44` candidate's [completed comparison](../benchmarks/results/h4-preview-development-20261016.md)
+failed Chrome's subset at +1.046217%, against +1%; all results are preserved.
+The new finer exact-score bound first [passed its isolated subset](../benchmarks/results/h4-score-chunks-probe-20261016.md)
+with Chrome +0.378238% and Firefox +0.432882%, before integration. That small
+probe alone does not substitute for the current full comparison or establish
+a general speed gain. The common-line experiments remain unintegrated.
 
-- The [guarded 65-job comparison](../benchmarks/results/h4-full-development-20261016.md)
-  is complete: 780/780 valid layouts; native and both browser limits pass. Raw
-  records and exact engines are sealed. The integrated repair changes search
-  cost, so its performance still needs confirmation on the release build.
-- The [exact curve-search repair](../benchmarks/results/ci-curve-optimized-profile-20261016.md)
-  and authored regression are integrated. Original CI/debug failures remain
-  preserved. The isolated optimized candidate passed 128 generated curve cases.
-- [Native import explanations and duplicate-message repair](../benchmarks/results/native-diagnostics-surfaces-20261016.md)
-  are integrated. All 56 training records, 23 focused tests and actual CLI,
-  stdio MCP, Chromium and Firefox checks pass in the isolated candidate, with
-  unchanged geometry/XML and original rejection messages. [Full production checks](../benchmarks/results/preview-integration-20261016.md)
-  now pass: 302 workspace, 27 optimized CLI and 86 enabled browser tests, strict
-  lint/builds and 23 package tests including the actual Windows MCPB.
-- Recheck affected geometry, native/CLI/MCP/browser behavior and performance
-  after fixes. Require green CI on the release commit.
-- All six hosted checks pass on `0a9fb44`
-  ([run](https://github.com/skulitom/Nestbolt/actions/runs/38830004774)).
-  The integrated-build native measurement is complete with 201 valid layouts;
-  its 65-job median difference from frozen v1 is 0%. Chrome's full G5 comparison
-  passes but its curve subset fails. Firefox passes both comparisons. The
-  original matrix is complete and sealed; current scale checks were not run on
-  the failed build. The release gate stays open while an isolated exact-score
-  candidate earns its own evidence.
-- The preview version is `0.2.0-alpha.1`. Finish checking release notes and ensure the workflow
-  marks the release as a preview without replacing the current stable Latest.
-  [Release notes](../mcpb/RELEASE_NOTES.md) now describe the features, preparation
-  steps and outstanding import/common-line limits; review them against the final build.
-  [Packaging now accepts SemVer prerelease versions](../benchmarks/results/preview-packaging-20261016.md)
-  and explicitly keeps previews out of Latest. Its tests cover version propagation and channel selection;
-  the [three-platform dry run](../benchmarks/results/preview-release-dryrun-20261016.md)
-  now passes for `0a9fb44`, including the actual downloaded Windows package checks.
-- Windows x64, Linux x64 and macOS arm64 packaging passes on `0a9fb44`.
-  Downloaded archive contents, architectures, versions and Windows MCPB checksum
-  agree. If the final release commit changes package contents, record its own
-  dry run. Published provenance and the downloaded Windows bundle still need
-  verification after publication.
+## Publication and disclosures
 
-## Disclosures in the release notes
+After these remaining checks pass, tag the verified candidate and publish
+`v0.2.0-alpha.1` as a prerelease without replacing stable Latest. The workflow
+already enforces that channel. Later evidence-only commits do not change the
+candidate's packaged contents. Check published downloads/checksums and build
+provenance afterward, including the actual downloaded Windows bundle.
+
+[Release notes](../mcpb/RELEASE_NOTES.md) disclose:
 
 - LightBurn preservation and lead allowances have completed their planned
-  checks. Older text without cached outlines needs a reviewed native save or
-  conversion to paths. Groups mixing active cuts with Tool/output-disabled
-  shapes need regrouping in LightBurn.
+  checks. Older text without cached outlines needs a native save or conversion
+  to paths; groups mixing active cuts with Tool/output-disabled shapes need
+  regrouping in LightBurn.
 - Import acceptance still needs the remaining reserved evaluation and the
-  pending denominator clarification. The current split and original negative
-  fixtures remain unchanged.
-- Common-line cutting is optional and under development. Both mechanical jobs
-  exceed the planned +1% material limit, up to +6.51% in the retained development
-  comparison. Cutting distance savings do not establish material savings.
-  COMMON paths need the documented CAM setup to avoid duplicate cuts.
-- LEADIN paths are review guides; the cutting program generates the actual
-  leads. Flagged contours still need attention. Lead-enabled LightBurn exports
-  include separate SVG/DXF cutting files beside the preserved editable project.
-- Keep the published v1 benchmark numbers and provenance unchanged. Registry
-  publication and a new final acceptance comparison remain separate actions.
+  pending denominator clarification. The split and negative fixtures stay fixed.
+- Common-line cutting remains optional and under development. Two mechanical
+  jobs exceed the +1% material limit, up to +6.51% in the retained comparison.
+  Cut-distance savings do not establish material savings. COMMON paths require
+  the documented CAM preparation to avoid duplicate cuts.
+- LEADIN paths are review guides. The cutting program generates actual leads,
+  and flagged contours need attention. Lead-enabled LightBurn exports include
+  separate SVG/DXF cutting files alongside the preserved editable project.
 
-No version tag or release has been created for this preview yet.
+The published v1 claims remain unchanged. Registry publication and a new final
+acceptance comparison remain separate actions. No preview tag or release exists yet.

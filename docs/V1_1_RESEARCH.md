@@ -879,3 +879,17 @@ three failed separation returns; a call can consume the remaining exploration
 budget. This is evidence about the two observed trajectories, not a proof of
 unreachability. The earlier bounded relocation opportunity is a new hypothesis.
 Keep the candidate isolated and preserve all original gates and attempts.
+
+
+### 2026-10-16: early exchange call point, functional evidence only
+
+[The isolated follow-up](../benchmarks/results/h5-early-exchange-preparation-20261016.md)
+reaches and accepts an exchange in an authored full-window test before gap
+filling can short-circuit relocation. Seven focused and 82 optimized core tests
+pass. Identical public observers on current `7eba929` baseline/candidate preserve
+ordinary-mode results except wall time; common-mode fixed-work replays and
+independent metrics agree. Those small API cases have zero proposals, so only
+the targeted window test establishes reachability. Both setup failures remain
+preserved. The new matched mechanical/control pilot is prepared but unopened;
+it waits for the active release quality/scale sequence. No material improvement
+or general reachability claim follows from these authored checks.

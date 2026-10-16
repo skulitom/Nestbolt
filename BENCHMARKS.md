@@ -12943,3 +12943,28 @@ the matrix sequentially, with no concurrent measured search. Root product/site/
 engine freeze continues through all four workflows. Original failures are
 preserved and never automatically rerun. No reserved inputs, gate closure or
 release publication is authorized by this execution plan itself.
+
+
+## 2026-10-16 — Green release-candidate CI and isolated early-exchange preparation
+
+[All six hosted CI jobs](benchmarks/results/preview-score-ci-20261016/checks.json)
+pass on exact candidate `7eba929`. Together with the recorded downloaded-package
+checks, this leaves its full quality/scale sequence and requirement review before
+tagging. Original failed performance observations remain unchanged.
+
+[Early-exchange functional preparation](benchmarks/results/h5-early-exchange-preparation-20261016.md)
+passes seven focused and 82 optimized core tests, strict lint/format, ten authored
+observer outcomes and four CLI comparisons. The initial feasible-window hook
+accepts an authored exchange, remains inactive when disabled/expired, and shares
+the existing bounded relocation budget. Ordinary results and common-mode replays
+are exact except wall time. Both setup failures and every completed outcome are
+preserved; the report-field repair reuses hash-verified results without rerunning
+completed searches. Both source trees and distinct-target executables are sealed
+in 478 verified archive members. Production and the release matrix stay unchanged.
+
+[The separate 72-outcome pilot](benchmarks/results/h5-early-exchange-pilot-20261016/plan.json)
+is prepared but unopened, with seven harness checks. It retains all four jobs,
+both kerfs, seeds 0–2, three rotating arms and 60-second budgets, and waits until
+the current release quality/scale sequence finishes. Previous pilots remain
+untouched. No material improvement, integration or H5 closure is claimed.
+Completed milestone weight remains 45%; no held-out inputs are opened.
