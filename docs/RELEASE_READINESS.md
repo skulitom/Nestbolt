@@ -37,6 +37,9 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
 - Current-build scale and independent checks of every saved SVG/DXF curve for
   all 2,000 placements in both browsers remain required, followed by screenshot
   inspection and a complete H4 requirement review.
+  The [recovery-aware continuation](../benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
+  runs those fixed checks only after the recovered full comparison passes;
+  it preserves the original interrupted sequence unchanged.
 - [All three downloaded packages and the Windows MCPB pass](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
   on `23442be`, which contains the same tested product. Architecture, contents,
   permissions, versions and metadata match; the actual downloaded Windows

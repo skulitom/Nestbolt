@@ -33,7 +33,9 @@ The [recorded recovery](../benchmarks/results/h4-depth-reboot-recovery-20261016.
 retains every completed result and the original interruption, then runs only
 the missing Firefox phase under the unchanged limits. Native and Chrome
 quality bounds pass; Firefox, scale/export checks and final H4 review remain
-required. [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
+required. The [recovery-aware scale continuation](../benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
+is prepared with unchanged checks and a pass-only condition.
+[All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
 pass their checks, including actual Windows import/nest/validation/confinement.
 [All six hosted checks pass for this code](../benchmarks/results/preview-depth-hosted-checks-20261016.md); reviewed evidence is pushed to main as `21835ba`. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
 confirms the original scope and unshared WASM memory. No common-line experiment

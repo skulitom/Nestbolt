@@ -13373,3 +13373,17 @@ curve fidelity and final requirement review remain required. The unopened
 common-line pilot waits. No completed result is rerun or replaced, no
 reserved input is opened, and no release or gate closure occurs. Completion
 stays 45%. Main commit `21835ba` has also passed all six hosted checks.
+
+
+## 2026-10-16 — Recovery-aware conditional scale/export sequence
+
+[The new continuation](benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
+waits for the committed missing-Firefox recovery, seals the original retained
+402 current-build outcomes plus 201 new Firefox outcomes and 195 frozen-v1
+outcomes, and reports the actual comparisons. Only a passing full comparison
+starts the unchanged 2,000-part curves and G5 scale workflows. Every saved
+SVG/DXF curve/control point for all 2,000 placements in both curve-browser
+outputs is then independently checked within 0.01 mm. No search repeats,
+export regeneration, changed limits or reserved inputs. Original interrupted
+evidence remains unchanged. Visual inspection and complete H4 review follow
+separately; completion stays 45% and no release is created.
