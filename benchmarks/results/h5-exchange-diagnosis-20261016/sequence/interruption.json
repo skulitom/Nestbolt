@@ -1,0 +1,38 @@
+{
+  "error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\output\\continue_depth_diagnosis.py\", line 32, in <module>\n    assert result.returncode==0,'Preserve failure; do not restart sequence: '+label\n           ^^^^^^^^^^^^^^^^^^^^\nAssertionError: Preserve failure; do not restart sequence: seal-h5\n",
+  "stages": [
+    {
+      "stage": "seal-h4",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "output/finish_h4_depth_pilot.py"
+      ],
+      "started": "2026-10-16T04:39:26.993237+00:00",
+      "finished": "2026-10-16T04:39:34.858549+00:00",
+      "exit_code": 0
+    },
+    {
+      "stage": "diagnose-h5",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/h5_exchange_diagnosis.py",
+        "run",
+        "--out",
+        "C:\\DEV\\Nestbolt\\benchmarks\\results\\h5-exchange-diagnosis-20261016"
+      ],
+      "started": "2026-10-16T04:39:34.858549+00:00",
+      "finished": "2026-10-16T04:43:39.234223+00:00",
+      "exit_code": 0
+    },
+    {
+      "stage": "seal-h5",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "output/finish_h5_exchange_diagnosis.py"
+      ],
+      "started": "2026-10-16T04:43:39.235220+00:00",
+      "finished": "2026-10-16T04:43:39.724604+00:00",
+      "exit_code": 1
+    }
+  ]
+}

@@ -614,3 +614,13 @@ every job is within +5%. Exact independent metrics, coverage, source and affinit
 guards pass. The isolated candidate is eligible for integration checks and a
 fresh full matrix, followed by current scale/package checks. Earlier full-run
 failures are retained. No H4 closure or release; completion stays 45%.
+
+
+**N4 stage-diagnostic outcome, 2026-10-16:** [all four layouts validate](../benchmarks/results/h5-exchange-diagnosis-20261016.md).
+Of 37 attempted exchanges, 35 fail receiving-sheet repair and two are accepted.
+Every proposal has two or three actual blockers, while the current experiment
+evicts only one. Moving the full smaller obstruction set is a distinct next
+hypothesis, not an established improvement. Original quality failures, budgets
+and H5 limits remain. Two omitted-zero counter reader errors and a report-format
+error are preserved and corrected only against saved artifacts; no search is
+repeated. H5 remains open and completion stays 45%.

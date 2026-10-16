@@ -13157,3 +13157,31 @@ Current scale and package verification also remain; this pilot does not close
 H4 or justify a release. After this session was terminal and sealed, the
 committed four-case H5 stage diagnosis began with no measured overlap.
 Completed milestone weight stays 45%.
+
+
+## 2026-10-16 — Exchange diagnosis locates multi-blocker receiving-sheet failures
+
+[Four saved diagnostic runs](benchmarks/results/h5-exchange-diagnosis-20261016.md)
+all validate, with original quantities, zero hole riders and public exports.
+The fixed method uses the two mechanical jobs, both kerfs, seed 0, 60 seconds,
+serial CCD0 CPU 8 and unchanged rejected algorithm plus aggregate traces.
+All 37 attempts have two or three actual blockers. Of these, 35 fail receiver
+repair (nine with two blockers, 26 with three); two are accepted. No source-repair
+or final-guard failure is observed after successful receiver repair. These traces
+identify stages only: instrumentation can perturb timing, and the earlier full
+paired quality failures remain authoritative. No budget or threshold changes.
+
+The source removes only one actual blocker before repairing the receiver.
+An atomic exchange of the complete smaller obstruction set is a possible next
+hypothesis, with original quantity/geometry/material guards and deadlines intact.
+It is not implemented or measured here; these observations do not prove a pack
+exists or that the material limit is reachable.
+
+The original reader errors on two omitted zero-valued `directed_exchanges`
+counters are retained. Source serde rules explicitly omit zero; a post-processing
+reader checks the same saved traces with that zero supplied. A later Markdown
+construction error occurred after verification/archive completion and is also
+retained. A report-only correction reads the completed evidence. No search or
+layout validation was repeated, and original results remain unchanged.
+All per-attempt archives/members and exact input/observer snapshots are verified.
+H5 stays open, both experiments remain unintegrated, and completion stays 45%.

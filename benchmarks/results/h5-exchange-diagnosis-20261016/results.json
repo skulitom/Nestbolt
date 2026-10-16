@@ -1,0 +1,1636 @@
+{
+  "records": [
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 60.15598989999853,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.13863430000492372,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 111168.02189346196,
+      "cut_with_common_mm": 95332.77167479013,
+      "saved_fraction": 0.14244429242293766,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.20527439999568742,
+        "cpu": 8
+      },
+      "material": 1.1481376783333335,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 66,
+        "requested_parts": 66,
+        "placed_area": 2791081.8468156615,
+        "placed_priority": 66.0,
+        "full_stock_area": 9000000.0,
+        "material_area": 5166619.5525,
+        "normalized_material": 1.1481376783333335,
+        "utilization": 0.5402143158508982,
+        "trailing_offcut_area": 3833380.4475,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 444.413035
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 53,
+        "directed_exchange_attempts": 3,
+        "directed_exchanges": 1
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.3693996,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2042315063333333
+        },
+        {
+          "elapsed_seconds": 15.3513443,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1659205143333333
+        },
+        {
+          "elapsed_seconds": 34.7871266,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.157701518
+        },
+        {
+          "elapsed_seconds": 41.9714545,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1564465516666667
+        },
+        {
+          "elapsed_seconds": 53.742904,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 53.8718246,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 53.9596679,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.0905797,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.1795897,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.2677136,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.3547432,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.4398333,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.5253053,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.6118092,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.7056903,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.7950811,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.8826932,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 54.9751812,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.1674747,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.2628059,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.3515002,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.4422229,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.5357267,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.6353817,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.7852356,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.8783552,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 55.9668893,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.0680866,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.1639424,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.2533232,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.3511081,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.4548348,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.5477557,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.6499758,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.740106,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.8574676,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 56.9499429,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.0523689,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.1643753,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.2556875,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.3498112,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.5289274,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.6308697,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.7833226,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.8756993,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 57.9721745,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 58.1272451,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 58.2749054,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 58.5195936,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 58.6200228,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 58.7713227,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 58.8950188,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 59.0853101,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 59.2044919,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 59.4738131,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 59.5830885,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 59.6900264,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        },
+        {
+          "elapsed_seconds": 59.8516498,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1481376783333335
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.8518094,
+      "accepted_at_seconds": 59.8516498,
+      "layout_sha256": "dd88ac61ef78c348ac2c1bc9d7d6497e90733015b34cc6c9e3436a25bc53c971",
+      "maximum_revalidation_difference": 1.4551915228366852e-11,
+      "artifacts": {
+        "export/sheet-0.dxf": "befffc1ccb54ba166892a4a873a55bad4b273c6a1a71fe9bef691c1f3dca19ec",
+        "export/sheet-0.svg": "460d8f2af3a76c44a6b650692772f44f967645120bfb3c48e130031acbb853e1",
+        "export/sheet-1.dxf": "3a17ad94684704dcda07c2553db70a678ad08d454113ba75395c42d7c5b3b902",
+        "export/sheet-1.svg": "5d1c74668f636bbc4f106bc30a3365acccad29cde12d4e03f76a2d1926d346c4",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "3232672fd937e832eac1c03aaa978b41983a2533db122067342c2624c6a80b7b",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/cutting-report.json": "40203303080912cb44ae5914a0b5920431f9505655847fa60f3b6ddabf73e1aa",
+        "nested/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+        "nested/layout.json": "dd88ac61ef78c348ac2c1bc9d7d6497e90733015b34cc6c9e3436a25bc53c971",
+        "nested/search.json": "2bed0c4037ff42baa4420e36ea560eb86391b620060b6b7bcd242039428977d0",
+        "request.json": "67762896702d16742d0fd070b8743cabd743bd3036ad9fcf6032e2b442d0668d",
+        "search-stderr.log": "1b039f9373459c3e848ee87139a74644a3fecabb48ccc5f8482ebfad4c0cab82",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "c4ed4cc3ebfe25b8e217eb9b8a40f35d0ed94eee8cb4ef3755347fa45e7a01cc"
+      },
+      "archive": "m-mechanical-large-plates-k0.2-s0-candidate.zip",
+      "archive_sha256": "04b60655f476327f4495cda6805d13c74cc882dcf8b02c2190131bae3d6c3adc",
+      "diagnosis": {
+        "invocations": 1,
+        "attempts": 3,
+        "outcomes": {
+          "receiver_repair_failed": 2,
+          "accepted": 1
+        },
+        "receivers": 1,
+        "proposals": 6,
+        "expired_before_attempt": 0,
+        "traces": [
+          {
+            "disabled_or_expired": false,
+            "baseline_invalid": false,
+            "receivers": 1,
+            "proposals": 6,
+            "expired_before_attempt": 0,
+            "attempts": [
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 2,
+                "receiver_loss": 5552.8726,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 15071.291,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 0.0,
+                "source_loss": 0.0,
+                "outcome": "accepted"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 60.06430019999971,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.14763110000058077,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 111168.02189346195,
+      "cut_with_common_mm": 98296.19467024574,
+      "saved_fraction": 0.11578713917885441,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.21185700000205543,
+        "cpu": 8
+      },
+      "material": 1.168231115,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 66,
+        "requested_parts": 66,
+        "placed_area": 2791081.8468156615,
+        "placed_priority": 66.0,
+        "full_stock_area": 9000000.0,
+        "material_area": 5257040.0175,
+        "normalized_material": 1.168231115,
+        "utilization": 0.5309226936687783,
+        "trailing_offcut_area": 3742959.9825,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 504.69334499999997
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 46,
+        "directed_exchange_attempts": 8,
+        "directed_exchanges": 1
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.321631,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2042315063333333
+        },
+        {
+          "elapsed_seconds": 12.4377605,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1825012849999998
+        },
+        {
+          "elapsed_seconds": 21.0115433,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1717361960000001
+        },
+        {
+          "elapsed_seconds": 29.3482498,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1705929086666667
+        },
+        {
+          "elapsed_seconds": 41.9816016,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 53.8290676,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 53.9265553,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.16923,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.3196066,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.4229257,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.8218705,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.9210841,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.0212572,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.2288697,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.3367665,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.4384077,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.5973101,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.7023653,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.8122272,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.9193219,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.0291554,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.1379435,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.2476496,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.3542988,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.4593023,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.5662479,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.6752431,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.8416577,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.9520552,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.1683075,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.3405602,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.5137855,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.637762,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.7495681,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.8595783,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.9674666,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.0852725,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.1950854,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.3105434,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.4257629,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.5390841,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.6507824,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.7644528,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.8777522,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.9905684,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.1041239,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.2143845,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.3260692,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.5581118,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.7855055,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.8976618,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.8979147,
+      "accepted_at_seconds": 59.8976618,
+      "layout_sha256": "7bdde6b44787a4728a7863503f51489a07408756b600dd5a05388d0c55a432b5",
+      "maximum_revalidation_difference": 4.547473508864641e-13,
+      "artifacts": {
+        "export/sheet-0.dxf": "0bee52cbe1bba82ef7182b13c6b3608046fef712daf7af583899bf89d0150daa",
+        "export/sheet-0.svg": "709123cb0cdc76853f59cf80b5bea262c037594da97b3ec5e8e638070c76f220",
+        "export/sheet-1.dxf": "5e7b22c1753b0cc1bf3f855a64aecd2ad2c29ef7218d5f2230a109b34f69ebaa",
+        "export/sheet-1.svg": "232498433a98b0a00ca4ed8e2f7558648d017173caed8cb22f639c7d77ccf484",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "6733127c030127683e66101501fda9c72c22592b356efb7555eb9752ad37dcf6",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/cutting-report.json": "e54e6e99e6d7ae79b9ce0f795ded5d63262424c8b6d7c0bc8c0f8a2cbb1fe79c",
+        "nested/job.json": "75aa8ca93561830b76f4894fd79fee500290aeaad81f4120631bf5c517b8eac5",
+        "nested/layout.json": "7bdde6b44787a4728a7863503f51489a07408756b600dd5a05388d0c55a432b5",
+        "nested/search.json": "bb9194ab21007ac9243d9322b4348dbcb3d5cecf03f4309db642bc51758918cc",
+        "request.json": "707a6820c2f85a89a8081d4ed330b20bf5dce86e9f76d7b93164f18571a0c8db",
+        "search-stderr.log": "4e61225220ffccb071f2a129e6ae3eb3d597ef110f750a4107ce36f955d7747d",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "f4b58345098042b7918050996769ad5ad64c5a9803257d075ed875a254cafe5d"
+      },
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "archive_sha256": "b39c551193f407d75eb09241b05442a6ab09bb29aa8a0eb56442ab676c99f014",
+      "diagnosis": {
+        "invocations": 1,
+        "attempts": 8,
+        "outcomes": {
+          "receiver_repair_failed": 7,
+          "accepted": 1
+        },
+        "receivers": 2,
+        "proposals": 12,
+        "expired_before_attempt": 0,
+        "traces": [
+          {
+            "disabled_or_expired": false,
+            "baseline_invalid": false,
+            "receivers": 2,
+            "proposals": 12,
+            "expired_before_attempt": 0,
+            "attempts": [
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 2,
+                "receiver_loss": 29561.361,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 3747.0251,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 19252.35,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 19170.55,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 14081.773,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "victim_area": 19800.0,
+                "blockers": 3,
+                "receiver_loss": 34768.64,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 40000.0,
+                "victim_area": 19800.0,
+                "blockers": 2,
+                "receiver_loss": 11710.547,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 40000.0,
+                "victim_area": 19800.0,
+                "blockers": 2,
+                "receiver_loss": 0.0,
+                "source_loss": 0.0,
+                "outcome": "accepted"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 60.06351979999454,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2507729999924777,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 175793.32949150642,
+      "cut_with_common_mm": 165388.61347188143,
+      "saved_fraction": 0.05918720607728012,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.4067116999940481,
+        "cpu": 8
+      },
+      "material": 1.5961475852,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 178,
+        "requested_parts": 178,
+        "placed_area": 2738107.601747328,
+        "placed_priority": 178.0,
+        "full_stock_area": 6250000.0,
+        "material_area": 4987961.20375,
+        "normalized_material": 1.5961475852,
+        "utilization": 0.5489432435217801,
+        "trailing_offcut_area": 1262038.79625,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 1490.368963
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 18,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 26,
+        "directed_exchange_attempts": 13
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.2837873,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.6366617187999999
+        },
+        {
+          "elapsed_seconds": 14.0654905,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6268123312
+        },
+        {
+          "elapsed_seconds": 20.2349673,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6121369408
+        },
+        {
+          "elapsed_seconds": 26.4728975,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6072736572
+        },
+        {
+          "elapsed_seconds": 42.0617656,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6008196548
+        },
+        {
+          "elapsed_seconds": 53.6851722,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 54.0168297,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 54.2478355,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 54.486415,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 54.7229209,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 54.9579665,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 55.1950221,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 55.4341746,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 55.6706725,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 55.9118084,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 56.1436437,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 56.3794505,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 56.6067196,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 56.843263,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 57.0807787,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 57.308093,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 57.5264288,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 57.7598645,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 57.9897593,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 58.2167404,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 58.4301526,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 58.6701676,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 58.8900299,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 59.1082808,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 59.3299283,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 59.5587782,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        },
+        {
+          "elapsed_seconds": 59.798223,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5961475852
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.7985644,
+      "accepted_at_seconds": 59.798223,
+      "layout_sha256": "058124e37be9f37de687f53812617fb94d85449b3c850860304aacc67b413a34",
+      "maximum_revalidation_difference": 0,
+      "artifacts": {
+        "export/sheet-0.dxf": "a360e1db0d2a3884bb807d1d5a9c76e42ebb62ffc4c1db8e67d736e7d1649cee",
+        "export/sheet-0.svg": "ee7fa6e1bdeefd5bcaacd2ed94dd317695704f6c035773da9247b04e6aeee4a0",
+        "export/sheet-1.dxf": "32dd69ca9962dd41358a9b28fa29436270ffa45af3e092134f77250417ed2324",
+        "export/sheet-1.svg": "f94eb340ed2bfd89ce95e9ceca558a0d96f259257a25b156590150a5e2b09057",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "48646868822f7034c4af777c5c0189058a0de83908fee80c54968aefc35bd84a",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/cutting-report.json": "fd94d124d9ecd0eefae2a947f8967f46e923d42829bcf1c7d598673b706d406c",
+        "nested/job.json": "cfa4eb76c56e2d41794ff07a0611a1dab9fd7a52fe43b2b4a4ee39f32aca9551",
+        "nested/layout.json": "058124e37be9f37de687f53812617fb94d85449b3c850860304aacc67b413a34",
+        "nested/search.json": "7b8e7d365bc2aca552081ccdf71405d79ed74f71a1fe7dcb32de1ca143c65f46",
+        "request.json": "9d35332a8b77c0e34d8885933d2cc6a20df3badfe74a179efee032849504429c",
+        "search-stderr.log": "7f88c111f6246042b7e478fa6286006be1cdb60a09528647d128390fd41bf6cb",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "9ef2706266d5def5d1ab034b7e85b480e2fdf3009a0d8daa3633e4942e593895"
+      },
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-candidate.zip",
+      "archive_sha256": "9ce8a826fd3f6557f860e06d350954e9e5dd99c539903e7722f79f358474fe81",
+      "trace_error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h5_exchange_diagnosis.py\", line 105, in run\n    try:record['diagnosis']=read_trace(out/record['archive'],record)\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\DEV\\Nestbolt\\scripts\\h5_exchange_diagnosis.py\", line 72, in read_trace\n    assert counts['accepted']==record['stats']['directed_exchanges']\n                               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'directed_exchanges'\n"
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 60.22666759999993,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2728420999919763,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 175793.3294915064,
+      "cut_with_common_mm": 164903.4132277408,
+      "saved_fraction": 0.061947266686770086,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-early-exchange-probe\\public-checks-v1\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-exchange-diagnosis\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.4164294000074733,
+        "cpu": 8
+      },
+      "material": 1.6201005007999998,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 178,
+        "requested_parts": 178,
+        "placed_area": 2738107.601747328,
+        "placed_priority": 178.0,
+        "full_stock_area": 6250000.0,
+        "material_area": 5062814.0649999995,
+        "normalized_material": 1.6201005007999998,
+        "utilization": 0.5408272092542921,
+        "trailing_offcut_area": 1187185.935,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 1550.251252
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 18,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 27,
+        "directed_exchange_attempts": 13
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.0782452,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.6366617187999999
+        },
+        {
+          "elapsed_seconds": 35.1875766,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6350130988
+        },
+        {
+          "elapsed_seconds": 41.9467943,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6267816532
+        },
+        {
+          "elapsed_seconds": 49.5823415,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6203992316
+        },
+        {
+          "elapsed_seconds": 53.7348169,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 54.0632781,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 54.277039,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 54.4898029,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 54.704073,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 54.9297717,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 55.1443462,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 55.3584072,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 55.5761044,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 55.7969927,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 56.0137676,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 56.2265874,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 56.4489778,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 56.6775805,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 56.8995945,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 57.1197831,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 57.3433701,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 57.5553804,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 57.775436,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 57.9936271,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 58.21025,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 58.4438995,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 58.6730368,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 58.9006418,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 59.1320489,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 59.3463365,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 59.5816416,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        },
+        {
+          "elapsed_seconds": 59.822003,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6201005007999998
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.8224169,
+      "accepted_at_seconds": 59.822003,
+      "layout_sha256": "b5ba35e3376eda5442267486f02d32bd9dd5350e34cce39a7eaba23abb5695b8",
+      "maximum_revalidation_difference": 0,
+      "artifacts": {
+        "export/sheet-0.dxf": "d3f6b1242e59ec9e302b68a588eabfa4216f0c723873eba00e73eb2c1f4bca12",
+        "export/sheet-0.svg": "db7c55f6685e5ab5b2d23db9ce0a0465ae2898cbd49db61d26226b9ec6269ad6",
+        "export/sheet-1.dxf": "5b03eca3c8f621da6bc73e4ee8b185d5c0c7cc9a86248e64a4d12ec4b433576a",
+        "export/sheet-1.svg": "ed5eb0b6797fd2102f2d67ba0e2b8f0a7c0b556d99980bee3ad0122da8f3ad46",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "d1ded9e1ab224db0c85bbff188561759b6c2c0cde74235351c7d0b0840c234d1",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/cutting-report.json": "7f77c0b7f449d59a068d3918718a24ea94c52211447643483256b3d542509d34",
+        "nested/job.json": "08e8c88a86d1b28ce9749c4c857ca58544e0dbdf6afff3abb70b5afbd34b010c",
+        "nested/layout.json": "b5ba35e3376eda5442267486f02d32bd9dd5350e34cce39a7eaba23abb5695b8",
+        "nested/search.json": "584bf63f8fb2a1d20145036ce305458e14087b7c0f2c7510befa81e1fb238c4c",
+        "request.json": "dfeb6235719340e1ed1e1a8efba8a5e044792e40e3371c42d51d76ba66867ac6",
+        "search-stderr.log": "796aea1602e17f3e0b368585db17bd59cfc76b2d9ecc493d443d04039f73bfcd",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "f9a50e901e13cc51139801e976afd5e132a5103279414a8416b516713e9f00d9"
+      },
+      "archive": "m-mechanical-panel-hardware-k1.5-s0-candidate.zip",
+      "archive_sha256": "30f6e38944c1ceabbbf87cd3cd96c63ff7f1bfad27a9d864bcf1aa7914bd14cf",
+      "trace_error": "Traceback (most recent call last):\n  File \"C:\\DEV\\Nestbolt\\scripts\\h5_exchange_diagnosis.py\", line 105, in run\n    try:record['diagnosis']=read_trace(out/record['archive'],record)\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\DEV\\Nestbolt\\scripts\\h5_exchange_diagnosis.py\", line 72, in read_trace\n    assert counts['accepted']==record['stats']['directed_exchanges']\n                               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nKeyError: 'directed_exchanges'\n"
+    }
+  ],
+  "guards_unchanged": true,
+  "wall_seconds": 243.92118219999247,
+  "all_valid": false,
+  "quality_claim": false,
+  "H5_complete": false,
+  "integrated": false
+}

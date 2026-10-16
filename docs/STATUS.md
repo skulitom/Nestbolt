@@ -86,8 +86,11 @@ still fails the +1% material guard (+5.324324% to +6.390250%). The laser bracket
 control also fails at +1.251430%. The candidate is rejected for integration;
 the full 13-job gate is not started. Earlier call reachability does not establish
 sufficient material improvement. An [isolated stage observer](../benchmarks/results/h5-exchange-diagnosis-preparation-20261016.md)
-now passes its build, 82 core tests and three trace checks. Its committed four-case
-diagnostic waits for the H4 pilot to finish; no new quality result is claimed.
+passes its build, 82 core tests and three trace checks. Its [completed diagnosis](../benchmarks/results/h5-exchange-diagnosis-20261016.md)
+validates all four layouts: 35 of 37 attempts fail receiver repair, all with two
+or three blockers when only one is removed. The two accepted exchanges do not
+establish a quality gain. Moving a complete smaller obstruction set is a possible
+next hypothesis. Original reader/report failures and all measured outcomes remain.
 The original unopened pilot, revised scheduling rationale,
 shared-target cache failure and all measured outcomes remain preserved. H5 stays
 open; no material limit changes. Only the proven score-bound change is selected
