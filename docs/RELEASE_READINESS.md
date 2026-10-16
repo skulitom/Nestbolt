@@ -9,12 +9,15 @@ setup, automatic browser workers and native downloads. Its headline comparison
 is explicitly the frozen v1 benchmark at `75cbb32`. It makes no new comparative
 quality claim for this preview.
 
-The release candidate is frozen at `0a9fb44`, the commit used by its passing CI,
-three-platform package dry run and active performance confirmation. The preview
-tag will target that tested commit after the remaining checks pass. Subsequent
-main commits currently contain evidence, status updates and isolated experiment
-tools; production and packaged files remain unchanged. If those files change,
-the release candidate and its required checks must be reconsidered.
+The initial release candidate is frozen at `0a9fb44`, the commit used by its
+passing CI, package dry run and active performance confirmation. Its completed
+[Chrome subset fails H4](../benchmarks/results/h4-preview-chrome-failure-20261016.md):
+median +1.046217% against the unchanged +1% limit, despite all 201 Chrome layouts
+being valid. The preview will not be tagged from that failed result. Firefox
+will finish, and the complete original measurement will remain preserved. A
+corrected candidate needs its own checks. Subsequent main commits currently
+contain evidence, status updates and isolated experiment tools; production and
+packaged files remain unchanged.
 
 ## Before publishing
 
@@ -36,8 +39,9 @@ the release candidate and its required checks must be reconsidered.
 - All six hosted checks pass on `0a9fb44`
   ([run](https://github.com/skulitom/Nestbolt/actions/runs/38830004774)).
   The integrated-build native measurement is complete with 201 valid layouts;
-  its 65-job median difference from frozen v1 is 0%. Browser quality and current
-  scale checks remain in progress or pending, so the release gate stays open.
+  its 65-job median difference from frozen v1 is 0%. Chrome's full G5 comparison
+  passes but its curve subset fails. Firefox and current scale checks remain
+  in progress or pending, so the release gate stays open.
 - The preview version is `0.2.0-alpha.1`. Finish checking release notes and ensure the workflow
   marks the release as a preview without replacing the current stable Latest.
   [Release notes](../mcpb/RELEASE_NOTES.md) now describe the features, preparation

@@ -12812,3 +12812,16 @@ distinct bytes and passing API checks. The 376-member archive verifies fully.
 No timed pilot has started, no product source changed and no H5 claim follows.
 The runner requires completed current H4 quality and both scale fixtures first.
 Completion remains 45%; the preview stays frozen at its tested commit 0a9fb44.
+
+
+## 2026-10-16 — Integrated preview Chrome subset fails the unchanged H4 limit
+
+[The completed Chrome arm](benchmarks/results/h4-preview-chrome-failure-20261016.md)
+has 201 valid layouts and passes full G5: median +0.242546%, total +0.571472%,
+with every seed inside the original bounds. Its eleven-job subset instead
+reaches +1.046217% against the +1% median limit; every job remains within +5%.
+Native has 201 valid layouts and a 0% median change across its 65-job comparison.
+The original Firefox arm continues. Source/build/input guards remain unchanged;
+no trial is restarted and no threshold changes. The release stays pending,
+H4 is incomplete, and completed weight remains 45%. The scoring profile supports
+an isolated investigation of finer exact-bound checks, with no gain yet claimed.

@@ -838,3 +838,19 @@ training records and CLI/MCP/Chromium/Firefox checks pass; all 45 accepted
 libraries retain exact non-warning fields and eleven original errors are exact.
 The fix and flat hole index are integrated for `0.2.0-alpha.1`. Full production
 checks and current-build performance remain required; completion stays 45%.
+
+### 2026-10-16: integrated preview Chrome result
+
+The [completed Chrome arm](../benchmarks/results/h4-preview-chrome-failure-20261016.md)
+validates all 201 layouts and passes full G5 (median +0.242546%, total +0.571472%,
+with all three individual-seed bounds passing). The curve-heavy subset instead
+misses H4: median +1.046217% against +1%, although every job stays within +5%.
+Native passes its 65-job comparison with a 0% median change. The original Firefox
+arm continues; all results and limits remain unchanged, and the release stays
+pending. This observation does not establish a cause for the gap.
+
+The existing collision-scoring profile motivates an isolated investigation of
+checking the same nonnegative partial-score bound within long pole rows. It must
+retain accumulation order, accepted score bits, ties, geometry, work accounting
+and deadlines. Extra checks may cost time, so no speed or quality benefit is
+assumed. It is separate from the unintegrated common-line exchange candidate.

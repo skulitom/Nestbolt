@@ -536,3 +536,10 @@ are now integrated for the authorized `0.2.0-alpha.1` preview. Because the hole
 index changes search cost, the final build needs its own performance confirmation.
 H4 requirement review and H2/H5 work remain open; completion remains **45%**.
 No threshold, held-out allocation or published v1 result is changed.
+
+The integrated preview's completed [Chrome arm](../benchmarks/results/h4-preview-chrome-failure-20261016.md)
+now has 201 valid layouts and passes full G5, but its eleven-job median is
+**+1.046217%**, above the unchanged **+1%** H4 limit. Native passes with a 0%
+median change across 65 jobs. The original Firefox arm is still running and
+will be preserved; no unchanged-build repeat or threshold adjustment is made.
+The preview release remains pending, H4 is incomplete, and completion stays 45%.
