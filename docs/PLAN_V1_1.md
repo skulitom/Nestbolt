@@ -624,3 +624,11 @@ hypothesis, not an established improvement. Original quality failures, budgets
 and H5 limits remain. Two omitted-zero counter reader errors and a report-format
 error are preserved and corrected only against saved artifacts; no search is
 repeated. H5 remains open and completion stays 45%.
+
+
+**N4 obstruction-set preparation, 2026-10-16:** [the isolated candidate](../benchmarks/results/h5-obstruction-set-preparation-20261016.md)
+can exchange a complete smaller group of actual blockers, retaining single-part
+fallbacks, deadlines and independent guards. All 85 optimized core tests, strict
+lint and authored public comparisons pass. A missing fixture in the first copy
+and its failed build remain preserved. No development quality run, integration
+or H5 credit; a future committed pilot waits for current H4 checks to finish.

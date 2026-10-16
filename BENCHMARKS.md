@@ -13185,3 +13185,30 @@ retained. A report-only correction reads the completed evidence. No search or
 layout validation was repeated, and original results remain unchanged.
 All per-attempt archives/members and exact input/observer snapshots are verified.
 H5 stays open, both experiments remain unintegrated, and completion stays 45%.
+
+
+## 2026-10-16 — Atomic obstruction-set candidate passes authored preparation
+
+[Isolated preparation](benchmarks/results/h5-obstruction-set-preparation-20261016.md)
+passes 85 optimized core tests, strict lint, both separately built observers,
+ten authored observer outcomes and four public CLI comparisons. New tests move
+two and three actual blockers atomically and reject a net area increase without
+mutating the valid incumbent. Both receivers retain the current tree-depth
+configuration; only the candidate adds exchange logic. Ordinary public results
+and candidate common replays agree exactly apart from elapsed wall time.
+
+The candidate retains original single-victim fallbacks and prioritizes fewer
+remaining known blockers. The full returned group must have less area than the
+incoming part. Relative return placement/orientations are retained initially;
+both sheet repairs and independent whole-job geometry/material guards remain.
+The existing early call, six-proposal cap, <=3 blockers and shared 1.2-second
+limit are unchanged. No H5 quality measurement or integration has occurred.
+
+The initial isolated build missed an existing authored fixture; that failure
+remains. Copying the unchanged fixture resolves compilation without changing
+geometry, test expectations or the candidate algorithm. All sources, logs,
+fixtures, exact observers and public results remain in 460 members / 6,182,155
+bytes, SHA-256 `617e0f0b53ec0b131f934f219bbdb6654698f00df465a906b474431b961c1321`.
+CRC and every member size/hash pass. A separately committed pilot must wait for
+the current H4 matrix/conditional scale sequence to finish and be sealed.
+Original H5 failures and all thresholds remain; completion stays 45%.

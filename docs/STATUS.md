@@ -90,7 +90,10 @@ passes its build, 82 core tests and three trace checks. Its [completed diagnosis
 validates all four layouts: 35 of 37 attempts fail receiver repair, all with two
 or three blockers when only one is removed. The two accepted exchanges do not
 establish a quality gain. Moving a complete smaller obstruction set is a possible
-next hypothesis. Original reader/report failures and all measured outcomes remain.
+next hypothesis. An [isolated obstruction-set candidate](../benchmarks/results/h5-obstruction-set-preparation-20261016.md)
+now passes 85 core tests, strict lint and authored public comparisons; no new
+quality run or integration has occurred. Original reader/report failures and
+all measured outcomes remain.
 The original unopened pilot, revised scheduling rationale,
 shared-target cache failure and all measured outcomes remain preserved. H5 stays
 open; no material limit changes. Only the proven score-bound change is selected

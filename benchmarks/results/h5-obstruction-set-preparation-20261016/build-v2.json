@@ -1,0 +1,102 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "arm": "candidate",
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-candidate-target"
+      ],
+      "started": "2026-10-16T04:52:32.975201+00:00",
+      "finished": "2026-10-16T04:54:56.717317+00:00",
+      "exit_code": 0,
+      "sha256": "60dcd18cdad70e913334546c18a511da3ff646517cfc4b97f7c7f32366cd4c23"
+    },
+    {
+      "arm": "candidate",
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-candidate-target",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-16T04:54:56.745089+00:00",
+      "finished": "2026-10-16T04:56:01.561724+00:00",
+      "exit_code": 0,
+      "sha256": "d89114e7a2b46bac479db668f6fcf57e9dc8093b6c3781c3d7f72175bad6159f"
+    },
+    {
+      "arm": "candidate",
+      "label": "candidate-observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-candidate-target"
+      ],
+      "started": "2026-10-16T04:56:01.591184+00:00",
+      "finished": "2026-10-16T04:57:02.269343+00:00",
+      "exit_code": 0,
+      "sha256": "b56421346c0107ffa50efe92f2756a797b231dbc85ccfd3cc3eaca54ab0cf452"
+    },
+    {
+      "arm": "baseline",
+      "label": "baseline-observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-baseline-target"
+      ],
+      "started": "2026-10-16T04:57:02.364133+00:00",
+      "finished": "2026-10-16T04:58:48.359636+00:00",
+      "exit_code": 0,
+      "sha256": "744e8f16812c5f867a1cf664641fc020f59133bbb36f2f0b8f29820a4586ed46"
+    }
+  ],
+  "production_unchanged": true,
+  "exchange_source_sha256": "37700709f38c8a590cb5ea59c0a8dc3258a34c38bf12edfbb55ecbfd030fe7a8",
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "cf9ccef4c0741f7c72073c14ac1fe464c70b036f4adad14d1ef4b8978ccf4434"
+  },
+  "measured_search_started": false
+}
