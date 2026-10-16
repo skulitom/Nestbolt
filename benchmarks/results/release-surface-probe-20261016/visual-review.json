@@ -1,0 +1,30 @@
+{
+  "automated_checks_passed": true,
+  "manual_visual_review_passed": false,
+  "finding": "Public import concatenated reader warnings with nesting warnings that already included them. Both browser project downloads contain duplicate message strings.",
+  "repair": "Use the complete nesting warning list once; add native and browser uniqueness assertions and browser viewport visibility checks.",
+  "rows": [
+    {
+      "archive": "browser-artifacts/lightburn-LightBurn-import-903f6--survive-a-project-download-chromium/native-diagnostics.zip",
+      "warning_count": 10,
+      "distinct_warning_count": 7,
+      "duplicated_messages": {
+        "Text shape 1: using embedded cached font outlines for geometry; local fonts are not consulted and editable text is preserved": 2,
+        "LightBurn shape 2: native endpoint fallback for missing Bezier control points; affected segments: 1, straight line segments with both controls absent: 1; original XML is preserved": 2,
+        "Text shape 5: using embedded cached font outlines for geometry; local fonts are not consulted and editable text is preserved": 2
+      },
+      "sha256": "1f8eb05cfcee5fb197e9d0e15be76e6f6d731b8dc9e8ee266deb380cdca4075c"
+    },
+    {
+      "archive": "browser-artifacts/lightburn-LightBurn-import-903f6--survive-a-project-download-firefox/native-diagnostics.zip",
+      "warning_count": 10,
+      "distinct_warning_count": 7,
+      "duplicated_messages": {
+        "Text shape 1: using embedded cached font outlines for geometry; local fonts are not consulted and editable text is preserved": 2,
+        "LightBurn shape 2: native endpoint fallback for missing Bezier control points; affected segments: 1, straight line segments with both controls absent: 1; original XML is preserved": 2,
+        "Text shape 5: using embedded cached font outlines for geometry; local fonts are not consulted and editable text is preserved": 2
+      },
+      "sha256": "c5c59b168566932ac70447fb81f6a5a456e71e8382b5e939af45b8575e0b5c7a"
+    }
+  ]
+}

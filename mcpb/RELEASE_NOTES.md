@@ -17,6 +17,9 @@ its acceptance checks are complete.
   segments. The search bonus is off by default.
 - **Large drawing support:** optional Quick initial layout, automatic browser
   worker selection, and improvements to curve-heavy search and export.
+- **Import explanations and curve repair:** clearer LightBurn messages for
+  embedded text, bounding rectangles and missing curve controls, without repeated
+  messages; a fix for a crash when nesting certain curved parts inside holes.
 
 The CLI, MCP tools and browser share these features. See the updated
 [README](https://github.com/skulitom/Nestbolt#readme) for setup and examples.

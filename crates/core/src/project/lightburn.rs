@@ -172,8 +172,7 @@ impl Library {
                 bounds_mm: unit.bounds_mm,
             });
         }
-        let mut warnings = document.scene.warnings.clone();
-        warnings.extend(nesting.warnings.clone());
+        let mut warnings = nesting.warnings.clone();
         if !nesting.fixed.is_empty() {
             warnings.push(format!("{} top-level Tool/output-off shapes stay at their original positions in every exported sheet", nesting.fixed.len()));
         }

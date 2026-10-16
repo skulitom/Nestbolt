@@ -1,0 +1,163 @@
+[
+  {
+    "name": "format",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "lint",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "workspace",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "optimized-cli",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-cli",
+      "--test",
+      "features"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "optimized-sparrow",
+    "command": [
+      "cargo",
+      "test",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-core",
+      "--lib",
+      "sparrow_"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "stock-helper",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "nestbolt-validator",
+      "--example",
+      "stock_adapter"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "native-build",
+    "command": [
+      "cargo",
+      "build",
+      "--release",
+      "--locked",
+      "-p",
+      "nestbolt-cli",
+      "-p",
+      "nestbolt-mcp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "wasm-core",
+    "command": [
+      "cargo",
+      "build",
+      "-p",
+      "nestbolt-wasm",
+      "--target",
+      "wasm32-unknown-unknown",
+      "--locked"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "wasm-validator",
+    "command": [
+      "cargo",
+      "build",
+      "-p",
+      "nestbolt-validator",
+      "--target",
+      "wasm32-unknown-unknown",
+      "--locked"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "notices",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/notices.py",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "schemas",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/schemas.py",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "packaging",
+    "command": [
+      "node",
+      "--test",
+      "mcpb/mcpb.test.mjs"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "web-build-and-tests",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/build_web.py",
+      "--test"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "web-test-types",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.tests.json"
+    ],
+    "exit_code": 0
+  }
+]

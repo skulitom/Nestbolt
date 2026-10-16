@@ -12714,3 +12714,46 @@ See [the report](benchmarks/results/ci-curve-optimized-profile-20261016.md).
 These are functional CCD1 checks, not timing or quality measurements. Production
 H4 guards remain unchanged; integration and measured performance remain pending.
 No gate or completed milestone weight changes.
+
+
+## 2026-10-16 — Full H4 bounded-score comparison and preview integration
+
+[Full report](benchmarks/results/h4-full-development-20261016.md): all 780 layouts
+validate (699 new, 81 exact-build reuse), all native/browser bounds pass.
+Native median vs frozen v1 is 0%, total -0.000327%, worst +2.559175%.
+Chrome median/total +0.150364%/+0.615913%; Firefox +0.194317%/+0.755448%.
+All three separate G5 seed comparisons also pass. The 88.799-minute session and
+3,928-member archive retain inputs, engines and every result. Initial JSON key
+normalization preflight failure is preserved; no numeric result changed.
+
+[Native public-surface and third training audit](benchmarks/results/native-diagnostics-surfaces-20261016.md):
+56/56 training records and 23 focused tests pass; all 45 libraries have identical
+non-warning fields, eleven original rejections remain identical. Actual CLI,
+stdio MCP and both browser imports/downloads pass. Initial automated checks
+missed duplicate message arrays found in manual review; that failure remains.
+The corrected downloads have seven unique messages instead of ten entries, with
+all other library fields identical. The third audit removes 30 repeated prior
+entries and retains every distinct old warning. No held-out geometry read.
+
+The reviewed curve and diagnostic repairs are integrated as `0.2.0-alpha.1` for
+the authorized preview. Full production regressions and affected performance
+confirmation remain required. Earlier H4 numbers apply to their recorded build;
+no new final acceptance or competitive claim. H2/H4/H5 remain open; weight 45%.
+
+
+## 2026-10-16 — Integrated preview regression checks
+
+[Production verification](benchmarks/results/preview-integration-20261016.md):
+302 workspace tests pass (one ignored), 27 optimized CLI, two optimized Sparrow,
+four stock helpers, strict lint/format, native/WASM/site builds and schemas/notices.
+Both browsers pass all 86 enabled tests (four opt-in skips). Packaging passes 23
+tests (one platform skip), including real release executable versions and actual
+Windows MCPB import/nest/validate. Frozen inventory remains 1,181 exact hashes;
+complete core matches the independently reviewed candidate. Original failures
+and two pre-evaluation helper launch errors remain documented.
+
+The `0.2.0-alpha.1` performance plan measures 603 new development outcomes across
+67 jobs, three engines and seeds 0–2, and reuses only 195 sealed frozen-v1 records.
+No current-product result is reused from before the hole-index repair. Original
+limits, scales and H4 requirement review remain. No new final/held-out run,
+release or registry entry yet; completion remains 45%.

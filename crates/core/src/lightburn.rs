@@ -444,9 +444,8 @@ fn read_shape(
     }
     let mut paths = match kind.as_str() {
         "Group" => vec![],
-        "Path" => {
-            path::read(node, resources).with_context(|| format!("LightBurn Path shape {index}"))?
-        }
+        "Path" => path::read(node, resources, &mut scene.warnings, index)
+            .with_context(|| format!("LightBurn Path shape {index}"))?,
         "Rect" | "Bitmap" => {
             let (w, h) = (number(node, "W", None)?, number(node, "H", None)?);
             ensure!(
@@ -517,8 +516,14 @@ fn read_shape(
                 // Cached paths are in text-local coordinates. Backup XForm is a
                 // redundant world-space cache in native saves; using the Text
                 // chain also keeps geometry correct after moving its group.
-                path::read(backup, resources)
-                    .with_context(|| format!("Text shape {index} BackupPath"))?
+                let cached = path::read(backup, resources, &mut scene.warnings, index)
+                    .with_context(|| format!("Text shape {index} BackupPath"))?;
+                if !cached.is_empty() {
+                    scene.warnings.push(format!(
+                        "Text shape {index}: using embedded cached font outlines for geometry; local fonts are not consulted and editable text is preserved"
+                    ));
+                }
+                cached
             } else {
                 shape.geometry_complete = false;
                 scene.warnings.push(format!("Text shape {index} has no BackupPath; open and re-save in LightBurn to cache its exact font outlines before nesting"));

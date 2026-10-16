@@ -93,7 +93,7 @@ estimates, and checks that a path outside the workspace is refused.
 
 G7 passed in the [recorded real Claude Code run](../benchmarks/results/g7-claude-20261012T145002Z-3180a8d5.md): the client listed tools, imported a sample SVG, nested with a 10-second budget and exported a layout accepted by the independent validator. The two earlier attempts remain in the evidence.
 
-[v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) was released on 2026-10-14, with native archives, notices, checksums and the Windows MCPB. The [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654) also succeeded. Current source includes ongoing v1.1 work beyond that release; [Status](STATUS.md) distinguishes completed gates from outstanding requirements. Further releases and registry publication still require Artem's instruction.
+[v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) was released on 2026-10-14, with native archives, notices, checksums and the Windows MCPB. The [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654) also succeeded. Current source includes ongoing v1.1 work beyond that release; [Status](STATUS.md) distinguishes completed gates from outstanding requirements. Artem authorized the next GitHub preview when ready on 2026-10-16; its [release checks](RELEASE_READINESS.md) are in progress. Registry publication remains a separate action.
 
 
 ## Imported sheet boundaries

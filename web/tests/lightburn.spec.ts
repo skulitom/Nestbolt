@@ -268,3 +268,32 @@ test('LightBurn rigid units nest and download as editable per-sheet projects', a
   expect(saved.lightburnOutline).toBe(false);
   expect(saved.result.validation.valid).toBe(true);
 });
+
+
+test('LightBurn import diagnostics describe fallback geometry and survive a project download', async ({ page }, info) => {
+  const fixture = fileURLToPath(new URL('../../crates/core/tests/fixtures/native-diagnostics.lbrn2', import.meta.url));
+  const original = readFileSync(fixture, 'utf8');
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles(fixture);
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(4);
+  await page.getByText(/Show all import messages/).click();
+  const all = page.locator('details').filter({ has: page.locator('summary', { hasText: 'Show all import messages' }) });
+  for (const message of ['LightBurn shape 2 (Path): nesting uses a bounding rectangle', 'LightBurn shape 5 (Text): nesting uses a bounding rectangle', 'LightBurn shape 7 (Bitmap): nesting uses a bounding rectangle', 'native endpoint fallback for missing Bezier control points', 'straight line segments with both controls absent: 1', 'using embedded cached font outlines', 'local fonts are not consulted']) {
+    const item = all.locator('li').filter({ hasText: message }).first();
+    await item.scrollIntoViewIfNeeded();
+    await expect(item).toBeVisible();
+    await expect(item).toBeInViewport();
+  }
+  await expect(all).not.toContainText('LightBurn shape 1 (Text): nesting uses a bounding rectangle');
+  await expect(all).not.toContainText('LightBurn shape 3 (Path): nesting uses a bounding rectangle');
+  const messages = await all.locator('li').allTextContents();
+  expect(new Set(messages).size).toBe(messages.length);
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP', exact: true }).click()]);
+  const path = info.outputPath('native-diagnostics.zip');
+  await download.saveAs(path);
+  const saved = JSON.parse(entries(path).get('project.json')!);
+  expect(saved.library.lightburn.xml).toBe(original);
+  expect(saved.library.warnings).toEqual(messages);
+  await all.locator('li').last().scrollIntoViewIfNeeded();
+  await page.screenshot({ path: info.outputPath('native-diagnostics.png'), fullPage: true });
+});

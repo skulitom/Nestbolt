@@ -1,0 +1,132 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "stage": "native-diagnostics",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp",
+        "lightburn_import_diagnostics"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe",
+      "exit_code": 0
+    },
+    {
+      "stage": "native-lint",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp",
+        "--tests",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe",
+      "exit_code": 0
+    },
+    {
+      "stage": "web-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\release-surface-probe\\scripts\\build_web.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe",
+      "exit_code": 0
+    },
+    {
+      "stage": "web-types",
+      "command": [
+        "node",
+        "C:\\DEV\\Nestbolt\\web\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe\\web",
+      "exit_code": 0
+    },
+    {
+      "stage": "web-diagnostics",
+      "command": [
+        "node",
+        "C:\\DEV\\Nestbolt\\web\\node_modules\\@playwright\\test\\cli.js",
+        "test",
+        "lightburn.spec.ts",
+        "--grep",
+        "LightBurn import diagnostics",
+        "--workers",
+        "2"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe\\web",
+      "exit_code": 0
+    }
+  ],
+  "production_guards_unchanged": true,
+  "production_integration_pending": true,
+  "held_out_geometry_read": false,
+  "scope": "New diagnostic e2e tests through the actual CLI, stdio MCP server, Chromium and Firefox; strict native lint and browser build/type checks.",
+  "limitations": "Isolated workspace; production integration, complete regression suite and hole-index performance remain required.",
+  "candidate_cli_sha256": "21d50e8780301be00cb19b44bfe8c914dbd7b919456697347fe6a0529dc70068",
+  "candidate_mcp_sha256": "a5022961157f7272dfc533bdd019e4faa2c74df08947e2d492269b6405e44c7c",
+  "candidate_wasm_sha256": "00b6b1d2eae1aee299a44f4a91cee0dd8fa82b0e29d031fcae9a0ef8b5b1b5d7",
+  "core_source": {
+    "clock.rs": "0172a471bead9645bdba388230cecf8aae45ae4f851fd730db6c34b341fa60e3",
+    "common_line/chains.rs": "8b7de2f94855e74880a9b7a8383ae8676151ff5045419d1f5176a54cfea5e14d",
+    "common_line/length.rs": "4463a8f244a1c21bfeade37711523d40fe323791bea0de97edf221e6856beae5",
+    "common_line/search.rs": "b66107f74b9ade31658cca60e865886e4abddc85e811b5e4cd048a9147833851",
+    "common_line.rs": "177188ce14f9eecb5abfb3aaade34ba70f1daeb83272339e5503d204469a6638",
+    "construct/repair/compact.rs": "698b9c99a6c2697f3b65c1151dafaaafe9b1f295af822e36c53f06e6b682bc50",
+    "construct/repair/compress.rs": "bef82127745da041b2189818fed01854c0ded7c07bda0ecd16b7b6329a2fb465",
+    "construct/repair/displace.rs": "0fe8b7bb9e5f09d1b5bf9182f0ea13f515bcd752eda92ee5ee71e9af5dfd60a5",
+    "construct/repair/relax.rs": "2bea5920e842de3caf0172c9905ffada209db485fdc821e39fd4f3513acd983c",
+    "construct/repair.rs": "daf54a430019733eac22e549cdbb6fd52173f054be6474dbf892feb1321a5abd",
+    "construct.rs": "8f5adfa7ebb0d8753ec4c4aec13d9fa4814b2fb06a4f2506521e99d69c9d81c7",
+    "control.rs": "1759cd318120bb1b4f1b1d34400334351705a2cd59742f54ef1ba56e8a034294",
+    "curves/starts.rs": "4c045903236056fabbfcd4ac4a8e13c39e812ac2b0fa06543d55ee2fb3aab850",
+    "curves.rs": "b06272bbed7831f7e7a5a04df32c6e7678c6a39e30c9605875f4c08eb3737dfb",
+    "export/ordered.rs": "55bf79206e48701b53e0f2c9e76158e02cc1d0d55295c739b78f09b0743998e4",
+    "export.rs": "fd1c4e8ca8390b40fb57d79e3bb2faf95c1b4db98d529f78f7ad3a48210e4649",
+    "holes.rs": "055776954d3ab7fb5c0491b16253416ebffb7583628310fd860658f29387cf07",
+    "import/cleanup.rs": "9e77cf919cd2f5ffb8c5ffa0f7bfb3da3aca348773b1768af2c28fe3a6b61cf3",
+    "import/selection.rs": "89c6bb222643e5801fc8641c8ab913a3242bf30bc8592715c326d977c3ecd38a",
+    "import/svg_style.rs": "3bc46b155176bf4d0cb0aec39a466081eb69e5ef3ca6278bb8167b8c1e8727f4",
+    "import/svg_viewport.rs": "c5eedfecc910c7861fb7b8cf1e3544f4bfcaa58819a851fda4dbc00e94700df3",
+    "import/text.rs": "bdde20652e98813cee96cf96cae481ecc77a2f110e8b4fab9d6184dc49b9404a",
+    "import.rs": "52870b7807e02bf356718189ccb8ac97f96052828ae4f9a6a93c55b7c57221dd",
+    "lead_in/layout.rs": "1ad1dc4f555fd62c349b43ed442cb174ec4762fcd2791990689b38ded9baff0b",
+    "lead_in/source.rs": "4100353d9fdc2eed73df2e17667aa3866d6443d92a71f414937eb631eb016d00",
+    "lead_in/tests.rs": "d74a416c03f76856d511c52b882cd337cf10a0f959eddcff7509a0177e71145e",
+    "lead_in.rs": "ed8ce42af268f7286d127f8ba515ff1bc279dda4d460a141c4309ae1b150ce44",
+    "lib.rs": "ab19143f9e5b78f8e424802dbb2207ddf23e85eb39b9efdede36876141628bfb",
+    "lightburn/path.rs": "f74a4b81efd1130661f6c01bb87cf7c68b50fcdc86c0c123c6600a87ffaa574e",
+    "lightburn/units.rs": "76271488a18b3f591c922ee3832c0e6f46d15e3c23c8f2f0a6eba8eecac22ba9",
+    "lightburn/writer.rs": "102713fc9e5519f4e095f7f6750f5e8be5189e01d2a8b9190509c2dae6615b55",
+    "lightburn.rs": "8a5c731889e00fd62ec94973f99625554fcf0f153c64ac4455dad0a2d650f4cb",
+    "optimize.rs": "fedaea70795f35f2ff9b0ef91cdd42e3ac483b590735487eb5333b67c0810c24",
+    "project/cutting.rs": "db049fd213c71a2056c27b82650f768a67bde0e9a9d3eb784b281de7d6f5dc87",
+    "project/lightburn/cutting.rs": "22251526a8239bde3d0f902efbadeffbcac8962a6c82a9e301edceb3ed86a14f",
+    "project/lightburn.rs": "60776ad36b3dcedf15168d65c513c2f03f456989c14a250df4cf793b1d216a63",
+    "project/sheet.rs": "62c032defca951a590a699cde62fd73a385e01bd7bd9946656c23fcefac46df9",
+    "project.rs": "794e144baa42920b0b6cae33e0d23b45b1fff44b85cf11db4f83cc7a15436877",
+    "rects.rs": "b1a636b059cc8ec688bc08ef80c6760c1948fcebcefae8a8c6780ea63a12f5c9",
+    "scoring/tests.rs": "48c2a33737b316445fccdcf3469777a5d41cf049e1433bc457f9c24b3addd11e",
+    "scoring.rs": "7563e545dfb49a0233f991e15fdf1fcea5141504cb1821b21482e9ba62b1c49e",
+    "separate/score.rs": "b1688825e4b8476f1dbde78d279cbf1cdd953163d68fb01db06d45a4b1102c19",
+    "separate.rs": "686dbbb3acb283677bd7bec67ff7839949a5e66c8ab72d753a9638f57c0e2d4a",
+    "sheets/native.rs": "e6fb1ec3717c896f5a4269fc8ca0cef7873aa4cd6e7bbe4079f42c1657c398d1",
+    "sheets/vstrip.rs": "6c62b0588a8d17ee34cc7f686b5d1ef59415aaf25f0d7bdfd543760ed4fc5ee0",
+    "sheets.rs": "dfcceb613e126aa4b4fb2923081d2f5d645bb6b4ce86f546b1ed9d3a3a81d9a5",
+    "strip.rs": "eee2af5b756c13c9b346b0f54a3c87996665a78fa88ba380c55cb14a2734a10e"
+  }
+}

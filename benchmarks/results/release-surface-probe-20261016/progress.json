@@ -1,0 +1,72 @@
+[
+  {
+    "stage": "native-diagnostics",
+    "command": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "-p",
+      "nestbolt-cli",
+      "-p",
+      "nestbolt-mcp",
+      "lightburn_import_diagnostics"
+    ],
+    "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe",
+    "exit_code": 0
+  },
+  {
+    "stage": "native-lint",
+    "command": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "-p",
+      "nestbolt-cli",
+      "-p",
+      "nestbolt-mcp",
+      "--tests",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe",
+    "exit_code": 0
+  },
+  {
+    "stage": "web-build",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "C:\\DEV\\Nestbolt\\output\\release-surface-probe\\scripts\\build_web.py"
+    ],
+    "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe",
+    "exit_code": 0
+  },
+  {
+    "stage": "web-types",
+    "command": [
+      "node",
+      "C:\\DEV\\Nestbolt\\web\\node_modules\\typescript\\bin\\tsc",
+      "-p",
+      "tsconfig.tests.json"
+    ],
+    "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe\\web",
+    "exit_code": 0
+  },
+  {
+    "stage": "web-diagnostics",
+    "command": [
+      "node",
+      "C:\\DEV\\Nestbolt\\web\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "lightburn.spec.ts",
+      "--grep",
+      "LightBurn import diagnostics",
+      "--workers",
+      "2"
+    ],
+    "cwd": "C:\\DEV\\Nestbolt\\output\\release-surface-probe\\web",
+    "exit_code": 0
+  }
+]

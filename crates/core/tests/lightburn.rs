@@ -151,7 +151,8 @@ fn no_op_preserves_every_byte_and_sharing_resolves_independently() {
     close(bitmaps[0].bounds_mm.unwrap(), [56.0, 27.0, 64.0, 33.0]);
     let group = &doc.scene.shapes[*doc.scene.top_level.last().unwrap()];
     assert!(group.fixed);
-    assert!(doc.scene.warnings.is_empty());
+    assert_eq!(doc.scene.warnings.len(), 1);
+    assert!(doc.scene.warnings[0].contains("embedded cached font outlines"));
 }
 
 #[test]
@@ -355,6 +356,13 @@ fn omitted_zero_handle_coordinates_are_not_missing_handles() {
     let legacy = r#"<LightBurnProject><Shape Type="Path"><V vx="10" vy="0" c0x="12"/><V vx="15" vy="5" c1y="2"/><P T="B" p0="0" p1="1"/><P T="L" p0="1" p1="0"/></Shape></LightBurnProject>"#;
     for xml in [compact, legacy] {
         let document = Document::read(xml, 0.0005).unwrap();
+        assert!(
+            !document
+                .scene
+                .warnings
+                .iter()
+                .any(|w| w.contains("missing Bezier control"))
+        );
         assert_eq!(
             document.scene.shapes[0].paths[0].curve.segments[0],
             Segment::Cubic {
@@ -416,7 +424,29 @@ fn omitted_settings_attach_text_and_images_but_keep_tool_shapes_fixed() {
     assert_eq!(nesting.units[0].members, [0, 1, 2]);
     assert_eq!(nesting.units[1].members, [3]);
     assert_eq!(nesting.fixed, [4, 5]);
-    assert_eq!(nesting.warnings.len(), 6);
+    assert_eq!(nesting.warnings.len(), 7);
+    assert_eq!(
+        nesting
+            .warnings
+            .iter()
+            .filter(|w| w.contains("setting for CutIndex"))
+            .count(),
+        6
+    );
+    assert_eq!(
+        nesting
+            .warnings
+            .iter()
+            .filter(|w| w.contains("embedded cached font outlines"))
+            .count(),
+        1
+    );
+    assert!(
+        !nesting
+            .warnings
+            .iter()
+            .any(|w| w.contains("bounding rectangle"))
+    );
     let moved = nesting
         .write_sheet(
             &[UnitPlacement {

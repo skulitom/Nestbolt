@@ -1,0 +1,40 @@
+{
+  "manifest_version": "0.3",
+  "name": "nestbolt",
+  "display_name": "Nestbolt",
+  "description": "Local fixed-sheet nesting for SVG, DXF and editable LightBurn projects, with independent checks and cutting allowances.",
+  "long_description": "Import SVG/DXF parts or one LightBurn project, review import messages, and nest on fixed sheets with margins, spacing, defects, rotations and mirroring. Export original SVG/DXF curves or editable LightBurn projects per sheet. Lead-in paths are review guides; common-line cuts need CAM preparation and may increase material use. Every returned layout passes an independent geometry check. The same build, inputs, work budget and seed repeat unless the real-time limit is reached, which is reported. This bundle contains the Windows x64 server and needs no network listener or account. Choose an existing local workspace: Nestbolt reads and writes only inside it and never overwrites files.",
+  "author": { "name": "skulitom", "url": "https://github.com/skulitom" },
+  "repository": { "type": "git", "url": "https://github.com/skulitom/Nestbolt" },
+  "homepage": "https://github.com/skulitom/Nestbolt#readme",
+  "documentation": "https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md",
+  "support": "https://github.com/skulitom/Nestbolt/issues",
+  "server": {
+    "type": "binary",
+    "entry_point": "server/nestbolt-mcp.exe",
+    "mcp_config": {
+      "command": "${__dirname}/server/nestbolt-mcp.exe",
+      "args": [],
+      "env": { "NESTBOLT_WORKSPACE": "${user_config.workspace}" }
+    }
+  },
+  "tools": [
+    { "name": "import_parts", "description": "Import SVG/DXF parts or one editable LightBurn project, with geometry and import messages in millimetres." },
+    { "name": "nest", "description": "Nest library parts with a repeatable work budget, validate, and write per-sheet SVG/DXF or preserving LightBurn files." },
+    { "name": "validate_layout", "description": "Check a layout file against the parts, sheets and spacing with the independent validator." },
+    { "name": "export_layout", "description": "Export validated layouts from original curves as SVG/DXF or preserving LightBurn projects; lead review files are separate." },
+    { "name": "estimate_sheets", "description": "Give a fast lower bound on sheets from net part area; it is never a layout." }
+  ],
+  "compatibility": { "platforms": ["win32"] },
+  "user_config": {
+    "workspace": {
+      "type": "directory",
+      "title": "Workspace",
+      "description": "Existing local folder inside which Nestbolt reads drawings and writes libraries, layouts and exports. Nests go to nestbolt/runs unless you name another folder. Startup creates nothing. Workspace checks are not an OS sandbox.",
+      "required": true,
+      "default": "${HOME}"
+    }
+  },
+  "keywords": ["nesting", "laser-cutting", "cnc", "sheet-material", "svg", "dxf", "lightburn", "mcp"],
+  "license": "MIT"
+}

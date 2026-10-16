@@ -1,0 +1,120 @@
++ cargo build --locked --release -p nestbolt-wasm --target wasm32-unknown-unknown
++ wasm-bindgen --target web --out-dir C:\DEV\Nestbolt\web\src\pkg C:\DEV\Nestbolt\target\wasm32-unknown-unknown\release\nestbolt_wasm.wasm
++ npm run build
+
+> nestbolt-web@0.2.0-alpha.1 build
+> tsc --noEmit && vite build
+
+vite v7.1.12 building for production...
+transforming...
+✓ 21 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/bench.html                                 0.70 kB │ gzip:     0.41 kB
+dist/index.html                                 2.14 kB │ gzip:     1.11 kB
+dist/assets/archive-worker-DrtQZPe3.js          6.88 kB
+dist/assets/worker-qg7umLJl.js                  8.02 kB
+dist/assets/nestbolt_wasm_bg-CR25sO3Q.wasm  3,529.96 kB │ gzip: 1,186.51 kB
+dist/assets/main-mA8Hn3k0.css                   6.65 kB │ gzip:     2.16 kB
+dist/assets/bench-Dsb4Y_6m.js                   0.08 kB │ gzip:     0.09 kB
+dist/assets/engine-Cz7GqMN5.js                  4.03 kB │ gzip:     1.74 kB
+dist/assets/main-B-1_Dn3z.js                   51.53 kB │ gzip:    18.88 kB
+✓ built in 312ms
++ npx tsc -p tsconfig.tests.json
++ npx playwright test
+
+Running 90 tests using 16 workers
+
+  ok  7 [chromium] › tests\scoring.spec.ts:11:1 › portfolio uses the native area and priority objectives with material as the tie breaker (8ms)
+  ok  6 [chromium] › tests\zip.spec.ts:4:1 › incremental Blob ZIP preserves stored-format bytes, Unicode and byte views (12ms)
+  ok 14 [chromium] › tests\zip.spec.ts:23:1 › empty Blob ZIP remains readable by the project ZIP reader (3ms)
+  ok 12 [chromium] › tests\worker-policy.spec.ts:14:1 › complexity includes every component and hole, without counting unused parts or fallback polygons (11ms)
+  ok 18 [chromium] › tests\worker-policy.spec.ts:25:1 › simpler jobs retain their requested count and the existing high-quantity cap (3ms)
+  -   3 [chromium] › tests\scale.spec.ts:10:1 › a 2,000-part job imports, nests and exports
+  -  10 [chromium] › tests\pages.spec.ts:7:1 › the deployed app nests the example from GitHub Pages
+  ok 11 [chromium] › tests\import-viewport.spec.ts:7:1 › SVG page geometry agrees with browser coordinates and width warnings are visible (654ms)
+  ok  1 [chromium] › tests\import-layers.spec.ts:4:1 › a custom stock layer is offered separately from the cut selection (806ms)
+  ok  5 [chromium] › tests\import-gaps.spec.ts:3:1 › explicit gap repair reports locations and can be reapplied without stale parts (937ms)
+  ok 20 [chromium] › tests\import-layers.spec.ts:18:1 › closed retraced holes survive cleanup with a visible warning (340ms)
+  ok 23 [chromium] › tests\import-gaps.spec.ts:27:1 › failed batches keep unrelated files and failed replacements remove stale parts (341ms)
+  ok 24 [chromium] › tests\import-layers.spec.ts:26:1 › legacy DXF text keeps layer names and offers an explicit inches choice (308ms)
+  ok 27 [chromium] › tests\import-layers.spec.ts:39:1 › cleanup shows duplicate, zero-length and overlap counts (268ms)
+  ok 30 [firefox] › tests\scoring.spec.ts:11:1 › portfolio uses the native area and priority objectives with material as the tie breaker (8ms)
+  ok 31 [firefox] › tests\worker-policy.spec.ts:14:1 › complexity includes every component and hole, without counting unused parts or fallback polygons (11ms)
+  ok 32 [firefox] › tests\worker-policy.spec.ts:25:1 › simpler jobs retain their requested count and the existing high-quantity cap (2ms)
+  ok  8 [chromium] › tests\lightburn.spec.ts:8:1 › standalone LightBurn strokes nest and download as unchanged open paths (2.0s)
+  ok 13 [chromium] › tests\preview.spec.ts:30:1 › cached extents match all original vertices for free rotations, mirrors and changed snapshots (2.3s)
+  ok 35 [chromium] › tests\preview.spec.ts:46:1 › cached paths retain every component and hole vertex without added rounding (52ms)
+  ok 29 [chromium] › tests\import-layers.spec.ts:47:1 › layer and colour choices retain counts and replace the selected parts (633ms)
+  ok 34 [chromium] › tests\lightburn.spec.ts:53:1 › LightBurn repair instructions reject incomplete replacements and allow a supported re-import (392ms)
+  ok 37 [chromium] › tests\import-layers.spec.ts:68:1 › open-only drawings still expose the inventory and gap repair (365ms)
+  ok 36 [chromium] › tests\preview.spec.ts:64:1 › actual sheet previews keep references unique and render rotated mirrored multipart copies (315ms)
+  ok  2 [chromium] › tests\features.spec.ts:70:1 › lead allowances expose flags, reserve offcuts and export a separate review layer (3.4s)
+  ok 26 [firefox] › tests\preview.spec.ts:30:1 › cached extents match all original vertices for free rotations, mirrors and changed snapshots (2.2s)
+  ok 40 [firefox] › tests\preview.spec.ts:46:1 › cached paths retain every component and hole vertex without added rounding (85ms)
+  ok 41 [firefox] › tests\zip.spec.ts:4:1 › incremental Blob ZIP preserves stored-format bytes, Unicode and byte views (42ms)
+  ok 43 [firefox] › tests\zip.spec.ts:23:1 › empty Blob ZIP remains readable by the project ZIP reader (4ms)
+  ok 19 [chromium] › tests\worker-policy.spec.ts:34:1 › the actual app explains and launches one search worker for the curve-heavy job (3.8s)
+  ok 38 [chromium] › tests\lightburn.spec.ts:74:1 › LightBurn leads download separate cutting files and preserve the editable group (2.2s)
+  -  28 [firefox] › tests\scale.spec.ts:10:1 › a 2,000-part job imports, nests and exports
+  ok 39 [chromium] › tests\features.spec.ts:115:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus false) (1.8s)
+  -  25 [firefox] › tests\pages.spec.ts:7:1 › the deployed app nests the example from GitHub Pages
+  ok 44 [chromium] › tests\lightburn.spec.ts:138:1 › legacy LightBurn paths become editable modern sheet files (1.5s)
+  ok 21 [firefox] › tests\import-viewport.spec.ts:7:1 › SVG page geometry agrees with browser coordinates and width warnings are visible (2.3s)
+  ok  4 [chromium] › tests\app.spec.ts:22:1 › import, nest, export and keep the main thread responsive (6.3s)
+  ok 17 [firefox] › tests\import-gaps.spec.ts:3:1 › explicit gap repair reports locations and can be reapplied without stale parts (5.4s)
+  ok 45 [chromium] › tests\features.spec.ts:115:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus true) (1.8s)
+  ok 48 [firefox] › tests\import-gaps.spec.ts:27:1 › failed batches keep unrelated files and failed replacements remove stale parts (769ms)
+  ok 22 [firefox] › tests\lightburn.spec.ts:8:1 › standalone LightBurn strokes nest and download as unchanged open paths (5.3s)
+  ok 42 [firefox] › tests\preview.spec.ts:64:1 › actual sheet previews keep references unique and render rotated mirrored multipart copies (1.9s)
+  ok 50 [firefox] › tests\lightburn.spec.ts:53:1 › LightBurn repair instructions reject incomplete replacements and allow a supported re-import (777ms)
+  ok 46 [chromium] › tests\lightburn.spec.ts:187:1 › LightBurn rigid units nest and download as editable per-sheet projects (2.1s)
+  ok 33 [firefox] › tests\worker-policy.spec.ts:34:1 › the actual app explains and launches one search worker for the curve-heavy job (5.5s)
+  ok 49 [chromium] › tests\features.spec.ts:144:1 › quick initial layout is optional and survives project export and reopening (1.4s)
+  ok 16 [firefox] › tests\import-layers.spec.ts:4:1 › a custom stock layer is offered separately from the cut selection (3.5s)
+  ok  9 [firefox] › tests\features.spec.ts:70:1 › lead allowances expose flags, reserve offcuts and export a separate review layer (7.4s)
+  ok 52 [chromium] › tests\lightburn.spec.ts:273:1 › LightBurn import diagnostics describe fallback geometry and survive a project download (881ms)
+  ok 54 [firefox] › tests\import-layers.spec.ts:18:1 › closed retraced holes survive cleanup with a visible warning (490ms)
+  ok 56 [firefox] › tests\import-layers.spec.ts:26:1 › legacy DXF text keeps layer names and offers an explicit inches choice (556ms)
+  ok 57 [firefox] › tests\import-layers.spec.ts:39:1 › cleanup shows duplicate, zero-length and overlap counts (370ms)
+  ok 53 [chromium] › tests\features.spec.ts:166:1 › background archives keep individual cutting files and release their workers (1.9s)
+  ok 51 [firefox] › tests\lightburn.spec.ts:74:1 › LightBurn leads download separate cutting files and preserve the editable group (2.3s)
+  ok 58 [firefox] › tests\import-layers.spec.ts:47:1 › layer and colour choices retain counts and replace the selected parts (712ms)
+  ok 55 [firefox] › tests\features.spec.ts:115:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus false) (2.1s)
+  ok 61 [firefox] › tests\import-layers.spec.ts:68:1 › open-only drawings still expose the inventory and gap repair (567ms)
+  ok 59 [chromium] › tests\features.spec.ts:188:1 › a rejected archive reports the validation error and releases its worker (1.5s)
+  ok 60 [firefox] › tests\lightburn.spec.ts:138:1 › legacy LightBurn paths become editable modern sheet files (1.8s)
+  ok 62 [firefox] › tests\features.spec.ts:115:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus true) (1.9s)
+  ok 15 [firefox] › tests\app.spec.ts:22:1 › import, nest, export and keep the main thread responsive (7.5s)
+  ok 65 [firefox] › tests\features.spec.ts:144:1 › quick initial layout is optional and survives project export and reopening (1.6s)
+  ok 64 [firefox] › tests\lightburn.spec.ts:187:1 › LightBurn rigid units nest and download as editable per-sheet projects (2.1s)
+  ok 68 [firefox] › tests\lightburn.spec.ts:273:1 › LightBurn import diagnostics describe fallback geometry and survive a project download (810ms)
+  ok 67 [firefox] › tests\features.spec.ts:166:1 › background archives keep individual cutting files and release their workers (2.1s)
+  ok 63 [chromium] › tests\features.spec.ts:204:1 › DXF and SVG import; exports keep arcs and curves (5.4s)
+  ok 47 [chromium] › tests\app.spec.ts:54:1 › the example boxes import and nest in one click (12.0s)
+  ok 69 [firefox] › tests\features.spec.ts:188:1 › a rejected archive reports the validation error and releases its worker (1.8s)
+  ok 71 [chromium] › tests\app.spec.ts:62:1 › a loading state, then a live view in the sheet's proportions, in a window that does not scroll (4.1s)
+  ok 70 [chromium] › tests\features.spec.ts:222:1 › fewest sheets with margins; the last sheet keeps one offcut (5.3s)
+  ok 73 [chromium] › tests\app.spec.ts:77:1 › projects save to the browser and to a ZIP (544ms)
+  ok 72 [firefox] › tests\features.spec.ts:204:1 › DXF and SVG import; exports keep arcs and curves (6.1s)
+  ok 66 [firefox] › tests\app.spec.ts:54:1 › the example boxes import and nest in one click (12.6s)
+  ok 75 [chromium] › tests\app.spec.ts:95:1 › defects, several sheet sizes and fill mode reach the solver (5.4s)
+  ok 77 [firefox] › tests\app.spec.ts:62:1 › a loading state, then a live view in the sheet's proportions, in a window that does not scroll (4.5s)
+  ok 76 [firefox] › tests\features.spec.ts:222:1 › fewest sheets with margins; the last sheet keeps one offcut (5.8s)
+  ok 78 [firefox] › tests\app.spec.ts:77:1 › projects save to the browser and to a ZIP (862ms)
+  ok 74 [chromium] › tests\features.spec.ts:235:1 › a capped sheet count fails in place-all mode and fills by area or priority (9.3s)
+  ok 81 [chromium] › tests\features.spec.ts:254:1 › small parts are placed inside the holes of larger parts (3.3s)
+  ok 80 [firefox] › tests\app.spec.ts:95:1 › defects, several sheet sizes and fill mode reach the solver (5.9s)
+  ok 79 [firefox] › tests\features.spec.ts:235:1 › a capped sheet count fails in place-all mode and fills by area or priority (10.0s)
+  ok 82 [chromium] › tests\features.spec.ts:264:1 › a remnant outline from a drawing is used as the sheet (5.4s)
+  ok 84 [chromium] › tests\features.spec.ts:276:1 › a prearranged drawing keeps CUT parts separate from its SHEET boundary (1.2s)
+  ok 83 [firefox] › tests\features.spec.ts:254:1 › small parts are placed inside the holes of larger parts (4.3s)
+  ok 85 [chromium] › tests\features.spec.ts:296:1 › rotation lists, steps, free rotation, mirroring and spacing reach the solver (5.5s)
+  ok 86 [firefox] › tests\features.spec.ts:264:1 › a remnant outline from a drawing is used as the sheet (5.9s)
+  ok 88 [firefox] › tests\features.spec.ts:276:1 › a prearranged drawing keeps CUT parts separate from its SHEET boundary (1.5s)
+  ok 87 [chromium] › tests\features.spec.ts:323:1 › hundreds of copies of a part (8.4s)
+  ok 89 [firefox] › tests\features.spec.ts:296:1 › rotation lists, steps, free rotation, mirroring and spacing reach the solver (5.9s)
+  ok 90 [firefox] › tests\features.spec.ts:323:1 › hundreds of copies of a part (8.9s)
+
+  4 skipped
+  86 passed (1.2m)

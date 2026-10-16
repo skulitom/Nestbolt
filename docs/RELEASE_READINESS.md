@@ -11,30 +11,22 @@ quality claim for this preview.
 
 ## Before publishing
 
-- Finish and review the guarded 65-job, three-seed native/browser comparison in
-  `benchmarks/results/h4-full-development-20261015/`. Its original limits and
-  failed results must be preserved.
-- Fix the new curve-search failure from
-  [Linux CI 38819422170](https://github.com/skulitom/Nestbolt/actions/runs/38819422170/job/116712070745),
-  then keep its exact input as a regression. The local reproduction reaches the
-  same jagua-rs quadrant assertion; see the
-  [failure record](../benchmarks/results/release-readiness-20261016.md).
-  An [isolated flat-index candidate](../benchmarks/results/ci-curve-flat-index-probe-20261016.md)
-  passes the exact case and 128 generated curve cases. The
-  [optimized engine follow-up](../benchmarks/results/ci-curve-optimized-profile-20261016.md)
-  also passes those checks and prepares an exact authored regression. It still
-  needs production integration, full regression checks and performance review
-  after H4 finishes.
-- Complete the missing LightBurn import explanations identified by the
-  [native diagnostic review](../benchmarks/results/h2-native-warning-review-20261015.md),
-  without changing artwork or preservation semantics. Product changes wait for
-  the running performance comparison to finish. The
-  [isolated candidate](../benchmarks/results/h2-native-diagnostics-candidate-20261016.md)
-  passes all 56 training projects and 23 focused tests with exact geometry/XML
-  and original rejection messages; production integration and surface tests remain.
+- The [guarded 65-job comparison](../benchmarks/results/h4-full-development-20261016.md)
+  is complete: 780/780 valid layouts; native and both browser limits pass. Raw
+  records and exact engines are sealed. The integrated repair changes search
+  cost, so its performance still needs confirmation on the release build.
+- The [exact curve-search repair](../benchmarks/results/ci-curve-optimized-profile-20261016.md)
+  and authored regression are integrated. Original CI/debug failures remain
+  preserved. The isolated optimized candidate passed 128 generated curve cases.
+- [Native import explanations and duplicate-message repair](../benchmarks/results/native-diagnostics-surfaces-20261016.md)
+  are integrated. All 56 training records, 23 focused tests and actual CLI,
+  stdio MCP, Chromium and Firefox checks pass in the isolated candidate, with
+  unchanged geometry/XML and original rejection messages. [Full production checks](../benchmarks/results/preview-integration-20261016.md)
+  now pass: 302 workspace, 27 optimized CLI and 86 enabled browser tests, strict
+  lint/builds and 23 package tests including the actual Windows MCPB.
 - Recheck affected geometry, native/CLI/MCP/browser behavior and performance
   after fixes. Require green CI on the release commit.
-- Set the release version, finish the release notes and ensure the workflow
+- The preview version is `0.2.0-alpha.1`. Finish checking release notes and ensure the workflow
   marks the release as a preview without replacing the current stable Latest.
   [Release notes](../mcpb/RELEASE_NOTES.md) now describe the features, preparation
   steps and outstanding import/common-line limits; review them against the final build.

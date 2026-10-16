@@ -79,7 +79,8 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   and export an editable `.lbrn2` per sheet, preserving original artwork, text,
   images and layer settings. Tool and output-disabled shapes stay fixed. Older
   text may need a separate native save to embed its outlines; mixed active/fixed
-  groups need regrouping before nesting. See [LightBurn preparation](docs/LBRN2.md#required-preparation-for-older-or-mixed-projects).
+  groups need regrouping before nesting. Import messages explain cached text,
+  bounding rectangles and missing curve controls. See [LightBurn preparation](docs/LBRN2.md#required-preparation-for-older-or-mixed-projects).
 - **Nest** on fixed sheets: margins, part and edge spacing, several sheets, several
   stock sizes with limits, defects, remnant outlines, rotations (free, stepped or a
   list such as 0/180 for fabric grain) and mirroring. Small parts can sit inside the holes of larger parts.

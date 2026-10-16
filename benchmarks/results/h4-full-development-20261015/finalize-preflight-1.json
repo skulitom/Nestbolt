@@ -1,0 +1,7 @@
+{
+  "command": "python output/finalize_h4_full_development.py",
+  "exit_code": 1,
+  "failure": "Summary equality assertion failed before artifact consolidation.",
+  "diagnosis": "Recomputed per-seed dictionary keys were integers; JSON had serialized those keys as strings. No measurement or numerical result changed.",
+  "repair": "Compare the recomputed summary after the same JSON round trip as the stored result, retaining exact equality of every value."
+}

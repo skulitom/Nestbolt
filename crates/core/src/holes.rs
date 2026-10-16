@@ -189,8 +189,17 @@ pub fn group(job: &Job, clock: &Clock, until: f64, seed: u64) -> Result<Grouped>
     }
     let guard = conversion_guard(job);
     let separation = ((job.clearance + guard) / 0.05_f64.cos()) as f32;
-    let importer = Importer::new(DEFAULT_SPARROW_CONFIG.cde_config, None, None)
-        .with_min_item_separation(separation)?;
+    // The small hole container uses a flat collision index. This avoids the
+    // upstream f32 quadrant classification at near-corner intersections.
+    let importer = Importer::new(
+        jagua_rs::collision_detection::CDEConfig {
+            quadtree_depth: 0,
+            ..DEFAULT_SPARROW_CONFIG.cde_config
+        },
+        None,
+        None,
+    )
+    .with_min_item_separation(separation)?;
     let mut rng = Xoshiro256PlusPlus::seed_from_u64(seed);
     let mut remaining: Vec<u32> = job.parts.iter().map(|p| p.quantity).collect();
     // Item proxies per (host, rider) pair, keyed by the allowed relative set.

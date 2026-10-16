@@ -101,7 +101,12 @@ fn nesting_bounds(mut bounds: [f64; 4], tolerance: f64) -> [f64; 4] {
     bounds
 }
 
-fn geometry(scene: &Scene, index: usize, tolerance: f64) -> Result<Vec<Polygon>> {
+fn geometry(
+    scene: &Scene,
+    index: usize,
+    tolerance: f64,
+    warnings: &mut Vec<String>,
+) -> Result<Vec<Polygon>> {
     let shape = &scene.shapes[index];
     ensure!(
         shape.geometry_complete,
@@ -111,7 +116,7 @@ fn geometry(scene: &Scene, index: usize, tolerance: f64) -> Result<Vec<Polygon>>
     let polygons = if shape.kind == "Group" {
         let mut components = vec![];
         for &child in &shape.children {
-            components.extend(geometry(scene, child, tolerance)?);
+            components.extend(geometry(scene, child, tolerance, warnings)?);
         }
         union(&paths(&components), FillRule::NonZero)?
     } else if closed(shape) {
@@ -146,6 +151,10 @@ fn geometry(scene: &Scene, index: usize, tolerance: f64) -> Result<Vec<Polygon>>
             x1 > x0 && y1 > y0,
             "LightBurn shape {index} has a zero-width or zero-height bounding rectangle; group it with a closed outline before nesting"
         );
+        warnings.push(format!(
+            "LightBurn shape {index} ({}): nesting uses a bounding rectangle around this artwork; original artwork is preserved in the editable project",
+            shape.kind
+        ));
         vec![box_polygon([x0, y0, x1, y1])]
     };
     ensure!(
@@ -186,6 +195,7 @@ impl Document {
         );
         self.check_fixed_groups()?;
         let scene = &self.scene;
+        let mut warnings = scene.warnings.clone();
         let mut fixed = vec![];
         let mut footprints = vec![];
         let mut geometries = vec![];
@@ -200,7 +210,7 @@ impl Document {
                     "LightBurn top-level shape {top} has incomplete geometry; re-save text in LightBurn to cache its outlines, or convert unsupported shapes to paths before nesting"
                 );
                 if closed(&scene.shapes[i]) && scene.is_cutting(&scene.shapes[i]) {
-                    let g = geometry(scene, i, tolerance_mm)?;
+                    let g = geometry(scene, i, tolerance_mm, &mut warnings)?;
                     footprints.push(Some(Footprint::from_polygons(
                         &g,
                         Units::Mm,
@@ -224,7 +234,6 @@ impl Document {
             .collect();
         let mut attachments = vec![vec![]; scene.top_level.len()];
         let mut attached = HashSet::new();
-        let mut warnings = scene.warnings.clone();
         for (top, &i) in scene.top_level.iter().enumerate() {
             let shape = &scene.shapes[i];
             if shape.fixed
@@ -273,7 +282,7 @@ impl Document {
                 continue;
             }
             if polygons.is_empty() {
-                polygons = geometry(scene, scene.top_level[top], tolerance_mm)?;
+                polygons = geometry(scene, scene.top_level[top], tolerance_mm, &mut warnings)?;
             }
             let mut members = vec![top];
             members.extend(&attachments[top]);

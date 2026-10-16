@@ -168,7 +168,12 @@ fn compact_primitives(text: &str, vertex_count: usize) -> Result<Vec<Primitive>>
     Ok(primitives)
 }
 
-pub(super) fn read(node: Node, resources: &Resources) -> Result<Vec<Path>> {
+pub(super) fn read(
+    node: Node,
+    resources: &Resources,
+    warnings: &mut Vec<String>,
+    shape_index: usize,
+) -> Result<Vec<Path>> {
     let vertices = if let Some(list) = resources.list(node, "VertList", "VertID")? {
         compact_vertices(list.text().unwrap_or(""))?
     } else {
@@ -223,6 +228,23 @@ pub(super) fn read(node: Node, resources: &Resources) -> Result<Vec<Path>> {
             .all(|p| p.from < vertices.len() && p.to < vertices.len()),
         "LightBurn primitive refers to a missing vertex; re-save the project"
     );
+    let missing = primitives
+        .iter()
+        .filter(|p| {
+            p.cubic && (vertices[p.from].outgoing.is_none() || vertices[p.to].incoming.is_none())
+        })
+        .count();
+    if missing > 0 {
+        let straight = primitives
+            .iter()
+            .filter(|p| {
+                p.cubic && vertices[p.from].outgoing.is_none() && vertices[p.to].incoming.is_none()
+            })
+            .count();
+        warnings.push(format!(
+            "LightBurn shape {shape_index}: native endpoint fallback for missing Bezier control points; affected segments: {missing}, straight line segments with both controls absent: {straight}; original XML is preserved"
+        ));
+    }
     let start_override = node
         .attribute("StartV")
         .map(str::parse::<usize>)

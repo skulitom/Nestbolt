@@ -1,0 +1,175 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "lint",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "workspace",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "optimized-cli",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--test",
+        "features"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "optimized-sparrow",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "sparrow_"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "stock-helper",
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "nestbolt-validator",
+        "--example",
+        "stock_adapter"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "native-build",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "-p",
+        "nestbolt-mcp"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "wasm-core",
+      "command": [
+        "cargo",
+        "build",
+        "-p",
+        "nestbolt-wasm",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "wasm-validator",
+      "command": [
+        "cargo",
+        "build",
+        "-p",
+        "nestbolt-validator",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "notices",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/notices.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "schemas",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/schemas.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "packaging",
+      "command": [
+        "node",
+        "--test",
+        "mcpb/mcpb.test.mjs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "web-build-and-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py",
+        "--test"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "web-test-types",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "version": "0.2.0-alpha.1",
+  "held_out_geometry_read": false,
+  "performance_confirmation_pending": true,
+  "completed_utc": "2026-10-16T00:30:17.804756+00:00",
+  "binaries": {
+    "target/release/nestbolt.exe": "41a0e9c75b320572cf0e229061cbedde23e0f10259b98081f8c2da761404df3c",
+    "target/release/nestbolt-mcp.exe": "e8956f8494926a3a05deede822566964511d82803c1b99a6787dc9549a4b52ea",
+    "web/src/pkg/nestbolt_wasm_bg.wasm": "339d1ea612ac8708644411fa57716fe95a8b78ed0d7e28341be2f912391f99b1"
+  }
+}

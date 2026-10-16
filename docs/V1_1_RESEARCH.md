@@ -821,3 +821,20 @@ All four layouts independently validate, with exact metrics. Curve-heavy layout 
 [Current public import/export replay](../benchmarks/results/h2-export-replay-20261015.md) verifies all 246 accepted training vectors against saved layouts and original options, with identical imported geometry and valid current exports. Of 492 outputs, 491 are byte-identical. One Iris SVG retains its failed byte comparison; a separate independent segment comparison bounds its source difference at 0.000491918 mm, within the unchanged 0.01 mm gate. Its changed endpoints move by 0.000001 mm (one nanometre). The original failed check, unit-wording correction and both versions of every output are retained in a verified 3,942-member archive.
 
 This is a functional regression check on CCD1, with no new nesting or held-out evaluation, and closes the current vector-export concern after the lead/sidecar changes. Historical raw-file hashes were first recorded by this replay, with case-result equality to the committed old report; no earlier sealing is claimed. Native diagnostic messages and remaining reserved acceptance keep H2 open at 45% overall completion.
+
+### 2026-10-16: full comparison and preview repair integration
+
+The [sealed full H4 comparison](../benchmarks/results/h4-full-development-20261016.md)
+has 780 valid layouts and passes native/full-G5 bounds. Native median change is
+0%, while the worst job is +2.559175%; passing the median does not imply every
+job improved. Chrome/Firefox medians are +0.150364%/+0.194317%, with totals
++0.615913%/+0.755448%. Every individual seed also passes G5's original bounds.
+The run took 88.799 minutes; 699 attempts are new and 81 are exact-build reuse.
+
+The [native surface follow-up](../benchmarks/results/native-diagnostics-surfaces-20261016.md)
+found duplicated messages in actual project downloads after automated checks
+had passed. Import now takes the complete nesting message list once. All 56
+training records and CLI/MCP/Chromium/Firefox checks pass; all 45 accepted
+libraries retain exact non-warning fields and eleven original errors are exact.
+The fix and flat hole index are integrated for `0.2.0-alpha.1`. Full production
+checks and current-build performance remain required; completion stays 45%.

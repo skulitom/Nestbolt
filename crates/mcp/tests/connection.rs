@@ -499,3 +499,81 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
     .expect("MCP session timed out");
     let _ = std::fs::remove_dir_all(&workspace);
 }
+
+#[tokio::test(flavor = "current_thread")]
+async fn lightburn_import_diagnostics_reach_mcp_and_saved_library() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace = std::env::temp_dir().join(format!(
+        "nestbolt-mcp-diagnostics-{}-{stamp}",
+        std::process::id()
+    ));
+    std::fs::create_dir_all(&workspace).unwrap();
+    let source = include_str!("../../core/tests/fixtures/native-diagnostics.lbrn2");
+    std::fs::write(workspace.join("native-diagnostics.lbrn2"), source).unwrap();
+    timeout(Duration::from_secs(30), async {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));
+        command.env("NESTBOLT_WORKSPACE", &workspace);
+        let client = ().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let imported = client
+            .call_tool(
+                CallToolRequestParams::new("import_parts")
+                    .with_arguments(args(json!({"paths":["native-diagnostics.lbrn2"]}))),
+            )
+            .await
+            .unwrap()
+            .structured_content
+            .unwrap();
+        assert_eq!(imported["part_count"], 4);
+        let saved: Value = serde_json::from_slice(
+            &std::fs::read(workspace.join(imported["library_path"].as_str().unwrap())).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(saved["lightburn"]["xml"], source);
+        assert_eq!(imported["warnings"], saved["warnings"]);
+        let values: Vec<_> = imported["warnings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|w| w.as_str().unwrap())
+            .collect();
+        assert_eq!(
+            values.len(),
+            values
+                .iter()
+                .copied()
+                .collect::<std::collections::HashSet<_>>()
+                .len(),
+            "each import explanation appears once"
+        );
+        let messages = imported["warnings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|w| w.as_str().unwrap())
+            .collect::<Vec<_>>()
+            .join("\n");
+        for required in [
+            "LightBurn shape 2 (Path): nesting uses a bounding rectangle",
+            "LightBurn shape 5 (Text): nesting uses a bounding rectangle",
+            "LightBurn shape 7 (Bitmap): nesting uses a bounding rectangle",
+            "native endpoint fallback for missing Bezier control points",
+            "straight line segments with both controls absent: 1",
+            "using embedded cached font outlines",
+            "local fonts are not consulted",
+        ] {
+            assert!(messages.contains(required), "{messages}");
+        }
+        for excluded in [
+            "LightBurn shape 1 (Text): nesting uses a bounding rectangle",
+            "LightBurn shape 3 (Path): nesting uses a bounding rectangle",
+        ] {
+            assert!(!messages.contains(excluded), "{messages}");
+        }
+        client.cancel().await.unwrap();
+    })
+    .await
+    .expect("diagnostic import timed out");
+}

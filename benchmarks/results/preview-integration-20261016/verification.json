@@ -1,0 +1,55 @@
+{
+  "all_checks_passed": true,
+  "native_totals": {
+    "workspace": {
+      "passed": 302,
+      "failed": 0,
+      "ignored": 1
+    },
+    "optimized-cli": {
+      "passed": 27,
+      "failed": 0,
+      "ignored": 0
+    },
+    "optimized-sparrow": {
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    },
+    "stock-helper": {
+      "passed": 4,
+      "failed": 0,
+      "ignored": 0
+    }
+  },
+  "packaging": {
+    "passed": 23,
+    "skipped": 1,
+    "real_release_cli_and_MCPB_checks_passed": true
+  },
+  "browser": {
+    "passed": 86,
+    "opt_in_skipped": 4,
+    "new_message_viewport_assertions_passed": true
+  },
+  "production_core_identical_to_reviewed_candidate": true,
+  "frozen_inventory": {
+    "files": 1181,
+    "manifest_sha256": "02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7",
+    "verified": true
+  },
+  "harness_preflights": [
+    {
+      "action": "Python gate tests",
+      "initial": "Interpreter omitted from affinity wrapper; Windows error 193 before test execution",
+      "corrected": "Five tests pass with explicit Python interpreter"
+    },
+    {
+      "action": "Frozen inventory check",
+      "initial": "Global Python lacked ezdxf; no input evaluation",
+      "corrected": "Pinned shop virtual environment verifies all 1181 hashes"
+    }
+  ],
+  "held_out_geometry_evaluated": false,
+  "performance_and_remote_release_checks_pending": true
+}

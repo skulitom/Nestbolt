@@ -1204,3 +1204,67 @@ fn version_names_the_command() {
         format!("nestbolt {}", env!("CARGO_PKG_VERSION"))
     );
 }
+
+#[test]
+fn lightburn_import_diagnostics_reach_cli_and_saved_library() {
+    let dir = temp("native-diagnostics");
+    let source = include_str!("../../core/tests/fixtures/native-diagnostics.lbrn2");
+    let input = dir.join("native-diagnostics.lbrn2");
+    let output = dir.join("library.json");
+    fs::write(&input, source).unwrap();
+    let result = nestbolt(&[
+        "import".as_ref(),
+        input.as_os_str(),
+        "--output".as_ref(),
+        output.as_os_str(),
+    ]);
+    assert!(
+        result.status.success(),
+        "{}",
+        String::from_utf8_lossy(&result.stderr)
+    );
+    let reply: Value = serde_json::from_slice(&result.stdout).unwrap();
+    let saved: Value = serde_json::from_slice(&fs::read(output).unwrap()).unwrap();
+    assert_eq!(saved["lightburn"]["xml"], source);
+    assert_eq!(saved["parts"].as_array().unwrap().len(), 4);
+    assert_eq!(reply["warnings"], saved["warnings"]);
+    let values: Vec<_> = reply["warnings"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|w| w.as_str().unwrap())
+        .collect();
+    assert_eq!(
+        values.len(),
+        values
+            .iter()
+            .copied()
+            .collect::<std::collections::HashSet<_>>()
+            .len(),
+        "each import explanation appears once"
+    );
+    let messages = reply["warnings"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|w| w.as_str().unwrap())
+        .collect::<Vec<_>>()
+        .join("\n");
+    for required in [
+        "LightBurn shape 2 (Path): nesting uses a bounding rectangle",
+        "LightBurn shape 5 (Text): nesting uses a bounding rectangle",
+        "LightBurn shape 7 (Bitmap): nesting uses a bounding rectangle",
+        "native endpoint fallback for missing Bezier control points",
+        "straight line segments with both controls absent: 1",
+        "using embedded cached font outlines",
+        "local fonts are not consulted",
+    ] {
+        assert!(messages.contains(required), "{messages}");
+    }
+    for excluded in [
+        "LightBurn shape 1 (Text): nesting uses a bounding rectangle",
+        "LightBurn shape 3 (Path): nesting uses a bounding rectangle",
+    ] {
+        assert!(!messages.contains(excluded), "{messages}");
+    }
+}

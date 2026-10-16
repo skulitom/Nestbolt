@@ -40,6 +40,15 @@ strokes and engraving attachment checks. This is collision geometry only:
 the original open path, vertices, settings and editability are preserved in the
 LightBurn output; the protective rectangle is never exported as a cut.
 
+Import messages identify artwork nested by a bounding rectangle, text read from
+embedded outlines, and curves with missing control points that use LightBurn's
+endpoint fallback. Using embedded text outlines does not require a local font.
+When both controls of a cubic segment are absent, that segment becomes a straight
+line for geometry checks; the original project XML is still preserved. Review
+these messages before nesting. The same messages are saved with the project and
+returned by the CLI and MCP tools. See the
+[diagnostic verification](../benchmarks/results/native-diagnostics-surfaces-20261016.md).
+
 The [eight-project native repair audit](../benchmarks/results/h3-text-cache-20261014T005902Z.md)
 retains the original 122 missing text caches and verifies every repaired leaf
 against the independent reader. Its historical “not approved” status is

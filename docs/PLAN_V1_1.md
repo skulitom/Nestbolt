@@ -524,3 +524,15 @@ The LightBurn trial ends about 2026-11-11. Finish every LightBurn step by 2026-1
 6. **2026-10-15, Artem — reject mixed fixed/active groups.** Artem chose “Reject with instructions to regroup in LightBurn.” A Group combining output-enabled artwork and Tool/output-disabled shapes must fail nesting with instructions to ungroup and group the movable artwork separately. Do not split the source Group automatically, move fixed children, or silently keep active cuts fixed on every output sheet. Inspection and byte-preserving no-op reading remain available.
 
 7. **2026-10-16, Artem — next release when ready.** After discussing a preview release following the full performance comparison, Artem said: “when you are ready feel free to make a new release. We might need to update the readme”. This authorizes preparing and publishing the next GitHub release once release checks pass, including updating the README and release notes. Describe incomplete import acceptance and common-line material limits explicitly; do not claim that the v1.1 plan is complete. Preserve existing releases and benchmark claims. Registry publication and a new final acceptance evaluation retain their separate scope and rules.
+
+### Verification checkpoint — 2026-10-16
+
+The [full bounded-score development comparison](../benchmarks/results/h4-full-development-20261016.md)
+passes all recorded limits with 780 valid layouts. Native median change against
+frozen v1 is 0%; browser medians are +0.150364% Chrome and +0.194317% Firefox.
+Both aggregate and all three individual-seed G5 median/total checks pass.
+The exact CI curve repair and [native diagnostic corrections](../benchmarks/results/native-diagnostics-surfaces-20261016.md)
+are now integrated for the authorized `0.2.0-alpha.1` preview. Because the hole
+index changes search cost, the final build needs its own performance confirmation.
+H4 requirement review and H2/H5 work remain open; completion remains **45%**.
+No threshold, held-out allocation or published v1 result is changed.

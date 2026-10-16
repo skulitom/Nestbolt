@@ -1,0 +1,40 @@
+Tools: added new_tool; dropped import_parts
+✔ metadata stays package-free with the required identity and short description (17.5788ms)
+✔ workspace version comes from [workspace.package] (1.3717ms)
+✔ manifest template has no version and has valid binary-server fields (1.4668ms)
+✔ manifest lists exactly the server tools (1.4372ms)
+✔ tool merge keeps curated descriptions, drops absent tools and follows live order without mutation (0.2572ms)
+✔ new tool descriptions use the first sentence and normalize whitespace (0.1964ms)
+✔ new tool descriptions stop at a whole word within 160 characters (0.3269ms)
+✔ tool merge rejects empty catalogs, invalid names and duplicates (0.2759ms)
+✔ new tools require usable descriptions while curated descriptions remain exact (0.1872ms)
+Tools: added new_tool; dropped import_parts
+Tools: added new_tool; dropped import_parts
+Tools: added new_tool; dropped import_parts
+✔ two builds are identical, with exactly the required entries and checksum (14.6419ms)
+✔ builder refuses a template version, invalid package versions and missing binaries (18.4571ms)
+Tools: added new_tool; dropped import_parts
+✔ existing different artifacts are preserved (4.588ms)
+✔ native archives are deterministic and carry both binaries, docs and licenses (34.1643ms)
+✔ registry entry stamps Cargo version despite stale metadata and preserves inputs (8.2753ms)
+Tools: added new_tool; dropped import_parts
+✔ a Cargo-only version bump needs no manifest or metadata edits (10.9319ms)
+Tools: added new_tool; dropped import_parts
+✔ preview versions survive bundle, all native archives and generated metadata (26.3218ms)
+✔ preview releases never replace Latest and stable tags sort numerically (0.4683ms)
+✔ registry entry rejects bad tags, version mismatch and packages in metadata (11.4262ms)
+✔ registry output cannot overwrite metadata or bundle, including hard-link aliases (6.9439ms)
+✔ ZIP reader rejects malformed archives and detects CRC corruption (0.3332ms)
+✔ verifier rejects incompatible manifest versions and launch commands (1.4141ms)
+﹣ non-Windows verification requires explicit allow-skip (0.0457ms) # SKIP
+✔ real release binaries pass the archive version smoke test (333.6005ms)
+Tools: added (none); dropped (none)
+✔ real release server passes the standalone bundle smoke test (14463.7434ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 15040.6718

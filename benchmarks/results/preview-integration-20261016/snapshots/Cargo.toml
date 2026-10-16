@@ -1,0 +1,56 @@
+[workspace]
+members = ["crates/core", "crates/cli", "crates/wasm", "crates/mcp", "crates/validator"]
+exclude = [".cache/upstream/sparrow", ".cache/upstream/sparrow-published", ".cache/upstream/jagua-rs"]
+default-members = ["crates/core", "crates/cli"]
+resolver = "3"
+
+[workspace.package]
+version = "0.2.0-alpha.1"
+edition = "2024"
+rust-version = "1.98"
+license = "MIT"
+publish = false
+
+[workspace.dependencies]
+anyhow = "1.0"
+clap = { version = "4.6", features = ["derive"] }
+clipper2-rust = "=1.2.0"
+encoding_rs = "=0.8.35"
+jagua-rs = { version = "=1.1.0", features = ["bpp", "spp"] }
+nestbolt-core = { path = "crates/core" }
+nestbolt-validator = { path = "crates/validator" }
+proptest = "1.9"
+rand = "0.10"
+roxmltree = "0.21"
+svgtypes = "0.16"
+rand_distr = "0.6"
+sparrow = { git = "https://github.com/JeroenGar/sparrow.git", rev = "4629b22795ae6b25b3b460ccde6fb36a71292b6d", features = ["only_final_svg"] }
+rmcp = { version = "=3.5.1", default-features = false, features = ["server", "transport-io", "macros"] }
+schemars = { version = "=1.2.2", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+slotmap = "1.1"
+tokio = { version = "1.48", features = ["macros", "rt", "io-std", "sync"] }
+wasm-bindgen = "0.2"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "warn"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+
+# Debug tests run real searches and repeatable work budgets that must finish
+# before their real-time limit: optimise every dependency and the engine crates
+# even in dev builds (debug assertions stay on).
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.dev.package.nestbolt-core]
+opt-level = 3
+
+[profile.dev.package.nestbolt-validator]
+opt-level = 3

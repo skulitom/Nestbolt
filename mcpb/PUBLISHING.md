@@ -24,7 +24,9 @@ dry run, without attestation or release:
 
 ```sh
 gh workflow run release.yml -R skulitom/Nestbolt
-``` Registry publication is always a separate manual dispatch after
+```
+
+Registry publication is always a separate manual dispatch after
 testing. It uses GitHub OIDC and skips versions already listed.
 
 **Published registry versions are immutable. Publishing metadata-only permanently
