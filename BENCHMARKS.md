@@ -13304,3 +13304,19 @@ was created. Current full quality, scale, exported-curve review and hosted
 checks remain required. The measured sources/builds remain frozen and the
 completed milestone total stays 45%. Release notes now also distinguish the
 native/MCP preview from the hosted browser, which remains on v0.1.0.
+
+
+## 2026-10-16 — New LightBurn/lead workflows in actual downloaded tools
+
+[The downloaded Windows CLI and MCPB](benchmarks/results/preview-depth-features-20261016.md)
+pass two explicit repair/rejection cases each, then import/nest/validate/export
+two copies of the supported rigid-group fixture. All editable children, starts,
+settings, notes, unknown elements and the fixed Tool shape are preserved by an
+independent XML-tree comparison. Lead coverage is 10 expected / 8 reserved /
+2 flagged; SVG/DXF cutting sidecars stay separate from the editable project.
+Validation reports agree and repeat exports are byte-identical on each surface.
+Actual manifest/executable bytes, input/output files and every expected error
+are retained in a CRC/member-hash-verified archive. This authored functional
+check runs on CCD1 and makes no new performance claim or reserved evaluation.
+Production remains frozen; current full quality, scale/export review and hosted
+checks remain required. No milestone closes and completion stays 45%.

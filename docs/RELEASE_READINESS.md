@@ -38,6 +38,10 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   bundle passes import/nest/validation and confinement from an isolated copy.
   Dry-run publication was skipped. The earlier `7eba929` package proof remains
   tied to its older executable.
+- [Downloaded Windows feature checks](../benchmarks/results/preview-depth-features-20261016.md)
+  also pass through CLI and MCPB: explicit repair/rejection messages, preserved
+  editable groups/settings/fixed shapes, separate lead cutting files, matching
+  validation reports and byte-identical repeat exports on authored fixtures.
 - [Current hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38854287845)
   remain in progress. Their completion and current quality/scale confirmation
   are still required before publishing.
