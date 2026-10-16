@@ -28,19 +28,21 @@ pub(super) fn pair(
     let finish = |sum: f32| (sum * std::f32::consts::PI + squared).sqrt() * penalty * weight;
     let mut sum = 0.0;
     for p in &a.surrogate().poles {
-        for q in &b.surrogate().poles {
-            let penetration = (p.radius + q.radius) - p.center.distance_to(&q.center);
-            let decayed = if penetration >= epsilon {
-                penetration
-            } else {
-                squared / (-penetration + 2.0 * epsilon)
-            };
-            sum += decayed * p.radius.min(q.radius);
-        }
-        // Check once per row, retaining the reference's summation order and
-        // its exact final operations. No score approximation is accepted.
-        if previous + finish(sum) > bound {
-            return None;
+        for chunk in b.surrogate().poles.chunks(8) {
+            for q in chunk {
+                let penetration = (p.radius + q.radius) - p.center.distance_to(&q.center);
+                let decayed = if penetration >= epsilon {
+                    penetration
+                } else {
+                    squared / (-penetration + 2.0 * epsilon)
+                };
+                sum += decayed * p.radius.min(q.radius);
+            }
+            // The same exact lower bound, checked before finishing a long row.
+            // Pole order, final arithmetic and strict tie handling are unchanged.
+            if previous + finish(sum) > bound {
+                return None;
+            }
         }
     }
     Some(finish(sum))
@@ -103,6 +105,12 @@ mod tests {
                     .clone()
             })
             .collect();
+        let pole_counts: Vec<_> = shapes.iter().map(|s| s.surrogate().poles.len()).collect();
+        eprintln!("equivalence fixture pole counts: {pole_counts:?}");
+        assert!(
+            pole_counts.iter().any(|&n| n > 8),
+            "fixture must exercise within-row checks"
+        );
         let mut rng = Xoshiro256PlusPlus::seed_from_u64(17);
         let mut pruned = 0;
         for i in 0..128 {
