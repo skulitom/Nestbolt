@@ -13064,3 +13064,23 @@ CRC and every member hash/size pass. Originals and engine/input snapshots remain
 preserved. After this measurement finished, the committed early-exchange H5
 pilot started separately, with no overlap. Production source remains unchanged;
 H4/H5 stay open, completed weight 45%, and no release is created.
+
+
+## 2026-10-16 — Early common-line exchange pilot: reachable, insufficient material
+
+[Complete paired pilot](benchmarks/results/h5-early-exchange-pilot-20261016.md):
+72/72 valid layouts in 8.915 minutes, all original source/input/binary/environment
+guards pass. Every per-attempt archive, member hash, layout, independent metric
+and cut saving is verified. The unchanged method covers four development jobs,
+both kerfs, seeds 0–2 and three matched 60-second arms, with rotating order and
+at most eight physical CCD0 cores. It starts after the full H4 sequence and the
+three diagnostic profiles finish, with no measured overlap.
+
+The candidate reaches 179 exchange proposals and accepts ten. All four mechanical
+pairs still fail +1% material versus ordinary: large plates +5.324324% laser /
++6.390250% plasma, panel hardware +6.235856% / +5.584986%. Laser bracket control
+also fails at +1.251430%; three other pairs pass. Five of eight pairs fail, so
+reject this candidate for integration and do not run the full 13-job gate from
+it. Earlier reachability is proved; sufficient material improvement is not.
+No unchanged pilot repeat, larger budget or threshold change follows. All prior
+failures remain. H5 stays open and completed milestone weight remains 45%.

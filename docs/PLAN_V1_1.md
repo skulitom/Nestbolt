@@ -578,3 +578,12 @@ the unchanged +1% limit; Firefox passes at +0.881781%. The conditional scale
 sequence stops before measurements. Current-build profiling is diagnostic only;
 no unchanged-build repeat, selected seed, threshold adjustment or release follows.
 H4 remains open and completed milestone weight stays 45%.
+
+
+**N4 early-exchange outcome, 2026-10-16:** the [new paired pilot](../benchmarks/results/h5-early-exchange-pilot-20261016.md)
+retains 72 valid layouts. Earlier calling reaches 179 proposals and ten accepted
+exchanges, but all four mechanical/kerf pairs still fail (+5.324324% to +6.390250%
+material versus ordinary mode), and the laser bracket control fails at +1.251430%.
+Reject this candidate for integration; do not start the full 13-job gate from
+these results. Original methods, budgets and +1% limit stay fixed. Inspect the
+geometry/repair failure stages before choosing another experiment. H5 stays open.

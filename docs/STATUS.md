@@ -76,8 +76,12 @@ remains unintegrated. A [new isolated early call point](../benchmarks/results/h5
 now passes seven focused checks, 82 optimized core tests and authored API/CLI
 repeatability checks. Its full-window test reaches and accepts an exchange;
 ordinary mode remains exact except elapsed wall time. A [new paired pilot](../benchmarks/results/h5-early-exchange-pilot-20261016/plan.json)
-is now running after the release quality sequence stopped and the separate profiles finished.
-This functional proof does not establish material improvement. The original unopened pilot, revised scheduling rationale,
+has now [completed with all 72 layouts valid](../benchmarks/results/h5-early-exchange-pilot-20261016.md).
+It reaches 179 proposals and accepts ten exchanges, but every mechanical/kerf pair
+still fails the +1% material guard (+5.324324% to +6.390250%). The laser bracket
+control also fails at +1.251430%. The candidate is rejected for integration;
+the full 13-job gate is not started. Earlier call reachability does not establish
+sufficient material improvement. The original unopened pilot, revised scheduling rationale,
 shared-target cache failure and all measured outcomes remain preserved. H5 stays
 open; no material limit changes. Only the proven score-bound change is selected
 for the next release candidate.
