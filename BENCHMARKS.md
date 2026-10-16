@@ -13084,3 +13084,25 @@ reject this candidate for integration and do not run the full 13-job gate from
 it. Earlier reachability is proved; sufficient material improvement is not.
 No unchanged pilot repeat, larger budget or threshold change follows. All prior
 failures remain. H5 stays open and completed milestone weight remains 45%.
+
+
+## 2026-10-16 — Profile-guided separator collision-tree pilot prepared
+
+[Isolated build evidence](benchmarks/results/h4-quadtree-depth-preparation-20261016.md)
+passes format, 75 optimized core tests, strict lint, CLI/WASM builds, bindings,
+TypeScript and browser bundle. Only the separator-window base quadtree depth
+changes from four to three; aspect scaling and leaf threshold stay unchanged.
+Current profiles put edge/quadrant traversal at 46.5–75.7% of sampled time.
+The hypothesis trades fewer tree visits against more leaf work; no performance
+or quality gain is established. Root production remains unchanged.
+
+The 435-member build archive is 6,069,654 bytes, SHA-256
+`1cd1a84df0bd5e08898e872c4958acf62e995e9d95679f9bf99cecedc118ec5b`;
+CRC and every member hash/size pass. Both source copies and exact engines/site
+are retained. Hazard order can change, so fixed-work byte identity is not claimed.
+The [one-use pilot plan](benchmarks/results/h4-quadtree-depth-probe-20261016/plan.json)
+fixes all 11 H4 jobs, seeds 0–2, 60 seconds, native/Chrome/Firefox, 99 attempts,
+independent original-geometry validation and physical CCD0 cores 0,2,…14.
+It requires both previous measured sessions terminal and sealed, and is committed
+before search. Original +1% median/+5% per-job limits and every failure remain.
+No held-out input, integration, release or gate-completion claim. Weight stays 45%.

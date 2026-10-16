@@ -587,3 +587,12 @@ material versus ordinary mode), and the laser bracket control fails at +1.251430
 Reject this candidate for integration; do not start the full 13-job gate from
 these results. Original methods, budgets and +1% limit stay fixed. Inspect the
 geometry/repair failure stages before choosing another experiment. H5 stays open.
+
+
+**N3 tree-depth preparation, 2026-10-16:** [the isolated candidate](../benchmarks/results/h4-quadtree-depth-preparation-20261016.md)
+passes all build checks and 75 optimized core tests. Only the separator-window
+base tree depth changes from four to three, retaining exact geometry and budgets.
+The [single-use eleven-job pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016/plan.json)
+is committed before measurements, after the earlier H4 and H5 sessions finish.
+No improvement, integration or H4 credit is claimed. Original thresholds and
+failed results remain; completion stays 45%.

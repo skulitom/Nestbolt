@@ -1,0 +1,184 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace",
+      "started": "2026-10-16T04:12:21.285828+00:00",
+      "finished": "2026-10-16T04:12:21.967063+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-release",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-target"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace",
+      "started": "2026-10-16T04:12:22.004586+00:00",
+      "finished": "2026-10-16T04:14:15.959467+00:00",
+      "exit_code": 0,
+      "log_sha256": "89839182d3fab95b14235bc9ead89946fac5b32ad23f6ec2f2f51ff472f84a79"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-target",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace",
+      "started": "2026-10-16T04:14:16.008550+00:00",
+      "finished": "2026-10-16T04:15:09.133969+00:00",
+      "exit_code": 0,
+      "log_sha256": "d839a80b8df6c1303adc37ea2f04401ad24b38fcbcef0ff77d152bee284ccd03"
+    },
+    {
+      "label": "cli",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-cli",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-target"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace",
+      "started": "2026-10-16T04:15:09.183038+00:00",
+      "finished": "2026-10-16T04:16:10.030547+00:00",
+      "exit_code": 0,
+      "log_sha256": "7d7b24ae42d1aae676886dd992d9b2040a0e8a803f7002abb6da463c38cbc491"
+    },
+    {
+      "label": "wasm",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-wasm",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-target"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace",
+      "started": "2026-10-16T04:16:10.084894+00:00",
+      "finished": "2026-10-16T04:17:29.685402+00:00",
+      "exit_code": 0,
+      "log_sha256": "d26ffc242053eafd3f3ecbaf99179a672d74d3f24373b13f618a5bc8ae8ef596"
+    },
+    {
+      "label": "bindings",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "wasm-bindgen",
+        "--target",
+        "web",
+        "--out-dir",
+        "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace\\web\\src\\pkg",
+        "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-target\\wasm32-unknown-unknown\\release\\nestbolt_wasm.wasm"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace",
+      "started": "2026-10-16T04:17:29.740270+00:00",
+      "finished": "2026-10-16T04:17:30.299753+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "types",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "node",
+        "C:\\DEV\\Nestbolt\\web\\node_modules\\typescript\\bin\\tsc",
+        "--noEmit"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace\\web",
+      "started": "2026-10-16T04:17:30.341323+00:00",
+      "finished": "2026-10-16T04:17:31.564857+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "bundle",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "node",
+        "C:\\DEV\\Nestbolt\\web\\node_modules\\vite\\bin\\vite.js",
+        "build"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\h4-quadtree-depth-probe\\workspace\\web",
+      "started": "2026-10-16T04:17:31.607895+00:00",
+      "finished": "2026-10-16T04:17:33.324532+00:00",
+      "exit_code": 0,
+      "log_sha256": "ceea3c58bad1dcb905380f1b938ef34b381a3291fc2b27bf79f3e7a4f313ae02"
+    }
+  ],
+  "production_unchanged": true,
+  "candidate_sha256": "7d9dc27a4dd1e447a1947a46bbff49714c2c4c20565472cc798d7d012c4cd503",
+  "cli_sha256": "a4e74ae7e33aa863bf44564e5a5eda6868fa880e1656bf787a329a48ad2fd789",
+  "wasm_sha256": "b556fd9f3bd1786251387ae85b5b1ca20671603b99994ced1a509833b4ddb0f0",
+  "site": {
+    "assets/archive-worker-Dwl9uNr-.js": "72baa4c97e9cd5de51b6aa45a11e7b96e0eebd1a6d5e69470e842db5467e7ac3",
+    "assets/bench-DytyMBej.js": "c28d9fbd223e6276f928f877619e1060ab699686a9438fb6280e1818dc93b7ce",
+    "assets/engine-CCjhcbNi.js": "8a121b516040b790c1e2054c4eac11d2d468c64c06f2d787553818d7c29c0bcf",
+    "assets/main-D-vIsYpP.js": "18b551848da2bf3eb0521746a8030723952273897e65445e7f6382068c241e15",
+    "assets/main-mA8Hn3k0.css": "957b6388afa9d1602d51a80b74ea6fd900f5910f0c2961e27470ef2f4919a8b7",
+    "assets/nestbolt_wasm_bg-CiHp-zYw.wasm": "b556fd9f3bd1786251387ae85b5b1ca20671603b99994ced1a509833b4ddb0f0",
+    "assets/worker-Cj-at4eb.js": "4c112ffceba887f1a0057230612aa03ad8ee94dac64af7f27cb75c88c2cd4317",
+    "bench.html": "59bccaa69850586afe68de1389cdd09ac8aca58e2e341ac1e7449ae4e826ffbc",
+    "examples/boxes.svg": "7dbffb99b16666c8ce2d11e73538a7761cd2f43a845eb1793cfe08c60fa201d0",
+    "examples/examples.json": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+    "examples/gears.svg": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+    "examples/letters.svg": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+    "examples/LICENSES.txt": "f8a4965587f7ff36098453a66bf12ffd938bc347e41a48f1baf918a87a232a82",
+    "examples/mechanical.svg": "fce476d786fe1075e4991d6b26e8a36a194c193faa461d4d602d2ad8f59c1409",
+    "examples/sewing.svg": "549457bd2cb3698ca9b4e3a2a071d3fb5e6a67c41ef23df3b311da22095a1a9a",
+    "index.html": "8a86a8290f5dacea364545caaf457c789855433af05f64fc089963bfc14e03a3",
+    "results/final-484ce8b/index.html": "45192de7938f7fadcca4efed0cfe51f4f97a733658faa5e1b536ea62292d11e3",
+    "results/final-484ce8b/results.json": "65531883c8446dceacff3246a1c4e46727b3253b1a2677a7ef875d96d9a4fc2d",
+    "results/index.html": "4145368c1d0929574096b69e3adee945510cbd61ec80de8cdd790fb74a7d28d1",
+    "results/results.json": "495bf4b8d89652aee32f75c21c1c51dbeaeda0c6ac3d710ff5a56c0933b62878",
+    "THIRD_PARTY_NOTICES.txt": "7b8557902f6891966b64ec2d2f0d4dbff69b193e497fe29172aa237f6fe0aa5f"
+  },
+  "measured_search_started": false,
+  "integrated": false
+}

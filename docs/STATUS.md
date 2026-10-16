@@ -31,7 +31,9 @@ G5 comparisons pass; Firefox's subset is +0.881781%, but Chrome fails at
 therefore stopped after sealing the results, with no scale run. The current
 candidate remains unreleased. [Three current-build CPU profiles](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
 validate and identify edge/quadtree traversal as the main sampled cost. A shallower
-collision-tree configuration is the next isolated hypothesis; no benefit is established.
+collision-tree candidate now [passes all preparation checks](../benchmarks/results/h4-quadtree-depth-preparation-20261016.md),
+including 75 optimized core tests. The [one-use 99-attempt pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016/plan.json)
+is committed before measurement; no benefit or integration is established.
 No preview tag or release exists yet. The hosted browser remains on
 [v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348), as the README now explains.
 
