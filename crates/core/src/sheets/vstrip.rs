@@ -148,6 +148,9 @@ impl Strip<'_, '_> {
         // Keep quadtree cells comparable to one sheet in long strips.
         let aspect = (self.width(s) / height).max(1.0);
         let mut cde = DEFAULT_SPARROW_CONFIG.cde_config;
+        // Profile-guided experiment: trade one tree level for more leaf work.
+        // Keep all original geometry, leaf threshold and aspect scaling.
+        cde.quadtree_depth = 3;
         cde.quadtree_depth += ((aspect / 2.0).max(1.0).log2().ceil() as u8).min(3);
         // Walls and defects are scored by bounding box, never by surrogate
         // poles, so a minimal surrogate avoids slow pole searches on thin walls.
