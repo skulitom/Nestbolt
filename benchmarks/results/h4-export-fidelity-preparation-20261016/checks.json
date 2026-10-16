@@ -1,0 +1,52 @@
+{
+  "scope": "Independent saved-export fidelity checker preparation; no new search",
+  "source_archive": "benchmarks/results/h4-curve-scale-20261015T222652Z/raw.zip",
+  "source_archive_sha256": "5f309ac2365747bef0d441ad639e5a8f6b3e81732f031ad39f5e945c39454904",
+  "project_zip_sha256": "1099a58986f82e2408589a2d3ac7632e05b3ab5fab11010834b12eb487cc7441",
+  "source_is_previous_build": true,
+  "partial_old_project_placements": 1097,
+  "old_sheets_checked": [
+    "sheet-0",
+    "sheet-2"
+  ],
+  "full_old_project_checked": false,
+  "per_format_source_primitives": 495424,
+  "maximum_control_point_error_mm": {
+    "SVG": 7.060408174778991e-07,
+    "DXF": 7.060406165674384e-07
+  },
+  "limit_mm": 0.01,
+  "checker_sha256": "55aeaca744ff867185fb765d020f550521dde6cc1bc14975d16dbe7c45311efc",
+  "sensitivity_tests": {
+    "passed": 8,
+    "failures": 0,
+    "source_sha256": "837e87d975c7acf5b90eb6d5abb29a5ebb949414c30ea22415a2afac1c0dd50f",
+    "observed_command": "python output/ccd1.py .cache/shop-venv/Scripts/python.exe -X utf8 output/test_h4_curve_export_check_v3.py",
+    "cases": [
+      "known quarter-turn with line/quad/cubic",
+      "moved SVG control",
+      "missing SVG path",
+      "extra SVG path",
+      "moved DXF control",
+      "missing final DXF entity",
+      "extra DXF entity",
+      "rational spline rejected"
+    ]
+  },
+  "dependencies": {
+    "ezdxf": "1.4.4",
+    "svgpathtools": "1.8.0"
+  },
+  "original_failures": [
+    "failure-v1.json",
+    "failure-v2.json"
+  ],
+  "failure_v1_explanation": "Checker looked for height on a layout sheet; the actual saved request holds the sole stock dimensions.",
+  "failure_v2_explanation": "Installed ezdxf single_pass_modelspace omitted the final LINE. Raw entity counts and the normal reader both contain it. The final checker uses the seekable modelspace iterator and compares all raw entity counts.",
+  "current_candidate_exports_checked": false,
+  "searches_run": 0,
+  "source_geometry_changed": false,
+  "H4_complete": false,
+  "completed_weight_percent": 45,
+  "held_out_geometry_read": false
+}

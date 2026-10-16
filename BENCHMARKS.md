@@ -12985,3 +12985,19 @@ fixed-sheet allocation and nesting inside holes. The repository's redesigned
 app is explicitly unpublished. Exact commit and README hashes are recorded;
 the plan's shipment stop rule is not triggered. This is an availability check,
 not a new competitor measurement. Pinned dependencies and v1 claims are unchanged.
+
+
+## 2026-10-16 — Independent saved cutting-file fidelity checker preparation
+
+[Preparation and preserved failures](benchmarks/results/h4-export-fidelity-preparation-20261016.md)
+add an independent SVG/DXF check for the forthcoming current-build H4 scale
+exports, without another search or export regeneration. On two hash-verified
+older Chrome sheets, all 1,097 placements / 495,424 primitives per format match
+the original placed line/quadratic/cubic controls; maximum whole-curve error
+bound is below 0.000000707 mm against the unchanged 0.01 mm fidelity limit.
+Eight sensitivity tests reject missing/extra geometry, moved controls and
+rational splines. Initial wrong-field and single-pass DXF-reader failures are
+retained; the final checker uses the seekable reader and raw entity counts.
+This partial older-project preparation does not check current candidate exports
+or close H4. Full quality and current scale are still running/queued. No held-out
+geometry, source, threshold, release or completed milestone weight changes (45%).
