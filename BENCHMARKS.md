@@ -12825,3 +12825,17 @@ The original Firefox arm continues. Source/build/input guards remain unchanged;
 no trial is restarted and no threshold changes. The release stays pending,
 H4 is incomplete, and completed weight remains 45%. The scoring profile supports
 an isolated investigation of finer exact-bound checks, with no gain yet claimed.
+
+### 2026-10-16 — Isolated finer-bound candidate prepared
+
+The [eight-pair score-bound candidate](benchmarks/results/h4-score-chunks-preparation-20261016.md)
+passes debug/optimized reference-bit and evaluator tests, strict library lint,
+native/WASM builds and browser type/bundle checks in an isolated CCD1 workspace.
+Fixtures with 16 and 15 poles exercise full and partial chunks. The exact
+accepted-score arithmetic, accumulation order, ties, work charges and geometry
+remain unchanged; production code is untouched. All 251 preparation artifacts
+are sealed. A console-printing error and refused metadata-dependent sealing
+attempt are retained; saved successful stages were verified without rebuilding.
+The fixed plan requires four exact equal-work pairs before one 99-attempt H4
+subset, after the original preview matrix finishes and is sealed. No measured
+search has started, no benefit is claimed, and no threshold or milestone changes.
