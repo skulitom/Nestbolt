@@ -632,3 +632,14 @@ fallbacks, deadlines and independent guards. All 85 optimized core tests, strict
 lint and authored public comparisons pass. A missing fixture in the first copy
 and its failed build remain preserved. No development quality run, integration
 or H5 credit; a future committed pilot waits for current H4 checks to finish.
+
+
+**N3 tree-depth integration, 2026-10-16:** candidate `aba989e` now
+[passes local integration checks](../benchmarks/results/h4-depth-integration-20261016.md),
+including 302 workspace tests, 75 optimized core tests, 27 CLI tests and 86
+browser tests. An overlapping evidence write interrupted the first bundle
+confinement inventory; the same bundle passes after competing writes stop,
+with the original failure retained. The [fresh full plan](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
+retains 603 new plus 195 verified frozen-v1 outcomes and every original limit.
+Scale, complete exported-curve checks and current packages remain separate.
+No H5 experiment is integrated, no H4 closure or release; completion stays 45%.

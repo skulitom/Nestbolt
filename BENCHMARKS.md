@@ -13212,3 +13212,26 @@ bytes, SHA-256 `617e0f0b53ec0b131f934f219bbdb6654698f00df465a906b474431b961c1321
 CRC and every member size/hash pass. A separately committed pilot must wait for
 the current H4 matrix/conditional scale sequence to finish and be sealed.
 Original H5 failures and all thresholds remain; completion stays 45%.
+
+
+## 2026-10-16 — Tree-depth candidate integrated; full comparison prepared
+
+[Integration checks](benchmarks/results/h4-depth-integration-20261016.md) pass
+on `aba989e`: 302 workspace tests (one ignored), 75 optimized core tests,
+27 optimized CLI tests, 86 browser tests (four opt-in skips), strict lint,
+native/WASM/type/site builds, notices/schemas and 23 package tests (one skip).
+The actual Windows MCPB passes import/nest/validate and confinement. Its first
+inventory check overlapped this task writing H5 evidence and failed; that log
+is retained. Only the same-bundle confinement verification was repeated after
+all competing repository writes stopped, and passes without changing bytes.
+
+Only the separator-window base collision-tree depth changes (four to three).
+Exact isolated candidate source is retained; no H5 exchange code is integrated.
+The archive has 26 members / 6,313,079 bytes,
+SHA-256 `8231563967210dc2f34fb21685034f662ac9071c36591bcc0cf5a6aaedfee617`; all CRC/member hashes/sizes pass.
+The [new full plan](benchmarks/results/h4-preview-depth-release-20261016/plan.json)
+fixes 603 new attempts over 67 union jobs, three engines, seeds 0–2 and 60 seconds.
+Only the 195 verified frozen-v1 outcomes are reused. Original limits remain;
+all prior failures are preserved. The plan is committed before its one-use run.
+Current scale, full exported-curve fidelity, hosted checks and package proof
+remain required. No preview release or H4 credit; completed weight stays 45%.

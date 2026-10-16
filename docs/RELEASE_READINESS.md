@@ -1,60 +1,49 @@
 # Next preview release
 
-Artem authorized the next GitHub release when ready on 2026-10-16. Candidate
-`7eba929` is version `0.2.0-alpha.1`, but its completed Chrome quality check
-fails and it is not ready for release. The v1.1 plan remains at 45% completed
-milestone weight; publishing a preview does not close its remaining gates.
+Artem authorized the next GitHub release when ready on 2026-10-16. The current
+candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration
+and its isolated browser pilot. Full quality, scale, exported-curve fidelity,
+hosted checks and current package verification are still required. Milestone
+completion remains 45%; a preview does not close the remaining v1.1 gates.
 
-The README now covers LightBurn projects, lead allowances, common-line setup,
-automatic browser workers and native downloads. Its comparison headline remains
-explicitly the frozen v1 benchmark at `75cbb32`, with no new competitor claim.
+The README describes LightBurn projects, leads, common-line limits, automatic
+workers and native downloads. Its benchmark headline remains explicitly tied
+to frozen v1 build `75cbb32`, with no new competitor claim.
 
 ## Candidate checks
 
-- [Local integration checks](../benchmarks/results/h4-score-integration-20261016.md)
-  pass: 302 workspace tests, 27 optimized CLI tests, 86 enabled browser tests,
-  strict lint, native/WASM/site builds, schemas/notices and actual Windows MCPB
-  verification. Existing ignored/skipped tests remain disclosed in that record.
-- [All six hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38840747952)
-  pass on `7eba929`; [the exact record](../benchmarks/results/preview-score-ci-20261016/checks.json)
-  includes Windows/Linux, web, benchmark smoke and maker rebuilds.
-- [The package dry run and downloaded artifacts](../benchmarks/results/preview-score-release-dryrun-20261016.md)
-  pass for Windows x64, Linux x64 and macOS arm64. The downloaded Windows CLI,
-  server and MCPB pass actual version/import/nest/validation checks. Archive
-  contents, executable architectures, permissions and checksum/metadata agree.
-- The [full current-build comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
-  completed with all 603 new and 195 reused layouts valid. Native median is
-  +0.000681% versus frozen v1; both full G5 comparisons pass. Firefox's curve
-  subset passes at +0.881781%, but Chrome fails at **+1.032679%**, against +1%.
-  Every original outcome, metric, source guard and failure is retained.
-- The [conditional scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/stopped.json)
-  stopped after sealing/reporting the quality failure. No current-build scale
-  measurements were started. The [requirement preflight](../benchmarks/results/h4-requirement-preflight-20261016.md)
-  verifies scope and unshared WASM memory; it does not close H4.
-- [Current-build profiling](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
-  completes with three valid layouts. Edge/quadtree traversal is the main sampled
-  cost. The [shallower-tree isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
-  now passes both subsets with all 99 layouts valid: Chrome +0.689439%, Firefox
-  +0.639475%, every job within +5%. This candidate is not yet integrated; fresh
-  full comparisons, scale and package checks remain required.
+- [Local integration](../benchmarks/results/h4-depth-integration-20261016.md) passes
+  302 workspace tests (one ignored), 75 optimized core tests, 27 CLI tests,
+  86 browser tests (four opt-in skips), builds, strict lint, schema/notices,
+  and 23 packaging tests (one skip). Actual Windows MCPB import/nest/validate
+  and confinement pass. The first inventory overlapped evidence writes; the
+  original failure and same-bundle controlled recheck are both retained.
+- [The isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
+  validates all 99 layouts. Chrome +0.689439% and Firefox +0.639475% meet +1%,
+  with every job within +5%. No isolated speed claim follows.
+- [The full comparison plan](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
+  fixes all 67 union jobs, seeds 0–2 and 60 seconds in native/Chrome/Firefox:
+  603 new outcomes plus 195 verified frozen-v1 baselines. Its original bounds
+  and every attempt must pass before scale measurements begin.
+- Current-build scale and independent checks of every saved SVG/DXF curve for
+  all 2,000 placements in both browsers remain required, followed by screenshot
+  inspection and a complete H4 requirement review.
+- Fresh hosted checks and three-platform package/download verification are
+  required for this changed candidate. The earlier `7eba929` package dry run
+  does not certify the new executable.
 
-The earlier `0a9fb44` candidate's [completed comparison](../benchmarks/results/h4-preview-development-20261016.md)
-failed Chrome's subset at +1.046217%, against +1%; all results are preserved.
-The new finer exact-score bound first [passed its isolated subset](../benchmarks/results/h4-score-chunks-probe-20261016.md)
-with Chrome +0.378238% and Firefox +0.432882%, before integration. That small
-probe alone does not substitute for the current full comparison or establish
-a general speed gain. The common-line experiments remain unintegrated.
+The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
+failed Chrome at +1.032679%; `0a9fb44` [failed at +1.046217%](../benchmarks/results/h4-preview-development-20261016.md).
+Both remain preserved. No unchanged-build repeat or gate change replaces them.
+Common-line exchange experiments remain isolated from production.
 
 ## Publication and disclosures
 
-A subsequent candidate must pass the unchanged full quality comparison, current
-scale checks and complete requirement review before publication. Keep `7eba929`
-unreleased and retain its failed comparison. Publish the verified
-`v0.2.0-alpha.1` candidate as a prerelease without replacing stable Latest. The workflow
-already enforces that channel. Later evidence-only commits do not change the
-candidate's packaged contents. The existing dry-run package proof remains tied
-to `7eba929`; a changed candidate needs its own package checks. Verify published
-downloads/checksums and provenance afterward, including the actual Windows bundle.
+After all current-candidate checks pass, publish the verified `v0.2.0-alpha.1`
+as a prerelease without replacing stable Latest. Verify actual published
+downloads, checksums and source/tag provenance, including the Windows bundle.
+Evidence-only commits must retain the tested product digest. No preview tag
+or release has been created. Registry publication remains separate.
 
 [Release notes](../mcpb/RELEASE_NOTES.md) disclose:
 

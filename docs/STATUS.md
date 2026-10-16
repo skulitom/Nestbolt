@@ -14,30 +14,31 @@ export palette and imported stock outlines now work through the UI, CLI and MCP.
 No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
 due by 2026-11-06. v0.1.0 was released and published to the MCP Registry on
 2026-10-14. On 2026-10-16 Artem authorized the next GitHub release when ready,
-including a README update. Preview `0.2.0-alpha.1` is being prepared, held by the current Chrome curve-subset
-quality failure; this does not close open v1.1 gates
+including a README update. Preview `0.2.0-alpha.1` is being prepared; a new candidate
+passes its isolated browser pilot and still needs the full comparison and scale checks; this does not close open v1.1 gates
 or authorize a new final acceptance run. Registry publication remains separate.
 
-**Release readiness, 2026-10-16:** candidate `7eba929` is version
-`0.2.0-alpha.1`. The updated README and [preview checklist](RELEASE_READINESS.md)
-describe the new features and remaining limits. All [local integration checks](../benchmarks/results/h4-score-integration-20261016.md),
-[all six hosted checks](https://github.com/skulitom/Nestbolt/actions/runs/38840747952)
-and the [three-platform package dry run](../benchmarks/results/preview-score-release-dryrun-20261016.md)
-pass, including actual downloaded Windows CLI/MCPB import, nesting and validation.
-The [full current-build comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
-is now complete with 603 new and 195 reused valid layouts. Native and both full
-G5 comparisons pass; Firefox's subset is +0.881781%, but Chrome fails at
-**+1.032679%** against +1%. Its [conditional scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/stopped.json)
-therefore stopped after sealing the results, with no scale run. The current
-candidate remains unreleased. [Three current-build CPU profiles](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
-validate and identify edge/quadtree traversal as the main sampled cost. A shallower
-collision-tree candidate now [passes all preparation checks](../benchmarks/results/h4-quadtree-depth-preparation-20261016.md),
-including 75 optimized core tests. Its [completed 99-attempt pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
-validates every layout: Chrome +0.689439% and Firefox +0.639475% medians, with
-every job within +5%. It is eligible for integration checks and a fresh full
-comparison, then current scale/package verification. It is not yet integrated.
-No preview tag or release exists yet. The hosted browser remains on
-[v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348), as the README now explains.
+**Release readiness, 2026-10-16:** candidate `aba989e` is version
+`0.2.0-alpha.1`. Its [integration checks](../benchmarks/results/h4-depth-integration-20261016.md)
+pass: 302 workspace tests, 75 optimized core tests, 27 CLI tests, 86 browser
+tests, builds/lint and actual Windows bundle import/nest/validation/confinement.
+The first bundle inventory overlapped this task saving evidence; its failure
+is retained and the same-bundle check passes once competing writes stop.
+The [isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
+validates all 99 layouts and passes Chrome +0.689439% / Firefox +0.639475%.
+The [fresh full matrix](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
+is prepared with unchanged limits; current scale, exported-curve fidelity,
+hosted checks and package proof remain required. No common-line experiment is
+integrated. No preview tag or release exists, and completion stays 45%.
+
+The earlier `7eba929` [full comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
+retains 603 new and 195 reused valid outcomes, but Chrome's curve subset fails
+at +1.032679%. Its [conditional scale sequence](../benchmarks/results/h4-preview-score-scale-plan-20261016/stopped.json)
+stopped without a scale run. Its successful hosted checks and package dry run
+remain tied to that earlier build. [Current-build profiles](../benchmarks/results/h4-browser-profile-20261016T040030Z.md)
+motivated the shallower tree; earlier failures do not disappear when a new
+candidate passes a pilot. The hosted browser remains on
+[v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348), as the README explains.
 
 The earlier `0a9fb44` candidate's [completed matrix](../benchmarks/results/h4-preview-development-20261016.md)
 retains all 603 valid new layouts and Chrome's failed subset median of
