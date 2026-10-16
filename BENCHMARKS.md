@@ -13414,3 +13414,27 @@ cover changed adapters. Historical +1.0696%/+6.0951% material costs remain tied
 to their original 77dfa55 build, not relabelled as new preview measurements.
 No reserved geometry, new import/search/native session, release or gate closure;
 completed milestone weight remains 45%.
+
+
+## 2026-10-16 — Recovered full depth-three comparison passes quality
+
+[All 603 current-build layouts and 195 frozen-v1 layouts validate](benchmarks/results/h4-depth-reboot-recovery-20261016.md).
+The 402 completed native/Chrome outcomes are retained unchanged, with only the
+201 missing Firefox outcomes added after the documented servicing interruption.
+The original session and first Firefox batch remain interrupted, not relabelled
+as complete. Source/build/input/runner guards match; no outcome is selected or
+replaced. The separate recovery takes 27.451 minutes within its one-hour cap.
+
+Native median material is +0.000614% versus frozen v1, passing +0.5%. Chrome
+and Firefox subset medians are +0.851159%/+0.828477%, passing +1%; their worst
+jobs are +2.455588%/+2.561291%, passing +5%. Full-development medians are
++0.107768%/+0.150385%, totals +0.510025%/+0.527068%; every seed also passes
+the original G5 limits. Each requested quantity, independent validation and
+metric comparison is checked. The 1,047-member recovery archive is 7,622,447
+bytes, SHA-256 4defe62adedbcb4de239a9daa709434ef7cf2d7416fe556397893f6f38a02454,
+with CRC, all member lengths/hashes and the nested original evidence verified.
+
+The fixed current scale workflows have started. All-placement curve fidelity,
+visual review and complete H4 acceptance review still follow. No gate closure,
+new public competitor/speed claim, reserved evaluation or release; completion
+remains 45%.

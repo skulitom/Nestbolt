@@ -15,7 +15,7 @@ No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence i
 due by 2026-11-06. v0.1.0 was released and published to the MCP Registry on
 2026-10-14. On 2026-10-16 Artem authorized the next GitHub release when ready,
 including a README update. Preview `0.2.0-alpha.1` is being prepared; a new candidate
-passes its isolated browser pilot and still needs the full comparison and scale checks; this does not close open v1.1 gates
+passes its full quality comparison and still needs scale/export review; this does not close open v1.1 gates
 or authorize a new final acceptance run. Registry publication remains separate.
 
 **Release readiness, 2026-10-16:** candidate `aba989e` is version
@@ -30,11 +30,13 @@ The [full matrix](../benchmarks/results/h4-preview-depth-release-20261016/plan.j
 was interrupted by Windows servicing at 06:00 UTC after 201 native and 201
 Chrome valid outcomes; Firefox saved no outcomes and scale never began.
 The [recorded recovery](../benchmarks/results/h4-depth-reboot-recovery-20261016.md)
-retains every completed result and the original interruption, then runs only
-the missing Firefox phase under the unchanged limits. Native and Chrome
-quality bounds pass; Firefox, scale/export checks and final H4 review remain
-required. The [recovery-aware scale continuation](../benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
-is prepared with unchanged checks and a pass-only condition.
+retains every completed result and the original interruption, then completes
+only the missing Firefox phase under unchanged limits. All 603 current-build
+and 195 frozen-v1 layouts validate. Native median is +0.000614%; curve-subset
+medians are Chrome +0.851159% / Firefox +0.828477%, and every job is within +5%.
+Full G5 aggregate and each-seed limits also pass. Scale/export checks and final
+H4 review remain required. The [recovery-aware scale continuation](../benchmarks/results/h4-depth-recovered-scale-plan-20261016.md)
+has started its unchanged 2,000-part workflows.
 [All three downloaded packages and the Windows MCPB](../benchmarks/results/preview-depth-release-dryrun-20261016.md)
 pass their checks, including actual Windows import/nest/validation/confinement.
 [All six hosted checks pass for this code](../benchmarks/results/preview-depth-hosted-checks-20261016.md); reviewed evidence is pushed to main as `21835ba`. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)

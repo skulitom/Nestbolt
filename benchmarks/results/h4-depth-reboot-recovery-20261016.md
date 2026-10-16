@@ -1,46 +1,86 @@
-# H4 recovery after Windows servicing restart — 2026-10-16
+# Integrated tree-depth preview: recovered full H4 comparison — 2026-10-16
 
-**The original comparison was interrupted; it is not recorded as complete or
-passing.** Windows servicing requested a restart at 05:59:24 UTC. Shutdown
-followed at 06:00:07 and the new boot began at 06:00:33. Both the measurement
-process and its conditional scale process are absent. No scale run had begun.
-[Restart evidence](h4-depth-reboot-recovery-20261016/restart-evidence.json)
-records the event identities and times without publishing machine/user names.
+**All quality comparisons pass.**
+603/603 completed current-build layouts and 195 frozen-v1 layouts validate. These are
+the originally planned outcomes for candidate `aba989e`; no unchanged-build
+repeat, changed threshold or selected subset replaces a failed observation.
+Scale and complete requirement review are separate, so this report alone
+does not close H4 or change completed milestone weight.
 
-The original session had completed all 201 native and 201 Chrome outcomes;
-every layout is valid. Firefox 157.0 had started its first batch, but saved no
-layout, result, error or validation file. The precise number of started worker
-jobs was not recorded; zero saved results is not claimed to mean zero attempts.
-All original files, logs and the interrupted Firefox plan remain preserved in
-[the verified archive](h4-depth-reboot-recovery-20261016/interrupted-session.zip).
-The original directory and one-use marker are unchanged.
+[Results](h4-depth-reboot-recovery-20261016/results.json), [verification](h4-depth-reboot-recovery-20261016/verification.json),
+[committed plan](h4-depth-reboot-recovery-20261016/plan.json).
 
-[Independent checks of the completed outcomes](h4-depth-reboot-recovery-20261016/retained-verification.json)
-confirm exact saved metrics, original requested quantities and public-example
-validation. All three Chrome execution and affinity checks pass. Native's
-development median is +0.000614% versus frozen v1 (limit +0.5%). Chrome's curve
-subset median is +0.851159% (limit +1%), worst +2.455588% (limit +5%). Its full
-development comparison also passes aggregate and each-seed limits. These
-completed results are retained without replacement or score selection.
+## Method
 
-The [recovery plan](h4-depth-reboot-recovery-20261016/plan.json) retains those
-402 current-build outcomes and all 195 previously verified frozen-v1 outcomes,
-then runs the missing 201 Firefox outcomes once. It uses the unchanged build,
-67 jobs, seeds 0–2, 60-second budgets, one worker per job, at most eight physical
-CCD0 cores and the original quality limits. Firefox is still version 157.0;
-its executable is now pinned. Every original source, executable, site, input,
-runner and environment-override guard still matches. The recovery records the
-new boot/OS environment explicitly; it is a separate session after an external
-restart, not a claim that the earlier session continued uninterrupted.
+The union of 65 development jobs and the eleven-job curve subset contains
+67 jobs. Each engine covers all 67 at 60 seconds and seeds 0–2.
+The 201 native and 201 Chrome outcomes completed before the servicing reboot
+and are retained unchanged alongside 195 frozen-v1 outcomes. The recovery
+runs only the 201 missing Firefox outcomes. The original Firefox batch had
+started but saved no outcomes; its precise number of started jobs is unknown.
+The interrupted session remains interrupted. There are no held-out jobs,
+final seeds or competitor claims.
+One browser worker per job, at most eight physical CCD0 cores; separate
+functional checks/builds use CCD1. Source, executable, site, runner, inputs
+and original environment-override guards stay unchanged. The new boot and OS
+environment are recorded separately in the recovery plan.
 
-The recovery has a one-hour operational cap and its own one-use marker. The
-original four-hour plan and its interrupted disposition stay intact. Every new
-failure or incomplete outcome is retained and prevents acceptance; no completed
-outcome is rerun or substituted. The complete comparison must pass before the
-fixed scale workflows, all-placement curve fidelity checks, screenshot review
-and final H4 requirement audit. Source/builds remain frozen throughout.
+The Firefox recovery took 27.451 minutes, below its one-hour cap.
+This is not the elapsed time of all three engines; no continuous complete
+session is claimed and the original four-hour session is not extended.
+Every layout hash, requested quantity and independent metric is checked.
+Standalone and saved metrics agree exactly, including original-library
+validation of the public examples. Original Chrome and recovered Firefox
+batch execution and affinity records are preserved in their respective archives.
 
-H4 stays open, and completion remains **45%**. The common-line pilot remains
-unopened; the preview release has not been published. Hosted checks and actual
-package verification remain valid for this unchanged code. The newer main CI
-run at `21835ba` has also finished successfully.
+## Full development comparisons
+
+Positive differences mean more material. Three-seed job medians are used.
+Native retains +0.5% median; browser G5 retains +2% median and total, also
+checked separately for each seed.
+
+| Comparison | Median | Total | Worst job | Result |
+| --- | ---: | ---: | ---: | --- |
+| Native vs frozen v1 | +0.000614% | +0.019783% | +2.897407% | pass |
+| Chrome vs native | +0.107768% | +0.510025% | +3.722850% | pass |
+| Firefox vs native | +0.150385% | +0.527068% | +3.714667% | pass |
+
+| Browser | Seed | Median | Total | Result |
+| --- | ---: | ---: | ---: | --- |
+| Chrome | 0 | +0.198675% | +0.756203% | pass |
+| Chrome | 1 | +0.273220% | +0.529344% | pass |
+| Chrome | 2 | +0.020372% | +0.060152% | pass |
+| Firefox | 0 | +0.140442% | +0.569495% | pass |
+| Firefox | 1 | +0.119809% | +0.499914% | pass |
+| Firefox | 2 | +0.011138% | +0.123186% | pass |
+
+## Curve subset
+
+Both browsers must stay at or below +1% median and +5% for every job.
+
+| Browser | Valid | Median | Worst job | Total | Result |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Chrome | 33/33 | +0.851159% | +2.455588% | +0.826574% | pass |
+| Firefox | 33/33 | +0.828477% | +2.561291% | +0.778015% | pass |
+
+## Retained evidence and next step
+
+The original `0a9fb44` [failed comparison](h4-preview-development-20261016.md)
+and the `7eba929` [failed comparison](h4-preview-score-release-20261016.md)
+remain preserved. This candidate lowers the separator-window base collision
+tree depth from four to three, retaining exact geometry, aspect scaling,
+leaf threshold and budgets. Its [isolated subset](h4-quadtree-depth-probe-20261016.md)
+and [integration checks](h4-depth-integration-20261016.md) are separate evidence.
+No general speed gain follows from these wall-clock quality outcomes.
+
+Run the already specified current-build scale workflows, then review every H4 requirement.
+H2/H5 remain open independently. No tag, release or registry entry is created
+by this report, and frozen v1 claims remain unchanged.
+
+The [raw archive](h4-depth-reboot-recovery-20261016/raw.zip) contains 1,047 members,
+7,622,447 bytes, SHA-256 `4defe62adedbcb4de239a9daa709434ef7cf2d7416fe556397893f6f38a02454`.
+It preserves every recovery outcome, validation, plan and browser/process record,
+including the original interrupted-session archive and exact measured build.
+The nested original archive preserves every completed native/Chrome outcome
+and the interrupted first Firefox batch. CRC, member sizes and SHA-256 checks
+all pass. Frozen-v1 bytes remain in their verified preceding archive.

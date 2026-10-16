@@ -652,3 +652,15 @@ pass and checks all 2,000 exported curve placements in each browser. Root
 sources/builds remain frozen. The [72-attempt obstruction-set pilot](../benchmarks/results/h5-obstruction-set-pilot-20261016/plan.json)
 is committed but unopened; it waits for this entire sequence to finish.
 No threshold changes, automatic release or additional completed gate weight.
+
+
+**N3 recovered full quality, 2026-10-16:** the [completed comparison](../benchmarks/results/h4-depth-reboot-recovery-20261016.md)
+preserves the servicing interruption and all 402 completed native/Chrome
+outcomes, adds only the missing 201 Firefox outcomes, and retains 195 frozen-v1
+outcomes. All layouts validate and all original quality limits pass: native
+median +0.000614%; Chrome/Firefox subset medians +0.851159%/+0.828477%, worst
+jobs +2.455588%/+2.561291%. Full G5 aggregate and each-seed bounds also pass.
+The separate Firefox recovery took 27.451 minutes; no continuous original
+session or general speed gain is claimed. Raw evidence is sealed. The new
+conditional scale/export sequence has started; complete H4 review remains
+required. No gate closure or release; completion stays 45%.

@@ -3,7 +3,8 @@
 Artem authorized the next GitHub release when ready on 2026-10-16. The current
 candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration,
 its isolated browser pilot, current package verification and all six hosted
-checks. Full quality, scale and exported-curve fidelity remain required. Milestone
+checks. The recovered full quality comparison now passes; scale and exported-curve
+fidelity remain required. Milestone
 completion remains 45%; a preview does not close the remaining v1.1 gates.
 
 The README describes LightBurn projects, leads, common-line limits, automatic
@@ -24,12 +25,14 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
 - [The original full comparison](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
   was interrupted by a Windows servicing restart after 201 native and 201 Chrome
   valid outcomes. Firefox had started but saved no outcomes; scale never began.
-  The [recovery plan and preserved interruption](../benchmarks/results/h4-depth-reboot-recovery-20261016.md)
-  retain all 402 completed current-build outcomes plus 195 frozen-v1 baselines,
-  then run the missing 201 Firefox outcomes with the unchanged build, jobs,
-  seeds, budgets and limits. Native and Chrome quality bounds pass; full H4
-  acceptance still requires Firefox, scale and export review. The original
-  session is never relabelled as complete or passing.
+  The [completed recovery](../benchmarks/results/h4-depth-reboot-recovery-20261016.md)
+  retains all 402 completed current-build outcomes plus 195 frozen-v1 baselines,
+  and adds the missing 201 valid Firefox outcomes under unchanged limits.
+  All quality conditions pass: native +0.000614%; curve-subset medians Chrome
+  +0.851159% / Firefox +0.828477%, worst jobs +2.455588% / +2.561291%; full
+  development aggregate and every-seed G5 limits also pass. The original
+  interrupted session remains preserved. Scale and export review are still
+  required; the conditional scale sequence has now started.
 - [Current requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
   verifies the eleven subset cases, all 65 development jobs, original budgets,
   seeds and physical cores, and the exact current WASM's unshared memory.
