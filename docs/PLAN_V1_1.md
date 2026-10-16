@@ -422,6 +422,14 @@ requirement is changed.
 
 **N4 material follow-up, 2026-10-15:** [48 diagnostic runs](../benchmarks/results/h5-material-probes-20261015.md) validate, but longer initial packing and rigid complementary-bracket pairs both worsen the mechanical-job medians. Neither lever is integrated. H5 remains open on the original +1% material condition; these results do not prove it unreachable.
 
+**N4 exchange follow-up, 2026-10-16:** the [72-attempt paired pilot](../benchmarks/results/h5-exchange-pilot-v2-20261016.md)
+validates every outcome, but all four mechanical/kerf medians remain above +1%
+material, at +4.175294% to +5.869406%. No candidate run records an exchange
+proposal. Two separately planned debug observations show neither reaches the
+exchange call. The isolated candidate is not integrated. A future experiment may
+test the existing bounded initial relocation opportunity; the complete original
+H5 conditions and failed results remain unchanged.
+
 ### 4.6 N5: lead-in allowances
 
 Build the section 3 lead-in scope:

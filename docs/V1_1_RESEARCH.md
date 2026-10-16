@@ -866,3 +866,16 @@ checking the same nonnegative partial-score bound within long pole rows. It must
 retain accumulation order, accepted score bits, ties, geometry, work accounting
 and deadlines. Extra checks may cost time, so no speed or quality benefit is
 assumed. It is separate from the unintegrated common-line exchange candidate.
+
+### 2026-10-16: directed-exchange pilot and path observations
+
+The [paired H5 pilot](../benchmarks/results/h5-exchange-pilot-v2-20261016.md)
+retains all 72 valid outcomes. Mechanical candidate medians remain +4.175294%
+to +5.869406% above ordinary mode, failing +1%; all 24 candidate runs have zero
+exchange proposals. Two [existing-timer diagnostics](../benchmarks/results/h5-exchange-path-20261016.md)
+also validate and show no exchange call, although both record separator work
+and panel-hardware records ordinary relocation. Exchange is called only after
+three failed separation returns; a call can consume the remaining exploration
+budget. This is evidence about the two observed trajectories, not a proof of
+unreachability. The earlier bounded relocation opportunity is a new hypothesis.
+Keep the candidate isolated and preserve all original gates and attempts.

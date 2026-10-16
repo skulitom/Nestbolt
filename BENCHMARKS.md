@@ -12881,3 +12881,21 @@ The sealed archive retains 651 members, 832,260 bytes, SHA-256
 Historical work-rate differences are explicitly trajectory-dependent diagnostics.
 The original preview failure remains preserved; the candidate is still isolated.
 Full G5/native, scale and integration checks remain. H4 stays open at 45%.
+
+### 2026-10-16 — Directed-exchange pilot fails material; call path diagnosed
+
+The [72-attempt pilot](benchmarks/results/h5-exchange-pilot-v2-20261016.md)
+validates every outcome, but candidate mechanical medians remain +4.175294%
+to +5.869406% above ordinary mode, failing the original +1% limit. All 24
+candidate runs record zero exchange proposals. Every per-attempt archive,
+member hash, saved layout, counter, independent metric and cutting calculation
+is verified; no incomplete or failed result is excluded. The candidate remains
+unintegrated. The full 13-job H5 gate is still required.
+
+Two separately planned [debug-timer observations](benchmarks/results/h5-exchange-path-20261016.md)
+on the unchanged candidate both validate, with zero metric difference, but
+neither reaches the exchange call. These observations support testing its
+placement within the existing bounded relocation budget; they do not establish
+quality or speed. Their verified raw archive retains 28 members, 86,153 bytes,
+SHA-256 `1efce6bca92e82d124afd95157f965554487566cace211b58c490428b5ed81a4`.
+All original failures, plans and thresholds stand. H5 remains open at 45%.
