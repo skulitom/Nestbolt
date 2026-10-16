@@ -23,8 +23,10 @@ now passes the eleven-job subset: 99 valid layouts, Chrome +0.378238% and Firefo
 +0.432882% median material, with every job within +5%. Four exact fixed-work
 pairs also pass. It is now integrated in candidate `7eba929`, whose
 [full local application checks](../benchmarks/results/h4-score-integration-20261016.md)
-pass. Its own committed full comparison is starting; current scale checks and
-green hosted CI remain required. The common-line exchange pilot failed its
+pass. Its own committed full comparison is running; current scale checks and
+green hosted CI remain required. Its [three-platform package dry run and
+downloaded Windows package verification](../benchmarks/results/preview-score-release-dryrun-20261016.md)
+also pass. The common-line exchange pilot failed its
 material condition and remains unintegrated. No general speed claim follows
 from the subset alone. Later evidence-only commits do not change the candidate.
 

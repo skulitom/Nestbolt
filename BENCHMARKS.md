@@ -12915,3 +12915,17 @@ Its new 603-attempt full/subset plan is committed before measurement, reusing on
 195 sealed frozen-v1 outcomes. All thresholds and held-out exclusions stand.
 Hosted CI and final quality/scale confirmation remain required; no tag or release
 is created, and H4 stays open at 45% completion.
+
+
+## 2026-10-16 — Downloaded packages for integrated candidate 7eba929
+
+[The new package dry run](benchmarks/results/preview-score-release-dryrun-20261016.md)
+passes for `7eba929` / `0.2.0-alpha.1`: all three native archives have the
+expected entries, architectures, permissions and exact documents. Native CI
+checks executable versions. The downloaded Windows archive and actual MCPB
+also pass local version, import, nesting, validation, catalog and confinement
+checks from an isolated verifier on CCD1. Bundle/server/checksum/metadata bytes
+agree. Release publication was skipped. No tag, release, attestation or registry
+publication was created; published download/provenance checks remain required.
+The current H4 full matrix is running against frozen root source/builds. These
+package checks do not change its inputs, thresholds or the 45% completion weight.
