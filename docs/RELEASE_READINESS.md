@@ -9,6 +9,13 @@ setup, automatic browser workers and native downloads. Its headline comparison
 is explicitly the frozen v1 benchmark at `75cbb32`. It makes no new comparative
 quality claim for this preview.
 
+The release candidate is frozen at `0a9fb44`, the commit used by its passing CI,
+three-platform package dry run and active performance confirmation. The preview
+tag will target that tested commit after the remaining checks pass. Subsequent
+main commits currently contain evidence, status updates and isolated experiment
+tools; production and packaged files remain unchanged. If those files change,
+the release candidate and its required checks must be reconsidered.
+
 ## Before publishing
 
 - The [guarded 65-job comparison](../benchmarks/results/h4-full-development-20261016.md)

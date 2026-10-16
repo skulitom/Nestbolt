@@ -12796,3 +12796,19 @@ or speed benefit is established. The candidate is not integrated; production
 and active H4 guards remain unchanged. Original compile, fixture/oracle and broad
 lint setup failures are retained with the final source, helpers and executables
 in a 292-member verified archive. H5 remains open; completed weight stays 45%.
+
+
+## 2026-10-16 — Matched observers and committed-plan preparation for the exchange pilot
+
+[The 72-attempt pilot preparation](benchmarks/results/h5-exchange-pilot-preparation-20261016.md)
+covers the two failed mechanical jobs and two controls, both kerfs, seeds 0–2,
+and ordinary baseline/common baseline/common candidate arms at equal 60-second
+budgets. Each three-arm block uses one physical core with rotated order. Eight
+fixed-work observer runs match public CLI layouts/metrics exactly; five runner
+tests preserve failures, coverage and the original +1% condition. An initial
+shared-target cache failure produced identical baseline/candidate executables;
+its logs and rejected binary are retained. A fresh candidate-only target gives
+distinct bytes and passing API checks. The 376-member archive verifies fully.
+No timed pilot has started, no product source changed and no H5 claim follows.
+The runner requires completed current H4 quality and both scale fixtures first.
+Completion remains 45%; the preview stays frozen at its tested commit 0a9fb44.

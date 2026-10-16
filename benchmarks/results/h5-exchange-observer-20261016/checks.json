@@ -1,0 +1,224 @@
+{
+  "scope": "Archive matched observers and the rejected cached binary before the pilot.",
+  "production_source_unchanged": true,
+  "current_H4_guards_unchanged": true,
+  "baseline_build": {
+    "arm": "baseline",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+      "cargo",
+      "build",
+      "--release",
+      "-p",
+      "nestbolt-core",
+      "--example",
+      "exchange_probe",
+      "--locked",
+      "--target-dir",
+      "C:\\DEV\\Nestbolt\\output\\ci-curve-probe\\target"
+    ],
+    "started": "2026-10-16T01:10:24.638593+00:00",
+    "finished": "2026-10-16T01:11:47.148949+00:00",
+    "exit_code": 0,
+    "driver_sha256": "921134696223e55239a80b2bd8723f0fcf5ea6a6723f18f64fc2a2fb6900491b",
+    "binary_sha256": "00127ab7c98145b9294e471725b255f85d293a32dffc5f52759afbe775959513"
+  },
+  "candidate_build": {
+    "arm": "candidate",
+    "command": [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+      "cargo",
+      "build",
+      "--release",
+      "-p",
+      "nestbolt-core",
+      "--example",
+      "exchange_probe",
+      "--locked",
+      "--target-dir",
+      "C:\\DEV\\Nestbolt\\output\\h5-exchange-observer-candidate-target"
+    ],
+    "started": "2026-10-16T01:13:06.215586+00:00",
+    "finished": "2026-10-16T01:14:49.484899+00:00",
+    "exit_code": 0,
+    "fresh_target": true,
+    "driver_sha256": "921134696223e55239a80b2bd8723f0fcf5ea6a6723f18f64fc2a2fb6900491b",
+    "binary_sha256": "25efd689909fa5e2d66d86fe09e6a9af39118c4c67c9c9d1e330a6a3d28c7358"
+  },
+  "public_CLI_agreement": {
+    "all_checks_pass": true,
+    "scope": "Check observer/CLI agreement on authored fixed-work inputs on CCD1.",
+    "observer_runs": 8,
+    "additional_baseline_CLI_runs": 2,
+    "held_out_geometry_read": false,
+    "performance_measurement": false,
+    "records": [
+      {
+        "seed": 0,
+        "mode": "normal",
+        "arm": "baseline",
+        "binary_sha256": "00127ab7c98145b9294e471725b255f85d293a32dffc5f52759afbe775959513",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 0,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 12
+      },
+      {
+        "seed": 0,
+        "mode": "normal",
+        "arm": "candidate",
+        "binary_sha256": "25efd689909fa5e2d66d86fe09e6a9af39118c4c67c9c9d1e330a6a3d28c7358",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 0,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 12
+      },
+      {
+        "seed": 0,
+        "mode": "common",
+        "arm": "baseline",
+        "binary_sha256": "00127ab7c98145b9294e471725b255f85d293a32dffc5f52759afbe775959513",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 0
+      },
+      {
+        "seed": 0,
+        "mode": "common",
+        "arm": "candidate",
+        "binary_sha256": "25efd689909fa5e2d66d86fe09e6a9af39118c4c67c9c9d1e330a6a3d28c7358",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 2,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 0
+      },
+      {
+        "seed": 1,
+        "mode": "normal",
+        "arm": "baseline",
+        "binary_sha256": "00127ab7c98145b9294e471725b255f85d293a32dffc5f52759afbe775959513",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 0,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 12
+      },
+      {
+        "seed": 1,
+        "mode": "normal",
+        "arm": "candidate",
+        "binary_sha256": "25efd689909fa5e2d66d86fe09e6a9af39118c4c67c9c9d1e330a6a3d28c7358",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 0,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 12
+      },
+      {
+        "seed": 1,
+        "mode": "common",
+        "arm": "baseline",
+        "binary_sha256": "00127ab7c98145b9294e471725b255f85d293a32dffc5f52759afbe775959513",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 4,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 0
+      },
+      {
+        "seed": 1,
+        "mode": "common",
+        "arm": "candidate",
+        "binary_sha256": "25efd689909fa5e2d66d86fe09e6a9af39118c4c67c9c9d1e330a6a3d28c7358",
+        "exact_CLI_layout_and_metrics": true,
+        "independently_valid": true,
+        "stats": {
+          "direct_insertions": 0,
+          "separated_insertions": 0,
+          "failed_insertions": 4,
+          "ejections": 0,
+          "ejection_moves": 0,
+          "eliminated_sheets": 0,
+          "compressions": 1,
+          "rejected_layouts": 0
+        },
+        "riders": 0
+      }
+    ]
+  },
+  "candidate_product_changes": [
+    "crates/core/src/sheets.rs",
+    "crates/core/src/sheets/vstrip.rs",
+    "crates/core/src/sheets/vstrip/exchange.rs"
+  ],
+  "identical_observer_source_sha256": "921134696223e55239a80b2bd8723f0fcf5ea6a6723f18f64fc2a2fb6900491b",
+  "rejected_shared_target_candidate_preserved": true,
+  "measurement_started": false,
+  "held_out_geometry_read": false,
+  "runner_tests_passed": 5,
+  "previous_functional_evidence_archive": "benchmarks/results/h5-directed-exchange-functional-20261016/raw.zip",
+  "previous_functional_evidence_sha256": "724145500bb28d419034d95f9027d692f210d2198cd87e03ddcaafd85a62c77a"
+}

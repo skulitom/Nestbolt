@@ -60,6 +60,11 @@ obstruction and repairs both sheets before independent whole-job acceptance.
 Original failures are retained. It is not integrated and has no equal-budget
 packing comparison yet; the two mechanical material failures and H5 remain open.
 The production release candidate and active H4 measurement remain unchanged.
+The [paired pilot plan](../benchmarks/results/h5-exchange-pilot-preparation-20261016.md)
+now covers 72 equal-budget attempts with matched observers, both mechanical
+failures and two controls. Observer/CLI agreement and five runner tests pass;
+the original shared-target cache failure is retained. No pilot measurement has
+started; it waits for H4 quality and scale to release the measurement cores.
 
 Latest N2 checkpoint: [H3 completed](../benchmarks/results/h3-complete-20261015.md). The plan was committed before the three reserved projects were opened; all passed with 199 leaves / 247 contours, a maximum point difference below 0.000500 mm, nine allowed canonical sheet comparisons and exact validation metrics. The five native-checked layouts revalidate on the current build; all 298 original native evidence files and 1,181 frozen inventory files retain their hashes. Milestone completion is now 45%. H2 import acceptance, H4 browser/native performance and H5 material use remain open.
 
