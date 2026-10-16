@@ -13,8 +13,10 @@ The initial release candidate is frozen at `0a9fb44`, the commit used by its
 passing CI, package dry run and active performance confirmation. Its completed
 [Chrome subset fails H4](../benchmarks/results/h4-preview-chrome-failure-20261016.md):
 median +1.046217% against the unchanged +1% limit, despite all 201 Chrome layouts
-being valid. The preview will not be tagged from that failed result. Firefox
-will finish, and the complete original measurement will remain preserved. A
+being valid. The preview will not be tagged from that failed result. The
+[complete original measurement](../benchmarks/results/h4-preview-development-20261016.md)
+is now sealed: all 603 new layouts validate, Firefox passes its subset at
++0.788924%, and both browsers pass full G5. Chrome's subset failure remains. A
 corrected candidate needs its own checks. Subsequent main commits currently
 contain evidence, status updates and isolated experiment tools; production and
 packaged files remain unchanged.
@@ -40,8 +42,10 @@ packaged files remain unchanged.
   ([run](https://github.com/skulitom/Nestbolt/actions/runs/38830004774)).
   The integrated-build native measurement is complete with 201 valid layouts;
   its 65-job median difference from frozen v1 is 0%. Chrome's full G5 comparison
-  passes but its curve subset fails. Firefox and current scale checks remain
-  in progress or pending, so the release gate stays open.
+  passes but its curve subset fails. Firefox passes both comparisons. The
+  original matrix is complete and sealed; current scale checks were not run on
+  the failed build. The release gate stays open while an isolated exact-score
+  candidate earns its own evidence.
 - The preview version is `0.2.0-alpha.1`. Finish checking release notes and ensure the workflow
   marks the release as a preview without replacing the current stable Latest.
   [Release notes](../mcpb/RELEASE_NOTES.md) now describe the features, preparation

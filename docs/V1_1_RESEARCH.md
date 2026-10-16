@@ -845,9 +845,12 @@ The [completed Chrome arm](../benchmarks/results/h4-preview-chrome-failure-20261
 validates all 201 layouts and passes full G5 (median +0.242546%, total +0.571472%,
 with all three individual-seed bounds passing). The curve-heavy subset instead
 misses H4: median +1.046217% against +1%, although every job stays within +5%.
-Native passes its 65-job comparison with a 0% median change. The original Firefox
-arm continues; all results and limits remain unchanged, and the release stays
-pending. This observation does not establish a cause for the gap.
+Native passes its 65-job comparison with a 0% median change. The
+[complete original matrix](../benchmarks/results/h4-preview-development-20261016.md)
+is now sealed with all 603 new layouts valid. Firefox passes the subset at
++0.788924% and full G5 at +0.140371% median/+0.401506% total. All results and limits
+remain unchanged, and the release stays pending. This observation does not
+establish a cause for the gap.
 
 The existing collision-scoring profile motivates an isolated investigation of
 checking the same nonnegative partial-score bound within long pole rows. It must

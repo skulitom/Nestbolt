@@ -32,8 +32,12 @@ and downloaded Windows archive/MCPB checks also pass. The current native
 performance measurement has 201 valid layouts and a 0% median difference from
 frozen v1 across 65 jobs. All 201 Chrome layouts validate and full G5 passes,
 but the [curve subset misses H4](../benchmarks/results/h4-preview-chrome-failure-20261016.md)
-at +1.046217% against +1%. The release stays pending; the original Firefox
-measurement continues, with no repeat or threshold change.
+at +1.046217% against +1%. The [complete original matrix](../benchmarks/results/h4-preview-development-20261016.md)
+is now sealed with all 603 new layouts valid. Firefox passes its subset at
++0.788924% and full G5 at +0.140371% median/+0.401506% total. The release stays
+pending, with no repeat or threshold change. A separately built exact-score
+candidate has passed its focused checks and has a committed development probe;
+its performance benefit is not established.
 
 Latest repository reconciliation (2026-10-15): [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
 is tagged at `6c462c2`, and the [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654)

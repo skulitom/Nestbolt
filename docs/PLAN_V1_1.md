@@ -540,6 +540,8 @@ No threshold, held-out allocation or published v1 result is changed.
 The integrated preview's completed [Chrome arm](../benchmarks/results/h4-preview-chrome-failure-20261016.md)
 now has 201 valid layouts and passes full G5, but its eleven-job median is
 **+1.046217%**, above the unchanged **+1%** H4 limit. Native passes with a 0%
-median change across 65 jobs. The original Firefox arm is still running and
-will be preserved; no unchanged-build repeat or threshold adjustment is made.
+median change across 65 jobs. The [complete original matrix](../benchmarks/results/h4-preview-development-20261016.md)
+is now sealed: all 603 new layouts validate, Firefox passes its subset at
++0.788924%, and both full G5 comparisons pass. Chrome's subset failure remains;
+no unchanged-build repeat or threshold adjustment is made.
 The preview release remains pending, H4 is incomplete, and completion stays 45%.

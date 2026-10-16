@@ -12839,3 +12839,17 @@ attempt are retained; saved successful stages were verified without rebuilding.
 The fixed plan requires four exact equal-work pairs before one 99-attempt H4
 subset, after the original preview matrix finishes and is sealed. No measured
 search has started, no benefit is claimed, and no threshold or milestone changes.
+
+### 2026-10-16 — Integrated preview matrix completed, Chrome failure retained
+
+The [complete original measurement](benchmarks/results/h4-preview-development-20261016.md)
+has 603/603 valid new layouts and 195 verified reused frozen-v1 outcomes.
+Native's 65-job median remains 0%; Chrome/Firefox full-G5 medians are
++0.242546%/+0.140371%, totals +0.571472%/+0.401506%, with every individual seed
+passing. Firefox's curve subset passes at +0.788924%; Chrome's +1.046217% fails
+the unchanged +1% limit. No original attempt is repeated or discarded. Source,
+engine, site, runner and fixture guards pass, and all standalone metrics agree
+exactly. The verified raw archive retains 3,321 members, 9,440,624 bytes, SHA-256
+`2fb60ac10d366b28a9db204cfd36bd04f05950b38599a3641476b3f0031d923e`.
+The preview stays unreleased, H4 stays open, and completion stays 45%. The
+separately committed exact-score candidate now starts its own development probe.
