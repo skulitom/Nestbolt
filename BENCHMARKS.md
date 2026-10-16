@@ -13001,3 +13001,19 @@ retained; the final checker uses the seekable reader and raw entity counts.
 This partial older-project preparation does not check current candidate exports
 or close H4. Full quality and current scale are still running/queued. No held-out
 geometry, source, threshold, release or completed milestone weight changes (45%).
+
+
+## 2026-10-16 — Current preview profiling plan, before execution
+
+The completed Chrome subset in the still-running `7eba929` matrix misses the
+unchanged +1% median limit at +1.0326788423947297%; all 33 subset layouts validate.
+Firefox continues unchanged, and no scale or release follows a quality failure.
+The [new CPU diagnostic plan](benchmarks/results/h4-current-profile-plan-20261016/plan.json)
+profiles current-build gear-1, sign-1 and example-gears once each: seed 0, 60 s,
+physical CCD0 CPU 8, serial Chrome pages and 1 ms CDP sampling. The earlier
+profiles predate both exact-score changes. These samples locate current costs;
+they are not a repeated quality gate, and do not replace any failed result.
+The guarded launcher waits for the full matrix and its conditional sequence to
+be terminal and sealed, then runs before the unopened H5 pilot. Nothing starts
+here. No product, dependency, deadline, work coefficient, threshold or held-out
+input changes; completion stays 45%. No optimization is selected in advance.

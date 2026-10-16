@@ -1,0 +1,174 @@
+{
+  "scope": "Current-build CPU diagnosis after complete quality measurement; no repeated quality gate",
+  "candidate": "7eba929420d218d04169c1fdf24481051c8afae5",
+  "reason": "Complete Chrome subset is +1.0326788423947297% median against +1%; original Firefox run still finishes unchanged. Prior profiles predate both bounded-score changes.",
+  "jobs": [
+    {
+      "category": "public-art",
+      "held_out": false,
+      "source": "openclipart-gear",
+      "parameters": {
+        "maximum_dimension_mm": 50,
+        "secondary_scale": 0.65,
+        "copies_each": 20
+      },
+      "construction": "Steren Gear SVG path2125 only; out-of-view decorative text omitted explicitly. Two uniform scales, original contour detail and central hole retained. Source viewBox units converted by declared maximum dimension.",
+      "id": "m-public-gear-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 40,
+      "files": {
+        "maker-assets/m-public-gear-1/curves.json": "9f9ba1193ef7bbe5c333e052d154fc41a750aea1944a69a9d36bae79e6608caa",
+        "M/m-public-gear-1.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+        "maker-assets/m-public-gear-1/original.svg": "43124915a6287e48c26959696e0aa23fda6ff71924059506468117f2da9a02ca",
+        "maker-assets/m-public-gear-1/parts.svg": "cf6e485956509bc00c3aa733306270d513e5c89563a6328c3fa3b2e725655616"
+      },
+      "path": "benchmarks/datasets/M/m-public-gear-1.json",
+      "sha256": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671"
+    },
+    {
+      "category": "lettering",
+      "held_out": false,
+      "source": "noto-sans",
+      "parameters": {
+        "text": "NESTBOLT",
+        "copies": 12,
+        "cap_height_mm": 25,
+        "font_variation": "default wght=400, wdth=100"
+      },
+      "construction": "Separate uppercase sign letters; spaces omitted; repeated characters become quantities. Font quadratic curves retained; counters remain holes.",
+      "id": "m-sign-1",
+      "set": "M",
+      "units": "mm",
+      "part_count": 96,
+      "files": {
+        "maker-assets/m-sign-1/curves.json": "37241d09ff428f7eddb41f1a1b5eccbca44569375cbe3c2eeb947dbb193105b1",
+        "M/m-sign-1.json": "c71ba09985e7a0b8cdd9bec3398abb66043586ce382b14e19172dc450564c7aa",
+        "maker-assets/m-sign-1/parts.svg": "f802ea3db50abf41e41721fb15d6dfb320128d01f5a99c17c0e71ac4825d31f1"
+      },
+      "path": "benchmarks/datasets/M/m-sign-1.json",
+      "sha256": "c71ba09985e7a0b8cdd9bec3398abb66043586ce382b14e19172dc450564c7aa"
+    },
+    {
+      "id": "example-gears",
+      "path": "benchmarks/datasets/browser-quality/gears/job.json",
+      "sha256": "aa4ee1aff9159ae7e86fb4aa9e78f9bb86613f6c952e997417e87d8bc921c779",
+      "parts": 2,
+      "copies": 40,
+      "declared_glyph_quantities": 40,
+      "maximum_geometry_json_roundtrip_difference": 1.4210854715202004e-14,
+      "source": "web/public/examples/gears.svg",
+      "source_sha256": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "example": {
+        "id": "gears",
+        "title": "interlocking gears",
+        "file": "gears.svg",
+        "summary": "40 gears in two sizes with free rotation, so teeth can mesh, on a 300 \u00d7 200 mm bed.",
+        "quantities": {
+          "gear-1": 20,
+          "gear-2": 20
+        },
+        "rotations": {
+          "kind": "free"
+        },
+        "sheet": [
+          300,
+          200
+        ],
+        "margin": 5,
+        "spacing": 1,
+        "edge": 1,
+        "seconds": 20
+      },
+      "import_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\nestbolt.exe",
+          "import",
+          "C:\\DEV\\Nestbolt\\web\\public\\examples\\gears.svg",
+          "--output",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\library.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03704569999536034,
+        "cpu": 0
+      },
+      "job_command": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\target\\release\\examples\\project_job.exe",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\library.json",
+          "C:\\DEV\\Nestbolt\\benchmarks\\datasets\\browser-quality\\gears\\request.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.03340219998790417,
+        "cpu": 0
+      },
+      "library": "benchmarks/datasets/browser-quality/gears/library.json",
+      "request": "benchmarks/datasets/browser-quality/gears/request.json"
+    }
+  ],
+  "seconds": 60,
+  "seed": 0,
+  "cpu": 8,
+  "concurrency": 1,
+  "sampling_interval_us": 1000,
+  "method": "Original isolated Chrome main-page CDP profiler, current production WASM; fresh page per job. Independent validation and exact metrics; timing/profile data are diagnostic only.",
+  "source_changes": false,
+  "quality_gate_evidence": false,
+  "new_quality_comparison": false,
+  "held_out_geometry_read": false,
+  "start_requires": [
+    "Full preview matrix is terminal, complete and sealed",
+    "Conditional scale sequence is terminal with completed/stopped record and no interruption",
+    "No H5 pilot or other measured search is active"
+  ],
+  "guards": {
+    "product": "c571ee083d17419941bbd36440c7ff859b5aab72b1bc4139d11a8443bf2fe208",
+    "files": {
+      "scripts/h4_quality.py": "52a166ab0639d9fa208660c473b723aef92f33ae0313b9c7e316d15e1149e550",
+      "scripts/g5_browser.py": "71dd571ba811a2936b5dd28dd477cb1ec825d4ca8a3f132e1bbedc5fbaab39ed",
+      "scripts/sheets_batch.py": "2255830e3af310f3f44485001e18ba9110ff0102ee3dfe4bd403dae829b2edb6",
+      "scripts/dataset_selection.py": "7563c472331d6161e67937d6f8cd75c8e6cc67672111c7e97c8e8d7f1f205553",
+      "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+      "web/bench/run.mjs": "1f074f45ce402d9b1013958b5797cd7adfc0c7972028348fd004764029d9280d",
+      "target/release/nestbolt.exe": "85a84342aa18e827e94b2bdfb24387df029ee8b877fc7e61433cd550f83f876c",
+      "benchmarks/datasets/browser-quality/manifest.json": "584a738eb043b8fcbf68e6654e1fe3e8c5d03e61d426cba4e31431dca3f79445",
+      "benchmarks/datasets/makers.json": "d9dd7219a8dee51c2530758a59e1d75ab8556c15e2736c1265028891419a01cd",
+      "benchmarks/datasets/academic.json": "8409fc41a1971515c74e85a213db5c38ee0634a45d9651ab72b0fc5be2ce113d",
+      "benchmarks/datasets/M/m-public-gear-1.json": "9f978a3bfd0ff342955053abebe8b395a8247d7d22d63eee0727647e6e52f671",
+      "benchmarks/datasets/M/m-sign-1.json": "c71ba09985e7a0b8cdd9bec3398abb66043586ce382b14e19172dc450564c7aa",
+      "benchmarks/datasets/browser-quality/gears/job.json": "aa4ee1aff9159ae7e86fb4aa9e78f9bb86613f6c952e997417e87d8bc921c779",
+      "benchmarks/datasets/browser-quality/gears/library.json": "7ac051dd657418faadab50b21a97f141e0ddea5e605c204cd79e7b3b3cb23301",
+      "benchmarks/datasets/browser-quality/gears/request.json": "37079113745e85c110fb3b6115d17fe5789dd88d9beb55c9533ffb9e1d49aa84",
+      "web/dist/assets/archive-worker-BTW6Cxt_.js": "b0866cdd5027ea5d55780b040d8f6e3af64bae60b5a63a3295c597e6a585544f",
+      "web/dist/assets/bench-B0y8Fe1z.js": "d8c7fdcfb495c138923cd7d96d24a0d41b11ee209833c6ec87f9580eaadc9fe5",
+      "web/dist/assets/engine-doMBGkgw.js": "df55116de41db5278adc68b2d8af5b6a7f47cf1c6043fcbd7b924f34e243dca1",
+      "web/dist/assets/main-Hcbbj-fX.js": "40c471288d8625c6e61c62400e2aac2e19cb4c47f5fe345b95eddb5c44e7e774",
+      "web/dist/assets/main-mA8Hn3k0.css": "957b6388afa9d1602d51a80b74ea6fd900f5910f0c2961e27470ef2f4919a8b7",
+      "web/dist/assets/nestbolt_wasm_bg-DQQ_icMM.wasm": "51ddb8f2eecd4daf12249b9d42998fbfa5e16248e39a1de08ce3ac781b12f472",
+      "web/dist/assets/worker-OcMBLbog.js": "7fbf29118893de0f295bf721832189d7c33b750a1b10bbcf9e4a55fc01a07ce7",
+      "web/dist/bench.html": "bf6796c6db62273ea1e36842467a603b2c2ce2d98618a06a0d58b341fa9cd8fe",
+      "web/dist/examples/boxes.svg": "7dbffb99b16666c8ce2d11e73538a7761cd2f43a845eb1793cfe08c60fa201d0",
+      "web/dist/examples/examples.json": "7b35557f609f4ae163c17b455acd88db4a75e5702a1ba5ad077b135e36d037fc",
+      "web/dist/examples/gears.svg": "438e728c3584dc6b07afcb9c5a25c9fcd55686356758fb2e8aaa112ae0ce93ff",
+      "web/dist/examples/letters.svg": "bae2b675410bc0d39d7171fcbcbbc16e021f0ef7550d5ed525c6e151f5874f7a",
+      "web/dist/examples/LICENSES.txt": "f8a4965587f7ff36098453a66bf12ffd938bc347e41a48f1baf918a87a232a82",
+      "web/dist/examples/mechanical.svg": "fce476d786fe1075e4991d6b26e8a36a194c193faa461d4d602d2ad8f59c1409",
+      "web/dist/examples/sewing.svg": "549457bd2cb3698ca9b4e3a2a071d3fb5e6a67c41ef23df3b311da22095a1a9a",
+      "web/dist/index.html": "063ff2209255aab0032ca7708f757701f178a5054c0285971e6c2c7c2fa7a755",
+      "web/dist/results/final-484ce8b/index.html": "45192de7938f7fadcca4efed0cfe51f4f97a733658faa5e1b536ea62292d11e3",
+      "web/dist/results/final-484ce8b/results.json": "65531883c8446dceacff3246a1c4e46727b3253b1a2677a7ef875d96d9a4fc2d",
+      "web/dist/results/index.html": "4145368c1d0929574096b69e3adee945510cbd61ec80de8cdd790fb74a7d28d1",
+      "web/dist/results/results.json": "495bf4b8d89652aee32f75c21c1c51dbeaeda0c6ac3d710ff5a56c0933b62878",
+      "web/dist/THIRD_PARTY_NOTICES.txt": "7b8557902f6891966b64ec2d2f0d4dbff69b193e497fe29172aa237f6fe0aa5f"
+    }
+  },
+  "files": {
+    "output/profile_current_h4.py": "dfc5c09d419dd9ceb94acb156d80c1ba0ecf417ef67839c7f9ba0e2d58ccaa5f",
+    "scripts/h4_browser_profile.py": "6d9b05ab57b6dbcc13d8cd8fc3aaf5e649aca53df2f0abd449404e2e2792411d",
+    "web/bench/profile.mjs": "729bb68ecc570ea01c06368c57ed6c95e65c117de2a77bb239784d97ee8481df",
+    "benchmarks/results/h4-preview-score-release-20261016/plan.json": "3cd596251a998d4b53d01e01d8b8767ea7b87a69da75926a1f47c20807fa77e9",
+    "output/run_current_h4_profiles.py": "b017460b774a33dfc19dc8481d475f32578d61c86c1d523c896df66ea6082d98"
+  },
+  "first_run_only": true,
+  "change_after_profile": "Select one measured optimization only after reviewing actual current hotspots; no preset success claim."
+}
