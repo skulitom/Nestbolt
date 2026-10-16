@@ -27,8 +27,8 @@ is retained and the same-bundle check passes once competing writes stop.
 The [isolated pilot](../benchmarks/results/h4-quadtree-depth-probe-20261016.md)
 validates all 99 layouts and passes Chrome +0.689439% / Firefox +0.639475%.
 The [fresh full matrix](../benchmarks/results/h4-preview-depth-release-20261016/plan.json)
-is prepared with unchanged limits; current scale, exported-curve fidelity,
-hosted checks and package proof remain required. No common-line experiment is
+is now running with unchanged limits. Its [conditional scale/export sequence](../benchmarks/results/h4-preview-depth-scale-plan-20261016/plan.json)
+waits for a quality pass; hosted checks and package proof remain required. No common-line experiment is
 integrated. No preview tag or release exists, and completion stays 45%.
 
 The earlier `7eba929` [full comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
@@ -93,7 +93,8 @@ or three blockers when only one is removed. The two accepted exchanges do not
 establish a quality gain. Moving a complete smaller obstruction set is a possible
 next hypothesis. An [isolated obstruction-set candidate](../benchmarks/results/h5-obstruction-set-preparation-20261016.md)
 now passes 85 core tests, strict lint and authored public comparisons; no new
-quality run or integration has occurred. Original reader/report failures and
+quality run or integration has occurred. Its [committed 72-attempt pilot](../benchmarks/results/h5-obstruction-set-pilot-20261016/plan.json)
+waits for the entire current H4 sequence. Original reader/report failures and
 all measured outcomes remain.
 The original unopened pilot, revised scheduling rationale,
 shared-target cache failure and all measured outcomes remain preserved. H5 stays

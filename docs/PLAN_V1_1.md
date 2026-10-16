@@ -643,3 +643,12 @@ with the original failure retained. The [fresh full plan](../benchmarks/results/
 retains 603 new plus 195 verified frozen-v1 outcomes and every original limit.
 Scale, complete exported-curve checks and current packages remain separate.
 No H5 experiment is integrated, no H4 closure or release; completion stays 45%.
+
+
+**N3/N4 sequencing, 2026-10-16:** the new 603-attempt matrix is running from its
+committed plan. The [conditional scale/export plan](../benchmarks/results/h4-preview-depth-scale-plan-20261016/plan.json)
+seals/reports quality first, then runs the unchanged scale workflows only on a
+pass and checks all 2,000 exported curve placements in each browser. Root
+sources/builds remain frozen. The [72-attempt obstruction-set pilot](../benchmarks/results/h5-obstruction-set-pilot-20261016/plan.json)
+is committed but unopened; it waits for this entire sequence to finish.
+No threshold changes, automatic release or additional completed gate weight.

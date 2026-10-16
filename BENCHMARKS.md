@@ -13235,3 +13235,27 @@ Only the 195 verified frozen-v1 outcomes are reused. Original limits remain;
 all prior failures are preserved. The plan is committed before its one-use run.
 Current scale, full exported-curve fidelity, hosted checks and package proof
 remain required. No preview release or H4 credit; completed weight stays 45%.
+
+
+## 2026-10-16 — Depth candidate full run and conditional scale/export sequence
+
+The committed 603-attempt full matrix for `aba989e` has opened once. Its
+[conditional follow-up](benchmarks/results/h4-preview-depth-scale-plan-20261016/plan.json)
+waits for completion, verifies/archives every outcome and reports the original
+quality decision. Only a pass permits the unchanged H4 curved and G5 scale
+workflows. Both must pass actual memory/responsiveness/validation checks before
+independent SVG/DXF control-point checks inspect every saved curve sheet and all
+2,000 placements in each browser. No sheet filtering, regenerated exports or
+geometry repair is allowed. All helpers and hashes are retained before launch.
+Screenshot inspection and full requirement review still follow; no automatic
+H4 closure, tag or release is performed. Root source/builds remain frozen.
+
+The [separate obstruction-set pilot](benchmarks/results/h5-obstruction-set-pilot-20261016/plan.json)
+is prepared and committed before measurement. It retains four development
+jobs, both kerfs, seeds 0–2, three matched 60-second arms, rotating arm order
+and eight physical CCD0 cores, for 72 attempts. Its block generation, summary
+and individual-case method are AST-identical to the preceding paired pilot;
+only the candidate/baseline identities and explicit prerequisites change.
+It cannot start until the current H4 matrix/scale/export sequence is terminal
+and sealed. All original material/savings limits and failed pilots remain.
+No new H5 measurement or gate credit. Completed milestone weight stays 45%.
