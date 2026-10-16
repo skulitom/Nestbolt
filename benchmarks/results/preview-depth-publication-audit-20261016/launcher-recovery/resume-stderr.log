@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\output\complete_published_depth_verification.py", line 133, in <module>
+    provenance = list(pool.map(attest,[*archives.values(),'nestbolt-windows-x64.mcpb']))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\artem\anaconda3\Lib\concurrent\futures\_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\artem\anaconda3\Lib\concurrent\futures\_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\artem\anaconda3\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\artem\anaconda3\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\artem\anaconda3\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\DEV\Nestbolt\output\complete_published_depth_verification.py", line 126, in attest
+    assert completed.returncode == 0, name
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: nestbolt-v0.2.0-alpha.1-x86_64-pc-windows-msvc.zip

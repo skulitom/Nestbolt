@@ -2,7 +2,7 @@
 
 ## v1.1 — real shop files
 
-**Completion: 60%.** The goal is active under [PLAN_V1_1.md](PLAN_V1_1.md).
+**Completion: 60%.** The plan is tracked in [PLAN_V1_1.md](PLAN_V1_1.md).
 Only completed gate weights count. N0/H1, N2/H3, N3/H4 and N5/H6 are complete:
 the corpus and split are frozen; LightBurn preservation, browser quality/scale
 and lead allowances pass their complete requirement reviews. The
@@ -15,9 +15,20 @@ export palette and imported stock outlines now work through the UI, CLI and MCP.
 No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
 due by 2026-11-06. v0.1.0 was released and published to the MCP Registry on
 2026-10-14. On 2026-10-16 Artem authorized the next GitHub release when ready,
-including a README update. Preview `0.2.0-alpha.1` is being prepared; a new candidate
-passes its full quality, scale and export-fidelity review; this does not close the remaining v1.1 gates
-or authorize a new final acceptance run. Registry publication remains separate.
+including a README update. [Preview v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+is now published at `c36baa8`; [actual download and provenance checks](../benchmarks/results/preview-depth-published-20261016.md)
+and [Windows LightBurn/lead workflows](../benchmarks/results/preview-depth-published-features-20261016.md)
+pass. Stable Latest and its assets remain v0.1.0. This does not close the remaining
+v1.1 gates or authorize a new final acceptance run. No new registry version was published.
+
+
+**Follow-up browser CI:** the [separate c36baa8 main run](../benchmarks/results/preview-depth-followup-ci-20261016.md)
+has one Firefox lead-report failure (85 browser tests pass, four skip). Sixteen
+unchanged local repetitions pass, and the affected 28-test suite passes after
+improving error diagnostics. The original hosted cause is unresolved; new CI
+retains failure screenshots/traces. Release workflow and actual native download
+checks pass separately. Product behavior and gate thresholds are unchanged.
+
 
 **Release readiness, 2026-10-16:** candidate `aba989e` is version
 `0.2.0-alpha.1`. Its [integration checks](../benchmarks/results/h4-depth-integration-20261016.md)
@@ -44,7 +55,9 @@ four screenshots are reviewed. Original interruptions and failed candidates rema
 pass their checks, including actual Windows import/nest/validation/confinement.
 [All six hosted checks pass for this code](../benchmarks/results/preview-depth-hosted-checks-20261016.md); reviewed evidence is pushed to main as `21835ba`. The [requirement preflight](../benchmarks/results/h4-depth-requirement-preflight-20261016.md)
 confirms the original scope and unshared WASM memory. No common-line experiment
-is integrated. No preview tag or release exists; completed milestone weight is 60%.
+is integrated. The qualified preview is now published and verified; completed
+milestone weight remains 60%. The release record above supersedes the earlier
+dry-run and prepublication checkpoints.
 
 The earlier `7eba929` [full comparison](../benchmarks/results/h4-preview-score-release-20261016.md)
 retains 603 new and 195 reused valid outcomes, but Chrome's curve subset fails
@@ -233,7 +246,7 @@ Percentages count completed milestones only. Development results do not establis
 | Repeatability and rollback | Two compression replays have identical complete outputs. Tests preserve the full repacking history, other sheets and the valid incumbent when interrupted | [Compression replay](../benchmarks/results/compression-replay-20261012T0326.json); previous [blaz1 repair replay](../benchmarks/results/shallow-replay-20261012T0255.json) |
 | Quality triage | Combined search on all 65 development jobs (seed 0, up to 1,024 passes / 80M queries / 60 s): 65/65 valid; vs 52 finite 60 s competitor medians 27 wins/ties, 15 more than 1% worse, median reduction 0.396716%. Thirteen jobs have no finite competitor | [Corrected coverage](../benchmarks/results/search-coverage-20261012T051749Z.md); the frozen G2 target is 10.77231474%, so sheet search needs a much stronger separator |
 | Sheet separator | `nestbolt sheets`: warm start, then the last twelve sheets as one walled strip; the last sheet's free end is a pinned blocker (several sheets) or a shrinking container (one sheet). Three development seeds, 60 s, pinned CPUs: 195/195 valid; per-job median 48/52 wins/ties (92.3%); one job more than 1% worse (jakobs1 strip-sheet, -1.7%); median reduction **8.2619%** | [Seed 0](../benchmarks/results/sheets-eval-fixed-s0-20261012T125826Z-fd1af61e.md), [1](../benchmarks/results/sheets-eval-fixed-s1-20261012T130725Z-ece55c03.md), [2](../benchmarks/results/sheets-eval-fixed-s2-20261012T131624Z-24a17328.md); all earlier and interrupted batches in BENCHMARKS.md. All four losses are single-sheet jobs where Sparrow leads |
-| Speed (G4-style) | 30 s runs vs the frozen 300 s competitor medians, three seeds, with the rectangle warm start: 195/195 valid; **8 of the 9** jobs with a finite 300 s median reached (88.9%); m-box-mini ties at 0.6660, jakobs2 strip-sheet misses by 2.7% | [Seed 0](../benchmarks/results/sheets-ab-rects-30s-s0-20261012T142836Z-c9d2a6d1.md), [1](../benchmarks/results/sheets-ab-rects-30s-s1-20261012T143305Z-524036e1.md), [2](../benchmarks/results/sheets-ab-rects-30s-s2-20261012T143733Z-7272c8c3.md); previous build 7/9 |
+| Speed (G4-style) | 30 s runs vs the frozen 300 s competitor medians, three seeds, with the rectangle warm start: 195/195 valid; **8 of the 9** jobs with a finite 300 s median reached (88.9%); m-box-mini ties at 0.6660, jakobs2 strip-sheet misses by 2.7% | [Seed 0](../benchmarks/results/sheets-ab-rects-30s-s0-20261012T142836Z-c9d2a6d1.md), [1](../benchmarks/results/sheets-ab-rects-30s-s1-20261012T143305Z-524036e1.md), [2](../benchmarks/results/sheets-ab-rects-30s-s2-20261012T143733Z-b0a39fa9.md); previous build 7/9 |
 | Browser app | Same engine in WebAssembly Web Workers, several seeds in parallel; five bundled examples, live view of the best layout, offcut and bounding box per sheet; import, nest, export, defects, remnant outlines, several sheet sizes, fill modes, IndexedDB and ZIP projects | 22 Playwright tests (11 × Chromium and Firefox) in CI; [G5 quality](../benchmarks/results/g5-browser-60s-s0-20261012T182218Z-032f0985.md) and [scale](../benchmarks/results/g5-scale-20261012T192645Z-39d0cca0.md) pass; the four detailed-gear jobs remain 16-30% worse in one browser worker (half the native search rate) |
 | MCP server and packaging | Five tools, workspace confinement, no overwrites, repeatable work budgets; end-to-end stdio test. JSON Schemas for library, request and report. MCPB bundle, native archives and release/registry workflows (dispatch or tag only) | 20 Node packaging tests pass, including a real bundle import-nest-validate smoke test; [v0.1.0 released](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) on 2026-10-14 |
 | Export fidelity (G6) | 196 drawings (fixtures, example parts, 192 boxes.py examples): imported, nested, exported to SVG and DXF and re-imported; 29,308 contours, none unmatched, largest distance 0.0005 mm (SVG) and 0.0000045 mm (DXF) | [Passing report](../benchmarks/results/g6-fidelity-20261012T161009Z-310d54b1.md); `python scripts/g6_fidelity.py`. It found and fixed self-touching boxes.py outlines, DXF chaining and single-precision collisions |

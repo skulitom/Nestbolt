@@ -1,7 +1,10 @@
-# Next preview release
+# Published preview v0.2.0-alpha.1
 
 Artem authorized the next GitHub release when ready on 2026-10-16. The current
-candidate `aba989e` is version `0.2.0-alpha.1`; it passes local integration,
+product candidate `aba989e` was released as `v0.2.0-alpha.1` at `c36baa8`;
+the [published downloads and provenance](../benchmarks/results/preview-depth-published-20261016.md)
+and [Windows feature workflows](../benchmarks/results/preview-depth-published-features-20261016.md)
+pass. It also passes local integration,
 its isolated browser pilot, current package verification and all six hosted
 checks. [The full H4 requirement audit](../benchmarks/results/h4-depth-complete-20261016.md)
 now passes quality, scale, saved-curve fidelity and visual review. Completed
@@ -10,6 +13,15 @@ milestone weight is 60%; H2/H5 remain open and are disclosed in the preview.
 The README describes LightBurn projects, leads, common-line limits, automatic
 workers and native downloads. Its benchmark headline remains explicitly tied
 to frozen v1 build `75cbb32`, with no new competitor claim.
+
+
+**Follow-up browser CI:** the [separate c36baa8 main run](../benchmarks/results/preview-depth-followup-ci-20261016.md)
+has one Firefox lead-report failure (85 browser tests pass, four skip). Sixteen
+unchanged local repetitions pass, and the affected 28-test suite passes after
+improving error diagnostics. The original hosted cause is unresolved; new CI
+retains failure screenshots/traces. Release workflow and actual native download
+checks pass separately. Product behavior and gate thresholds are unchanged.
+
 
 ## Candidate checks
 
@@ -63,8 +75,9 @@ to frozen v1 build `75cbb32`, with no new competitor claim.
   runner inputs match tested commit `23442be`. Its newer main CI run
   [38857882488](https://github.com/skulitom/Nestbolt/actions/runs/38857882488)
   also passes all six jobs. The recovered quality/scale/export confirmation
-  is now complete. Verify the chosen tag commit retains those tested inputs
-  before publication, then verify the actual published downloads.
+  is now complete. The [tag preflight](../benchmarks/results/preview-depth-publication-audit-20261016/tag/preflight.json)
+  verifies unchanged tested product inputs, and the actual published downloads
+  have subsequently passed all checks.
 
 The earlier `7eba929` [full matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
 failed Chrome at +1.032679%; `0a9fb44` [failed at +1.046217%](../benchmarks/results/h4-preview-development-20261016.md).
@@ -73,11 +86,15 @@ Common-line exchange experiments remain isolated from production.
 
 ## Publication and disclosures
 
-After all current-candidate checks pass, publish the verified `v0.2.0-alpha.1`
-as a prerelease without replacing stable Latest. Verify actual published
-downloads, checksums and source/tag provenance, including the Windows bundle.
-Evidence-only commits must retain the tested product digest. No preview tag
-or release has been created. Registry publication remains separate.
+[v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+is published as a prerelease; stable Latest remains v0.1.0 with unchanged assets.
+All five release jobs pass. Actual downloads match their checksums, package
+contents and exact source/tag provenance; Windows CLI/MCPB import, nesting,
+validation, confinement and authored LightBurn/lead workflows pass. The
+[publication audit](../benchmarks/results/preview-depth-publication-audit-20261016/completion.json)
+preserves the original launcher and shared-cache errors and their limited
+verification recoveries. No release asset was replaced or redownloaded during
+recovery. Registry publication remains separate and was not performed.
 
 [Release notes](../mcpb/RELEASE_NOTES.md) disclose:
 
@@ -100,4 +117,4 @@ The README distinguishes that hosted version from development-browser features;
 this native/MCP preview does not itself dispatch the manual Pages workflow.
 
 The published v1 claims remain unchanged. Registry publication and a new final
-acceptance comparison remain separate actions. No preview tag or release exists yet.
+acceptance comparison remain separate actions. H2/H5 remain open at 60% completed weight.

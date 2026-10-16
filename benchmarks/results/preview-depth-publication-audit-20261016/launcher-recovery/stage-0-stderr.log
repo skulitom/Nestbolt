@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\output\ccd1.py", line 3, in <module>
+    p = subprocess.Popen(sys.argv[1:])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\artem\anaconda3\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\artem\anaconda3\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [WinError 193] %1 is not a valid Win32 application
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\output\verify_published_depth_preview.py", line 116, in <module>
+    subprocess.run([sys.executable,str(ROOT/'output/ccd1.py'),str(verifier)],cwd=ROOT,check=True,timeout=300)
+  File "C:\Users\artem\anaconda3\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:\\Users\\artem\\anaconda3\\python.exe', 'C:\\DEV\\Nestbolt\\output\\ccd1.py', 'C:\\DEV\\Nestbolt\\output\\verify_published_depth_preview_packages.py']' returned non-zero exit status 1.

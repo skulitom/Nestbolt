@@ -1,0 +1,33 @@
+{
+  "run": "38882959832",
+  "commit": "c36baa8145e9e7b51e5667f4e4eaa0242256fc6e",
+  "tag": "v0.2.0-alpha.1",
+  "commands": [
+    [
+      "python",
+      "output/verify_published_depth_preview.py",
+      "--run",
+      "38882959832",
+      "--commit",
+      "c36baa8145e9e7b51e5667f4e4eaa0242256fc6e"
+    ],
+    [
+      "python",
+      "output/verify_published_depth_features.py"
+    ]
+  ],
+  "helpers": {
+    "output/verify_published_depth_preview.py": "a36d2907016624a18422567787d2217182468449e5e9d8c7e357417391583c3b",
+    "output/verify_published_depth_features.py": "46becefaa116d8d25942babd6c903a486fa29c9d4b591248dc1cc860a0ce892f",
+    "output/verify_preview_depth_dryrun.py": "0a410c6a15140a7715af7ee10e203c11636347f70ccc7c4335366c1dede30ae7",
+    "output/check_downloaded_depth_features.py": "09987432a9c280f43ab1e8abfd16c41996007126de82d95de8f11cf6f8e3aad9",
+    "output/check_downloaded_depth_features.mjs": "afd20bec02d504469b97cc7d3af289a9f85c9573d5f97b536a57d0f04a8d7f9a",
+    "output/seal_downloaded_depth_features.py": "879c8ca83a3709561c4e2612dee2c24bfb25069dc3a4129249da9c7faae1f271"
+  },
+  "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+  "prepublication_sha256": "4c5d0f8455f944976e5822e0ffbec993a40def2ab7674fc2bd439c847bc831fe",
+  "poll_seconds": 30,
+  "wait_limit_seconds": 5400,
+  "no_automatic_retry_or_republication": true,
+  "scope": "Read the already dispatched tag workflow; then download, verify and test its published artifacts on CCD1. Never publish a registry version."
+}

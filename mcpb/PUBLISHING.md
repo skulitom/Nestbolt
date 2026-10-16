@@ -3,8 +3,11 @@
 **Release and registry publication follow Artem's authorization.** v0.1.0 was
 released and listed in the MCP Registry on 2026-10-14. On 2026-10-16 Artem
 authorized the next GitHub release when ready; see
-[reviewed decision 7](../docs/PLAN_V1_1.md#10-reviewed-decisions). The next preview
-still needs its release checks. Registry publication is a separate step.
+[reviewed decision 7](../docs/PLAN_V1_1.md#10-reviewed-decisions).
+[v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+is published as a prerelease with [verified downloads and provenance](../benchmarks/results/preview-depth-published-20261016.md).
+Stable Latest remains v0.1.0. Registry publication is a separate step; this
+preview did not publish a registry version.
 
 Pushing a version tag runs **Release**: locked Rust 1.98.1 builds of `nestbolt`
 and `nestbolt-mcp` for Windows x64 (C runtime linked statically, so no Visual C++

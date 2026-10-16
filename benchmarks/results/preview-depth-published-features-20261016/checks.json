@@ -1,0 +1,833 @@
+{
+  "all_checks_pass": true,
+  "artifact_commit": "c36baa8145e9e7b51e5667f4e4eaa0242256fc6e",
+  "cli_sha256": "4584cb68743430525f7ef71fc3d64e6979a0b3c652a88ac930390a84164e34fa",
+  "MCPB_sha256": "6bccdce3a1ed0199d90f4b784ef445f9df171de03a08231015880197e691a725",
+  "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+  "CLI_stages": [
+    {
+      "label": "uncached-text.lbrn2",
+      "args": [
+        "import",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\inputs\\uncached-text.lbrn2",
+        "--output",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\uncached-text.lbrn2.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "label": "mixed-fixed.lbrn2",
+      "args": [
+        "import",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\inputs\\mixed-fixed.lbrn2",
+        "--output",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\mixed-fixed.lbrn2.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "label": "import",
+      "args": [
+        "import",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\inputs\\lead-group.lbrn2",
+        "--output",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\library.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "nest",
+      "args": [
+        "nest",
+        "--library",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\library.json",
+        "--request",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\request.json",
+        "--out-dir",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\nested",
+        "--seconds",
+        "1",
+        "--repeatable",
+        "--time-limit",
+        "120"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "validate",
+      "args": [
+        "validate",
+        "--library",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\library.json",
+        "--request",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\request.json",
+        "--layout",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\nested\\layout.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "export",
+      "args": [
+        "export",
+        "--library",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\library.json",
+        "--request",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\request.json",
+        "--layout",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\nested\\layout.json",
+        "--out-dir",
+        "C:\\DEV\\Nestbolt\\output\\preview-depth-published-feature-checks-20261016\\exported"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "MCPB_checks": {
+    "all_checks_pass": true,
+    "version": "0.2.0-alpha.1",
+    "validation": {
+      "common_line": null,
+      "lead_in": {
+        "expected_contours": 10,
+        "flagged_contours": 2,
+        "options": {
+          "hole_angle_degrees": 90,
+          "kerf_mm": 0.2,
+          "length_mm": 3,
+          "outer_angle_degrees": 45,
+          "style": "line"
+        },
+        "parts": [
+          {
+            "bounds_mm": [
+              1.005015,
+              1.005015,
+              70.326539,
+              33.326539
+            ],
+            "contour_count": 5,
+            "copy_index": 0,
+            "flags": [
+              {
+                "contour_index": 4,
+                "reason": "Open cutting contour has no enclosed waste side; its original path is exported without a lead or start change"
+              }
+            ],
+            "part_id": "lead-group-unit-1",
+            "reservations": [
+              {
+                "contour_index": 0,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      -2.121320343559643,
+                      -2.121320343559643
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      -2.121320343559643,
+                      -2.121320343559643
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0,
+                  "segment": 0
+                }
+              },
+              {
+                "contour_index": 1,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      20,
+                      9
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      20,
+                      6
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      20,
+                      9
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      20,
+                      6
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0.5,
+                  "segment": 0
+                }
+              },
+              {
+                "contour_index": 2,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      16.378679656440358,
+                      11.378679656440358
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      18.5,
+                      13.5
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      16.378679656440358,
+                      11.378679656440358
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      18.5,
+                      13.5
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0,
+                  "segment": 0
+                }
+              },
+              {
+                "contour_index": 3,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      50.8786796564149,
+                      17.121320343491327
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      53,
+                      14.999999999957142
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      50.87867965646581,
+                      12.878679656372043
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      53,
+                      14.999999999957142
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0.5000000000013642,
+                  "segment": 0
+                }
+              }
+            ],
+            "sheet_id": "sheet-0"
+          },
+          {
+            "bounds_mm": [
+              70.536554,
+              1.005015,
+              139.858078,
+              33.326539
+            ],
+            "contour_count": 5,
+            "copy_index": 1,
+            "flags": [
+              {
+                "contour_index": 4,
+                "reason": "Open cutting contour has no enclosed waste side; its original path is exported without a lead or start change"
+              }
+            ],
+            "part_id": "lead-group-unit-1",
+            "reservations": [
+              {
+                "contour_index": 0,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      -2.121320343559643,
+                      -2.121320343559643
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      -2.121320343559643,
+                      -2.121320343559643
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0,
+                  "segment": 0
+                }
+              },
+              {
+                "contour_index": 1,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      20,
+                      9
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      20,
+                      6
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      20,
+                      9
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      20,
+                      6
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0.5,
+                  "segment": 0
+                }
+              },
+              {
+                "contour_index": 2,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      16.378679656440358,
+                      11.378679656440358
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      18.5,
+                      13.5
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      16.378679656440358,
+                      11.378679656440358
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      18.5,
+                      13.5
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0,
+                  "segment": 0
+                }
+              },
+              {
+                "contour_index": 3,
+                "length_mm": 3,
+                "paths": [
+                  {
+                    "from_mm": [
+                      50.8786796564149,
+                      17.121320343491327
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      53,
+                      14.999999999957142
+                    ]
+                  },
+                  {
+                    "from_mm": [
+                      50.87867965646581,
+                      12.878679656372043
+                    ],
+                    "kind": "line",
+                    "to_mm": [
+                      53,
+                      14.999999999957142
+                    ]
+                  }
+                ],
+                "shortened": false,
+                "start": {
+                  "parameter": 0.5000000000013642,
+                  "segment": 0
+                }
+              }
+            ],
+            "sheet_id": "sheet-0"
+          }
+        ],
+        "reserved_contours": 8,
+        "validation": {
+          "checked_contours": 8,
+          "coverage": {
+            "expected_contours": 10,
+            "flagged_contours": 2,
+            "reserved_contours": 8
+          },
+          "metrics": {
+            "full_stock_area": 15000,
+            "last_sheet_id": "sheet-0",
+            "last_sheet_used_height": 34.331539,
+            "material_area": 5149.73085,
+            "normalized_material": 0.34331539,
+            "placed_area": 2619.706473405868,
+            "placed_parts": 2,
+            "placed_priority": 2,
+            "requested_parts": 2,
+            "sheets_used": 1,
+            "trailing_offcut_area": 9850.26915,
+            "utilization": 0.508707454760644
+          },
+          "source_checked": true,
+          "valid": true,
+          "violation_count": 0,
+          "violations": []
+        }
+      },
+      "metrics": {
+        "full_stock_area": 15000,
+        "last_sheet_id": "sheet-0",
+        "last_sheet_used_height": 34.331539,
+        "material_area": 5149.73085,
+        "normalized_material": 0.34331539,
+        "placed_area": 2619.706473405868,
+        "placed_parts": 2,
+        "placed_priority": 2,
+        "requested_parts": 2,
+        "sheets_used": 1,
+        "trailing_offcut_area": 9850.26915,
+        "utilization": 0.508707454760644
+      },
+      "valid": true,
+      "violation_count": 0,
+      "violations": []
+    },
+    "lead_in": {
+      "expected_contours": 10,
+      "flagged_contours": 2,
+      "options": {
+        "hole_angle_degrees": 90,
+        "kerf_mm": 0.2,
+        "length_mm": 3,
+        "outer_angle_degrees": 45,
+        "style": "line"
+      },
+      "parts": [
+        {
+          "bounds_mm": [
+            1.005015,
+            1.005015,
+            70.326539,
+            33.326539
+          ],
+          "contour_count": 5,
+          "copy_index": 0,
+          "flags": [
+            {
+              "contour_index": 4,
+              "reason": "Open cutting contour has no enclosed waste side; its original path is exported without a lead or start change"
+            }
+          ],
+          "part_id": "lead-group-unit-1",
+          "reservations": [
+            {
+              "contour_index": 0,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    -2.121320343559643,
+                    -2.121320343559643
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "from_mm": [
+                    -2.121320343559643,
+                    -2.121320343559643
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0,
+                "segment": 0
+              }
+            },
+            {
+              "contour_index": 1,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    20,
+                    9
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    20,
+                    6
+                  ]
+                },
+                {
+                  "from_mm": [
+                    20,
+                    9
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    20,
+                    6
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0.5,
+                "segment": 0
+              }
+            },
+            {
+              "contour_index": 2,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    16.378679656440358,
+                    11.378679656440358
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    18.5,
+                    13.5
+                  ]
+                },
+                {
+                  "from_mm": [
+                    16.378679656440358,
+                    11.378679656440358
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    18.5,
+                    13.5
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0,
+                "segment": 0
+              }
+            },
+            {
+              "contour_index": 3,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    50.8786796564149,
+                    17.121320343491327
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    53,
+                    14.999999999957142
+                  ]
+                },
+                {
+                  "from_mm": [
+                    50.87867965646581,
+                    12.878679656372043
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    53,
+                    14.999999999957142
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0.5000000000013642,
+                "segment": 0
+              }
+            }
+          ],
+          "sheet_id": "sheet-0"
+        },
+        {
+          "bounds_mm": [
+            70.536554,
+            1.005015,
+            139.858078,
+            33.326539
+          ],
+          "contour_count": 5,
+          "copy_index": 1,
+          "flags": [
+            {
+              "contour_index": 4,
+              "reason": "Open cutting contour has no enclosed waste side; its original path is exported without a lead or start change"
+            }
+          ],
+          "part_id": "lead-group-unit-1",
+          "reservations": [
+            {
+              "contour_index": 0,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    -2.121320343559643,
+                    -2.121320343559643
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    0,
+                    0
+                  ]
+                },
+                {
+                  "from_mm": [
+                    -2.121320343559643,
+                    -2.121320343559643
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0,
+                "segment": 0
+              }
+            },
+            {
+              "contour_index": 1,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    20,
+                    9
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    20,
+                    6
+                  ]
+                },
+                {
+                  "from_mm": [
+                    20,
+                    9
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    20,
+                    6
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0.5,
+                "segment": 0
+              }
+            },
+            {
+              "contour_index": 2,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    16.378679656440358,
+                    11.378679656440358
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    18.5,
+                    13.5
+                  ]
+                },
+                {
+                  "from_mm": [
+                    16.378679656440358,
+                    11.378679656440358
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    18.5,
+                    13.5
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0,
+                "segment": 0
+              }
+            },
+            {
+              "contour_index": 3,
+              "length_mm": 3,
+              "paths": [
+                {
+                  "from_mm": [
+                    50.8786796564149,
+                    17.121320343491327
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    53,
+                    14.999999999957142
+                  ]
+                },
+                {
+                  "from_mm": [
+                    50.87867965646581,
+                    12.878679656372043
+                  ],
+                  "kind": "line",
+                  "to_mm": [
+                    53,
+                    14.999999999957142
+                  ]
+                }
+              ],
+              "shortened": false,
+              "start": {
+                "parameter": 0.5000000000013642,
+                "segment": 0
+              }
+            }
+          ],
+          "sheet_id": "sheet-0"
+        }
+      ],
+      "reserved_contours": 8,
+      "validation": {
+        "checked_contours": 8,
+        "coverage": {
+          "expected_contours": 10,
+          "flagged_contours": 2,
+          "reserved_contours": 8
+        },
+        "metrics": {
+          "full_stock_area": 15000,
+          "last_sheet_id": "sheet-0",
+          "last_sheet_used_height": 34.331539,
+          "material_area": 5149.73085,
+          "normalized_material": 0.34331539,
+          "placed_area": 2619.706473405868,
+          "placed_parts": 2,
+          "placed_priority": 2,
+          "requested_parts": 2,
+          "sheets_used": 1,
+          "trailing_offcut_area": 9850.26915,
+          "utilization": 0.508707454760644
+        },
+        "source_checked": true,
+        "valid": true,
+        "violation_count": 0,
+        "violations": []
+      }
+    },
+    "exported_files": [
+      "exported/lead-group-sheet-1.lbrn2",
+      "exported/lead-group-sheet-1-cuts.svg",
+      "exported/lead-group-sheet-1-cuts.dxf"
+    ],
+    "rejected_fixtures": 2,
+    "inputs_unchanged": true,
+    "extension_unchanged": true,
+    "repeat_export_byte_identical": true,
+    "other_owned_folders_empty": true,
+    "benchmark_or_quality_claim": false
+  },
+  "XML_preservation": [
+    {
+      "surface": "CLI",
+      "file": "nested/lead-group-sheet-1.lbrn2",
+      "sha256": "3bd05e8c5723a6adc6e41e6fa51773456a43bae3333234cf1d6a0506f48e4631",
+      "copies": 2,
+      "group_children_exact": true,
+      "settings_notes_unknown_exact": true,
+      "fixed_shape_exact": true
+    },
+    {
+      "surface": "MCPB",
+      "file": "mcp/workspace/nested/lead-group-sheet-1.lbrn2",
+      "sha256": "3bd05e8c5723a6adc6e41e6fa51773456a43bae3333234cf1d6a0506f48e4631",
+      "copies": 2,
+      "group_children_exact": true,
+      "settings_notes_unknown_exact": true,
+      "fixed_shape_exact": true
+    }
+  ],
+  "authored_inputs_only": true,
+  "held_out_geometry_read": false,
+  "new_quality_measurement": false,
+  "repeat_export_byte_identical_both_surfaces": true,
+  "milestone_closed": false
+}

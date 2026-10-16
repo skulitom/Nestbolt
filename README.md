@@ -15,15 +15,17 @@ can call.
 [Download a release](https://github.com/skulitom/Nestbolt/releases) ·
 [Connect an AI agent](docs/AGENT_INTERFACE.md)
 
-The current development build supports editable LightBurn project nesting, lead-in
-allowances and improvements for large curved drawings. The v1.1 plan is still
-in progress; [current verification and remaining work](docs/STATUS.md) distinguish
-completed features from open checks. Downloaded releases contain the features
-listed in their own release notes. The hosted browser was last deployed from
-[v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348); to try the
-newer browser features, [build the development app locally](#browser-app).
-The benchmark figures below belong to the frozen `75cbb32` build, not a new
-comparison of the development build.
+**[Try the v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
+for editable LightBurn project nesting, lead-in allowances and improvements for
+large curved drawings. Windows x64, Linux x64 and macOS Apple silicon tools are
+available, plus the Windows MCP bundle. Their [published-download checks](benchmarks/results/preview-depth-published-20261016.md)
+pass. Import acceptance and common-line material use remain under development;
+the [v1.1 plan is 60% complete](docs/STATUS.md). Stable v0.1.0 remains available.
+
+The hosted browser still runs [v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348).
+To try the newer browser features, [build the app locally](#browser-app).
+The benchmark figures below belong to the frozen `75cbb32` build; this preview
+makes no new comparison against competing tools.
 
 ![451 letter outlines nested on one sheet, small letters inside the holes of large ones](docs/images/showcase.png)
 
@@ -129,7 +131,8 @@ Nestbolt runs unmodified Sparrow for the rest of the budget.
 
 Use the [browser app](https://skulitom.github.io/Nestbolt/) without installing
 anything, or download native tools for **Windows x64, Linux x64 or macOS Apple
-silicon** from [Releases](https://github.com/skulitom/Nestbolt/releases). Each
+silicon** from the [v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+or [stable v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0). Each
 archive contains `nestbolt`, `nestbolt-mcp` and licences; download checksums are
 provided alongside it. The separate Windows MCPB bundle installs the server in
 Claude Desktop; see
@@ -185,10 +188,11 @@ File formats are described by the [JSON Schemas](schemas/README.md).
 
 ## Browser app
 
-[Open it](https://skulitom.github.io/Nestbolt/) and pick an example (finger-jointed
-boxes, letters inside letters, a 138-part mechanical kit, a FreeSewing T-shirt
-pattern on a fabric roll, interlocking gears), or drop your own SVG/DXF files or
-one LightBurn project.
+[Open the hosted v0.1.0 app](https://skulitom.github.io/Nestbolt/) and pick an example
+(finger-jointed boxes, letters inside letters, a 138-part mechanical kit, a
+FreeSewing T-shirt pattern on a fabric roll, interlocking gears), or drop your
+own SVG/DXF files. LightBurn import, lead allowances and the newer large-drawing
+features are available in the local build described below.
 The best layout so far is drawn while the search runs, and each sheet shows the
 box around its parts and the clear offcut left above them.
 

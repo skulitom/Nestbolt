@@ -687,3 +687,15 @@ mixed-bracket laser is +1.540301%. There are 147 attempts and ten accepted
 exchanges, none on panel hardware. The candidate stays unintegrated and every
 failed outcome/limit is preserved. This is not an infeasibility proof. H5
 remains open and completed milestone weight stays 60%.
+
+
+**Preview published, 2026-10-16:** [v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+is published at `c36baa8` under Artem's release authorization. All five release
+jobs pass; [actual downloads and all four build attestations](../benchmarks/results/preview-depth-published-20261016.md)
+verify, including exact tag/source binding and unchanged stable Latest/assets.
+[Published Windows CLI/MCPB feature checks](../benchmarks/results/preview-depth-published-features-20261016.md)
+pass with authored inputs only. The original Python-launch and shared-cache
+verification errors remain preserved alongside their limited recoveries.
+The README links the preview and separates hosted v0.1.0 from newer local
+browser features. No new registry version, reserved evaluation or public
+competitor claim. H2/H5 remain open; completed milestone weight stays 60%.

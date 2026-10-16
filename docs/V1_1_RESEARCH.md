@@ -954,3 +954,15 @@ All mechanical medians remain +4.66% to +5.96% above ordinary mode. The original
 full H5 comparison remains authoritative, and this pilot is rejected for
 production integration. New work needs a distinct, evidenced placement
 hypothesis; these observations do not prove global infeasibility.
+
+
+**Preview published, 2026-10-16:** [v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+is published at `c36baa8` under Artem's release authorization. All five release
+jobs pass; [actual downloads and all four build attestations](../benchmarks/results/preview-depth-published-20261016.md)
+verify, including exact tag/source binding and unchanged stable Latest/assets.
+[Published Windows CLI/MCPB feature checks](../benchmarks/results/preview-depth-published-features-20261016.md)
+pass with authored inputs only. The original Python-launch and shared-cache
+verification errors remain preserved alongside their limited recoveries.
+The README links the preview and separates hosted v0.1.0 from newer local
+browser features. No new registry version, reserved evaluation or public
+competitor claim. H2/H5 remain open; completed milestone weight stays 60%.

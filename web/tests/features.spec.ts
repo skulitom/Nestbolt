@@ -58,9 +58,9 @@ async function setUp(page: Page, files: string[], keep: Record<string, number>, 
 
 async function nest(page: Page) {
   await page.getByRole('button', { name: 'Nest' }).click();
-  // A result or an error, whichever comes first; an error fails with its own text.
-  await expect(page.locator('.summary, .error').first()).toBeVisible({ timeout: 90_000 });
-  if (await page.locator('.error').count()) throw new Error(`nesting failed: ${await page.locator('.error').innerText()}`);
+  // Lead review flags also use .error; only the app alert means nesting failed.
+  await expect(page.locator('.summary, [role="alert"]').first()).toBeVisible({ timeout: 90_000 });
+  if (await page.getByRole('alert').count()) throw new Error(`nesting failed: ${await page.getByRole('alert').innerText()}`);
   await expect(page.locator('.summary')).toContainText('valid');
 }
 
@@ -81,7 +81,7 @@ test('lead allowances expose flags, reserve offcuts and export a separate review
   await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
   await page.getByLabel('Outer lead angle').fill('45');
   await page.getByLabel('Lead style').selectOption('arc');
-  await page.getByRole('button', { name: 'Nest', exact: true }).click();
+  await nest(page);
   await expect(page.locator('.lead-report')).toContainText('4/6 contours have checked space', { timeout: 90_000 });
   await expect(page.locator('.lead-report')).toContainText('2 need manual attention');
   await expect(page.locator('.lead-preview')).toHaveCount(4);

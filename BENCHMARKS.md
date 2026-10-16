@@ -13482,3 +13482,52 @@ the original thirteen-job H5 gate. No reserved input or production source is
 changed. H5 remains open; completed milestone weight stays 60%. The separately
 qualified v0.2.0-alpha.1 tag retains the original production common-line behavior
 and its documented limitations.
+
+
+## 2026-10-16 — v0.2.0-alpha.1 published and actual downloads verified
+
+[The qualified preview](benchmarks/results/preview-depth-published-20261016.md)
+is published at `c36baa8`; all five release jobs pass. Three native archives and
+the Windows MCPB match checksums, contents and target architectures. All four
+binary assets have verified GitHub-hosted provenance for the exact repository,
+workflow, source commit and tag. Stable Latest v0.1.0 and all its assets remain
+unchanged. Linux/macOS version checks ran on their native hosted runners.
+
+[Actual Windows CLI and MCPB feature checks](benchmarks/results/preview-depth-published-features-20261016.md)
+pass alongside import/nest/validate and confinement checks: two explicit
+rejections per surface, two preserved rigid groups, ten expected/eight reserved/
+two flagged leads, separate cutting files and identical repeat exports.
+The 57-member raw archive is 2,874,696 bytes, SHA-256
+d1c0d9bd3153328888a1580ae8b33386ded2d88402667d8a66c9d404ed3c037d;
+CRC and every member length/hash pass. All functional checks run on CCD1.
+
+The original Python launcher error occurred before package tests. Its explicit
+interpreter recovery preserves all downloads and checker logic. Three concurrent
+provenance commands then hit Windows shared-cache locks; sequential verification
+passes unchanged policy, retaining every original log. No package/search test
+or publication is repeated to replace a failed outcome. The feature wrapper was
+adapted before execution only for published paths/commit and current reporting.
+
+README and release records distinguish preview features from hosted v0.1.0,
+disclose import/common-line limits and retain frozen v1 comparison claims.
+No registry publication or reserved evaluation. H2/H5 remain open; completed
+milestone weight stays 60%. All isolated H5 candidates remain unintegrated.
+
+
+## 2026-10-16 — Follow-up Firefox CI failure retained; diagnostics improved
+
+[Main CI on c36baa8](benchmarks/results/preview-depth-followup-ci-20261016.md)
+reports one missing lead-report failure in Firefox, 85 browser passes and four
+skips. Its page state was not uploaded; the cause remains unresolved. Sixteen
+unchanged local repetitions pass with eight workers on CCD1. A helper adaptation
+initially mistook expected lead flags for fatal errors; two failures remain
+preserved. Scoping it to the app alert retains all original assertions and the
+one-second budget; all 28 affected Chromium/Firefox feature tests then pass.
+Failure screenshot/trace/context uploads are added for future hosted diagnosis.
+This is functional evidence, not a quality measurement or replacement of the
+original failed hosted result. Release and published native-download checks pass
+separately. No product, reserved split or milestone weight changes.
+
+Documentation link review also corrects STATUS's old seed-2 warm-start report
+link to `sheets-ab-rects-30s-s2-20261012T143733Z-b0a39fa9.md`. The original
+BENCHMARKS entry is preserved; only its historical link target was mistyped.
