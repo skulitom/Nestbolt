@@ -1,0 +1,2130 @@
+{
+  "records": [
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 60.091093900002306,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2659587999805808,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 111168.02189346195,
+      "cut_with_common_mm": 96076.19611325706,
+      "saved_fraction": 0.1357568977405046,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k0.2-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.1964086999942083,
+        "cpu": 8
+      },
+      "material": 1.1388221213333334,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 66,
+        "requested_parts": 66,
+        "placed_area": 2791081.846815662,
+        "placed_priority": 66.0,
+        "full_stock_area": 9000000.0,
+        "material_area": 5124699.546,
+        "normalized_material": 1.1388221213333334,
+        "utilization": 0.544633265182189,
+        "trailing_offcut_area": 3875300.454,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 416.466364
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 48,
+        "directed_exchange_attempts": 3,
+        "directed_exchanges": 1
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.313483,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2042315063333333
+        },
+        {
+          "elapsed_seconds": 15.369417,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1659205143333333
+        },
+        {
+          "elapsed_seconds": 30.5781786,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1612221196666666
+        },
+        {
+          "elapsed_seconds": 41.9463543,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1588719286666667
+        },
+        {
+          "elapsed_seconds": 49.2874122,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.155792674
+        },
+        {
+          "elapsed_seconds": 53.7363736,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 53.8946965,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 53.9857699,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.078296,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.4427848,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.5759257,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.6750535,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.7769469,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.8843685,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 54.9894327,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 55.4333032,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 55.5247702,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 55.6154978,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 55.7621566,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 55.9372473,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.0257637,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.1243434,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.2166201,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.3091854,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.3969627,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.5282152,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.6187249,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.7254053,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.8258492,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 56.9143503,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.0099077,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.1044106,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.2010656,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.3001337,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.3917804,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.4903021,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.580156,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.6830362,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.7783934,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 57.886035,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.0035953,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.0980828,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.2051576,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.4149731,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.5629036,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.7197628,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 58.8825301,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 59.1055324,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 59.2760036,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388327823333335
+        },
+        {
+          "elapsed_seconds": 59.392652,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388221213333334
+        },
+        {
+          "elapsed_seconds": 59.4971205,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388221213333334
+        },
+        {
+          "elapsed_seconds": 59.6121286,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388221213333334
+        },
+        {
+          "elapsed_seconds": 59.7167936,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388221213333334
+        },
+        {
+          "elapsed_seconds": 59.8159504,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.1388221213333334
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.8744242,
+      "accepted_at_seconds": 59.8159504,
+      "layout_sha256": "b095e21b4cdc3fd56cd31c738c0232411b42ffa7bae2bcfb33a3853bf2323134",
+      "maximum_revalidation_difference": 1.8189894035458565e-12,
+      "artifacts": {
+        "export/sheet-0.dxf": "8b36264afc69d9df033710e5e37b8a14fa5dd3c23165b626e00697a4fb479e71",
+        "export/sheet-0.svg": "f3f786634fe24233265a64f55b90d8cc0bda8ce78fcb9550d66f46bb6b791e7c",
+        "export/sheet-1.dxf": "1ed009730eea8d062a55a5c5a220423560827883745f75b7e544fba2a3265453",
+        "export/sheet-1.svg": "54bb39d2e450e76d074b4cf6389bc84fd10341ffe15e12e18516bf8dc723f9a5",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "d5666476a98daa21dc1a03ff176fe72a4e8d2c9a892b6f6c3fb76d3d61d37c26",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/cutting-report.json": "4306729f8d37e0f300991d3e35014f2ae43c62493a89a57a859852ef0376d71f",
+        "nested/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+        "nested/layout.json": "b095e21b4cdc3fd56cd31c738c0232411b42ffa7bae2bcfb33a3853bf2323134",
+        "nested/search.json": "ab5521940a3f0ec59d8632c6df024d136d7430f97e39c07a7e0420c3bd022532",
+        "request.json": "67762896702d16742d0fd070b8743cabd743bd3036ad9fcf6032e2b442d0668d",
+        "search-stderr.log": "dbe9c94f7ff77dd61592f161906bbaca69280b5e567eb40cef08b2ca2908ad34",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "386f7374621e4f4facfc35f1cb911917f2e2c95191453f74fa896b1dce0f2c6f"
+      },
+      "archive": "m-mechanical-large-plates-k0.2-s0-candidate.zip",
+      "archive_sha256": "e607e926d9be86e07c0a9f2e1cefe55362a16a32ece868aa8614f53132a00677",
+      "diagnosis": {
+        "invocations": 1,
+        "attempts": 3,
+        "outcomes": {
+          "receiver_repair_failed": 2,
+          "accepted": 1
+        },
+        "complete_vs_partial": {
+          "complete": {},
+          "partial": {
+            "receiver_repair_failed": 2,
+            "accepted": 1
+          }
+        },
+        "sampling_totals": {
+          "samples": 175,
+          "examined": 175,
+          "collision_free": 0,
+          "over_three_collisions": 45,
+          "non_item_collision": 4,
+          "multi_smaller": 0,
+          "multi_not_smaller": 88
+        },
+        "proposals": 6,
+        "traces": [
+          {
+            "disabled_or_expired": false,
+            "baseline_invalid": false,
+            "proposals": 6,
+            "expired_before_attempt": 0,
+            "samplings": [
+              {
+                "incoming_area": 50062.703,
+                "samples": 175,
+                "examined": 175,
+                "collision_free": 0,
+                "over_three_collisions": 45,
+                "non_item_collision": 4,
+                "multi_smaller": 0,
+                "multi_not_smaller": 88,
+                "smallest_rejected_area_ratio": 2.395504,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              }
+            ],
+            "attempts": [
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 5552.8726,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 15071.291,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 0.0,
+                "source_loss": 0.0,
+                "outcome": "accepted"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "job_sha256": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 60.03363759999047,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.14024350000545382,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 111168.02189346195,
+      "cut_with_common_mm": 98296.19467024574,
+      "saved_fraction": 0.11578713917885441,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-large-plates-k1.5-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.20554709999123588,
+        "cpu": 8
+      },
+      "material": 1.168231115,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 66,
+        "requested_parts": 66,
+        "placed_area": 2791081.8468156615,
+        "placed_priority": 66.0,
+        "full_stock_area": 9000000.0,
+        "material_area": 5257040.0175,
+        "normalized_material": 1.168231115,
+        "utilization": 0.5309226936687783,
+        "trailing_offcut_area": 3742959.9825,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 504.69334499999997
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 46,
+        "directed_exchange_attempts": 8,
+        "directed_exchanges": 1
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.3157748,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.2042315063333333
+        },
+        {
+          "elapsed_seconds": 12.4878271,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1825012849999998
+        },
+        {
+          "elapsed_seconds": 21.5043507,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1717361960000001
+        },
+        {
+          "elapsed_seconds": 29.0097566,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.1705929086666667
+        },
+        {
+          "elapsed_seconds": 41.946069,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 53.844811,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 53.9516544,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.2062424,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.3415723,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.4533636,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.8422085,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 54.9455956,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.0384333,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.2373974,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.3353259,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.4387541,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.6199039,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.7296908,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.8390783,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 55.9401319,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.0519951,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.157958,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.2739135,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.389473,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.4974902,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.6006705,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.714301,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.8845424,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 56.9940342,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.2075543,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.3716363,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.5399487,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.6628784,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.7722887,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 57.8974893,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.0065988,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.1061885,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.2079612,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.3235376,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.4375145,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.55145,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.6646739,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.7788025,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 58.8978671,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.0048678,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.108267,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.2273539,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.3322359,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.5578383,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.7645333,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        },
+        {
+          "elapsed_seconds": 59.869767,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.168231115
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.8699614,
+      "accepted_at_seconds": 59.869767,
+      "layout_sha256": "7bdde6b44787a4728a7863503f51489a07408756b600dd5a05388d0c55a432b5",
+      "maximum_revalidation_difference": 4.547473508864641e-13,
+      "artifacts": {
+        "export/sheet-0.dxf": "0bee52cbe1bba82ef7182b13c6b3608046fef712daf7af583899bf89d0150daa",
+        "export/sheet-0.svg": "709123cb0cdc76853f59cf80b5bea262c037594da97b3ec5e8e638070c76f220",
+        "export/sheet-1.dxf": "5e7b22c1753b0cc1bf3f855a64aecd2ad2c29ef7218d5f2230a109b34f69ebaa",
+        "export/sheet-1.svg": "232498433a98b0a00ca4ed8e2f7558648d017173caed8cb22f639c7d77ccf484",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "107a0747a9ca5e1e4d55fd5698edc2260f67ba8e1b8fff3d74642b7316218eab",
+        "library.json": "4babbbe0280a1d9782228a36bf377f6d4798fa7787f03afd25ee791deae78c8d",
+        "nested/cutting-report.json": "e54e6e99e6d7ae79b9ce0f795ded5d63262424c8b6d7c0bc8c0f8a2cbb1fe79c",
+        "nested/job.json": "75aa8ca93561830b76f4894fd79fee500290aeaad81f4120631bf5c517b8eac5",
+        "nested/layout.json": "7bdde6b44787a4728a7863503f51489a07408756b600dd5a05388d0c55a432b5",
+        "nested/search.json": "fa20a36f9acc64b09bec76a7608c3cc53a77e90a3ef2ac1f7c7ae8bfe5c60790",
+        "request.json": "707a6820c2f85a89a8081d4ed330b20bf5dce86e9f76d7b93164f18571a0c8db",
+        "search-stderr.log": "28e7e072bfd9eb34c9822990c443713b675a702184aee19402a4ee294bf17402",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "f4b58345098042b7918050996769ad5ad64c5a9803257d075ed875a254cafe5d"
+      },
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "archive_sha256": "77eb0db27a0ab873521f079df9bd92d4565a9130235a8c44814fefaa066ea59c",
+      "diagnosis": {
+        "invocations": 1,
+        "attempts": 8,
+        "outcomes": {
+          "receiver_repair_failed": 7,
+          "accepted": 1
+        },
+        "complete_vs_partial": {
+          "complete": {},
+          "partial": {
+            "receiver_repair_failed": 7,
+            "accepted": 1
+          }
+        },
+        "sampling_totals": {
+          "samples": 350,
+          "examined": 350,
+          "collision_free": 0,
+          "over_three_collisions": 86,
+          "non_item_collision": 9,
+          "multi_smaller": 0,
+          "multi_not_smaller": 195
+        },
+        "proposals": 12,
+        "traces": [
+          {
+            "disabled_or_expired": false,
+            "baseline_invalid": false,
+            "proposals": 12,
+            "expired_before_attempt": 0,
+            "samplings": [
+              {
+                "incoming_area": 50062.703,
+                "samples": 175,
+                "examined": 175,
+                "collision_free": 0,
+                "over_three_collisions": 45,
+                "non_item_collision": 4,
+                "multi_smaller": 0,
+                "multi_not_smaller": 88,
+                "smallest_rejected_area_ratio": 2.395504,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              },
+              {
+                "incoming_area": 40000.0,
+                "samples": 175,
+                "examined": 175,
+                "collision_free": 0,
+                "over_three_collisions": 41,
+                "non_item_collision": 5,
+                "multi_smaller": 0,
+                "multi_not_smaller": 107,
+                "smallest_rejected_area_ratio": 2.5031352,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  2,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              }
+            ],
+            "attempts": [
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 30855.629,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 3747.0251,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 19252.35,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 19170.55,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 14081.773,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 50062.703,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 34768.64,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 40000.0,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 19464.738,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 40000.0,
+                "returned_area": 19800.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 0.0,
+                "source_loss": 0.0,
+                "outcome": "accepted"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.909459600021364,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.24784660001751035,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 175793.32949150642,
+      "cut_with_common_mm": 164908.61347188143,
+      "saved_fraction": 0.061917685108472176,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k0.2-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.37456620001466945,
+        "cpu": 8
+      },
+      "material": 1.5981880147999998,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 178,
+        "requested_parts": 178,
+        "placed_area": 2738107.6017473284,
+        "placed_priority": 178.0,
+        "full_stock_area": 6250000.0,
+        "material_area": 4994337.54625,
+        "normalized_material": 1.5981880147999998,
+        "utilization": 0.5482423997959924,
+        "trailing_offcut_area": 1255662.45375,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 1495.4700369999998
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 19,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 27,
+        "directed_exchange_attempts": 6
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.159793,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.6366617187999999
+        },
+        {
+          "elapsed_seconds": 13.5579393,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6251707284
+        },
+        {
+          "elapsed_seconds": 22.7738251,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6121363536000002
+        },
+        {
+          "elapsed_seconds": 29.3195714,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6088990475999998
+        },
+        {
+          "elapsed_seconds": 41.9832564,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6040476804
+        },
+        {
+          "elapsed_seconds": 50.019782,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.600428054
+        },
+        {
+          "elapsed_seconds": 53.6953073,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 54.0353304,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 54.2435157,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 54.4470896,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 54.6579067,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 54.8841005,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 55.0901662,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 55.3067654,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 55.5145058,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 55.7259994,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 55.9341937,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 56.1468806,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 56.3704218,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 56.5786271,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 56.8208257,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 57.0425093,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 57.2578618,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 57.4809623,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 57.6980535,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 57.9075104,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 58.1378006,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 58.3530565,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 58.5836634,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 58.7982924,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 59.0074543,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 59.2194637,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 59.4383471,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        },
+        {
+          "elapsed_seconds": 59.6402956,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.5981880147999998
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.6406017,
+      "accepted_at_seconds": 59.6402956,
+      "layout_sha256": "93e6a4424de48abade34175286cd0598b093fe475e7d679d27324afefcb08766",
+      "maximum_revalidation_difference": 0,
+      "artifacts": {
+        "export/sheet-0.dxf": "cb01a59cd22f41bfc0d7d77a536510f6ab0a0ca820808b0b74aa49e176af2775",
+        "export/sheet-0.svg": "6c84853a9a600b36e9b990dfaa8e122aabed134110e1e22bb2fc64ed2da8553e",
+        "export/sheet-1.dxf": "19247ef2d39968228bdc0c53f155270d38e2dacf04e3e245cb086bb127d40876",
+        "export/sheet-1.svg": "41930dfd752bc1567c3778a1afe3a99a11ddfb74cd569853624a76f64d50d4a5",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "80ab5fdb1493f2f7c886c3389c7fdca73331441bd8eb3419762146e7635a3896",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/cutting-report.json": "f9d998cb4b3d62f9f5a9ea5bfc70e8322309d6fff78b1f65a334997a2f71566e",
+        "nested/job.json": "cfa4eb76c56e2d41794ff07a0611a1dab9fd7a52fe43b2b4a4ee39f32aca9551",
+        "nested/layout.json": "93e6a4424de48abade34175286cd0598b093fe475e7d679d27324afefcb08766",
+        "nested/search.json": "be624d2402eee30d7ff5650c014f4597de844d9ec6df2da639ffdfc9c65a5402",
+        "request.json": "9d35332a8b77c0e34d8885933d2cc6a20df3badfe74a179efee032849504429c",
+        "search-stderr.log": "b1d90bbf9ab710b750f2d9ea0888833454f5cec3a1fb586fdff5cfc29d9cc679",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "73bd139c97848cf4261379f8501b9d643c9af458911ce6584210d8a8f4bb47d3"
+      },
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-candidate.zip",
+      "archive_sha256": "8ed4ad46d2d3c2133c86fddbb3c507170f612a10ab2585f7ed2bc76b7a882eec",
+      "diagnosis": {
+        "invocations": 1,
+        "attempts": 6,
+        "outcomes": {
+          "receiver_repair_failed": 6
+        },
+        "complete_vs_partial": {
+          "complete": {},
+          "partial": {
+            "receiver_repair_failed": 6
+          }
+        },
+        "sampling_totals": {
+          "samples": 612,
+          "examined": 612,
+          "collision_free": 0,
+          "over_three_collisions": 350,
+          "non_item_collision": 29,
+          "multi_smaller": 0,
+          "multi_not_smaller": 107
+        },
+        "proposals": 6,
+        "traces": [
+          {
+            "disabled_or_expired": false,
+            "baseline_invalid": false,
+            "proposals": 6,
+            "expired_before_attempt": 0,
+            "samplings": [
+              {
+                "incoming_area": 56700.0,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 141,
+                "non_item_collision": 10,
+                "multi_smaller": 0,
+                "multi_not_smaller": 17,
+                "smallest_rejected_area_ratio": 2.0,
+                "retained_victim_counts": [],
+                "retained_blocker_counts": []
+              },
+              {
+                "incoming_area": 56700.0,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 142,
+                "non_item_collision": 10,
+                "multi_smaller": 0,
+                "multi_not_smaller": 16,
+                "smallest_rejected_area_ratio": 2.0,
+                "retained_victim_counts": [],
+                "retained_blocker_counts": []
+              },
+              {
+                "incoming_area": 18009.299,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 67,
+                "non_item_collision": 9,
+                "multi_smaller": 0,
+                "multi_not_smaller": 74,
+                "smallest_rejected_area_ratio": 3.5441692,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              }
+            ],
+            "attempts": [
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 7857.7163,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 22975.168,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 20440.246,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 21049.172,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 24605.395,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 38668.14,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "job_sha256": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm": "candidate",
+      "cpu": 8,
+      "seconds": 60,
+      "status": "valid",
+      "search": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\exchange-diagnosis.exe",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\library.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\request.json",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\nested",
+          "60",
+          "0",
+          "wall"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 59.923231900000246,
+        "cpu": 8
+      },
+      "validation": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "validate",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\nested\\layout.json"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.2515111000102479,
+        "cpu": 8
+      },
+      "cut_without_common_mm": 175793.32949150642,
+      "cut_with_common_mm": 165383.4132277408,
+      "saved_fraction": 0.05921678765557814,
+      "export": {
+        "command": [
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-set-probe\\public-checks\\nestbolt-validator.exe",
+          "export",
+          "--library",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\library.json",
+          "--request",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\request.json",
+          "--layout",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\nested\\layout.json",
+          "--out-dir",
+          "C:\\DEV\\Nestbolt\\output\\h5-obstruction-stage-diagnosis-20261017\\measurements\\m-mechanical-panel-hardware-k1.5-s0-candidate\\export"
+        ],
+        "exit_code": 0,
+        "elapsed_wall_seconds": 0.388977700000396,
+        "cpu": 8
+      },
+      "material": 1.6137951292000001,
+      "metrics": {
+        "sheets_used": 2,
+        "placed_parts": 178,
+        "requested_parts": 178,
+        "placed_area": 2738107.6017473284,
+        "placed_priority": 178.0,
+        "full_stock_area": 6250000.0,
+        "material_area": 5043109.7787500005,
+        "normalized_material": 1.6137951292000001,
+        "utilization": 0.5429403129959236,
+        "trailing_offcut_area": 1206890.22125,
+        "last_sheet_id": "sheet-1",
+        "last_sheet_used_height": 1534.487823
+      },
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 17,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 26,
+        "directed_exchange_attempts": 12
+      },
+      "history": [
+        {
+          "elapsed_seconds": 6.0582683,
+          "stage": "warm",
+          "sheets": 2,
+          "material": 1.6366617187999999
+        },
+        {
+          "elapsed_seconds": 19.9428856,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6333711004000002
+        },
+        {
+          "elapsed_seconds": 28.4310289,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6284401432
+        },
+        {
+          "elapsed_seconds": 41.9602523,
+          "stage": "explore",
+          "sheets": 2,
+          "material": 1.6218884832
+        },
+        {
+          "elapsed_seconds": 51.6850104,
+          "stage": "compress",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 53.9287433,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 54.1510311,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 54.3794161,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 54.607135,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 54.8167996,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 55.0408085,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 55.2747132,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 55.5040126,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 55.7371969,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 55.9665777,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 56.1919042,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 56.4356055,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 56.671222,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 56.8857289,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 57.1104037,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 57.3304493,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 57.5632319,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 57.782491,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 57.9992564,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 58.2417448,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 58.4581883,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 58.6860945,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 58.9259999,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 59.1756994,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 59.4021954,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        },
+        {
+          "elapsed_seconds": 59.6460448,
+          "stage": "common-line",
+          "sheets": 2,
+          "material": 1.6137951292000001
+        }
+      ],
+      "riders": 0,
+      "elapsed_seconds": 59.6464967,
+      "accepted_at_seconds": 59.6460448,
+      "layout_sha256": "1d0f235a541931d0a2328fe600cf10676a6bc701d3544615b66ed7e4ce4ce207",
+      "maximum_revalidation_difference": 0,
+      "artifacts": {
+        "export/sheet-0.dxf": "bdbcee78592ddc7cacd6574548e94b3b79b94a56fd975327c0abc314fb153450",
+        "export/sheet-0.svg": "0aa98621b60771fedbc1da76be804ff62b5b3b292e6530d586814741f79ed234",
+        "export/sheet-1.dxf": "c5cc7dbd3d6d65846b50687f42421c49d55a5d65f28beff15c612f2f64e6de13",
+        "export/sheet-1.svg": "e1470c5b15e93b9d4e86c11c6efff34d647106ee31e1f1e17707cae6ad574a37",
+        "export-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "export-stdout.json": "0443222f52178b5cdb0a4a57df0006c41346c3702559952602f4c2aef5d53bb7",
+        "library.json": "10abbd383c5b79c9048493792d4acc4c8007764b8ef4b49055eaed98400623cf",
+        "nested/cutting-report.json": "671779ce026d4ca91b669ae8b5647bf59b5fa2029aab187b3e59fc38f039c848",
+        "nested/job.json": "08e8c88a86d1b28ce9749c4c857ca58544e0dbdf6afff3abb70b5afbd34b010c",
+        "nested/layout.json": "1d0f235a541931d0a2328fe600cf10676a6bc701d3544615b66ed7e4ce4ce207",
+        "nested/search.json": "62cd340203597a096ac62724686763246a69b2b84c7964a0b6623dc98a393d57",
+        "request.json": "dfeb6235719340e1ed1e1a8efba8a5e044792e40e3371c42d51d76ba66867ac6",
+        "search-stderr.log": "454627c5a6bc2af3b8f429539324970987bf02a11c447044e9f4082df708b138",
+        "search-stdout.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "validate-stdout.json": "d42ae0ab9be560f9c5d39d1d226a53f7c43d5b7480c7bc6c77c60196d967fa00"
+      },
+      "archive": "m-mechanical-panel-hardware-k1.5-s0-candidate.zip",
+      "archive_sha256": "8a6806d8b27331b2d04711a0cfae3956dfb876f877e97f1554d0b4e263cc98d1",
+      "diagnosis": {
+        "invocations": 1,
+        "attempts": 12,
+        "outcomes": {
+          "receiver_repair_failed": 12
+        },
+        "complete_vs_partial": {
+          "complete": {},
+          "partial": {
+            "receiver_repair_failed": 12
+          }
+        },
+        "sampling_totals": {
+          "samples": 1020,
+          "examined": 969,
+          "collision_free": 0,
+          "over_three_collisions": 468,
+          "non_item_collision": 47,
+          "multi_smaller": 0,
+          "multi_not_smaller": 230
+        },
+        "proposals": 18,
+        "traces": [
+          {
+            "disabled_or_expired": false,
+            "baseline_invalid": false,
+            "proposals": 18,
+            "expired_before_attempt": 1,
+            "samplings": [
+              {
+                "incoming_area": 56700.0,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 141,
+                "non_item_collision": 10,
+                "multi_smaller": 0,
+                "multi_not_smaller": 17,
+                "smallest_rejected_area_ratio": 2.0,
+                "retained_victim_counts": [],
+                "retained_blocker_counts": []
+              },
+              {
+                "incoming_area": 56700.0,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 144,
+                "non_item_collision": 10,
+                "multi_smaller": 0,
+                "multi_not_smaller": 14,
+                "smallest_rejected_area_ratio": 2.0,
+                "retained_victim_counts": [],
+                "retained_blocker_counts": []
+              },
+              {
+                "incoming_area": 18009.299,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 68,
+                "non_item_collision": 9,
+                "multi_smaller": 0,
+                "multi_not_smaller": 73,
+                "smallest_rejected_area_ratio": 3.5441692,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              },
+              {
+                "incoming_area": 18009.299,
+                "samples": 204,
+                "examined": 204,
+                "collision_free": 0,
+                "over_three_collisions": 63,
+                "non_item_collision": 9,
+                "multi_smaller": 0,
+                "multi_not_smaller": 79,
+                "smallest_rejected_area_ratio": 3.5441692,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              },
+              {
+                "incoming_area": 18009.299,
+                "samples": 204,
+                "examined": 153,
+                "collision_free": 0,
+                "over_three_collisions": 52,
+                "non_item_collision": 9,
+                "multi_smaller": 0,
+                "multi_not_smaller": 47,
+                "smallest_rejected_area_ratio": 3.5441692,
+                "retained_victim_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "retained_blocker_counts": [
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ]
+              }
+            ],
+            "attempts": [
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 17986.156,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 23754.508,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 24491.1,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 23067.094,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 26844.607,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 9105.315,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 2,
+                "receiver_loss": 17837.21,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 23841.562,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 24148.623,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 23319.018,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 26186.787,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              },
+              {
+                "incoming_area": 18009.299,
+                "returned_area": 7128.0,
+                "victims": 1,
+                "blockers": 3,
+                "receiver_loss": 23197.258,
+                "source_loss": null,
+                "outcome": "receiver_repair_failed"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "guards_unchanged": true,
+  "wall_seconds": 243.26253779997933,
+  "all_valid": true,
+  "quality_claim": false,
+  "H5_complete": false,
+  "integrated": false
+}

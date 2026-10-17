@@ -699,3 +699,15 @@ verification errors remain preserved alongside their limited recoveries.
 The README links the preview and separates hosted v0.1.0 from newer local
 browser features. No new registry version, reserved evaluation or public
 competitor claim. H2/H5 remain open; completed milestone weight stays 60%.
+
+
+**N4 diagnosis, 2026-10-17:** [four current-candidate traces](../benchmarks/results/h5-obstruction-stage-diagnosis-20261017.md)
+validate all layouts but show zero complete blocker-set proposals: 620 sampled
+sets fail the smaller-area heuristic. All 29 attempted exchanges are partial;
+27 fail receiving-sheet repair and two succeed. An [independently validated
+authored witness](../benchmarks/results/h5-area-witness-20261017.md) demonstrates
+that returning more combined part area can preserve both validity and material.
+The first incorrectly oriented witness is retained with its failed material
+assertion. This motivates a separately tested complete-set eligibility change;
+it proves no mechanical feasibility or quality gain. Production stays unchanged,
+and H2/H5 remain open at 60% completed weight.

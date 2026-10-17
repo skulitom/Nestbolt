@@ -13555,3 +13555,23 @@ insertions restores original source text; all other sources stay byte-identical.
 The full source/binary/log archive passes CRC and every member hash. Four fixed
 mechanical/kerf observations are planned, serial CPU 8 after the plan is committed.
 No quality claim, held-out access, integration or H5 closure; completion stays 60%.
+
+
+## 2026-10-17 — Atomic-set stage traces and independent area witness
+
+[All four diagnostic layouts validate](benchmarks/results/h5-obstruction-stage-diagnosis-20261017.md).
+The smaller-area heuristic rejects all 620 observed complete multi-blocker sets;
+all 29 actual attempts return a partial set. Twenty-seven fail receiving-sheet
+repair and two succeed. Traces, original-job metrics/quantities and every raw
+archive/member hash verify; source/binary/input guards remain unchanged. Trace
+overhead may perturb deadlines, so these are not quality or speed comparisons.
+
+[An authored validator-only witness](benchmarks/results/h5-area-witness-20261017.md)
+exchanges 2550 mm² incoming area with 2700 mm² returned area while preserving
+validity and exactly 13300 mm² material. The original width-preserving attempt
+fails its material-equality assertion because the metric charges height; both
+that failure (18800 → 19700 mm²) and the separate transposed passing example
+are preserved. No search or original benchmark is rerun/rescored for this proof.
+The observations motivate testing complete-set eligibility with the same final
+geometry/material guards. No feasibility/improvement claim, production change,
+reserved access or H5 credit; completed weight remains 60%.
