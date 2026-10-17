@@ -103,16 +103,13 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 | N4 — Common-line cutting | 15% | In progress: [compensated geometry and native checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md), independent Clipper2 checks and UI/CLI/MCP parity. The optional bonus is off by default. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md), the [full 60-second/three-seed comparison](../benchmarks/results/h5-cutting-development-20261015.md) validates all 234 Nestbolt layouts. Median savings **13.0311% laser / 13.1005% plasma** meet the savings condition. The two mechanical jobs still exceed +1% material: worst **+6.5085% laser / +5.5959% plasma**; all other jobs are within the guard. Normal mode uses 21/49 hole riders; common mode forbids them. Deepnest SVG comparison is complete: 35 valid runs, four no-layout outcomes, native reported merge length and actual SVG savings reported separately. H5 remains open on material. The generated request schema omission was corrected; its original CI failure is retained. No gate/default/frozen input changed |
 | N5 — Lead-in allowances | 5% | **H6 complete.** [Gate evidence and material costs](../benchmarks/results/h6-complete-20261015.md): independent original-source coverage/attachment, owner/neighbour/stock checks, exact contour starts, three searched native previews and separate outer/hole/shortened settings. UI/CLI/MCP support preserving LightBurn projects plus separate SVG/DXF cutting files under Artem’s decision. The current build revalidates all 24 original native-coupon reservations unchanged; lead/core/MCP/CLI/browser checks pass. All 156 development layouts validate across 13 jobs, both kerfs and seeds 0–2. Median material cost is **+1.0696% laser / +6.0951% plasma**, with small-hole plasma flags explicitly reported. One report-order harness failure was corrected using the same saved layout and unchanged 1e-9 tolerance; all original failures remain. No new held-out/final acceptance or release claim |
 
-**N4 return-frame preparation, 2026-10-17:** [the isolated initialization change](../benchmarks/results/h5-return-frame-preparation-20261017.md)
-passes 90 core tests, strict lint and authored public checks. A returned group
-may rotate/reflect into the vacated incoming frame when every part permits it;
-otherwise it retains the previous translation. Both repairs and exact material
-limits remain. The original type error, arithmetic-test error and guarded
-0.0007 mm² material increase are preserved and reviewed. Separate tests require
-strict rejection and a successful exchange with a fixed envelope. The
-[72-outcome comparison](../benchmarks/results/h5-return-frame-pilot-20261017/plan.json)
-retains original inputs, budgets and limits. No integration or quality claim.
-H2/H5 remain open at 60%.
+**N4 return-frame outcome, 2026-10-17:** [all 72 outcomes validate](../benchmarks/results/h5-return-frame-pilot-20261017.md),
+with an independent hole-reservation audit of 133,535 same-sheet
+pairs across all 48 common-mode layouts. 4 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.208689%; m-mechanical-large-plates at 1.5 mm: +4.649005%; m-mechanical-panel-hardware at 0.2 mm: +5.475484%; m-mechanical-panel-hardware at 1.5 mm: +5.886483%
+There are 11 accepted exchanges from 71 attempts.
+Reject this candidate for integration; do not open the full 13-job gate for it. Production remains unchanged. Counters alone do not establish the
+remaining repair bottleneck or impossibility. H2/H5 remain open at 60%.
 
 **N4 preceding diagnostic, 2026-10-17:** [four traced outputs validate](../benchmarks/results/h5-complete-stage-diagnosis-20261017.md),
 but all 23 complete-set attempts fail return-sheet repair after the receiving
@@ -120,7 +117,7 @@ sheet succeeds. Investigate return-group initialization/repair within the
 existing budget and material guard. This locates a stage, not an impossibility
 proof or quality gain; the failed paired comparison remains the outcome.
 
-**N4 latest outcome, 2026-10-17:** [all 72 complete-set pilot outcomes validate](../benchmarks/results/h5-complete-set-pilot-20261017.md),
+**N4 preceding complete-set outcome, 2026-10-17:** [all 72 complete-set pilot outcomes validate](../benchmarks/results/h5-complete-set-pilot-20261017.md),
 but all four mechanical pairs still fail the +1% material limit, at +5.433792%
 to +6.521291%. All four control pairs pass the material limit. The separate
 filled-outer audit confirms all 48 common-mode outputs keep holes reserved.

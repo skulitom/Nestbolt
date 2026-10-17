@@ -1021,3 +1021,12 @@ strict rejection and a successful exchange with a fixed envelope. The
 [72-outcome comparison](../benchmarks/results/h5-return-frame-pilot-20261017/plan.json)
 retains original inputs, budgets and limits. No integration or quality claim.
 H2/H5 remain open at 60%.
+
+
+**N4 return-frame outcome, 2026-10-17:** [all 72 outcomes validate](../benchmarks/results/h5-return-frame-pilot-20261017.md),
+with an independent hole-reservation audit of 133,535 same-sheet
+pairs across all 48 common-mode layouts. 4 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.208689%; m-mechanical-large-plates at 1.5 mm: +4.649005%; m-mechanical-panel-hardware at 0.2 mm: +5.475484%; m-mechanical-panel-hardware at 1.5 mm: +5.886483%
+There are 11 accepted exchanges from 71 attempts.
+Reject this candidate for integration; do not open the full 13-job gate for it. Production remains unchanged. Counters alone do not establish the
+remaining repair bottleneck or impossibility. H2/H5 remain open at 60%.

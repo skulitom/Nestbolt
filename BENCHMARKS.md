@@ -13705,3 +13705,21 @@ keeps 72 attempts, four frozen development jobs, two kerfs, three seeds and thre
 arms, 60-second budgets and eight physical CCD0 cores. The core paired/scoring
 functions remain AST-identical. No measurement at this checkpoint, production
 integration or H5 closure; H2/H5 remain open at 60%.
+
+
+## 2026-10-17 — Reciprocal return-frame paired outcome
+
+[All 72 outcomes validate](benchmarks/results/h5-return-frame-pilot-20261017.md)
+with original quantities, exact independently cross-checked metrics and public
+exports in 8.923 minutes. Every archive passes CRC and all
+member/hash checks. The separate filled-outer audit verifies 133,535
+same-sheet pairs across 48 common-mode layouts, retaining holes and kerf spacing.
+Minimum clearance slack is -2.84217094304e-14 mm against
+the unchanged 0.00000010 mm audit tolerance.
+
+4 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +5.208689%; m-mechanical-large-plates at 1.5 mm: +4.649005%; m-mechanical-panel-hardware at 0.2 mm: +5.475484%; m-mechanical-panel-hardware at 1.5 mm: +5.886483%
+The candidate records 11/71 accepted/attempted exchanges.
+Reject this candidate for integration; do not open the full 13-job gate for it. Prior outcomes, guarded floating-point rejection and authored fixture
+repairs remain preserved. Production and frozen inputs are unchanged; no
+infeasibility claim or reserved-input access. H2/H5 remain open at 60%.
