@@ -13750,3 +13750,38 @@ source files and production stay unchanged. Every archive member and CRC verifie
 Four serial 60-second seed-zero observations on the same two mechanical jobs
 and kerfs are planned on CCD0 CPU 8 after committing the plan. No quality claim,
 relaxed limit, reserved-input access or milestone credit. H2/H5 remain open, 60%.
+
+
+## 2026-10-17 — Return-frame diagnostics isolate return-sheet repair again
+
+[All four recorded outcomes validate](benchmarks/results/h5-return-frame-stage-diagnosis-20261017.md),
+with original metrics/quantities, public exports, source/input guards, immutable
+archive CRC/member hashes and matching solver/trace counters. The serial session
+took 243.599 seconds. All 23 attempts are complete sets and
+use permitted reciprocal frames; every receiver repair succeeds, then every
+return-sheet repair fails. No partial set, orientation fallback or final trial
+geometry/material check is reached. These observations rule out orientation
+legality/fallback and the final material guard as their immediate failure stage.
+
+Returned/incoming area ratios range from 2.000000 to 3.000000.
+This is not an impossibility proof: source capacity and all other source poses
+are unrecorded. Investigate capacity and return-group placement, with a separate
+authored example before considering balanced groups moving both ways. Tracing
+can perturb wall deadlines; there is no new quality claim, repeated unchanged
+pilot, production integration or relaxed limit. H2/H5 remain open at 60%.
+
+
+## 2026-10-17 — Balanced two-to-three authored feasibility witness
+
+[Both seven-part layouts validate](benchmarks/results/h5-balanced-exchange-witness-20261017.md)
+with identical metrics and 19,700 mm² material. Two 30x45 parts exchange sheets
+with three 30x30 squares; both groups have 2,700 mm² area. With one 60x94 filler
+per 98x98 usable sheet, a necessary stacking bound rules out moving just one of
+the selected incoming parts for any zero-to-three returned-square count. The
+bound allows filler movement, ignores positive clearance conservatively and is
+explicitly scoped to those part selections. It does not prove global or
+mechanical-job infeasibility. The balanced concrete placements satisfy all
+clearances, fixed orientations, quantities and the unchanged material guard.
+Two public validations, zero optimizer runs; all source/report bytes and hashes
+are retained. Source-capacity inspection remains needed before selecting a new
+mechanical heuristic. No production change or H5 credit; completion remains 60%.

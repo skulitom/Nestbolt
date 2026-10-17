@@ -763,3 +763,22 @@ the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.208689%; m-mecha
 There are 11 accepted exchanges from 71 attempts.
 Reject this candidate for integration; do not open the full 13-job gate for it. Production remains unchanged. Counters alone do not establish the
 remaining repair bottleneck or impossibility. H2/H5 remain open at 60%.
+
+
+**N4 return-frame diagnosis, 2026-10-17:** [four valid diagnostic outcomes](../benchmarks/results/h5-return-frame-stage-diagnosis-20261017.md)
+record 23 complete-set attempts. Every reciprocal frame is permitted and every
+receiving-sheet repair succeeds, but all return-sheet repairs fail. None reaches
+the final geometry/material guard. Orientation fallback is not the immediate
+cause in these observations. Next inspect source capacity and placement of the
+larger returned groups; area ratios alone do not prove impossibility. A balanced
+multi-part exchange needs a separate authored feasibility example first.
+Original results/limits remain; no production change or H5 closure. Completion 60%.
+
+
+**N4 balanced-group witness, 2026-10-17:** [two independently valid layouts](../benchmarks/results/h5-balanced-exchange-witness-20261017.md)
+show two incoming rectangles exchanging with three return squares at identical
+material and quantities. A necessary stacking bound excludes all single-incoming
+choices within that explicitly scoped selection. This supports investigating
+balanced groups, but proves no mechanical improvement; inspect actual source
+capacity/placement before implementing a new heuristic. No optimizer run,
+production change or gate relaxation. H2/H5 remain open at 60%.
