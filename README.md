@@ -1,5 +1,7 @@
 # Nestbolt
 
+[简体中文](https://github.com/skulitom/Nestbolt/blob/main/README.zh-CN.md) · [日本語](https://github.com/skulitom/Nestbolt/blob/main/README.ja.md)
+
 In the frozen v1 benchmark, **8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow**
 at equal 60-second budgets, and 9.6% at 300 seconds, in the final benchmark run
 (fresh seeds, ten held-out jobs). Sparrow still wins 8 of the 56 jobs at 60 seconds
@@ -247,6 +249,18 @@ jobs excluded) and writes an audited report under `benchmarks/results/`.
 | `docs/STATUS.md` | Milestone evidence and next steps |
 
 Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS.md).
+
+## Sibling tools
+
+Nestbolt is one of five free, MIT-licensed tools for agents by the same author. Each runs locally as an MCP server:
+
+- [Anode](https://github.com/skulitom/Anode): a hidden background Windows desktop where agents automate and test GUI
+  apps, take screenshots and run headed browser tests without taking over the user's screen.
+- [Pixelbolt](https://github.com/skulitom/Pixelbolt): pixel art and sprite animation from editable JSON recipes,
+  exported as sprite sheets, atlases, animated PNGs and GIFs.
+- [Cutbolt](https://github.com/skulitom/Cutbolt): a video editing engine with exact timelines, captions and rendering.
+- [Inkbolt](https://github.com/skulitom/Inkbolt): vector and raster image editing for diagrams and illustrations,
+  with SVG import and SVG and PDF export.
 
 ## Progress and licence
 

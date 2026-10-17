@@ -84,6 +84,19 @@ command = 'C:\DEV\Nestbolt\target\release\nestbolt-mcp.exe'
 env = { NESTBOLT_WORKSPACE = 'C:\path\to\your\cutting\files' }
 ```
 
+**Or install the Claude Code plugin.** It registers the server and a `nestbolt` skill that tells
+the agent when and how to nest. It starts `nestbolt-mcp` from your PATH and doesn't install it:
+extract `nestbolt-mcp` from the [v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
+archive for your platform into a folder on your PATH first. Then, inside Claude Code:
+
+```text
+/plugin marketplace add skulitom/Nestbolt
+/plugin install nestbolt@nestbolt
+```
+
+Restart Claude Code. The workspace is the folder Claude Code was started in. Use the plugin or
+`claude mcp add`, not both.
+
 ## Evidence and remaining acceptance
 
 `crates/mcp/tests/connection.rs` starts the real executable as an MCP child
