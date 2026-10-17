@@ -13531,3 +13531,27 @@ separately. No product, reserved split or milestone weight changes.
 Documentation link review also corrects STATUS's old seed-2 warm-start report
 link to `sheets-ab-rects-30s-s2-20261012T143733Z-b0a39fa9.md`. The original
 BENCHMARKS entry is preserved; only its historical link target was mistyped.
+
+
+## 2026-10-17 — Reconcile main and passing hosted follow-up
+
+[The reconciliation](benchmarks/results/reconciliation-20261017.md) retains exact
+logs for both subsequent main runs: each passes all six jobs and 86 browser
+tests, with four opt-in skips. The original c36baa8 Firefox failure and unknown
+cause remain explicit. Main's plugin/evals, agent docs and translated READMEs
+are fast-forwarded without application changes; product digest stays fixed.
+Official Sparrow Studio pages still describe strip-only deployment and an
+unpublished redesign, so the shipment stop rule is not triggered. No reserved
+geometry, new benchmark, release or milestone closure; completion remains 60%.
+
+
+## 2026-10-17 — Prepare atomic-set eligibility and repair diagnosis
+
+[The isolated diagnostic build](benchmarks/results/h5-obstruction-stage-preparation-20261017.md)
+passes 85 optimized core tests and strict lint. Aggregate-only instrumentation
+records sample eligibility, complete-set area exclusions and actual repair/
+validation outcomes without changing proposal choices or budgets. Reversing
+insertions restores original source text; all other sources stay byte-identical.
+The full source/binary/log archive passes CRC and every member hash. Four fixed
+mechanical/kerf observations are planned, serial CPU 8 after the plan is committed.
+No quality claim, held-out access, integration or H5 closure; completion stays 60%.

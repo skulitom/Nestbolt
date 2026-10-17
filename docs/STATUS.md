@@ -1,4 +1,4 @@
-# Status — 2026-10-16
+# Status — 2026-10-17
 
 ## v1.1 — real shop files
 
@@ -22,12 +22,11 @@ pass. Stable Latest and its assets remain v0.1.0. This does not close the remain
 v1.1 gates or authorize a new final acceptance run. No new registry version was published.
 
 
-**Follow-up browser CI:** the [separate c36baa8 main run](../benchmarks/results/preview-depth-followup-ci-20261016.md)
-has one Firefox lead-report failure (85 browser tests pass, four skip). Sixteen
-unchanged local repetitions pass, and the affected 28-test suite passes after
-improving error diagnostics. The original hosted cause is unresolved; new CI
-retains failure screenshots/traces. Release workflow and actual native download
-checks pass separately. Product behavior and gate thresholds are unchanged.
+**Hosted checks, 2026-10-17:** [both follow-up main commits pass all six checks](../benchmarks/results/reconciliation-20261017.md),
+including 86 browser tests with four opt-in skips each. The original c36baa8
+Firefox failure remains preserved with unknown cause. New failure diagnostics
+remain enabled. Main's new plugin and translated/agent READMEs are reconciled;
+application source and gate thresholds are unchanged.
 
 
 **Release readiness, 2026-10-16:** candidate `aba989e` is version
