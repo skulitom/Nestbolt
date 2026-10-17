@@ -13733,3 +13733,20 @@ failure remains preserved; its overall run was later cancelled while Windows
 checks were running. Original/new terminal metadata and the successful browser
 log are archived and verified. No production, released-asset or gate change;
 the older c36baa8 Firefox cause remains unknown. Completion remains 60%.
+
+
+## 2026-10-17 — Prepare return-frame legality and repair-stage observations
+
+[The isolated observer](benchmarks/results/h5-return-frame-stage-preparation-20261017.md)
+passes 90 optimized core tests, strict lint and its build. Two existing authored
+tests supply real traces to qualify the new reader; five malformed mutations
+are rejected, including accepted material increase and false frame categories.
+The original guarded 0.0007 mm² increase remains a rejection. Per-attempt poses,
+orientation legality/fallback, initial/final repair loss and material metrics
+will distinguish causes that aggregate counters cannot identify.
+
+Instrumentation reverses to exact original source before formatting; other
+source files and production stay unchanged. Every archive member and CRC verifies.
+Four serial 60-second seed-zero observations on the same two mechanical jobs
+and kerfs are planned on CCD0 CPU 8 after committing the plan. No quality claim,
+relaxed limit, reserved-input access or milestone credit. H2/H5 remain open, 60%.

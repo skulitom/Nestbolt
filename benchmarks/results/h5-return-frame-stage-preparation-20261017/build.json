@@ -1,0 +1,89 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-17T23:30:56.825043+00:00",
+      "finished": "2026-10-17T23:30:57.478697+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-frame-stage-target-20261017"
+      ],
+      "started": "2026-10-17T23:30:57.557838+00:00",
+      "finished": "2026-10-17T23:33:49.367184+00:00",
+      "exit_code": 0,
+      "log_sha256": "b797748dd6f6cb6d00134e50a94878f3ace86795762bac71ddcc4d64466a7399"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-frame-stage-target-20261017",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-17T23:33:49.473789+00:00",
+      "finished": "2026-10-17T23:34:46.543021+00:00",
+      "exit_code": 0,
+      "log_sha256": "3a352e028ac617b3ac2b4909e96d7d7f6d9410f3a525fe44a9d84a6de912b711"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-frame-stage-target-20261017"
+      ],
+      "started": "2026-10-17T23:34:46.643501+00:00",
+      "finished": "2026-10-17T23:35:36.603951+00:00",
+      "exit_code": 0,
+      "log_sha256": "48bac54ab10885231cd6235cafd0335587f038f18df810ea5087f963036ef914"
+    }
+  ],
+  "source_sha256": "7d8ad0af0430ceb952c011f1020c48ba8d5880a40da1cc3df75d9dddcbe46adf",
+  "binary_sha256": "ffa23176b942ea65bea6a652b4646cfa1e43da4fb9ea0c0c24d942c429b7dec7",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

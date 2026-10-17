@@ -1,0 +1,233 @@
+--- return-frame-original
++++ diagnostic-only
+@@ -3,6 +3,78 @@
+ use super::*;
+ use jagua_rs::entities::Item;
+ use jagua_rs::geometry::geo_traits::TransformableFrom;
++
++// Diagnostic copy: aggregate observations only; no decision or budget changes.
++#[derive(Default, serde::Serialize)]
++struct ExchangeTrace {
++    disabled_or_expired: bool,
++    baseline_invalid: bool,
++    proposals: usize,
++    expired_before_attempt: usize,
++    samplings: Vec<SamplingTrace>,
++    attempts: Vec<AttemptTrace>,
++}
++#[derive(Default, serde::Serialize)]
++struct SamplingTrace {
++    incoming_area: f32,
++    samples: usize,
++    examined: usize,
++    collision_free: usize,
++    over_three_collisions: usize,
++    non_item_collision: usize,
++    multi_eligible_smaller: usize,
++    multi_eligible_not_smaller: usize,
++    smallest_not_smaller_area_ratio: Option<f32>,
++    retained_victim_counts: Vec<usize>,
++    retained_blocker_counts: Vec<usize>,
++}
++#[derive(serde::Serialize)]
++struct AttemptTrace {
++    incoming_area: f32,
++    returned_area: f32,
++    victims: usize,
++    blockers: usize,
++    receiver_loss: Option<f32>,
++    source_loss: Option<f32>,
++    receiver_initial_loss: Option<f32>,
++    source_initial_loss: Option<f32>,
++    before_material: f64,
++    after_material: Option<f64>,
++    frame: serde_json::Value,
++    outcome: &'static str,
++}
++impl Drop for ExchangeTrace {
++    fn drop(&mut self) {
++        eprintln!("OBSTRUCTION_DIAG {}", serde_json::to_string(self).expect("diagnostic serialization"));
++    }
++}
++
++
++fn observed_pose(pose: DTransformation) -> serde_json::Value {
++    serde_json::json!({"rotation":pose.rotation(),"reflected":pose.reflected,"translation":pose.translation()})
++}
++
++fn observed_return_frame(
++    victims: &[(PItemKey, std::sync::Arc<Item>, DTransformation)],
++    here: DTransformation,
++    old: DTransformation,
++    actual: &[DTransformation],
++) -> serde_json::Value {
++    let same = here.rotation() == old.rotation() && here.reflected == old.reflected;
++    let frame = here.compose().inverse().transform(&old.compose());
++    let hypothetical: Vec<_> = victims.iter().map(|(_,item,previous)| {
++        let pose=previous.compose().transform(&frame).decompose();
++        (pose,item.allowed_orientations().allows(&pose))
++    }).collect();
++    let mode = if victims.len()==1 {"single"} else if same {"same_frame_translation"}
++        else if hypothetical.iter().all(|(_,allowed)|*allowed) {"reciprocal"} else {"forbidden_translation"};
++    let members: Vec<_> = victims.iter().zip(actual).zip(hypothetical).map(|(((_,item,previous),actual),(hypothetical,allowed))| {
++        serde_json::json!({"external_id":item.external_id(),"previous":observed_pose(*previous),
++            "hypothetical":observed_pose(hypothetical),"hypothetical_allowed":allowed,
++            "actual":observed_pose(*actual),"actual_allowed":item.allowed_orientations().allows(actual)})
++    }).collect();
++    serde_json::json!({"mode":mode,"incoming_before":observed_pose(old),"incoming_here":observed_pose(here),"members":members})
++}
+ 
+ struct Proposal {
+     victims: Vec<PItemKey>,
+@@ -35,7 +107,9 @@
+     rng: &mut Xoshiro256PlusPlus,
+     clock: &Clock,
+     until: f64,
++    trace: &mut ExchangeTrace,
+ ) -> Vec<Proposal> {
++    let mut sampling = SamplingTrace { incoming_area: incoming.area(), ..Default::default() };
+     let bounds = receiver.container().outer_cd().bbox();
+     let mut buffer = incoming.shape_cd().as_ref().clone();
+     let mut samples = Vec::new();
+@@ -60,6 +134,7 @@
+     }
+     let mut collector = BasicHazardCollector::new();
+     let mut out: Vec<Proposal> = Vec::new();
++    sampling.samples = samples.len();
+     for dt in samples {
+         if clock.now() >= until {
+             break;
+@@ -70,6 +145,10 @@
+             .cde()
+             .collect_poly_collisions(&buffer, &NoFilter, &mut collector);
+         crate::separate::charge(clock, incoming, 1);
++        sampling.examined += 1;
++        sampling.collision_free += usize::from(collector.is_empty());
++        sampling.over_three_collisions += usize::from(collector.len() > 3);
++        sampling.non_item_collision += usize::from(collector.iter().any(|(_, h)| !matches!(h, BasicHazardEntity::PlacedItem { .. })));
+         if collector.is_empty()
+             || collector.len() > 3
+             || collector
+@@ -95,6 +174,15 @@
+             .collect();
+         let area: f32 = blocked.iter().map(|(_, (_, p))| p.item().area()).sum();
+         if blocked.len() > 1 {
++            if area < incoming.area() {
++                sampling.multi_eligible_smaller += 1;
++            } else {
++                sampling.multi_eligible_not_smaller += 1;
++                let ratio = area / incoming.area();
++                sampling.smallest_not_smaller_area_ratio = Some(sampling.smallest_not_smaller_area_ratio.map_or(ratio, |old| old.min(ratio)));
++            }
++        }
++        if blocked.len() > 1 {
+             retain_proposal(
+                 &mut out,
+                 Proposal {
+@@ -125,6 +213,9 @@
+             retain_proposal(&mut out, proposal);
+         }
+     }
++    sampling.retained_victim_counts = out.iter().map(|p| p.victims.len()).collect();
++    sampling.retained_blocker_counts = out.iter().map(|p| p.blockers).collect();
++    trace.samplings.push(sampling);
+     out
+ }
+ 
+@@ -195,11 +286,14 @@
+         shape: Shape,
+         until: f64,
+     ) -> Result<usize> {
++        let mut trace = ExchangeTrace::default();
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
++            trace.disabled_or_expired = true;
+             return Ok(0);
+         }
+         let baseline = self.exchange_report(strip, frozen, &sep.layout, shape)?;
+         if !baseline.valid {
++            trace.baseline_invalid = true;
+             return Ok(0);
+         }
+         let before = baseline.metrics.as_ref().expect("valid baseline");
+@@ -272,12 +366,24 @@
+                     &mut self.rng,
+                     &self.clock,
+                     proposal_until,
++                    &mut trace,
+                 );
++                trace.proposals += candidates.len();
+                 for proposal in candidates {
+                     if self.clock.now() >= self.last_step(until) {
++                        trace.expired_before_attempt += 1;
+                         return Ok(0);
+                     }
+                     self.stats.directed_exchange_attempts += 1;
++                    let index = trace.attempts.len();
++                    trace.attempts.push(AttemptTrace {
++                        incoming_area: incoming_item.area(), returned_area: proposal.area,
++                        victims: proposal.victims.len(), blockers: proposal.blockers,
++                        receiver_loss: None, source_loss: None, outcome: "unfinished",
++                        receiver_initial_loss: None, source_initial_loss: None,
++                        before_material: before.material_area, after_material: None,
++                        frame: serde_json::Value::Null,
++                    });
+                     let victims: Vec<_> = proposal
+                         .victims
+                         .iter()
+@@ -300,6 +406,7 @@
+                     } else {
+                         return_group_poses(&victims, proposal.incoming, incoming_old)
+                     };
++                    trace.attempts[index].frame = observed_return_frame(&victims, proposal.incoming, incoming_old, &returned);
+                     for ((_, victim, _), pose) in victims.iter().zip(returned) {
+                         next_source.place_item(victim, pose);
+                     }
+@@ -316,9 +423,12 @@
+                         EXPLORE,
+                         self.clock.clone(),
+                     );
++                    trace.attempts[index].receiver_initial_loss = Some(receiver_sep.tracker.total_loss());
+                     let (receiver_snapshot, receiver_tracker) =
+                         receiver_sep.separate(&self.deadline(middle));
++                    trace.attempts[index].receiver_loss = Some(receiver_tracker.total_loss());
+                     if receiver_tracker.total_loss() > 0.0 {
++                        trace.attempts[index].outcome = "receiver_repair_failed";
+                         continue;
+                     }
+                     let mut source_sep = Separator::new(
+@@ -327,11 +437,14 @@
+                         EXPLORE,
+                         self.clock.clone(),
+                     );
++                    trace.attempts[index].source_initial_loss = Some(source_sep.tracker.total_loss());
+                     let (source_snapshot, source_tracker) =
+                         source_sep.separate(&self.deadline(pair_end));
++                    trace.attempts[index].source_loss = Some(source_tracker.total_loss());
+                     if source_tracker.total_loss() > 0.0
+                         || self.clock.now() >= self.last_step(until)
+                     {
++                        trace.attempts[index].outcome = if source_tracker.total_loss() > 0.0 { "source_repair_failed" } else { "expired_after_repairs" };
+                         continue;
+                     }
+                     let mut trial = JLayout::from_snapshot(&sep.layout.save());
+@@ -351,16 +464,20 @@
+                     );
+                     let report = self.exchange_report(strip, frozen, &trial, shape)?;
+                     if !report.valid {
++                        trace.attempts[index].outcome = "independent_geometry_failed";
+                         self.stats.rejected_layouts += 1;
+                         continue;
+                     }
+                     let after = report.metrics.as_ref().expect("valid exchange");
++                    trace.attempts[index].after_material = Some(after.material_area);
+                     if after.sheets_used > before.sheets_used
+                         || after.material_area > before.material_area
+                         || self.clock.now() >= until
+                     {
++                        trace.attempts[index].outcome = if self.clock.now() >= until { "expired_before_acceptance" } else { "material_guard_failed" };
+                         continue;
+                     }
++                    trace.attempts[index].outcome = "accepted";
+                     sep.layout = trial;
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
