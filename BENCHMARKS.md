@@ -13632,3 +13632,17 @@ Fresh browser build/type checks and the complete local suite pass: 86 tests,
 four opt-in skips, two workers, zero retries. Hosted follow-up is pending.
 This changes no product behavior, benchmark budget, gate, released asset or
 milestone. It does not establish the cause of the older c36baa8 Firefox failure.
+
+
+## 2026-10-17 — Prepare complete-set repair-stage diagnosis
+
+[The diagnostic-only copy](benchmarks/results/h5-complete-stage-preparation-20261017.md)
+passes 85 optimized core tests, strict lint and the observer build. Instrumentation
+is reversible to exact original text before formatting, with every other source
+unchanged. Complete sets are counted by returned-area relation; actual attempts
+distinguish complete/partial sets and both repair, geometry and material stages.
+Trace reading permits larger/equal complete sets while retaining the single-part
+area invariant. All archive members and CRC verify. Four 60-second serial CPU-8
+observations are planned after their plan is committed. This is not a new quality
+comparison or an unchanged retry of the failed pilot. Production, every original
+failure and gate limits remain; no reserved inputs or H5 credit. Completion 60%.
