@@ -1,0 +1,343 @@
+{
+  "scope": "Paired development pilot for atomic obstruction-set exchanges.\n\nCurrent depth-three baseline and candidate share geometry and search budgets.\nFour frozen H5 jobs, both kerfs, seeds 0-2 and matched 60-second wall budgets.\nThe candidate can return the complete actual obstruction set regardless of combined filled area, keeping\nthe existing one-victim fallbacks, repair/validation guards and early deadline.\nEarlier paired failures and diagnostic traces remain unchanged. Wait for the\ncurrent full H4 matrix and conditional scale/export-check sequence to finish.\nThis pilot cannot close H5 or justify a public comparative claim.\n",
+  "prepared_utc": "2026-10-17T22:19:48.856367+00:00",
+  "commit": "dbfce805122b9005cfb268eb591d01db2378808e",
+  "guards": {
+    "production": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+    "environment": {
+      "NESTBOLT_SIMPLIFY": null,
+      "NESTBOLT_NO_FILL": null,
+      "NESTBOLT_DEBUG": null,
+      "NESTBOLT_TRACE": null,
+      "RUSTFLAGS": null,
+      "CARGO_PROFILE_RELEASE_LTO": null
+    },
+    "baseline_source": "28b7b690e14a39b491e57d15555acaa8da8f1523292b4b1e69ab78453d5f6c05",
+    "candidate_source": "17f1e02a2fa622cd48020a48b3595fa9a7cad19380cabc458fa8bc1889903bee",
+    "files": {
+      "scripts/h5_complete_set_pilot.py": "a85c23bc9071281d1cafaee9549a6ce0977d1e1fe470d312f0808b6f19a6a695",
+      "scripts/test_h5_early_exchange_pilot.py": "a505616565220f30688ffd6f7772d37d955e583aad0cde7702f4b89e0db19e62",
+      "scripts/cutting_development_set.py": "04b849cd11d9c9f4f601835965f15a846918d1c42b5436ece4f02c10916a960d",
+      "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+      "scripts/h4_full_matrix.py": "eb28e1382fc0e802aaf6763b3f57e4f65e1a4cd2e0749e1bd62cf0cee8416880",
+      "benchmarks/datasets/cutting/manifest.json": "922d36732c6e7624b1c5501c8320effb12b33f37d7361cc5d5856b28d19ca814",
+      "benchmarks/results/h4-depth-reboot-recovery-20261016/plan.json": "ebcb412248b88cffee729051521617936e82c1541c5ca6e2eac7bda63f3f4e3a",
+      "benchmarks/results/h4-depth-recovered-scale-plan-20261016/plan.json": "ab54dad76feeae51ff2ddccd67b4283da65c62e2d409e223a38a033df6a5e22a",
+      "output/h5-complete-set-probe-20261017/public-checks/nestbolt-validator.exe": "97de6a34f17760ca30230742e716b3e74940f1a2ede71453ecb3b13bac73dc2b",
+      "output/h5-complete-set-probe-20261017/build-v2.json": "023cd08e6e67e73bcdb42b65fdcc2057b00b865ca5cbca060601c8d0c3967181",
+      "output/h5-complete-set-probe-20261017/preparation.json": "5400bb3b5b27717bb941fa407ecfb57a2ddd610c18bc2b3737448aeb6ce2f409",
+      "output/h5-complete-set-probe-20261017/public-checks/checks.json": "797beddeef0ed289d05af3d5c5f98f545bd79af0c55a229fd394117269863686",
+      "benchmarks/results/h5-complete-set-preparation-20261017/checks.json": "9cd2bd6953a99cc6f105c5e79092e7afbd935946d8293cbdae6c0a3c90d7ff2a",
+      "output/h5-complete-set-probe-20261017/baseline-observer.exe": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+      "output/h5-complete-set-probe-20261017/candidate-observer.exe": "b23f2fa66e341bf57123f6737e880415d5eb8d83164056630b1b544d056e44bb",
+      "benchmarks/results/h5-obstruction-stage-diagnosis-20261017/verification.json": "13868bf9742bf6b894eb58b3d426ec063387f320634b66ff539802b2654e38e5",
+      "benchmarks/results/h5-area-witness-20261017/review.json": "a66804679cef18affb3f3773f8e938f75a28c30318010d7e14a5171aaf9f00f6",
+      "benchmarks/results/h5-obstruction-set-recovered-pilot-20261016/verification.json": "09c5e16ff8f6affe0c39fd617892184a086463db5260c72a3019d04d63c4f426",
+      "benchmarks/datasets/M/m-box-batch-500.json": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+      "benchmarks/datasets/M/m-box-desktop.json": "68feb4c70fe327ef249314b47716bbb676adaf6950335fc728d4618cb8aa0c0e",
+      "benchmarks/datasets/M/m-box-long.json": "603f40fe5c9d1475c55136b8f9e5b0a23e412fe17bca7d7cbe004561bdc4929c",
+      "benchmarks/datasets/M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+      "benchmarks/datasets/M/m-box-storage.json": "0ecbe92256765dfb15a4791026f2b07ef69114652c7530914dfa426771113d97",
+      "benchmarks/datasets/M/m-box-tool.json": "54c5095358b5b24f0d0b8a1bcd5e94e6834345e87865124e3ec8fac3f83ab44b",
+      "benchmarks/datasets/M/m-mechanical-large-plates.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "benchmarks/datasets/M/m-mechanical-panel-hardware.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "benchmarks/datasets/cutting/c-rect-equal.json": "dd389cf9d9f9407373f1971a43755cb91f65d1798f1eb9c2aca1883fcf9497d7",
+      "benchmarks/datasets/cutting/c-rect-mixed.json": "741285ff2057ea01de5409b66263bfea0ca7ea6e51dc65ea43f1e48708b6d0e4",
+      "benchmarks/datasets/cutting/c-bracket-l.json": "a2d216033717c5b4aa8548be9153465c4a717c596aaa16aaf2dc5c24481e85c8",
+      "benchmarks/datasets/cutting/c-bracket-u.json": "922c1256f80a68e46fd3e34e6d8806e1cfd85eeb11d5399876d128197dd27f80",
+      "benchmarks/datasets/cutting/c-bracket-mixed.json": "a02e94fa53d9700ebda49d75ac59653e42c57b0bcc50caf86377516657da27aa"
+    }
+  },
+  "jobs": [
+    "m-mechanical-large-plates",
+    "m-mechanical-panel-hardware",
+    "m-box-mini",
+    "c-bracket-mixed"
+  ],
+  "kerfs_mm": [
+    0.2,
+    1.5
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "seconds": 60,
+  "arms": {
+    "normal": "Unchanged preview, ordinary nesting at the same kerf spacing",
+    "baseline": "Unchanged preview, common-line search bonus on",
+    "candidate": "Isolated complete-set eligibility candidate, common-line search bonus on"
+  },
+  "blocks": [
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "arm_order": [
+        "baseline",
+        "candidate",
+        "normal"
+      ]
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "arm_order": [
+        "candidate",
+        "normal",
+        "baseline"
+      ]
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "arm_order": [
+        "normal",
+        "baseline",
+        "candidate"
+      ]
+    }
+  ],
+  "attempts": 72,
+  "cpus": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14
+  ],
+  "concurrency": 8,
+  "pairing": "All three arms of a job/kerf/seed run sequentially on the same physical core; arm order rotates.",
+  "geometry": "Original frozen rings, quantities, stocks and rotations; only requested kerf spacing and common-line settings.",
+  "search_external_timeout_seconds": 150,
+  "validation_export_timeout_seconds": 180,
+  "revalidation_absolute_tolerance": 1e-09,
+  "whole_session_limit_seconds": 3600,
+  "failed_attempts": "Preserve all outcomes; any missing/duplicate/failed seed prevents a complete median and comparison.",
+  "decision": "Descriptive pilot only. Inspect material, cutting savings and exchange counters on every pair. Any invalid output precludes integration; H5 still requires the complete 13-job gate with unchanged thresholds.",
+  "requires_completed_current_preview_and_scale_sequence": true,
+  "original_unopened_pilot_preserved": "benchmarks/results/h5-obstruction-set-pilot-20261016",
+  "paired_case_blocks_summary_measurement_method_unchanged": true,
+  "recovery_preserves_completed_current_outcomes": 402,
+  "recovery_new_Firefox_outcomes": 201,
+  "previous_failed_pilot": "benchmarks/results/h5-obstruction-set-recovered-pilot-20261016/results.json",
+  "workflow_prerequisite": "Wait until the current release matrix and conditional scale/export-check sequence finish. Preserve all failed H4/H5 outcomes; every gate limit is unchanged.",
+  "held_out_geometry_read": false,
+  "H5_complete": false
+}

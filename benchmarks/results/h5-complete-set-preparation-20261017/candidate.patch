@@ -1,0 +1,82 @@
+--- rejected-atomic-set
++++ complete-set-candidate
+@@ -1,5 +1,5 @@
+-//! Isolated experiment: return a smaller actual obstruction while inserting a
+-//! last-sheet part, repair both sheets, then check the whole original job.
++//! Isolated experiment: return complete actual obstruction sets while inserting
++//! a last-sheet part, repair both sheets, then check the whole original job.
+ use super::*;
+ use jagua_rs::entities::Item;
+ use jagua_rs::geometry::geo_traits::TransformableFrom;
+@@ -79,8 +79,10 @@
+             continue;
+         }
+         // Moving every actual obstruction can leave a feasible receiver when
+-        // evicting only one would leave one or two known collisions to repair.
+-        // Keep the original single-victim alternatives as a fallback.
++        // evicting only one leaves known collisions. Returned filled area can
++        // increase while last-sheet height and material stay unchanged. Both
++        // repairs and the whole-job material guard still control acceptance.
++        // Keep the original smaller single-victim alternatives as a fallback.
+         let blocked: Vec<_> = receiver
+             .placed_items()
+             .iter()
+@@ -92,7 +94,7 @@
+             })
+             .collect();
+         let area: f32 = blocked.iter().map(|(_, (_, p))| p.item().area()).sum();
+-        if blocked.len() > 1 && area < incoming.area() {
++        if blocked.len() > 1 {
+             retain_proposal(
+                 &mut out,
+                 Proposal {
+@@ -614,12 +616,12 @@
+     }
+ 
+     #[test]
+-    fn directed_exchange_refuses_larger_return_parts() {
++    fn directed_exchange_rejects_returns_that_cannot_fit() {
+         let (mut job, layout) = fixture();
+         job.parts[2] = rectangle("incoming", 20.0, 10.0);
+         let (moved, _, stats) = exercise(&job, &layout, 0, true, false, 0);
+         assert_eq!(moved, 0);
+-        assert_eq!(stats.directed_exchange_attempts, 0);
++        assert_eq!(stats.directed_exchanges, 0);
+     }
+ 
+     #[test]
+@@ -744,9 +746,30 @@
+     }
+ 
+     #[test]
+-    fn obstruction_set_refuses_net_area_increase_without_mutation() {
+-        let (job, layout) = obstruction_set_fixture(3, 30.0);
+-        let (moved, _, _) = exercise(&job, &layout, 0, true, false, 0);
+-        assert_eq!(moved, 0);
++    fn complete_sets_can_return_equal_or_greater_area_at_the_same_material() {
++        // The independently validated witness retains a 33 mm charged height:
++        // a 2550/2700 mm2 incoming part can trade for three 900 mm2 squares.
++        // Their relative positions fit in the otherwise empty return sheet.
++        for incoming_width in [85.0, 90.0] {
++            let (mut job, mut layout) = obstruction_set_fixture(3, 30.0);
++            for part in &mut job.parts {
++                for polygon in &mut part.geometry {
++                    for point in &mut polygon.outer {
++                        point.swap(0, 1);
++                    }
++                }
++            }
++            job.parts[2] = rectangle("incoming", incoming_width, 30.0);
++            for part in &mut layout.placements {
++                part.transform.translation.swap(0, 1);
++            }
++            let original = validate(&job, &layout).unwrap();
++            assert!(original.valid);
++            assert_eq!(original.metrics.unwrap().material_area, 13300.0);
++            let (moved, after, _) = exercise(&job, &layout, 0, true, false, 0);
++            assert_eq!(moved, 1);
++            assert_eq!(after.placements.iter().filter(|p| p.part_id == "return" && p.sheet_id == "sheet-1").count(), 3);
++            assert!(after.placements.iter().any(|p| p.part_id == "incoming" && p.sheet_id == "sheet-0"));
++        }
+     }
+ }

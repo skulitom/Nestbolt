@@ -13575,3 +13575,27 @@ are preserved. No search or original benchmark is rerun/rescored for this proof.
 The observations motivate testing complete-set eligibility with the same final
 geometry/material guards. No feasibility/improvement claim, production change,
 reserved access or H5 credit; completed weight remains 60%.
+
+
+## 2026-10-17 — Prepare complete blocker-set eligibility comparison
+
+[The isolated candidate](benchmarks/results/h5-complete-set-preparation-20261017.md)
+passes 85 optimized core tests, strict lint, ten authored observer outcomes,
+four public CLI cross-checks and five existing adversarial pilot-harness tests.
+It removes the combined-area filter only for complete two/three-blocker sets.
+Actual collisions, proposal caps/order, single-victim fallbacks, both-sheet
+repair, independent geometry/material validation and deadlines remain.
+Equal/larger-area authored exchanges pass at unchanged material; impossible
+returns still leave the incumbent intact. The changed expectations and patch
+are explicit. Ordinary results and common replays match exactly apart from wall time.
+
+The 457-member source/binary/public-result archive is 6,181,481 bytes, SHA-256
+`55111765a906d1ba950e43edeafa3f6fc194d19d27042633b497a7f507e92ae8`;
+CRC and every member hash/size verify. Production and prior candidates are unchanged.
+The [new committed plan](benchmarks/results/h5-complete-set-pilot-20261017/plan.json)
+retains the same 72 attempts: four jobs, two kerfs, three seeds, three arms,
+60-second matched budgets, rotating arm order and eight physical CCD0 cores.
+Blocks/scoring/per-case/measurement functions are AST-identical to the retained
+recovery-aware pilot. The completed diagnostic and H4 sequences are prerequisites.
+No measurement has started at this preparation checkpoint. No integration,
+reserved-input access or H5 closure; original limits and 60% completion remain.

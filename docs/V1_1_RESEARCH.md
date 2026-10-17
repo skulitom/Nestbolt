@@ -978,3 +978,13 @@ The first incorrectly oriented witness is retained with its failed material
 assertion. This motivates a separately tested complete-set eligibility change;
 it proves no mechanical feasibility or quality gain. Production stays unchanged,
 and H2/H5 remain open at 60% completed weight.
+
+
+**N4 complete-set preparation, 2026-10-17:** [the isolated eligibility change](../benchmarks/results/h5-complete-set-preparation-20261017.md)
+passes 85 core tests, strict lint and authored public comparisons. Complete
+two/three-blocker sets may now be considered regardless of combined part area;
+both-sheet repair and final independent geometry/material limits remain.
+Equal/larger-area tests pass without extra material; impossible returns retain
+the incumbent. The [committed 72-outcome pilot](../benchmarks/results/h5-complete-set-pilot-20261017/plan.json)
+uses the unchanged paired method and original thresholds. It has not started
+at this checkpoint. Production remains unchanged; H2/H5 are open at 60%.
