@@ -1,0 +1,59 @@
+{
+  "all_pass": true,
+  "browser_passed": 86,
+  "browser_skipped": 4,
+  "stages": [
+    {
+      "label": "web-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-17T22:33:23.003645+00:00",
+      "finished_utc": "2026-10-17T22:33:36.944177+00:00",
+      "log_sha256": "f55963ecc92a7b6a5e8141ac894085c968bb0fe44cf241520572b4f75a151f9e"
+    },
+    {
+      "label": "test-types",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-17T22:33:36.951018+00:00",
+      "finished_utc": "2026-10-17T22:33:37.982455+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "browser-suite",
+      "command": [
+        "node",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--workers",
+        "2",
+        "--retries",
+        "0",
+        "--output",
+        "C:\\DEV\\Nestbolt\\output\\ci-lead-budget-20261017\\local-checks\\test-results",
+        "--trace",
+        "retain-on-failure"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-17T22:33:37.983456+00:00",
+      "finished_utc": "2026-10-17T22:35:53.179594+00:00",
+      "log_sha256": "beca4185d32723517f9ee91f44f39a75c9a2c410802a5dde602be0bc61261270"
+    }
+  ],
+  "unchanged_product_source": true,
+  "unchanged_assertions": true,
+  "changed_functional_test_allowance_seconds": [
+    1,
+    5
+  ],
+  "hosted_followup_pending": true,
+  "not_a_performance_measurement": true
+}

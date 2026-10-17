@@ -22,7 +22,15 @@ pass. Stable Latest and its assets remain v0.1.0. This does not close the remain
 v1.1 gates or authorize a new final acceptance run. No new registry version was published.
 
 
-**Hosted checks, 2026-10-17:** [both follow-up main commits pass all six checks](../benchmarks/results/reconciliation-20261017.md),
+**Latest browser follow-up, 2026-10-17:** [the new hosted trace](../benchmarks/results/browser-lead-budget-20261017.md)
+identifies a Chromium lead-test failure: the requested one-second search expires
+without a complete layout. Using the normal five-second functional-test allowance
+keeps all assertions and passes the complete local suite (86 tests, four opt-in
+skips, two workers, no retries). Hosted confirmation is pending. The original
+failure and diagnostics remain, and the older c36baa8 Firefox cause remains unknown.
+Application source, benchmark limits and release assets are unchanged.
+
+**Earlier hosted checks, 2026-10-17:** [both follow-up main commits pass all six checks](../benchmarks/results/reconciliation-20261017.md),
 including 86 browser tests with four opt-in skips each. The original c36baa8
 Firefox failure remains preserved with unknown cause. New failure diagnostics
 remain enabled. Main's new plugin and translated/agent READMEs are reconciled;

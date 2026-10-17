@@ -69,7 +69,9 @@ const metric = async (page: Page, name: string) =>
 
 test('lead allowances expose flags, reserve offcuts and export a separate review layer', async ({ page }, testInfo) => {
   const source = fileURLToPath(new URL('../../crates/core/tests/fixtures/leads.svg', import.meta.url));
-  const sheet = await setUp(page, [source], { 'leads-1': 2 }, 60, 35, 1);
+  // Exercise lead behavior with the usual five-second functional-test budget.
+  // One second can expire before a complete layout exists on shared CI runners.
+  const sheet = await setUp(page, [source], { 'leads-1': 2 }, 60, 35);
   await sheet.getByLabel('Margin').fill('0');
   await page.getByLabel('Lead-in allowances', { exact: true }).check();
   await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();

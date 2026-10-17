@@ -13619,3 +13619,16 @@ baseline establishes H5. The candidate remains unintegrated; the full 13-job
 gate is not started. Existing failures, source/build/data guards, thresholds
 and reserved isolation remain. Aggregate counters do not identify the current
 repair bottleneck or prove infeasibility. H2/H5 remain open; completion is 60%.
+
+
+## 2026-10-17 — Preserve hosted lead-test timeout and use normal functional allowance
+
+[The hosted failure and local repair](benchmarks/results/browser-lead-budget-20261017.md)
+retain the exact screenshot, trace, log and 4,823,823-byte GitHub artifact with
+matching published SHA-256. Chromium reports no complete layout within the test's
+requested one second; 85 other tests pass and four opt-in cases skip. The test
+now uses the existing five-second setup default, preserving every assertion.
+Fresh browser build/type checks and the complete local suite pass: 86 tests,
+four opt-in skips, two workers, zero retries. Hosted follow-up is pending.
+This changes no product behavior, benchmark budget, gate, released asset or
+milestone. It does not establish the cause of the older c36baa8 Firefox failure.
