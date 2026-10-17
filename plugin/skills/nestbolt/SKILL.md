@@ -20,7 +20,7 @@ keep the original arcs and curves.
 | How many sheets will this order need, roughly, before I buy material? | `estimate_sheets` (a lower bound), then `nest` for a real layout |
 | Is this layout file still valid for these parts and sheets? | `validate_layout` |
 | Write the cut files again as DXF | `export_layout` |
-| Toolpaths, G-code, feeds and speeds, or machine settings | Not Nestbolt: it writes nested SVG, DXF or LightBurn files for the user's CAM or laser software |
+| Toolpaths, G-code, feeds and speeds, or machine settings | Not Nestbolt: it writes nested SVG or DXF files (or LightBurn projects, a preview feature) for the user's CAM or laser software |
 | A guarantee that parts fit the machine or are safe to cut | Not given: Nestbolt gives no machine-safety or fit certification |
 
 LightBurn projects (`.lbrn2`, `.lbrn`) are a preview feature. The
@@ -56,7 +56,10 @@ Nestbolt never overwrites a file: outputs go to new files and new or empty folde
    DXF files it wrote.
 3. **Report.** Tell the user the sheets used and the material figures from the reply, and where the
    cut files are. `validate_layout` re-checks a layout file; `export_layout` writes SVG, DXF (or
-   LBRN2 for a LightBurn library) into a new folder.
+   LBRN2 for a LightBurn library, a preview feature) into a new folder.
+
+v0.1.0 doesn't accept the `quick_start` request field (it came later), and its request schema
+refuses unknown fields, so leave it out.
 
 `estimate_sheets` is net part area over usable sheet area: a necessary lower bound for planning
 and quotes, never a layout. It also flags parts that fit no sheet in any allowed rotation.

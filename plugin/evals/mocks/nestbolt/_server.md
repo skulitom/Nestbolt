@@ -15,7 +15,7 @@ The workspace holds these files, and nothing else:
 
 `import_parts` writes the library to `nestbolt/<name>.library.json` unless `library_path` is given, and returns `{"library_path": ..., "parts": [{"id", "area_mm2", "bounds_mm"}], "warnings": []}`.
 
-`nest` returns `{"valid": true, "repeatable": true, "sheets_used": N, "utilization": 0.xx, "placed": N, "unplaced": 0, "out_dir": "nestbolt/runs/<name>", "files": ["layout.json", "report.json", "sheet-1.svg", "sheet-1.dxf", ...]}`. Choose sheets_used and utilization that are plausible for the parts, quantities, sheet size and spacing requested (utilization 0.6 to 0.85), with one SVG and one DXF per sheet. A part that can't fit any sheet goes in `unplaced` with its id.
+`nest` returns `{"repeatable": true, "out_dir": "nestbolt/runs/<name>", "layout_path": "nestbolt/runs/<name>/layout.json", "validation": {"valid": true, "violation_count": 0, "violations": [], "metrics": {"sheets_used": N, "utilization": 0.xx, "placed": N, "unplaced": 0}}, "files": ["nestbolt/runs/<name>/job.json", "nestbolt/runs/<name>/report.json", "nestbolt/runs/<name>/sheet-0.svg", "nestbolt/runs/<name>/sheet-0.dxf", ...]}`. Choose sheets_used and utilization that are plausible for the parts, quantities, sheet size and spacing requested (utilization 0.6 to 0.85), with one SVG and one DXF per sheet, numbered from sheet-0. A part that can't fit any sheet goes in `unplaced` with its id.
 
 `estimate_sheets` returns `{"lower_bound_sheets": N, "net_part_area_mm2": ..., "usable_sheet_area_mm2": ..., "note": "a necessary lower bound, not a layout"}` from the areas above, plus `"fits_no_sheet": []`.
 

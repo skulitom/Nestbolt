@@ -4,7 +4,7 @@
 
 > 本页是英文 README 开头部分的摘要翻译。如有出入，以[英文 README](https://github.com/skulitom/Nestbolt/blob/main/README.md) 为准。
 
-Nestbolt 是免费、开源（MIT）的排样（套料）工具，面向在**固定尺寸板材**上切割的用户：激光切割机、CNC 雕刻机、等离子、水刀，以及布料和皮革。它会排布零件，使用料尽可能少。它可以[在浏览器中运行](https://skulitom.github.io/Nestbolt/)（不上传任何文件），也可以作为命令行工具，或作为供 AI 智能体调用的 MCP 服务器。
+Nestbolt 是免费、开源（MIT）的排样（套料）工具，面向在**固定尺寸板材**上切割的用户：激光切割机、CNC 雕刻机、等离子、水刀，以及布料和皮革。它会排布零件，让用料尽可能少。它可以[在浏览器中运行](https://skulitom.github.io/Nestbolt/)（不上传任何文件），也可以作为命令行工具，或作为供 AI 智能体调用的 MCP 服务器。
 
 [打开浏览器版](https://skulitom.github.io/Nestbolt/) ·
 [下载发布版本](https://github.com/skulitom/Nestbolt/releases) ·
@@ -12,7 +12,7 @@ Nestbolt 是免费、开源（MIT）的排样（套料）工具，面向在**固
 
 ## 对比结果
 
-在冻结的 v1 基准测试中，在相同的 60 秒时间预算下，Nestbolt 的用料中位数比 Deepnest、SVGnest 和 Sparrow 三者中最好的结果**少 8.5%**；在 300 秒预算下少 9.6%。这是最终基准运行的结果（使用新的随机种子，并包含十个未参与调参的任务）。在 60 秒预算下，Sparrow 仍在 56 个任务中的 8 个上胜出。
+在冻结的 v1 基准测试中，在相同的 60 秒时间预算下，与每个任务上 Deepnest、SVGnest 和 Sparrow 三者中最好的结果相比，按中位数计 Nestbolt **少用 8.5% 的材料**；在 300 秒预算下少用 9.6%。这是最终基准运行的结果（使用新的随机种子，并包含十个未参与调参的任务）。在 60 秒预算下，Sparrow 仍在 56 个任务中的 8 个上胜出。
 
 | 时间预算 | Nestbolt 有效排样数 | 比最佳竞品少用的材料（中位数） | 胜出或持平 |
 | --- | ---: | ---: | ---: |
@@ -39,7 +39,7 @@ MCP 服务器 `nestbolt-mcp` 有五个工具：`import_parts`、`nest`、`valida
 在 Claude Code 中也可以安装插件（需先把 v0.1.0 发布包里的 `nestbolt-mcp` 放到 PATH 中）：
 
 ```text
-/plugin marketplace add skulitom/Nestbolt
+/plugin marketplace add https://raw.githubusercontent.com/skulitom/Nestbolt/main/.claude-plugin/marketplace.json
 /plugin install nestbolt@nestbolt
 ```
 

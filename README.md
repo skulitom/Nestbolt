@@ -252,7 +252,7 @@ Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS
 
 ## Sibling tools
 
-Nestbolt is one of five free, MIT-licensed tools for agents by the same author. Each runs locally as an MCP server:
+Nestbolt belongs to a family of free, MIT-licensed tools for agents by the same author. These run locally as MCP servers:
 
 - [Anode](https://github.com/skulitom/Anode): a hidden background Windows desktop where agents automate and test GUI
   apps, take screenshots and run headed browser tests without taking over the user's screen.
