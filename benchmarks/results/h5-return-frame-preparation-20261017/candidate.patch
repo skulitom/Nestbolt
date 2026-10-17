@@ -1,0 +1,221 @@
+--- rejected-complete-set
++++ return-frame-candidate
+@@ -127,6 +127,49 @@
+     }
+     out
+ }
++
++// Only choose the reciprocal frame when every returned part permits it. The
++// separator can still move the parts independently; this is an initial pose.
++fn return_group_poses(
++    victims: &[(PItemKey, Item, DTransformation)],
++    incoming_here: DTransformation,
++    incoming_before: DTransformation,
++) -> Vec<DTransformation> {
++    let (from_x, from_y) = incoming_here.translation();
++    let (to_x, to_y) = incoming_before.translation();
++    let translated = || {
++        victims
++            .iter()
++            .map(|(_, _, previous)| {
++                let (x, y) = previous.translation();
++                DTransformation::new(
++                    previous.rotation(),
++                    (x + to_x - from_x, y + to_y - from_y),
++                )
++                .with_reflection(previous.reflected)
++            })
++            .collect()
++    };
++    // Keep the previous arithmetic exactly when the two frames already agree.
++    if incoming_here.rotation() == incoming_before.rotation()
++        && incoming_here.reflected == incoming_before.reflected
++    {
++        return translated();
++    }
++    let frame = incoming_here
++        .compose()
++        .inverse()
++        .transform(&incoming_before.compose());
++    let aligned: Option<Vec<_>> = victims
++        .iter()
++        .map(|(_, victim, previous)| {
++            let pose = previous.compose().transform(&frame).decompose();
++            victim.allowed_orientations().allows(&pose).then_some(pose)
++        })
++        .collect();
++    aligned.unwrap_or_else(translated)
++}
++
+ 
+ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
+     fn exchange_report(
+@@ -253,23 +296,13 @@
+                     }
+                     next_receiver.place_item(&incoming_item, proposal.incoming);
+                     let mut next_source = JLayout::from_snapshot(&source.save());
+-                    let (from_x, from_y) = proposal.incoming.translation();
+-                    let (to_x, to_y) = incoming_old.translation();
+-                    for (_, victim, previous) in &victims {
+-                        let returned = if victims.len() == 1 {
+-                            convert_sample_to_closest_feasible(incoming_old, victim)
+-                        } else {
+-                            // Preserve the set's relative placement, rotations
+-                            // and reflections. Both sheets still need repair
+-                            // and the independent whole-job acceptance guard.
+-                            let (x, y) = previous.translation();
+-                            DTransformation::new(
+-                                previous.rotation(),
+-                                (x + to_x - from_x, y + to_y - from_y),
+-                            )
+-                            .with_reflection(previous.reflected)
+-                        };
+-                        next_source.place_item(victim, returned);
++                    let returned = if victims.len() == 1 {
++                        vec![convert_sample_to_closest_feasible(incoming_old, &victims[0].1)]
++                    } else {
++                        return_group_poses(&victims, proposal.incoming, incoming_old)
++                    };
++                    for ((_, victim, _), pose) in victims.iter().zip(returned) {
++                        next_source.place_item(victim, pose);
+                     }
+                     self.clock
+                         .charge(Work::RegisteredItem, changed_keys.len() as f64);
+@@ -784,4 +817,137 @@
+             );
+         }
+     }
++    fn return_frame_witness() -> (Job, Layout) {
++        let job = serde_json::from_str(include_str!(concat!(
++            env!("CARGO_MANIFEST_DIR"), "/../../examples/return-frame-job.json"
++        ))).unwrap();
++        let layout = serde_json::from_str(include_str!(concat!(
++            env!("CARGO_MANIFEST_DIR"), "/../../examples/return-frame-before.json"
++        ))).unwrap();
++        (job, layout)
++    }
++
++    fn witness_victims(receiver: &JLayout) -> Vec<(PItemKey, Item, DTransformation)> {
++        receiver.placed_items().iter()
++            .filter(|(_, p)| p.item().external_id() == 2)
++            .map(|(key, p)| (key, p.item().clone(), p.d_transf()))
++            .collect()
++    }
++
++    #[test]
++    fn return_frame_rotates_into_the_vacated_gap_without_extra_material() {
++        let (job, before) = return_frame_witness();
++        let original = validate(&job, &before).unwrap();
++        assert!(original.valid);
++        assert_eq!(original.metrics.unwrap().material_area, 19500.0);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&before).unwrap();
++        let incoming = sheets[1].layout().placed_items().values()
++            .find(|p| p.item().external_id() == 3).unwrap();
++        let incoming_old = incoming.d_transf();
++        let placed = RigidTransform {
++            translation: [2.0, 64.0], rotation_radians: 0.0, mirrored: false,
++        };
++        let incoming_new = model.internal(incoming.item().idx(), &placed);
++        let victims = witness_victims(sheets[0].layout());
++        assert_eq!(victims.len(), 3);
++        let poses = return_group_poses(&victims, incoming_new, incoming_old);
++        let mut after = before.clone();
++        let p = after.placements.iter_mut().find(|p| p.part_id == "incoming").unwrap();
++        p.sheet_id = "sheet-0".into();
++        p.transform = placed;
++        for ((p, (_, item, _)), pose) in after.placements.iter_mut()
++            .filter(|p| p.part_id == "return").zip(&victims).zip(&poses)
++        {
++            assert!(item.allowed_orientations().allows(pose));
++            p.sheet_id = "sheet-1".into();
++            p.transform = model.external(item.idx(), pose);
++        }
++        let report = validate(&job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert_eq!(report.metrics.unwrap().material_area, 19500.0);
++        let (fx, fy) = incoming_new.translation();
++        let (tx, ty) = incoming_old.translation();
++        for (p, (_, item, previous)) in after.placements.iter_mut()
++            .filter(|p| p.part_id == "return").zip(&victims)
++        {
++            let (x, y) = previous.translation();
++            let translated = DTransformation::new(previous.rotation(), (x + tx - fx, y + ty - fy))
++                .with_reflection(previous.reflected);
++            p.transform = model.external(item.idx(), &translated);
++        }
++        assert!(!validate(&job, &after).unwrap().valid);
++    }
++
++    #[test]
++    fn directed_exchange_uses_the_rotated_return_gap() {
++        let (mut job, before) = return_frame_witness();
++        // Keep the incoming part first in the area-ranked source list. A narrow
++        // tall neighbour still obstructs the old translation-only return pose.
++        job.parts[1] = rectangle("source-filler", 20.0, 94.0);
++        let (moved, after, stats) = exercise(&job, &before, 0, true, false, 0);
++        assert_eq!(moved, 1);
++        assert_eq!(stats.directed_exchanges, 1);
++        assert!(after.placements.iter().any(|p| p.part_id == "incoming" && p.sheet_id == "sheet-0"));
++        assert_eq!(after.placements.iter().filter(|p| p.part_id == "return" && p.sheet_id == "sheet-1").count(), 3);
++    }
++
++    #[test]
++    fn return_frame_preserves_permitted_reflection_and_relative_positions() {
++        let (mut job, before) = return_frame_witness();
++        job.parts[2].allow_mirror = true;
++        job.parts[3].allow_mirror = true;
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&before).unwrap();
++        let mut victims = witness_victims(sheets[0].layout());
++        for (i, (_, _, previous)) in victims.iter_mut().enumerate() {
++            *previous = DTransformation::new(0.0, (12.0 + 6.0 * i as f32, 23.0));
++        }
++        let here = DTransformation::new(0.0, (10.0, 20.0));
++        let old = DTransformation::new(std::f32::consts::FRAC_PI_2, (40.0, 50.0)).with_reflection(true);
++        let poses = return_group_poses(&victims, here, old);
++        // (x,y) relative to the old incoming frame maps to (y,x), then (40,50).
++        for (i, (pose, (_, item, _))) in poses.iter().zip(&victims).enumerate() {
++            assert!(pose.reflected && item.allowed_orientations().allows(pose));
++            let (x, y) = pose.translation();
++            assert!((x - 43.0).abs() < 0.0001);
++            assert!((y - (52.0 + 6.0 * i as f32)).abs() < 0.0001);
++            let matrix = pose.compose();
++            let matrix = matrix.matrix();
++            assert!(matrix[0][0].into_inner().abs() < 0.0001);
++            assert!((matrix[0][1].into_inner() - 1.0).abs() < 0.0001);
++            assert!((matrix[1][0].into_inner() - 1.0).abs() < 0.0001);
++            assert!(matrix[1][1].into_inner().abs() < 0.0001);
++        }
++    }
++
++    #[test]
++    fn return_frame_falls_back_for_the_whole_group_if_any_orientation_is_forbidden() {
++        let (job, before) = return_frame_witness();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&before).unwrap();
++        for reflected in [false, true] {
++            let mut victims = witness_victims(sheets[0].layout());
++            if !reflected {
++                // Only the first member forbids the quarter-turn. All members
++                // must retain the old translation, rather than deform the set.
++                victims[0].1 = sheets[0].layout().placed_items().values()
++                    .find(|p| p.item().external_id() == 0).unwrap().item().clone();
++            }
++            let here = DTransformation::new(3.0 * std::f32::consts::FRAC_PI_2, (10.0, 20.0));
++            let old = DTransformation::new(
++                if reflected { std::f32::consts::FRAC_PI_2 } else { 0.0 },
++                (40.0, 50.0),
++            ).with_reflection(reflected);
++            let poses = return_group_poses(&victims, here, old);
++            for (pose, (_, item, previous)) in poses.iter().zip(&victims) {
++                assert!(item.allowed_orientations().allows(pose));
++                assert_eq!(pose.rotation(), previous.rotation());
++                assert_eq!(pose.reflected, previous.reflected);
++                let (x, y) = previous.translation();
++                assert_eq!(pose.translation(), (x + 30.0, y + 30.0));
++            }
++        }
++    }
++
+ }

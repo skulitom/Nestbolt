@@ -1,0 +1,13 @@
+{
+  "before_sha256": "c0368958aa11b36ac29bd841f0b62b90a5af6862bc7d98ecf031aac1a2418714",
+  "after_sha256": "56f9a3defcc037affe80193c6ea3f4dcd890fedd8cb5caf121a662eb8bc8bef7",
+  "observed_failure": {
+    "actual_y": 112.200134,
+    "expected_y": 112.20013
+  },
+  "reason": "The implementation intentionally preserves original x+to-from arithmetic. Test incorrectly reassociated f32 addition/subtraction into x+(to-from). Keep exact equality and compare the promised operation order.",
+  "runtime_changed": false,
+  "successful_exchange_requirement_unchanged": true,
+  "original_suite_passed": 87,
+  "original_suite_failed": 2
+}

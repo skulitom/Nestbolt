@@ -1,0 +1,84 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-17T23:08:53.640935+00:00",
+      "finished": "2026-10-17T23:08:54.351636+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-frame-target-20261017"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-17T23:08:54.486335+00:00",
+      "finished": "2026-10-17T23:11:22.535486+00:00",
+      "log_sha256": "7be2085205c9de71bddffa6675da6f62f511a36decb5f6e6b0f6dba39e2c3a06"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-frame-target-20261017",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-17T23:11:22.741851+00:00",
+      "finished": "2026-10-17T23:12:26.198163+00:00",
+      "log_sha256": "1547119661618b8c67cc358e6a0d173ef6a59ec60aae65038724724d1213850d"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-frame-target-20261017"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-17T23:12:26.350993+00:00",
+      "finished": "2026-10-17T23:13:19.845054+00:00",
+      "log_sha256": "d9de7090a5051a999c9b9f6728aa47e50e24915b8de614a913f885808455c348"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": "17e9c64a28399e42c1212357b93058bf1ea5a4f3d91206432e53adf401a8d912",
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "32709b84d94ea82376179a5c7762466587ed8b1e4c358955cc38ee7d2fd97cf3"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}

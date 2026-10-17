@@ -1009,3 +1009,15 @@ acceptance occurs. Source/binary/input/trace integrity is verified. Next inspect
 how returned groups are placed and repaired; these observations do not prove
 feasibility or impossibility, or replace the failed quality pilot. Production
 and gate limits remain unchanged; H2/H5 are open at 60%.
+
+
+**N4 return-frame preparation, 2026-10-17:** [the isolated initialization change](../benchmarks/results/h5-return-frame-preparation-20261017.md)
+passes 90 core tests, strict lint and authored public checks. A returned group
+may rotate/reflect into the vacated incoming frame when every part permits it;
+otherwise it retains the previous translation. Both repairs and exact material
+limits remain. The original type error, arithmetic-test error and guarded
+0.0007 mm² material increase are preserved and reviewed. Separate tests require
+strict rejection and a successful exchange with a fixed envelope. The
+[72-outcome comparison](../benchmarks/results/h5-return-frame-pilot-20261017/plan.json)
+retains original inputs, budgets and limits. No integration or quality claim.
+H2/H5 remain open at 60%.

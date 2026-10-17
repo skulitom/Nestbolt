@@ -13665,3 +13665,43 @@ perturb wall deadlines, so this is stage diagnosis only; it cannot replace the
 and repair, preserving incumbent geometry, quantities and original material
 limits. No global infeasibility claim, production integration, reserved-input
 access or gate closure. H2/H5 remain open; completed weight stays 60%.
+
+
+## 2026-10-17 — Authored return-frame witness, with bookkeeping failure retained
+
+[The six-part witness](benchmarks/results/h5-return-frame-witness-20261017.md)
+has independently valid before/quarter-turn-after layouts with identical metrics:
+19,500 mm² material. Translation-only return overlaps a neighbour and leaves stock.
+The original script then failed a hardcoded 19,700 expectation; it assumed the
+last listed sheet, while the validator uses the largest reusable offcut (500 mm²
+on sheet-0). A separate review checks the unchanged saved reports; no rerun,
+geometry edit or tolerance change. Original script/error and every hash remain.
+This motivates isolated frame-aligned initialization with legal orientations
+and translation fallback, not a quality claim. No search or H5 closure; 60%.
+
+
+## 2026-10-17 — Prepare reciprocal return-frame comparison with strict material rejection
+
+[The isolated candidate](benchmarks/results/h5-return-frame-preparation-20261017.md)
+passes 90 optimized core tests, strict lint, ten authored observer outcomes,
+four public CLI comparisons and five unchanged adversarial harness checks.
+Complete return groups use the incoming part's reciprocal frame only when every
+member permits its orientation; otherwise the original translation remains.
+Both repairs, independent geometry/material guards and deadlines are unchanged.
+
+The first build's shared-item type error and the second suite's two failures
+remain preserved. The trace found a valid repaired exchange with 0.0007 mm² extra
+charged material: the strict guard correctly refused it. That same fixture now
+requires rejection and exact incumbent preservation. A separate fixed-envelope
+fixture exercises success. The fallback test now compares the original arithmetic
+order exactly; no tolerance, runtime algorithm or development job was changed
+by these test corrections. Normal results and candidate replays remain exact
+apart from elapsed wall time.
+
+The archive retains 648 members in 6,707,078 bytes,
+SHA-256 `e5403e1af0c75364d607633cc2f49fad21c6d7e38bc40e94b82ab9706baf0e65`; all member hashes/sizes and CRC verify.
+The [new committed plan](benchmarks/results/h5-return-frame-pilot-20261017/plan.json)
+keeps 72 attempts, four frozen development jobs, two kerfs, three seeds and three
+arms, 60-second budgets and eight physical CCD0 cores. The core paired/scoring
+functions remain AST-identical. No measurement at this checkpoint, production
+integration or H5 closure; H2/H5 remain open at 60%.
