@@ -13646,3 +13646,22 @@ area invariant. All archive members and CRC verify. Four 60-second serial CPU-8
 observations are planned after their plan is committed. This is not a new quality
 comparison or an unchanged retry of the failed pilot. Production, every original
 failure and gate limits remain; no reserved inputs or H5 credit. Completion 60%.
+
+
+## 2026-10-17 — Complete groups reach the return-sheet repair and fail there
+
+[Four diagnostic traces](benchmarks/results/h5-complete-stage-diagnosis-20261017.md)
+validate every saved layout/export and original-job metrics/quantities. Every
+immutable ZIP, trace and counter passes verification. All 23 actual attempts
+are complete blocker sets; all pass receiving-sheet repair and fail return-sheet
+repair within the unchanged budget. No partial attempts or acceptances occur.
+Sampling records 427 eligible complete sets of equal/larger combined area, zero
+smaller complete sets, among 1,108 examined samples (451 over-three-collision
+and 38 non-item-collision observations; categories can overlap).
+
+The session lasts 243.2476863 seconds, serial CCD0 CPU 8. Instrumentation can
+perturb wall deadlines, so this is stage diagnosis only; it cannot replace the
+72-outcome failed quality comparison. Next investigate return-group placement
+and repair, preserving incumbent geometry, quantities and original material
+limits. No global infeasibility claim, production integration, reserved-input
+access or gate closure. H2/H5 remain open; completed weight stays 60%.

@@ -999,3 +999,13 @@ attempts, eleven succeed; none on panel hardware. The candidate is rejected for
 integration and the full gate is not opened. Counters alone do not establish
 which repair stage now limits progress. Original outcomes/limits remain;
 H2/H5 are open at 60%.
+
+
+**N4 return-stage diagnosis, 2026-10-17:** [all four traced outputs validate](../benchmarks/results/h5-complete-stage-diagnosis-20261017.md).
+All 23 actual attempts move complete blocker sets, pass receiving-sheet repair
+and fail return-sheet repair within the existing budget. There are 427 eligible
+equal/larger-area samples and no smaller complete sets. No partial attempt or
+acceptance occurs. Source/binary/input/trace integrity is verified. Next inspect
+how returned groups are placed and repaired; these observations do not prove
+feasibility or impossibility, or replace the failed quality pilot. Production
+and gate limits remain unchanged; H2/H5 are open at 60%.
