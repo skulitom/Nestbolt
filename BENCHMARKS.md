@@ -13723,3 +13723,13 @@ The candidate records 11/71 accepted/attempted exchanges.
 Reject this candidate for integration; do not open the full 13-job gate for it. Prior outcomes, guarded floating-point rejection and authored fixture
 repairs remain preserved. Production and frozen inputs are unchanged; no
 infeasibility claim or reserved-input access. H2/H5 remain open at 60%.
+
+
+## 2026-10-17 — Hosted confirmation of the normal browser-test allowance
+
+[c5e00fa passes all six hosted jobs](benchmarks/results/browser-lead-hosted-confirmation-20261017.md),
+including 86 browser tests with four opt-in skips. The original bf9e880 browser
+failure remains preserved; its overall run was later cancelled while Windows
+checks were running. Original/new terminal metadata and the successful browser
+log are archived and verified. No production, released-asset or gate change;
+the older c36baa8 Firefox cause remains unknown. Completion remains 60%.
