@@ -74,7 +74,7 @@ retains all 603 valid new layouts and Chrome's failed subset median of
 Neither earlier passing builds nor that isolated probe replaces the current full
 comparison. No unchanged-build repeat or threshold change is used.
 
-Latest repository reconciliation (2026-10-15): [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
+Earlier repository reconciliation (2026-10-15): [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)
 is tagged at `6c462c2`, and the [registry publication](https://github.com/skulitom/Nestbolt/actions/runs/38540517654)
 succeeded; the registry entry is active with the Windows MCPB. This software release
 does not replace the published v1 benchmark build `75cbb32` or complete any v1.1 gate.
@@ -95,11 +95,13 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 | N4 — Common-line cutting | 15% | In progress: [compensated geometry and native checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md), independent Clipper2 checks and UI/CLI/MCP parity. The optional bonus is off by default. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md), the [full 60-second/three-seed comparison](../benchmarks/results/h5-cutting-development-20261015.md) validates all 234 Nestbolt layouts. Median savings **13.0311% laser / 13.1005% plasma** meet the savings condition. The two mechanical jobs still exceed +1% material: worst **+6.5085% laser / +5.5959% plasma**; all other jobs are within the guard. Normal mode uses 21/49 hole riders; common mode forbids them. Deepnest SVG comparison is complete: 35 valid runs, four no-layout outcomes, native reported merge length and actual SVG savings reported separately. H5 remains open on material. The generated request schema omission was corrected; its original CI failure is retained. No gate/default/frozen input changed |
 | N5 — Lead-in allowances | 5% | **H6 complete.** [Gate evidence and material costs](../benchmarks/results/h6-complete-20261015.md): independent original-source coverage/attachment, owner/neighbour/stock checks, exact contour starts, three searched native previews and separate outer/hole/shortened settings. UI/CLI/MCP support preserving LightBurn projects plus separate SVG/DXF cutting files under Artem’s decision. The current build revalidates all 24 original native-coupon reservations unchanged; lead/core/MCP/CLI/browser checks pass. All 156 development layouts validate across 13 jobs, both kerfs and seeds 0–2. Median material cost is **+1.0696% laser / +6.0951% plasma**, with small-hole plasma flags explicitly reported. One report-order harness failure was corrected using the same saved layout and unchanged 1e-9 tolerance; all original failures remain. No new held-out/final acceptance or release claim |
 
-**N4 next comparison, 2026-10-17:** [the complete-set eligibility candidate](../benchmarks/results/h5-complete-set-preparation-20261017.md)
-passes 85 core tests, strict lint and authored public checks. Its
-[72-outcome pilot plan](../benchmarks/results/h5-complete-set-pilot-20261017/plan.json)
-retains all original paired budgets and material limits. No quality claim or
-production integration; H2/H5 remain open at 60%.
+**N4 latest outcome, 2026-10-17:** [all 72 complete-set pilot outcomes validate](../benchmarks/results/h5-complete-set-pilot-20261017.md),
+but all four mechanical pairs still fail the +1% material limit, at +5.433792%
+to +6.521291%. All four control pairs pass the material limit. The separate
+filled-outer audit confirms all 48 common-mode outputs keep holes reserved.
+There are 74 exchange attempts and eleven acceptances, none on panel hardware.
+The candidate is rejected for integration; the full 13-job gate is not started.
+Original results/limits remain; H2/H5 are open at 60%.
 
 **N4 diagnosis, 2026-10-17:** [four current-candidate traces](../benchmarks/results/h5-obstruction-stage-diagnosis-20261017.md)
 validate all layouts but show zero complete blocker-set proposals: 620 sampled
@@ -114,7 +116,14 @@ and H2/H5 remain open at 60% completed weight.
 
 The [completed obstruction-set pilot](../benchmarks/results/h5-obstruction-set-recovered-pilot-20261016.md) validates all 72 outcomes but fails five of eight material pairs. All four mechanical pairs remain +4.663095% to +5.962959% above ordinary mode; mixed-bracket laser is +1.540301%. There are 147 exchange attempts and ten acceptances, none on panel hardware. The candidate is rejected for integration; all failed outcomes and original limits remain preserved. H5 stays open.
 
-Latest N4 experiment: the [isolated directed exchange](../benchmarks/results/h5-directed-exchange-functional-20261016.md)
+### Earlier v1.1 checkpoints
+
+The following entries preserve the state at each checkpoint, including failed
+candidates and work that was then outstanding. Their completion percentages
+and release plans are historical; the milestone table and dated updates above
+describe the current state. Source evidence and original results remain unchanged.
+
+Earlier N4 experiment: the [isolated directed exchange](../benchmarks/results/h5-directed-exchange-functional-20261016.md)
 passes six focused tests, 80 core tests (one existing ignored), six common-line
 geometry tests and eight authored public-CLI checks. It returns a smaller actual
 obstruction and repairs both sheets before independent whole-job acceptance.
@@ -147,9 +156,9 @@ shared-target cache failure and all measured outcomes remain preserved. H5 stays
 open; no material limit changes. Only the proven score-bound change is selected
 for the next release candidate.
 
-Latest N2 checkpoint: [H3 completed](../benchmarks/results/h3-complete-20261015.md). The plan was committed before the three reserved projects were opened; all passed with 199 leaves / 247 contours, a maximum point difference below 0.000500 mm, nine allowed canonical sheet comparisons and exact validation metrics. The five native-checked layouts revalidate on the current build; all 298 original native evidence files and 1,181 frozen inventory files retain their hashes. Milestone completion is now 45%. H2 import acceptance, H4 browser/native performance and H5 material use remain open.
+Earlier N2 checkpoint: [H3 completed](../benchmarks/results/h3-complete-20261015.md). The plan was committed before the three reserved projects were opened; all passed with 199 leaves / 247 contours, a maximum point difference below 0.000500 mm, nine allowed canonical sheet comparisons and exact validation metrics. The five native-checked layouts revalidate on the current build; all 298 original native evidence files and 1,181 frozen inventory files retain their hashes. Milestone completion is now 45%. H2 import acceptance, H4 browser/native performance and H5 material use remain open.
 
-Latest N3 checkpoint: the [complete integrated score-bound matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
+Earlier N3 checkpoint: the [complete integrated score-bound matrix](../benchmarks/results/h4-preview-score-release-20261016.md)
 is sealed with 603 new and 195 reused valid layouts. Native median material is
 +0.000681% versus frozen v1; full G5 Chrome is +0.091358% median/+0.384971% total,
 and Firefox +0.026372%/+0.346902%. All individual-seed G5 checks pass. The curve
@@ -159,11 +168,11 @@ identify traversal as the main sampled cost; a shallower collision tree is the n
 and [independent export-checker preparation](../benchmarks/results/h4-export-fidelity-preparation-20261016.md)
 remain supporting evidence, not H4 closure. Completion stays 45%.
 
-Latest N1 export verification: [current public replay](../benchmarks/results/h2-export-replay-20261015.md) re-imports all 246 accepted training vectors with identical geometry and validates/exports their saved layouts without new searches. Of 492 outputs, 491 are byte-identical. One SVG retains a failed byte comparison but passes a separate unchanged-limit geometry check: endpoint movement below 0.000001 mm bounds its source fidelity at 0.000491918 mm, below 0.01 mm. All original failures and 3,942 raw members are preserved. Native diagnostic fixes are now integrated and verified below; the remaining reserved evaluation still prevents H2 closure.
+Earlier N1 export verification: [current public replay](../benchmarks/results/h2-export-replay-20261015.md) re-imports all 246 accepted training vectors with identical geometry and validates/exports their saved layouts without new searches. Of 492 outputs, 491 are byte-identical. One SVG retains a failed byte comparison but passes a separate unchanged-limit geometry check: endpoint movement below 0.000001 mm bounds its source fidelity at 0.000491918 mm, below 0.01 mm. All original failures and 3,942 raw members are preserved. Native diagnostic fixes are now integrated and verified below; the remaining reserved evaluation still prevents H2 closure.
 
-Latest N1 review: the [earlier native diagnostic audit](../benchmarks/results/h2-native-warning-review-20261015.md) retained 45 imports and eleven clear rejections across 56 training records. It identified twelve missing bounding-rectangle explanations, L28’s missing line-fallback message and L40’s missing cached-text explanation; geometry and preservation evidence stayed intact. An [isolated diagnostic candidate](../benchmarks/results/h2-native-diagnostics-candidate-20261016.md) now passes all 56 training checks and 23 focused tests: all 45 libraries retain exact geometry/XML and all eleven errors remain identical. The first failed wording check and dependency-inventory preflight remain preserved. The [subsequent surface review and training audit](../benchmarks/results/native-diagnostics-surfaces-20261016.md) remove repeated warnings and pass all 56 records plus CLI/MCP/both-browser tests. The candidate is now integrated and production checks pass. The [H2 requirement review](../benchmarks/results/h2-requirements-review-20261016.md) connects current source to the warning and fidelity evidence for all 313 training inputs. Reserved acceptance and the denominator clarification remain open; H2 stays open.
+Earlier N1 review: the [earlier native diagnostic audit](../benchmarks/results/h2-native-warning-review-20261015.md) retained 45 imports and eleven clear rejections across 56 training records. It identified twelve missing bounding-rectangle explanations, L28’s missing line-fallback message and L40’s missing cached-text explanation; geometry and preservation evidence stayed intact. An [isolated diagnostic candidate](../benchmarks/results/h2-native-diagnostics-candidate-20261016.md) now passes all 56 training checks and 23 focused tests: all 45 libraries retain exact geometry/XML and all eleven errors remain identical. The first failed wording check and dependency-inventory preflight remain preserved. The [subsequent surface review and training audit](../benchmarks/results/native-diagnostics-surfaces-20261016.md) remove repeated warnings and pass all 56 records plus CLI/MCP/both-browser tests. The candidate is now integrated and production checks pass. The [H2 requirement review](../benchmarks/results/h2-requirements-review-20261016.md) connects current source to the warning and fidelity evidence for all 313 training inputs. Reserved acceptance and the denominator clarification remain open; H2 stays open.
 
-Latest N4 inspection: [saved final-sheet assignments](../benchmarks/results/h5-last-sheet-inspection-20261015.md) show that one failed large-plates assignment cannot meet the material guard by compression alone. This supports investigating exchanges between sheets, not a whole-problem impossibility claim or a gate change. No new H5 searches ran.
+Earlier N4 inspection: [saved final-sheet assignments](../benchmarks/results/h5-last-sheet-inspection-20261015.md) show that one failed large-plates assignment cannot meet the material guard by compression alone. This supports investigating exchanges between sheets, not a whole-problem impossibility claim or a gate change. No new H5 searches ran.
 
 The [historical relocation-counter review](../benchmarks/results/h5-relocation-inspection-20261016.md)
 verifies all 36 archived schedule results. Default-schedule trials already have
@@ -175,11 +184,11 @@ Earlier N3 follow-up: the [isolated compiler pilot](../benchmarks/results/h4-lto
 
 The following earlier checkpoint notes retain the completion percentages and failures recorded at their dates. The current total is the 45% stated above.
 
-Latest N4 follow-up: [48 material diagnostics](../benchmarks/results/h5-material-probes-20261015.md) all validate, but extra warm-start time and rigid bracket pairing worsen every mechanical-job/kerf median. Both remain unintegrated; H5 stays open and completion remains 20%.
+Earlier N4 follow-up: [48 material diagnostics](../benchmarks/results/h5-material-probes-20261015.md) all validate, but extra warm-start time and rigid bracket pairing worsen every mechanical-job/kerf median. Both remain unintegrated; H5 stays open and completion remains 20%.
 
-Latest N3 quality measurement: [all 99 subset layouts validate](../benchmarks/results/h4-quality-checkpoint-20261015.md). Firefox passes with +0.486636% median material; Chrome narrowly fails at +1.014665% against +1%. Every individual job is within +5%. The full G5 and 195-run native comparisons remain outstanding. No threshold, held-out allocation or published result changes; completion stays 20%.
+Earlier N3 quality measurement: [all 99 subset layouts validate](../benchmarks/results/h4-quality-checkpoint-20261015.md). Firefox passes with +0.486636% median material; Chrome narrowly fails at +1.014665% against +1%. Every individual job is within +5%. The full G5 and 195-run native comparisons remain outstanding. No threshold, held-out allocation or published result changes; completion stays 20%.
 
-Latest N3 checkpoint: [automatic worker selection](../benchmarks/results/h4-worker-policy-20261015.md) passes the curve-heavy scale workflow in both browsers and preserves the original G5 scale settings and pass. Actual worker lifetimes confirm one search worker for H4 and two for G5. Independent native checks agree exactly, and the H4 layout and cutting-file bytes remain unchanged. The worker threshold is a heuristic; H4 quality and native gates remain open. All 80 enabled browser tests pass; completion is 20%.
+Earlier N3 checkpoint: [automatic worker selection](../benchmarks/results/h4-worker-policy-20261015.md) passes the curve-heavy scale workflow in both browsers and preserves the original G5 scale settings and pass. Actual worker lifetimes confirm one search worker for H4 and two for G5. Independent native checks agree exactly, and the H4 layout and cutting-file bytes remain unchanged. The worker threshold is a heuristic; H4 quality and native gates remain open. All 80 enabled browser tests pass; completion is 20%.
 
 Earlier N3 checkpoint: [collision-layout lifetimes](../benchmarks/results/h4-layout-lifetimes-20261015.md) remove redundant collision-index copies and release a temporary layout before search. Both actual browsers pass the scale limits with one selected worker, with unchanged layout/export bytes. The default two-worker setting still fails: working sets 1.573/1.543 GB, private peaks 1.789/1.611 GB, and Firefox heartbeat 290 ms. All raw successes and failures remain; worker defaults have not changed. Repeatable comparisons, all 287 workspace tests and 74 browser tests pass. H4 remains open and completion is 20%.
 
@@ -194,7 +203,7 @@ warm layout arrives at 138.21 seconds. An independent shelf layout also validate
 so a fast conservative starting layout is a concrete next experiment. No solver
 change is integrated, H4 remains open and completion stays 20%.
 
-Latest N1 checkpoint: [complete vector fidelity, shop-habit fuzzing and diagnostic coverage](../benchmarks/results/h2-habits-checkpoint-20261014.md).
+Earlier N1 checkpoint: [complete vector fidelity, shop-habit fuzzing and diagnostic coverage](../benchmarks/results/h2-habits-checkpoint-20261014.md).
 All 246 importable vectors re-export within 0.01 mm; the other 11 reject clearly.
 The new 10,000 import and 1,008 nesting cases pass, and expected diagnostics and
 cut layers match every import. Undefined DXF layers and duplicate handles now
@@ -205,12 +214,12 @@ H2/H3 remain incomplete; milestone total stays 15%.
 
 The [Linux CI search-fuzz panic](../benchmarks/results/ci-search-panic-20261013.json) at `540c867` is [fixed and locally verified](../benchmarks/results/ci-quadtree-fix-20261013.md): reject separator moves whose actual outline misses the collision grid, even when their bounds overlap it. All 189 workspace tests pass (one existing test ignored), including the saved case; the optimized regression, strict Clippy and WASM check also pass. The `f496ae5` Windows run was cancelled by the next push after its other jobs passed. Its successor at `36670a3` has passed Linux, web, both corpus rebuilds and benchmark smoke in [CI](https://github.com/skulitom/Nestbolt/actions/runs/38482331099); Windows checks remain in progress as of this checkpoint.
 
-Latest N2 surface checkpoint: 194 workspace tests pass (one existing ignored),
+Earlier N2 surface checkpoint: 194 workspace tests pass (one existing ignored),
 19 optimized CLI feature tests and 46 enabled browser tests pass. LightBurn import,
 real search, per-sheet LBRN2 and ZIP exports work through CLI/MCP/UI; native H3
 acceptance and the documented remaining format cases are still open.
 
-Latest N2 format checkpoint: [legacy conversion and native T1 ordering](../benchmarks/results/h3-legacy-20261013T235803Z.md).
+Earlier N2 format checkpoint: [legacy conversion and native T1 ordering](../benchmarks/results/h3-legacy-20261013T235803Z.md).
 The native identity save matches the entire native-converted project; 37 independent
 leaf comparisons pass within 0.000497 mm. A six-unit search exports one validated
 sheet, including T1 after the ordering fix. Initial failures and generated Tool
@@ -218,7 +227,7 @@ default normalization remain documented. 198 workspace tests pass (one ignored),
 the final 18 focused core tests and two optimized CLI LightBurn tests pass, and
 four focused browser tests pass. H3 remains incomplete; milestone weight stays 15%.
 
-Latest N2 native checkpoint: [five actual searched projects](../benchmarks/results/h3-lightburn-20261014T001636Z.md) open
+Earlier N2 native checkpoint: [five actual searched projects](../benchmarks/results/h3-lightburn-20261014T001636Z.md) open
 without warnings in LightBurn Pro 2.1.01, using default and top-right device
 origins. All original settings remain exact, all 16 units match native position
 and size fields within 0.003652 mm, and 409 native leaf comparisons pass. The

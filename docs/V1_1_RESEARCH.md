@@ -988,3 +988,14 @@ Equal/larger-area tests pass without extra material; impossible returns retain
 the incumbent. The [committed 72-outcome pilot](../benchmarks/results/h5-complete-set-pilot-20261017/plan.json)
 uses the unchanged paired method and original thresholds. It has not started
 at this checkpoint. Production remains unchanged; H2/H5 are open at 60%.
+
+
+**N4 complete-set outcome, 2026-10-17:** [all 72 outcomes validate](../benchmarks/results/h5-complete-set-pilot-20261017.md),
+including an independent filled-outer audit of 133,412 same-sheet pairs in all
+48 common-mode layouts. All four mechanical material pairs still fail +1%, at
++5.433792% / +6.521291% for large plates and +5.700699% / +5.764347% for panel
+hardware (laser/plasma). Four control pairs meet material limits. Of 74 exchange
+attempts, eleven succeed; none on panel hardware. The candidate is rejected for
+integration and the full gate is not opened. Counters alone do not establish
+which repair stage now limits progress. Original outcomes/limits remain;
+H2/H5 are open at 60%.

@@ -13599,3 +13599,23 @@ Blocks/scoring/per-case/measurement functions are AST-identical to the retained
 recovery-aware pilot. The completed diagnostic and H4 sequences are prerequisites.
 No measurement has started at this preparation checkpoint. No integration,
 reserved-input access or H5 closure; original limits and 60% completion remain.
+
+
+## 2026-10-17 — Complete-set eligibility still fails mechanical material limits
+
+[All 72 paired outcomes](benchmarks/results/h5-complete-set-pilot-20261017.md)
+validate with unchanged geometry, quantities, metrics and public exports in
+8.947 minutes. Every original archive passes CRC and member/hash checks.
+The independent filled-outer audit checks 133,412 same-sheet pairs across all
+48 common-mode outputs: no overlap or part-in-hole, with minimum kerf slack
+0.000000999999247131 mm against a 0.0000001 mm checking tolerance.
+
+The candidate fails all four mechanical material pairs against the unchanged
++1% limit: large plates +5.433792% laser / +6.521291% plasma; panel hardware
++5.700699% / +5.764347%. All four control pairs meet material limits. Of 74
+exchange attempts, eleven are accepted; none on panel hardware. Neither a
+few accepted exchanges nor slight improvements against the failing common
+baseline establishes H5. The candidate remains unintegrated; the full 13-job
+gate is not started. Existing failures, source/build/data guards, thresholds
+and reserved isolation remain. Aggregate counters do not identify the current
+repair bottleneck or prove infeasibility. H2/H5 remain open; completion is 60%.
