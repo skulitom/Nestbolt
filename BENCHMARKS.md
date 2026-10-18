@@ -14654,3 +14654,18 @@ replays, exact source reconstruction and five harness checks pass. No quality
 pilot has started; its plan must be committed first. H2/H5 remain open at 60%.
 
 All six hosted checks on main `b9ccbd5` pass, including the completed Windows check, Linux and browsers. The subsequent isolated candidate remains subject to its own quality pilot and the unchanged H5 gate. [Hosted evidence](benchmarks/results/h5-exchange-failure-observer-20261018/main-ci-b9ccbd5.json).
+
+
+## 2026-10-18 — Contained-return exchange comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-contained-return-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.905 minutes. All ZIP CRCs and member hashes pass; the summary
+is recomputed from every record. An independent filled-outer audit checks
+133,170 same-sheet pairs in 48 layouts, retaining the original
+0.00000010 mm tolerance and reserved hole interiors.
+
+5 of eight material pairs fail the unchanged +1% limit. m-mechanical-large-plates at 0.2 mm: +5.219533%; m-mechanical-large-plates at 1.5 mm: +5.440022%; m-mechanical-panel-hardware at 0.2 mm: +5.617328%; m-mechanical-panel-hardware at 1.5 mm: +5.658268%; c-bracket-mixed at 0.2 mm: +2.014519%
+The candidate accepts 14/111 exchanges, including 12/74 paired and 1/4 mixed-item exchanges. Follow-up gap filling runs 14 times and moves 14 parts. Of 3 neutral rejections, 0 are caught by exact internal-state equality and 3 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Reject integration and a full H5 run for this candidate. All four mechanical comparisons remain above the original +1% material limit, and the 0.2 mm bracket comparison also fails. The aggregate counters do not identify individual return-seed decisions or establish a causal quality improvement over earlier pilots. Read-only source review shows that this change seeks containment only: an already feasible return seed can still sit at the height-defining edge without trying a lower free space. The next distinct hypothesis is a bounded search for collision-free return positions in the existing source layout, considering original allowed orientations and preferring lower occupied extent, while retaining the previous seed as fallback. Qualify it on authored cases with exact quantities, strict hole reservation, deterministic work charging, disabled/expired behavior and the original material guard before a new pilot. Existing global cross-sheet moves already exist; do not duplicate them. Preserve every failed candidate and do not repeat this unchanged quality pilot or relax its limits.
+No new reserved-input access or H5 credit. Production, frozen inputs and
+earlier failures remain unchanged. H2/H5 remain open at 60%.

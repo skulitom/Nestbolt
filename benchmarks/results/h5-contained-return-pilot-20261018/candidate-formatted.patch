@@ -1,0 +1,295 @@
+--- boundary-pair/crates/core/src/sheets/vstrip/exchange.rs
++++ contained-return/crates/core/src/sheets/vstrip/exchange.rs
+@@ -219,6 +219,103 @@
+         }
+     }
+     out
++}
++
++// Bounds work is charged both for the original seed and any proposed shift.
++// The existing separator and whole-job validator still decide feasibility.
++fn return_group_bounds(
++    victims: &[IncomingMember],
++    poses: &[DTransformation],
++    clock: &Clock,
++) -> Option<Rect> {
++    let mut x0 = f32::INFINITY;
++    let mut y0 = f32::INFINITY;
++    let mut x1 = f32::NEG_INFINITY;
++    let mut y1 = f32::NEG_INFINITY;
++    for ((_, item, _), pose) in victims.iter().zip(poses) {
++        let mut shape = item.shape_cd().as_ref().clone();
++        shape.transform_from(item.shape_cd(), &pose.compose());
++        crate::separate::charge(clock, item, 1);
++        let bounds = shape.bbox();
++        if ![bounds.x_min, bounds.y_min, bounds.x_max, bounds.y_max]
++            .into_iter()
++            .all(f32::is_finite)
++        {
++            return None;
++        }
++        x0 = x0.min(bounds.x_min);
++        y0 = y0.min(bounds.y_min);
++        x1 = x1.max(bounds.x_max);
++        y1 = y1.max(bounds.y_max);
++    }
++    Rect::try_new(x0, y0, x1, y1).ok()
++}
++
++// Shift a fitting return seed as a whole into the existing source box.
++// Already contained, oversized, malformed or numerically uncontained results
++// retain the original seed exactly. Translation leaves permissions intact;
++// no random samples, deadline extensions or acceptance changes are introduced.
++fn contain_return_group(
++    victims: &[IncomingMember],
++    poses: &mut [DTransformation],
++    bounds: &Rect,
++    clock: &Clock,
++) -> bool {
++    if victims.is_empty() || victims.len() > 3 || victims.len() != poses.len() {
++        return false;
++    }
++    let Some(before) = return_group_bounds(victims, poses, clock) else {
++        return false;
++    };
++    if before.x_max - before.x_min > bounds.x_max - bounds.x_min
++        || before.y_max - before.y_min > bounds.y_max - bounds.y_min
++    {
++        return false;
++    }
++    let correction = |low: f32, high: f32, min: f32, max: f32| {
++        // Place the seed just inside instead of exactly on a rounded edge.
++        // The final box check remains exact; this is a real translation,
++        // never a relaxed geometry tolerance. Limit it to half the free span.
++        let scale = low
++            .abs()
++            .max(high.abs())
++            .max(min.abs())
++            .max(max.abs())
++            .max(1.0);
++        let room = ((max - min) - (high - low)).max(0.0);
++        let inset = (4.0 * f32::EPSILON * scale).min(room * 0.5);
++        if low < min {
++            min - low + inset
++        } else if high > max {
++            max - high - inset
++        } else {
++            0.0
++        }
++    };
++    let dx = correction(before.x_min, before.x_max, bounds.x_min, bounds.x_max);
++    let dy = correction(before.y_min, before.y_max, bounds.y_min, bounds.y_max);
++    if dx == 0.0 && dy == 0.0 {
++        return false;
++    }
++    let shifted: Vec<_> = poses
++        .iter()
++        .map(|pose| {
++            let (x, y) = pose.translation();
++            DTransformation::new(pose.rotation(), (x + dx, y + dy)).with_reflection(pose.reflected)
++        })
++        .collect();
++    let Some(after) = return_group_bounds(victims, &shifted, clock) else {
++        return false;
++    };
++    if after.x_min < bounds.x_min
++        || after.y_min < bounds.y_min
++        || after.x_max > bounds.x_max
++        || after.y_max > bounds.y_max
++    {
++        return false;
++    }
++    poses.copy_from_slice(&shifted);
++    true
+ }
+ 
+ // Only choose the reciprocal frame when every returned part permits it. The
+@@ -705,7 +802,7 @@
+                         next_receiver.place_item(&incoming_item, proposal.incoming);
+                     }
+                     let mut next_source = JLayout::from_snapshot(&source.save());
+-                    let returned = if victims.len() == 1 {
++                    let mut returned = if victims.len() == 1 {
+                         vec![convert_sample_to_closest_feasible(
+                             incoming_old,
+                             &victims[0].1,
+@@ -713,6 +810,12 @@
+                     } else {
+                         return_group_poses(&victims, proposal.incoming, incoming_old)
+                     };
++                    contain_return_group(
++                        &victims,
++                        &mut returned,
++                        &last_container.outer_cd().bbox(),
++                        &self.clock,
++                    );
+                     for ((_, victim, _), pose) in victims.iter().zip(returned) {
+                         next_source.place_item(victim, pose);
+                     }
+@@ -2885,4 +2988,166 @@
+         }
+     }
+     // END boundary-pair tests
++    // BEGIN contained-return tests
++    fn return_seed_members(source: &JLayout) -> Vec<IncomingMember> {
++        source
++            .placed_items()
++            .iter()
++            .take(2)
++            .map(|(key, p)| (key, p.item().clone(), p.d_transf()))
++            .collect()
++    }
++
++    fn return_seed_bounds(members: &[IncomingMember], poses: &[DTransformation]) -> Rect {
++        assert_eq!(members.len(), poses.len());
++        assert!(!members.is_empty());
++        let mut x0 = f32::INFINITY;
++        let mut y0 = f32::INFINITY;
++        let mut x1 = f32::NEG_INFINITY;
++        let mut y1 = f32::NEG_INFINITY;
++        for ((_, item, _), pose) in members.iter().zip(poses) {
++            let mut shape = item.shape_cd().as_ref().clone();
++            shape.transform_from(item.shape_cd(), &pose.compose());
++            let b = shape.bbox();
++            x0 = x0.min(b.x_min);
++            y0 = y0.min(b.y_min);
++            x1 = x1.max(b.x_max);
++            y1 = y1.max(b.y_max);
++        }
++        Rect::try_new(x0, y0, x1, y1).unwrap()
++    }
++
++    fn return_seed_pose_bits(poses: &[DTransformation]) -> Vec<([u32; 3], bool)> {
++        poses
++            .iter()
++            .map(|p| {
++                let (x, y) = p.translation();
++                (
++                    [p.rotation().to_bits(), x.to_bits(), y.to_bits()],
++                    p.reflected,
++                )
++            })
++            .collect()
++    }
++
++    #[test]
++    fn contained_return_moves_fitting_group_inside_and_charges_all_transforms() {
++        let (job, layout) = boundary_pair_fixture(false);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let members = return_seed_members(sheets[1].layout());
++        let mut poses = vec![
++            DTransformation::new(0.0, (20.0, 120.0)),
++            DTransformation::new(0.0, (50.0, 120.0)),
++        ];
++        let before = poses.clone();
++        let bounds = Rect::try_new(0.0, 0.0, 100.0, 100.0).unwrap();
++        assert!(return_seed_bounds(&members, &poses).y_max > bounds.y_max);
++        let clock = Clock::new(Timing::Work, 120.0);
++        assert!(
++            contain_return_group(&members, &mut poses, &bounds, &clock),
++            "Fitting returned group must be moved inside"
++        );
++        let b = return_seed_bounds(&members, &poses);
++        assert!(
++            b.x_min >= bounds.x_min
++                && b.y_min >= bounds.y_min
++                && b.x_max <= bounds.x_max
++                && b.y_max <= bounds.y_max
++        );
++        for (old, new) in before.iter().zip(&poses) {
++            assert_eq!(old.rotation().to_bits(), new.rotation().to_bits());
++            assert_eq!(old.reflected, new.reflected);
++            assert_eq!(old.translation().0.to_bits(), new.translation().0.to_bits());
++        }
++        assert_eq!(poses[1].translation().0 - poses[0].translation().0, 30.0);
++        assert_eq!(poses[1].translation().1, poses[0].translation().1);
++        assert_eq!(
++            clock.counts().evaluations,
++            4.0,
++            "Both original and proposed member bounds must be charged"
++        );
++        assert!(clock.counts().evaluated_vertices > 0.0 && clock.work() > 0.0);
++        eprintln!(
++            "CONTAINED_RETURN_WITNESS {}",
++            serde_json::json!({"job":job,
++            "source_layout":model.to_layout(&sheets),"bounds":[bounds.x_min,bounds.y_min,bounds.x_max,bounds.y_max],
++            "before":members.iter().zip(&before).map(|((_,item,_),p)|serde_json::json!({"part_id":job.parts[model.part[item.idx()]].id,"transform":model.external(item.idx(),p)})).collect::<Vec<_>>(),
++            "after":members.iter().zip(&poses).map(|((_,item,_),p)|serde_json::json!({"part_id":job.parts[model.part[item.idx()]].id,"transform":model.external(item.idx(),p)})).collect::<Vec<_>>(),
++            "work":clock.counts()})
++        );
++    }
++
++    #[test]
++    fn contained_return_empty_contained_and_oversized_groups_are_bitwise_unchanged() {
++        let (job, layout) = boundary_pair_fixture(false);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let members = return_seed_members(sheets[1].layout());
++        let original = vec![
++            DTransformation::new(0.0, (20.0, 30.0)),
++            DTransformation::new(0.0, (50.0, 30.0)),
++        ];
++        for bounds in [
++            Rect::try_new(0.0, 0.0, 100.0, 100.0).unwrap(),
++            Rect::try_new(0.0, 0.0, 1.0, 1.0).unwrap(),
++        ] {
++            let mut poses = original.clone();
++            let clock = Clock::new(Timing::Work, 120.0);
++            assert!(!contain_return_group(&members, &mut poses, &bounds, &clock));
++            assert_eq!(
++                return_seed_pose_bits(&poses),
++                return_seed_pose_bits(&original)
++            );
++        }
++        let mut empty = vec![];
++        let bounds = Rect::try_new(0.0, 0.0, 100.0, 100.0).unwrap();
++        let clock = Clock::new(Timing::Work, 120.0);
++        assert!(!contain_return_group(&[], &mut empty, &bounds, &clock));
++        assert!(empty.is_empty());
++        assert_eq!(clock.work(), 0.0);
++    }
++
++    #[test]
++    fn contained_return_preserves_mixed_member_orientations_and_reflection() {
++        let (mut job, layout) = boundary_pair_fixture(true);
++        for part in &mut job.parts {
++            part.allow_mirror = true;
++            part.rotations = Rotations::List {
++                degrees: vec![0.0, 90.0, 180.0, 270.0],
++            };
++        }
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let members = return_seed_members(sheets[1].layout());
++        assert!(!std::sync::Arc::ptr_eq(&members[0].1, &members[1].1));
++        let mut poses = vec![
++            DTransformation::new(0.0, (-30.0, 20.0)).with_reflection(true),
++            DTransformation::new(std::f32::consts::FRAC_PI_2, (-30.0, 50.0)),
++        ];
++        assert!(
++            members
++                .iter()
++                .zip(&poses)
++                .all(|((_, item, _), p)| item.allowed_orientations().allows(p))
++        );
++        let before = poses.clone();
++        let bounds = Rect::try_new(0.0, 0.0, 100.0, 100.0).unwrap();
++        let clock = Clock::new(Timing::Work, 120.0);
++        assert!(
++            contain_return_group(&members, &mut poses, &bounds, &clock),
++            "Permitted mixed group must keep its orientations while translating"
++        );
++        let b = return_seed_bounds(&members, &poses);
++        assert!(b.x_min >= 0.0 && b.y_min >= 0.0 && b.x_max <= 100.0 && b.y_max <= 100.0);
++        for ((old, new), (_, item, _)) in before.iter().zip(&poses).zip(&members) {
++            assert_eq!(old.rotation().to_bits(), new.rotation().to_bits());
++            assert_eq!(old.reflected, new.reflected);
++            assert_eq!(old.translation().1.to_bits(), new.translation().1.to_bits());
++            assert!(item.allowed_orientations().allows(new));
++        }
++        assert_eq!(poses[0].translation().0, poses[1].translation().0);
++        assert_eq!(poses[1].translation().1 - poses[0].translation().1, 30.0);
++    }
++    // END contained-return tests
+ }
