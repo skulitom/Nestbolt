@@ -14307,3 +14307,20 @@ logger compile failure remains preserved. Four serial seed-zero mechanical
 observations retain the original 60-second budgets. Logging may perturb wall
 time; this diagnoses the rejected candidate without replacing its failed
 quality comparison. No integration or H5 credit; completion stays 60%.
+
+
+## 2026-10-18 — Observe larger-return validation costs and unused time
+
+**N4 larger-return diagnosis, 2026-10-18:** [all four final and four intermediate layouts validate](benchmarks/results/h5-larger-stage-20261018.md).
+The filled-outer audits check 23,542 same-sheet pairs. Of 23 attempts, two
+accept, fourteen fail source repair and seven are neutral inventory rejections.
+Panel paired repairs start with zero loss; repeated validation costs 0.367 /
+0.299 seconds, and no mixed pair is generated. Large-plate exchanges save only
+86.418 / 40.2735 mm2 immediately; filling changes neither total and leaves
+0.965 / 0.552 seconds of the original exchange opportunity. Next verify whether
+neutral trials preserve exact original-item poses before considering an early
+rejection. Equal inventory/material alone cannot justify skipping validation.
+These instrumented observations do not replace the five failed pilot pairs;
+no integration or H5 credit, and completion remains 60%.
+
+The four serial observations take 4.054 minutes. Original archives, source/runner/input guards, all counters, and independent metrics/quantities verify. Full phase timings and every saved intermediate layout remain available. The original compiler failure is retained. No unchanged quality rerun, gate change or reserved access.
