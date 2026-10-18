@@ -14523,3 +14523,15 @@ Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
 physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
 quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
 at 60%. The plan is committed before measurement.
+
+
+## 2026-10-18 — Diagnose exact boundary-copy selection
+
+**N4 exact boundary-copy diagnosis, 2026-10-18:** [both diagnostic outcomes and every saved baseline validate](benchmarks/results/h5-boundary-observer-20261018.md).
+19 of 19 attempts select at least one actual part defining the credited sheet height; 0 select every part defining that height. 1 of the first group and 0 of the second group are accepted. The independent audit checks 31,794 filled-outer
+pairs and reconstructs every material value exactly. Every selected physical
+pose matches its baseline exactly. This identifies copy coverage, without
+establishing final quality or packing feasibility. The six failed pilot
+comparisons remain authoritative. H2/H5 remain open at 60%.
+
+The boundary ordering reaches a real height-setting copy on every attempt, but the generated pair lists never include both height-setting inserts together. The current pair generators use nearest-neighbour partners before applying their caps. The next isolated hypothesis is to include the two highest-ranked source members as the first pair in the appropriate same-item or mixed-item list, remove an equivalent duplicate, and retain the six-plus-six caps and existing nearby alternatives within those caps. Preserve original pair anchor order, allowed orientations, all repair/deadline/work limits and every full acceptance check. Authored cases must fail under the current selection when closer lower neighbours displace the upper pair, then pass for same-item and mixed-item boundary pairs, without duplicates or cap overruns. All existing 126 tests and public/rejection checks must remain. Only then prepare a matched quality pilot. This is a proposal-coverage hypothesis: it does not prove that jointly moving those copies is feasible, necessary for every improvement or sufficient to meet H5. Eighteen repair-or-expiry stops also remain unexplained by this selection result. The six failed pilot material comparisons remain authoritative.
