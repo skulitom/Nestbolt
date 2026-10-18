@@ -15092,3 +15092,17 @@ infeasibility claim. Preserve the timeout and generate new contact positions
 before any further selection attempt; no unchanged-pool or native search repeat.
 Production, targets, limits, release assets and accurate READMEs stay unchanged;
 H2/H5 remain open at 60%.
+
+**N4 expanded contact selection, 2026-10-18:** [8,798 verified poses](benchmarks/results/h5-contact-selection-20261018.md)
+include 3,600 new outline contacts and sheet half-turns. Independent enumeration
+of 29,902,803 pairs reproduces all 2,517,051 conflicts and verifies the equivalent
+17,097-clique model. Three bounded MILP mechanism attempts preserve their timeouts
+and the same 63-part partial. Disabling expensive presolve reaches the first
+relaxation quickly but gives no better layout. Exact-inventory CP-SAT requires all
+66 parts; its initial runtime crash and failing tiny probe are retained. Standard
+CPython, with the same package versions, passes the probe and solves the identical
+model bytes to UNKNOWN at 120 seconds, returning no complete layout. Independent
+model parsing verifies every exact quantity and nonbinding hint. Next investigate
+coordinated multi-cog components from actual contacts, retaining full original-job
+validation before any feasibility claim. All six prior main `5743a32` checks pass.
+No native quality run, runtime, gate, release or README change; H2/H5 remain at 60%.

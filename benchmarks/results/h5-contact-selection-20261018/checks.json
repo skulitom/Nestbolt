@@ -1,0 +1,214 @@
+{
+  "verified_utc": "2026-10-18T16:06:06.262887+00:00",
+  "generation": {
+    "candidates": 8798,
+    "prior_candidates": 2614,
+    "after_prior_and_symmetry": 5198,
+    "anchors": 126,
+    "templates": 20,
+    "queries": 2412,
+    "obstacles": 1116,
+    "contact_additions": {
+      "bracket": 900,
+      "cog": 900,
+      "frame": 900,
+      "insert": 900
+    },
+    "generation_expired": false,
+    "generation_seconds": 18.964903599990066,
+    "omitted": {
+      "duplicate": 54
+    }
+  },
+  "model": {
+    "candidates": 8798,
+    "conflict_edges": 2517051,
+    "pair_distances_checked": 2517525,
+    "compressed_cliques": 17097,
+    "residual_pair_constraints": 0,
+    "all_conflict_constraints": 17097,
+    "covered_edges": 2517051,
+    "clique_compression_seconds": 16.050631000020076,
+    "clique_compression_time_limit_reached": false,
+    "all_edges_covered_exactly": true,
+    "warm_certificate_valid": true,
+    "matrix_nonzeros": 681124,
+    "known_partial_area_mm2": 4331552.627255795,
+    "required_total_area_mm2": 4481740.784069745,
+    "preparation_seconds": 81.15758389999974
+  },
+  "geometry_audit": {
+    "complete": true,
+    "candidate_provenance_exact": true,
+    "candidates_checked": 8798,
+    "candidate_sources": {
+      "prior-pool": 2614,
+      "half-turn": 2584,
+      "contact": 3600
+    },
+    "contact_anchor_checks": 3600,
+    "all_same_sheet_candidate_pairs_enumerated": 29902803,
+    "candidate_pairs_geometrically_checked": 2822033,
+    "conflict_edges_verified": 2517051,
+    "equivalent_cliques_verified": 17097,
+    "selected_pairs_checked": 1303,
+    "selected_geometry_valid": true,
+    "original_public_job_valid": false,
+    "public_violation_codes": {
+      "quantity": 1
+    },
+    "missing": {
+      "cog": 3
+    },
+    "complete_target_witness": false,
+    "source_height_mm": 323.43799578366287,
+    "material_at_original_full_first_sheet_mm2": 4985156.993675494,
+    "solver_status": 1,
+    "solver_seconds": 120.18163020000793,
+    "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+    "new_native_searches": 0,
+    "H5_complete": false
+  },
+  "MIP_outcomes": {
+    "solve": {
+      "status": 1,
+      "success": false,
+      "message": "Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)",
+      "seconds": 120.18163020000793,
+      "has_incumbent": false,
+      "objective": null,
+      "mip_gap": null,
+      "mip_node_count": null,
+      "mip_dual_bound": null,
+      "selected_from": "unchanged known partial fallback",
+      "placed": {
+        "frame": 18,
+        "bracket": 12,
+        "insert": 21,
+        "cog": 12
+      },
+      "missing": {
+        "cog": 3
+      },
+      "filled_area_mm2": 4331552.627255795,
+      "complete_original_inventory": false,
+      "geometry_acceptance_pending": true,
+      "inputs_unchanged": true
+    },
+    "solve-warm": {
+      "status": 1,
+      "success": false,
+      "message": "Time limit reached",
+      "seconds": 120.0961013000051,
+      "has_incumbent": true,
+      "objective": -0.966488879198951,
+      "mip_gap": 12.518581017185335,
+      "mip_node_count": 0,
+      "mip_dual_bound": -13.065558215659669,
+      "selected_from": "MILP incumbent",
+      "placed": {
+        "frame": 18,
+        "bracket": 12,
+        "insert": 21,
+        "cog": 12
+      },
+      "missing": {
+        "cog": 3
+      },
+      "filled_area_mm2": 4331552.627255795,
+      "complete_original_inventory": false,
+      "geometry_acceptance_pending": true,
+      "inputs_unchanged": true
+    },
+    "solve-no-presolve": {
+      "status": 1,
+      "success": false,
+      "message": "Time limit reached",
+      "seconds": 124.51976060000015,
+      "has_incumbent": true,
+      "objective": -0.966488879198951,
+      "mip_gap": 0.034673053684759626,
+      "mip_node_count": 0,
+      "mip_dual_bound": -0.9999999999931394,
+      "selected_from": "MILP incumbent",
+      "placed": {
+        "frame": 18,
+        "bracket": 12,
+        "insert": 21,
+        "cog": 12
+      },
+      "missing": {
+        "cog": 3
+      },
+      "filled_area_mm2": 4331552.627255795,
+      "complete_original_inventory": false,
+      "geometry_acceptance_pending": true,
+      "inputs_unchanged": true
+    }
+  },
+  "CP_SAT_outcome": {
+    "status": "UNKNOWN",
+    "status_code": 0,
+    "has_solution": false,
+    "seconds": 120.18505980001646,
+    "reported_wall_seconds": 120.17882660000001,
+    "conflicts": 27,
+    "branches": 36530,
+    "full_original_inventory_required": true,
+    "geometry_acceptance_pending": false,
+    "new_native_searches": 0,
+    "H5_complete": false,
+    "selected_parts": 0,
+    "interpretation": "No complete selection returned. UNKNOWN is not infeasibility; any INFEASIBLE status concerns only this finite pool."
+  },
+  "CP_SAT_audit": {
+    "complete": true,
+    "model_matches_original_before_runtime_failure": true,
+    "dependency_versions_unchanged": true,
+    "variables": 8798,
+    "verified_conflict_cliques": 17097,
+    "exact_original_family_count_constraints": 4,
+    "positive_nonbinding_hints": 63,
+    "no_partial_objective_or_extra_model_constraints": true,
+    "solver_status": "UNKNOWN",
+    "solver_seconds": 120.18505980001646,
+    "returned_complete_selection": false,
+    "complete_target_witness": false,
+    "original_runtime_failure_preserved": true,
+    "standard_cpython_probe_passed": true,
+    "candidate_geometry_and_graph_audit_sha256": "847f76ce75fa7817ac5030a163795866130c50d68d607c3e26fee4514290020b",
+    "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+    "new_native_searches": 0,
+    "H5_complete": false,
+    "interpretation": "No complete layout returned. Any infeasibility status applies only to this finite candidate model; UNKNOWN is not infeasibility."
+  },
+  "runtime_probe_failure": {
+    "utc": "2026-10-18T15:58:29.981202+00:00",
+    "original_packing_process_observed_terminal": true,
+    "original_wrapper_exit": 1,
+    "original_solver_status_missing": true,
+    "original_solver_log_empty": true,
+    "new_packing_attempts": 0,
+    "command": [
+      "C:\\DEV\\Nestbolt\\.cache\\h5-cpsat-venv\\Scripts\\python.exe",
+      "-X",
+      "faulthandler",
+      "C:\\DEV\\Nestbolt\\output\\h5-contact-cpsat-20261018\\runtime-diagnosis\\probe.py"
+    ],
+    "returncode": 3221225477,
+    "unsigned_windows_code": "0xc0000005"
+  },
+  "runtime_probe_recovery": {
+    "returncode": 0,
+    "unsigned_windows_code": "0x0",
+    "same_probe_source": true,
+    "succeeded": true
+  },
+  "archive_members": 1234,
+  "archive_sha256": "c2e08a2db0718c962466a3a1849ea03e04613cf3a1635f7c0a4712c5540c4597",
+  "main_5743a32_all_six_checks_pass": true,
+  "runtime_changed": false,
+  "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+  "H5_complete": false,
+  "completion_percent": 60
+}

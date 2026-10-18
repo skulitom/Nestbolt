@@ -128,6 +128,20 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 expanded contact selection, 2026-10-18:** [8,798 verified poses](../benchmarks/results/h5-contact-selection-20261018.md)
+include 3,600 new outline contacts and sheet half-turns. Independent enumeration
+of 29,902,803 pairs reproduces all 2,517,051 conflicts and verifies the equivalent
+17,097-clique model. Three bounded MILP mechanism attempts preserve their timeouts
+and the same 63-part partial. Disabling expensive presolve reaches the first
+relaxation quickly but gives no better layout. Exact-inventory CP-SAT requires all
+66 parts; its initial runtime crash and failing tiny probe are retained. Standard
+CPython, with the same package versions, passes the probe and solves the identical
+model bytes to UNKNOWN at 120 seconds, returning no complete layout. Independent
+model parsing verifies every exact quantity and nonbinding hint. Next investigate
+coordinated multi-cog components from actual contacts, retaining full original-job
+validation before any feasibility claim. All six prior main `5743a32` checks pass.
+No native quality run, runtime, gate, release or README change; H2/H5 remain at 60%.
+
 **N4 joint saved-placement selection, 2026-10-18:** [a finite binary construction](../benchmarks/results/h5-saved-placement-selection-20261018.md)
 selects among 2,614 original-outline poses, including all 25 prior frame
 configurations. The known 63-part partial certifies model feasibility; all frame
