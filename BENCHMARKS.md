@@ -14184,3 +14184,18 @@ The candidate accepts 12/132 exchanges, including 1/69
 two-part exchanges. The post-exchange gap-fill step runs 12 times and moves 19 parts. The new guard rejects 49 same-inventory proposals without material improvement; mixed pairs account for 0/11 accepted/attempted exchanges. These counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
 prove impossibility. Original failures, production and frozen inputs remain
 unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Qualify mixed-pair sampling and repair observations
+
+[The isolated observer](benchmarks/results/h5-mixed-stage-preparation-20261018.md)
+passes 107 optimized tests, strict lint/build, nine actual authored traces,
+22 malformed-observation checks and four inventory-multiset checks. Inserted
+observations reverse exactly; the other 151 files remain unchanged. Per-call
+sampling reasons partition every visited sample and reconcile retained
+proposals; stage observations reconcile all seven exchange counters.
+
+The committed plan opens four serial 60-second seed-zero mechanical searches.
+This diagnoses the rejected mixed candidate and can perturb wall deadlines;
+it does not replace the failed quality pilot. Geometry, material, time limits,
+production and reserved inputs remain unchanged. H2/H5 remain open at 60%.
