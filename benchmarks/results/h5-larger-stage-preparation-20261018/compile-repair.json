@@ -1,0 +1,11 @@
+{
+  "failure": "Rust E0509: functional update syntax moves fields from a Drop implementation.",
+  "fix": "Initialize the existing Default value, then set only its observation timer.",
+  "no_tests_or_searches_ran": true,
+  "failed_source_sha256": "1cdf4b503f70b3748143132aa2d062d2036a2e927af67663c4f43b685f586a29",
+  "only_formatted_source_difference": {
+    "before": "        let mut trace = BalancedTrace {\n            started: Some(Instant::now()),\n            ..BalancedTrace::default()\n        };",
+    "after": "        let mut trace = BalancedTrace::default();\n        let _ = trace.started.replace(Instant::now());"
+  },
+  "failed_log_sha256": "76267c14419ae72989458cf5182b2dce7b7533b650928ffa8213b603c2d64463"
+}

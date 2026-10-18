@@ -1047,3 +1047,15 @@ The candidate accepts 13/119 total exchanges, including 10/81
 two-part exchanges. The post-exchange gap-fill step runs 13 times and moves 15 parts. The unchanged neutral guard rejects 33 same-inventory proposals without material improvement; mixed pairs account for 1/4 accepted/attempted exchanges. These counts alone do not establish final quality. These counts do not establish improved final material or
 identify remaining failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and
 all earlier failed results remain unchanged. H2/H5 remain open at 60%.
+
+
+**N4 larger-return diagnosis preparation, 2026-10-18:** [the isolated observer](../benchmarks/results/h5-larger-stage-preparation-20261018.md)
+passes all 113 unchanged core tests, strict lint/build, fourteen authored trace
+cases, the direct strict-material guard and 31 malformed-observation checks.
+All 154 formatted files match an exact reconstruction, with only two observed
+files. Timings distinguish construction, repairs and validation; complete
+after-exchange/after-fill layouts will be checked independently. The first
+logger compile failure remains preserved. Four serial seed-zero mechanical
+observations retain the original 60-second budgets. Logging may perturb wall
+time; this diagnoses the rejected candidate without replacing its failed
+quality comparison. No integration or H5 credit; completion stays 60%.
