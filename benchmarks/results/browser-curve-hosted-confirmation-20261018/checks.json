@@ -1,0 +1,545 @@
+{
+  "observed_utc": "2026-10-18T13:26:19.734829+00:00",
+  "browser_job_passed": true,
+  "browser_passed": 86,
+  "opt_in_skipped": 4,
+  "Chromium_and_Firefox_curve_test_passed": true,
+  "source_test_exact_at_verified_head": true,
+  "head": "4b13a858ec181f5cb3507927322a7458847f91f8",
+  "original_failure_preserved": true,
+  "whole_workflow_claimed_passed": false,
+  "files": {
+    "web.log": "0e8827575786097e3b90cbb75486a90d589594625d02b97de677463a6711458e",
+    "web-job.json": "5b85ed593f51b910e40189b16a5b9aa821fa697ccd9a7b34e80f7b6bdf537e70"
+  },
+  "workflow_snapshot": {
+    "conclusion": "",
+    "headSha": "4b13a858ec181f5cb3507927322a7458847f91f8",
+    "jobs": [
+      {
+        "completedAt": "2026-10-18T13:10:14Z",
+        "conclusion": "success",
+        "databaseId": 117683115402,
+        "name": "benchmark-smoke",
+        "startedAt": "2026-10-18T13:05:29Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T13:05:32Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T13:05:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:44Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-18T13:05:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:44Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-18T13:06:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:45Z",
+            "conclusion": "success",
+            "name": "Two sequential five-second native Sparrow runs",
+            "number": 4,
+            "startedAt": "2026-10-18T13:06:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:08:36Z",
+            "conclusion": "success",
+            "name": "Build pinned LBF and verify its dependency notices",
+            "number": 5,
+            "startedAt": "2026-10-18T13:07:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:10:11Z",
+            "conclusion": "success",
+            "name": "Independently validate two bounded LBF smoke jobs",
+            "number": 6,
+            "startedAt": "2026-10-18T13:08:36Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:10:12Z",
+            "conclusion": "success",
+            "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+            "number": 7,
+            "startedAt": "2026-10-18T13:10:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:10:12Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 13,
+            "startedAt": "2026-10-18T13:10:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:10:12Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 14,
+            "startedAt": "2026-10-18T13:10:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:10:12Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 15,
+            "startedAt": "2026-10-18T13:10:12Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220/job/117683115402"
+      },
+      {
+        "completedAt": "2026-10-18T13:13:27Z",
+        "conclusion": "success",
+        "databaseId": 117683115467,
+        "name": "web",
+        "startedAt": "2026-10-18T13:05:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T13:05:32Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T13:05:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:56Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-18T13:05:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:56Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-18T13:06:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:01Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 4,
+            "startedAt": "2026-10-18T13:06:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:08:44Z",
+            "conclusion": "success",
+            "name": "Install pinned Rust toolchain and wasm-bindgen",
+            "number": 5,
+            "startedAt": "2026-10-18T13:07:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:09:15Z",
+            "conclusion": "success",
+            "name": "Install locked npm packages and test browsers",
+            "number": 6,
+            "startedAt": "2026-10-18T13:08:44Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:13:23Z",
+            "conclusion": "success",
+            "name": "Build the browser app and run Chromium and Firefox tests",
+            "number": 7,
+            "startedAt": "2026-10-18T13:09:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:13:23Z",
+            "conclusion": "skipped",
+            "name": "Retain browser failure diagnostics",
+            "number": 8,
+            "startedAt": "2026-10-18T13:13:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:13:23Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 14,
+            "startedAt": "2026-10-18T13:13:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:13:24Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 15,
+            "startedAt": "2026-10-18T13:13:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:13:24Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 16,
+            "startedAt": "2026-10-18T13:13:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:13:24Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 17,
+            "startedAt": "2026-10-18T13:13:24Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220/job/117683115467"
+      },
+      {
+        "completedAt": "2026-10-18T13:08:02Z",
+        "conclusion": "success",
+        "databaseId": 117683115539,
+        "name": "maker-rebuild (windows-latest)",
+        "startedAt": "2026-10-18T13:05:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T13:05:31Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T13:05:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:43Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-18T13:05:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:19Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-18T13:06:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:26Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 4,
+            "startedAt": "2026-10-18T13:07:19Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:54Z",
+            "conclusion": "success",
+            "name": "Prepare pinned isolated source generators",
+            "number": 5,
+            "startedAt": "2026-10-18T13:07:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:58Z",
+            "conclusion": "success",
+            "name": "Verify curve bounds and exact maker rebuild",
+            "number": 6,
+            "startedAt": "2026-10-18T13:07:54Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 10,
+            "startedAt": "2026-10-18T13:07:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:58Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 11,
+            "startedAt": "2026-10-18T13:07:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:08:00Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 12,
+            "startedAt": "2026-10-18T13:07:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:08:00Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-10-18T13:08:00Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220/job/117683115539"
+      },
+      {
+        "completedAt": "2026-10-18T13:24:29Z",
+        "conclusion": "success",
+        "databaseId": 117683115551,
+        "name": "checks (ubuntu-latest)",
+        "startedAt": "2026-10-18T13:05:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T13:05:32Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T13:05:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:46Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-18T13:05:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:46Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-18T13:06:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:58Z",
+            "conclusion": "success",
+            "name": "Install pinned Rust toolchain",
+            "number": 4,
+            "startedAt": "2026-10-18T13:06:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:24:25Z",
+            "conclusion": "success",
+            "name": "Formatting, lint, native tests, WASM and notices",
+            "number": 5,
+            "startedAt": "2026-10-18T13:06:58Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:24:26Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 9,
+            "startedAt": "2026-10-18T13:24:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:24:26Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 10,
+            "startedAt": "2026-10-18T13:24:26Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:24:26Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-18T13:24:26Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220/job/117683115551"
+      },
+      {
+        "completedAt": "0001-01-01T00:00:00Z",
+        "conclusion": "",
+        "databaseId": 117683115613,
+        "name": "checks (windows-latest)",
+        "startedAt": "2026-10-18T13:05:29Z",
+        "status": "in_progress",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T13:05:31Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T13:05:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:49Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-18T13:05:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:49Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-18T13:06:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:03Z",
+            "conclusion": "success",
+            "name": "Install pinned Rust toolchain",
+            "number": 4,
+            "startedAt": "2026-10-18T13:06:49Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "0001-01-01T00:00:00Z",
+            "conclusion": "",
+            "name": "Formatting, lint, native tests, WASM and notices",
+            "number": 5,
+            "startedAt": "2026-10-18T13:07:03Z",
+            "status": "in_progress"
+          },
+          {
+            "completedAt": "0001-01-01T00:00:00Z",
+            "conclusion": "",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 9,
+            "startedAt": "0001-01-01T00:00:00Z",
+            "status": "pending"
+          },
+          {
+            "completedAt": "0001-01-01T00:00:00Z",
+            "conclusion": "",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 10,
+            "startedAt": "0001-01-01T00:00:00Z",
+            "status": "pending"
+          }
+        ],
+        "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220/job/117683115613"
+      },
+      {
+        "completedAt": "2026-10-18T13:07:36Z",
+        "conclusion": "success",
+        "databaseId": 117683115710,
+        "name": "maker-rebuild (ubuntu-latest)",
+        "startedAt": "2026-10-18T13:05:30Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-18T13:05:31Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-18T13:05:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:45Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 2,
+            "startedAt": "2026-10-18T13:05:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:06:56Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 3,
+            "startedAt": "2026-10-18T13:06:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:07Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 4,
+            "startedAt": "2026-10-18T13:06:56Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:29Z",
+            "conclusion": "success",
+            "name": "Prepare pinned isolated source generators",
+            "number": 5,
+            "startedAt": "2026-10-18T13:07:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:32Z",
+            "conclusion": "success",
+            "name": "Verify curve bounds and exact maker rebuild",
+            "number": 6,
+            "startedAt": "2026-10-18T13:07:29Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:32Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "number": 10,
+            "startedAt": "2026-10-18T13:07:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:32Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+            "number": 11,
+            "startedAt": "2026-10-18T13:07:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:32Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+            "number": 12,
+            "startedAt": "2026-10-18T13:07:32Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-18T13:07:33Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-10-18T13:07:32Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220/job/117683115710"
+      }
+    ],
+    "status": "in_progress",
+    "url": "https://github.com/skulitom/Nestbolt/actions/runs/39130020220"
+  }
+}

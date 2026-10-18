@@ -1578,3 +1578,18 @@ checks remain; a separate counter identifies proposals with a tighter source cro
 No measurement has started at this checkpoint. Every original failure and threshold
 remains. The full 13-job comparison still requires every pilot material pair to
 pass. Production is unchanged; H2/H5 remain open at 60%.
+
+**N4 source-frontier outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-source-frontier-pilot-20261018.md),
+but five of eight material pairs fail the original +1% limit: m-mechanical-large-plates at 0.2 mm: +6.496681%; m-mechanical-large-plates at 1.5 mm: +4.989335%; m-mechanical-panel-hardware at 0.2 mm: +6.588633%; m-mechanical-panel-hardware at 1.5 mm: +5.416304%; c-bracket-mixed at 0.2 mm: +2.829306%
+Independent checking covers all 48 common layouts and 132,966 filled-outer
+pairs. The candidate records 63/347 accepted/attempted exchanges. Joint repair has 145 attempts: 63 complete, 61 fail and 21 expire. There are 143 proposed calls with tighter source crops, 35 committed joint steps and 5 rolled-back steps. All accepted counts exclude rolled-back steps. No candidate pair beats its matched common-baseline median.
+Reject this candidate for integration. The next investigation checks saved layouts
+for geometrically constructed transfers into narrow gaps missed by uniform sampling;
+it must produce actual validated layouts before another policy is justified.
+All limits and production remain unchanged; H2/H5 remain open at 60%.
+
+**Hosted browser confirmation, 2026-10-18:** [main 4b13a85 passes the browser job](../benchmarks/results/browser-curve-hosted-confirmation-20261018.md):
+86 tests pass with four opt-in skips, including the corrected curve import/export
+test in Chromium and Firefox. The original failed job remains preserved. This
+confirms the test-only correction; the separate Windows workflow checks are
+still pending. Product source, release assets and gate limits remain unchanged.

@@ -22,6 +22,12 @@ pass. Stable Latest and its assets remain v0.1.0. This does not close the remain
 v1.1 gates or authorize a new final acceptance run. No new registry version was published.
 
 
+**Hosted browser confirmation, 2026-10-18:** [main 4b13a85 passes the browser job](../benchmarks/results/browser-curve-hosted-confirmation-20261018.md):
+86 tests pass with four opt-in skips, including the corrected curve import/export
+test in Chromium and Firefox. The original failed job remains preserved. This
+confirms the test-only correction; the separate Windows workflow checks are
+still pending. Product source, release assets and gate limits remain unchanged.
+
 **Browser curve-test follow-up, 2026-10-18:** [the d414824 trace and local correction](../benchmarks/results/browser-curve-initial-layout-20261018.md)
 preserve a Chromium import/export failure: no complete eight-part layout within
 five seconds. This fidelity test now explicitly uses quick initial layout,
@@ -122,16 +128,14 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
-**N4 source-frontier pilot plan, 2026-10-18:** the [72-outcome matched plan](../benchmarks/results/h5-source-frontier-pilot-20261018/plan.json)
-is ready for the qualified isolated policy. The same four jobs, two kerfs, three
-seeds, ordinary/common baseline engines, 60-second allowance and rotating physical
-cores remain. Six execution/scoring functions are AST-identical to the preceding
-pilot; all five adversarial harness checks pass. The verified preflight confirms
-that earlier local measurements are finished. Archive, metric, hole and rollback
-checks remain; a separate counter identifies proposals with a tighter source crop.
-No measurement has started at this checkpoint. Every original failure and threshold
-remains. The full 13-job comparison still requires every pilot material pair to
-pass. Production is unchanged; H2/H5 remain open at 60%.
+**N4 source-frontier outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-source-frontier-pilot-20261018.md),
+but five of eight material pairs fail the original +1% limit: m-mechanical-large-plates at 0.2 mm: +6.496681%; m-mechanical-large-plates at 1.5 mm: +4.989335%; m-mechanical-panel-hardware at 0.2 mm: +6.588633%; m-mechanical-panel-hardware at 1.5 mm: +5.416304%; c-bracket-mixed at 0.2 mm: +2.829306%
+Independent checking covers all 48 common layouts and 132,966 filled-outer
+pairs. The candidate records 63/347 accepted/attempted exchanges. Joint repair has 145 attempts: 63 complete, 61 fail and 21 expire. There are 143 proposed calls with tighter source crops, 35 committed joint steps and 5 rolled-back steps. All accepted counts exclude rolled-back steps. No candidate pair beats its matched common-baseline median.
+Reject this candidate for integration. The next investigation checks saved layouts
+for geometrically constructed transfers into narrow gaps missed by uniform sampling;
+it must produce actual validated layouts before another policy is justified.
+All limits and production remain unchanged; H2/H5 remain open at 60%.
 
 **N4 source-frontier qualification, 2026-10-18:** [the explicit witness and automatic policy pass](../benchmarks/results/h5-frontier-preparation-20261018.md).
 The original helper leaves the authored source at 87.200677 mm with its old crop

@@ -14981,3 +14981,22 @@ checks remain; a separate counter identifies proposals with a tighter source cro
 No measurement has started at this checkpoint. Every original failure and threshold
 remains. The full 13-job comparison still requires every pilot material pair to
 pass. Production is unchanged; H2/H5 remain open at 60%.
+
+**N4 source-frontier outcome, 2026-10-18:** [all 72 outcomes validate](benchmarks/results/h5-source-frontier-pilot-20261018.md),
+but five of eight material pairs fail the original +1% limit: m-mechanical-large-plates at 0.2 mm: +6.496681%; m-mechanical-large-plates at 1.5 mm: +4.989335%; m-mechanical-panel-hardware at 0.2 mm: +6.588633%; m-mechanical-panel-hardware at 1.5 mm: +5.416304%; c-bracket-mixed at 0.2 mm: +2.829306%
+Independent checking covers all 48 common layouts and 132,966 filled-outer
+pairs. The candidate records 63/347 accepted/attempted exchanges. Joint repair has 145 attempts: 63 complete, 61 fail and 21 expire. There are 143 proposed calls with tighter source crops, 35 committed joint steps and 5 rolled-back steps. All accepted counts exclude rolled-back steps. No candidate pair beats its matched common-baseline median.
+Reject this candidate for integration. The next investigation checks saved layouts
+for geometrically constructed transfers into narrow gaps missed by uniform sampling;
+it must produce actual validated layouts before another policy is justified.
+All limits and production remain unchanged; H2/H5 remain open at 60%.
+
+The twelve mechanical final layouts need 123.514–213.196 mm less used height on their currently credited sheet, with 7–29 current copies above that conditional target. Four saved source inventories exceed their target's usable area even without inter-part kerf. These are conditional obstacles to the existing assignments, not whole-job impossibility proofs. The weak whole-job filled-area bound remains below the original target in all eight pairs; this does not prove packability.
+
+Reject this candidate for integration; do not repeat its unchanged pilot or open the full 13-job gate. The 44 mechanical targeted calls include 23 completed repairs and 22 committed steps, with 20 expiries and one failed repair. Targets are being used; aggregate counters still do not identify their individual gains or time cost. Before changing crop policy or budgets again, inspect the saved final mechanical layouts for zero-victim transfers into earlier sheets. The current fill_gaps method draws 1000 uniform samples per part for a two-sheet window; it does not exhaustively represent narrow feasible translation regions. Use an independent conservative geometric construction of those regions, with original allowed orientations, filled outer contours and the original clearance. Keep every other placement fixed, retain each attempted layout, and validate any constructed transfer through the frozen public CLI and independent filled-outer checks. An actual material-reducing sequence would witness a missed geometric opportunity; no result under a conservative convex-hull check would not prove no true placement exists. This is post-hoc mechanism diagnosis, not a quality comparison or proof that the +1% target is feasible. Only a concrete useful witness should motivate a bounded implementation and another qualified pilot. Preserve all budgets, the four-step cap, strict final material guard, original failures, hole reservation and held-out isolation.
+
+**Hosted browser confirmation, 2026-10-18:** [main 4b13a85 passes the browser job](benchmarks/results/browser-curve-hosted-confirmation-20261018.md):
+86 tests pass with four opt-in skips, including the corrected curve import/export
+test in Chromium and Firefox. The original failed job remains preserved. This
+confirms the test-only correction; the separate Windows workflow checks are
+still pending. Product source, release assets and gate limits remain unchanged.

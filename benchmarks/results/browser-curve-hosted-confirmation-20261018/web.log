@@ -1,0 +1,1448 @@
+﻿2026-10-18T13:05:31.0446506Z Current runner version: '2.337.0'
+2026-10-18T13:05:31.0472651Z ##[group]Runner Image Provisioner
+2026-10-18T13:05:31.0473628Z Hosted Compute Agent
+2026-10-18T13:05:31.0474258Z Version: 20261012.601
+2026-10-18T13:05:31.0474923Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-18T13:05:31.0475741Z Build Date: 2026-10-12T17:48:21Z
+2026-10-18T13:05:31.0476460Z Worker ID: {78cef25f-ac33-42e5-a2db-d676397196e1}
+2026-10-18T13:05:31.0477230Z Region: westus2
+2026-10-18T13:05:31.0478437Z Cloud: Azure
+2026-10-18T13:05:31.0479030Z ##[endgroup]
+2026-10-18T13:05:31.0480819Z ##[group]Operating System
+2026-10-18T13:05:31.0481532Z Ubuntu
+2026-10-18T13:05:31.0482059Z 24.04.5
+2026-10-18T13:05:31.0482666Z LTS
+2026-10-18T13:05:31.0483199Z ##[endgroup]
+2026-10-18T13:05:31.0484230Z ##[group]Runner Image
+2026-10-18T13:05:31.0484989Z Image: ubuntu-24.04
+2026-10-18T13:05:31.0485590Z Version: 20261012.334.1
+2026-10-18T13:05:31.0486944Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-18T13:05:31.0488970Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-18T13:05:31.0490032Z ##[endgroup]
+2026-10-18T13:05:31.0491227Z ##[group]GITHUB_TOKEN Permissions
+2026-10-18T13:05:31.0493503Z Contents: read
+2026-10-18T13:05:31.0494133Z Metadata: read
+2026-10-18T13:05:31.0494866Z ##[endgroup]
+2026-10-18T13:05:31.0497065Z Secret source: Actions
+2026-10-18T13:05:31.0498334Z Cache mode: write
+2026-10-18T13:05:31.0499290Z Prepare workflow directory
+2026-10-18T13:05:31.0930781Z Prepare all required actions
+2026-10-18T13:05:31.0979193Z Getting action download info
+2026-10-18T13:05:31.4357935Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-10-18T13:05:31.5474622Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-10-18T13:05:31.6668744Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-18T13:05:31.7579014Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-18T13:05:31.9807419Z Complete job name: web
+2026-10-18T13:05:32.0652344Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-10-18T13:05:32.0653467Z with:
+2026-10-18T13:05:32.0653940Z   persist-credentials: false
+2026-10-18T13:05:32.0654506Z   repository: skulitom/Nestbolt
+2026-10-18T13:05:32.0659113Z   token: ***
+2026-10-18T13:05:32.0659582Z   ssh-strict: true
+2026-10-18T13:05:32.0660052Z   ssh-user: git
+2026-10-18T13:05:32.0660509Z   clean: true
+2026-10-18T13:05:32.0660991Z   sparse-checkout-cone-mode: true
+2026-10-18T13:05:32.0661566Z   fetch-depth: 1
+2026-10-18T13:05:32.0662029Z   fetch-tags: false
+2026-10-18T13:05:32.0662508Z   show-progress: true
+2026-10-18T13:05:32.0663028Z   lfs: false
+2026-10-18T13:05:32.0663504Z   submodules: false
+2026-10-18T13:05:32.0663993Z   set-safe-directory: true
+2026-10-18T13:05:32.0664543Z   allow-unsafe-pr-checkout: false
+2026-10-18T13:05:32.0665363Z ##[endgroup]
+2026-10-18T13:05:32.1775153Z Syncing repository: skulitom/Nestbolt
+2026-10-18T13:05:32.1777081Z ##[group]Getting Git version info
+2026-10-18T13:05:32.1778445Z Working directory is '/home/runner/work/Nestbolt/Nestbolt'
+2026-10-18T13:05:32.1779542Z [command]/usr/bin/git version
+2026-10-18T13:05:32.1904302Z git version 2.55.0
+2026-10-18T13:05:32.1932278Z ##[endgroup]
+2026-10-18T13:05:32.1950061Z Temporarily overriding HOME='/home/runner/work/_temp/5331a9fa-5f1e-43b3-b013-ef856f44c0c9' before making global git config changes
+2026-10-18T13:05:32.1952602Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-18T13:05:32.1956584Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-10-18T13:05:32.2019583Z Deleting the contents of '/home/runner/work/Nestbolt/Nestbolt'
+2026-10-18T13:05:32.2030145Z ##[group]Determining repository object format
+2026-10-18T13:05:32.2031683Z ##[endgroup]
+2026-10-18T13:05:32.2032890Z ##[group]Initializing the repository
+2026-10-18T13:05:32.2034069Z [command]/usr/bin/git init /home/runner/work/Nestbolt/Nestbolt
+2026-10-18T13:05:32.2179281Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-18T13:05:32.2186432Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-18T13:05:32.2188851Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-18T13:05:32.2190524Z hint: call:
+2026-10-18T13:05:32.2191364Z hint:
+2026-10-18T13:05:32.2192359Z hint: 	git config --global init.defaultBranch <name>
+2026-10-18T13:05:32.2193832Z hint:
+2026-10-18T13:05:32.2195112Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-18T13:05:32.2197223Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-18T13:05:32.2198909Z hint:
+2026-10-18T13:05:32.2199659Z hint: 	git branch -m <name>
+2026-10-18T13:05:32.2200428Z hint:
+2026-10-18T13:05:32.2201137Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-18T13:05:32.2203449Z Initialized empty Git repository in /home/runner/work/Nestbolt/Nestbolt/.git/
+2026-10-18T13:05:32.2208250Z [command]/usr/bin/git remote add origin https://github.com/skulitom/Nestbolt
+2026-10-18T13:05:32.2261392Z ##[endgroup]
+2026-10-18T13:05:32.2263281Z ##[group]Disabling automatic garbage collection
+2026-10-18T13:05:32.2265546Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-18T13:05:32.2306109Z ##[endgroup]
+2026-10-18T13:05:32.2308256Z ##[group]Setting up auth
+2026-10-18T13:05:32.2309624Z Removing SSH command configuration
+2026-10-18T13:05:32.2312614Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-18T13:05:32.2352291Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-18T13:05:32.2771647Z Removing HTTP extra header
+2026-10-18T13:05:32.2789520Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-18T13:05:32.2823201Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-18T13:05:32.3060010Z Removing includeIf entries pointing to credentials config files
+2026-10-18T13:05:32.3068557Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-18T13:05:32.3112328Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-18T13:05:32.3352060Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-18T13:05:32.3400159Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:05:32.3440255Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:05:32.3481480Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:05:32.3520681Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:05:32.3555074Z ##[endgroup]
+2026-10-18T13:05:32.3556586Z ##[group]Fetching the repository
+2026-10-18T13:05:32.3564162Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4b13a858ec181f5cb3507927322a7458847f91f8:refs/remotes/origin/main
+2026-10-18T13:06:48.5858180Z From https://github.com/skulitom/Nestbolt
+2026-10-18T13:06:48.5859822Z  * [new ref]         4b13a858ec181f5cb3507927322a7458847f91f8 -> origin/main
+2026-10-18T13:06:48.5873943Z [command]/usr/bin/git branch --list --remote origin/main
+2026-10-18T13:06:48.5913077Z   origin/main
+2026-10-18T13:06:48.5935724Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-10-18T13:06:48.5953674Z 4b13a858ec181f5cb3507927322a7458847f91f8
+2026-10-18T13:06:48.5959245Z ##[endgroup]
+2026-10-18T13:06:48.6038779Z ##[group]Determining the checkout info
+2026-10-18T13:06:48.6039953Z ##[endgroup]
+2026-10-18T13:06:48.6040480Z [command]/usr/bin/git sparse-checkout disable
+2026-10-18T13:06:48.6041994Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-18T13:06:48.6063124Z ##[group]Checking out the ref
+2026-10-18T13:06:48.6066763Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-18T13:06:49.6662387Z Updating files:  28% (2555/9040)
+2026-10-18T13:06:50.4949354Z Updating files:  29% (2622/9040)
+2026-10-18T13:06:50.7635316Z Updating files:  30% (2712/9040)
+2026-10-18T13:06:51.5385396Z Updating files:  30% (2723/9040)
+2026-10-18T13:06:51.6118878Z Updating files:  31% (2803/9040)
+2026-10-18T13:06:51.6475516Z Updating files:  32% (2893/9040)
+2026-10-18T13:06:51.7103362Z Updating files:  32% (2930/9040)
+2026-10-18T13:06:51.8678878Z Updating files:  33% (2984/9040)
+2026-10-18T13:06:51.9052961Z Updating files:  34% (3074/9040)
+2026-10-18T13:06:52.0044946Z Updating files:  35% (3164/9040)
+2026-10-18T13:06:52.0238211Z Updating files:  36% (3255/9040)
+2026-10-18T13:06:52.1351990Z Updating files:  37% (3345/9040)
+2026-10-18T13:06:52.1773158Z Updating files:  38% (3436/9040)
+2026-10-18T13:06:52.2572784Z Updating files:  39% (3526/9040)
+2026-10-18T13:06:52.3269378Z Updating files:  40% (3616/9040)
+2026-10-18T13:06:52.4026084Z Updating files:  41% (3707/9040)
+2026-10-18T13:06:52.4738297Z Updating files:  42% (3797/9040)
+2026-10-18T13:06:52.5302573Z Updating files:  43% (3888/9040)
+2026-10-18T13:06:52.6055178Z Updating files:  44% (3978/9040)
+2026-10-18T13:06:52.6341067Z Updating files:  45% (4068/9040)
+2026-10-18T13:06:52.6538260Z Updating files:  45% (4147/9040)
+2026-10-18T13:06:52.7238892Z Updating files:  46% (4159/9040)
+2026-10-18T13:06:52.8519274Z Updating files:  47% (4249/9040)
+2026-10-18T13:06:52.8651725Z Updating files:  48% (4340/9040)
+2026-10-18T13:06:52.9304088Z Updating files:  49% (4430/9040)
+2026-10-18T13:06:53.0174865Z Updating files:  50% (4520/9040)
+2026-10-18T13:06:53.0654871Z Updating files:  51% (4611/9040)
+2026-10-18T13:06:53.0950437Z Updating files:  52% (4701/9040)
+2026-10-18T13:06:53.2019150Z Updating files:  53% (4792/9040)
+2026-10-18T13:06:53.2370618Z Updating files:  54% (4882/9040)
+2026-10-18T13:06:53.3148625Z Updating files:  55% (4972/9040)
+2026-10-18T13:06:53.3902645Z Updating files:  56% (5063/9040)
+2026-10-18T13:06:53.4484487Z Updating files:  57% (5153/9040)
+2026-10-18T13:06:53.4773084Z Updating files:  58% (5244/9040)
+2026-10-18T13:06:53.5927331Z Updating files:  59% (5334/9040)
+2026-10-18T13:06:53.6354716Z Updating files:  60% (5424/9040)
+2026-10-18T13:06:53.6398890Z Updating files:  60% (5454/9040)
+2026-10-18T13:06:53.6469386Z Updating files:  61% (5515/9040)
+2026-10-18T13:06:53.6783494Z Updating files:  62% (5605/9040)
+2026-10-18T13:06:53.7608444Z Updating files:  63% (5696/9040)
+2026-10-18T13:06:53.8646371Z Updating files:  64% (5786/9040)
+2026-10-18T13:06:54.0282799Z Updating files:  65% (5876/9040)
+2026-10-18T13:06:54.0581858Z Updating files:  66% (5967/9040)
+2026-10-18T13:06:54.1269426Z Updating files:  67% (6057/9040)
+2026-10-18T13:06:54.1784984Z Updating files:  68% (6148/9040)
+2026-10-18T13:06:54.2697988Z Updating files:  69% (6238/9040)
+2026-10-18T13:06:54.3848582Z Updating files:  70% (6328/9040)
+2026-10-18T13:06:54.4507238Z Updating files:  71% (6419/9040)
+2026-10-18T13:06:54.5285457Z Updating files:  72% (6509/9040)
+2026-10-18T13:06:54.6192705Z Updating files:  73% (6600/9040)
+2026-10-18T13:06:54.6346028Z Updating files:  74% (6690/9040)
+2026-10-18T13:06:54.7646717Z Updating files:  74% (6695/9040)
+2026-10-18T13:06:54.8250007Z Updating files:  75% (6780/9040)
+2026-10-18T13:06:54.9189102Z Updating files:  76% (6871/9040)
+2026-10-18T13:06:55.0027472Z Updating files:  77% (6961/9040)
+2026-10-18T13:06:55.0175305Z Updating files:  78% (7052/9040)
+2026-10-18T13:06:55.0280849Z Updating files:  79% (7142/9040)
+2026-10-18T13:06:55.0361324Z Updating files:  80% (7232/9040)
+2026-10-18T13:06:55.0458675Z Updating files:  81% (7323/9040)
+2026-10-18T13:06:55.1043552Z Updating files:  82% (7413/9040)
+2026-10-18T13:06:55.1412968Z Updating files:  83% (7504/9040)
+2026-10-18T13:06:55.1571695Z Updating files:  84% (7594/9040)
+2026-10-18T13:06:55.1943341Z Updating files:  85% (7684/9040)
+2026-10-18T13:06:55.2027996Z Updating files:  86% (7775/9040)
+2026-10-18T13:06:55.2107027Z Updating files:  87% (7865/9040)
+2026-10-18T13:06:55.2232356Z Updating files:  88% (7956/9040)
+2026-10-18T13:06:55.3051443Z Updating files:  89% (8046/9040)
+2026-10-18T13:06:55.3851827Z Updating files:  90% (8136/9040)
+2026-10-18T13:06:55.3975721Z Updating files:  91% (8227/9040)
+2026-10-18T13:06:55.4096960Z Updating files:  92% (8317/9040)
+2026-10-18T13:06:55.4293408Z Updating files:  93% (8408/9040)
+2026-10-18T13:06:55.4430938Z Updating files:  94% (8498/9040)
+2026-10-18T13:06:55.4502799Z Updating files:  95% (8588/9040)
+2026-10-18T13:06:55.4596706Z Updating files:  96% (8679/9040)
+2026-10-18T13:06:55.4662155Z Updating files:  97% (8769/9040)
+2026-10-18T13:06:55.4723973Z Updating files:  98% (8860/9040)
+2026-10-18T13:06:55.4792843Z Updating files:  99% (8950/9040)
+2026-10-18T13:06:55.4793617Z Updating files: 100% (9040/9040)
+2026-10-18T13:06:55.4794014Z Updating files: 100% (9040/9040), done.
+2026-10-18T13:06:55.8727395Z Switched to a new branch 'main'
+2026-10-18T13:06:55.8730357Z branch 'main' set up to track 'origin/main'.
+2026-10-18T13:06:55.9002589Z ##[endgroup]
+2026-10-18T13:06:55.9063344Z [command]/usr/bin/git log -1 --format=%H
+2026-10-18T13:06:55.9084390Z 4b13a858ec181f5cb3507927322a7458847f91f8
+2026-10-18T13:06:55.9095772Z ##[group]Removing auth
+2026-10-18T13:06:55.9096527Z Removing SSH command configuration
+2026-10-18T13:06:55.9101107Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-18T13:06:55.9159461Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-18T13:06:55.9384060Z Removing HTTP extra header
+2026-10-18T13:06:55.9389684Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-18T13:06:55.9427631Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-18T13:06:55.9689080Z Removing includeIf entries pointing to credentials config files
+2026-10-18T13:06:55.9690075Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-18T13:06:55.9712111Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-10-18T13:06:55.9712982Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-18T13:06:55.9713433Z includeif.gitdir:/github/workspace/.git.path
+2026-10-18T13:06:55.9713809Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-18T13:06:55.9727273Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-10-18T13:06:55.9754478Z /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:55.9765716Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.0762809Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-10-18T13:06:56.0793831Z /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.0804360Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.1732461Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-18T13:06:56.1763033Z /github/runner_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.1770887Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.2194817Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-18T13:06:56.2228863Z /github/runner_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.2236485Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config
+2026-10-18T13:06:56.2675869Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-18T13:06:56.2911946Z Removing credentials config '/home/runner/work/_temp/git-credentials-b184dde7-d7e3-4fd5-b222-01fedd6c05e8.config'
+2026-10-18T13:06:56.2920957Z ##[endgroup]
+2026-10-18T13:06:56.3287271Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+2026-10-18T13:06:56.3288013Z with:
+2026-10-18T13:06:56.3288231Z   python-version: 3.13
+2026-10-18T13:06:56.3288483Z   check-latest: false
+2026-10-18T13:06:56.3291103Z   token: ***
+2026-10-18T13:06:56.3291319Z   update-environment: true
+2026-10-18T13:06:56.3291579Z   allow-prereleases: false
+2026-10-18T13:06:56.3291826Z   freethreaded: false
+2026-10-18T13:06:56.3292053Z ##[endgroup]
+2026-10-18T13:06:56.4662796Z ##[group]Installed versions
+2026-10-18T13:06:56.9216062Z Successfully set up CPython (3.13.16)
+2026-10-18T13:06:56.9216921Z ##[endgroup]
+2026-10-18T13:06:56.9409290Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-18T13:06:56.9409700Z with:
+2026-10-18T13:06:56.9409896Z   node-version: 24.19.0
+2026-10-18T13:06:56.9410115Z   always-auth: false
+2026-10-18T13:06:56.9410325Z   check-latest: false
+2026-10-18T13:06:56.9412850Z   token: ***
+2026-10-18T13:06:56.9413050Z env:
+2026-10-18T13:06:56.9413317Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:06:56.9413782Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+2026-10-18T13:06:56.9414223Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:06:56.9414613Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:06:56.9414989Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:06:56.9415367Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib
+2026-10-18T13:06:56.9415683Z ##[endgroup]
+2026-10-18T13:06:57.0934415Z Attempting to download 24.19.0...
+2026-10-18T13:06:57.1042865Z (node:2431) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-18T13:06:57.1044624Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-18T13:06:57.6916887Z Acquiring 24.19.0 - x64 from https://github.com/actions/node-versions/releases/download/24.19.0-30872449280/node-24.19.0-linux-x64.tar.gz
+2026-10-18T13:06:58.2027800Z Extracting ...
+2026-10-18T13:06:58.2162322Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/37839b66-f1b0-44e1-baaa-fe28b337a527 -f /home/runner/work/_temp/7b34eeb5-a621-4b9c-9da0-bd74bcc430ad
+2026-10-18T13:06:59.4672860Z Adding to the cache ...
+2026-10-18T13:07:01.5794449Z ##[group]Environment details
+2026-10-18T13:07:01.8108488Z node: v24.19.0
+2026-10-18T13:07:01.8108902Z npm: 11.17.0
+2026-10-18T13:07:01.8109234Z yarn: 1.22.22
+2026-10-18T13:07:01.8109926Z ##[endgroup]
+2026-10-18T13:07:01.8262324Z ##[group]Run rustup show
+2026-10-18T13:07:01.8262641Z [36;1mrustup show[0m
+2026-10-18T13:07:01.8262999Z [36;1mcargo install wasm-bindgen-cli --version 0.2.129 --locked[0m
+2026-10-18T13:07:01.8647485Z shell: /usr/bin/bash -e {0}
+2026-10-18T13:07:01.8648110Z env:
+2026-10-18T13:07:01.8648485Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:07:01.8649141Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+2026-10-18T13:07:01.8649787Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:07:01.8650368Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:07:01.8650951Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:07:01.8651531Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib
+2026-10-18T13:07:01.8652007Z ##[endgroup]
+2026-10-18T13:07:01.9756289Z Default host: x86_64-unknown-linux-gnu
+2026-10-18T13:07:01.9756818Z rustup home:  /home/runner/.rustup
+2026-10-18T13:07:01.9757120Z 
+2026-10-18T13:07:01.9778602Z info: syncing channel updates for 1.98.1-x86_64-unknown-linux-gnu
+2026-10-18T13:07:02.2775831Z info: latest update on 2026-09-03 for version 1.98.1 (48a229cea 2026-09-01)
+2026-10-18T13:07:02.2778290Z info: downloading 6 components
+2026-10-18T13:07:11.6081803Z warn: the missing active toolchain `1.98.1-x86_64-unknown-linux-gnu` has been auto-installed
+2026-10-18T13:07:11.6082715Z installed toolchains
+2026-10-18T13:07:11.6083502Z warn: auto-installation is deprecated for most `rustup` commands
+2026-10-18T13:07:11.6084384Z --------------------
+2026-10-18T13:07:11.6085589Z warn: scripts relying on this behavior in `rustup` may stop working in the future
+2026-10-18T13:07:11.6086495Z stable-x86_64-unknown-linux-gnu (default)
+2026-10-18T13:07:11.6087602Z warn: to install the active toolchain, use `rustup install` instead
+2026-10-18T13:07:11.6088335Z 
+2026-10-18T13:07:11.6089131Z warn: see <https://github.com/rust-lang/rustup/issues/4836> for more info
+2026-10-18T13:07:11.6089825Z active toolchain
+2026-10-18T13:07:11.6090446Z ----------------
+2026-10-18T13:07:11.6091214Z name: 1.98.1-x86_64-unknown-linux-gnu
+2026-10-18T13:07:11.6092329Z active because: overridden by '/home/runner/work/Nestbolt/Nestbolt/rust-toolchain.toml'
+2026-10-18T13:07:11.6093332Z installed targets:
+2026-10-18T13:07:11.6201517Z   wasm32-unknown-unknown
+2026-10-18T13:07:11.6202022Z   x86_64-unknown-linux-gnu
+2026-10-18T13:07:11.6650582Z     Updating crates.io index
+2026-10-18T13:07:11.9182246Z  Downloading crates ...
+2026-10-18T13:07:11.9943158Z   Downloaded wasm-bindgen-cli v0.2.129
+2026-10-18T13:07:12.0270406Z   Installing wasm-bindgen-cli v0.2.129
+2026-10-18T13:07:12.0271821Z warning: default toolchain implicitly overridden with `1.98.1-x86_64-unknown-linux-gnu` by rustup toolchain file
+2026-10-18T13:07:12.0272997Z   |
+2026-10-18T13:07:12.0273770Z   = help: use `cargo +stable install` if you meant to use the stable toolchain
+2026-10-18T13:07:12.0275442Z   = note: rustup selects the toolchain based on the parent environment and not the environment of the package being installed
+2026-10-18T13:07:12.0307397Z     Updating crates.io index
+2026-10-18T13:07:12.4134835Z warning: package `yoke-derive v0.8.3` in Cargo.lock is yanked in registry `crates-io`
+2026-10-18T13:07:12.4135521Z   |
+2026-10-18T13:07:12.4135828Z   = help: consider running without --locked
+2026-10-18T13:07:12.4474392Z     Updating crates.io index
+2026-10-18T13:07:12.5598846Z  Downloading crates ...
+2026-10-18T13:07:12.5786135Z   Downloaded adler2 v2.0.1
+2026-10-18T13:07:12.5830659Z   Downloaded alloc-no-stdlib v2.0.4
+2026-10-18T13:07:12.5850322Z   Downloaded alloc-stdlib v0.2.4
+2026-10-18T13:07:12.5890031Z   Downloaded chunked_transfer v1.5.0
+2026-10-18T13:07:12.5902463Z   Downloaded clap_lex v1.1.1
+2026-10-18T13:07:12.5914830Z   Downloaded colorchoice v1.0.5
+2026-10-18T13:07:12.5938833Z   Downloaded cfg-if v1.0.5
+2026-10-18T13:07:12.5980324Z   Downloaded anstream v1.0.0
+2026-10-18T13:07:12.6018877Z   Downloaded bitflags v1.3.2
+2026-10-18T13:07:12.6048354Z   Downloaded autocfg v1.5.1
+2026-10-18T13:07:12.6066839Z   Downloaded anstyle v1.0.14
+2026-10-18T13:07:12.6084772Z   Downloaded crossbeam-deque v0.8.8
+2026-10-18T13:07:12.6101496Z   Downloaded buf_redux v0.8.4
+2026-10-18T13:07:12.6117461Z   Downloaded mime v0.3.17
+2026-10-18T13:07:12.6135251Z   Downloaded equivalent v1.0.2
+2026-10-18T13:07:12.6146322Z   Downloaded clap_derive v4.6.7
+2026-10-18T13:07:12.6169489Z   Downloaded safemem v0.3.3
+2026-10-18T13:07:12.6182268Z   Downloaded crc32fast v1.5.2
+2026-10-18T13:07:12.6207508Z   Downloaded anstyle-query v1.1.5
+2026-10-18T13:07:12.6220310Z   Downloaded sha1_smol v1.0.1
+2026-10-18T13:07:12.6237035Z   Downloaded ascii v1.1.0
+2026-10-18T13:07:12.6257743Z   Downloaded base64 v0.13.1
+2026-10-18T13:07:12.6295867Z   Downloaded bitflags v2.13.2
+2026-10-18T13:07:12.6354736Z   Downloaded clap v4.6.7
+2026-10-18T13:07:12.6489657Z   Downloaded crossbeam-epoch v0.9.21
+2026-10-18T13:07:12.6514543Z   Downloaded num_threads v0.1.7
+2026-10-18T13:07:12.6525754Z   Downloaded leb128 v0.2.7
+2026-10-18T13:07:12.6540987Z   Downloaded num-conv v0.2.2
+2026-10-18T13:07:12.6550173Z   Downloaded form_urlencoded v1.2.2
+2026-10-18T13:07:12.6578754Z   Downloaded heck v0.5.0
+2026-10-18T13:07:12.6581616Z   Downloaded itoa v1.0.18
+2026-10-18T13:07:12.6596395Z   Downloaded rand_chacha v0.3.1
+2026-10-18T13:07:12.6607306Z   Downloaded walrus-macro v0.26.0
+2026-10-18T13:07:12.6615322Z   Downloaded yoke-derive v0.8.3
+2026-10-18T13:07:12.6627013Z   Downloaded rustls-pki-types v1.15.1
+2026-10-18T13:07:12.6652708Z   Downloaded simd-adler32 v0.3.10
+2026-10-18T13:07:12.6671444Z   Downloaded quick-error v1.2.3
+2026-10-18T13:07:12.6683410Z   Downloaded zerofrom-derive v0.1.8
+2026-10-18T13:07:12.6693595Z   Downloaded env_filter v2.0.0
+2026-10-18T13:07:12.6706757Z   Downloaded errno v0.3.14
+2026-10-18T13:07:12.6721943Z   Downloaded percent-encoding v2.3.2
+2026-10-18T13:07:12.6730227Z   Downloaded defmt-parser v1.0.0
+2026-10-18T13:07:12.6739336Z   Downloaded id-arena v2.3.0
+2026-10-18T13:07:12.6752145Z   Downloaded potential_utf v0.1.6
+2026-10-18T13:07:12.6762751Z   Downloaded powerfmt v0.2.0
+2026-10-18T13:07:12.6773609Z   Downloaded defmt-macros v1.1.1
+2026-10-18T13:07:12.6809995Z   Downloaded idna_adapter v1.2.2
+2026-10-18T13:07:12.6818761Z   Downloaded anstyle-parse v1.0.0
+2026-10-18T13:07:12.6834544Z   Downloaded strsim v0.11.1
+2026-10-18T13:07:12.6847141Z   Downloaded num_cpus v1.17.0
+2026-10-18T13:07:12.6879168Z   Downloaded base64 v0.23.1
+2026-10-18T13:07:12.6921171Z   Downloaded is_terminal_polyfill v1.70.2
+2026-10-18T13:07:12.6930608Z   Downloaded bytes v1.12.1
+2026-10-18T13:07:12.6965706Z   Downloaded quote v1.0.47
+2026-10-18T13:07:12.6998971Z   Downloaded base64 v0.22.1
+2026-10-18T13:07:12.7037316Z   Downloaded env_logger v0.11.11
+2026-10-18T13:07:12.7061139Z   Downloaded fallible-iterator v0.3.0
+2026-10-18T13:07:12.7073410Z   Downloaded mime_guess v2.0.5
+2026-10-18T13:07:12.7090455Z   Downloaded rand_core v0.6.4
+2026-10-18T13:07:12.7104157Z   Downloaded deranged v0.5.8
+2026-10-18T13:07:12.7118991Z   Downloaded either v1.18.0
+2026-10-18T13:07:12.7133890Z   Downloaded fastrand v2.5.0
+2026-10-18T13:07:12.7148065Z   Downloaded filetime v0.2.29
+2026-10-18T13:07:12.7165301Z   Downloaded find-msvc-tools v0.1.13
+2026-10-18T13:07:12.7181382Z   Downloaded foldhash v0.2.0
+2026-10-18T13:07:12.7193811Z   Downloaded httpdate v1.0.3
+2026-10-18T13:07:12.7205822Z   Downloaded leb128fmt v0.1.0
+2026-10-18T13:07:12.7215523Z   Downloaded ppv-lite86 v0.2.21
+2026-10-18T13:07:12.7229207Z   Downloaded crossbeam-utils v0.8.23
+2026-10-18T13:07:12.7257619Z   Downloaded defmt v1.1.1
+2026-10-18T13:07:12.7308024Z   Downloaded displaydoc v0.2.7
+2026-10-18T13:07:12.7329749Z   Downloaded getrandom v0.2.17
+2026-10-18T13:07:12.7362086Z   Downloaded httparse v1.10.1
+2026-10-18T13:07:12.7390053Z   Downloaded once_cell v1.21.4
+2026-10-18T13:07:12.7415454Z   Downloaded anyhow v1.0.104
+2026-10-18T13:07:12.7456865Z   Downloaded stable_deref_trait v1.2.1
+2026-10-18T13:07:12.7465673Z   Downloaded threadpool v1.8.1
+2026-10-18T13:07:12.7474771Z   Downloaded time-core v0.1.9
+2026-10-18T13:07:12.7485814Z   Downloaded untrusted v0.9.0
+2026-10-18T13:07:12.7502771Z   Downloaded wasm-bindgen-shared v0.2.129
+2026-10-18T13:07:12.7513493Z   Downloaded wasm-bindgen-test-shared v0.2.129
+2026-10-18T13:07:12.7521186Z   Downloaded utf8_iter v1.0.4
+2026-10-18T13:07:12.7531664Z   Downloaded multipart v0.18.0
+2026-10-18T13:07:12.7566195Z   Downloaded aho-corasick v1.1.5
+2026-10-18T13:07:12.7619818Z   Downloaded getrandom v0.4.3
+2026-10-18T13:07:12.7658252Z   Downloaded iana-time-zone v0.1.65
+2026-10-18T13:07:12.7686980Z   Downloaded litemap v0.8.3
+2026-10-18T13:07:12.7710802Z   Downloaded log v0.4.34
+2026-10-18T13:07:12.7735966Z   Downloaded icu_normalizer_data v2.3.0
+2026-10-18T13:07:12.7757110Z   Downloaded miniz_oxide v0.9.1
+2026-10-18T13:07:12.7782202Z   Downloaded num-traits v0.2.19
+2026-10-18T13:07:12.7808131Z   Downloaded cc v1.4.7
+2026-10-18T13:07:12.7838957Z   Downloaded flate2 v1.1.10
+2026-10-18T13:07:12.7889515Z   Downloaded icu_provider v2.3.1
+2026-10-18T13:07:12.7917599Z   Downloaded proc-macro2 v1.0.107
+2026-10-18T13:07:12.7948077Z   Downloaded rustc-demangle v0.1.28
+2026-10-18T13:07:12.7965495Z   Downloaded shlex v1.3.0
+2026-10-18T13:07:12.7978422Z   Downloaded writeable v0.6.4
+2026-10-18T13:07:12.7999782Z   Downloaded rustls-webpki v0.103.15
+2026-10-18T13:07:12.8032461Z   Downloaded icu_collections v2.3.0
+2026-10-18T13:07:12.8096519Z   Downloaded icu_locale_core v2.3.0
+2026-10-18T13:07:12.8169125Z   Downloaded icu_properties v2.3.0
+2026-10-18T13:07:12.8200617Z   Downloaded memchr v2.8.3
+2026-10-18T13:07:12.8256219Z   Downloaded rand v0.8.8
+2026-10-18T13:07:12.8289708Z   Downloaded rayon-core v1.13.0
+2026-10-18T13:07:12.8328160Z   Downloaded clap_builder v4.6.7
+2026-10-18T13:07:12.8395256Z   Downloaded http v1.5.0
+2026-10-18T13:07:12.8432941Z   Downloaded indexmap v2.14.2
+2026-10-18T13:07:12.8477148Z   Downloaded jiff-core v0.1.1
+2026-10-18T13:07:12.8512736Z   Downloaded hashbrown v0.17.1
+2026-10-18T13:07:12.8566019Z   Downloaded idna v1.1.0
+2026-10-18T13:07:12.8600369Z   Downloaded regex v1.13.1
+2026-10-18T13:07:12.8656185Z   Downloaded brotli-decompressor v5.0.3
+2026-10-18T13:07:12.8713312Z   Downloaded chrono v0.4.45
+2026-10-18T13:07:12.8780189Z   Downloaded hashbrown v0.16.1
+2026-10-18T13:07:12.8831407Z   Downloaded icu_properties_data v2.3.0
+2026-10-18T13:07:12.8940937Z   Downloaded gimli v0.32.3
+2026-10-18T13:07:12.9010399Z   Downloaded utf8-zero v0.8.1
+2026-10-18T13:07:12.9024110Z   Downloaded utf8parse v0.2.2
+2026-10-18T13:07:12.9034017Z   Downloaded synstructure v0.14.0
+2026-10-18T13:07:12.9044056Z   Downloaded unicase v2.9.0
+2026-10-18T13:07:12.9057786Z   Downloaded zerofrom v0.1.8
+2026-10-18T13:07:12.9067704Z   Downloaded tinystr v0.8.4
+2026-10-18T13:07:12.9089261Z   Downloaded twoway v0.1.8
+2026-10-18T13:07:12.9105899Z   Downloaded zeroize v1.9.0
+2026-10-18T13:07:12.9121626Z   Downloaded zerovec-derive v0.11.6
+2026-10-18T13:07:12.9138770Z   Downloaded subtle v2.6.1
+2026-10-18T13:07:12.9150369Z   Downloaded icu_normalizer v2.3.0
+2026-10-18T13:07:12.9245990Z   Downloaded jiff v0.2.37
+2026-10-18T13:07:12.9395788Z   Downloaded shlex v2.0.1
+2026-10-18T13:07:12.9408441Z   Downloaded thiserror v2.0.21
+2026-10-18T13:07:12.9475416Z   Downloaded thiserror-impl v2.0.21
+2026-10-18T13:07:12.9489870Z   Downloaded yoke v0.8.3
+2026-10-18T13:07:12.9507772Z   Downloaded zmij v1.0.23
+2026-10-18T13:07:12.9526692Z   Downloaded semver v1.0.28
+2026-10-18T13:07:12.9550227Z   Downloaded smallvec v1.16.2
+2026-10-18T13:07:12.9563266Z   Downloaded libc v0.2.189
+2026-10-18T13:07:13.0005098Z   Downloaded tiny_http v0.12.0
+2026-10-18T13:07:13.0044205Z   Downloaded serde_core v1.0.229
+2026-10-18T13:07:13.0071934Z   Downloaded tempfile v3.27.0
+2026-10-18T13:07:13.0098141Z   Downloaded url v2.5.8
+2026-10-18T13:07:13.0124395Z   Downloaded serde_derive v1.0.229
+2026-10-18T13:07:13.0155114Z   Downloaded unicode-ident v1.0.26
+2026-10-18T13:07:13.0183874Z   Downloaded zerotrie v0.2.5
+2026-10-18T13:07:13.0224647Z   Downloaded rouille v3.6.2
+2026-10-18T13:07:13.0266931Z   Downloaded serde v1.0.229
+2026-10-18T13:07:13.0302119Z   Downloaded ureq-proto v0.6.4
+2026-10-18T13:07:13.0346628Z   Downloaded wasm-encoder v0.245.1
+2026-10-18T13:07:13.0386010Z   Downloaded rayon v1.12.0
+2026-10-18T13:07:13.0484290Z   Downloaded ring v0.17.14
+2026-10-18T13:07:13.0908070Z   Downloaded zerovec v0.11.8
+2026-10-18T13:07:13.0970309Z   Downloaded serde_json v1.0.151
+2026-10-18T13:07:13.1045527Z   Downloaded ureq v3.4.2
+2026-10-18T13:07:13.1103821Z   Downloaded webpki-roots v1.0.9
+2026-10-18T13:07:13.1135112Z   Downloaded walrus v0.27.2
+2026-10-18T13:07:13.1198989Z   Downloaded zlib-rs v0.6.8
+2026-10-18T13:07:13.1255654Z   Downloaded wasm-bindgen-cli-support v0.2.129
+2026-10-18T13:07:13.1323120Z   Downloaded time v0.3.55
+2026-10-18T13:07:13.1473393Z   Downloaded wasmparser v0.245.1
+2026-10-18T13:07:13.1553585Z   Downloaded zerocopy v0.8.58
+2026-10-18T13:07:13.1771081Z   Downloaded syn v2.0.119
+2026-10-18T13:07:13.1878823Z   Downloaded syn v3.0.6
+2026-10-18T13:07:13.2008975Z   Downloaded rustls v0.23.45
+2026-10-18T13:07:13.2119853Z   Downloaded regex-syntax v0.8.11
+2026-10-18T13:07:13.2187241Z   Downloaded rustix v1.1.5
+2026-10-18T13:07:13.2464165Z   Downloaded regex-automata v0.4.18
+2026-10-18T13:07:13.2612187Z   Downloaded linux-raw-sys v0.12.1
+2026-10-18T13:07:13.3735740Z    Compiling proc-macro2 v1.0.107
+2026-10-18T13:07:13.3736702Z    Compiling unicode-ident v1.0.26
+2026-10-18T13:07:13.3737607Z    Compiling quote v1.0.47
+2026-10-18T13:07:13.3758655Z    Compiling libc v0.2.189
+2026-10-18T13:07:13.4369694Z    Compiling stable_deref_trait v1.2.1
+2026-10-18T13:07:13.4699653Z    Compiling cfg-if v1.0.5
+2026-10-18T13:07:13.4978976Z    Compiling memchr v2.8.3
+2026-10-18T13:07:13.6003658Z    Compiling serde_core v1.0.229
+2026-10-18T13:07:13.7759611Z    Compiling log v0.4.34
+2026-10-18T13:07:14.4191814Z    Compiling syn v3.0.6
+2026-10-18T13:07:14.6099249Z    Compiling getrandom v0.2.17
+2026-10-18T13:07:14.7639053Z    Compiling crossbeam-utils v0.8.23
+2026-10-18T13:07:14.7909602Z    Compiling crossbeam-epoch v0.9.21
+2026-10-18T13:07:14.8895010Z    Compiling writeable v0.6.4
+2026-10-18T13:07:14.9018817Z    Compiling find-msvc-tools v0.1.13
+2026-10-18T13:07:15.0699023Z    Compiling litemap v0.8.3
+2026-10-18T13:07:15.1178930Z    Compiling shlex v2.0.1
+2026-10-18T13:07:15.2328035Z    Compiling cc v1.4.7
+2026-10-18T13:07:15.8689049Z    Compiling icu_normalizer_data v2.3.0
+2026-10-18T13:07:15.9449019Z    Compiling zerocopy v0.8.58
+2026-10-18T13:07:16.1584555Z    Compiling icu_properties_data v2.3.0
+2026-10-18T13:07:16.2459270Z    Compiling crossbeam-deque v0.8.8
+2026-10-18T13:07:16.3499293Z    Compiling utf8_iter v1.0.4
+2026-10-18T13:07:16.4489141Z    Compiling bitflags v2.13.2
+2026-10-18T13:07:16.6670004Z    Compiling ring v0.17.14
+2026-10-18T13:07:16.8269548Z    Compiling rayon-core v1.13.0
+2026-10-18T13:07:16.9189474Z    Compiling itoa v1.0.18
+2026-10-18T13:07:17.0199164Z    Compiling serde v1.0.229
+2026-10-18T13:07:17.1059194Z    Compiling httparse v1.10.1
+2026-10-18T13:07:17.4150607Z    Compiling heck v0.5.0
+2026-10-18T13:07:17.8893239Z    Compiling synstructure v0.14.0
+2026-10-18T13:07:18.3064315Z    Compiling unicase v2.9.0
+2026-10-18T13:07:18.4184359Z    Compiling smallvec v1.16.2
+2026-10-18T13:07:18.5960147Z    Compiling rustix v1.1.5
+2026-10-18T13:07:18.7666424Z    Compiling utf8parse v0.2.2
+2026-10-18T13:07:18.8097614Z    Compiling zeroize v1.9.0
+2026-10-18T13:07:18.9259125Z    Compiling hashbrown v0.17.1
+2026-10-18T13:07:19.4129023Z    Compiling zerofrom-derive v0.1.8
+2026-10-18T13:07:19.6187142Z    Compiling yoke-derive v0.8.3
+2026-10-18T13:07:20.5039526Z    Compiling zerofrom v0.1.8
+2026-10-18T13:07:20.5529540Z    Compiling zerovec-derive v0.11.6
+2026-10-18T13:07:20.5839358Z    Compiling yoke v0.8.3
+2026-10-18T13:07:20.7349000Z    Compiling displaydoc v0.2.7
+2026-10-18T13:07:21.2729419Z    Compiling zerotrie v0.2.5
+2026-10-18T13:07:21.3759272Z    Compiling serde_derive v1.0.229
+2026-10-18T13:07:21.5559249Z    Compiling zerovec v0.11.8
+2026-10-18T13:07:21.6959541Z    Compiling getrandom v0.4.3
+2026-10-18T13:07:21.8081698Z    Compiling zmij v1.0.23
+2026-10-18T13:07:21.9279069Z    Compiling equivalent v1.0.2
+2026-10-18T13:07:21.9619258Z    Compiling autocfg v1.5.1
+2026-10-18T13:07:22.2589740Z    Compiling tinystr v0.8.4
+2026-10-18T13:07:22.3039310Z    Compiling potential_utf v0.1.6
+2026-10-18T13:07:22.4314263Z    Compiling icu_locale_core v2.3.0
+2026-10-18T13:07:22.4366295Z    Compiling icu_collections v2.3.0
+2026-10-18T13:07:23.3100872Z    Compiling once_cell v1.21.4
+2026-10-18T13:07:23.5916199Z    Compiling num-traits v0.2.19
+2026-10-18T13:07:23.7088943Z    Compiling indexmap v2.14.2
+2026-10-18T13:07:24.7733969Z    Compiling icu_provider v2.3.1
+2026-10-18T13:07:25.3509253Z    Compiling icu_properties v2.3.0
+2026-10-18T13:07:25.5199137Z    Compiling icu_normalizer v2.3.0
+2026-10-18T13:07:26.2699137Z    Compiling ppv-lite86 v0.2.21
+2026-10-18T13:07:26.6409998Z    Compiling rustls-pki-types v1.15.1
+2026-10-18T13:07:26.9465993Z    Compiling anstyle-parse v1.0.0
+2026-10-18T13:07:27.1531729Z    Compiling mime_guess v2.0.5
+2026-10-18T13:07:27.5649773Z    Compiling rand_core v0.6.4
+2026-10-18T13:07:27.7647283Z    Compiling aho-corasick v1.1.5
+2026-10-18T13:07:27.8994992Z    Compiling anyhow v1.0.104
+2026-10-18T13:07:28.0240978Z    Compiling crc32fast v1.5.2
+2026-10-18T13:07:28.1171664Z    Compiling untrusted v0.9.0
+2026-10-18T13:07:28.1836731Z    Compiling foldhash v0.2.0
+2026-10-18T13:07:28.3092061Z    Compiling is_terminal_polyfill v1.70.2
+2026-10-18T13:07:28.3454841Z    Compiling either v1.18.0
+2026-10-18T13:07:28.4588685Z    Compiling regex-syntax v0.8.11
+2026-10-18T13:07:29.0779260Z    Compiling linux-raw-sys v0.12.1
+2026-10-18T13:07:29.4239881Z    Compiling percent-encoding v2.3.2
+2026-10-18T13:07:29.6183777Z    Compiling serde_json v1.0.151
+2026-10-18T13:07:29.6869690Z    Compiling anstyle v1.0.14
+2026-10-18T13:07:29.8683525Z    Compiling colorchoice v1.0.5
+2026-10-18T13:07:29.9110125Z    Compiling anstyle-query v1.1.5
+2026-10-18T13:07:29.9522399Z    Compiling anstream v1.0.0
+2026-10-18T13:07:30.3996984Z    Compiling regex-automata v0.4.18
+2026-10-18T13:07:35.4209580Z    Compiling rayon v1.12.0
+2026-10-18T13:07:36.9489143Z    Compiling hashbrown v0.16.1
+2026-10-18T13:07:37.8069135Z    Compiling rand_chacha v0.3.1
+2026-10-18T13:07:38.3039375Z    Compiling idna_adapter v1.2.2
+2026-10-18T13:07:38.5849122Z    Compiling syn v2.0.119
+2026-10-18T13:07:38.8029155Z    Compiling safemem v0.3.3
+2026-10-18T13:07:38.8436979Z    Compiling fastrand v2.5.0
+2026-10-18T13:07:39.0857388Z    Compiling mime v0.3.17
+2026-10-18T13:07:39.5519756Z    Compiling bytes v1.12.1
+2026-10-18T13:07:40.1029214Z    Compiling simd-adler32 v0.3.10
+2026-10-18T13:07:40.4555747Z    Compiling leb128fmt v0.1.0
+2026-10-18T13:07:40.7733351Z    Compiling rustls v0.23.45
+2026-10-18T13:07:40.8471007Z    Compiling semver v1.0.28
+2026-10-18T13:07:41.0779063Z    Compiling fallible-iterator v0.3.0
+2026-10-18T13:07:41.3999085Z    Compiling alloc-no-stdlib v2.0.4
+2026-10-18T13:07:41.4409392Z    Compiling adler2 v2.0.1
+2026-10-18T13:07:41.4628221Z    Compiling wasm-bindgen-shared v0.2.129
+2026-10-18T13:07:41.4658845Z    Compiling alloc-stdlib v0.2.4
+2026-10-18T13:07:41.5299025Z    Compiling miniz_oxide v0.9.1
+2026-10-18T13:07:41.5389303Z    Compiling walrus-macro v0.26.0
+2026-10-18T13:07:41.6039356Z    Compiling gimli v0.32.3
+2026-10-18T13:07:42.1427299Z    Compiling wasmparser v0.245.1
+2026-10-18T13:07:43.3559205Z    Compiling wasm-encoder v0.245.1
+2026-10-18T13:07:44.0428880Z    Compiling http v1.5.0
+2026-10-18T13:07:46.1478869Z    Compiling tempfile v3.27.0
+2026-10-18T13:07:47.0021959Z    Compiling buf_redux v0.8.4
+2026-10-18T13:07:47.7669296Z    Compiling idna v1.1.0
+2026-10-18T13:07:48.0919343Z    Compiling id-arena v2.3.0
+2026-10-18T13:07:48.2176985Z    Compiling rand v0.8.8
+2026-10-18T13:07:49.8729190Z    Compiling rustls-webpki v0.103.15
+2026-10-18T13:07:49.9479810Z    Compiling regex v1.13.1
+2026-10-18T13:07:50.3326964Z    Compiling form_urlencoded v1.2.2
+2026-10-18T13:07:50.5239026Z    Compiling num_cpus v1.17.0
+2026-10-18T13:07:51.4179080Z    Compiling twoway v0.1.8
+2026-10-18T13:07:51.5069119Z    Compiling iana-time-zone v0.1.65
+2026-10-18T13:07:51.5929021Z    Compiling jiff-core v0.1.1
+2026-10-18T13:07:51.9209076Z    Compiling quick-error v1.2.3
+2026-10-18T13:07:51.9588595Z    Compiling time-core v0.1.9
+2026-10-18T13:07:52.1269474Z    Compiling httpdate v1.0.3
+2026-10-18T13:07:52.4678912Z    Compiling leb128 v0.2.7
+2026-10-18T13:07:52.5309045Z    Compiling clap_lex v1.1.1
+2026-10-18T13:07:52.7469063Z    Compiling powerfmt v0.2.0
+2026-10-18T13:07:52.7898915Z    Compiling subtle v2.6.1
+2026-10-18T13:07:52.8898631Z    Compiling chunked_transfer v1.5.0
+2026-10-18T13:07:52.9349023Z    Compiling ascii v1.1.0
+2026-10-18T13:07:52.9688486Z    Compiling strsim v0.11.1
+2026-10-18T13:07:53.4239542Z    Compiling deranged v0.5.8
+2026-10-18T13:07:53.6508148Z    Compiling num_threads v0.1.7
+2026-10-18T13:07:53.7949217Z    Compiling num-conv v0.2.2
+2026-10-18T13:07:53.8028884Z    Compiling base64 v0.23.1
+2026-10-18T13:07:53.9019360Z    Compiling tiny_http v0.12.0
+2026-10-18T13:07:54.3495068Z    Compiling ureq-proto v0.6.4
+2026-10-18T13:07:54.6675315Z    Compiling time v0.3.55
+2026-10-18T13:07:55.4879198Z    Compiling clap_builder v4.6.7
+2026-10-18T13:08:00.2915182Z    Compiling jiff v0.2.37
+2026-10-18T13:08:08.2189126Z    Compiling walrus v0.27.2
+2026-10-18T13:08:09.9319624Z    Compiling multipart v0.18.0
+2026-10-18T13:08:11.1099423Z    Compiling chrono v0.4.45
+2026-10-18T13:08:14.7689322Z    Compiling threadpool v1.8.1
+2026-10-18T13:08:15.0414517Z    Compiling url v2.5.8
+2026-10-18T13:08:15.7359444Z    Compiling env_filter v2.0.0
+2026-10-18T13:08:16.6969306Z    Compiling flate2 v1.1.10
+2026-10-18T13:08:17.2289180Z    Compiling brotli-decompressor v5.0.3
+2026-10-18T13:08:17.7680896Z    Compiling webpki-roots v1.0.9
+2026-10-18T13:08:17.8368927Z    Compiling clap_derive v4.6.7
+2026-10-18T13:08:19.5359497Z    Compiling filetime v0.2.29
+2026-10-18T13:08:19.6879625Z    Compiling utf8-zero v0.8.1
+2026-10-18T13:08:19.8000785Z    Compiling rustc-demangle v0.1.28
+2026-10-18T13:08:20.0301844Z    Compiling base64 v0.22.1
+2026-10-18T13:08:20.5017004Z    Compiling sha1_smol v1.0.1
+2026-10-18T13:08:20.7628798Z    Compiling base64 v0.13.1
+2026-10-18T13:08:20.8985829Z    Compiling wasm-bindgen-cli-support v0.2.129
+2026-10-18T13:08:21.0569149Z    Compiling rouille v3.6.2
+2026-10-18T13:08:24.0149199Z    Compiling ureq v3.4.2
+2026-10-18T13:08:25.1869017Z    Compiling clap v4.6.7
+2026-10-18T13:08:25.2179559Z    Compiling env_logger v0.11.11
+2026-10-18T13:08:26.2221633Z    Compiling shlex v1.3.0
+2026-10-18T13:08:26.4725106Z    Compiling wasm-bindgen-test-shared v0.2.129
+2026-10-18T13:08:26.6168831Z    Compiling wasm-bindgen-cli v0.2.129
+2026-10-18T13:08:44.1562235Z     Finished `release` profile [optimized] target(s) in 1m 32s
+2026-10-18T13:08:44.1588687Z warning: the following packages contain code that will be rejected by a future version of Rust: buf_redux v0.8.4, multipart v0.18.0
+2026-10-18T13:08:44.1590771Z note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
+2026-10-18T13:08:44.1716909Z   Installing /home/runner/.cargo/bin/wasm-bindgen
+2026-10-18T13:08:44.1717988Z   Installing /home/runner/.cargo/bin/wasm-bindgen-test-runner
+2026-10-18T13:08:44.1718694Z   Installing /home/runner/.cargo/bin/wasm2es6js
+2026-10-18T13:08:44.1723825Z    Installed package `wasm-bindgen-cli v0.2.129` (executables `wasm-bindgen`, `wasm-bindgen-test-runner`, `wasm2es6js`)
+2026-10-18T13:08:44.3303781Z ##[group]Run npm ci
+2026-10-18T13:08:44.3304054Z [36;1mnpm ci[0m
+2026-10-18T13:08:44.3304346Z [36;1mnpx playwright install --with-deps chromium firefox[0m
+2026-10-18T13:08:44.3369404Z shell: /usr/bin/bash -e {0}
+2026-10-18T13:08:44.3369664Z env:
+2026-10-18T13:08:44.3369944Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:08:44.3370417Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+2026-10-18T13:08:44.3370880Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:08:44.3371295Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:08:44.3371697Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:08:44.3372108Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib
+2026-10-18T13:08:44.3372448Z ##[endgroup]
+2026-10-18T13:08:45.7530452Z 
+2026-10-18T13:08:45.7531079Z added 21 packages, and audited 22 packages in 1s
+2026-10-18T13:08:45.7531438Z 
+2026-10-18T13:08:45.7532698Z 6 packages are looking for funding
+2026-10-18T13:08:45.7533364Z   run `npm fund` for details
+2026-10-18T13:08:45.7660317Z 
+2026-10-18T13:08:45.7660814Z 2 high severity vulnerabilities
+2026-10-18T13:08:45.7661205Z 
+2026-10-18T13:08:45.7661342Z To address all issues, run:
+2026-10-18T13:08:45.7661622Z   npm audit fix --force
+2026-10-18T13:08:45.7661774Z 
+2026-10-18T13:08:45.7661899Z Run `npm audit` for details.
+2026-10-18T13:08:45.7669975Z npm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-10-18T13:08:45.7671084Z npm warn allow-scripts   esbuild@0.25.12 (postinstall: node install.js)
+2026-10-18T13:08:45.7671778Z npm warn allow-scripts
+2026-10-18T13:08:45.7672951Z npm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.
+2026-10-18T13:08:46.5453235Z Installing dependencies...
+2026-10-18T13:08:46.5528984Z Switching to root user to install dependencies...
+2026-10-18T13:08:46.6361359Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-18T13:08:46.6634739Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-18T13:08:46.6730257Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-18T13:08:46.6751543Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-18T13:08:46.6806237Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-18T13:08:46.6879310Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-18T13:08:46.7463667Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.4 kB]
+2026-10-18T13:08:46.7569362Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [618 kB]
+2026-10-18T13:08:46.7669449Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [557 kB]
+2026-10-18T13:08:46.8588235Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1397 kB]
+2026-10-18T13:08:46.8680363Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [308 kB]
+2026-10-18T13:08:46.8699111Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1704 kB]
+2026-10-18T13:08:46.8819791Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-18T13:08:46.8830961Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1805 kB]
+2026-10-18T13:08:46.8946369Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [411 kB]
+2026-10-18T13:08:46.9695544Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1144 kB]
+2026-10-18T13:08:46.9762702Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-18T13:08:46.9785995Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-18T13:08:46.9854469Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [246 kB]
+2026-10-18T13:08:47.0339760Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1713 kB]
+2026-10-18T13:08:47.0428655Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [392 kB]
+2026-10-18T13:08:50.1186401Z Fetched 12.5 MB in 1s (9932 kB/s)
+2026-10-18T13:08:51.0769925Z Reading package lists...
+2026-10-18T13:08:51.1021083Z Reading package lists...
+2026-10-18T13:08:51.3200366Z Building dependency tree...
+2026-10-18T13:08:51.3207898Z Reading state information...
+2026-10-18T13:08:51.4757219Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+2026-10-18T13:08:51.4759153Z libasound2t64 set to manually installed.
+2026-10-18T13:08:51.4760704Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-18T13:08:51.4762122Z libatk-bridge2.0-0t64 set to manually installed.
+2026-10-18T13:08:51.4763358Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-18T13:08:51.4764397Z libatk1.0-0t64 set to manually installed.
+2026-10-18T13:08:51.4765554Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+2026-10-18T13:08:51.4766734Z libatspi2.0-0t64 set to manually installed.
+2026-10-18T13:08:51.4768087Z libcairo2 is already the newest version (1.18.0-3build1).
+2026-10-18T13:08:51.4769140Z libcairo2 set to manually installed.
+2026-10-18T13:08:51.4770299Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+2026-10-18T13:08:51.4771436Z libcups2t64 set to manually installed.
+2026-10-18T13:08:51.4772274Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+2026-10-18T13:08:51.4773230Z libdbus-1-3 set to manually installed.
+2026-10-18T13:08:51.4773998Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+2026-10-18T13:08:51.4774731Z libdrm2 set to manually installed.
+2026-10-18T13:08:51.4775291Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.4).
+2026-10-18T13:08:51.4775870Z libgbm1 set to manually installed.
+2026-10-18T13:08:51.4776342Z libglib2.0-0t64 is already the newest version (2.80.0-6ubuntu3.9).
+2026-10-18T13:08:51.4776820Z libglib2.0-0t64 set to manually installed.
+2026-10-18T13:08:51.4777298Z libnspr4 is already the newest version (2:4.35-1.1build1).
+2026-10-18T13:08:51.4778168Z libnspr4 set to manually installed.
+2026-10-18T13:08:51.4778649Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+2026-10-18T13:08:51.4779082Z libnss3 set to manually installed.
+2026-10-18T13:08:51.4779546Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-18T13:08:51.4780022Z libpango-1.0-0 set to manually installed.
+2026-10-18T13:08:51.4780495Z libx11-6 is already the newest version (2:1.8.7-1ubuntu0.1).
+2026-10-18T13:08:51.4780935Z libx11-6 set to manually installed.
+2026-10-18T13:08:51.4781361Z libxcb1 is already the newest version (1.15-1ubuntu2).
+2026-10-18T13:08:51.4781763Z libxcb1 set to manually installed.
+2026-10-18T13:08:51.4782175Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+2026-10-18T13:08:51.4782592Z libxcomposite1 set to manually installed.
+2026-10-18T13:08:51.4783006Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+2026-10-18T13:08:51.4783492Z libxdamage1 set to manually installed.
+2026-10-18T13:08:51.4783881Z libxext6 is already the newest version (2:1.3.4-1build2).
+2026-10-18T13:08:51.4784253Z libxext6 set to manually installed.
+2026-10-18T13:08:51.4784638Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+2026-10-18T13:08:51.4785018Z libxfixes3 set to manually installed.
+2026-10-18T13:08:51.4785423Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+2026-10-18T13:08:51.4785814Z libxkbcommon0 set to manually installed.
+2026-10-18T13:08:51.4786213Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+2026-10-18T13:08:51.4786590Z libxrandr2 set to manually installed.
+2026-10-18T13:08:51.4786979Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+2026-10-18T13:08:51.4788144Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+2026-10-18T13:08:51.4788793Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+2026-10-18T13:08:51.4789390Z libfontconfig1 set to manually installed.
+2026-10-18T13:08:51.4789844Z libfreetype6 is already the newest version (2.13.2+dfsg-1ubuntu0.2).
+2026-10-18T13:08:51.4790273Z libfreetype6 set to manually installed.
+2026-10-18T13:08:51.4790687Z fonts-liberation is already the newest version (1:2.1.5-3).
+2026-10-18T13:08:51.4791108Z fonts-liberation set to manually installed.
+2026-10-18T13:08:51.4791556Z libcairo-gobject2 is already the newest version (1.18.0-3build1).
+2026-10-18T13:08:51.4791990Z libcairo-gobject2 set to manually installed.
+2026-10-18T13:08:51.4792473Z libgdk-pixbuf-2.0-0 is already the newest version (2.42.10+dfsg-3ubuntu3.3).
+2026-10-18T13:08:51.4792947Z libgdk-pixbuf-2.0-0 set to manually installed.
+2026-10-18T13:08:51.4793403Z libgtk-3-0t64 is already the newest version (3.24.41-4ubuntu1.3).
+2026-10-18T13:08:51.4793845Z libgtk-3-0t64 set to manually installed.
+2026-10-18T13:08:51.4794295Z libpangocairo-1.0-0 is already the newest version (1.52.1+ds-1build1).
+2026-10-18T13:08:51.4794752Z libpangocairo-1.0-0 set to manually installed.
+2026-10-18T13:08:51.4795192Z libx11-xcb1 is already the newest version (2:1.8.7-1ubuntu0.1).
+2026-10-18T13:08:51.4795589Z libx11-xcb1 set to manually installed.
+2026-10-18T13:08:51.4795977Z libxcb-shm0 is already the newest version (1.15-1ubuntu2).
+2026-10-18T13:08:51.4796354Z libxcb-shm0 set to manually installed.
+2026-10-18T13:08:51.4796748Z libxcursor1 is already the newest version (1:1.2.1-1build1).
+2026-10-18T13:08:51.4797133Z libxcursor1 set to manually installed.
+2026-10-18T13:08:51.4797501Z libxi6 is already the newest version (2:1.8.1-1build1).
+2026-10-18T13:08:51.4798106Z libxi6 set to manually installed.
+2026-10-18T13:08:51.4798522Z libxrender1 is already the newest version (1:0.9.10-1.1build1).
+2026-10-18T13:08:51.4798929Z libxrender1 set to manually installed.
+2026-10-18T13:08:51.4799303Z The following additional packages will be installed:
+2026-10-18T13:08:51.4799799Z   libavutil58 libcodec2-1.2 libdav1d7 libgsm1 libhwy1t64 libjxl0.7 libmp3lame0
+2026-10-18T13:08:51.4800369Z   libopus0 librav1e0 librsvg2-2 libshine3 libsoxr0 libspeex1 libsvtav1enc1d1
+2026-10-18T13:08:51.4800910Z   libswresample4 libtheora0 libtwolame0 libva-drm2 libva-x11-2 libva2
+2026-10-18T13:08:51.4801559Z   libvdpau1 libvorbisenc2 libvpl2 libvpx9 libx264-164 libx265-199 libxvidcore4
+2026-10-18T13:08:51.4802132Z   libzvbi-common libzvbi0t64 ocl-icd-libopencl1 xfonts-encodings xfonts-utils
+2026-10-18T13:08:51.4802693Z Suggested packages:
+2026-10-18T13:08:51.4803165Z   libcuda1 libnvcuvid1 libnvidia-encode1 opus-tools librsvg2-bin speex
+2026-10-18T13:08:51.4803765Z   opencl-icd
+2026-10-18T13:08:51.4804147Z Recommended packages:
+2026-10-18T13:08:51.4804596Z   fonts-ipafont-mincho fonts-tlwg-loma librsvg2-common va-driver-all
+2026-10-18T13:08:51.4805201Z   | va-driver vdpau-driver-all | vdpau-driver
+2026-10-18T13:08:51.5056784Z The following NEW packages will be installed:
+2026-10-18T13:08:51.5058520Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+2026-10-18T13:08:51.5059886Z   fonts-wqy-zenhei libavcodec60 libavutil58 libcodec2-1.2 libdav1d7 libgsm1
+2026-10-18T13:08:51.5061237Z   libhwy1t64 libjxl0.7 libmp3lame0 libopus0 librav1e0 librsvg2-2 libshine3
+2026-10-18T13:08:51.5062895Z   libsoxr0 libspeex1 libsvtav1enc1d1 libswresample4 libtheora0 libtwolame0
+2026-10-18T13:08:51.5064307Z   libva-drm2 libva-x11-2 libva2 libvdpau1 libvorbisenc2 libvpl2 libvpx9
+2026-10-18T13:08:51.5065717Z   libx264-164 libx265-199 libxvidcore4 libzvbi-common libzvbi0t64
+2026-10-18T13:08:51.5066612Z   ocl-icd-libopencl1 xfonts-cyrillic xfonts-encodings xfonts-scalable
+2026-10-18T13:08:51.5067264Z   xfonts-utils
+2026-10-18T13:08:51.5256220Z 0 upgraded, 40 newly installed, 0 to remove and 44 not upgraded.
+2026-10-18T13:08:51.5256978Z Need to get 48.8 MB of archives.
+2026-10-18T13:08:51.5258363Z After this operation, 168 MB of additional disk space will be used.
+2026-10-18T13:08:51.5259059Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-18T13:08:51.6177157Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+2026-10-18T13:08:51.7746768Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+2026-10-18T13:08:51.9822493Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+2026-10-18T13:08:52.0540314Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+2026-10-18T13:08:52.1495323Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+2026-10-18T13:08:52.3653670Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva2 amd64 2.20.0-2ubuntu0.2 [66.4 kB]
+2026-10-18T13:08:52.4364095Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva-drm2 amd64 2.20.0-2ubuntu0.2 [7124 B]
+2026-10-18T13:08:52.5066005Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libva-x11-2 amd64 2.20.0-2ubuntu0.2 [12.0 kB]
+2026-10-18T13:08:52.5771003Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvdpau1 amd64 1.5-2build1 [27.8 kB]
+2026-10-18T13:08:52.6474785Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libvpl2 amd64 2023.3.0-1build1 [99.8 kB]
+2026-10-18T13:08:52.7182221Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 ocl-icd-libopencl1 amd64 2.3.2-1build1 [38.5 kB]
+2026-10-18T13:08:52.7887278Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libavutil58 amd64 7:6.1.1-3ubuntu5 [401 kB]
+2026-10-18T13:08:52.8621272Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libcodec2-1.2 amd64 1.2.0-2build1 [8998 kB]
+2026-10-18T13:08:53.1297123Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libdav1d7 amd64 1.4.1-1build1 [604 kB]
+2026-10-18T13:08:53.2130252Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libgsm1 amd64 1.0.22-1build1 [27.8 kB]
+2026-10-18T13:08:53.2838642Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libhwy1t64 amd64 1.0.7-8.1build1 [584 kB]
+2026-10-18T13:08:53.3670329Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 libjxl0.7 amd64 0.7.0-10.2ubuntu6.1 [1001 kB]
+2026-10-18T13:08:53.4590373Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libmp3lame0 amd64 3.100-6build1 [142 kB]
+2026-10-18T13:08:53.5322625Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopus0 amd64 1.4-1build1 [208 kB]
+2026-10-18T13:08:53.6063793Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 librav1e0 amd64 0.7.1-2 [1022 kB]
+2026-10-18T13:08:53.6986254Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 librsvg2-2 amd64 2.58.0+dfsg-1ubuntu0.1 [2141 kB]
+2026-10-18T13:08:53.8156164Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libshine3 amd64 3.1.1-2build1 [23.2 kB]
+2026-10-18T13:08:53.8859582Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libspeex1 amd64 1.2.1-2ubuntu2.24.04.1 [59.6 kB]
+2026-10-18T13:08:53.9576879Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libsvtav1enc1d1 amd64 1.7.0+dfsg-2build1 [2425 kB]
+2026-10-18T13:08:54.0809574Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libsoxr0 amd64 0.1.3-4build3 [80.0 kB]
+2026-10-18T13:08:54.1531219Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libswresample4 amd64 7:6.1.1-3ubuntu5 [63.8 kB]
+2026-10-18T13:08:54.2241190Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libtheora0 amd64 1.1.1+dfsg.1-16.1build3 [211 kB]
+2026-10-18T13:08:54.2980178Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libtwolame0 amd64 0.4.0-2build3 [52.3 kB]
+2026-10-18T13:08:54.3689383Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libvorbisenc2 amd64 1.3.7-1build3 [80.8 kB]
+2026-10-18T13:08:54.4400967Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libvpx9 amd64 1.14.0-1ubuntu2.3 [1143 kB]
+2026-10-18T13:08:54.5273056Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libx264-164 amd64 2:0.164.3108+git31e19f9-1 [604 kB]
+2026-10-18T13:08:54.6063720Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libx265-199 amd64 3.5-2build1 [1226 kB]
+2026-10-18T13:08:54.6950401Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libxvidcore4 amd64 2:1.3.7-1build1 [219 kB]
+2026-10-18T13:08:54.7741190Z Get:35 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libzvbi-common all 0.2.42-2 [42.4 kB]
+2026-10-18T13:08:54.8446409Z Get:36 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libzvbi0t64 amd64 0.2.42-2 [261 kB]
+2026-10-18T13:08:54.9225882Z Get:37 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libavcodec60 amd64 7:6.1.1-3ubuntu5 [5851 kB]
+2026-10-18T13:08:55.1347923Z Get:38 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+2026-10-18T13:08:55.2231091Z Get:39 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+2026-10-18T13:08:55.2993333Z Get:40 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+2026-10-18T13:08:55.3837076Z Get:41 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+2026-10-18T13:08:55.6876318Z Fetched 48.8 MB in 4s (12.6 MB/s)
+2026-10-18T13:08:55.7178564Z Selecting previously unselected package fonts-ipafont-gothic.
+2026-10-18T13:08:55.7639695Z (Reading database ... 
+2026-10-18T13:08:55.7640611Z (Reading database ... 5%
+2026-10-18T13:08:55.7641919Z (Reading database ... 10%
+2026-10-18T13:08:55.7642871Z (Reading database ... 15%
+2026-10-18T13:08:55.7643680Z (Reading database ... 20%
+2026-10-18T13:08:55.7644242Z (Reading database ... 25%
+2026-10-18T13:08:55.7644801Z (Reading database ... 30%
+2026-10-18T13:08:55.7645246Z (Reading database ... 35%
+2026-10-18T13:08:55.7645705Z (Reading database ... 40%
+2026-10-18T13:08:55.7646150Z (Reading database ... 45%
+2026-10-18T13:08:55.7646593Z (Reading database ... 50%
+2026-10-18T13:08:55.7689785Z (Reading database ... 55%
+2026-10-18T13:08:55.8734100Z (Reading database ... 60%
+2026-10-18T13:08:56.1198404Z (Reading database ... 65%
+2026-10-18T13:08:56.2915661Z (Reading database ... 70%
+2026-10-18T13:08:56.4737967Z (Reading database ... 75%
+2026-10-18T13:08:56.6730651Z (Reading database ... 80%
+2026-10-18T13:08:56.8226179Z (Reading database ... 85%
+2026-10-18T13:08:57.0190787Z (Reading database ... 90%
+2026-10-18T13:08:57.1738362Z (Reading database ... 95%
+2026-10-18T13:08:57.1739219Z (Reading database ... 100%
+2026-10-18T13:08:57.1739939Z (Reading database ... 203540 files and directories currently installed.)
+2026-10-18T13:08:57.1787055Z Preparing to unpack .../00-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+2026-10-18T13:08:57.1885065Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-18T13:08:57.4189049Z Selecting previously unselected package fonts-freefont-ttf.
+2026-10-18T13:08:57.4323041Z Preparing to unpack .../01-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+2026-10-18T13:08:57.4330134Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-18T13:08:57.5133397Z Selecting previously unselected package fonts-tlwg-loma-otf.
+2026-10-18T13:08:57.5265078Z Preparing to unpack .../02-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+2026-10-18T13:08:57.5272417Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-18T13:08:57.5488160Z Selecting previously unselected package fonts-unifont.
+2026-10-18T13:08:57.5623016Z Preparing to unpack .../03-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+2026-10-18T13:08:57.5631508Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+2026-10-18T13:08:57.6702364Z Selecting previously unselected package fonts-wqy-zenhei.
+2026-10-18T13:08:57.6840293Z Preparing to unpack .../04-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+2026-10-18T13:08:57.6955256Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-18T13:08:58.1615649Z Selecting previously unselected package libva2:amd64.
+2026-10-18T13:08:58.1751026Z Preparing to unpack .../05-libva2_2.20.0-2ubuntu0.2_amd64.deb ...
+2026-10-18T13:08:58.1768185Z Unpacking libva2:amd64 (2.20.0-2ubuntu0.2) ...
+2026-10-18T13:08:58.1992576Z Selecting previously unselected package libva-drm2:amd64.
+2026-10-18T13:08:58.2128190Z Preparing to unpack .../06-libva-drm2_2.20.0-2ubuntu0.2_amd64.deb ...
+2026-10-18T13:08:58.2138942Z Unpacking libva-drm2:amd64 (2.20.0-2ubuntu0.2) ...
+2026-10-18T13:08:58.2347089Z Selecting previously unselected package libva-x11-2:amd64.
+2026-10-18T13:08:58.2480843Z Preparing to unpack .../07-libva-x11-2_2.20.0-2ubuntu0.2_amd64.deb ...
+2026-10-18T13:08:58.2488733Z Unpacking libva-x11-2:amd64 (2.20.0-2ubuntu0.2) ...
+2026-10-18T13:08:58.2698649Z Selecting previously unselected package libvdpau1:amd64.
+2026-10-18T13:08:58.2835009Z Preparing to unpack .../08-libvdpau1_1.5-2build1_amd64.deb ...
+2026-10-18T13:08:58.2850420Z Unpacking libvdpau1:amd64 (1.5-2build1) ...
+2026-10-18T13:08:58.3071407Z Selecting previously unselected package libvpl2.
+2026-10-18T13:08:58.3206213Z Preparing to unpack .../09-libvpl2_2023.3.0-1build1_amd64.deb ...
+2026-10-18T13:08:58.3214151Z Unpacking libvpl2 (2023.3.0-1build1) ...
+2026-10-18T13:08:58.3450903Z Selecting previously unselected package ocl-icd-libopencl1:amd64.
+2026-10-18T13:08:58.3584019Z Preparing to unpack .../10-ocl-icd-libopencl1_2.3.2-1build1_amd64.deb ...
+2026-10-18T13:08:58.3591370Z Unpacking ocl-icd-libopencl1:amd64 (2.3.2-1build1) ...
+2026-10-18T13:08:58.3855935Z Selecting previously unselected package libavutil58:amd64.
+2026-10-18T13:08:58.3989115Z Preparing to unpack .../11-libavutil58_7%3a6.1.1-3ubuntu5_amd64.deb ...
+2026-10-18T13:08:58.3996287Z Unpacking libavutil58:amd64 (7:6.1.1-3ubuntu5) ...
+2026-10-18T13:08:58.4275779Z Selecting previously unselected package libcodec2-1.2:amd64.
+2026-10-18T13:08:58.4410774Z Preparing to unpack .../12-libcodec2-1.2_1.2.0-2build1_amd64.deb ...
+2026-10-18T13:08:58.4419616Z Unpacking libcodec2-1.2:amd64 (1.2.0-2build1) ...
+2026-10-18T13:08:58.5168607Z Selecting previously unselected package libdav1d7:amd64.
+2026-10-18T13:08:58.5299842Z Preparing to unpack .../13-libdav1d7_1.4.1-1build1_amd64.deb ...
+2026-10-18T13:08:58.5306822Z Unpacking libdav1d7:amd64 (1.4.1-1build1) ...
+2026-10-18T13:08:58.5578610Z Selecting previously unselected package libgsm1:amd64.
+2026-10-18T13:08:58.5708360Z Preparing to unpack .../14-libgsm1_1.0.22-1build1_amd64.deb ...
+2026-10-18T13:08:58.5715298Z Unpacking libgsm1:amd64 (1.0.22-1build1) ...
+2026-10-18T13:08:58.5924687Z Selecting previously unselected package libhwy1t64:amd64.
+2026-10-18T13:08:58.6056181Z Preparing to unpack .../15-libhwy1t64_1.0.7-8.1build1_amd64.deb ...
+2026-10-18T13:08:58.6063719Z Unpacking libhwy1t64:amd64 (1.0.7-8.1build1) ...
+2026-10-18T13:08:58.6390486Z Selecting previously unselected package libjxl0.7:amd64.
+2026-10-18T13:08:58.6521170Z Preparing to unpack .../16-libjxl0.7_0.7.0-10.2ubuntu6.1_amd64.deb ...
+2026-10-18T13:08:58.6527258Z Unpacking libjxl0.7:amd64 (0.7.0-10.2ubuntu6.1) ...
+2026-10-18T13:08:58.6870356Z Selecting previously unselected package libmp3lame0:amd64.
+2026-10-18T13:08:58.7003627Z Preparing to unpack .../17-libmp3lame0_3.100-6build1_amd64.deb ...
+2026-10-18T13:08:58.7011042Z Unpacking libmp3lame0:amd64 (3.100-6build1) ...
+2026-10-18T13:08:58.7272347Z Selecting previously unselected package libopus0:amd64.
+2026-10-18T13:08:58.7409712Z Preparing to unpack .../18-libopus0_1.4-1build1_amd64.deb ...
+2026-10-18T13:08:58.7417495Z Unpacking libopus0:amd64 (1.4-1build1) ...
+2026-10-18T13:08:58.7651205Z Selecting previously unselected package librav1e0:amd64.
+2026-10-18T13:08:58.7784082Z Preparing to unpack .../19-librav1e0_0.7.1-2_amd64.deb ...
+2026-10-18T13:08:58.7791519Z Unpacking librav1e0:amd64 (0.7.1-2) ...
+2026-10-18T13:08:58.8131043Z Selecting previously unselected package librsvg2-2:amd64.
+2026-10-18T13:08:58.8266183Z Preparing to unpack .../20-librsvg2-2_2.58.0+dfsg-1ubuntu0.1_amd64.deb ...
+2026-10-18T13:08:58.8276818Z Unpacking librsvg2-2:amd64 (2.58.0+dfsg-1ubuntu0.1) ...
+2026-10-18T13:08:58.8742558Z Selecting previously unselected package libshine3:amd64.
+2026-10-18T13:08:58.8872910Z Preparing to unpack .../21-libshine3_3.1.1-2build1_amd64.deb ...
+2026-10-18T13:08:58.8881050Z Unpacking libshine3:amd64 (3.1.1-2build1) ...
+2026-10-18T13:08:58.9078397Z Selecting previously unselected package libspeex1:amd64.
+2026-10-18T13:08:58.9207104Z Preparing to unpack .../22-libspeex1_1.2.1-2ubuntu2.24.04.1_amd64.deb ...
+2026-10-18T13:08:58.9214003Z Unpacking libspeex1:amd64 (1.2.1-2ubuntu2.24.04.1) ...
+2026-10-18T13:08:58.9422058Z Selecting previously unselected package libsvtav1enc1d1:amd64.
+2026-10-18T13:08:58.9556661Z Preparing to unpack .../23-libsvtav1enc1d1_1.7.0+dfsg-2build1_amd64.deb ...
+2026-10-18T13:08:58.9563895Z Unpacking libsvtav1enc1d1:amd64 (1.7.0+dfsg-2build1) ...
+2026-10-18T13:08:59.0052697Z Selecting previously unselected package libsoxr0:amd64.
+2026-10-18T13:08:59.0184534Z Preparing to unpack .../24-libsoxr0_0.1.3-4build3_amd64.deb ...
+2026-10-18T13:08:59.0192048Z Unpacking libsoxr0:amd64 (0.1.3-4build3) ...
+2026-10-18T13:08:59.0401100Z Selecting previously unselected package libswresample4:amd64.
+2026-10-18T13:08:59.0533254Z Preparing to unpack .../25-libswresample4_7%3a6.1.1-3ubuntu5_amd64.deb ...
+2026-10-18T13:08:59.0540607Z Unpacking libswresample4:amd64 (7:6.1.1-3ubuntu5) ...
+2026-10-18T13:08:59.0756009Z Selecting previously unselected package libtheora0:amd64.
+2026-10-18T13:08:59.0888834Z Preparing to unpack .../26-libtheora0_1.1.1+dfsg.1-16.1build3_amd64.deb ...
+2026-10-18T13:08:59.0895561Z Unpacking libtheora0:amd64 (1.1.1+dfsg.1-16.1build3) ...
+2026-10-18T13:08:59.1136376Z Selecting previously unselected package libtwolame0:amd64.
+2026-10-18T13:08:59.1268647Z Preparing to unpack .../27-libtwolame0_0.4.0-2build3_amd64.deb ...
+2026-10-18T13:08:59.1277411Z Unpacking libtwolame0:amd64 (0.4.0-2build3) ...
+2026-10-18T13:08:59.1490288Z Selecting previously unselected package libvorbisenc2:amd64.
+2026-10-18T13:08:59.1620997Z Preparing to unpack .../28-libvorbisenc2_1.3.7-1build3_amd64.deb ...
+2026-10-18T13:08:59.1629425Z Unpacking libvorbisenc2:amd64 (1.3.7-1build3) ...
+2026-10-18T13:08:59.1847989Z Selecting previously unselected package libvpx9:amd64.
+2026-10-18T13:08:59.1979635Z Preparing to unpack .../29-libvpx9_1.14.0-1ubuntu2.3_amd64.deb ...
+2026-10-18T13:08:59.1987389Z Unpacking libvpx9:amd64 (1.14.0-1ubuntu2.3) ...
+2026-10-18T13:08:59.2319115Z Selecting previously unselected package libx264-164:amd64.
+2026-10-18T13:08:59.2450767Z Preparing to unpack .../30-libx264-164_2%3a0.164.3108+git31e19f9-1_amd64.deb ...
+2026-10-18T13:08:59.2459332Z Unpacking libx264-164:amd64 (2:0.164.3108+git31e19f9-1) ...
+2026-10-18T13:08:59.2766388Z Selecting previously unselected package libx265-199:amd64.
+2026-10-18T13:08:59.2902673Z Preparing to unpack .../31-libx265-199_3.5-2build1_amd64.deb ...
+2026-10-18T13:08:59.2910957Z Unpacking libx265-199:amd64 (3.5-2build1) ...
+2026-10-18T13:08:59.3599045Z Selecting previously unselected package libxvidcore4:amd64.
+2026-10-18T13:08:59.3746081Z Preparing to unpack .../32-libxvidcore4_2%3a1.3.7-1build1_amd64.deb ...
+2026-10-18T13:08:59.3756682Z Unpacking libxvidcore4:amd64 (2:1.3.7-1build1) ...
+2026-10-18T13:08:59.3998566Z Selecting previously unselected package libzvbi-common.
+2026-10-18T13:08:59.4130936Z Preparing to unpack .../33-libzvbi-common_0.2.42-2_all.deb ...
+2026-10-18T13:08:59.4139485Z Unpacking libzvbi-common (0.2.42-2) ...
+2026-10-18T13:08:59.4448609Z Selecting previously unselected package libzvbi0t64:amd64.
+2026-10-18T13:08:59.4580811Z Preparing to unpack .../34-libzvbi0t64_0.2.42-2_amd64.deb ...
+2026-10-18T13:08:59.4589973Z Unpacking libzvbi0t64:amd64 (0.2.42-2) ...
+2026-10-18T13:08:59.4856229Z Selecting previously unselected package libavcodec60:amd64.
+2026-10-18T13:08:59.4993599Z Preparing to unpack .../35-libavcodec60_7%3a6.1.1-3ubuntu5_amd64.deb ...
+2026-10-18T13:08:59.5002235Z Unpacking libavcodec60:amd64 (7:6.1.1-3ubuntu5) ...
+2026-10-18T13:08:59.5852822Z Selecting previously unselected package xfonts-encodings.
+2026-10-18T13:08:59.5986558Z Preparing to unpack .../36-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+2026-10-18T13:08:59.5994496Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-18T13:08:59.6283740Z Selecting previously unselected package xfonts-utils.
+2026-10-18T13:08:59.6414909Z Preparing to unpack .../37-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+2026-10-18T13:08:59.6421432Z Unpacking xfonts-utils (1:7.7+6build3) ...
+2026-10-18T13:08:59.6808438Z Selecting previously unselected package xfonts-cyrillic.
+2026-10-18T13:08:59.6938874Z Preparing to unpack .../38-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+2026-10-18T13:08:59.6945856Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-18T13:08:59.7264813Z Selecting previously unselected package xfonts-scalable.
+2026-10-18T13:08:59.7395579Z Preparing to unpack .../39-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+2026-10-18T13:08:59.7403375Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-18T13:08:59.7906233Z Setting up libhwy1t64:amd64 (1.0.7-8.1build1) ...
+2026-10-18T13:08:59.7931041Z Setting up libspeex1:amd64 (1.2.1-2ubuntu2.24.04.1) ...
+2026-10-18T13:08:59.7955684Z Setting up libshine3:amd64 (3.1.1-2build1) ...
+2026-10-18T13:08:59.7975700Z Setting up libvpl2 (2023.3.0-1build1) ...
+2026-10-18T13:08:59.7995249Z Setting up libx264-164:amd64 (2:0.164.3108+git31e19f9-1) ...
+2026-10-18T13:08:59.8014916Z Setting up libtwolame0:amd64 (0.4.0-2build3) ...
+2026-10-18T13:08:59.8032396Z Setting up libgsm1:amd64 (1.0.22-1build1) ...
+2026-10-18T13:08:59.8049404Z Setting up libsoxr0:amd64 (0.1.3-4build3) ...
+2026-10-18T13:08:59.8064886Z Setting up libcodec2-1.2:amd64 (1.2.0-2build1) ...
+2026-10-18T13:08:59.8083287Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+2026-10-18T13:08:59.8220082Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+2026-10-18T13:08:59.8238044Z Setting up libsvtav1enc1d1:amd64 (1.7.0+dfsg-2build1) ...
+2026-10-18T13:08:59.8253905Z Setting up libxvidcore4:amd64 (2:1.3.7-1build1) ...
+2026-10-18T13:08:59.8276879Z Setting up librav1e0:amd64 (0.7.1-2) ...
+2026-10-18T13:08:59.8297990Z Setting up librsvg2-2:amd64 (2.58.0+dfsg-1ubuntu0.1) ...
+2026-10-18T13:08:59.8316317Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+2026-10-18T13:08:59.8334363Z Setting up libva2:amd64 (2.20.0-2ubuntu0.2) ...
+2026-10-18T13:08:59.8356179Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-10-18T13:08:59.8379057Z Setting up libopus0:amd64 (1.4-1build1) ...
+2026-10-18T13:08:59.8398657Z Setting up libjxl0.7:amd64 (0.7.0-10.2ubuntu6.1) ...
+2026-10-18T13:08:59.8421934Z Setting up libx265-199:amd64 (3.5-2build1) ...
+2026-10-18T13:08:59.8443999Z Setting up libvpx9:amd64 (1.14.0-1ubuntu2.3) ...
+2026-10-18T13:08:59.8463526Z Setting up libdav1d7:amd64 (1.4.1-1build1) ...
+2026-10-18T13:08:59.8481854Z Setting up libva-drm2:amd64 (2.20.0-2ubuntu0.2) ...
+2026-10-18T13:08:59.8502027Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+2026-10-18T13:08:59.8570140Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+2026-10-18T13:08:59.8586512Z Setting up ocl-icd-libopencl1:amd64 (2.3.2-1build1) ...
+2026-10-18T13:08:59.8608881Z Setting up libvdpau1:amd64 (1.5-2build1) ...
+2026-10-18T13:08:59.8633137Z Setting up libtheora0:amd64 (1.1.1+dfsg.1-16.1build3) ...
+2026-10-18T13:08:59.8650575Z Setting up libva-x11-2:amd64 (2.20.0-2ubuntu0.2) ...
+2026-10-18T13:08:59.8667511Z Setting up libzvbi-common (0.2.42-2) ...
+2026-10-18T13:08:59.8685993Z Setting up libmp3lame0:amd64 (3.100-6build1) ...
+2026-10-18T13:08:59.8703040Z Setting up libvorbisenc2:amd64 (1.3.7-1build3) ...
+2026-10-18T13:08:59.8720470Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+2026-10-18T13:08:59.8738651Z Setting up libzvbi0t64:amd64 (0.2.42-2) ...
+2026-10-18T13:08:59.8759646Z Setting up libavutil58:amd64 (7:6.1.1-3ubuntu5) ...
+2026-10-18T13:08:59.8777146Z Setting up xfonts-utils (1:7.7+6build3) ...
+2026-10-18T13:08:59.8815862Z Setting up libswresample4:amd64 (7:6.1.1-3ubuntu5) ...
+2026-10-18T13:08:59.8833480Z Setting up libavcodec60:amd64 (7:6.1.1-3ubuntu5) ...
+2026-10-18T13:08:59.8850709Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+2026-10-18T13:08:59.9153608Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+2026-10-18T13:08:59.9433668Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-18T13:08:59.9794490Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-18T13:08:59.9816109Z Not building database; man-db/auto-update is not 'true'.
+2026-10-18T13:08:59.9831294Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-10-18T13:09:00.7391168Z 
+2026-10-18T13:09:00.7392058Z Running kernel seems to be up-to-date.
+2026-10-18T13:09:00.7392473Z 
+2026-10-18T13:09:00.7392748Z No services need to be restarted.
+2026-10-18T13:09:00.7393064Z 
+2026-10-18T13:09:00.7393353Z No containers need to be restarted.
+2026-10-18T13:09:00.7393677Z 
+2026-10-18T13:09:00.7393994Z No user sessions are running outdated binaries.
+2026-10-18T13:09:00.7394384Z 
+2026-10-18T13:09:00.7394878Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-18T13:09:01.7196026Z Downloading Chrome for Testing 156.0.8078.4 (playwright chromium v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip
+2026-10-18T13:09:02.1382932Z |                                                                                |   0% of 191.1 MiB
+2026-10-18T13:09:02.3938623Z |■■■■■■■■                                                                        |  10% of 191.1 MiB
+2026-10-18T13:09:02.5694934Z |■■■■■■■■■■■■■■■■                                                                |  20% of 191.1 MiB
+2026-10-18T13:09:02.7085476Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 191.1 MiB
+2026-10-18T13:09:02.7883244Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 191.1 MiB
+2026-10-18T13:09:02.8776722Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 191.1 MiB
+2026-10-18T13:09:02.9761656Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 191.1 MiB
+2026-10-18T13:09:03.0662910Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 191.1 MiB
+2026-10-18T13:09:03.1665963Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 191.1 MiB
+2026-10-18T13:09:03.2574334Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 191.1 MiB
+2026-10-18T13:09:03.3556299Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 191.1 MiB
+2026-10-18T13:09:06.9139328Z Chrome for Testing 156.0.8078.4 (playwright chromium v1248) downloaded to /home/runner/.cache/ms-playwright/chromium-1248
+2026-10-18T13:09:06.9143865Z Downloading FFmpeg (playwright ffmpeg v1013) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip
+2026-10-18T13:09:07.3231726Z |                                                                                |   0% of 2.2 MiB
+2026-10-18T13:09:07.3332332Z |■■■■■■■■                                                                        |  10% of 2.2 MiB
+2026-10-18T13:09:07.3402558Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.2 MiB
+2026-10-18T13:09:07.3452876Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.2 MiB
+2026-10-18T13:09:07.3493590Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.2 MiB
+2026-10-18T13:09:07.3520959Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.2 MiB
+2026-10-18T13:09:07.3540099Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.2 MiB
+2026-10-18T13:09:07.3559951Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.2 MiB
+2026-10-18T13:09:07.3593057Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.2 MiB
+2026-10-18T13:09:07.3603818Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.2 MiB
+2026-10-18T13:09:07.3617618Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.2 MiB
+2026-10-18T13:09:07.4296368Z FFmpeg (playwright ffmpeg v1013) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1013
+2026-10-18T13:09:07.4299865Z Downloading Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) from https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-headless-shell-linux64.zip
+2026-10-18T13:09:07.8400059Z |                                                                                |   0% of 120 MiB
+2026-10-18T13:09:08.0669580Z |■■■■■■■■                                                                        |  10% of 120 MiB
+2026-10-18T13:09:08.1928820Z |■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+2026-10-18T13:09:08.2948457Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+2026-10-18T13:09:08.3827216Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+2026-10-18T13:09:08.4262364Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+2026-10-18T13:09:08.4812752Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+2026-10-18T13:09:08.5550619Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+2026-10-18T13:09:08.6018767Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+2026-10-18T13:09:08.6557876Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+2026-10-18T13:09:08.7250031Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+2026-10-18T13:09:11.0950573Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+2026-10-18T13:09:11.0954290Z Downloading Firefox 157.0 (playwright firefox v1555) from https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1555/firefox-ubuntu-24.04.zip
+2026-10-18T13:09:11.4732948Z |                                                                                |   0% of 111 MiB
+2026-10-18T13:09:11.8642965Z |■■■■■■■■                                                                        |  10% of 111 MiB
+2026-10-18T13:09:12.0681560Z |■■■■■■■■■■■■■■■■                                                                |  20% of 111 MiB
+2026-10-18T13:09:12.2458348Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 111 MiB
+2026-10-18T13:09:12.3750626Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 111 MiB
+2026-10-18T13:09:12.5513586Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 111 MiB
+2026-10-18T13:09:12.6580086Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 111 MiB
+2026-10-18T13:09:12.8610168Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 111 MiB
+2026-10-18T13:09:12.9785914Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 111 MiB
+2026-10-18T13:09:13.1328017Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 111 MiB
+2026-10-18T13:09:13.2096087Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 111 MiB
+2026-10-18T13:09:15.4944207Z Firefox 157.0 (playwright firefox v1555) downloaded to /home/runner/.cache/ms-playwright/firefox-1555
+2026-10-18T13:09:15.6648777Z ##[group]Run python scripts/build_web.py --test
+2026-10-18T13:09:15.6649267Z [36;1mpython scripts/build_web.py --test[0m
+2026-10-18T13:09:15.6726566Z shell: /usr/bin/bash -e {0}
+2026-10-18T13:09:15.6727031Z env:
+2026-10-18T13:09:15.6727493Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:09:15.6728632Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib/pkgconfig
+2026-10-18T13:09:15.6729450Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:09:15.6730171Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:09:15.6730880Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.16/x64
+2026-10-18T13:09:15.6731671Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.16/x64/lib
+2026-10-18T13:09:15.6732266Z   CI: true
+2026-10-18T13:09:15.6732611Z ##[endgroup]
+2026-10-18T13:09:16.2878901Z + cargo build --locked --release -p nestbolt-wasm --target wasm32-unknown-unknown
+2026-10-18T13:09:16.3532649Z     Updating crates.io index
+2026-10-18T13:09:16.3550038Z     Updating git repository `https://github.com/JeroenGar/sparrow.git`
+2026-10-18T13:09:18.5799701Z  Downloading crates ...
+2026-10-18T13:09:18.6489201Z   Downloaded cfg_aliases v0.2.2
+2026-10-18T13:09:18.6525440Z   Downloaded approx v0.5.1
+2026-10-18T13:09:18.6549746Z   Downloaded byteorder v1.5.0
+2026-10-18T13:09:18.6566378Z   Downloaded arrayvec v0.7.8
+2026-10-18T13:09:18.6587337Z   Downloaded bumpalo v3.20.3
+2026-10-18T13:09:18.6617049Z   Downloaded i_tree v0.18.0
+2026-10-18T13:09:18.6644565Z   Downloaded float-cmp v0.10.0
+2026-10-18T13:09:18.6680956Z   Downloaded serde_json v1.0.154
+2026-10-18T13:09:18.6794963Z   Downloaded num-complex v0.4.6
+2026-10-18T13:09:18.6795554Z   Downloaded polycool v0.4.0
+2026-10-18T13:09:18.6806774Z   Downloaded document-features v0.2.12
+2026-10-18T13:09:18.6820425Z   Downloaded wasm-bindgen-macro v0.2.129
+2026-10-18T13:09:18.6849039Z   Downloaded i_float v1.16.0
+2026-10-18T13:09:18.6858885Z   Downloaded version_check v0.9.5
+2026-10-18T13:09:18.6867502Z   Downloaded jiff-static v0.2.38
+2026-10-18T13:09:18.6876226Z   Downloaded ref-cast-impl v1.0.27
+2026-10-18T13:09:18.6884614Z   Downloaded cpufeatures v0.3.1
+2026-10-18T13:09:18.6900718Z   Downloaded float_next_after v2.0.0
+2026-10-18T13:09:18.6915638Z   Downloaded ctrlc v3.5.2
+2026-10-18T13:09:18.6935900Z   Downloaded futures-core v0.3.34
+2026-10-18T13:09:18.6949993Z   Downloaded test-case v3.4.0
+2026-10-18T13:09:18.6966734Z   Downloaded tap v1.0.1
+2026-10-18T13:09:18.6978680Z   Downloaded dyn-clone v1.0.20
+2026-10-18T13:09:18.6994412Z   Downloaded test-case-macros v3.4.0
+2026-10-18T13:09:18.7005066Z   Downloaded futures-task v0.3.34
+2026-10-18T13:09:18.7020688Z   Downloaded hash32 v0.3.1
+2026-10-18T13:09:18.7042891Z   Downloaded jiff-tzdb-platform v0.1.3
+2026-10-18T13:09:18.7053620Z   Downloaded num-integer v0.1.47
+2026-10-18T13:09:18.7079064Z   Downloaded rawpointer v0.2.1
+2026-10-18T13:09:18.7091762Z   Downloaded schemars_derive v1.2.2
+2026-10-18T13:09:18.7120407Z   Downloaded sif-itree v0.4.1
+2026-10-18T13:09:18.7133762Z   Downloaded rustversion v1.0.23
+2026-10-18T13:09:18.7162494Z   Downloaded test-case-core v3.4.0
+2026-10-18T13:09:18.7175920Z   Downloaded dtoa v1.0.11
+2026-10-18T13:09:18.7191682Z   Downloaded i_shape v1.18.0
+2026-10-18T13:09:18.7228307Z   Downloaded web-time v1.1.0
+2026-10-18T13:09:18.7245601Z   Downloaded rand_pcg v0.10.2
+2026-10-18T13:09:18.7260624Z   Downloaded siphasher v1.0.4
+2026-10-18T13:09:18.7275883Z   Downloaded ref-cast v1.0.27
+2026-10-18T13:09:18.7305575Z   Downloaded slab v0.4.12
+2026-10-18T13:09:18.7318739Z   Downloaded either v1.19.0
+2026-10-18T13:09:18.7333636Z   Downloaded i_key_sort v0.10.3
+2026-10-18T13:09:18.7363318Z   Downloaded pin-project-lite v0.2.17
+2026-10-18T13:09:18.7423394Z   Downloaded rand_core v0.10.1
+2026-10-18T13:09:18.7439984Z   Downloaded litrs v1.0.0
+2026-10-18T13:09:18.7469992Z   Downloaded numfmt v1.2.0
+2026-10-18T13:09:18.7481497Z   Downloaded serde_derive_internals v0.30.0
+2026-10-18T13:09:18.7496966Z   Downloaded smallvec v1.16.3
+2026-10-18T13:09:18.7510678Z   Downloaded svg v0.18.0
+2026-10-18T13:09:18.7532568Z   Downloaded chacha20 v0.10.2
+2026-10-18T13:09:18.7556583Z   Downloaded geographiclib-rs v0.2.7
+2026-10-18T13:09:18.7573689Z   Downloaded rstar v0.12.2
+2026-10-18T13:09:18.7600844Z   Downloaded svgtypes v0.16.1
+2026-10-18T13:09:18.7625503Z   Downloaded geo-types v0.7.20
+2026-10-18T13:09:18.7651225Z   Downloaded ordered-float v5.5.0
+2026-10-18T13:09:18.7668586Z   Downloaded wasm-bindgen v0.2.129
+2026-10-18T13:09:18.7696067Z   Downloaded heapless v0.8.0
+2026-10-18T13:09:18.7734405Z   Downloaded jiff-tzdb v0.1.9
+2026-10-18T13:09:18.7750647Z   Downloaded matrixmultiply v0.3.11
+2026-10-18T13:09:18.7783138Z   Downloaded rand_distr v0.6.0
+2026-10-18T13:09:18.7819822Z   Downloaded roxmltree v0.21.1
+2026-10-18T13:09:18.7954190Z   Downloaded slotmap v1.1.1
+2026-10-18T13:09:18.7975499Z   Downloaded jagua-rs v1.1.0
+2026-10-18T13:09:18.8041721Z   Downloaded schemars v1.2.2
+2026-10-18T13:09:18.8218094Z   Downloaded euclid v0.22.14
+2026-10-18T13:09:18.8250391Z   Downloaded js-sys v0.3.106
+2026-10-18T13:09:18.8280750Z   Downloaded rand v0.10.3
+2026-10-18T13:09:18.8319111Z   Downloaded wasm-bindgen-macro-support v0.2.129
+2026-10-18T13:09:18.8343943Z   Downloaded clipper2-rust v1.2.0
+2026-10-18T13:09:18.8382825Z   Downloaded futures-util v0.3.34
+2026-10-18T13:09:18.8516341Z   Downloaded libm v0.2.16
+2026-10-18T13:09:18.8626210Z   Downloaded itertools v0.15.0
+2026-10-18T13:09:18.8698699Z   Downloaded kurbo v0.13.1
+2026-10-18T13:09:18.8751367Z   Downloaded ndarray v0.17.2
+2026-10-18T13:09:18.8844528Z   Downloaded i_overlay v4.5.2
+2026-10-18T13:09:18.9075099Z   Downloaded syn v3.0.8
+2026-10-18T13:09:18.9183797Z   Downloaded fern v0.7.1
+2026-10-18T13:09:18.9227230Z   Downloaded nix v0.31.3
+2026-10-18T13:09:18.9344180Z   Downloaded geo v0.33.1
+2026-10-18T13:09:18.9543022Z   Downloaded robust v1.2.0
+2026-10-18T13:09:18.9601582Z   Downloaded libc v0.2.190
+2026-10-18T13:09:19.0083593Z   Downloaded jiff v0.2.38
+2026-10-18T13:09:19.0233504Z   Downloaded encoding_rs v0.8.35
+2026-10-18T13:09:19.0872989Z    Compiling unicode-ident v1.0.26
+2026-10-18T13:09:19.0874022Z    Compiling proc-macro2 v1.0.107
+2026-10-18T13:09:19.0874776Z    Compiling quote v1.0.47
+2026-10-18T13:09:19.0875340Z    Compiling libm v0.2.16
+2026-10-18T13:09:19.1440596Z    Compiling autocfg v1.5.1
+2026-10-18T13:09:19.2369516Z    Compiling wasm-bindgen-shared v0.2.129
+2026-10-18T13:09:19.3590829Z    Compiling rustversion v1.0.23
+2026-10-18T13:09:19.4613421Z    Compiling num-traits v0.2.19
+2026-10-18T13:09:19.9199077Z    Compiling cfg-if v1.0.5
+2026-10-18T13:09:19.9554487Z    Compiling syn v3.0.8
+2026-10-18T13:09:19.9668994Z    Compiling bumpalo v3.20.3
+2026-10-18T13:09:20.0369150Z    Compiling wasm-bindgen v0.2.129
+2026-10-18T13:09:20.1661716Z    Compiling once_cell v1.21.4
+2026-10-18T13:09:20.8514563Z    Compiling crossbeam-utils v0.8.23
+2026-10-18T13:09:21.0115003Z    Compiling rand_core v0.10.1
+2026-10-18T13:09:21.0993205Z    Compiling serde_core v1.0.229
+2026-10-18T13:09:21.1216090Z    Compiling crossbeam-epoch v0.9.21
+2026-10-18T13:09:21.1278964Z    Compiling heapless v0.8.0
+2026-10-18T13:09:21.2378956Z    Compiling smallvec v1.16.3
+2026-10-18T13:09:21.2573291Z    Compiling byteorder v1.5.0
+2026-10-18T13:09:21.2949229Z    Compiling getrandom v0.4.3
+2026-10-18T13:09:21.4033316Z    Compiling hash32 v0.3.1
+2026-10-18T13:09:21.4739598Z    Compiling stable_deref_trait v1.2.1
+2026-10-18T13:09:21.5039082Z    Compiling crossbeam-deque v0.8.8
+2026-10-18T13:09:21.6289471Z    Compiling zmij v1.0.23
+2026-10-18T13:09:21.7589179Z    Compiling thiserror v2.0.21
+2026-10-18T13:09:21.9388909Z    Compiling serde v1.0.229
+2026-10-18T13:09:22.4019415Z    Compiling chacha20 v0.10.2
+2026-10-18T13:09:22.5639322Z    Compiling i_float v1.16.0
+2026-10-18T13:09:22.6076521Z    Compiling matrixmultiply v0.3.11
+2026-10-18T13:09:22.7004288Z    Compiling version_check v0.9.5
+2026-10-18T13:09:22.7109628Z    Compiling memchr v2.8.3
+2026-10-18T13:09:22.8859415Z    Compiling futures-task v0.3.34
+2026-10-18T13:09:22.9759762Z    Compiling rayon-core v1.13.0
+2026-10-18T13:09:23.0466773Z    Compiling utf8parse v0.2.2
+2026-10-18T13:09:23.0969552Z    Compiling pin-project-lite v0.2.17
+2026-10-18T13:09:23.1395121Z    Compiling futures-core v0.3.34
+2026-10-18T13:09:23.2141653Z    Compiling serde_json v1.0.154
+2026-10-18T13:09:23.2348940Z    Compiling slab v0.4.12
+2026-10-18T13:09:23.2939097Z    Compiling anyhow v1.0.104
+2026-10-18T13:09:23.3600011Z    Compiling wasm-bindgen-macro-support v0.2.129
+2026-10-18T13:09:23.4586563Z    Compiling itoa v1.0.18
+2026-10-18T13:09:23.6553518Z    Compiling futures-util v0.3.34
+2026-10-18T13:09:23.9899183Z    Compiling anstyle-parse v1.0.0
+2026-10-18T13:09:24.1320175Z    Compiling slotmap v1.1.1
+2026-10-18T13:09:24.2559236Z    Compiling i_shape v1.18.0
+2026-10-18T13:09:24.7390105Z    Compiling rstar v0.12.2
+2026-10-18T13:09:25.1219024Z    Compiling thiserror-impl v2.0.21
+2026-10-18T13:09:25.1769222Z    Compiling serde_derive v1.0.229
+2026-10-18T13:09:26.0479549Z    Compiling approx v0.5.1
+2026-10-18T13:09:26.1344194Z    Compiling ref-cast v1.0.27
+2026-10-18T13:09:26.2759724Z    Compiling anstyle v1.0.14
+2026-10-18T13:09:26.2899032Z    Compiling either v1.19.0
+2026-10-18T13:09:26.4569396Z    Compiling rawpointer v0.2.1
+2026-10-18T13:09:26.4769452Z    Compiling anstyle-query v1.1.5
+2026-10-18T13:09:26.4939987Z    Compiling libc v0.2.190
+2026-10-18T13:09:26.5169258Z    Compiling colorchoice v1.0.5
+2026-10-18T13:09:26.5668836Z    Compiling log v0.4.34
+2026-10-18T13:09:26.7249567Z    Compiling is_terminal_polyfill v1.70.2
+2026-10-18T13:09:26.7616978Z    Compiling i_key_sort v0.10.3
+2026-10-18T13:09:26.7660181Z    Compiling i_tree v0.18.0
+2026-10-18T13:09:26.9758994Z    Compiling anstream v1.0.0
+2026-10-18T13:09:26.9979460Z    Compiling i_overlay v4.5.2
+2026-10-18T13:09:28.2209235Z    Compiling test-case-core v3.4.0
+2026-10-18T13:09:28.6129000Z    Compiling wasm-bindgen-macro v0.2.129
+2026-10-18T13:09:28.7739267Z    Compiling geo-types v0.7.20
+2026-10-18T13:09:30.2459329Z    Compiling ref-cast-impl v1.0.27
+2026-10-18T13:09:30.5806511Z    Compiling js-sys v0.3.106
+2026-10-18T13:09:30.6279079Z    Compiling rand v0.10.3
+2026-10-18T13:09:31.3014624Z    Compiling serde_derive_internals v0.30.0
+2026-10-18T13:09:31.5519576Z    Compiling rand_pcg v0.10.2
+2026-10-18T13:09:31.6428928Z    Compiling num-complex v0.4.6
+2026-10-18T13:09:32.0219493Z    Compiling num-integer v0.1.47
+2026-10-18T13:09:32.1870031Z    Compiling geographiclib-rs v0.2.7
+2026-10-18T13:09:32.4449476Z    Compiling heck v0.5.0
+2026-10-18T13:09:32.5848863Z    Compiling arrayvec v0.7.8
+2026-10-18T13:09:32.7319660Z    Compiling jiff-tzdb v0.1.9
+2026-10-18T13:09:32.7559407Z    Compiling clap_lex v1.1.1
+2026-10-18T13:09:32.8709388Z    Compiling sif-itree v0.4.1
+2026-10-18T13:09:32.9319512Z    Compiling strsim v0.11.1
+2026-10-18T13:09:32.9379281Z    Compiling litrs v1.0.0
+2026-10-18T13:09:33.3782894Z    Compiling robust v1.2.0
+2026-10-18T13:09:33.5129334Z    Compiling float_next_after v2.0.0
+2026-10-18T13:09:33.5498982Z    Compiling document-features v0.2.12
+2026-10-18T13:09:33.9158970Z    Compiling geo v0.33.1
+2026-10-18T13:09:34.0099003Z    Compiling clap_builder v4.6.7
+2026-10-18T13:09:35.3349036Z    Compiling jiff-tzdb-platform v0.1.3
+2026-10-18T13:09:35.3629406Z    Compiling polycool v0.4.0
+2026-10-18T13:09:36.1653633Z    Compiling clap_derive v4.6.7
+2026-10-18T13:09:37.8329373Z    Compiling ndarray v0.17.2
+2026-10-18T13:09:39.1657221Z    Compiling schemars_derive v1.2.2
+2026-10-18T13:09:40.6139418Z    Compiling rand_distr v0.6.0
+2026-10-18T13:09:41.7054361Z    Compiling rayon v1.12.0
+2026-10-18T13:09:42.4009384Z    Compiling test-case-macros v3.4.0
+2026-10-18T13:09:42.6578997Z    Compiling web-time v1.1.0
+2026-10-18T13:09:42.8829134Z    Compiling itertools v0.15.0
+2026-10-18T13:09:43.6249049Z    Compiling ordered-float v5.5.0
+2026-10-18T13:09:43.9869115Z    Compiling float-cmp v0.10.0
+2026-10-18T13:09:44.0559092Z    Compiling dtoa v1.0.11
+2026-10-18T13:09:44.1419238Z    Compiling dyn-clone v1.0.20
+2026-10-18T13:09:44.2019158Z    Compiling svg v0.18.0
+2026-10-18T13:09:44.2249736Z    Compiling jiff-core v0.1.1
+2026-10-18T13:09:44.2701664Z    Compiling schemars v1.2.2
+2026-10-18T13:09:44.6839297Z    Compiling numfmt v1.2.0
+2026-10-18T13:09:45.2088915Z    Compiling jiff v0.2.38
+2026-10-18T13:09:46.0599831Z    Compiling jagua-rs v1.1.0
+2026-10-18T13:09:46.0808715Z    Compiling num_cpus v1.17.0
+2026-10-18T13:09:46.1169053Z    Compiling test-case v3.4.0
+2026-10-18T13:09:46.1458908Z    Compiling clap v4.6.7
+2026-10-18T13:09:46.1758415Z    Compiling kurbo v0.13.1
+2026-10-18T13:09:48.6889246Z    Compiling fern v0.7.1
+2026-10-18T13:09:48.7479429Z    Compiling clipper2-rust v1.2.0
+2026-10-18T13:09:49.5589142Z    Compiling tap v1.0.1
+2026-10-18T13:09:49.6219333Z    Compiling siphasher v1.0.4
+2026-10-18T13:09:49.7649613Z    Compiling svgtypes v0.16.1
+2026-10-18T13:09:51.1826370Z    Compiling nestbolt-validator v0.2.0-alpha.1 (/home/runner/work/Nestbolt/Nestbolt/crates/validator)
+2026-10-18T13:09:52.5890044Z    Compiling sparrow v0.3.0 (https://github.com/JeroenGar/sparrow.git?rev=4629b22795ae6b25b3b460ccde6fb36a71292b6d#4629b227)
+2026-10-18T13:09:53.3819537Z    Compiling roxmltree v0.21.1
+2026-10-18T13:09:55.2019551Z    Compiling encoding_rs v0.8.35
+2026-10-18T13:09:57.6719583Z    Compiling nestbolt-core v0.2.0-alpha.1 (/home/runner/work/Nestbolt/Nestbolt/crates/core)
+2026-10-18T13:10:23.3746317Z    Compiling nestbolt-wasm v0.2.0-alpha.1 (/home/runner/work/Nestbolt/Nestbolt/crates/wasm)
+2026-10-18T13:10:34.8703908Z     Finished `release` profile [optimized] target(s) in 1m 18s
+2026-10-18T13:10:34.8963618Z + wasm-bindgen --target web --out-dir /home/runner/work/Nestbolt/Nestbolt/web/src/pkg /home/runner/work/Nestbolt/Nestbolt/target/wasm32-unknown-unknown/release/nestbolt_wasm.wasm
+2026-10-18T13:10:35.3204696Z + npm run build
+2026-10-18T13:10:35.4134728Z 
+2026-10-18T13:10:35.4135261Z > nestbolt-web@0.2.0-alpha.1 build
+2026-10-18T13:10:35.4135957Z > tsc --noEmit && vite build
+2026-10-18T13:10:35.4136263Z 
+2026-10-18T13:10:37.0753118Z [36mvite v7.1.12 [32mbuilding for production...[36m[39m
+2026-10-18T13:10:37.1596958Z transforming...
+2026-10-18T13:10:37.5167224Z [32m✓[39m 21 modules transformed.
+2026-10-18T13:10:37.5449103Z rendering chunks...
+2026-10-18T13:10:37.5719722Z computing gzip size...
+2026-10-18T13:10:37.6594007Z [2mdist/[22m[32mbench.html                             [39m[1m[2m    0.70 kB[22m[1m[22m[2m │ gzip:     0.40 kB[22m
+2026-10-18T13:10:37.6595892Z [2mdist/[22m[32mindex.html                             [39m[1m[2m    2.14 kB[22m[1m[22m[2m │ gzip:     1.11 kB[22m
+2026-10-18T13:10:37.6597910Z [2mdist/[22m[2massets/[22m[32marchive-worker-Cg5HqVri.js      [39m[1m[2m    6.88 kB[22m[1m[22m
+2026-10-18T13:10:37.6599737Z [2mdist/[22m[2massets/[22m[32mworker-Bpfw-h0X.js              [39m[1m[2m    8.02 kB[22m[1m[22m
+2026-10-18T13:10:37.6601789Z [2mdist/[22m[2massets/[22m[32mnestbolt_wasm_bg-ZkdddWS9.wasm  [39m[1m[2m3,530.53 kB[22m[1m[22m[2m │ gzip: 1,186.89 kB[22m
+2026-10-18T13:10:37.6603255Z [2mdist/[22m[2massets/[22m[35mmain-mA8Hn3k0.css               [39m[1m[2m    6.65 kB[22m[1m[22m[2m │ gzip:     2.16 kB[22m
+2026-10-18T13:10:37.6604391Z [2mdist/[22m[2massets/[22m[36mbench-Ddde2GeO.js               [39m[1m[2m    0.08 kB[22m[1m[22m[2m │ gzip:     0.09 kB[22m
+2026-10-18T13:10:37.6605518Z [2mdist/[22m[2massets/[22m[36mengine-DxQ2lOb3.js              [39m[1m[2m    4.03 kB[22m[1m[22m[2m │ gzip:     1.74 kB[22m
+2026-10-18T13:10:37.6606686Z [2mdist/[22m[2massets/[22m[36mmain-CCbLbqvn.js                [39m[1m[2m   51.53 kB[22m[1m[22m[2m │ gzip:    18.88 kB[22m
+2026-10-18T13:10:37.6607368Z [32m✓ built in 556ms[39m
+2026-10-18T13:10:37.6829404Z + npx tsc -p tsconfig.tests.json
+2026-10-18T13:10:39.2462690Z + npx playwright test
+2026-10-18T13:10:40.8363298Z 
+2026-10-18T13:10:40.8364363Z Running 90 tests using 2 workers
+2026-10-18T13:10:40.8364887Z 
+2026-10-18T13:10:48.0333728Z   ✓   1 [chromium] › tests/app.spec.ts:22:1 › import, nest, export and keep the main thread responsive (6.4s)
+2026-10-18T13:10:50.9930497Z   ✓   2 [chromium] › tests/features.spec.ts:70:1 › lead allowances expose flags, reserve offcuts and export a separate review layer (9.4s)
+2026-10-18T13:10:54.6529839Z   ✓   4 [chromium] › tests/features.spec.ts:117:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus false) (3.6s)
+2026-10-18T13:10:58.4045626Z   ✓   5 [chromium] › tests/features.spec.ts:117:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus true) (3.7s)
+2026-10-18T13:11:01.0719375Z   ✓   6 [chromium] › tests/features.spec.ts:146:1 › quick initial layout is optional and survives project export and reopening (2.6s)
+2026-10-18T13:11:03.4738327Z   ✓   7 [chromium] › tests/features.spec.ts:168:1 › background archives keep individual cutting files and release their workers (2.4s)
+2026-10-18T13:11:05.5093715Z   ✓   8 [chromium] › tests/features.spec.ts:190:1 › a rejected archive reports the validation error and releases its worker (2.0s)
+2026-10-18T13:11:05.5416661Z   ✓   3 [chromium] › tests/app.spec.ts:54:1 › the example boxes import and nest in one click (17.5s)
+2026-10-18T13:11:11.6768840Z   ✓  10 [chromium] › tests/app.spec.ts:62:1 › a loading state, then a live view in the sheet's proportions, in a window that does not scroll (6.1s)
+2026-10-18T13:11:12.1045885Z   ✓   9 [chromium] › tests/features.spec.ts:206:1 › DXF and SVG import; exports keep arcs and curves (6.6s)
+2026-10-18T13:11:12.8200321Z   ✓  11 [chromium] › tests/app.spec.ts:77:1 › projects save to the browser and to a ZIP (1.1s)
+2026-10-18T13:11:18.2830052Z   ✓  12 [chromium] › tests/features.spec.ts:230:1 › fewest sheets with margins; the last sheet keeps one offcut (6.2s)
+2026-10-18T13:11:19.4706333Z   ✓  13 [chromium] › tests/app.spec.ts:95:1 › defects, several sheet sizes and fill mode reach the solver (6.6s)
+2026-10-18T13:11:20.4638336Z   ✓  15 [chromium] › tests/import-gaps.spec.ts:3:1 › explicit gap repair reports locations and can be reapplied without stale parts (959ms)
+2026-10-18T13:11:21.2109810Z   ✓  16 [chromium] › tests/import-gaps.spec.ts:27:1 › failed batches keep unrelated files and failed replacements remove stale parts (730ms)
+2026-10-18T13:11:22.0019315Z   ✓  17 [chromium] › tests/import-layers.spec.ts:4:1 › a custom stock layer is offered separately from the cut selection (769ms)
+2026-10-18T13:11:22.5094242Z   ✓  18 [chromium] › tests/import-layers.spec.ts:18:1 › closed retraced holes survive cleanup with a visible warning (490ms)
+2026-10-18T13:11:23.1997975Z   ✓  19 [chromium] › tests/import-layers.spec.ts:26:1 › legacy DXF text keeps layer names and offers an explicit inches choice (674ms)
+2026-10-18T13:11:23.7716886Z   ✓  20 [chromium] › tests/import-layers.spec.ts:39:1 › cleanup shows duplicate, zero-length and overlap counts (562ms)
+2026-10-18T13:11:24.7032491Z   ✓  21 [chromium] › tests/import-layers.spec.ts:47:1 › layer and colour choices retain counts and replace the selected parts (919ms)
+2026-10-18T13:11:25.3436377Z   ✓  22 [chromium] › tests/import-layers.spec.ts:68:1 › open-only drawings still expose the inventory and gap repair (630ms)
+2026-10-18T13:11:26.0727552Z   ✓  23 [chromium] › tests/import-viewport.spec.ts:7:1 › SVG page geometry agrees with browser coordinates and width warnings are visible (710ms)
+2026-10-18T13:11:28.7241632Z   ✓  14 [chromium] › tests/features.spec.ts:243:1 › a capped sheet count fails in place-all mode and fills by area or priority (10.4s)
+2026-10-18T13:11:28.7287210Z   ✓  24 [chromium] › tests/lightburn.spec.ts:8:1 › standalone LightBurn strokes nest and download as unchanged open paths (2.6s)
+2026-10-18T13:11:29.5299436Z   ✓  26 [chromium] › tests/lightburn.spec.ts:53:1 › LightBurn repair instructions reject incomplete replacements and allow a supported re-import (786ms)
+2026-10-18T13:11:32.1397467Z   ✓  27 [chromium] › tests/lightburn.spec.ts:74:1 › LightBurn leads download separate cutting files and preserve the editable group (2.6s)
+2026-10-18T13:11:32.9010581Z   ✓  25 [chromium] › tests/features.spec.ts:262:1 › small parts are placed inside the holes of larger parts (4.2s)
+2026-10-18T13:11:34.0940664Z   ✓  28 [chromium] › tests/lightburn.spec.ts:138:1 › legacy LightBurn paths become editable modern sheet files (1.9s)
+2026-10-18T13:11:37.0785199Z   ✓  30 [chromium] › tests/lightburn.spec.ts:187:1 › LightBurn rigid units nest and download as editable per-sheet projects (3.0s)
+2026-10-18T13:11:38.3420119Z   ✓  31 [chromium] › tests/lightburn.spec.ts:273:1 › LightBurn import diagnostics describe fallback geometry and survive a project download (1.2s)
+2026-10-18T13:11:38.4856684Z   -  32 [chromium] › tests/pages.spec.ts:7:1 › the deployed app nests the example from GitHub Pages
+2026-10-18T13:11:38.8056548Z   ✓  29 [chromium] › tests/features.spec.ts:272:1 › a remnant outline from a drawing is used as the sheet (5.9s)
+2026-10-18T13:11:40.6970473Z   ✓  34 [chromium] › tests/features.spec.ts:284:1 › a prearranged drawing keeps CUT parts separate from its SHEET boundary (1.9s)
+2026-10-18T13:11:41.1031877Z   ✓  33 [chromium] › tests/preview.spec.ts:30:1 › cached extents match all original vertices for free rotations, mirrors and changed snapshots (2.6s)
+2026-10-18T13:11:41.1910579Z   ✓  36 [chromium] › tests/preview.spec.ts:46:1 › cached paths retain every component and hole vertex without added rounding (77ms)
+2026-10-18T13:11:41.5500393Z   ✓  37 [chromium] › tests/preview.spec.ts:64:1 › actual sheet previews keep references unique and render rotated mirrored multipart copies (343ms)
+2026-10-18T13:11:41.7237338Z   -  38 [chromium] › tests/scale.spec.ts:10:1 › a 2,000-part job imports, nests and exports
+2026-10-18T13:11:41.7396385Z   ✓  39 [chromium] › tests/scoring.spec.ts:11:1 › portfolio uses the native area and priority objectives with material as the tie breaker (2ms)
+2026-10-18T13:11:41.7623126Z   ✓  40 [chromium] › tests/worker-policy.spec.ts:14:1 › complexity includes every component and hole, without counting unused parts or fallback polygons (6ms)
+2026-10-18T13:11:41.7771725Z   ✓  41 [chromium] › tests/worker-policy.spec.ts:25:1 › simpler jobs retain their requested count and the existing high-quantity cap (2ms)
+2026-10-18T13:11:45.9629052Z   ✓  42 [chromium] › tests/worker-policy.spec.ts:34:1 › the actual app explains and launches one search worker for the curve-heavy job (4.2s)
+2026-10-18T13:11:45.9811662Z   ✓  43 [chromium] › tests/zip.spec.ts:4:1 › incremental Blob ZIP preserves stored-format bytes, Unicode and byte views (6ms)
+2026-10-18T13:11:45.9879568Z   ✓  44 [chromium] › tests/zip.spec.ts:23:1 › empty Blob ZIP remains readable by the project ZIP reader (1ms)
+2026-10-18T13:11:46.9260707Z   ✓  35 [chromium] › tests/features.spec.ts:304:1 › rotation lists, steps, free rotation, mirroring and spacing reach the solver (6.2s)
+2026-10-18T13:11:55.3269457Z   ✓  45 [firefox] › tests/app.spec.ts:22:1 › import, nest, export and keep the main thread responsive (8.2s)
+2026-10-18T13:11:56.7224613Z   ✓  46 [chromium] › tests/features.spec.ts:331:1 › hundreds of copies of a part (9.8s)
+2026-10-18T13:12:09.8775377Z   ✓  48 [firefox] › tests/features.spec.ts:70:1 › lead allowances expose flags, reserve offcuts and export a separate review layer (11.4s)
+2026-10-18T13:12:13.3036552Z   ✓  49 [firefox] › tests/features.spec.ts:117:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus false) (3.4s)
+2026-10-18T13:12:15.5522349Z   ✓  47 [firefox] › tests/app.spec.ts:54:1 › the example boxes import and nest in one click (20.2s)
+2026-10-18T13:12:16.1007504Z   ✓  50 [firefox] › tests/features.spec.ts:117:1 › common-line kerf overrides spacing and exports its own compensated layer (bonus true) (2.8s)
+2026-10-18T13:12:19.9902158Z   ✓  52 [firefox] › tests/features.spec.ts:146:1 › quick initial layout is optional and survives project export and reopening (3.9s)
+2026-10-18T13:12:21.6240287Z   ✓  51 [firefox] › tests/app.spec.ts:62:1 › a loading state, then a live view in the sheet's proportions, in a window that does not scroll (6.1s)
+2026-10-18T13:12:23.3194377Z   ✓  54 [firefox] › tests/app.spec.ts:77:1 › projects save to the browser and to a ZIP (1.7s)
+2026-10-18T13:12:24.1379852Z   ✓  53 [firefox] › tests/features.spec.ts:168:1 › background archives keep individual cutting files and release their workers (4.1s)
+2026-10-18T13:12:27.2278934Z   ✓  56 [firefox] › tests/features.spec.ts:190:1 › a rejected archive reports the validation error and releases its worker (3.1s)
+2026-10-18T13:12:30.1952609Z   ✓  55 [firefox] › tests/app.spec.ts:95:1 › defects, several sheet sizes and fill mode reach the solver (6.9s)
+2026-10-18T13:12:31.3628099Z   ✓  58 [firefox] › tests/import-gaps.spec.ts:3:1 › explicit gap repair reports locations and can be reapplied without stale parts (1.1s)
+2026-10-18T13:12:32.2996038Z   ✓  59 [firefox] › tests/import-gaps.spec.ts:27:1 › failed batches keep unrelated files and failed replacements remove stale parts (923ms)
+2026-10-18T13:12:33.2934179Z   ✓  60 [firefox] › tests/import-layers.spec.ts:4:1 › a custom stock layer is offered separately from the cut selection (967ms)
+2026-10-18T13:12:33.8728552Z   ✓  61 [firefox] › tests/import-layers.spec.ts:18:1 › closed retraced holes survive cleanup with a visible warning (565ms)
+2026-10-18T13:12:34.3479910Z   ✓  57 [firefox] › tests/features.spec.ts:206:1 › DXF and SVG import; exports keep arcs and curves (7.1s)
+2026-10-18T13:12:36.0242076Z   ✓  62 [firefox] › tests/import-layers.spec.ts:26:1 › legacy DXF text keeps layer names and offers an explicit inches choice (2.1s)
+2026-10-18T13:12:36.9069681Z   ✓  64 [firefox] › tests/import-layers.spec.ts:39:1 › cleanup shows duplicate, zero-length and overlap counts (863ms)
+2026-10-18T13:12:38.1322225Z   ✓  65 [firefox] › tests/import-layers.spec.ts:47:1 › layer and colour choices retain counts and replace the selected parts (1.2s)
+2026-10-18T13:12:39.0163068Z   ✓  66 [firefox] › tests/import-layers.spec.ts:68:1 › open-only drawings still expose the inventory and gap repair (871ms)
+2026-10-18T13:12:39.8352698Z   ✓  67 [firefox] › tests/import-viewport.spec.ts:7:1 › SVG page geometry agrees with browser coordinates and width warnings are visible (789ms)
+2026-10-18T13:12:40.7528137Z   ✓  63 [firefox] › tests/features.spec.ts:230:1 › fewest sheets with margins; the last sheet keeps one offcut (6.4s)
+2026-10-18T13:12:42.5516987Z   ✓  68 [firefox] › tests/lightburn.spec.ts:8:1 › standalone LightBurn strokes nest and download as unchanged open paths (2.7s)
+2026-10-18T13:12:43.6303734Z   ✓  70 [firefox] › tests/lightburn.spec.ts:53:1 › LightBurn repair instructions reject incomplete replacements and allow a supported re-import (1.1s)
+2026-10-18T13:12:46.9932406Z   ✓  71 [firefox] › tests/lightburn.spec.ts:74:1 › LightBurn leads download separate cutting files and preserve the editable group (3.4s)
+2026-10-18T13:12:49.7509974Z   ✓  72 [firefox] › tests/lightburn.spec.ts:138:1 › legacy LightBurn paths become editable modern sheet files (2.7s)
+2026-10-18T13:12:52.3930257Z   ✓  69 [firefox] › tests/features.spec.ts:243:1 › a capped sheet count fails in place-all mode and fills by area or priority (11.6s)
+2026-10-18T13:12:53.1623297Z   ✓  73 [firefox] › tests/lightburn.spec.ts:187:1 › LightBurn rigid units nest and download as editable per-sheet projects (3.4s)
+2026-10-18T13:12:55.2414937Z   ✓  75 [firefox] › tests/lightburn.spec.ts:273:1 › LightBurn import diagnostics describe fallback geometry and survive a project download (2.1s)
+2026-10-18T13:12:55.5942476Z   -  76 [firefox] › tests/pages.spec.ts:7:1 › the deployed app nests the example from GitHub Pages
+2026-10-18T13:12:57.4920144Z   ✓  77 [firefox] › tests/preview.spec.ts:30:1 › cached extents match all original vertices for free rotations, mirrors and changed snapshots (1.9s)
+2026-10-18T13:12:57.5640603Z   ✓  78 [firefox] › tests/preview.spec.ts:46:1 › cached paths retain every component and hole vertex without added rounding (65ms)
+2026-10-18T13:12:57.9879202Z   ✓  74 [firefox] › tests/features.spec.ts:262:1 › small parts are placed inside the holes of larger parts (5.6s)
+2026-10-18T13:12:58.1532397Z   ✓  79 [firefox] › tests/preview.spec.ts:64:1 › actual sheet previews keep references unique and render rotated mirrored multipart copies (580ms)
+2026-10-18T13:12:58.5396941Z   -  81 [firefox] › tests/scale.spec.ts:10:1 › a 2,000-part job imports, nests and exports
+2026-10-18T13:12:58.5631898Z   ✓  82 [firefox] › tests/scoring.spec.ts:11:1 › portfolio uses the native area and priority objectives with material as the tie breaker (4ms)
+2026-10-18T13:12:58.5881899Z   ✓  83 [firefox] › tests/worker-policy.spec.ts:14:1 › complexity includes every component and hole, without counting unused parts or fallback polygons (9ms)
+2026-10-18T13:12:58.6008807Z   ✓  84 [firefox] › tests/worker-policy.spec.ts:25:1 › simpler jobs retain their requested count and the existing high-quantity cap (3ms)
+2026-10-18T13:13:00.1970346Z   ✓  85 [firefox] › tests/worker-policy.spec.ts:34:1 › the actual app explains and launches one search worker for the curve-heavy job (1.6s)
+2026-10-18T13:13:00.2241145Z   ✓  86 [firefox] › tests/zip.spec.ts:4:1 › incremental Blob ZIP preserves stored-format bytes, Unicode and byte views (11ms)
+2026-10-18T13:13:00.2347106Z   ✓  87 [firefox] › tests/zip.spec.ts:23:1 › empty Blob ZIP remains readable by the project ZIP reader (1ms)
+2026-10-18T13:13:04.9654342Z   ✓  80 [firefox] › tests/features.spec.ts:272:1 › a remnant outline from a drawing is used as the sheet (7.0s)
+2026-10-18T13:13:07.1072338Z   ✓  88 [firefox] › tests/features.spec.ts:284:1 › a prearranged drawing keeps CUT parts separate from its SHEET boundary (2.1s)
+2026-10-18T13:13:13.8142691Z   ✓  89 [firefox] › tests/features.spec.ts:304:1 › rotation lists, steps, free rotation, mirroring and spacing reach the solver (6.7s)
+2026-10-18T13:13:23.3661053Z   ✓  90 [firefox] › tests/features.spec.ts:331:1 › hundreds of copies of a part (9.5s)
+2026-10-18T13:13:23.7260133Z 
+2026-10-18T13:13:23.7267962Z   4 skipped
+2026-10-18T13:13:23.7268472Z   86 passed (2.7m)
+2026-10-18T13:13:23.7630491Z Post job cleanup.
+2026-10-18T13:13:23.8884330Z (node:10924) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-18T13:13:23.8885331Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-18T13:13:23.9077910Z Post job cleanup.
+2026-10-18T13:13:24.0566498Z Post job cleanup.
+2026-10-18T13:13:24.1559177Z [command]/usr/bin/git version
+2026-10-18T13:13:24.1615578Z git version 2.55.0
+2026-10-18T13:13:24.1668446Z Temporarily overriding HOME='/home/runner/work/_temp/e90d9f0a-827b-41b4-b91c-815c999c9b0c' before making global git config changes
+2026-10-18T13:13:24.1671770Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-18T13:13:24.1676027Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-10-18T13:13:24.1723203Z Removing SSH command configuration
+2026-10-18T13:13:24.1733454Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-18T13:13:24.1782202Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-18T13:13:24.2108077Z Removing HTTP extra header
+2026-10-18T13:13:24.2132854Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-18T13:13:24.2178012Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-18T13:13:24.2470189Z Removing includeIf entries pointing to credentials config files
+2026-10-18T13:13:24.2480793Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-18T13:13:24.2535787Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-18T13:13:24.3054291Z Cleaning up orphan processes
+2026-10-18T13:13:24.3402857Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
