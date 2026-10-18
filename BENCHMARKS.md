@@ -13825,3 +13825,19 @@ the compact index links to all full traces. Four first-attempt figures were
 inspected; an initial snapshot-key coloring mistake is retained and corrected
 without changing geometry or numeric analysis. Production and original failed
 pilots remain unchanged. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Prepare fixed-assignment feasibility repacking
+
+[The isolated reconstruction and repack entry](benchmarks/results/h5-assignment-repack-preparation-20261018.md)
+passes 90 optimized tests, strict lint, build and exact restoration of all four
+selected saved assignments. Every container and collision polygon matches the
+original f32 coordinates, with the same parts and orientations. Four malformed
+restorations and five invalid independent-audit cases are rejected; the authored
+positive audit also passes the public CLI. Production remains unchanged.
+
+The planned four serial CPU8 searches use the first saved attempt of each
+mechanical job/kerf, seed zero, at most six ten-second rounds, with every outcome
+retained. A separately verified packing would prove source-assignment feasibility;
+failure does not prove impossibility. No quality claim, original-budget change,
+reserved-input access or H5 credit. H2/H5 remain open at 60%.

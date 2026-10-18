@@ -1,0 +1,94 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-18T00:15:46.774246+00:00",
+      "finished": "2026-10-18T00:15:47.725056+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-assignment-repack-target-20261018"
+      ],
+      "started": "2026-10-18T00:15:47.834592+00:00",
+      "finished": "2026-10-18T00:18:25.186079+00:00",
+      "exit_code": 0,
+      "log_sha256": "7ab5c32c5fe2bc8296cd862327e2292460bec1ab300ace8eda7bfb62e7a14dd1"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "return_assignment_repack",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-assignment-repack-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T00:18:25.284300+00:00",
+      "finished": "2026-10-18T00:19:18.623197+00:00",
+      "exit_code": 0,
+      "log_sha256": "deacff88aeb986e9680887abc462501069b34cd71bc74d3518142069e6542a78"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "return_assignment_repack",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-assignment-repack-target-20261018"
+      ],
+      "started": "2026-10-18T00:19:18.720803+00:00",
+      "finished": "2026-10-18T00:19:50.404981+00:00",
+      "exit_code": 0,
+      "log_sha256": "5bff2a28dc1f215a470a90b5869a0751b33c670988ef92a3114563198ca55576"
+    }
+  ],
+  "source_sha256": {
+    "crates/core/src/sheets.rs": "b2bbba41e0e40076ffe116d6fc54bfdae71459e96ef965ac4235aa63d6d7e342",
+    "crates/core/src/sheets/vstrip.rs": "6a80462198ff9c4dfdbc887495170e910f53183e6641efb629b3bc9fc15b12d2",
+    "crates/core/src/sheets/vstrip/repack_diagnostic.rs": "98b34afca693fd77325755a555df839bec0bd4ce9f1b28fa6c02f5423695addf",
+    "crates/core/examples/return_assignment_repack.rs": "625b730f428b7fb6eab6dd56df76cf4e6192ab29dfff90acfb74087b84345d8a"
+  },
+  "binary_sha256": "d70460a70363b13a2be0d17f71c68ba153faf1e0e41fc552909470e6c2b316bf",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}
