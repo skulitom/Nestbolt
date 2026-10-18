@@ -803,3 +803,14 @@ improvement. Earlier traces repeat eight distinct assignments over 25 attempts
 within the existing shared budget, preserving geometry/orientation identities,
 tracker-key consistency, rollback and independent acceptance. No production change
 or relaxed gate; H2/H5 remain open at 60%.
+
+
+**N4 source-repair reuse outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-return-reuse-pilot-20261018.md).
+The independent filled-outer audit checks 133,470 same-sheet
+pairs across all 48 common-mode layouts, retaining hole reservation and kerf.
+There are 6 failed material pairs out of eight under the original +1%
+limit. m-mechanical-large-plates at 0.2 mm: +5.607522%; m-mechanical-large-plates at 1.5 mm: +5.124968%; m-mechanical-panel-hardware at 0.2 mm: +6.668421%; m-mechanical-panel-hardware at 1.5 mm: +5.745273%; c-bracket-mixed at 0.2 mm: +2.419752%; c-bracket-mixed at 1.5 mm: +1.016169%
+The candidate records 11 accepted exchanges from 73 attempts and
+37 compatible source-repair reuses. Reuse counts do not establish repair
+completion or explain remaining failures. Reject this candidate for integration; do not open the full 13-job gate for it. Production, prior failures
+and frozen inputs remain unchanged. H2/H5 remain open at 60%.

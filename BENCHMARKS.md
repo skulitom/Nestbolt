@@ -13880,3 +13880,22 @@ acceptance block are unchanged. The original baseline binary is byte-identical.
 The separately committed 72-outcome pilot retains its exact paired/scoring
 method and original +1% limit. No production integration, held-out access or H5
 credit. All artifacts verify; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Compatible source-repair reuse paired outcome
+
+[All 72 outcomes validate](benchmarks/results/h5-return-reuse-pilot-20261018.md)
+with original quantities, independently cross-checked metrics and public
+exports in 8.931 minutes. All original archives pass CRC and
+member/hash checks. The independent filled-outer audit verifies
+133,470 same-sheet pairs across 48 common-mode layouts.
+Minimum clearance slack is 9.99999247131e-07 mm against
+the unchanged 0.00000010 mm checking tolerance.
+
+6 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +5.607522%; m-mechanical-large-plates at 1.5 mm: +5.124968%; m-mechanical-panel-hardware at 0.2 mm: +6.668421%; m-mechanical-panel-hardware at 1.5 mm: +5.745273%; c-bracket-mixed at 0.2 mm: +2.419752%; c-bracket-mixed at 1.5 mm: +1.016169%
+There are 11/73 accepted/attempted exchanges and 37 source
+repair reuses. A reuse count alone does not establish a completed repair or
+explain failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. All prior failed results, production and
+frozen inputs remain unchanged; no reserved-input access or H5 credit.
+H2/H5 remain open at 60%.
