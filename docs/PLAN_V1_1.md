@@ -1083,3 +1083,22 @@ layouts saved for neutral rejections. The comparison records observations only;
 all decisions, full validators, material guards and time limits remain.
 No production integration, reserved access or quality claim; H2/H5 remain open
 and completed weight stays 60%.
+
+
+**N4 exact-state diagnosis, 2026-10-18:** [both final and all 12 saved layouts validate](../benchmarks/results/h5-exact-state-20261018.md).
+1 of 6 neutral trials exactly preserve the complete internal physical state.
+Independent filled-outer checks cover 111,838 same-sheet pairs.
+Public pose multisets match in 1/6 pairs; exact internal comparison also
+requires shared model/container identity and full float bits. All original
+validators and decisions remain. This diagnostic establishes no quality gain;
+the five failed pilot comparisons remain authoritative. H2/H5 stay open at 60%.
+
+An exact-state early rejection now has an observed target, but its impact on
+search quality is unproven. A separate candidate may reject only a complete
+exact-state match before repeated validation, preserving shared container and
+original-item identity, full transform bits, reflection and multiplicity.
+Every changed state and every accepted exchange must retain the original
+full geometry/material checks. Qualify the predicate and early branch with
+authored regressions, preserve expired/disabled behavior and rollback, and
+repeat the existing paired development protocol only for that changed build.
+Do not infer a quality gain or promote it from these diagnostic timings.
