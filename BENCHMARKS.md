@@ -13983,3 +13983,18 @@ The candidate accepts 19/41 exchanges, including 13/25
 two-part exchanges. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
 prove impossibility. Original failures, production and frozen inputs remain
 unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Qualify balanced-pair identity and stage observations
+
+[The diagnostic copy](benchmarks/results/h5-balanced-stage-preparation-20261018.md)
+passes 97 optimized core tests, strict lint, build, four real authored traces,
+eight malformed-record checks and four multiset checks. Observations identify
+retained/attempted exchanges of the same versus different original part types,
+repair losses, immediate material and last-sheet extent. Identical inventories
+are not assumed to imply identical poses or ineffective rearrangement.
+
+Four committed serial, seed-zero 60-second mechanical observations follow.
+All algorithms, deadlines and acceptance limits remain; trace overhead can
+perturb wall timing. This is not a replay or quality rerun of the failed pilot.
+Production and its failed comparisons remain unchanged. H2/H5 remain open at 60%.
