@@ -1,0 +1,92 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-18T06:00:01.217501+00:00",
+      "finished": "2026-10-18T06:00:01.900164+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-frontier-observer-target-20261018"
+      ],
+      "started": "2026-10-18T06:00:01.982425+00:00",
+      "finished": "2026-10-18T06:02:41.853163+00:00",
+      "exit_code": 0,
+      "log_sha256": "8f2afa4facfc220177248852d6168a35c752599588efa705fa18d5c87fade3e4"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-frontier-observer-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T06:02:41.944356+00:00",
+      "finished": "2026-10-18T06:03:35.450337+00:00",
+      "exit_code": 0,
+      "log_sha256": "3046f39c4abaf9aa3e6d6f89c80301d336a98995a98a9c2782aef8d37fc15240"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-frontier-observer-target-20261018"
+      ],
+      "started": "2026-10-18T06:03:35.544102+00:00",
+      "finished": "2026-10-18T06:04:23.825127+00:00",
+      "exit_code": 0,
+      "log_sha256": "ef06cd537b7e570afe15828f634dee3c835e8101c58eb349204dda62f507415e"
+    }
+  ],
+  "source_sha256": "72d1bb6c309dd8de7d34464e543785b7dec60fcc196c972f61deb06f6bf78dd8",
+  "observed_sources": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "72d1bb6c309dd8de7d34464e543785b7dec60fcc196c972f61deb06f6bf78dd8"
+  },
+  "binary_sha256": "433c84f7518591b1f21f4d9bbd6b37cf3d1e9e1712fd2d2a22046080e0a2a4d4",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

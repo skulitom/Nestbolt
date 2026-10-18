@@ -1151,3 +1151,16 @@ The candidate accepts 13/147 exchanges, including 11/108 paired and 1/18 mixed-i
 unchanged. H2/H5 remain open at 60%.
 
 The [read-only frontier inspection](../benchmarks/results/h5-material-profile-pilot-20261018/source-review.json) finds unchanged top-defining insert poses in all six older neutral panel pairs. It uses no new search or held-out geometry and makes no claim about every current failure.
+
+
+**N4 height-setting part observation, 2026-10-18:** [the isolated diagnostic qualifies](../benchmarks/results/h5-frontier-observer-preparation-20261018.md).
+All 123 existing optimized tests pass. The observer records original part
+families for available, visited and attempted exchange choices alongside the
+validated public baseline. It changes no decision, work charge or budget.
+Sixteen authored cases, sixteen malformed-record rejections and
+35 frozen-CLI baseline checks pass. Twelve parent branch witnesses
+and their counters match exactly; every formatted source file reconstructs.
+Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
+physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
+quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
+at 60%. The plan is committed before measurement.

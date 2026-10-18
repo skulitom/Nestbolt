@@ -14427,3 +14427,18 @@ frozen inputs and earlier failures remain unchanged. H2/H5 remain open at 60%.
 A read-only inspection of six older validated neutral panel pairs finds unchanged physical poses for the two inserts setting the credited sheet height. Five pairs move other parts. The saved evidence motivates checking actual selection order if this pilot fails; it neither implements a selector nor proves a gain or packing bound.
 
 All six hosted checks on main `d7204d6` have now passed, including Windows, Linux and browser checks. This confirmation precedes the next periodic push; it does not turn the experimental material-profile pilot into a passing H5 result. [Hosted evidence](benchmarks/results/h5-material-profile-pilot-20261018/main-ci-d7204d6.json).
+
+
+## 2026-10-18 — Qualify height-setting part observation
+
+**N4 height-setting part observation, 2026-10-18:** [the isolated diagnostic qualifies](benchmarks/results/h5-frontier-observer-preparation-20261018.md).
+All 123 existing optimized tests pass. The observer records original part
+families for available, visited and attempted exchange choices alongside the
+validated public baseline. It changes no decision, work charge or budget.
+Sixteen authored cases, sixteen malformed-record rejections and
+35 frozen-CLI baseline checks pass. Twelve parent branch witnesses
+and their counters match exactly; every formatted source file reconstructs.
+Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
+physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
+quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
+at 60%. The plan is committed before measurement.
