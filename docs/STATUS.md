@@ -128,6 +128,19 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 joint saved-placement selection, 2026-10-18:** [a finite binary construction](../benchmarks/results/h5-saved-placement-selection-20261018.md)
+selects among 2,614 original-outline poses, including all 25 prior frame
+configurations. The known 63-part partial certifies model feasibility; all frame
+locations are selectable. The 120-second solve ends at its limit with a different
+63-part arrangement, still missing three cogs. An independent reconstruction
+enumerates 2,700,951 candidate pairs and verifies the exact 332,265-edge conflict
+graph; all 1,303 selected-part pairs pass, and the original CLI rejects only the
+missing quantity. The solver's finite-pool bound is recorded without a global
+infeasibility claim. Preserve the timeout and generate new contact positions
+before any further selection attempt; no unchanged-pool or native search repeat.
+Production, targets, limits, release assets and accurate READMEs stay unchanged;
+H2/H5 remain open at 60%.
+
 **N4 terminal repair diagnosis, 2026-10-18:** [one fixed observational replay](../benchmarks/results/h5-terminal-repair-diagnosis-20261018.md)
 reproduces the previous failure's exact work, statistics and expiry. The retained
 best state reduces physical overlap 78.8441%, but has ten pair overlaps and one cog

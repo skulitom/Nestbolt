@@ -1,0 +1,92 @@
+{
+  "verified_utc": "2026-10-18T15:38:23.509731+00:00",
+  "model": {
+    "candidates": 2614,
+    "source_beam_candidates": 21873,
+    "frame_configurations": 25,
+    "candidate_counts": {
+      "frame": 500,
+      "bracket": 465,
+      "insert": 137,
+      "cog": 1512
+    },
+    "omitted": {
+      "outside_target": 1,
+      "equivalent_key": 23419
+    },
+    "near_pairs_evaluated": 332265,
+    "conflict_edges": 332265,
+    "constraints": 332270,
+    "matrix_nonzeros": 669758,
+    "known_partial_candidates": 63,
+    "known_partial_area_mm2": 4331552.6272557955,
+    "required_total_area_mm2": 4481740.784069745,
+    "warm_model_certificate_passes": true,
+    "preparation_seconds": 10.784487199998694
+  },
+  "result": {
+    "status": 1,
+    "success": false,
+    "message": "Time limit reached. (HiGHS Status 13: Time limit reached)",
+    "seconds": 121.32974200000172,
+    "has_incumbent": true,
+    "objective": -0.9664888791990495,
+    "mip_gap": 0.003578556108839938,
+    "mip_node_count": 0,
+    "mip_dual_bound": -0.9699475138818331,
+    "selected_from": "MILP incumbent",
+    "placed": {
+      "frame": 18,
+      "bracket": 12,
+      "insert": 21,
+      "cog": 12
+    },
+    "missing": {
+      "cog": 3
+    },
+    "filled_area_mm2": 4331552.627255795,
+    "complete_original_inventory": false,
+    "geometry_acceptance_pending": true
+  },
+  "audit": {
+    "complete": true,
+    "source_and_candidate_provenance_exact": true,
+    "candidates_checked": 2614,
+    "candidate_origins": {
+      "zero-loss-partial": 63,
+      "rejected-terminal": 65,
+      "frame-catalog": 90,
+      "beam-candidate": 2396
+    },
+    "all_same_sheet_candidate_pairs_enumerated": 2700951,
+    "candidate_pairs_geometrically_checked": 393757,
+    "conflict_edges_verified": 332265,
+    "selected_pairs_checked": 1303,
+    "selected_geometry_valid": true,
+    "public_original_job_valid": false,
+    "public_violation_codes": {
+      "quantity": 1
+    },
+    "missing": {
+      "cog": 3
+    },
+    "complete_target_witness": false,
+    "solver_status": 1,
+    "solver_seconds": 121.32974200000172,
+    "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+    "new_native_searches": 0,
+    "H5_complete": false
+  },
+  "selected_candidate_origins": {
+    "zero-loss-partial": 24,
+    "rejected-terminal": 3,
+    "frame-catalog": 1,
+    "beam-candidate": 35
+  },
+  "known_partial_candidates_retained": 24,
+  "archive_members": 32,
+  "archive_sha256": "65edb571004f27f2016c2c55a815061b94f65bf677c7ec251fc78f709cf27385",
+  "runtime_changed": false,
+  "H5_complete": false,
+  "completion_percent": 60
+}
