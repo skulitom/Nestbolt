@@ -119,6 +119,8 @@ under the same absolute deadline, after authored correctness checks. This is
 not yet implemented and does not solve the panel repair failures. Original
 limits, failed evidence, production and reserved inputs remain; H2/H5 stay open at 60%.
 
+All six hosted checks on preceding main `bfde198` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that checkpoint. The subsequent isolated continuation experiment still fails all four mechanical material comparisons and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-exchange-chain-pilot-20261018/main-ci-bfde198.json).
+
 **N4 exchange-continuation outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-exchange-chain-pilot-20261018.md).
 The independent filled-outer audit checks 133,153 same-sheet
 pairs across 48 common-mode layouts. 4 of eight material pairs fail
