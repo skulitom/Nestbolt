@@ -1,0 +1,89 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T05:38:42.541718+00:00",
+      "finished": "2026-10-18T05:38:43.071495+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-material-profile-target-20261018",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T05:38:43.175563+00:00",
+      "finished": "2026-10-18T05:40:49.507922+00:00",
+      "log_sha256": "8fff0b2420a3fb718447613abe6811301bebac3154a7250469d35b930709b61d"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-material-profile-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T05:40:49.633393+00:00",
+      "finished": "2026-10-18T05:41:42.496546+00:00",
+      "log_sha256": "c837a074af8558fd03ff73f28bb4f8bfeafc9b7b175033fa8e637c5ac462cb6f"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-material-profile-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T05:41:42.619160+00:00",
+      "finished": "2026-10-18T05:42:26.628536+00:00",
+      "log_sha256": "357483db3c004d34ac0499a043fe806ba613669c4971eef1d25445684cd1d92e"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "3db2121b32787bf27571edf7c3563ff8508dc756d0c7351ec23efd99220b765c",
+    "crates/core/src/sheets.rs": "ce6ea07b5827ae905c7c97ede9bf7122ea40c0b0b64e52d9e6899919607d1340"
+  },
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "2d7ee3db688e6a1eb45494e402e3304f9dc996eb8a745c4604c08d1aadc108f0"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}

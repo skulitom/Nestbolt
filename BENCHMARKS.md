@@ -14393,3 +14393,19 @@ prove impossibility. Original failures, production and frozen inputs remain
 unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
 
 The saved-height follow-up uses only six previously validated panel pairs and reconstructs all twelve material totals exactly. All sheet maxima remain unchanged despite five pairs changing poses. This supports investigating a proven-material rejection, with full acceptance validation retained; it does not implement one or establish a quality gain.
+
+
+## 2026-10-18 — Qualify exact material-profile early rejection
+
+**N4 material-profile candidate preparation, 2026-10-18:** [all 123 optimized tests pass](benchmarks/results/h5-material-profile-preparation-20261018.md),
+with all 117 prior tests unchanged. The candidate rejects same-inventory
+trials whose exact original-geometry profiles prove unchanged charged
+material. It uses the existing validator footprints and preserves every
+accepted geometry/material check. Budgets and coefficients are unchanged;
+profile work uses the existing vertex charge. Five proofs, 23 witness pairs
+and 47 frozen-CLI checks cover geometry contexts, real gains and an invalid
+overlap; 12 branch outcomes pass another 24 CLI checks. The original failing
+branch regression is preserved. Strict lint/build, public parity/replay,
+five harness tests and exact formatted-source reconstruction pass. The
+unchanged 72-outcome method is committed before measurement. No quality,
+integration or release claim; H2/H5 remain open at 60%.
