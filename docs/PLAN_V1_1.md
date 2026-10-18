@@ -947,3 +947,15 @@ This is a scoped geometric witness, with zero optimizer runs. It neither
 proves global impossibility nor mechanical quality. The next candidate still
 requires an original-runtime regression, allowed-pose/rollback tests and the
 unchanged H5 quality gates. Production stays unchanged; H2/H5 remain open at 60%.
+
+
+**N4 mixed-exchange preparation, 2026-10-18:** [the isolated candidate](../benchmarks/results/h5-mixed-exchange-preparation-20261018.md)
+passes 107 optimized core tests, retaining all 101 previous tests, strict
+lint/build, ten public outcomes, four CLI comparisons and five pilot checks.
+Six new tests and twelve actual before/after validations cover mixed parts,
+per-member poses, frozen sheets, bounded choices and rollback. The original
+runtime failure and first candidate's missed seed-two group placement remain
+preserved; mixed-group corner anchors correct that failure without weakening
+tests. Up to six mixed pairs interleave existing same-item pairs within the
+original phase/budget. All geometry/material rules and paired methods remain.
+No measured quality claim or integration; H2/H5 stay open at 60%.

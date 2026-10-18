@@ -1,0 +1,27 @@
+--- first-mixed-attempt
++++ group-corner-anchors
+@@ -341,6 +341,24 @@
+     }
+     if let Some(sampler) = UniformBBoxSampler::new(bounds, anchor, bounds) {
+         samples.extend((0..128).map(|_| sampler.sample(rng)));
++    }
++    if !std::sync::Arc::ptr_eq(&incoming[0].1, &incoming[1].1) {
++        for p in receiver.placed_items().values() {
++            let dt = convert_sample_to_closest_feasible(p.d_transf(), anchor);
++            let Some(poses) = incoming_group_poses(incoming, dt) else { continue; };
++            let mut min_x = f32::INFINITY;
++            let mut min_y = f32::INFINITY;
++            for ((_, item, _), pose) in incoming.iter().zip(poses) {
++                let mut shape = item.shape_cd().as_ref().clone();
++                shape.transform_from(item.shape_cd(), &pose.compose());
++                min_x = min_x.min(shape.bbox().x_min);
++                min_y = min_y.min(shape.bbox().y_min);
++                crate::separate::charge(clock, item, 1);
++            }
++            let b = p.shape().bbox();
++            let (x, y) = dt.translation();
++            samples.push(DTransformation::new(dt.rotation(), (x + b.x_min - min_x, y + b.y_min - min_y)).with_reflection(dt.reflected));
++        }
+     }
+     let incoming_area: f32 = incoming.iter().map(|(_, item, _)| item.area()).sum();
+     let mut collector = BasicHazardCollector::new();

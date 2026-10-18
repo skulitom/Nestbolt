@@ -14148,3 +14148,21 @@ impossibility claim or evidence of mechanical quality. A mixed-pair candidate
 still needs a failing original-runtime regression, complete correctness
 checks and the unchanged quality gates. No production change or H5 credit;
 H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Qualify bounded mixed-original-item exchanges
+
+[The isolated candidate](benchmarks/results/h5-mixed-exchange-preparation-20261018.md)
+passes 107 optimized core tests, preserving all 101 previous tests. The
+unchanged runtime fails a mixed-dimension exchange regression. The initial
+candidate misses that exchange at seed two; group-minimum corner anchors
+correct the placement coverage without weakening tests or limits. All original
+failures, sources, test binary and ten independent initial validations remain.
+
+Six new tests cover mixed assignments, per-member poses, bounded choices,
+frozen sheets and rollback. Twelve further public validations cover six actual
+outcomes. Strict lint/build, ten public observer outcomes, four CLI comparisons
+and five adversarial pilot checks pass. Normal output and deterministic common
+replay remain exact. Bounded mixed pairs share the existing phase/budget and
+keep all acceptance rules. No measured gain, production integration or H5
+credit is claimed; H2/H5 remain open at 60%.
