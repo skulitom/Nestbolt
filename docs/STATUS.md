@@ -22,6 +22,15 @@ pass. Stable Latest and its assets remain v0.1.0. This does not close the remain
 v1.1 gates or authorize a new final acceptance run. No new registry version was published.
 
 
+**Browser curve-test follow-up, 2026-10-18:** [the d414824 trace and local correction](../benchmarks/results/browser-curve-initial-layout-20261018.md)
+preserve a Chromium import/export failure: no complete eight-part layout within
+five seconds. This fidelity test now explicitly uses quick initial layout,
+retaining the five-second allowance and all original assertions, with added checks
+for all eight parts and the saved option. The full local suite passes 86 tests
+with four skips, two workers and zero retries; hosted confirmation is pending.
+Application source, benchmark limits and release assets are unchanged. H2/H5
+remain open at 60%.
+
 **Latest browser follow-up, 2026-10-17:** [the new hosted trace](../benchmarks/results/browser-lead-budget-20261017.md)
 identifies a Chromium lead-test failure: the requested one-second search expires
 without a complete layout. Using the normal five-second functional-test allowance

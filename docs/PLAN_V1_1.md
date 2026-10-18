@@ -1558,3 +1558,12 @@ reserved holes, including 856 public filled-outer pairs. The extra target scan
 is charged; empty sources keep the original crop. All deadlines, the shared cap,
 material limits and production remain unchanged. A new matched pilot is still
 required; no H5 or release credit. H2/H5 remain open at 60%.
+
+**Browser curve-test follow-up, 2026-10-18:** [the d414824 trace and local correction](../benchmarks/results/browser-curve-initial-layout-20261018.md)
+preserve a Chromium import/export failure: no complete eight-part layout within
+five seconds. This fidelity test now explicitly uses quick initial layout,
+retaining the five-second allowance and all original assertions, with added checks
+for all eight parts and the saved option. The full local suite passes 86 tests
+with four skips, two workers and zero retries; hosted confirmation is pending.
+Application source, benchmark limits and release assets are unchanged. H2/H5
+remain open at 60%.

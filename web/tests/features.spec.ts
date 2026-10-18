@@ -214,7 +214,13 @@ test('DXF and SVG import; exports keep arcs and curves', async ({ page }) => {
   await page.getByLabel('Time').fill('5');
   await page.getByText('Advanced').click();
   await page.getByLabel('Workers').fill('1');
+  // Test import/export fidelity from a complete initial layout. A five-second
+  // stochastic search can expire before placing all curves on shared runners.
+  await page.getByLabel('Quick initial layout', { exact: true }).check();
   await nest(page);
+  const saved = await project(page);
+  expect(saved.request.quick_start).toBe(true);
+  expect(saved.result.layout.placements).toHaveLength(8);
   const [svg] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'SVG', exact: true }).first().click()]);
   expect(readFileSync(await svg.path(), 'utf8')).toMatch(/ [AC] /);
   const [dxf] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'DXF', exact: true }).first().click()]);

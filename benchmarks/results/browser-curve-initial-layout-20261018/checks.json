@@ -1,0 +1,56 @@
+{
+  "all_passed": true,
+  "browser_passed": 86,
+  "browser_skipped": 4,
+  "stages": [
+    {
+      "label": "web-build",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/build_web.py"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T13:01:28.716369+00:00",
+      "finished": "2026-10-18T13:01:36.351090+00:00",
+      "log_sha256": "94e8db611f5d539bc2213b3d9701fc5b58ac22266d6dff555d5b3a6b709a3387"
+    },
+    {
+      "label": "test-types",
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.tests.json"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T13:01:36.361132+00:00",
+      "finished": "2026-10-18T13:01:37.443719+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "browser-suite",
+      "command": [
+        "node",
+        "node_modules/@playwright/test/cli.js",
+        "test",
+        "--workers",
+        "2",
+        "--retries",
+        "0",
+        "--output",
+        "C:\\DEV\\Nestbolt\\output\\ci-d414824-web-diagnosis-20261018\\local-checks\\test-results",
+        "--trace",
+        "retain-on-failure"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T13:01:37.444720+00:00",
+      "finished": "2026-10-18T13:04:01.879677+00:00",
+      "log_sha256": "5ba8e763326eb29b98548660deb19ce6ae38b8010ca5fef2520607341cdf0aeb"
+    }
+  ],
+  "unchanged_product_source": true,
+  "all_original_assertions_preserved": true,
+  "search_allowance_seconds": 5,
+  "hosted_followup_pending": true,
+  "performance_measurement": false
+}
