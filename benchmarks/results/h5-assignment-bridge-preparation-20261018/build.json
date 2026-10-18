@@ -1,0 +1,91 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T10:34:11.779435+00:00",
+      "finished": "2026-10-18T10:34:12.402956+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-assignment-bridge-target-20261018",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T10:34:12.511643+00:00",
+      "finished": "2026-10-18T10:38:12.717926+00:00",
+      "log_sha256": "b2114c6bf40f5308526cd0cc1572179cae13007b661c151a2a47fc2fb1254148"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-assignment-bridge-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T10:38:12.841636+00:00",
+      "finished": "2026-10-18T10:38:59.483060+00:00",
+      "log_sha256": "3dc53c4def463861d26ff5ae5f8caa08a631bebbc362f3aa10cd340c1213dc7c"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-assignment-bridge-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T10:38:59.621577+00:00",
+      "finished": "2026-10-18T10:39:49.491834+00:00",
+      "log_sha256": "02f41cc2244a7026f9d2db1d6071a7f717a5bffae5586233ecb98ea3cdccb43a"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "fc31ed96be33a9949d7505abb4d923f1e3bda0264f0605e90c586e8cf8873b04",
+    "crates/core/src/sheets/vstrip.rs": "19ec2f7191d93c6decfd82f84b9ca02ec2bf816d836e3ac366fb180b121aad79",
+    "crates/core/src/sheets.rs": "3a2f75010d2fd2eae84448501f734bcd2ec1bae8974177cbc56c36b29636aa33"
+  },
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "3f7c1624fbf6e7d1a2641cb968372acb93ee883fb7b8dfed2fc2d1ff6ea37608"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}

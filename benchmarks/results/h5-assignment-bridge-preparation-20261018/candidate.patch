@@ -1,0 +1,816 @@
+--- extended-repair/crates/core/src/sheets/vstrip/exchange.rs
++++ assignment-bridge/crates/core/src/sheets/vstrip/exchange.rs
+@@ -731,6 +731,7 @@
+ }
+ 
+ // Both phases share the original four-acceptance window cap.
++#[cfg(test)]
+ fn continue_remaining_exchanges(
+     accepted: usize,
+     mut step: impl FnMut() -> Result<Option<bool>>,
+@@ -752,6 +753,45 @@
+     if extended { phase } else { short }
+ }
+ 
++#[derive(Clone, Copy, PartialEq, Eq)]
++enum ExchangePolicy {
++    Short,
++    Extended,
++    AssignmentBridge,
++}
++
++// Stable original-part order gives equal inventories exactly equal areas,
++// regardless of placement keys, copy order, internal orientation or reflection.
++// Hole interiors remain reserved. This is an internal progress measure only.
++fn assignment_source_area(strip: &Strip, layout: &JLayout, shape: Shape) -> f64 {
++    let mut counts = vec![0_usize; strip.model.job.parts.len()];
++    for p in layout
++        .placed_items()
++        .values()
++        .filter(|p| !strip.is_blocker(p) && strip.sheet_of(p.shape()) == shape.sheets - 1)
++    {
++        counts[strip.model.part[p.item().idx()]] += 1;
++    }
++    strip
++        .clock
++        .charge(Work::RegisteredItem, layout.placed_items().len() as f64);
++    let mut area = 0.0;
++    for (part, count) in strip.model.job.parts.iter().zip(counts) {
++        if count == 0 {
++            continue;
++        }
++        let one = part
++            .geometry
++            .iter()
++            .map(|g| crate::curves::signed_area(&g.outer).abs())
++            .sum::<f64>();
++        let vertices = part.geometry.iter().map(|g| g.outer.len()).sum::<usize>();
++        strip.clock.charge(Work::TrackedVertex, vertices as f64);
++        area += one * count as f64;
++    }
++    area
++}
++
+ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
+     fn exchange_layout(
+         &self,
+@@ -773,6 +813,109 @@
+         Ok(report)
+     }
+ 
++    pub(super) fn assignment_bridge_window(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        short_until: f64,
++        until: f64,
++    ) -> Result<usize> {
++        let accepted = self.directed_exchange_chain(strip, frozen, sep, shape, short_until)?;
++        let extra = self.assignment_bridge_chain(strip, frozen, sep, shape, until, accepted)?;
++        Ok(accepted + extra)
++    }
++
++    fn assignment_bridge_chain(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        accepted: usize,
++    ) -> Result<usize> {
++        if accepted >= 4
++            || !self.allow_exchange
++            || shape.sheets < 2
++            || self.clock.now() >= self.last_step(until)
++        {
++            return Ok(0);
++        }
++        let mut checkpoint = (
++            sep.layout.save(),
++            sep.tracker.clone(),
++            [
++                self.stats.directed_exchanges,
++                self.stats.paired_exchanges,
++                self.stats.mixed_exchanges,
++                self.stats.extended_exchanges,
++            ],
++        );
++        self.clock
++            .charge(Work::RegisteredItem, sep.layout.placed_items().len() as f64);
++        let mut pending = 0_usize;
++        let mut committed = 0_usize;
++        let outcome = (|| -> Result<()> {
++            for _ in accepted..4 {
++                let Some(improved) = self.directed_exchange_policy(
++                    strip,
++                    frozen,
++                    sep,
++                    shape,
++                    until,
++                    ExchangePolicy::AssignmentBridge,
++                )?
++                else {
++                    break;
++                };
++                pending += 1;
++                self.stats.assignment_bridge_steps += 1;
++                self.stats.assignment_bridge_flat_steps += u64::from(!improved);
++                if improved {
++                    committed += pending;
++                    self.stats.assignment_bridge_committed += pending as u64;
++                    pending = 0;
++                    checkpoint = (
++                        sep.layout.save(),
++                        sep.tracker.clone(),
++                        [
++                            self.stats.directed_exchanges,
++                            self.stats.paired_exchanges,
++                            self.stats.mixed_exchanges,
++                            self.stats.extended_exchanges,
++                        ],
++                    );
++                    self.clock
++                        .charge(Work::RegisteredItem, sep.layout.placed_items().len() as f64);
++                }
++            }
++            Ok(())
++        })();
++        // The snapshot and tracker are kept together: stale placement keys
++        // are never transferred to a separately rebuilt/re-keyed layout.
++        // Keep attempts and provisional diagnostics, restore only committed
++        // acceptance counts along with the last strictly improved incumbent.
++        if pending > 0 {
++            self.stats.assignment_bridge_rolled_back += pending as u64;
++            self.stats.assignment_bridge_rollbacks += 1;
++            sep.layout = JLayout::from_snapshot(&checkpoint.0);
++            sep.tracker = checkpoint.1;
++            self.clock
++                .charge(Work::RegisteredItem, sep.layout.placed_items().len() as f64);
++            [
++                self.stats.directed_exchanges,
++                self.stats.paired_exchanges,
++                self.stats.mixed_exchanges,
++                self.stats.extended_exchanges,
++            ] = checkpoint.2;
++        }
++        outcome?;
++        Ok(committed)
++    }
++
++    #[cfg(test)]
+     pub(super) fn directed_exchange_window(
+         &mut self,
+         strip: &Strip,
+@@ -787,6 +930,7 @@
+         Ok(accepted + extra)
+     }
+ 
++    #[cfg(test)]
+     fn extend_exchange_chain(
+         &mut self,
+         strip: &Strip,
+@@ -840,8 +984,6 @@
+         self.directed_exchange_mode(strip, frozen, sep, shape, until, false)
+     }
+ 
+-    /// At most one exchange. The original separator is untouched until both
+-    /// repairs and the independent whole-job material/geometry guard pass.
+     fn directed_exchange_mode(
+         &mut self,
+         strip: &Strip,
+@@ -851,6 +993,33 @@
+         until: f64,
+         extended: bool,
+     ) -> Result<Option<bool>> {
++        self.directed_exchange_policy(
++            strip,
++            frozen,
++            sep,
++            shape,
++            until,
++            if extended {
++                ExchangePolicy::Extended
++            } else {
++                ExchangePolicy::Short
++            },
++        )
++    }
++
++    /// At most one exchange. The original separator is untouched until both
++    /// repairs and the independent whole-job material/geometry guard pass.
++    fn directed_exchange_policy(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        policy: ExchangePolicy,
++    ) -> Result<Option<bool>> {
++        let extended = policy != ExchangePolicy::Short;
++        let bridge = policy == ExchangePolicy::AssignmentBridge;
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
+             return Ok(None);
+         }
+@@ -861,6 +1030,7 @@
+         }
+         let before = baseline.metrics.as_ref().expect("valid baseline");
+         let baseline_profile = std::cell::OnceCell::new();
++        let baseline_source_area = std::cell::OnceCell::new();
+         let single = strip.container(Shape {
+             sheets: 1,
+             last: self.model.full_width,
+@@ -1117,10 +1287,26 @@
+                     {
+                         continue;
+                     }
+-                    // The additional phase must improve on the retained
+-                    // short-phase incumbent; a flat rearrangement is insufficient.
++                    // Strict mode rejects flat material. Bridge mode may
++                    // retain a validated flat step provisionally only when the
++                    // canonical filled area on the last sheet strictly falls.
+                     if extended && after.material_area >= before.material_area {
+-                        self.stats.extended_flat_rejections += 1;
++                        let area_improved = if bridge {
++                            let initial = *baseline_source_area
++                                .get_or_init(|| assignment_source_area(strip, &sep.layout, shape));
++                            assignment_source_area(strip, &trial, shape) < initial
++                        } else {
++                            false
++                        };
++                        if !area_improved {
++                            self.stats.extended_flat_rejections += 1;
++                            self.stats.assignment_bridge_area_rejections += u64::from(bridge);
++                            continue;
++                        }
++                    }
++                    // Canonical area scans are charged work; they cannot let
++                    // a proposal cross the original acceptance deadline.
++                    if bridge && self.clock.now() >= exchange_until {
+                         continue;
+                     }
+                     // Same inventory can still improve the geometry, but a
+@@ -4194,4 +4380,528 @@
+             serde_json::json!({"job":job,"before":layout,"after":after,"source_started":started,"former_source_until":former_source,"full_until":full_until,"source_until":source_until,"finished":clock.now(),"simulated_prior_evaluations":300000,"work":clock.counts()})
+         );
+     }
++    fn assignment_bridge_manual_exercise(
++        job: &Job,
++        layout: &Layout,
++        seed: u64,
++        enabled: bool,
++        budget: f64,
++        frozen_count: usize,
++    ) -> (usize, Layout, Stats, Vec<(bool, f64, f64)>) {
++        let validation = validate(job, layout).unwrap();
++        assert!(validation.valid, "{:?}", validation.violations);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(seed),
++            clock: clock.clone(),
++            best: (layout.clone(), validation, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let (frozen, window) = sheets.split_at(frozen_count);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(window, shape).unwrap(),
++            seed,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        // Compare the same f32 internal frame before/after the exchange. The
++        // public-to-internal conversion predates this operation and has its own
++        // tests; comparing to the authored f64 coordinates conflates the two.
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_layout = model.to_layout(&before_sheets);
++        let before_report = validate(job, &before_layout).unwrap();
++        assert!(before_report.valid);
++        let before_material = before_report.metrics.as_ref().unwrap().material_area;
++        let original = fingerprint(&sep.layout);
++        let until = if budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + budget
++        };
++        let source_id = format!("sheet-{}", sheets.len() - 1);
++        let mut steps = vec![];
++        let mut moved = 0;
++        let mut step_before = before_layout.clone();
++        for step in 0..3 {
++            let improved = search
++                .directed_exchange_once(&strip, frozen, &mut sep, shape, until)
++                .unwrap()
++                .expect("Existing per-step rule must admit all three authored exchanges");
++            let step_after = search
++                .exchange_layout(&strip, frozen, &sep.layout, shape)
++                .unwrap();
++            let report = validate(job, &step_after).unwrap();
++            assert!(report.valid);
++            let material = report.metrics.unwrap().material_area;
++            let area = assignment_bridge_public_area(job, &step_after, &source_id);
++            steps.push((improved, material, area));
++            moved += 1;
++            eprintln!(
++                "BRIDGE_STEP_WITNESS {}",
++                serde_json::json!({"job":job,"seed":seed,
++                "step":step,"before":step_before,"after":step_after,"source_sheet":source_id,
++                "material_improved":improved,"material":material,"source_filled_area":area,
++                "until":until,"finished":search.clock.now(),"stats":search.stats})
++            );
++            step_before = step_after;
++        }
++        if moved == 0 {
++            assert_eq!(
++                fingerprint(&sep.layout),
++                original,
++                "failed proposal mutated the original state"
++            );
++        }
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let after = model.to_layout(&after_sheets);
++        for i in 0..frozen_count {
++            let id = format!("sheet-{i}");
++            let before_fixed: Vec<_> = before_layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            let after_fixed: Vec<_> = after
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            assert_eq!(
++                serde_json::to_value(before_fixed).unwrap(),
++                serde_json::to_value(after_fixed).unwrap()
++            );
++        }
++        let report = validate(job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert!(report.metrics.as_ref().unwrap().material_area <= before_material);
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "BRIDGE_MANUAL_WITNESS {}",
++            serde_json::json!({"job":job,"before":before_layout,"after":after,"seed":seed,"enabled":enabled,"budget":budget,"moved":moved,"work":search.clock.counts(),"until":until,"finished":search.clock.now()})
++        );
++        (moved, after, search.stats, steps)
++    }
++
++    // BEGIN assignment-bridge witness tests
++    fn assignment_bridge_public_area(job: &Job, layout: &Layout, sheet: &str) -> f64 {
++        layout
++            .placements
++            .iter()
++            .filter(|p| p.sheet_id == sheet)
++            .map(|p| {
++                let part = job.parts.iter().find(|part| part.id == p.part_id).unwrap();
++                part.geometry
++                    .iter()
++                    .map(|g| crate::curves::signed_area(&g.outer).abs())
++                    .sum::<f64>()
++            })
++            .sum()
++    }
++
++    fn assignment_bridge_fixture() -> (Job, Layout) {
++        let (mut job, mut layout) = fixture();
++        job.name = "Three equal height owners require two material-flat assignments".into();
++        for part in &mut job.parts {
++            part.quantity = 3;
++        }
++        layout.sheets = (0..4)
++            .map(|i| Sheet {
++                id: format!("sheet-{i}"),
++                stock_id: "stock".into(),
++            })
++            .collect();
++        layout.placements.clear();
++        for i in 0..3 {
++            for (id, translation) in [("filler", [2.0, 2.0]), ("return", [64.0, 2.0])] {
++                layout.placements.push(Placement {
++                    part_id: id.into(),
++                    copy_index: i,
++                    sheet_id: format!("sheet-{i}"),
++                    transform: RigidTransform {
++                        translation,
++                        ..Default::default()
++                    },
++                });
++            }
++            layout.placements.push(Placement {
++                part_id: "incoming".into(),
++                copy_index: i,
++                sheet_id: "sheet-3".into(),
++                transform: RigidTransform {
++                    translation: [2.0 + 32.0 * i as f64, 2.0],
++                    ..Default::default()
++                },
++            });
++        }
++        assert!(validate(&job, &layout).unwrap().valid);
++        (job, layout)
++    }
++
++    #[test]
++    fn assignment_bridge_existing_steps_cross_two_flat_states_before_a_gain() {
++        let (job, layout) = assignment_bridge_fixture();
++        let original_area = assignment_bridge_public_area(&job, &layout, "sheet-3");
++        let (moved, after, stats, steps) =
++            assignment_bridge_manual_exercise(&job, &layout, 0, true, 12.0, 0);
++        assert_eq!(moved, 3);
++        assert_eq!(stats.directed_exchanges, 3);
++        assert_eq!(
++            steps.iter().map(|s| s.0).collect::<Vec<_>>(),
++            vec![false, false, true]
++        );
++        assert_eq!(steps[0].1, steps[1].1);
++        assert!(steps[2].1 < steps[1].1);
++        assert!(original_area > steps[0].2 && steps[0].2 > steps[1].2 && steps[1].2 > steps[2].2);
++        let (_, old, old_stats) = extended_exercise(&job, &layout, 0, true, (3.0, 12.0, 0), 0);
++        assert!(
++            validate(&job, &old).unwrap().metrics.unwrap().material_area
++                > validate(&job, &after)
++                    .unwrap()
++                    .metrics
++                    .unwrap()
++                    .material_area,
++            "The retained short-plus-strict-tail policy must expose the authored bridge gap: {old_stats:?}"
++        );
++    }
++    // END assignment-bridge witness tests
++    fn assignment_bridge_exercise(
++        job: &Job,
++        layout: &Layout,
++        seed: u64,
++        enabled: bool,
++        phase: (f64, f64, u8),
++        frozen_count: usize,
++    ) -> (usize, Layout, Stats) {
++        let (short_budget, budget, mode) = phase;
++        let validation = validate(job, layout).unwrap();
++        assert!(validation.valid, "{:?}", validation.violations);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(seed),
++            clock: clock.clone(),
++            best: (layout.clone(), validation, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let (frozen, window) = sheets.split_at(frozen_count);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(window, shape).unwrap(),
++            seed,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        // Compare the same f32 internal frame before/after the exchange. The
++        // public-to-internal conversion predates this operation and has its own
++        // tests; comparing to the authored f64 coordinates conflates the two.
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_layout = model.to_layout(&before_sheets);
++        let before_report = validate(job, &before_layout).unwrap();
++        assert!(before_report.valid);
++        let before_material = before_report.metrics.as_ref().unwrap().material_area;
++        let original = fingerprint(&sep.layout);
++        let until = if budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + budget
++        };
++        let short_until = if short_budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + short_budget
++        };
++        let mut fast_layout = None;
++        let moved = match mode {
++            0 => search
++                .assignment_bridge_window(&strip, frozen, &mut sep, shape, short_until, until)
++                .unwrap(),
++            1 => search
++                .assignment_bridge_chain(&strip, frozen, &mut sep, shape, until, 0)
++                .unwrap(),
++            3 => search
++                .assignment_bridge_chain(&strip, frozen, &mut sep, shape, until, 3)
++                .unwrap(),
++            2 => {
++                let accepted = search
++                    .directed_exchange_chain(&strip, frozen, &mut sep, shape, short_until)
++                    .unwrap();
++                assert!(accepted > 0);
++                let fingerprint_before = fingerprint(&sep.layout);
++                fast_layout = Some(
++                    search
++                        .exchange_layout(&strip, frozen, &sep.layout, shape)
++                        .unwrap(),
++                );
++                let expired = search.clock.now();
++                let extra = search
++                    .assignment_bridge_chain(&strip, frozen, &mut sep, shape, expired, accepted)
++                    .unwrap();
++                assert_eq!(extra, 0);
++                assert_eq!(fingerprint(&sep.layout), fingerprint_before);
++                accepted
++            }
++            _ => unreachable!(),
++        };
++        if moved == 0 {
++            assert_eq!(
++                fingerprint(&sep.layout),
++                original,
++                "failed proposal mutated the original state"
++            );
++        }
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let after = model.to_layout(&after_sheets);
++        for i in 0..frozen_count {
++            let id = format!("sheet-{i}");
++            let before_fixed: Vec<_> = before_layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            let after_fixed: Vec<_> = after
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            assert_eq!(
++                serde_json::to_value(before_fixed).unwrap(),
++                serde_json::to_value(after_fixed).unwrap()
++            );
++        }
++        let report = validate(job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert!(report.metrics.as_ref().unwrap().material_area <= before_material);
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "BRIDGE_RESULT_WITNESS {}",
++            serde_json::json!({"job":job,"before":before_layout,"after":after,"seed":seed,"enabled":enabled,"budget":budget,"short_budget":short_budget,"mode":mode,"fast_layout":fast_layout,"stats":search.stats,"moved":moved,"work":search.clock.counts(),"until":until,"finished":search.clock.now()})
++        );
++        (moved, after, search.stats)
++    }
++
++    // BEGIN assignment-bridge new policy tests
++    #[test]
++    fn assignment_bridge_new_canonical_area_reserves_holes_and_ignores_keys() {
++        let (mut job, layout) = assignment_bridge_fixture();
++        job.parts[2].geometry[0].holes =
++            vec![vec![[5.0, 5.0], [5.0, 80.0], [25.0, 80.0], [25.0, 5.0]]];
++        let model = Model::new(&job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(&layout).unwrap();
++        let shape = Shape {
++            sheets: 4,
++            last: model.full_width,
++        };
++        let native = strip.layout(&sheets, shape).unwrap();
++        let mut reverse = JLayout::new(native.container().clone());
++        let items: Vec<_> = native.placed_items().values().collect();
++        for item in items.into_iter().rev() {
++            reverse.place_item(item.item(), item.d_transf());
++        }
++        assert_eq!(
++            assignment_source_area(&strip, &native, shape),
++            7650.0,
++            "Filled source area must include hole interiors"
++        );
++        assert_eq!(
++            assignment_source_area(&strip, &native, shape),
++            assignment_source_area(&strip, &reverse, shape)
++        );
++    }
++
++    #[test]
++    fn assignment_bridge_new_window_crosses_flat_steps_and_replays() {
++        let (job, layout) = assignment_bridge_fixture();
++        let (moved, after, stats) =
++            assignment_bridge_exercise(&job, &layout, 0, true, (3.0, 12.0, 0), 0);
++        assert_eq!(moved, 3, "Whole window must cross the remaining flat state");
++        assert_eq!(stats.directed_exchanges, 3);
++        assert!(stats.assignment_bridge_flat_steps > 0);
++        assert_eq!(stats.assignment_bridge_committed, 2);
++        assert_eq!(stats.assignment_bridge_rolled_back, 0);
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < 33000.0
++        );
++        let (again, replay, replay_stats) =
++            assignment_bridge_exercise(&job, &layout, 0, true, (3.0, 12.0, 0), 0);
++        assert_eq!(again, moved);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(replay).unwrap()
++        );
++        assert_eq!(
++            serde_json::to_value(stats).unwrap(),
++            serde_json::to_value(replay_stats).unwrap()
++        );
++    }
++
++    #[test]
++    fn assignment_bridge_new_tail_commits_only_after_final_material_gain() {
++        let (job, layout) = assignment_bridge_fixture();
++        let (moved, after, stats) =
++            assignment_bridge_exercise(&job, &layout, 0, true, (0.0, 12.0, 1), 0);
++        assert_eq!(moved, 3, "Tail must bridge two flat states");
++        assert_eq!(stats.assignment_bridge_flat_steps, 2);
++        assert_eq!(stats.assignment_bridge_steps, 3);
++        assert_eq!(stats.assignment_bridge_committed, 3);
++        assert_eq!(stats.assignment_bridge_rolled_back, 0);
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < 33000.0
++        );
++    }
++
++    #[test]
++    fn assignment_bridge_new_no_final_gain_restores_active_and_frozen_layouts() {
++        let (job, layout) = assignment_bridge_fixture();
++        let (moved, _, stats) =
++            assignment_bridge_exercise(&job, &layout, 0, true, (0.0, 12.0, 1), 1);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.directed_exchanges, 0);
++        assert!(
++            stats.assignment_bridge_flat_steps > 0,
++            "Actual flat steps must be tried before rollback"
++        );
++        assert_eq!(
++            stats.assignment_bridge_steps,
++            stats.assignment_bridge_rolled_back
++        );
++        assert_eq!(stats.assignment_bridge_committed, 0);
++        assert_eq!(stats.assignment_bridge_rollbacks, 1);
++    }
++
++    #[test]
++    fn assignment_bridge_new_disabled_expired_and_fast_expiry_keep_incumbents() {
++        let (job, layout) = assignment_bridge_fixture();
++        let (_, baseline, _) =
++            assignment_bridge_exercise(&job, &layout, 0, false, (0.0, 12.0, 1), 0);
++        for (enabled, budget) in [(false, 12.0), (true, 0.0), (true, 1e-12)] {
++            let (moved, after, stats) =
++                assignment_bridge_exercise(&job, &layout, 0, enabled, (0.0, budget, 1), 0);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.assignment_bridge_steps, 0);
++            assert_eq!(
++                serde_json::to_value(after).unwrap(),
++                serde_json::to_value(&baseline).unwrap()
++            );
++        }
++        let (moved, _, stats) =
++            assignment_bridge_exercise(&job, &layout, 0, true, (3.0, 12.0, 2), 0);
++        assert_eq!(moved, 1);
++        assert_eq!(stats.assignment_bridge_steps, 0);
++    }
++
++    #[test]
++    fn assignment_bridge_new_last_available_slot_cannot_publish_a_flat_step() {
++        let (job, layout) = assignment_bridge_fixture();
++        let (moved, _, stats) =
++            assignment_bridge_exercise(&job, &layout, 0, true, (0.0, 12.0, 3), 0);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.directed_exchanges, 0);
++        assert_eq!(
++            stats.assignment_bridge_steps, 1,
++            "One remaining slot must admit one provisional flat step"
++        );
++        assert_eq!(stats.assignment_bridge_flat_steps, 1);
++        assert_eq!(stats.assignment_bridge_rolled_back, 1);
++        assert_eq!(stats.assignment_bridge_committed, 0);
++    }
++
++    #[test]
++    fn assignment_bridge_new_keeps_the_prior_fast_opportunities() {
++        for ((job, layout), seed) in [(larger_return_fixture(), 3), (mixed_fixture(), 0)] {
++            let (fast, baseline, _) = chain_exercise(&job, &layout, seed, true, 3.0, 0);
++            assert!(fast > 0);
++            let (moved, after, stats) =
++                assignment_bridge_exercise(&job, &layout, seed, true, (3.0, 5.0, 0), 0);
++            assert!((fast..=4).contains(&moved));
++            assert_eq!(stats.directed_exchanges, moved as u64);
++            assert_eq!(stats.assignment_bridge_committed, (moved - fast) as u64);
++            assert_eq!(
++                stats.assignment_bridge_steps,
++                stats.assignment_bridge_committed + stats.assignment_bridge_rolled_back
++            );
++            if moved > fast {
++                assert!(
++                    validate(&job, &after)
++                        .unwrap()
++                        .metrics
++                        .unwrap()
++                        .material_area
++                        < validate(&job, &baseline)
++                            .unwrap()
++                            .metrics
++                            .unwrap()
++                            .material_area
++                );
++            } else {
++                assert_eq!(
++                    serde_json::to_value(after).unwrap(),
++                    serde_json::to_value(baseline).unwrap()
++                );
++            }
++        }
++    }
++    // END assignment-bridge new policy tests
+ }
+--- extended-repair/crates/core/src/sheets/vstrip.rs
++++ assignment-bridge/crates/core/src/sheets/vstrip.rs
+@@ -729,7 +729,7 @@
+                         let exchanged = if self.allow_exchange {
+                             let exchange_until = (t + 1.2).min(budget);
+                             timed("exchange", || {
+-                                self.directed_exchange_window(
++                                self.assignment_bridge_window(
+                                     &strip,
+                                     frozen,
+                                     &mut sep,
+--- extended-repair/crates/core/src/sheets.rs
++++ assignment-bridge/crates/core/src/sheets.rs
+@@ -121,6 +121,18 @@
+     pub extended_exchanges: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub extended_flat_rejections: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub assignment_bridge_steps: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub assignment_bridge_flat_steps: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub assignment_bridge_committed: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub assignment_bridge_rolled_back: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub assignment_bridge_area_rejections: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub assignment_bridge_rollbacks: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {

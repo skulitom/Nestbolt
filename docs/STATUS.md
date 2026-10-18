@@ -109,6 +109,19 @@ All six hosted checks on preceding main `8ae8b69` pass, including Windows, Linux
 
 All six hosted checks on preceding main `02905f3` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint, including the reconciled plugin mock update. The newer `2f5d43f` checkpoint is pushed and its separate hosted run is still pending at this observation. The isolated extended-repair candidate fails five material comparisons and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-extended-repair-pilot-20261018/main-ci-02905f3.json).
 
+**N4 provisional assignment qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-assignment-bridge-preparation-20261018.md)
+keeps the original short search, then may cross validated material-flat steps
+when last-sheet filled area strictly decreases. Only a final material gain commits
+the sequence; incomplete steps roll back with their accepted counters. An actual
+old-policy fixture demonstrates two flat steps followed by a valid material gain.
+All 156 native tests pass: 148 old bodies, that witness and seven new policy tests.
+Five expected old-behavior failures remain. Eight initial and 24 new-output CLI
+checks, independent filled geometry, exact old witnesses, public replay, source
+reconstruction, lint, build and five harness tests pass. The original four-step
+cap, total deadline, validation reserve and geometry guards remain. No quality
+comparison has begun, and no production change or H5 credit is claimed.
+H2/H5 stay open at 60%.
+
 **N4 extended-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-extended-repair-pilot-20261018.md).
 The independent filled-outer audit checks 133,152 same-sheet
 pairs across 48 common-mode layouts. 5 of eight material pairs fail

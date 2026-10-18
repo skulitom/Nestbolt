@@ -1444,3 +1444,17 @@ pairs across 48 common-mode layouts. 5 of eight material pairs fail
 the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.499695%; m-mechanical-large-plates at 1.5 mm: +6.491064%; m-mechanical-panel-hardware at 0.2 mm: +5.679440%; m-mechanical-panel-hardware at 1.5 mm: +5.568800%; c-bracket-mixed at 1.5 mm: +1.594065%
 The candidate accepts 44/472 exchanges, including 32/239 paired and 1/47 mixed-item exchanges. Follow-up gap filling runs 16 times and moves 27 parts. Of 24 neutral rejections, 0 are caught by exact internal-state equality and 23 by the material profile before full validation. Counts do not establish time saving or improved final quality. The extended phase accepts 20/322 attempts and rejects 191 material-flat trials. Six extended acceptances are mechanical; all flat rejections are bracket cases. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
 unchanged. H2/H5 remain open at 60%.
+
+
+**N4 provisional assignment qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-assignment-bridge-preparation-20261018.md)
+keeps the original short search, then may cross validated material-flat steps
+when last-sheet filled area strictly decreases. Only a final material gain commits
+the sequence; incomplete steps roll back with their accepted counters. An actual
+old-policy fixture demonstrates two flat steps followed by a valid material gain.
+All 156 native tests pass: 148 old bodies, that witness and seven new policy tests.
+Five expected old-behavior failures remain. Eight initial and 24 new-output CLI
+checks, independent filled geometry, exact old witnesses, public replay, source
+reconstruction, lint, build and five harness tests pass. The original four-step
+cap, total deadline, validation reserve and geometry guards remain. No quality
+comparison has begun, and no production change or H5 credit is claimed.
+H2/H5 stay open at 60%.
