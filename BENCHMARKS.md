@@ -15011,3 +15011,9 @@ post-hoc finite-angle geometry diagnostics, not quality/speed evidence or a proo
 of infeasibility. Preserve them and investigate validated multi-part constructions
 before proposing another runtime change. Production, budgets, four-step cap,
 material limits and the published preview remain unchanged; completion stays 60%.
+
+**Hosted checks complete, 2026-10-18:** all six jobs on main `4b13a85`
+now pass, including Windows, Linux, both maker rebuilds and 86 browser tests with
+four opt-in skips. This completes the earlier pending Windows confirmation.
+The later saved-gap diagnoses change no application code and remain diagnostic
+evidence only. [Hosted snapshot](benchmarks/results/h5-saved-gap-diagnosis-20261018/main-ci-4b13a85.json).

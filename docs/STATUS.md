@@ -745,3 +745,9 @@ selection and native process cleanup.
 [Competitors were rechecked](UPSTREAM_REVIEW.md) before M2. The Sparrow Studio
 stop condition was not triggered at that review. v0.1.0 was subsequently released
 and published to the MCP Registry on 2026-10-14.
+
+**Hosted checks complete, 2026-10-18:** all six jobs on main `4b13a85`
+now pass, including Windows, Linux, both maker rebuilds and 86 browser tests with
+four opt-in skips. This completes the earlier pending Windows confirmation.
+The later saved-gap diagnoses change no application code and remain diagnostic
+evidence only. [Hosted snapshot](../benchmarks/results/h5-saved-gap-diagnosis-20261018/main-ci-4b13a85.json).

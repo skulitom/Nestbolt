@@ -44,3 +44,9 @@ Do not integrate a new gap-placement policy or repeat the rejected pilot on this
 
 H2/H5 remain open at **60%**. The published preview and all three READMEs remain
 accurate; this diagnostic work does not create a new release candidate.
+
+**Hosted checks complete, 2026-10-18:** all six jobs on main `4b13a85`
+now pass, including Windows, Linux, both maker rebuilds and 86 browser tests with
+four opt-in skips. This completes the earlier pending Windows confirmation.
+The later saved-gap diagnoses change no application code and remain diagnostic
+evidence only. [Hosted snapshot](h5-saved-gap-diagnosis-20261018/main-ci-4b13a85.json).
