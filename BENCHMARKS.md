@@ -13943,3 +13943,25 @@ strategy with authored correctness checks and a new committed comparison,
 while retaining the original whole-job budget and acceptance limits.
 
 No production integration, held-out access or H5 credit. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Qualify balanced incoming-pair exchanges
+
+[The isolated candidate](benchmarks/results/h5-balanced-group-preparation-20261018.md)
+passes 97 optimized core tests (all 90 prior tests plus seven new), strict lint,
+ten authored observer outcomes, four public CLI comparisons and five paired
+harness checks. The authored two-to-three exchange passes with exact quantities
+and independent validity/material checks. Normal output stays exact and common
+fixed-work replay passes. Every source/binary/archive member verifies.
+
+The two original new-test failures are retained. One confused public and
+internal angles; the other admitted a valid single exchange, independently
+confirmed by the public CLI. Test-only repairs preserve that positive fallback
+and add a constrained rejection case; runtime code is unchanged by the repairs.
+
+Two nearby copies may move together against their complete obstruction union,
+using at most half the existing exchange window before the single-part path.
+Orientation, quantity, repair, material, deadline and incumbent guards remain.
+The original outer budget and failed prior results stay unchanged. The paired
+pilot keeps the original scoring and +1% limit; no benchmark claim, production
+integration, reserved-input access or H5 credit. H2/H5 remain open at 60%.

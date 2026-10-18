@@ -1095,3 +1095,20 @@ late attempts reach source repair with an already-expired pair deadline and
 return their unchanged state. These observed durations are not minimum required
 repair times and do not prove that a larger allowance would solve H5.
 Production and all failed results remain unchanged. H2/H5 remain open at 60%.
+
+
+**N4 balanced-pair preparation, 2026-10-18:** [the isolated candidate](../benchmarks/results/h5-balanced-group-preparation-20261018.md)
+passes 97 optimized core tests, strict lint, ten authored observer outcomes,
+four public CLI comparisons and five unchanged paired-harness checks. All 90
+prior tests remain; seven new tests cover the two-to-three exchange, permissions,
+frozen sheets, bounded pair selection, valid single fallback and rejected
+attempts. The original test-assumption failures and independently valid fallback
+output remain preserved. Normal output stays exact and common replay passes.
+
+Two nearby copies can move together against their complete obstruction union,
+using at most half the existing exchange window before the single-part path.
+The original total budget, independent geometry/material acceptance and saved
+incumbent guards stay. [The committed 72-outcome plan](../benchmarks/results/h5-balanced-group-pilot-20261018/plan.json)
+retains the same cases, kerfs, seeds, matched cores, 60-second limits and +1%
+condition. No measured improvement, production change or H5 credit is claimed;
+the full 13-job gate remains required. H2/H5 are open at 60%.
