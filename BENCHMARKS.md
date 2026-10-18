@@ -14112,3 +14112,23 @@ The original candidate decisions and budgets remain; logging can perturb wall
 deadlines, so this is not an earlier-trajectory replay or quality comparison.
 Production, original limits and all failed outcomes remain; H2/H5 stay open
 at 60% completed weight.
+
+
+## 2026-10-18 — Productive-exchange choice and repair diagnosis
+
+[All four diagnostic layouts validate](benchmarks/results/h5-productive-stage-20261018.md).
+Twenty-eight attempts produce eighteen source-repair failures, seven neutral
+rejections, one post-repair expiry, one strict material rejection and one
+accepted exchange with no immediate material/extent improvement. All eight
+paired attempts preserve inventory. Every one of twenty single attempts
+returns more recorded item area to the source than it removes.
+
+Both large-plate source inventories contain only one copy of their largest
+item, which the same-item pair selector excludes. Four nonpositive source
+windows and a requested-time range of -0.003617 to 0.398944 seconds
+are recorded; these do not prove the time necessary for successful repair.
+All original archives, five counters, validation/export results and guards
+verify. The independent filled-outer audit checks 18,669
+pairs at unchanged tolerance. Bounded mixed-item pairs are the next hypothesis;
+full correctness and quality gates remain. Production, original failures and
+reserved inputs are unchanged. H2/H5 remain open at 60%.

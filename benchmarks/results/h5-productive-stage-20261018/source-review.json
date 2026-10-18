@@ -1,0 +1,26 @@
+{
+  "source": "output/h5-productive-exchange-probe-20261018/candidate/crates/core/src/sheets/vstrip/exchange.rs",
+  "source_sha256": "87e3d6ba5d68b18b1101644c2d36e2ed728065d51b7546f25de3ecb6dbc31932",
+  "pair_selector_line": 175,
+  "exact_pair_selector": "fn incoming_pairs(layout: &JLayout, keys: &[PItemKey]) -> Vec<Vec<PItemKey>> {\n    let mut groups: Vec<Vec<usize>> = Vec::new();\n    for (index, &key) in keys.iter().enumerate() {\n        let item = layout.placed_items()[key].item();\n        if let Some(group) = groups.iter_mut().find(|group| {\n            std::sync::Arc::ptr_eq(layout.placed_items()[keys[group[0]]].item(), item)\n        }) {\n            group.push(index);\n        } else {\n            groups.push(vec![index]);\n        }\n    }\n    groups.retain(|group| group.len() >= 2);\n    let mut anchors = Vec::new();\n    for rank in 0..12 {\n        for (group, members) in groups.iter().enumerate() {\n            if let Some(&index) = members.get(rank) {\n                anchors.push((group, index));\n                if anchors.len() == 12 {\n                    break;\n                }\n            }\n        }\n        if anchors.len() == 12 {\n            break;\n        }\n    }\n    let mut grouped_pairs = vec![Vec::new(); groups.len()];\n    for (group, i) in anchors {\n        let a = layout.placed_items()[keys[i]].shape().bbox();\n        let mut neighbours: Vec<_> = groups[group]\n            .iter()\n            .filter_map(|&j| {\n                if i == j {\n                    return None;\n                }\n                let b = layout.placed_items()[keys[j]].shape().bbox();\n                let dx = (a.x_min + a.x_max) - (b.x_min + b.x_max);\n                let dy = (a.y_min + a.y_max) - (b.y_min + b.y_max);\n                Some((dx * dx + dy * dy, j))\n            })\n            .collect();\n        neighbours.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.cmp(&b.1)));\n        for (_, j) in neighbours.into_iter().take(2) {\n            let pair = (i.min(j), i.max(j));\n            if !grouped_pairs[group].contains(&pair) {\n                grouped_pairs[group].push(pair);\n            }\n        }\n    }\n    let mut pairs = Vec::new();\n    for rank in 0..24 {\n        for group in &grouped_pairs {\n            if let Some(&(a, b)) = group.get(rank) {\n                pairs.push(vec![keys[a], keys[b]]);\n                if pairs.len() == 6 {\n                    return pairs;\n                }\n            }\n        }\n    }\n    pairs\n}\n",
+  "caller_source": "output/h5-productive-exchange-probe-20261018/candidate/crates/core/src/sheets/vstrip.rs",
+  "caller_sha256": "c3105c733a21b4d761324155757636bf12adb57ded8d7a08ec65a7e00764a908",
+  "caller_budget_fragments": [
+    "let budget = t + (explore_until - t).max(0.0) * 0.1;",
+    "let exchange_until = (t + 1.2).min(budget);"
+  ],
+  "pair_budget_fragment": "let pair_end = now + ((self.last_step(exchange_until) - now) * 0.5).min(0.4);",
+  "single_attempts": 20,
+  "single_attempts_returning_larger_item_area": 20,
+  "paired_attempts": 8,
+  "paired_attempts_with_unchanged_inventory": 8,
+  "large_plate_singleton_item_id": 1,
+  "source_requested_remaining_range_seconds": [
+    -0.0036167000000002503,
+    0.3989439000000008
+  ],
+  "nonpositive_source_windows": 4,
+  "inference": "All twenty single-part attempts return more recorded item area to the source\nsheet than they remove. All eight paired attempts preserve the same original\ninventory; seven are rejected as neutral and one expires after repair. In both\nlarge-plate cases, the largest remaining item (ID 1) has only one copy, so the\nsame-original-item pair selector excludes it. Its six choices instead use\nIDs 0 and 3. Panel cases consider four original item families, but their\nattempted pairs still preserve inventory. This is a proposal/assignment gap\nas well as an incomplete-repair observation.\n\nThe next isolated change should test bounded pairs of different original\nitems, with authored witnesses using different dimensions and allowed-pose\nchecks. Keep the existing whole-job time budget, complete obstruction sets,\npair returned-area bound, geometry/material guards and normal-mode behavior.\nThis is a new hypothesis, not a claim that mixed pairs will meet H5. The\nearlier repair-feasibility timings are not minimum required times; simply\nenlarging repair windows is not justified as the sole remedy by these traces.\n",
+  "production_changed": false,
+  "new_searches": 0
+}

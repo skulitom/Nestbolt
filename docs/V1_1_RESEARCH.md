@@ -1186,3 +1186,18 @@ The candidate accepts 12/121 total exchanges, including 1/62
 two-part exchanges. The post-exchange gap-fill step runs 12 times and moves 11 parts. The new guard rejects 45 same-inventory proposals without material improvement; these counts alone do not establish final quality. These counts do not establish improved final material or
 identify remaining failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and
 all earlier failed results remain unchanged. H2/H5 remain open at 60%.
+
+
+**N4 productive-exchange diagnosis, 2026-10-18:** [all four outputs validate](../benchmarks/results/h5-productive-stage-20261018.md).
+Of 28 attempts, 18 fail source repair, seven reject unchanged
+inventory, one expires after repair, one fails the material guard and one
+is accepted without immediate material/extent reduction. All eight paired
+attempts preserve inventory; all twenty single attempts return more recorded
+item area than they remove. The large-plate source's largest item has only
+one copy, excluding it from the same-item pair selector. Requested source
+windows range from -0.003617 to 0.398944 seconds, with 4 already
+nonpositive. Timings do not prove minimum repair time or impossibility.
+The independent outer audit checks 18,669 pairs. The
+next hypothesis is bounded mixed-item pairs with authored correctness checks;
+budgets and every geometry/material limit remain. No integration or H5 credit;
+H2/H5 remain open at 60%.
