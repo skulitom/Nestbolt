@@ -14626,3 +14626,15 @@ The same two serial panel searches retain both kerfs, seed zero and 60 seconds.
 Logging can change wall trajectories; no quality comparison or integration.
 The committed scope requires independent checks of captured trials. H2/H5
 remain open at 60%.
+
+
+## 2026-10-18 — Distinguish exchange rejection causes
+
+**N4 exchange-failure diagnosis, 2026-10-18:** [the focused cause audit is complete](benchmarks/results/h5-exchange-failure-observer-20261018.md).
+Recorded causes are 4 material increased, 18 source loss positive. All 4 captured final-trial
+layouts validate independently, with exact metrics and independently rebuilt
+material. Original/final geometry and every selected physical pose also pass.
+Failed source snapshots remain diagnostic states. No quality rerun or
+integration follows from these observations; H2/H5 remain open at 60%.
+
+All eighteen recorded source failures retain positive separator loss and independently observed original filled-outer pair violations (two to nine per failed source). None is explained only by deadline expiry. The four valid material trials increase material by 0.0025000004 to 0.0037500001 mm2 and keep inserts at the height-defining edge; they do not establish useful compaction. The strict material guard stays unchanged. The next isolated hypothesis concerns return initialization: current return poses are mapped around the removed incoming anchor and can initially extend above the old occupied height. Qualify a bounded whole-group translation into the existing source-container bounding box when the group fits, retaining already contained or oversized groups exactly. Preserve member orientations, reflection and relative geometry; charge the extra transformed-geometry work, keep all current budgets/repair/acceptance checks, and prove the bounded/no-op behavior on authored cases before any new quality pilot. This is a hypothesis, not a packing-feasibility or expected-improvement claim. No unchanged quality rerun or integration follows from this diagnostic.

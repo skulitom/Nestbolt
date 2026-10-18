@@ -1582,3 +1582,11 @@ The same two serial panel searches retain both kerfs, seed zero and 60 seconds.
 Logging can change wall trajectories; no quality comparison or integration.
 The committed scope requires independent checks of captured trials. H2/H5
 remain open at 60%.
+
+
+**N4 exchange-failure diagnosis, 2026-10-18:** [the focused cause audit is complete](../benchmarks/results/h5-exchange-failure-observer-20261018.md).
+Recorded causes are 4 material increased, 18 source loss positive. All 4 captured final-trial
+layouts validate independently, with exact metrics and independently rebuilt
+material. Original/final geometry and every selected physical pose also pass.
+Failed source snapshots remain diagnostic states. No quality rerun or
+integration follows from these observations; H2/H5 remain open at 60%.
