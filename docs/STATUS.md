@@ -111,6 +111,20 @@ All six hosted checks on preceding main `02905f3` pass, including Windows, Linux
 
 All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint. The assignment-bridge candidate fails four material comparisons and remains excluded from production. Application code remains unchanged from the published v0.2.0-alpha.1 preview; the English, Japanese and Chinese READMEs already describe the preview and remaining gates. There is no new qualified application build to release at this checkpoint. [Hosted evidence](../benchmarks/results/h5-assignment-bridge-pilot-20261018/main-ci-2f5d43f.json).
 
+**N4 joint-repair witness, 2026-10-18:** the [unchanged-runtime authored test](../benchmarks/results/h5-joint-repair-witness-20261018.md)
+shows why repairing fixed sheet assignments can fail: two source rectangles cannot
+fit together even in the full usable sheet. The existing separator finds a valid
+joint rearrangement by moving the extra source part to the receiver. Material
+drops from 29,699.9994 to 28,799.9993 mm², with the earlier sheet exactly fixed.
+Five independent CLI checks retain three valid outputs and two expected invalid
+proposals; eight filled-outer pairs pass. One audit error compared authored f64
+and converted f32 coordinates as byte-identical; it is preserved, and the corrected
+audit reuses the same saved outputs without changing tolerance or rerunning search.
+All runtime code and 156 prior test bodies remain unchanged; only the new test ran.
+This proves a constructed case, not policy selection or development-job quality.
+Next qualify a bounded joint-repair policy before any new matched pilot. H2/H5
+remain open at 60%.
+
 **N4 assignment-bridge outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-assignment-bridge-pilot-20261018.md).
 The independent filled-outer audit checks 133,388 same-sheet
 pairs across 48 common-mode layouts. 4 of eight material pairs fail

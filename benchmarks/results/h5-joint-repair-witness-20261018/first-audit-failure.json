@@ -1,0 +1,9 @@
+{
+  "stage": "independent saved-output audit",
+  "error": "AssertionError at exact frozen-prefix comparison for authored_feasible",
+  "cause": "The hand-authored f64 layout has exact [2, 2] coordinates; the before layout is the f32 model round-trip. Comparing those as byte-identical frozen placements conflates two representations.",
+  "native_search_and_layouts_unchanged": true,
+  "native_log_sha256": "4d60a400e0cf0e212ac79c95a3c1c16e4d6428a635c1f703ea52a77b4216ac6e",
+  "failed_checker_sha256": "9568454b80c56ab453b6e62c8fdb940d358893fece7ccb5174e0ce491a439feb",
+  "correction": "Keep exact frozen-prefix equality for all runtime layouts. Check the hand-authored prefix against its exact authored [2, 2] placement separately. No tolerance changes or new search."
+}

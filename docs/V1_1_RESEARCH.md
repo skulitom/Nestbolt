@@ -1740,3 +1740,18 @@ pairs across 48 common-mode layouts. 4 of eight material pairs fail
 the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.936840%; m-mechanical-large-plates at 1.5 mm: +4.638902%; m-mechanical-panel-hardware at 0.2 mm: +6.747151%; m-mechanical-panel-hardware at 1.5 mm: +6.156172%
 The candidate accepts 44/505 exchanges, including 32/267 paired and 4/44 mixed-item exchanges. Follow-up gap filling runs 17 times and moves 23 parts. Of 29 neutral rejections, 0 are caught by exact internal-state equality and 28 by the material profile before full validation. Counts do not establish time saving or improved final quality. The extended phase attempts 309 repairs and records 21 steps, including 5 flat steps. 18 steps belong to committed sequences; 3 roll back across 3 rollbacks. The canonical area guard rejects 189 flat trials. Committed intermediate steps need not each improve material; their sequence ends with strict whole-job improvement. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
 unchanged. H2/H5 remain open at 60%.
+
+
+**N4 joint-repair witness, 2026-10-18:** the [unchanged-runtime authored test](../benchmarks/results/h5-joint-repair-witness-20261018.md)
+shows why repairing fixed sheet assignments can fail: two source rectangles cannot
+fit together even in the full usable sheet. The existing separator finds a valid
+joint rearrangement by moving the extra source part to the receiver. Material
+drops from 29,699.9994 to 28,799.9993 mm², with the earlier sheet exactly fixed.
+Five independent CLI checks retain three valid outputs and two expected invalid
+proposals; eight filled-outer pairs pass. One audit error compared authored f64
+and converted f32 coordinates as byte-identical; it is preserved, and the corrected
+audit reuses the same saved outputs without changing tolerance or rerunning search.
+All runtime code and 156 prior test bodies remain unchanged; only the new test ran.
+This proves a constructed case, not policy selection or development-job quality.
+Next qualify a bounded joint-repair policy before any new matched pilot. H2/H5
+remain open at 60%.
