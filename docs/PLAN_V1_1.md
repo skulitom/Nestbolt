@@ -1164,3 +1164,33 @@ Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
 physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
 quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
 at 60%. The plan is committed before measurement.
+
+
+**N4 height-setting part diagnosis, 2026-10-18:** [both final and baseline layouts validate](../benchmarks/results/h5-frontier-observer-20261018.md).
+None of 25 attempts selects the insert family defining the credited sheet
+height. Both traces visit only choices 0, 1 and 12; the insert pair at index
+6 and insert singles from 73 are never visited. Twelve trials are rejected
+early and thirteen stop at source repair or expiry. The independent audit
+checks 31,740 filled-outer pairs and reconstructs both material values
+exactly. This supports qualifying a boundary-first member ranking under the
+existing choice limits, budgets and full acceptance guards. It proves no
+quality gain; H2/H5 remain open at 60%.
+
+The actual search reaches only choice indices 0, 1 and 12 in both
+diagnostics: a frame pair, its mixed frame/cog alternative, and the first
+frame single. The insert pair is present at index 6; insert singles start at
+73. Neither is visited. Both height-setting copies are inserts on the same
+last sheet that receives the material offcut credit. Removing repeated
+neutral validation increased attempts but did not reach that family.
+
+The next isolated candidate should rank incoming members by proximity to the
+last sheet's upper edge before forming the existing bounded pair and single
+choices. In the solver's rotated strip frame this is the placed shape's
+rightmost extent. Keep area as a tie-breaker and retain stable equal ties,
+the six same-item and six mixed-pair limits, sampling, repair caps, all work
+budgets and full geometry/material acceptance checks. Prove that a smaller
+part at the boundary outranks a larger interior part, that ties are stable,
+and that disabled/expired behavior and useful existing exchanges remain.
+Only after those checks should the unchanged paired quality pilot run.
+This is a ranking hypothesis, not evidence of feasible improvement or a
+reason to relax any H5 requirement.

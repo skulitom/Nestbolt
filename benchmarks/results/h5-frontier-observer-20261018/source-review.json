@@ -1,0 +1,14 @@
+{
+  "source": "output/h5-material-profile-probe-20261018/candidate/crates/core/src/sheets/vstrip/exchange.rs",
+  "source_sha256": "3db2121b32787bf27571edf7c3563ff8508dc756d0c7351ec23efd99220b765c",
+  "current_sort": "        incoming_keys.sort_by(|&a, &b| {\n            sep.layout.placed_items()[b]\n                .item()\n                .area()\n                .total_cmp(&sep.layout.placed_items()[a].item().area())\n        });\n",
+  "model_source_sha256": "ce6ea07b5827ae905c7c97ede9bf7122ea40c0b0b64e52d9e6899919607d1340",
+  "invocations": 2,
+  "attempts": 25,
+  "height_family_attempts": 0,
+  "height_family_visited_choices": 0,
+  "next_step": "The actual search reaches only choice indices 0, 1 and 12 in both\ndiagnostics: a frame pair, its mixed frame/cog alternative, and the first\nframe single. The insert pair is present at index 6; insert singles start at\n73. Neither is visited. Both height-setting copies are inserts on the same\nlast sheet that receives the material offcut credit. Removing repeated\nneutral validation increased attempts but did not reach that family.\n\nThe next isolated candidate should rank incoming members by proximity to the\nlast sheet's upper edge before forming the existing bounded pair and single\nchoices. In the solver's rotated strip frame this is the placed shape's\nrightmost extent. Keep area as a tie-breaker and retain stable equal ties,\nthe six same-item and six mixed-pair limits, sampling, repair caps, all work\nbudgets and full geometry/material acceptance checks. Prove that a smaller\npart at the boundary outranks a larger interior part, that ties are stable,\nand that disabled/expired behavior and useful existing exchanges remain.\nOnly after those checks should the unchanged paired quality pilot run.\nThis is a ranking hypothesis, not evidence of feasible improvement or a\nreason to relax any H5 requirement.",
+  "production_changed": false,
+  "quality_claim": false,
+  "new_searches": 0
+}
