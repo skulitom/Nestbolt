@@ -128,6 +128,17 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 saved-gap diagnosis, 2026-10-18:** [four saved mechanical layouts](../benchmarks/results/h5-saved-gap-diagnosis-20261018.md)
+produce no fixed-neighbour transfers into earlier sheets in the tested convex-hull
+or concave constructions. A direct-target source pass moves one insert without
+material gain. Four smaller source moves per case save 0.054057–1.572117 mm of
+height, recovering only 0.0348–0.7374% of the remaining material gap. All 33 public
+CLI checks (21 unique layouts) and independent filled-outer checks pass. These are
+post-hoc finite-angle geometry diagnostics, not quality/speed evidence or a proof
+of infeasibility. Preserve them and investigate validated multi-part constructions
+before proposing another runtime change. Production, budgets, four-step cap,
+material limits and the published preview remain unchanged; completion stays 60%.
+
 **N4 source-frontier outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-source-frontier-pilot-20261018.md),
 but five of eight material pairs fail the original +1% limit: m-mechanical-large-plates at 0.2 mm: +6.496681%; m-mechanical-large-plates at 1.5 mm: +4.989335%; m-mechanical-panel-hardware at 0.2 mm: +6.588633%; m-mechanical-panel-hardware at 1.5 mm: +5.416304%; c-bracket-mixed at 0.2 mm: +2.829306%
 Independent checking covers all 48 common layouts and 132,966 filled-outer

@@ -1593,3 +1593,14 @@ All limits and production remain unchanged; H2/H5 remain open at 60%.
 test in Chromium and Firefox. The original failed job remains preserved. This
 confirms the test-only correction; the separate Windows workflow checks are
 still pending. Product source, release assets and gate limits remain unchanged.
+
+**N4 saved-gap diagnosis, 2026-10-18:** [four saved mechanical layouts](../benchmarks/results/h5-saved-gap-diagnosis-20261018.md)
+produce no fixed-neighbour transfers into earlier sheets in the tested convex-hull
+or concave constructions. A direct-target source pass moves one insert without
+material gain. Four smaller source moves per case save 0.054057–1.572117 mm of
+height, recovering only 0.0348–0.7374% of the remaining material gap. All 33 public
+CLI checks (21 unique layouts) and independent filled-outer checks pass. These are
+post-hoc finite-angle geometry diagnostics, not quality/speed evidence or a proof
+of infeasibility. Preserve them and investigate validated multi-part constructions
+before proposing another runtime change. Production, budgets, four-step cap,
+material limits and the published preview remain unchanged; completion stays 60%.
