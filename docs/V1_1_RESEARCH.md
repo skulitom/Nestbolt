@@ -1900,3 +1900,15 @@ packing searches. Next investigate collective repair of these saved partials,
 first accounting for the native conversion guard, rather than treating physical
 clearance as proof of zero native proxy loss. No runtime, gate limit or release
 change; H2/H5 remain open at 60%.
+
+**N4 saved-partial joint repair, 2026-10-18:** [four bounded native attempts](../benchmarks/results/h5-pattern-joint-diagnosis-20261018.md)
+restore every missing original copy in explicit overlapping proposals; all original
+partial poses remain exact. All four existing helper calls expire under seed 0
+and their original 12-work-second diagnostic allowance, producing no complete
+target layout. Every physically legal partial part already has positive native
+collision loss. Next inspect exact native polygons and collision partners before
+attributing this solely to conversion margins or designing another construction.
+Rankings of all 308,326 recorded scores are checked; independent geometry checks
+cover 32,527 original pairs and 5,395 selected-insertion comparisons. Input/build/audit harness failures remain
+preserved; no native repair or quality run was repeated. Runtime, guard, budgets,
+thresholds and release assets are unchanged; H2/H5 remain open at 60%.

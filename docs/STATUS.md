@@ -25,15 +25,15 @@ v1.1 gates or authorize a new final acceptance run. No new registry version was 
 **Hosted browser confirmation, 2026-10-18:** [main 4b13a85 passes the browser job](../benchmarks/results/browser-curve-hosted-confirmation-20261018.md):
 86 tests pass with four opt-in skips, including the corrected curve import/export
 test in Chromium and Firefox. The original failed job remains preserved. This
-confirms the test-only correction; the separate Windows workflow checks are
-still pending. Product source, release assets and gate limits remain unchanged.
+confirms the test-only correction; the separate Windows checks have since passed.
+[All six jobs on subsequent main 912cd5b also pass](../benchmarks/results/h5-pattern-joint-diagnosis-20261018/main-ci-912cd5b.json). Product source, release assets and gate limits remain unchanged.
 
 **Browser curve-test follow-up, 2026-10-18:** [the d414824 trace and local correction](../benchmarks/results/browser-curve-initial-layout-20261018.md)
 preserve a Chromium import/export failure: no complete eight-part layout within
 five seconds. This fidelity test now explicitly uses quick initial layout,
 retaining the five-second allowance and all original assertions, with added checks
 for all eight parts and the saved option. The full local suite passes 86 tests
-with four skips, two workers and zero retries; hosted confirmation is pending.
+with four skips, two workers and zero retries; hosted confirmation is recorded above.
 Application source, benchmark limits and release assets are unchanged. H2/H5
 remain open at 60%.
 
@@ -127,6 +127,18 @@ All six hosted checks on preceding main `02905f3` pass, including Windows, Linux
 All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint. The assignment-bridge candidate fails four material comparisons and remains excluded from production. Application code remains unchanged from the published v0.2.0-alpha.1 preview; the English, Japanese and Chinese READMEs already describe the preview and remaining gates. There is no new qualified application build to release at this checkpoint. [Hosted evidence](../benchmarks/results/h5-assignment-bridge-pilot-20261018/main-ci-2f5d43f.json).
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
+
+**N4 saved-partial joint repair, 2026-10-18:** [four bounded native attempts](../benchmarks/results/h5-pattern-joint-diagnosis-20261018.md)
+restore every missing original copy in explicit overlapping proposals; all original
+partial poses remain exact. All four existing helper calls expire under seed 0
+and their original 12-work-second diagnostic allowance, producing no complete
+target layout. Every physically legal partial part already has positive native
+collision loss. Next inspect exact native polygons and collision partners before
+attributing this solely to conversion margins or designing another construction.
+Rankings of all 308,326 recorded scores are checked; independent geometry checks
+cover 32,527 original pairs and 5,395 selected-insertion comparisons. Input/build/audit harness failures remain
+preserved; no native repair or quality run was repeated. Runtime, guard, budgets,
+thresholds and release assets are unchanged; H2/H5 remain open at 60%.
 
 **N4 actual-outline construction, 2026-10-18:** [the retained beam and backfill](../benchmarks/results/h5-outline-construction-20261018.md)
 test actual filled outer contours. All 159,819 beam additions replay; both panel
