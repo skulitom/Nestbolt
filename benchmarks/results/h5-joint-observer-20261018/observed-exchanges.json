@@ -1,0 +1,753 @@
+{
+  "summary": {
+    "attempts": 15,
+    "outcomes": {
+      "accepted": 5,
+      "material_guard_or_expiry": 5,
+      "pair_unavailable": 5
+    },
+    "resolved_reasons": {
+      "accepted": 5,
+      "material_increase": 5,
+      "pair_unavailable": 5
+    },
+    "pair_outcomes": {
+      "completed": 10,
+      "separator_expired": 3,
+      "lowering_expired": 2
+    },
+    "accepted": 5,
+    "committed": 5,
+    "completed_with_extra_net_migration": 8,
+    "accepted_with_extra_net_migration": 5,
+    "accepted_material_gains_mm2": [
+      455.5755000002682,
+      33589.95599999931,
+      124.04700000025332,
+      512.4210000000894,
+      982.5434999996796
+    ],
+    "quality_claim": false,
+    "earlier_pilot_trajectory_reconstructed": false
+  },
+  "observations": [
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "trace_count": 7,
+      "kinds": {
+        "pair": 2,
+        "attempt": 2,
+        "policy": 2,
+        "chain": 1
+      },
+      "pair_outcomes": {
+        "completed": 2
+      },
+      "attempt_outcomes": {
+        "accepted": 2
+      },
+      "committed_joint_steps": 2,
+      "all_structural_checks_passed": true
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "trace_count": 16,
+      "kinds": {
+        "pair": 6,
+        "attempt": 6,
+        "policy": 3,
+        "chain": 1
+      },
+      "pair_outcomes": {
+        "completed": 4,
+        "separator_expired": 2
+      },
+      "attempt_outcomes": {
+        "material_guard_or_expiry": 1,
+        "accepted": 3,
+        "pair_unavailable": 2
+      },
+      "committed_joint_steps": 3,
+      "all_structural_checks_passed": true
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "trace_count": 10,
+      "kinds": {
+        "pair": 4,
+        "attempt": 4,
+        "policy": 1,
+        "chain": 1
+      },
+      "pair_outcomes": {
+        "completed": 3,
+        "lowering_expired": 1
+      },
+      "attempt_outcomes": {
+        "material_guard_or_expiry": 3,
+        "pair_unavailable": 1
+      },
+      "committed_joint_steps": 0,
+      "all_structural_checks_passed": true
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "trace_count": 8,
+      "kinds": {
+        "pair": 3,
+        "attempt": 3,
+        "policy": 1,
+        "chain": 1
+      },
+      "pair_outcomes": {
+        "completed": 1,
+        "lowering_expired": 1,
+        "separator_expired": 1
+      },
+      "attempt_outcomes": {
+        "material_guard_or_expiry": 1,
+        "pair_unavailable": 2
+      },
+      "committed_joint_steps": 0,
+      "all_structural_checks_passed": true
+    }
+  ],
+  "attempts": [
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "archive": "m-mechanical-large-plates-k0.2-s0-candidate.zip",
+      "attempt_id": 3,
+      "policy_id": 2,
+      "pair_id": 4,
+      "outcome": "accepted",
+      "resolved_reason": "accepted",
+      "pair_outcome": "completed",
+      "committed": true,
+      "material_gain_mm2": 455.5755000002682,
+      "before_material_mm2": 5418844.95,
+      "after_material_mm2": 5418389.3745,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "insert": 6,
+        "cog": 1,
+        "bracket": 12
+      },
+      "proposed_source_inventory": {
+        "insert": 7,
+        "cog": 3,
+        "bracket": 10
+      },
+      "final_source_inventory": {
+        "insert": 6,
+        "cog": 3,
+        "bracket": 8
+      },
+      "extra_net_source_changes": {
+        "bracket": -2,
+        "insert": -1
+      },
+      "net_source_changes_from_baseline": {
+        "bracket": -4,
+        "cog": 2
+      },
+      "separator_seconds": 0.22293,
+      "lowering_seconds": 0.0048457,
+      "pair_total_observed_seconds": 0.2650882,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "archive": "m-mechanical-large-plates-k0.2-s0-candidate.zip",
+      "attempt_id": 6,
+      "policy_id": 5,
+      "pair_id": 7,
+      "outcome": "accepted",
+      "resolved_reason": "accepted",
+      "pair_outcome": "completed",
+      "committed": true,
+      "material_gain_mm2": 33589.95599999931,
+      "before_material_mm2": 5418389.3745,
+      "after_material_mm2": 5384799.418500001,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "insert": 6,
+        "cog": 3,
+        "bracket": 8
+      },
+      "proposed_source_inventory": {
+        "insert": 6,
+        "cog": 4,
+        "bracket": 7
+      },
+      "final_source_inventory": {
+        "insert": 6,
+        "cog": 3,
+        "bracket": 7
+      },
+      "extra_net_source_changes": {
+        "cog": -1
+      },
+      "net_source_changes_from_baseline": {
+        "bracket": -1
+      },
+      "separator_seconds": 0.0184644,
+      "lowering_seconds": 0.0086718,
+      "pair_total_observed_seconds": 0.068969,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "attempt_id": 3,
+      "policy_id": 2,
+      "pair_id": 4,
+      "outcome": "material_guard_or_expiry",
+      "resolved_reason": "material_increase",
+      "pair_outcome": "completed",
+      "committed": false,
+      "material_gain_mm2": -101.81400000024587,
+      "before_material_mm2": 5418909.348,
+      "after_material_mm2": 5419011.1620000005,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "cog": 2,
+        "insert": 4,
+        "bracket": 12
+      },
+      "proposed_source_inventory": {
+        "cog": 3,
+        "insert": 3,
+        "bracket": 12
+      },
+      "final_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "extra_net_source_changes": {
+        "bracket": -3,
+        "cog": 1
+      },
+      "net_source_changes_from_baseline": {
+        "bracket": -3,
+        "cog": 2,
+        "insert": -1
+      },
+      "separator_seconds": 0.0798772,
+      "lowering_seconds": 0.0069707,
+      "pair_total_observed_seconds": 0.1275906,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "attempt_id": 5,
+      "policy_id": 2,
+      "pair_id": 6,
+      "outcome": "accepted",
+      "resolved_reason": "accepted",
+      "pair_outcome": "completed",
+      "committed": true,
+      "material_gain_mm2": 124.04700000025332,
+      "before_material_mm2": 5418909.348,
+      "after_material_mm2": 5418785.301,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "cog": 2,
+        "insert": 4,
+        "bracket": 12
+      },
+      "proposed_source_inventory": {
+        "cog": 3,
+        "insert": 3,
+        "bracket": 12
+      },
+      "final_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "extra_net_source_changes": {
+        "bracket": -3,
+        "cog": 1
+      },
+      "net_source_changes_from_baseline": {
+        "bracket": -3,
+        "cog": 2,
+        "insert": -1
+      },
+      "separator_seconds": 0.2915235,
+      "lowering_seconds": 0.0082169,
+      "pair_total_observed_seconds": 0.3314301,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "attempt_id": 8,
+      "policy_id": 7,
+      "pair_id": 9,
+      "outcome": "pair_unavailable",
+      "resolved_reason": "pair_unavailable",
+      "pair_outcome": "separator_expired",
+      "committed": false,
+      "material_gain_mm2": null,
+      "before_material_mm2": 5418785.301,
+      "after_material_mm2": null,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": null,
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "proposed_source_inventory": {
+        "insert": 3,
+        "cog": 2,
+        "bracket": 9,
+        "frame": 2
+      },
+      "final_source_inventory": null,
+      "extra_net_source_changes": null,
+      "net_source_changes_from_baseline": null,
+      "separator_seconds": 0.5233809,
+      "lowering_seconds": null,
+      "pair_total_observed_seconds": 0.5469805,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "attempt_id": 10,
+      "policy_id": 7,
+      "pair_id": 11,
+      "outcome": "accepted",
+      "resolved_reason": "accepted",
+      "pair_outcome": "completed",
+      "committed": true,
+      "material_gain_mm2": 512.4210000000894,
+      "before_material_mm2": 5418785.301,
+      "after_material_mm2": 5418272.88,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "proposed_source_inventory": {
+        "cog": 4,
+        "insert": 4,
+        "bracket": 9
+      },
+      "final_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "extra_net_source_changes": {
+        "insert": -1
+      },
+      "net_source_changes_from_baseline": {},
+      "separator_seconds": 0.0065593,
+      "lowering_seconds": 0.0057838,
+      "pair_total_observed_seconds": 0.0355308,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "attempt_id": 13,
+      "policy_id": 12,
+      "pair_id": 14,
+      "outcome": "pair_unavailable",
+      "resolved_reason": "pair_unavailable",
+      "pair_outcome": "separator_expired",
+      "committed": false,
+      "material_gain_mm2": null,
+      "before_material_mm2": 5418272.88,
+      "after_material_mm2": null,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": null,
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "proposed_source_inventory": {
+        "cog": 6,
+        "insert": 3,
+        "bracket": 7
+      },
+      "final_source_inventory": null,
+      "extra_net_source_changes": null,
+      "net_source_changes_from_baseline": null,
+      "separator_seconds": 0.023674,
+      "lowering_seconds": null,
+      "pair_total_observed_seconds": 0.0506124,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-large-plates-k1.5-s0-candidate.zip",
+      "attempt_id": 15,
+      "policy_id": 12,
+      "pair_id": 16,
+      "outcome": "accepted",
+      "resolved_reason": "accepted",
+      "pair_outcome": "completed",
+      "committed": true,
+      "material_gain_mm2": 982.5434999996796,
+      "before_material_mm2": 5418272.88,
+      "after_material_mm2": 5417290.3365,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "proposed_source_inventory": {
+        "cog": 4,
+        "insert": 4,
+        "bracket": 9
+      },
+      "final_source_inventory": {
+        "cog": 4,
+        "insert": 3,
+        "bracket": 9
+      },
+      "extra_net_source_changes": {
+        "insert": -1
+      },
+      "net_source_changes_from_baseline": {},
+      "separator_seconds": 0.0438471,
+      "lowering_seconds": 0.007006,
+      "pair_total_observed_seconds": 0.0816703,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-candidate.zip",
+      "attempt_id": 3,
+      "policy_id": 2,
+      "pair_id": 4,
+      "outcome": "material_guard_or_expiry",
+      "resolved_reason": "material_increase",
+      "pair_outcome": "completed",
+      "committed": false,
+      "material_gain_mm2": -0.003750000149011612,
+      "before_material_mm2": 5114567.645,
+      "after_material_mm2": 5114567.64875,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "final_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "extra_net_source_changes": {},
+      "net_source_changes_from_baseline": {},
+      "separator_seconds": 3.81e-05,
+      "lowering_seconds": 0.2310019,
+      "pair_total_observed_seconds": 0.2851408,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-candidate.zip",
+      "attempt_id": 5,
+      "policy_id": 2,
+      "pair_id": 6,
+      "outcome": "pair_unavailable",
+      "resolved_reason": "pair_unavailable",
+      "pair_outcome": "lowering_expired",
+      "committed": false,
+      "material_gain_mm2": null,
+      "before_material_mm2": 5114567.645,
+      "after_material_mm2": null,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": null,
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "final_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "extra_net_source_changes": {},
+      "net_source_changes_from_baseline": {},
+      "separator_seconds": 4.14e-05,
+      "lowering_seconds": 0.0644315,
+      "pair_total_observed_seconds": 0.1187608,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-candidate.zip",
+      "attempt_id": 7,
+      "policy_id": 2,
+      "pair_id": 8,
+      "outcome": "material_guard_or_expiry",
+      "resolved_reason": "material_increase",
+      "pair_outcome": "completed",
+      "committed": false,
+      "material_gain_mm2": -13.737500000745058,
+      "before_material_mm2": 5114567.645,
+      "after_material_mm2": 5114581.3825,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 18,
+        "insert": 41
+      },
+      "final_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 18,
+        "insert": 40
+      },
+      "extra_net_source_changes": {
+        "insert": -1
+      },
+      "net_source_changes_from_baseline": {
+        "bracket": 1,
+        "insert": -1
+      },
+      "separator_seconds": 0.2323088,
+      "lowering_seconds": 0.1933044,
+      "pair_total_observed_seconds": 0.4862251,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "archive": "m-mechanical-panel-hardware-k0.2-s0-candidate.zip",
+      "attempt_id": 9,
+      "policy_id": 2,
+      "pair_id": 10,
+      "outcome": "material_guard_or_expiry",
+      "resolved_reason": "material_increase",
+      "pair_outcome": "completed",
+      "committed": false,
+      "material_gain_mm2": -18.922500000335276,
+      "before_material_mm2": 5114567.645,
+      "after_material_mm2": 5114586.5675,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 18,
+        "insert": 41
+      },
+      "final_source_inventory": {
+        "insert": 40,
+        "frame": 2,
+        "cog": 42,
+        "bracket": 18
+      },
+      "extra_net_source_changes": {
+        "insert": -1
+      },
+      "net_source_changes_from_baseline": {
+        "bracket": 1,
+        "insert": -1
+      },
+      "separator_seconds": 0.0332169,
+      "lowering_seconds": 0.2008105,
+      "pair_total_observed_seconds": 0.2901181,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-panel-hardware-k1.5-s0-candidate.zip",
+      "attempt_id": 3,
+      "policy_id": 2,
+      "pair_id": 4,
+      "outcome": "material_guard_or_expiry",
+      "resolved_reason": "material_increase",
+      "pair_outcome": "completed",
+      "committed": false,
+      "material_gain_mm2": -0.002500000409781933,
+      "before_material_mm2": 5114567.91125,
+      "after_material_mm2": 5114567.91375,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": "sheet-1",
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "final_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "extra_net_source_changes": {},
+      "net_source_changes_from_baseline": {},
+      "separator_seconds": 4.45e-05,
+      "lowering_seconds": 0.1756167,
+      "pair_total_observed_seconds": 0.2253015,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-panel-hardware-k1.5-s0-candidate.zip",
+      "attempt_id": 5,
+      "policy_id": 2,
+      "pair_id": 6,
+      "outcome": "pair_unavailable",
+      "resolved_reason": "pair_unavailable",
+      "pair_outcome": "lowering_expired",
+      "committed": false,
+      "material_gain_mm2": null,
+      "before_material_mm2": 5114567.91125,
+      "after_material_mm2": null,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": null,
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "final_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "extra_net_source_changes": {},
+      "net_source_changes_from_baseline": {},
+      "separator_seconds": 3.78e-05,
+      "lowering_seconds": 0.1791778,
+      "pair_total_observed_seconds": 0.2285401,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "archive": "m-mechanical-panel-hardware-k1.5-s0-candidate.zip",
+      "attempt_id": 7,
+      "policy_id": 2,
+      "pair_id": 8,
+      "outcome": "pair_unavailable",
+      "resolved_reason": "pair_unavailable",
+      "pair_outcome": "separator_expired",
+      "committed": false,
+      "material_gain_mm2": null,
+      "before_material_mm2": 5114567.91125,
+      "after_material_mm2": null,
+      "before_credited_sheet": "sheet-1",
+      "after_credited_sheet": null,
+      "source_sheet": "sheet-1",
+      "original_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 17,
+        "insert": 41
+      },
+      "proposed_source_inventory": {
+        "frame": 2,
+        "cog": 42,
+        "bracket": 18,
+        "insert": 41
+      },
+      "final_source_inventory": null,
+      "extra_net_source_changes": null,
+      "net_source_changes_from_baseline": null,
+      "separator_seconds": 1.2082059,
+      "lowering_seconds": null,
+      "pair_total_observed_seconds": 1.2436588,
+      "note": "material_increase proves that guard fired; concurrent expiry is not separately sampled. Net inventories do not identify same-family copy swaps."
+    }
+  ]
+}

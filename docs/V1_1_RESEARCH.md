@@ -1808,3 +1808,16 @@ times, expiry, rejection and rollback. No development observation has started at
 this checkpoint. Logging can change wall trajectories; no quality comparison,
 pilot retry or integration follows. Production and the released preview remain
 unchanged; H2/H5 remain open at 60%.
+
+**N4 actual joint-repair diagnosis, 2026-10-18:** [all four serial diagnostics validate](../benchmarks/results/h5-joint-observer-20261018.md).
+Fifteen attempts yield ten completed repairs, five committed steps, five
+material-increase rejections and five expiries. Eight completed repairs move
+extra members beyond the proposed swap, including all five accepted repairs.
+Independent checking validates 40 saved layouts and 173,333 filled-outer pairs;
+all 21 whole-job material values reconstruct exactly. Panel lowering never
+reduces the source top in six observed stages. Four selected panel top pairs
+expose a 10.901367 mm band when removed, before returns are placed. This motivates
+an explicit source-boundary target, subject to an actual valid witness and full
+qualification; it does not establish feasibility. Original limits, failures and
+production remain unchanged. All six checks on pushed main `e0945cd` pass.
+No quality/release claim or H5 credit; H2/H5 remain open at 60%.
