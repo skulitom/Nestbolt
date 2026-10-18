@@ -1296,3 +1296,18 @@ recovery uses a fresh target and reuses all completed original observations.
 Next inspect the intermediate fill and accepted snapshots before correcting
 behavior or targeted tests. No assertion change, quality pilot, integration
 or H5 credit; H2/H5 remain open at 60%.
+
+
+**N4 larger-return qualification, 2026-10-18:** [the corrected isolated candidate](../benchmarks/results/h5-larger-return-preparation-20261018.md)
+passes 113 optimized core tests, strict lint/build, ten public outcomes,
+four CLI comparisons and five pilot checks. The original candidate's four
+failures remain. An exact replay with eight validated intermediate layouts
+shows gap filling moves the named part correctly; later compression moves it
+again while reducing material. Four route-specific tests now target their
+invariants, 103 prior tests are unchanged and six tests are added. The actual
+strict material guard rejects even a one-ULP increase. A direct post-exchange
+fill test and all six larger-return outcomes pass fourteen more independent
+validations. Guard extraction reverses exactly; all other runtime text is
+unchanged beyond the area filter and unused sum removal. The same 72-outcome
+pilot is committed before measurement. No quality or integration claim;
+H2/H5 remain open at 60%.

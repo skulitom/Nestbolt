@@ -1,0 +1,88 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T04:10:34.322359+00:00",
+      "finished": "2026-10-18T04:10:34.848515+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-larger-return-target-20261018",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T04:10:34.949898+00:00",
+      "finished": "2026-10-18T04:12:38.388735+00:00",
+      "log_sha256": "32bd0b92ad5b26d71e2bc02f5da27ff8643d761ef0945c35020c49e483e4be01"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-larger-return-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T04:12:38.509614+00:00",
+      "finished": "2026-10-18T04:13:30.188303+00:00",
+      "log_sha256": "9df62dd1996a5cbb83f42053a7d50bad2dab7b248f99a163eadcbcdda1d549c5"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-larger-return-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T04:13:30.309051+00:00",
+      "finished": "2026-10-18T04:14:13.499795+00:00",
+      "log_sha256": "44dca712ec128bdcfd8125da1272fac0082fd7a22ce1e79da3b34405027e1bf9"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "4024f0cb3d52f408a275e312eb1fff7f9eab97a6bc06a817d6073303dd832efb"
+  },
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "0e99172fafd438af7e6ac2e6ec75f1905b51984fa2afce91023871582dc624a1"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}

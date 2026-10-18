@@ -1,0 +1,16 @@
+{
+  "failures": [
+    {
+      "stage": "before source write",
+      "error": "Return-count assertion appeared in two tests; stopped on count assertion.",
+      "recovery": "Scope the replacement to the reviewed return-frame test."
+    },
+    {
+      "stage": "after source write and formatting; before build",
+      "error": "Unchanged-function audit included impl methods and trailing cfg(test) module boundary.",
+      "recovery": "Audit test module functions only; reverse guard extraction exactly."
+    }
+  ],
+  "no_build_or_search_before_recovery": true,
+  "original_failed_helper": "refine_h5_larger_return_checks-first-failed.py"
+}
