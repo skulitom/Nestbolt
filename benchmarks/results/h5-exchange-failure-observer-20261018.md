@@ -43,3 +43,5 @@ All eighteen recorded source failures retain positive separator loss and indepen
 
 **H2/H5 remain open; completed milestone weight is 60%.** No production
 integration, reserved-input access, changed threshold or release.
+
+All six hosted checks on main `b9ccbd5` pass, including the completed Windows check, Linux and browsers. The subsequent isolated candidate remains subject to its own quality pilot and the unchanged H5 gate. [Six completed checks](h5-exchange-failure-observer-20261018/main-ci-b9ccbd5.json).

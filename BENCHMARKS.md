@@ -14652,3 +14652,5 @@ failure are preserved; its small interior-seed correction changes no assertion.
 Strict lint/build, twelve branch outcomes, 29 public CLI checks, deterministic
 replays, exact source reconstruction and five harness checks pass. No quality
 pilot has started; its plan must be committed first. H2/H5 remain open at 60%.
+
+All six hosted checks on main `b9ccbd5` pass, including the completed Windows check, Linux and browsers. The subsequent isolated candidate remains subject to its own quality pilot and the unchanged H5 gate. [Hosted evidence](benchmarks/results/h5-exchange-failure-observer-20261018/main-ci-b9ccbd5.json).
