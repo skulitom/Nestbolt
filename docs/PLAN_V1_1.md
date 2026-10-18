@@ -873,3 +873,15 @@ the following gap-fill and relocation calls in that window. The next isolated
 change should test whether gap filling after an accepted exchange can use its
 new arrangement, while preserving the total search limit and normal-mode
 behavior. This identifies a missed execution path, not a measured quality gain.
+
+
+**N4 post-exchange gap-fill preparation, 2026-10-18:** [the isolated correction](../benchmarks/results/h5-post-exchange-fill-preparation-20261018.md)
+passes 98 optimized core tests, strict lint/build, ten authored observer outcomes,
+four public CLI comparisons and five paired-harness checks. A new known-gap
+regression fails on the unchanged runtime, then passes when direct gap filling
+continues after an accepted exchange. Normal output stays exact and common
+fixed-work replay passes. Original exchange, repair, geometry/material rules,
+search limits and all 97 earlier tests remain. Counters track the follow-up
+calls and moved parts. The committed 72-outcome pilot preserves its original
+paired method and +1% limit. No measured improvement, production change or
+H5 credit yet. H2/H5 remain open at 60%.

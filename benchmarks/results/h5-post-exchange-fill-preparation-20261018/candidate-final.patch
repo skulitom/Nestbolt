@@ -1,0 +1,118 @@
+--- rejected-pair/crates/core/src/sheets/vstrip.rs
++++ post-exchange-fill/crates/core/src/sheets/vstrip.rs
+@@ -741,9 +741,20 @@
+                             0
+                         };
+                         let gaps = std::env::var_os("NESTBOLT_NO_FILL").is_none();
++                        // An accepted exchange may only rearrange parts. Keep
++                        // the direct gap-fill opportunity in the new layout.
++                        let gap_moves = if gaps {
++                            let moved = timed("fill", || self.fill_gaps(&strip, &mut sep, shape));
++                            if exchanged > 0 {
++                                self.stats.post_exchange_fill_calls += 1;
++                                self.stats.post_exchange_fill_moves += moved as u64;
++                            }
++                            moved
++                        } else {
++                            0
++                        };
+                         if exchanged > 0
+-                            || (gaps
+-                                && timed("fill", || self.fill_gaps(&strip, &mut sep, shape)) > 0)
++                            || gap_moves > 0
+                             || timed("relocate", || {
+                                 self.relocate(&strip, &mut sep, shape, budget)
+                             })? > 0
+--- rejected-pair/crates/core/src/sheets/vstrip/exchange.rs
++++ post-exchange-fill/crates/core/src/sheets/vstrip/exchange.rs
+@@ -1461,4 +1461,77 @@
+         assert_eq!(stats.directed_exchanges, 0);
+         assert_eq!(stats.paired_exchanges, 0);
+     }
++    #[test]
++    fn accepted_exchange_still_fills_a_known_gap() {
++        let (mut job, mut layout) = fixture();
++        // This small last-sheet part fits an earlier gap. A successful fill
++        // must not bypass the exchange opportunity for the large incoming part.
++        job.parts.push(rectangle("gap-part", 5.0, 5.0));
++        layout.placements.push(Placement {
++            part_id: "gap-part".into(),
++            copy_index: 0,
++            sheet_id: "sheet-1".into(),
++            transform: RigidTransform {
++                translation: [36.0, 2.0],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        for (enabled, budget) in [(true, 20.0), (false, 20.0), (true, 0.0)] {
++            let report = validate(&job, &layout).unwrap();
++            assert!(report.valid);
++            let before_material = report.metrics.as_ref().unwrap().material_area;
++            let model = Model::new(&job).unwrap();
++            let clock = Clock::new(Timing::Work, 30.0);
++            let mut search = Search {
++                model: &model,
++                allow_exchange: enabled,
++                rng: Xoshiro256PlusPlus::seed_from_u64(0),
++                clock,
++                best: (layout.clone(), report, 0.0),
++                history: vec![],
++                stats: Stats::default(),
++                progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++                check_cost: 0.0,
++                check_every: 5.0,
++            };
++            search
++                .window_search(model.sheets_of(&layout).unwrap(), budget, 0.2, 2)
++                .unwrap();
++            let checked = validate(&job, &search.best.0).unwrap();
++            assert!(checked.valid);
++            assert!(checked.metrics.as_ref().unwrap().material_area <= before_material);
++            if enabled && budget > 0.0 {
++                assert!(search.stats.directed_exchange_attempts > 0);
++                assert!(search.stats.directed_exchanges > 0);
++                assert!(
++                    search.stats.direct_insertions > 0,
++                    "accepted exchange must retain gap filling: {:?}",
++                    search.stats
++                );
++                assert!(search.stats.post_exchange_fill_calls > 0);
++                assert!(search.stats.post_exchange_fill_moves > 0);
++                assert!(
++                    search
++                        .best
++                        .0
++                        .placements
++                        .iter()
++                        .any(|p| p.part_id == "gap-part" && p.sheet_id == "sheet-0"),
++                    "the known gap part must reach the earlier sheet"
++                );
++            } else {
++                assert_eq!(search.stats.directed_exchange_attempts, 0);
++                assert_eq!(search.stats.directed_exchanges, 0);
++                assert_eq!(search.stats.post_exchange_fill_calls, 0);
++                assert_eq!(search.stats.post_exchange_fill_moves, 0);
++            }
++            eprintln!(
++                "window exchange enabled={enabled} budget={budget} attempts={} accepted={} valid={}",
++                search.stats.directed_exchange_attempts,
++                search.stats.directed_exchanges,
++                checked.valid
++            );
++        }
++    }
+ }
+--- rejected-pair/crates/core/src/sheets.rs
++++ post-exchange-fill/crates/core/src/sheets.rs
+@@ -101,6 +101,10 @@
+     pub paired_exchange_attempts: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub paired_exchanges: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub post_exchange_fill_calls: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub post_exchange_fill_moves: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {

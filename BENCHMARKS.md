@@ -14026,3 +14026,19 @@ new arrangement, while preserving the total search limit and normal-mode
 behavior. This identifies a missed execution path, not a measured quality gain.
 
 These four observations retain their original 60-second searches; none was repeated.
+
+
+## 2026-10-18 — Qualify gap filling after accepted exchanges
+
+[The isolated correction](benchmarks/results/h5-post-exchange-fill-preparation-20261018.md)
+passes 98 optimized core tests, strict lint/build, ten authored observer
+outcomes, four public CLI comparisons and five paired-harness checks.
+An authored known-gap regression fails on the original runtime, then passes
+after the existing gap-fill step is moved ahead of the accepted-exchange
+short circuit. The original failure, all 97 old tests, original exchange
+algorithm and every geometry/material/budget rule remain. Omitted-zero
+counters record post-exchange fill calls and moved parts.
+
+Normal output and common fixed-work replays pass. Four-job pairing/scoring
+methods and the +1% limit stay unchanged. No measured improvement, production
+change or H5 credit is claimed. H2/H5 remain open at 60%.

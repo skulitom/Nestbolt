@@ -1,0 +1,88 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T02:00:13.986902+00:00",
+      "finished": "2026-10-18T02:00:14.637441+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-post-exchange-fill-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T02:00:14.762109+00:00",
+      "finished": "2026-10-18T02:02:33.919546+00:00",
+      "log_sha256": "f645b79ce305a6270e7f91a997f8acdb3bef58daf3889904689425b750fddebb"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-post-exchange-fill-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T02:02:34.069819+00:00",
+      "finished": "2026-10-18T02:03:37.560507+00:00",
+      "log_sha256": "750ebf36146fc7886fdde822bfc19f6a9dd0a519442a097c6e5357d56d32075a"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-post-exchange-fill-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T02:03:37.715539+00:00",
+      "finished": "2026-10-18T02:04:28.476834+00:00",
+      "log_sha256": "52f8a8625b9beb00b787a7801c253c0d66f1a808a1ecce032d82122a9a131222"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": {
+    "crates/core/src/sheets/vstrip.rs": "c3105c733a21b4d761324155757636bf12adb57ded8d7a08ec65a7e00764a908",
+    "crates/core/src/sheets/vstrip/exchange.rs": "c21ed1294fbd0f06acbb4b167c9f478b7a4e887346c704360803eb79d38c30f4",
+    "crates/core/src/sheets.rs": "e04aaf6d7021ef2f0988ade4041efbc9f63743688bfb5dc2d3ce1d9150de43e0"
+  },
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "a572f9c4ba5dcb26ee4a420e1d25ed6d9938eb0ec3a4b7335c1baef940a02c3e"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}
