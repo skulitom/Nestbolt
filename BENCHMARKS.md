@@ -14612,3 +14612,17 @@ establishing final quality or packing feasibility. The six failed pilot
 comparisons remain authoritative. H2/H5 remain open at 60%.
 
 The explicit pair is now available and attempted in both diagnostics. All eleven paired attempts select both physical height-setting copies; seven stop at the combined source-repair/deadline condition and four at the combined material/deadline condition. None is accepted. This removes absent pair selection as the explanation for these observations, without explaining the failed quality pilot. Next, qualify a logging-only observer that records the actual source loss and failed-source poses, or the independently checked trial material and layout, inside those existing failure branches. It must preserve the exact branch conditions, deadlines, work charges and original tests. This distinguishes failed repair and increased material from expiry before proposing another search change. No unchanged quality rerun or integration follows.
+
+
+## 2026-10-18 — Qualify exchange failure reasons
+
+**N4 exchange-failure observation, 2026-10-18:** [the isolated failure-detail observer qualifies](benchmarks/results/h5-exchange-failure-observer-preparation-20261018.md).
+All 130 optimized tests and strict code checks pass. The original short-circuit
+conditions, clock reads and work charges are unchanged; extra loss/pose or
+validated-trial data is recorded only inside existing failed branches.
+Sixteen authored cases, 35 public baseline checks, twelve exact parent branch
+witnesses, 34 malformed-record rejections and four synthetic parser cases pass.
+The same two serial panel searches retain both kerfs, seed zero and 60 seconds.
+Logging can change wall trajectories; no quality comparison or integration.
+The committed scope requires independent checks of captured trials. H2/H5
+remain open at 60%.

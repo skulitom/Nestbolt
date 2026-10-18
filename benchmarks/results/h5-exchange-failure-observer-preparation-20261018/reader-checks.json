@@ -1,0 +1,593 @@
+{
+  "all_checks_pass": true,
+  "synthetic_parser_cases": [
+    "source zero loss classifies the original short-circuit as deadline",
+    "equal material and sheets classify as exchange deadline",
+    "parser-only increase of material_area classifies material rejection; not a validated geometry claim",
+    "parser-only increase of sheets_used classifies material rejection; not a validated geometry claim"
+  ],
+  "actual_failure_reason_counts": {
+    "source_loss_positive": 228,
+    "receiver_loss_positive": 24
+  },
+  "source_return_inventories_verified": true,
+  "authored_test_traces": [
+    {
+      "test": "balanced_pair_moves_two_incoming_and_three_returns",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::balanced_pair_moves_two_incoming_and_three_returns",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 4,
+      "outcomes": {
+        "accepted": 4
+      },
+      "paired_attempts": 4,
+      "mixed_attempts": 0,
+      "counters": {
+        "directed_exchange_attempts": 4,
+        "directed_exchanges": 4,
+        "paired_exchange_attempts": 4,
+        "paired_exchanges": 4,
+        "mixed_exchange_attempts": 0,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {},
+      "failure_details_verified": true
+    },
+    {
+      "test": "balanced_pair_without_return_room_preserves_incumbent",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::balanced_pair_without_return_room_preserves_incumbent",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 21,
+      "outcomes": {
+        "source_repair_or_expiry": 21
+      },
+      "paired_attempts": 10,
+      "mixed_attempts": 8,
+      "counters": {
+        "directed_exchange_attempts": 21,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 10,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 8,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 21
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "balanced_pair_disabled_or_expired_preserves_incumbent",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::balanced_pair_disabled_or_expired_preserves_incumbent",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 0,
+      "attempts": 0,
+      "outcomes": {},
+      "paired_attempts": 0,
+      "mixed_attempts": 0,
+      "counters": {
+        "directed_exchange_attempts": 0,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 0,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 0,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {},
+      "failure_details_verified": true
+    },
+    {
+      "test": "return_frame_alternative_respects_strict_material_guard",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::return_frame_alternative_respects_strict_material_guard",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 1,
+      "outcomes": {
+        "accepted": 1
+      },
+      "paired_attempts": 1,
+      "mixed_attempts": 1,
+      "counters": {
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "mixed_exchange_attempts": 1,
+        "mixed_exchanges": 1,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {},
+      "failure_details_verified": true
+    },
+    {
+      "test": "productive_exchange_rejects_unchanged_inventory_without_material_gain",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::productive_exchange_rejects_unchanged_inventory_without_material_gain",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 68,
+      "outcomes": {
+        "material_profile_rejected": 8,
+        "source_repair_or_expiry": 48,
+        "exact_state_rejected": 4,
+        "receiver_repair_failed": 8
+      },
+      "paired_attempts": 24,
+      "mixed_attempts": 12,
+      "counters": {
+        "directed_exchange_attempts": 68,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 24,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 12,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 12,
+        "exact_state_exchange_rejections": 4,
+        "material_profile_exchange_rejections": 8
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 48,
+        "receiver_loss_positive": 8
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "productive_exchange_keeps_same_inventory_when_material_decreases",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::productive_exchange_keeps_same_inventory_when_material_decreases",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 4,
+      "outcomes": {
+        "accepted": 4
+      },
+      "paired_attempts": 4,
+      "mixed_attempts": 0,
+      "counters": {
+        "directed_exchange_attempts": 4,
+        "directed_exchanges": 4,
+        "paired_exchange_attempts": 4,
+        "paired_exchanges": 4,
+        "mixed_exchange_attempts": 0,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {},
+      "failure_details_verified": true
+    },
+    {
+      "test": "mixed_pair_moves_different_parts_and_three_returns",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::mixed_pair_moves_different_parts_and_three_returns",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 12,
+      "outcomes": {
+        "source_repair_or_expiry": 8,
+        "accepted": 4
+      },
+      "paired_attempts": 12,
+      "mixed_attempts": 12,
+      "counters": {
+        "directed_exchange_attempts": 12,
+        "directed_exchanges": 4,
+        "paired_exchange_attempts": 12,
+        "paired_exchanges": 4,
+        "mixed_exchange_attempts": 12,
+        "mixed_exchanges": 4,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 8
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "mixed_pair_preserves_a_frozen_sheet",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::mixed_pair_preserves_a_frozen_sheet",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 3,
+      "outcomes": {
+        "source_repair_or_expiry": 2,
+        "accepted": 1
+      },
+      "paired_attempts": 3,
+      "mixed_attempts": 3,
+      "counters": {
+        "directed_exchange_attempts": 3,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 3,
+        "paired_exchanges": 1,
+        "mixed_exchange_attempts": 3,
+        "mixed_exchanges": 1,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 2
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "mixed_pair_failed_return_room_preserves_incumbent",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::mixed_pair_failed_return_room_preserves_incumbent",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 20,
+      "outcomes": {
+        "source_repair_or_expiry": 20
+      },
+      "paired_attempts": 10,
+      "mixed_attempts": 10,
+      "counters": {
+        "directed_exchange_attempts": 20,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 10,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 10,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 20
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "larger_return_moves_both_incoming_with_strict_material_guard",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::larger_return_moves_both_incoming_with_strict_material_guard",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 12,
+      "outcomes": {
+        "source_repair_or_expiry": 8,
+        "accepted": 4
+      },
+      "paired_attempts": 12,
+      "mixed_attempts": 12,
+      "counters": {
+        "directed_exchange_attempts": 12,
+        "directed_exchanges": 4,
+        "paired_exchange_attempts": 12,
+        "paired_exchanges": 4,
+        "mixed_exchange_attempts": 12,
+        "mixed_exchanges": 4,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 8
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "larger_return_disabled_or_expired_preserves_incumbent",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::larger_return_disabled_or_expired_preserves_incumbent",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 0,
+      "attempts": 0,
+      "outcomes": {},
+      "paired_attempts": 0,
+      "mixed_attempts": 0,
+      "counters": {
+        "directed_exchange_attempts": 0,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 0,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 0,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {},
+      "failure_details_verified": true
+    },
+    {
+      "test": "larger_return_failed_room_preserves_incumbent",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::larger_return_failed_room_preserves_incumbent",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 21,
+      "outcomes": {
+        "source_repair_or_expiry": 21
+      },
+      "paired_attempts": 11,
+      "mixed_attempts": 11,
+      "counters": {
+        "directed_exchange_attempts": 21,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 11,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 11,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 21
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "larger_return_preserves_a_frozen_sheet",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::larger_return_preserves_a_frozen_sheet",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 3,
+      "outcomes": {
+        "source_repair_or_expiry": 2,
+        "accepted": 1
+      },
+      "paired_attempts": 3,
+      "mixed_attempts": 3,
+      "counters": {
+        "directed_exchange_attempts": 3,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 3,
+        "paired_exchanges": 1,
+        "mixed_exchange_attempts": 3,
+        "mixed_exchanges": 1,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 2
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "accepted_exchange_still_fills_a_known_gap",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::accepted_exchange_still_fills_a_known_gap",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 1,
+      "attempts": 3,
+      "outcomes": {
+        "source_repair_or_expiry": 2,
+        "accepted": 1
+      },
+      "paired_attempts": 2,
+      "mixed_attempts": 2,
+      "counters": {
+        "directed_exchange_attempts": 3,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 2,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 2,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 0,
+        "exact_state_exchange_rejections": 0,
+        "material_profile_exchange_rejections": 0
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 2
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "exact_duplicate_rejection_preserves_incumbent_and_disabled_boundaries",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::exact_duplicate_rejection_preserves_incumbent_and_disabled_boundaries",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 68,
+      "outcomes": {
+        "material_profile_rejected": 8,
+        "source_repair_or_expiry": 48,
+        "exact_state_rejected": 4,
+        "receiver_repair_failed": 8
+      },
+      "paired_attempts": 24,
+      "mixed_attempts": 12,
+      "counters": {
+        "directed_exchange_attempts": 68,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 24,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 12,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 12,
+        "exact_state_exchange_rejections": 4,
+        "material_profile_exchange_rejections": 8
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 48,
+        "receiver_loss_positive": 8
+      },
+      "failure_details_verified": true
+    },
+    {
+      "test": "material_profile_rejection_preserves_incumbent_and_disabled_boundaries",
+      "command": [
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018\\release\\deps\\nestbolt_core-7959a26cf07492fa.exe",
+        "--exact",
+        "sheets::vstrip::exchange::tests::material_profile_rejection_preserves_incumbent_and_disabled_boundaries",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "invocations": 4,
+      "attempts": 68,
+      "outcomes": {
+        "material_profile_rejected": 8,
+        "source_repair_or_expiry": 48,
+        "exact_state_rejected": 4,
+        "receiver_repair_failed": 8
+      },
+      "paired_attempts": 24,
+      "mixed_attempts": 12,
+      "counters": {
+        "directed_exchange_attempts": 68,
+        "directed_exchanges": 0,
+        "paired_exchange_attempts": 24,
+        "paired_exchanges": 0,
+        "mixed_exchange_attempts": 12,
+        "mixed_exchanges": 0,
+        "neutral_exchange_rejections": 12,
+        "exact_state_exchange_rejections": 4,
+        "material_profile_exchange_rejections": 8
+      },
+      "exact_choice_poses_verified": true,
+      "failure_reason_counts": {
+        "source_loss_positive": 48,
+        "receiver_loss_positive": 8
+      },
+      "failure_details_verified": true
+    }
+  ],
+  "actual_invocations": 35,
+  "malformed_records_rejected": [
+    "unknown incoming family",
+    "missing single-copy choice",
+    "duplicate visit",
+    "negative visit index",
+    "too many retained proposals",
+    "source used as target",
+    "unknown returned family",
+    "four returned members",
+    "unfinished outcome",
+    "negative attempt index",
+    "attempt after acceptance",
+    "inconsistent counters",
+    "nonfinite material",
+    "unknown credited sheet",
+    "missing baseline",
+    "missing physical poses",
+    "missing physical choice",
+    "duplicate physical pair member",
+    "nonfinite physical translation",
+    "unmatched physical pose",
+    "neutral rejection with changed inventory",
+    "invalid source loss -1.0",
+    "invalid source loss nan",
+    "invalid source loss True",
+    "invalid source loss None",
+    "missing detail",
+    "missing returned pose",
+    "missing source copy",
+    "invalid source transform",
+    "zero receiver loss on failure",
+    "false material classification",
+    "missing trial placement",
+    "nonfinite trial material",
+    "unknown trial sheet"
+  ],
+  "frozen_CLI_baseline_checks": 35,
+  "baseline_metrics_exact": true,
+  "parent_profile_branch_witnesses_exact": 12,
+  "actual_profile_branch_counters_exact": true,
+  "all_choice_poses_match_unique_baseline_members": true,
+  "reader_sha256": "3ad25e4864123fd185c16c6b3d97c1591732ed313fa6e03eb97890eb501ce268",
+  "test_binary_sha256": "494d726b9f6b9fea76b73809b29275b9c90f2cd98d61d1871fa53fb33f1ddd2f",
+  "CLI_sha256": "97de6a34f17760ca30230742e716b3e74940f1a2ede71453ecb3b13bac73dc2b",
+  "new_searches": 0
+}

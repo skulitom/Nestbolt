@@ -1,0 +1,92 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-18T07:24:53.641368+00:00",
+      "finished": "2026-10-18T07:24:54.299747+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018"
+      ],
+      "started": "2026-10-18T07:24:54.376722+00:00",
+      "finished": "2026-10-18T07:27:38.877513+00:00",
+      "exit_code": 0,
+      "log_sha256": "150bf3eb3f7a8646a8410cb9bb44627a1c470ac45b49728ce3b0bf9b10bd9821"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T07:27:38.967333+00:00",
+      "finished": "2026-10-18T07:28:30.791284+00:00",
+      "exit_code": 0,
+      "log_sha256": "2067f6eb7ad8b79ef121cc02b98068985d6a20eb9ff73ea28448aa242fb3bfdd"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-exchange-failure-observer-target-20261018"
+      ],
+      "started": "2026-10-18T07:28:30.882751+00:00",
+      "finished": "2026-10-18T07:29:16.875748+00:00",
+      "exit_code": 0,
+      "log_sha256": "a842fc2c7b55fdd4f62aab07983b59ec425d23b2c0a13d45d98a387f9e7f0972"
+    }
+  ],
+  "source_sha256": "2a258d8c0da90bc0434e2b711f178ffadd224e83fe47302a72874a5db1e43e6b",
+  "observed_sources": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "2a258d8c0da90bc0434e2b711f178ffadd224e83fe47302a72874a5db1e43e6b"
+  },
+  "binary_sha256": "a8281c7070a849b59f5ee313fe16e4e7b3e63fa4f1548cff1db2180e711cdfa8",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

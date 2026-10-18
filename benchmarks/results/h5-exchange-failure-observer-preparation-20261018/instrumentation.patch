@@ -1,0 +1,58 @@
+--- parent/crates/core/src/sheets/vstrip/exchange.rs
++++ failure-observer/crates/core/src/sheets/vstrip/exchange.rs
+@@ -748,7 +748,7 @@
+                     trace.attempts.push(serde_json::json!({"choice_index":choice_index,
+                         "target_sheet":format!("sheet-{}", frozen.len() + target),
+                         "returned":victims.iter().map(|(_,item,_)| self.model.job.parts[self.model.part[item.idx()]].id.as_str()).collect::<Vec<_>>(),
+-                        "outcome":"pending"}));
++                        "outcome":"pending", "failure_detail":null}));
+                     let mut next_receiver = JLayout::from_snapshot(&receiver.save());
+                     for &(key, _, _) in &victims {
+                         next_receiver.remove_item(key);
+@@ -795,6 +795,9 @@
+                     if receiver_tracker.total_loss() > 0.0 {
+                         trace.attempts[attempt_index]["outcome"] =
+                             serde_json::json!("receiver_repair_failed");
++                        trace.attempts[attempt_index]["failure_detail"] = serde_json::json!({
++                            "receiver_loss": receiver_tracker.total_loss(),
++                        });
+                         continue;
+                     }
+                     let mut source_sep = Separator::new(
+@@ -810,6 +813,24 @@
+                     {
+                         trace.attempts[attempt_index]["outcome"] =
+                             serde_json::json!("source_repair_or_expiry");
++                        let initial = if victims.len() == 1 {
++                            vec![convert_sample_to_closest_feasible(incoming_old, &victims[0].1)]
++                        } else {
++                            return_group_poses(&victims, proposal.incoming, incoming_old)
++                        };
++                        trace.attempts[attempt_index]["failure_detail"] = serde_json::json!({
++                            "source_loss": source_tracker.total_loss(),
++                            "source_after": JLayout::from_snapshot(&source_snapshot).placed_items().values().map(|p| {
++                                let item = p.item().idx();
++                                serde_json::json!({"part_id":self.model.job.parts[self.model.part[item]].id,
++                                    "transform":self.model.external(item, &p.d_transf())})
++                            }).collect::<Vec<_>>(),
++                            "returned_initial": victims.iter().zip(initial).map(|((_, item, _), pose)| {
++                                let item = item.idx();
++                                serde_json::json!({"part_id":self.model.job.parts[self.model.part[item]].id,
++                                    "transform":self.model.external(item, &pose)})
++                            }).collect::<Vec<_>>(),
++                        });
+                         continue;
+                     }
+                     let mut trial = JLayout::from_snapshot(&sep.layout.save());
+@@ -867,6 +888,11 @@
+                     {
+                         trace.attempts[attempt_index]["outcome"] =
+                             serde_json::json!("material_guard_or_expiry");
++                        trace.attempts[attempt_index]["failure_detail"] = serde_json::json!({
++                            "material_increased": exchange_increases_material(before, after),
++                            "metrics": after,
++                            "layout": trial_layout,
++                        });
+                         continue;
+                     }
+                     // Same inventory can still improve the geometry, but a
