@@ -1,0 +1,10 @@
+{
+  "before": "    let correction = |low: f32, high: f32, min: f32, max: f32| {\n        if low < min {\n            min - low\n        } else if high > max {\n            max - high\n        } else {\n            0.0\n        }\n    };\n",
+  "after": "    let correction = |low: f32, high: f32, min: f32, max: f32| {\n        // Place the seed just inside instead of exactly on a rounded edge.\n        // The final box check remains exact; this is a real translation,\n        // never a relaxed geometry tolerance. Limit it to half the free span.\n        let scale = low.abs().max(high.abs()).max(min.abs()).max(max.abs()).max(1.0);\n        let room = ((max - min) - (high - low)).max(0.0);\n        let inset = (4.0 * f32::EPSILON * scale).min(room * 0.5);\n        if low < min {\n            min - low + inset\n        } else if high > max {\n            max - high - inset\n        } else {\n            0.0\n        }\n    };\n",
+  "all_133_tests_unchanged": true,
+  "exact_containment_check_unchanged": true,
+  "failure_log_sha256": "0b1ea424e98513c9e3c7b2ee1be90ebe4e48e2926b81d7cbc5894d79eb1ab54b",
+  "failure_binary_sha256": "530a9ec840637a0b017787e18fb189d6147aa494b862727a23589d01375a89ce",
+  "failure_source_sha256": "5d919280b205788089271ec310cb05066ba50a137a558290fec5bf691d4b1f2d",
+  "new_searches": 0
+}

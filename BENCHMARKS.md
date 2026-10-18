@@ -14638,3 +14638,17 @@ Failed source snapshots remain diagnostic states. No quality rerun or
 integration follows from these observations; H2/H5 remain open at 60%.
 
 All eighteen recorded source failures retain positive separator loss and independently observed original filled-outer pair violations (two to nine per failed source). None is explained only by deadline expiry. The four valid material trials increase material by 0.0025000004 to 0.0037500001 mm2 and keep inserts at the height-defining edge; they do not establish useful compaction. The strict material guard stays unchanged. The next isolated hypothesis concerns return initialization: current return poses are mapped around the removed incoming anchor and can initially extend above the old occupied height. Qualify a bounded whole-group translation into the existing source-container bounding box when the group fits, retaining already contained or oversized groups exactly. Preserve member orientations, reflection and relative geometry; charge the extra transformed-geometry work, keep all current budgets/repair/acceptance checks, and prove the bounded/no-op behavior on authored cases before any new quality pilot. This is a hypothesis, not a packing-feasibility or expected-improvement claim. No unchanged quality rerun or integration follows from this diagnostic.
+
+
+## 2026-10-18 — Qualify contained return initialization
+
+**N4 contained-return preparation, 2026-10-18:** [the isolated return-seed change qualifies](benchmarks/results/h5-contained-return-preparation-20261018.md).
+All 133 optimized tests pass, retaining all 130 prior tests. A fitting returned
+group may translate inside the existing source bounding box, with charged
+geometry work and an exact second check. Other cases keep the old poses.
+Existing choices, budgets, repairs and full acceptance checks remain.
+Two expected old-behavior failures and the first implementation's rotated-edge
+failure are preserved; its small interior-seed correction changes no assertion.
+Strict lint/build, twelve branch outcomes, 29 public CLI checks, deterministic
+replays, exact source reconstruction and five harness checks pass. No quality
+pilot has started; its plan must be committed first. H2/H5 remain open at 60%.

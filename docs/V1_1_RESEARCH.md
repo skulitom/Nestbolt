@@ -1590,3 +1590,15 @@ layouts validate independently, with exact metrics and independently rebuilt
 material. Original/final geometry and every selected physical pose also pass.
 Failed source snapshots remain diagnostic states. No quality rerun or
 integration follows from these observations; H2/H5 remain open at 60%.
+
+
+**N4 contained-return preparation, 2026-10-18:** [the isolated return-seed change qualifies](../benchmarks/results/h5-contained-return-preparation-20261018.md).
+All 133 optimized tests pass, retaining all 130 prior tests. A fitting returned
+group may translate inside the existing source bounding box, with charged
+geometry work and an exact second check. Other cases keep the old poses.
+Existing choices, budgets, repairs and full acceptance checks remain.
+Two expected old-behavior failures and the first implementation's rotated-edge
+failure are preserved; its small interior-seed correction changes no assertion.
+Strict lint/build, twelve branch outcomes, 29 public CLI checks, deterministic
+replays, exact source reconstruction and five harness checks pass. No quality
+pilot has started; its plan must be committed first. H2/H5 remain open at 60%.
