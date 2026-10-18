@@ -105,6 +105,8 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 
 All six hosted checks on main `b9ccbd5` pass, including the completed Windows check, Linux and browsers. The subsequent isolated candidate remains subject to its own quality pilot and the unchanged H5 gate. [Hosted evidence](../benchmarks/results/h5-exchange-failure-observer-20261018/main-ci-b9ccbd5.json).
 
+All six hosted checks on preceding main `8ae8b69` pass, including Windows, Linux, browsers and both maker rebuilds. This is evidence for that checkpoint; the subsequent isolated free-space candidate still fails its original material pilot and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-free-return-pilot-20261018/main-ci-8ae8b69.json).
+
 **N4 free-space-return outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-free-return-pilot-20261018.md).
 The independent filled-outer audit checks 133,284 same-sheet
 pairs across 48 common-mode layouts. 5 of eight material pairs fail
