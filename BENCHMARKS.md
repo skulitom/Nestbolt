@@ -14720,3 +14720,20 @@ twelve exact parent branch witnesses and 44 malformed-record checks qualify the
 reader. Four serial mechanical diagnostics are planned; no measurement has begun.
 Logging can affect wall trajectories and supports no quality claim. No production
 change, reserved-input access or H5 credit. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Actual return-seed and material diagnosis
+
+**N4 actual return-seed diagnosis, 2026-10-18:** [four original-job outputs validate](benchmarks/results/h5-free-return-observer-20261018.md).
+The seed stage incurs work but changes none of 43 observed return poses. Of 24
+attempts, two valid large-plate exchanges save only 28.887/132.567 mm², seventeen
+panel source repairs retain positive loss and actual filled-outer violations,
+and five valid panel trials increase material and are correctly rejected.
+Four baselines/finals pass 37,119 filled-outer pair checks; all seven captured
+material trials pass independent validation and exact material reconstruction.
+The one-success-per-window caller motivates a bounded continuation experiment
+under the same absolute deadline, after authored correctness checks. This is
+not yet implemented and does not solve the panel repair failures. Original
+limits, failed evidence, production and reserved inputs remain; H2/H5 stay open at 60%.
+
+The bounded free-space seed stage changed none of the 43 observed return poses despite charged evaluations. These four diagnostic trajectories therefore supply no successful new seed witness, and do not justify expanding its sample count blindly. The two large-plate exchanges are independently valid but save less than 0.1 mm of charged height each; a cog or another insert remains height-setting. Source review shows that the directed step is invoked once per feasible window and returns immediately after its first accepted exchange. The next distinct hypothesis is bounded continuation after a strictly material-improving exchange, using the same original absolute exchange deadline and original total search budget, with a small explicit cap and stopping on no acceptance or no strict material gain. Keep the original per-exchange independent geometry/material guards, exact quantities, filled-hole reservation, and disabled/expired behavior. Qualify authored multi-success and rollback/deadline cases before a newly committed matched pilot. This targets the observed early return after tiny gains; it does not resolve the seventeen panel source-repair failures by itself, prove that another exchange fits, or establish H5 feasibility. All original H5 limits and the complete 13-job requirement remain. Do not repeat the unchanged failed quality pilot or access reserved geometry.

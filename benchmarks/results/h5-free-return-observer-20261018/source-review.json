@@ -1,0 +1,35 @@
+{
+  "diagnostic_results_sha256": "dab3b8ea61665e0836f37fe3ae1895044303170238599c1505379e3379509863",
+  "detail_checks_sha256": "8f9058d5d6524c1cdcb42121a1f9c86e95b1fa19bbeafed82b32a3da6ed6b95f",
+  "caller_source_sha256": "c3105c733a21b4d761324155757636bf12adb57ded8d7a08ec65a7e00764a908",
+  "exchange_source_sha256": "55da6be4775793fc8342521e07fb96b0d7467515d80498b53e05fcd48e7821a8",
+  "one_directed_call_per_window": true,
+  "returns_after_first_acceptance": true,
+  "same_original_exchange_cap_seconds": 1.2,
+  "accepted_height_changes": [
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "material_change_mm2": -28.886999999172986,
+      "credited_height_change_mm": -0.019257999999922504,
+      "new_height_families": [
+        "cog"
+      ]
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "material_change_mm2": -132.56699999980628,
+      "credited_height_change_mm": -0.08837800000003426,
+      "new_height_families": [
+        "insert"
+      ]
+    }
+  ],
+  "lower_return_seed_witnesses": 0,
+  "panel_source_failures_remain": 17,
+  "followup": "The bounded free-space seed stage changed none of the 43 observed return poses despite charged evaluations. These four diagnostic trajectories therefore supply no successful new seed witness, and do not justify expanding its sample count blindly. The two large-plate exchanges are independently valid but save less than 0.1 mm of charged height each; a cog or another insert remains height-setting. Source review shows that the directed step is invoked once per feasible window and returns immediately after its first accepted exchange. The next distinct hypothesis is bounded continuation after a strictly material-improving exchange, using the same original absolute exchange deadline and original total search budget, with a small explicit cap and stopping on no acceptance or no strict material gain. Keep the original per-exchange independent geometry/material guards, exact quantities, filled-hole reservation, and disabled/expired behavior. Qualify authored multi-success and rollback/deadline cases before a newly committed matched pilot. This targets the observed early return after tiny gains; it does not resolve the seventeen panel source-repair failures by itself, prove that another exchange fits, or establish H5 feasibility. All original H5 limits and the complete 13-job requirement remain. Do not repeat the unchanged failed quality pilot or access reserved geometry.",
+  "new_quality_claim": false,
+  "production_changed": false,
+  "H5_complete": false
+}
