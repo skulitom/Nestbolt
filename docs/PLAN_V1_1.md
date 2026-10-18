@@ -1436,3 +1436,11 @@ source-repair fixture, original branch checks, public replay, source reconstruct
 lint, build and five harness tests also pass. A matched four-job pilot is ready
 to be planned. No quality improvement, integration or H5 closure is claimed.
 H2/H5 remain open at 60%; production and release claims are unchanged.
+
+
+**N4 extended-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-extended-repair-pilot-20261018.md).
+The independent filled-outer audit checks 133,152 same-sheet
+pairs across 48 common-mode layouts. 5 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.499695%; m-mechanical-large-plates at 1.5 mm: +6.491064%; m-mechanical-panel-hardware at 0.2 mm: +5.679440%; m-mechanical-panel-hardware at 1.5 mm: +5.568800%; c-bracket-mixed at 1.5 mm: +1.594065%
+The candidate accepts 44/472 exchanges, including 32/239 paired and 1/47 mixed-item exchanges. Follow-up gap filling runs 16 times and moves 27 parts. Of 24 neutral rejections, 0 are caught by exact internal-state equality and 23 by the material profile before full validation. Counts do not establish time saving or improved final quality. The extended phase accepts 20/322 attempts and rejects 191 material-flat trials. Six extended acceptances are mechanical; all flat rejections are bracket cases. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
+unchanged. H2/H5 remain open at 60%.

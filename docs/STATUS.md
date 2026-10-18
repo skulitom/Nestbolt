@@ -107,19 +107,14 @@ All six hosted checks on main `b9ccbd5` pass, including the completed Windows ch
 
 All six hosted checks on preceding main `8ae8b69` pass, including Windows, Linux, browsers and both maker rebuilds. This is evidence for that checkpoint; the subsequent isolated free-space candidate still fails its original material pilot and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-free-return-pilot-20261018/main-ci-8ae8b69.json).
 
-**N4 two-phase repair qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-extended-repair-preparation-20261018.md)
-retains the original short exchange phase, then uses the remaining existing
-relocation allowance for longer source repairs. Both phases share four accepted
-exchanges; the extended phase requires strict material gains. The original guards,
-overall budget and validation reserve remain. All 148 optimized tests pass:
-141 old bodies unchanged and seven new regressions. The three opportunities lost
-by the rejected direct-long-source allocation match their prior witnesses exactly.
-Both red runs and a corrected new frozen-sheet fixture are preserved. Thirteen
-saved extended outcomes pass 26 CLI checks and independent geometry; the actual
-source-repair fixture, original branch checks, public replay, source reconstruction,
-lint, build and five harness tests also pass. A matched four-job pilot is ready
-to be planned. No quality improvement, integration or H5 closure is claimed.
-H2/H5 remain open at 60%; production and release claims are unchanged.
+All six hosted checks on preceding main `02905f3` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint, including the reconciled plugin mock update. The newer `2f5d43f` checkpoint is pushed and its separate hosted run is still pending at this observation. The isolated extended-repair candidate fails five material comparisons and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-extended-repair-pilot-20261018/main-ci-02905f3.json).
+
+**N4 extended-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-extended-repair-pilot-20261018.md).
+The independent filled-outer audit checks 133,152 same-sheet
+pairs across 48 common-mode layouts. 5 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.499695%; m-mechanical-large-plates at 1.5 mm: +6.491064%; m-mechanical-panel-hardware at 0.2 mm: +5.679440%; m-mechanical-panel-hardware at 1.5 mm: +5.568800%; c-bracket-mixed at 1.5 mm: +1.594065%
+The candidate accepts 44/472 exchanges, including 32/239 paired and 1/47 mixed-item exchanges. Follow-up gap filling runs 16 times and moves 27 parts. Of 24 neutral rejections, 0 are caught by exact internal-state equality and 23 by the material profile before full validation. Counts do not establish time saving or improved final quality. The extended phase accepts 20/322 attempts and rejects 191 material-flat trials. Six extended acceptances are mechanical; all flat rejections are bracket cases. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
+unchanged. H2/H5 remain open at 60%.
 
 **N4 actual return-seed diagnosis, 2026-10-18:** [four original-job outputs validate](../benchmarks/results/h5-free-return-observer-20261018.md).
 The seed stage incurs work but changes none of 43 observed return poses. Of 24
