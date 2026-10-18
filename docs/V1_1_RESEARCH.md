@@ -1059,3 +1059,14 @@ does not prove infeasibility, and occupancy alone does not prove a packing exist
 Next seek a complete, independently valid repack of fixed saved assignments with
 their original boundary and legal orientations before changing repair. Preserve
 all failed outcomes; no production change, relaxed limit or H5 credit. 60% complete.
+
+
+**N4 assignment feasibility, 2026-10-18:** [three independently valid source packings](../benchmarks/results/h5-assignment-repack-20261018.md)
+fit the unchanged saved boundaries and quantities: both large-plate cases and
+the 0.2 mm panel case. The 1.5 mm panel case remains unresolved after six retained
+rounds. This proves only source-assignment feasibility, not whole-job material
+improvement. Earlier traces repeat eight distinct assignments over 25 attempts
+(17 repeats after first occurrence). Next test retained compatible repair progress
+within the existing shared budget, preserving geometry/orientation identities,
+tracker-key consistency, rollback and independent acceptance. No production change
+or relaxed gate; H2/H5 remain open at 60%.

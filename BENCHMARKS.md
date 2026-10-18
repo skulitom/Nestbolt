@@ -13841,3 +13841,24 @@ mechanical job/kerf, seed zero, at most six ten-second rounds, with every outcom
 retained. A separately verified packing would prove source-assignment feasibility;
 failure does not prove impossibility. No quality claim, original-budget change,
 reserved-input access or H5 credit. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Three fixed return assignments have valid packing witnesses
+
+[The committed four-case repack](benchmarks/results/h5-assignment-repack-20261018.md)
+finishes in 72.078 seconds. Exact original-model reconstruction
+precedes every search. Independent collision-boundary, original filled-outer,
+kerf, quantity and orientation checks plus public CLI validation confirm three
+source packings: both 21-part large-plate cases and the 103-part 0.2 mm panel case.
+Their first saved-position repair rounds take 1.048544, 2.291579 and 6.155242 seconds.
+These are observed diagnostic durations, not quality comparisons or minimum
+required times. The 103-part 1.5 mm panel assignment remains unresolved after its
+warm round and five full random restarts; all six failures and nine audited
+rounds are retained. No failed search is treated as an impossibility proof.
+
+The earlier 25 traces contain eight distinct source-inventory/container pairs
+within invocations, with 17 repetitions after the first. Test compatible repair
+state reuse under the original shared budget, with full inventory/boundary,
+orientation, tracker-key and rollback safeguards. This is a next hypothesis,
+not measured savings. All archives/guards verify; production and original H5
+limits remain unchanged. No whole-job material improvement or H5 credit. 60%.
