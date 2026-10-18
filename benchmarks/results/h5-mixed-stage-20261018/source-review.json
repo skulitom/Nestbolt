@@ -1,0 +1,21 @@
+{
+  "source": "output/h5-mixed-exchange-probe-20261018/candidate/crates/core/src/sheets/vstrip/exchange.rs",
+  "source_sha256": "29c9985a43d02650d9cf98fc6483793accc0435ac774b6cf17cedbfd9e858205",
+  "pair_filter": "        if area > incoming_area {\n            continue;\n        }",
+  "pair_filter_line": 412,
+  "exact_pair_schedule_and_deadline_check": "        let same_pairs = incoming_pairs(&sep.layout, &incoming_keys);\n        let mixed_pairs = mixed_incoming_pairs(&sep.layout, &incoming_keys);\n        let mut choices =\n            Vec::with_capacity(same_pairs.len() + mixed_pairs.len() + incoming_keys.len());\n        for index in 0..same_pairs.len().max(mixed_pairs.len()) {\n            if let Some(pair) = same_pairs.get(index) {\n                choices.push(pair.clone());\n            }\n            if let Some(pair) = mixed_pairs.get(index) {\n                choices.push(pair.clone());\n            }\n        }\n        choices.extend(incoming_keys.into_iter().map(|key| vec![key]));\n        for selected in choices {\n            let paired = selected.len() == 2;\n            let exchange_until = if paired { group_until } else { until };\n            if self.clock.now() >= self.last_step(exchange_until) {\n                continue;\n            }\n",
+  "exact_post_validation_neutral_guard": "                    // Same inventory can still improve the geometry, but a\n                    // flat material result must not consume the sole exchange.\n                    if same_original_inventory(&members, &victims)\n                        && after.material_area >= before.material_area\n                    {\n                        self.stats.neutral_exchange_rejections += 1;\n                        continue;\n                    }\n",
+  "large_generation_calls": 24,
+  "large_samples": 4764,
+  "large_area_rejections": 1721,
+  "large_mixed_area_rejections": 575,
+  "panel_generation_calls": 2,
+  "panel_mixed_generation_calls": 0,
+  "panel_neutral_pair_attempts": 7,
+  "neutral_repairs_zero_initial_loss": true,
+  "neutral_repair_elapsed_each_below_seconds": 0.0001,
+  "accepted_single_material_decrease_mm2": 18.66899999976158,
+  "next_hypothesis": "Both large-plate traces reach all twelve planned pairs and every generated\nsample. The paired returned-area filter alone discards 1,721 otherwise eligible\nsamples, including 575 mixed samples, after pose/boundary/obstruction-count checks.\nThis identifies a search filter, not the feasibility of those rejected layouts.\nThe independently checked larger-return witness demonstrates that this area\ninequality is not necessary for a valid material-nonincreasing pair exchange.\nThe next isolated candidate should first reproduce a failing runtime regression\nfor that witness, then test removing this proposal-area filter while retaining\ncomplete obstruction sets, pose rules, both repairs, strict whole-job geometry\nand material guards, all existing budgets and normal-mode behavior.\n\nPanel traces expose a separate scheduling limitation: only the first same-item\npair is generated, retaining six proposals per kerf; seven attempted paired\nswaps are rejected as unchanged-inventory without material gain. No mixed pair\nis generated there. The recorded repairs already have zero loss and each takes\nless than 0.0001 seconds. The trace does not allocate the remaining time among\nconstruction, conversion and independent validation, so it does not establish\nwhich of those dominates. Do not infer that longer repair windows alone solve\neither workload, or that lifting the area filter will meet the quality gate.\n",
+  "production_changed": false,
+  "quality_claim": false
+}

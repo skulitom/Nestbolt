@@ -103,16 +103,29 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 | N4 — Common-line cutting | 15% | In progress: [compensated geometry and native checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md), independent Clipper2 checks and UI/CLI/MCP parity. The optional bonus is off by default. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md), the [full 60-second/three-seed comparison](../benchmarks/results/h5-cutting-development-20261015.md) validates all 234 Nestbolt layouts. Median savings **13.0311% laser / 13.1005% plasma** meet the savings condition. The two mechanical jobs still exceed +1% material: worst **+6.5085% laser / +5.5959% plasma**; all other jobs are within the guard. Normal mode uses 21/49 hole riders; common mode forbids them. Deepnest SVG comparison is complete: 35 valid runs, four no-layout outcomes, native reported merge length and actual SVG savings reported separately. H5 remains open on material. The generated request schema omission was corrected; its original CI failure is retained. No gate/default/frozen input changed |
 | N5 — Lead-in allowances | 5% | **H6 complete.** [Gate evidence and material costs](../benchmarks/results/h6-complete-20261015.md): independent original-source coverage/attachment, owner/neighbour/stock checks, exact contour starts, three searched native previews and separate outer/hole/shortened settings. UI/CLI/MCP support preserving LightBurn projects plus separate SVG/DXF cutting files under Artem’s decision. The current build revalidates all 24 original native-coupon reservations unchanged; lead/core/MCP/CLI/browser checks pass. All 156 development layouts validate across 13 jobs, both kerfs and seeds 0–2. Median material cost is **+1.0696% laser / +6.0951% plasma**, with small-hole plasma flags explicitly reported. One report-order harness failure was corrected using the same saved layout and unchanged 1e-9 tolerance; all original failures remain. No new held-out/final acceptance or release claim |
 
-**N4 mixed-pair diagnosis preparation, 2026-10-18:** [the separate observer](../benchmarks/results/h5-mixed-stage-preparation-20261018.md)
-passes 107 optimized tests, strict lint/build, nine actual authored traces and
-22 malformed-observation checks. Each paired generation call records an exact
-sample-rejection partition, retained proposals and deadline truncation;
-existing traces retain choices, repair loss/time and final rejection stage.
-All seven exchange counters reconcile. Insertions reverse exactly, with the
-other 151 files unchanged. Four serial seed-zero mechanical observations are
-planned under original 60-second limits. Logging can perturb trajectories;
-this diagnoses the failed pilot without replacing it. No integration or H5
-credit; production and reserved inputs remain unchanged at 60% completion.
+**N4 mixed-pair diagnosis, 2026-10-18:** [all four outputs validate](../benchmarks/results/h5-mixed-stage-20261018.md).
+The two large-plate traces examine all 24 pair calls and 4,764 samples without
+sample truncation, but retain no paired proposal. The area filter rejects
+1,721 otherwise eligible samples, including 575 mixed samples. Panel traces
+generate only the first same-item pair per kerf; all seven attempted paired
+swaps reject unchanged inventory, and no mixed pair is generated. Their
+repairs already have zero loss and each takes less than 0.0001 seconds;
+remaining construction/validation time is not separately measured.
+Overall, 28 attempts yield 19 failed source repairs, seven neutral rejections,
+one material rejection and one accepted single swap saving 18.669 mm2
+immediately. The filled-outer audit checks 18,626 pairs.
+The next hypothesis targets the proposal-area filter with an authored runtime
+regression; it is not a quality claim. H2/H5 remain open at 60%.
+
+**N4 larger-return witness, 2026-10-18:** [a valid mixed pair exchange](../benchmarks/results/h5-larger-return-witness-20261018.md)
+returns 2,790 mm2 of parts after removing 2,700 mm2, while keeping all seven
+parts and every material metric unchanged at 19,700 mm2. Frozen CLI and
+independent filled-outer checks validate both authored layouts. Eight
+conservative height bounds exclude either selected incoming part moving
+alone while one filler stays on each sheet. The current pair-area filter
+excludes this complete return set. This proves a limitation of that filter,
+with zero optimizer runs; an actual runtime regression and full candidate
+checks remain necessary. It does not establish mechanical quality or H5.
 
 **N4 mixed-exchange outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-mixed-exchange-pilot-20261018.md).
 The independent filled-outer audit checks 133,299 same-sheet

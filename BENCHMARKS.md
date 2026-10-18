@@ -14199,3 +14199,35 @@ The committed plan opens four serial 60-second seed-zero mechanical searches.
 This diagnoses the rejected mixed candidate and can perturb wall deadlines;
 it does not replace the failed quality pilot. Geometry, material, time limits,
 production and reserved inputs remain unchanged. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Mixed-pair sampling and repair diagnosis
+
+[Four diagnostic layouts validate](benchmarks/results/h5-mixed-stage-20261018.md),
+including all 18,626 independently checked filled-outer
+pairs. The two large-plate searches examine all 4,764 samples from 24 pair
+calls. None truncate; none retain a paired proposal. The area filter rejects
+1,721 otherwise eligible samples, of which 575 are mixed. Panel searches
+generate only their first same-item pair; seven attempted pairs reject neutral
+inventory and none reaches a mixed generation call. The recorded repairs have
+zero initial loss and each takes under 0.0001 s; other stages are not timed
+separately. Overall, 28 attempts yield 19 source failures, seven neutral
+rejections, one material failure and one accepted single saving 18.669 mm2.
+
+The reader reconciles sampling partitions and all seven solver counters;
+archives, quantities, metrics, exports and source/binary/input hashes verify.
+Instrumentation can perturb trajectories. No quality repeat, integration,
+gate change or H5 credit; completed milestone weight stays 60%.
+
+## 2026-10-18 — Author a larger-return-area pair witness
+
+[Both authored layouts independently validate](benchmarks/results/h5-larger-return-witness-20261018.md).
+The incoming 30x40 and 30x50 rectangles total 2,700 mm2; the three 30x31
+returns total 2,790 mm2. All seven parts and every metric remain identical,
+including 19,700 mm2 charged material. Eight conservative height bounds rule
+out either chosen incoming part alone under the stated filler constraint.
+The complete returned set violates the current proposal-area inequality,
+showing that inequality is not necessary for a valid nonincreasing-material
+exchange. No optimizer run occurs. A failing original-runtime regression,
+complete correctness checks and unchanged quality gates are still required.
+Production and reserved inputs are unchanged; H2/H5 remain open at 60%.

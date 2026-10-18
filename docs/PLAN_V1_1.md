@@ -981,3 +981,28 @@ other 151 files unchanged. Four serial seed-zero mechanical observations are
 planned under original 60-second limits. Logging can perturb trajectories;
 this diagnoses the failed pilot without replacing it. No integration or H5
 credit; production and reserved inputs remain unchanged at 60% completion.
+
+
+**N4 mixed-pair diagnosis, 2026-10-18:** [all four outputs validate](../benchmarks/results/h5-mixed-stage-20261018.md).
+The two large-plate traces examine all 24 pair calls and 4,764 samples without
+sample truncation, but retain no paired proposal. The area filter rejects
+1,721 otherwise eligible samples, including 575 mixed samples. Panel traces
+generate only the first same-item pair per kerf; all seven attempted paired
+swaps reject unchanged inventory, and no mixed pair is generated. Their
+repairs already have zero loss and each takes less than 0.0001 seconds;
+remaining construction/validation time is not separately measured.
+Overall, 28 attempts yield 19 failed source repairs, seven neutral rejections,
+one material rejection and one accepted single swap saving 18.669 mm2
+immediately. The filled-outer audit checks 18,626 pairs.
+The next hypothesis targets the proposal-area filter with an authored runtime
+regression; it is not a quality claim. H2/H5 remain open at 60%.
+
+**N4 larger-return witness, 2026-10-18:** [a valid mixed pair exchange](../benchmarks/results/h5-larger-return-witness-20261018.md)
+returns 2,790 mm2 of parts after removing 2,700 mm2, while keeping all seven
+parts and every material metric unchanged at 19,700 mm2. Frozen CLI and
+independent filled-outer checks validate both authored layouts. Eight
+conservative height bounds exclude either selected incoming part moving
+alone while one filler stays on each sheet. The current pair-area filter
+excludes this complete return set. This proves a limitation of that filter,
+with zero optimizer runs; an actual runtime regression and full candidate
+checks remain necessary. It does not establish mechanical quality or H5.

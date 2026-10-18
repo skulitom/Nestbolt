@@ -1,0 +1,128 @@
+{
+  "authored_only": true,
+  "optimizer_runs": 0,
+  "CLI_validation_runs": 2,
+  "both_layouts_valid": true,
+  "all_metrics_identical": true,
+  "parts": 7,
+  "material_mm2": 19700,
+  "incoming_dimensions_mm": [
+    [
+      30,
+      40
+    ],
+    [
+      30,
+      50
+    ]
+  ],
+  "returned_dimensions_mm": [
+    [
+      30,
+      31
+    ],
+    [
+      30,
+      31
+    ],
+    [
+      30,
+      31
+    ]
+  ],
+  "incoming_group_area_mm2": 2700,
+  "returned_group_area_mm2": 2790,
+  "returned_area_increase_mm2": 90,
+  "scope": "The selected distinct incoming rectangles move as one group and all three returned rectangles move back. A 60x94 filler stays on each sheet. All rotations are zero and mirrors disabled.",
+  "usable_width_and_height": 98,
+  "combined_side_space": 38,
+  "combined_top_bottom_space": 4,
+  "single_incoming_bounds": [
+    {
+      "incoming_height": 40,
+      "returned_rectangles": 0,
+      "receiver_height_lower_bound": 133,
+      "source_height_lower_bound": 50,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 40,
+      "returned_rectangles": 1,
+      "receiver_height_lower_bound": 102,
+      "source_height_lower_bound": 81,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 40,
+      "returned_rectangles": 2,
+      "receiver_height_lower_bound": 71,
+      "source_height_lower_bound": 112,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 40,
+      "returned_rectangles": 3,
+      "receiver_height_lower_bound": 40,
+      "source_height_lower_bound": 143,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 50,
+      "returned_rectangles": 0,
+      "receiver_height_lower_bound": 143,
+      "source_height_lower_bound": 40,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 50,
+      "returned_rectangles": 1,
+      "receiver_height_lower_bound": 112,
+      "source_height_lower_bound": 71,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 50,
+      "returned_rectangles": 2,
+      "receiver_height_lower_bound": 81,
+      "source_height_lower_bound": 102,
+      "cannot_fit_both_98mm_heights": true
+    },
+    {
+      "incoming_height": 50,
+      "returned_rectangles": 3,
+      "receiver_height_lower_bound": 50,
+      "source_height_lower_bound": 133,
+      "cannot_fit_both_98mm_heights": true
+    }
+  ],
+  "paired_with_one_return_left_height_lower_bound": 121,
+  "bound_ignores_positive_clearance_conservatively": true,
+  "filler_exact_positions_not_required_by_bound": true,
+  "does_not_rule_out_other_part_selections_or_global_layouts": true,
+  "independent_geometry": [
+    {
+      "layout": "before",
+      "parts": 7,
+      "same_sheet_pairs": 9,
+      "minimum_clearance_mm": 0.5,
+      "inside_original_edge_inset": true
+    },
+    {
+      "layout": "larger-return-after",
+      "parts": 7,
+      "same_sheet_pairs": 9,
+      "minimum_clearance_mm": 0.5,
+      "inside_original_edge_inset": true
+    }
+  ],
+  "shapely_version": "2.1.2",
+  "mechanical_applicability_proven": false,
+  "runtime_regression_test_executed": false,
+  "production_changed": false,
+  "H5_complete": false,
+  "cli_sha256": "97de6a34f17760ca30230742e716b3e74940f1a2ede71453ecb3b13bac73dc2b",
+  "current_filter_source": "output/h5-mixed-exchange-probe-20261018/candidate/crates/core/src/sheets/vstrip/exchange.rs",
+  "current_filter_source_sha256": "29c9985a43d02650d9cf98fc6483793accc0435ac774b6cf17cedbfd9e858205",
+  "current_filter_fragment": "        if area > incoming_area {\n            continue;\n        }",
+  "current_filter_line": 412
+}
