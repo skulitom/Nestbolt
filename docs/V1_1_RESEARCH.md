@@ -1081,3 +1081,17 @@ The candidate records 11 accepted exchanges from 73 attempts and
 37 compatible source-repair reuses. Reuse counts do not establish repair
 completion or explain remaining failures. Reject this candidate for integration; do not open the full 13-job gate for it. Production, prior failures
 and frozen inputs remain unchanged. H2/H5 remain open at 60%.
+
+
+**N4 reuse-stage diagnosis, 2026-10-18:** [four diagnostic outputs validate](../benchmarks/results/h5-return-reuse-stage-diagnosis-20261018.md).
+All 24 complete-obstruction exchanges repair the receiver, then fail source
+repair. Sixteen resume a compatible saved state; seven reduce loss further,
+none reaches zero, and none reaches final material/geometry acceptance.
+The reader verifies original inventories and exact restored loss across each
+reuse. The issue is incomplete repair, not observed cache-state corruption.
+Each case spends 0.903–1.054 seconds in source repairs within the existing
+early-call budget. Available windows shrink after successive attempts; three
+late attempts reach source repair with an already-expired pair deadline and
+return their unchanged state. These observed durations are not minimum required
+repair times and do not prove that a larger allowance would solve H5.
+Production and all failed results remain unchanged. H2/H5 remain open at 60%.
