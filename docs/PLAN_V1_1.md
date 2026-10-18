@@ -1102,3 +1102,16 @@ full geometry/material checks. Qualify the predicate and early branch with
 authored regressions, preserve expired/disabled behavior and rollback, and
 repeat the existing paired development protocol only for that changed build.
 Do not infer a quality gain or promote it from these diagnostic timings.
+
+
+**N4 exact-state candidate preparation, 2026-10-18:** [all 117 optimized tests pass](../benchmarks/results/h5-exact-reject-preparation-20261018.md),
+with all 113 prior tests unchanged. The new branch regression first fails
+against the original runtime; its source, executable and log are preserved.
+The candidate rejects only a complete exact internal-state match before
+repeated validation. Changed states and all accepted exchanges retain the
+original full validators, strict material guards and budgets. Twelve branch
+outcomes pass 24 frozen-CLI checks; strict lint/build, ten public outcomes,
+four CLI comparisons and five adversarial pilot checks also pass. The paired
+72-outcome method is unchanged and committed before measurement. No quality
+result, production integration or release claim; H2/H5 remain open at 60%.
+All six hosted checks on main `924336a` have passed.
