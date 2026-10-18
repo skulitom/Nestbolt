@@ -13899,3 +13899,19 @@ repair reuses. A reuse count alone does not establish a completed repair or
 explain failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. All prior failed results, production and
 frozen inputs remain unchanged; no reserved-input access or H5 credit.
 H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Prepare source-repair reuse observations
+
+[The isolated observer](benchmarks/results/h5-return-reuse-stage-preparation-20261018.md)
+passes 96 optimized core tests, strict lint and its build. Three real authored
+traces and twelve malformed-record checks qualify the reader, including
+same-call inventory/loss restoration, worse-than-fresh rejection and exact
+reuse counters. The original strict material rejection remains intact.
+
+Four serial, seed-zero, 60-second observations on the mechanical jobs and both
+kerfs will locate fresh/resumed source repair and final acceptance failures.
+No proposals, repair budgets, work charges or acceptance rules change. Source,
+binary and archive members verify. The two preparation-generator quoting
+errors are retained. No quality rerun, production integration, reserved-input
+access or milestone credit. H2/H5 remain open at 60%.

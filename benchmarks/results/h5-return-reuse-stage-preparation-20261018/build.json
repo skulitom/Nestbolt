@@ -1,0 +1,89 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-18T00:53:03.102087+00:00",
+      "finished": "2026-10-18T00:53:03.936507+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-reuse-stage-target-20261018"
+      ],
+      "started": "2026-10-18T00:53:04.037840+00:00",
+      "finished": "2026-10-18T00:56:08.137250+00:00",
+      "exit_code": 0,
+      "log_sha256": "4fa7aa98258ebf45e9371d72f44677c54c60963c1d3086f3ed661804b5628056"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-reuse-stage-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T00:56:08.367810+00:00",
+      "finished": "2026-10-18T00:57:10.449034+00:00",
+      "exit_code": 0,
+      "log_sha256": "8565fe38bcf797ed8d19d3a23ee9f690d8bb1984c54c150dbc7189a33ebbeaa7"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-reuse-stage-target-20261018"
+      ],
+      "started": "2026-10-18T00:57:10.557760+00:00",
+      "finished": "2026-10-18T00:58:04.292161+00:00",
+      "exit_code": 0,
+      "log_sha256": "c5b9515eab4f164bb620d0603491c65f5c244af64e38f0668a2e2dd552157545"
+    }
+  ],
+  "source_sha256": "43c67c87ea45d5ff6178d8a6b18855672e7de75e200935fae32b0a392909a96e",
+  "binary_sha256": "8c07829fbb231e59e3cc63ef2df713decb9a70b438b4b3afc5082f1f9ad21680",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}
