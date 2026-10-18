@@ -14669,3 +14669,23 @@ is recomputed from every record. An independent filled-outer audit checks
 The candidate accepts 14/111 exchanges, including 12/74 paired and 1/4 mixed-item exchanges. Follow-up gap filling runs 14 times and moves 14 parts. Of 3 neutral rejections, 0 are caught by exact internal-state equality and 3 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Reject integration and a full H5 run for this candidate. All four mechanical comparisons remain above the original +1% material limit, and the 0.2 mm bracket comparison also fails. The aggregate counters do not identify individual return-seed decisions or establish a causal quality improvement over earlier pilots. Read-only source review shows that this change seeks containment only: an already feasible return seed can still sit at the height-defining edge without trying a lower free space. The next distinct hypothesis is a bounded search for collision-free return positions in the existing source layout, considering original allowed orientations and preferring lower occupied extent, while retaining the previous seed as fallback. Qualify it on authored cases with exact quantities, strict hole reservation, deterministic work charging, disabled/expired behavior and the original material guard before a new pilot. Existing global cross-sheet moves already exist; do not duplicate them. Preserve every failed candidate and do not repeat this unchanged quality pilot or relax its limits.
 No new reserved-input access or H5 credit. Production, frozen inputs and
 earlier failures remain unchanged. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Free-space return initialization qualification
+
+**N4 free-space return preparation, 2026-10-18:** the [isolated candidate](benchmarks/results/h5-free-return-preparation-20261018.md)
+tries at most 256 translations per returned part against the source and earlier
+returns, keeping each orientation and reflection. It checks filled-hole collision
+geometry, charges work, observes the shared deadline, and always retains every
+part with the previous seed as fallback. Original choices, repairs and strict
+acceptance remain. All 137 optimized tests pass: 130 prior tests are unchanged,
+three former no-improvement expectations now require strict material reduction
+or exact incumbent retention, and four new regressions retain their expected
+old-behavior failures. The first implementation's three failures remain with six
+independent CLI checks proving the new authored improvement; runtime guards remain.
+Four new frozen-CLI checks and independent filled-outer checks qualify two authored
+outputs; 12 original branch outcomes, 24 branch validations, 10 public outcomes,
+four public comparisons and five adversarial harness tests pass. Exact source
+reconstruction, lint and build pass. The same matched pilot is ready to be planned;
+no quality measurement has begun and no integration or H5 credit is earned.
+H2/H5 remain open at 60%.

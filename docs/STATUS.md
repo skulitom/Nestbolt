@@ -105,6 +105,23 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 
 All six hosted checks on main `b9ccbd5` pass, including the completed Windows check, Linux and browsers. The subsequent isolated candidate remains subject to its own quality pilot and the unchanged H5 gate. [Hosted evidence](../benchmarks/results/h5-exchange-failure-observer-20261018/main-ci-b9ccbd5.json).
 
+**N4 free-space return preparation, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-free-return-preparation-20261018.md)
+tries at most 256 translations per returned part against the source and earlier
+returns, keeping each orientation and reflection. It checks filled-hole collision
+geometry, charges work, observes the shared deadline, and always retains every
+part with the previous seed as fallback. Original choices, repairs and strict
+acceptance remain. All 137 optimized tests pass: 130 prior tests are unchanged,
+three former no-improvement expectations now require strict material reduction
+or exact incumbent retention, and four new regressions retain their expected
+old-behavior failures. The first implementation's three failures remain with six
+independent CLI checks proving the new authored improvement; runtime guards remain.
+Four new frozen-CLI checks and independent filled-outer checks qualify two authored
+outputs; 12 original branch outcomes, 24 branch validations, 10 public outcomes,
+four public comparisons and five adversarial harness tests pass. Exact source
+reconstruction, lint and build pass. The same matched pilot is ready to be planned;
+no quality measurement has begun and no integration or H5 credit is earned.
+H2/H5 remain open at 60%.
+
 **N4 contained-return outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-contained-return-pilot-20261018.md).
 The independent filled-outer audit checks 133,170 same-sheet
 pairs across 48 common-mode layouts. 5 of eight material pairs fail
