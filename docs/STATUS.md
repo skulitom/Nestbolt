@@ -109,18 +109,14 @@ All six hosted checks on preceding main `8ae8b69` pass, including Windows, Linux
 
 All six hosted checks on preceding main `02905f3` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint, including the reconciled plugin mock update. The newer `2f5d43f` checkpoint is pushed and its separate hosted run is still pending at this observation. The isolated extended-repair candidate fails five material comparisons and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-extended-repair-pilot-20261018/main-ci-02905f3.json).
 
-**N4 provisional assignment qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-assignment-bridge-preparation-20261018.md)
-keeps the original short search, then may cross validated material-flat steps
-when last-sheet filled area strictly decreases. Only a final material gain commits
-the sequence; incomplete steps roll back with their accepted counters. An actual
-old-policy fixture demonstrates two flat steps followed by a valid material gain.
-All 156 native tests pass: 148 old bodies, that witness and seven new policy tests.
-Five expected old-behavior failures remain. Eight initial and 24 new-output CLI
-checks, independent filled geometry, exact old witnesses, public replay, source
-reconstruction, lint, build and five harness tests pass. The original four-step
-cap, total deadline, validation reserve and geometry guards remain. No quality
-comparison has begun, and no production change or H5 credit is claimed.
-H2/H5 stay open at 60%.
+All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint. The assignment-bridge candidate fails four material comparisons and remains excluded from production. Application code remains unchanged from the published v0.2.0-alpha.1 preview; the English, Japanese and Chinese READMEs already describe the preview and remaining gates. There is no new qualified application build to release at this checkpoint. [Hosted evidence](../benchmarks/results/h5-assignment-bridge-pilot-20261018/main-ci-2f5d43f.json).
+
+**N4 assignment-bridge outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-assignment-bridge-pilot-20261018.md).
+The independent filled-outer audit checks 133,388 same-sheet
+pairs across 48 common-mode layouts. 4 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.936840%; m-mechanical-large-plates at 1.5 mm: +4.638902%; m-mechanical-panel-hardware at 0.2 mm: +6.747151%; m-mechanical-panel-hardware at 1.5 mm: +6.156172%
+The candidate accepts 44/505 exchanges, including 32/267 paired and 4/44 mixed-item exchanges. Follow-up gap filling runs 17 times and moves 23 parts. Of 29 neutral rejections, 0 are caught by exact internal-state equality and 28 by the material profile before full validation. Counts do not establish time saving or improved final quality. The extended phase attempts 309 repairs and records 21 steps, including 5 flat steps. 18 steps belong to committed sequences; 3 roll back across 3 rollbacks. The canonical area guard rejects 189 flat trials. Committed intermediate steps need not each improve material; their sequence ends with strict whole-job improvement. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
+unchanged. H2/H5 remain open at 60%.
 
 **N4 extended-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-extended-repair-pilot-20261018.md).
 The independent filled-outer audit checks 133,152 same-sheet
