@@ -128,6 +128,17 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 actual-outline construction, 2026-10-18:** [the retained beam and backfill](../benchmarks/results/h5-outline-construction-20261018.md)
+test actual filled outer contours. All 159,819 beam additions replay; both panel
+diagnostic timeouts remain explicit. Backfill adds 74 parts without moving existing
+poses. The closest case places 63/66 parts, missing three cogs; every case remains
+incomplete. Eight original public checks reject exactly the missing quantities.
+The audit's null-metrics handling failure is preserved and repaired without new
+packing searches. Next investigate collective repair of these saved partials,
+first accounting for the native conversion guard, rather than treating physical
+clearance as proof of zero native proxy loss. No runtime, gate limit or release
+change; H2/H5 remain open at 60%.
+
 **N4 mixed-pattern diagnosis, 2026-10-18:** [verified component constructions](../benchmarks/results/h5-pattern-construction-20261018.md)
 find compact two-bracket/one-insert groups and smaller free-angle round-part pairs.
 All 446 component CLI checks and independent checks of 948 incomplete placement

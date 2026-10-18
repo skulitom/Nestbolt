@@ -15028,3 +15028,14 @@ is found; the panel catalogs still exceed available area. Keep all failures and
 test actual-outline placement and joint assignment before any runtime proposal.
 No global infeasibility, quality or speed claim follows. Production, budgets,
 repair cap, material limits and the preview remain unchanged; completion is 60%.
+
+**N4 actual-outline construction, 2026-10-18:** [the retained beam and backfill](benchmarks/results/h5-outline-construction-20261018.md)
+test actual filled outer contours. All 159,819 beam additions replay; both panel
+diagnostic timeouts remain explicit. Backfill adds 74 parts without moving existing
+poses. The closest case places 63/66 parts, missing three cogs; every case remains
+incomplete. Eight original public checks reject exactly the missing quantities.
+The audit's null-metrics handling failure is preserved and repaired without new
+packing searches. Next investigate collective repair of these saved partials,
+first accounting for the native conversion guard, rather than treating physical
+clearance as proof of zero native proxy loss. No runtime, gate limit or release
+change; H2/H5 remain open at 60%.
