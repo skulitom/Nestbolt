@@ -13965,3 +13965,21 @@ Orientation, quantity, repair, material, deadline and incumbent guards remain.
 The original outer budget and failed prior results stay unchanged. The paired
 pilot keeps the original scoring and +1% limit; no benchmark claim, production
 integration, reserved-input access or H5 credit. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Balanced incoming-pair comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-balanced-group-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.914 minutes. All archives pass CRC and member/hash checks;
+the summary is recomputed from all records. The filled-outer audit verifies
+133,456 same-sheet pairs in 48 common-mode layouts with
+minimum slack 9.99999247131e-07 mm and unchanged
+0.00000010 mm tolerance. Hole interiors stay reserved.
+
+5 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +5.188368%; m-mechanical-large-plates at 1.5 mm: +5.469920%; m-mechanical-panel-hardware at 0.2 mm: +6.652162%; m-mechanical-panel-hardware at 1.5 mm: +5.589744%; c-bracket-mixed at 0.2 mm: +1.501017%
+The candidate accepts 19/41 exchanges, including 13/25
+two-part exchanges. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
+prove impossibility. Original failures, production and frozen inputs remain
+unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.

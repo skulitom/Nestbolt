@@ -1,0 +1,549 @@
+--- return-frame-candidate
++++ balanced-pair-candidate
+@@ -165,6 +165,165 @@
+         })
+         .collect();
+     aligned.unwrap_or_else(translated)
++}
++
++type IncomingMember = (PItemKey, std::sync::Arc<Item>, DTransformation);
++
++// Try nearby copies of the same original part. Stable input order breaks ties;
++// at most twelve anchors, two neighbours each and six distinct pairs are kept.
++fn incoming_pairs(layout: &JLayout, keys: &[PItemKey]) -> Vec<Vec<PItemKey>> {
++    let mut pairs = Vec::new();
++    let mut seen = Vec::new();
++    for (i, &key) in keys.iter().enumerate().take(12) {
++        let a = &layout.placed_items()[key];
++        let ba = a.shape().bbox();
++        let mut neighbours: Vec<_> = keys
++            .iter()
++            .enumerate()
++            .filter_map(|(j, &other)| {
++                let b = &layout.placed_items()[other];
++                if i == j || !std::sync::Arc::ptr_eq(a.item(), b.item()) {
++                    return None;
++                }
++                let bb = b.shape().bbox();
++                let dx = (ba.x_min + ba.x_max) - (bb.x_min + bb.x_max);
++                let dy = (ba.y_min + ba.y_max) - (bb.y_min + bb.y_max);
++                Some((dx * dx + dy * dy, j))
++            })
++            .collect();
++        neighbours.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.cmp(&b.1)));
++        for (_, j) in neighbours.into_iter().take(2) {
++            let pair = (i.min(j), i.max(j));
++            if seen.contains(&pair) {
++                continue;
++            }
++            seen.push(pair);
++            pairs.push(vec![keys[pair.0], keys[pair.1]]);
++            if pairs.len() == 6 {
++                return pairs;
++            }
++        }
++    }
++    pairs
++}
++
++// Incoming groups must preserve their relative transform and every member's
++// permissions. An illegal mapped orientation rejects this proposal as a whole.
++fn incoming_group_poses(
++    members: &[IncomingMember],
++    anchor: DTransformation,
++) -> Option<Vec<DTransformation>> {
++    let old = members.first()?.2;
++    let same = old.rotation() == anchor.rotation() && old.reflected == anchor.reflected;
++    let frame = old.compose().inverse().transform(&anchor.compose());
++    let (ox, oy) = old.translation();
++    let (nx, ny) = anchor.translation();
++    members
++        .iter()
++        .enumerate()
++        .map(|(i, (_, item, previous))| {
++            let pose = if i == 0 {
++                anchor
++            } else if same {
++                let (px, py) = previous.translation();
++                DTransformation::new(previous.rotation(), (px + nx - ox, py + ny - oy))
++                    .with_reflection(previous.reflected)
++            } else {
++                previous.compose().transform(&frame).decompose()
++            };
++            item.allowed_orientations().allows(&pose).then_some(pose)
++        })
++        .collect()
++}
++
++fn paired_proposals(
++    receiver: &JLayout,
++    incoming: &[IncomingMember],
++    rng: &mut Xoshiro256PlusPlus,
++    clock: &Clock,
++    until: f64,
++) -> Vec<Proposal> {
++    debug_assert_eq!(incoming.len(), 2);
++    let anchor = &incoming[0].1;
++    let bounds = receiver.container().outer_cd().bbox();
++    let mut samples = Vec::new();
++    let mut buffer = anchor.shape_cd().as_ref().clone();
++    for p in receiver.placed_items().values() {
++        let dt = convert_sample_to_closest_feasible(p.d_transf(), anchor);
++        buffer.transform_from(anchor.shape_cd(), &dt.compose());
++        let a = buffer.bbox();
++        let b = p.shape().bbox();
++        let (x, y) = dt.translation();
++        samples.push(
++            DTransformation::new(
++                dt.rotation(),
++                (x + b.x_min - a.x_min, y + b.y_min - a.y_min),
++            )
++            .with_reflection(dt.reflected),
++        );
++    }
++    if let Some(sampler) = UniformBBoxSampler::new(bounds, anchor, bounds) {
++        samples.extend((0..128).map(|_| sampler.sample(rng)));
++    }
++    let incoming_area: f32 = incoming.iter().map(|(_, item, _)| item.area()).sum();
++    let mut collector = BasicHazardCollector::new();
++    let mut out = Vec::new();
++    for sample in samples {
++        if clock.now() >= until {
++            break;
++        }
++        let Some(poses) = incoming_group_poses(incoming, sample) else {
++            continue;
++        };
++        let mut collisions = Vec::new();
++        let mut allowed = true;
++        for ((_, item, _), pose) in incoming.iter().zip(&poses) {
++            buffer = item.shape_cd().as_ref().clone();
++            buffer.transform_from(item.shape_cd(), &pose.compose());
++            collector.clear();
++            receiver
++                .cde()
++                .collect_poly_collisions(&buffer, &NoFilter, &mut collector);
++            crate::separate::charge(clock, item, 1);
++            for (_, hazard) in collector.iter() {
++                if let BasicHazardEntity::PlacedItem { pk, .. } = hazard {
++                    if !collisions.contains(pk) {
++                        collisions.push(*pk);
++                    }
++                } else {
++                    allowed = false;
++                }
++            }
++            if !allowed || collisions.len() > 3 {
++                break;
++            }
++        }
++        if !allowed || collisions.is_empty() || collisions.len() > 3 {
++            continue;
++        }
++        // Keep the complete union of both incoming members' actual obstructions.
++        let victims: Vec<_> = receiver
++            .placed_items()
++            .iter()
++            .enumerate()
++            .filter(|(_, (key, _))| collisions.contains(key))
++            .collect();
++        let area: f32 = victims.iter().map(|(_, (_, p))| p.item().area()).sum();
++        if area > incoming_area {
++            continue;
++        }
++        retain_proposal(
++            &mut out,
++            Proposal {
++                victims: victims.iter().map(|(_, (key, _))| *key).collect(),
++                incoming: sample,
++                blockers: victims.len(),
++                rank: victims[0].0,
++                area,
++            },
++        );
++    }
++    out
+ }
+ 
+ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
+@@ -234,13 +393,30 @@
+         }
+         let mut targets: Vec<_> = (0..last_index).collect();
+         targets.sort_by(|&a, &b| fill[a].total_cmp(&fill[b]));
+-        for incoming_key in incoming_keys {
++        let now = self.clock.now();
++        let group_until = now + (self.last_step(until) - now).max(0.0) * 0.5;
++        let mut choices = incoming_pairs(&sep.layout, &incoming_keys);
++        choices.extend(incoming_keys.into_iter().map(|key| vec![key]));
++        for selected in choices {
++            let paired = selected.len() == 2;
++            let exchange_until = if paired { group_until } else { until };
++            if self.clock.now() >= self.last_step(exchange_until) {
++                continue;
++            }
++            let incoming_key = selected[0];
++            let members: Vec<_> = selected
++                .iter()
++                .map(|&key| {
++                    let p = &sep.layout.placed_items()[key];
++                    (key, p.item().clone(), shift(p.d_transf(), -last_offset))
++                })
++                .collect();
+             let incoming = &sep.layout.placed_items()[incoming_key];
+             let incoming_item = incoming.item().clone();
+             let incoming_old = shift(incoming.d_transf(), -last_offset);
+             for &target in targets.iter().take(3) {
+-                if self.clock.now() >= self.last_step(until) {
+-                    return Ok(0);
++                if self.clock.now() >= self.last_step(exchange_until) {
++                    break;
+                 }
+                 let offset = strip.start(target);
+                 let mut receiver = JLayout::new(single.clone());
+@@ -257,7 +433,7 @@
+                         receiver.place_item(p.item(), shift(p.d_transf(), -offset));
+                         changed_keys.push(key);
+                     } else if i == last_index {
+-                        if key != incoming_key {
++                        if !selected.contains(&key) {
+                             source.place_item(p.item(), shift(p.d_transf(), -last_offset));
+                         }
+                         changed_keys.push(key);
+@@ -265,19 +441,30 @@
+                 }
+                 self.clock
+                     .charge(Work::RegisteredItem, changed_keys.len() as f64);
+-                let proposal_until = self.last_step(until);
+-                let candidates = proposals(
+-                    &receiver,
+-                    &incoming_item,
+-                    &mut self.rng,
+-                    &self.clock,
+-                    proposal_until,
+-                );
++                let proposal_until = self.last_step(exchange_until);
++                let candidates = if paired {
++                    paired_proposals(
++                        &receiver,
++                        &members,
++                        &mut self.rng,
++                        &self.clock,
++                        proposal_until,
++                    )
++                } else {
++                    proposals(
++                        &receiver,
++                        &incoming_item,
++                        &mut self.rng,
++                        &self.clock,
++                        proposal_until,
++                    )
++                };
+                 for proposal in candidates {
+-                    if self.clock.now() >= self.last_step(until) {
+-                        return Ok(0);
++                    if self.clock.now() >= self.last_step(exchange_until) {
++                        break;
+                     }
+                     self.stats.directed_exchange_attempts += 1;
++                    self.stats.paired_exchange_attempts += u64::from(paired);
+                     let victims: Vec<_> = proposal
+                         .victims
+                         .iter()
+@@ -290,7 +477,16 @@
+                     for &(key, _, _) in &victims {
+                         next_receiver.remove_item(key);
+                     }
+-                    next_receiver.place_item(&incoming_item, proposal.incoming);
++                    if paired {
++                        let Some(poses) = incoming_group_poses(&members, proposal.incoming) else {
++                            continue;
++                        };
++                        for ((_, item, _), pose) in members.iter().zip(poses) {
++                            next_receiver.place_item(item, pose);
++                        }
++                    } else {
++                        next_receiver.place_item(&incoming_item, proposal.incoming);
++                    }
+                     let mut next_source = JLayout::from_snapshot(&source.save());
+                     let returned = if victims.len() == 1 {
+                         vec![convert_sample_to_closest_feasible(
+@@ -308,7 +504,7 @@
+                     let now = self.clock.now();
+                     // Bound each pair so one hard proposal cannot consume all
+                     // remaining opportunities. Each repair gets half the pair.
+-                    let pair_end = now + ((self.last_step(until) - now) * 0.5).min(0.4);
++                    let pair_end = now + ((self.last_step(exchange_until) - now) * 0.5).min(0.4);
+                     let middle = (now + pair_end) / 2.0;
+                     let mut receiver_sep = Separator::new(
+                         next_receiver,
+@@ -330,7 +526,7 @@
+                     let (source_snapshot, source_tracker) =
+                         source_sep.separate(&self.deadline(pair_end));
+                     if source_tracker.total_loss() > 0.0
+-                        || self.clock.now() >= self.last_step(until)
++                        || self.clock.now() >= self.last_step(exchange_until)
+                     {
+                         continue;
+                     }
+@@ -357,13 +553,14 @@
+                     let after = report.metrics.as_ref().expect("valid exchange");
+                     if after.sheets_used > before.sheets_used
+                         || after.material_area > before.material_area
+-                        || self.clock.now() >= until
++                        || self.clock.now() >= exchange_until
+                     {
+                         continue;
+                     }
+                     sep.layout = trial;
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
++                    self.stats.paired_exchanges += u64::from(paired);
+                     return Ok(1);
+                 }
+             }
+@@ -1024,4 +1221,244 @@
+             }
+         }
+     }
++    fn balanced_fixture() -> (Job, Layout) {
++        (
++            serde_json::from_str(include_str!(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../examples/balanced-group-job.json"
++            )))
++            .unwrap(),
++            serde_json::from_str(include_str!(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../examples/balanced-group-before.json"
++            )))
++            .unwrap(),
++        )
++    }
++
++    #[test]
++    fn balanced_pair_moves_two_incoming_and_three_returns() {
++        let (job, layout) = balanced_fixture();
++        assert_eq!(
++            validate(&job, &layout)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area,
++            19700.0
++        );
++        for seed in 0..4 {
++            let (moved, after, stats) = exercise(&job, &layout, seed, true, false, 0);
++            assert_eq!(moved, 1, "{stats:?}");
++            assert_eq!(stats.paired_exchanges, 1);
++            assert!(stats.paired_exchange_attempts > 0);
++            assert_eq!(
++                after
++                    .placements
++                    .iter()
++                    .filter(|p| p.part_id == "incoming" && p.sheet_id == "sheet-0")
++                    .count(),
++                2
++            );
++            assert_eq!(
++                after
++                    .placements
++                    .iter()
++                    .filter(|p| p.part_id == "return" && p.sheet_id == "sheet-1")
++                    .count(),
++                3
++            );
++        }
++    }
++
++    #[test]
++    fn balanced_pair_disabled_or_expired_preserves_incumbent() {
++        let (job, layout) = balanced_fixture();
++        for (enabled, expired) in [(false, false), (true, true)] {
++            let (moved, _, stats) = exercise(&job, &layout, 0, enabled, expired, 0);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.paired_exchange_attempts, 0);
++            assert_eq!(stats.paired_exchanges, 0);
++        }
++    }
++
++    #[test]
++    fn balanced_pair_preserves_frozen_prefix() {
++        let (mut job, mut layout) = balanced_fixture();
++        job.parts.push(rectangle("fixed", 10.0, 10.0));
++        for p in &mut layout.placements {
++            p.sheet_id = if p.sheet_id == "sheet-0" {
++                "sheet-1".into()
++            } else {
++                "sheet-2".into()
++            };
++        }
++        layout.sheets.push(Sheet {
++            id: "sheet-2".into(),
++            stock_id: "stock".into(),
++        });
++        layout.placements.push(Placement {
++            part_id: "fixed".into(),
++            copy_index: 0,
++            sheet_id: "sheet-0".into(),
++            transform: RigidTransform {
++                translation: [2.0, 2.0],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        let (moved, _, stats) = exercise(&job, &layout, 0, true, false, 1);
++        assert_eq!(moved, 1);
++        assert_eq!(stats.paired_exchanges, 1);
++    }
++
++    #[test]
++    fn balanced_pair_rejects_illegal_group_orientation() {
++        let (mut job, layout) = balanced_fixture();
++        for mirrors in [false, true] {
++            job.parts
++                .iter_mut()
++                .find(|p| p.id == "incoming")
++                .unwrap()
++                .allow_mirror = mirrors;
++            let model = Model::new(&job).unwrap();
++            let sheets = model.sheets_of(&layout).unwrap();
++            let source = sheets[1].layout();
++            let members: Vec<_> = source
++                .placed_items()
++                .iter()
++                .filter(|(_, p)| p.item().area() == 1350.0)
++                .map(|(key, p)| (key, p.item().clone(), p.d_transf()))
++                .collect();
++            assert_eq!(members.len(), 2);
++            let old = members[0].2;
++            let reflected =
++                DTransformation::new(old.rotation(), (30.0, 3.0)).with_reflection(!old.reflected);
++            if !mirrors {
++                assert!(incoming_group_poses(&members, reflected).is_none());
++            } else {
++                let permitted = model.internal(
++                    members[0].1.idx(),
++                    &RigidTransform {
++                        translation: [32.0, 2.0],
++                        rotation_radians: 0.0,
++                        mirrored: true,
++                    },
++                );
++                assert!(permitted.reflected);
++                assert!(incoming_group_poses(&members, permitted).is_some());
++            }
++            assert!(
++                incoming_group_poses(
++                    &members,
++                    DTransformation::new(old.rotation() + std::f32::consts::FRAC_PI_2, (0.0, 0.0))
++                        .with_reflection(old.reflected)
++                )
++                .is_none()
++            );
++            let shifted = incoming_group_poses(
++                &members,
++                DTransformation::new(old.rotation(), (3.0, 4.0)).with_reflection(old.reflected),
++            )
++            .unwrap();
++            let old_delta = (
++                members[1].2.translation().0 - members[0].2.translation().0,
++                members[1].2.translation().1 - members[0].2.translation().1,
++            );
++            let new_delta = (
++                shifted[1].translation().0 - shifted[0].translation().0,
++                shifted[1].translation().1 - shifted[0].translation().1,
++            );
++            let scale = members
++                .iter()
++                .map(|(_, _, pose)| pose.translation().0.abs().max(pose.translation().1.abs()))
++                .fold(1.0_f32, f32::max);
++            let tolerance = 4.0 * f32::EPSILON * scale;
++            assert!((old_delta.0 - new_delta.0).abs() <= tolerance);
++            assert!((old_delta.1 - new_delta.1).abs() <= tolerance);
++        }
++    }
++
++    #[test]
++    fn balanced_pair_selection_is_unique_bounded_and_identity_safe() {
++        let (job, layout) = balanced_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let item = source
++            .placed_items()
++            .values()
++            .find(|p| p.item().area() == 1350.0)
++            .unwrap()
++            .item();
++        let mut many = JLayout::new(source.container().clone());
++        let keys: Vec<_> = (0..20)
++            .map(|i| many.place_item(item, DTransformation::new(0.0, (i as f32 * 32.0, 0.0))))
++            .collect();
++        let pairs = incoming_pairs(&many, &keys);
++        assert_eq!(pairs.len(), 6);
++        assert_eq!(pairs, incoming_pairs(&many, &keys));
++        for (i, pair) in pairs.iter().enumerate() {
++            assert_eq!(pair.len(), 2);
++            assert_ne!(pair[0], pair[1]);
++            assert!(!pairs[..i].contains(pair));
++        }
++        let other_model = Model::new(&job).unwrap();
++        let other_sheets = other_model.sheets_of(&layout).unwrap();
++        let other = other_sheets[1]
++            .layout()
++            .placed_items()
++            .values()
++            .find(|p| p.item().area() == 1350.0)
++            .unwrap()
++            .item();
++        let key = many.place_item(other, DTransformation::new(0.0, (0.0, 47.0)));
++        assert!(incoming_pairs(&many, &[keys[0], key]).is_empty());
++    }
++
++    #[test]
++    fn balanced_pair_falls_back_to_a_valid_single_exchange() {
++        let (mut job, layout) = balanced_fixture();
++        let incoming = job.parts.iter_mut().find(|p| p.id == "incoming").unwrap();
++        let quantity = incoming.quantity;
++        *incoming = rectangle("incoming", 30.0, 20.0);
++        incoming.quantity = quantity;
++        let (moved, _, stats) = exercise(&job, &layout, 0, true, false, 0);
++        assert_eq!(moved, 1);
++        assert_eq!(stats.paired_exchange_attempts, 0);
++        assert_eq!(stats.paired_exchanges, 0);
++        assert_eq!(stats.directed_exchanges, 1);
++    }
++
++    #[test]
++    fn balanced_pair_without_return_room_preserves_incumbent() {
++        let (mut job, mut layout) = balanced_fixture();
++        let incoming = job.parts.iter_mut().find(|p| p.id == "incoming").unwrap();
++        *incoming = rectangle("incoming", 30.0, 44.9);
++        incoming.quantity = 2;
++        for p in layout
++            .placements
++            .iter_mut()
++            .filter(|p| p.part_id == "incoming")
++        {
++            p.transform.translation[1] = if p.copy_index == 0 { 1.01 } else { 46.12 };
++        }
++        job.parts.push(rectangle("source-extra", 30.0, 7.7));
++        layout.placements.push(Placement {
++            part_id: "source-extra".into(),
++            copy_index: 0,
++            sheet_id: "sheet-1".into(),
++            transform: RigidTransform {
++                translation: [2.0, 91.23],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        // The source fits 2*44.9 + 7.7 plus spacing. Three returned squares
++        // plus that extra part need 98.3 mm in a 98 mm side band.
++        let (moved, _, stats) = exercise(&job, &layout, 0, true, false, 0);
++        assert_eq!(moved, 0, "{stats:?}");
++        assert_eq!(stats.directed_exchanges, 0);
++        assert_eq!(stats.paired_exchanges, 0);
++    }
+ }

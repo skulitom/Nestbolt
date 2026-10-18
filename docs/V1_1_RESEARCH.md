@@ -1112,3 +1112,13 @@ incumbent guards stay. [The committed 72-outcome plan](../benchmarks/results/h5-
 retains the same cases, kerfs, seeds, matched cores, 60-second limits and +1%
 condition. No measured improvement, production change or H5 credit is claimed;
 the full 13-job gate remains required. H2/H5 are open at 60%.
+
+
+**N4 balanced-pair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-balanced-group-pilot-20261018.md).
+The independent filled-outer audit checks 133,456 same-sheet
+pairs across 48 common-mode layouts. 5 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.188368%; m-mechanical-large-plates at 1.5 mm: +5.469920%; m-mechanical-panel-hardware at 0.2 mm: +6.652162%; m-mechanical-panel-hardware at 1.5 mm: +5.589744%; c-bracket-mixed at 0.2 mm: +1.501017%
+The candidate accepts 19/41 total exchanges, including 13/25
+two-part exchanges. These counts do not establish improved final material or
+identify remaining failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and
+all earlier failed results remain unchanged. H2/H5 remain open at 60%.
