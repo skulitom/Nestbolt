@@ -14474,3 +14474,19 @@ and that disabled/expired behavior and useful existing exchanges remain.
 Only after those checks should the unchanged paired quality pilot run.
 This is a ranking hypothesis, not evidence of feasible improvement or a
 reason to relax any H5 requirement.
+
+
+## 2026-10-18 — Qualify boundary-priority exchange ordering
+
+**N4 boundary-priority preparation, 2026-10-18:** [all 126 optimized tests pass](benchmarks/results/h5-boundary-priority-preparation-20261018.md),
+with 123 prior tests unchanged. The isolated candidate orders incoming parts
+by upper extent before area, retaining stable ties and the existing bounded
+pair generators. Selected pairs keep their original member anchor order. Budgets, sampling, repairs, work charges and every full
+acceptance check are unchanged. Two original ordering regressions fail as
+expected and are preserved; all three new tests pass afterwards. The first
+revision also exposes three existing exchange regressions; preserving pair
+anchors resolves them with unchanged assertions and retained failures. The order
+fixture and twelve rejection-boundary outcomes pass 25 frozen-CLI checks.
+Strict lint/build, public parity/replay, five pilot tests and exact source
+reconstruction pass. The unchanged 72-outcome plan is committed before
+measurement. No quality or integration claim; H2/H5 remain open at 60%.

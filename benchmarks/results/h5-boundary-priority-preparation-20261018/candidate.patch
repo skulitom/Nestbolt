@@ -1,0 +1,197 @@
+--- material-profile/crates/core/src/sheets/vstrip/exchange.rs
++++ boundary-priority/crates/core/src/sheets/vstrip/exchange.rs
+@@ -5,6 +5,34 @@
+ use jagua_rs::entities::Item;
+ use jagua_rs::geometry::geo_traits::TransformableFrom;
+ use material_profile::material_profile;
++
++// In the rotated strip frame, rightmost extent is original sheet height.
++// Reach boundary parts before larger interior parts; equal geometry/area ties
++// retain their input order. This changes proposal order, never acceptance.
++fn rank_incoming(layout: &JLayout, keys: &mut [PItemKey]) {
++    keys.sort_by(|&a, &b| {
++        let a = &layout.placed_items()[a];
++        let b = &layout.placed_items()[b];
++        b.shape()
++            .bbox()
++            .x_max
++            .total_cmp(&a.shape().bbox().x_max)
++            .then_with(|| b.item().area().total_cmp(&a.item().area()))
++    });
++}
++
++// Priority selects which members are considered. The original area/stable
++// order still defines the anchor and relative frame of each chosen pair.
++fn preserve_pair_frames(pairs: &mut [Vec<PItemKey>], original_order: &[PItemKey]) {
++    for pair in pairs {
++        pair.sort_by_key(|key| {
++            original_order
++                .iter()
++                .position(|old| old == key)
++                .expect("source member")
++        });
++    }
++}
+ 
+ struct Proposal {
+     victims: Vec<PItemKey>,
+@@ -513,12 +541,14 @@
+         let last_index = shape.sheets - 1;
+         let last_offset = strip.start(last_index);
+         let mut incoming_keys = strip.in_last(&sep.layout, shape);
+-        incoming_keys.sort_by(|&a, &b| {
++        let mut original_order = incoming_keys.clone();
++        original_order.sort_by(|&a, &b| {
+             sep.layout.placed_items()[b]
+                 .item()
+                 .area()
+                 .total_cmp(&sep.layout.placed_items()[a].item().area())
+         });
++        rank_incoming(&sep.layout, &mut incoming_keys);
+         let mut fill = vec![0.0_f32; last_index];
+         for p in sep
+             .layout
+@@ -535,8 +565,10 @@
+         targets.sort_by(|&a, &b| fill[a].total_cmp(&fill[b]));
+         let now = self.clock.now();
+         let group_until = now + (self.last_step(until) - now).max(0.0) * 0.5;
+-        let same_pairs = incoming_pairs(&sep.layout, &incoming_keys);
+-        let mixed_pairs = mixed_incoming_pairs(&sep.layout, &incoming_keys);
++        let mut same_pairs = incoming_pairs(&sep.layout, &incoming_keys);
++        let mut mixed_pairs = mixed_incoming_pairs(&sep.layout, &incoming_keys);
++        preserve_pair_frames(&mut same_pairs, &original_order);
++        preserve_pair_frames(&mut mixed_pairs, &original_order);
+         let mut choices =
+             Vec::with_capacity(same_pairs.len() + mixed_pairs.len() + incoming_keys.len());
+         for index in 0..same_pairs.len().max(mixed_pairs.len()) {
+@@ -2514,4 +2546,130 @@
+             }
+         }
+     }
++    // BEGIN boundary-priority tests
++    fn boundary_priority_fixture() -> (Job, Layout) {
++        let (mut job, mut layout) = fixture();
++        job.name = "Boundary priority witness".into();
++        job.parts = vec![
++            rectangle("anchor", 94.0, 94.0),
++            rectangle("large", 40.0, 20.0),
++            rectangle("wide", 20.0, 5.0),
++            rectangle("small", 5.0, 5.0),
++        ];
++        job.parts[1].quantity = 2;
++        job.parts[3].quantity = 2;
++        layout.placements = [
++            ("anchor", 0, 0, [2.0, 2.0]),
++            ("large", 0, 1, [2.0, 10.0]),
++            ("large", 1, 1, [47.0, 10.0]),
++            ("wide", 0, 1, [2.0, 80.0]),
++            ("small", 0, 1, [40.0, 80.0]),
++            ("small", 1, 1, [50.0, 80.0]),
++        ]
++        .into_iter()
++        .map(|(id, copy_index, sheet, translation)| Placement {
++            part_id: id.into(),
++            copy_index,
++            sheet_id: format!("sheet-{sheet}"),
++            transform: RigidTransform {
++                translation,
++                ..Default::default()
++            },
++        })
++        .collect();
++        assert!(validate(&job, &layout).unwrap().valid);
++        (job, layout)
++    }
++
++    #[test]
++    fn boundary_priority_prefers_high_small_parts_over_low_large_parts() {
++        let (job, layout) = boundary_priority_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let mut keys: Vec<_> = source.placed_items().keys().collect();
++        let before = keys.clone();
++        rank_incoming(source, &mut keys);
++        let names: Vec<_> = keys
++            .iter()
++            .map(|k| {
++                job.parts[model.part[source.placed_items()[*k].item().idx()]]
++                    .id
++                    .as_str()
++            })
++            .collect();
++        eprintln!(
++            "BOUNDARY_ORDER_WITNESS {}",
++            serde_json::json!({"job":job,"layout":layout,"names":names})
++        );
++        assert_eq!(
++            names,
++            vec!["wide", "small", "small", "large", "large"],
++            "Boundary parts must precede larger interior parts"
++        );
++        let mut a = before;
++        let mut b = keys;
++        a.sort();
++        b.sort();
++        assert_eq!(a, b);
++    }
++
++    #[test]
++    fn boundary_priority_preserves_equal_extent_area_ties() {
++        let (job, layout) = boundary_priority_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let mut keys: Vec<_> = source
++            .placed_items()
++            .iter()
++            .filter(|(_, p)| job.parts[model.part[p.item().idx()]].id == "small")
++            .map(|(k, _)| k)
++            .collect();
++        assert_eq!(keys.len(), 2);
++        keys.reverse();
++        let before = keys.clone();
++        let a = &source.placed_items()[keys[0]];
++        let b = &source.placed_items()[keys[1]];
++        assert_eq!(a.shape().bbox().x_max, b.shape().bbox().x_max);
++        assert_eq!(a.item().area(), b.item().area());
++        rank_incoming(source, &mut keys);
++        assert_eq!(
++            keys, before,
++            "Equal boundary/area ties must retain their input order"
++        );
++    }
++
++    #[test]
++    fn boundary_priority_pair_choices_start_with_the_high_family() {
++        let (job, layout) = boundary_priority_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let mut keys: Vec<_> = source.placed_items().keys().collect();
++        rank_incoming(source, &mut keys);
++        let pairs = incoming_pairs(source, &keys);
++        assert!(!pairs.is_empty() && pairs.len() <= 6);
++        let first: Vec<_> = pairs[0]
++            .iter()
++            .map(|k| {
++                job.parts[model.part[source.placed_items()[*k].item().idx()]]
++                    .id
++                    .as_str()
++            })
++            .collect();
++        assert_eq!(
++            first,
++            vec!["small", "small"],
++            "Boundary family must enter the bounded pair choices first"
++        );
++        let mixed = mixed_incoming_pairs(source, &keys);
++        assert!(!mixed.is_empty() && mixed.len() <= 6);
++        assert!(
++            mixed[0].iter().any(
++                |k| job.parts[model.part[source.placed_items()[*k].item().idx()]].id == "wide"
++            )
++        );
++    }
++    // END boundary-priority tests
+ }
