@@ -1201,3 +1201,16 @@ The independent outer audit checks 18,669 pairs. The
 next hypothesis is bounded mixed-item pairs with authored correctness checks;
 budgets and every geometry/material limit remain. No integration or H5 credit;
 H2/H5 remain open at 60%.
+
+
+**N4 mixed-assignment witness, 2026-10-18:** [two distinct incoming rectangles](../benchmarks/results/h5-mixed-exchange-witness-20261018.md)
+(30x40 and 30x50 mm) can exchange with three 30x30 mm squares. Both authored
+layouts preserve all seven parts and exactly 19,700 mm2 material; frozen CLI
+and independent filled-outer checks pass. Eight conservative height bounds
+rule out either chosen incoming part moving alone while one filler remains
+on each sheet, even if it moves. The two incoming parts have different IDs
+and dimensions, so the current same-original-item selector cannot pair them.
+This is a scoped geometric witness, with zero optimizer runs. It neither
+proves global impossibility nor mechanical quality. The next candidate still
+requires an original-runtime regression, allowed-pose/rollback tests and the
+unchanged H5 quality gates. Production stays unchanged; H2/H5 remain open at 60%.

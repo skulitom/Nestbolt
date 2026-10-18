@@ -14132,3 +14132,19 @@ verify. The independent filled-outer audit checks 18,669
 pairs at unchanged tolerance. Bounded mixed-item pairs are the next hypothesis;
 full correctness and quality gates remain. Production, original failures and
 reserved inputs are unchanged. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Author a mixed-dimension exchange witness
+
+[Two distinct rectangles can replace three squares](benchmarks/results/h5-mixed-exchange-witness-20261018.md)
+while retaining all seven parts and exactly 19,700 mm2 charged material.
+The 30x40 and 30x50 mm incoming rectangles together equal the three 30x30 mm
+returns' 2,700 mm2 area. Frozen CLI and independent Shapely checks validate
+both layouts. Eight conservative height bounds rule out single chosen
+incoming moves while one filler remains on each sheet, even if it moves.
+
+This is an authored assignment witness, not an optimizer result, a global
+impossibility claim or evidence of mechanical quality. A mixed-pair candidate
+still needs a failing original-runtime regression, complete correctness
+checks and the unchanged quality gates. No production change or H5 credit;
+H2/H5 remain open at 60%.
