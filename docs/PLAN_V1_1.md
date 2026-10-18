@@ -1510,3 +1510,12 @@ acceptance and rollback counter checks. Every outcome is retained; no search has
 started at this checkpoint. Only a passing original material limit on every pilot
 pair can open the full 13-job comparison. Production is unchanged; H2/H5 remain
 open at 60%.
+
+**N4 joint-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-joint-repair-pilot-20261018.md).
+The independent filled-outer audit checks 133,466 same-sheet
+pairs across all 48 common-mode layouts. Five of eight material pairs fail the
+original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.612886%; m-mechanical-large-plates at 1.5 mm: +4.680766%; m-mechanical-panel-hardware at 0.2 mm: +6.781641%; m-mechanical-panel-hardware at 1.5 mm: +5.716098%; c-bracket-mixed at 1.5 mm: +1.481353%
+There are 55/789 accepted/attempted exchanges. Joint repair attempts 589 pairs: 270 complete, 300 fail and 19 expire. It records 35 provisional steps, including 10 flat steps; 28 steps commit and 7 roll back across 4 rollbacks. Only committed counts survive rollback. Pair completion alone does not mean whole-job acceptance or final quality improvement. Reject this candidate for integration; do not open the full 13-job gate for it. The isolated candidate retains its 165 passing native tests,
+prior witnesses and complete qualification evidence. Production remains unchanged.
+The next diagnostic will trace actual accepted joint repairs and their material
+gain before choosing another policy. H2/H5 remain open at 60%.

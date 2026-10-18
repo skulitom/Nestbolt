@@ -111,35 +111,16 @@ All six hosted checks on preceding main `02905f3` pass, including Windows, Linux
 
 All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint. The assignment-bridge candidate fails four material comparisons and remains excluded from production. Application code remains unchanged from the published v0.2.0-alpha.1 preview; the English, Japanese and Chinese READMEs already describe the preview and remaining gates. There is no new qualified application build to release at this checkpoint. [Hosted evidence](../benchmarks/results/h5-assignment-bridge-pilot-20261018/main-ci-2f5d43f.json).
 
-All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The newly qualified joint-repair candidate remains isolated and still requires a committed matched development pilot before any integration decision. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
+All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
-**N4 joint-repair pilot plan, 2026-10-18:** the [72-outcome plan](../benchmarks/results/h5-joint-repair-pilot-20261018/plan.json)
-is prepared for the qualified isolated candidate. Four unchanged development jobs,
-both kerfs, three seeds and three arms retain the original 60-second budgets and
-rotating matched physical cores. Six execution/scoring functions are AST-identical
-to the preceding pilot; all five existing adversarial harness tests pass. The
-finisher retains archive/metric checks and adds joint-repair completion, expiry,
-acceptance and rollback counter checks. Every outcome is retained; no search has
-started at this checkpoint. Only a passing original material limit on every pilot
-pair can open the full 13-job comparison. Production is unchanged; H2/H5 remain
-open at 60%.
-
-**N4 joint-repair qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-joint-repair-preparation-20261018.md)
-retains the short phase, then repairs only the selected receiver/source pair
-within the remaining original allowance. It rechecks the exact cropped source,
-lowers parts into freed space with existing bounded sampling, and commits a joint sequence only
-after strict final whole-job material improvement. Incomplete sequences restore
-their layout, tracker and accepted counters. All 165 native tests pass, including
-157 unchanged prior tests and eight new policy tests. Independent validation covers
-32 saved native layouts and 93 filled-outer pairs;
-ten public outcomes, four CLI comparisons and six common-mode hole-reservation
-checks pass. Source reconstruction, exact prior witnesses, lint and build pass.
-The two insufficient-gain repairs, one newly invalid flat-fixture assumption,
-initial compile error and audit error remain preserved. The rollback fixture uses the previously validated compacted output and
-retains every assertion; runtime, guards and earlier tests are unchanged
-by that fixture correction. A new committed pilot plan and harness checks are
-still required before quality measurement. Production is unchanged; H2/H5 remain
-open at 60%.
+**N4 joint-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-joint-repair-pilot-20261018.md).
+The independent filled-outer audit checks 133,466 same-sheet
+pairs across all 48 common-mode layouts. Five of eight material pairs fail the
+original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.612886%; m-mechanical-large-plates at 1.5 mm: +4.680766%; m-mechanical-panel-hardware at 0.2 mm: +6.781641%; m-mechanical-panel-hardware at 1.5 mm: +5.716098%; c-bracket-mixed at 1.5 mm: +1.481353%
+There are 55/789 accepted/attempted exchanges. Joint repair attempts 589 pairs: 270 complete, 300 fail and 19 expire. It records 35 provisional steps, including 10 flat steps; 28 steps commit and 7 roll back across 4 rollbacks. Only committed counts survive rollback. Pair completion alone does not mean whole-job acceptance or final quality improvement. Reject this candidate for integration; do not open the full 13-job gate for it. The isolated candidate retains its 165 passing native tests,
+prior witnesses and complete qualification evidence. Production remains unchanged.
+The next diagnostic will trace actual accepted joint repairs and their material
+gain before choosing another policy. H2/H5 remain open at 60%.
 
 **N4 assignment-bridge outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-assignment-bridge-pilot-20261018.md).
 The independent filled-outer audit checks 133,388 same-sheet

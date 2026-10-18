@@ -14901,3 +14901,22 @@ acceptance and rollback counter checks. Every outcome is retained; no search has
 started at this checkpoint. Only a passing original material limit on every pilot
 pair can open the full 13-job comparison. Production is unchanged; H2/H5 remain
 open at 60%.
+
+
+## 2026-10-18 — Bounded joint-sheet repair comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-joint-repair-pilot-20261018.md)
+in 8.916 minutes under the committed matched 60-second method.
+All original ZIP/member hashes, metrics and guards pass. Independent checking
+covers 133,466 same-sheet pairs across 48 common-mode layouts;
+all holes stay reserved at the original numerical tolerance.
+
+Five of eight material pairs fail +1%: m-mechanical-large-plates at 0.2 mm: +5.612886%; m-mechanical-large-plates at 1.5 mm: +4.680766%; m-mechanical-panel-hardware at 0.2 mm: +6.781641%; m-mechanical-panel-hardware at 1.5 mm: +5.716098%; c-bracket-mixed at 1.5 mm: +1.481353%
+There are 55/789 accepted/attempted exchanges. Joint repair attempts 589 pairs: 270 complete, 300 fail and 19 expire. It records 35 provisional steps, including 10 flat steps; 28 steps commit and 7 roll back across 4 rollbacks. Only committed counts survive rollback. Pair completion alone does not mean whole-job acceptance or final quality improvement. Reject this candidate for integration; do not open the full 13-job gate for it.
+
+The twelve mechanical final layouts need 110.077–219.192 mm less used height on their current credited sheet, with 6–34 current copies above the conditional target. Four saved inventories exceed that target sheet's usable area even without inter-part kerf. These same inventories cannot fit those same targets; changing assignments or the credited offcut can change the conclusion. The separate whole-job filled-area bound is below the target for all eight pairs. That weak bound does not prove packability, and the conditional bounds do not prove whole-job infeasibility. All analyses use saved outputs and add no searches.
+
+Joint repair completes 270/589 pair attempts and records 28 committed steps, including 18 committed steps in the mechanical jobs. It is not simply unused or universally expiring. The pilot still fails, and only one pair's median is below the matched common baseline; no statistical ranking or new quality claim follows. Final snapshots and aggregate counters do not show the actual extra-member migrations, individual material gains, repair/lowering durations or rejection stage. The next step is a narrow diagnostic observer of actual joint attempts in the failed mechanical jobs: preserve canonical pair inventories before/after, additional cross-sheet migrations, whole-job material before/after, elapsed repair/lowering time, expiry/rejection reasons and provisional rollback. First verify that observation changes no decision logic, independently check saved trial geometry and frozen sheets, and commit the diagnostic plan. Use the original inputs, seeds and 60-second allowance on serial CCD0; logging may change wall-time trajectories, so this cannot be a quality comparison. Use that trace to choose a specific changed policy and require an actual independently validated witness before any further pilot. Do not repeat this unchanged pilot or increase the step cap blindly. Production, all original limits, hole reservation and the held-out split remain unchanged.
+
+Production and release assets remain unchanged; the three READMEs remain accurate.
+No new held-out access, H5 credit or quality claim. H2/H5 remain open at 60%.

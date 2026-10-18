@@ -1,0 +1,10 @@
+{
+  "stage": "saved-outcome report generation",
+  "failed_assertion": "c[name] == joint[name]",
+  "source_sha256": "d78ddb0dbeb90ed24a7d96a877665b6bfb3149984c19f75db016de7120311aa6",
+  "cause": "The count helper reused an iterator once per counter. Only the first pass saw records; the existing saved joint-counter cross-check correctly rejected the result.",
+  "writes_before_failure": 0,
+  "new_searches": 0,
+  "measurement_and_saved_results_unchanged": true,
+  "correction": "Materialize the selected records once before aggregating all counter names."
+}
