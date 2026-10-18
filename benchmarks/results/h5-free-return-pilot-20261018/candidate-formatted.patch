@@ -1,0 +1,443 @@
+--- contained-return/crates/core/src/sheets/vstrip/exchange.rs
++++ free-return/crates/core/src/sheets/vstrip/exchange.rs
+@@ -316,6 +316,109 @@
+     }
+     poses.copy_from_slice(&shifted);
+     true
++}
++
++// Bounded free-space search changes only the return seed. Every candidate
++// keeps the original orientation and whole item geometry. Collision proxies
++// reserve hole interiors. No clear candidate means the original repair seed.
++fn free_return_pose(
++    source: &JLayout,
++    item: &Item,
++    fallback: DTransformation,
++    clock: &Clock,
++    until: f64,
++) -> DTransformation {
++    if clock.now() >= until || !item.allowed_orientations().allows(&fallback) {
++        return fallback;
++    }
++    let bounds = source.container().outer_cd().bbox();
++    let mut buffer = item.shape_cd().as_ref().clone();
++    buffer.transform_from(item.shape_cd(), &fallback.compose());
++    let initial = buffer.bbox();
++    let mut best = if source.cde().detect_poly_collision(&buffer, &NoFilter) {
++        None
++    } else {
++        Some((fallback, initial.x_max, initial.y_min))
++    };
++    crate::separate::charge(clock, item, 1);
++    let width = initial.x_max - initial.x_min;
++    let height = initial.y_max - initial.y_min;
++    let scale = [
++        bounds.x_min,
++        bounds.x_max,
++        bounds.y_min,
++        bounds.y_max,
++        initial.x_min,
++        initial.x_max,
++        initial.y_min,
++        initial.y_max,
++    ]
++    .into_iter()
++    .map(f32::abs)
++    .fold(1.0_f32, f32::max);
++    // Real inset, not a collision or material tolerance. Exact bounds and the
++    // existing collision detector still decide whether a seed is usable.
++    let inset = 4.0 * f32::EPSILON * scale;
++    let x0 = bounds.x_min + inset;
++    let x1 = bounds.x_max - width - inset;
++    let y0 = bounds.y_min + inset;
++    let y1 = bounds.y_max - height - inset;
++    if ![x0, x1, y0, y1].iter().all(|v| v.is_finite()) || x1 < x0 || y1 < y0 {
++        return fallback;
++    }
++    let mut samples = Vec::with_capacity(256);
++    // A fixed 12 by 12 grid covers the entire source container. Up to 28
++    // existing members also contribute four box-edge anchors each. The cap
++    // bounds work independently of inventory size; input order breaks ties.
++    for x in 0..12 {
++        for y in 0..12 {
++            samples.push((
++                x0 + (x1 - x0) * x as f32 / 11.0,
++                y0 + (y1 - y0) * y as f32 / 11.0,
++            ));
++        }
++    }
++    for p in source.placed_items().values().take(28) {
++        let b = p.shape().bbox();
++        samples.extend([
++            (b.x_max + inset, b.y_min),
++            (b.x_min - width - inset, b.y_min),
++            (b.x_min, b.y_max + inset),
++            (b.x_min, b.y_min - height - inset),
++        ]);
++    }
++    clock.charge(Work::RectOperation, samples.len() as f64);
++    let (dx, dy) = fallback.translation();
++    for (x, y) in samples {
++        if clock.now() >= until {
++            break;
++        }
++        if x < x0 || x > x1 || y < y0 || y > y1 {
++            continue;
++        }
++        let pose = DTransformation::new(
++            fallback.rotation(),
++            (dx + x - initial.x_min, dy + y - initial.y_min),
++        )
++        .with_reflection(fallback.reflected);
++        buffer.transform_from(item.shape_cd(), &pose.compose());
++        let b = buffer.bbox();
++        crate::separate::charge(clock, item, 1);
++        if b.x_min < bounds.x_min
++            || b.x_max > bounds.x_max
++            || b.y_min < bounds.y_min
++            || b.y_max > bounds.y_max
++            || best
++                .as_ref()
++                .is_some_and(|(_, bx, by)| (b.x_max, b.y_min) >= (*bx, *by))
++        {
++            continue;
++        }
++        if !source.cde().detect_poly_collision(&buffer, &NoFilter) {
++            best = Some((pose, b.x_max, b.y_min));
++        }
++    }
++    best.map_or(fallback, |b| b.0)
+ }
+ 
+ // Only choose the reciprocal frame when every returned part permits it. The
+@@ -817,6 +920,13 @@
+                         &self.clock,
+                     );
+                     for ((_, victim, _), pose) in victims.iter().zip(returned) {
++                        let pose = free_return_pose(
++                            &next_source,
++                            victim,
++                            pose,
++                            &self.clock,
++                            self.last_step(exchange_until),
++                        );
+                         next_source.place_item(victim, pose);
+                     }
+                     self.clock
+@@ -2017,9 +2127,10 @@
+     }
+ 
+     #[test]
+-    fn productive_exchange_rejects_unchanged_inventory_without_material_gain() {
++    fn productive_exchange_requires_gain_for_changed_equal_inventory() {
+         let (job, layout) = equal_inventory_fixture(false);
+         for seed in 0..4 {
++            let (_, canonical, _) = exercise(&job, &layout, seed, false, false, 0);
+             let (moved, after, stats) = exercise(&job, &layout, seed, true, false, 0);
+             eprintln!(
+                 "PRODUCTIVE_WITNESS {}",
+@@ -2028,11 +2139,7 @@
+                     "before":&layout, "after":&after, "moved":moved, "stats":&stats,
+                 })
+             );
+-            assert_eq!(
+-                moved, 0,
+-                "unchanged inventory with no material gain must not end exchange search: {stats:?}"
+-            );
+-            assert_eq!(stats.directed_exchanges, 0);
++            assert_free_return_outcome(&job, &canonical, &after, moved, &stats, true, false);
+             assert!(stats.paired_exchange_attempts > 0);
+         }
+     }
+@@ -2621,9 +2728,10 @@
+         );
+     }
+     #[test]
+-    fn exact_duplicate_rejection_preserves_incumbent_and_disabled_boundaries() {
++    fn exact_duplicate_guard_allows_only_gain_and_preserves_disabled_boundaries() {
+         let (job, layout) = equal_inventory_fixture(false);
+         for seed in 0..4 {
++            let (_, canonical, _) = exercise(&job, &layout, seed, false, false, 0);
+             for (enabled, expired) in [(true, false), (false, false), (true, true)] {
+                 let (moved, after, stats) = exercise(&job, &layout, seed, enabled, expired, 0);
+                 eprintln!(
+@@ -2633,13 +2741,10 @@
+                         "enabled":enabled,"expired":expired,"moved":moved,"stats":&stats
+                     })
+                 );
+-                assert_eq!(moved, 0);
+-                assert_eq!(stats.directed_exchanges, 0);
++                assert_free_return_outcome(
++                    &job, &canonical, &after, moved, &stats, enabled, expired,
++                );
+                 if enabled && !expired {
+-                    assert!(
+-                        stats.exact_state_exchange_rejections > 0,
+-                        "The observed identical trial must reject before full validation: {stats:?}"
+-                    );
+                     assert!(
+                         stats.exact_state_exchange_rejections <= stats.neutral_exchange_rejections
+                     );
+@@ -2651,9 +2756,10 @@
+         }
+     }
+     #[test]
+-    fn material_profile_rejection_preserves_incumbent_and_disabled_boundaries() {
++    fn material_profile_guard_allows_only_gain_and_preserves_disabled_boundaries() {
+         let (job, layout) = equal_inventory_fixture(false);
+         for seed in 0..4 {
++            let (_, canonical, _) = exercise(&job, &layout, seed, false, false, 0);
+             for (enabled, expired) in [(true, false), (false, false), (true, true)] {
+                 let (moved, after, stats) = exercise(&job, &layout, seed, enabled, expired, 0);
+                 eprintln!(
+@@ -2662,8 +2768,9 @@
+                     "job":&job,"before":&layout,"after":&after,"seed":seed,
+                     "enabled":enabled,"expired":expired,"moved":moved,"stats":&stats})
+                 );
+-                assert_eq!(moved, 0);
+-                assert_eq!(stats.directed_exchanges, 0);
++                assert_free_return_outcome(
++                    &job, &canonical, &after, moved, &stats, enabled, expired,
++                );
+                 if enabled && !expired {
+                     assert!(
+                         stats.material_profile_exchange_rejections > 0,
+@@ -3150,4 +3257,238 @@
+         assert_eq!(poses[1].translation().1 - poses[0].translation().1, 30.0);
+     }
+     // END contained-return tests
++    // BEGIN free-return tests
++    // These equal-inventory fixtures can improve after lower free-space seeds.
++    // Compare against the exact internal incumbent, not authored f64 positions.
++    fn assert_free_return_outcome(
++        job: &Job,
++        before: &Layout,
++        after: &Layout,
++        moved: usize,
++        stats: &Stats,
++        enabled: bool,
++        expired: bool,
++    ) {
++        let canonical = before;
++        let baseline = validate(job, canonical).unwrap();
++        let result = validate(job, after).unwrap();
++        assert!(baseline.valid && result.valid);
++        assert!(moved <= 1);
++        assert_eq!(moved as u64, stats.directed_exchanges);
++        if moved == 0 {
++            assert_eq!(
++                serde_json::to_value(after).unwrap(),
++                serde_json::to_value(canonical).unwrap()
++            );
++        } else {
++            assert!(enabled && !expired);
++            let a = baseline.metrics.unwrap();
++            let b = result.metrics.unwrap();
++            assert!(
++                b.sheets_used <= a.sheets_used && b.material_area < a.material_area,
++                "Every accepted replacement needs strict material improvement"
++            );
++        }
++        if !enabled || expired {
++            assert_eq!(moved, 0);
++            assert_eq!(stats.directed_exchange_attempts, 0);
++        }
++    }
++
++    fn free_return_public(model: &Model, before: &Layout, source: &JLayout, sheet: &str) -> Layout {
++        let mut after = before.clone();
++        after.placements.retain(|p| p.sheet_id != sheet);
++        let mut copies = std::collections::BTreeMap::<String, u32>::new();
++        for p in &after.placements {
++            *copies.entry(p.part_id.clone()).or_default() += 1;
++        }
++        for p in source.placed_items().values() {
++            let id = model.job.parts[model.part[p.item().idx()]].id.clone();
++            let copy = copies.entry(id.clone()).or_default();
++            after.placements.push(Placement {
++                part_id: id,
++                copy_index: *copy,
++                sheet_id: sheet.into(),
++                transform: model.external(p.item().idx(), &p.d_transf()),
++            });
++            *copy += 1;
++        }
++        after
++    }
++
++    #[test]
++    fn free_return_finds_lower_clear_positions_sequentially_and_preserves_inventory() {
++        let (job, layout) = boundary_pair_fixture(false);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let original = sheets[1].layout();
++        let members = return_seed_members(original);
++        let mut source = JLayout::from_snapshot(&original.save());
++        for (key, _, _) in &members {
++            source.remove_item(*key);
++        }
++        let clock = Clock::new(Timing::Work, 120.0);
++        let mut poses = vec![];
++        for (_, item, seed) in &members {
++            let pose = free_return_pose(&source, item, *seed, &clock, 10.0);
++            assert!(
++                pose.translation().0 < seed.translation().0 - 20.0,
++                "Returned part must use a lower clear space"
++            );
++            assert_eq!(pose.rotation().to_bits(), seed.rotation().to_bits());
++            assert_eq!(pose.reflected, seed.reflected);
++            let mut shape = item.shape_cd().as_ref().clone();
++            shape.transform_from(item.shape_cd(), &pose.compose());
++            assert!(!source.cde().detect_poly_collision(&shape, &NoFilter));
++            source.place_item(item, pose);
++            poses.push(pose);
++        }
++        assert_eq!(source.placed_items().len(), original.placed_items().len());
++        assert!(clock.counts().evaluations > 2.0 && clock.counts().evaluations <= 514.0);
++        assert!(clock.counts().evaluated_vertices > 0.0);
++        let after = free_return_public(&model, &model.to_layout(&sheets), &source, "sheet-1");
++        assert!(validate(&job, &after).unwrap().valid);
++        let replay_clock = Clock::new(Timing::Work, 120.0);
++        let mut replay = JLayout::from_snapshot(&original.save());
++        for (key, _, _) in &members {
++            replay.remove_item(*key);
++        }
++        for ((_, item, seed), expected) in members.iter().zip(&poses) {
++            let actual = free_return_pose(&replay, item, *seed, &replay_clock, 10.0);
++            assert_eq!(
++                return_seed_pose_bits(&[actual]),
++                return_seed_pose_bits(&[*expected])
++            );
++            replay.place_item(item, actual);
++        }
++        assert_eq!(clock.work(), replay_clock.work());
++        eprintln!(
++            "FREE_RETURN_WITNESS {}",
++            serde_json::json!({"job":job,"before":model.to_layout(&sheets),"after":after,"work":clock.counts()})
++        );
++    }
++
++    #[test]
++    fn free_return_preserves_permitted_mixed_rotations_and_mirrors() {
++        let (mut job, layout) = boundary_pair_fixture(true);
++        for part in &mut job.parts {
++            part.allow_mirror = true;
++            part.rotations = Rotations::List {
++                degrees: vec![0.0, 90.0, 180.0, 270.0],
++            };
++        }
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let members = return_seed_members(sheets[1].layout());
++        assert!(!std::sync::Arc::ptr_eq(&members[0].1, &members[1].1));
++        let mut source = JLayout::from_snapshot(&sheets[1].layout().save());
++        for (key, _, _) in &members {
++            source.remove_item(*key);
++        }
++        let clock = Clock::new(Timing::Work, 120.0);
++        for (index, (_, item, seed)) in members.iter().enumerate() {
++            let seed = DTransformation::new(
++                index as f32 * std::f32::consts::FRAC_PI_2,
++                seed.translation(),
++            )
++            .with_reflection(index == 0);
++            assert!(item.allowed_orientations().allows(&seed));
++            let pose = free_return_pose(&source, item, seed, &clock, 10.0);
++            assert!(
++                pose.translation().0 < seed.translation().0 - 20.0,
++                "Mixed return must find lower space"
++            );
++            assert_eq!(pose.rotation().to_bits(), seed.rotation().to_bits());
++            assert_eq!(pose.reflected, seed.reflected);
++            assert!(item.allowed_orientations().allows(&pose));
++            source.place_item(item, pose);
++        }
++        let after = free_return_public(&model, &model.to_layout(&sheets), &source, "sheet-1");
++        assert!(validate(&job, &after).unwrap().valid);
++        eprintln!(
++            "FREE_RETURN_WITNESS {}",
++            serde_json::json!({"job":job,"before":model.to_layout(&sheets),"after":after,"work":clock.counts()})
++        );
++    }
++
++    #[test]
++    fn free_return_expired_and_mid_search_deadlines_keep_every_fallback() {
++        let (job, layout) = boundary_pair_fixture(false);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let original = sheets[1].layout();
++        let members = return_seed_members(original);
++        for until in [0.0, 1e-12] {
++            let clock = Clock::new(Timing::Work, 120.0);
++            let mut source = JLayout::from_snapshot(&original.save());
++            for (key, _, _) in &members {
++                source.remove_item(*key);
++            }
++            for (_, item, seed) in &members {
++                let pose = free_return_pose(&source, item, *seed, &clock, until);
++                assert_eq!(
++                    return_seed_pose_bits(&[pose]),
++                    return_seed_pose_bits(&[*seed])
++                );
++                source.place_item(item, pose);
++            }
++            assert_eq!(source.placed_items().len(), original.placed_items().len());
++            assert_eq!(
++                clock.counts().evaluations,
++                if until == 0.0 { 0.0 } else { 1.0 }
++            );
++            let after = free_return_public(&model, &model.to_layout(&sheets), &source, "sheet-1");
++            assert!(validate(&job, &after).unwrap().valid);
++        }
++    }
++
++    #[test]
++    fn free_return_reserves_holes_and_keeps_unplaceable_seed_exact() {
++        let (mut job, mut layout) = fixture();
++        job.parts = vec![
++            rectangle("frame", 94.0, 94.0),
++            rectangle("return", 5.0, 5.0),
++        ];
++        job.parts[0].geometry[0].holes.push(vec![
++            [20.0, 20.0],
++            [20.0, 70.0],
++            [70.0, 70.0],
++            [70.0, 20.0],
++        ]);
++        layout.placements.truncate(2);
++        layout.placements[0].part_id = "frame".into();
++        layout.placements[1].sheet_id = "sheet-1".into();
++        assert!(validate(&job, &layout).unwrap().valid);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[0].layout();
++        let item = sheets[1]
++            .layout()
++            .placed_items()
++            .values()
++            .next()
++            .unwrap()
++            .item();
++        let fallback = model.internal(
++            item.idx(),
++            &RigidTransform {
++                translation: [40.0, 40.0],
++                ..Default::default()
++            },
++        );
++        let mut shape = item.shape_cd().as_ref().clone();
++        shape.transform_from(item.shape_cd(), &fallback.compose());
++        assert!(
++            source.cde().detect_poly_collision(&shape, &NoFilter),
++            "Hole interiors stay reserved"
++        );
++        let clock = Clock::new(Timing::Work, 120.0);
++        let pose = free_return_pose(source, item, fallback, &clock, 10.0);
++        assert_eq!(
++            return_seed_pose_bits(&[pose]),
++            return_seed_pose_bits(&[fallback])
++        );
++        assert!(clock.counts().evaluations > 1.0 && clock.counts().evaluations <= 257.0);
++    }
++    // END free-return tests
+ }
