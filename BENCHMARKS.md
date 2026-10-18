@@ -15106,3 +15106,18 @@ model parsing verifies every exact quantity and nonbinding hint. Next investigat
 coordinated multi-cog components from actual contacts, retaining full original-job
 validation before any feasibility claim. All six prior main `5743a32` checks pass.
 No native quality run, runtime, gate, release or README change; H2/H5 remain at 60%.
+
+**N4 coherent cog groups, 2026-10-18:** [162 alternating lattices](benchmarks/results/h5-cog-lattices-20261018.md)
+produce 1,134 verified components and pass 45,360 independent pair checks.
+All 504,000 fixed-column whole-job constructions finish without a full layout;
+the greatest filled-area result is 52/66, missing fourteen inserts. Eight distinct
+outline-gap continuations add fifteen parts total but remain partial; all 144
+proposed additions and 10,915 final pairs independently check, with original CLI
+quantity failures only. A separate exact-inventory rectangle model frees all
+frame positions and chooses one of five full cog decompositions. Independent
+parsing verifies all 471 variables and 517 constraints. The one 120-second search
+ends UNKNOWN, not infeasible, without a full selection. The earlier 63/66 partial
+remains better. Next investigate ragged staggered cog rows with actual contact
+pitches; preserve all quantities, stock targets and full-layout validation.
+No native packing, quality run, production, gate, release or README change;
+H2/H5 remain open at 60%.

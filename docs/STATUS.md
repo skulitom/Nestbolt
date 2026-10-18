@@ -128,6 +128,21 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 coherent cog groups, 2026-10-18:** [162 alternating lattices](../benchmarks/results/h5-cog-lattices-20261018.md)
+produce 1,134 verified components and pass 45,360 independent pair checks.
+All 504,000 fixed-column whole-job constructions finish without a full layout;
+the greatest filled-area result is 52/66, missing fourteen inserts. Eight distinct
+outline-gap continuations add fifteen parts total but remain partial; all 144
+proposed additions and 10,915 final pairs independently check, with original CLI
+quantity failures only. A separate exact-inventory rectangle model frees all
+frame positions and chooses one of five full cog decompositions. Independent
+parsing verifies all 471 variables and 517 constraints. The one 120-second search
+ends UNKNOWN, not infeasible, without a full selection. The earlier 63/66 partial
+remains better. Next investigate ragged staggered cog rows with actual contact
+pitches; preserve all quantities, stock targets and full-layout validation.
+No native packing, quality run, production, gate, release or README change;
+H2/H5 remain open at 60%.
+
 **N4 expanded contact selection, 2026-10-18:** [8,798 verified poses](../benchmarks/results/h5-contact-selection-20261018.md)
 include 3,600 new outline contacts and sheet half-turns. Independent enumeration
 of 29,902,803 pairs reproduces all 2,517,051 conflicts and verifies the equivalent
