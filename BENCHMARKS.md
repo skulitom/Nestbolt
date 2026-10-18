@@ -14042,3 +14042,21 @@ counters record post-exchange fill calls and moved parts.
 Normal output and common fixed-work replays pass. Four-job pairing/scoring
 methods and the +1% limit stay unchanged. No measured improvement, production
 change or H5 credit is claimed. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Post-exchange gap-fill comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-post-exchange-fill-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.968 minutes. All archives pass CRC and member/hash checks;
+the summary is recomputed from all records. The filled-outer audit verifies
+133,374 same-sheet pairs in 48 common-mode layouts with
+minimum slack 9.99999247131e-07 mm and unchanged
+0.00000010 mm tolerance. Hole interiors stay reserved.
+
+4 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +5.484564%; m-mechanical-large-plates at 1.5 mm: +5.388338%; m-mechanical-panel-hardware at 0.2 mm: +6.386542%; m-mechanical-panel-hardware at 1.5 mm: +5.563315%
+The candidate accepts 19/42 exchanges, including 12/24
+two-part exchanges. The post-exchange gap-fill step runs 19 times and moves 14 parts; these counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
+prove impossibility. Original failures, production and frozen inputs remain
+unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.

@@ -885,3 +885,13 @@ search limits and all 97 earlier tests remain. Counters track the follow-up
 calls and moved parts. The committed 72-outcome pilot preserves its original
 paired method and +1% limit. No measured improvement, production change or
 H5 credit yet. H2/H5 remain open at 60%.
+
+
+**N4 post-exchange gap-fill outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-post-exchange-fill-pilot-20261018.md).
+The independent filled-outer audit checks 133,374 same-sheet
+pairs across 48 common-mode layouts. 4 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.484564%; m-mechanical-large-plates at 1.5 mm: +5.388338%; m-mechanical-panel-hardware at 0.2 mm: +6.386542%; m-mechanical-panel-hardware at 1.5 mm: +5.563315%
+The candidate accepts 19/42 total exchanges, including 12/24
+two-part exchanges. The post-exchange gap-fill step runs 19 times and moves 14 parts; these counts alone do not establish final quality. These counts do not establish improved final material or
+identify remaining failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and
+all earlier failed results remain unchanged. H2/H5 remain open at 60%.
