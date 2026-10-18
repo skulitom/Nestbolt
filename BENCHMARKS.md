@@ -14096,3 +14096,19 @@ The candidate accepts 12/121 exchanges, including 1/62
 two-part exchanges. The post-exchange gap-fill step runs 12 times and moves 11 parts. The new guard rejects 45 same-inventory proposals without material improvement; these counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
 prove impossibility. Original failures, production and frozen inputs remain
 unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Qualify productive-exchange choice and time observations
+
+[The diagnostic copy](benchmarks/results/h5-productive-stage-preparation-20261018.md)
+passes 101 optimized core tests, strict lint/build, six real authored traces,
+fourteen malformed-record checks and four identity-multiset checks. It records
+available source item types, bounded pair choices, retained proposals, repair
+losses and requested/elapsed time, validated material/extent and rejection
+stage. Neutral rejections are separate from unsuccessful repair.
+
+The committed plan opens four serial seed-zero 60-second mechanical searches.
+The original candidate decisions and budgets remain; logging can perturb wall
+deadlines, so this is not an earlier-trajectory replay or quality comparison.
+Production, original limits and all failed outcomes remain; H2/H5 stay open
+at 60% completed weight.

@@ -1,0 +1,194 @@
+--- productive-candidate
++++ observations-only
+@@ -3,6 +3,51 @@
+ use super::*;
+ use jagua_rs::entities::Item;
+ use jagua_rs::geometry::geo_traits::TransformableFrom;
++
++// Read-only diagnostic copy. Logging may perturb wall deadlines.
++#[derive(Default, serde::Serialize)]
++struct BalancedTrace {
++    disabled_or_expired: bool,
++    baseline_invalid: bool,
++    before_material: Option<f64>,
++    before_last_extent: Option<f32>,
++    available_source_items: Vec<usize>,
++    pair_choices: Vec<Vec<usize>>,
++    exchange_remaining: Option<f64>,
++    pair_phase_remaining: Option<f64>,
++    proposals: Vec<ObservedProposal>,
++    attempts: Vec<ObservedAttempt>,
++}
++#[derive(serde::Serialize)]
++struct ObservedProposal {
++    paired: bool,
++    target: usize,
++    incoming_ids: Vec<usize>,
++    returned_ids: Vec<usize>,
++    blockers: usize,
++    incoming_area: f32,
++    returned_area: f32,
++}
++#[derive(serde::Serialize)]
++struct ObservedAttempt {
++    proposal_index: usize,
++    receiver_initial_loss: Option<f32>,
++    receiver_loss: Option<f32>,
++    source_initial_loss: Option<f32>,
++    source_loss: Option<f32>,
++    receiver_remaining: Option<f64>,
++    receiver_elapsed: Option<f64>,
++    source_remaining: Option<f64>,
++    source_elapsed: Option<f64>,
++    after_material: Option<f64>,
++    after_last_extent: Option<f32>,
++    outcome: &'static str,
++}
++impl Drop for BalancedTrace {
++    fn drop(&mut self) {
++        eprintln!("PRODUCTIVE_DIAG {}", serde_json::to_string(self).expect("diagnostic serialization"));
++    }
++}
+ 
+ struct Proposal {
+     victims: Vec<PItemKey>,
+@@ -395,14 +440,19 @@
+         shape: Shape,
+         until: f64,
+     ) -> Result<usize> {
++        let mut trace = BalancedTrace::default();
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
++            trace.disabled_or_expired = true;
+             return Ok(0);
+         }
+         let baseline = self.exchange_report(strip, frozen, &sep.layout, shape)?;
+         if !baseline.valid {
++            trace.baseline_invalid = true;
+             return Ok(0);
+         }
+         let before = baseline.metrics.as_ref().expect("valid baseline");
++        trace.before_material = Some(before.material_area);
++        trace.before_last_extent = Some(strip.fit_last(&sep.layout, shape));
+         let single = strip.container(Shape {
+             sheets: 1,
+             last: self.model.full_width,
+@@ -437,6 +487,10 @@
+         let now = self.clock.now();
+         let group_until = now + (self.last_step(until) - now).max(0.0) * 0.5;
+         let mut choices = incoming_pairs(&sep.layout, &incoming_keys);
++        trace.available_source_items = incoming_keys.iter().map(|key|sep.layout.placed_items()[*key].item().idx()).collect();
++        trace.pair_choices = choices.iter().map(|pair|pair.iter().map(|key|sep.layout.placed_items()[*key].item().idx()).collect()).collect();
++        trace.exchange_remaining = Some(self.last_step(until) - now);
++        trace.pair_phase_remaining = Some(group_until - now);
+         choices.extend(incoming_keys.into_iter().map(|key| vec![key]));
+         for selected in choices {
+             let paired = selected.len() == 2;
+@@ -500,12 +554,32 @@
+                         proposal_until,
+                     )
+                 };
+-                for proposal in candidates {
++                let proposal_base = trace.proposals.len();
++                for proposal in &candidates {
++                    trace.proposals.push(ObservedProposal {
++                        paired, target,
++                        incoming_ids: members.iter().map(|(_,item,_)|item.idx()).collect(),
++                        returned_ids: proposal.victims.iter().map(|key| receiver.placed_items()[*key].item().idx()).collect(),
++                        blockers: proposal.blockers,
++                        incoming_area: members.iter().map(|(_,item,_)|item.area()).sum(),
++                        returned_area: proposal.area,
++                    });
++                }
++                for (proposal_number, proposal) in candidates.into_iter().enumerate() {
+                     if self.clock.now() >= self.last_step(exchange_until) {
+                         break;
+                     }
+                     self.stats.directed_exchange_attempts += 1;
+                     self.stats.paired_exchange_attempts += u64::from(paired);
++                    let index = trace.attempts.len();
++                    trace.attempts.push(ObservedAttempt {
++                        proposal_index: proposal_base + proposal_number,
++                        receiver_initial_loss: None, receiver_loss: None,
++                        source_initial_loss: None, source_loss: None,
++                        receiver_remaining: None, receiver_elapsed: None,
++                        source_remaining: None, source_elapsed: None,
++                        after_material: None, after_last_extent: None, outcome: "unfinished",
++                    });
+                     let victims: Vec<_> = proposal
+                         .victims
+                         .iter()
+@@ -520,6 +594,7 @@
+                     }
+                     if paired {
+                         let Some(poses) = incoming_group_poses(&members, proposal.incoming) else {
++                            trace.attempts[index].outcome = "forbidden_incoming_orientation";
+                             continue;
+                         };
+                         for ((_, item, _), pose) in members.iter().zip(poses) {
+@@ -553,9 +628,15 @@
+                         EXPLORE,
+                         self.clock.clone(),
+                     );
++                    trace.attempts[index].receiver_initial_loss = Some(receiver_sep.tracker.total_loss());
++                    trace.attempts[index].receiver_remaining = Some(middle - self.clock.now());
++                    let receiver_started = Instant::now();
+                     let (receiver_snapshot, receiver_tracker) =
+                         receiver_sep.separate(&self.deadline(middle));
++                    trace.attempts[index].receiver_elapsed = Some(receiver_started.elapsed().as_secs_f64());
++                    trace.attempts[index].receiver_loss = Some(receiver_tracker.total_loss());
+                     if receiver_tracker.total_loss() > 0.0 {
++                        trace.attempts[index].outcome = "receiver_repair_failed";
+                         continue;
+                     }
+                     let mut source_sep = Separator::new(
+@@ -564,11 +645,17 @@
+                         EXPLORE,
+                         self.clock.clone(),
+                     );
++                    trace.attempts[index].source_initial_loss = Some(source_sep.tracker.total_loss());
++                    trace.attempts[index].source_remaining = Some(pair_end - self.clock.now());
++                    let source_started = Instant::now();
+                     let (source_snapshot, source_tracker) =
+                         source_sep.separate(&self.deadline(pair_end));
++                    trace.attempts[index].source_elapsed = Some(source_started.elapsed().as_secs_f64());
++                    trace.attempts[index].source_loss = Some(source_tracker.total_loss());
+                     if source_tracker.total_loss() > 0.0
+                         || self.clock.now() >= self.last_step(exchange_until)
+                     {
++                        trace.attempts[index].outcome = if source_tracker.total_loss() > 0.0 { "source_repair_failed" } else { "expired_after_repairs" };
+                         continue;
+                     }
+                     let mut trial = JLayout::from_snapshot(&sep.layout.save());
+@@ -586,16 +673,20 @@
+                         Work::RegisteredItem,
+                         (sep.layout.placed_items().len() + changed_keys.len()) as f64,
+                     );
++                    trace.attempts[index].after_last_extent = Some(strip.fit_last(&trial, shape));
+                     let report = self.exchange_report(strip, frozen, &trial, shape)?;
+                     if !report.valid {
++                        trace.attempts[index].outcome = "independent_geometry_failed";
+                         self.stats.rejected_layouts += 1;
+                         continue;
+                     }
+                     let after = report.metrics.as_ref().expect("valid exchange");
++                    trace.attempts[index].after_material = Some(after.material_area);
+                     if after.sheets_used > before.sheets_used
+                         || after.material_area > before.material_area
+                         || self.clock.now() >= exchange_until
+                     {
++                        trace.attempts[index].outcome = if self.clock.now() >= exchange_until { "expired_before_acceptance" } else { "material_guard_failed" };
+                         continue;
+                     }
+                     // Same inventory can still improve the geometry, but a
+@@ -603,9 +694,11 @@
+                     if same_original_inventory(&members, &victims)
+                         && after.material_area >= before.material_area
+                     {
++                        trace.attempts[index].outcome = "neutral_inventory_rejected";
+                         self.stats.neutral_exchange_rejections += 1;
+                         continue;
+                     }
++                    trace.attempts[index].outcome = "accepted";
+                     sep.layout = trial;
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
