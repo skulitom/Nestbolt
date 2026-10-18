@@ -1,0 +1,92 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-18T06:36:53.347501+00:00",
+      "finished": "2026-10-18T06:36:54.015264+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-boundary-observer-target-20261018"
+      ],
+      "started": "2026-10-18T06:36:54.092262+00:00",
+      "finished": "2026-10-18T06:39:35.835840+00:00",
+      "exit_code": 0,
+      "log_sha256": "b68168ada9990eb9414c98fb38dbfd4b4228ee8ae16a4067d12b306d731cff7f"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-boundary-observer-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T06:39:35.926295+00:00",
+      "finished": "2026-10-18T06:40:28.379927+00:00",
+      "exit_code": 0,
+      "log_sha256": "4b614b99ce1fc0797eeadcc439447743e2cdd77332734dffcfcf35e9ca36599d"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-boundary-observer-target-20261018"
+      ],
+      "started": "2026-10-18T06:40:28.478597+00:00",
+      "finished": "2026-10-18T06:41:14.725216+00:00",
+      "exit_code": 0,
+      "log_sha256": "c07babde2e178a31ead548228b1aa3fc4c581b54332c687548e43c67fdfca005"
+    }
+  ],
+  "source_sha256": "6173929537fc7b801819550a20fd23b5e863011652dacefa4624f9882fe655f5",
+  "observed_sources": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "6173929537fc7b801819550a20fd23b5e863011652dacefa4624f9882fe655f5"
+  },
+  "binary_sha256": "507e5e7a24e25addcba36adc48f2525f977dbcf5b85d0d1fdb344feeda484c48",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

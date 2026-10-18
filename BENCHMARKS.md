@@ -14507,3 +14507,19 @@ No new reserved-input access or H5 credit. Production, frozen inputs and
 earlier failures remain unchanged. H2/H5 remain open at 60%.
 
 All six hosted checks on main `93759c2` have passed, including Windows, Linux and browser checks. This confirmation precedes the next periodic push; the experimental pilot is assessed separately against the unchanged H5 requirements. [Hosted evidence](benchmarks/results/h5-boundary-priority-pilot-20261018/main-ci-93759c2.json).
+
+
+## 2026-10-18 — Qualify exact boundary-copy observation
+
+**N4 exact boundary-copy observation, 2026-10-18:** [the isolated diagnostic qualifies](benchmarks/results/h5-boundary-observer-preparation-20261018.md).
+All 126 existing optimized tests pass. The observer records original part
+families and exact physical poses for available, visited and attempted
+exchange choices alongside the validated public baseline. Each chosen pose
+matches a unique baseline copy exactly, with complete single-copy coverage. It changes no decision, work charge or budget.
+Sixteen authored cases, 21 malformed-record rejections and
+35 frozen-CLI baseline checks pass. Twelve parent branch witnesses
+and their counters match exactly; every formatted source file reconstructs.
+Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
+physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
+quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
+at 60%. The plan is committed before measurement.

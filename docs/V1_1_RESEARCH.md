@@ -1490,3 +1490,17 @@ pairs across 48 common-mode layouts. 6 of eight material pairs fail
 the original +1% limit. m-mechanical-large-plates at 0.2 mm: +4.771660%; m-mechanical-large-plates at 1.5 mm: +4.211101%; m-mechanical-panel-hardware at 0.2 mm: +5.991880%; m-mechanical-panel-hardware at 1.5 mm: +5.770657%; c-bracket-mixed at 0.2 mm: +1.591789%; c-bracket-mixed at 1.5 mm: +1.089470%
 The candidate accepts 17/100 exchanges, including 12/73 paired and 0/0 mixed-item exchanges. Follow-up gap filling runs 17 times and moves 20 parts. Of 1 neutral rejections, 0 are caught by exact internal-state equality and 1 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
 unchanged. H2/H5 remain open at 60%.
+
+
+**N4 exact boundary-copy observation, 2026-10-18:** [the isolated diagnostic qualifies](../benchmarks/results/h5-boundary-observer-preparation-20261018.md).
+All 126 existing optimized tests pass. The observer records original part
+families and exact physical poses for available, visited and attempted
+exchange choices alongside the validated public baseline. Each chosen pose
+matches a unique baseline copy exactly, with complete single-copy coverage. It changes no decision, work charge or budget.
+Sixteen authored cases, 21 malformed-record rejections and
+35 frozen-CLI baseline checks pass. Twelve parent branch witnesses
+and their counters match exactly; every formatted source file reconstructs.
+Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
+physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
+quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
+at 60%. The plan is committed before measurement.
