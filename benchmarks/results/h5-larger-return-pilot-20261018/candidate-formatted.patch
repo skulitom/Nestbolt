@@ -1,0 +1,417 @@
+--- mixed/crates/core/src/sheets/vstrip/exchange.rs
++++ larger-return/crates/core/src/sheets/vstrip/exchange.rs
+@@ -10,6 +10,10 @@
+     blockers: usize,
+     rank: usize,
+     area: f32,
++}
++
++fn exchange_increases_material(before: &Metrics, after: &Metrics) -> bool {
++    after.sheets_used > before.sheets_used || after.material_area > before.material_area
+ }
+ 
+ fn retain_proposal(out: &mut Vec<Proposal>, proposal: Proposal) {
+@@ -365,7 +369,6 @@
+             );
+         }
+     }
+-    let incoming_area: f32 = incoming.iter().map(|(_, item, _)| item.area()).sum();
+     let mut collector = BasicHazardCollector::new();
+     let mut out = Vec::new();
+     for sample in samples {
+@@ -409,9 +412,6 @@
+             .filter(|(_, (key, _))| collisions.contains(key))
+             .collect();
+         let area: f32 = victims.iter().map(|(_, (_, p))| p.item().area()).sum();
+-        if area > incoming_area {
+-            continue;
+-        }
+         retain_proposal(
+             &mut out,
+             Proposal {
+@@ -664,8 +664,7 @@
+                         continue;
+                     }
+                     let after = report.metrics.as_ref().expect("valid exchange");
+-                    if after.sheets_used > before.sheets_used
+-                        || after.material_area > before.material_area
++                    if exchange_increases_material(before, after)
+                         || self.clock.now() >= exchange_until
+                     {
+                         continue;
+@@ -1223,27 +1222,29 @@
+     }
+ 
+     #[test]
+-    fn return_frame_keeps_incumbent_when_roundoff_increases_charged_material() {
++    fn return_frame_alternative_respects_strict_material_guard() {
+         let (mut job, before) = return_frame_witness();
+         job.parts[1] = rectangle("source-filler", 20.0, 94.0);
+-        let (moved, _, stats) = exercise(&job, &before, 0, true, false, 0);
+-        // This exact authored attempt repairs both sheets but raises charged
+-        // material by 0.0007 mm2. The strict guard must retain the incumbent;
+-        // exercise also requires exact internal-state preservation on failure.
+-        assert_eq!(moved, 0);
++        let (moved, after, stats) = exercise(&job, &before, 0, true, false, 0);
++        // A different pair can improve this fixture. The former +0.0007 mm2
++        // single proposal must still fail the actual guard tested below.
++        assert_eq!(moved, 1);
+         assert!(stats.directed_exchange_attempts > 0);
+-        assert_eq!(stats.directed_exchanges, 0);
+-    }
+-
+-    #[test]
+-    fn directed_exchange_uses_the_rotated_return_gap() {
++        assert_eq!(stats.directed_exchanges, 1);
++        let original = validate(&job, &before).unwrap().metrics.unwrap();
++        let result = validate(&job, &after).unwrap().metrics.unwrap();
++        assert!(result.material_area < original.material_area);
++    }
++
++    #[test]
++    fn directed_exchange_transfers_incoming_with_valid_return_poses() {
+         let (mut job, mut before) = return_frame_witness();
+         // Keep the incoming part first in the area-ranked source list. A narrow
+         // tall neighbour still obstructs the old translation-only return pose.
+         job.parts[1] = rectangle("source-filler", 20.0, 94.0);
+         // A separate fixed top strip controls this sheet's occupied height.
+-        // It isolates successful frame use from the original fixture's strict
+-        // floating-point material rejection, which has its own test above.
++        // The exact three-piece rotated frame has a separate direct test;
++        // search may find another valid obstruction set with lower material.
+         job.parts.push(rectangle("ceiling", 94.0, 1.0));
+         before.placements.push(Placement {
+             part_id: "ceiling".into(),
+@@ -1264,14 +1265,15 @@
+                 .iter()
+                 .any(|p| p.part_id == "incoming" && p.sheet_id == "sheet-0")
+         );
+-        assert_eq!(
++        assert!(
+             after
+                 .placements
+                 .iter()
+-                .filter(|p| p.part_id == "return" && p.sheet_id == "sheet-1")
+-                .count(),
+-            3
++                .any(|p| p.part_id == "return" && p.sheet_id == "sheet-1")
+         );
++        let original = validate(&job, &before).unwrap().metrics.unwrap();
++        let result = validate(&job, &after).unwrap().metrics.unwrap();
++        assert!(result.material_area < original.material_area);
+     }
+ 
+     #[test]
+@@ -1539,12 +1541,9 @@
+     }
+ 
+     #[test]
+-    fn balanced_pair_falls_back_to_a_valid_single_exchange() {
+-        let (mut job, layout) = balanced_fixture();
+-        let incoming = job.parts.iter_mut().find(|p| p.id == "incoming").unwrap();
+-        let quantity = incoming.quantity;
+-        *incoming = rectangle("incoming", 30.0, 20.0);
+-        incoming.quantity = quantity;
++    fn unavailable_pair_falls_back_to_a_valid_single_exchange() {
++        // Only one source part: pair selection cannot supply a candidate.
++        let (job, layout) = fixture();
+         let (moved, _, stats) = exercise(&job, &layout, 0, true, false, 0);
+         assert_eq!(moved, 1);
+         assert_eq!(stats.paired_exchange_attempts, 0);
+@@ -1585,20 +1584,7 @@
+     }
+     #[test]
+     fn accepted_exchange_still_fills_a_known_gap() {
+-        let (mut job, mut layout) = fixture();
+-        // This small last-sheet part fits an earlier gap. A successful fill
+-        // must not bypass the exchange opportunity for the large incoming part.
+-        job.parts.push(rectangle("gap-part", 5.0, 5.0));
+-        layout.placements.push(Placement {
+-            part_id: "gap-part".into(),
+-            copy_index: 0,
+-            sheet_id: "sheet-1".into(),
+-            transform: RigidTransform {
+-                translation: [36.0, 2.0],
+-                rotation_radians: 0.0,
+-                mirrored: false,
+-            },
+-        });
++        let (job, layout) = gap_fixture();
+         for (enabled, budget) in [(true, 20.0), (false, 20.0), (true, 0.0)] {
+             let report = validate(&job, &layout).unwrap();
+             assert!(report.valid);
+@@ -1633,15 +1619,8 @@
+                 );
+                 assert!(search.stats.post_exchange_fill_calls > 0);
+                 assert!(search.stats.post_exchange_fill_moves > 0);
+-                assert!(
+-                    search
+-                        .best
+-                        .0
+-                        .placements
+-                        .iter()
+-                        .any(|p| p.part_id == "gap-part" && p.sheet_id == "sheet-0"),
+-                    "the known gap part must reach the earlier sheet"
+-                );
++                // Later compression may relocate the same part again. Its
++                // immediate fill result is covered by the direct test below.
+             } else {
+                 assert_eq!(search.stats.directed_exchange_attempts, 0);
+                 assert_eq!(search.stats.directed_exchanges, 0);
+@@ -2052,4 +2031,256 @@
+         assert_eq!(stats.mixed_exchanges, 0);
+         assert!(stats.directed_exchange_attempts > 0);
+     }
++    fn larger_return_fixture() -> (Job, Layout) {
++        (
++            serde_json::from_str(include_str!(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../examples/larger-return-job.json"
++            )))
++            .unwrap(),
++            serde_json::from_str(include_str!(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../examples/larger-return-before.json"
++            )))
++            .unwrap(),
++        )
++    }
++
++    #[test]
++    fn larger_return_moves_both_incoming_with_strict_material_guard() {
++        let (job, before) = larger_return_fixture();
++        for seed in 0..4 {
++            let (moved, after, stats) = exercise(&job, &before, seed, true, false, 0);
++            eprintln!(
++                "LARGER_RETURN_WITNESS {}",
++                serde_json::json!({"case":"larger_positive","seed":seed,"job":&job,"before":&before,"after":&after,"moved":moved,"stats":&stats})
++            );
++            assert_eq!(
++                moved, 1,
++                "larger return area must not exclude a valid material-nonincreasing pair exchange: {stats:?}"
++            );
++            assert_eq!(stats.mixed_exchanges, 1);
++            assert_eq!(stats.paired_exchanges, 1);
++            for id in ["short-incoming", "tall-incoming"] {
++                assert!(
++                    after
++                        .placements
++                        .iter()
++                        .any(|p| p.part_id == id && p.sheet_id == "sheet-0")
++                );
++            }
++            assert_eq!(
++                after
++                    .placements
++                    .iter()
++                    .filter(|p| p.part_id == "return" && p.sheet_id == "sheet-1")
++                    .count(),
++                3
++            );
++        }
++    }
++
++    #[test]
++    fn larger_return_disabled_or_expired_preserves_incumbent() {
++        let (job, before) = larger_return_fixture();
++        for seed in 0..4 {
++            for (enabled, expired) in [(false, false), (true, true)] {
++                let (moved, _, stats) = exercise(&job, &before, seed, enabled, expired, 0);
++                assert_eq!(moved, 0);
++                assert_eq!(stats.directed_exchange_attempts, 0);
++                assert_eq!(stats.directed_exchanges, 0);
++            }
++        }
++    }
++
++    #[test]
++    fn larger_return_failed_room_preserves_incumbent() {
++        let (mut job, mut before) = larger_return_fixture();
++        *job.parts
++            .iter_mut()
++            .find(|p| p.id == "short-incoming")
++            .unwrap() = rectangle("short-incoming", 30.0, 39.9);
++        *job.parts
++            .iter_mut()
++            .find(|p| p.id == "tall-incoming")
++            .unwrap() = rectangle("tall-incoming", 30.0, 49.9);
++        for p in &mut before.placements {
++            if p.part_id == "short-incoming" {
++                p.transform.translation[1] = 1.01;
++            }
++            if p.part_id == "tall-incoming" {
++                p.transform.translation[1] = 41.12;
++            }
++        }
++        job.parts.push(rectangle("source-extra", 30.0, 7.7));
++        before.placements.push(Placement {
++            part_id: "source-extra".into(),
++            copy_index: 0,
++            sheet_id: "sheet-1".into(),
++            transform: RigidTransform {
++                translation: [2.0, 91.23],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        let (moved, after, stats) = exercise(&job, &before, 0, true, false, 0);
++        eprintln!(
++            "LARGER_RETURN_WITNESS {}",
++            serde_json::json!({"case":"larger_no_return_room","seed":0,"job":&job,"before":&before,"after":&after,"moved":moved,"stats":&stats})
++        );
++        assert_eq!(moved, 0);
++        assert_eq!(stats.mixed_exchanges, 0);
++        assert!(stats.directed_exchange_attempts > 0);
++    }
++    #[test]
++    fn larger_return_preserves_a_frozen_sheet() {
++        let (mut job, mut before) = larger_return_fixture();
++        for p in &mut before.placements {
++            p.sheet_id = if p.sheet_id == "sheet-0" {
++                "sheet-1".into()
++            } else {
++                "sheet-2".into()
++            };
++        }
++        before.sheets.push(Sheet {
++            id: "sheet-2".into(),
++            stock_id: "stock".into(),
++        });
++        job.parts.push(rectangle("fixed", 20.0, 20.0));
++        before.placements.push(Placement {
++            part_id: "fixed".into(),
++            copy_index: 0,
++            sheet_id: "sheet-0".into(),
++            transform: RigidTransform {
++                translation: [2.0, 2.0],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        let (moved, after, stats) = exercise(&job, &before, 0, true, false, 1);
++        eprintln!(
++            "LARGER_RETURN_WITNESS {}",
++            serde_json::json!({"case":"larger_frozen","seed":0,"job":&job,"before":&before,"after":&after,"moved":moved,"stats":&stats})
++        );
++        assert_eq!(moved, 1);
++        assert_eq!(stats.mixed_exchanges, 1);
++        for id in ["short-incoming", "tall-incoming"] {
++            assert!(
++                after
++                    .placements
++                    .iter()
++                    .any(|p| p.part_id == id && p.sheet_id == "sheet-1")
++            );
++        }
++    }
++    fn gap_fixture() -> (Job, Layout) {
++        let (mut job, mut layout) = fixture();
++        // This small last-sheet part fits an earlier gap. A successful fill
++        // must not bypass the exchange opportunity for the large incoming part.
++        job.parts.push(rectangle("gap-part", 5.0, 5.0));
++        layout.placements.push(Placement {
++            part_id: "gap-part".into(),
++            copy_index: 0,
++            sheet_id: "sheet-1".into(),
++            transform: RigidTransform {
++                translation: [36.0, 2.0],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        (job, layout)
++    }
++
++    #[test]
++    fn exchange_material_guard_rejects_even_one_ulp_and_extra_sheets() {
++        let (job, layout) = fixture();
++        let before = validate(&job, &layout).unwrap().metrics.unwrap();
++        let mut after = before.clone();
++        assert!(!exchange_increases_material(&before, &after));
++        for material in [
++            before.material_area + 0.0007,
++            f64::from_bits(before.material_area.to_bits() + 1),
++        ] {
++            after.material_area = material;
++            assert!(exchange_increases_material(&before, &after));
++            after.sheets_used = before.sheets_used - 1;
++            assert!(exchange_increases_material(&before, &after));
++            after.sheets_used = before.sheets_used;
++        }
++        after.material_area = before.material_area - 1.0;
++        assert!(!exchange_increases_material(&before, &after));
++        after.sheets_used += 1;
++        assert!(exchange_increases_material(&before, &after));
++    }
++
++    #[test]
++    fn gap_fill_moves_known_part_immediately_after_exchange() {
++        let (job, layout) = gap_fixture();
++        let (exchanged, after_exchange, _) = exercise(&job, &layout, 0, true, false, 0);
++        assert_eq!(exchanged, 1);
++        assert!(
++            after_exchange
++                .placements
++                .iter()
++                .any(|p| p.part_id == "gap-part" && p.sheet_id == "sheet-1")
++        );
++        let report = validate(&job, &after_exchange).unwrap();
++        assert!(report.valid);
++        let model = Model::new(&job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: true,
++            rng: Xoshiro256PlusPlus::seed_from_u64(0),
++            clock: clock.clone(),
++            best: (after_exchange.clone(), report, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(&after_exchange).unwrap();
++        let mut shape = Shape {
++            sheets: sheets.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(&sheets, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(&sheets, shape).unwrap(),
++            0,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        let before = model.to_layout(&strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_report = validate(&job, &before).unwrap();
++        assert!(before_report.valid);
++        assert_eq!(search.fill_gaps(&strip, &mut sep, shape), 1);
++        assert_eq!(search.stats.direct_insertions, 1);
++        let after = model.to_layout(&strip.split(&sep.layout, shape.sheets).unwrap());
++        assert!(
++            after
++                .placements
++                .iter()
++                .any(|p| p.part_id == "gap-part" && p.sheet_id == "sheet-0")
++        );
++        let checked = validate(&job, &after).unwrap();
++        assert!(checked.valid);
++        assert!(
++            checked.metrics.unwrap().material_area <= before_report.metrics.unwrap().material_area
++        );
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "DIRECT_FILL_WITNESS {}",
++            serde_json::json!({"job":job,"before":before,"after":after})
++        );
++    }
+ }

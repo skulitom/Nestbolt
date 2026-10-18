@@ -1,0 +1,521 @@
+{
+  "production_changed": false,
+  "new_searches": 0,
+  "candidate_cases": 24,
+  "accepted": 13,
+  "maximum_per_search": 2,
+  "mechanical_cases": 12,
+  "mechanical_accepted": 5,
+  "mechanical_maximum_per_search": 1,
+  "mechanical_eliminated_sheets": 0,
+  "source": {
+    "crates/core/src/sheets/vstrip.rs": {
+      "sha256": "c3105c733a21b4d761324155757636bf12adb57ded8d7a08ec65a7e00764a908",
+      "start_line": 702,
+      "snippet": "            let mut filled = false;\n            let mut stalled = 0;\n            pool.clear();\n            while self.clock.now() < explore_until {\n                let deadline = self.deadline(explore_until);\n                let before = sep.tracker.total_loss();\n                let (snapshot, tracker) = timed(\"separate\", || sep.separate(&deadline));\n                if std::env::var_os(\"NESTBOLT_TRACE\").is_some() {\n                    eprintln!(\n                        \"trace shape {:?} loss before {} after {}\",\n                        shape,\n                        before,\n                        tracker.total_loss()\n                    );\n                }\n                if tracker.total_loss() == 0.0 {\n                    stalled = 0;\n                    if !filled {\n                        // Cheap direct moves into free gaps and a bounded\n                        // number of one-sheet relocations, once per window.\n                        filled = true;\n                        let t = self.clock.now();\n                        let budget = t + (explore_until - t).max(0.0) * 0.1;\n                        // The feasible initial state is an opportunity even\n                        // when one separator call later consumes exploration.\n                        // Share the existing relocation budget; run before fill\n                        // can short-circuit the ordinary relocation path.\n                        let exchanged = if self.allow_exchange {\n                            let exchange_until = (t + 1.2).min(budget);\n                            timed(\"exchange\", || {\n                                self.directed_exchange(\n                                    &strip,\n                                    frozen,\n                                    &mut sep,\n                                    shape,\n                                    exchange_until,\n                                )\n                            })?\n                        } else {\n                            0\n                        };\n                        let gaps = std::env::var_os(\"NESTBOLT_NO_FILL\").is_none();\n                        // An accepted exchange may only rearrange parts. Keep\n                        // the direct gap-fill opportunity in the new layout.\n                        let gap_moves = if gaps {\n                            let moved = timed(\"fill\", || self.fill_gaps(&strip, &mut sep, shape));\n                            if exchanged > 0 {\n                                self.stats.post_exchange_fill_calls += 1;\n                                self.stats.post_exchange_fill_moves += moved as u64;\n                            }\n                            moved\n                        } else {\n                            0\n                        };\n                        if exchanged > 0\n                            || gap_moves > 0\n                            || timed(\"relocate\", || {\n                                self.relocate(&strip, &mut sep, shape, budget)\n                            })? > 0\n                        {\n                            shape.last = strip.fit_last(&sep.layout, shape);\n                            strip.apply(&mut sep, shape)?;\n                        }\n                    }\n                    let snapshot = sep.layout.save();\n                    best = (snapshot, shape);\n                    pending = true;\n                    pool.clear();\n                    if shape.sheets > 1 && strip.in_last(&sep.layout, shape).is_empty() {\n                        // The last sheet emptied: remove it and its wall.\n                        shape = Shape {\n                            sheets: shape.sheets - 1,\n                            ..shape\n                        };\n                        shape.last = strip.fit_last(&sep.layout, shape);\n                        strip.clear_blocker(&mut sep.layout);\n                        sep.layout.swap_container(strip.container(shape)?);\n                        strip.apply(&mut sep, shape)?;\n                        best = (sep.layout.save(), shape);\n                        self.stats.eliminated_sheets += 1;\n                        self.accept_window(&strip, frozen, &best.0, shape, \"eliminate\")?;\n                        pending = false;\n                        checked = self.clock.now();\n                        filled = false;"
+    },
+    "crates/core/src/sheets/vstrip/exchange.rs": {
+      "sha256": "4024f0cb3d52f408a275e312eb1fff7f9eab97a6bc06a817d6073303dd832efb",
+      "start_line": 666,
+      "snippet": "                    let after = report.metrics.as_ref().expect(\"valid exchange\");\n                    if exchange_increases_material(before, after)\n                        || self.clock.now() >= exchange_until\n                    {\n                        continue;\n                    }\n                    // Same inventory can still improve the geometry, but a\n                    // flat material result must not consume the sole exchange.\n                    if same_original_inventory(&members, &victims)\n                        && after.material_area >= before.material_area\n                    {\n                        self.stats.neutral_exchange_rejections += 1;\n                        continue;\n                    }\n                    sep.layout = trial;\n                    sep.rebuild();\n                    self.stats.directed_exchanges += 1;\n                    self.stats.paired_exchanges += u64::from(paired);\n                    self.stats.mixed_exchanges += u64::from(mixed);\n                    return Ok(1);"
+    }
+  },
+  "records": [
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 3,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 116,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 3
+      },
+      "material": 1.6542489866666665
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 2,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 1,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 115,
+        "directed_exchange_attempts": 17,
+        "directed_exchanges": 2,
+        "paired_exchange_attempts": 16,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 2,
+        "post_exchange_fill_moves": 2
+      },
+      "material": 1.6973044233333334
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 2,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 129,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 2
+      },
+      "material": 1.7119621533333333
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 121,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1
+      },
+      "material": 1.8071623533333332
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 1,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 1,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 108,
+        "directed_exchange_attempts": 7,
+        "directed_exchanges": 2,
+        "paired_exchange_attempts": 7,
+        "paired_exchanges": 2,
+        "post_exchange_fill_calls": 2,
+        "post_exchange_fill_moves": 1,
+        "neutral_exchange_rejections": 1
+      },
+      "material": 1.8335267833333333
+    },
+    {
+      "job": "c-bracket-mixed",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 109,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1
+      },
+      "material": 1.8285207366666667
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "material": 0.6600004500000001
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "material": 0.6600004500000001
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "material": 0.6600004500000001
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "material": 0.723000455
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "material": 0.6805006
+    },
+    {
+      "job": "m-box-mini",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0
+      },
+      "material": 0.723000455
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 2,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 52,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 2
+      },
+      "material": 1.1604876530000001
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 50,
+        "directed_exchange_attempts": 7,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 7,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1,
+        "neutral_exchange_rejections": 4,
+        "mixed_exchange_attempts": 1,
+        "mixed_exchanges": 1
+      },
+      "material": 1.1418346433333333
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 3,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 54,
+        "directed_exchange_attempts": 5,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 5,
+        "paired_exchanges": 1,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 3,
+        "neutral_exchange_rejections": 4
+      },
+      "material": 1.1496903713333333
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 1,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 50,
+        "directed_exchange_attempts": 7,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 6,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 1
+      },
+      "material": 1.1682329506666667
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 1,
+        "separated_insertions": 0,
+        "failed_insertions": 0,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 54,
+        "directed_exchange_attempts": 9,
+        "directed_exchanges": 1,
+        "paired_exchange_attempts": 8,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 1,
+        "neutral_exchange_rejections": 2,
+        "mixed_exchange_attempts": 2
+      },
+      "material": 1.15851246
+    },
+    {
+      "job": "m-mechanical-large-plates",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 17,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 54,
+        "directed_exchange_attempts": 14,
+        "paired_exchange_attempts": 7,
+        "neutral_exchange_rejections": 2,
+        "mixed_exchange_attempts": 1
+      },
+      "material": 1.1679840476666665
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 1,
+        "failed_insertions": 17,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 24,
+        "directed_exchange_attempts": 8,
+        "paired_exchange_attempts": 4,
+        "neutral_exchange_rejections": 4
+      },
+      "material": 1.5976029568
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 17,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 27,
+        "directed_exchange_attempts": 8,
+        "paired_exchange_attempts": 3,
+        "neutral_exchange_rejections": 3
+      },
+      "material": 1.5999086192000003
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 0.2,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 19,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 31,
+        "directed_exchange_attempts": 9,
+        "paired_exchange_attempts": 4,
+        "neutral_exchange_rejections": 4
+      },
+      "material": 1.5916153575999998
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "seed": 0,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 17,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 28,
+        "directed_exchange_attempts": 8,
+        "paired_exchange_attempts": 3,
+        "neutral_exchange_rejections": 3
+      },
+      "material": 1.604832338
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "seed": 1,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 18,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 29,
+        "directed_exchange_attempts": 7,
+        "paired_exchange_attempts": 3,
+        "neutral_exchange_rejections": 3
+      },
+      "material": 1.5990761836
+    },
+    {
+      "job": "m-mechanical-panel-hardware",
+      "kerf_mm": 1.5,
+      "seed": 2,
+      "stats": {
+        "direct_insertions": 0,
+        "separated_insertions": 0,
+        "failed_insertions": 19,
+        "ejections": 0,
+        "ejection_moves": 0,
+        "eliminated_sheets": 0,
+        "compressions": 1,
+        "rejected_layouts": 0,
+        "common_line_moves": 30,
+        "directed_exchange_attempts": 8,
+        "paired_exchange_attempts": 3,
+        "neutral_exchange_rejections": 3
+      },
+      "material": 1.6147286276
+    }
+  ],
+  "interpretation_and_next_step": "The twelve mechanical searches accept at most one directed exchange each;\nfive accept one and none eliminate a sheet. Across all 24 candidate searches,\nthirteen exchanges are accepted. Two bracket searches each accept two and each\nalso eliminates a sheet, so a one-exchange cap for the whole search would be\nan incorrect inference. The source returns immediately after\nthe first accepted exchange. The window call is guarded by `filled`, which is\nreset on sheet elimination or a new window. The current source therefore does\nnot spend the remaining part of that same opportunity on consecutive accepted\nexchanges. This is a source observation, not proof that time remained or that\nanother exchange was feasible or beneficial.\n\nRemoving the area filter enables ten accepted pairs, including one mixed pair,\nbut panel-hardware still records no mixed attempts. The completed material\ncomparison fails five pairs, so broader eligibility alone is insufficient.\nBefore choosing another runtime change, observe accepted before/after material,\nactual returned inventories, post-fill material and remaining phase time, plus\nwhere panel-hardware exhausts or rejects its pair choices. Preserve the failed\nquality run and existing budgets. Any later consecutive-exchange experiment\nmust prevent cycles, retain an independently valid incumbent after every step,\nrespect all original time/material/geometry checks and undergo a new matched\ncomparison. Current counters establish none of those possible benefits.\n",
+  "original_review_assertion_failure": "The first review incorrectly expected at most one exchange in every case. Its assertion stopped before writing a report. Two bracket cases each have two exchanges and one eliminated sheet; scope corrected using all saved records.",
+  "H5_complete": false,
+  "integrated": false
+}
