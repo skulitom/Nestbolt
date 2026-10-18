@@ -14025,3 +14025,4 @@ change should test whether gap filling after an accepted exchange can use its
 new arrangement, while preserving the total search limit and normal-mode
 behavior. This identifies a missed execution path, not a measured quality gain.
 
+These four observations retain their original 60-second searches; none was repeated.

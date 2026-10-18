@@ -1140,4 +1140,3 @@ the following gap-fill and relocation calls in that window. The next isolated
 change should test whether gap filling after an accepted exchange can use its
 new arrangement, while preserving the total search limit and normal-mode
 behavior. This identifies a missed execution path, not a measured quality gain.
-
