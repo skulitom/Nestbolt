@@ -1,0 +1,10 @@
+{
+  "source": "output/h5-balanced-group-probe-20261018/candidate/crates/core/src/sheets/vstrip.rs",
+  "source_sha256": "0c1433eb62ec9e63673166d1faa54661e1f51819a43ebb2136e65a04b6298e05",
+  "line": 744,
+  "exact_source": "                        if exchanged > 0\n                            || (gaps\n                                && timed(\"fill\", || self.fill_gaps(&strip, &mut sep, shape)) > 0)\n                            || timed(\"relocate\", || {\n                                self.relocate(&strip, &mut sep, shape, budget)\n                            })? > 0",
+  "finding": "Rust short-circuit OR skips gap filling and relocation when exchanged > 0. The filled flag is already set for this window.",
+  "inference": "A separate candidate can test continuing gap filling after successful exchange. No claim that it will improve measured quality.",
+  "production_changed": false,
+  "new_searches": 0
+}

@@ -1122,3 +1122,22 @@ The candidate accepts 19/41 total exchanges, including 13/25
 two-part exchanges. These counts do not establish improved final material or
 identify remaining failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and
 all earlier failed results remain unchanged. H2/H5 remain open at 60%.
+
+
+**N4 pair-identity diagnosis, 2026-10-18:** [all four outputs validate](../benchmarks/results/h5-balanced-stage-20261018.md).
+There are 11 attempts and 3 accepted exchanges, including
+2 pairs. 2 accepted exchanges return the
+same original part types and quantities as they take; per-sheet inventory is
+unchanged in those cases, although poses may change. Immediate material falls
+in 0 accepted exchanges and last-sheet occupied
+extent falls in 0. These traces do not reconstruct
+the earlier pilot or prove a later benefit/harm from rearrangement. Retained
+proposal identities, losses, material and extent are preserved. The independent
+filled-outer audit checks 18,569 pairs. No gate relaxation,
+production change, reserved-file access or H5 credit. H2/H5 remain open at 60%.
+Source inspection also confirms that accepting an exchange short-circuits
+the following gap-fill and relocation calls in that window. The next isolated
+change should test whether gap filling after an accepted exchange can use its
+new arrangement, while preserving the total search limit and normal-mode
+behavior. This identifies a missed execution path, not a measured quality gain.
+

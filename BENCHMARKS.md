@@ -13998,3 +13998,30 @@ Four committed serial, seed-zero 60-second mechanical observations follow.
 All algorithms, deadlines and acceptance limits remain; trace overhead can
 perturb wall timing. This is not a replay or quality rerun of the failed pilot.
 Production and its failed comparisons remain unchanged. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Balanced-pair identity diagnosis
+
+[All four outputs validate](benchmarks/results/h5-balanced-stage-20261018.md).
+11 attempts produce 3 accepted exchanges, including
+2 pairs. 2 accepted exchanges preserve
+the original part-type multiset on each sheet. Immediate material decreases in
+0 accepted exchanges; last-sheet occupied extent
+decreases in 0. Same inventory does not imply same
+poses, and these observations neither replay the failed pilot nor establish
+the later benefit or harm of a rearrangement.
+
+All source/input/binary guards, archive CRCs/member hashes, trace references,
+four solver counters, original quantities, public exports and independently
+recomputed metrics pass. The independent filled-outer audit verifies
+18,569 same-sheet pairs, with minimum clearance slack
+9.99999701878e-07 mm at the original 1e-7 mm tolerance.
+Every failure and original limit remains; no production change or reserved
+input access. H2/H5 remain open at 60%.
+
+Source inspection also confirms that accepting an exchange short-circuits
+the following gap-fill and relocation calls in that window. The next isolated
+change should test whether gap filling after an accepted exchange can use its
+new arrangement, while preserving the total search limit and normal-mode
+behavior. This identifies a missed execution path, not a measured quality gain.
+
