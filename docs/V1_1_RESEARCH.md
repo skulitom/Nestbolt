@@ -1482,3 +1482,11 @@ fixture and twelve rejection-boundary outcomes pass 25 frozen-CLI checks.
 Strict lint/build, public parity/replay, five pilot tests and exact source
 reconstruction pass. The unchanged 72-outcome plan is committed before
 measurement. No quality or integration claim; H2/H5 remain open at 60%.
+
+
+**N4 boundary-priority outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-boundary-priority-pilot-20261018.md).
+The independent filled-outer audit checks 133,236 same-sheet
+pairs across 48 common-mode layouts. 6 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +4.771660%; m-mechanical-large-plates at 1.5 mm: +4.211101%; m-mechanical-panel-hardware at 0.2 mm: +5.991880%; m-mechanical-panel-hardware at 1.5 mm: +5.770657%; c-bracket-mixed at 0.2 mm: +1.591789%; c-bracket-mixed at 1.5 mm: +1.089470%
+The candidate accepts 17/100 exchanges, including 12/73 paired and 0/0 mixed-item exchanges. Follow-up gap filling runs 17 times and moves 20 parts. Of 1 neutral rejections, 0 are caught by exact internal-state equality and 1 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
+unchanged. H2/H5 remain open at 60%.
