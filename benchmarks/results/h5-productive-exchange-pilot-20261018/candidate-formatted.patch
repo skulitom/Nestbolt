@@ -1,0 +1,278 @@
+--- post-fill/crates/core/src/sheets/vstrip/exchange.rs
++++ productive/crates/core/src/sheets/vstrip/exchange.rs
+@@ -169,42 +169,83 @@
+ 
+ type IncomingMember = (PItemKey, std::sync::Arc<Item>, DTransformation);
+ 
+-// Try nearby copies of the same original part. Stable input order breaks ties;
+-// at most twelve anchors, two neighbours each and six distinct pairs are kept.
++// Distribute a bounded set of nearby same-item pairs across original part types.
++// The caller supplies stable decreasing-area order. Pointer identity keeps
++// distinct original items separate even when their shapes or indices match.
+ fn incoming_pairs(layout: &JLayout, keys: &[PItemKey]) -> Vec<Vec<PItemKey>> {
+-    let mut pairs = Vec::new();
+-    let mut seen = Vec::new();
+-    for (i, &key) in keys.iter().enumerate().take(12) {
+-        let a = &layout.placed_items()[key];
+-        let ba = a.shape().bbox();
+-        let mut neighbours: Vec<_> = keys
++    let mut groups: Vec<Vec<usize>> = Vec::new();
++    for (index, &key) in keys.iter().enumerate() {
++        let item = layout.placed_items()[key].item();
++        if let Some(group) = groups.iter_mut().find(|group| {
++            std::sync::Arc::ptr_eq(layout.placed_items()[keys[group[0]]].item(), item)
++        }) {
++            group.push(index);
++        } else {
++            groups.push(vec![index]);
++        }
++    }
++    groups.retain(|group| group.len() >= 2);
++    let mut anchors = Vec::new();
++    for rank in 0..12 {
++        for (group, members) in groups.iter().enumerate() {
++            if let Some(&index) = members.get(rank) {
++                anchors.push((group, index));
++                if anchors.len() == 12 {
++                    break;
++                }
++            }
++        }
++        if anchors.len() == 12 {
++            break;
++        }
++    }
++    let mut grouped_pairs = vec![Vec::new(); groups.len()];
++    for (group, i) in anchors {
++        let a = layout.placed_items()[keys[i]].shape().bbox();
++        let mut neighbours: Vec<_> = groups[group]
+             .iter()
+-            .enumerate()
+-            .filter_map(|(j, &other)| {
+-                let b = &layout.placed_items()[other];
+-                if i == j || !std::sync::Arc::ptr_eq(a.item(), b.item()) {
++            .filter_map(|&j| {
++                if i == j {
+                     return None;
+                 }
+-                let bb = b.shape().bbox();
+-                let dx = (ba.x_min + ba.x_max) - (bb.x_min + bb.x_max);
+-                let dy = (ba.y_min + ba.y_max) - (bb.y_min + bb.y_max);
++                let b = layout.placed_items()[keys[j]].shape().bbox();
++                let dx = (a.x_min + a.x_max) - (b.x_min + b.x_max);
++                let dy = (a.y_min + a.y_max) - (b.y_min + b.y_max);
+                 Some((dx * dx + dy * dy, j))
+             })
+             .collect();
+         neighbours.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.cmp(&b.1)));
+         for (_, j) in neighbours.into_iter().take(2) {
+             let pair = (i.min(j), i.max(j));
+-            if seen.contains(&pair) {
+-                continue;
++            if !grouped_pairs[group].contains(&pair) {
++                grouped_pairs[group].push(pair);
+             }
+-            seen.push(pair);
+-            pairs.push(vec![keys[pair.0], keys[pair.1]]);
+-            if pairs.len() == 6 {
+-                return pairs;
++        }
++    }
++    let mut pairs = Vec::new();
++    for rank in 0..24 {
++        for group in &grouped_pairs {
++            if let Some(&(a, b)) = group.get(rank) {
++                pairs.push(vec![keys[a], keys[b]]);
++                if pairs.len() == 6 {
++                    return pairs;
++                }
+             }
+         }
+     }
+     pairs
++}
++
++fn same_original_inventory(a: &[IncomingMember], b: &[IncomingMember]) -> bool {
++    a.len() == b.len()
++        && a.iter().all(|(_, item, _)| {
++            a.iter()
++                .filter(|(_, other, _)| std::sync::Arc::ptr_eq(item, other))
++                .count()
++                == b.iter()
++                    .filter(|(_, other, _)| std::sync::Arc::ptr_eq(item, other))
++                    .count()
++        })
+ }
+ 
+ // Incoming groups must preserve their relative transform and every member's
+@@ -557,6 +598,14 @@
+                     {
+                         continue;
+                     }
++                    // Same inventory can still improve the geometry, but a
++                    // flat material result must not consume the sole exchange.
++                    if same_original_inventory(&members, &victims)
++                        && after.material_area >= before.material_area
++                    {
++                        self.stats.neutral_exchange_rejections += 1;
++                        continue;
++                    }
+                     sep.layout = trial;
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
+@@ -1534,4 +1583,144 @@
+             );
+         }
+     }
++    fn equal_inventory_fixture(taller_source: bool) -> (Job, Layout) {
++        let (mut job, mut layout) = balanced_fixture();
++        job.parts.retain(|p| p.id != "return");
++        job.parts
++            .iter_mut()
++            .find(|p| p.id == "incoming")
++            .unwrap()
++            .quantity = 4;
++        layout.placements.retain(|p| p.part_id != "return");
++        for p in &mut layout.placements {
++            if taller_source && p.part_id == "incoming" && p.copy_index == 1 {
++                p.transform.translation[1] = 52.0;
++            }
++        }
++        for (copy_index, y) in [(2, 2.0), (3, 49.0)] {
++            layout.placements.push(Placement {
++                part_id: "incoming".into(),
++                copy_index,
++                sheet_id: "sheet-0".into(),
++                transform: RigidTransform {
++                    translation: [2.0, y],
++                    rotation_radians: 0.0,
++                    mirrored: false,
++                },
++            });
++        }
++        if taller_source {
++            // The validator credits the largest offcut on either sheet. Keep
++            // the receiver taller so exchanging the pairs saves real material.
++            job.parts.push(rectangle("ceiling", 94.0, 0.5));
++            layout.placements.push(Placement {
++                part_id: "ceiling".into(),
++                copy_index: 0,
++                sheet_id: "sheet-0".into(),
++                transform: RigidTransform {
++                    translation: [2.0, 98.0],
++                    rotation_radians: 0.0,
++                    mirrored: false,
++                },
++            });
++        }
++        (job, layout)
++    }
++
++    #[test]
++    fn productive_exchange_rejects_unchanged_inventory_without_material_gain() {
++        let (job, layout) = equal_inventory_fixture(false);
++        for seed in 0..4 {
++            let (moved, after, stats) = exercise(&job, &layout, seed, true, false, 0);
++            eprintln!(
++                "PRODUCTIVE_WITNESS {}",
++                serde_json::json!({
++                    "case":"unchanged_inventory", "seed":seed, "job":&job,
++                    "before":&layout, "after":&after, "moved":moved, "stats":&stats,
++                })
++            );
++            assert_eq!(
++                moved, 0,
++                "unchanged inventory with no material gain must not end exchange search: {stats:?}"
++            );
++            assert_eq!(stats.directed_exchanges, 0);
++            assert!(stats.paired_exchange_attempts > 0);
++        }
++    }
++
++    #[test]
++    fn productive_exchange_keeps_same_inventory_when_material_decreases() {
++        let (job, layout) = equal_inventory_fixture(true);
++        let before = validate(&job, &layout)
++            .unwrap()
++            .metrics
++            .unwrap()
++            .material_area;
++        for seed in 0..4 {
++            let (moved, after, stats) = exercise(&job, &layout, seed, true, false, 0);
++            eprintln!(
++                "PRODUCTIVE_WITNESS {}",
++                serde_json::json!({
++                    "case":"same_inventory_improves", "seed":seed, "job":&job,
++                    "before":&layout, "after":&after, "moved":moved, "stats":&stats,
++                })
++            );
++            assert_eq!(
++                moved, 1,
++                "a same-inventory exchange that saves material must remain eligible: {stats:?}"
++            );
++            assert_eq!(stats.paired_exchanges, 1);
++            let report = validate(&job, &after).unwrap();
++            assert!(report.valid);
++            assert!(before - report.metrics.unwrap().material_area > 99.9);
++        }
++    }
++
++    #[test]
++    fn productive_exchange_pair_selection_reaches_different_part_types() {
++        let (job, layout) = balanced_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let mut items: Vec<_> = model
++            .instance
++            .items
++            .iter()
++            .map(|(item, _)| item.clone())
++            .collect();
++        items.sort_by(|a, b| b.area().total_cmp(&a.area()));
++        assert_eq!(items.len(), 3);
++        let mut many = JLayout::new(sheets[0].layout().container().clone());
++        let mut keys = Vec::new();
++        for (family, item) in items.iter().enumerate() {
++            for copy in 0..20 {
++                keys.push(many.place_item(
++                    item,
++                    DTransformation::new(0.0, (copy as f32 * 500.0, family as f32 * 10000.0)),
++                ));
++            }
++        }
++        let pairs = incoming_pairs(&many, &keys);
++        assert_eq!(pairs.len(), 6);
++        assert_eq!(pairs, incoming_pairs(&many, &keys));
++        let mut families: Vec<_> = pairs
++            .iter()
++            .map(|p| many.placed_items()[p[0]].item().idx())
++            .collect();
++        families.sort_unstable();
++        families.dedup();
++        assert_eq!(
++            families.len(),
++            3,
++            "bounded pair choices must reach all three available part types"
++        );
++        for (index, pair) in pairs.iter().enumerate() {
++            assert!(!pairs[..index].contains(pair));
++            assert_eq!(pair.len(), 2);
++            assert_ne!(pair[0], pair[1]);
++            assert!(std::sync::Arc::ptr_eq(
++                many.placed_items()[pair[0]].item(),
++                many.placed_items()[pair[1]].item()
++            ));
++        }
++    }
+ }
+--- post-fill/crates/core/src/sheets.rs
++++ productive/crates/core/src/sheets.rs
+@@ -105,6 +105,8 @@
+     pub post_exchange_fill_calls: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub post_exchange_fill_moves: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub neutral_exchange_rejections: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {

@@ -14078,3 +14078,21 @@ positive fixture, original runs and all failed pilots remain preserved.
 Normal output, common fixed-work replay, budgets, geometry validation and
 paired scoring rules are unchanged. No production change or measured
 improvement is claimed. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Productive-exchange comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-productive-exchange-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.936 minutes. All archives pass CRC and member/hash checks;
+the summary is recomputed from all records. The filled-outer audit verifies
+133,603 same-sheet pairs in 48 common-mode layouts with
+minimum slack 9.99999247131e-07 mm and unchanged
+0.00000010 mm tolerance. Hole interiors stay reserved.
+
+4 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +5.483065%; m-mechanical-large-plates at 1.5 mm: +5.402498%; m-mechanical-panel-hardware at 0.2 mm: +7.022646%; m-mechanical-panel-hardware at 1.5 mm: +5.298801%
+The candidate accepts 12/121 exchanges, including 1/62
+two-part exchanges. The post-exchange gap-fill step runs 12 times and moves 11 parts. The new guard rejects 45 same-inventory proposals without material improvement; these counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
+prove impossibility. Original failures, production and frozen inputs remain
+unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
