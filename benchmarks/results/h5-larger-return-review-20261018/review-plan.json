@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-18T03:50:32.470897+00:00",
+  "purpose": "Observe four failed authored tests under both unchanged runtimes, after each search ends.",
+  "arms": [
+    {
+      "arm": "original",
+      "observed_source_sha256": "1a1467bbbb8d6fae75870c92c9adddf941ebec195dbe087465fc1a43127a1216",
+      "runtime_sha256": "862e35b316ce7cf81fe906fb6d2d7cd23186e0c41aa3270be33b676d8d2df9ac",
+      "only_post_search_test_logging_added": true
+    },
+    {
+      "arm": "broader",
+      "observed_source_sha256": "0fbf30b777e32caf3bd8b7353da94329c55fc2d6c0aa8d30f0340693338cda59",
+      "runtime_sha256": "1cc54a97586d9202593d31818fc1cc291e3a020674e88045350de6288f1c83c8",
+      "only_post_search_test_logging_added": true
+    }
+  ],
+  "production_digest": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+  "failed_candidate_source": "C:\\DEV\\Nestbolt\\output\\h5-larger-return-probe-20261018\\initial-larger-attempt\\candidate",
+  "failed_source_sha256": "a6a4a11f18b23a9e0129c7e6f9f106e85fdf2c9e7b42b8a91dea18fc8008d960",
+  "prior_source": "C:\\DEV\\Nestbolt\\output\\h5-mixed-exchange-probe-20261018\\candidate",
+  "prior_source_sha256": "29c9985a43d02650d9cf98fc6483793accc0435ac774b6cf17cedbfd9e858205",
+  "relative_source": "crates/core/src/sheets/vstrip/exchange.rs",
+  "target": "C:\\DEV\\Nestbolt\\output\\h5-larger-return-test-review-target-20261018",
+  "tests": [
+    "balanced_pair_falls_back_to_a_valid_single_exchange",
+    "return_frame_keeps_incumbent_when_roundoff_increases_charged_material",
+    "directed_exchange_uses_the_rotated_return_gap",
+    "accepted_exchange_still_fills_a_known_gap"
+  ],
+  "timing": "Existing authored fixed-work budgets; all added logging occurs after each search has ended. No performance or quality measurement.",
+  "production_changed": false,
+  "held_out_inputs_read": false
+}

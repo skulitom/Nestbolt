@@ -14231,3 +14231,30 @@ showing that inequality is not necessary for a valid nonincreasing-material
 exchange. No optimizer run occurs. A failing original-runtime regression,
 complete correctness checks and unchanged quality gates are still required.
 Production and reserved inputs are unchanged; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Preserve the larger-return candidate failure and compare outputs
+
+[The candidate remains unqualified](benchmarks/results/h5-larger-return-review-20261018.md).
+The unchanged runtime first fails the new positive regression with two guards
+passing. Removing the paired proposal area rejection makes all four new tests
+pass, but the complete suite reports 107 passes and four older route/placement
+failures. Original assertions, sources, logs and binaries remain preserved.
+
+Six actual new cases pass twelve independent before/after CLI validations.
+Ten original/broader comparison observations pass twenty more. All layouts
+are valid and preserve strict material nonincrease against their own inputs.
+Compared with original final outputs, the broader result is equal in one case,
+better by 66.0529 and 266.0522 mm2 in two, and worse by 0.0388 mm2 in the
+gap-filling case. That case leaves the named part on the last sheet despite
+one successful fill counter. Actual intermediate placements and snapshot
+selection must be observed before choosing a correction; counts alone are
+insufficient and no assertion has been relaxed.
+
+The first logging preparation failed before a build. A shared target then
+returned the original executable for the second arm; the unexpected passing
+test stopped the comparison before scoring it. Both failures remain. Recovery
+builds the unchanged broader arm in a fresh target, verifies a distinct binary
+and retains all six original observations without repeating them. The sealed
+archive passes CRC and all 1,164 member hashes. No quality pilot, production
+change, reserved access or H5 credit; completed milestone weight stays 60%.

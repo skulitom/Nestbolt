@@ -1006,3 +1006,19 @@ alone while one filler stays on each sheet. The current pair-area filter
 excludes this complete return set. This proves a limitation of that filter,
 with zero optimizer runs; an actual runtime regression and full candidate
 checks remain necessary. It does not establish mechanical quality or H5.
+
+
+**N4 larger-return candidate review, 2026-10-18:** [the first implementation is unqualified](../benchmarks/results/h5-larger-return-review-20261018.md).
+The new larger-return regression first fails against unchanged runtime, then
+passes after removing the paired proposal area filter. All four new tests
+pass, but the complete suite reports 107 passes and four older failures.
+Every original assertion, failed source and binary is preserved. Six new
+actual outcomes and ten original/broader comparison observations pass 32
+independent CLI validations. The broader results are equal in one case and
+save 66.0529 / 266.0522 mm2 in two; the gap-filling case is 0.0388 mm2 worse
+and leaves its named small part on the last sheet despite one recorded fill.
+A logging-setup failure and shared-target stale executable are preserved;
+recovery uses a fresh target and reuses all completed original observations.
+Next inspect the intermediate fill and accepted snapshots before correcting
+behavior or targeted tests. No assertion change, quality pilot, integration
+or H5 credit; H2/H5 remain open at 60%.

@@ -1,0 +1,34 @@
+{
+  "candidate_qualified": false,
+  "observed_material_differences_mm2": [
+    0.0,
+    -66.05289999999513,
+    -266.05219999999827,
+    0.038800000000264845
+  ],
+  "broader_gap_statistics": {
+    "compressions": 1,
+    "direct_insertions": 1,
+    "directed_exchange_attempts": 3,
+    "directed_exchanges": 1,
+    "ejection_moves": 0,
+    "ejections": 0,
+    "eliminated_sheets": 0,
+    "failed_insertions": 5,
+    "mixed_exchange_attempts": 2,
+    "paired_exchange_attempts": 2,
+    "post_exchange_fill_calls": 1,
+    "post_exchange_fill_moves": 1,
+    "rejected_layouts": 0,
+    "separated_insertions": 0
+  },
+  "fill_callsite_source": "output/h5-larger-return-probe-20261018/candidate/crates/core/src/sheets/vstrip.rs",
+  "fill_callsite_source_sha256": "c3105c733a21b4d761324155757636bf12adb57ded8d7a08ec65a7e00764a908",
+  "fill_callsite_line": 743,
+  "exact_fill_and_snapshot_sequence": "                        let gaps = std::env::var_os(\"NESTBOLT_NO_FILL\").is_none();\n                        // An accepted exchange may only rearrange parts. Keep\n                        // the direct gap-fill opportunity in the new layout.\n                        let gap_moves = if gaps {\n                            let moved = timed(\"fill\", || self.fill_gaps(&strip, &mut sep, shape));\n                            if exchanged > 0 {\n                                self.stats.post_exchange_fill_calls += 1;\n                                self.stats.post_exchange_fill_moves += moved as u64;\n                            }\n                            moved\n                        } else {\n                            0\n                        };\n                        if exchanged > 0\n                            || gap_moves > 0\n                            || timed(\"relocate\", || {\n                                self.relocate(&strip, &mut sep, shape, budget)\n                            })? > 0\n                        {\n                            shape.last = strip.fit_last(&sep.layout, shape);\n                            strip.apply(&mut sep, shape)?;\n                        }\n                    }\n                    let snapshot = sep.layout.save();\n                    best = (snapshot, shape);\n                    pending = true;\n                    pool.clear();\n",
+  "source_review_limit": "The code and operation counts do not establish which part moved, its intermediate location, or whether it was retained in the final result.",
+  "next_action": "The broader search produces an equally charged valid result for the old\nsingle-fallback fixture and lower charged material for the two return-frame\nfixtures. Those outcomes show that the older chosen-route assertions are not\nequivalent to the whole-job geometry/material invariants. They do not by\nthemselves justify changing any assertion or qualify the candidate.\n\nThe gap-filling fixture is different: the broader result uses 0.0388 mm2 more\nmaterial than the original result and leaves the named small part on sheet 1.\nIt remains valid and below its own before-layout material. Counters record one\nsuccessful post-exchange fill, but do not identify the part that moved or prove\nthat this intermediate placement survives later exploration/compression.\n\nNext, observe the actual layouts immediately before/after exchange and gap\nfilling, plus the final accepted snapshot, for this authored fixed-work case.\nRequire its final result to reproduce the saved outcome before attributing\nthe missing placement to filling, a different chosen swap, or later snapshot\nselection. Then choose a correction and preserve targeted strict-material,\nrotated-return and single-fallback coverage. Do not merely loosen four assertions\nto obtain a passing suite. The quality pilot remains unopened.\n",
+  "assertions_changed": false,
+  "quality_pilot_started": false,
+  "production_changed": false
+}

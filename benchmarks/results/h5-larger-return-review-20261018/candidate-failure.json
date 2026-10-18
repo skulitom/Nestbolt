@@ -1,0 +1,18 @@
+{
+  "first_core_result": "107 passed; 4 failed",
+  "failed_tests": [
+    "sheets::vstrip::exchange::tests::balanced_pair_falls_back_to_a_valid_single_exchange",
+    "sheets::vstrip::exchange::tests::return_frame_keeps_incumbent_when_roundoff_increases_charged_material",
+    "sheets::vstrip::exchange::tests::directed_exchange_uses_the_rotated_return_gap",
+    "sheets::vstrip::exchange::tests::accepted_exchange_still_fills_a_known_gap"
+  ],
+  "all_four_new_larger_return_tests_passed": true,
+  "source_preserved": true,
+  "failed_test_binary_sha256": "1ba23159d9dba1f8b5375a133a5cdf1b12f2ab33ff007dfb0bd2dc34d29b22c2",
+  "core_log_sha256": "89840f3c526c8fa2334c61e1bca7b5a0b0de5b63f16cb9aee8cdb07b384ca144",
+  "finding": "The broader filter permits different earlier swaps. Four existing route/placement assertions fail; their shared strict geometry/material checks passed before those assertions. This alone does not justify changing tests or claiming better quality.",
+  "next_action": "Capture and independently compare original-runtime and broadened-runtime outputs for the four failed cases before choosing a correction.",
+  "measured_searches": 0,
+  "qualified": false,
+  "integrated": false
+}

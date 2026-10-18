@@ -1,0 +1,309 @@
+{
+  "all_original_tests_passed": true,
+  "all_four_broader_failures_reproduced": true,
+  "observations": 10,
+  "public_validations": 20,
+  "all_layouts_valid": true,
+  "strict_material_nonincrease": true,
+  "pairs": [
+    {
+      "test": "balanced_pair_falls_back_to_a_valid_single_exchange",
+      "original_material": 19699.9994,
+      "broader_material": 19699.9994,
+      "difference_mm2": 0.0,
+      "original_gap_sheet": [],
+      "broader_gap_sheet": []
+    },
+    {
+      "test": "return_frame_keeps_incumbent_when_roundoff_increases_charged_material",
+      "original_material": 19500.000099999997,
+      "broader_material": 19433.947200000002,
+      "difference_mm2": -66.05289999999513,
+      "original_gap_sheet": [],
+      "broader_gap_sheet": []
+    },
+    {
+      "test": "directed_exchange_uses_the_rotated_return_gap",
+      "original_material": 19699.9994,
+      "broader_material": 19433.947200000002,
+      "difference_mm2": -266.05219999999827,
+      "original_gap_sheet": [],
+      "broader_gap_sheet": []
+    },
+    {
+      "test": "accepted_exchange_still_fills_a_known_gap",
+      "original_material": 12200.078,
+      "broader_material": 12200.1168,
+      "difference_mm2": 0.038800000000264845,
+      "original_gap_sheet": [
+        "sheet-0"
+      ],
+      "broader_gap_sheet": [
+        "sheet-1"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "arm": "original",
+      "test": "balanced_pair_falls_back_to_a_valid_single_exchange",
+      "index": 0,
+      "enabled": true,
+      "budget": null,
+      "material_before": 19699.9994,
+      "material_after": 19699.9994,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [],
+      "observation_path": "original-balanced_pair_falls_back_to_a_valid_single_exchange/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "original",
+      "test": "return_frame_keeps_incumbent_when_roundoff_increases_charged_material",
+      "index": 0,
+      "enabled": true,
+      "budget": null,
+      "material_before": 19500.000099999997,
+      "material_after": 19500.000099999997,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "directed_exchange_attempts": 12,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [],
+      "observation_path": "original-return_frame_keeps_incumbent_when_roundoff_increases_charged_material/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "original",
+      "test": "directed_exchange_uses_the_rotated_return_gap",
+      "index": 0,
+      "enabled": true,
+      "budget": null,
+      "material_before": 19699.9994,
+      "material_after": 19699.9994,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [],
+      "observation_path": "original-directed_exchange_uses_the_rotated_return_gap/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "original",
+      "test": "accepted_exchange_still_fills_a_known_gap",
+      "index": 0,
+      "enabled": true,
+      "budget": 20.0,
+      "material_before": 18800.0,
+      "material_after": 12200.078,
+      "stats": {
+        "compressions": 1,
+        "direct_insertions": 1,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 5,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 1,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [
+        "sheet-0"
+      ],
+      "observation_path": "original-accepted_exchange_still_fills_a_known_gap/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "original",
+      "test": "accepted_exchange_still_fills_a_known_gap",
+      "index": 1,
+      "enabled": false,
+      "budget": 20.0,
+      "material_before": 18800.0,
+      "material_after": 12200.2603,
+      "stats": {
+        "compressions": 1,
+        "direct_insertions": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 5,
+        "rejected_layouts": 0,
+        "separated_insertions": 1
+      },
+      "gap_part_sheet": [
+        "sheet-0"
+      ],
+      "observation_path": "original-accepted_exchange_still_fills_a_known_gap/1/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "original",
+      "test": "accepted_exchange_still_fills_a_known_gap",
+      "index": 2,
+      "enabled": true,
+      "budget": 0.0,
+      "material_before": 18800.0,
+      "material_after": 18800.0,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [
+        "sheet-1"
+      ],
+      "observation_path": "original-accepted_exchange_still_fills_a_known_gap/2/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "broader",
+      "test": "balanced_pair_falls_back_to_a_valid_single_exchange",
+      "index": 0,
+      "enabled": true,
+      "budget": null,
+      "material_before": 19699.9994,
+      "material_after": 19699.9994,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [],
+      "observation_path": "broader-v2-balanced_pair_falls_back_to_a_valid_single_exchange/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "broader",
+      "test": "return_frame_keeps_incumbent_when_roundoff_increases_charged_material",
+      "index": 0,
+      "enabled": true,
+      "budget": null,
+      "material_before": 19500.000099999997,
+      "material_after": 19433.947200000002,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "mixed_exchange_attempts": 1,
+        "mixed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [],
+      "observation_path": "broader-v2-return_frame_keeps_incumbent_when_roundoff_increases_charged_material/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "broader",
+      "test": "directed_exchange_uses_the_rotated_return_gap",
+      "index": 0,
+      "enabled": true,
+      "budget": null,
+      "material_before": 19699.9994,
+      "material_after": 19433.947200000002,
+      "stats": {
+        "compressions": 0,
+        "direct_insertions": 0,
+        "directed_exchange_attempts": 1,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 0,
+        "mixed_exchange_attempts": 1,
+        "mixed_exchanges": 1,
+        "paired_exchange_attempts": 1,
+        "paired_exchanges": 1,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [],
+      "observation_path": "broader-v2-directed_exchange_uses_the_rotated_return_gap/0/observation.json",
+      "all_layouts_valid": true
+    },
+    {
+      "arm": "broader",
+      "test": "accepted_exchange_still_fills_a_known_gap",
+      "index": 0,
+      "enabled": true,
+      "budget": 20.0,
+      "material_before": 18800.0,
+      "material_after": 12200.1168,
+      "stats": {
+        "compressions": 1,
+        "direct_insertions": 1,
+        "directed_exchange_attempts": 3,
+        "directed_exchanges": 1,
+        "ejection_moves": 0,
+        "ejections": 0,
+        "eliminated_sheets": 0,
+        "failed_insertions": 5,
+        "mixed_exchange_attempts": 2,
+        "paired_exchange_attempts": 2,
+        "post_exchange_fill_calls": 1,
+        "post_exchange_fill_moves": 1,
+        "rejected_layouts": 0,
+        "separated_insertions": 0
+      },
+      "gap_part_sheet": [
+        "sheet-1"
+      ],
+      "observation_path": "broader-v2-accepted_exchange_still_fills_a_known_gap/0/observation.json",
+      "all_layouts_valid": true
+    }
+  ],
+  "guards_unchanged": true,
+  "performance_or_quality_claim": false
+}
