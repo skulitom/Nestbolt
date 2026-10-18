@@ -1,0 +1,549 @@
+--- exchange-chain/crates/core/src/sheets/vstrip/exchange.rs
++++ extended-repair/crates/core/src/sheets/vstrip/exchange.rs
+@@ -730,6 +730,28 @@
+     Ok(accepted)
+ }
+ 
++// Both phases share the original four-acceptance window cap.
++fn continue_remaining_exchanges(
++    accepted: usize,
++    mut step: impl FnMut() -> Result<Option<bool>>,
++) -> Result<usize> {
++    let mut extra = 0;
++    for _ in accepted..4 {
++        let Some(material_improved) = step()? else {
++            break;
++        };
++        extra += 1;
++        if !material_improved {
++            break;
++        }
++    }
++    Ok(extra)
++}
++
++fn source_repair_deadline(short: f64, phase: f64, extended: bool) -> f64 {
++    if extended { phase } else { short }
++}
++
+ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
+     fn exchange_layout(
+         &self,
+@@ -749,6 +771,34 @@
+         self.clock.validated(self.model.job, layout);
+         self.check_cost = self.check_cost.max(started.elapsed().as_secs_f64());
+         Ok(report)
++    }
++
++    pub(super) fn directed_exchange_window(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        short_until: f64,
++        until: f64,
++    ) -> Result<usize> {
++        let accepted = self.directed_exchange_chain(strip, frozen, sep, shape, short_until)?;
++        let extra = self.extend_exchange_chain(strip, frozen, sep, shape, until, accepted)?;
++        Ok(accepted + extra)
++    }
++
++    fn extend_exchange_chain(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        accepted: usize,
++    ) -> Result<usize> {
++        continue_remaining_exchanges(accepted, || {
++            self.directed_exchange_mode(strip, frozen, sep, shape, until, true)
++        })
+     }
+ 
+     pub(super) fn directed_exchange_chain(
+@@ -779,8 +829,6 @@
+         ))
+     }
+ 
+-    /// At most one exchange. The original separator is untouched until both
+-    /// repairs and the independent whole-job material/geometry guard pass.
+     fn directed_exchange_once(
+         &mut self,
+         strip: &Strip,
+@@ -788,6 +836,20 @@
+         sep: &mut Separator,
+         shape: Shape,
+         until: f64,
++    ) -> Result<Option<bool>> {
++        self.directed_exchange_mode(strip, frozen, sep, shape, until, false)
++    }
++
++    /// At most one exchange. The original separator is untouched until both
++    /// repairs and the independent whole-job material/geometry guard pass.
++    fn directed_exchange_mode(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        extended: bool,
+     ) -> Result<Option<bool>> {
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
+             return Ok(None);
+@@ -923,6 +985,7 @@
+                         break;
+                     }
+                     self.stats.directed_exchange_attempts += 1;
++                    self.stats.extended_exchange_attempts += u64::from(extended);
+                     self.stats.paired_exchange_attempts += u64::from(paired);
+                     self.stats.mixed_exchange_attempts += u64::from(mixed);
+                     let victims: Vec<_> = proposal
+@@ -996,8 +1059,10 @@
+                         EXPLORE,
+                         self.clock.clone(),
+                     );
++                    let source_until =
++                        source_repair_deadline(pair_end, self.last_step(exchange_until), extended);
+                     let (source_snapshot, source_tracker) =
+-                        source_sep.separate(&self.deadline(pair_end));
++                        source_sep.separate(&self.deadline(source_until));
+                     if source_tracker.total_loss() > 0.0
+                         || self.clock.now() >= self.last_step(exchange_until)
+                     {
+@@ -1052,6 +1117,12 @@
+                     {
+                         continue;
+                     }
++                    // The additional phase must improve on the retained
++                    // short-phase incumbent; a flat rearrangement is insufficient.
++                    if extended && after.material_area >= before.material_area {
++                        self.stats.extended_flat_rejections += 1;
++                        continue;
++                    }
+                     // Same inventory can still improve the geometry, but a
+                     // flat material result must not consume the sole exchange.
+                     if same_original_inventory(&members, &victims)
+@@ -1063,6 +1134,7 @@
+                     sep.layout = trial;
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
++                    self.stats.extended_exchanges += u64::from(extended);
+                     self.stats.paired_exchanges += u64::from(paired);
+                     self.stats.mixed_exchanges += u64::from(mixed);
+                     return Ok(Some(after.material_area < before.material_area));
+@@ -3747,4 +3819,379 @@
+         assert_eq!(stats.directed_exchanges, 0);
+     }
+     // END exchange-chain tests
++
++    fn extended_exercise(
++        job: &Job,
++        layout: &Layout,
++        seed: u64,
++        enabled: bool,
++        phase: (f64, f64, u8),
++        frozen_count: usize,
++    ) -> (usize, Layout, Stats) {
++        let (short_budget, budget, mode) = phase;
++        let validation = validate(job, layout).unwrap();
++        assert!(validation.valid, "{:?}", validation.violations);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(seed),
++            clock: clock.clone(),
++            best: (layout.clone(), validation, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let (frozen, window) = sheets.split_at(frozen_count);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(window, shape).unwrap(),
++            seed,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        // Compare the same f32 internal frame before/after the exchange. The
++        // public-to-internal conversion predates this operation and has its own
++        // tests; comparing to the authored f64 coordinates conflates the two.
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_layout = model.to_layout(&before_sheets);
++        let before_report = validate(job, &before_layout).unwrap();
++        assert!(before_report.valid);
++        let before_material = before_report.metrics.as_ref().unwrap().material_area;
++        let original = fingerprint(&sep.layout);
++        let until = if budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + budget
++        };
++        let short_until = if short_budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + short_budget
++        };
++        let mut fast_layout = None;
++        let moved = match mode {
++            0 => search
++                .directed_exchange_window(&strip, frozen, &mut sep, shape, short_until, until)
++                .unwrap(),
++            1 => usize::from(
++                search
++                    .directed_exchange_mode(&strip, frozen, &mut sep, shape, until, true)
++                    .unwrap()
++                    .is_some(),
++            ),
++            2 => {
++                let accepted = search
++                    .directed_exchange_chain(&strip, frozen, &mut sep, shape, short_until)
++                    .unwrap();
++                assert!(accepted > 0);
++                let fingerprint_before = fingerprint(&sep.layout);
++                fast_layout = Some(
++                    search
++                        .exchange_layout(&strip, frozen, &sep.layout, shape)
++                        .unwrap(),
++                );
++                let expired = search.clock.now();
++                let extra = search
++                    .extend_exchange_chain(&strip, frozen, &mut sep, shape, expired, accepted)
++                    .unwrap();
++                assert_eq!(extra, 0);
++                assert_eq!(fingerprint(&sep.layout), fingerprint_before);
++                accepted
++            }
++            _ => unreachable!(),
++        };
++        if moved == 0 {
++            assert_eq!(
++                fingerprint(&sep.layout),
++                original,
++                "failed proposal mutated the original state"
++            );
++        }
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let after = model.to_layout(&after_sheets);
++        for i in 0..frozen_count {
++            let id = format!("sheet-{i}");
++            let before_fixed: Vec<_> = before_layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            let after_fixed: Vec<_> = after
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            assert_eq!(
++                serde_json::to_value(before_fixed).unwrap(),
++                serde_json::to_value(after_fixed).unwrap()
++            );
++        }
++        let report = validate(job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert!(report.metrics.as_ref().unwrap().material_area <= before_material);
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "EXTENDED_REPAIR_WITNESS {}",
++            serde_json::json!({"job":job,"before":before_layout,"after":after,"seed":seed,"enabled":enabled,"budget":budget,"short_budget":short_budget,"mode":mode,"fast_layout":fast_layout,"stats":search.stats,"moved":moved,"work":search.clock.counts(),"until":until,"finished":search.clock.now()})
++        );
++        (moved, after, search.stats)
++    }
++
++    // BEGIN extended-repair tests
++    #[test]
++    fn extended_repair_shares_four_acceptance_cap_and_stops_after_no_move() {
++        for accepted in 0..=4 {
++            let mut calls = 0;
++            let extra = continue_remaining_exchanges(accepted, || {
++                calls += 1;
++                Ok(Some(true))
++            })
++            .unwrap();
++            assert_eq!(extra, 4 - accepted, "Remaining allowance must be usable");
++            assert_eq!(calls, 4 - accepted);
++        }
++        let mut calls = 0;
++        assert_eq!(
++            continue_remaining_exchanges(1, || {
++                calls += 1;
++                Ok(None)
++            })
++            .unwrap(),
++            0
++        );
++        assert_eq!(calls, 1);
++    }
++
++    fn extended_frozen_fixture() -> (Job, Layout) {
++        let (mut job, mut layout) = fixture();
++        job.parts.push(rectangle("fixed", 10.0, 94.0));
++        for p in &mut layout.placements {
++            p.sheet_id = if p.sheet_id == "sheet-0" {
++                "sheet-1".into()
++            } else {
++                "sheet-2".into()
++            };
++        }
++        layout.sheets.push(Sheet {
++            id: "sheet-2".into(),
++            stock_id: "stock".into(),
++        });
++        layout.placements.push(Placement {
++            part_id: "fixed".into(),
++            copy_index: 0,
++            sheet_id: "sheet-0".into(),
++            transform: RigidTransform {
++                translation: [2.0, 2.0],
++                ..Default::default()
++            },
++        });
++        (job, layout)
++    }
++
++    #[test]
++    fn extended_repair_actual_whole_job_gain_preserves_frozen_sheet_and_replays() {
++        let (job, layout) = extended_frozen_fixture();
++        let (_, baseline, _) = extended_exercise(&job, &layout, 0, false, (0.0, 3.0, 1), 1);
++        let (moved, after, stats) = extended_exercise(&job, &layout, 0, true, (0.0, 3.0, 1), 1);
++        assert_eq!(moved, 1);
++        assert_eq!(stats.extended_exchanges, 1);
++        assert!(stats.extended_exchange_attempts > 0);
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < validate(&job, &baseline)
++                    .unwrap()
++                    .metrics
++                    .unwrap()
++                    .material_area
++        );
++        let (again, replay, _) = extended_exercise(&job, &layout, 0, true, (0.0, 3.0, 1), 1);
++        assert_eq!(again, moved);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(replay).unwrap()
++        );
++    }
++
++    #[test]
++    fn extended_repair_rejects_actual_flat_swap_and_requires_strict_gain() {
++        let (job, layout) = larger_return_fixture();
++        let (_, baseline, _) = extended_exercise(&job, &layout, 0, false, (0.0, 3.0, 1), 0);
++        let (moved, after, stats) = extended_exercise(&job, &layout, 0, true, (0.0, 3.0, 1), 0);
++        assert!(
++            stats.extended_flat_rejections > 0,
++            "Actual flat tail proposal must be rejected"
++        );
++        if moved > 0 {
++            assert!(
++                validate(&job, &after)
++                    .unwrap()
++                    .metrics
++                    .unwrap()
++                    .material_area
++                    < validate(&job, &baseline)
++                        .unwrap()
++                        .metrics
++                        .unwrap()
++                        .material_area
++            );
++        } else {
++            assert_eq!(
++                serde_json::to_value(after).unwrap(),
++                serde_json::to_value(baseline).unwrap()
++            );
++        }
++    }
++
++    #[test]
++    fn extended_repair_expired_tail_preserves_successful_fast_incumbent_exactly() {
++        let (job, layout) = fixture();
++        let (moved, _, stats) = extended_exercise(&job, &layout, 0, true, (3.0, 3.0, 2), 0);
++        assert!(moved > 0);
++        assert_eq!(stats.extended_exchange_attempts, 0);
++        assert_eq!(stats.extended_exchanges, 0);
++    }
++
++    #[test]
++    fn extended_repair_disabled_deadline_and_failed_source_keep_incumbents() {
++        let (job, layout) = chain_fixture();
++        for (enabled, phase) in [
++            (false, (1.2, 5.4, 0)),
++            (true, (0.0, 0.0, 0)),
++            (true, (1e-12, 1e-12, 0)),
++            (true, (0.0, 0.0, 1)),
++        ] {
++            let (moved, _, stats) = extended_exercise(&job, &layout, 0, enabled, phase, 0);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.extended_exchanges, 0);
++        }
++        let (mut job, layout) = fixture();
++        job.parts[1] = rectangle("return", 5.0, 90.0);
++        job.parts[2] = rectangle("incoming", 30.0, 30.0);
++        let (moved, _, stats) = extended_exercise(&job, &layout, 0, true, (1.2, 3.0, 0), 0);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.extended_exchanges, 0);
++    }
++
++    #[test]
++    fn extended_repair_preserves_fast_opportunities_and_only_improves_afterward() {
++        for ((job, layout), seed) in [(larger_return_fixture(), 3), (mixed_fixture(), 0)] {
++            let (fast, baseline, _) = chain_exercise(&job, &layout, seed, true, 3.0, 0);
++            assert!(fast > 0);
++            let (moved, after, stats) =
++                extended_exercise(&job, &layout, seed, true, (3.0, 5.0, 0), 0);
++            assert!((fast..=4).contains(&moved));
++            assert_eq!(stats.directed_exchanges, moved as u64);
++            assert_eq!(stats.extended_exchanges, (moved - fast) as u64);
++            if moved > fast {
++                assert!(
++                    validate(&job, &after)
++                        .unwrap()
++                        .metrics
++                        .unwrap()
++                        .material_area
++                        < validate(&job, &baseline)
++                            .unwrap()
++                            .metrics
++                            .unwrap()
++                            .material_area
++                );
++            } else {
++                assert_eq!(
++                    serde_json::to_value(after).unwrap(),
++                    serde_json::to_value(baseline).unwrap()
++                );
++            }
++        }
++    }
++    // END extended-repair tests
++    #[test]
++    fn extended_repair_source_can_clear_after_short_slice_has_elapsed() {
++        let (mut job, mut layout) = fixture();
++        job.name = "Authored source repair after elapsed short slice".into();
++        job.parts = vec![rectangle("tile", 17.0, 17.0)];
++        job.parts[0].quantity = 25;
++        layout.sheets.truncate(1);
++        layout.placements.clear();
++        for row in 0..5 {
++            for col in 0..5 {
++                layout.placements.push(Placement {
++                    part_id: "tile".into(),
++                    copy_index: row * 5 + col,
++                    sheet_id: "sheet-0".into(),
++                    transform: RigidTransform {
++                        translation: [2.0 + 16.0 * f64::from(col), 2.0 + 16.0 * f64::from(row)],
++                        ..Default::default()
++                    },
++                });
++            }
++        }
++        assert!(
++            !validate(&job, &layout).unwrap().valid,
++            "This is an overlapping proposed source, not an accepted layout"
++        );
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let clock = Clock::new(Timing::Work, 60.0);
++        let mut source = Separator::new(
++            JLayout::from_snapshot(&sheets[0].layout().save()),
++            0,
++            EXPLORE,
++            clock.clone(),
++        );
++        assert!(source.tracker.total_loss() > 0.0);
++        let now = clock.now();
++        let former_source = now + 0.4;
++        let full_until = now + 3.0;
++        let source_until = source_repair_deadline(former_source, full_until, true);
++        // Explicitly simulate prior receiver work consuming the short slice.
++        // This charged delay is a policy fixture, never a timing measurement.
++        clock.charge(Work::Evaluation, 300_000.0);
++        let started = clock.now();
++        assert!(started > former_source && started < full_until);
++        let (snapshot, tracker) = source.separate(&crate::clock::Deadline {
++            clock: clock.clone(),
++            at: source_until,
++        });
++        assert_eq!(
++            tracker.total_loss(),
++            0.0,
++            "Remaining phase must permit actual source repair"
++        );
++        assert!(
++            clock.now() < full_until,
++            "Repair must finish before the shared phase ends"
++        );
++        let repaired = JLayout::from_snapshot(&snapshot);
++        let after = free_return_public(&model, &model.to_layout(&sheets), &repaired, "sheet-0");
++        let report = validate(&job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        eprintln!(
++            "CONTINUOUS_REPAIR_WITNESS {}",
++            serde_json::json!({"job":job,"before":layout,"after":after,"source_started":started,"former_source_until":former_source,"full_until":full_until,"source_until":source_until,"finished":clock.now(),"simulated_prior_evaluations":300000,"work":clock.counts()})
++        );
++    }
+ }
+--- exchange-chain/crates/core/src/sheets/vstrip.rs
++++ extended-repair/crates/core/src/sheets/vstrip.rs
+@@ -729,12 +729,13 @@
+                         let exchanged = if self.allow_exchange {
+                             let exchange_until = (t + 1.2).min(budget);
+                             timed("exchange", || {
+-                                self.directed_exchange_chain(
++                                self.directed_exchange_window(
+                                     &strip,
+                                     frozen,
+                                     &mut sep,
+                                     shape,
+                                     exchange_until,
++                                    budget,
+                                 )
+                             })?
+                         } else {
+--- exchange-chain/crates/core/src/sheets.rs
++++ extended-repair/crates/core/src/sheets.rs
+@@ -115,6 +115,12 @@
+     pub mixed_exchange_attempts: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub mixed_exchanges: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub extended_exchange_attempts: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub extended_exchanges: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub extended_flat_rejections: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {

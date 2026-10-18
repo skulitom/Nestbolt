@@ -107,6 +107,20 @@ All six hosted checks on main `b9ccbd5` pass, including the completed Windows ch
 
 All six hosted checks on preceding main `8ae8b69` pass, including Windows, Linux, browsers and both maker rebuilds. This is evidence for that checkpoint; the subsequent isolated free-space candidate still fails its original material pilot and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-free-return-pilot-20261018/main-ci-8ae8b69.json).
 
+**N4 two-phase repair qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-extended-repair-preparation-20261018.md)
+retains the original short exchange phase, then uses the remaining existing
+relocation allowance for longer source repairs. Both phases share four accepted
+exchanges; the extended phase requires strict material gains. The original guards,
+overall budget and validation reserve remain. All 148 optimized tests pass:
+141 old bodies unchanged and seven new regressions. The three opportunities lost
+by the rejected direct-long-source allocation match their prior witnesses exactly.
+Both red runs and a corrected new frozen-sheet fixture are preserved. Thirteen
+saved extended outcomes pass 26 CLI checks and independent geometry; the actual
+source-repair fixture, original branch checks, public replay, source reconstruction,
+lint, build and five harness tests also pass. A matched four-job pilot is ready
+to be planned. No quality improvement, integration or H5 closure is claimed.
+H2/H5 remain open at 60%; production and release claims are unchanged.
+
 **N4 actual return-seed diagnosis, 2026-10-18:** [four original-job outputs validate](../benchmarks/results/h5-free-return-observer-20261018.md).
 The seed stage incurs work but changes none of 43 observed return poses. Of 24
 attempts, two valid large-plate exchanges save only 28.887/132.567 mm², seventeen
