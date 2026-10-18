@@ -23,9 +23,13 @@ keep the original arcs and curves.
 | Toolpaths, G-code, feeds and speeds, or machine settings | Not Nestbolt: it writes nested SVG or DXF files (or LightBurn projects, a preview feature) for the user's CAM or laser software |
 | A guarantee that parts fit the machine or are safe to cut | Not given: Nestbolt gives no machine-safety or fit certification |
 
-LightBurn projects (`.lbrn2`, `.lbrn`) are a preview feature. The
-[v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1) adds
-editable LightBurn project nesting; say it is a preview whenever you use or mention it.
+LightBurn projects (`.lbrn2`, `.lbrn`) are a preview feature. Editable LightBurn project nesting
+comes with the `nestbolt-mcp` of the
+[v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1), not
+the v0.1.0 release this plugin is set up for. Before a LightBurn job, ask the user to put the
+preview's `nestbolt-mcp` on PATH in place of v0.1.0's (same archive names with `v0.2.0-alpha.1`,
+checked against that release's `SHA256SUMS`) and restart Claude Code. Say it is a preview whenever
+you use or mention it.
 
 ## Workflow
 
