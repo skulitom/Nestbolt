@@ -14060,3 +14060,21 @@ The candidate accepts 19/42 exchanges, including 12/24
 two-part exchanges. The post-exchange gap-fill step runs 19 times and moves 14 parts; these counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
 prove impossibility. Original failures, production and frozen inputs remain
 unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Qualify varied pairs and productive exchanges
+
+[The isolated candidate](benchmarks/results/h5-productive-exchange-preparation-20261018.md)
+passes 101 optimized core tests, preserving all 98 previous tests, strict
+lint/build, ten authored public outcomes, four public CLI comparisons and
+five paired-harness checks. Sixteen additional independent validations
+cover eight actual exchange outcomes. It distributes bounded pairs across
+part types and requires strict material improvement for same-inventory swaps;
+different-inventory swaps retain the existing nonincrease rule.
+
+Two new regressions fail on the unchanged runtime; a strengthened positive
+witness still passes and saves over 99.9 mm2. The initial rounding-only
+positive fixture, original runs and all failed pilots remain preserved.
+Normal output, common fixed-work replay, budgets, geometry validation and
+paired scoring rules are unchanged. No production change or measured
+improvement is claimed. H2/H5 remain open at 60%.
