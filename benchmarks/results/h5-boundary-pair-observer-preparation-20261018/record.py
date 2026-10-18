@@ -1,0 +1,27 @@
+from pathlib import Path
+import json,shutil,subprocess
+root=Path(__file__).resolve().parents[1];out=root/'benchmarks/results/h5-boundary-pair-observer-preparation-20261018'
+checks=json.loads((out/'checks.json').read_bytes());assert checks['all_qualified']
+assert (root/'benchmarks/results/h5-boundary-pair-observer-20261018/plan.json').exists()
+note=f'''**N4 boundary-pair observation, 2026-10-18:** [the isolated diagnostic qualifies](../benchmarks/results/h5-boundary-pair-observer-preparation-20261018.md).
+All 130 existing optimized tests pass. The observer records original part
+families and exact physical poses for available, visited and attempted
+exchange choices alongside the validated public baseline. Each chosen pose
+matches a unique baseline copy exactly, with complete single-copy coverage. It changes no decision, work charge or budget.
+Sixteen authored cases, 21 malformed-record rejections and
+{checks['frozen_CLI_baseline_checks']} frozen-CLI baseline checks pass. Twelve parent branch witnesses
+and their counters match exactly; every formatted source file reconstructs.
+Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
+physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
+quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
+at 60%. The plan is committed before measurement.
+'''
+def append(p,s):
+    with p.open('a',encoding='utf-8',newline='\n') as f:f.write(s)
+p=root/'docs/STATUS.md';s=p.read_text(encoding='utf-8');needle='**N4 boundary-pair outcome, 2026-10-18:**';assert s.count(needle)==1
+p.write_text(s.replace(needle,note+'\n'+needle),encoding='utf-8',newline='\n')
+for name in ['docs/PLAN_V1_1.md','docs/V1_1_RESEARCH.md']:append(root/name,'\n\n'+note)
+prior=subprocess.check_output(['git','show','HEAD:BENCHMARKS.md'],cwd=root);assert (root/'BENCHMARKS.md').read_bytes()==prior
+append(root/'BENCHMARKS.md','\n\n## 2026-10-18 — Qualify boundary-pair observation\n\n'+note.replace('../benchmarks/','benchmarks/'))
+assert (root/'BENCHMARKS.md').read_bytes().startswith(prior);shutil.copyfile(__file__,out/'record.py')
+print('Recorded qualified observation and two-case scope before measurement.')
