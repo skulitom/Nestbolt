@@ -1737,3 +1737,16 @@ the earlier sampled-angle component; this is not whole-job material savings.
 Next use contact-aligned staggered rows and the retained bracket-pattern aspect
 choices in a complete original-inventory construction. No native packing, quality
 run, runtime integration, release, README change or gate credit; H2/H5 remain 60%.
+
+**N4 aligned pockets and frame rows, 2026-10-18:** [verified contact-aligned components](../benchmarks/results/h5-aligned-pockets-and-rows-20261018.md)
+include a fifteen-cog group with three inserts, preserving every original outline
+and all group bounds. Checks cover 224 filled alternatives, 5,511 proposed
+additions and 29,724 component pairs. The independent-bracket-aspect model remains
+UNKNOWN. Column and row constructions retain 2,711,981 attempted arrangements;
+the row cap leaves 60,583 unattempted. Twenty-four outline continuations preserve
+27,954 checked pairs, but all remain incomplete. The best new 58-part layout lacks
+eight inserts and still has less filled area than the earlier 63-part partial.
+A diagnostic census supplies 261 new geometric signatures for the next exact-count
+placement-selection pool; original coordinates remain untouched. All six f825cab
+checks pass, and c9b0176 is pushed to main. Original failures, native-margin caveats
+and all gate limits remain; no runtime/release/README change or gate credit. 60%.

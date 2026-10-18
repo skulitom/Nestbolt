@@ -128,6 +128,19 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 aligned pockets and frame rows, 2026-10-18:** [verified contact-aligned components](../benchmarks/results/h5-aligned-pockets-and-rows-20261018.md)
+include a fifteen-cog group with three inserts, preserving every original outline
+and all group bounds. Checks cover 224 filled alternatives, 5,511 proposed
+additions and 29,724 component pairs. The independent-bracket-aspect model remains
+UNKNOWN. Column and row constructions retain 2,711,981 attempted arrangements;
+the row cap leaves 60,583 unattempted. Twenty-four outline continuations preserve
+27,954 checked pairs, but all remain incomplete. The best new 58-part layout lacks
+eight inserts and still has less filled area than the earlier 63-part partial.
+A diagnostic census supplies 261 new geometric signatures for the next exact-count
+placement-selection pool; original coordinates remain untouched. All six f825cab
+checks pass, and c9b0176 is pushed to main. Original failures, native-margin caveats
+and all gate limits remain; no runtime/release/README change or gate credit. 60%.
+
 **N4 contact direction and outline construction, 2026-10-18:** [actual-outline investigations](../benchmarks/results/h5-outline-contact-direction-20261018.md)
 retain the unchanged-model propagation timeout and all unsuccessful fixed/adaptive
 constructions. Caching exact primitive exclusions lets all eighteen fixed-order
