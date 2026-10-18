@@ -14600,3 +14600,15 @@ Two serial panel diagnostics retain both kerfs, seed zero, 60 seconds and
 physical CCD0 CPU 8. Logging can affect wall trajectories, so this is not a
 quality comparison. No new selector, integration or H5 credit; H2/H5 stay open
 at 60%. The plan is committed before measurement.
+
+
+## 2026-10-18 — Diagnose attempts to move both upper parts
+
+**N4 boundary-pair diagnosis, 2026-10-18:** [both diagnostic outcomes and every saved baseline validate](benchmarks/results/h5-boundary-pair-observer-20261018.md).
+22 of 22 attempts select at least one actual part defining the credited sheet height; 11 select every part defining that height. 0 of the first group and 0 of the second group are accepted. The independent audit checks 31,766 filled-outer
+pairs and reconstructs every material value exactly. Every selected physical
+pose matches its baseline exactly. This identifies copy coverage, without
+establishing final quality or packing feasibility. The six failed pilot
+comparisons remain authoritative. H2/H5 remain open at 60%.
+
+The explicit pair is now available and attempted in both diagnostics. All eleven paired attempts select both physical height-setting copies; seven stop at the combined source-repair/deadline condition and four at the combined material/deadline condition. None is accepted. This removes absent pair selection as the explanation for these observations, without explaining the failed quality pilot. Next, qualify a logging-only observer that records the actual source loss and failed-source poses, or the independently checked trial material and layout, inside those existing failure branches. It must preserve the exact branch conditions, deadlines, work charges and original tests. This distinguishes failed repair and increased material from expiry before proposing another search change. No unchanged quality rerun or integration follows.
