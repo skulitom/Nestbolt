@@ -1,0 +1,91 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T11:37:37.505772+00:00",
+      "finished": "2026-10-18T11:37:38.110154+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-joint-repair-target-20261018",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T11:37:38.221144+00:00",
+      "finished": "2026-10-18T11:40:28.721243+00:00",
+      "log_sha256": "15f57abf296c8a6bf4d7415571461faffab1ddbebbfa1a56feff4d3b6faa6041"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-joint-repair-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T11:40:28.845861+00:00",
+      "finished": "2026-10-18T11:41:29.392205+00:00",
+      "log_sha256": "295e0bdeeec8cb3ee9102960d2eba4acafb4f1c6fe97790e72a04d385042a60d"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-joint-repair-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T11:41:29.531264+00:00",
+      "finished": "2026-10-18T11:42:20.846931+00:00",
+      "log_sha256": "6ffcf43ee30ad07ee3133ecc45ff90e53f94ffde764cecba0d386e8f5f5a19fa"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "f7cd479b2064b23d1677741669669c36d47b9751c4c2a4d2f45cf7a2058da8e0",
+    "crates/core/src/sheets/vstrip.rs": "6881e59f0f2c7effe16ec3fa7634f29083e628a75dc1cf985fa1d2798a3ef5ab",
+    "crates/core/src/sheets.rs": "e6cd19c1b2c5ab1aa9d86ded69d25bd9efe7aa85425d81896c18c518dfc227c3"
+  },
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "46ee74f1d8e670b98d68d34d82722b4369296d11d968023eb83909762da574b0"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}

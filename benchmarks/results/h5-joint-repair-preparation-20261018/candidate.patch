@@ -1,0 +1,1119 @@
+--- a/crates/core/src/sheets/vstrip/exchange.rs
++++ b/crates/core/src/sheets/vstrip/exchange.rs
+@@ -757,7 +757,9 @@
+ enum ExchangePolicy {
+     Short,
+     Extended,
++    #[cfg_attr(not(test), allow(dead_code))]
+     AssignmentBridge,
++    JointRepair,
+ }
+ 
+ // Stable original-part order gives equal inventories exactly equal areas,
+@@ -813,6 +815,148 @@
+         Ok(report)
+     }
+ 
++    pub(super) fn joint_exchange_window(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        short_until: f64,
++        until: f64,
++    ) -> Result<usize> {
++        let accepted = self.directed_exchange_chain(strip, frozen, sep, shape, short_until)?;
++        let extra = self.joint_exchange_chain(strip, frozen, sep, shape, until, accepted)?;
++        Ok(accepted + extra)
++    }
++
++    fn joint_exchange_chain(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        accepted: usize,
++    ) -> Result<usize> {
++        self.provisional_exchange_chain(
++            strip,
++            frozen,
++            sep,
++            shape,
++            until,
++            (accepted, ExchangePolicy::JointRepair),
++        )
++    }
++
++    // Repair only these two inventories. Other active sheets are absent from
++    // this temporary strip and therefore cannot be moved by collision repair.
++    // A proposal selects its initial members, not the final number of movers.
++    fn joint_repair_pair(
++        &mut self,
++        strip: &Strip,
++        receiver: JLayout,
++        source: JLayout,
++        last: f32,
++        until: f64,
++    ) -> Result<Option<[LayoutSnapshot; 2]>> {
++        if !self.allow_exchange || self.clock.now() >= self.last_step(until) {
++            return Ok(None);
++        }
++        self.stats.joint_repair_attempts += 1;
++        let shape = Shape { sheets: 2, last };
++        let mut trial = JLayout::new(strip.container(shape)?);
++        let count = receiver.placed_items().len() + source.placed_items().len();
++        for (layout, offset) in [(&receiver, 0.0), (&source, strip.start(1))] {
++            for p in layout.placed_items().values() {
++                trial.place_item(p.item(), shift(p.d_transf(), offset));
++            }
++        }
++        self.clock.charge(Work::RegisteredItem, count as f64);
++        strip.set_blocker(&mut trial, shape)?;
++        let mut repair = Separator::new(trial, self.rng.next_u64(), EXPLORE, self.clock.clone());
++        repair.pin(blocker_index(self.model));
++        repair.region = Rect::try_new(0.0, 0.0, strip.width(shape), strip.height()).ok();
++        let (snapshot, tracker) = repair.separate(&self.deadline(self.last_step(until)));
++        if self.clock.now() >= self.last_step(until) {
++            self.stats.joint_repair_expired += 1;
++            return Ok(None);
++        }
++        if tracker.total_loss() > 0.0 {
++            self.stats.joint_repair_failed += 1;
++            return Ok(None);
++        }
++        let repaired = JLayout::from_snapshot(&snapshot);
++        let mut outputs = [
++            JLayout::new(strip.container(Shape {
++                sheets: 1,
++                last: self.model.full_width,
++            })?),
++            JLayout::new(strip.container(Shape { sheets: 1, last })?),
++        ];
++        for p in repaired
++            .placed_items()
++            .values()
++            .filter(|p| !strip.is_blocker(p))
++        {
++            let index = strip.sheet_of(p.shape());
++            if index >= 2 {
++                self.stats.joint_repair_failed += 1;
++                return Ok(None);
++            }
++            outputs[index].place_item(p.item(), shift(p.d_transf(), -strip.start(index)));
++        }
++        self.clock.charge(Work::RegisteredItem, count as f64);
++        // A thin end sliver may have no stable blocker. Validate both actual
++        // single-sheet containers, including the original source crop, before
++        // returning any repair. These constructors charge their geometry work.
++        let [receiver, source] = outputs;
++        let receiver = Separator::new(receiver, 0, EXPLORE, self.clock.clone());
++        let source = Separator::new(source, 0, EXPLORE, self.clock.clone());
++        if self.clock.now() >= self.last_step(until) {
++            self.stats.joint_repair_expired += 1;
++            return Ok(None);
++        }
++        if receiver.tracker.total_loss() > 0.0 || source.tracker.total_loss() > 0.0 {
++            self.stats.joint_repair_failed += 1;
++            return Ok(None);
++        }
++        // Repair can migrate an obstruction yet leave a source part raised.
++        // With both output inventories already valid in their exact containers,
++        // lower source members into free space without changing their poses'
++        // rotation/reflection, membership or the original phase deadline.
++        let mut source = source;
++        let mut keys: Vec<_> = source.layout.placed_items().keys().collect();
++        rank_incoming(&source.layout, &mut keys);
++        for key in keys {
++            if self.clock.now() >= self.last_step(until) {
++                break;
++            }
++            let placed = source.layout.remove_item(key);
++            let item = placed.item().clone();
++            let pose = free_return_pose(
++                &source.layout,
++                &item,
++                placed.d_transf(),
++                &self.clock,
++                self.last_step(until),
++            );
++            source.layout.place_item(&item, pose);
++            self.clock.charge(Work::RegisteredItem, 2.0);
++        }
++        source.rebuild();
++        if self.clock.now() >= self.last_step(until) {
++            self.stats.joint_repair_expired += 1;
++            return Ok(None);
++        }
++        if source.tracker.total_loss() > 0.0 {
++            self.stats.joint_repair_failed += 1;
++            return Ok(None);
++        }
++        self.stats.joint_repair_completed += 1;
++        Ok(Some([receiver.layout.save(), source.layout.save()]))
++    }
++
++    #[cfg(test)]
+     pub(super) fn assignment_bridge_window(
+         &mut self,
+         strip: &Strip,
+@@ -827,6 +971,7 @@
+         Ok(accepted + extra)
+     }
+ 
++    #[cfg(test)]
+     fn assignment_bridge_chain(
+         &mut self,
+         strip: &Strip,
+@@ -836,6 +981,26 @@
+         until: f64,
+         accepted: usize,
+     ) -> Result<usize> {
++        self.provisional_exchange_chain(
++            strip,
++            frozen,
++            sep,
++            shape,
++            until,
++            (accepted, ExchangePolicy::AssignmentBridge),
++        )
++    }
++
++    fn provisional_exchange_chain(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        phase: (usize, ExchangePolicy),
++    ) -> Result<usize> {
++        let (accepted, policy) = phase;
+         if accepted >= 4
+             || !self.allow_exchange
+             || shape.sheets < 2
+@@ -851,6 +1016,7 @@
+                 self.stats.paired_exchanges,
+                 self.stats.mixed_exchanges,
+                 self.stats.extended_exchanges,
++                self.stats.joint_exchanges,
+             ],
+         );
+         self.clock
+@@ -859,14 +1025,8 @@
+         let mut committed = 0_usize;
+         let outcome = (|| -> Result<()> {
+             for _ in accepted..4 {
+-                let Some(improved) = self.directed_exchange_policy(
+-                    strip,
+-                    frozen,
+-                    sep,
+-                    shape,
+-                    until,
+-                    ExchangePolicy::AssignmentBridge,
+-                )?
++                let Some(improved) =
++                    self.directed_exchange_policy(strip, frozen, sep, shape, until, policy)?
+                 else {
+                     break;
+                 };
+@@ -885,6 +1045,7 @@
+                             self.stats.paired_exchanges,
+                             self.stats.mixed_exchanges,
+                             self.stats.extended_exchanges,
++                            self.stats.joint_exchanges,
+                         ],
+                     );
+                     self.clock
+@@ -909,6 +1070,7 @@
+                 self.stats.paired_exchanges,
+                 self.stats.mixed_exchanges,
+                 self.stats.extended_exchanges,
++                self.stats.joint_exchanges,
+             ] = checkpoint.2;
+         }
+         outcome?;
+@@ -1019,7 +1181,11 @@
+         policy: ExchangePolicy,
+     ) -> Result<Option<bool>> {
+         let extended = policy != ExchangePolicy::Short;
+-        let bridge = policy == ExchangePolicy::AssignmentBridge;
++        let bridge = matches!(
++            policy,
++            ExchangePolicy::AssignmentBridge | ExchangePolicy::JointRepair
++        );
++        let joint = policy == ExchangePolicy::JointRepair;
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
+             return Ok(None);
+         }
+@@ -1207,37 +1373,55 @@
+                     }
+                     self.clock
+                         .charge(Work::RegisteredItem, changed_keys.len() as f64);
+-                    let now = self.clock.now();
+-                    // Bound each pair so one hard proposal cannot consume all
+-                    // remaining opportunities. Each repair gets half the pair.
+-                    let pair_end = now + ((self.last_step(exchange_until) - now) * 0.5).min(0.4);
+-                    let middle = (now + pair_end) / 2.0;
+-                    let mut receiver_sep = Separator::new(
+-                        next_receiver,
+-                        self.rng.next_u64(),
+-                        EXPLORE,
+-                        self.clock.clone(),
+-                    );
+-                    let (receiver_snapshot, receiver_tracker) =
+-                        receiver_sep.separate(&self.deadline(middle));
+-                    if receiver_tracker.total_loss() > 0.0 {
++                    let repaired = if joint {
++                        self.joint_repair_pair(
++                            strip,
++                            next_receiver,
++                            next_source,
++                            shape.last,
++                            exchange_until,
++                        )?
++                    } else {
++                        let now = self.clock.now();
++                        // Bound each pair so one hard proposal cannot consume all
++                        // remaining opportunities. Each repair gets half the pair.
++                        let pair_end =
++                            now + ((self.last_step(exchange_until) - now) * 0.5).min(0.4);
++                        let middle = (now + pair_end) / 2.0;
++                        let mut receiver_sep = Separator::new(
++                            next_receiver,
++                            self.rng.next_u64(),
++                            EXPLORE,
++                            self.clock.clone(),
++                        );
++                        let (receiver_snapshot, receiver_tracker) =
++                            receiver_sep.separate(&self.deadline(middle));
++                        if receiver_tracker.total_loss() > 0.0 {
++                            continue;
++                        }
++                        let mut source_sep = Separator::new(
++                            next_source,
++                            self.rng.next_u64(),
++                            EXPLORE,
++                            self.clock.clone(),
++                        );
++                        let source_until = source_repair_deadline(
++                            pair_end,
++                            self.last_step(exchange_until),
++                            extended,
++                        );
++                        let (source_snapshot, source_tracker) =
++                            source_sep.separate(&self.deadline(source_until));
++                        if source_tracker.total_loss() > 0.0
++                            || self.clock.now() >= self.last_step(exchange_until)
++                        {
++                            continue;
++                        }
++                        Some([receiver_snapshot, source_snapshot])
++                    };
++                    let Some([receiver_snapshot, source_snapshot]) = repaired else {
+                         continue;
+-                    }
+-                    let mut source_sep = Separator::new(
+-                        next_source,
+-                        self.rng.next_u64(),
+-                        EXPLORE,
+-                        self.clock.clone(),
+-                    );
+-                    let source_until =
+-                        source_repair_deadline(pair_end, self.last_step(exchange_until), extended);
+-                    let (source_snapshot, source_tracker) =
+-                        source_sep.separate(&self.deadline(source_until));
+-                    if source_tracker.total_loss() > 0.0
+-                        || self.clock.now() >= self.last_step(exchange_until)
+-                    {
+-                        continue;
+-                    }
++                    };
+                     let mut trial = JLayout::from_snapshot(&sep.layout.save());
+                     for &key in &changed_keys {
+                         trial.remove_item(key);
+@@ -1321,6 +1505,7 @@
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
+                     self.stats.extended_exchanges += u64::from(extended);
++                    self.stats.joint_exchanges += u64::from(joint);
+                     self.stats.paired_exchanges += u64::from(paired);
+                     self.stats.mixed_exchanges += u64::from(mixed);
+                     return Ok(Some(after.material_area < before.material_area));
+@@ -4904,4 +5089,744 @@
+         }
+     }
+     // END assignment-bridge new policy tests
++
++    // BEGIN joint-repair witness: original runtime, authored overlapping proposal
++    #[test]
++    fn joint_repair_existing_separator_can_change_the_source_assignment() {
++        let (mut job, mut layout) = fixture();
++        job.name = "Joint window permits an extra source member to migrate".into();
++        job.parts = vec![
++            rectangle("prefix", 96.0, 94.0),
++            rectangle("filler", 20.0, 94.0),
++            rectangle("return", 60.0, 85.0),
++            rectangle("incoming", 30.0, 94.0),
++            rectangle("extra", 40.0, 50.0),
++        ];
++        layout.sheets = (0..3)
++            .map(|i| Sheet {
++                id: format!("sheet-{i}"),
++                stock_id: "stock".into(),
++            })
++            .collect();
++        layout.placements = [
++            ("prefix", 0, [2.0, 2.0]),
++            ("filler", 1, [78.0, 2.0]),
++            ("return", 1, [2.0, 2.0]),
++            ("incoming", 2, [2.0, 2.0]),
++            ("extra", 2, [34.0, 2.0]),
++        ]
++        .into_iter()
++        .map(|(id, sheet, translation)| Placement {
++            part_id: id.into(),
++            copy_index: 0,
++            sheet_id: format!("sheet-{sheet}"),
++            transform: RigidTransform {
++                translation,
++                ..Default::default()
++            },
++        })
++        .collect();
++        assert!(validate(&job, &layout).unwrap().valid);
++        let mut proposed = layout.clone();
++        for p in &mut proposed.placements {
++            if p.part_id == "incoming" {
++                p.sheet_id = "sheet-1".into();
++            }
++            if p.part_id == "return" {
++                p.sheet_id = "sheet-2".into();
++            }
++        }
++        assert!(!validate(&job, &proposed).unwrap().valid);
++        // Two unrotated rectangles can avoid overlap only by separation along
++        // at least one axis. Even the full usable sheet is too small on both
++        // axes for this source inventory; its cropped prefix is no larger.
++        let usable = 100.0 - 2.0 * job.edge_clearance;
++        assert!(60.0 + 40.0 + job.clearance > usable);
++        assert!(85.0 + 50.0 + job.clearance > usable);
++        let mut authored = proposed.clone();
++        authored
++            .placements
++            .iter_mut()
++            .find(|p| p.part_id == "extra")
++            .unwrap()
++            .sheet_id = "sheet-1".into();
++        let hand_report = validate(&job, &authored).unwrap();
++        assert!(hand_report.valid);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let proposed_sheets = model.sheets_of(&proposed).unwrap();
++        let clock = Clock::new(Timing::Work, 60.0);
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock: clock.clone(),
++            containers: Default::default(),
++        };
++        let (frozen, window) = sheets.split_at(1);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&initial, shape.sheets).unwrap());
++        let before = model.to_layout(&before_sheets);
++        let before_report = validate(&job, &before).unwrap();
++        assert!(before_report.valid);
++        let seed = strip.layout(&proposed_sheets[1..], shape).unwrap();
++        let mut seed_sheets = frozen.to_vec();
++        seed_sheets.extend(strip.split(&seed, shape.sheets).unwrap());
++        let proposed_public = model.to_layout(&seed_sheets);
++        let mut source = JLayout::new(
++            strip
++                .container(Shape {
++                    sheets: 1,
++                    last: shape.last,
++                })
++                .unwrap(),
++        );
++        for p in seed
++            .placed_items()
++            .values()
++            .filter(|p| !strip.is_blocker(p) && strip.sheet_of(p.shape()) == 1)
++        {
++            source.place_item(p.item(), shift(p.d_transf(), -strip.start(1)));
++        }
++        assert_eq!(source.placed_items().len(), 2);
++        let source_clock = Clock::new(Timing::Work, 60.0);
++        let mut source_sep = Separator::new(source, 0, EXPLORE, source_clock.clone());
++        let source_start = source_clock.now();
++        let source_until = source_start + 12.0;
++        let (source_snapshot, source_tracker) = source_sep.separate(&crate::clock::Deadline {
++            clock: source_clock.clone(),
++            at: source_until,
++        });
++        let source_after = free_return_public(
++            &model,
++            &proposed_public,
++            &JLayout::from_snapshot(&source_snapshot),
++            "sheet-2",
++        );
++        let source_report = validate(&job, &source_after).unwrap();
++        eprintln!(
++            "JOINT_REPAIR_SOURCE_WITNESS {}",
++            serde_json::json!({"job":job,"before":before,"proposal":proposed_public,
++            "after":source_after,"loss":source_tracker.total_loss(),"started":source_start,"until":source_until,
++            "finished":source_clock.now(),"work":source_clock.counts(),"valid":source_report.valid})
++        );
++        assert!(source_tracker.total_loss() > 0.0 && !source_report.valid);
++        let mut joint = Separator::new(seed, 0, EXPLORE, clock.clone());
++        joint.pin(blocker_index(&model));
++        joint.region = Rect::try_new(0.0, 0.0, strip.width(shape), strip.height()).ok();
++        assert!(joint.tracker.total_loss() > 0.0);
++        let joint_start = clock.now();
++        let until = joint_start + 12.0;
++        let (snapshot, tracker) = joint.separate(&crate::clock::Deadline {
++            clock: clock.clone(),
++            at: until,
++        });
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(
++            strip
++                .split(&JLayout::from_snapshot(&snapshot), shape.sheets)
++                .unwrap(),
++        );
++        let after = model.to_layout(&after_sheets);
++        let report = validate(&job, &after).unwrap();
++        eprintln!(
++            "JOINT_REPAIR_WITNESS {}",
++            serde_json::json!({"job":job,"before":before,"proposal":proposed_public,
++            "authored_feasible":authored,"after":after,"loss":tracker.total_loss(),"started":joint_start,
++            "until":until,"finished":clock.now(),"work":clock.counts(),"valid":report.valid,"metrics":report.metrics,
++            "source_only_loss":source_tracker.total_loss(),"fixed_prefix_sheets":1,"seed":0})
++        );
++        assert_eq!(
++            tracker.total_loss(),
++            0.0,
++            "Joint repair must find an actual valid rearrangement"
++        );
++        assert!(report.valid && clock.now() < until);
++        assert!(
++            report.metrics.unwrap().material_area < before_report.metrics.unwrap().material_area,
++            "A valid return to the original arrangement does not prove useful joint repair"
++        );
++        assert_eq!(
++            after
++                .placements
++                .iter()
++                .find(|p| p.part_id == "extra")
++                .unwrap()
++                .sheet_id,
++            "sheet-1"
++        );
++        assert_eq!(
++            serde_json::to_value(
++                before
++                    .placements
++                    .iter()
++                    .filter(|p| p.sheet_id == "sheet-0")
++                    .collect::<Vec<_>>()
++            )
++            .unwrap(),
++            serde_json::to_value(
++                after
++                    .placements
++                    .iter()
++                    .filter(|p| p.sheet_id == "sheet-0")
++                    .collect::<Vec<_>>()
++            )
++            .unwrap()
++        );
++    }
++    // END joint-repair witness
++    fn joint_policy_exercise(
++        job: &Job,
++        layout: &Layout,
++        seed: u64,
++        enabled: bool,
++        phase: (f64, f64, u8),
++        frozen_count: usize,
++    ) -> (usize, Layout, Stats) {
++        let (short_budget, budget, mode) = phase;
++        let validation = validate(job, layout).unwrap();
++        assert!(validation.valid, "{:?}", validation.violations);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(seed),
++            clock: clock.clone(),
++            best: (layout.clone(), validation, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let (frozen, window) = sheets.split_at(frozen_count);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(window, shape).unwrap(),
++            seed,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        // Compare the same f32 internal frame before/after the exchange. The
++        // public-to-internal conversion predates this operation and has its own
++        // tests; comparing to the authored f64 coordinates conflates the two.
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_layout = model.to_layout(&before_sheets);
++        let before_report = validate(job, &before_layout).unwrap();
++        assert!(before_report.valid);
++        let before_material = before_report.metrics.as_ref().unwrap().material_area;
++        let original = fingerprint(&sep.layout);
++        let until = if budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + budget
++        };
++        let short_until = if short_budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + short_budget
++        };
++        let mut fast_layout = None;
++        let moved = match mode {
++            0 => search
++                .joint_exchange_window(&strip, frozen, &mut sep, shape, short_until, until)
++                .unwrap(),
++            1 => search
++                .joint_exchange_chain(&strip, frozen, &mut sep, shape, until, 0)
++                .unwrap(),
++            3 => search
++                .joint_exchange_chain(&strip, frozen, &mut sep, shape, until, 3)
++                .unwrap(),
++            2 => {
++                let accepted = search
++                    .directed_exchange_chain(&strip, frozen, &mut sep, shape, short_until)
++                    .unwrap();
++                assert!(accepted > 0);
++                let fingerprint_before = fingerprint(&sep.layout);
++                fast_layout = Some(
++                    search
++                        .exchange_layout(&strip, frozen, &sep.layout, shape)
++                        .unwrap(),
++                );
++                let expired = search.clock.now();
++                let extra = search
++                    .joint_exchange_chain(&strip, frozen, &mut sep, shape, expired, accepted)
++                    .unwrap();
++                assert_eq!(extra, 0);
++                assert_eq!(fingerprint(&sep.layout), fingerprint_before);
++                accepted
++            }
++            _ => unreachable!(),
++        };
++        if moved == 0 {
++            assert_eq!(
++                fingerprint(&sep.layout),
++                original,
++                "failed proposal mutated the original state"
++            );
++        }
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let after = model.to_layout(&after_sheets);
++        for i in 0..frozen_count {
++            let id = format!("sheet-{i}");
++            let before_fixed: Vec<_> = before_layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            let after_fixed: Vec<_> = after
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            assert_eq!(
++                serde_json::to_value(before_fixed).unwrap(),
++                serde_json::to_value(after_fixed).unwrap()
++            );
++        }
++        let report = validate(job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert!(report.metrics.as_ref().unwrap().material_area <= before_material);
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "JOINT_POLICY_WITNESS {}",
++            serde_json::json!({"job":job,"before":before_layout,"after":after,"seed":seed,"enabled":enabled,"budget":budget,"short_budget":short_budget,"mode":mode,"fast_layout":fast_layout,"stats":search.stats,"moved":moved,"work":search.clock.counts(),"until":until,"finished":search.clock.now()})
++        );
++        (moved, after, search.stats)
++    }
++
++    // BEGIN joint-repair policy tests
++    fn joint_fixture(middle: bool) -> (Job, Layout, Layout) {
++        let (mut job, mut layout) = fixture();
++        job.name = "Joint repair contract".into();
++        job.parts = vec![
++            rectangle("prefix", 96.0, 94.0),
++            rectangle("filler", 20.0, 94.0),
++            rectangle("return", 60.0, 85.0),
++            rectangle("incoming", 30.0, 94.0),
++            rectangle("extra", 40.0, 50.0),
++        ];
++        let last = if middle { 3 } else { 2 };
++        layout.sheets = (0..=last)
++            .map(|i| Sheet {
++                id: format!("sheet-{i}"),
++                stock_id: "stock".into(),
++            })
++            .collect();
++        layout.placements = [
++            ("prefix", 0, [2.0, 2.0]),
++            ("filler", 1, [78.0, 2.0]),
++            ("return", 1, [2.0, 2.0]),
++            ("incoming", last, [2.0, 2.0]),
++            ("extra", last, [34.0, 2.0]),
++        ]
++        .into_iter()
++        .map(|(id, sheet, translation)| Placement {
++            part_id: id.into(),
++            copy_index: 0,
++            sheet_id: format!("sheet-{sheet}"),
++            transform: RigidTransform {
++                translation,
++                ..Default::default()
++            },
++        })
++        .collect();
++        if middle {
++            job.parts.push(rectangle("middle", 96.0, 94.0));
++            layout.placements.push(Placement {
++                part_id: "middle".into(),
++                copy_index: 0,
++                sheet_id: "sheet-2".into(),
++                transform: RigidTransform {
++                    translation: [2.0, 2.0],
++                    ..Default::default()
++                },
++            });
++        }
++        assert!(validate(&job, &layout).unwrap().valid);
++        let mut proposal = layout.clone();
++        for p in &mut proposal.placements {
++            if p.part_id == "incoming" {
++                p.sheet_id = "sheet-1".into();
++            }
++            if p.part_id == "return" {
++                p.sheet_id = format!("sheet-{last}");
++            }
++        }
++        (job, layout, proposal)
++    }
++    #[derive(Clone, Copy)]
++    struct JointProbe {
++        enabled: bool,
++        budget: f64,
++        last: Option<f32>,
++    }
++    impl Default for JointProbe {
++        fn default() -> Self {
++            Self {
++                enabled: true,
++                budget: 12.0,
++                last: None,
++            }
++        }
++    }
++    fn joint_pair_exercise(
++        job: &Job,
++        layout: &Layout,
++        proposal: &Layout,
++        options: JointProbe,
++    ) -> (bool, Layout, Stats) {
++        let report = validate(job, layout).unwrap();
++        assert!(report.valid);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 60.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: options.enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(0),
++            clock: clock.clone(),
++            best: (layout.clone(), report, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock: clock.clone(),
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let proposed = model.sheets_of(proposal).unwrap();
++        let (frozen, window) = sheets.split_at(1);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let whole = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&whole, shape);
++        let before = search
++            .exchange_layout(&strip, frozen, &whole, shape)
++            .unwrap();
++        let original = fingerprint(&whole);
++        let last = options.last.unwrap_or(shape.last);
++        let receiver = JLayout::from_snapshot(&proposed[1].layout().save());
++        let source = JLayout::from_snapshot(&proposed.last().unwrap().layout().save());
++        let until = if options.budget <= 0.0 {
++            0.0
++        } else {
++            clock.now() + options.budget
++        };
++        let repaired = search
++            .joint_repair_pair(&strip, receiver, source, last, until)
++            .unwrap();
++        let mut trial = JLayout::from_snapshot(&whole.save());
++        let success = repaired.is_some();
++        if let Some(snapshots) = repaired {
++            let keys: Vec<_> = trial
++                .placed_items()
++                .iter()
++                .filter(|(_, p)| {
++                    !strip.is_blocker(p)
++                        && [0, shape.sheets - 1].contains(&strip.sheet_of(p.shape()))
++                })
++                .map(|(k, _)| k)
++                .collect();
++            for key in keys {
++                trial.remove_item(key);
++            }
++            for (snapshot, index) in snapshots.into_iter().zip([0, shape.sheets - 1]) {
++                let local = JLayout::from_snapshot(&snapshot);
++                for p in local.placed_items().values() {
++                    trial.place_item(p.item(), shift(p.d_transf(), strip.start(index)));
++                }
++            }
++        } else {
++            assert_eq!(fingerprint(&trial), original);
++        }
++        assert_eq!(
++            fingerprint(&whole),
++            original,
++            "Helper cannot mutate the incumbent"
++        );
++        let after = search
++            .exchange_layout(&strip, frozen, &trial, shape)
++            .unwrap();
++        let after_report = validate(job, &after).unwrap();
++        eprintln!(
++            "JOINT_PAIR_WITNESS {}",
++            serde_json::json!({"job":job,"before":before,"proposal":proposal,
++            "after":after,"success":success,"enabled":options.enabled,"budget":options.budget,"source_last":last,
++            "until":until,"finished":clock.now(),"valid":after_report.valid,"stats":search.stats,"work":clock.counts()})
++        );
++        assert!(after_report.valid);
++        for i in 0..sheets.len() {
++            if i == 1 || i == sheets.len() - 1 {
++                continue;
++            }
++            let id = format!("sheet-{i}");
++            assert_eq!(
++                serde_json::to_value(
++                    before
++                        .placements
++                        .iter()
++                        .filter(|p| p.sheet_id == id)
++                        .collect::<Vec<_>>()
++                )
++                .unwrap(),
++                serde_json::to_value(
++                    after
++                        .placements
++                        .iter()
++                        .filter(|p| p.sheet_id == id)
++                        .collect::<Vec<_>>()
++                )
++                .unwrap()
++            );
++        }
++        (success, after, search.stats)
++    }
++    #[test]
++    fn joint_new_pair_moves_extra_member_and_replays() {
++        let (job, before, proposal) = joint_fixture(false);
++        let (ok, after, stats) =
++            joint_pair_exercise(&job, &before, &proposal, JointProbe::default());
++        assert!(
++            ok,
++            "Joint helper must repair the impossible fixed source assignment"
++        );
++        assert_eq!(stats.joint_repair_completed, 1);
++        assert_eq!(
++            after
++                .placements
++                .iter()
++                .find(|p| p.part_id == "extra")
++                .unwrap()
++                .sheet_id,
++            "sheet-1"
++        );
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < 29000.0
++        );
++        let (again, replay, replay_stats) =
++            joint_pair_exercise(&job, &before, &proposal, JointProbe::default());
++        assert!(again);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(replay).unwrap()
++        );
++        assert_eq!(
++            serde_json::to_value(stats).unwrap(),
++            serde_json::to_value(replay_stats).unwrap()
++        );
++    }
++    #[test]
++    fn joint_new_nonadjacent_pair_preserves_middle_and_prefix() {
++        let (job, before, proposal) = joint_fixture(true);
++        let (ok, after, _) = joint_pair_exercise(&job, &before, &proposal, JointProbe::default());
++        assert!(ok, "Selected nonadjacent sheets must be repaired together");
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < 39000.0
++        );
++    }
++    #[test]
++    fn joint_new_failed_cropped_pair_keeps_incumbent() {
++        let (job, before, proposal) = joint_fixture(false);
++        let (ok, _, stats) = joint_pair_exercise(
++            &job,
++            &before,
++            &proposal,
++            JointProbe {
++                last: Some(10.0),
++                ..Default::default()
++            },
++        );
++        assert!(!ok);
++        assert_eq!(stats.joint_repair_completed, 0);
++        assert_eq!(
++            stats.joint_repair_attempts,
++            stats.joint_repair_failed + stats.joint_repair_expired
++        );
++    }
++    #[test]
++    fn joint_new_disabled_expired_and_construction_expiry_do_not_publish() {
++        let (job, before, proposal) = joint_fixture(false);
++        for options in [
++            JointProbe {
++                enabled: false,
++                ..Default::default()
++            },
++            JointProbe {
++                budget: 0.0,
++                ..Default::default()
++            },
++            JointProbe {
++                budget: 1e-9,
++                ..Default::default()
++            },
++        ] {
++            let (ok, _, stats) = joint_pair_exercise(&job, &before, &proposal, options);
++            assert!(!ok);
++            assert_eq!(stats.joint_repair_completed, 0);
++        }
++    }
++    #[test]
++    fn joint_new_short_sliver_still_enforces_the_cropped_source() {
++        let (job, mut before, _) = joint_fixture(false);
++        before
++            .placements
++            .iter_mut()
++            .find(|p| p.part_id == "incoming")
++            .unwrap()
++            .transform
++            .translation[1] = 4.8;
++        assert!(validate(&job, &before).unwrap().valid);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&before).unwrap();
++        let last = sheets
++            .last()
++            .unwrap()
++            .layout()
++            .placed_items()
++            .values()
++            .map(|p| p.shape().bbox().x_max)
++            .fold(0.0_f32, f32::max)
++            - 0.05;
++        assert!(model.full_width - last < 0.01 * model.instance.base_strip.fixed_height);
++        let (ok, _, stats) = joint_pair_exercise(
++            &job,
++            &before,
++            &before,
++            JointProbe {
++                last: Some(last),
++                ..Default::default()
++            },
++        );
++        assert!(
++            !ok,
++            "No blocker sliver must not mean unrestricted source height"
++        );
++        assert_eq!(stats.joint_repair_completed, 0);
++        assert_eq!(stats.joint_repair_failed, 1);
++    }
++    #[test]
++    fn joint_new_policy_accepts_valid_improvement_and_replays() {
++        let (job, before) = fixture();
++        let (moved, after, stats) =
++            joint_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 1), 0);
++        assert!(moved > 0);
++        assert!(
++            stats.joint_exchanges > 0,
++            "Whole-job acceptance must use joint repair"
++        );
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < 19000.0
++        );
++        let (again, replay, replay_stats) =
++            joint_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 1), 0);
++        assert_eq!(moved, again);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(replay).unwrap()
++        );
++        assert_eq!(
++            serde_json::to_value(stats).unwrap(),
++            serde_json::to_value(replay_stats).unwrap()
++        );
++    }
++    #[test]
++    fn joint_new_flat_partial_sequences_restore_acceptance_counts() {
++        let (job, _) = assignment_bridge_fixture();
++        // Use the exact validated output of the prior source-lowering step.
++        // It has no remaining height gain from that cleanup, so the next
++        // material-flat assignment genuinely exercises the one-slot rollback.
++        let before: Layout = serde_json::from_str(include_str!(concat!(
++            env!("CARGO_MANIFEST_DIR"),
++            "/../../examples/joint-rollback-compacted.json"
++        )))
++        .unwrap();
++        let (moved, _, stats) = joint_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 3), 0);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.directed_exchanges, 0);
++        assert_eq!(stats.joint_exchanges, 0);
++        assert!(
++            stats.assignment_bridge_rolled_back > 0,
++            "Actual provisional joint step must roll back"
++        );
++        assert!(
++            stats.joint_repair_completed > 0,
++            "Rollback must follow actual joint repair"
++        );
++    }
++    #[test]
++    fn joint_new_policy_preserves_fast_phase_and_deadline_guards() {
++        for (job, before, seed) in [
++            {
++                let (a, b) = larger_return_fixture();
++                (a, b, 3)
++            },
++            {
++                let (a, b) = mixed_fixture();
++                (a, b, 0)
++            },
++        ] {
++            let (fast, baseline, _) = chain_exercise(&job, &before, seed, true, 3.0, 0);
++            assert!(fast > 0);
++            let (moved, after, stats) =
++                joint_policy_exercise(&job, &before, seed, true, (3.0, 5.0, 2), 0);
++            assert_eq!(moved, fast);
++            assert_eq!(
++                serde_json::to_value(after).unwrap(),
++                serde_json::to_value(baseline).unwrap()
++            );
++            assert_eq!(stats.joint_repair_attempts, 0);
++        }
++        let (job, before) = fixture();
++        for (enabled, budget) in [(false, 5.0), (true, 0.0), (true, 1e-9)] {
++            let (moved, _, stats) =
++                joint_policy_exercise(&job, &before, 0, enabled, (0.0, budget, 1), 0);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.joint_exchanges, 0);
++        }
++    }
++    // END joint-repair policy tests
+ }
+--- a/crates/core/src/sheets/vstrip.rs
++++ b/crates/core/src/sheets/vstrip.rs
+@@ -729,7 +729,7 @@
+                         let exchanged = if self.allow_exchange {
+                             let exchange_until = (t + 1.2).min(budget);
+                             timed("exchange", || {
+-                                self.assignment_bridge_window(
++                                self.joint_exchange_window(
+                                     &strip,
+                                     frozen,
+                                     &mut sep,
+--- a/crates/core/src/sheets.rs
++++ b/crates/core/src/sheets.rs
+@@ -133,6 +133,16 @@
+     pub assignment_bridge_area_rejections: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub assignment_bridge_rollbacks: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub joint_repair_attempts: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub joint_repair_completed: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub joint_repair_failed: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub joint_repair_expired: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub joint_exchanges: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {

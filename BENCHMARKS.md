@@ -14868,3 +14868,25 @@ All runtime code and 156 prior test bodies remain unchanged; only the new test r
 This proves a constructed case, not policy selection or development-job quality.
 Next qualify a bounded joint-repair policy before any new matched pilot. H2/H5
 remain open at 60%.
+
+
+## 2026-10-18 — Joint repair qualification
+
+**N4 joint-repair qualification, 2026-10-18:** the [isolated candidate](benchmarks/results/h5-joint-repair-preparation-20261018.md)
+retains the short phase, then repairs only the selected receiver/source pair
+within the remaining original allowance. It rechecks the exact cropped source,
+lowers parts into freed space with existing bounded sampling, and commits a joint sequence only
+after strict final whole-job material improvement. Incomplete sequences restore
+their layout, tracker and accepted counters. All 165 native tests pass, including
+157 unchanged prior tests and eight new policy tests. Independent validation covers
+32 saved native layouts and 93 filled-outer pairs;
+ten public outcomes, four CLI comparisons and six common-mode hole-reservation
+checks pass. Source reconstruction, exact prior witnesses, lint and build pass.
+The two insufficient-gain repairs, one newly invalid flat-fixture assumption,
+initial compile error and audit error remain preserved. The rollback fixture uses the previously validated compacted output and
+retains every assertion; runtime, guards and earlier tests are unchanged
+by that fixture correction. A new committed pilot plan and harness checks are
+still required before quality measurement. Production is unchanged; H2/H5 remain
+open at 60%.
+
+All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The newly qualified joint-repair candidate remains isolated and still requires a committed matched development pilot before any integration decision. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
