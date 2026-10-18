@@ -14535,3 +14535,18 @@ establishing final quality or packing feasibility. The six failed pilot
 comparisons remain authoritative. H2/H5 remain open at 60%.
 
 The boundary ordering reaches a real height-setting copy on every attempt, but the generated pair lists never include both height-setting inserts together. The current pair generators use nearest-neighbour partners before applying their caps. The next isolated hypothesis is to include the two highest-ranked source members as the first pair in the appropriate same-item or mixed-item list, remove an equivalent duplicate, and retain the six-plus-six caps and existing nearby alternatives within those caps. Preserve original pair anchor order, allowed orientations, all repair/deadline/work limits and every full acceptance check. Authored cases must fail under the current selection when closer lower neighbours displace the upper pair, then pass for same-item and mixed-item boundary pairs, without duplicates or cap overruns. All existing 126 tests and public/rejection checks must remain. Only then prepare a matched quality pilot. This is a proposal-coverage hypothesis: it does not prove that jointly moving those copies is feasible, necessary for every improvement or sufficient to meet H5. Eighteen repair-or-expiry stops also remain unexplained by this selection result. The six failed pilot material comparisons remain authoritative.
+
+
+## 2026-10-18 — Qualify including both highest source members
+
+**N4 boundary-pair preparation, 2026-10-18:** [all 130 optimized tests pass](benchmarks/results/h5-boundary-pair-preparation-20261018.md),
+including all 126 prior tests unchanged. The isolated candidate includes the
+two highest source members first in the appropriate same-item or mixed pair
+list, removes duplicate pairs and retains the six-plus-six caps and remaining
+nearby alternatives. Original pair anchors, repairs, budgets, work charges and
+all full acceptance checks remain. Three expected failures are preserved.
+Independent original-contour checks confirm both highest physical copies in
+same-item and mixed-item witnesses. Those and twelve rejection-boundary cases
+pass 26 frozen-CLI checks. Strict lint/build, public parity/replay, source
+reconstruction and five pilot harness checks pass. The unchanged 72-outcome
+plan is committed before measurement. No quality claim; H2/H5 remain open at 60%.

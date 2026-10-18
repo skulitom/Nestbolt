@@ -1238,3 +1238,16 @@ pairs and reconstructs every material value exactly. Every selected physical
 pose matches its baseline exactly. This identifies copy coverage, without
 establishing final quality or packing feasibility. The six failed pilot
 comparisons remain authoritative. H2/H5 remain open at 60%.
+
+
+**N4 boundary-pair preparation, 2026-10-18:** [all 130 optimized tests pass](../benchmarks/results/h5-boundary-pair-preparation-20261018.md),
+including all 126 prior tests unchanged. The isolated candidate includes the
+two highest source members first in the appropriate same-item or mixed pair
+list, removes duplicate pairs and retains the six-plus-six caps and remaining
+nearby alternatives. Original pair anchors, repairs, budgets, work charges and
+all full acceptance checks remain. Three expected failures are preserved.
+Independent original-contour checks confirm both highest physical copies in
+same-item and mixed-item witnesses. Those and twelve rejection-boundary cases
+pass 26 frozen-CLI checks. Strict lint/build, public parity/replay, source
+reconstruction and five pilot harness checks pass. The unchanged 72-outcome
+plan is committed before measurement. No quality claim; H2/H5 remain open at 60%.

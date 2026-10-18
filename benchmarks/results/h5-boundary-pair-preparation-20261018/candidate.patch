@@ -1,0 +1,234 @@
+--- boundary-priority/crates/core/src/sheets/vstrip/exchange.rs
++++ boundary-pair/crates/core/src/sheets/vstrip/exchange.rs
+@@ -32,6 +32,32 @@
+                 .expect("source member")
+         });
+     }
++}
++
++// Reserve the first choice in the appropriate existing pair list for the
++// two highest-ranked source members. Keep nearby alternatives, remove the
++// equivalent pair in either anchor order, and retain the original six cap.
++// The caller restores each selected pair's original member frame afterwards.
++fn include_boundary_pair(
++    layout: &JLayout,
++    keys: &[PItemKey],
++    same: &mut Vec<Vec<PItemKey>>,
++    mixed: &mut Vec<Vec<PItemKey>>,
++) {
++    let [a, b, ..] = keys else {
++        return;
++    };
++    let pairs = if std::sync::Arc::ptr_eq(
++        layout.placed_items()[*a].item(),
++        layout.placed_items()[*b].item(),
++    ) {
++        same
++    } else {
++        mixed
++    };
++    pairs.retain(|pair| !(pair.len() == 2 && pair.contains(a) && pair.contains(b)));
++    pairs.insert(0, vec![*a, *b]);
++    pairs.truncate(6);
+ }
+ 
+ struct Proposal {
+@@ -567,6 +593,12 @@
+         let group_until = now + (self.last_step(until) - now).max(0.0) * 0.5;
+         let mut same_pairs = incoming_pairs(&sep.layout, &incoming_keys);
+         let mut mixed_pairs = mixed_incoming_pairs(&sep.layout, &incoming_keys);
++        include_boundary_pair(
++            &sep.layout,
++            &incoming_keys,
++            &mut same_pairs,
++            &mut mixed_pairs,
++        );
+         preserve_pair_frames(&mut same_pairs, &original_order);
+         preserve_pair_frames(&mut mixed_pairs, &original_order);
+         let mut choices =
+@@ -2672,4 +2704,185 @@
+         );
+     }
+     // END boundary-priority tests
++    // BEGIN boundary-pair tests
++    fn boundary_pair_fixture(mixed: bool) -> (Job, Layout) {
++        let (mut job, mut layout) = fixture();
++        job.name = "Boundary pair with closer lower neighbours".into();
++        job.parts = vec![rectangle("anchor", 94.0, 94.0), rectangle("a", 5.0, 5.0)];
++        job.parts[1].quantity = if mixed { 3 } else { 6 };
++        let members = if mixed {
++            let mut b = rectangle("b", 5.0, 5.0);
++            b.quantity = 3;
++            job.parts.push(b);
++            [
++                ("a", 0, [10.0, 80.0]),
++                ("b", 0, [70.0, 80.0]),
++                ("b", 1, [10.0, 74.0]),
++                ("b", 2, [10.0, 68.0]),
++                ("a", 1, [70.0, 74.0]),
++                ("a", 2, [70.0, 68.0]),
++            ]
++        } else {
++            [
++                ("a", 0, [10.0, 80.0]),
++                ("a", 1, [70.0, 80.0]),
++                ("a", 2, [10.0, 74.0]),
++                ("a", 3, [10.0, 68.0]),
++                ("a", 4, [70.0, 74.0]),
++                ("a", 5, [70.0, 68.0]),
++            ]
++        };
++        layout.placements = vec![Placement {
++            part_id: "anchor".into(),
++            copy_index: 0,
++            sheet_id: "sheet-0".into(),
++            transform: RigidTransform {
++                translation: [2.0, 2.0],
++                ..Default::default()
++            },
++        }];
++        layout
++            .placements
++            .extend(
++                members
++                    .into_iter()
++                    .map(|(id, copy_index, translation)| Placement {
++                        part_id: id.into(),
++                        copy_index,
++                        sheet_id: "sheet-1".into(),
++                        transform: RigidTransform {
++                            translation,
++                            ..Default::default()
++                        },
++                    }),
++            );
++        assert!(validate(&job, &layout).unwrap().valid);
++        (job, layout)
++    }
++
++    fn boundary_pair_contains(pair: &[PItemKey], a: PItemKey, b: PItemKey) -> bool {
++        pair.len() == 2 && pair.contains(&a) && pair.contains(&b)
++    }
++
++    fn boundary_pair_witness(mixed: bool) {
++        let (job, layout) = boundary_pair_fixture(mixed);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let mut keys: Vec<_> = source.placed_items().keys().collect();
++        rank_incoming(source, &mut keys);
++        assert_eq!(
++            source.placed_items()[keys[0]].shape().bbox().x_max,
++            source.placed_items()[keys[1]].shape().bbox().x_max
++        );
++        let mut same = incoming_pairs(source, &keys);
++        let mut other = mixed_incoming_pairs(source, &keys);
++        let before_same = same.clone();
++        let before_mixed = other.clone();
++        assert!(
++            !same
++                .iter()
++                .chain(&other)
++                .any(|p| boundary_pair_contains(p, keys[0], keys[1])),
++            "Fixture must expose the existing missing upper pair"
++        );
++        include_boundary_pair(source, &keys, &mut same, &mut other);
++        assert!(same.len() <= 6 && other.len() <= 6);
++        let selected = if mixed {
++            assert_eq!(same, before_same);
++            &other
++        } else {
++            assert_eq!(other, before_mixed);
++            &same
++        };
++        assert_eq!(
++            selected[0],
++            vec![keys[0], keys[1]],
++            "Both highest members must enter the appropriate pair list first"
++        );
++        assert_eq!(
++            selected
++                .iter()
++                .filter(|p| boundary_pair_contains(p, keys[0], keys[1]))
++                .count(),
++            1
++        );
++        let poses:Vec<_>=selected[0].iter().map(|key| {
++            let p=&source.placed_items()[*key];let item=p.item().idx();
++            serde_json::json!({"part_id":job.parts[model.part[item]].id,"transform":model.external(item,&p.d_transf())})
++        }).collect();
++        eprintln!(
++            "BOUNDARY_PAIR_WITNESS {}",
++            serde_json::json!({"job":job,"layout":model.to_layout(&sheets),"mixed":mixed,"selected":poses})
++        );
++    }
++
++    #[test]
++    fn boundary_pair_same_item_reaches_both_highest_despite_nearby_lower_parts() {
++        boundary_pair_witness(false);
++    }
++
++    #[test]
++    fn boundary_pair_mixed_items_reach_both_highest_despite_nearby_lower_parts() {
++        boundary_pair_witness(true);
++    }
++
++    #[test]
++    fn boundary_pair_deduplicates_and_retains_caps_alternatives_and_anchor() {
++        let (job, layout) = boundary_pair_fixture(false);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let mut keys: Vec<_> = source.placed_items().keys().collect();
++        rank_incoming(source, &mut keys);
++        let mut same = incoming_pairs(source, &keys);
++        let mut mixed = Vec::new();
++        assert_eq!(same.len(), 6);
++        same[2] = vec![keys[1], keys[0]];
++        let alternatives: Vec<_> = same
++            .iter()
++            .filter(|p| !boundary_pair_contains(p, keys[0], keys[1]))
++            .cloned()
++            .collect();
++        include_boundary_pair(source, &keys, &mut same, &mut mixed);
++        assert_eq!(
++            same[0],
++            vec![keys[0], keys[1]],
++            "Existing reversed upper pair must be promoted without duplication"
++        );
++        assert_eq!(same.len(), 6);
++        assert_eq!(&same[1..], alternatives.as_slice());
++        assert!(mixed.is_empty());
++        let mut original = keys.clone();
++        original.reverse();
++        preserve_pair_frames(&mut same, &original);
++        assert_eq!(
++            same[0],
++            vec![keys[1], keys[0]],
++            "Original pair anchor order must survive selection priority"
++        );
++        let mut seen = Vec::new();
++        for pair in same {
++            let mut key = pair.clone();
++            key.sort();
++            assert!(!seen.contains(&key));
++            seen.push(key);
++        }
++    }
++
++    #[test]
++    fn boundary_pair_empty_or_single_source_keeps_empty_choices() {
++        let (job, layout) = boundary_pair_fixture(false);
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let key = source.placed_items().keys().next().unwrap();
++        for keys in [vec![], vec![key]] {
++            let mut same = Vec::new();
++            let mut mixed = Vec::new();
++            include_boundary_pair(source, &keys, &mut same, &mut mixed);
++            assert!(same.is_empty() && mixed.is_empty());
++        }
++    }
++    // END boundary-pair tests
+ }
