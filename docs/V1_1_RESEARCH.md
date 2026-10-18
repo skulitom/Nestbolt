@@ -1841,3 +1841,14 @@ for all eight parts and the saved option. The full local suite passes 86 tests
 with four skips, two workers and zero retries; hosted confirmation is pending.
 Application source, benchmark limits and release assets are unchanged. H2/H5
 remain open at 60%.
+
+**N4 source-frontier pilot plan, 2026-10-18:** the [72-outcome matched plan](../benchmarks/results/h5-source-frontier-pilot-20261018/plan.json)
+is ready for the qualified isolated policy. The same four jobs, two kerfs, three
+seeds, ordinary/common baseline engines, 60-second allowance and rotating physical
+cores remain. Six execution/scoring functions are AST-identical to the preceding
+pilot; all five adversarial harness checks pass. The verified preflight confirms
+that earlier local measurements are finished. Archive, metric, hole and rollback
+checks remain; a separate counter identifies proposals with a tighter source crop.
+No measurement has started at this checkpoint. Every original failure and threshold
+remains. The full 13-job comparison still requires every pilot material pair to
+pass. Production is unchanged; H2/H5 remain open at 60%.
