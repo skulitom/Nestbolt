@@ -58,7 +58,7 @@ def tree_hash(folder):
 
 
 def guards():
-    paths = [Path(__file__), ROOT/'scripts/test_h5_early_exchange_pilot.py',
+    paths = [Path(__file__), ROOT/'benchmarks/results/h5-boundary-pair-pilot-20261018/preflight-recovery/checks.json', ROOT/'scripts/test_h5_early_exchange_pilot.py',
              ROOT/'scripts/cutting_development_set.py', ROOT/'scripts/h6_material_cost.py',
              ROOT/'scripts/h4_full_matrix.py', FOLDER/'manifest.json', H4/'plan.json', ROOT/'benchmarks/results/h4-depth-recovered-scale-plan-20261016/plan.json', CLI,
              PROBE/'build.json', PROBE/'preparation.json', PROBE/'source-checks.json',
@@ -255,23 +255,31 @@ def case(row, job, block, arm, cpu, work, evidence, deadline):
     return record
 
 
+def require_runner_stopped(opened, runner):
+    # A Windows PID is reusable. Establish identity before reading a command
+    # line, which may be inaccessible for the unrelated replacement process.
+    original_opened = datetime.fromisoformat(opened['utc']).timestamp()
+    try:
+        process = psutil.Process(opened['pid'])
+        created = process.create_time()
+        if created > original_opened:
+            return {'pid': opened['pid'], 'state': 'reused_pid',
+                    'original_opened': original_opened, 'current_created': created}
+        arguments = process.cmdline()
+    except psutil.NoSuchProcess:
+        return {'pid': opened['pid'], 'state': 'absent'}
+    assert not any(runner in arg for arg in arguments), 'Previous measurement runner is still active'
+    return {'pid': opened['pid'], 'state': 'different_command', 'current_created': created}
+
+
 def require_measurements_finished():
     diagnostic = ROOT/'benchmarks/results/h5-balanced-stage-20261018'
     assert load(diagnostic/'verification.json')['all_original_archives_verified']
-    try:
-        arguments = psutil.Process(load(diagnostic/'opened.json')['pid']).cmdline()
-    except psutil.NoSuchProcess:
-        arguments = []
-    assert not any('h5_balanced_stage.py' in arg for arg in arguments), 'Diagnostic is still running'
+    process_checks = [require_runner_stopped(load(diagnostic/'opened.json'), 'h5_balanced_stage.py')]
     import h4_preview_matrix as h4
     sequence = ROOT/'benchmarks/results/h4-depth-recovered-scale-plan-20261016'
     for folder, runner in [(H4, 'h4_depth_reboot_recovery.py'), (sequence, 'continue_recovered_depth_checks.py')]:
-        opened = load(folder/'opened.json')
-        try:
-            arguments = psutil.Process(opened['pid']).cmdline()
-        except psutil.NoSuchProcess:
-            arguments = []
-        assert not any(runner in arg for arg in arguments), 'Release measurements are still running'
+        process_checks.append(require_runner_stopped(load(folder/'opened.json'), runner))
         assert not (folder/'interruption.json').exists(), 'Review the original interrupted measurement first'
     terminal = sequence/('completed.json' if (sequence/'completed.json').exists() else 'stopped.json')
     state = load(terminal)
@@ -299,7 +307,7 @@ def require_measurements_finished():
     rows, _, _ = h4.cases()
     assert h4.guards(rows) == load(H4/'plan.json')['guards']
     paths = [H4/'results.json', H4/'verification.json', H4/'integrity.json', sequence/'plan.json', terminal]
-    return {path.relative_to(ROOT).as_posix(): digest(path) for path in paths}
+    return {path.relative_to(ROOT).as_posix(): digest(path) for path in paths} | {'process_identity_checks': process_checks}
 
 
 def measure(out):

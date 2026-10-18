@@ -1,0 +1,47 @@
+{
+  "all_checks_pass": true,
+  "tests": [
+    "absent process accepted",
+    "new protected replacement accepted without reading its command",
+    "live original runner rejected",
+    "different command retains prior behavior",
+    "unknown original command fails closed",
+    "unknown creation time fails closed"
+  ],
+  "actual_prerequisites": {
+    "benchmarks/results/h4-depth-reboot-recovery-20261016/results.json": "6878afbeab0bbd2042c441636547f67e5c5bc89446aa36eb396966bbd268ba4a",
+    "benchmarks/results/h4-depth-reboot-recovery-20261016/verification.json": "aaf082ebaab385556ff7d50a4da0f116e07a3d0aa6f0eb31a906c305ef14890d",
+    "benchmarks/results/h4-depth-reboot-recovery-20261016/integrity.json": "4aaaf155c7cb862b686ad3214c66b51ff202bf55d14ffe82a6d389101e7fe714",
+    "benchmarks/results/h4-depth-recovered-scale-plan-20261016/plan.json": "ab54dad76feeae51ff2ddccd67b4283da65c62e2d409e223a38a033df6a5e22a",
+    "benchmarks/results/h4-depth-recovered-scale-plan-20261016/completed.json": "e6928cc076f52665b4b4b9538db6bcbd07e34d57b0bc13bb85c499f155232fdb",
+    "process_identity_checks": [
+      {
+        "pid": 96548,
+        "state": "reused_pid",
+        "original_opened": 1792288174.883909,
+        "current_created": 1792306577.837836
+      },
+      {
+        "pid": 57120,
+        "state": "absent"
+      },
+      {
+        "pid": 53680,
+        "state": "absent"
+      }
+    ]
+  },
+  "runner_sha256": "fddde2e30f51a67ebcb0e65d114db8a1c80467ae44631e1258254b843aae9bb7",
+  "original_runner_sha256": "67cedf1a3e7d0eed250980041cbd8bc626e414996ba417d2dd34bdc0bf937bea",
+  "original_plan_sha256": "212d512f841e3fb0f4bc6d1aa2e82725fcb9149e12889c61cd73b8507f7efef1",
+  "unchanged_function_ASTs": [
+    "blocks",
+    "summarize",
+    "case",
+    "measure"
+  ],
+  "candidate_sources_and_binaries_changed": false,
+  "search_budgets_inputs_scoring_changed": false,
+  "measurement_started_before_recovery": false,
+  "new_searches": 0
+}

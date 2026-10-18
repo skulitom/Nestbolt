@@ -15,7 +15,8 @@
     "baseline_source": "28b7b690e14a39b491e57d15555acaa8da8f1523292b4b1e69ab78453d5f6c05",
     "candidate_source": "f537fa0e0619b4a292826fc3d7c34bd758975a1edbdd5a8770215da18ea12c61",
     "files": {
-      "scripts/h5_boundary_pair_pilot.py": "67cedf1a3e7d0eed250980041cbd8bc626e414996ba417d2dd34bdc0bf937bea",
+      "scripts/h5_boundary_pair_pilot.py": "fddde2e30f51a67ebcb0e65d114db8a1c80467ae44631e1258254b843aae9bb7",
+      "benchmarks/results/h5-boundary-pair-pilot-20261018/preflight-recovery/checks.json": "ec295a922320f68b6f180e49f4de60001194ccaa9dfca34184845165b257d732",
       "scripts/test_h5_early_exchange_pilot.py": "a505616565220f30688ffd6f7772d37d955e583aad0cde7702f4b89e0db19e62",
       "scripts/cutting_development_set.py": "04b849cd11d9c9f4f601835965f15a846918d1c42b5436ece4f02c10916a960d",
       "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
@@ -364,5 +365,13 @@
   "previous_failed_pilot": "benchmarks/results/h5-boundary-priority-pilot-20261018/results.json",
   "workflow_prerequisite": "Wait until the current release matrix and conditional scale/export-check sequence finish. Preserve all failed H4/H5 outcomes; every gate limit is unchanged.",
   "held_out_geometry_read": false,
-  "H5_complete": false
+  "H5_complete": false,
+  "preflight_amendment": {
+    "utc": "2026-10-18T07:00:14.873182+00:00",
+    "parent_commit": "f78d277af6c80841b8526e57d5f301085f2197be",
+    "reason": "Old diagnostic PID was reused by svchost.exe; compare creation time before reading command lines.",
+    "original_plan_sha256": "212d512f841e3fb0f4bc6d1aa2e82725fcb9149e12889c61cd73b8507f7efef1",
+    "checks": "preflight-recovery/checks.json",
+    "started_searches_before_amendment": 0
+  }
 }
