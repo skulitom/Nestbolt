@@ -14409,3 +14409,19 @@ branch regression is preserved. Strict lint/build, public parity/replay,
 five harness tests and exact formatted-source reconstruction pass. The
 unchanged 72-outcome method is committed before measurement. No quality,
 integration or release claim; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Exact material-profile rejection comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-material-profile-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.912 minutes. All ZIP CRCs and member hashes pass; the summary
+is recomputed from every record. An independent filled-outer audit checks
+133,235 same-sheet pairs in 48 layouts, retaining the original
+0.00000010 mm tolerance and reserved hole interiors.
+
+5 of eight material pairs fail the unchanged +1% limit. m-mechanical-large-plates at 0.2 mm: +5.169797%; m-mechanical-large-plates at 1.5 mm: +6.158488%; m-mechanical-panel-hardware at 0.2 mm: +6.407212%; m-mechanical-panel-hardware at 1.5 mm: +5.654893%; c-bracket-mixed at 0.2 mm: +1.823168%
+The candidate accepts 13/147 exchanges, including 11/108 paired and 1/18 mixed-item exchanges. Follow-up gap filling runs 13 times and moves 16 parts. Of 49 neutral rejections, 3 are caught by exact internal-state equality and 46 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. No new reserved-input access or H5 credit. Production,
+frozen inputs and earlier failures remain unchanged. H2/H5 remain open at 60%.
+
+A read-only inspection of six older validated neutral panel pairs finds unchanged physical poses for the two inserts setting the credited sheet height. Five pairs move other parts. The saved evidence motivates checking actual selection order if this pilot fails; it neither implements a selector nor proves a gain or packing bound.
