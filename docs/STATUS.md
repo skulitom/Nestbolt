@@ -128,6 +128,21 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 terminal repair diagnosis, 2026-10-18:** [one fixed observational replay](../benchmarks/results/h5-terminal-repair-diagnosis-20261018.md)
+reproduces the previous failure's exact work, statistics and expiry. The retained
+best state reduces physical overlap 78.8441%, but has ten pair overlaps and one cog
+47.7152 mm outside stock. All residual overlaps involve cogs; all 15 cogs move and
+no frame moves. Original identities/quantities, budgets and rejection remain.
+All 380 sampled fixed-neighbour cog free regions are empty. A collective local
+linear step also fails actual geometry at all five tested fractions and accepts
+no move. Independent original-shape checks cover 2,953 terminal-state pairs plus
+7,485 collective-trial pairs; the original CLI rejects both terminal states and
+the full collective proposal. Preserve these restricted failures, then investigate
+joint selection of compatible actual-outline placements and alternative frame
+allocations before another runtime proposal. All six prior main `cb5e23c` hosted
+checks pass. Runtime, release assets and accurate READMEs remain unchanged;
+H2/H5 stay open at 60%.
+
 **N4 native-margin diagnosis, 2026-10-18:** [exact native polygons and tracker entries](../benchmarks/results/h5-native-collision-diagnosis-20261018.md)
 agree on all 51,175 checked pairs. The saved physical gaps are too tight for the
 unchanged native inflation/edge margins. Translations below 0.18 mm produce four
