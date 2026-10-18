@@ -14166,3 +14166,21 @@ and five adversarial pilot checks pass. Normal output and deterministic common
 replay remain exact. Bounded mixed pairs share the existing phase/budget and
 keep all acceptance rules. No measured gain, production integration or H5
 credit is claimed; H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Mixed-original-item exchange comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-mixed-exchange-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.912 minutes. All archives pass CRC and member/hash checks;
+the summary is recomputed from all records. The filled-outer audit verifies
+133,299 same-sheet pairs in 48 common-mode layouts with
+minimum slack -5.99520433298e-15 mm and unchanged
+0.00000010 mm tolerance. Hole interiors stay reserved.
+
+4 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +6.069459%; m-mechanical-large-plates at 1.5 mm: +6.160993%; m-mechanical-panel-hardware at 0.2 mm: +6.770269%; m-mechanical-panel-hardware at 1.5 mm: +5.607046%
+The candidate accepts 12/132 exchanges, including 1/69
+two-part exchanges. The post-exchange gap-fill step runs 12 times and moves 19 parts. The new guard rejects 49 same-inventory proposals without material improvement; mixed pairs account for 0/11 accepted/attempted exchanges. These counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
+prove impossibility. Original failures, production and frozen inputs remain
+unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.

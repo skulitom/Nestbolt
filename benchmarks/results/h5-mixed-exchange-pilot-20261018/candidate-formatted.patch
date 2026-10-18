@@ -1,0 +1,393 @@
+--- post-fill/crates/core/src/sheets/vstrip/exchange.rs
++++ productive/crates/core/src/sheets/vstrip/exchange.rs
+@@ -227,6 +227,42 @@
+         for group in &grouped_pairs {
+             if let Some(&(a, b)) = group.get(rank) {
+                 pairs.push(vec![keys[a], keys[b]]);
++                if pairs.len() == 6 {
++                    return pairs;
++                }
++            }
++        }
++    }
++    pairs
++}
++
++// Try nearby members of different original items, including singleton types.
++// Input order is stable and area-ranked. Bounds match the existing selector.
++fn mixed_incoming_pairs(layout: &JLayout, keys: &[PItemKey]) -> Vec<Vec<PItemKey>> {
++    let mut pairs = Vec::new();
++    let mut seen = Vec::new();
++    for (i, &key) in keys.iter().enumerate().take(12) {
++        let item = layout.placed_items()[key].item();
++        let a = layout.placed_items()[key].shape().bbox();
++        let mut neighbours: Vec<_> = keys
++            .iter()
++            .enumerate()
++            .filter_map(|(j, &other)| {
++                if i == j || std::sync::Arc::ptr_eq(item, layout.placed_items()[other].item()) {
++                    return None;
++                }
++                let b = layout.placed_items()[other].shape().bbox();
++                let dx = (a.x_min + a.x_max) - (b.x_min + b.x_max);
++                let dy = (a.y_min + a.y_max) - (b.y_min + b.y_max);
++                Some((dx * dx + dy * dy, j))
++            })
++            .collect();
++        neighbours.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.cmp(&b.1)));
++        for (_, j) in neighbours.into_iter().take(2) {
++            let pair = (i.min(j), i.max(j));
++            if !seen.contains(&pair) {
++                seen.push(pair);
++                pairs.push(vec![keys[pair.0], keys[pair.1]]);
+                 if pairs.len() == 6 {
+                     return pairs;
+                 }
+@@ -306,6 +342,29 @@
+     if let Some(sampler) = UniformBBoxSampler::new(bounds, anchor, bounds) {
+         samples.extend((0..128).map(|_| sampler.sample(rng)));
+     }
++    if !std::sync::Arc::ptr_eq(&incoming[0].1, &incoming[1].1) {
++        for p in receiver.placed_items().values() {
++            let dt = convert_sample_to_closest_feasible(p.d_transf(), anchor);
++            let Some(poses) = incoming_group_poses(incoming, dt) else {
++                continue;
++            };
++            let mut min_x = f32::INFINITY;
++            let mut min_y = f32::INFINITY;
++            for ((_, item, _), pose) in incoming.iter().zip(poses) {
++                let mut shape = item.shape_cd().as_ref().clone();
++                shape.transform_from(item.shape_cd(), &pose.compose());
++                min_x = min_x.min(shape.bbox().x_min);
++                min_y = min_y.min(shape.bbox().y_min);
++                crate::separate::charge(clock, item, 1);
++            }
++            let b = p.shape().bbox();
++            let (x, y) = dt.translation();
++            samples.push(
++                DTransformation::new(dt.rotation(), (x + b.x_min - min_x, y + b.y_min - min_y))
++                    .with_reflection(dt.reflected),
++            );
++        }
++    }
+     let incoming_area: f32 = incoming.iter().map(|(_, item, _)| item.area()).sum();
+     let mut collector = BasicHazardCollector::new();
+     let mut out = Vec::new();
+@@ -436,7 +495,18 @@
+         targets.sort_by(|&a, &b| fill[a].total_cmp(&fill[b]));
+         let now = self.clock.now();
+         let group_until = now + (self.last_step(until) - now).max(0.0) * 0.5;
+-        let mut choices = incoming_pairs(&sep.layout, &incoming_keys);
++        let same_pairs = incoming_pairs(&sep.layout, &incoming_keys);
++        let mixed_pairs = mixed_incoming_pairs(&sep.layout, &incoming_keys);
++        let mut choices =
++            Vec::with_capacity(same_pairs.len() + mixed_pairs.len() + incoming_keys.len());
++        for index in 0..same_pairs.len().max(mixed_pairs.len()) {
++            if let Some(pair) = same_pairs.get(index) {
++                choices.push(pair.clone());
++            }
++            if let Some(pair) = mixed_pairs.get(index) {
++                choices.push(pair.clone());
++            }
++        }
+         choices.extend(incoming_keys.into_iter().map(|key| vec![key]));
+         for selected in choices {
+             let paired = selected.len() == 2;
+@@ -452,6 +522,7 @@
+                     (key, p.item().clone(), shift(p.d_transf(), -last_offset))
+                 })
+                 .collect();
++            let mixed = paired && !std::sync::Arc::ptr_eq(&members[0].1, &members[1].1);
+             let incoming = &sep.layout.placed_items()[incoming_key];
+             let incoming_item = incoming.item().clone();
+             let incoming_old = shift(incoming.d_transf(), -last_offset);
+@@ -506,6 +577,7 @@
+                     }
+                     self.stats.directed_exchange_attempts += 1;
+                     self.stats.paired_exchange_attempts += u64::from(paired);
++                    self.stats.mixed_exchange_attempts += u64::from(mixed);
+                     let victims: Vec<_> = proposal
+                         .victims
+                         .iter()
+@@ -610,6 +682,7 @@
+                     sep.rebuild();
+                     self.stats.directed_exchanges += 1;
+                     self.stats.paired_exchanges += u64::from(paired);
++                    self.stats.mixed_exchanges += u64::from(mixed);
+                     return Ok(1);
+                 }
+             }
+@@ -1723,4 +1796,260 @@
+             ));
+         }
+     }
++    fn mixed_fixture() -> (Job, Layout) {
++        (
++            serde_json::from_str(include_str!(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../examples/mixed-group-job.json"
++            )))
++            .unwrap(),
++            serde_json::from_str(include_str!(concat!(
++                env!("CARGO_MANIFEST_DIR"),
++                "/../../examples/mixed-group-before.json"
++            )))
++            .unwrap(),
++        )
++    }
++
++    #[test]
++    fn mixed_pair_moves_different_parts_and_three_returns() {
++        let (job, before) = mixed_fixture();
++        for seed in 0..4 {
++            let (moved, after, stats) = exercise(&job, &before, seed, true, false, 0);
++            eprintln!(
++                "MIXED_WITNESS {}",
++                serde_json::json!({"case":"mixed_positive","seed":seed,"job":&job,"before":&before,"after":&after,"moved":moved,"stats":&stats})
++            );
++            assert_eq!(
++                moved, 1,
++                "different original parts must be eligible for the authored two-to-three exchange: {stats:?}"
++            );
++            assert_eq!(stats.paired_exchanges, 1);
++            for id in ["short-incoming", "tall-incoming"] {
++                assert!(
++                    after
++                        .placements
++                        .iter()
++                        .any(|p| p.part_id == id && p.sheet_id == "sheet-0")
++                );
++            }
++            assert_eq!(
++                after
++                    .placements
++                    .iter()
++                    .filter(|p| p.part_id == "return" && p.sheet_id == "sheet-1")
++                    .count(),
++                3
++            );
++        }
++    }
++
++    #[test]
++    fn mixed_pair_disabled_or_expired_preserves_incumbent() {
++        let (job, before) = mixed_fixture();
++        for seed in 0..4 {
++            for (enabled, expired) in [(false, false), (true, true)] {
++                let (moved, _, stats) = exercise(&job, &before, seed, enabled, expired, 0);
++                assert_eq!(moved, 0);
++                assert_eq!(stats.directed_exchange_attempts, 0);
++                assert_eq!(stats.directed_exchanges, 0);
++            }
++        }
++    }
++
++    #[test]
++    fn mixed_pair_checks_each_members_rotation_and_reflection() {
++        let (mut job, layout) = mixed_fixture();
++        for permit_second in [false, true] {
++            for part in &mut job.parts {
++                if part.id == "short-incoming" || part.id == "tall-incoming" {
++                    let permits = part.id == "short-incoming" || permit_second;
++                    part.rotations = Rotations::List {
++                        degrees: if permits { vec![0.0, 90.0] } else { vec![0.0] },
++                    };
++                    part.allow_mirror = permits;
++                }
++            }
++            let model = Model::new(&job).unwrap();
++            let sheets = model.sheets_of(&layout).unwrap();
++            let mut members: Vec<_> = sheets[1]
++                .layout()
++                .placed_items()
++                .iter()
++                .filter(|(_, p)| p.item().area() < 2000.0)
++                .map(|(key, p)| (key, p.item().clone(), p.d_transf()))
++                .collect();
++            members.sort_by(|a, b| a.1.area().total_cmp(&b.1.area()));
++            assert_eq!(members.len(), 2);
++            assert!(!std::sync::Arc::ptr_eq(&members[0].1, &members[1].1));
++            let old = members[0].2;
++            let quarter =
++                DTransformation::new(old.rotation() + std::f32::consts::FRAC_PI_2, (0.0, 0.0))
++                    .with_reflection(old.reflected);
++            assert_eq!(
++                incoming_group_poses(&members, quarter).is_some(),
++                permit_second
++            );
++            let reflected = model.internal(
++                members[0].1.idx(),
++                &RigidTransform {
++                    translation: [32.0, 2.0],
++                    rotation_radians: 0.0,
++                    mirrored: true,
++                },
++            );
++            assert_eq!(
++                incoming_group_poses(&members, reflected).is_some(),
++                permit_second
++            );
++            let translated = incoming_group_poses(
++                &members,
++                DTransformation::new(old.rotation(), (4.0, 5.0)).with_reflection(old.reflected),
++            )
++            .unwrap();
++            let old_delta = (
++                members[1].2.translation().0 - old.translation().0,
++                members[1].2.translation().1 - old.translation().1,
++            );
++            let new_delta = (
++                translated[1].translation().0 - translated[0].translation().0,
++                translated[1].translation().1 - translated[0].translation().1,
++            );
++            assert!(
++                (old_delta.0 - new_delta.0).abs() < 0.0001
++                    && (old_delta.1 - new_delta.1).abs() < 0.0001
++            );
++        }
++    }
++
++    #[test]
++    fn mixed_pair_selection_is_bounded_unique_and_reaches_singletons() {
++        let (job, layout) = mixed_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let source = sheets[1].layout();
++        let mut keys: Vec<_> = source.placed_items().keys().collect();
++        keys.sort_by(|a, b| {
++            source.placed_items()[*b]
++                .item()
++                .area()
++                .total_cmp(&source.placed_items()[*a].item().area())
++        });
++        let pairs = mixed_incoming_pairs(source, &keys);
++        assert_eq!(pairs.len(), 3);
++        assert_eq!(pairs, mixed_incoming_pairs(source, &keys));
++        assert!(pairs.iter().any(|p| p.contains(&keys[0])));
++        assert!(
++            pairs
++                .iter()
++                .any(|p| p.contains(&keys[1]) && p.contains(&keys[2]))
++        );
++        for (i, pair) in pairs.iter().enumerate() {
++            assert_ne!(pair[0], pair[1]);
++            assert!(!pairs[..i].contains(pair));
++            assert!(!std::sync::Arc::ptr_eq(
++                source.placed_items()[pair[0]].item(),
++                source.placed_items()[pair[1]].item()
++            ));
++        }
++        let mut many = JLayout::new(source.container().clone());
++        let mut many_keys = Vec::new();
++        for (family, key) in keys.iter().enumerate() {
++            for copy in 0..20 {
++                many_keys.push(many.place_item(
++                    source.placed_items()[*key].item(),
++                    DTransformation::new(0.0, (copy as f32 * 500.0, family as f32 * 10000.0)),
++                ));
++            }
++        }
++        let pairs = mixed_incoming_pairs(&many, &many_keys);
++        assert_eq!(pairs.len(), 6);
++        assert_eq!(pairs, mixed_incoming_pairs(&many, &many_keys));
++        for (i, pair) in pairs.iter().enumerate() {
++            assert!(!pairs[..i].contains(pair));
++        }
++        assert!(mixed_incoming_pairs(&many, &many_keys[..20]).is_empty());
++    }
++
++    #[test]
++    fn mixed_pair_preserves_a_frozen_sheet() {
++        let (mut job, mut before) = mixed_fixture();
++        for p in &mut before.placements {
++            p.sheet_id = if p.sheet_id == "sheet-0" {
++                "sheet-1".into()
++            } else {
++                "sheet-2".into()
++            };
++        }
++        before.sheets.push(Sheet {
++            id: "sheet-2".into(),
++            stock_id: "stock".into(),
++        });
++        job.parts.push(rectangle("fixed", 20.0, 20.0));
++        before.placements.push(Placement {
++            part_id: "fixed".into(),
++            copy_index: 0,
++            sheet_id: "sheet-0".into(),
++            transform: RigidTransform {
++                translation: [2.0, 2.0],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        let (moved, after, stats) = exercise(&job, &before, 0, true, false, 1);
++        eprintln!(
++            "MIXED_WITNESS {}",
++            serde_json::json!({"case":"mixed_frozen","seed":0,"job":&job,"before":&before,"after":&after,"moved":moved,"stats":&stats})
++        );
++        assert_eq!(moved, 1);
++        assert_eq!(stats.mixed_exchanges, 1);
++        for id in ["short-incoming", "tall-incoming"] {
++            assert!(
++                after
++                    .placements
++                    .iter()
++                    .any(|p| p.part_id == id && p.sheet_id == "sheet-1")
++            );
++        }
++    }
++
++    #[test]
++    fn mixed_pair_failed_return_room_preserves_incumbent() {
++        let (mut job, mut before) = mixed_fixture();
++        *job.parts
++            .iter_mut()
++            .find(|p| p.id == "short-incoming")
++            .unwrap() = rectangle("short-incoming", 30.0, 39.9);
++        *job.parts
++            .iter_mut()
++            .find(|p| p.id == "tall-incoming")
++            .unwrap() = rectangle("tall-incoming", 30.0, 49.9);
++        for p in &mut before.placements {
++            if p.part_id == "short-incoming" {
++                p.transform.translation[1] = 1.01;
++            }
++            if p.part_id == "tall-incoming" {
++                p.transform.translation[1] = 41.12;
++            }
++        }
++        job.parts.push(rectangle("source-extra", 30.0, 7.7));
++        before.placements.push(Placement {
++            part_id: "source-extra".into(),
++            copy_index: 0,
++            sheet_id: "sheet-1".into(),
++            transform: RigidTransform {
++                translation: [2.0, 91.23],
++                rotation_radians: 0.0,
++                mirrored: false,
++            },
++        });
++        let (moved, after, stats) = exercise(&job, &before, 0, true, false, 0);
++        eprintln!(
++            "MIXED_WITNESS {}",
++            serde_json::json!({"case":"mixed_no_return_room","seed":0,"job":&job,"before":&before,"after":&after,"moved":moved,"stats":&stats})
++        );
++        assert_eq!(moved, 0);
++        assert_eq!(stats.mixed_exchanges, 0);
++        assert!(stats.directed_exchange_attempts > 0);
++    }
+ }
+--- post-fill/crates/core/src/sheets.rs
++++ productive/crates/core/src/sheets.rs
+@@ -107,6 +107,10 @@
+     pub post_exchange_fill_moves: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub neutral_exchange_rejections: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub mixed_exchange_attempts: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub mixed_exchanges: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {

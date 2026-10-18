@@ -959,3 +959,13 @@ preserved; mixed-group corner anchors correct that failure without weakening
 tests. Up to six mixed pairs interleave existing same-item pairs within the
 original phase/budget. All geometry/material rules and paired methods remain.
 No measured quality claim or integration; H2/H5 stay open at 60%.
+
+
+**N4 mixed-exchange outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-mixed-exchange-pilot-20261018.md).
+The independent filled-outer audit checks 133,299 same-sheet
+pairs across 48 common-mode layouts. 4 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +6.069459%; m-mechanical-large-plates at 1.5 mm: +6.160993%; m-mechanical-panel-hardware at 0.2 mm: +6.770269%; m-mechanical-panel-hardware at 1.5 mm: +5.607046%
+The candidate accepts 12/132 total exchanges, including 1/69
+two-part exchanges. The post-exchange gap-fill step runs 12 times and moves 19 parts. The new guard rejects 49 same-inventory proposals without material improvement; mixed pairs account for 0/11 accepted/attempted exchanges. These counts alone do not establish final quality. These counts do not establish improved final material or
+identify remaining failure stages. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and
+all earlier failed results remain unchanged. H2/H5 remain open at 60%.
