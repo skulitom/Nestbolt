@@ -107,6 +107,17 @@ All six hosted checks on main `b9ccbd5` pass, including the completed Windows ch
 
 All six hosted checks on preceding main `8ae8b69` pass, including Windows, Linux, browsers and both maker rebuilds. This is evidence for that checkpoint; the subsequent isolated free-space candidate still fails its original material pilot and remains excluded from production. [Hosted evidence](../benchmarks/results/h5-free-return-pilot-20261018/main-ci-8ae8b69.json).
 
+**N4 actual return-seed observation preparation, 2026-10-18:** the [isolated diagnostic](../benchmarks/results/h5-free-return-observer-preparation-20261018.md)
+records actual contained/placed return poses, original source members, charged
+work, repair losses and validated material outcomes including acceptance. It
+reconstructs the failed candidate exactly after removing observations; all 137
+tests remain unchanged and pass, as do lint and build. Sixteen authored cases,
+35 frozen-CLI baselines, 32 trial validations,
+twelve exact parent branch witnesses and 44 malformed-record checks qualify the
+reader. Four serial mechanical diagnostics are planned; no measurement has begun.
+Logging can affect wall trajectories and supports no quality claim. No production
+change, reserved-input access or H5 credit. H2/H5 remain open at 60%.
+
 **N4 free-space-return outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-free-return-pilot-20261018.md).
 The independent filled-outer audit checks 133,284 same-sheet
 pairs across 48 common-mode layouts. 5 of eight material pairs fail

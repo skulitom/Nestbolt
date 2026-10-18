@@ -1,0 +1,192 @@
+--- free-return/crates/core/src/sheets/vstrip/exchange.rs
++++ observer/crates/core/src/sheets/vstrip/exchange.rs
+@@ -58,6 +58,21 @@
+     pairs.retain(|pair| !(pair.len() == 2 && pair.contains(a) && pair.contains(b)));
+     pairs.insert(0, vec![*a, *b]);
+     pairs.truncate(6);
++}
++
++#[derive(serde::Serialize)]
++struct FrontierTrace {
++    baseline: serde_json::Value,
++    choices: Vec<Vec<String>>,
++    choice_poses: Vec<Vec<serde_json::Value>>,
++    visits: Vec<serde_json::Value>,
++    attempts: Vec<serde_json::Value>,
++}
++
++impl Drop for FrontierTrace {
++    fn drop(&mut self) {
++        eprintln!("FRONTIER_DIAG {}", serde_json::to_string(self).expect("frontier diagnostic serialization"));
++    }
+ }
+ 
+ struct Proposal {
+@@ -812,7 +827,24 @@
+             }
+         }
+         choices.extend(incoming_keys.into_iter().map(|key| vec![key]));
+-        for selected in choices {
++        let mut trace = FrontierTrace {
++            baseline: serde_json::json!({"job": self.model.job, "layout": baseline_layout,
++                "metrics": before, "source_sheet": format!("sheet-{}", frozen.len() + last_index)}),
++            choices: choices.iter().map(|choice| choice.iter().map(|key| {
++                let item = sep.layout.placed_items()[*key].item().idx();
++                self.model.job.parts[self.model.part[item]].id.clone()
++            }).collect()).collect(),
++            choice_poses: choices.iter().map(|choice| choice.iter().map(|key| {
++                let placed = &sep.layout.placed_items()[*key];
++                let item = placed.item().idx();
++                serde_json::json!({
++                    "part_id": self.model.job.parts[self.model.part[item]].id,
++                    "transform": self.model.external(item, &shift(placed.d_transf(), -last_offset)),
++                })
++            }).collect()).collect(),
++            visits: Vec::new(), attempts: Vec::new(),
++        };
++        for (choice_index, selected) in choices.into_iter().enumerate() {
+             let paired = selected.len() == 2;
+             let exchange_until = if paired { group_until } else { until };
+             if self.clock.now() >= self.last_step(exchange_until) {
+@@ -875,6 +907,9 @@
+                         proposal_until,
+                     )
+                 };
++                trace.visits.push(serde_json::json!({"choice_index":choice_index,
++                    "target_sheet":format!("sheet-{}", frozen.len() + target),
++                    "retained_proposals":candidates.len()}));
+                 for proposal in candidates {
+                     if self.clock.now() >= self.last_step(exchange_until) {
+                         break;
+@@ -890,12 +925,18 @@
+                             (key, p.item().clone(), p.d_transf())
+                         })
+                         .collect();
++                    let attempt_index = trace.attempts.len();
++                    trace.attempts.push(serde_json::json!({"choice_index":choice_index,
++                        "target_sheet":format!("sheet-{}", frozen.len() + target),
++                        "returned":victims.iter().map(|(_,item,_)| self.model.job.parts[self.model.part[item.idx()]].id.as_str()).collect::<Vec<_>>(),
++                        "outcome":"pending", "return_seed_detail":null, "repair_detail":null, "material_detail":null}));
+                     let mut next_receiver = JLayout::from_snapshot(&receiver.save());
+                     for &(key, _, _) in &victims {
+                         next_receiver.remove_item(key);
+                     }
+                     if paired {
+                         let Some(poses) = incoming_group_poses(&members, proposal.incoming) else {
++                            trace.attempts[attempt_index]["outcome"] = serde_json::json!("forbidden_incoming_orientation");
+                             continue;
+                         };
+                         for ((_, item, _), pose) in members.iter().zip(poses) {
+@@ -919,6 +960,19 @@
+                         &last_container.outer_cd().bbox(),
+                         &self.clock,
+                     );
++                    trace.attempts[attempt_index]["return_seed_detail"] = serde_json::json!({
++                        "source_before": source.placed_items().values().map(|p| {
++                            let item=p.item().idx();
++                            serde_json::json!({"part_id":self.model.job.parts[self.model.part[item]].id,
++                                "transform":self.model.external(item,&p.d_transf())})
++                        }).collect::<Vec<_>>(),
++                        "contained": victims.iter().zip(&returned).map(|((_,item,_),pose)| {
++                            let item=item.idx();
++                            serde_json::json!({"part_id":self.model.job.parts[self.model.part[item]].id,
++                                "transform":self.model.external(item,pose)})
++                        }).collect::<Vec<_>>(),
++                        "placed": [], "work_before":self.clock.counts(), "work_after":null,
++                    });
+                     for ((_, victim, _), pose) in victims.iter().zip(returned) {
+                         let pose = free_return_pose(
+                             &next_source,
+@@ -927,8 +981,12 @@
+                             &self.clock,
+                             self.last_step(exchange_until),
+                         );
++                        trace.attempts[attempt_index]["return_seed_detail"]["placed"].as_array_mut().expect("seed observations").push(
++                            serde_json::json!({"part_id":self.model.job.parts[self.model.part[victim.idx()]].id,
++                                "transform":self.model.external(victim.idx(),&pose)}));
+                         next_source.place_item(victim, pose);
+                     }
++                    trace.attempts[attempt_index]["return_seed_detail"]["work_after"] = serde_json::json!(self.clock.counts());
+                     self.clock
+                         .charge(Work::RegisteredItem, changed_keys.len() as f64);
+                     let now = self.clock.now();
+@@ -944,7 +1002,11 @@
+                     );
+                     let (receiver_snapshot, receiver_tracker) =
+                         receiver_sep.separate(&self.deadline(middle));
++                    trace.attempts[attempt_index]["repair_detail"] = serde_json::json!({
++                        "receiver_loss":receiver_tracker.total_loss(), "source_loss":null, "source_after":null,
++                    });
+                     if receiver_tracker.total_loss() > 0.0 {
++                        trace.attempts[attempt_index]["outcome"] = serde_json::json!("receiver_repair_failed");
+                         continue;
+                     }
+                     let mut source_sep = Separator::new(
+@@ -955,9 +1017,17 @@
+                     );
+                     let (source_snapshot, source_tracker) =
+                         source_sep.separate(&self.deadline(pair_end));
++                    trace.attempts[attempt_index]["repair_detail"]["source_loss"] = serde_json::json!(source_tracker.total_loss());
++                    trace.attempts[attempt_index]["repair_detail"]["source_after"] = serde_json::json!(
++                        JLayout::from_snapshot(&source_snapshot).placed_items().values().map(|p| {
++                            let item=p.item().idx();
++                            serde_json::json!({"part_id":self.model.job.parts[self.model.part[item]].id,
++                                "transform":self.model.external(item,&p.d_transf())})
++                        }).collect::<Vec<_>>());
+                     if source_tracker.total_loss() > 0.0
+                         || self.clock.now() >= self.last_step(exchange_until)
+                     {
++                        trace.attempts[attempt_index]["outcome"] = serde_json::json!("source_repair_or_expiry");
+                         continue;
+                     }
+                     let mut trial = JLayout::from_snapshot(&sep.layout.save());
+@@ -978,6 +1048,7 @@
+                     if exact_physical_state(&sep.layout, &trial) {
+                         self.stats.neutral_exchange_rejections += 1;
+                         self.stats.exact_state_exchange_rejections += 1;
++                        trace.attempts[attempt_index]["outcome"] = serde_json::json!("exact_state_rejected");
+                         continue;
+                     }
+                     let trial_layout = self.exchange_layout(strip, frozen, &trial, shape)?;
+@@ -995,18 +1066,25 @@
+                         {
+                             self.stats.neutral_exchange_rejections += 1;
+                             self.stats.material_profile_exchange_rejections += 1;
++                            trace.attempts[attempt_index]["outcome"] = serde_json::json!("material_profile_rejected");
+                             continue;
+                         }
+                     }
+                     let report = self.exchange_report(&trial_layout)?;
+                     if !report.valid {
+                         self.stats.rejected_layouts += 1;
++                        trace.attempts[attempt_index]["outcome"] = serde_json::json!("independent_geometry_failed");
+                         continue;
+                     }
+                     let after = report.metrics.as_ref().expect("valid exchange");
++                    trace.attempts[attempt_index]["material_detail"] = serde_json::json!({
++                        "material_increased":exchange_increases_material(before,after),
++                        "metrics":after, "layout":trial_layout,
++                    });
+                     if exchange_increases_material(before, after)
+                         || self.clock.now() >= exchange_until
+                     {
++                        trace.attempts[attempt_index]["outcome"] = serde_json::json!("material_guard_or_expiry");
+                         continue;
+                     }
+                     // Same inventory can still improve the geometry, but a
+@@ -1015,6 +1093,7 @@
+                         && after.material_area >= before.material_area
+                     {
+                         self.stats.neutral_exchange_rejections += 1;
++                        trace.attempts[attempt_index]["outcome"] = serde_json::json!("neutral_inventory_rejected");
+                         continue;
+                     }
+                     sep.layout = trial;
+@@ -1022,6 +1101,7 @@
+                     self.stats.directed_exchanges += 1;
+                     self.stats.paired_exchanges += u64::from(paired);
+                     self.stats.mixed_exchanges += u64::from(mixed);
++                    trace.attempts[attempt_index]["outcome"] = serde_json::json!("accepted");
+                     return Ok(1);
+                 }
+             }
