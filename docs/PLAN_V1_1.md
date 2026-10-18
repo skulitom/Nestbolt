@@ -1072,3 +1072,14 @@ neutral trials preserve exact original-item poses before considering an early
 rejection. Equal inventory/material alone cannot justify skipping validation.
 These instrumented observations do not replace the five failed pilot pairs;
 no integration or H5 credit, and completion remains 60%.
+
+
+**N4 exact-state diagnosis preparation, 2026-10-18:** [the observer passes all 116 optimized tests](../benchmarks/results/h5-exact-state-preparation-20261018.md),
+strict lint/build, fourteen authored trace cases and 37 malformed-record checks.
+All 113 prior tests remain unchanged. Exact reconstruction covers all 154 files;
+153 are unchanged from the preceding observer. Two panel-hardware diagnostics
+will compare complete internal pose multisets and independently check both
+layouts saved for neutral rejections. The comparison records observations only;
+all decisions, full validators, material guards and time limits remain.
+No production integration, reserved access or quality claim; H2/H5 remain open
+and completed weight stays 60%.
