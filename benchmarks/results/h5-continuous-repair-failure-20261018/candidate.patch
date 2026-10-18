@@ -1,0 +1,161 @@
+--- exchange-chain/crates/core/src/sheets/vstrip/exchange.rs
++++ continuous-repair/crates/core/src/sheets/vstrip/exchange.rs
+@@ -713,6 +713,17 @@
+         );
+     }
+     out
++}
++
++// Internal allocation only; the caller supplies the existing relocation deadline.
++pub(super) fn exchange_deadline(_now: f64, budget: f64) -> f64 {
++    budget
++}
++
++fn repair_deadlines(now: f64, until: f64) -> (f64, f64) {
++    let former_pair_end = now + ((until - now) * 0.5).min(0.4);
++    // Preserve receiver work; give one continuous source repair the phase remainder.
++    ((now + former_pair_end) / 2.0, until)
+ }
+ 
+ // A successful flat exchange remains accepted, but must end continuation.
+@@ -975,10 +986,9 @@
+                     self.clock
+                         .charge(Work::RegisteredItem, changed_keys.len() as f64);
+                     let now = self.clock.now();
+-                    // Bound each pair so one hard proposal cannot consume all
+-                    // remaining opportunities. Each repair gets half the pair.
+-                    let pair_end = now + ((self.last_step(exchange_until) - now) * 0.5).min(0.4);
+-                    let middle = (now + pair_end) / 2.0;
++                    // Keep the short receiver allowance; source repair may use
++                    // the rest of this phase, respecting the validation reserve.
++                    let (middle, pair_end) = repair_deadlines(now, self.last_step(exchange_until));
+                     let mut receiver_sep = Separator::new(
+                         next_receiver,
+                         self.rng.next_u64(),
+@@ -3747,4 +3757,115 @@
+         assert_eq!(stats.directed_exchanges, 0);
+     }
+     // END exchange-chain tests
++
++    // BEGIN continuous-repair tests
++    #[test]
++    fn continuous_repair_uses_existing_window_and_preserves_receiver_allocation() {
++        for (now, budget) in [(0.0, 5.4), (2.0, 2.1), (10.0, 25.0)] {
++            assert_eq!(
++                exchange_deadline(now, budget),
++                budget,
++                "Use the existing relocation allowance"
++            );
++            let (receiver, source) = repair_deadlines(now, budget);
++            let former_pair = now + ((budget - now) * 0.5).min(0.4);
++            assert_eq!(receiver, (now + former_pair) / 2.0);
++            assert_eq!(source, budget);
++            assert!(receiver <= source);
++        }
++    }
++
++    #[test]
++    fn continuous_repair_can_clear_source_after_short_slice_has_elapsed() {
++        let (mut job, mut layout) = fixture();
++        job.name = "Authored source repair after elapsed short slice".into();
++        job.parts = vec![rectangle("tile", 17.0, 17.0)];
++        job.parts[0].quantity = 25;
++        layout.sheets.truncate(1);
++        layout.placements.clear();
++        for row in 0..5 {
++            for col in 0..5 {
++                layout.placements.push(Placement {
++                    part_id: "tile".into(),
++                    copy_index: row * 5 + col,
++                    sheet_id: "sheet-0".into(),
++                    transform: RigidTransform {
++                        translation: [2.0 + 16.0 * f64::from(col), 2.0 + 16.0 * f64::from(row)],
++                        ..Default::default()
++                    },
++                });
++            }
++        }
++        assert!(
++            !validate(&job, &layout).unwrap().valid,
++            "This is an overlapping proposed source, not an accepted layout"
++        );
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let clock = Clock::new(Timing::Work, 60.0);
++        let mut source = Separator::new(
++            JLayout::from_snapshot(&sheets[0].layout().save()),
++            0,
++            EXPLORE,
++            clock.clone(),
++        );
++        assert!(source.tracker.total_loss() > 0.0);
++        let now = clock.now();
++        let former_source = now + 0.4;
++        let full_until = now + 3.0;
++        let (_, source_until) = repair_deadlines(now, full_until);
++        // Explicitly simulate prior receiver work consuming the short slice.
++        // This charged delay is a policy fixture, never a timing measurement.
++        clock.charge(Work::Evaluation, 300_000.0);
++        let started = clock.now();
++        assert!(started > former_source && started < full_until);
++        let (snapshot, tracker) = source.separate(&crate::clock::Deadline {
++            clock: clock.clone(),
++            at: source_until,
++        });
++        assert_eq!(
++            tracker.total_loss(),
++            0.0,
++            "Remaining phase must permit actual source repair"
++        );
++        assert!(
++            clock.now() < full_until,
++            "Repair must finish before the shared phase ends"
++        );
++        let repaired = JLayout::from_snapshot(&snapshot);
++        let after = free_return_public(&model, &model.to_layout(&sheets), &repaired, "sheet-0");
++        let report = validate(&job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        eprintln!(
++            "CONTINUOUS_REPAIR_WITNESS {}",
++            serde_json::json!({"job":job,"before":layout,"after":after,"source_started":started,"former_source_until":former_source,"full_until":full_until,"source_until":source_until,"finished":clock.now(),"simulated_prior_evaluations":300000,"work":clock.counts()})
++        );
++    }
++
++    #[test]
++    fn continuous_repair_expired_disabled_and_mid_validation_keep_incumbent() {
++        let (job, layout) = chain_fixture();
++        let (_, before, _) = chain_exercise(&job, &layout, 0, false, 10.0, 0);
++        for (enabled, budget) in [(false, 10.0), (true, 0.0), (true, 1e-12)] {
++            let (moved, after, stats) = chain_exercise(&job, &layout, 0, enabled, budget, 0);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.directed_exchanges, 0);
++            assert_eq!(
++                serde_json::to_value(after).unwrap(),
++                serde_json::to_value(&before).unwrap()
++            );
++        }
++    }
++
++    #[test]
++    fn continuous_repair_failed_source_still_rolls_back_all_parts() {
++        let (mut job, layout) = fixture();
++        job.parts[1] = rectangle("return", 5.0, 90.0);
++        job.parts[2] = rectangle("incoming", 30.0, 30.0);
++        let (moved, _, stats) = chain_exercise(&job, &layout, 0, true, 3.0, 0);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.directed_exchanges, 0);
++        assert!(stats.directed_exchange_attempts > 0);
++    }
++    // END continuous-repair tests
+ }
+--- exchange-chain/crates/core/src/sheets/vstrip.rs
++++ continuous-repair/crates/core/src/sheets/vstrip.rs
+@@ -727,7 +727,7 @@
+                         // Share the existing relocation budget; run before fill
+                         // can short-circuit the ordinary relocation path.
+                         let exchanged = if self.allow_exchange {
+-                            let exchange_until = (t + 1.2).min(budget);
++                            let exchange_until = exchange::exchange_deadline(t, budget);
+                             timed("exchange", || {
+                                 self.directed_exchange_chain(
+                                     &strip,

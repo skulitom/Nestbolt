@@ -14770,3 +14770,17 @@ No new reserved-input access or H5 credit. Production, frozen inputs and
 earlier failures remain unchanged. H2/H5 remain open at 60%.
 
 All six hosted checks on preceding main `bfde198` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that checkpoint. The subsequent isolated continuation experiment still fails all four mechanical material comparisons and remains excluded from production. [Hosted evidence](benchmarks/results/h5-exchange-chain-pilot-20261018/main-ci-bfde198.json).
+
+
+## 2026-10-18 — Continuous source repair fails functional qualification
+
+**N4 continuous-repair qualification failure, 2026-10-18:** the [isolated allocation](benchmarks/results/h5-continuous-repair-failure-20261018.md)
+passes 142 tests and fails three unchanged exchange regressions. It uses the
+existing relocation allowance and lets each source repair use its phase remainder.
+The new source-repair witness validates, but the old larger-return and mixed-item
+examples lose required swaps. Six independent validations confirm valid retained
+incumbents with the same material as the preceding accepted results. The authored
+delay is explicitly simulated; no wall-time or quality claim follows. All failures
+remain, no assertions change, and no quality pilot starts. Next preserve the
+original short phase, then allow strictly improving continuous repairs with the
+remaining allowance. Production is unchanged; H2/H5 remain open at 60%.

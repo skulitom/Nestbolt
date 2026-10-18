@@ -1409,3 +1409,15 @@ pairs across 48 common-mode layouts. 4 of eight material pairs fail
 the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.359062%; m-mechanical-large-plates at 1.5 mm: +5.690931%; m-mechanical-panel-hardware at 0.2 mm: +6.541327%; m-mechanical-panel-hardware at 1.5 mm: +5.555891%
 The candidate accepts 28/169 exchanges, including 25/101 paired and 2/5 mixed-item exchanges. Follow-up gap filling runs 14 times and moves 22 parts. Of 6 neutral rejections, 0 are caught by exact internal-state equality and 5 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
 unchanged. H2/H5 remain open at 60%.
+
+
+**N4 continuous-repair qualification failure, 2026-10-18:** the [isolated allocation](../benchmarks/results/h5-continuous-repair-failure-20261018.md)
+passes 142 tests and fails three unchanged exchange regressions. It uses the
+existing relocation allowance and lets each source repair use its phase remainder.
+The new source-repair witness validates, but the old larger-return and mixed-item
+examples lose required swaps. Six independent validations confirm valid retained
+incumbents with the same material as the preceding accepted results. The authored
+delay is explicitly simulated; no wall-time or quality claim follows. All failures
+remain, no assertions change, and no quality pilot starts. Next preserve the
+original short phase, then allow strictly improving continuous repairs with the
+remaining allowance. Production is unchanged; H2/H5 remain open at 60%.
