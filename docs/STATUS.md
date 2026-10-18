@@ -128,6 +128,19 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 native-margin diagnosis, 2026-10-18:** [exact native polygons and tracker entries](../benchmarks/results/h5-native-collision-diagnosis-20261018.md)
+agree on all 51,175 checked pairs. The saved physical gaps are too tight for the
+unchanged native inflation/edge margins. Translations below 0.18 mm produce four
+partials with exactly zero native loss on each sheet and the joined strip; all
+original sizes, rotations, assignments and stock targets remain. The extra
+0.001 mm construction cushion still misses its declared limit and is preserved
+as failed. Original public checks reject only the unchanged missing quantities;
+13,566 additional filled-outer pairs pass. Restoring the same missing poses still
+expires all four original-budget repair calls. Next observe the retained best
+snapshot on expiry for the closest case, without accepting it or changing limits.
+The f32 audit correction, original linearization failure and all failed repairs
+remain preserved. Runtime/release assets stay unchanged; H2/H5 remain open at 60%.
+
 **N4 saved-partial joint repair, 2026-10-18:** [four bounded native attempts](../benchmarks/results/h5-pattern-joint-diagnosis-20261018.md)
 restore every missing original copy in explicit overlapping proposals; all original
 partial poses remain exact. All four existing helper calls expire under seed 0

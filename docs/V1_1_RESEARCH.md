@@ -1912,3 +1912,16 @@ Rankings of all 308,326 recorded scores are checked; independent geometry checks
 cover 32,527 original pairs and 5,395 selected-insertion comparisons. Input/build/audit harness failures remain
 preserved; no native repair or quality run was repeated. Runtime, guard, budgets,
 thresholds and release assets are unchanged; H2/H5 remain open at 60%.
+
+**N4 native-margin diagnosis, 2026-10-18:** [exact native polygons and tracker entries](../benchmarks/results/h5-native-collision-diagnosis-20261018.md)
+agree on all 51,175 checked pairs. The saved physical gaps are too tight for the
+unchanged native inflation/edge margins. Translations below 0.18 mm produce four
+partials with exactly zero native loss on each sheet and the joined strip; all
+original sizes, rotations, assignments and stock targets remain. The extra
+0.001 mm construction cushion still misses its declared limit and is preserved
+as failed. Original public checks reject only the unchanged missing quantities;
+13,566 additional filled-outer pairs pass. Restoring the same missing poses still
+expires all four original-budget repair calls. Next observe the retained best
+snapshot on expiry for the closest case, without accepting it or changing limits.
+The f32 audit correction, original linearization failure and all failed repairs
+remain preserved. Runtime/release assets stay unchanged; H2/H5 remain open at 60%.
