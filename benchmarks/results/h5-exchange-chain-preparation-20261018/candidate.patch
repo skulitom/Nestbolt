@@ -1,0 +1,324 @@
+--- free-return/crates/core/src/sheets/vstrip/exchange.rs
++++ exchange-chain/crates/core/src/sheets/vstrip/exchange.rs
+@@ -715,6 +715,21 @@
+     out
+ }
+ 
++// A successful flat exchange remains accepted, but must end continuation.
++fn continue_exchanges(mut step: impl FnMut() -> Result<Option<bool>>) -> Result<usize> {
++    let mut accepted = 0;
++    for _ in 0..4 {
++        let Some(material_improved) = step()? else {
++            break;
++        };
++        accepted += 1;
++        if !material_improved {
++            break;
++        }
++    }
++    Ok(accepted)
++}
++
+ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
+     fn exchange_layout(
+         &self,
+@@ -736,9 +751,7 @@
+         Ok(report)
+     }
+ 
+-    /// At most one exchange. The original separator is untouched until both
+-    /// repairs and the independent whole-job material/geometry guard pass.
+-    pub(super) fn directed_exchange(
++    pub(super) fn directed_exchange_chain(
+         &mut self,
+         strip: &Strip,
+         frozen: &[SPProblem],
+@@ -746,13 +759,43 @@
+         shape: Shape,
+         until: f64,
+     ) -> Result<usize> {
++        // Each attempt receives the original absolute deadline. The already
++        // validated material comparison supplies the continuation decision.
++        continue_exchanges(|| self.directed_exchange_once(strip, frozen, sep, shape, until))
++    }
++
++    #[cfg(test)]
++    fn directed_exchange(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++    ) -> Result<usize> {
++        Ok(usize::from(
++            self.directed_exchange_once(strip, frozen, sep, shape, until)?
++                .is_some(),
++        ))
++    }
++
++    /// At most one exchange. The original separator is untouched until both
++    /// repairs and the independent whole-job material/geometry guard pass.
++    fn directed_exchange_once(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++    ) -> Result<Option<bool>> {
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
+-            return Ok(0);
++            return Ok(None);
+         }
+         let baseline_layout = self.exchange_layout(strip, frozen, &sep.layout, shape)?;
+         let baseline = self.exchange_report(&baseline_layout)?;
+         if !baseline.valid {
+-            return Ok(0);
++            return Ok(None);
+         }
+         let before = baseline.metrics.as_ref().expect("valid baseline");
+         let baseline_profile = std::cell::OnceCell::new();
+@@ -1022,11 +1065,11 @@
+                     self.stats.directed_exchanges += 1;
+                     self.stats.paired_exchanges += u64::from(paired);
+                     self.stats.mixed_exchanges += u64::from(mixed);
+-                    return Ok(1);
++                    return Ok(Some(after.material_area < before.material_area));
+                 }
+             }
+         }
+-        Ok(0)
++        Ok(None)
+     }
+ }
+ 
+@@ -3491,4 +3534,217 @@
+         assert!(clock.counts().evaluations > 1.0 && clock.counts().evaluations <= 257.0);
+     }
+     // END free-return tests
++
++    fn chain_exercise(
++        job: &Job,
++        layout: &Layout,
++        seed: u64,
++        enabled: bool,
++        budget: f64,
++        frozen_count: usize,
++    ) -> (usize, Layout, Stats) {
++        let validation = validate(job, layout).unwrap();
++        assert!(validation.valid, "{:?}", validation.violations);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(seed),
++            clock: clock.clone(),
++            best: (layout.clone(), validation, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let (frozen, window) = sheets.split_at(frozen_count);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(window, shape).unwrap(),
++            seed,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        // Compare the same f32 internal frame before/after the exchange. The
++        // public-to-internal conversion predates this operation and has its own
++        // tests; comparing to the authored f64 coordinates conflates the two.
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_layout = model.to_layout(&before_sheets);
++        let before_report = validate(job, &before_layout).unwrap();
++        assert!(before_report.valid);
++        let before_material = before_report.metrics.as_ref().unwrap().material_area;
++        let original = fingerprint(&sep.layout);
++        let until = if budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + budget
++        };
++        let moved = search
++            .directed_exchange_chain(&strip, frozen, &mut sep, shape, until)
++            .unwrap();
++        if moved == 0 {
++            assert_eq!(
++                fingerprint(&sep.layout),
++                original,
++                "failed proposal mutated the original state"
++            );
++        }
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let after = model.to_layout(&after_sheets);
++        for i in 0..frozen_count {
++            let id = format!("sheet-{i}");
++            let before_fixed: Vec<_> = before_layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            let after_fixed: Vec<_> = after
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            assert_eq!(
++                serde_json::to_value(before_fixed).unwrap(),
++                serde_json::to_value(after_fixed).unwrap()
++            );
++        }
++        let report = validate(job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert!(report.metrics.as_ref().unwrap().material_area <= before_material);
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "CHAIN_WITNESS {}",
++            serde_json::json!({"job":job,"before":before_layout,"after":after,"seed":seed,"enabled":enabled,"budget":budget,"moved":moved,"work":search.clock.counts(),"until":until,"finished":search.clock.now()})
++        );
++        (moved, after, search.stats)
++    }
++
++    // BEGIN exchange-chain tests
++    fn chain_fixture() -> (Job, Layout) {
++        let (mut job, mut layout) = fixture();
++        job.name = "Two successive source-height reductions".into();
++        job.parts[0].quantity = 2;
++        job.parts[1].quantity = 2;
++        job.parts.push(rectangle("incoming-short", 30.0, 65.0));
++        layout.sheets.push(Sheet {
++            id: "sheet-2".into(),
++            stock_id: "stock".into(),
++        });
++        layout.placements[2].sheet_id = "sheet-2".into();
++        for index in 0..2 {
++            let mut p = layout.placements[index].clone();
++            p.copy_index = 1;
++            p.sheet_id = "sheet-1".into();
++            layout.placements.push(p);
++        }
++        layout.placements.push(Placement {
++            part_id: "incoming-short".into(),
++            copy_index: 0,
++            sheet_id: "sheet-2".into(),
++            transform: RigidTransform {
++                translation: [36.0, 2.0],
++                ..Default::default()
++            },
++        });
++        assert!(validate(&job, &layout).unwrap().valid);
++        (job, layout)
++    }
++
++    #[test]
++    fn exchange_chain_policy_stops_on_flat_failure_and_four_successes() {
++        let mut calls = 0;
++        assert_eq!(
++            continue_exchanges(|| {
++                calls += 1;
++                Ok(Some(true))
++            })
++            .unwrap(),
++            4
++        );
++        assert_eq!(calls, 4);
++        for (sequence, expected, counter) in [
++            (vec![Some(false), Some(true)], 1, 1),
++            (vec![Some(true), None, Some(true)], 1, 2),
++            (vec![Some(true), Some(false), Some(true)], 2, 2),
++            (vec![None, Some(true)], 0, 1),
++        ] {
++            let mut calls = 0;
++            let moved = continue_exchanges(|| {
++                let result = sequence[calls];
++                calls += 1;
++                Ok(result)
++            })
++            .unwrap();
++            assert_eq!(moved, expected);
++            assert_eq!(calls, counter);
++        }
++    }
++
++    #[test]
++    fn exchange_chain_accepts_successive_valid_gains_and_replays() {
++        let (job, layout) = chain_fixture();
++        let (once, one, _) = exercise(&job, &layout, 0, true, false, 0);
++        assert_eq!(once, 1);
++        let (moved, after, stats) = chain_exercise(&job, &layout, 0, true, 3.0, 0);
++        assert!((2..=4).contains(&moved), "successive exchanges: {stats:?}");
++        assert_eq!(stats.directed_exchanges, moved as u64);
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < validate(&job, &one).unwrap().metrics.unwrap().material_area
++        );
++        let (again, replay, _) = chain_exercise(&job, &layout, 0, true, 3.0, 0);
++        assert_eq!(again, moved);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(replay).unwrap()
++        );
++    }
++
++    #[test]
++    fn exchange_chain_disabled_expired_and_validation_deadline_preserve_incumbent() {
++        let (job, layout) = chain_fixture();
++        let (_, baseline, _) = chain_exercise(&job, &layout, 0, false, 3.0, 0);
++        for (enabled, budget) in [(false, 3.0), (true, 0.0), (true, 1e-12)] {
++            let (moved, after, stats) = chain_exercise(&job, &layout, 0, enabled, budget, 0);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.directed_exchanges, 0);
++            assert_eq!(
++                serde_json::to_value(after).unwrap(),
++                serde_json::to_value(&baseline).unwrap()
++            );
++        }
++    }
++
++    #[test]
++    fn exchange_chain_failed_repair_preserves_frozen_and_active_sheets() {
++        let (mut job, layout) = chain_fixture();
++        job.parts[2] = rectangle("incoming", 20.0, 10.0);
++        job.parts[3] = rectangle("incoming-short", 20.0, 10.0);
++        let (moved, _, stats) = chain_exercise(&job, &layout, 0, true, 3.0, 1);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.directed_exchanges, 0);
++    }
++    // END exchange-chain tests
+ }
+--- free-return/crates/core/src/sheets/vstrip.rs
++++ exchange-chain/crates/core/src/sheets/vstrip.rs
+@@ -729,7 +729,7 @@
+                         let exchanged = if self.allow_exchange {
+                             let exchange_until = (t + 1.2).min(budget);
+                             timed("exchange", || {
+-                                self.directed_exchange(
++                                self.directed_exchange_chain(
+                                     &strip,
+                                     frozen,
+                                     &mut sep,

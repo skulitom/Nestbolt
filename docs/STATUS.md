@@ -119,6 +119,19 @@ under the same absolute deadline, after authored correctness checks. This is
 not yet implemented and does not solve the panel repair failures. Original
 limits, failed evidence, production and reserved inputs remain; H2/H5 stay open at 60%.
 
+**N4 exchange-continuation preparation, 2026-10-18:** the [qualified isolated candidate](../benchmarks/results/h5-exchange-chain-preparation-20261018.md)
+allows up to four exchanges under the original absolute deadline, continuing only
+after a strict material gain. Rejection or an accepted flat result stops it. All
+single-step guards and the preceding return initializer remain. All 141 optimized
+tests pass, with 137 unchanged prior tests and four new regressions. The expected
+two old-behavior failures and an earlier source assembly syntax failure remain.
+Seven saved chain outputs pass fourteen frozen-CLI checks and independent geometry;
+twelve original branch outcomes, 24 branch checks, ten public outcomes, four public
+comparisons and five harness tests pass. Source reconstruction, lint and build pass.
+The four-job matched pilot is ready to be planned; no new quality run has begun.
+This does not resolve panel repair failures or earn H5 credit. H2/H5 remain open
+at 60%; production and release claims are unchanged.
+
 **N4 free-space-return outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-free-return-pilot-20261018.md).
 The independent filled-outer audit checks 133,284 same-sheet
 pairs across 48 common-mode layouts. 5 of eight material pairs fail

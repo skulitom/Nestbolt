@@ -1,0 +1,10 @@
+{
+  "parent_finisher": "output/finish_h5_free_return_pilot.py",
+  "parent_sha256": "4cc1a9dc0e249fa6427e66fbbf6cfe2820cf0eb8e1ac29994d538f77383849a5",
+  "counter_assertion_before": "if row['arm']=='candidate':assert calls==stats.get('directed_exchanges',0)",
+  "counter_assertion_after": "if row['arm']=='candidate':assert calls<=stats.get('directed_exchanges',0)<=4*calls",
+  "reason": "Gap filling still runs once after each accepted window; continuation may accept up to four exchanges in that window. All original counter values remain unchanged.",
+  "geometry_and_scoring_assertions_unchanged": true,
+  "candidate_finisher_sha256": "7478ba8449b0a9350455f45265aa73c3dad1f6566a7c4caf50416a5d5e5f5731",
+  "new_searches": 0
+}

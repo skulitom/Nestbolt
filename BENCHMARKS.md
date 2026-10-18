@@ -14737,3 +14737,19 @@ not yet implemented and does not solve the panel repair failures. Original
 limits, failed evidence, production and reserved inputs remain; H2/H5 stay open at 60%.
 
 The bounded free-space seed stage changed none of the 43 observed return poses despite charged evaluations. These four diagnostic trajectories therefore supply no successful new seed witness, and do not justify expanding its sample count blindly. The two large-plate exchanges are independently valid but save less than 0.1 mm of charged height each; a cog or another insert remains height-setting. Source review shows that the directed step is invoked once per feasible window and returns immediately after its first accepted exchange. The next distinct hypothesis is bounded continuation after a strictly material-improving exchange, using the same original absolute exchange deadline and original total search budget, with a small explicit cap and stopping on no acceptance or no strict material gain. Keep the original per-exchange independent geometry/material guards, exact quantities, filled-hole reservation, and disabled/expired behavior. Qualify authored multi-success and rollback/deadline cases before a newly committed matched pilot. This targets the observed early return after tiny gains; it does not resolve the seventeen panel source-repair failures by itself, prove that another exchange fits, or establish H5 feasibility. All original H5 limits and the complete 13-job requirement remain. Do not repeat the unchanged failed quality pilot or access reserved geometry.
+
+
+## 2026-10-18 — Bounded exchange continuation qualification
+
+**N4 exchange-continuation preparation, 2026-10-18:** the [qualified isolated candidate](benchmarks/results/h5-exchange-chain-preparation-20261018.md)
+allows up to four exchanges under the original absolute deadline, continuing only
+after a strict material gain. Rejection or an accepted flat result stops it. All
+single-step guards and the preceding return initializer remain. All 141 optimized
+tests pass, with 137 unchanged prior tests and four new regressions. The expected
+two old-behavior failures and an earlier source assembly syntax failure remain.
+Seven saved chain outputs pass fourteen frozen-CLI checks and independent geometry;
+twelve original branch outcomes, 24 branch checks, ten public outcomes, four public
+comparisons and five harness tests pass. Source reconstruction, lint and build pass.
+The four-job matched pilot is ready to be planned; no new quality run has begun.
+This does not resolve panel repair failures or earn H5 credit. H2/H5 remain open
+at 60%; production and release claims are unchanged.
