@@ -1,0 +1,774 @@
+--- baseline/crates/core/src/sheets/vstrip/exchange.rs
++++ candidate/crates/core/src/sheets/vstrip/exchange.rs
+@@ -759,7 +759,29 @@
+     Extended,
+     #[cfg_attr(not(test), allow(dead_code))]
+     AssignmentBridge,
++    #[cfg_attr(not(test), allow(dead_code))]
+     JointRepair,
++    JointFrontier,
++}
++
++// Use the existing fitted bounds, with the original crop as a hard upper limit.
++// Charge this additional scan; its caller retains the absolute phase deadline.
++fn source_frontier_target(strip: &Strip, source: &JLayout, original: f32) -> f32 {
++    if source.placed_items().is_empty() {
++        return original;
++    }
++    strip
++        .clock
++        .charge(Work::RegisteredItem, source.placed_items().len() as f64);
++    strip
++        .fit_last(
++            source,
++            Shape {
++                sheets: 1,
++                last: original,
++            },
++        )
++        .min(original)
+ }
+ 
+ // Stable original-part order gives equal inventories exactly equal areas,
+@@ -815,6 +837,40 @@
+         Ok(report)
+     }
+ 
++    pub(super) fn source_frontier_window(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        short_until: f64,
++        until: f64,
++    ) -> Result<usize> {
++        let accepted = self.directed_exchange_chain(strip, frozen, sep, shape, short_until)?;
++        let extra = self.source_frontier_chain(strip, frozen, sep, shape, until, accepted)?;
++        Ok(accepted + extra)
++    }
++
++    fn source_frontier_chain(
++        &mut self,
++        strip: &Strip,
++        frozen: &[SPProblem],
++        sep: &mut Separator,
++        shape: Shape,
++        until: f64,
++        accepted: usize,
++    ) -> Result<usize> {
++        self.provisional_exchange_chain(
++            strip,
++            frozen,
++            sep,
++            shape,
++            until,
++            (accepted, ExchangePolicy::JointFrontier),
++        )
++    }
++
++    #[cfg(test)]
+     pub(super) fn joint_exchange_window(
+         &mut self,
+         strip: &Strip,
+@@ -829,6 +885,7 @@
+         Ok(accepted + extra)
+     }
+ 
++    #[cfg(test)]
+     fn joint_exchange_chain(
+         &mut self,
+         strip: &Strip,
+@@ -1183,9 +1240,15 @@
+         let extended = policy != ExchangePolicy::Short;
+         let bridge = matches!(
+             policy,
+-            ExchangePolicy::AssignmentBridge | ExchangePolicy::JointRepair
+-        );
+-        let joint = policy == ExchangePolicy::JointRepair;
++            ExchangePolicy::AssignmentBridge
++                | ExchangePolicy::JointRepair
++                | ExchangePolicy::JointFrontier
++        );
++        let frontier = policy == ExchangePolicy::JointFrontier;
++        let joint = matches!(
++            policy,
++            ExchangePolicy::JointRepair | ExchangePolicy::JointFrontier
++        );
+         if !self.allow_exchange || shape.sheets < 2 || self.clock.now() >= self.last_step(until) {
+             return Ok(None);
+         }
+@@ -1298,6 +1361,15 @@
+                 }
+                 self.clock
+                     .charge(Work::RegisteredItem, changed_keys.len() as f64);
++                // Selected members are already absent; returns have not been added.
++                // A nonempty exposed source supplies a geometric target. If it is
++                // empty, preserve the old crop: forcing an empty last sheet would
++                // unnecessarily reject useful exchanges that cannot eliminate it.
++                let source_last = if frontier {
++                    source_frontier_target(strip, &source, shape.last)
++                } else {
++                    shape.last
++                };
+                 let proposal_until = self.last_step(exchange_until);
+                 let candidates = if paired {
+                     paired_proposals(
+@@ -1374,11 +1446,12 @@
+                     self.clock
+                         .charge(Work::RegisteredItem, changed_keys.len() as f64);
+                     let repaired = if joint {
++                        self.stats.source_frontier_attempts += u64::from(source_last < shape.last);
+                         self.joint_repair_pair(
+                             strip,
+                             next_receiver,
+                             next_source,
+-                            shape.last,
++                            source_last,
+                             exchange_until,
+                         )?
+                     } else {
+@@ -5978,4 +6051,281 @@
+         );
+     }
+     // END source-frontier witness
++    fn frontier_policy_exercise(
++        job: &Job,
++        layout: &Layout,
++        seed: u64,
++        enabled: bool,
++        phase: (f64, f64, u8),
++        frozen_count: usize,
++    ) -> (usize, Layout, Stats) {
++        let (short_budget, budget, mode) = phase;
++        let validation = validate(job, layout).unwrap();
++        assert!(validation.valid, "{:?}", validation.violations);
++        let model = Model::new(job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let mut search = Search {
++            model: &model,
++            allow_exchange: enabled,
++            rng: Xoshiro256PlusPlus::seed_from_u64(seed),
++            clock: clock.clone(),
++            best: (layout.clone(), validation, 0.0),
++            history: vec![],
++            stats: Stats::default(),
++            progress: |_: &Progress, _: &dyn Fn() -> Option<Layout>| {},
++            check_cost: 0.0,
++            check_every: 5.0,
++        };
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(layout).unwrap();
++        let (frozen, window) = sheets.split_at(frozen_count);
++        let mut shape = Shape {
++            sheets: window.len(),
++            last: model.full_width,
++        };
++        let initial = strip.layout(window, shape).unwrap();
++        shape.last = strip.fit_last(&initial, shape);
++        let mut sep = Separator::new(
++            strip.layout(window, shape).unwrap(),
++            seed,
++            EXPLORE,
++            search.clock.clone(),
++        );
++        sep.pin(blocker_index(&model));
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        // Compare the same f32 internal frame before/after the exchange. The
++        // public-to-internal conversion predates this operation and has its own
++        // tests; comparing to the authored f64 coordinates conflates the two.
++        let mut before_sheets = frozen.to_vec();
++        before_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let before_layout = model.to_layout(&before_sheets);
++        let before_report = validate(job, &before_layout).unwrap();
++        assert!(before_report.valid);
++        let before_material = before_report.metrics.as_ref().unwrap().material_area;
++        let original = fingerprint(&sep.layout);
++        let until = if budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + budget
++        };
++        let short_until = if short_budget <= 0.0 {
++            0.0
++        } else {
++            search.clock.now() + short_budget
++        };
++        let mut fast_layout = None;
++        let moved = match mode {
++            0 => search
++                .source_frontier_window(&strip, frozen, &mut sep, shape, short_until, until)
++                .unwrap(),
++            1 => search
++                .source_frontier_chain(&strip, frozen, &mut sep, shape, until, 0)
++                .unwrap(),
++            3 => search
++                .source_frontier_chain(&strip, frozen, &mut sep, shape, until, 3)
++                .unwrap(),
++            2 => {
++                let accepted = search
++                    .directed_exchange_chain(&strip, frozen, &mut sep, shape, short_until)
++                    .unwrap();
++                assert!(accepted > 0);
++                let fingerprint_before = fingerprint(&sep.layout);
++                fast_layout = Some(
++                    search
++                        .exchange_layout(&strip, frozen, &sep.layout, shape)
++                        .unwrap(),
++                );
++                let expired = search.clock.now();
++                let extra = search
++                    .source_frontier_chain(&strip, frozen, &mut sep, shape, expired, accepted)
++                    .unwrap();
++                assert_eq!(extra, 0);
++                assert_eq!(fingerprint(&sep.layout), fingerprint_before);
++                accepted
++            }
++            4 => search
++                .source_frontier_chain(&strip, frozen, &mut sep, shape, until, 4)
++                .unwrap(),
++            _ => unreachable!(),
++        };
++        if moved == 0 {
++            assert_eq!(
++                fingerprint(&sep.layout),
++                original,
++                "failed proposal mutated the original state"
++            );
++        }
++        let mut after_sheets = frozen.to_vec();
++        after_sheets.extend(strip.split(&sep.layout, shape.sheets).unwrap());
++        let after = model.to_layout(&after_sheets);
++        for i in 0..frozen_count {
++            let id = format!("sheet-{i}");
++            let before_fixed: Vec<_> = before_layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            let after_fixed: Vec<_> = after
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == id)
++                .collect();
++            assert_eq!(
++                serde_json::to_value(before_fixed).unwrap(),
++                serde_json::to_value(after_fixed).unwrap()
++            );
++        }
++        let report = validate(job, &after).unwrap();
++        assert!(report.valid, "{:?}", report.violations);
++        assert!(report.metrics.as_ref().unwrap().material_area <= before_material);
++        assert_eq!(sep.tracker.total_loss(), 0.0);
++        eprintln!(
++            "FRONTIER_POLICY_WITNESS {}",
++            serde_json::json!({"job":job,"before":before_layout,"after":after,"seed":seed,"enabled":enabled,"budget":budget,"short_budget":short_budget,"mode":mode,"fast_layout":fast_layout,"stats":search.stats,"moved":moved,"work":search.clock.counts(),"until":until,"finished":search.clock.now()})
++        );
++        (moved, after, search.stats)
++    }
++
++    fn frontier_fixture() -> (Job, Layout) {
++        let job = serde_json::from_str(include_str!(concat!(
++            env!("CARGO_MANIFEST_DIR"),
++            "/../../examples/frontier-job.json"
++        )))
++        .unwrap();
++        let layout = serde_json::from_str(include_str!(concat!(
++            env!("CARGO_MANIFEST_DIR"),
++            "/../../examples/frontier-before.json"
++        )))
++        .unwrap();
++        (job, layout)
++    }
++    #[test]
++    fn frontier_new_policy_reaches_lower_layout_and_replays() {
++        let (job, before) = frontier_fixture();
++        let (moved, after, stats) =
++            frontier_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 1), 1);
++        assert!(
++            moved > 0
++                && moved <= 4
++                && stats.joint_exchanges > 0
++                && stats.source_frontier_attempts > 0
++        );
++        assert!(
++            validate(&job, &after)
++                .unwrap()
++                .metrics
++                .unwrap()
++                .material_area
++                < 26000.0
++        );
++        let (again, replay, replay_stats) =
++            frontier_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 1), 1);
++        assert_eq!(moved, again);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(replay).unwrap()
++        );
++        assert_eq!(
++            serde_json::to_value(stats).unwrap(),
++            serde_json::to_value(replay_stats).unwrap()
++        );
++    }
++    #[test]
++    fn frontier_new_empty_source_keeps_useful_joint_exchange() {
++        let (job, before) = fixture();
++        let (old, baseline, old_stats) =
++            joint_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 1), 0);
++        let (moved, after, stats) =
++            frontier_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 1), 0);
++        assert!(old > 0 && moved > 0 && stats.joint_exchanges > 0);
++        assert_eq!(stats.source_frontier_attempts, 0);
++        assert_eq!(old, moved);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(baseline).unwrap()
++        );
++        assert_eq!(
++            serde_json::to_value(stats).unwrap(),
++            serde_json::to_value(old_stats).unwrap()
++        );
++    }
++    #[test]
++    fn frontier_new_fast_phase_deadline_and_shared_cap_preserved() {
++        let (job, before) = larger_return_fixture();
++        let (fast, baseline, _) = chain_exercise(&job, &before, 3, true, 3.0, 0);
++        let (moved, after, stats) =
++            frontier_policy_exercise(&job, &before, 3, true, (3.0, 5.0, 2), 0);
++        assert!(fast > 0);
++        assert_eq!(fast, moved);
++        assert_eq!(stats.source_frontier_attempts, 0);
++        assert_eq!(
++            serde_json::to_value(after).unwrap(),
++            serde_json::to_value(baseline).unwrap()
++        );
++        let (job, before) = frontier_fixture();
++        for (enabled, budget, mode) in [
++            (false, 12.0, 1),
++            (true, 0.0, 1),
++            (true, 1e-9, 1),
++            (true, 12.0, 4),
++        ] {
++            let (moved, _, stats) =
++                frontier_policy_exercise(&job, &before, 0, enabled, (0.0, budget, mode), 1);
++            assert_eq!(moved, 0);
++            assert_eq!(stats.source_frontier_attempts, 0);
++            assert_eq!(stats.joint_exchanges, 0);
++        }
++        let (moved, _, stats) = frontier_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 3), 1);
++        assert!(moved <= 1 && stats.assignment_bridge_steps <= 1);
++    }
++    #[test]
++    fn frontier_new_target_is_charged_clamped_and_does_not_mutate_source() {
++        let (job, before) = frontier_fixture();
++        let model = Model::new(&job).unwrap();
++        let clock = Clock::new(Timing::Work, 30.0);
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock: clock.clone(),
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(&before).unwrap();
++        let source = sheets[2].layout();
++        let initial = fingerprint(source);
++        let old_count = clock.counts().registered_items;
++        let target = source_frontier_target(&strip, source, model.full_width);
++        assert!(target < model.full_width);
++        assert_eq!(
++            clock.counts().registered_items - old_count,
++            source.placed_items().len() as f64
++        );
++        assert_eq!(source_frontier_target(&strip, source, 10.0), 10.0);
++        assert_eq!(fingerprint(source), initial);
++        let empty = JLayout::new(source.container().clone());
++        let old_count = clock.counts().registered_items;
++        assert_eq!(
++            source_frontier_target(&strip, &empty, model.full_width),
++            model.full_width
++        );
++        assert_eq!(clock.counts().registered_items, old_count);
++    }
++    #[test]
++    fn frontier_new_flat_partial_sequence_still_rolls_back() {
++        let (job, _) = assignment_bridge_fixture();
++        let before: Layout = serde_json::from_str(include_str!(concat!(
++            env!("CARGO_MANIFEST_DIR"),
++            "/../../examples/joint-rollback-compacted.json"
++        )))
++        .unwrap();
++        let (moved, _, stats) = frontier_policy_exercise(&job, &before, 0, true, (0.0, 12.0, 3), 0);
++        assert_eq!(moved, 0);
++        assert_eq!(stats.directed_exchanges, 0);
++        assert_eq!(stats.joint_exchanges, 0);
++        assert!(stats.assignment_bridge_rolled_back > 0 && stats.joint_repair_completed > 0);
++    }
+ }
+--- baseline/crates/core/src/sheets/vstrip.rs
++++ candidate/crates/core/src/sheets/vstrip.rs
+@@ -729,7 +729,7 @@
+                         let exchanged = if self.allow_exchange {
+                             let exchange_until = (t + 1.2).min(budget);
+                             timed("exchange", || {
+-                                self.joint_exchange_window(
++                                self.source_frontier_window(
+                                     &strip,
+                                     frozen,
+                                     &mut sep,
+--- baseline/crates/core/src/sheets.rs
++++ candidate/crates/core/src/sheets.rs
+@@ -143,6 +143,8 @@
+     pub joint_repair_expired: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub joint_exchanges: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub source_frontier_attempts: u64,
+ }
+ 
+ fn is_zero(n: &u64) -> bool {
+--- baseline/examples/frontier-job.json
++++ candidate/examples/frontier-job.json
+@@ -0,0 +1,236 @@
++{
++  "clearance": 0.2,
++  "edge_clearance": 1.0,
++  "mode": "all",
++  "name": "Explicit source frontier requires joint rearrangement",
++  "parts": [
++    {
++      "allow_mirror": false,
++      "geometry": [
++        {
++          "holes": [],
++          "outer": [
++            [
++              0.0,
++              0.0
++            ],
++            [
++              96.0,
++              0.0
++            ],
++            [
++              96.0,
++              94.0
++            ],
++            [
++              0.0,
++              94.0
++            ]
++          ]
++        }
++      ],
++      "id": "prefix",
++      "priority": 1.0,
++      "quantity": 1,
++      "rotations": {
++        "degrees": [
++          0.0
++        ],
++        "kind": "list"
++      }
++    },
++    {
++      "allow_mirror": false,
++      "geometry": [
++        {
++          "holes": [],
++          "outer": [
++            [
++              0.0,
++              0.0
++            ],
++            [
++              20.0,
++              0.0
++            ],
++            [
++              20.0,
++              94.0
++            ],
++            [
++              0.0,
++              94.0
++            ]
++          ]
++        }
++      ],
++      "id": "filler",
++      "priority": 1.0,
++      "quantity": 1,
++      "rotations": {
++        "degrees": [
++          0.0
++        ],
++        "kind": "list"
++      }
++    },
++    {
++      "allow_mirror": false,
++      "geometry": [
++        {
++          "holes": [],
++          "outer": [
++            [
++              0.0,
++              0.0
++            ],
++            [
++              50.0,
++              0.0
++            ],
++            [
++              50.0,
++              35.0
++            ],
++            [
++              0.0,
++              35.0
++            ]
++          ]
++        }
++      ],
++      "id": "return",
++      "priority": 1.0,
++      "quantity": 1,
++      "rotations": {
++        "degrees": [
++          0.0
++        ],
++        "kind": "list"
++      }
++    },
++    {
++      "allow_mirror": false,
++      "geometry": [
++        {
++          "holes": [],
++          "outer": [
++            [
++              0.0,
++              0.0
++            ],
++            [
++              30.0,
++              0.0
++            ],
++            [
++              30.0,
++              35.0
++            ],
++            [
++              0.0,
++              35.0
++            ]
++          ]
++        }
++      ],
++      "id": "incoming",
++      "priority": 1.0,
++      "quantity": 1,
++      "rotations": {
++        "degrees": [
++          0.0
++        ],
++        "kind": "list"
++      }
++    },
++    {
++      "allow_mirror": false,
++      "geometry": [
++        {
++          "holes": [],
++          "outer": [
++            [
++              0.0,
++              0.0
++            ],
++            [
++              40.0,
++              0.0
++            ],
++            [
++              40.0,
++              50.0
++            ],
++            [
++              0.0,
++              50.0
++            ]
++          ]
++        }
++      ],
++      "id": "extra-a",
++      "priority": 1.0,
++      "quantity": 1,
++      "rotations": {
++        "degrees": [
++          0.0
++        ],
++        "kind": "list"
++      }
++    },
++    {
++      "allow_mirror": false,
++      "geometry": [
++        {
++          "holes": [],
++          "outer": [
++            [
++              0.0,
++              0.0
++            ],
++            [
++              40.0,
++              0.0
++            ],
++            [
++              40.0,
++              50.0
++            ],
++            [
++              0.0,
++              50.0
++            ]
++          ]
++        }
++      ],
++      "id": "extra-b",
++      "priority": 1.0,
++      "quantity": 1,
++      "rotations": {
++        "degrees": [
++          0.0
++        ],
++        "kind": "list"
++      }
++    }
++  ],
++  "stocks": [
++    {
++      "count": null,
++      "defects": [],
++      "height": 100.0,
++      "id": "stock",
++      "margins": {
++        "bottom": 0.0,
++        "left": 0.0,
++        "right": 0.0,
++        "top": 0.0
++      },
++      "outline": [],
++      "width": 100.0
++    }
++  ],
++  "units": "mm",
++  "version": 1
++}
+--- baseline/examples/frontier-before.json
++++ candidate/examples/frontier-before.json
+@@ -0,0 +1,98 @@
++{
++  "placements": [
++    {
++      "copy_index": 0,
++      "part_id": "prefix",
++      "sheet_id": "sheet-0",
++      "transform": {
++        "mirrored": false,
++        "rotation_radians": 0.0,
++        "translation": [
++          2.0,
++          2.0
++        ]
++      }
++    },
++    {
++      "copy_index": 0,
++      "part_id": "filler",
++      "sheet_id": "sheet-1",
++      "transform": {
++        "mirrored": false,
++        "rotation_radians": 0.0,
++        "translation": [
++          78.0,
++          2.0
++        ]
++      }
++    },
++    {
++      "copy_index": 0,
++      "part_id": "return",
++      "sheet_id": "sheet-1",
++      "transform": {
++        "mirrored": false,
++        "rotation_radians": 0.0,
++        "translation": [
++          2.0,
++          52.5
++        ]
++      }
++    },
++    {
++      "copy_index": 0,
++      "part_id": "incoming",
++      "sheet_id": "sheet-2",
++      "transform": {
++        "mirrored": false,
++        "rotation_radians": 0.0,
++        "translation": [
++          2.0,
++          52.5
++        ]
++      }
++    },
++    {
++      "copy_index": 0,
++      "part_id": "extra-a",
++      "sheet_id": "sheet-2",
++      "transform": {
++        "mirrored": false,
++        "rotation_radians": 0.0,
++        "translation": [
++          2.0,
++          2.0
++        ]
++      }
++    },
++    {
++      "copy_index": 0,
++      "part_id": "extra-b",
++      "sheet_id": "sheet-2",
++      "transform": {
++        "mirrored": false,
++        "rotation_radians": 0.0,
++        "translation": [
++          44.0,
++          2.0
++        ]
++      }
++    }
++  ],
++  "sheets": [
++    {
++      "id": "sheet-0",
++      "stock_id": "stock"
++    },
++    {
++      "id": "sheet-1",
++      "stock_id": "stock"
++    },
++    {
++      "id": "sheet-2",
++      "stock_id": "stock"
++    }
++  ],
++  "units": "mm",
++  "version": 1
++}

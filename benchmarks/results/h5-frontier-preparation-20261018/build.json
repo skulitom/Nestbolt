@@ -1,0 +1,75 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-frontier-target-20261018",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "started": "2026-10-18T12:51:25.412093+00:00",
+      "finished": "2026-10-18T12:56:02.116622+00:00",
+      "exit_code": 0,
+      "log_sha256": "1631274afb60cb71778464c71702da45aae9c0437115d8d401f01dae1692d66c"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-frontier-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T12:56:02.197432+00:00",
+      "finished": "2026-10-18T12:56:58.724293+00:00",
+      "exit_code": 0,
+      "log_sha256": "6c060db136bb0a82fa6f40ed693e22ca721af6563c0ce166e0fcc7a201b2bff0"
+    },
+    {
+      "label": "build",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-frontier-target-20261018"
+      ],
+      "started": "2026-10-18T12:56:58.822126+00:00",
+      "finished": "2026-10-18T12:58:00.422734+00:00",
+      "exit_code": 0,
+      "log_sha256": "5195d3c5852278279b0a4109b55f230a8db53f3519a38237cace34f9bd44df65"
+    }
+  ],
+  "binary_sha256": "3880481d8e1d280591d130ec7a0cd824a1841aaf35b731ad25b6bdb959d45e36",
+  "source_files": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "cbc01299e120f2a4112dc556538388358f7d2d72d93f78fd06e3c146eb33e4ee",
+    "crates/core/src/sheets/vstrip.rs": "5b037316ad0b63e0d309618d0f55b10096e28bf198ccf659c26bf595945da29a",
+    "crates/core/src/sheets.rs": "e1bde7db21bc57cd330fe9f7f7e951fd549741c42bcca89bafbac657b52819ce",
+    "examples/frontier-job.json": "e1103a828eeaabb80866a4b7315d6e398b29ca42fed8d74a343090f3af2ed0d9",
+    "examples/frontier-before.json": "c53902cd91b8e92ccdb3d53452fe9b639ee267cc687bd75913d9e51f23a50f7d"
+  }
+}

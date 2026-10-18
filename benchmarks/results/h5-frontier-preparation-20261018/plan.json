@@ -1,0 +1,17 @@
+{
+  "utc": "2026-10-18T12:51:18.805383+00:00",
+  "purpose": "Use an exposed nonempty source boundary in the isolated joint-repair tail.",
+  "changed_files": [
+    "crates/core/src/sheets/vstrip/exchange.rs",
+    "crates/core/src/sheets/vstrip.rs",
+    "crates/core/src/sheets.rs",
+    "examples/frontier-job.json",
+    "examples/frontier-before.json"
+  ],
+  "prior_tests": 166,
+  "new_tests": 5,
+  "unchanged_limits": true,
+  "empty_source": "Keep original crop to allow useful non-eliminating exchanges.",
+  "counter": "source_frontier_attempts counts proposals passed to joint helper with a stricter source crop, including helper early expiry.",
+  "claims": "Isolated policy awaiting qualification; no H5, quality, production or release claim."
+}

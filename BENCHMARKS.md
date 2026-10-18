@@ -14950,3 +14950,14 @@ production remain unchanged. All six checks on pushed main `e0945cd` pass.
 No quality/release claim or H5 credit; H2/H5 remain open at 60%.
 
 The next distinct hypothesis is a source boundary derived from the actual selected copies. When removing the selected top copies exposes a lower boundary, use the existing fitted-container calculation on that remaining source as an explicit target for joint repair. Displaced return members must fit below that target or migrate to the receiver, with both exact containers and the original whole job validated. The current joint helper receives the original window crop and can finish immediately after returning equal inserts to the just-vacated top band. In the panel traces, the selected top pair exposes a 10.901367 mm band, but all six lowering stages leave the source top unchanged. This motivates a target; it does not prove the returned parts fit or that the search will find a packing. First author or capture a case where existing repair restores the top band and actual targeted joint repair finds an independently valid lower layout. Preserve the short phase, total deadline, validation reserve, cap, exact crop checks, quantity/orientation accounting, frozen sheets, reserved holes, strict final material guard and rollback. Qualify that changed policy before another matched pilot. Do not relax the material guard for the tiny increases, repeat the unchanged quality pilot or increase the cap blindly.
+
+**N4 source-frontier qualification, 2026-10-18:** [the explicit witness and automatic policy pass](benchmarks/results/h5-frontier-preparation-20261018.md).
+The original helper leaves the authored source at 87.200677 mm with its old crop
+and finds 51.000558 mm under the exposed boundary. Automatic selection also finds
+a valid strict gain and rolls back unfinished flat steps. All 171 native tests,
+166 unchanged earlier tests, 139 exact earlier outputs, strict lint/build and six
+public checks pass. Independent audits preserve quantities, fixed sheets and
+reserved holes, including 856 public filled-outer pairs. The extra target scan
+is charged; empty sources keep the original crop. All deadlines, the shared cap,
+material limits and production remain unchanged. A new matched pilot is still
+required; no H5 or release credit. H2/H5 remain open at 60%.

@@ -113,6 +113,17 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 source-frontier qualification, 2026-10-18:** [the explicit witness and automatic policy pass](../benchmarks/results/h5-frontier-preparation-20261018.md).
+The original helper leaves the authored source at 87.200677 mm with its old crop
+and finds 51.000558 mm under the exposed boundary. Automatic selection also finds
+a valid strict gain and rolls back unfinished flat steps. All 171 native tests,
+166 unchanged earlier tests, 139 exact earlier outputs, strict lint/build and six
+public checks pass. Independent audits preserve quantities, fixed sheets and
+reserved holes, including 856 public filled-outer pairs. The extra target scan
+is charged; empty sources keep the original crop. All deadlines, the shared cap,
+material limits and production remain unchanged. A new matched pilot is still
+required; no H5 or release credit. H2/H5 remain open at 60%.
+
 **N4 actual joint-repair diagnosis, 2026-10-18:** [all four serial diagnostics validate](../benchmarks/results/h5-joint-observer-20261018.md).
 Fifteen attempts yield ten completed repairs, five committed steps, five
 material-increase rejections and five expiries. Eight completed repairs move

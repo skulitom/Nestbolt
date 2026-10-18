@@ -1,0 +1,156 @@
+--- a/crates/core/src/sheets/vstrip/exchange.rs
++++ b/crates/core/src/sheets/vstrip/exchange.rs
+@@ -5829,4 +5829,153 @@
+         }
+     }
+     // END joint-repair policy tests
++
++    // BEGIN source-frontier witness: no runtime-policy change
++    #[test]
++    fn source_frontier_existing_joint_repair_finds_lower_actual_layout() {
++        let (mut job, mut before) = fixture();
++        job.name = "Explicit source frontier requires joint rearrangement".into();
++        job.parts = vec![
++            rectangle("prefix", 96.0, 94.0),
++            rectangle("filler", 20.0, 94.0),
++            rectangle("return", 50.0, 35.0),
++            rectangle("incoming", 30.0, 35.0),
++            rectangle("extra-a", 40.0, 50.0),
++            rectangle("extra-b", 40.0, 50.0),
++        ];
++        before.sheets = (0..3)
++            .map(|i| Sheet {
++                id: format!("sheet-{i}"),
++                stock_id: "stock".into(),
++            })
++            .collect();
++        before.placements = [
++            ("prefix", 0, [2.0, 2.0]),
++            ("filler", 1, [78.0, 2.0]),
++            ("return", 1, [2.0, 52.5]),
++            ("incoming", 2, [2.0, 52.5]),
++            ("extra-a", 2, [2.0, 2.0]),
++            ("extra-b", 2, [44.0, 2.0]),
++        ]
++        .into_iter()
++        .map(|(id, sheet, translation)| Placement {
++            part_id: id.into(),
++            copy_index: 0,
++            sheet_id: format!("sheet-{sheet}"),
++            transform: RigidTransform {
++                translation,
++                ..Default::default()
++            },
++        })
++        .collect();
++        assert!(validate(&job, &before).unwrap().valid);
++        let mut proposal = before.clone();
++        for p in &mut proposal.placements {
++            if p.part_id == "incoming" {
++                p.sheet_id = "sheet-1".into();
++            }
++            if p.part_id == "return" {
++                p.sheet_id = "sheet-2".into();
++            }
++        }
++        assert!(validate(&job, &proposal).unwrap().valid);
++        let mut authored = proposal.clone();
++        for p in &mut authored.placements {
++            if p.part_id == "extra-a" {
++                p.sheet_id = "sheet-1".into();
++                p.transform.translation = [2.0, 2.0];
++            }
++            if p.part_id == "extra-b" {
++                p.transform.translation = [56.0, 2.0];
++            }
++            if p.part_id == "return" {
++                p.transform.translation = [2.0, 2.0];
++            }
++        }
++        assert!(validate(&job, &authored).unwrap().valid);
++        let model = Model::new(&job).unwrap();
++        let clock = Clock::new(Timing::Work, 60.0);
++        let strip = Strip {
++            model: &model,
++            gap: 2.0,
++            clock,
++            containers: Default::default(),
++        };
++        let sheets = model.sheets_of(&before).unwrap();
++        let mut remaining = JLayout::from_snapshot(&sheets[2].layout().save());
++        let key = remaining
++            .placed_items()
++            .iter()
++            .find(|(_, p)| job.parts[model.part[p.item().idx()]].id == "incoming")
++            .unwrap()
++            .0;
++        remaining.remove_item(key);
++        let target = strip.fit_last(
++            &remaining,
++            Shape {
++                sheets: 1,
++                last: model.full_width,
++            },
++        );
++        let top = |layout: &Layout| {
++            layout
++                .placements
++                .iter()
++                .filter(|p| p.sheet_id == "sheet-2")
++                .map(|p| {
++                    p.transform.translation[1]
++                        + job
++                            .parts
++                            .iter()
++                            .find(|q| q.id == p.part_id)
++                            .unwrap()
++                            .geometry[0]
++                            .outer
++                            .iter()
++                            .map(|v| v[1])
++                            .fold(0.0_f64, f64::max)
++                })
++                .fold(0.0_f64, f64::max)
++        };
++        let (old_ok, old_after, old_stats) =
++            joint_pair_exercise(&job, &before, &proposal, JointProbe::default());
++        let (target_ok, target_after, target_stats) = joint_pair_exercise(
++            &job,
++            &before,
++            &proposal,
++            JointProbe {
++                last: Some(target),
++                ..Default::default()
++            },
++        );
++        let old_report = validate(&job, &old_after).unwrap();
++        let target_report = validate(&job, &target_after).unwrap();
++        eprintln!(
++            "SOURCE_FRONTIER_WITNESS {}",
++            serde_json::json!({"job":job,"before":before,
++            "proposal":proposal,"authored_feasible":authored,"source_remaining":free_return_public(&model,&before,&remaining,"sheet-2"),
++            "target_internal":target,"old_success":old_ok,"target_success":target_ok,
++            "old_after":old_after,"target_after":target_after,"old_stats":old_stats,"target_stats":target_stats,
++            "old_report":old_report,"target_report":target_report,"before_top":top(&before),
++            "old_top":top(&old_after),"target_top":top(&target_after),"seed":0,"budget":12.0})
++        );
++        assert!(
++            old_ok && target_ok,
++            "Both actual repair calls must complete"
++        );
++        assert!(old_report.valid && target_report.valid);
++        assert!(
++            top(&old_after) > 85.0,
++            "Original crop leaves the restored upper band occupied"
++        );
++        assert!(
++            top(&target_after) < 52.01,
++            "Targeted repair must actually meet the exposed boundary"
++        );
++        assert!(
++            target_report.metrics.unwrap().material_area + 3000.0
++                < old_report.metrics.unwrap().material_area
++        );
++    }
++    // END source-frontier witness
+ }
