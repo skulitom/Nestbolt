@@ -1540,3 +1540,11 @@ are absent. Block, scoring, case and measurement functions are AST-identical;
 no candidate, budget, input or scoring change and zero searches before repair.
 The amended plan is committed before its first measurement. H2/H5 remain open
 at 60%.
+
+
+**N4 boundary-pair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-boundary-pair-pilot-20261018.md).
+The independent filled-outer audit checks 133,454 same-sheet
+pairs across 48 common-mode layouts. 6 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +4.750258%; m-mechanical-large-plates at 1.5 mm: +5.823218%; m-mechanical-panel-hardware at 0.2 mm: +6.614117%; m-mechanical-panel-hardware at 1.5 mm: +5.725452%; c-bracket-mixed at 0.2 mm: +1.439312%; c-bracket-mixed at 1.5 mm: +1.316785%
+The candidate accepts 14/120 exchanges, including 11/77 paired and 1/4 mixed-item exchanges. Follow-up gap filling runs 14 times and moves 15 parts. Of 3 neutral rejections, 0 are caught by exact internal-state equality and 3 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
+unchanged. H2/H5 remain open at 60%.

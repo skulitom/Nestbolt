@@ -103,31 +103,14 @@ Its short development runs are a performance lead for N3, not H4 evidence. Fresh
 | N4 — Common-line cutting | 15% | In progress: [compensated geometry and native checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md), independent Clipper2 checks and UI/CLI/MCP parity. The optional bonus is off by default. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md), the [full 60-second/three-seed comparison](../benchmarks/results/h5-cutting-development-20261015.md) validates all 234 Nestbolt layouts. Median savings **13.0311% laser / 13.1005% plasma** meet the savings condition. The two mechanical jobs still exceed +1% material: worst **+6.5085% laser / +5.5959% plasma**; all other jobs are within the guard. Normal mode uses 21/49 hole riders; common mode forbids them. Deepnest SVG comparison is complete: 35 valid runs, four no-layout outcomes, native reported merge length and actual SVG savings reported separately. H5 remains open on material. The generated request schema omission was corrected; its original CI failure is retained. No gate/default/frozen input changed |
 | N5 — Lead-in allowances | 5% | **H6 complete.** [Gate evidence and material costs](../benchmarks/results/h6-complete-20261015.md): independent original-source coverage/attachment, owner/neighbour/stock checks, exact contour starts, three searched native previews and separate outer/hole/shortened settings. UI/CLI/MCP support preserving LightBurn projects plus separate SVG/DXF cutting files under Artem’s decision. The current build revalidates all 24 original native-coupon reservations unchanged; lead/core/MCP/CLI/browser checks pass. All 156 development layouts validate across 13 jobs, both kerfs and seeds 0–2. Median material cost is **+1.0696% laser / +6.0951% plasma**, with small-hole plasma flags explicitly reported. One report-order harness failure was corrected using the same saved layout and unchanged 1e-9 tolerance; all original failures remain. No new held-out/final acceptance or release claim |
 
-**N4 boundary-pair preparation, 2026-10-18:** [all 130 optimized tests pass](../benchmarks/results/h5-boundary-pair-preparation-20261018.md),
-including all 126 prior tests unchanged. The isolated candidate includes the
-two highest source members first in the appropriate same-item or mixed pair
-list, removes duplicate pairs and retains the six-plus-six caps and remaining
-nearby alternatives. Original pair anchors, repairs, budgets, work charges and
-all full acceptance checks remain. Three expected failures are preserved.
-Independent original-contour checks confirm both highest physical copies in
-same-item and mixed-item witnesses. Those and twelve rejection-boundary cases
-pass 26 frozen-CLI checks. Strict lint/build, public parity/replay, source
-reconstruction and five pilot harness checks pass. The unchanged 72-outcome
-plan is committed before measurement. No quality claim; H2/H5 remain open at 60%.
+**N4 boundary-pair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-boundary-pair-pilot-20261018.md).
+The independent filled-outer audit checks 133,454 same-sheet
+pairs across 48 common-mode layouts. 6 of eight material pairs fail
+the original +1% limit. m-mechanical-large-plates at 0.2 mm: +4.750258%; m-mechanical-large-plates at 1.5 mm: +5.823218%; m-mechanical-panel-hardware at 0.2 mm: +6.614117%; m-mechanical-panel-hardware at 1.5 mm: +5.725452%; c-bracket-mixed at 0.2 mm: +1.439312%; c-bracket-mixed at 1.5 mm: +1.316785%
+The candidate accepts 14/120 exchanges, including 11/77 paired and 1/4 mixed-item exchanges. Follow-up gap filling runs 14 times and moves 15 parts. Of 3 neutral rejections, 0 are caught by exact internal-state equality and 3 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
+unchanged. H2/H5 remain open at 60%.
 
-**N4 boundary-pair preflight recovery, 2026-10-18:** the first launch stops
-before any measurement because the old balanced-diagnostic PID now belongs to
-`svchost.exe`, whose command line is protected. Its creation time is later than
-the original diagnostic's recorded start, proving PID reuse. The old runner
-and committed plan are preserved in [the recovery record](../benchmarks/results/h5-boundary-pair-pilot-20261018/preflight-recovery/checks.json).
-The guard now checks process creation time before attempting the command
-line. Six checks cover missing/reused processes, active original-runner
-rejection, the existing different-command behavior and both inaccessible
-identity cases. Unresolved identity still fails closed. The two old H4 PIDs
-are absent. Block, scoring, case and measurement functions are AST-identical;
-no candidate, budget, input or scoring change and zero searches before repair.
-The amended plan is committed before its first measurement. H2/H5 remain open
-at 60%.
+All six hosted checks on main `a471993` have passed, including Windows, Linux and browser checks. This confirmation precedes the next periodic push; the experimental pilot is assessed separately against the unchanged H5 requirements. [Hosted evidence](../benchmarks/results/h5-boundary-pair-pilot-20261018/main-ci-a471993.json).
 
 **N4 exact boundary-copy diagnosis, 2026-10-18:** [both diagnostic outcomes and every saved baseline validate](../benchmarks/results/h5-boundary-observer-20261018.md).
 19 of 19 attempts select at least one actual part defining the credited sheet height; 0 select every part defining that height. 1 of the first group and 0 of the second group are accepted. The independent audit checks 31,794 filled-outer
