@@ -1,0 +1,87 @@
+{
+  "all_checks_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T00:32:38.282088+00:00",
+      "finished": "2026-10-18T00:32:38.867589+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-reuse-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T00:32:38.974239+00:00",
+      "finished": "2026-10-18T00:35:29.971235+00:00",
+      "log_sha256": "0bb5016501b62bf8cc51829463b8eb34aeca70c4dc1a3ab3a12a1c9a95c06d37"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-reuse-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T00:35:30.109424+00:00",
+      "finished": "2026-10-18T00:36:22.921645+00:00",
+      "log_sha256": "7b7d9ace4572e12aa73755900ccff9f0c0d10235d3d7853d0235e041c9131589"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-reuse-target-20261018"
+      ],
+      "exit_code": 0,
+      "started": "2026-10-18T00:36:23.049058+00:00",
+      "finished": "2026-10-18T00:37:09.266489+00:00",
+      "log_sha256": "56fc20f5aa3586080c499bde891ebfa760771a1540822d7330d38249dcbc84b8"
+    }
+  ],
+  "production_unchanged": true,
+  "source_sha256": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "453290682b80ea125bda1b0669c7915f753d41789cea539a787316ce0e2d5e74",
+    "crates/core/src/sheets.rs": "5b5ed2ca8d5bfe36cad37ac156724f6f5a58b959d198c8a4484d82a838f89df3"
+  },
+  "binaries": {
+    "baseline": "a381ae63b3163ffb3a8c89953c789d17178f0221412f37a8709f9a38d026a517",
+    "candidate": "b9531a6b2a10957ce3b2d1edf3a496f2fea44a8fb8c8234e5d5e933c32648ef6"
+  },
+  "baseline_reused_byte_identical": true,
+  "measured_search_started": false
+}

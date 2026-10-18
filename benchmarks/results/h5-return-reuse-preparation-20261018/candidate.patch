@@ -1,0 +1,203 @@
+--- rejected-return-frame
++++ return-reuse-candidate
+@@ -167,6 +167,53 @@
+     aligned.unwrap_or_else(translated)
+ }
+ 
++// A cache lives only within one directed_exchange invocation. Exact shared
++// static-container and Item identities bind geometry, defects and permissions;
++// equal counts make identical copies interchangeable. Placement keys are not
++// identities, and positions deliberately do not define an assignment.
++fn same_return_assignment(a: &JLayout, b: &JLayout) -> bool {
++    if !std::sync::Arc::ptr_eq(a.container().base_cde(), b.container().base_cde())
++        || a.placed_items().len() != b.placed_items().len()
++    {
++        return false;
++    }
++    let members = |layout: &JLayout| {
++        let mut items: Vec<_> = layout.placed_items().values().map(|p| p.item().clone()).collect();
++        items.sort_by_key(|item| item.idx());
++        items
++    };
++    members(a).iter().zip(members(b)).all(|(a,b)| std::sync::Arc::ptr_eq(a,&b))
++}
++
++fn resume_return_repair(saved: &mut Option<Separator>, fresh: Separator) -> (Separator, bool) {
++    if let Some(previous) = saved.take()
++        && previous.pinned.is_none() && previous.region.is_none()
++        && fresh.pinned.is_none() && fresh.region.is_none()
++        && same_return_assignment(&previous.layout, &fresh.layout)
++        && previous.layout.placed_items().values().all(|p| p.item().allowed_orientations().allows(&p.d_transf()))
++        && previous.tracker.total_loss() <= fresh.tracker.total_loss()
++    {
++        // The whole separator retains its matching tracker, weights and RNG.
++        // Both separators share this invocation's clock and EXPLORE settings.
++        (previous, true)
++    } else {
++        (fresh, false)
++    }
++}
++
++fn remember_return_repair(
++    saved: &mut Option<Separator>,
++    mut separator: Separator,
++    snapshot: &LayoutSnapshot,
++    tracker: &crate::separate::Tracker,
++) {
++    // separate() returns its best snapshot, which need not be its current
++    // mutable state. Restore both positions and tracker indices together;
++    // rollback preserves guided-search weights and charges the registrations.
++    separator.rollback(snapshot, Some(tracker));
++    *saved = Some(separator);
++}
++
+ impl<F: FnMut(&Progress, &dyn Fn() -> Option<Layout>)> Search<'_, '_, F> {
+     fn exchange_report(
+         &mut self,
+@@ -211,6 +258,7 @@
+             sheets: 1,
+             last: shape.last,
+         })?;
++        let mut saved_source_repair = None;
+         let last_index = shape.sheets - 1;
+         let last_offset = strip.start(last_index);
+         let mut incoming_keys = strip.in_last(&sep.layout, shape);
+@@ -321,14 +369,17 @@
+                     if receiver_tracker.total_loss() > 0.0 {
+                         continue;
+                     }
+-                    let mut source_sep = Separator::new(
++                    let fresh_source = Separator::new(
+                         next_source,
+                         self.rng.next_u64(),
+                         EXPLORE,
+                         self.clock.clone(),
+                     );
++                    let (mut source_sep, reused) = resume_return_repair(&mut saved_source_repair, fresh_source);
++                    self.stats.directed_source_reuses += u64::from(reused);
+                     let (source_snapshot, source_tracker) =
+                         source_sep.separate(&self.deadline(pair_end));
++                    remember_return_repair(&mut saved_source_repair, source_sep, &source_snapshot, &source_tracker);
+                     if source_tracker.total_loss() > 0.0
+                         || self.clock.now() >= self.last_step(until)
+                     {
+@@ -1024,4 +1075,119 @@
+             }
+         }
+     }
++    fn return_repair_layout(model: &Model<'_>, container: &Container, overlap: bool) -> JLayout {
++        let item = &model.instance.items[1].0;
++        let mut layout = JLayout::new(container.clone());
++        for (x,y) in [(25.0,25.0),(if overlap {25.0} else {65.0},25.0)] {
++            let pose = convert_sample_to_closest_feasible(DTransformation::new(0.0,(x,y)), item);
++            assert!(item.allowed_orientations().allows(&pose));
++            layout.place_item(item,pose);
++        }
++        layout
++    }
++
++    #[test]
++    fn return_reuse_restores_best_geometry_tracker_keys_and_rng() {
++        let (job, _) = fixture();
++        let model = Model::new(&job).unwrap();
++        let sheet = model.empty_sheet().unwrap();
++        let container = sheet.layout().container();
++        let clock = Clock::new(Timing::Work,30.0);
++        let mut source = Separator::new(return_repair_layout(&model,container,false),7,EXPLORE,clock.clone());
++        assert_eq!(source.tracker.total_loss(),0.0);
++        let snapshot=source.layout.save();
++        let tracker=source.tracker.clone();
++        let fingerprint_before=fingerprint(&source.layout);
++        let keys: Vec<_> = source.layout.placed_items().keys().collect();
++        let pose=source.layout.placed_items()[keys[0]].d_transf();
++        let moved=source.move_item(keys[1],pose);
++        assert_ne!(keys[1],moved);
++        assert!(source.tracker.total_loss()>0.0);
++        let expected_rng=source.rng.clone().next_u64();
++        let mut saved=None;
++        remember_return_repair(&mut saved,source,&snapshot,&tracker);
++        let fresh=Separator::new(return_repair_layout(&model,container,true),999,EXPLORE,clock);
++        let (mut resumed,reused)=resume_return_repair(&mut saved,fresh);
++        assert!(reused && saved.is_none());
++        assert_eq!(fingerprint(&resumed.layout),fingerprint_before);
++        assert_eq!(resumed.rng.next_u64(),expected_rng);
++        let rebuilt=crate::separate::Tracker::new(&resumed.layout);
++        assert_eq!(resumed.tracker.total_loss(),rebuilt.total_loss());
++        for key in resumed.layout.placed_items().keys() {
++            assert_eq!(resumed.tracker.loss(key),rebuilt.loss(key));
++        }
++    }
++
++    #[test]
++    fn return_reuse_rejects_changed_counts_and_part_membership() {
++        let (job, _) = fixture();
++        let model=Model::new(&job).unwrap();let sheet=model.empty_sheet().unwrap();
++        let container=sheet.layout().container();
++        let baseline=return_repair_layout(&model,container,false);
++        for replace in [false,true] {
++            let mut changed=JLayout::from_snapshot(&baseline.save());
++            let key=changed.placed_items().keys().next().unwrap();
++            let pose=changed.remove_item(key).d_transf();
++            if replace {changed.place_item(&model.instance.items[2].0,pose);}
++            let clock=Clock::new(Timing::Work,30.0);
++            let mut saved=Some(Separator::new(JLayout::from_snapshot(&baseline.save()),0,EXPLORE,clock.clone()));
++            let expected=fingerprint(&changed);
++            let (actual,reused)=resume_return_repair(&mut saved,Separator::new(changed,1,EXPLORE,clock));
++            assert!(!reused && saved.is_none());assert_eq!(fingerprint(&actual.layout),expected);
++        }
++    }
++
++    #[test]
++    fn return_reuse_rejects_changed_geometry_or_orientation_object() {
++        let (job, _) = fixture();
++        let model=Model::new(&job).unwrap();let sheet=model.empty_sheet().unwrap();
++        let container=sheet.layout().container();
++        for geometry in [false,true] {
++            let mut other_job=job.clone();
++            if geometry {other_job.parts[1]=rectangle("return",25.0,15.0);}
++            else {other_job.parts[1].allow_mirror=true;}
++            let other=Model::new(&other_job).unwrap();
++            // Reuse the exact same static container and item index; only the
++            // original item object (geometry/permissions) is different.
++            assert_eq!(model.instance.items[1].0.idx(),other.instance.items[1].0.idx());
++            assert!(!same_return_assignment(&return_repair_layout(&model,container,false),&return_repair_layout(&other,container,false)));
++        }
++    }
++
++    #[test]
++    fn return_reuse_requires_the_exact_static_container() {
++        let (job, _) = fixture();let model=Model::new(&job).unwrap();
++        let a=model.empty_sheet().unwrap();let b=model.empty_sheet().unwrap();
++        assert_eq!(a.layout().container().outer_cd().vertices(),b.layout().container().outer_cd().vertices());
++        assert!(!same_return_assignment(&return_repair_layout(&model,a.layout().container(),false),
++            &return_repair_layout(&model,b.layout().container(),false)));
++    }
++
++    #[test]
++    fn return_reuse_prefers_a_better_fresh_start_and_rejects_forbidden_saved_pose() {
++        let (job, _) = fixture();let model=Model::new(&job).unwrap();let sheet=model.empty_sheet().unwrap();
++        let container=sheet.layout().container();
++        for forbidden in [false,true] {
++            let clock=Clock::new(Timing::Work,30.0);
++            let mut previous=Separator::new(return_repair_layout(&model,container,!forbidden),0,EXPLORE,clock.clone());
++            if forbidden {
++                let key=previous.layout.placed_items().keys().next().unwrap();
++                let pose=previous.layout.placed_items()[key].d_transf();
++                previous.move_item(key,DTransformation::new(pose.rotation()+0.123,pose.translation()));
++            }
++            let fresh=Separator::new(return_repair_layout(&model,container,forbidden),1,EXPLORE,clock);
++            let expected=fingerprint(&fresh.layout);let mut saved=Some(previous);
++            let (actual,reused)=resume_return_repair(&mut saved,fresh);
++            assert!(!reused && saved.is_none());assert_eq!(fingerprint(&actual.layout),expected);
++        }
++    }
++
++    #[test]
++    fn reused_return_repairs_still_reject_material_increase_and_preserve_incumbent() {
++        let (mut job,before)=return_frame_witness();job.parts[1]=rectangle("source-filler",20.0,94.0);
++        let (moved,_,stats)=exercise(&job,&before,0,true,false,0);
++        assert_eq!(moved,0);assert_eq!(stats.directed_exchanges,0);
++        assert!(stats.directed_source_reuses>0,"authored execution must exercise actual cache reuse");
++    }
++
+ }

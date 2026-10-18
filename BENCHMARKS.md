@@ -13862,3 +13862,21 @@ state reuse under the original shared budget, with full inventory/boundary,
 orientation, tracker-key and rollback safeguards. This is a next hypothesis,
 not measured savings. All archives/guards verify; production and original H5
 limits remain unchanged. No whole-job material improvement or H5 credit. 60%.
+
+
+## 2026-10-18 — Qualify compatible source-repair progress reuse
+
+[The isolated candidate](benchmarks/results/h5-return-reuse-preparation-20261018.md)
+passes 96 optimized tests, strict lint, ten authored observer outcomes, four
+public CLI comparisons and five unchanged harness checks. All 90 old tests stay;
+six new tests cover cache compatibility, best-state/tracker-key restoration,
+RNG continuity, fresh-state preference and actual reuse under strict material
+rejection. Normal results remain exact and common fixed-work replay passes.
+
+One call-local source Separator may resume only for the same static container
+and original part-object multiset, legal poses and no worse starting loss.
+Restoration is charged; old proposal/repair budgets and the complete independent
+acceptance block are unchanged. The original baseline binary is byte-identical.
+The separately committed 72-outcome pilot retains its exact paired/scoring
+method and original +1% limit. No production integration, held-out access or H5
+credit. All artifacts verify; H2/H5 remain open at 60%.
