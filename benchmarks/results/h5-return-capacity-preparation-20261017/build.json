@@ -1,0 +1,89 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-17T23:56:23.131614+00:00",
+      "finished": "2026-10-17T23:56:23.959060+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-capacity-target-20261017"
+      ],
+      "started": "2026-10-17T23:56:24.072469+00:00",
+      "finished": "2026-10-17T23:59:16.816680+00:00",
+      "exit_code": 0,
+      "log_sha256": "99081f9159c3a3e3117641d5e895eac2cb8b62d58db2dd00e5ec3e2cfd72d6e8"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-capacity-target-20261017",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-17T23:59:16.951372+00:00",
+      "finished": "2026-10-18T00:00:16.625138+00:00",
+      "exit_code": 0,
+      "log_sha256": "b9518ede1a1296aa1a922fc3753dbb137daf02b63843b494629eadc3a9fc956b"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-return-capacity-target-20261017"
+      ],
+      "started": "2026-10-18T00:00:16.780991+00:00",
+      "finished": "2026-10-18T00:01:07.585351+00:00",
+      "exit_code": 0,
+      "log_sha256": "b8a83c7c372ecdad679f37a74e583ad40c82c9b3b6ed7d38fa055617677abb29"
+    }
+  ],
+  "source_sha256": "ceb36b69563ce4ded8f4fc712cd6e316611d7b2c2a68bb257846dd510f6262b1",
+  "binary_sha256": "3d9c2d0232dc6ecccbe66b1889bb343aaf6d57e0600cdb28d04c16bae4ed3fda",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

@@ -13785,3 +13785,19 @@ clearances, fixed orientations, quantities and the unchanged material guard.
 Two public validations, zero optimizer runs; all source/report bytes and hashes
 are retained. Source-capacity inspection remains needed before selecting a new
 mechanical heuristic. No production change or H5 credit; completion remains 60%.
+
+
+## 2026-10-17 — Prepare complete return-sheet capacity observations
+
+[The isolated capacity observer](benchmarks/results/h5-return-capacity-preparation-20261017.md)
+passes 90 optimized tests, strict lint, build and two authored trace captures.
+Eleven malformed-record mutations are rejected. The original rejected candidate
+and production remain unchanged; instrumentation is exactly reversible before
+formatting. All source, binary, log and archive members are verified.
+
+Four committed-plan serial diagnostics will capture actual shortened boundaries,
+all source/receiver parts and initial/best repaired geometry. Independent area,
+overlap and outside checks will distinguish an overfull assignment from a poor
+placement without assuming full stock is available in a compressed search sheet.
+Capture overhead can perturb deadlines. No repeated quality pilot, relaxed
+limit, reserved-input access or H5 credit. H2/H5 remain open at 60%.
