@@ -1499,3 +1499,14 @@ retains every assertion; runtime, guards and earlier tests are unchanged
 by that fixture correction. A new committed pilot plan and harness checks are
 still required before quality measurement. Production is unchanged; H2/H5 remain
 open at 60%.
+
+**N4 joint-repair pilot plan, 2026-10-18:** the [72-outcome plan](../benchmarks/results/h5-joint-repair-pilot-20261018/plan.json)
+is prepared for the qualified isolated candidate. Four unchanged development jobs,
+both kerfs, three seeds and three arms retain the original 60-second budgets and
+rotating matched physical cores. Six execution/scoring functions are AST-identical
+to the preceding pilot; all five existing adversarial harness tests pass. The
+finisher retains archive/metric checks and adds joint-repair completion, expiry,
+acceptance and rollback counter checks. Every outcome is retained; no search has
+started at this checkpoint. Only a passing original material limit on every pilot
+pair can open the full 13-job comparison. Production is unchanged; H2/H5 remain
+open at 60%.

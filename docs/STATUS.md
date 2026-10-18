@@ -113,6 +113,17 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The newly qualified joint-repair candidate remains isolated and still requires a committed matched development pilot before any integration decision. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 joint-repair pilot plan, 2026-10-18:** the [72-outcome plan](../benchmarks/results/h5-joint-repair-pilot-20261018/plan.json)
+is prepared for the qualified isolated candidate. Four unchanged development jobs,
+both kerfs, three seeds and three arms retain the original 60-second budgets and
+rotating matched physical cores. Six execution/scoring functions are AST-identical
+to the preceding pilot; all five existing adversarial harness tests pass. The
+finisher retains archive/metric checks and adds joint-repair completion, expiry,
+acceptance and rollback counter checks. Every outcome is retained; no search has
+started at this checkpoint. Only a passing original material limit on every pilot
+pair can open the full 13-job comparison. Production is unchanged; H2/H5 remain
+open at 60%.
+
 **N4 joint-repair qualification, 2026-10-18:** the [isolated candidate](../benchmarks/results/h5-joint-repair-preparation-20261018.md)
 retains the short phase, then repairs only the selected receiver/source pair
 within the remaining original allowance. It rechecks the exact cropped source,
