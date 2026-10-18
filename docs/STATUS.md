@@ -113,6 +113,21 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 joint-repair observation plan, 2026-10-18:** the [diagnostic observer](../benchmarks/results/h5-joint-observer-preparation-20261018.md)
+passes all 165 unchanged tests and preserves 86 exact native witnesses. Its 48
+linked native trace records pass structural checks; nine malformed records are
+rejected. Independent checks validate 23 saved layouts and 53 filled-outer pairs.
+Four public fixed-work outcomes match the unobserved candidate exactly except
+elapsed time. All 157 source files reconstruct, with 155 unrelated files unchanged;
+lint/build pass. The first public reference-path error is preserved and its saved
+outcome reused. The [four-case plan](../benchmarks/results/h5-joint-observer-20261018/plan.json)
+retains both mechanical jobs, both kerfs, seed zero, 60 seconds and serial physical
+CCD0 CPU 8. It records actual pair membership, material gains, repair/lowering
+times, expiry, rejection and rollback. No development observation has started at
+this checkpoint. Logging can change wall trajectories; no quality comparison,
+pilot retry or integration follows. Production and the released preview remain
+unchanged; H2/H5 remain open at 60%.
+
 **N4 joint-repair outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-joint-repair-pilot-20261018.md).
 The independent filled-outer audit checks 133,466 same-sheet
 pairs across all 48 common-mode layouts. Five of eight material pairs fail the

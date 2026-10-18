@@ -14920,3 +14920,18 @@ Joint repair completes 270/589 pair attempts and records 28 committed steps, inc
 
 Production and release assets remain unchanged; the three READMEs remain accurate.
 No new held-out access, H5 credit or quality claim. H2/H5 remain open at 60%.
+
+**N4 joint-repair observation plan, 2026-10-18:** the [diagnostic observer](benchmarks/results/h5-joint-observer-preparation-20261018.md)
+passes all 165 unchanged tests and preserves 86 exact native witnesses. Its 48
+linked native trace records pass structural checks; nine malformed records are
+rejected. Independent checks validate 23 saved layouts and 53 filled-outer pairs.
+Four public fixed-work outcomes match the unobserved candidate exactly except
+elapsed time. All 157 source files reconstruct, with 155 unrelated files unchanged;
+lint/build pass. The first public reference-path error is preserved and its saved
+outcome reused. The [four-case plan](benchmarks/results/h5-joint-observer-20261018/plan.json)
+retains both mechanical jobs, both kerfs, seed zero, 60 seconds and serial physical
+CCD0 CPU 8. It records actual pair membership, material gains, repair/lowering
+times, expiry, rejection and rollback. No development observation has started at
+this checkpoint. Logging can change wall trajectories; no quality comparison,
+pilot retry or integration follows. Production and the released preview remain
+unchanged; H2/H5 remain open at 60%.

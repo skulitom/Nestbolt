@@ -1,0 +1,96 @@
+{
+  "all_passed": true,
+  "stages": [
+    {
+      "label": "format",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "fmt",
+        "--all"
+      ],
+      "started": "2026-10-18T12:10:33.691461+00:00",
+      "finished": "2026-10-18T12:10:34.846325+00:00",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "core-tests",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "test",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-joint-observer-target-20261018",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "started": "2026-10-18T12:10:34.941316+00:00",
+      "finished": "2026-10-18T12:17:29.913409+00:00",
+      "exit_code": 0,
+      "log_sha256": "241948a00a51efba578110de4619ece6150407341f929b12fa1de3a67fe927be"
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--lib",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-joint-observer-target-20261018",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "started": "2026-10-18T12:17:30.184913+00:00",
+      "finished": "2026-10-18T12:18:47.208422+00:00",
+      "exit_code": 0,
+      "log_sha256": "a7f258d0629cfbb227393b5e81683ab0b89d297da8f3634ea349da46c8d64ee0"
+    },
+    {
+      "label": "observer",
+      "command": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "C:\\DEV\\Nestbolt\\output\\ccd1.py",
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "-p",
+        "nestbolt-core",
+        "--example",
+        "exchange_probe",
+        "--target-dir",
+        "C:\\DEV\\Nestbolt\\output\\h5-joint-observer-target-20261018"
+      ],
+      "started": "2026-10-18T12:18:47.340085+00:00",
+      "finished": "2026-10-18T12:20:00.420622+00:00",
+      "exit_code": 0,
+      "log_sha256": "eccf9386b1034a013b499794dee8b379945620f7d061caa0402c38fd6ad9e127"
+    }
+  ],
+  "source_sha256": "c7fccd800782901146d64040c2109a0d81d61f07d72870ecb95fe6ca94494da5",
+  "observed_sources": {
+    "crates/core/src/sheets/vstrip/exchange.rs": "c7fccd800782901146d64040c2109a0d81d61f07d72870ecb95fe6ca94494da5",
+    "crates/core/examples/exchange_probe.rs": "2d9159f481505f5fb6790b37ce12fdba0299c74ed18483f1208b0130e6b78933"
+  },
+  "binary_sha256": "b78e4d6ff50b4312afc9617cdbbc656b3f320f2c0a7ffbe80725ea1eb6c177a3",
+  "prior_experiment_unchanged": true,
+  "production_unchanged": true,
+  "measured_search_started": false
+}

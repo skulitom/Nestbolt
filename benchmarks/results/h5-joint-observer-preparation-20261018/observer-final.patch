@@ -1,0 +1,355 @@
+--- rejected/crates/core/src/sheets/vstrip/exchange.rs
++++ observer/crates/core/src/sheets/vstrip/exchange.rs
+@@ -5,6 +5,80 @@
+ use jagua_rs::entities::Item;
+ use jagua_rs::geometry::geo_traits::TransformableFrom;
+ use material_profile::material_profile;
++
++// Diagnostic-only observer: pure serialization and Instant reads. No search
++// clock reads, work charges, RNG calls, geometry changes or decision changes.
++thread_local! {
++    static JOINT_DIAG_PARENT: std::cell::Cell<Option<u64>> = const { std::cell::Cell::new(None) };
++}
++static JOINT_DIAG_ID: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(1);
++struct JointDiag {
++    id: u64,
++    parent: Option<u64>,
++    kind: &'static str,
++    started: Instant,
++    data: serde_json::Value,
++    events: Vec<serde_json::Value>,
++    outcome: &'static str,
++}
++impl JointDiag {
++    fn new(kind: &'static str, data: serde_json::Value) -> Self {
++        let id = JOINT_DIAG_ID.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
++        let parent = JOINT_DIAG_PARENT.with(|p| p.replace(Some(id)));
++        Self {
++            id,
++            parent,
++            kind,
++            started: Instant::now(),
++            data,
++            events: vec![],
++            outcome: "unresolved",
++        }
++    }
++    fn event(&mut self, stage: &'static str, data: serde_json::Value) {
++        self.events.push(serde_json::json!({"stage":stage,"elapsed_seconds":self.started.elapsed().as_secs_f64(),"data":data}));
++    }
++}
++impl Drop for JointDiag {
++    fn drop(&mut self) {
++        JOINT_DIAG_PARENT.with(|p| p.set(self.parent));
++        eprintln!(
++            "JOINT_DIAG {}",
++            serde_json::json!({"id":self.id,"parent":self.parent,"kind":self.kind,
++            "elapsed_seconds":self.started.elapsed().as_secs_f64(),"data":self.data,"events":self.events,"outcome":self.outcome})
++        );
++    }
++}
++fn joint_diag_event(trace: &mut Option<JointDiag>, stage: &'static str, data: serde_json::Value) {
++    if let Some(trace) = trace {
++        trace.event(stage, data);
++    }
++}
++fn joint_diag_end(trace: &mut Option<JointDiag>, outcome: &'static str) {
++    if let Some(trace) = trace {
++        trace.outcome = outcome;
++    }
++}
++fn joint_diag_single(strip: &Strip, layout: &JLayout) -> serde_json::Value {
++    serde_json::json!(
++        layout
++            .placed_items()
++            .values()
++            .map(|p| {
++                let item = p.item().idx();
++                serde_json::json!({"part_id":strip.model.job.parts[strip.model.part[item]].id,
++            "transform":strip.model.external(item,&p.d_transf())})
++            })
++            .collect::<Vec<_>>()
++    )
++}
++fn joint_diag_window(strip: &Strip, layout: &JLayout) -> serde_json::Value {
++    serde_json::json!(layout.placed_items().values().filter(|p| !strip.is_blocker(p)).map(|p| {
++        let item=p.item().idx();let sheet=strip.sheet_of(p.shape());
++        serde_json::json!({"part_id":strip.model.job.parts[strip.model.part[item]].id,"active_sheet":sheet,
++            "transform":strip.model.external(item,&shift(p.d_transf(),-strip.start(sheet)))})
++    }).collect::<Vec<_>>())
++}
+ 
+ // In the rotated strip frame, rightmost extent is original sheet height.
+ // Reach boundary parts before larger interior parts; equal geometry/area ties
+@@ -859,10 +933,21 @@
+         last: f32,
+         until: f64,
+     ) -> Result<Option<[LayoutSnapshot; 2]>> {
++        let mut diag = JointDiag::new(
++            "pair",
++            serde_json::json!({
++            "job":self.model.job,"source_crop_internal":last,"absolute_until":until,
++            "proposed":[joint_diag_single(strip,&receiver),joint_diag_single(strip,&source)]}),
++        );
+         if !self.allow_exchange || self.clock.now() >= self.last_step(until) {
++            diag.outcome = "not_started";
+             return Ok(None);
+         }
+         self.stats.joint_repair_attempts += 1;
++        diag.event(
++            "attempted",
++            serde_json::json!({"counter":self.stats.joint_repair_attempts}),
++        );
+         let shape = Shape { sheets: 2, last };
+         let mut trial = JLayout::new(strip.container(shape)?);
+         let count = receiver.placed_items().len() + source.placed_items().len();
+@@ -876,12 +961,18 @@
+         let mut repair = Separator::new(trial, self.rng.next_u64(), EXPLORE, self.clock.clone());
+         repair.pin(blocker_index(self.model));
+         repair.region = Rect::try_new(0.0, 0.0, strip.width(shape), strip.height()).ok();
++        let diag_separator_started = Instant::now();
+         let (snapshot, tracker) = repair.separate(&self.deadline(self.last_step(until)));
++        let diag_separator_seconds = diag_separator_started.elapsed().as_secs_f64();
++        diag.event("separator_exit",serde_json::json!({"loss":tracker.total_loss(),"separator_seconds":diag_separator_seconds,
++            "window":joint_diag_window(strip,&JLayout::from_snapshot(&snapshot))}));
+         if self.clock.now() >= self.last_step(until) {
+             self.stats.joint_repair_expired += 1;
++            diag.outcome = "separator_expired";
+             return Ok(None);
+         }
+         if tracker.total_loss() > 0.0 {
++            diag.outcome = "separator_failed";
+             self.stats.joint_repair_failed += 1;
+             return Ok(None);
+         }
+@@ -900,6 +991,7 @@
+         {
+             let index = strip.sheet_of(p.shape());
+             if index >= 2 {
++                diag.outcome = "outside_pair";
+                 self.stats.joint_repair_failed += 1;
+                 return Ok(None);
+             }
+@@ -912,11 +1004,15 @@
+         let [receiver, source] = outputs;
+         let receiver = Separator::new(receiver, 0, EXPLORE, self.clock.clone());
+         let source = Separator::new(source, 0, EXPLORE, self.clock.clone());
++        diag.event("recrop_exit",serde_json::json!({"losses":[receiver.tracker.total_loss(),source.tracker.total_loss()],
++            "pair":[joint_diag_single(strip,&receiver.layout),joint_diag_single(strip,&source.layout)]}));
+         if self.clock.now() >= self.last_step(until) {
+             self.stats.joint_repair_expired += 1;
++            diag.outcome = "recrop_expired";
+             return Ok(None);
+         }
+         if receiver.tracker.total_loss() > 0.0 || source.tracker.total_loss() > 0.0 {
++            diag.outcome = "recrop_failed";
+             self.stats.joint_repair_failed += 1;
+             return Ok(None);
+         }
+@@ -924,6 +1020,7 @@
+         // With both output inventories already valid in their exact containers,
+         // lower source members into free space without changing their poses'
+         // rotation/reflection, membership or the original phase deadline.
++        let diag_lowering_started = Instant::now();
+         let mut source = source;
+         let mut keys: Vec<_> = source.layout.placed_items().keys().collect();
+         rank_incoming(&source.layout, &mut keys);
+@@ -944,15 +1041,21 @@
+             self.clock.charge(Work::RegisteredItem, 2.0);
+         }
+         source.rebuild();
++        let diag_lowering_seconds = diag_lowering_started.elapsed().as_secs_f64();
++        diag.event("lowering_exit",serde_json::json!({"loss":source.tracker.total_loss(),"lowering_seconds":diag_lowering_seconds,
++            "pair":[joint_diag_single(strip,&receiver.layout),joint_diag_single(strip,&source.layout)]}));
+         if self.clock.now() >= self.last_step(until) {
+             self.stats.joint_repair_expired += 1;
++            diag.outcome = "lowering_expired";
+             return Ok(None);
+         }
+         if source.tracker.total_loss() > 0.0 {
++            diag.outcome = "lowering_failed";
+             self.stats.joint_repair_failed += 1;
+             return Ok(None);
+         }
+         self.stats.joint_repair_completed += 1;
++        diag.outcome = "completed";
+         Ok(Some([receiver.layout.save(), source.layout.save()]))
+     }
+ 
+@@ -1001,11 +1104,14 @@
+         phase: (usize, ExchangePolicy),
+     ) -> Result<usize> {
+         let (accepted, policy) = phase;
++        let mut diag = (policy==ExchangePolicy::JointRepair).then(||JointDiag::new("chain",serde_json::json!({
++            "accepted_short_steps":accepted,"stats":self.stats,"window":joint_diag_window(strip,&sep.layout)})));
+         if accepted >= 4
+             || !self.allow_exchange
+             || shape.sheets < 2
+             || self.clock.now() >= self.last_step(until)
+         {
++            joint_diag_end(&mut diag, "not_started");
+             return Ok(0);
+         }
+         let mut checkpoint = (
+@@ -1033,10 +1139,20 @@
+                 pending += 1;
+                 self.stats.assignment_bridge_steps += 1;
+                 self.stats.assignment_bridge_flat_steps += u64::from(!improved);
++                joint_diag_event(
++                    &mut diag,
++                    "step",
++                    serde_json::json!({"improved":improved,"pending":pending,"stats":self.stats}),
++                );
+                 if improved {
+                     committed += pending;
+                     self.stats.assignment_bridge_committed += pending as u64;
+                     pending = 0;
++                    joint_diag_event(
++                        &mut diag,
++                        "committed",
++                        serde_json::json!({"committed":committed,"stats":self.stats}),
++                    );
+                     checkpoint = (
+                         sep.layout.save(),
+                         sep.tracker.clone(),
+@@ -1072,8 +1188,20 @@
+                 self.stats.extended_exchanges,
+                 self.stats.joint_exchanges,
+             ] = checkpoint.2;
++            joint_diag_event(
++                &mut diag,
++                "rollback",
++                serde_json::json!({"pending":pending,"stats":self.stats,"window":joint_diag_window(strip,&sep.layout)}),
++            );
+         }
+         outcome?;
++        joint_diag_event(
++            &mut diag,
++            "finished",
++            serde_json::json!({"committed":committed,"stats":self.stats,
++            "window":joint_diag_window(strip,&sep.layout)}),
++        );
++        joint_diag_end(&mut diag, "completed");
+         Ok(committed)
+     }
+ 
+@@ -1195,6 +1323,8 @@
+             return Ok(None);
+         }
+         let before = baseline.metrics.as_ref().expect("valid baseline");
++        let mut diag_policy = joint.then(||JointDiag::new("policy",serde_json::json!({"job":self.model.job,
++            "baseline":baseline_layout,"metrics":before,"frozen_count":frozen.len(),"active_sheets":shape.sheets})));
+         let baseline_profile = std::cell::OnceCell::new();
+         let baseline_source_area = std::cell::OnceCell::new();
+         let single = strip.container(Shape {
+@@ -1373,6 +1503,15 @@
+                     }
+                     self.clock
+                         .charge(Work::RegisteredItem, changed_keys.len() as f64);
++                    let mut diag_attempt = joint.then(||JointDiag::new("attempt",serde_json::json!({
++                        "receiver_active_sheet":target,"source_active_sheet":last_index,
++                        "paired":paired,"mixed":mixed,"absolute_until":exchange_until,
++                        "incoming":members.iter().map(|(_,item,pose)|serde_json::json!({
++                            "part_id":self.model.job.parts[self.model.part[item.idx()]].id,
++                            "transform":self.model.external(item.idx(),pose)})).collect::<Vec<_>>(),
++                        "victims":victims.iter().map(|(_,item,pose)|serde_json::json!({
++                            "part_id":self.model.job.parts[self.model.part[item.idx()]].id,
++                            "transform":self.model.external(item.idx(),pose)})).collect::<Vec<_>>() })));
+                     let repaired = if joint {
+                         self.joint_repair_pair(
+                             strip,
+@@ -1420,6 +1559,7 @@
+                         Some([receiver_snapshot, source_snapshot])
+                     };
+                     let Some([receiver_snapshot, source_snapshot]) = repaired else {
++                        joint_diag_end(&mut diag_attempt, "pair_unavailable");
+                         continue;
+                     };
+                     let mut trial = JLayout::from_snapshot(&sep.layout.save());
+@@ -1438,6 +1578,7 @@
+                         (sep.layout.placed_items().len() + changed_keys.len()) as f64,
+                     );
+                     if exact_physical_state(&sep.layout, &trial) {
++                        joint_diag_end(&mut diag_attempt, "exact_state");
+                         self.stats.neutral_exchange_rejections += 1;
+                         self.stats.exact_state_exchange_rejections += 1;
+                         continue;
+@@ -1457,11 +1598,18 @@
+                         {
+                             self.stats.neutral_exchange_rejections += 1;
+                             self.stats.material_profile_exchange_rejections += 1;
++                            joint_diag_end(&mut diag_attempt, "same_material_profile");
+                             continue;
+                         }
+                     }
+                     let report = self.exchange_report(&trial_layout)?;
++                    joint_diag_event(
++                        &mut diag_attempt,
++                        "validated_trial",
++                        serde_json::json!({"layout":trial_layout,"report":report}),
++                    );
+                     if !report.valid {
++                        joint_diag_end(&mut diag_attempt, "invalid_trial");
+                         self.stats.rejected_layouts += 1;
+                         continue;
+                     }
+@@ -1469,6 +1617,7 @@
+                     if exchange_increases_material(before, after)
+                         || self.clock.now() >= exchange_until
+                     {
++                        joint_diag_end(&mut diag_attempt, "material_guard_or_expiry");
+                         continue;
+                     }
+                     // Strict mode rejects flat material. Bridge mode may
+@@ -1483,6 +1632,7 @@
+                             false
+                         };
+                         if !area_improved {
++                            joint_diag_end(&mut diag_attempt, "flat_area_guard");
+                             self.stats.extended_flat_rejections += 1;
+                             self.stats.assignment_bridge_area_rejections += u64::from(bridge);
+                             continue;
+@@ -1491,6 +1641,7 @@
+                     // Canonical area scans are charged work; they cannot let
+                     // a proposal cross the original acceptance deadline.
+                     if bridge && self.clock.now() >= exchange_until {
++                        joint_diag_end(&mut diag_attempt, "acceptance_expired");
+                         continue;
+                     }
+                     // Same inventory can still improve the geometry, but a
+@@ -1498,6 +1649,7 @@
+                     if same_original_inventory(&members, &victims)
+                         && after.material_area >= before.material_area
+                     {
++                        joint_diag_end(&mut diag_attempt, "flat_same_inventory");
+                         self.stats.neutral_exchange_rejections += 1;
+                         continue;
+                     }
+@@ -1508,10 +1660,18 @@
+                     self.stats.joint_exchanges += u64::from(joint);
+                     self.stats.paired_exchanges += u64::from(paired);
+                     self.stats.mixed_exchanges += u64::from(mixed);
++                    joint_diag_event(
++                        &mut diag_attempt,
++                        "accepted_step",
++                        serde_json::json!({"before":before,"after":after,"stats":self.stats}),
++                    );
++                    joint_diag_end(&mut diag_attempt, "accepted");
++                    joint_diag_end(&mut diag_policy, "accepted");
+                     return Ok(Some(after.material_area < before.material_area));
+                 }
+             }
+         }
++        joint_diag_end(&mut diag_policy, "exhausted");
+         Ok(None)
+     }
+ }
+--- rejected/crates/core/examples/exchange_probe.rs
++++ observer/crates/core/examples/exchange_probe.rs
+@@ -1,5 +1,5 @@
+ //! Development-only observer of the unchanged public preparation/search API.
+-//! Counters are written after search; no timed logging or hidden budget changes.
++//! Diagnostic library records timed observations; decision logic and budgets are unchanged.
+ use std::{fs, path::PathBuf};
+ 
+ use anyhow::{Result, ensure};

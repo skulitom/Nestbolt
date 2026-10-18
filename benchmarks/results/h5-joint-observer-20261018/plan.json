@@ -1,0 +1,68 @@
+{
+  "scope": "Trace actual joint repairs in the failed mechanical development jobs.\n\nFour diagnostic-only searches: large plates and panel hardware, both kerfs,\nseed 0, 60 seconds each, serial physical CCD0 CPU 8. Original decisions,\ninputs, deadlines and work charges remain. Logging may change wall trajectories;\nthese runs cannot support a quality or speed comparison or integration.\n",
+  "jobs": [
+    "m-mechanical-large-plates",
+    "m-mechanical-panel-hardware"
+  ],
+  "kerfs_mm": [
+    0.2,
+    1.5
+  ],
+  "seed": 0,
+  "seconds": 60,
+  "attempts": 4,
+  "cpu": 8,
+  "concurrency": 1,
+  "maximum_session_seconds": 1200,
+  "guards": {
+    "production": "8505a0bbce2c8f150799d3a6823611e21cbc33abb027b79bf095e43dc9ae7e88",
+    "diagnostic_source": "889ac230685cb1aa1e8de1a7608e0e52ddd7e90c3ee67bc417a1ba8e9aa169b8",
+    "rejected_source": "145ba623776d8d855f69b3951c61de30740d07276ae4c794de99703f3c9f0e9a",
+    "environment": {
+      "NESTBOLT_SIMPLIFY": null,
+      "NESTBOLT_NO_FILL": null,
+      "NESTBOLT_DEBUG": null,
+      "NESTBOLT_TRACE": null,
+      "RUSTFLAGS": null,
+      "CARGO_PROFILE_RELEASE_LTO": null
+    },
+    "files": {
+      "scripts/h5_joint_observer.py": "bfc130d497d587f5c89786ac754294a18c7848832f2c665c9ecf1ed8c6937971",
+      "scripts/h5_joint_repair_pilot.py": "33f4f368bc5abe828eb9b76e129ed7e8df4ad3a7145f4e03da57345965aa18e0",
+      "scripts/h5_joint_trace.py": "34baf505ac8b54507f43cec1d320fc3cd166a4237521c377c0bc7a6fbec6688e",
+      "scripts/cutting_development_set.py": "04b849cd11d9c9f4f601835965f15a846918d1c42b5436ece4f02c10916a960d",
+      "scripts/h6_material_cost.py": "7fd4c3e03596c602b27c94c14365502b39e84e7af9143bf884ac897a3be2c107",
+      "scripts/h4_full_matrix.py": "eb28e1382fc0e802aaf6763b3f57e4f65e1a4cd2e0749e1bd62cf0cee8416880",
+      "output/h5-joint-repair-probe-20261018/public-checks/nestbolt-validator.exe": "97de6a34f17760ca30230742e716b3e74940f1a2ede71453ecb3b13bac73dc2b",
+      "output/h5-joint-observer-20261018/preparation.json": "05e40eb9d62584d20d09380e656785ce21db8f35ed1ee87a400688e678523d5a",
+      "output/h5-joint-observer-20261018/build.json": "2e7429525be0493a625ef49f6d108949982fc18c819d3d733ab0443f8700ed76",
+      "output/h5-joint-observer-20261018/exchange-diagnosis.exe": "b78e4d6ff50b4312afc9617cdbbc656b3f320f2c0a7ffbe80725ea1eb6c177a3",
+      "benchmarks/results/h5-joint-repair-pilot-20261018/verification.json": "60141784abd8c41514db5b7e1c6c8b343d04df3551e286c5d8f3d001432957c2",
+      "benchmarks/results/h4-depth-complete-20261016/checks.json": "9549e4b278d92d9c15f395dbea58123a6b87067e42a2d0abb4e977ea09cf8d0c",
+      "output/h5-joint-observer-20261018/reconstruction.json": "6ceab71280b19383a1b372d46e9d72ef2ba77aad6046ce25122e54937198bd2f",
+      "output/h5-joint-observer-20261018/geometry-checks/checks.json": "08acc2a06a80e1da1cb7013e4bee5cd34f5b8e7e97792e8137a37f771ab1a94c",
+      "output/h5-joint-observer-20261018/public-checks/checks.json": "25491f831cc44499a43ab5825588aa273ae21da9a0325c3896299b19f08e4c57",
+      "output/h5-joint-observer-20261018/reader-checks/checks.json": "fd008ab589510e05faafb7384f3815574f8b9208561ea062cdc014434976831f",
+      "benchmarks/results/h5-joint-observer-preparation-20261018/checks.json": "a94af7335e7916f43defe59d17ecdbde2d3842d60301a4173879a7f4f5652303",
+      "benchmarks/datasets/M/m-box-batch-500.json": "0c15b0209d30a3b98803b7dec9660e8c102b34882e9a3028571763054a821cf0",
+      "benchmarks/datasets/M/m-box-desktop.json": "68feb4c70fe327ef249314b47716bbb676adaf6950335fc728d4618cb8aa0c0e",
+      "benchmarks/datasets/M/m-box-long.json": "603f40fe5c9d1475c55136b8f9e5b0a23e412fe17bca7d7cbe004561bdc4929c",
+      "benchmarks/datasets/M/m-box-mini.json": "a64689f9b7a6c24d8d36e3dd0f6fb7ea8048c9d4710dfb9424017b42cfb7e9b4",
+      "benchmarks/datasets/M/m-box-storage.json": "0ecbe92256765dfb15a4791026f2b07ef69114652c7530914dfa426771113d97",
+      "benchmarks/datasets/M/m-box-tool.json": "54c5095358b5b24f0d0b8a1bcd5e94e6834345e87865124e3ec8fac3f83ab44b",
+      "benchmarks/datasets/M/m-mechanical-large-plates.json": "a0aa6cbd864397bc79494aa8f546c1da1fa92000ba9530bd39ef7c8f7503bb11",
+      "benchmarks/datasets/M/m-mechanical-panel-hardware.json": "c38e55de169dda91ef0a7125bebf1bd5dd1ea929075c721ee5414e2296d33824",
+      "benchmarks/datasets/cutting/c-rect-equal.json": "dd389cf9d9f9407373f1971a43755cb91f65d1798f1eb9c2aca1883fcf9497d7",
+      "benchmarks/datasets/cutting/c-rect-mixed.json": "741285ff2057ea01de5409b66263bfea0ca7ea6e51dc65ea43f1e48708b6d0e4",
+      "benchmarks/datasets/cutting/c-bracket-l.json": "a2d216033717c5b4aa8548be9153465c4a717c596aaa16aaf2dc5c24481e85c8",
+      "benchmarks/datasets/cutting/c-bracket-u.json": "922c1256f80a68e46fd3e34e6d8806e1cfd85eeb11d5399876d128197dd27f80",
+      "benchmarks/datasets/cutting/c-bracket-mixed.json": "a02e94fa53d9700ebda49d75ac59653e42c57b0bcc50caf86377516657da27aa"
+    }
+  },
+  "source_change": "Record nested chains, policies, initial proposals, repaired pair poses, extra net member migration, actual whole-job trials, repair/lowering elapsed durations, outcomes, acceptance and rollback. Original decisions and work charges remain; all instrumentation reverses exactly.",
+  "interpretation": "Diagnostic only; trace overhead can alter wall-clock outcomes. Phase durations are observed elapsed time, not a controlled performance comparison. Pair identities are original part-type multisets and physical poses; same-family copy swaps can cancel in net migration counts. No retry of the rejected matched pilot.",
+  "retention": "All original attempts, traces, public exports and independent validation in immutable per-attempt ZIPs.",
+  "held_out_geometry_read": false,
+  "production_changed": false,
+  "H5_complete": false
+}
