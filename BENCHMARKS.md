@@ -14373,3 +14373,23 @@ four CLI comparisons and five adversarial pilot checks also pass. The paired
 72-outcome method is unchanged and committed before measurement. No quality
 result, production integration or release claim; H2/H5 remain open at 60%.
 All six hosted checks on main `924336a` have passed.
+
+
+## 2026-10-18 — Exact-state early-rejection comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-exact-reject-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.905 minutes. All archives pass CRC and member/hash checks;
+the summary is recomputed from all records. The filled-outer audit verifies
+133,535 same-sheet pairs in 48 common-mode layouts with
+minimum slack 9.99999247131e-07 mm and unchanged
+0.00000010 mm tolerance. Hole interiors stay reserved.
+
+6 of eight material pairs fail the original +1% limit.
+m-mechanical-large-plates at 0.2 mm: +5.349182%; m-mechanical-large-plates at 1.5 mm: +5.485080%; m-mechanical-panel-hardware at 0.2 mm: +6.767422%; m-mechanical-panel-hardware at 1.5 mm: +5.195747%; c-bracket-mixed at 0.2 mm: +1.027791%; c-bracket-mixed at 1.5 mm: +1.177346%
+The candidate accepts 13/125 exchanges, including 11/87
+two-part exchanges. The post-exchange gap-fill step runs 13 times and moves 12 parts. The early exact-state and original neutral guards reject 41 same-inventory proposals without material improvement; mixed pairs account for 2/5 accepted/attempted exchanges. The neutral total includes 3 exact-state rejections before repeated validation. These counts alone do not establish final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Counts alone do not identify failure stages or
+prove impossibility. Original failures, production and frozen inputs remain
+unchanged. No reserved-input access or H5 credit; H2/H5 remain open at 60%.
+
+The saved-height follow-up uses only six previously validated panel pairs and reconstructs all twelve material totals exactly. All sheet maxima remain unchanged despite five pairs changing poses. This supports investigating a proven-material rejection, with full acceptance validation retained; it does not implement one or establish a quality gain.

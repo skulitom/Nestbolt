@@ -1,0 +1,214 @@
+--- larger-return/crates/core/src/sheets/vstrip/exchange.rs
++++ exact-reject/crates/core/src/sheets/vstrip/exchange.rs
+@@ -10,6 +10,39 @@
+     blockers: usize,
+     rank: usize,
+     area: f32,
++}
++
++// Conservative equality: exact bits and shared immutable model identity.
++// Ignore placement keys and order, retain multiplicity. A false result does
++// not prove changed geometry (e.g. -0 versus +0); true is conservative.
++fn exact_physical_state(a: &JLayout, b: &JLayout) -> bool {
++    use std::sync::Arc;
++    if !Arc::ptr_eq(a.container().base_cde(), b.container().base_cde())
++        || !Arc::ptr_eq(a.container().outer_orig(), b.container().outer_orig())
++        || !Arc::ptr_eq(a.container().outer_cd(), b.container().outer_cd())
++        || a.placed_items().len() != b.placed_items().len()
++    {
++        return false;
++    }
++    let keys = |layout: &JLayout| {
++        let mut keys: Vec<_> = layout
++            .placed_items()
++            .values()
++            .map(|p| {
++                let dt = p.d_transf();
++                let (x, y) = dt.translation();
++                (
++                    p.item().idx(),
++                    Arc::as_ptr(p.item()) as usize,
++                    [dt.rotation().to_bits(), x.to_bits(), y.to_bits()],
++                    dt.reflected,
++                )
++            })
++            .collect();
++        keys.sort_unstable();
++        keys
++    };
++    keys(a) == keys(b)
+ }
+ 
+ fn exchange_increases_material(before: &Metrics, after: &Metrics) -> bool {
+@@ -658,6 +691,11 @@
+                         Work::RegisteredItem,
+                         (sep.layout.placed_items().len() + changed_keys.len()) as f64,
+                     );
++                    if exact_physical_state(&sep.layout, &trial) {
++                        self.stats.neutral_exchange_rejections += 1;
++                        self.stats.exact_state_exchange_rejections += 1;
++                        continue;
++                    }
+                     let report = self.exchange_report(strip, frozen, &trial, shape)?;
+                     if !report.valid {
+                         self.stats.rejected_layouts += 1;
+@@ -695,6 +733,113 @@
+     use super::*;
+     use nestbolt_validator::job::{Margins, Part, Stock};
+     use nestbolt_validator::{Polygon, Units};
++
++    // BEGIN exact-state observation tests
++    #[test]
++    fn exact_state_ignores_order_and_keys_but_retains_multiplicity() {
++        let (job, layout) = balanced_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let before = sheets[1].layout();
++        let mut after = JLayout::new(before.container().clone());
++        let parts: Vec<_> = before.placed_items().values().collect();
++        let dummy = after.place_item(parts[0].item(), parts[0].d_transf());
++        after.remove_item(dummy);
++        for p in parts.iter().rev() {
++            after.place_item(p.item(), p.d_transf());
++        }
++        assert!(exact_physical_state(
++            before,
++            &JLayout::from_snapshot(&before.save())
++        ));
++        assert!(exact_physical_state(before, &after));
++        assert_ne!(
++            before.placed_items().keys().collect::<Vec<_>>(),
++            after.placed_items().keys().collect::<Vec<_>>()
++        );
++        let key = after.place_item(parts[0].item(), parts[0].d_transf());
++        assert!(!exact_physical_state(before, &after));
++        after.remove_item(key);
++        let key = after.placed_items().keys().next().unwrap();
++        after.remove_item(key);
++        assert!(!exact_physical_state(before, &after));
++    }
++
++    #[test]
++    fn exact_state_rejects_one_ulp_rotation_reflection_and_changed_distribution() {
++        let (job, layout) = balanced_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let before = sheets[1].layout();
++        let (key, p) = before
++            .placed_items()
++            .iter()
++            .find(|(_, p)| p.item().area() == 1350.0)
++            .unwrap();
++        let pose = p.d_transf();
++        let (x, y) = pose.translation();
++        for changed in [
++            DTransformation::new(pose.rotation(), (f32::from_bits(x.to_bits() + 1), y))
++                .with_reflection(pose.reflected),
++            DTransformation::new(pose.rotation(), (x, f32::from_bits(y.to_bits() + 1)))
++                .with_reflection(pose.reflected),
++            DTransformation::new(pose.rotation() + 0.01, (x, y)).with_reflection(pose.reflected),
++            DTransformation::new(pose.rotation(), (x, y)).with_reflection(!pose.reflected),
++        ] {
++            let mut after = JLayout::from_snapshot(&before.save());
++            after.remove_item(key);
++            after.place_item(p.item(), changed);
++            assert!(!exact_physical_state(before, &after));
++        }
++        let mut after = JLayout::from_snapshot(&before.save());
++        let same: Vec<_> = before
++            .placed_items()
++            .iter()
++            .filter(|(_, q)| std::sync::Arc::ptr_eq(p.item(), q.item()))
++            .collect();
++        assert_eq!(same.len(), 2);
++        after.remove_item(same[1].0);
++        after.place_item(p.item(), pose);
++        assert_eq!(before.placed_items().len(), after.placed_items().len());
++        assert!(!exact_physical_state(before, &after));
++    }
++
++    #[test]
++    fn exact_state_rejects_different_original_item_model_and_container() {
++        let (job, layout) = balanced_fixture();
++        let model = Model::new(&job).unwrap();
++        let sheets = model.sheets_of(&layout).unwrap();
++        let other_model = Model::new(&job).unwrap();
++        let other_sheets = other_model.sheets_of(&layout).unwrap();
++        let before = sheets[1].layout();
++        let (key, p) = before.placed_items().iter().next().unwrap();
++        let other = other_sheets[1]
++            .layout()
++            .placed_items()
++            .values()
++            .find(|q| q.item().idx() == p.item().idx())
++            .unwrap();
++        let mut after = JLayout::from_snapshot(&before.save());
++        after.remove_item(key);
++        after.place_item(other.item(), p.d_transf());
++        assert!(!exact_physical_state(before, &after));
++        let different = sheets[0]
++            .layout()
++            .placed_items()
++            .values()
++            .find(|q| q.item().idx() != p.item().idx())
++            .unwrap();
++        let mut after = JLayout::from_snapshot(&before.save());
++        after.remove_item(key);
++        after.place_item(different.item(), p.d_transf());
++        assert!(!exact_physical_state(before, &after));
++        let mut after = JLayout::new(other_sheets[1].layout().container().clone());
++        for q in before.placed_items().values() {
++            after.place_item(q.item(), q.d_transf());
++        }
++        assert!(!exact_physical_state(before, &after));
++    }
++    // END exact-state observation tests
+ 
+     fn rectangle(id: &str, width: f64, height: f64) -> Part {
+         Part {
+@@ -2283,4 +2428,34 @@
+             serde_json::json!({"job":job,"before":before,"after":after})
+         );
+     }
++    #[test]
++    fn exact_duplicate_rejection_preserves_incumbent_and_disabled_boundaries() {
++        let (job, layout) = equal_inventory_fixture(false);
++        for seed in 0..4 {
++            for (enabled, expired) in [(true, false), (false, false), (true, true)] {
++                let (moved, after, stats) = exercise(&job, &layout, seed, enabled, expired, 0);
++                eprintln!(
++                    "EXACT_REJECT_WITNESS {}",
++                    serde_json::json!({
++                        "job":&job,"before":&layout,"after":&after,"seed":seed,
++                        "enabled":enabled,"expired":expired,"moved":moved,"stats":&stats
++                    })
++                );
++                assert_eq!(moved, 0);
++                assert_eq!(stats.directed_exchanges, 0);
++                if enabled && !expired {
++                    assert!(
++                        stats.exact_state_exchange_rejections > 0,
++                        "The observed identical trial must reject before full validation: {stats:?}"
++                    );
++                    assert!(
++                        stats.exact_state_exchange_rejections <= stats.neutral_exchange_rejections
++                    );
++                } else {
++                    assert_eq!(stats.exact_state_exchange_rejections, 0);
++                    assert_eq!(stats.directed_exchange_attempts, 0);
++                }
++            }
++        }
++    }
+ }
+--- larger-return/crates/core/src/sheets.rs
++++ exact-reject/crates/core/src/sheets.rs
+@@ -107,6 +107,8 @@
+     pub post_exchange_fill_moves: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub neutral_exchange_rejections: u64,
++    #[serde(skip_serializing_if = "is_zero")]
++    pub exact_state_exchange_rejections: u64,
+     #[serde(skip_serializing_if = "is_zero")]
+     pub mixed_exchange_attempts: u64,
+     #[serde(skip_serializing_if = "is_zero")]
