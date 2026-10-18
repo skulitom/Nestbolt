@@ -13801,3 +13801,27 @@ overlap and outside checks will distinguish an overfull assignment from a poor
 placement without assuming full stock is available in a compressed search sheet.
 Capture overhead can perturb deadlines. No repeated quality pilot, relaxed
 limit, reserved-input access or H5 credit. H2/H5 remain open at 60%.
+
+
+## 2026-10-18 — Return-sheet area bounds do not explain the failed repairs
+
+[Four diagnostic outcomes](benchmarks/results/h5-return-capacity-diagnosis-20261017.md)
+validate in 273.471 seconds, with unchanged inputs/source/binary,
+all quantities/metrics/exports, matching traces and immutable archive hashes.
+All 25 complete-set attempts use permitted reciprocal frames; every receiver
+repairs, and every return sheet retains substantial overlap. Independent Shapely
+checks confirm zero receiver overlap/outside area and source pairwise overlap
+sums of 1,239.713–75,490.467 mm² after repair.
+
+Source collision-area occupancy is 75.281–85.554% of the actual shortened sheet;
+original filled outer area is 15.962–47.573% of full usable stock. No assignment
+exceeds either simple area bound. This proves neither feasibility nor global
+impossibility. Next seek an independently valid full repack of fixed saved
+assignments before changing repair. A failed bounded repack cannot prove
+impossibility. Trace overhead may perturb deadlines; no quality claim is made.
+
+Complete expanded records are archived byte-for-byte with CRC/member hashes;
+the compact index links to all full traces. Four first-attempt figures were
+inspected; an initial snapshot-key coloring mistake is retained and corrected
+without changing geometry or numeric analysis. Production and original failed
+pilots remain unchanged. H2/H5 remain open at 60%.

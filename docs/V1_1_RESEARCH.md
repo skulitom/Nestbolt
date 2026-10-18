@@ -1049,3 +1049,13 @@ choices within that explicitly scoped selection. This supports investigating
 balanced groups, but proves no mechanical improvement; inspect actual source
 capacity/placement before implementing a new heuristic. No optimizer run,
 production change or gate relaxation. H2/H5 remain open at 60%.
+
+
+**N4 capacity diagnosis, 2026-10-18:** [four valid diagnostic outcomes](../benchmarks/results/h5-return-capacity-diagnosis-20261017.md)
+record 25 complete reciprocal attempts. Independent geometry checks confirm
+clear repaired receivers and overlapping repaired return sheets. Source area
+occupancy is 75.281–85.554% of the actual shortened search boundary: area alone
+does not prove infeasibility, and occupancy alone does not prove a packing exists.
+Next seek a complete, independently valid repack of fixed saved assignments with
+their original boundary and legal orientations before changing repair. Preserve
+all failed outcomes; no production change, relaxed limit or H5 credit. 60% complete.
