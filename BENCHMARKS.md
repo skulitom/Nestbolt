@@ -14753,3 +14753,18 @@ comparisons and five harness tests pass. Source reconstruction, lint and build p
 The four-job matched pilot is ready to be planned; no new quality run has begun.
 This does not resolve panel repair failures or earn H5 credit. H2/H5 remain open
 at 60%; production and release claims are unchanged.
+
+
+## 2026-10-18 — Exchange-continuation exchange comparison
+
+[All 72 outcomes validate](benchmarks/results/h5-exchange-chain-pilot-20261018.md)
+with original quantities, public exports and independent metrics in
+8.912 minutes. All ZIP CRCs and member hashes pass; the summary
+is recomputed from every record. An independent filled-outer audit checks
+133,153 same-sheet pairs in 48 layouts, retaining the original
+0.00000010 mm tolerance and reserved hole interiors.
+
+4 of eight material pairs fail the unchanged +1% limit. m-mechanical-large-plates at 0.2 mm: +5.359062%; m-mechanical-large-plates at 1.5 mm: +5.690931%; m-mechanical-panel-hardware at 0.2 mm: +6.541327%; m-mechanical-panel-hardware at 1.5 mm: +5.555891%
+The candidate accepts 28/169 exchanges, including 25/101 paired and 2/5 mixed-item exchanges. Follow-up gap filling runs 14 times and moves 22 parts. Of 6 neutral rejections, 0 are caught by exact internal-state equality and 5 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Reject integration and a full H5 run for this candidate. All four mechanical medians remain above the original +1% material limit. Seven candidate runs accept more exchanges than successful windows, proving actual continuation; 28 accepted exchanges across 14 successful windows still yield no lower final material median than the matched common baseline on any pair. This single matched pilot is descriptive, not a statistical ranking of small differences. Do not increase the chain cap blindly or repeat this unchanged pilot. Return to the source-repair constraint: the current caller still caps the exchange window at 1.2 seconds, within an existing ten-percent relocation allowance, and each receiver/source repair pair is capped at 0.4 seconds and half the remaining exchange time. Each proposal creates a fresh source separator. The preserved fixed-assignment diagnostic supplies three feasible source packings, observed in 1.05, 2.29 and 6.16 seconds, while the previous source traces retain positive repair loss. Those older assignments and timings are evidence of feasibility and incomplete short repairs, not proof that this candidate needs those durations or that extra repair time will satisfy H5. Next qualify a distinct continuous-source-repair allocation using the already available relocation allowance, within the unchanged whole-search wall budget. Preserve independent whole-job geometry and material acceptance, exact quantities, filled holes, allowed orientations, frozen sheets and rollback; author failure/deadline and useful repair witnesses before a new precommitted matched pilot. Record exact changes to the 1.2-second and per-pair caps rather than calling internal allocation unchanged. No full 13-job gate or reserved-input access is justified yet.
+No new reserved-input access or H5 credit. Production, frozen inputs and
+earlier failures remain unchanged. H2/H5 remain open at 60%.
