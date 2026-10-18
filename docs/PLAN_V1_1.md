@@ -1723,3 +1723,17 @@ not improved. Next inspect the documented cumulative/area propagation flags with
 one controlled same-model experiment, preserving all limits and failures. All six
 main 67e77b1 checks pass. No native packing, quality run, production integration,
 gate credit, release or README change; H2/H5 remain open at 60%.
+
+**N4 contact direction and outline construction, 2026-10-18:** [actual-outline investigations](../benchmarks/results/h5-outline-contact-direction-20261018.md)
+retain the unchanged-model propagation timeout and all unsuccessful fixed/adaptive
+constructions. Caching exact primitive exclusions lets all eighteen fixed-order
+searches finish their original allowances; cached primitives and translation terms
+audit exactly. Retained-layout checks cover 30,621 pairs; all best layouts remain
+incomplete. The empty-sheet audit failure and corrected unknown return-code
+metadata are preserved. A directed-contact probe exposes a better global rotation.
+The subsequent declared 36-phase scan gives 324 verified components and 13,860
+pair checks at minimum 0.225123442 mm. Its 15-cog rectangle is 5.6804% smaller than
+the earlier sampled-angle component; this is not whole-job material savings.
+Next use contact-aligned staggered rows and the retained bracket-pattern aspect
+choices in a complete original-inventory construction. No native packing, quality
+run, runtime integration, release, README change or gate credit; H2/H5 remain 60%.

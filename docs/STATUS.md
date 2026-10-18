@@ -128,6 +128,20 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 contact direction and outline construction, 2026-10-18:** [actual-outline investigations](../benchmarks/results/h5-outline-contact-direction-20261018.md)
+retain the unchanged-model propagation timeout and all unsuccessful fixed/adaptive
+constructions. Caching exact primitive exclusions lets all eighteen fixed-order
+searches finish their original allowances; cached primitives and translation terms
+audit exactly. Retained-layout checks cover 30,621 pairs; all best layouts remain
+incomplete. The empty-sheet audit failure and corrected unknown return-code
+metadata are preserved. A directed-contact probe exposes a better global rotation.
+The subsequent declared 36-phase scan gives 324 verified components and 13,860
+pair checks at minimum 0.225123442 mm. Its 15-cog rectangle is 5.6804% smaller than
+the earlier sampled-angle component; this is not whole-job material savings.
+Next use contact-aligned staggered rows and the retained bracket-pattern aspect
+choices in a complete original-inventory construction. No native packing, quality
+run, runtime integration, release, README change or gate credit; H2/H5 remain 60%.
+
 **N4 ragged cog pockets, 2026-10-18:** [54 staggered variants](../benchmarks/results/h5-ragged-pockets-20261018.md)
 produce 324 valid groups with 20,034 independently checked pairs. Filling their
 actual inter-part pockets produces 48 verified components: 1,197 proposed
