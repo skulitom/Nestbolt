@@ -14425,3 +14425,5 @@ The candidate accepts 13/147 exchanges, including 11/108 paired and 1/18 mixed-i
 frozen inputs and earlier failures remain unchanged. H2/H5 remain open at 60%.
 
 A read-only inspection of six older validated neutral panel pairs finds unchanged physical poses for the two inserts setting the credited sheet height. Five pairs move other parts. The saved evidence motivates checking actual selection order if this pilot fails; it neither implements a selector nor proves a gain or packing bound.
+
+All six hosted checks on main `d7204d6` have now passed, including Windows, Linux and browser checks. This confirmation precedes the next periodic push; it does not turn the experimental material-profile pilot into a passing H5 result. [Hosted evidence](benchmarks/results/h5-material-profile-pilot-20261018/main-ci-d7204d6.json).

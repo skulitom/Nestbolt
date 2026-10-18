@@ -110,6 +110,8 @@ the original +1% limit. m-mechanical-large-plates at 0.2 mm: +5.169797%; m-mecha
 The candidate accepts 13/147 exchanges, including 11/108 paired and 1/18 mixed-item exchanges. Follow-up gap filling runs 13 times and moves 16 parts. Of 49 neutral rejections, 3 are caught by exact internal-state equality and 46 by the material profile before full validation. Counts do not establish time saving or improved final quality. Reject this candidate for integration; do not open the full 13-job gate for it. Production, frozen inputs and earlier failures remain
 unchanged. H2/H5 remain open at 60%.
 
+All six hosted checks on main `d7204d6` have now passed, including Windows, Linux and browser checks. This confirmation precedes the next periodic push; it does not turn the experimental material-profile pilot into a passing H5 result. [Hosted evidence](../benchmarks/results/h5-material-profile-pilot-20261018/main-ci-d7204d6.json).
+
 **N4 exact-state early-rejection outcome, 2026-10-18:** [all 72 outcomes validate](../benchmarks/results/h5-exact-reject-pilot-20261018.md).
 The independent filled-outer audit checks 133,535 same-sheet
 pairs across 48 common-mode layouts. 6 of eight material pairs fail

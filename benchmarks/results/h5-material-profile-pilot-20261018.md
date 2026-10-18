@@ -18,8 +18,8 @@ Profiles require the same immutable job, sheet/stock assignments, exact
 sheet maxima and original copy identities. Equality permits rejection
 only. Every accepted exchange retains full geometry and strict material
 checks. Budgets and coefficients are unchanged; new footprint work uses
-the existing validated-vertex charge. The [preparation]
-(h5-material-profile-preparation-20261018.md) retains 123 passing optimized
+the existing validated-vertex charge. The [preparation](h5-material-profile-preparation-20261018.md)
+retains 123 passing optimized
 tests, all 117 prior tests unchanged, 47 frozen-CLI profile checks and
 24 frozen-CLI branch checks. Original preparation failures and the
 expected failing regression remain. Strict lint/build, public parity
@@ -164,3 +164,8 @@ The six previously validated neutral panel pairs preserve the physical poses of 
 [Saved-layout inspection](h5-material-profile-pilot-20261018/neutral-frontier-review/checks.json).
 
 Mapping the pinned importer indices back to original part IDs also shows that none of the 16 attempts in those two earlier diagnostics selects an insert. The insert pair is present later in the choices. This coverage predates the new profile branch and is not attributed to its pilot. [Retained choice audit](h5-material-profile-pilot-20261018/neutral-frontier-review/choices.json).
+
+
+## Main CI confirmation
+
+All six hosted checks on main `d7204d6` have now passed, including Windows, Linux and browser checks. This confirmation precedes the next periodic push; it does not turn the experimental material-profile pilot into a passing H5 result. [Six completed jobs](h5-material-profile-pilot-20261018/main-ci-d7204d6.json).
