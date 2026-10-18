@@ -1878,3 +1878,14 @@ post-hoc finite-angle geometry diagnostics, not quality/speed evidence or a proo
 of infeasibility. Preserve them and investigate validated multi-part constructions
 before proposing another runtime change. Production, budgets, four-step cap,
 material limits and the published preview remain unchanged; completion stays 60%.
+
+**N4 mixed-pattern diagnosis, 2026-10-18:** [verified component constructions](../benchmarks/results/h5-pattern-construction-20261018.md)
+find compact two-bracket/one-insert groups and smaller free-angle round-part pairs.
+All 446 component CLI checks and independent checks of 948 incomplete placement
+attempts pass their stated scope. The component checks use subset quantities and
+may enlarge stock; they do not validate a whole original job. Both large-plate
+cases pass the refined finite-catalog area check, but no complete target placement
+is found; the panel catalogs still exceed available area. Keep all failures and
+test actual-outline placement and joint assignment before any runtime proposal.
+No global infeasibility, quality or speed claim follows. Production, budgets,
+repair cap, material limits and the preview remain unchanged; completion is 60%.
