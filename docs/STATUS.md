@@ -128,6 +128,21 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 ragged cog pockets, 2026-10-18:** [54 staggered variants](../benchmarks/results/h5-ragged-pockets-20261018.md)
+produce 324 valid groups with 20,034 independently checked pairs. Filling their
+actual inter-part pockets produces 48 verified components: 1,197 proposed
+additions, 6,301 final pairs and 237 accepted additions across variants. Four
+complete original-inventory recipes pass their restricted rectangle-area test;
+two area failures remain preserved. Three serial 120-second models test free
+rectangle placement, proven full-width separator symmetry, and normal subset-sum
+coordinates. Independent parsing verifies exact quantities, targets and every
+model difference; independent enumeration verifies all reduced coordinate domains.
+All three return UNKNOWN without a full selection. The earlier 63/66 partial is
+not improved. Next inspect the documented cumulative/area propagation flags with
+one controlled same-model experiment, preserving all limits and failures. All six
+main 67e77b1 checks pass. No native packing, quality run, production integration,
+gate credit, release or README change; H2/H5 remain open at 60%.
+
 **N4 coherent cog groups, 2026-10-18:** [162 alternating lattices](../benchmarks/results/h5-cog-lattices-20261018.md)
 produce 1,134 verified components and pass 45,360 independent pair checks.
 All 504,000 fixed-column whole-job constructions finish without a full layout;
