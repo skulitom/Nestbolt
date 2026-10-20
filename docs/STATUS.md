@@ -140,6 +140,19 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 single non-cog release census, 2026-10-20:** [all 51 independently audited cases](../benchmarks/results/h5-single-non-cog-release-census-20261020.md)
+rule out completing the current arrangement by moving only one bracket or
+insert: all 12 bracket and 21 insert choices have cog capacity below the
+required 15, even when the removed part is omitted entirely. All 121 center
+components and 242 diameter covers verify. A separate component certificate
+tightens the last insert case from 15 to 14; its original loose result remains.
+The 18 frame releases remain inconclusive at bounds of 15–17, with no new
+layout or feasibility claim. Next analyze changed frame positions while
+preserving the other 50 non-cog poses; multiple-part changes remain possible.
+All six hosted checks on remote abeb2739 now pass. Core source, README and
+release assets are unchanged; no native quality or held-out run occurs.
+H2/H5 remain open at 60%.
+
 **N4 cog free regions and continuous capacity, 2026-10-20:** [the independently audited certificate](../benchmarks/results/h5-cog-free-regions-and-continuous-capacity-20261020.md)
 proves at most **13 cogs** fit around the current 51 fixed non-cog poses,
 even allowing arbitrary angles and continuous positions. The original job
