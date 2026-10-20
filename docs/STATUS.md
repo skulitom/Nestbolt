@@ -140,6 +140,18 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 continuous single-frame regions, 2026-10-20:** [the complete audited record](../benchmarks/results/h5-single-frame-continuous-regions-20261020.md)
+covers all 72 frame/size-class/sheet queries and retains all 18 original frame
+poses. Guaranteed occupied rectangles exclude 16 of 52 whole center regions.
+A changed midpoint subdivision stops at its declared 120-second boundary
+after 165 new cases, preserving 49 pending nodes. Independent exact geometry,
+area and tree-coverage checks rule out ten of the eighteen single-frame moves.
+Together with the previous small-part certificates, 43 single non-cog changes
+are excluded and eight frame choices remain unresolved. No unfinished tree
+is treated as a proof. Next construct and audit changed frame/cog candidates
+within the remaining regions; do not extend the expired tree unchanged.
+Core source, README and releases remain unchanged. H2/H5 remain open at 60%.
+
 **N4 single non-cog release census, 2026-10-20:** [all 51 independently audited cases](../benchmarks/results/h5-single-non-cog-release-census-20261020.md)
 rule out completing the current arrangement by moving only one bracket or
 insert: all 12 bracket and 21 insert choices have cog capacity below the

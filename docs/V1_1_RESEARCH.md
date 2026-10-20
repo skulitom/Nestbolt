@@ -2164,3 +2164,15 @@ preserving the other 50 non-cog poses; multiple-part changes remain possible.
 All six hosted checks on remote abeb2739 now pass. Core source, README and
 release assets are unchanged; no native quality or held-out run occurs.
 H2/H5 remain open at 60%.
+
+**N4 continuous single-frame regions, 2026-10-20:** [the complete audited record](../benchmarks/results/h5-single-frame-continuous-regions-20261020.md)
+covers all 72 frame/size-class/sheet queries and retains all 18 original frame
+poses. Guaranteed occupied rectangles exclude 16 of 52 whole center regions.
+A changed midpoint subdivision stops at its declared 120-second boundary
+after 165 new cases, preserving 49 pending nodes. Independent exact geometry,
+area and tree-coverage checks rule out ten of the eighteen single-frame moves.
+Together with the previous small-part certificates, 43 single non-cog changes
+are excluded and eight frame choices remain unresolved. No unfinished tree
+is treated as a proof. Next construct and audit changed frame/cog candidates
+within the remaining regions; do not extend the expired tree unchanged.
+Core source, README and releases remain unchanged. H2/H5 remain open at 60%.
