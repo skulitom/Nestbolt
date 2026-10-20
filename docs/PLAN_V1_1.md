@@ -1842,3 +1842,17 @@ Next check frame-only capacity before selecting a different insert arrangement
 or diagnosing bracket/cog obstructions. All six 56f818a hosted checks pass and
 f321537 is pushed to main. H2/H5 remain open at 60%; runtime, README and release
 assets are unchanged.
+
+**N4 frame capacity and joint small parts, 2026-10-20:** [the complete audit](../benchmarks/results/h5-frame-capacity-and-joint-small-parts-20261020.md)
+finds two geometry-verified 18-frame arrangements around all 21 inserts. Their
+fixed-group small-part optima are 16 and 13; independent clique certificates
+allow at most 8 and 6 cogs, below the required 15. A changed joint model keeps
+all 18 frames and increases its own seed from 16 to 21 small parts, ending with
+all 12 brackets and 9 cogs after one 30-second limit. All 18 returned layouts
+pass original geometry and retain their quantity-only CLI failures. Six cogs
+are still missing, and filled area remains below the known 58-part partial.
+Next construct new cog contacts around the final 51 non-cog poses; do not
+repeat expired searches. Remote abeb2739's comparison page and README link
+merge cleanly as 09f59894, preserving 11 incoming and 25 local files. Its push
+cancelled f321537's remaining Windows/Linux checks. No complete CI success
+or release is inferred. H2/H5 remain open at 60%; core source is unchanged.
