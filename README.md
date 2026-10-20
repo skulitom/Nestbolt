@@ -24,8 +24,7 @@ available, plus the Windows MCP bundle. Their [published-download checks](benchm
 pass. Import acceptance and common-line material use remain under development;
 the [v1.1 plan is 60% complete](docs/STATUS.md). Stable v0.1.0 remains available.
 
-The hosted browser app runs the current preview build from `main` (newer than v0.2.0-alpha.1).
-Stable [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) remains available as a download.
+The hosted browser app runs a preview build from `main` (newer than v0.2.0-alpha.1).
 The benchmark figures below belong to the frozen `75cbb32` build; this preview
 makes no new comparison against competing tools.
 
