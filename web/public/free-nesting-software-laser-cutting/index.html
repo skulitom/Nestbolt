@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Free nesting software for laser cutting and CNC | Nestbolt</title>
+    <meta name="description" content="Nest SVG and DXF parts for laser, CNC, fabric and leather cutting. Learn the free browser workflow, spacing, exports and limits, with no files uploaded.">
+    <link rel="canonical" href="https://skulitom.github.io/Nestbolt/free-nesting-software-laser-cutting/">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Nestbolt">
+    <meta property="og:title" content="Free nesting software for laser cutting and CNC | Nestbolt">
+    <meta property="og:description" content="Nest SVG and DXF parts for laser, CNC, fabric and leather cutting. Learn the free browser workflow, spacing, exports and limits, with no files uploaded.">
+    <meta property="og:url" content="https://skulitom.github.io/Nestbolt/free-nesting-software-laser-cutting/">
+    <meta property="og:image" content="https://skulitom.github.io/Nestbolt/og/free-nesting-software-laser-cutting.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="451 letter outlines on an 850 × 425 mm sheet, with small letters inside larger holes and a clean offcut">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://skulitom.github.io/Nestbolt/#software-application",
+            "name": "Nestbolt",
+            "url": "https://skulitom.github.io/Nestbolt/",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Web browser, Windows, Linux, macOS",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "license": "https://opensource.org/licenses/MIT",
+            "downloadUrl": "https://github.com/skulitom/Nestbolt/releases",
+            "sameAs": "https://github.com/skulitom/Nestbolt",
+            "description": "Free, open-source nesting for people who cut fixed sheets: laser cutters, CNC routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use the least material. It runs in your browser (nothing is uploaded), on the command line, and as an MCP server that AI agents can call.",
+            "author": {
+              "@type": "Person",
+              "name": "skulitom",
+              "url": "https://github.com/skulitom"
+            }
+          },
+          {
+            "@type": "TechArticle",
+            "@id": "https://skulitom.github.io/Nestbolt/free-nesting-software-laser-cutting/#page",
+            "name": "Free nesting software for laser cutting and CNC | Nestbolt",
+            "description": "Nest SVG and DXF parts for laser, CNC, fabric and leather cutting. Learn the free browser workflow, spacing, exports and limits, with no files uploaded.",
+            "url": "https://skulitom.github.io/Nestbolt/free-nesting-software-laser-cutting/",
+            "isPartOf": {
+              "@type": "WebSite",
+              "@id": "https://skulitom.github.io/Nestbolt/#website",
+              "name": "Nestbolt",
+              "url": "https://skulitom.github.io/Nestbolt/"
+            },
+            "about": {
+              "@id": "https://skulitom.github.io/Nestbolt/#software-application"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="../"><strong>Nestbolt</strong></a></li>
+          <li>
+            <span>Guides:</span>
+            <ul>
+              <li><a href="../free-nesting-software-laser-cutting/">Free nesting</a></li>
+              <li><a href="../deepnest-alternative/">Deepnest alternative</a></li>
+              <li><a href="../nest-svg-dxf-in-browser/">SVG/DXF in the browser</a></li>
+            </ul>
+          </li>
+          <li><a href="../nesting-examples/">Examples</a></li>
+          <li><a href="../results/">Benchmark results</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt">GitHub</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <article>
+        <h1>Free nesting software for laser cutting and CNC</h1>
+        <p>Nesting means arranging the parts of a drawing on your material before cutting. By fitting outlines closer together, including small parts inside larger parts' holes, you can use less material. Nestbolt also compresses the last sheet towards one end so the remaining offcut stays usable.</p>
+        <div class="cta">
+          <a class="button" href="../">Open Nestbolt in your browser</a>
+          <p>Free, MIT-licensed, no account; your files never leave your computer.</p>
+        </div>
+        <p>Nestbolt is free, open-source software for fixed-sheet work: laser cutters, CNC routers, plasma, waterjet, fabric and leather. You can start with your own SVG or DXF, or try a bundled drawing to learn the settings before preparing your job.</p>
+        <h2>From a drawing to a sheet layout</h2>
+        <p>The importer treats each closed outline as a part and outlines inside it as holes. You can choose cutting layers, identify stock outlines, and review repairs or unsupported geometry before nesting. That review matters: the arrangement depends on the parts and stock you actually give it.</p>
+        <ul>
+          <li>Set sheet margins, spacing between parts and spacing at the edge.</li>
+          <li>Use several sheets or several stock sizes with limits, including defects and remnant outlines.</li>
+          <li>Allow free rotation, stepped angles or a list of angles; mirroring is also available.</li>
+          <li>Let smaller parts occupy holes in larger ones while preserving the requested spacing.</li>
+        </ul>
+        <p>Each result is checked by an independent Clipper2 validator for overlap, spacing, containment, rotations and quantities. Invalid layouts are never returned. Export produces an SVG and a DXF for each sheet, transformed from the original curves rather than re-polygonised.</p>
+        <h2>How to nest a job in your browser</h2>
+        <ol>
+          <li><strong>Open the app.</strong> Drop in an SVG or DXF, or choose one of the <a href="../nesting-examples/">five bundled examples</a>.</li>
+          <li><strong>Review the import.</strong> Check the outlines, holes and import messages, then set the quantities you need.</li>
+          <li><strong>Describe your stock.</strong> Set the sheet size in millimetres, margins, part spacing and edge spacing.</li>
+          <li><strong>Choose permitted rotations.</strong> For a grain constraint, a list such as 0° and 180° keeps the available orientations explicit.</li>
+          <li><strong>Run the nest.</strong> Review the live best layout as the search runs. Each sheet shows a box around its parts and the clear offcut above them.</li>
+          <li><strong>Export each sheet.</strong> Take its SVG or DXF into your cutting workflow and review the output there.</li>
+        </ol>
+        <figure>
+          <img src="../og/free-nesting-software-laser-cutting.png" width="1200" height="630" alt="451 DejaVu Sans Bold letter outlines on one 850 × 425 mm sheet, with 29 letters inside other letters' holes and a clean offcut along the top">
+          <figcaption>The README showcase: 451 parts on one 850 × 425 mm sheet in 120 seconds on one CPU core. DejaVu Sans Bold glyphs in four sizes retain their exact Bézier outlines, with 90° rotations and 1 mm spacing. 29 letters sit inside other letters' holes; the layout passed the independent validator.</figcaption>
+        </figure>
+        <h2>What it costs and what you need</h2>
+        <p>Nestbolt is MIT licensed, with no account required. The browser app needs no installation and your files never leave your computer. The hosted app runs the current preview build from main, newer than v0.2.0-alpha.1; <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0">stable v0.1.0 remains a download</a>.</p>
+        <p>For a native workflow, downloadable command-line tools are available for Windows x64, Linux x64 and macOS Apple silicon. There is also an MCP server for AI agents, with tools to import, nest, validate, export and estimate sheets. See the <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">agent interface</a> for setup.</p>
+        <h2>How good are the layouts?</h2>
+        <p>In the frozen <code>75cbb32</code> benchmark of 2026-10-13, Nestbolt used 8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow at equal 60-second budgets, and 9.6% at 300 seconds on the long subset. Sparrow still wins 8 of the 56 jobs at 60 seconds. These are frozen-build results, not a new comparison for the hosted preview. Read the <a href="../deepnest-alternative/">comparison and its limitations</a> or inspect <a href="../results/">every benchmark number</a>.</p>
+        <h2>Limits to review before cutting</h2>
+        <p>LightBurn project nesting, lead-in allowances and newer large-drawing improvements are preview features, available from v0.2.0-alpha.1 onward. Preview lead allowances reserve space and report shortened leads or unresolved contours. Red LEADIN paths are review guides; your cutting program creates the actual leads.</p>
+        <p>Common-line cutting is optional and still under development. It can reduce cutting distance while increasing material use; two development jobs exceed the planned material limit. Its export needs CAM preparation to avoid cutting shared sections twice. Nestbolt gives no machine-safety or fit certification.</p>
+        <h2>Frequently asked questions</h2>
+        <h3>Is it really free?</h3>
+        <p>Yes. Nestbolt is free and open source under the MIT licence.</p>
+        <h3>Are my files uploaded?</h3>
+        <p>No. The browser runs the engine on your computer. Files never leave it; projects can be saved in the browser or as a ZIP.</p>
+        <h3>Which file formats can I use?</h3>
+        <p>Import SVG or DXF and export one SVG and DXF per sheet. The <a href="../nest-svg-dxf-in-browser/">browser guide</a> explains geometry and import review.</p>
+        <h3>Can small parts go inside holes?</h3>
+        <p>Yes. Outlines inside a part are its holes, and smaller parts can be nested in those spaces.</p>
+        <h3>Does it work with LightBurn?</h3>
+        <p>Preview support nests <code>.lbrn2</code> and legacy <code>.lbrn</code> projects and exports editable <code>.lbrn2</code> per sheet. Older text may need a native save to embed outlines, and mixed active/fixed groups need regrouping. See <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/LBRN2.md#required-preparation-for-older-or-mixed-projects">project preparation</a>. You can also use the SVG/DXF export workflow.</p>
+        <h3>Can I use it offline?</h3>
+        <p>Download the native tools from <a href="https://github.com/skulitom/Nestbolt/releases">releases</a> for a local command-line workflow.</p>
+      </article>
+    </main>
+    <footer>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="../">App</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt">GitHub</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt/releases">Releases</a></li>
+          <li><a href="../results/">Benchmark results</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">AI agents / MCP</a></li>
+        </ul>
+      </nav>
+      <p>From the same author: <a href="https://github.com/skulitom/Anode">Anode</a>, <a href="https://github.com/skulitom/Pixelbolt">Pixelbolt</a>, <a href="https://github.com/skulitom/Cutbolt">Cutbolt</a> and <a href="https://github.com/skulitom/Inkbolt">Inkbolt</a>.</p>
+      <p>Nestbolt is MIT licensed. It gives no machine-safety or fit certification.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nest SVG and DXF online: free browser nesting guide | Nestbolt</title>
+    <meta name="description" content="Nest SVG and DXF drawings in your browser without uploading files. Review imports, set sheets, spacing and rotations, then export each sheet from curves.">
+    <link rel="canonical" href="https://skulitom.github.io/Nestbolt/nest-svg-dxf-in-browser/">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Nestbolt">
+    <meta property="og:title" content="Nest SVG and DXF online: free browser nesting guide | Nestbolt">
+    <meta property="og:description" content="Nest SVG and DXF drawings in your browser without uploading files. Review imports, set sheets, spacing and rotations, then export each sheet from curves.">
+    <meta property="og:url" content="https://skulitom.github.io/Nestbolt/nest-svg-dxf-in-browser/">
+    <meta property="og:image" content="https://skulitom.github.io/Nestbolt/og/nest-svg-dxf-in-browser.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Nestbolt browser app showing the mechanical kit with inserts inside frames and a shaded clear offcut">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://skulitom.github.io/Nestbolt/#software-application",
+            "name": "Nestbolt",
+            "url": "https://skulitom.github.io/Nestbolt/",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Web browser, Windows, Linux, macOS",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "license": "https://opensource.org/licenses/MIT",
+            "downloadUrl": "https://github.com/skulitom/Nestbolt/releases",
+            "sameAs": "https://github.com/skulitom/Nestbolt",
+            "description": "Free, open-source nesting for people who cut fixed sheets: laser cutters, CNC routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use the least material. It runs in your browser (nothing is uploaded), on the command line, and as an MCP server that AI agents can call.",
+            "author": {
+              "@type": "Person",
+              "name": "skulitom",
+              "url": "https://github.com/skulitom"
+            }
+          },
+          {
+            "@type": "TechArticle",
+            "@id": "https://skulitom.github.io/Nestbolt/nest-svg-dxf-in-browser/#page",
+            "name": "Nest SVG and DXF online: free browser nesting guide | Nestbolt",
+            "description": "Nest SVG and DXF drawings in your browser without uploading files. Review imports, set sheets, spacing and rotations, then export each sheet from curves.",
+            "url": "https://skulitom.github.io/Nestbolt/nest-svg-dxf-in-browser/",
+            "isPartOf": {
+              "@type": "WebSite",
+              "@id": "https://skulitom.github.io/Nestbolt/#website",
+              "name": "Nestbolt",
+              "url": "https://skulitom.github.io/Nestbolt/"
+            },
+            "about": {
+              "@id": "https://skulitom.github.io/Nestbolt/#software-application"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="../"><strong>Nestbolt</strong></a></li>
+          <li>
+            <span>Guides:</span>
+            <ul>
+              <li><a href="../free-nesting-software-laser-cutting/">Free nesting</a></li>
+              <li><a href="../deepnest-alternative/">Deepnest alternative</a></li>
+              <li><a href="../nest-svg-dxf-in-browser/">SVG/DXF in the browser</a></li>
+            </ul>
+          </li>
+          <li><a href="../nesting-examples/">Examples</a></li>
+          <li><a href="../results/">Benchmark results</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt">GitHub</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <article>
+        <h1>Nest SVG and DXF parts in your browser</h1>
+        <p>Your drawing stays on your computer. Nestbolt's engine is compiled to WebAssembly and runs in Web Workers in your browser; files never leave the computer. You can save a project in the browser or as a ZIP, then export an SVG and a DXF for each nested sheet.</p>
+        <div class="cta">
+          <a class="button" href="../">Open Nestbolt in your browser</a>
+          <p>Free, MIT-licensed, no account; your files never leave your computer.</p>
+        </div>
+        <p>The hosted app runs the current preview build from main, newer than v0.2.0-alpha.1. LightBurn project nesting, lead-in allowances and newer large-drawing improvements are preview features. <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0">Stable v0.1.0 remains available as a download</a>.</p>
+        <h2>What the importer understands</h2>
+        <p>Nestbolt imports SVG and DXF geometry including lines, arcs, ellipses, Béziers, B-splines, blocks, transforms and units, converted to millimetres. Each closed outline becomes a part; outlines inside it become its holes. Smaller parts can then be placed inside those holes during nesting.</p>
+        <p>Review the import before running the search. You can choose cutting layers, identify stock outlines and review repairs and unsupported geometry. A drawing that looks right on screen still needs the intended parts, quantities and sheet settings in the nesting request.</p>
+        <p>Gap repair is explicit and reported. The <code>--close-gaps</code>-style option repairs gaps up to a chosen size and reports every repair's position and size; it is off by default. The README's example uses 0.05 mm, while the silent join limit remains 0.005 mm. The browser and MCP expose the same option. See <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/IMPORTING.md">import options and reports</a> before choosing a repair tolerance.</p>
+        <h2>Start with an SVG</h2>
+        <ol>
+          <li><strong>Open Nestbolt and drop in the SVG.</strong> If you want a known drawing first, choose a <a href="../nesting-examples/">bundled example</a>.</li>
+          <li><strong>Review parts and holes.</strong> Check the cutting layers and import messages, including any repairs or unsupported geometry.</li>
+          <li><strong>Set quantities and stock.</strong> Enter how many copies of each part you need, the sheet size, margins, and part and edge spacing.</li>
+          <li><strong>Set the allowed orientations and run.</strong> Watch the live best layout, review its clear offcut, and export the per-sheet SVG or DXF.</li>
+        </ol>
+        <h2>Start with a DXF</h2>
+        <ol>
+          <li><strong>Drop the DXF into the app.</strong> Review the imported drawing in millimetres, including its units, transforms and blocks.</li>
+          <li><strong>Choose what will be cut.</strong> Review cutting layers, stock outlines and unsupported geometry. Check that closed outlines and their holes represent the intended parts.</li>
+          <li><strong>Handle gaps deliberately.</strong> If you choose to repair larger gaps, set the tolerance explicitly and review the reported repairs.</li>
+          <li><strong>Set the job and nest it.</strong> Use the quantities, sheet, spacing and rotation settings below, then review the layout and export each sheet.</li>
+        </ol>
+        <h2>The settings that matter</h2>
+        <p>Start with your stock dimensions and margins. Nestbolt can use several sheets and stock sizes with limits, as well as defects and remnant outlines. Part spacing and edge spacing are separate settings; keep both visible in your review instead of treating the sheet size as the whole request.</p>
+        <ul>
+          <li><strong>Rotations:</strong> choose free rotation, stepped angles or a list. The sewing example uses 0° and 180° for fabric grain.</li>
+          <li><strong>Mirroring:</strong> decide whether it is permitted for the parts you are nesting.</li>
+          <li><strong>Quantities:</strong> check the requested copies of each part before comparing layouts.</li>
+          <li><strong>Time:</strong> choose the search budget and watch the best layout found so far.</li>
+        </ul>
+        <p>The optional <strong>Quick initial layout</strong> setting under Advanced is part of the preview's newer large-job workflow. It is off by default and tries a conservative initial arrangement before improving it; it may use more material. Original geometry, spacing, stock limits and rotation permissions still apply. Unsupported stock or angle rules use the ordinary constructor.</p>
+        <figure>
+          <img src="../og/nest-svg-dxf-in-browser.png" width="1200" height="630" alt="The Nestbolt browser app after the finger-jointed boxes example: the parts list with quantities and rotations on the left, and on the right the result, 12/12 panels on one sheet, check valid, with the clear offcut shaded above the parts">
+          <figcaption>The hosted app on 2026-10-20 after the boxes example: parts, quantities and rotations on the left; the result on the right, with a dashed box around the parts and the clear offcut shaded above them.</figcaption>
+        </figure>
+        <h2>Read the result, then export</h2>
+        <p>The app draws the best layout while the search runs. Each sheet shows the box around its parts and the clear offcut above them. Nestbolt compresses the last sheet towards one end so the offcut stays usable.</p>
+        <p>An independent Clipper2 validator checks overlap, spacing, containment, rotations and quantities; invalid layouts are never returned. Exports preserve the original curves by transforming them rather than re-polygonising them. Review the files in your cutting workflow: Nestbolt gives no machine-safety or fit certification.</p>
+        <h2>LightBurn projects: preview</h2>
+        <p>Preview support imports <code>.lbrn2</code> and legacy <code>.lbrn</code>, nests groups as rigid units and exports editable <code>.lbrn2</code> per sheet, preserving artwork, text, images and layer settings. Tool and output-disabled shapes stay fixed. Older text may need a native save to embed outlines; mixed active/fixed groups need regrouping. Read <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/LBRN2.md#required-preparation-for-older-or-mixed-projects">the preparation notes</a>. Preview lead allowances produce review guides; the cutting program creates the actual leads. Imported LightBurn projects keep editable contents and receive separate SVG/DXF cutting files.</p>
+        <h2>When to use the native tools</h2>
+        <p>For very large jobs or batch work, consider the native CLI workflow in the <a href="https://github.com/skulitom/Nestbolt/blob/main/README.md#quick-start">README Quick start</a>. Downloads are available for Windows x64, Linux x64 and macOS Apple silicon. Repeatable work budgets are available when you need to reproduce a run with the same build, inputs, budget and seed; a reached real-time limit is reported explicitly.</p>
+        <p>For AI agents, the <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">MCP server interface</a> covers importing, nesting, validation, export and sheet estimates. For a first manual job, stay with the browser and choose the <a href="../nesting-examples/">example closest to your drawing</a>.</p>
+      </article>
+    </main>
+    <footer>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="../">App</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt">GitHub</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt/releases">Releases</a></li>
+          <li><a href="../results/">Benchmark results</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">AI agents / MCP</a></li>
+        </ul>
+      </nav>
+      <p>From the same author: <a href="https://github.com/skulitom/Anode">Anode</a>, <a href="https://github.com/skulitom/Pixelbolt">Pixelbolt</a>, <a href="https://github.com/skulitom/Cutbolt">Cutbolt</a> and <a href="https://github.com/skulitom/Inkbolt">Inkbolt</a>.</p>
+      <p>Nestbolt is MIT licensed. It gives no machine-safety or fit certification.</p>
+    </footer>
+  </body>
+</html>
