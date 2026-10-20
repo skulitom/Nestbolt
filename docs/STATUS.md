@@ -31,7 +31,7 @@ preserves all 29 remote landing-page/README changes and 21 local evidence files.
 All checks and the Pages deployment for remote main 36edfbd pass; the current
 READMEs identify the hosted browser as a preview from main. Historical statements
 about hosted v0.1.0 remain tied to their earlier deployment. The merge is pushed
-as 8a81205, with its separate CI still requiring its own result. Core source and
+as 8a81205; [all six of its own hosted checks now pass](../benchmarks/results/h5-whole-group-diagnosis-20261020/main-ci-8a81205.json). Core source and
 release assets are unchanged; H2/H5 remain open.
 
 **Hosted browser confirmation, 2026-10-18:** [main 4b13a85 passes the browser job](../benchmarks/results/browser-curve-hosted-confirmation-20261018.md):
@@ -139,6 +139,20 @@ All six hosted checks on preceding main `02905f3` pass, including Windows, Linux
 All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint. The assignment-bridge candidate fails four material comparisons and remains excluded from production. Application code remains unchanged from the published v0.2.0-alpha.1 preview; the English, Japanese and Chinese READMEs already describe the preview and remaining gates. There is no new qualified application build to release at this checkpoint. [Hosted evidence](../benchmarks/results/h5-assignment-bridge-pilot-20261018/main-ci-2f5d43f.json).
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
+
+**N4 whole-group diagnosis, 2026-10-20:** [bounded branching and fixed-group completion](../benchmarks/results/h5-whole-group-diagnosis-20261020.md)
+retain all 421 LP branches, 227 checked fractional solutions and 41 unvisited
+frontier entries. No branch completes 18 frames. A separate census finds 26
+retained complete frame sets, of which only six combinations with the four cog
+sets are compatible. Six independently reconstructed fixed-group models solve
+in under 0.6 seconds each, with solver-reported maxima of 12, 12, 10, 11, 13 and
+13 inserts. All 21 returned partial layouts pass original geometry checks and
+fail the frozen CLI only for missing inserts. No improvement, full-layout credit
+or unrestricted impossibility claim. Original environment/auditor failures are
+preserved and no solver run is repeated. Next investigate new complete frame
+arrangements while relaxing only the smaller-part choices, explicitly excluding
+the 26 reviewed exact frame sets before bounded completion checks. H2/H5 remain
+open at 60%; runtime and README contents are unchanged.
 
 **N4 local-area bounds, 2026-10-20:** [58 necessary stock capacities](../benchmarks/results/h5-area-capacity-relaxations-20261020.md)
 pass exact rational checks on 75,957 positive coefficients, preserving the

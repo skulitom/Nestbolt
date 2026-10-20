@@ -2055,3 +2055,17 @@ syntax failure is retained. Next investigate a bounded whole-placement
 construction guided by these fractions, retaining every branch and the original
 acceptance rules. Remote landing pages and READMEs are reconciled exactly and
 pushed as 8a81205; the hosted main preview is verified. H2/H5 remain open at 60%.
+
+**N4 whole-group diagnosis, 2026-10-20:** [bounded branching and fixed-group completion](../benchmarks/results/h5-whole-group-diagnosis-20261020.md)
+retain all 421 LP branches, 227 checked fractional solutions and 41 unvisited
+frontier entries. No branch completes 18 frames. A separate census finds 26
+retained complete frame sets, of which only six combinations with the four cog
+sets are compatible. Six independently reconstructed fixed-group models solve
+in under 0.6 seconds each, with solver-reported maxima of 12, 12, 10, 11, 13 and
+13 inserts. All 21 returned partial layouts pass original geometry checks and
+fail the frozen CLI only for missing inserts. No improvement, full-layout credit
+or unrestricted impossibility claim. Original environment/auditor failures are
+preserved and no solver run is repeated. Next investigate new complete frame
+arrangements while relaxing only the smaller-part choices, explicitly excluding
+the 26 reviewed exact frame sets before bounded completion checks. H2/H5 remain
+open at 60%; runtime and README contents are unchanged.
