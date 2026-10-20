@@ -15248,3 +15248,18 @@ contact positions. No unchanged search is repeated and no full-job credit is
 awarded. Prior local 6cde1bd and 56f818a are pushed to main; all six f6edfb7
 checks pass. The README accurately describes the existing preview. H2/H5
 remain open at 60%; runtime and release assets are unchanged.
+
+**N4 complete-insert blockers and new frame contacts, 2026-10-20:** [the full audit](benchmarks/results/h5-insert-blockers-and-frame-contacts-20261020.md)
+verifies a 21-insert diagnostic after temporarily removing two frames. Exact
+clique certificates over all 1036 zero/one/two-core deletions prove that at
+least two saved core poses must be removed within this insert pool; they do
+not independently prove the secondary area tie. The 64-part diagnostic packs
+less filled area than the known 58-part partial and receives no improvement
+credit. Two bounded completion searches, the second adding 240 new exact frame
+contacts and restoring original core choices, both retain only 16 frames.
+Independent geometry verifies all ten returned layouts, 179,683 new conflicts
+and complete clique coverage. Both original missing frames remain required.
+Next check frame-only capacity before selecting a different insert arrangement
+or diagnosing bracket/cog obstructions. All six 56f818a hosted checks pass and
+f321537 is pushed to main. H2/H5 remain open at 60%; runtime, README and release
+assets are unchanged.

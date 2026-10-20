@@ -140,6 +140,21 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 complete-insert blockers and new frame contacts, 2026-10-20:** [the full audit](../benchmarks/results/h5-insert-blockers-and-frame-contacts-20261020.md)
+verifies a 21-insert diagnostic after temporarily removing two frames. Exact
+clique certificates over all 1036 zero/one/two-core deletions prove that at
+least two saved core poses must be removed within this insert pool; they do
+not independently prove the secondary area tie. The 64-part diagnostic packs
+less filled area than the known 58-part partial and receives no improvement
+credit. Two bounded completion searches, the second adding 240 new exact frame
+contacts and restoring original core choices, both retain only 16 frames.
+Independent geometry verifies all ten returned layouts, 179,683 new conflicts
+and complete clique coverage. Both original missing frames remain required.
+Next check frame-only capacity before selecting a different insert arrangement
+or diagnosing bracket/cog obstructions. All six 56f818a hosted checks pass and
+f321537 is pushed to main. H2/H5 remain open at 60%; runtime, README and release
+assets are unchanged.
+
 **N4 seeded search and local-move bounds, 2026-10-20:** [the complete audit](../benchmarks/results/h5-seeded-search-and-move-bounds-20261020.md)
 preserves four seeded fixed-cog searches and one search with all cog positions
 movable; none improves its 12/13-insert starting count. Independent checks verify
