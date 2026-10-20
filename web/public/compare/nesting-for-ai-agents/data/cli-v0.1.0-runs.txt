@@ -1,0 +1,36 @@
+Nestbolt v0.1.0 CLI, three runs on 2026-10-20 (Windows 11, AMD Ryzen 9 7950X3D).
+Program: nestbolt.exe from nestbolt-v0.1.0-x86_64-pc-windows-msvc.zip, SHA-256 bd1a5ce42c67eff6c711c1406e115e6fb419e5a1869207055ec6a4b18a9b9403
+Inputs: examples/parts.svg and examples/nest-request.json from the v0.1.0 tag, copied into a new folder per run.
+Commands, in that folder:
+  nestbolt import parts.svg --output lib.json
+  nestbolt nest --library lib.json --request nest-request.json --out-dir run --seconds 10 --repeatable
+The nest command exited 0 in every run. Below: SHA-256 of the outputs, the nest report's elapsed_s (real seconds), and the
+progress lines the nest printed. Their elapsed_seconds are work-clock seconds (deterministic work converted to
+reference seconds), which is why they are identical across runs; they are not wall time.
+
+== run 1
+7fc2ed6234fa674194ad68147d37b2c88efab3ad8494c10163cc533d795c83f4 run/layout.json
+8727f9b903884b36ec160f4692f6725849c9f47f522d684cde7af80dcf58a12d run/sheet-0.svg
+d3bd5c31f6568fa19a7dbe330512f7300fabf1b91b3297efbf9975244b091e38 run/sheet-0.dxf
+report elapsed_s: 3.1172961
+{"elapsed_seconds":0.6629348795712698,"stage":"warm","sheets":1,"material":0.23186508000000006}
+{"elapsed_seconds":3.94240937357127,"stage":"explore","sheets":1,"material":0.23021424499999993}
+{"elapsed_seconds":5.0267462175712705,"stage":"compress","sheets":1,"material":0.23011160999999994}
+
+== run 2
+7fc2ed6234fa674194ad68147d37b2c88efab3ad8494c10163cc533d795c83f4 run/layout.json
+8727f9b903884b36ec160f4692f6725849c9f47f522d684cde7af80dcf58a12d run/sheet-0.svg
+d3bd5c31f6568fa19a7dbe330512f7300fabf1b91b3297efbf9975244b091e38 run/sheet-0.dxf
+report elapsed_s: 3.1070594
+{"elapsed_seconds":0.6629348795712698,"stage":"warm","sheets":1,"material":0.23186508000000006}
+{"elapsed_seconds":3.94240937357127,"stage":"explore","sheets":1,"material":0.23021424499999993}
+{"elapsed_seconds":5.0267462175712705,"stage":"compress","sheets":1,"material":0.23011160999999994}
+
+== run 3
+7fc2ed6234fa674194ad68147d37b2c88efab3ad8494c10163cc533d795c83f4 run/layout.json
+8727f9b903884b36ec160f4692f6725849c9f47f522d684cde7af80dcf58a12d run/sheet-0.svg
+d3bd5c31f6568fa19a7dbe330512f7300fabf1b91b3297efbf9975244b091e38 run/sheet-0.dxf
+report elapsed_s: 3.126459
+{"elapsed_seconds":0.6629348795712698,"stage":"warm","sheets":1,"material":0.23186508000000006}
+{"elapsed_seconds":3.94240937357127,"stage":"explore","sheets":1,"material":0.23021424499999993}
+{"elapsed_seconds":5.0267462175712705,"stage":"compress","sheets":1,"material":0.23011160999999994}

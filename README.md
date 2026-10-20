@@ -17,6 +17,9 @@ can call.
 [Download a release](https://github.com/skulitom/Nestbolt/releases) ·
 [Connect an AI agent](docs/AGENT_INTERFACE.md)
 
+How Nestbolt compares with other ways an AI agent can nest parts (OpenNest, pyFit, Sparrow, Deepnest, SVGnest and
+more), by interface, file formats and sheet model: [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/).
+
 **[Try the v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
 for editable LightBurn project nesting, lead-in allowances and improvements for
 large curved drawings. Windows x64, Linux x64 and macOS Apple silicon tools are
