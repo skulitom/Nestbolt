@@ -542,6 +542,8 @@ The LightBurn trial ends about 2026-11-11. Finish every LightBurn step by 2026-1
 
 7. **2026-10-16, Artem — next release when ready.** After discussing a preview release following the full performance comparison, Artem said: “when you are ready feel free to make a new release. We might need to update the readme”. This authorizes preparing and publishing the next GitHub release once release checks pass, including updating the README and release notes. Describe incomplete import acceptance and common-line material limits explicitly; do not claim that the v1.1 plan is complete. Preserve existing releases and benchmark claims. Registry publication and a new final acceptance evaluation retain their separate scope and rules.
 
+8. **2026-10-20, Artem — keep the original H2 gate.** In the [recorded answer](../benchmarks/results/h2-gate-decision-20261020.md), Artem chose “Keep the original gate and leave H2 open”. Retain the 95% exact-import requirement across all 25 held-out files, including the two deliberate negatives; do not substitute the proposed 23-positive denominator. The recorded classifications cap literal exact-import success at 23/25 (92%), so H2 receives no completion credit. Preserve the frozen split, labels and all original results. The three native evaluations remain once-only; the other 22 vectors remain unevaluated. This resolves the denominator question previously described as pending and does not waive the remaining requirements.
+
 ### Verification checkpoint — 2026-10-16
 
 The [full bounded-score development comparison](../benchmarks/results/h4-full-development-20261016.md)
@@ -1750,3 +1752,14 @@ A diagnostic census supplies 261 new geometric signatures for the next exact-cou
 placement-selection pool; original coordinates remain untouched. All six f825cab
 checks pass, and c9b0176 is pushed to main. Original failures, native-margin caveats
 and all gate limits remain; no runtime/release/README change or gate credit. 60%.
+
+**N4 coordinated contact selection, 2026-10-20:** [the completed model audit](../benchmarks/results/h5-coordinated-contact-selection-20261020.md) preserves three earlier bounded selections and
+adds 2,260 exact cog-contact poses. Independent checks reproduce 774,312 new
+conflicts over 10,571,998 added same-sheet pairs and verify all 24,750 model
+constraints. The changed 120-second construction returns the identical 58-part
+partial, missing eight inserts; its original CLI rejection and measured
+121.154159-second elapsed time remain. The insert bound stays 21, so no full
+layout or impossibility is proved. Next inspect necessary local area capacities
+before another changed-model attempt; do not repeat these models or extend
+their limits. All six c9b0176 checks pass and c824e5a is pushed to main.
+No runtime, native-quality, release, README or gate change. H2/H5 remain at 60%.

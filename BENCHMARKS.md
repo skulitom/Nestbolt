@@ -15163,3 +15163,22 @@ A diagnostic census supplies 261 new geometric signatures for the next exact-cou
 placement-selection pool; original coordinates remain untouched. All six f825cab
 checks pass, and c9b0176 is pushed to main. Original failures, native-margin caveats
 and all gate limits remain; no runtime/release/README change or gate credit. 60%.
+
+**H2 gate decision, 2026-10-20:** Artem [chose to keep the original 25-file
+gate and leave H2 open](benchmarks/results/h2-gate-decision-20261020.md).
+The proposed positive-only denominator is not adopted. Two deliberate negatives
+cap literal exact-import success at 92%, below the unchanged 95% requirement.
+This is a classification bound, not a measured held-out result. The pending
+question is resolved; frozen labels/split and once-only native outcomes remain,
+and no remaining reserved vector is opened. Completion remains 60%.
+
+**N4 coordinated contact selection, 2026-10-20:** [the completed model audit](benchmarks/results/h5-coordinated-contact-selection-20261020.md) preserves three earlier bounded selections and
+adds 2,260 exact cog-contact poses. Independent checks reproduce 774,312 new
+conflicts over 10,571,998 added same-sheet pairs and verify all 24,750 model
+constraints. The changed 120-second construction returns the identical 58-part
+partial, missing eight inserts; its original CLI rejection and measured
+121.154159-second elapsed time remain. The insert bound stays 21, so no full
+layout or impossibility is proved. Next inspect necessary local area capacities
+before another changed-model attempt; do not repeat these models or extend
+their limits. All six c9b0176 checks pass and c824e5a is pushed to main.
+No runtime, native-quality, release, README or gate change. H2/H5 remain at 60%.
