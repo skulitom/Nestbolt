@@ -140,6 +140,18 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 certified reduction and starting layouts, 2026-10-20:** [joint construction and safe pose substitution](../benchmarks/results/h5-dominated-poses-and-seeds-20261020.md)
+preserve eight bounded searches without incumbents. Independent set checks
+verify 4,105 same-family substitutions across four cases, preserving future
+insert compatibility and frame exclusions while removing 26–30% of joint
+variables. Direct substitution of known partials produces six valid partials
+using three distinct new exact frame sets. Their bounded insert completions retain 12, 12, 10, 11, 13 and 13
+inserts; all twelve original CLI checks fail only the required insert quantity.
+Exact checks across 57,374 constraints establish complete feasible starting
+hints for all four reduced joint models. Next optimize actual whole-insert
+count with these hints, retaining all conflicts and original acceptance rules.
+No full layout or improvement is claimed; H2/H5 remain open at 60%.
+
 **N4 frame/bracket capacity, 2026-10-20:** [four new frame constructions and exact bracket bounds](../benchmarks/results/h5-frame-bracket-diagnosis-20261020.md)
 follow four preserved 30-second mixed-model timeouts. A changed frame-only
 heuristic finds four new final frame sets; all 19 returned frame/cog proposals

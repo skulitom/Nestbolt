@@ -1801,3 +1801,15 @@ unrestricted job impossible. Individual pose availability is insufficient;
 next select all 18 frames and 12 brackets together before exact insert
 completion. No expired model is extended, no quality run occurs and no gate
 changes. H2/H5 remain open at 60%; runtime and README contents are unchanged.
+
+**N4 certified reduction and starting layouts, 2026-10-20:** [joint construction and safe pose substitution](../benchmarks/results/h5-dominated-poses-and-seeds-20261020.md)
+preserve eight bounded searches without incumbents. Independent set checks
+verify 4,105 same-family substitutions across four cases, preserving future
+insert compatibility and frame exclusions while removing 26–30% of joint
+variables. Direct substitution of known partials produces six valid partials
+using three distinct new exact frame sets. Their bounded insert completions retain 12, 12, 10, 11, 13 and 13
+inserts; all twelve original CLI checks fail only the required insert quantity.
+Exact checks across 57,374 constraints establish complete feasible starting
+hints for all four reduced joint models. Next optimize actual whole-insert
+count with these hints, retaining all conflicts and original acceptance rules.
+No full layout or improvement is claimed; H2/H5 remain open at 60%.
