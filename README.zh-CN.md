@@ -29,7 +29,7 @@ Nestbolt 是免费、开源（MIT）的排样（套料）工具，面向在**固
 
 ## 版本
 
-- **稳定版 v0.1.0** 仍可下载。托管的浏览器版运行的也是 v0.1.0。
+- **稳定版 v0.1.0** 仍可下载。托管的浏览器版运行来自 `main` 分支的预览构建，比 v0.2.0-alpha.1 更新。
 - **[v0.2.0-alpha.1 预览版](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**：可编辑的 LightBurn 项目排样（**预览功能**）、引入线（lead-in）余量，以及对大型曲线图纸的改进。提供 Windows x64、Linux x64 和 macOS Apple 芯片版工具，以及 Windows MCP 包。导入验收和共边切割的用料仍在开发中；v1.1 计划已完成 60%。上面的基准数据属于冻结的 `75cbb32` 构建，该预览版没有与竞品做新的对比。
 
 ## 供 AI 智能体使用
