@@ -26,6 +26,14 @@ pass. Stable Latest and its assets remain v0.1.0. This does not close the remain
 v1.1 gates or authorize a new final acceptance run. No new registry version was published.
 
 
+**Hosted preview and repository reconciliation, 2026-10-20:** [the merge audit](../benchmarks/results/h5-area-capacity-relaxations-20261020.md)
+preserves all 29 remote landing-page/README changes and 21 local evidence files.
+All checks and the Pages deployment for remote main 36edfbd pass; the current
+READMEs identify the hosted browser as a preview from main. Historical statements
+about hosted v0.1.0 remain tied to their earlier deployment. The merge is pushed
+as 8a81205, with its separate CI still requiring its own result. Core source and
+release assets are unchanged; H2/H5 remain open.
+
 **Hosted browser confirmation, 2026-10-18:** [main 4b13a85 passes the browser job](../benchmarks/results/browser-curve-hosted-confirmation-20261018.md):
 86 tests pass with four opt-in skips, including the corrected curve import/export
 test in Chromium and Firefox. The original failed job remains preserved. This
@@ -131,6 +139,18 @@ All six hosted checks on preceding main `02905f3` pass, including Windows, Linux
 All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact checkpoint. The assignment-bridge candidate fails four material comparisons and remains excluded from production. Application code remains unchanged from the published v0.2.0-alpha.1 preview; the English, Japanese and Chinese READMEs already describe the preview and remaining gates. There is no new qualified application build to release at this checkpoint. [Hosted evidence](../benchmarks/results/h5-assignment-bridge-pilot-20261018/main-ci-2f5d43f.json).
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
+
+**N4 local-area bounds, 2026-10-20:** [58 necessary stock capacities](../benchmarks/results/h5-area-capacity-relaxations-20261020.md)
+pass exact rational checks on 75,957 positive coefficients, preserving the
+complete 58-part hint. All six continuous relaxations finish within their declared
+limits; the four cases fixing each cog arrangement remain fractional. Exact
+independent dual reconstruction keeps the insert bound at 21 in every case,
+with only the original quantity cap active. No full layout or impossibility
+is established and no integer search is repeated. The original preparation
+syntax failure is retained. Next investigate a bounded whole-placement
+construction guided by these fractions, retaining every branch and the original
+acceptance rules. Remote landing pages and READMEs are reconciled exactly and
+pushed as 8a81205; the hosted main preview is verified. H2/H5 remain open at 60%.
 
 **N4 coordinated contact selection, 2026-10-20:** [the completed model audit](../benchmarks/results/h5-coordinated-contact-selection-20261020.md) preserves three earlier bounded selections and
 adds 2,260 exact cog-contact poses. Independent checks reproduce 774,312 new

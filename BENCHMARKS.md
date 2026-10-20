@@ -15182,3 +15182,15 @@ layout or impossibility is proved. Next inspect necessary local area capacities
 before another changed-model attempt; do not repeat these models or extend
 their limits. All six c9b0176 checks pass and c824e5a is pushed to main.
 No runtime, native-quality, release, README or gate change. H2/H5 remain at 60%.
+
+**N4 local-area bounds, 2026-10-20:** [58 necessary stock capacities](benchmarks/results/h5-area-capacity-relaxations-20261020.md)
+pass exact rational checks on 75,957 positive coefficients, preserving the
+complete 58-part hint. All six continuous relaxations finish within their declared
+limits; the four cases fixing each cog arrangement remain fractional. Exact
+independent dual reconstruction keeps the insert bound at 21 in every case,
+with only the original quantity cap active. No full layout or impossibility
+is established and no integer search is repeated. The original preparation
+syntax failure is retained. Next investigate a bounded whole-placement
+construction guided by these fractions, retaining every branch and the original
+acceptance rules. Remote landing pages and READMEs are reconciled exactly and
+pushed as 8a81205; the hosted main preview is verified. H2/H5 remain open at 60%.
