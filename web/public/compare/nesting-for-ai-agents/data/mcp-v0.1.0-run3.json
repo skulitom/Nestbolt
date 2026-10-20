@@ -1,0 +1,354 @@
+{
+ "exe_sha256": "71b803ee246f1b29792e59d616eb4ee7905e71efaf7cf7987ecc30079138c0e6",
+ "request": {
+  "name": "Example parts on a CO2 laser bed",
+  "parts": [
+   {
+    "id": "parts-1",
+    "quantity": 4
+   },
+   {
+    "id": "parts-2",
+    "quantity": 12,
+    "rotations": {
+     "kind": "free"
+    }
+   },
+   {
+    "id": "parts-3",
+    "quantity": 6,
+    "allow_mirror": true
+   },
+   {
+    "id": "parts-4",
+    "quantity": 10,
+    "rotations": {
+     "kind": "list",
+     "degrees": [
+      0,
+      180
+     ]
+    }
+   }
+  ],
+  "sheets": [
+   {
+    "width_mm": 600,
+    "height_mm": 400,
+    "margins_mm": {
+     "left": 5,
+     "right": 5,
+     "bottom": 5,
+     "top": 5
+    }
+   }
+  ],
+  "spacing_mm": 1.0,
+  "edge_spacing_mm": 1.0
+ },
+ "steps": {
+  "import": {
+   "isError": false,
+   "body": {
+    "imports": [
+     {
+      "file": "parts.svg",
+      "report": {
+       "cleanup": {
+        "duplicate_segments_removed": 0,
+        "overlapping_segments_merged": 0,
+        "zero_length_segments_removed": 0
+       },
+       "close_gaps_mm": null,
+       "closed_gaps": [],
+       "colors": [
+        {
+         "entities": 5,
+         "geometry_entities": 5,
+         "name": "#000000",
+         "selected_entities": 5
+        }
+       ],
+       "layers": [
+        {
+         "entities": 5,
+         "geometry_entities": 5,
+         "name": "0",
+         "selected_entities": 5
+        }
+       ],
+       "open_contours": [],
+       "selection_mode": "closed_contours",
+       "silent_join_mm": 0.005,
+       "units": null
+      }
+     }
+    ],
+    "library_path": "lib.json",
+    "lightburn": null,
+    "part_count": 4,
+    "parts": [
+     {
+      "area_mm2": 2400.0,
+      "bounds_mm": [
+       0.0,
+       -60.0,
+       80.0,
+       0.0
+      ],
+      "holes": 1,
+      "id": "parts-1",
+      "source": "parts.svg#frame"
+     },
+     {
+      "area_mm2": 373.7015062251943,
+      "bounds_mm": [
+       98.00498388411378,
+       -31.99875396427968,
+       122.0,
+       -8.001246035720323
+      ],
+      "holes": 1,
+      "id": "parts-2",
+      "source": "parts.svg#washer-outer"
+     },
+     {
+      "area_mm2": 2058.619842636201,
+      "bounds_mm": [
+       100.0,
+       -96.875,
+       150.0,
+       -50.0
+      ],
+      "holes": 1,
+      "id": "parts-3",
+      "source": "parts.svg#bracket"
+     },
+     {
+      "area_mm2": 508.7515368487275,
+      "bounds_mm": [
+       157.45848243590828,
+       -34.862955889377396,
+       192.54151756409172,
+       -15.1370441106226
+      ],
+      "holes": 0,
+      "id": "parts-4",
+      "source": "parts.svg#tab"
+     }
+    ],
+    "parts_truncated": false,
+    "sheet_outline_count": 0,
+    "sheet_outlines": [],
+    "sheet_outlines_truncated": false,
+    "warnings": []
+   },
+   "elapsed_s": 0.001,
+   "reply_bytes": 2639,
+   "notifications": 0
+  },
+  "nest_a": {
+   "isError": false,
+   "body": {
+    "algorithm": "nestbolt-sheet-separator-v1",
+    "elapsed_s": 3.1227499,
+    "files": [
+     "out-a/sheet-0.svg",
+     "out-a/sheet-0.dxf"
+    ],
+    "layout_path": "out-a/layout.json",
+    "out_dir": "out-a",
+    "parts_in_holes": 8,
+    "repeatable": true,
+    "seed": 0,
+    "time_budget_s": 10.0,
+    "unsupported": null,
+    "validation": {
+     "metrics": {
+      "full_stock_area": 240000.0,
+      "last_sheet_id": "sheet-0",
+      "last_sheet_used_height": 92.04464399999999,
+      "material_area": 55226.78639999998,
+      "normalized_material": 0.23011160999999994,
+      "placed_area": 31523.65254087845,
+      "placed_parts": 32,
+      "placed_priority": 32.0,
+      "requested_parts": 32,
+      "sheets_used": 1,
+      "trailing_offcut_area": 184773.21360000002,
+      "utilization": 0.5708036732855863
+     },
+     "valid": true,
+     "violation_count": 0,
+     "violations": []
+    },
+    "version": 1,
+    "work_version": "nestbolt-work-v2"
+   },
+   "elapsed_s": 3.133,
+   "reply_bytes": 1647,
+   "notifications": 3
+  },
+  "nest_b": {
+   "isError": false,
+   "body": {
+    "algorithm": "nestbolt-sheet-separator-v1",
+    "elapsed_s": 4.2244612,
+    "files": [
+     "out-b/sheet-0.svg",
+     "out-b/sheet-0.dxf"
+    ],
+    "layout_path": "out-b/layout.json",
+    "out_dir": "out-b",
+    "parts_in_holes": 8,
+    "repeatable": true,
+    "seed": 0,
+    "time_budget_s": 10.0,
+    "unsupported": null,
+    "validation": {
+     "metrics": {
+      "full_stock_area": 240000.0,
+      "last_sheet_id": "sheet-0",
+      "last_sheet_used_height": 92.04464399999999,
+      "material_area": 55226.78639999998,
+      "normalized_material": 0.23011160999999994,
+      "placed_area": 31523.65254087845,
+      "placed_parts": 32,
+      "placed_priority": 32.0,
+      "requested_parts": 32,
+      "sheets_used": 1,
+      "trailing_offcut_area": 184773.21360000002,
+      "utilization": 0.5708036732855863
+     },
+     "valid": true,
+     "violation_count": 0,
+     "violations": []
+    },
+    "version": 1,
+    "work_version": "nestbolt-work-v2"
+   },
+   "elapsed_s": 4.228,
+   "reply_bytes": 1647,
+   "notifications": 3
+  },
+  "validate": {
+   "isError": false,
+   "body": {
+    "metrics": {
+     "full_stock_area": 240000.0,
+     "last_sheet_id": "sheet-0",
+     "last_sheet_used_height": 92.04464399999999,
+     "material_area": 55226.78639999998,
+     "normalized_material": 0.23011160999999994,
+     "placed_area": 31523.65254087845,
+     "placed_parts": 32,
+     "placed_priority": 32.0,
+     "requested_parts": 32,
+     "sheets_used": 1,
+     "trailing_offcut_area": 184773.21360000002,
+     "utilization": 0.5708036732855863
+    },
+    "valid": true,
+    "violation_count": 0,
+    "violations": []
+   },
+   "elapsed_s": 0.011,
+   "reply_bytes": 983,
+   "notifications": 0
+  },
+  "export": {
+   "isError": false,
+   "body": {
+    "common_line": null,
+    "files": [
+     "out-c/sheet-0.svg",
+     "out-c/sheet-0.dxf"
+    ]
+   },
+   "elapsed_s": 0.011,
+   "reply_bytes": 259,
+   "notifications": 0
+  },
+  "estimate": {
+   "isError": false,
+   "body": {
+    "kind": "necessary lower bound, not a layout or feasibility guarantee",
+    "largest_usable_sheet_mm2": 230100.0,
+    "net_part_area_mm2": 31523.652499006832,
+    "parts_fitting_no_sheet": [],
+    "sheets_lower_bound": 1.0
+   },
+   "elapsed_s": 0.0,
+   "reply_bytes": 521,
+   "notifications": 0
+  },
+  "refuse_outside": {
+   "isError": true,
+   "body": {
+    "code": -32602,
+    "message": "../ws3-outside.svg is outside the workspace <probe-dir>\\ws3; use a path inside it"
+   },
+   "elapsed_s": 0.0,
+   "reply_bytes": 200,
+   "notifications": 0
+  },
+  "refuse_overwrite": {
+   "isError": true,
+   "body": {
+    "code": -32602,
+    "message": "<probe-dir>\\ws3\\out-a already exists and is not empty; choose a new out_dir"
+   },
+   "elapsed_s": 0.0,
+   "reply_bytes": 196,
+   "notifications": 0
+  },
+  "refuse_unknown_id": {
+   "isError": true,
+   "body": {
+    "code": -32602,
+    "message": "unknown part id \"no-such-part\"; use one returned by import_parts"
+   },
+   "elapsed_s": 0.0,
+   "reply_bytes": 129,
+   "notifications": 0
+  }
+ },
+ "server": {
+  "name": "nestbolt",
+  "version": "0.1.0"
+ },
+ "protocolVersion": "2025-06-18",
+ "instructions": "Nestbolt nests parts on fixed sheets for laser, CNC and fabric cutting. 1) import_parts with SVG/DXF or LightBurn paths inside the workspace (<probe-dir>\\ws3). 2) nest with the library_path, a request (parts by id with quantities, sheets in mm, spacing_mm) and time_budget_s. 3) Use the returned SVG/DXF or preserving LBRN2 files. validate_layout and export_layout work on layout files; estimate_sheets gives a lower bound only. Lengths are millimetres. Results always pass an independent geometry check.",
+ "initialize_elapsed_s": 0.0,
+ "tools": [
+  "estimate_sheets",
+  "export_layout",
+  "import_parts",
+  "nest",
+  "validate_layout"
+ ],
+ "tools_list_bytes": 20752,
+ "tools_list_elapsed_s": 0.0,
+ "files": {
+  "out-a": {
+   "job.json": "fca69bd2a3ad15dfd4abce39ea65cdcf903aea5002bcfaa789f7880236ffd057",
+   "layout.json": "7fc2ed6234fa674194ad68147d37b2c88efab3ad8494c10163cc533d795c83f4",
+   "report.json": "d4a16a90db40cce0062261098bc329ef11693b48f97288617886289b8b85151a",
+   "sheet-0.dxf": "d3bd5c31f6568fa19a7dbe330512f7300fabf1b91b3297efbf9975244b091e38",
+   "sheet-0.svg": "8727f9b903884b36ec160f4692f6725849c9f47f522d684cde7af80dcf58a12d"
+  },
+  "out-b": {
+   "job.json": "fca69bd2a3ad15dfd4abce39ea65cdcf903aea5002bcfaa789f7880236ffd057",
+   "layout.json": "7fc2ed6234fa674194ad68147d37b2c88efab3ad8494c10163cc533d795c83f4",
+   "report.json": "a69e9db0b0a51f1340ba933dc9cd180d39b17e02be89be655abee2073ce1f8bb",
+   "sheet-0.dxf": "d3bd5c31f6568fa19a7dbe330512f7300fabf1b91b3297efbf9975244b091e38",
+   "sheet-0.svg": "8727f9b903884b36ec160f4692f6725849c9f47f522d684cde7af80dcf58a12d"
+  },
+  "out-c": {
+   "sheet-0.dxf": "d3bd5c31f6568fa19a7dbe330512f7300fabf1b91b3297efbf9975244b091e38",
+   "sheet-0.svg": "8727f9b903884b36ec160f4692f6725849c9f47f522d684cde7af80dcf58a12d"
+  }
+ },
+ "layout_a_equals_b": true,
+ "stderr_tail": []
+}
