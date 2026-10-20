@@ -15210,3 +15210,15 @@ the 26 reviewed exact frame sets before bounded completion checks. H2/H5 remain
 open at 60%; runtime and README contents are unchanged.
 
 All six hosted checks on pushed merge `8a81205` now pass, including Windows, Linux, browsers, benchmark smoke and both maker rebuilds. [Exact-checkpoint evidence](benchmarks/results/h5-whole-group-diagnosis-20261020/main-ci-8a81205.json). The following offline-evidence checkpoint still requires its own hosted result.
+
+**N4 frame/bracket capacity, 2026-10-20:** [four new frame constructions and exact bracket bounds](benchmarks/results/h5-frame-bracket-diagnosis-20261020.md)
+follow four preserved 30-second mixed-model timeouts. A changed frame-only
+heuristic finds four new final frame sets; all 19 returned frame/cog proposals
+pass original geometry checks. Four independently reconstructed completion
+models reject these sets without a layout. Removing inserts and reconstructing
+exact rational dual bounds proves that their surviving finite poses allow at
+most 7, 7, 10 and 10 brackets, below the required 12. This does not prove the
+unrestricted job impossible. Individual pose availability is insufficient;
+next select all 18 frames and 12 brackets together before exact insert
+completion. No expired model is extended, no quality run occurs and no gate
+changes. H2/H5 remain open at 60%; runtime and README contents are unchanged.

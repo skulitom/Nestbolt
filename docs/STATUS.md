@@ -140,6 +140,18 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 frame/bracket capacity, 2026-10-20:** [four new frame constructions and exact bracket bounds](../benchmarks/results/h5-frame-bracket-diagnosis-20261020.md)
+follow four preserved 30-second mixed-model timeouts. A changed frame-only
+heuristic finds four new final frame sets; all 19 returned frame/cog proposals
+pass original geometry checks. Four independently reconstructed completion
+models reject these sets without a layout. Removing inserts and reconstructing
+exact rational dual bounds proves that their surviving finite poses allow at
+most 7, 7, 10 and 10 brackets, below the required 12. This does not prove the
+unrestricted job impossible. Individual pose availability is insufficient;
+next select all 18 frames and 12 brackets together before exact insert
+completion. No expired model is extended, no quality run occurs and no gate
+changes. H2/H5 remain open at 60%; runtime and README contents are unchanged.
+
 **N4 whole-group diagnosis, 2026-10-20:** [bounded branching and fixed-group completion](../benchmarks/results/h5-whole-group-diagnosis-20261020.md)
 retain all 421 LP branches, 227 checked fractional solutions and 41 unvisited
 frontier entries. No branch completes 18 frames. A separate census finds 26
