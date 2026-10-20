@@ -94,3 +94,5 @@ The [upstream availability check](h5-coordinated-contact-selection-20261020/upst
 Sparrow Studio's published site as strip-only, without part-in-part; its repository
 still describes the replacement app as unpublished. The plan's shipment stop
 rule is not triggered. This is an availability check, not a performance comparison.
+The [source attribution and exact-revision MIT notices](h5-coordinated-contact-selection-20261020/upstream-attribution.json)
+accompany the preserved upstream documentation.
