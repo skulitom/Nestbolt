@@ -2136,3 +2136,18 @@ repeat expired searches. Remote abeb2739's comparison page and README link
 merge cleanly as 09f59894, preserving 11 incoming and 25 local files. Its push
 cancelled f321537's remaining Windows/Linux checks. No complete CI success
 or release is inferred. H2/H5 remain open at 60%; core source is unchanged.
+
+**N4 cog free regions and continuous capacity, 2026-10-20:** [the independently audited certificate](../benchmarks/results/h5-cog-free-regions-and-continuous-capacity-20261020.md)
+proves at most **13 cogs** fit around the current 51 fixed non-cog poses,
+even allowing arbitrary angles and continuous positions. The original job
+requires 15, so at least one frame, bracket or insert must move. Earlier
+finite sampling adds 437 cog poses but still selects nine; both returned
+layouts pass original geometry and retain their six-missing-cog CLI failures.
+The weaker finite cover of 14, continuous box bound of 18 and band bound of 16
+are preserved. Exact reachable-area checks allow 10 cogs on the first sheet;
+an independently verified diameter cover allows 3 on the last. This is a
+conditional upper bound, not an attainable 13-cog layout or a claim after other parts move.
+Next audit which single non-cog releases can remove this obstruction;
+do not repeat the ruled-out cog-only search. Core source and all three README
+hashes remain unchanged. No native quality run or new release is qualified.
+H2/H5 remain open at 60% under the original requirements.

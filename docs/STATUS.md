@@ -140,6 +140,21 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 cog free regions and continuous capacity, 2026-10-20:** [the independently audited certificate](../benchmarks/results/h5-cog-free-regions-and-continuous-capacity-20261020.md)
+proves at most **13 cogs** fit around the current 51 fixed non-cog poses,
+even allowing arbitrary angles and continuous positions. The original job
+requires 15, so at least one frame, bracket or insert must move. Earlier
+finite sampling adds 437 cog poses but still selects nine; both returned
+layouts pass original geometry and retain their six-missing-cog CLI failures.
+The weaker finite cover of 14, continuous box bound of 18 and band bound of 16
+are preserved. Exact reachable-area checks allow 10 cogs on the first sheet;
+an independently verified diameter cover allows 3 on the last. This is a
+conditional upper bound, not an attainable 13-cog layout or a claim after other parts move.
+Next audit which single non-cog releases can remove this obstruction;
+do not repeat the ruled-out cog-only search. Core source and all three README
+hashes remain unchanged. No native quality run or new release is qualified.
+H2/H5 remain open at 60% under the original requirements.
+
 **N4 frame capacity and joint small parts, 2026-10-20:** [the complete audit](../benchmarks/results/h5-frame-capacity-and-joint-small-parts-20261020.md)
 finds two geometry-verified 18-frame arrangements around all 21 inserts. Their
 fixed-group small-part optima are 16 and 13; independent clique certificates
