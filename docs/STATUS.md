@@ -140,6 +140,18 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 joint frame/cog constructions, 2026-10-20:** [all eight changed models and audits](../benchmarks/results/h5-joint-frame-cog-construction-20261020.md)
+combine one movable frame with free cog choices around the other 50 fixed
+non-cog poses. The 80 queries add 853 frame and 641 cog poses across the conditional
+sets; every proposal, filter and relevant pair conflict is independently checked.
+All eight finite-pool models report an optimum of nine cogs, without hitting
+their 20-second limits. All 16 returned layouts pass original geometry and
+retain the six-missing-cog CLI failure; 12 CLI calls are fresh and four exact
+results are reused. No partial improves and no unrestricted impossibility is
+claimed. Next investigate coordinated whole groups with all small-part families
+free, after reviewing prior frame-group results; do not repeat these models.
+Core source, README and releases remain unchanged. H2/H5 stay open at 60%.
+
 **N4 continuous single-frame regions, 2026-10-20:** [the complete audited record](../benchmarks/results/h5-single-frame-continuous-regions-20261020.md)
 covers all 72 frame/size-class/sheet queries and retains all 18 original frame
 poses. Guaranteed occupied rectangles exclude 16 of 52 whole center regions.

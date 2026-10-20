@@ -2176,3 +2176,15 @@ are excluded and eight frame choices remain unresolved. No unfinished tree
 is treated as a proof. Next construct and audit changed frame/cog candidates
 within the remaining regions; do not extend the expired tree unchanged.
 Core source, README and releases remain unchanged. H2/H5 remain open at 60%.
+
+**N4 joint frame/cog constructions, 2026-10-20:** [all eight changed models and audits](../benchmarks/results/h5-joint-frame-cog-construction-20261020.md)
+combine one movable frame with free cog choices around the other 50 fixed
+non-cog poses. The 80 queries add 853 frame and 641 cog poses across the conditional
+sets; every proposal, filter and relevant pair conflict is independently checked.
+All eight finite-pool models report an optimum of nine cogs, without hitting
+their 20-second limits. All 16 returned layouts pass original geometry and
+retain the six-missing-cog CLI failure; 12 CLI calls are fresh and four exact
+results are reused. No partial improves and no unrestricted impossibility is
+claimed. Next investigate coordinated whole groups with all small-part families
+free, after reviewing prior frame-group results; do not repeat these models.
+Core source, README and releases remain unchanged. H2/H5 stay open at 60%.
