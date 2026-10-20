@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deepnest alternative: SVGnest and Sparrow compared | Nestbolt</title>
+    <meta name="description" content="Compare Nestbolt with Deepnest, SVGnest and Sparrow at equal time budgets. Inspect the frozen benchmark, material savings, failures and where Sparrow wins.">
+    <link rel="canonical" href="https://skulitom.github.io/Nestbolt/deepnest-alternative/">
+    <link rel="stylesheet" href="../site.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Nestbolt">
+    <meta property="og:title" content="Deepnest alternative: SVGnest and Sparrow compared | Nestbolt">
+    <meta property="og:description" content="Compare Nestbolt with Deepnest, SVGnest and Sparrow at equal time budgets. Inspect the frozen benchmark, material savings, failures and where Sparrow wins.">
+    <meta property="og:url" content="https://skulitom.github.io/Nestbolt/deepnest-alternative/">
+    <meta property="og:image" content="https://skulitom.github.io/Nestbolt/og/deepnest-alternative.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Mechanical benchmark job with frames, inserts, gears and brackets packed at one end of a sheet">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+      {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://skulitom.github.io/Nestbolt/#software-application",
+          "name": "Nestbolt",
+          "url": "https://skulitom.github.io/Nestbolt/",
+          "applicationCategory": "DesignApplication",
+          "operatingSystem": "Web browser, Windows, Linux, macOS",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "license": "https://opensource.org/licenses/MIT",
+          "downloadUrl": "https://github.com/skulitom/Nestbolt/releases",
+          "sameAs": "https://github.com/skulitom/Nestbolt",
+          "description": "Free, open-source nesting for people who cut fixed sheets: laser cutters, CNC routers, plasma, waterjet, fabric and leather. Nestbolt arranges parts so they use the least material. It runs in your browser (nothing is uploaded), on the command line, and as an MCP server that AI agents can call.",
+          "author": {
+            "@type": "Person",
+            "name": "skulitom",
+            "url": "https://github.com/skulitom"
+          }
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://skulitom.github.io/Nestbolt/deepnest-alternative/#page",
+          "name": "Deepnest alternative: SVGnest and Sparrow compared | Nestbolt",
+          "description": "Compare Nestbolt with Deepnest, SVGnest and Sparrow at equal time budgets. Inspect the frozen benchmark, material savings, failures and where Sparrow wins.",
+          "url": "https://skulitom.github.io/Nestbolt/deepnest-alternative/",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://skulitom.github.io/Nestbolt/#website",
+            "name": "Nestbolt",
+            "url": "https://skulitom.github.io/Nestbolt/"
+          },
+          "about": {
+            "@id": "https://skulitom.github.io/Nestbolt/#software-application"
+          },
+          "headline": "Deepnest alternative: SVGnest and Sparrow compared | Nestbolt"
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="../"><strong>Nestbolt</strong></a></li>
+          <li>
+            <span>Guides:</span>
+            <ul>
+              <li><a href="../free-nesting-software-laser-cutting/">Free nesting</a></li>
+              <li><a href="../deepnest-alternative/">Deepnest alternative</a></li>
+              <li><a href="../nest-svg-dxf-in-browser/">SVG/DXF in the browser</a></li>
+            </ul>
+          </li>
+          <li><a href="../nesting-examples/">Examples</a></li>
+          <li><a href="../results/">Benchmark results</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt">GitHub</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+      <article>
+        <h1>A Deepnest alternative, with the benchmark to inspect</h1>
+        <p>Looking for an alternative to Deepnest or SVGnest starts with a practical question: how much material does the layout use? In Nestbolt's frozen v1 benchmark, it used <strong>8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow</strong> at equal 60-second budgets, and 9.6% at 300 seconds on the long subset. Sparrow still wins 8 of the 56 jobs at 60 seconds.</p>
+        <div class="cta">
+          <a class="button" href="../">Open Nestbolt in your browser</a>
+          <p>Free and MIT-licensed; your files never leave your computer.</p>
+        </div>
+        <p>Those figures belong to the frozen <code>75cbb32</code> build in the final acceptance run of <strong>2026-10-13</strong>. The hosted app runs a preview build from main, newer than v0.2.0-alpha.1. The preview makes no new comparison against competing tools; <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0">stable v0.1.0 remains a download</a>.</p>
+        <h2>Nestbolt vs Deepnest, SVGnest and Sparrow</h2>
+        <div class="table" role="region" aria-label="Benchmark comparison" tabindex="0">
+          <table>
+            <caption>Frozen v1 benchmark: headline results from the README</caption>
+            <thead>
+              <tr>
+                <th scope="col">Budget</th>
+                <th scope="col">Valid Nestbolt layouts</th>
+                <th scope="col">Less material than the best competitor (median)</th>
+                <th scope="col">Wins or ties</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">60 s</th>
+                <td>375/375</td>
+                <td><strong>8.5%</strong></td>
+                <td>48 of 56</td>
+              </tr>
+              <tr>
+                <th scope="row">300 s (long subset)</th>
+                <td>60/60</td>
+                <td><strong>9.6%</strong></td>
+                <td>11 of 11</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>At 60 seconds, Nestbolt uses less material than Deepnest on all 55 jobs where Deepnest produced a layout, with a median reduction of 9.9%. It uses less than SVGnest on all 36 jobs where SVGnest produced a layout, with a median reduction of 14.4%. The comparison above uses the best of the three competitors on each job.</p>
+        <p>The <a href="../results/">results page</a> provides every per-job number, tool revision, seed and the hardware. <a href="https://github.com/skulitom/Nestbolt/blob/main/BENCHMARKS.md">BENCHMARKS.md</a> records every run, including failures. Read those alongside the headline: the different job counts are part of the result.</p>
+        <h2>How the benchmark was run</h2>
+        <p>The final acceptance run used 75 frozen sheet jobs: 35 academic and 40 maker jobs. Ten were held out from all tuning. Each tool had equal time budgets and one CPU core, with five fresh seeds each. Each competitor used the better of its two settings, and every layout was checked by an independent validator.</p>
+        <p>The first final run, build <code>484ce8b</code>, stopped with an error on one job. The fix is in <code>75cbb32</code>, and both runs are published. You can inspect the <a href="../results/final-484ce8b/">earlier run</a> as well as the <a href="../results/">final results</a>; the <a href="https://github.com/skulitom/Nestbolt/blob/main/BENCHMARKS.md">benchmark log</a> preserves the failures.</p>
+        <h2>Where Sparrow still wins</h2>
+        <p><a href="https://github.com/JeroenGar/sparrow">Sparrow, which Nestbolt builds on</a>, wins eight jobs at 60 seconds. Seven are one-sheet jobs that Nestbolt hands to Sparrow itself after its own first layout. Sparrow therefore runs with slightly less time inside Nestbolt on those jobs; running it separately is 0.03–2.4% better. The eighth job uses two sheets and is 0.34% better.</p>
+        <p>That misses Nestbolt's own 60-second bar: wins or ties on 90% of jobs and never more than 1% worse. The 300-second, strip-parity and speed bars are met. The <a href="../results/">results</a> and <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/STATUS.md">status evidence</a> show the boundaries of those conclusions. A median saving does not promise a saving on every drawing.</p>
+        <figure>
+          <img src="../og/deepnest-alternative.png" width="1200" height="630" alt="Benchmark job m-mechanical-frame-inserts: 138 parts with all 39 inserts in frame windows, packed into 56% of a 2440 × 1220 mm sheet">
+          <figcaption>The README's mechanical job, exactly as nested in a 60-second development run: <code>m-mechanical-frame-inserts</code>, seed 0, sheet turned to landscape. 138 parts, all 39 inserts inside frame windows, occupy 56% of a 2440 × 1220 mm sheet, leaving one offcut. The best competitor used 62% on this job. This illustration is a development run, separate from the final acceptance table.</figcaption>
+        </figure>
+        <h2>Should you switch?</h2>
+        <p>Nestbolt is free and MIT licensed. If you want to try it with your own drawing, these are the parts of its workflow to evaluate:</p>
+        <ul>
+          <li>An independent validator checks overlap, spacing, containment, rotations and quantities; invalid layouts are never returned.</li>
+          <li>Per-sheet SVG and DXF exports use transformed original curves rather than re-polygonised outlines.</li>
+          <li>The browser app runs locally on your computer with nothing uploaded, and shows the best layout while the search runs.</li>
+          <li>Native CLI tools and an MCP server support other workflows. Repeatable budgets reproduce a layout with the same build, inputs, work budget and seed unless the real-time limit is reached, which is reported explicitly.</li>
+        </ul>
+        <p>The benchmark compares material use at equal time budgets, nothing else. It does not establish that one tool is better for every workflow. Try a representative file, review the import and exported curves, and choose spacing and rotation permissions for your job. Nestbolt gives no machine-safety or fit certification.</p>
+        <p>For a practical starting point, follow <a href="../nest-svg-dxf-in-browser/">the SVG/DXF browser guide</a> or inspect <a href="../nesting-examples/">the five examples and their settings</a>. The compared projects are <a href="https://github.com/deepnest-next/deepnest">Deepnest</a>, <a href="https://github.com/Jack000/SVGnest">SVGnest</a> and <a href="https://github.com/JeroenGar/sparrow">Sparrow</a>; their GitHub repositories are linked here so you can inspect each directly.</p>
+      </article>
+    </main>
+    <footer>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="../">App</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt">GitHub</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt/releases">Releases</a></li>
+          <li><a href="../results/">Benchmark results</a></li>
+          <li><a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">AI agents / MCP</a></li>
+        </ul>
+      </nav>
+      <p>From the same author: <a href="https://github.com/skulitom/Anode">Anode</a>, <a href="https://github.com/skulitom/Pixelbolt">Pixelbolt</a>, <a href="https://github.com/skulitom/Cutbolt">Cutbolt</a> and <a href="https://github.com/skulitom/Inkbolt">Inkbolt</a>.</p>
+      <p>Nestbolt is MIT licensed. It gives no machine-safety or fit certification.</p>
+    </footer>
+  </body>
+</html>

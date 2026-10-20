@@ -24,8 +24,7 @@ available, plus the Windows MCP bundle. Their [published-download checks](benchm
 pass. Import acceptance and common-line material use remain under development;
 the [v1.1 plan is 60% complete](docs/STATUS.md). Stable v0.1.0 remains available.
 
-The hosted browser still runs [v0.1.0](https://github.com/skulitom/Nestbolt/actions/runs/38572138348).
-To try the newer browser features, [build the app locally](#browser-app).
+The hosted browser app runs a preview build from `main` (newer than v0.2.0-alpha.1).
 The benchmark figures below belong to the frozen `75cbb32` build; this preview
 makes no new comparison against competing tools.
 
@@ -190,13 +189,14 @@ File formats are described by the [JSON Schemas](schemas/README.md).
 
 ## Browser app
 
-[Open the hosted v0.1.0 app](https://skulitom.github.io/Nestbolt/) and pick an example
+[Open the hosted app](https://skulitom.github.io/Nestbolt/) and pick an example
 (finger-jointed boxes, letters inside letters, a 138-part mechanical kit, a
 FreeSewing T-shirt pattern on a fabric roll, interlocking gears), or drop your
 own SVG/DXF files. LightBurn import, lead allowances and the newer large-drawing
-features are available in the local build described below.
+features are available in the hosted preview build and in a local build.
 The best layout so far is drawn while the search runs, and each sheet shows the
 box around its parts and the clear offcut left above them.
+Guides: [free nesting for laser cutting](https://skulitom.github.io/Nestbolt/free-nesting-software-laser-cutting/), [Nestbolt vs Deepnest and SVGnest](https://skulitom.github.io/Nestbolt/deepnest-alternative/), [nesting SVG and DXF in the browser](https://skulitom.github.io/Nestbolt/nest-svg-dxf-in-browser/) and [the five examples](https://skulitom.github.io/Nestbolt/nesting-examples/).
 
 ![The mechanical-kit example in the browser app: 138 parts on one plywood sheet in 30 seconds, inserts inside the frames, the clear offcut shaded above the dashed box around the parts](docs/images/browser-example.png)
 
