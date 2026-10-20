@@ -2093,3 +2093,17 @@ Exact checks across 57,374 constraints establish complete feasible starting
 hints for all four reduced joint models. Next optimize actual whole-insert
 count with these hints, retaining all conflicts and original acceptance rules.
 No full layout or improvement is claimed; H2/H5 remain open at 60%.
+
+**N4 seeded search and local-move bounds, 2026-10-20:** [the complete audit](../benchmarks/results/h5-seeded-search-and-move-bounds-20261020.md)
+preserves four seeded fixed-cog searches and one search with all cog positions
+movable; none improves its 12/13-insert starting count. Independent checks verify
+2247 safe pose substitutions and all returned geometry. Exhaustive enumeration
+and clique certificates prove that all 331 zero/one/two-core moves about the
+mapped seed allow at most 13 inserts within the retained finite pool. A changed
+three-to-six-move search for at least 14 inserts times out without a candidate;
+larger moves and new continuous positions remain unresolved. Next diagnose
+compatible insert sets and their exact core blockers before generating changed
+contact positions. No unchanged search is repeated and no full-job credit is
+awarded. Prior local 6cde1bd and 56f818a are pushed to main; all six f6edfb7
+checks pass. The README accurately describes the existing preview. H2/H5
+remain open at 60%; runtime and release assets are unchanged.

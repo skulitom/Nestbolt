@@ -140,6 +140,20 @@ All six hosted checks on preceding main `2f5d43f` pass, including Windows, Linux
 
 All six hosted checks on preceding main `abd3bae` pass, including Windows, Linux, browsers and both maker rebuilds. This confirms that exact pushed checkpoint. The subsequent joint-repair candidate remains isolated after the failed matched pilot below. Production code and published release assets remain unchanged; H2/H5 remain open at 60%. [Hosted evidence](../benchmarks/results/h5-joint-repair-preparation-20261018/main-ci-abd3bae.json).
 
+**N4 seeded search and local-move bounds, 2026-10-20:** [the complete audit](../benchmarks/results/h5-seeded-search-and-move-bounds-20261020.md)
+preserves four seeded fixed-cog searches and one search with all cog positions
+movable; none improves its 12/13-insert starting count. Independent checks verify
+2247 safe pose substitutions and all returned geometry. Exhaustive enumeration
+and clique certificates prove that all 331 zero/one/two-core moves about the
+mapped seed allow at most 13 inserts within the retained finite pool. A changed
+three-to-six-move search for at least 14 inserts times out without a candidate;
+larger moves and new continuous positions remain unresolved. Next diagnose
+compatible insert sets and their exact core blockers before generating changed
+contact positions. No unchanged search is repeated and no full-job credit is
+awarded. Prior local 6cde1bd and 56f818a are pushed to main; all six f6edfb7
+checks pass. The README accurately describes the existing preview. H2/H5
+remain open at 60%; runtime and release assets are unchanged.
+
 **N4 certified reduction and starting layouts, 2026-10-20:** [joint construction and safe pose substitution](../benchmarks/results/h5-dominated-poses-and-seeds-20261020.md)
 preserve eight bounded searches without incumbents. Independent set checks
 verify 4,105 same-family substitutions across four cases, preserving future
