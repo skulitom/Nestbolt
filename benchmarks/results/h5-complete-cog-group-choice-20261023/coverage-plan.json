@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-23T12:42:47.656611+00:00",
+  "inputs": {
+    "output/h5-complete-cog-group-choice-20261023/candidates.json": "78f59a4176086dc5cf204f662625c1f2b257c06554dc5a20e6d7e3e8358a4667",
+    "output/h5-complete-cog-group-choice-20261023/mapping.json": "63b356724d10c1557f8962f1fd48b1965c254686512b1759bd2e62dd358520d7",
+    "output/h5-complete-cog-group-choice-20261023/audit/checks.json": "329af74f6af1db0941081549761c578ac22bee49ff16e6f38bcd21bb4df058b1",
+    "output/h5-complete-cog-group-choice-20261023/solve/result.json": "a4d927840e75a7ee19ea602bf83c4683bd08c77e8a93229ab194374077c9cfd9",
+    "output/h5-complete-cog-group-choice-20261023/layout-audit/checks.json": "153256b1222e72c62c5a0f486408d23dd0c01b529780652e3ed0acf37b8c3c19",
+    "output/h5-wide-catalogue-coverage-20261023/placements.json": "4ff8f9fdbd95ec60eec0038cefcfd513c983ba6d119e024c9c015b1c84bf1458",
+    "output/h5-wide-catalogue-coverage-20261023/checks.json": "d44259b027e290950b701f529445b72e2b1b31c7b0f567f3f4533a33b7284ff3",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd"
+  },
+  "maximum_cases": 1000,
+  "maximum_seconds": 30,
+  "method": "Enumerate every saved first-sheet catalogue group paired with every saved last-sheet catalogue group, or no last group, whose combined quantity is exactly 15 cogs. Preserve source group ids and exact placements. Map by exact pose identity into the completed source pool. Deduplicate only identical complete global-id sets, report coverage by the prior 165 cases, and retain all new cases and any pending suffix. Independently recompute original cog/cog, cog/frame and frame/frame geometry, allowed transforms and both target-stock bounds for every declared combination. No small-part completion, solver, CLI acceptance, native packing or quality result is inferred. In particular, this audits 12+3 and 10+5 distributions omitted from the prior zero-or-one-last-cog cases without claiming these distributions were never explored by other earlier algorithms.",
+  "solver_calls": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

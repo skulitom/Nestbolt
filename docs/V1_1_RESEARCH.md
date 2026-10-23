@@ -2273,3 +2273,17 @@ are audited and their quantity-only CLI failures retained. No pending list is
 resumed and no solve repeated. Next compare other saved complete-cog arrangements
 with small parts free, using fresh declared limits. Source, accurate READMEs and
 releases remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 complete-cog group choice, 2026-10-23:** [the complete audit](../benchmarks/results/h5-complete-cog-group-choice-20261023.md)
+preserves the best 64/66 partial. All 1,670 newly declared group/contact queries
+and 3,300 starting layouts complete. The 9,089 choices, 165 group decisions,
+3,051,661 conflicts and full model pass independent checks. One bounded solve
+reaches 63 parts, missing three brackets; its filled area remains below the
+retained result and its bound is unresolved. All four original layouts pass
+geometry and retain quantity-only CLI failures. The 980 capped lists remain
+pending. A new 210-combination coverage audit identifies 200 additional complete
+cog groups, including 12+3 and 10+5 distributions across sheets. Next test those
+changed group choices under fresh limits; do not repeat the expired model.
+All six prior-main checks pass and both saved checkpoints are pushed as 37b671d3.
+Source, accurate READMEs and releases remain unchanged; H2/H5 stay open at 60%.
