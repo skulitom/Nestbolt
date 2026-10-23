@@ -2084,3 +2084,20 @@ additional small poses by removing the whole-frame-group restriction. The next
 model needs a fresh complete four-family graph. Previous checkpoint 955cc87e is
 pushed after all six 7cd00432 checks pass. Product source, accurate READMEs and
 releases remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 individual-frame joint selection, 2026-10-23:** [the complete audit](../benchmarks/results/h5-individual-frame-joint-20261023.md)
+frees every original frame pose and all three small families across the full
+35,488-pose pool. All 38,969,399 new four-family conflicts, original
+transforms/stock bounds and both 64-part seeds are independently checked.
+Fresh substitutions and first-fit constraints preserve every induced edge;
+all model and parameter fields are verified. One unchanged-allowance solve
+returns `FEASIBLE`. Best checked inventory: 64/66;
+missing {"bracket": 2}. Native and complete H5
+qualification remain open. All 16 conservative bracket insertion regions for
+the distinct final layout are empty. Thirty fresh repair cores, each freeing
+one cog plus all brackets and inserts, preserve both 64-part layouts and all
+989,670 independently checked memberships; their conditional selection is
+pending. The earlier 752b1c60 checkpoint is pushed after
+all six 955cc87e checks pass. Source, accurate READMEs and releases remain
+unchanged; H2/H5 stay open at 60%.

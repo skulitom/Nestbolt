@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-23T15:14:21.922384+00:00",
+  "inputs": {
+    "output/h5-individual-frame-joint-20261023/plan.json": "916ad180d6fba320d94e004f2f0a2e3653a30ff4daf6c8faa592e6af90c58ba1",
+    "output/h5-individual-frame-joint-20261023/candidates.json": "7d68b965d105fee999c1866b43a9427aad20cf4746b42b0d16b289be31a1ec92",
+    "output/h5-individual-frame-joint-20261023/mapping.json": "cb78a90e8cf3dd8638f0191fd4f90121402fa3105c62655a190000ae8d8d73dd",
+    "output/h5-individual-frame-joint-20261023/adjacency.bin.gz": "f5a442ea0efd746c963284ca03a12499609b6606610e5113f0b18634a8fcc6bf",
+    "output/h5-individual-frame-joint-20261023/audit/checks.json": "4b46be465187d7061ae8c6fcc0f0661e5df500f808635e5985fc506ba739d9b7"
+  },
+  "maximum_seconds": 30,
+  "maximum_comparisons": 50000000,
+  "compression_seconds": 20,
+  "method": "Order by original degree then global index. Remove b only for earlier retained same-family adjacent a with N(a) minus b contained in N(b). Keep all unprocessed candidates on either bound. Independently enumerate every certificate neighbor, map both exact original 64-part layouts with quantity and full-graph checks, then compress the exact induced graph with fresh lowest-index first-fit clique growth. Preserve every residual edge after the 20-second compression limit; independently reconstruct the entire final graph from all cliques and residual edges."
+}
