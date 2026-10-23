@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-23T13:34:52.188303+00:00",
+  "inputs": {
+    "output/h5-mixed-small-compound-contacts-20261023/candidates.json": "5f55a7d868b143a420586f34750ab6d1bbcebbd66d347cf34a468500f2096f65",
+    "output/h5-latest-wide-pool-coverage-20261023/plan.json": "210c688ac2eae91489dbf5b0eddbcb79ee480f91138e502e6fa41a782aea6b7e",
+    "output/h5-latest-wide-pool-coverage-20261023/mapping.json": "bc41e2c97856c50c421fe0cb222ed88d645dbfa9d4b749b3a3b0ebcee9794756",
+    "output/h5-latest-wide-pool-coverage-20261023/filter.json": "fb9804adf27f14bc46875a09711bc9f6e1440e3b5b96b3a4831b94775d7be947",
+    "output/h5-latest-wide-pool-coverage-20261023/checks.json": "b3d88391d8754efa2662e8e8a4b8b41de64adbb501641a0d2e559af70c77fbee",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd"
+  },
+  "graph": "Fix only the exact 18 wide frames. Recompute every mutual cog/bracket/insert conflict from the complete 21,468-pose freshly filtered pool, preserving every source pose and both checked seeds. Query original expanded bounds through STRtree, then evaluate original filled-outer distances. Save complete undirected adjacency as n fixed-width little-endian rows, each ceil(n/8) bytes, gzip-compressed; no edge pruning or clique cap applies to the graph itself. Independently rebuild the entire graph with a sequential bounds scan before selection. Do not resume any older pending list or solver.",
+  "reduction_seconds": 30,
+  "reduction_comparisons": 50000000,
+  "reduction": "Fresh adjacent same-family substitution only when N(replacement) minus removed is contained in N(removed). Certify every original neighbor and map both exact seeds. Compress only after this safe reduction to avoid building redundant constraints; keep every residual edge when compression ends.",
+  "compression_seconds": 20,
+  "hint_seconds": 30,
+  "hint_cases": 416,
+  "hints": "Compare 52 deterministic family/order/sheet choices for each of eight starts: both mapped seeds, and each seed with one of three non-frame families removed. Retain the highest original-area seed if no completion improves it. No prior hint or reduction is reused.",
+  "solve_seconds": 60,
+  "solve_calls": 1,
+  "workers": 8,
+  "seed": 0,
+  "objective": "Original integer filled-area weights and original family caps 12 brackets, 15 cogs, 21 inserts, with exact fixed frames. Independently reconstruct every protobuf field and validate every returned layout against original geometry and frozen CLI. Full 66-copy acceptance, native margins, original production budget and full H5 matrix remain required.",
+  "new_poses_generated": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

@@ -2037,3 +2037,17 @@ under fresh limits, preserving both checked seeds. All six checks passed on
 37b671d3, then queued checkpoints were pushed to main 4592d97c; its checks are
 recorded separately. Source, accurate READMEs and releases remain unchanged.
 H2/H5 stay open at 60%; no reserved files or production quality runs are used.
+
+
+**N4 improved joint partial, 2026-10-23:** [the complete audit](../benchmarks/results/h5-latest-wide-joint-progress-20261023.md)
+places all frames, cogs and inserts: 64/66 parts, lacking two brackets. Filled
+area improves by 19,800 mm² over the previous best; all older partials remain.
+The complete 21,468-choice graph, 20,223,984 conflicts, fresh substitutions,
+1,877,444 retained residual edges and every model field are checked. One bounded
+solve returns feasible; all five original layouts pass geometry with expected
+quantity-only failures. Sixteen new fixed-layout bracket regions are empty under
+positive padding. The next checked 33-part core has four changed cog poses and
+preserves the new 64-part seed for fresh actual-compound bracket/insert contacts.
+No previous solve, capped list or unchanged gap check is resumed. Main's current
+checks remain separately recorded; queued commits await their successful finish.
+Source, accurate READMEs and releases remain unchanged. H2/H5 stay open at 60%.
