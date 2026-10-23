@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "seconds": 1.1893267999985255,
+  "source_shape_exactly_unchanged": true,
+  "unbuffered_translation_hausdorff_mm": 2.5421149729252077e-13,
+  "unbuffered_translation_area_mm2": 6.898484240685497e-11,
+  "old_mitre_translation_hausdorff_mm": 0.030732836757744745,
+  "polygon_translation_hausdorff_mm": 2.5421149729252077e-13,
+  "polygon_translation_area_mm2": 1.1324723528610847e-10,
+  "circle": {
+    "sides": 128,
+    "construction_radius_mm": 0.20016028453546453,
+    "minimum_chord_distance_mm": 0.20009999999999994,
+    "required_clearance_plus_margin_mm": 0.2001,
+    "all_128_chords_conservative": true,
+    "offset_algorithm": "Union the original polygon with every boundary segment Minkowski-summed with the explicit circumscribed 128-gon; no round/mitre buffer tessellation."
+  },
+  "independent_concave_and_hole_identity_checks": [
+    {
+      "case": "concave",
+      "hausdorff_mm": 0.0,
+      "symmetric_difference_mm2": 0.0
+    },
+    {
+      "case": "hole",
+      "hausdorff_mm": 0.0,
+      "symmetric_difference_mm2": 0.0
+    }
+  ],
+  "original_clearance_unchanged": true,
+  "original_part_vertices_unchanged": true,
+  "interpretation": "The explicit circumscribed clearance polygon avoids mitre amplification and phase-dependent round-buffer tessellation. Both globally constructed and translated Minkowski obstacles meet the original strict equivalence checks. All future placement proposals still require original-vertex distance checks.",
+  "generation_restarted": false,
+  "solver_calls": 0
+}

@@ -2393,3 +2393,16 @@ and returns `FEASIBLE`; all three original layouts remain 64/66, missing two
 brackets. The full bound is unresolved. No native or production qualification
 is inferred. Main 752b1c60 awaits its last Windows check, with d49d0ff6 committed
 locally. Source, READMEs and releases remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 continuous cog contacts, 2026-10-23:** [the complete audit](../benchmarks/results/h5-one-cog-continuous-regions-20261023.md)
+preserves a failed mitre-buffer equivalence check and a failed round-buffer
+alternative, then verifies an explicit circumscribed 128-gon clearance helper.
+All 120 new one-cog region queries complete; 4,000 new poses pass original
+geometry and all 120,000 memberships across 30 fixed cores. There are 3,971
+new centers beyond 0.05 mm and 2,075 poses opening old bracket choices, which
+are candidate diagnostics rather than additional placed parts. All 60 capped
+proposal lists remain recorded. The 20,058-choice joint graph and selection
+are pending; best checked inventory remains 64/66. Both queued checkpoints
+are pushed to main facf0f38 after all six 752b1c60 checks pass. Source, READMEs,
+releases and gate requirements are unchanged; H2/H5 stay open at 60%.
