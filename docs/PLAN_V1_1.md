@@ -2007,3 +2007,18 @@ cog groups, including 12+3 and 10+5 distributions across sheets. Next test those
 changed group choices under fresh limits; do not repeat the expired model.
 All six prior-main checks pass and both saved checkpoints are pushed as 37b671d3.
 Source, accurate READMEs and releases remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 two-sheet cog progress, 2026-10-23:** [the complete audit](../benchmarks/results/h5-two-sheet-cog-progress-20261023.md)
+improves retained filled area by 325.437876 mm² with a checked 63-part layout,
+missing two brackets and one insert. The previous 64-part result remains the
+highest-count partial. All 365 groups, 500 new contact queries, 6,603,323 conflicts,
+fresh group-preserving substitutions and 7,300 starting layouts are checked.
+One bounded solve and all four original layouts retain quantity-only failures;
+the full-inventory bound remains unresolved. All 541,132 residual edges and 322
+capped lists are preserved. Twenty new fixed-layout gap queries are empty under
+positive padding. A separate 18-frame/15-cog subassembly in four tall columns
+with 8+4+3 cogs passes original geometry and the expected CLI quantity failure.
+Next complete its brackets/inserts under fresh limits; it is not a new best
+partial or production repair. Source, accurate READMEs and releases remain
+unchanged. H2/H5 stay open at 60%.
