@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-23T17:03:57.601687+00:00",
+  "inputs": {
+    "output/h5-shifted-core-small-joint-20261023/plan.json": "5856daa63df300305ed4aeba54c704d25dca88fced3e9b9273be88c954df3b22",
+    "output/h5-shifted-core-small-joint-20261023/candidates.json": "cb9b7363f356cc7fefe55f150257663254cf1fdb93055cfa8c6c761d444d9cce",
+    "output/h5-shifted-core-small-joint-20261023/mapping.json": "eecdd82348bf7e45bed8e16439815ee34b39d2b913a000da3c6af06138e5a603",
+    "output/h5-shifted-core-small-joint-20261023/adjacency.bin.gz": "3cfb6d134c55ef6e3fcdfd38d5e982be97426df454010d96aaed23636adc3580",
+    "output/h5-shifted-core-small-joint-20261023/audit/checks.json": "9c1ae870e4738f5cfc65350b1f0199ea61fc29392588dd25b9163dca0c533294"
+  },
+  "maximum_seconds": 30,
+  "maximum_comparisons": 50000000,
+  "compression_seconds": 20,
+  "method": "Order by original degree then global index. Remove b only for earlier retained same-family adjacent a with N(a) minus b contained in N(b), and compatible-groups(b) a subset of compatible-groups(a). Keep all unprocessed candidates on either bound. Independently enumerate every certificate neighbor, map both exact original 64-part seeds with quantity and full-graph checks, then compress the exact induced graph by first-fit lowest-index clique expansion. Preserve every residual edge after the 20-second compression limit; independently reconstruct the entire final graph from all cliques and residual edges."
+}

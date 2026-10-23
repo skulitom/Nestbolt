@@ -2419,3 +2419,18 @@ are checked for a fresh bracket/insert contact investigation; their old
 candidate-count rankings are not inventory gains. Main facf0f38 checks are
 pending and 5e88ac91 is committed locally. Source, READMEs, releases and gate
 requirements remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 changed-core small-part selection, 2026-10-23:** [the complete audit](../benchmarks/results/h5-shifted-core-small-joint-20261023.md)
+checks 4,000 fresh small-part poses across seven fixed cores, all 211,995
+memberships and a new complete 19,719,151-conflict graph. Certified reduction
+retains 4,739 choices, including 1,246 new poses; every constraint and model
+field verifies. One bounded solve finds a different 63/66 layout: 11 brackets,
+19 inserts, all 18 frames and 15 cogs. It fills 400 mm² more but misses one
+bracket and two inserts. Both original 64-part baselines remain preserved.
+All four original layout audits pass geometry and fail only original missing
+quantities. Forty fresh padded insertion regions are empty, without an
+impossibility claim; coordinated small-part moves are the next investigation.
+All 1,950 capped member lists and the unresolved full bound remain preserved.
+Main facf0f38 passes all six checks, and checkpoints 5e88ac91/0526421e are pushed.
+Source, READMEs and releases are unchanged; H2/H5 remain open at 60%.
