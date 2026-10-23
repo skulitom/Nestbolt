@@ -15400,3 +15400,17 @@ improve the retained partial. Next test a newly bounded completion of those eigh
 parts, preserving original geometry, production repair limits and full H5 scope.
 Prior checkpoints are pushed as 2333dd2c. Source, accurate READMEs and releases
 remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 complete-cog small-part relocation, 2026-10-23:** [the complete audit](benchmarks/results/h5-complete-cog-small-relocation-20261023.md)
+preserves the best 64/66 partial. Around the checked 58-part subassembly, all 20
+new queries finish; 99 insert choices yield a finite optimum of three additional
+inserts. A distinct model fixes only the 18 frames and all 15 cogs, freeing every
+bracket and insert. Its 2,045 choices, 342,611 conflicts and full model pass
+independent checks. One bounded solve retains 61 parts, missing three brackets
+and two inserts. Its bound excludes the complete inventory in this finite pool;
+no continuous impossibility or optimum is claimed. All returned original layouts
+are audited and their quantity-only CLI failures retained. No pending list is
+resumed and no solve repeated. Next compare other saved complete-cog arrangements
+with small parts free, using fresh declared limits. Source, accurate READMEs and
+releases remain unchanged; H2/H5 stay open at 60%.
