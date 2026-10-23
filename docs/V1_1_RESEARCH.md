@@ -2204,3 +2204,16 @@ both pending evidence commits are merged and pushed as 44ff9cc4. Its checks are
 recorded separately. Core source and all three READMEs remain unchanged; the
 published preview is still accurate and no new release is qualified. H2/H5
 remain open at 60%, with original gates and held-out isolation preserved.
+
+
+**N4 continuous capacity and cog/insert contacts, 2026-10-23:** [the complete audit](../benchmarks/results/h5-cog-insert-regions-20261023.md)
+checks three continuous cog-capacity bounds (18, 22 and 35), all inconclusive.
+Around the saved 30 frame/bracket poses, 12 queries add 196 cog and 72 insert
+poses. All 259,549 conflicts, full clique coverage and the model pass independent
+checks. One bounded solve reports a finite-pool optimum with the same 62 parts;
+both returned layouts pass geometry and retain their two-cog/two-insert CLI
+shortfalls. No filled-area improvement or unrestricted impossibility is claimed.
+A distinct three-column/six-row group of all 18 wider frames and 11 optional
+side-strip inserts passes 406 geometry pairs. Next complete its small families
+with newly audited candidates and conflicts; do not retry the fixed-core model.
+Core source, README and releases remain unchanged. H2/H5 stay open at 60%.
