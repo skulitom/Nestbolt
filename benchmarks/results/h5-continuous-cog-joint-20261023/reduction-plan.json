@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-23T16:31:09.372263+00:00",
+  "inputs": {
+    "output/h5-continuous-cog-joint-20261023/plan.json": "9c6c46dd10f77bc27db8a0e1d04fafd3efa825ce8edec88d072ccf3da63138ff",
+    "output/h5-continuous-cog-joint-20261023/candidates.json": "f3293a48b2d93a04c4854c1aa09e9eba2f3629cf310fcb7e4127fd620cd7da0f",
+    "output/h5-continuous-cog-joint-20261023/mapping.json": "02f20915ed1c525818ee667785afa06dc684cfdc73a7e6bb05f20c91fb1a207e",
+    "output/h5-continuous-cog-joint-20261023/adjacency.bin.gz": "d14e03e6bc4c9efdefeadbdb4d9ed2838bf0879c1b9cbb395211462cb44f5ab2",
+    "output/h5-continuous-cog-joint-20261023/audit/checks.json": "08f33ba169f06e4af81e3d723f8118edff0e70a28fb7db4c3a68f67089adcc11"
+  },
+  "maximum_seconds": 30,
+  "maximum_comparisons": 50000000,
+  "compression_seconds": 20,
+  "method": "Order by complete constraint-graph degree then global index, including the independently justified cog-cap clique. Remove b only for earlier retained same-family adjacent a with N(a) minus b contained in N(b), and compatible-groups(b) a subset of compatible-groups(a). Keep all unprocessed candidates on either bound. Independently enumerate every certificate neighbor, map all 30 exact original 64-part seeds with quantity and full-graph checks, then seed the exact derived cog clique and compress the induced graph by first-fit lowest-index clique expansion. The20-second compression timer includes the seeded clique. Preserve every residual edge after the 20-second compression limit; independently reconstruct the entire final graph from all cliques and residual edges."
+}

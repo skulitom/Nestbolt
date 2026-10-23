@@ -1283,3 +1283,16 @@ proposal lists remain recorded. The 20,058-choice joint graph and selection
 are pending; best checked inventory remains 64/66. Both queued checkpoints
 are pushed to main facf0f38 after all six 752b1c60 checks pass. Source, READMEs,
 releases and gate requirements are unchanged; H2/H5 stay open at 60%.
+
+
+**N4 continuous-cog joint selection, 2026-10-23:** [the complete audit](../benchmarks/results/h5-continuous-cog-joint-20261023.md)
+checks all 20,058 choices, 6,917,176 new geometric conflicts and a separately
+justified count-derived cog clique. Fresh substitutions retain 6,808 choices,
+including 197 new cogs, with all 30 baselines preserved. Complete compression
+and every model/parameter field verify. One bounded solve reaches active
+search and returns `FEASIBLE`; all three original layouts remain 64/66,
+missing two brackets, with the full bound unresolved. Five new 33-part cores
+are checked for a fresh bracket/insert contact investigation; their old
+candidate-count rankings are not inventory gains. Main facf0f38 checks are
+pending and 5e88ac91 is committed locally. Source, READMEs, releases and gate
+requirements remain unchanged; H2/H5 stay open at 60%.
