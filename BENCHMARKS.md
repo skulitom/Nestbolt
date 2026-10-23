@@ -15372,3 +15372,17 @@ A finite audit of saved denser cog groups finds 488 absent poses and verifies
 contacts under fresh declared limits; do not repeat the expired model. All six
 44ff9cc4 hosted checks pass and the prior checkpoint is pushed as 37edb1d2.
 Core source, accurate READMEs and releases remain unchanged. H2/H5 stay open at 60%.
+
+
+**N4 denser-cog progress, 2026-10-23:** [the complete audit](benchmarks/results/h5-dense-wide-progress-20261023.md)
+improves the retained partial to 64/66 original parts, missing two cogs. Filled
+area is 4,381,615.346194 mm², 39,600 mm² above the previous best, under the same
+material target. All 750 new contact queries, 7,910,375 conflicts, fresh safe
+substitutions and 3,000 group-based starting layouts are checked. One bounded
+solve reaches 63 parts; a new gap query appends an insert without moving any
+of them. All original geometry checks pass and the frozen CLI retains the two-cog
+quantity failure. Native margins remain unqualified. The new fixed-non-cog
+continuous capacity bound is 19 (18 first sheet, one last), inconclusive for 15.
+Next construct and audit a changed cog-only pool against those exact 51 non-cogs;
+do not retry the expired all-small model or capped lists. Original requirements,
+source, accurate READMEs and release assets remain; H2/H5 stay open at 60%.
