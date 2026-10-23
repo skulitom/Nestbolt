@@ -15522,3 +15522,15 @@ one cog plus all brackets and inserts, preserve both 64-part layouts and all
 pending. The earlier 752b1c60 checkpoint is pushed after
 all six 955cc87e checks pass. Source, accurate READMEs and releases remain
 unchanged; H2/H5 stay open at 60%.
+
+
+**N4 one-cog repair selection, 2026-10-23:** [the complete audit](benchmarks/results/h5-one-cog-release-joint-20261023.md)
+selects one of 30 checked 18-frame/14-cog cores and jointly relocates a cog,
+all brackets and all inserts. Every original conflict, core membership,
+substitution, model field and parameter is verified. Fresh reduction completes
+at 6,641 variable poses; complete first-fit compression preserves all 4,686,314
+reduced conflicts with no residual edges. One 60-second solve reaches search
+and returns `FEASIBLE`; all three original layouts remain 64/66, missing two
+brackets. The full bound is unresolved. No native or production qualification
+is inferred. Main 752b1c60 awaits its last Windows check, with d49d0ff6 committed
+locally. Source, READMEs and releases remain unchanged; H2/H5 stay open at 60%.
