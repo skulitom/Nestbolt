@@ -1965,3 +1965,17 @@ continuous capacity bound is 19 (18 first sheet, one last), inconclusive for 15.
 Next construct and audit a changed cog-only pool against those exact 51 non-cogs;
 do not retry the expired all-small model or capped lists. Original requirements,
 source, accurate READMEs and release assets remain; H2/H5 stay open at 60%.
+
+
+**N4 fixed-part cog limit, 2026-10-23:** [the complete audit](../benchmarks/results/h5-dense-cog-limit-20261023.md)
+preserves the best 64/66 partial. Sixteen new queries and all compatible prior
+poses give 2,846 cog choices. All 1,169,914 conflicts and model fields are checked;
+one bounded solve proves a finite-pool optimum of 13 cogs with all 51 non-cogs
+fixed. The two-cog CLI shortfall remains. No unrestricted impossibility is claimed.
+An independent 165-case complete-cog census finds that these particular groups
+require at least eight small-part moves. The selected checked 58-part subassembly
+contains all frames/cogs and needs three brackets plus five inserts; it does not
+improve the retained partial. Next test a newly bounded completion of those eight
+parts, preserving original geometry, production repair limits and full H5 scope.
+Prior checkpoints are pushed as 2333dd2c. Source, accurate READMEs and releases
+remain unchanged; H2/H5 stay open at 60%.
