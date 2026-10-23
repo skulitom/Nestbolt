@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-23T14:09:59.431956+00:00",
+  "inputs": {
+    "output/h5-reflected-core-contacts-20261023/candidates.json": "7d68b965d105fee999c1866b43a9427aad20cf4746b42b0d16b289be31a1ec92",
+    "output/h5-reflected-core-contacts-20261023/audit/checks.json": "f414b2d9f809e73e11c79a015c934e5b0b2bc77ae972b3ab299c66e88d3ccbf7",
+    "output/h5-reflected-core-contacts-20261023/layout-audit/checks.json": "bcdbe6f24eb96a7566d72fa6e90a9cdb2d7feede36305a7f11d667f5eea24491",
+    "output/h5-whole-frame-census-20261020/groups.json": "4df84201d9bd64c3af2bb2aa51c75e07c8734e66df3f66d028d6aa1ecd4d0725",
+    "output/h5-group-choice-20261023/mapping.json": "53b7c3b5388002be91566821192a9d663126810f8f86943cc84577575f3946d0",
+    "output/h5-group-choice-20261023/graph-audit/checks.json": "b912a698295eda88d0eee543ce479acbc99ad412650841ba00cebe1219749feb",
+    "output/h5-skeleton-contact-selection-20261020/candidates.json": "93a64a328f9f72407661d0b6e1520b636bd07530295042b3cae3880d28c0cbed",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd",
+    "output/h5-latest-wide-joint-20261023/mapping.json": "34da932f4fce02bf88e25326581ffdd4c67fc669794a3650a18717b1c9a88e64",
+    "output/h5-latest-wide-joint-20261023/layout-audit/checks.json": "dd7e20f897aa43d9a9d60cccae4c31bca48a0c6223cd3dc64477839e0504ac59",
+    "output/h5-latest-wide-joint-20261023/layout-audit/layout-final.json": "1c1cab382b8b6dc581d59f70be5e30810c94bae027c4a436811aa4d549c99455",
+    "output/h5-tall-frame-cog-subassembly-20261023/layout.json": "31de6f41e16dae05097d7fd22e29cc96afcf572dfa229515e6f653764254b549",
+    "output/h5-mixed-frame-cog-subassembly-20261023/layout.json": "083b1c6f16aa661b1b1c46bbb68d03d218c5c864e715b5b8d53c08947487d836"
+  },
+  "method": "Preserve the complete current pose pool and exact old source prefix. Retain all 26 previously audited whole 18-frame sets, then append any distinct complete frame sets from the new wide, tall and mixed constructions by exact pose identity. Recheck every frame group, every original allowed transform and stock bound. Compute every small-pose/frame conflict using expanded original bounds and exact filled-outer distance, then derive compatibility with each entire frame group. Independently verify every membership by distance to the union of that group's 18 original polygons. Check that all earlier group-choice and latest wide-only candidates remain, and map the current 64-part seed exactly. No mutual small-pose graph, new geometry, contact generation or solver call occurs. A subsequent changed group-choice model still requires a fresh full graph, compatibility-preserving reduction and complete model/layout audits.",
+  "new_poses_generated": 0,
+  "solver_calls": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-23T14:00:39.168879+00:00",
+  "inputs": {
+    "output/h5-cog-lattices-20261018/all-patterns.json": "2baf80960e3ad3c35bbac0b7fc176530e34afd8b03f3cb6ee8a5b73709d594fb",
+    "output/h5-wide-core-compound-contacts-20261023/plan.json": "de5379903c5adabddadca6be054b545aa177766560219a761ca1ee6a709bdbff",
+    "output/h5-wide-core-compound-contacts-20261023/audit/checks.json": "e771462d4aff524c9b378d639394c0a5975825b62ab74f6c55c08658bfa1948d",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb"
+  },
+  "maximum_cases": 144,
+  "maximum_seconds": 30,
+  "equivalence_distance_mm": 1e-08,
+  "equivalence_area_mm2": 1e-06,
+  "method": "Reflect every one of the 36 saved two-to-four-member bracket/insert compounds across x, then apply each quarter-turn. For mirrored brackets use the original allowed reflection flag. For rectangular inserts, which forbid mirror flags, analytically replace x reflection of the 0..180 by 0..110 rectangle with its allowed unmirrored pose translated by the rotated (-180,0) vector. Verify the direct affine reflection of each original outline independently against the reconstructed allowed pose, then all original member-pair distances. Normalize geometry only for equivalence comparisons. Compare member-by-member, preserving family, to all 144 previously queried rotations and earlier accepted reflections. Save every equivalence certificate, every new geometry and any pending suffix. Equivalence within the stated tiny tolerance is diagnostic deduplication, not a continuous completeness proof. No stock placement, contact query, solver, native packing or full-job acceptance occurs."
+}

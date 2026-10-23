@@ -2051,3 +2051,16 @@ preserves the new 64-part seed for fresh actual-compound bracket/insert contacts
 No previous solve, capped list or unchanged gap check is resumed. Main's current
 checks remain separately recorded; queued commits await their successful finish.
 Source, accurate READMEs and releases remain unchanged. H2/H5 stay open at 60%.
+
+
+**N4 improved-core compound limits, 2026-10-23:** [the full audit](../benchmarks/results/h5-wide-core-compound-limits-20261023.md)
+preserves the 64-part baseline through two newly bounded compound models. Both
+reach a finite optimum with two brackets missing; no unrestricted impossibility
+is claimed. All 536 queries, complete graphs, fresh reductions, model fields and
+six original layouts are checked. The reflection census verifies 114 geometries
+absent from previous queries; all 190 capped lists and 1,336,544 residual edges
+remain preserved. A new 29-frame-group coverage audit checks every membership
+and retains 29,631 compatible small poses plus the exact 64-part seed. Next build
+its complete mutual graph and choose frames/cogs/brackets/inserts together under
+fresh limits. Main's 7cd00432 checks remain separately recorded. Source, accurate
+READMEs and releases remain unchanged; H2/H5 stay open at 60%.
