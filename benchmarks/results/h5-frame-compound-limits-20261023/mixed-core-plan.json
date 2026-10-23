@@ -1,0 +1,68 @@
+{
+  "utc": "2026-10-23T13:25:04.844690+00:00",
+  "inputs": {
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd",
+    "output/h5-two-sheet-cog-group-choice-20261023/layout-audit/layout-final.json": "1d5671375e7f139ed5203195d7584f020d2f9d5ed38e55ca4a335ac616c68b51",
+    "output/h5-two-sheet-cog-group-choice-20261023/layout-audit/checks.json": "e077e3d39c935d3a8ccc08dab2ed373f3dfd779e5c63bd9c88873b6b09bfe1fd",
+    "output/h5-aligned-stagger-20261018/patterns.json": "d7fa377e93b362b57898e00939365d544e819ba3eeee2b5967ff49a890fd5693",
+    "output/h5-aligned-stagger-20261018/audit.json": "396967f1c6f85c389d00417500929e36011addfb06df8f24a480144a0fafe124",
+    "output/h5-cog-lattices-20261018/frames.json": "07a371e60a75e69d70f4089623eca9d80387ddf9e584e04a563c98f2a4a179eb"
+  },
+  "maximum_cases": 1,
+  "frame_columns": [
+    6,
+    6,
+    6
+  ],
+  "frame_rotation_degrees": [
+    0,
+    0,
+    90
+  ],
+  "frame_gap_mm": 0.225,
+  "extra_edge_mm": 0.025,
+  "cog_components": [
+    {
+      "source": "aligned-f0-n9-c3",
+      "member_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sheet": "sheet-0",
+      "region": "above first two shorter columns"
+    },
+    {
+      "source": "aligned-f0-n1-c1",
+      "member_indices": [
+        0
+      ],
+      "sheet": "sheet-0",
+      "region": "above the last taller column"
+    },
+    {
+      "source": "aligned-f0-n5-c5",
+      "member_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "sheet": "sheet-1",
+      "region": "bottom left of the original last-sheet target"
+    }
+  ],
+  "method": "Construct exactly 18 frames in three six-frame columns: two unturned and one quarter-turned. Use the audited nine-cog square over the two shorter columns, one cog over the taller column and the five-cog row on the last sheet, preserving every source transform before translation normalization. Use 0.225mm bounding clearance. This changes the narrow four-tall-column residual strip into a wider right strip, but does not presume bracket feasibility. Recompute every original member, allowed transform, stock bound and all same-sheet filled-outer pairs, and validate the resulting 33-part subassembly with the frozen original CLI. Report every historical mixed-orientation column pattern; do not claim a first-ever frame orientation. No bracket/insert completion or solver is performed. This prepares a changed construction after the checked all-wide and all-tall frame searches; it is not a full-job witness, production repair or native-margin qualification.",
+  "solver_calls": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

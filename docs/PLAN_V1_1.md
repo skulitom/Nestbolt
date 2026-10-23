@@ -2022,3 +2022,18 @@ with 8+4+3 cogs passes original geometry and the expected CLI quantity failure.
 Next complete its brackets/inserts under fresh limits; it is not a new best
 partial or production repair. Source, accurate READMEs and releases remain
 unchanged. H2/H5 stay open at 60%.
+
+
+**N4 alternate-frame compound limits, 2026-10-23:** [the full audit](../benchmarks/results/h5-frame-compound-limits-20261023.md)
+checks actual-outline bracket/insert compounds around the tall 8+4+3 and mixed
+9+1+5 cog cores. Both fresh finite models reach optimal area below full inventory;
+neither improves the saved 63-part area or 64-part count partials. All 616 queries,
+3,337,889 conflicts, fresh reductions, model fields and 14 original layouts are
+checked; only expected missing quantities fail. The original preflight reader
+failure and 97 capped lists remain preserved. A new coverage audit retains every
+earlier all-family choice plus 8,914 compatible additions around the 18 wide
+frames. Next build its complete graph and select cogs/brackets/inserts together
+under fresh limits, preserving both checked seeds. All six checks passed on
+37b671d3, then queued checkpoints were pushed to main 4592d97c; its checks are
+recorded separately. Source, accurate READMEs and releases remain unchanged.
+H2/H5 stay open at 60%; no reserved files or production quality runs are used.
