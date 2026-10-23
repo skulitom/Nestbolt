@@ -1,0 +1,21 @@
+{
+  "utc": "2026-10-23T14:48:53.349895+00:00",
+  "inputs": {
+    "output/h5-expanded-frame-joint-20261023/reduced/mapping.json": "075373e849768f2a6e5d167fb041acd09c4854fef0815ba91a1a00be34ed9da6",
+    "output/h5-expanded-frame-joint-20261023/reduced/adjacency.bin.gz": "609d8e563a0817306081a1bdb7e726a6f2842e440ab19818cfa978c56efce33b",
+    "output/h5-expanded-frame-joint-20261023/reduced/checks.json": "a2849c06ee525b78773b83fe15ea1748b5b1b7764cf360d216b18f0bdb52240f",
+    "output/h5-expanded-frame-joint-20261023/reduced/cliques.jsonl.gz": "78c2bd695e26f36301ca04ce217f0a9da7095f52fa49c837eb6106c35b5a47aa",
+    "output/h5-expanded-frame-implications-20261023/plan.json": "b6f6e6d13aa7250f507ac70b3b6e47313e7afd02fb64b638774b5403ba6cb2ef",
+    "output/h5-expanded-frame-implications-20261023/solve/result.json": "01289ef2dc9013ee250ce65200476170d1ebfa7071de907dfd5b2a9506a23cb5",
+    "output/h5-expanded-frame-implications-20261023/solve/solver.log": "3bda0bcf70eb8d62f1ce40cb7090d585d85c5e4ff513ba24dfd13e56a95c8cbc",
+    "output/h5-expanded-frame-implications-20261023/solve/encoding-audit.json": "beca5fc1aff29a9858db6c7e33c05123eaf11cf8983c5a1d06d96a04d5c93262"
+  },
+  "compression_seconds": 20,
+  "method": "Start afresh from the complete audited reduced graph. Pop the highest remaining degree endpoint, then grow a valid clique using the least-index available common neighbor directly. Unlike the earlier greedy cover, do not score 16 alternatives at every extension. This changes the compression algorithm under the same 20-second allowance, rather than extending or resuming the earlier cover. Retain every residual edge. Independently reconstruct the entire original graph from the saved cover and validate the existing complete hint. No geometry generation, reduction, solver or production call occurs. Any later solve needs a separately declared changed-model plan and full protobuf reconstruction.",
+  "reason": "Both separate-edge and grouped-implication encodings return UNKNOWN before search; grouping syntax alone does not reduce the millions of underlying literals. A faster true clique cover may reduce them without weakening the graph.",
+  "solver_calls": 0,
+  "new_poses_generated": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

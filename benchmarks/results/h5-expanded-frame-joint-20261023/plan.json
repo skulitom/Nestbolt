@@ -1,0 +1,29 @@
+{
+  "utc": "2026-10-23T14:23:48.231414+00:00",
+  "inputs": {
+    "output/h5-reflected-core-contacts-20261023/candidates.json": "7d68b965d105fee999c1866b43a9427aad20cf4746b42b0d16b289be31a1ec92",
+    "output/h5-expanded-frame-group-coverage-20261023/plan.json": "730078b5d75314c734e92f20fa52acf68f3b408fc7d73a669e6607b9e7d3e36f",
+    "output/h5-expanded-frame-group-coverage-20261023/mapping.json": "56bb0f2c40f6d293651604e10ab3d796af15eeeb621ee32bad17129b345f1d3d",
+    "output/h5-expanded-frame-group-coverage-20261023/group-filter.json": "6b169559cc5b5574bdb4f9211888dd9231082c7d086f436ab84f591b8e3541e6",
+    "output/h5-expanded-frame-group-coverage-20261023/checks.json": "a86d1e42b2ea7922193b53451415795846d967b5b44d2646ee9b56aa233b29de",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd"
+  },
+  "graph": "Choose exactly one of the 29 checked complete 18-frame groups. Recompute every mutual cog/bracket/insert conflict from all 29,631 eligible poses, preserving the exact 64-part seed in group 26. Use independently checked per-pose group compatibility. All small families move together. Query original expanded bounds through STRtree, then evaluate original filled-outer distances. Save complete undirected adjacency as n fixed-width little-endian rows, each ceil(n/8) bytes, gzip-compressed; no edge pruning or clique cap applies to the graph itself. Independently rebuild the entire graph with a sequential bounds scan before selection. Do not resume any older pending list or solver.",
+  "reduction_seconds": 30,
+  "reduction_comparisons": 50000000,
+  "reduction": "Fresh adjacent same-family substitution only when N(replacement) minus removed is contained in N(removed), and replacement allows every frame group allowed by removed. Certify every original neighbor and compatible group, and map the exact 64-part seed. Compress only after this safe reduction to avoid building redundant constraints; keep every residual edge when compression ends.",
+  "compression_seconds": 20,
+  "hint_seconds": 30,
+  "hint_cases": 1508,
+  "hints": "Compare 52 deterministic family/order/sheet choices for each of 29 frame groups, starting empty. Preserve the mapped 64-part seed if no fresh hint improves its original filled area. No prior reduction, graph or solver is reused.",
+  "solve_seconds": 60,
+  "solve_calls": 1,
+  "workers": 8,
+  "seed": 0,
+  "objective": "Original integer filled-area weights and original family caps 12 brackets, 15 cogs, 21 inserts, with exactly one compatible complete frame group. Independently reconstruct every protobuf field and validate every returned layout against original geometry and frozen CLI. Full 66-copy acceptance, native margins, original production budget and full H5 matrix remain required.",
+  "new_poses_generated": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

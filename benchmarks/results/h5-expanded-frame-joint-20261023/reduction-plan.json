@@ -1,0 +1,14 @@
+{
+  "utc": "2026-10-23T14:28:52.159402+00:00",
+  "inputs": {
+    "output/h5-expanded-frame-joint-20261023/plan.json": "e24b4fc0f9ff37974d8247dc3dddcd822b0eadd3810de07b1c2f99c8788948f9",
+    "output/h5-expanded-frame-joint-20261023/candidates.json": "7d68b965d105fee999c1866b43a9427aad20cf4746b42b0d16b289be31a1ec92",
+    "output/h5-expanded-frame-joint-20261023/mapping.json": "9d7e22267dfde42e248590d359274fe81daf677a762b31dc84a0cf182d0d5375",
+    "output/h5-expanded-frame-joint-20261023/adjacency.bin.gz": "ccc27447c26eca1dfcdd9841aec5ec3dca896f244e889c42924607ae15e46537",
+    "output/h5-expanded-frame-joint-20261023/audit/checks.json": "4cbd3fd56a3be942aea5ea0cbd51987f91253ce72deaf2e571e6fa8d26362501"
+  },
+  "maximum_seconds": 30,
+  "maximum_comparisons": 50000000,
+  "compression_seconds": 20,
+  "method": "Order by original degree then global index. Remove b only for earlier retained same-family adjacent a with N(a) minus b contained in N(b), and compatible-groups(b) a subset of compatible-groups(a). Keep all unprocessed candidates on either bound. Independently enumerate every certificate neighbor, map the exact original 64-part seed with quantity and full-graph checks, then compress the exact induced graph. Preserve every residual edge after the 20-second compression limit; independently reconstruct the entire final graph from all cliques and residual edges."
+}

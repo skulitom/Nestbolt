@@ -15485,3 +15485,23 @@ and retains 29,631 compatible small poses plus the exact 64-part seed. Next buil
 its complete mutual graph and choose frames/cogs/brackets/inserts together under
 fresh limits. Main's 7cd00432 checks remain separately recorded. Source, accurate
 READMEs and releases remain unchanged; H2/H5 stay open at 60%.
+
+
+**N4 expanded frame-group selection, 2026-10-23:** [the complete audit](benchmarks/results/h5-expanded-frame-joint-20261023.md)
+checks a fresh 29,631-pose graph with 33,489,837 conflicts across all 29
+whole frame groups. Group-preserving substitutions retain the 64-part baseline;
+all residual edges and pending work remain. The first bounded solve returns
+`UNKNOWN` during presolve. A changed exact implication encoding preserves
+every edge, reduces constraints from 12,149,516 to
+40,193, and returns `UNKNOWN`
+during presolve. A fresh, cheaper clique cover retains all edges, reduces
+residuals to 5,257,882, and its separately bounded changed
+model returns `UNKNOWN`. Every original layout is audited;
+an independently verified no-presolve strategy then reaches search on the
+byte-identical model and returns `FEASIBLE`.
+No full 66-copy witness is found. A separate coverage audit exposes 2,358
+additional individual frame poses and 3,358
+additional small poses by removing the whole-frame-group restriction. The next
+model needs a fresh complete four-family graph. Previous checkpoint 955cc87e is
+pushed after all six 7cd00432 checks pass. Product source, accurate READMEs and
+releases remain unchanged; H2/H5 stay open at 60%.

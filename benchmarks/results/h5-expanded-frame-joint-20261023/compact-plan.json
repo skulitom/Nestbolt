@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-23T14:43:18.558499+00:00",
+  "inputs": {
+    "output/h5-expanded-frame-joint-20261023/plan.json": "e24b4fc0f9ff37974d8247dc3dddcd822b0eadd3810de07b1c2f99c8788948f9",
+    "output/h5-expanded-frame-joint-20261023/candidates.json": "7d68b965d105fee999c1866b43a9427aad20cf4746b42b0d16b289be31a1ec92",
+    "output/h5-expanded-frame-joint-20261023/audit/checks.json": "4cbd3fd56a3be942aea5ea0cbd51987f91253ce72deaf2e571e6fa8d26362501",
+    "output/h5-expanded-frame-joint-20261023/reduced/mapping.json": "075373e849768f2a6e5d167fb041acd09c4854fef0815ba91a1a00be34ed9da6",
+    "output/h5-expanded-frame-joint-20261023/reduced/cliques.jsonl.gz": "78c2bd695e26f36301ca04ce217f0a9da7095f52fa49c837eb6106c35b5a47aa",
+    "output/h5-expanded-frame-joint-20261023/reduced/adjacency.bin.gz": "609d8e563a0817306081a1bdb7e726a6f2842e440ab19818cfa978c56efce33b",
+    "output/h5-expanded-frame-joint-20261023/reduced/checks.json": "a2849c06ee525b78773b83fe15ea1748b5b1b7764cf360d216b18f0bdb52240f",
+    "output/h5-expanded-frame-joint-20261023/hints/best-hint.json": "32f28002cb61660dd15ed0ea2ab8886d3fa8ab4ef8e7d18f2bb9ec6cbae8e7b9",
+    "output/h5-expanded-frame-joint-20261023/hints/checks.json": "8874875cdea2b8ca9f2c52db4c8dc6afa6ce41e71cab2a07d06362214a251fd5",
+    "output/h5-expanded-frame-joint-20261023/solve/result.json": "1e5d9ea0bff71b57da2d1f4f6fb486df67d08622cdefff14dfef5223e91b2e9f",
+    "output/h5-expanded-frame-joint-20261023/solve/solver.log": "ac1a5e38138382a30409ccaf93a70b48783bec01210b19912f88977403ece5a0",
+    "output/h5-expanded-frame-joint-20261023/layout-audit/checks.json": "578320068847fbfff6b2db78961d6e327eb7abb0a67c27df79e9c39714d45151"
+  },
+  "reason": "The preceding exact model spent its single allowance in presolve and returned UNKNOWN with no search or incumbent. Its 12,129,254 residual edges were emitted as separate two-literal at-most-one constraints. The saved presolve log itself aggregates them into Boolean implications. Compile those same constraints directly as one enforced conjunction per lower-index endpoint: x_i implies every higher-index conflicting x_j is false. Retain all larger cliques. This changes the actual encoding before another bounded call; it does not increase the earlier allowance or discard any edge. Independently reconstruct all edge rows and every model field before solving. Original candidate set, group memberships, family caps, objective and complete 64-part hint are identical to the original model.",
+  "encoding": "Retain each original row of length >2 as an at-most-one. Aggregate all length-two rows by their lower endpoint into an enforced bool_and of negated upper endpoints. Verify the union of clique and implication edges is exactly the original reduced undirected graph, with no added or missing pair.",
+  "solve_seconds": 60,
+  "solve_calls": 1,
+  "workers": 8,
+  "seed": 0,
+  "new_poses_generated": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

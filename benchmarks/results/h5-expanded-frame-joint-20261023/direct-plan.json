@@ -1,0 +1,37 @@
+{
+  "utc": "2026-10-23T14:56:44.745594+00:00",
+  "inputs": {
+    "output/h5-expanded-frame-first-fit-cover-20261023/plan.json": "063ab04f155bff619301c1ad26e9e059598b9dcafc7f0eb0a092d3ba08509f39",
+    "output/h5-expanded-frame-first-fit-cover-20261023/checks.json": "bdbdf407118897d3fd6a588ad810d85c9a30e958e85493854bb3ed44350ad1a9",
+    "output/h5-expanded-frame-first-fit-cover-20261023/cliques.jsonl.gz": "ceb9b77a99e7165a067873e2302c395b1d644e0961c6b9cac001c6f76c734314",
+    "output/h5-expanded-frame-joint-20261023/audit/checks.json": "4cbd3fd56a3be942aea5ea0cbd51987f91253ce72deaf2e571e6fa8d26362501",
+    "output/h5-expanded-frame-joint-20261023/reduced/mapping.json": "075373e849768f2a6e5d167fb041acd09c4854fef0815ba91a1a00be34ed9da6",
+    "output/h5-expanded-frame-joint-20261023/reduced/adjacency.bin.gz": "609d8e563a0817306081a1bdb7e726a6f2842e440ab19818cfa978c56efce33b",
+    "output/h5-expanded-frame-joint-20261023/reduced/checks.json": "a2849c06ee525b78773b83fe15ea1748b5b1b7764cf360d216b18f0bdb52240f",
+    "output/h5-expanded-frame-joint-20261023/hints/best-hint.json": "32f28002cb61660dd15ed0ea2ab8886d3fa8ab4ef8e7d18f2bb9ec6cbae8e7b9",
+    "output/h5-expanded-frame-joint-20261023/hints/checks.json": "8874875cdea2b8ca9f2c52db4c8dc6afa6ce41e71cab2a07d06362214a251fd5",
+    "output/h5-expanded-frame-implications-20261023/plan.json": "b6f6e6d13aa7250f507ac70b3b6e47313e7afd02fb64b638774b5403ba6cb2ef",
+    "output/h5-expanded-frame-implications-20261023/solve/result.json": "01289ef2dc9013ee250ce65200476170d1ebfa7071de907dfd5b2a9506a23cb5",
+    "output/h5-expanded-frame-implications-20261023/solve/solver.log": "3bda0bcf70eb8d62f1ce40cb7090d585d85c5e4ff513ba24dfd13e56a95c8cbc",
+    "output/h5-expanded-frame-implications-20261023/layout-audit/checks.json": "578320068847fbfff6b2db78961d6e327eb7abb0a67c27df79e9c39714d45151",
+    "output/h5-expanded-frame-first-fit-selection-20261023/plan.json": "4a4b25430b9e6df90ac2415a3e3fa99af980a2e6a156db8af83067b7dda5b5d2",
+    "output/h5-expanded-frame-first-fit-selection-20261023/solve/model.pb": "a50fd8ad3066cb1fc66cef67582913b5ac0e939c3ec003eb2512afa157af1041",
+    "output/h5-expanded-frame-first-fit-selection-20261023/solve/parameters.pbtxt": "94b4424b617a255655228c396a749c41ef8e43571e00c8a0286baedcde50b9b5",
+    "output/h5-expanded-frame-first-fit-selection-20261023/solve/result.json": "34f2249b9f92e75930a97b9efdd9c1dc5a77894c2b52eb22b189ab42b42821c0",
+    "output/h5-expanded-frame-first-fit-selection-20261023/solve/solver.log": "030d16a43a7d28e813cfcce1db5608cf46e19ed460a8bac55115142d60cb7179",
+    "output/h5-expanded-frame-first-fit-selection-20261023/solve/model-audit.json": "0697aae5d017b38918f9eca4aab39d4e3efaa842b95c9a27f800ace7e83f7540",
+    "output/h5-expanded-frame-first-fit-selection-20261023/layout-audit/checks.json": "a947d056dc8e5fd23a956ded13ea795720f0813fdb37f2d2d8d91e1f190db83b"
+  },
+  "reason": "All three preceding encodings stopped after presolve without a search branch or incumbent. Keep the entire latest first-fit model byte-identical, independently reconstructed and fully geometry-audited, but change the search strategy explicitly by disabling CP model presolve. The same 60-second allowance can then reach search instead of repeating the observed preprocessing failure. This is one declared parameter intervention, not an unchanged retry or extension; all prior outcomes and overruns remain. Do not change any candidate, constraint, hint, objective, quota, group membership or geometry.",
+  "parameter_change": {
+    "cp_model_presolve": false
+  },
+  "solve_seconds": 60,
+  "solve_calls": 1,
+  "workers": 8,
+  "seed": 0,
+  "new_poses_generated": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}
