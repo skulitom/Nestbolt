@@ -15358,3 +15358,17 @@ A distinct three-column/six-row group of all 18 wider frames and 11 optional
 side-strip inserts passes 406 geometry pairs. Next complete its small families
 with newly audited candidates and conflicts; do not retry the fixed-core model.
 Core source, README and releases remain unchanged. H2/H5 stay open at 60%.
+
+
+**N4 wider-frame small-part selection, 2026-10-23:** [the complete audit](benchmarks/results/h5-wide-small-selection-20261023.md)
+checks 10,066 poses and all 5,286,767 conflicts. Certified same-family substitutions
+retain 7,776 choices; every dropped alternative preserves counts and filled area.
+The insert cap, 834 pending lists, compression cap and reduction cap are preserved.
+One bounded 60-second solve places 62/66 parts, missing four cogs; its filled area
+is below the prior best. All nine hint/returned layouts pass geometry and retain
+their original CLI quantity failures. No optimum or full witness is claimed.
+A finite audit of saved denser cog groups finds 488 absent poses and verifies
+135 placed subassemblies. Next combine those coordinates with new small-part
+contacts under fresh declared limits; do not repeat the expired model. All six
+44ff9cc4 hosted checks pass and the prior checkpoint is pushed as 37edb1d2.
+Core source, accurate READMEs and releases remain unchanged. H2/H5 stay open at 60%.

@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-23T11:17:06.923195+00:00",
+  "inputs": {
+    "output/h5-skeleton-contact-selection-20261020/candidates.json": "93a64a328f9f72407661d0b6e1520b636bd07530295042b3cae3880d28c0cbed",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd",
+    "output/h5-wide-frame-group-20261023/frame-group.json": "5411be3a0b57e6389fb098742a389053608060d0809846f6f556bb61566a0100",
+    "output/h5-wide-frame-group-20261023/optional-insert-strip.json": "b5076ab9c49e3db5ed713d7e88c3f53fb74217994f20dcfff52c9e288ed4c023",
+    "output/h5-wide-frame-group-20261023/checks.json": "baf4f97d543c3c8aa0fb85c35ab197d899c25b33ca706d33c2dabab3221b651d",
+    "output/h5-cog-lattices-20261018/all-patterns.json": "2baf80960e3ad3c35bbac0b7fc176530e34afd8b03f3cb6ee8a5b73709d594fb",
+    "output/h5-cog-lattices-20261018/generation.json": "57fff426ac0572f3f4ec5b438d0aee6c0a4390c82704560b1eb4d0eb42b2485e",
+    "output/h5-cog-lattices-20261018/frames.json": "07a371e60a75e69d70f4089623eca9d80387ddf9e584e04a563c98f2a4a179eb",
+    "output/h5-cog-lattices-20261018/audit/checks.json": "892b620475ef8aff8804a9e6976afe212349fa40b95408b2726b58770531c867"
+  },
+  "generation_seconds": 120,
+  "new_pose_caps": {
+    "bracket": 2000,
+    "cog": 3000,
+    "insert": 2000
+  },
+  "compression_seconds": 20,
+  "solve_seconds": 60,
+  "solve_calls": 1,
+  "workers": 8,
+  "seed": 0,
+  "method": "Fix the verified18-frame wide group, retain every old bracket/cog/insert pose compatible with it, and add11 optional side-strip inserts. Add original-outline free-region representative points, vertices and edge midpoints for all discrete bracket orientations/mirroring, two rectangle size classes and four cog phases. Add individual member poses from translated/quarter-turned saved compound patterns at corners, center and bottom-left tilings of the top/side/last-sheet rectangles. The individual model may combine members from different groups. Recompute all conflicts and independently audit before solving.",
+  "catalogue": "All saved non-frame patterns outside the b-prefixed cog lattice catalogue, plus the seven sizes from each of the three previously ranked best cog lattice variants. Original geometry checks cover every used compound pair.",
+  "ordering": "Add optional insert strip first. Then cycle between free-region proposal lists and compound-placement member lists in recorded order, respecting family caps and120 seconds. Retain rejected, duplicate and pending events. Greedy feasible hints will use a separately declared finite enumeration; no full witness is assumed.",
+  "construction_padding_mm": 0.0126,
+  "acceptance": "Original clearance, quantities, stock, target and filled outer geometry unchanged. New positive padding is construction-only; native margins and full H5 gates remain unproved.",
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}
