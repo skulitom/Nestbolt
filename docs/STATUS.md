@@ -1,4 +1,4 @@
-# Status — 2026-10-20
+# Status — 2026-10-23
 
 ## v1.1 — real shop files
 
@@ -1065,3 +1065,19 @@ now pass, including Windows, Linux, both maker rebuilds and 86 browser tests wit
 four opt-in skips. This completes the earlier pending Windows confirmation.
 The later saved-gap diagnoses change no application code and remain diagnostic
 evidence only. [Hosted snapshot](../benchmarks/results/h5-saved-gap-diagnosis-20261018/main-ci-4b13a85.json).
+
+
+**N4 joint frame-group selection, 2026-10-23:** [the complete audit](../benchmarks/results/h5-group-choice-20261023.md)
+chooses among 26 complete frame groups while all bracket, cog and insert poses
+remain free. A recomputed 5,302-pose graph and complete model pass independent
+checks. One 60-second search returns a 62-part partial: all 18 frames and 12
+brackets, 13 cogs and 19 inserts. Filled area reaches 4,342,015.346194 mm² within
+the original material allowance, but two cogs and two inserts remain missing.
+All four returned layouts pass original geometry and retain quantity-only CLI
+failures. The final bound is unresolved; no optimum or full-job pass is claimed.
+Next diagnose free regions and construct changed contacts, preserving the new
+seed; do not repeat the expired model. Incoming e9046d53’s comparison index and
+both pending evidence commits are merged and pushed as 44ff9cc4. Its checks are
+recorded separately. Core source and all three READMEs remain unchanged; the
+published preview is still accurate and no new release is qualified. H2/H5
+remain open at 60%, with original gates and held-out isolation preserved.
