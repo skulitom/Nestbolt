@@ -2509,3 +2509,21 @@ this smaller preliminary model with the new pair exclusions; every positive
 still needs full guarded-original, native and H5 validation. Main CI40242602102
 is independently tracked; source, accurate READMEs, releases and all acceptance
 limits are unchanged. H2/H5 remain open at60%; no reserved vectors are evaluated.
+
+
+**N4 original-core search and complete second-sheet cog pairs, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-original-core-search-20261025.md) preserves a full 18,530-variable / 34,068-constraint original-core
+master UNKNOWN with no incumbent. Its single 45-second call takes 45.305899s;
+the soft-limit overshoot is explicit, while shared 47.844358s stays within 60s.
+No full-coordinate or native follow-up is opened. A separate bounded diagnostic
+resolves all 15 remaining second-sheet pairs. Five have original-shape witnesses;
+ten receive independent exact proofs covering 74 nodes / 540 events / 32 splits.
+Together with prior certificates, all 1,024 pairs are classified:1,019 excluded,
+five feasible. All 75 original pair and 40 stock-edge checks pass for those five
+two-cog witnesses, but seven other moving originals are absent and still required.
+The first geometry audit's metadata lookup failure is preserved alongside its
+corrected read-back. The ten proofs provide 150 new physical pair clauses for
+the next full 66-original search; verified coordinates may guide optional hints.
+Production source, READMEs, material/native limits and releases are unchanged.
+H2/H5 remain open at 60%, with all 22 reserved H2 vectors untouched. Main's own
+CI40242602102 remains tracked before the next normal push.
