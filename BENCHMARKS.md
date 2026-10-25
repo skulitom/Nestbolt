@@ -15911,3 +15911,22 @@ is claimed. Main's new15-file scrap/offcut documentation change is merged as
 da4ced0f, preserving all15 remote and73 local evidence files byte-exact. The older
 CI was cancelled after five passes; new main CI40242602102 is independently
 tracked. Production and accurate READMEs are unchanged. H2/H5 remain open at60%.
+
+
+**N4 complete guarded cog model and original-outline core, 2026-10-25:**
+[The evidence](benchmarks/results/h5-full-cog-coordinates-20261025.md) independently reconstructs a52,790-variable/66,018-constraint
+model with all original cog collision pieces and existing domain/occupancy limits.
+Its single call returns UNKNOWN without an incumbent. Shared elapsed60.870843s
+exceeds the declared60s by0.870843s; the solver soft-limit overshoot is also
+preserved, with no budget-pass claim, retry or follow-up coordinate call.
+All200,309 remaining cog-domain pairs receive complete guarded-region checks:
+146 raw-table exclusions are independently verified;16 overlap earlier proofs,
+so130 ordered pairs (1,950 physical clauses) are newly available to the master.
+A separately prepared complete original-outline collision core has71 convex
+pieces and352 necessarily rounded edges, reducing the direction upper bound
+from39,540 to5,280 while retaining tooth geometry. Its full union, strict raw
+containment and exact necessary rounding are independently audited. Next use
+this smaller preliminary model with the new pair exclusions; every positive
+still needs full guarded-original, native and H5 validation. Main CI40242602102
+is independently tracked; source, accurate READMEs, releases and all acceptance
+limits are unchanged. H2/H5 remain open at60%; no reserved vectors are evaluated.
