@@ -2529,3 +2529,20 @@ Next investigate audited original-area bounds and global packing propagation;
 do not retry unchanged calls or weaken acceptance. No full target witness,
 native qualification, production-budget run or H5 matrix result is obtained.
 Source, accurate READMEs and releases are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 global packing propagation and compound proxies, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-global-propagation-and-compound-proxy-20261025.md) independently verifies original
+filled-area bounds, outward sheet capacities and floor-safe inner rectangles
+for every part. Adding two global NoOverlap2D and four cumulative constraints
+to the all-movable polygon model yields 31,935 variables/37,849 constraints,
+fully audited. One bounded call remains UNKNOWN in 60.188312 seconds. A distinct
+smaller model replaces pairwise polygon disjunctions with five disjoint inner
+rectangles per cog, preserving full original-area charges and all66 counts.
+Its 1,806 variables/2,824 constraints also audit completely; one call remains
+UNKNOWN in 60.176534 seconds. Neither search returns an incumbent or proof.
+Both original64-part sanity checks pass the new conditions but still miss two
+brackets. Next audit exact orientation aliases and source-derived, nonbinding
+hints before considering a different bounded construction test. All original
+limits, native checks and H5 matrix requirements remain. Source, accurate
+READMEs and releases are unchanged; H2/H5 stay open at 60%.

@@ -1,0 +1,37 @@
+{
+  "utc": "2026-10-25T20:51:04.550816+00:00",
+  "inputs": {
+    "output/h5-global-packing-propagation-20261025/plan.json": "2c2b3a62dee3a24f09ea8e2d7835c9dd3dfe567fbac997f2cc5bc40e9ca9e4d1",
+    "output/h5-global-packing-propagation-20261025/geometry.json": "e785c6aae81743b1932c57f486a17c9116c20a7419979a0e268e4eaa6e8a9266",
+    "output/h5-global-packing-propagation-20261025/propagation.json": "3fbe0057e79478a76f00334bf434d4431a542320c1c50bd604be943afb2f7160",
+    "output/h5-global-packing-propagation-20261025/audit/checks.json": "0510de240b7dbf7dd4041230d8a8d761a11eb06a25cc3770bc78a8b8e0b27669",
+    "output/h5-global-packing-propagation-20261025/audit/provenance.json": "7d98ba3357361fe5458022c650035c58d7363864e6ee82d3ca4c59b999be95de",
+    "output/h5-global-packing-propagation-20261025/solve/result.json": "394fa8d7770d4443b8285274070e5eb8b4b01579c5339a402ba1f123191d6ea9",
+    "output/h5-global-packing-propagation-20261025/solve/model-audit.json": "7daa84c7114185d6fef5653448c57c262793355f5027df7e9f509904ae5db4ed"
+  },
+  "construction_limit_seconds": 120,
+  "model_construction_limit_seconds": 120,
+  "independent_model_audit_limit_seconds": 120,
+  "solver_parameters": {
+    "max_time_in_seconds": 60,
+    "num_search_workers": 8,
+    "random_seed": 0,
+    "cp_model_presolve": true,
+    "cp_model_probing_level": 0,
+    "symmetry_level": 0,
+    "log_search_progress": true,
+    "log_to_stdout": false
+  },
+  "maximum_solver_calls": 1,
+  "geometry_units_per_mm": 10000,
+  "coordinate_units_per_mm": 100,
+  "required_counts": {
+    "frame": 18,
+    "bracket": 12,
+    "insert": 21,
+    "cog": 15
+  },
+  "fixed_parts": 0,
+  "method": "Keep all original66 parts movable, original orientation/sheet modes, original filled-area bounds, per-sheet NoOverlap2D and orthogonal cumulative profiles. Each cog now uses five coupled disjoint axis rectangles strictly within its all-angle inscribed disk; all original non-cog components retain their floor-safe inner rectangles. Omit all pairwise polygon/rectangle separating disjunctions, replacing those collision constraints with global propagation only. No hints, missing-part variables, changed material cap or positive-clearance acceptance.",
+  "scope": "A different, weaker necessary relaxation intended to expose all-parts arrangements with a much smaller encoding. A positive outcome must be checked against the larger inscribed16-gons and original filled outlines; never count a proxy placement as an accepted layout. A negative needs full coverage/model proofs. One60-second call after audits, no repeat or extension."
+}
