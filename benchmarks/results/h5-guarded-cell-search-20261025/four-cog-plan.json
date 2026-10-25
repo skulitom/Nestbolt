@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-25T23:32:09.387560+00:00",
+  "shared_seconds": 60,
+  "solver_cap_seconds": 45,
+  "shutdown_reserve_seconds": 2,
+  "maximum_solver_calls": 1,
+  "inputs": {
+    "output/h5-full-original-joint-prepared-20261025/queries/018.json": "f2b3a0ca8d48b111688af14b7e0d006fc68406641a85d407be02fb1b91934cbf",
+    "output/h5-full-original-joint-prepared-20261025/plan.json": "9bb084548e945f3e7ca387ba8fe98df23ccd487d98f794846a0b724e73c33743",
+    "output/h5-cog-displacement-cells-20261025/coarse-refinement/selected-query-18.json": "5e27c629b7c26a94aae20f6ff517e67a2c8d07f66f58038d18e23adf448f324d",
+    "output/h5-cog-displacement-cells-20261025/audit/checks.json": "b461af38d968e376507968cc9b03c13af206cc2842ad98a455493dd55b7a4f70",
+    "output/h5-cog-region-capacities-20261025/capacities.json": "a7d70b015b2ffa16c450142fe8356c6bdefe8ea6b2b2c8376254cf04c8fb74fb",
+    "output/h5-cog-region-capacities-20261025/audit/checks.json": "bd0c1ae5733be27184fd258bd5c563b0bbcc58552ee7376432bdf213438a1368",
+    "output/h5-original-domain-conflicts-20261025/three-cog-certificate/certificate.json": "b76d6a493888b0c8d1dd19d1832142d4749e9eb760c5b45c1ac5c1178882e1fb",
+    "output/h5-original-domain-conflicts-20261025/three-cog-certificate/audit/checks.json": "2918ab6c699f1b0478256803c5c31218bc654e3432710042816ccb8b66a19c38",
+    "output/h5-convex-domain-conflicts-20261025/second-sheet-pair-proofs/audit/capacity-certificate.json": "01095c038707115a9fff4626eeb536ef0fa7572a7ff4d1054325283234b0bcde",
+    "output/h5-guarded-cell-search-20261025/search-audit/checks.json": "40c71c781b91134c9c567f0d860b87daa1d60e83605e2c00c30e2b6eb1705ae1",
+    "output/audit_h5_four_cog_model.py": "c66f736a9641c048c3996084832da1ab4d4c5bad3e2ff3b0703e1074f08154e2"
+  },
+  "parameters": {
+    "max_time_in_seconds": 45,
+    "num_search_workers": 8,
+    "random_seed": 0,
+    "cp_model_presolve": true,
+    "cp_model_probing_level": 0,
+    "symmetry_level": 0,
+    "log_search_progress": true,
+    "log_to_stdout": false
+  },
+  "method": "The second sheet holds at most two moving cogs, so any full six-cog placement requires at least four on the first sheet. Independently examine four mandatory identical first-sheet cogs, retaining all735 original inward domains per cog, complete chosen-domain integer boxes and halfplanes, the applicable regional capacities and global three-region exclusion, and every proved guarded relative-position cell for all six pairings. Other five moving originals are absent only from this subproblem and remain mandatory for H5. A positive can supply a four-cog witness for later full construction, never partial acceptance; a negative is conditional on the finite source/grid/cells including the extra0.01mm conservative failure padding. Audit every model field before at most one45-second/eight-worker/seed-zero call within60 seconds total. No hints, objective, old-call continuation, seed change or retries."
+}

@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-25T23:30:09.429797+00:00",
+  "budget": "budget.json",
+  "inputs": {
+    "output/h5-cog-region-capacities-20261025/capacities.json": "a7d70b015b2ffa16c450142fe8356c6bdefe8ea6b2b2c8376254cf04c8fb74fb",
+    "output/h5-cog-region-capacities-20261025/audit/checks.json": "bd0c1ae5733be27184fd258bd5c563b0bbcc58552ee7376432bdf213438a1368",
+    "output/h5-original-core-search-20261025/atlas.json": "3fcd52f64203f46b51dd240ef6df2074478c7dcac453a22191c6044c91c1ee89",
+    "output/h5-original-core-search-20261025/audit/checks.json": "9cb0c047e60b5f0e992eb53b7f015c081af5122bcc260df8e89189c172f36c8a",
+    "output/h5-original-core-search-20261025/added-pairs.json": "f0e04e7066b829b9c2c3c057c861485a7be5730b911c4207b34bff7a9fc1e19e",
+    "output/h5-cog-displacement-cells-20261025/audit/checks.json": "b461af38d968e376507968cc9b03c13af206cc2842ad98a455493dd55b7a4f70",
+    "output/h5-cog-displacement-cells-20261025/coarse-refinement/selected-query-18.json": "5e27c629b7c26a94aae20f6ff517e67a2c8d07f66f58038d18e23adf448f324d",
+    "output/h5-cog-displacement-cells-20261025/coarse-refinement/selected-query-19.json": "628b912db5190b2de1f4e1f351b1f870b0415eed7bd9d3326f67e84e12ec06ba",
+    "output/solve_h5_guarded_cell_master.py": "a8aa532ba681d8f062c5d75166b876512e7d95254717ffe3a78a159c651a1e5f",
+    "output/audit_h5_guarded_cell_selection.py": "161226a641b5da03e210c247666e8298a87d6e757da14163c98e4209815a4384",
+    "output/solve_h5_guarded_cell_anchors.py": "f5410958997be7125b9dc356f67cacbc52ccf11678089f4971e7d1e7d50bfc79"
+  },
+  "method": "New master replaces necessary core separation with full guarded displacement cells and includes all ten exact second-sheet pair exclusions and advisory hints from a verified original two-cog witness, with no fixed placements or omitted originals. One shared60-second pipeline. Build and independently audit the strengthened master with simultaneous full-domain cog anchors and all independently proved guarded displacement cells with exact sheet activation and chosen-cell constraints and all new guarded domain-pair exclusions, make at most one master call capped at45 seconds with2 seconds shutdown reserve, then independently check any selected domains and all capacities. Only an assignment passing those checks may build and independently audit a full original-coordinate model and make at most one coordinate call. Stop on negative/unknown/cap/invalid selection. Never retry, extend or resume a completed call. Every stage output and terminal result remains recorded."
+}

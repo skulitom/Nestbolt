@@ -2839,3 +2839,21 @@ proved cells with all 66 originals and unchanged material/native/H5 requirements
 Production source, READMEs and releases are unchanged. H2/H5 stay open at 60%;
 all 22 reserved H2 vectors remain untouched. Main CI40242602102 is still tracked
 before the next normal push.
+
+
+**N4 guarded cell search and six-cog witness, 2026-10-25:** [the evidence](../benchmarks/results/h5-guarded-cell-search-20261025.md)
+preserves a full 16,775-variable / 46,383-constraint guarded master UNKNOWN,
+without an incumbent. Shared 48.579203s is within 60s; the 45-second soft-cap
+overshoot is retained. A distinct four-cog first-sheet diagnostic succeeds in
+7.753828s (shared 8.201210s), with every domain, bound, cell and full original
+guarded clause independently verified. Combined with the known second-sheet
+pair, all 63 currently placed originals pass 1,467 pair and 252 stock-edge checks.
+Two brackets 28/29 and insert 50 are explicitly missing, so no full target/native
+pass is claimed. A complete declared finite sample regenerates 162,863 points;
+103,028 exact rejection certificates leave zero bracket and eight insert poses.
+This does not prove continuous impossibility. Next keep all six cogs movable,
+use their verified positions only as hints, and add 9,204 exact selected-domain
+box bounds to the full model. All 66 parts, material/native limits and H5 gates
+remain required. Production source, READMEs and releases are unchanged; H2/H5
+remain open at 60%, with 22 reserved H2 vectors untouched. Main CI40242602102
+is tracked before normal push.
