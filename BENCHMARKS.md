@@ -15871,3 +15871,24 @@ Next add that verified global occupancy clause before another declared search.
 Four checkpoints are pushed normally to main 4f359ff7 after all six previous CI
 jobs pass; new CI 40240715636 is tracked separately. No native acceptance,
 quality run or new release is claimed. H2/H5 remain open at 60%.
+
+
+**N4 complete convex conflicts and second-sheet capacity, 2026-10-25:**
+[The evidence](benchmarks/results/h5-convex-domain-conflicts-20261025.md) scans all 2,996,279 pairs left open by the box table and
+independently verifies 108,041 additional whole-convex original-shape exclusions.
+The complete table now has 5,561,575 exclusions, represented losslessly as
+24,091,856 physical exclusions. A first three-region assignment is rejected by
+a whole-convex bracket/cog collision. The refined master finds a necessary
+assignment, but its full original-coordinate model is INFEASIBLE. Exact replay
+then proves a second-sheet pair conflict independently of the solver core.
+All 51 unresolved second-sheet pairs receive bounded exact interval checks:
+32 conflicts are proved, 19 fixed points stay non-proofs, and all 1,920 events
+are independently replayed. A separate original no-fit-disk argument proves
+that at most two moving cogs fit the complete second-sheet region inventory.
+The next master includes all 480 physical new pair clauses and this capacity;
+its coordinate check still fails, having placed five cogs in one first-sheet
+domain. Next derive independently certified regional occupancy limits across
+all six copies. All original counts, material limits and native guards remain
+unchanged; no complete target, native call, quality run or release is claimed.
+Main CI40240715636 has 4/6 successful jobs and remains in_progress in the
+saved snapshot. Accurate READMEs remain unchanged. H2/H5 remain open at 60%.
