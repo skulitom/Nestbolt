@@ -15892,3 +15892,22 @@ all six copies. All original counts, material limits and native guards remain
 unchanged; no complete target, native call, quality run or release is claimed.
 Main CI40240715636 has 4/6 successful jobs and remains in_progress in the
 saved snapshot. Accurate READMEs remain unchanged. H2/H5 remain open at 60%.
+
+
+**N4 regional cog capacity and simultaneous anchors, 2026-10-25:**
+[The evidence](benchmarks/results/h5-cog-region-capacities-20261025.md) certifies 1,215 whole integer boxes and independently
+checks every membership, cell diagonal and dominance witness. Thirty-five
+retained bounds (30 capacity-one, five capacity-two) count all six cogs and
+eliminate the prior five-in-one-region assignment. A first master/coordinate
+pipeline finishes within 11.416324 seconds of a shared60-second allowance; its
+selected original-coordinate model is INFEASIBLE. A second pipeline adds all
+six simultaneous cog anchors and a certified strict inner32-gon of the original
+collision disk, finishing in43.440899 seconds. Its necessary assignment still
+has four actual original cog collisions, and the full selected-coordinate model
+is INFEASIBLE. Next strengthen simultaneous geometry with the complete original
+cog obstacle (61 pieces/2,720 edges), retaining all counts, guards and material
+limits. Both bounded pipelines stay closed; no full target or native acceptance
+is claimed. Main's new15-file scrap/offcut documentation change is merged as
+da4ced0f, preserving all15 remote and73 local evidence files byte-exact. The older
+CI was cancelled after five passes; new main CI40242602102 is independently
+tracked. Production and accurate READMEs are unchanged. H2/H5 remain open at60%.

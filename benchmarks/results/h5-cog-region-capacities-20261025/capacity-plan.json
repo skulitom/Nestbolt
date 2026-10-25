@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-25T22:56:02.293122+00:00",
+  "construction_limit_seconds": 60,
+  "inputs": {
+    "output/h5-full-original-joint-prepared-20261025/plan.json": "9bb084548e945f3e7ca387ba8fe98df23ccd487d98f794846a0b724e73c33743",
+    "output/h5-full-original-joint-prepared-20261025/queries/018.json": "f2b3a0ca8d48b111688af14b7e0d006fc68406641a85d407be02fb1b91934cbf",
+    "output/h5-full-original-joint-prepared-20261025/queries/019.json": "c001e8bd250fcdd53977d10978fc87aa1504be8b84ca664a30031d4a485da169",
+    "output/h5-original-domain-conflicts-20261025/three-cog-certificate/certificate.json": "b76d6a493888b0c8d1dd19d1832142d4749e9eb760c5b45c1ac5c1178882e1fb",
+    "output/h5-original-domain-conflicts-20261025/three-cog-certificate/audit/checks.json": "2918ab6c699f1b0478256803c5c31218bc654e3432710042816ccb8b66a19c38",
+    "benchmarks/results/h5-convex-domain-conflicts-20261025/raw-manifest.json": "c426b935839b668242fa23d21fb36229a9ae08a9d09e9257f629c8179732e3a8"
+  },
+  "queries": [
+    18,
+    19
+  ],
+  "outward_box_grid_units": [
+    1,
+    1000,
+    5000,
+    10000,
+    25000
+  ],
+  "maximum_useful_capacity": 5,
+  "maximum_candidate_boxes": 4000,
+  "maximum_solver_calls": 0,
+  "method": "For every complete original cog-domain integer box, also consider its outward1/1000/5000/10000/25000-unit rounded boxes. For each candidate box compute a certified grid cover with at most5 cells: distribute its integer x/y coordinates among consecutive bins, each with span at most ceil(integer_point_count/bin_count)-1. If every complete cell diagonal is shorter than the independently certified original-cog separation, each cell holds at most one cog. The cell count bounds all domains wholly contained in the box, across every one of the six mandatory cogs. Deduplicate equal domain sets retaining the strongest capacity, then remove only bounds implied by a superset with an equal or lower certified capacity. All unpruned certificates and exact dominance witnesses are retained; no domain choice or original part is deleted."
+}
