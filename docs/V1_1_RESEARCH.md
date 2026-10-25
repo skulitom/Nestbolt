@@ -2494,3 +2494,19 @@ fixed core must move. Next verify an outer coordinate relaxation covering
 all original continuous placements before drawing any conditional negative
 conclusion. Engine source, accurate READMEs and releases remain unchanged;
 H2/H5 stay open at 60%, with all original counts and acceptance limits retained.
+
+
+**N4 continuous-coverage outer result, 2026-10-25:** [the complete audit](../benchmarks/results/h5-outer-coordinate-relaxation-20261025.md)
+checks 24 source regions, all twelve permitted orientation/reflection cases,
+953 outward domains and all 14,734 known compatible core-0 poses. Exact rational
+containment and rounding cover the full source regions, not just saved samples.
+Every field of the 22,290-variable/128,377-constraint exact-count model verifies.
+One bounded outer search reports INFEASIBLE in 13.950743 seconds. Within the
+recorded geometry/coverage model this excludes the full inventory with core 0
+unchanged; it does not exclude different frame/cog arrangements. A single
+projected cog in saved core 5 yields a new arrangement passing all 438 original
+pair and 132 stock-boundary screens, with the other 32 placements unchanged.
+Next check its complete outer regions and exact-count feasibility before any
+accepted-layout claim. Actual native qualification and all H5 requirements
+remain. Source, accurate READMEs and releases are unchanged; H2/H5 stay open
+at 60% completed milestone weight.

@@ -1,0 +1,38 @@
+{
+  "utc": "2026-10-25T20:29:18.463109+00:00",
+  "inputs": {
+    "output/h5-outer-coordinate-relaxation-20261025/plan.json": "1149e88ea9d99e2b8a5c638c617d77b0c9d7a49e27ddfbec15d5ea9b680d059f",
+    "output/h5-outer-coordinate-relaxation-20261025/fixed-core.json": "b613d7033e5916030b20ca93d9f02bf729b42ffca8a58fe8b641b797d021286d",
+    "output/h5-outer-coordinate-relaxation-20261025/audit/checks.json": "4410893ddf89b57d3de406aee1d1ca93a459a745f89ba3f8688a6de51a54a4d3",
+    "output/h5-outer-coordinate-relaxation-20261025/audit/plan.json": "a6e2bb7442fe14c1d35d8351582b49817c689eae35d408661dc31b06b657180e",
+    "output/h5-outer-coordinate-relaxation-20261025/audit/integer-domains.json": "3fc72db722dcaa5032324ff8935510f7f0eaf44c5b4a0b4a60e30693c3e9670d",
+    "output/h5-outer-coordinate-relaxation-20261025/audit/selection.json": "4c1264ffef0453a8f3717f2d4814f8e2152b5623b0d1a31805c351deb90269a7"
+  },
+  "parameters": {
+    "max_time_in_seconds": 60,
+    "num_search_workers": 8,
+    "random_seed": 0,
+    "cp_model_presolve": true,
+    "cp_model_probing_level": 0,
+    "symmetry_level": 0,
+    "log_search_progress": true,
+    "log_to_stdout": false
+  },
+  "maximum_solver_calls": 1,
+  "required_counts": {
+    "bracket": 12,
+    "cog": 15,
+    "frame": 18,
+    "insert": 21
+  },
+  "variable_part_counts": {
+    "bracket": 12,
+    "insert": 21
+  },
+  "fixed_core": 0,
+  "coordinate_units_per_mm": 100,
+  "gap_units": -1,
+  "method": "Exactly one orientation/sheet mode per original small-part copy. Its active mode chooses exactly one certified convex domain, linking shared anchor coordinates to every outward-rounded halfspace and bound. Every outer domain remains; no domains are removed. Rectangle-component offsets are exact weighted sums of the active mode offsets. Every pair of components belonging to different physical parts may overlap along the chosen axis by at most one grid unit when on the same sheet. The two arms of one bracket share its anchor/mode and are never separated from each other. Identical-copy sheet/y/x ordering only removes interchangeable-copy symmetry. There is no objective, unplaced-part variable, reduced quantity or partial solution.",
+  "presolve_rationale": "Enable ordinary presolve to simplify reified domain bounds. Disable expensive probing and automatic symmetry discovery; identical-copy symmetry is already encoded explicitly. These choices precede the sole60-second call and do not change feasible solutions.",
+  "scope": "Outer relaxation covering original continuous placements around fixed core0 via outward-rounded0.01mm grid domains. Every returned66-part model solution remains diagnostic and may overlap or violate original bounds. It is not an accepted cutting layout. UNKNOWN is unresolved; a negative result needs the complete outward-coverage audit and is conditional on this fixed core. No repeated or extended solve."
+}
