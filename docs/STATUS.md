@@ -1753,3 +1753,23 @@ original profile pairs. No target/native or production pass is claimed. All
 six jobs of main CI 40242602102 now pass; checkpoints can be pushed normally
 after preserving any newer remote work. Production, READMEs and releases are
 unchanged. H2/H5 remain open at 60%, with all 22 reserved H2 vectors untouched.
+
+
+**N4 complete guarded coordinates and table projection, 2026-10-25:** [the evidence](../benchmarks/results/h5-all-original-cell-search-20261025.md)
+adds all 162 remaining query-pair representations for 364 physical pair/mode
+uses. Their 6,174 cells and 19,329 inward planes pass 38,211 exact separation
+certificates; all 29 stricter simplifications and 11 inset/grid discards remain
+explicit. The full 35,469-variable / 181,700-constraint model now includes all
+nine moving originals and every one of their 36 direct guarded pair relations,
+with all 66 original counts required. Its single 45-second-cap call returns
+UNKNOWN in 52.627968s: the 7.627968s soft overrun is retained, while total
+57.609353s stays inside the shared 60s budget. No layout/native pass is claimed.
+A separately audited projection removes only the obsolete 1,572,932-literal
+table and 3,395 private variables, preserving every direct geometry/count/area
+constraint. All 32,074 remaining variables and 173,814 constraints inverse-map
+exactly to the parent; actual solver import/export passes. That projection has
+not been solved. Next use a distinct bounded call with a 10s shutdown reserve;
+offline preparation is not production qualification. The prior ten checkpoints
+are pushed to main 728b2db2; its own CI 40246226212 remains tracked before the
+next normal push. Production, READMEs and releases are unchanged. H2/H5 remain
+open at 60%, with all 22 reserved H2 vectors untouched.
