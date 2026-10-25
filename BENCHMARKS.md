@@ -15836,3 +15836,21 @@ triangle hulls. Every cog tooth is preserved, with no outward region padding.
 Next is a joint full-original nine-part model using this adjusted source.
 No complete target, native full-job validation or H5 qualification is claimed.
 Source, accurate READMEs and releases stay unchanged; H2/H5 remain open at 60%.
+
+
+**N4 complete original-shape joint searches, 2026-10-25:**
+[The evidence](benchmarks/results/h5-full-original-joint-20261025.md) audits all 20 actual-original placement regions, 82 mutual
+collision cases, 3,525 raw allowed faces and 512 forbidden pieces. All nine
+moving originals remain mandatory alongside the adjusted 57-part source.
+The full-original joint model returns UNKNOWN in 60.875060 seconds; a smaller
+conservative moving-cog-hull model is conditionally INFEASIBLE in 8.862555 seconds.
+A distinct original-shape constraint-generation experiment shares 60 seconds
+across construction, audits and eight calls, ending UNKNOWN in 60.102165 seconds.
+All seven relaxed 66-original proposals are independently reconstructed: 11,191
+pair checks and 1,848 stock-edge checks preserve every failure. Fixed clearances
+and stock margins pass; none passes moving-part collisions. The best recorded
+overlap diagnosis still has seven overlapping pairs, so no native call is made.
+All bounded searches stay closed. Next investigate certified whole-domain pair
+exclusions or a structurally larger neighborhood, without relaxing counts,
+material limits, clearance guards or H5. Source, accurate READMEs and releases
+are unchanged; H2/H5 remain open at 60%.
