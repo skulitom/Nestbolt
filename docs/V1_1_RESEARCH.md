@@ -2580,3 +2580,17 @@ parts and 33 frame/cog cases; released parts must be restored in any next
 infeasibility or a full target witness. All original acceptance requirements
 remain; source, accurate READMEs and releases are unchanged. H2/H5 stay open
 at 60% completed milestone weight.
+
+
+**N4 complete single-core relocation exclusion, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-single-core-relocation-exclusion-20261025.md) covers all 33 recorded frame/cog
+releases, with 63 source poses fixed and the released part plus two brackets
+mandatory. All 576 queries and 3,462 integer free cells audit completely; 1,152
+exact allocation inequalities exclude 28 cases. The other five cog cases have
+an independently reconstructed 1,111-variable/2,118-constraint model, including
+all 416 cell options and 120 component pairs. One bounded call returns
+INFEASIBLE in 0.150878 seconds with no incumbent; no LRAT certificate is claimed.
+All 66 original counts are retained. These 33 conditional neighborhoods are
+closed; broader coordinated moves remain unresolved. No unrestricted
+impossibility, target witness or H5 qualification is claimed. Source, accurate
+READMEs and releases are unchanged; H2/H5 remain open at 60%.
