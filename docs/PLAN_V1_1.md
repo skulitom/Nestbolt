@@ -2346,3 +2346,20 @@ Next construct fully covered convex domains and a joint model using the stronger
 cog polygon itself. No solver call, accepted target layout or H5 qualification
 is claimed. Source, accurate READMEs and releases stay unchanged; H2/H5 remain
 open at 60% completed milestone weight.
+
+
+**N4 stronger two-core relocation exclusion, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-strong-pair-relocation-exclusion-20261025.md) covers all 207 remaining cases
+and 286 allocations with 32,626 convex domains, 165,640 outward halfplanes and
+960,962 exact vertex tests. The empty-set guard failure is preserved; 40 completed
+queries are reused unchanged within the original work budget. An exact support
+atlas audits 324 convex Minkowski hulls and every relevant edge normal. The full
+56,046-variable/356,662-constraint model uses the stronger cog 16-gon directly.
+One bounded call returns INFEASIBLE in 20.878256 seconds with no incumbent or
+LRAT certificate. Together with prior 299 area and 22 empty-role exclusions,
+all 528 recorded two-core neighborhoods are closed, conditionally on the source
+poses/inventory. A distinct conflict-owner census prepares 57 fixed plus nine
+mandatory movable originals, preserving all 66 parts. All six existing main
+checks now pass; accumulated commits are ready for the next normal push.
+No unrestricted impossibility, accepted target or H5 qualification is claimed.
+Source, accurate READMEs and releases stay unchanged; H2/H5 remain open at 60%.
