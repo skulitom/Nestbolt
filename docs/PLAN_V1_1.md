@@ -2283,3 +2283,20 @@ no search of that inventory occurs yet. After all six previous main checks
 passed, five checkpoints were pushed normally through 247e823a. Its new CI
 40233299884 remains distinct from the completed previous run. Source, accurate
 READMEs and releases are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 source orientation inventory and exact proxy-slot coverage, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-source-inventory-and-proxy-slot-coverage-20261025.md) checks a finite source-derived
+orientation inventory with all 66 parts mandatory and every position free.
+Its 1,486-variable/2,178-constraint model and 1,406 nonbinding hint values audit
+completely; one bounded call remains UNKNOWN in 60.111765 seconds. Separately,
+all 16 missing-bracket mode domains around the fixed 64-part proxy layout are
+covered exactly: 1,950 forbidden rectangles cover 266,545,630,376 integer
+mode/anchor pairs, independently checked across 145,251 critical cells.
+No extra bracket fits while those existing poses stay fixed, including at
+touching boundaries. A complete single-part release census records all 64
+parts and 33 frame/cog cases; released parts must be restored in any next
+63-plus-3 construction. This is conditional evidence, not unrestricted
+infeasibility or a full target witness. All original acceptance requirements
+remain; source, accurate READMEs and releases are unchanged. H2/H5 stay open
+at 60% completed milestone weight.
