@@ -15607,3 +15607,17 @@ with independently checked inward rounding, original outlines and new declared
 limits. No solver retry, native packing, quality run or held-out evaluation
 occurs. Engine source, accurate READMEs and releases remain unchanged; H2/H5
 remain open at 60% completed milestone weight.
+
+
+**N4 direct-coordinate domain preparation, 2026-10-25:** [the original-geometry and rational audit](benchmarks/results/h5-direct-coordinate-domains-20261025.md)
+checks all 20 orientation/sheet regions around fixed core 0, representing all
+twelve permitted orientation/reflection cases. New placements retain 0.22 mm
+separation and 0.02 mm extra stock margin. Every inward-rounded halfspace and
+all 3,884 source faces verify. Certified consolidation retains 3,703 nonempty
+grid domains, including all source-face lineages, with 55,992 per-copy choices
+for the full 12 brackets and 21 inserts. No solver has run and no complete
+layout is claimed. Next encode and independently check the exact-count model,
+using only certified containment removal if needed before its one declared
+60-second solve. Both prior checkpoints are pushed as 8f941426; its CI is
+pending and the older main run is cancelled. Engine source, accurate READMEs
+and releases are unchanged. H2/H5 stay open at 60% completed milestone weight.

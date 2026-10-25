@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-25T20:17:24.352240+00:00",
+  "inputs": {
+    "output/h5-direct-coordinate-domains-20261025/plan.json": "938cc6ed2d52ecd4952dd42f85d01c8d2b139733d610ccb61e89d9ec53cac632",
+    "output/h5-direct-coordinate-domains-20261025/result.json": "e001a7c59b78d65c847c128667cb861d2b5572b21fc98fde85d02cea7ada8e3c",
+    "output/h5-direct-coordinate-domains-20261025/audit/checks.json": "a8ffb27369589dddd12e07c284747cf0e7fe7179dfe3617e5b19e3f861febe85",
+    "output/conservative_h5_polygon_obstacles.py": "aa458907814aa82184870b1265aaa702c8371716468b0f539ac94816a47c3d6b"
+  },
+  "seconds_limit": 60,
+  "merge_attempt_limit": 200000,
+  "part_gap_mm": 0.22,
+  "additional_offset_margin_mm": 1e-05,
+  "method": "The source audit retains3872 integer domains, causing58434 per-copy domain choices. Consolidate adjacent source faces into convex hulls only when the whole hull is covered by a separately constructed safe region. That region uses the same original stock anchor bounds and original zero-clearance forbidden set, expanded by the same verified128-gon at0.22mm plus0.00001mm numerical margin. This is a new certified simplification phase; no original query is retried, old face is dropped, positive0.22mm gap is reduced or solver rerun. Retain exact source-face lineages for every hull. Re-encode halfspaces with the unchanged inward rational-rounding rule. Stop merges at60seconds or200000 attempts, retaining all unmerged faces and recording unfinished consolidation; those faces remain usable after verification.",
+  "solver_calls": 0,
+  "native_margin_qualified": false
+}
