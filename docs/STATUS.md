@@ -1471,3 +1471,19 @@ All 66 original counts are retained. These 33 conditional neighborhoods are
 closed; broader coordinated moves remain unresolved. No unrestricted
 impossibility, target witness or H5 qualification is claimed. Source, accurate
 READMEs and releases are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 complete pair relocation census and outline diagnosis, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-pair-core-relocation-and-outline-diagnosis-20261025.md) completes all 528 core-pair
+releases and 9,984 mode queries. Independent coverage and 53,424 allocation
+inequalities exclude 299 cases; all 229 survivors and 424 allocations enter
+one fully audited 73,266-variable/141,477-constraint model. One bounded call
+finds a complete 66-part proxy arrangement in 7.952451 seconds. Independent
+reconstruction verifies all copies, 138 inner rectangles and 6,456 component
+pairs. The original-outline lift fails seven pair and two stock checks. Two
+certified-disk conflicts remain after every cog angle and full floor-center
+uncertainty, rejecting those selected coordinates. Broader cells and
+neighborhoods remain unresolved. Next strengthen necessary collision geometry
+against actual fixed original outlines; no unchanged retry or acceptance
+reduction. Source, accurate READMEs and releases stay unchanged. No original
+target witness or H5 qualification; H2/H5 remain open at 60%.
