@@ -2577,3 +2577,22 @@ box bounds to the full model. All 66 parts, material/native limits and H5 gates
 remain required. Production source, READMEs and releases are unchanged; H2/H5
 remain open at 60%, with 22 reserved H2 vectors untouched. Main CI40242602102
 is tracked before normal push.
+
+
+**N4 guided search and exact selected-domain rejection, 2026-10-25:** [the evidence](../benchmarks/results/h5-six-cog-guided-search-20261025.md)
+records a candidate from the 16,775-variable / 55,587-constraint master in
+11.009201s after adding 9,204 exact domain bounds and 79 advisory hints. All 66
+originals remain mandatory (nine movable, 57 fixed). The full selected-coordinate
+follow-up is INFEASIBLE in 0.225323s; total pipeline time is 15.872994s within 60s.
+Nineteen interval traces reach fixed points, not feasibility. A separate exact
+clause tree then certifies this selected combination's rejection: 1,316 nodes,
+415 complete branches, 901 contradictory leaves and 4,851 independently replayed
+events, with no open leaves. Its 56.946915s proof budget is separate from the
+closed solver pipeline. Other domain combinations and unrestricted packing
+remain open. The early read-back failure and separate completed audit are
+preserved. Next integrate the bracket/insert coordinates with the guarded cog
+search using independently proved compact representations for the remaining
+original profile pairs. No target/native or production pass is claimed. All
+six jobs of main CI 40242602102 now pass; checkpoints can be pushed normally
+after preserving any newer remote work. Production, READMEs and releases are
+unchanged. H2/H5 remain open at 60%, with all 22 reserved H2 vectors untouched.
