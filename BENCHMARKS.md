@@ -15854,3 +15854,20 @@ All bounded searches stay closed. Next investigate certified whole-domain pair
 exclusions or a structurally larger neighborhood, without relaxing counts,
 material limits, clearance guards or H5. Source, accurate READMEs and releases
 are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 whole-domain conflicts and three-cog exclusion, 2026-10-25:**
+[The evidence](benchmarks/results/h5-original-domain-conflicts-20261025.md) independently checks all 8,449,813 domain pairs and
+5,453,534 original-shape collision exclusions. Lossless row grouping preserves
+23,481,818 physical exclusions in 4,580 group constraints. A necessary-region
+model finds a candidate in 8.094902 seconds; its complete original-coordinate
+model is INFEASIBLE in 0.030771 seconds for that selected combination only.
+The ordinary interval replay reaches a fixed point without proving a conflict.
+A separate core diagnostic identifies three cog domains, then an independent
+228-segment exact-rational no-fit disk certificate proves a broader three-region
+exclusion. Groups containing 12/2/29 complete domains exclude 696 triples across
+all six moving cogs, without changing any original count or material limit.
+Next add that verified global occupancy clause before another declared search.
+Four checkpoints are pushed normally to main 4f359ff7 after all six previous CI
+jobs pass; new CI 40240715636 is tracked separately. No native acceptance,
+quality run or new release is claimed. H2/H5 remain open at 60%.
