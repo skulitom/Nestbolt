@@ -2363,3 +2363,21 @@ mandatory movable originals, preserving all 66 parts. All six existing main
 checks now pass; accumulated commits are ready for the next normal push.
 No unrestricted impossibility, accepted target or H5 qualification is claimed.
 Source, accurate READMEs and releases stay unchanged; H2/H5 remain open at 60%.
+
+
+**N4 complete conflict-owner neighborhood, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-conflict-owner-neighborhood-20261025.md) restores seven originals and both missing brackets with
+57 source transforms fixed, retaining all 66 required parts. All 20 original-stock
+queries complete with 199 convex domains; independent checks cover 3,638 outward
+halfplanes, 82,650 rational vertex tests and 361 component Minkowski hulls.
+The fully audited 1,871-variable/10,774-constraint model finds a necessary-model
+arrangement in 1.133719 seconds. Its original-outline trial fails 17 clearance
+checks and three stock bounds; all failures are preserved. Exact 109.1 mm whole
+circles reject five selected cog conflicts, and a separately certified 139.2707 mm
+all-angle stock support rejects three anchors while retaining all 15 valid source
+cog centers. The hull support is not used as filled collision geometry. These
+conditions prepare the next stronger model; no completed call is retried.
+The previous six checkpoints are on main 51fe56c0; its new CI remains separate
+from the prior successful run. No accepted target, native qualification or H5
+completion is claimed. Source, accurate READMEs and releases stay unchanged;
+H2/H5 remain open at 60% completed milestone weight.
