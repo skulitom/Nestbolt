@@ -1,0 +1,28 @@
+{
+  "utc": "2026-10-25T22:06:49.666098+00:00",
+  "inputs": {
+    "output/h5-conflict-owner-neighborhood-20261025/fixed-originals.json": "125c53f1163b52567e083caf4fc1e39c8773de1dea476d98abe0006e16f38393",
+    "output/h5-conflict-owner-neighborhood-20261025/plan.json": "f9ecd583ed64184de8a48d3b3699980cbf1b286b648a1ca23d981178c0ea70ad",
+    "output/h5-source-orientation-construction-20261025/geometry.json": "54a1605f7bb21b543854a417755a6feaae6c43d81134aaadfd0c02129991a2dc",
+    "output/h5-source-orientation-construction-20261025/items.json": "0511d6da1d2ca47b7d4fd1acfb128a04a7f6be99cb1c1339b87088520767507f",
+    "output/h5-source-orientation-construction-20261025/propagation.json": "948640b8e026e16def9fc1826debe2fb42e5388d5186611ca79ab09750602fcf",
+    "output/h5-circle-stock-neighborhood-20261025/original-outline-construction/audit/checks.json": "78ae93bf85ac093241ba46aef06d29df95b53120464725dbfc6f31863071c55a",
+    "output/h5-circle-stock-neighborhood-20261025/original-outline-construction/native-margin-shortfalls.json": "4e06a58e981d8de5c150beb04087ea79db611b70f3d48d2c62958fd2d98beaae",
+    "output/h5-circle-stock-neighborhood-20261025/original-outline-construction/audit/fixed-stock-guard-shortfalls.json": "8ed8278d28142fb44e9b07c55b99947a3c0f9502b11c84cd0ef41147b09243f9",
+    "crates/core/src/construct.rs": "8f5adfa7ebb0d8753ec4c4aec13d9fa4814b2fb06a4f2506521e99d69c9d81c7",
+    "crates/core/src/sheets.rs": "dfcceb613e126aa4b4fb2923081d2f5d645bb6b4ce86f546b1ed9d3a3a81d9a5",
+    "benchmarks/results/h5-circle-stock-neighborhood-20261025/raw-manifest.json": "abb346c7cb171e442b3ef7888cc0a416731936359f933367622a52ce1f555bc0"
+  },
+  "preparation_limit_seconds": 120,
+  "maximum_segment_constraints": 200000,
+  "offset_units_per_mm": 10000,
+  "maximum_axis_offset_units": 500,
+  "target_original_pair_gap_mm": 0.2125,
+  "target_extra_stock_margin_mm": 0.0125,
+  "near_pair_threshold_mm": 0.36,
+  "normal_coefficient_scale": 100000000,
+  "required_originals": 66,
+  "baseline_originals": 57,
+  "other_mandatory_originals": 9,
+  "method": "Prepare one distinct small-adjustment construction for the57 previously fixed originals. Each retains its original shape, orientation, sheet and copy, with each axis translation bounded to+/-0.05mm on a0.0001mm grid. Intersect those bounds with rational inward stock constraints requiring0.0125mm extra margin. For every same-sheet polygon pair within0.36mm, examine every boundary segment pair within0.36mm. The closest-point direction proposes a fixed separating normal; round that normal to integer coefficients and compute exact rational full-segment projection gaps, using an integer ceiling of its norm for a conservative0.2125mm target. Far original features are not assumed safe without the final full-geometry check. These local projection constraints are a proposal mechanism; only independent reconstruction of every moved original pair and stock edge can qualify the adjusted baseline geometry. No counts or native guards are reduced. No solver call in preparation."
+}

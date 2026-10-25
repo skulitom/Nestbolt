@@ -2399,3 +2399,19 @@ must be addressed and independently checked before that source is frozen for
 an original-outline construction. No guard, material cap or count is reduced.
 No accepted target or H5 qualification is claimed. Source, accurate READMEs and
 releases stay unchanged; H2/H5 remain open at 60% completed milestone weight.
+
+
+**N4 corrected source guards and original-outline regions, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-guarded-source-adjustment-20261025.md) corrects all nine pair and four stock-margin shortfalls
+without changing original shapes, counts, orientations, sheets or the material
+target. One audited 228-variable/695-constraint bounded adjustment finishes in
+0.027011 seconds. Fifteen originals move by at most 0.023 mm per axis. Independent
+checks cover all 1,246 original pairs and 228 stock edges; the minimum gap is
+0.2125 mm and extra stock margin 0.0125 mm, both above unchanged native guards.
+The baseline still contains only 57 originals; all nine others remain mandatory.
+All 100 full-original collision obstacles and 20 free-region queries are rebuilt
+and independently checked using 11,872 raw triangle hulls and 2,491 expanded
+triangle hulls. Every cog tooth is preserved, with no outward region padding.
+Next is a joint full-original nine-part model using this adjusted source.
+No complete target, native full-job validation or H5 qualification is claimed.
+Source, accurate READMEs and releases stay unchanged; H2/H5 remain open at 60%.
