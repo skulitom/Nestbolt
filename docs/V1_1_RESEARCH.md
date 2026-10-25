@@ -2610,3 +2610,19 @@ neighborhoods remain unresolved. Next strengthen necessary collision geometry
 against actual fixed original outlines; no unchanged retry or acceptance
 reduction. Source, accurate READMEs and releases stay unchanged. No original
 target witness or H5 qualification; H2/H5 remain open at 60%.
+
+
+**N4 original-outline collision regions, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-original-outline-collision-regions-20261025.md) verifies a stronger floor-safe
+16-gon for all cog angles against the actual fixed original outlines. Exact
+subset checks and an independent triangle oracle verify all 100 obstacle caches;
+all 43 source poses and 2,000 compatible pairs remain valid. A mixed-dimensional
+GEOS guard failure is preserved; 1,262 completed queries are reused unchanged
+and only 1,388 unfinished queries resume within the original work budget.
+All 2,650 queries finish. Independent outward covers account for every whole
+prior cell: 42,226 cells including 3,081 points/lines. They reject three prior
+false anchors and exclude another 22 cases, leaving 207 cases/286 allocations.
+Next construct fully covered convex domains and a joint model using the stronger
+cog polygon itself. No solver call, accepted target layout or H5 qualification
+is claimed. Source, accurate READMEs and releases stay unchanged; H2/H5 remain
+open at 60% completed milestone weight.
