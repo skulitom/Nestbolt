@@ -1,0 +1,3696 @@
+{
+  "utc": "2026-10-23T17:20:27.220947+00:00",
+  "inputs": {
+    "output/h5-shifted-core-small-joint-20261023/plan.json": "5856daa63df300305ed4aeba54c704d25dca88fced3e9b9273be88c954df3b22",
+    "output/h5-shifted-core-small-joint-20261023/candidates.json": "cb9b7363f356cc7fefe55f150257663254cf1fdb93055cfa8c6c761d444d9cce",
+    "output/h5-shifted-core-small-joint-20261023/mapping.json": "eecdd82348bf7e45bed8e16439815ee34b39d2b913a000da3c6af06138e5a603",
+    "output/h5-shifted-core-small-joint-20261023/audit/checks.json": "9c1ae870e4738f5cfc65350b1f0199ea61fc29392588dd25b9163dca0c533294",
+    "output/h5-shifted-core-small-joint-20261023/layout-audit/checks.json": "fa4addd30dd8b99da94cca1d11dd0f87c99e151e84fca2bea154a46212748dbc",
+    "output/h5-shifted-core-small-joint-20261023/layout-audit/layout-1.json": "32e97d4be3728bc3392e5b1c394bb0ee0db4326157006748545d215938f413c1",
+    "output/h5-shifted-core-small-joint-20261023/layout-audit/layout-final.json": "2a2677bfec9faa7851a4b920742c2f86af51800cef54ef36dd0e52964788fb5b",
+    "output/h5-shifted-core-small-joint-20261023/solve/incumbent-1.json": "be33373f705584d1ae1620cb3ddd4ab53a403c8450326da882d34a5e030dec19",
+    "output/h5-shifted-core-small-joint-20261023/solve/selected-indices.json": "68a8862403a3d5d99e6c2e24401e7fad4668631e7363f86760cb93658bfea506",
+    "output/h5-shifted-core-small-joint-20261023/solve/result.json": "f815d4560e3c716e994235a67552ea3759f11eb72b758e97380844ca046847cc",
+    "output/h5-shifted-core-small-joint-20261023/final-gaps/checks.json": "9a2cb346d222338510a595a860c18e7e66f3177962eec05b71d40c8fe961613f",
+    "output/h5-shifted-core-small-joint-20261023/next-step.json": "e8f71ebf36bfc32448da891576278c3cba65930f4bba3371ffdf2f88fea93f65",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd",
+    "output/conservative_h5_polygon_obstacles.py": "aa458907814aa82184870b1265aaa702c8371716468b0f539ac94816a47c3d6b"
+  },
+  "adjacency_distance_mm": 25.0,
+  "query_seconds": 90,
+  "proposal_seconds": 90,
+  "new_pose_caps": {
+    "bracket": 2000,
+    "insert": 2000
+  },
+  "construction_padding_mm": 0.0126,
+  "clearance_polygon": {
+    "sides": 128,
+    "construction_radius_mm": 0.2126640504359808,
+    "minimum_chord_distance_mm": 0.21259999999999993,
+    "required_clearance_plus_margin_mm": 0.2126,
+    "all_128_chords_conservative": true,
+    "offset_algorithm": "Union the original polygon with every boundary segment Minkowski-summed with the explicit circumscribed 128-gon; no round/mitre buffer tessellation."
+  },
+  "specifications": [
+    {
+      "family": "bracket",
+      "degrees": 0,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "degrees": 90,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "degrees": 180,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "degrees": 270,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "degrees": 0,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "degrees": 90,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "degrees": 180,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "degrees": 270,
+      "mirrored": true
+    },
+    {
+      "family": "insert",
+      "degrees": 0,
+      "mirrored": false
+    },
+    {
+      "family": "insert",
+      "degrees": 90,
+      "mirrored": false
+    }
+  ],
+  "queries": [
+    {
+      "index": 0,
+      "neighborhood": 0,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 1,
+      "neighborhood": 1,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 2,
+      "neighborhood": 2,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 3,
+      "neighborhood": 3,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 4,
+      "neighborhood": 4,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 5,
+      "neighborhood": 5,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 6,
+      "neighborhood": 6,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 7,
+      "neighborhood": 7,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 8,
+      "neighborhood": 8,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 9,
+      "neighborhood": 9,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 10,
+      "neighborhood": 10,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 11,
+      "neighborhood": 11,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 12,
+      "neighborhood": 12,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 13,
+      "neighborhood": 13,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 14,
+      "neighborhood": 14,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 15,
+      "neighborhood": 15,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 16,
+      "neighborhood": 16,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 17,
+      "neighborhood": 17,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 18,
+      "neighborhood": 18,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 19,
+      "neighborhood": 19,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 20,
+      "neighborhood": 20,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 21,
+      "neighborhood": 21,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 22,
+      "neighborhood": 22,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 23,
+      "neighborhood": 23,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 24,
+      "neighborhood": 24,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 25,
+      "neighborhood": 25,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 26,
+      "neighborhood": 26,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 27,
+      "neighborhood": 27,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 28,
+      "neighborhood": 28,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 29,
+      "neighborhood": 29,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 30,
+      "neighborhood": 30,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 31,
+      "neighborhood": 31,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 32,
+      "neighborhood": 32,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 33,
+      "neighborhood": 33,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 34,
+      "neighborhood": 34,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 35,
+      "neighborhood": 35,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 36,
+      "neighborhood": 36,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 37,
+      "neighborhood": 37,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 38,
+      "neighborhood": 38,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 39,
+      "neighborhood": 39,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 40,
+      "neighborhood": 40,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 41,
+      "neighborhood": 41,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 42,
+      "neighborhood": 42,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 43,
+      "neighborhood": 43,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 44,
+      "neighborhood": 44,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 45,
+      "neighborhood": 45,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 46,
+      "neighborhood": 46,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 47,
+      "neighborhood": 47,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 48,
+      "neighborhood": 48,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 49,
+      "neighborhood": 49,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 50,
+      "neighborhood": 50,
+      "specification": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 51,
+      "neighborhood": 51,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 52,
+      "neighborhood": 52,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 53,
+      "neighborhood": 53,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 54,
+      "neighborhood": 54,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 55,
+      "neighborhood": 55,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 56,
+      "neighborhood": 56,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 57,
+      "neighborhood": 57,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 58,
+      "neighborhood": 58,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 59,
+      "neighborhood": 59,
+      "specification": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 60,
+      "neighborhood": 0,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 61,
+      "neighborhood": 1,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 62,
+      "neighborhood": 2,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 63,
+      "neighborhood": 3,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 64,
+      "neighborhood": 4,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 65,
+      "neighborhood": 5,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 66,
+      "neighborhood": 6,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 67,
+      "neighborhood": 7,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 68,
+      "neighborhood": 8,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 69,
+      "neighborhood": 9,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 70,
+      "neighborhood": 10,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 71,
+      "neighborhood": 11,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 72,
+      "neighborhood": 12,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 73,
+      "neighborhood": 13,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 74,
+      "neighborhood": 14,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 75,
+      "neighborhood": 15,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 76,
+      "neighborhood": 16,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 77,
+      "neighborhood": 17,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 78,
+      "neighborhood": 18,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 79,
+      "neighborhood": 19,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 80,
+      "neighborhood": 20,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 81,
+      "neighborhood": 21,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 82,
+      "neighborhood": 22,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 83,
+      "neighborhood": 23,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 84,
+      "neighborhood": 24,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 85,
+      "neighborhood": 25,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 86,
+      "neighborhood": 26,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 87,
+      "neighborhood": 27,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 88,
+      "neighborhood": 28,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 89,
+      "neighborhood": 29,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 90,
+      "neighborhood": 30,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 91,
+      "neighborhood": 31,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 92,
+      "neighborhood": 32,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 93,
+      "neighborhood": 33,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 94,
+      "neighborhood": 34,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 95,
+      "neighborhood": 35,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 96,
+      "neighborhood": 36,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 97,
+      "neighborhood": 37,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 98,
+      "neighborhood": 38,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 99,
+      "neighborhood": 39,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 100,
+      "neighborhood": 40,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 101,
+      "neighborhood": 41,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 102,
+      "neighborhood": 42,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 103,
+      "neighborhood": 43,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 104,
+      "neighborhood": 44,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 105,
+      "neighborhood": 45,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 106,
+      "neighborhood": 46,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 107,
+      "neighborhood": 47,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 108,
+      "neighborhood": 48,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 109,
+      "neighborhood": 49,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 110,
+      "neighborhood": 50,
+      "specification": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 111,
+      "neighborhood": 51,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 112,
+      "neighborhood": 52,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 113,
+      "neighborhood": 53,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 114,
+      "neighborhood": 54,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 115,
+      "neighborhood": 55,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 116,
+      "neighborhood": 56,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 117,
+      "neighborhood": 57,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 118,
+      "neighborhood": 58,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 119,
+      "neighborhood": 59,
+      "specification": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 120,
+      "neighborhood": 0,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 121,
+      "neighborhood": 1,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 122,
+      "neighborhood": 2,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 123,
+      "neighborhood": 3,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 124,
+      "neighborhood": 4,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 125,
+      "neighborhood": 5,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 126,
+      "neighborhood": 6,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 127,
+      "neighborhood": 7,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 128,
+      "neighborhood": 8,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 129,
+      "neighborhood": 9,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 130,
+      "neighborhood": 10,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 131,
+      "neighborhood": 11,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 132,
+      "neighborhood": 12,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 133,
+      "neighborhood": 13,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 134,
+      "neighborhood": 14,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 135,
+      "neighborhood": 15,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 136,
+      "neighborhood": 16,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 137,
+      "neighborhood": 17,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 138,
+      "neighborhood": 18,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 139,
+      "neighborhood": 19,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 140,
+      "neighborhood": 20,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 141,
+      "neighborhood": 21,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 142,
+      "neighborhood": 22,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 143,
+      "neighborhood": 23,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 144,
+      "neighborhood": 24,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 145,
+      "neighborhood": 25,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 146,
+      "neighborhood": 26,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 147,
+      "neighborhood": 27,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 148,
+      "neighborhood": 28,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 149,
+      "neighborhood": 29,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 150,
+      "neighborhood": 30,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 151,
+      "neighborhood": 31,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 152,
+      "neighborhood": 32,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 153,
+      "neighborhood": 33,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 154,
+      "neighborhood": 34,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 155,
+      "neighborhood": 35,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 156,
+      "neighborhood": 36,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 157,
+      "neighborhood": 37,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 158,
+      "neighborhood": 38,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 159,
+      "neighborhood": 39,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 160,
+      "neighborhood": 40,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 161,
+      "neighborhood": 41,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 162,
+      "neighborhood": 42,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 163,
+      "neighborhood": 43,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 164,
+      "neighborhood": 44,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 165,
+      "neighborhood": 45,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 166,
+      "neighborhood": 46,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 167,
+      "neighborhood": 47,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 168,
+      "neighborhood": 48,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 169,
+      "neighborhood": 49,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 170,
+      "neighborhood": 50,
+      "specification": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 171,
+      "neighborhood": 51,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 172,
+      "neighborhood": 52,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 173,
+      "neighborhood": 53,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 174,
+      "neighborhood": 54,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 175,
+      "neighborhood": 55,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 176,
+      "neighborhood": 56,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 177,
+      "neighborhood": 57,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 178,
+      "neighborhood": 58,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 179,
+      "neighborhood": 59,
+      "specification": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 180,
+      "neighborhood": 0,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 181,
+      "neighborhood": 1,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 182,
+      "neighborhood": 2,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 183,
+      "neighborhood": 3,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 184,
+      "neighborhood": 4,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 185,
+      "neighborhood": 5,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 186,
+      "neighborhood": 6,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 187,
+      "neighborhood": 7,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 188,
+      "neighborhood": 8,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 189,
+      "neighborhood": 9,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 190,
+      "neighborhood": 10,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 191,
+      "neighborhood": 11,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 192,
+      "neighborhood": 12,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 193,
+      "neighborhood": 13,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 194,
+      "neighborhood": 14,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 195,
+      "neighborhood": 15,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 196,
+      "neighborhood": 16,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 197,
+      "neighborhood": 17,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 198,
+      "neighborhood": 18,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 199,
+      "neighborhood": 19,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 200,
+      "neighborhood": 20,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 201,
+      "neighborhood": 21,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 202,
+      "neighborhood": 22,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 203,
+      "neighborhood": 23,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 204,
+      "neighborhood": 24,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 205,
+      "neighborhood": 25,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 206,
+      "neighborhood": 26,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 207,
+      "neighborhood": 27,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 208,
+      "neighborhood": 28,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 209,
+      "neighborhood": 29,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 210,
+      "neighborhood": 30,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 211,
+      "neighborhood": 31,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 212,
+      "neighborhood": 32,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 213,
+      "neighborhood": 33,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 214,
+      "neighborhood": 34,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 215,
+      "neighborhood": 35,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 216,
+      "neighborhood": 36,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 217,
+      "neighborhood": 37,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 218,
+      "neighborhood": 38,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 219,
+      "neighborhood": 39,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 220,
+      "neighborhood": 40,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 221,
+      "neighborhood": 41,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 222,
+      "neighborhood": 42,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 223,
+      "neighborhood": 43,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 224,
+      "neighborhood": 44,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 225,
+      "neighborhood": 45,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 226,
+      "neighborhood": 46,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 227,
+      "neighborhood": 47,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 228,
+      "neighborhood": 48,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 229,
+      "neighborhood": 49,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 230,
+      "neighborhood": 50,
+      "specification": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 231,
+      "neighborhood": 51,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 232,
+      "neighborhood": 52,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 233,
+      "neighborhood": 53,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 234,
+      "neighborhood": 54,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 235,
+      "neighborhood": 55,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 236,
+      "neighborhood": 56,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 237,
+      "neighborhood": 57,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 238,
+      "neighborhood": 58,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 239,
+      "neighborhood": 59,
+      "specification": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 240,
+      "neighborhood": 0,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 241,
+      "neighborhood": 1,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 242,
+      "neighborhood": 2,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 243,
+      "neighborhood": 3,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 244,
+      "neighborhood": 4,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 245,
+      "neighborhood": 5,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 246,
+      "neighborhood": 6,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 247,
+      "neighborhood": 7,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 248,
+      "neighborhood": 8,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 249,
+      "neighborhood": 9,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 250,
+      "neighborhood": 10,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 251,
+      "neighborhood": 11,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 252,
+      "neighborhood": 12,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 253,
+      "neighborhood": 13,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 254,
+      "neighborhood": 14,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 255,
+      "neighborhood": 15,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 256,
+      "neighborhood": 16,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 257,
+      "neighborhood": 17,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 258,
+      "neighborhood": 18,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 259,
+      "neighborhood": 19,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 260,
+      "neighborhood": 20,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 261,
+      "neighborhood": 21,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 262,
+      "neighborhood": 22,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 263,
+      "neighborhood": 23,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 264,
+      "neighborhood": 24,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 265,
+      "neighborhood": 25,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 266,
+      "neighborhood": 26,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 267,
+      "neighborhood": 27,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 268,
+      "neighborhood": 28,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 269,
+      "neighborhood": 29,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 270,
+      "neighborhood": 30,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 271,
+      "neighborhood": 31,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 272,
+      "neighborhood": 32,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 273,
+      "neighborhood": 33,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 274,
+      "neighborhood": 34,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 275,
+      "neighborhood": 35,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 276,
+      "neighborhood": 36,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 277,
+      "neighborhood": 37,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 278,
+      "neighborhood": 38,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 279,
+      "neighborhood": 39,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 280,
+      "neighborhood": 40,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 281,
+      "neighborhood": 41,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 282,
+      "neighborhood": 42,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 283,
+      "neighborhood": 43,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 284,
+      "neighborhood": 44,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 285,
+      "neighborhood": 45,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 286,
+      "neighborhood": 46,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 287,
+      "neighborhood": 47,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 288,
+      "neighborhood": 48,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 289,
+      "neighborhood": 49,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 290,
+      "neighborhood": 50,
+      "specification": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 291,
+      "neighborhood": 51,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 292,
+      "neighborhood": 52,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 293,
+      "neighborhood": 53,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 294,
+      "neighborhood": 54,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 295,
+      "neighborhood": 55,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 296,
+      "neighborhood": 56,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 297,
+      "neighborhood": 57,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 298,
+      "neighborhood": 58,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 299,
+      "neighborhood": 59,
+      "specification": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 300,
+      "neighborhood": 0,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 301,
+      "neighborhood": 1,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 302,
+      "neighborhood": 2,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 303,
+      "neighborhood": 3,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 304,
+      "neighborhood": 4,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 305,
+      "neighborhood": 5,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 306,
+      "neighborhood": 6,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 307,
+      "neighborhood": 7,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 308,
+      "neighborhood": 8,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 309,
+      "neighborhood": 9,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 310,
+      "neighborhood": 10,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 311,
+      "neighborhood": 11,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 312,
+      "neighborhood": 12,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 313,
+      "neighborhood": 13,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 314,
+      "neighborhood": 14,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 315,
+      "neighborhood": 15,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 316,
+      "neighborhood": 16,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 317,
+      "neighborhood": 17,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 318,
+      "neighborhood": 18,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 319,
+      "neighborhood": 19,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 320,
+      "neighborhood": 20,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 321,
+      "neighborhood": 21,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 322,
+      "neighborhood": 22,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 323,
+      "neighborhood": 23,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 324,
+      "neighborhood": 24,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 325,
+      "neighborhood": 25,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 326,
+      "neighborhood": 26,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 327,
+      "neighborhood": 27,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 328,
+      "neighborhood": 28,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 329,
+      "neighborhood": 29,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 330,
+      "neighborhood": 30,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 331,
+      "neighborhood": 31,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 332,
+      "neighborhood": 32,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 333,
+      "neighborhood": 33,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 334,
+      "neighborhood": 34,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 335,
+      "neighborhood": 35,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 336,
+      "neighborhood": 36,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 337,
+      "neighborhood": 37,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 338,
+      "neighborhood": 38,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 339,
+      "neighborhood": 39,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 340,
+      "neighborhood": 40,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 341,
+      "neighborhood": 41,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 342,
+      "neighborhood": 42,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 343,
+      "neighborhood": 43,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 344,
+      "neighborhood": 44,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 345,
+      "neighborhood": 45,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 346,
+      "neighborhood": 46,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 347,
+      "neighborhood": 47,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 348,
+      "neighborhood": 48,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 349,
+      "neighborhood": 49,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 350,
+      "neighborhood": 50,
+      "specification": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 351,
+      "neighborhood": 51,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 352,
+      "neighborhood": 52,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 353,
+      "neighborhood": 53,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 354,
+      "neighborhood": 54,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 355,
+      "neighborhood": 55,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 356,
+      "neighborhood": 56,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 357,
+      "neighborhood": 57,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 358,
+      "neighborhood": 58,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 359,
+      "neighborhood": 59,
+      "specification": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 360,
+      "neighborhood": 0,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 361,
+      "neighborhood": 1,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 362,
+      "neighborhood": 2,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 363,
+      "neighborhood": 3,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 364,
+      "neighborhood": 4,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 365,
+      "neighborhood": 5,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 366,
+      "neighborhood": 6,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 367,
+      "neighborhood": 7,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 368,
+      "neighborhood": 8,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 369,
+      "neighborhood": 9,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 370,
+      "neighborhood": 10,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 371,
+      "neighborhood": 11,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 372,
+      "neighborhood": 12,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 373,
+      "neighborhood": 13,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 374,
+      "neighborhood": 14,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 375,
+      "neighborhood": 15,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 376,
+      "neighborhood": 16,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 377,
+      "neighborhood": 17,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 378,
+      "neighborhood": 18,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 379,
+      "neighborhood": 19,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 380,
+      "neighborhood": 20,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 381,
+      "neighborhood": 21,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 382,
+      "neighborhood": 22,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 383,
+      "neighborhood": 23,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 384,
+      "neighborhood": 24,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 385,
+      "neighborhood": 25,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 386,
+      "neighborhood": 26,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 387,
+      "neighborhood": 27,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 388,
+      "neighborhood": 28,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 389,
+      "neighborhood": 29,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 390,
+      "neighborhood": 30,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 391,
+      "neighborhood": 31,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 392,
+      "neighborhood": 32,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 393,
+      "neighborhood": 33,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 394,
+      "neighborhood": 34,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 395,
+      "neighborhood": 35,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 396,
+      "neighborhood": 36,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 397,
+      "neighborhood": 37,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 398,
+      "neighborhood": 38,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 399,
+      "neighborhood": 39,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 400,
+      "neighborhood": 40,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 401,
+      "neighborhood": 41,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 402,
+      "neighborhood": 42,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 403,
+      "neighborhood": 43,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 404,
+      "neighborhood": 44,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 405,
+      "neighborhood": 45,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 406,
+      "neighborhood": 46,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 407,
+      "neighborhood": 47,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 408,
+      "neighborhood": 48,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 409,
+      "neighborhood": 49,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 410,
+      "neighborhood": 50,
+      "specification": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 411,
+      "neighborhood": 51,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 412,
+      "neighborhood": 52,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 413,
+      "neighborhood": 53,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 414,
+      "neighborhood": 54,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 415,
+      "neighborhood": 55,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 416,
+      "neighborhood": 56,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 417,
+      "neighborhood": 57,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 418,
+      "neighborhood": 58,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 419,
+      "neighborhood": 59,
+      "specification": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 420,
+      "neighborhood": 0,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 421,
+      "neighborhood": 1,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 422,
+      "neighborhood": 2,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 423,
+      "neighborhood": 3,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 424,
+      "neighborhood": 4,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 425,
+      "neighborhood": 5,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 426,
+      "neighborhood": 6,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 427,
+      "neighborhood": 7,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 428,
+      "neighborhood": 8,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 429,
+      "neighborhood": 9,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 430,
+      "neighborhood": 10,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 431,
+      "neighborhood": 11,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 432,
+      "neighborhood": 12,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 433,
+      "neighborhood": 13,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 434,
+      "neighborhood": 14,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 435,
+      "neighborhood": 15,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 436,
+      "neighborhood": 16,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 437,
+      "neighborhood": 17,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 438,
+      "neighborhood": 18,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 439,
+      "neighborhood": 19,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 440,
+      "neighborhood": 20,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 441,
+      "neighborhood": 21,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 442,
+      "neighborhood": 22,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 443,
+      "neighborhood": 23,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 444,
+      "neighborhood": 24,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 445,
+      "neighborhood": 25,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 446,
+      "neighborhood": 26,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 447,
+      "neighborhood": 27,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 448,
+      "neighborhood": 28,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 449,
+      "neighborhood": 29,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 450,
+      "neighborhood": 30,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 451,
+      "neighborhood": 31,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 452,
+      "neighborhood": 32,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 453,
+      "neighborhood": 33,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 454,
+      "neighborhood": 34,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 455,
+      "neighborhood": 35,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 456,
+      "neighborhood": 36,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 457,
+      "neighborhood": 37,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 458,
+      "neighborhood": 38,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 459,
+      "neighborhood": 39,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 460,
+      "neighborhood": 40,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 461,
+      "neighborhood": 41,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 462,
+      "neighborhood": 42,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 463,
+      "neighborhood": 43,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 464,
+      "neighborhood": 44,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 465,
+      "neighborhood": 45,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 466,
+      "neighborhood": 46,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 467,
+      "neighborhood": 47,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 468,
+      "neighborhood": 48,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 469,
+      "neighborhood": 49,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 470,
+      "neighborhood": 50,
+      "specification": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 471,
+      "neighborhood": 51,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 472,
+      "neighborhood": 52,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 473,
+      "neighborhood": 53,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 474,
+      "neighborhood": 54,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 475,
+      "neighborhood": 55,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 476,
+      "neighborhood": 56,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 477,
+      "neighborhood": 57,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 478,
+      "neighborhood": 58,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 479,
+      "neighborhood": 59,
+      "specification": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 480,
+      "neighborhood": 0,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 481,
+      "neighborhood": 1,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 482,
+      "neighborhood": 2,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 483,
+      "neighborhood": 3,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 484,
+      "neighborhood": 4,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 485,
+      "neighborhood": 5,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 486,
+      "neighborhood": 6,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 487,
+      "neighborhood": 7,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 488,
+      "neighborhood": 8,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 489,
+      "neighborhood": 9,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 490,
+      "neighborhood": 10,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 491,
+      "neighborhood": 11,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 492,
+      "neighborhood": 12,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 493,
+      "neighborhood": 13,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 494,
+      "neighborhood": 14,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 495,
+      "neighborhood": 15,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 496,
+      "neighborhood": 16,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 497,
+      "neighborhood": 17,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 498,
+      "neighborhood": 18,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 499,
+      "neighborhood": 19,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 500,
+      "neighborhood": 20,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 501,
+      "neighborhood": 21,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 502,
+      "neighborhood": 22,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 503,
+      "neighborhood": 23,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 504,
+      "neighborhood": 24,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 505,
+      "neighborhood": 25,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 506,
+      "neighborhood": 26,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 507,
+      "neighborhood": 27,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 508,
+      "neighborhood": 28,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 509,
+      "neighborhood": 29,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 510,
+      "neighborhood": 30,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 511,
+      "neighborhood": 31,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 512,
+      "neighborhood": 32,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 513,
+      "neighborhood": 33,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 514,
+      "neighborhood": 34,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 515,
+      "neighborhood": 35,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 516,
+      "neighborhood": 36,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 517,
+      "neighborhood": 37,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 518,
+      "neighborhood": 38,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 519,
+      "neighborhood": 39,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 520,
+      "neighborhood": 40,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 521,
+      "neighborhood": 41,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 522,
+      "neighborhood": 42,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 523,
+      "neighborhood": 43,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 524,
+      "neighborhood": 44,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 525,
+      "neighborhood": 45,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 526,
+      "neighborhood": 46,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 527,
+      "neighborhood": 47,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 528,
+      "neighborhood": 48,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 529,
+      "neighborhood": 49,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 530,
+      "neighborhood": 50,
+      "specification": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 531,
+      "neighborhood": 51,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 532,
+      "neighborhood": 52,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 533,
+      "neighborhood": 53,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 534,
+      "neighborhood": 54,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 535,
+      "neighborhood": 55,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 536,
+      "neighborhood": 56,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 537,
+      "neighborhood": 57,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 538,
+      "neighborhood": 58,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 539,
+      "neighborhood": 59,
+      "specification": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 540,
+      "neighborhood": 0,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 541,
+      "neighborhood": 1,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 542,
+      "neighborhood": 2,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 543,
+      "neighborhood": 3,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 544,
+      "neighborhood": 4,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 545,
+      "neighborhood": 5,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 546,
+      "neighborhood": 6,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 547,
+      "neighborhood": 7,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 548,
+      "neighborhood": 8,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 549,
+      "neighborhood": 9,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 550,
+      "neighborhood": 10,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 551,
+      "neighborhood": 11,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 552,
+      "neighborhood": 12,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 553,
+      "neighborhood": 13,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 554,
+      "neighborhood": 14,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 555,
+      "neighborhood": 15,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 556,
+      "neighborhood": 16,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 557,
+      "neighborhood": 17,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 558,
+      "neighborhood": 18,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 559,
+      "neighborhood": 19,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 560,
+      "neighborhood": 20,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 561,
+      "neighborhood": 21,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 562,
+      "neighborhood": 22,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 563,
+      "neighborhood": 23,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 564,
+      "neighborhood": 24,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 565,
+      "neighborhood": 25,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 566,
+      "neighborhood": 26,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 567,
+      "neighborhood": 27,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 568,
+      "neighborhood": 28,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 569,
+      "neighborhood": 29,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 570,
+      "neighborhood": 30,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 571,
+      "neighborhood": 31,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 572,
+      "neighborhood": 32,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 573,
+      "neighborhood": 33,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 574,
+      "neighborhood": 34,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 575,
+      "neighborhood": 35,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 576,
+      "neighborhood": 36,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 577,
+      "neighborhood": 37,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 578,
+      "neighborhood": 38,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 579,
+      "neighborhood": 39,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 580,
+      "neighborhood": 40,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 581,
+      "neighborhood": 41,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 582,
+      "neighborhood": 42,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 583,
+      "neighborhood": 43,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 584,
+      "neighborhood": 44,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 585,
+      "neighborhood": 45,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 586,
+      "neighborhood": 46,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 587,
+      "neighborhood": 47,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 588,
+      "neighborhood": 48,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 589,
+      "neighborhood": 49,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 590,
+      "neighborhood": 50,
+      "specification": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 591,
+      "neighborhood": 51,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 592,
+      "neighborhood": 52,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 593,
+      "neighborhood": 53,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 594,
+      "neighborhood": 54,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 595,
+      "neighborhood": 55,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 596,
+      "neighborhood": 56,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 597,
+      "neighborhood": 57,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 598,
+      "neighborhood": 58,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 599,
+      "neighborhood": 59,
+      "specification": 9,
+      "sheet_id": "sheet-0"
+    }
+  ],
+  "method": "For each of the two distinct new63-part layouts, enumerate every same-sheet bracket/insert pair whose original polygon distance is at most25mm. Sort by distance, source layout and global IDs. Temporarily release the pair, retaining all other61 original placements. Query every individual bracket quarter-turn/reflection and insert orientation on the released sheet, cycling each orientation through every pair before the next. The untouched other sheet is unchanged from a previously verified empty full-layout insertion region. Construct exclusions from each original outline with the verified explicit128-gon offset, checking every cached first use against a direct global obstacle. Record every region and representative/vertex/midpoint proposal. Process lists round-robin under fresh separate family caps and timer; exact transform deduplication only. Record full original pair checks, removed-pair blockers and any original-geometry append opportunity. No old capped list or completed solve is resumed.",
+  "future_selection": "Retain every43488 original pool record, all seven33-part fixed core choices, both original64-part baseline mappings and both new63-part mappings. Independently verify every new membership and original geometry. Any fresh global small-part model must keep full mutual conflicts, original floor815800000 and full score895800000, original12-bracket/21-insert caps, and exactly one core with18 frames and15 cogs. Before a solver call, declare fresh reduction/compression/search limits and independently verify every encoding.",
+  "solver_calls": 0,
+  "native_packing_calls": 0,
+  "quality_runs": 0,
+  "held_out_files_evaluated": 0
+}

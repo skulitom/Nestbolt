@@ -1,4 +1,4 @@
-# Status — 2026-10-23
+# Status — 2026-10-25
 
 ## v1.1 — real shop files
 
@@ -1311,3 +1311,19 @@ impossibility claim; coordinated small-part moves are the next investigation.
 All 1,950 capped member lists and the unresolved full bound remain preserved.
 Main facf0f38 passes all six checks, and checkpoints 5e88ac91/0526421e are pushed.
 Source, READMEs and releases are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 pair-contact selection and repository refresh, 2026-10-25:** [the complete audit](../benchmarks/results/h5-small-pair-joint-20261025.md)
+checks 60 paired-release neighborhoods, 600 regions and 3,435 new small-part
+positions. All memberships and the complete 28,976,111-conflict graph verify.
+Certified reduction preserves both 64-part and both 63-part baselines. One
+bounded search returns the same 63-part area result, missing one bracket and
+two inserts; all three original layout checks fail only on quantities. The
+full bound remains unresolved and all 27 deferred insert lists remain saved.
+The next investigation is a continuous occupied-area relaxation for the seven
+fixed cores, with conservative coverage checks before any negative conclusion.
+Merge 55835d7c preserves the nine incoming Inkbolt example/website files and
+all 37 local checkpoint files byte for byte, and is pushed to main. Main
+4045822e passed all six checks and Pages; the refreshed upstream stop rule
+does not fire. Engine source, READMEs and releases remain unchanged; H2/H5 stay open
+at 60% completed milestone weight.
