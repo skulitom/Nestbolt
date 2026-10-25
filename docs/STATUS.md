@@ -1684,3 +1684,18 @@ the next full 66-original search; verified coordinates may guide optional hints.
 Production source, READMEs, material/native limits and releases are unchanged.
 H2/H5 remain open at 60%, with all 22 reserved H2 vectors untouched. Main's own
 CI40242602102 remains tracked before the next normal push.
+
+
+**N4 guided full original-core search, 2026-10-25:** [the evidence](../benchmarks/results/h5-second-sheet-guided-search-20261025.md)
+adds all 150 clauses from the ten proved second-sheet exclusions and 14 optional
+values from a verified two-cog placement. The independent model audit covers
+18,530 variables / 34,218 constraints, all hints and all 66 required originals;
+no placement is fixed by a hint. The sole call finishes UNKNOWN without an
+incumbent in 45.537740s; the 0.537740s soft-cap overshoot is preserved. Shared
+47.986694s remains within 60s. No full-coordinate or native follow-up is opened.
+Next investigate a different collision-free displacement-cell representation,
+proving every retained cell safe against all original guarded inequalities
+before use. That representation is not built yet. H2/H5 remain open at 60%;
+production source, READMEs, releases, original counts, material target and guards
+are unchanged. All 22 reserved H2 vectors remain untouched. Main CI40242602102
+is still tracked before the next normal push.
