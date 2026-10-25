@@ -1,0 +1,39 @@
+{
+  "utc": "2026-10-25T20:21:54.673776+00:00",
+  "inputs": {
+    "output/h5-direct-coordinate-domains-20261025/plan.json": "938cc6ed2d52ecd4952dd42f85d01c8d2b139733d610ccb61e89d9ec53cac632",
+    "output/h5-direct-coordinate-domains-20261025/fixed-core.json": "b613d7033e5916030b20ca93d9f02bf729b42ffca8a58fe8b641b797d021286d",
+    "output/h5-direct-coordinate-domains-20261025/consolidated/audit/checks.json": "ebb8598f5f9b85fae4051797ba66c8a55152732bfb12378a3e6ea1193799b4de",
+    "output/h5-direct-coordinate-domains-20261025/reduced/plan.json": "8aa074cd23210c4fbcfbd4f87a135e0fd2a7d1ec2737c06bae1b70af3ca233c9",
+    "output/h5-direct-coordinate-domains-20261025/reduced/integer-domains.json": "bebe1aaafced13ceeeb4fe66d38494e79385d8e7d45b141f0392b202f57bf105",
+    "output/h5-direct-coordinate-domains-20261025/reduced/selection.json": "1c46daf05c39c087cf5c5faf162f5b98c58a52cffd8b36e959cf8c566622721d",
+    "output/h5-direct-coordinate-domains-20261025/reduced/checks.json": "8b4318912b1a46e8b4bc325030f0da42ce325886392ef25bc3e8fc8afc0ddf4f"
+  },
+  "parameters": {
+    "max_time_in_seconds": 60,
+    "num_search_workers": 8,
+    "random_seed": 0,
+    "cp_model_presolve": true,
+    "cp_model_probing_level": 0,
+    "symmetry_level": 0,
+    "log_search_progress": true,
+    "log_to_stdout": false
+  },
+  "maximum_solver_calls": 1,
+  "required_counts": {
+    "bracket": 12,
+    "cog": 15,
+    "frame": 18,
+    "insert": 21
+  },
+  "variable_part_counts": {
+    "bracket": 12,
+    "insert": 21
+  },
+  "fixed_core": 0,
+  "coordinate_units_per_mm": 100,
+  "gap_units": 22,
+  "method": "Exactly one orientation/sheet mode per original small-part copy. Its active mode chooses exactly one certified convex domain, linking shared anchor coordinates to every inward-rounded halfspace and bound. All domain choices remain; only independently certified containment removal was used. Rectangle-component offsets are exact weighted sums of the active mode offsets. Every pair of components belonging to different physical parts must be separated along at least one axis by22 grid units when on the same sheet. The two arms of one bracket share its anchor/mode and are never separated from each other. Identical-copy sheet/y/x ordering only removes interchangeable-copy symmetry. There is no objective, unplaced-part variable, reduced quantity or partial solution.",
+  "presolve_rationale": "Enable ordinary presolve to simplify reified domain bounds. Disable expensive probing and automatic symmetry discovery; identical-copy symmetry is already encoded explicitly. These choices precede the sole60-second call and do not change feasible solutions.",
+  "scope": "Offline conditional feasibility model on the declared0.01mm grid and verified safe subdomains. A full witness still requires original geometry/CLI and native checks, original production budget and the full H5 matrix. UNKNOWN is not infeasibility; infeasibility would apply only to this restricted model. No repeated or extended solve."
+}

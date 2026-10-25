@@ -15621,3 +15621,17 @@ using only certified containment removal if needed before its one declared
 60-second solve. Both prior checkpoints are pushed as 8f941426; its CI is
 pending and the older main run is cancelled. Engine source, accurate READMEs
 and releases are unchanged. H2/H5 stay open at 60% completed milestone weight.
+
+
+**N4 exact-count coordinate result, 2026-10-25:** [the complete model audit](benchmarks/results/h5-direct-coordinate-selection-20261025.md)
+certifies 26 domain-containment removals and preserves all 3,677 retained
+domains. Every field of the 60,537-variable/306,319-constraint model verifies,
+including exact original quantities and all 978 cross-part arm pairs. One
+declared 60-second search reports INFEASIBLE for the restricted grid/domain
+model with fixed core 0, finishing at 59.73 seconds with 60.354444 seconds
+actual elapsed time. No layout is returned and no solve is repeated. This
+does not prove the unrestricted continuous problem impossible or that the
+fixed core must move. Next verify an outer coordinate relaxation covering
+all original continuous placements before drawing any conditional negative
+conclusion. Engine source, accurate READMEs and releases remain unchanged;
+H2/H5 stay open at 60%, with all original counts and acceptance limits retained.
