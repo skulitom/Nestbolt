@@ -2822,3 +2822,20 @@ before use. That representation is not built yet. H2/H5 remain open at 60%;
 production source, READMEs, releases, original counts, material target and guards
 are unchanged. All 22 reserved H2 vectors remain untouched. Main CI40242602102
 is still tracked before the next normal push.
+
+
+**N4 exact guarded displacement cells, 2026-10-25:** [the evidence](../benchmarks/results/h5-cog-displacement-cells-20261025.md)
+prepares 229 first-sheet and four second-sheet allowed relative-position cells.
+It reconstructs all 122 bounded source-clause failure regions exactly, then
+independently proves all 233 whole cells safe with 13,531 rational separating-axis
+certificates and 831 inward halfplanes. All five known second-sheet witnesses
+remain represented. The selected first-sheet simplification uses 0.005 mm
+tolerance and 0.010 mm outward failure padding, an explicit stricter construction
+restriction; negative results cannot exclude unrestricted packing. All nine
+measured candidates, initial faces and discards remain preserved. At most 3,495
+cell flags replace the earlier guarded model's 39,540 direction variables, but
+no new solver model or runtime improvement is claimed yet. Next integrate these
+proved cells with all 66 originals and unchanged material/native/H5 requirements.
+Production source, READMEs and releases are unchanged. H2/H5 stay open at 60%;
+all 22 reserved H2 vectors remain untouched. Main CI40242602102 is still tracked
+before the next normal push.

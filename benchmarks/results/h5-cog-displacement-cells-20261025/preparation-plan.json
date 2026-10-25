@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-25T23:24:48.169011+00:00",
+  "construction_limit_seconds": 120,
+  "maximum_raw_faces": 200000,
+  "per_geometry_merge_attempt_limit": 10000,
+  "coordinate_units_per_mm": 1000,
+  "normal_scale": 10000000,
+  "allowed_face_inset_mm": 1e-06,
+  "outward_forbidden_vertex_box_grid_mm": "2^-30",
+  "inputs": {
+    "output/h5-full-original-joint-prepared-20261025/mutual/081.json": "c53704c2886f921e424b6c0d4e8f930d7ddc5251c95946263dc5e8e12dd71ff6",
+    "output/h5-full-original-joint-prepared-20261025/queries/018.json": "f2b3a0ca8d48b111688af14b7e0d006fc68406641a85d407be02fb1b91934cbf",
+    "output/h5-full-original-joint-prepared-20261025/queries/019.json": "c001e8bd250fcdd53977d10978fc87aa1504be8b84ca664a30031d4a485da169",
+    "output/h5-full-original-joint-prepared-20261025/audit/checks.json": "29cfef947a3fe53a07c1179150a474654f856cac050efb019f4cc37d6c12715e",
+    "output/h5-original-core-search-20261025/atlas.json": "3fcd52f64203f46b51dd240ef6df2074478c7dcac453a22191c6044c91c1ee89",
+    "output/h5-original-core-search-20261025/audit/checks.json": "9cb0c047e60b5f0e992eb53b7f015c081af5122bcc260df8e89189c172f36c8a",
+    "output/h5-original-core-search-20261025/remaining-second-sheet-pairs/audit/verified-pair-witnesses.json": "17e38a923ab6eef9509f8523427e99263d4ec5851931d9363909c47e7969f081",
+    "output/build_h5_strong_pair_domains.py": "0b65da56289e6fe45dfa44bcb95a5541274713177af17134d93aca6c14e6a473",
+    "output/build_h5_full_original_joint_domains.py": "fe67e3dbe4863b003234eea3e9ad62c0e2efd5e0e91b6eab6077e30a66f074e8"
+  },
+  "method": "For each complete same-sheet anchor difference box, reconstruct exactly the real convex failure region of each of the61 full guarded original source clauses. On integer coordinates, failure of outside projection>=bound is projection<=bound-1. Clip the complete difference rectangle by all those integer halfplanes using rational arithmetic. Enclose every resulting rational vertex in an outward exact dyadic box, then form its convex hull; their union conservatively covers every source-clause failure region. Decompose the bounded complement into convex allowed cells, retain all raw faces, inset each by1e-6mm and derive inward exact-error-rounded inequalities. Empty insets/grid boxes are explicitly retained as discards. Independent proof that every retained cell avoids every complete rational failure region is required before any model uses these cells. No original shape, clearance, stock/material limit or count is changed. This is a constructive subset; finite boundary losses do not establish unrestricted impossibility. No solver call."
+}
