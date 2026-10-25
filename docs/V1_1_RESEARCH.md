@@ -2546,3 +2546,100 @@ brackets. Next audit exact orientation aliases and source-derived, nonbinding
 hints before considering a different bounded construction test. All original
 limits, native checks and H5 matrix requirements remain. Source, accurate
 READMEs and releases are unchanged; H2/H5 stay open at 60%.
+
+
+**N4 exact orientation aliases and audited source hints, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-orientation-aliases-and-source-hints-20261025.md) checks exact representative and
+inverse maps for all 28 original modes, retaining 22 representatives and all
+16 original orientation/reflection classes. All bracket cases stay distinct.
+The original 66-part layout passes 1,456 polygon-pair checks but exceeds the
+target at the same seven recorded parts. Only 59 compatible poses supply
+nonbinding hints; all 66 parts remain required and every position stays free.
+Every field of the 1,686-variable/2,584-constraint model and all 1,482 hint values
+verify independently. One bounded call returns UNKNOWN in 60.101281 seconds
+without an incumbent or proof. A source census prepares a different finite
+orientation-inventory construction, with two additional brackets mandatory;
+no search of that inventory occurs yet. After all six previous main checks
+passed, five checkpoints were pushed normally through 247e823a. Its new CI
+40233299884 remains distinct from the completed previous run. Source, accurate
+READMEs and releases are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 source orientation inventory and exact proxy-slot coverage, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-source-inventory-and-proxy-slot-coverage-20261025.md) checks a finite source-derived
+orientation inventory with all 66 parts mandatory and every position free.
+Its 1,486-variable/2,178-constraint model and 1,406 nonbinding hint values audit
+completely; one bounded call remains UNKNOWN in 60.111765 seconds. Separately,
+all 16 missing-bracket mode domains around the fixed 64-part proxy layout are
+covered exactly: 1,950 forbidden rectangles cover 266,545,630,376 integer
+mode/anchor pairs, independently checked across 145,251 critical cells.
+No extra bracket fits while those existing poses stay fixed, including at
+touching boundaries. A complete single-part release census records all 64
+parts and 33 frame/cog cases; released parts must be restored in any next
+63-plus-3 construction. This is conditional evidence, not unrestricted
+infeasibility or a full target witness. All original acceptance requirements
+remain; source, accurate READMEs and releases are unchanged. H2/H5 stay open
+at 60% completed milestone weight.
+
+
+**N4 complete single-core relocation exclusion, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-single-core-relocation-exclusion-20261025.md) covers all 33 recorded frame/cog
+releases, with 63 source poses fixed and the released part plus two brackets
+mandatory. All 576 queries and 3,462 integer free cells audit completely; 1,152
+exact allocation inequalities exclude 28 cases. The other five cog cases have
+an independently reconstructed 1,111-variable/2,118-constraint model, including
+all 416 cell options and 120 component pairs. One bounded call returns
+INFEASIBLE in 0.150878 seconds with no incumbent; no LRAT certificate is claimed.
+All 66 original counts are retained. These 33 conditional neighborhoods are
+closed; broader coordinated moves remain unresolved. No unrestricted
+impossibility, target witness or H5 qualification is claimed. Source, accurate
+READMEs and releases are unchanged; H2/H5 remain open at 60%.
+
+
+**N4 complete pair relocation census and outline diagnosis, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-pair-core-relocation-and-outline-diagnosis-20261025.md) completes all 528 core-pair
+releases and 9,984 mode queries. Independent coverage and 53,424 allocation
+inequalities exclude 299 cases; all 229 survivors and 424 allocations enter
+one fully audited 73,266-variable/141,477-constraint model. One bounded call
+finds a complete 66-part proxy arrangement in 7.952451 seconds. Independent
+reconstruction verifies all copies, 138 inner rectangles and 6,456 component
+pairs. The original-outline lift fails seven pair and two stock checks. Two
+certified-disk conflicts remain after every cog angle and full floor-center
+uncertainty, rejecting those selected coordinates. Broader cells and
+neighborhoods remain unresolved. Next strengthen necessary collision geometry
+against actual fixed original outlines; no unchanged retry or acceptance
+reduction. Source, accurate READMEs and releases stay unchanged. No original
+target witness or H5 qualification; H2/H5 remain open at 60%.
+
+
+**N4 original-outline collision regions, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-original-outline-collision-regions-20261025.md) verifies a stronger floor-safe
+16-gon for all cog angles against the actual fixed original outlines. Exact
+subset checks and an independent triangle oracle verify all 100 obstacle caches;
+all 43 source poses and 2,000 compatible pairs remain valid. A mixed-dimensional
+GEOS guard failure is preserved; 1,262 completed queries are reused unchanged
+and only 1,388 unfinished queries resume within the original work budget.
+All 2,650 queries finish. Independent outward covers account for every whole
+prior cell: 42,226 cells including 3,081 points/lines. They reject three prior
+false anchors and exclude another 22 cases, leaving 207 cases/286 allocations.
+Next construct fully covered convex domains and a joint model using the stronger
+cog polygon itself. No solver call, accepted target layout or H5 qualification
+is claimed. Source, accurate READMEs and releases stay unchanged; H2/H5 remain
+open at 60% completed milestone weight.
+
+
+**N4 stronger two-core relocation exclusion, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-strong-pair-relocation-exclusion-20261025.md) covers all 207 remaining cases
+and 286 allocations with 32,626 convex domains, 165,640 outward halfplanes and
+960,962 exact vertex tests. The empty-set guard failure is preserved; 40 completed
+queries are reused unchanged within the original work budget. An exact support
+atlas audits 324 convex Minkowski hulls and every relevant edge normal. The full
+56,046-variable/356,662-constraint model uses the stronger cog 16-gon directly.
+One bounded call returns INFEASIBLE in 20.878256 seconds with no incumbent or
+LRAT certificate. Together with prior 299 area and 22 empty-role exclusions,
+all 528 recorded two-core neighborhoods are closed, conditionally on the source
+poses/inventory. A distinct conflict-owner census prepares 57 fixed plus nine
+mandatory movable originals, preserving all 66 parts. All six existing main
+checks now pass; accumulated commits are ready for the next normal push.
+No unrestricted impossibility, accepted target or H5 qualification is claimed.
+Source, accurate READMEs and releases stay unchanged; H2/H5 remain open at 60%.

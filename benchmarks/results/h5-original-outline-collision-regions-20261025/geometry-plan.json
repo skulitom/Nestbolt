@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-25T21:29:10.907669+00:00",
+  "inputs": {
+    "output/h5-source-orientation-construction-20261025/plan.json": "5ddc0d0f1b3398d2c881f0a023ec1947512bd119ddc08f1cf8d4a284ff7b805d",
+    "output/h5-source-orientation-construction-20261025/geometry.json": "54a1605f7bb21b543854a417755a6feaae6c43d81134aaadfd0c02129991a2dc",
+    "output/h5-source-orientation-construction-20261025/propagation.json": "948640b8e026e16def9fc1826debe2fb42e5388d5186611ca79ab09750602fcf",
+    "output/h5-source-orientation-construction-20261025/items.json": "0511d6da1d2ca47b7d4fd1acfb128a04a7f6be99cb1c1339b87088520767507f",
+    "output/h5-source-orientation-construction-20261025/hint-poses.json": "f55af9b53e2c6157b7f79aeca682c9d571098599e4624b5501554947fca04e80",
+    "output/h5-pair-core-relocation-regions-20261025/audit/checks.json": "c3d5ee5b5a55e01b28596ed4ec9d68a4eb48e84337778fda6e5b6552af1662d0",
+    "output/h5-pair-core-relocation-regions-20261025/solve/positions.json": "985d31704df4b8378ae5b5151d549ae1a31ba9e662753ce42c9b0b1cd0b0b4fc",
+    "output/h5-pair-core-relocation-regions-20261025/solution-audit/checks.json": "836fdda946cd0c984e714b978cd034e794fc8b32d65a7e1dd25f7d1c6f5097d4",
+    "output/h5-pair-core-relocation-regions-20261025/solution-audit/angle-independent-cog-conflicts.json": "d48b442e561e1a12ac7afc5c4b8b69a530348722b3beb661430a0772303c0635",
+    "output/h5-latest-wide-joint-20261023/layout-audit/layout-final.json": "1c1cab382b8b6dc581d59f70be5e30810c94bae027c4a436811aa4d549c99455",
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-cog-center-capacity-20261020/disk.json": "0883b61c16bfc835b5b2f2011a994cc4bb47d8c4ad8ded721122129ecf585755",
+    "benchmarks/results/h5-pair-core-relocation-and-outline-diagnosis-20261025/raw-manifest.json": "aa46dfb67f1a3e2daafeab5faa03ea69d7b4835ae1992950cb864502aa0799c8",
+    "output/conservative_h5_round_obstacles.py": "8713b1f1c69ddb7662f01f2c516a236be7911ea3c8ef5ade7152f1dd61231335",
+    "output/diagnose_h5_concave_gaps.py": "b3025a2aca8ef1dbd38526cde36c95a1cd914ed8cc921f72a7f37f265197508f"
+  },
+  "construction_limit_seconds": 120,
+  "maximum_cache_cases": 100,
+  "geometry_units_per_mm": 10000,
+  "coordinate_units_per_mm": 100,
+  "cog_polygon_vertex_radius_units": 1091000,
+  "conservative_forbidden_erosion_mm": 0.001,
+  "method": "Create a fixed-axis16-gon whose vertices remain strictly inside the certified cog disk after every corner of the0.01mm floor-center uncertainty square. Preserve the existing floor-safe rectangle components for every movable bracket orientation and the recorded horizontal frame inventory. Use all64 source original filled outer polygons as potential fixed obstacles. Deduplicate only identical family/rotation/mirror fixed styles; retain every original transform and owner. Construct zero-clearance Minkowski obstacles for all10 fixed styles by all10 moving proxies, eroding each by0.001mm and intersecting with its raw obstacle to exclude only a strict interior subset. Preserve every raw and eroded obstacle. Check all43 frame/bracket/cog source floor poses remain compatible with the other fixed originals. Diagnose the four selected false proxy placements against all62 remaining originals. This prepares necessary geometry only; no region census, solver call, layout acceptance or unrestricted exclusion."
+}

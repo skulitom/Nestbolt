@@ -1,0 +1,44 @@
+{
+  "utc": "2026-10-25T21:04:10.778609+00:00",
+  "inputs": {
+    "output/h5-alias-source-hints-20261025/plan.json": "8034a8714ad2dcc06b9f703505f0251e5a4acfc7e927e0489c9fcdd9bee190a3",
+    "output/h5-alias-source-hints-20261025/geometry.json": "54a1605f7bb21b543854a417755a6feaae6c43d81134aaadfd0c02129991a2dc",
+    "output/h5-alias-source-hints-20261025/propagation.json": "948640b8e026e16def9fc1826debe2fb42e5388d5186611ca79ab09750602fcf",
+    "output/h5-alias-source-hints-20261025/aliases.json": "7d942a639dd8fa540eb613060d4dfc81ef9c1efc27078cae1a121418c260fabb",
+    "output/h5-alias-source-hints-20261025/audit/checks.json": "fb061fef0238e21105e66cbbc328a0ce83e9e0e1d3bf04aafa059b7b3bfbea1f",
+    "output/h5-alias-source-hints-20261025/solve/result.json": "554941fc55ccc9c368eeb6064d7fbfd8bbba552fcea47bdd1ad4408fa2371269",
+    "output/h5-alias-source-hints-20261025/next-source-orientations/census.json": "711770a428d696abe5e761ba5dde92b8e643e76d50da221be576336a2e13348b",
+    "output/h5-latest-wide-joint-20261023/layout-audit/layout-final.json": "1c1cab382b8b6dc581d59f70be5e30810c94bae027c4a436811aa4d549c99455",
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-coordinated-placement-selection-20261018/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd",
+    "output/h5-cog-center-capacity-20261020/disk.json": "0883b61c16bfc835b5b2f2011a994cc4bb47d8c4ad8ded721122129ecf585755",
+    "benchmarks/results/h5-orientation-aliases-and-source-hints-20261025/raw-manifest.json": "35463294e2e7bf85af7ee72c67518ed5aaa2d095f7294fb9e3bc9668dd32dbaa",
+    "benchmarks/results/h5-orientation-aliases-and-source-hints-20261025/next-step.json": "1f3f2fe51a628ac387af5a20cb6d252aa2dddb154dbbab78a5c157fc560fd774"
+  },
+  "construction_limit_seconds": 120,
+  "model_construction_limit_seconds": 120,
+  "independent_model_audit_limit_seconds": 120,
+  "solver_parameters": {
+    "max_time_in_seconds": 60,
+    "num_search_workers": 8,
+    "random_seed": 0,
+    "cp_model_presolve": true,
+    "cp_model_probing_level": 0,
+    "symmetry_level": 0,
+    "log_search_progress": true,
+    "log_to_stdout": false
+  },
+  "maximum_solver_calls": 1,
+  "geometry_units_per_mm": 10000,
+  "coordinate_units_per_mm": 100,
+  "required_counts": {
+    "frame": 18,
+    "bracket": 12,
+    "insert": 21,
+    "cog": 15
+  },
+  "fixed_parts": 0,
+  "method": "A finite constructive orientation inventory from the checked64-part layout. All18 frames are horizontal; inserts have eight horizontal and thirteen vertical copies; ten brackets retain five recorded orientation/mirror groups; two additional mandatory brackets retain every original orientation/mirror choice. All15 cog centers, every anchor and every allowed sheet assignment remain free. Same five-piece inner cog proxy, original area bounds, stock domains and material target. Copies are ordered only within equal orientation-option groups. All64 source poses are nonbinding hints; neither absent bracket is optional.",
+  "scope": "This restricts orientation inventories for a construction attempt, not a necessary relaxation of every original arrangement. UNKNOWN or infeasibility of this finite inventory says nothing about other inventories. One60-second call after complete audits. A positive proxy still requires larger disks, original shapes/cog angles, native guards, production budget and full H5 matrix. No new quality run or acceptance.",
+  "hint_source": "output/h5-latest-wide-joint-20261023/layout-audit/layout-final.json"
+}
