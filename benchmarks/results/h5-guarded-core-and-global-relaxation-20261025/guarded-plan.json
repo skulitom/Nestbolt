@@ -1,0 +1,873 @@
+{
+  "utc": "2026-10-25T20:35:01.336567+00:00",
+  "inputs": {
+    "output/h5-guarded-alternate-core-20261025/plan.json": "8e859dbab33517ba9b136e8f621cc5ea178f4e7cf240298b92e366a1ce8ce74d",
+    "output/h5-guarded-alternate-core-20261025/fixed-core.json": "c9d92682d02e5bf3654056b64e2e44fe3536dbf959f0797274998509eb0fe503",
+    "output/h5-guarded-alternate-core-20261025/audit/checks.json": "7e8369c45daab378d99e7350faf7b63024b404fa5241ba1ce2fae47f1b661d0a",
+    "output/h5-outer-coordinate-relaxation-20261025/plan.json": "1149e88ea9d99e2b8a5c638c617d77b0c9d7a49e27ddfbec15d5ea9b680d059f",
+    "output/h5-outer-coordinate-relaxation-20261025/audit/checks.json": "4410893ddf89b57d3de406aee1d1ca93a459a745f89ba3f8688a6de51a54a4d3",
+    "output/h5-outer-coordinate-relaxation-20261025/solve/result.json": "4739459a33ad57eb93d8048d4bcbde3ba33b9d54318f219d6008fc9759458dec",
+    "output/h5-outer-coordinate-relaxation-20261025/next-step.json": "40c1caaf7a45c9f3113f4662308bdd17230e4aafe3f9fe937a26fbf69211de1c",
+    "output/h5-occupied-area-relaxation-20261025/plan.json": "ce1ea67129e68f4bd4c342e281ece3538f3c70b283c36b8e219c59e0d21b7782",
+    "output/h5-occupied-area-relaxation-20261025/cache-checks.json": "20d168a7c23b8c77b1962c7a68928c7dad4f16f2b84d7e060620f6b1c598a62c",
+    "output/h5-skeleton-contact-selection-20261020/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-skeleton-contact-selection-20261020/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd"
+  },
+  "fixed_core": "guarded-core5",
+  "required_counts": {
+    "bracket": 12,
+    "cog": 15,
+    "frame": 18,
+    "insert": 21
+  },
+  "orientation_classes": [
+    {
+      "index": 0,
+      "family": "bracket",
+      "degrees": 0.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        0.0,
+        0.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              300.0,
+              0.0
+            ],
+            [
+              300.0,
+              75.0
+            ],
+            [
+              100.0,
+              75.0
+            ],
+            [
+              100.0,
+              250.0
+            ],
+            [
+              0.0,
+              250.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          300.0,
+          75.0
+        ],
+        [
+          0.0,
+          75.0,
+          100.0,
+          250.0
+        ]
+      ],
+      "width_mm": 300.0,
+      "height_mm": 250.0,
+      "source_normalized_class": 0
+    },
+    {
+      "index": 1,
+      "family": "bracket",
+      "degrees": 90.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        -250.0,
+        0.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              250.0,
+              0.0
+            ],
+            [
+              250.0,
+              300.0
+            ],
+            [
+              175.0,
+              300.0
+            ],
+            [
+              175.0,
+              100.0
+            ],
+            [
+              0.0,
+              100.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              250.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          175.0,
+          0.0,
+          250.0,
+          300.0
+        ],
+        [
+          0.0,
+          0.0,
+          175.0,
+          100.0
+        ]
+      ],
+      "width_mm": 250.0,
+      "height_mm": 300.0,
+      "source_normalized_class": 1
+    },
+    {
+      "index": 2,
+      "family": "bracket",
+      "degrees": 180.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        -300.0,
+        -250.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              300.0,
+              250.0
+            ],
+            [
+              0.0,
+              250.0
+            ],
+            [
+              0.0,
+              175.0
+            ],
+            [
+              200.0,
+              175.0
+            ],
+            [
+              200.0,
+              0.0
+            ],
+            [
+              300.0,
+              0.0
+            ],
+            [
+              300.0,
+              250.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          175.0,
+          300.0,
+          250.0
+        ],
+        [
+          200.0,
+          0.0,
+          300.0,
+          175.0
+        ]
+      ],
+      "width_mm": 300.0,
+      "height_mm": 250.0,
+      "source_normalized_class": 2
+    },
+    {
+      "index": 3,
+      "family": "bracket",
+      "degrees": 270.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        0.0,
+        -300.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0.0,
+              300.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              75.0,
+              0.0
+            ],
+            [
+              75.0,
+              200.0
+            ],
+            [
+              250.0,
+              200.0
+            ],
+            [
+              250.0,
+              300.0
+            ],
+            [
+              0.0,
+              300.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          75.0,
+          300.0
+        ],
+        [
+          75.0,
+          200.0,
+          250.0,
+          300.0
+        ]
+      ],
+      "width_mm": 250.0,
+      "height_mm": 300.0,
+      "source_normalized_class": 3
+    },
+    {
+      "index": 4,
+      "family": "bracket",
+      "degrees": 0.0,
+      "mirrored": true,
+      "original_zero_bounds_min": [
+        -300.0,
+        0.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              300.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              75.0
+            ],
+            [
+              200.0,
+              75.0
+            ],
+            [
+              200.0,
+              250.0
+            ],
+            [
+              300.0,
+              250.0
+            ],
+            [
+              300.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          300.0,
+          75.0
+        ],
+        [
+          200.0,
+          75.0,
+          300.0,
+          250.0
+        ]
+      ],
+      "width_mm": 300.0,
+      "height_mm": 250.0,
+      "source_normalized_class": 4
+    },
+    {
+      "index": 5,
+      "family": "bracket",
+      "degrees": 90.0,
+      "mirrored": true,
+      "original_zero_bounds_min": [
+        -250.0,
+        -300.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              250.0,
+              300.0
+            ],
+            [
+              250.0,
+              0.0
+            ],
+            [
+              175.0,
+              0.0
+            ],
+            [
+              175.0,
+              200.0
+            ],
+            [
+              0.0,
+              200.0
+            ],
+            [
+              0.0,
+              300.0
+            ],
+            [
+              250.0,
+              300.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          175.0,
+          0.0,
+          250.0,
+          300.0
+        ],
+        [
+          0.0,
+          200.0,
+          175.0,
+          300.0
+        ]
+      ],
+      "width_mm": 250.0,
+      "height_mm": 300.0,
+      "source_normalized_class": 5
+    },
+    {
+      "index": 6,
+      "family": "bracket",
+      "degrees": 180.0,
+      "mirrored": true,
+      "original_zero_bounds_min": [
+        0.0,
+        -250.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0.0,
+              250.0
+            ],
+            [
+              300.0,
+              250.0
+            ],
+            [
+              300.0,
+              175.0
+            ],
+            [
+              100.0,
+              175.0
+            ],
+            [
+              100.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              250.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          175.0,
+          300.0,
+          250.0
+        ],
+        [
+          0.0,
+          0.0,
+          100.0,
+          175.0
+        ]
+      ],
+      "width_mm": 300.0,
+      "height_mm": 250.0,
+      "source_normalized_class": 6
+    },
+    {
+      "index": 7,
+      "family": "bracket",
+      "degrees": 270.0,
+      "mirrored": true,
+      "original_zero_bounds_min": [
+        0.0,
+        0.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              300.0
+            ],
+            [
+              75.0,
+              300.0
+            ],
+            [
+              75.0,
+              100.0
+            ],
+            [
+              250.0,
+              100.0
+            ],
+            [
+              250.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          75.0,
+          300.0
+        ],
+        [
+          75.0,
+          0.0,
+          250.0,
+          100.0
+        ]
+      ],
+      "width_mm": 250.0,
+      "height_mm": 300.0,
+      "source_normalized_class": 7
+    },
+    {
+      "index": 8,
+      "family": "insert",
+      "degrees": 0.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        0.0,
+        0.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              180.0,
+              0.0
+            ],
+            [
+              180.0,
+              110.0
+            ],
+            [
+              0.0,
+              110.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          180.0,
+          110.0
+        ]
+      ],
+      "width_mm": 180.0,
+      "height_mm": 110.0,
+      "source_normalized_class": 8
+    },
+    {
+      "index": 9,
+      "family": "insert",
+      "degrees": 90.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        -110.0,
+        0.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.0,
+              0.0
+            ],
+            [
+              110.0,
+              180.0
+            ],
+            [
+              0.0,
+              180.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              110.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          110.0,
+          180.0
+        ]
+      ],
+      "width_mm": 110.0,
+      "height_mm": 180.0,
+      "source_normalized_class": 9
+    },
+    {
+      "index": 10,
+      "family": "insert",
+      "degrees": 180.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        -180.0,
+        -110.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              180.0,
+              0.0
+            ],
+            [
+              180.0,
+              110.0
+            ],
+            [
+              0.0,
+              110.0
+            ],
+            [
+              0.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          180.0,
+          110.0
+        ]
+      ],
+      "width_mm": 180.0,
+      "height_mm": 110.0,
+      "source_normalized_class": 8
+    },
+    {
+      "index": 11,
+      "family": "insert",
+      "degrees": 270.0,
+      "mirrored": false,
+      "original_zero_bounds_min": [
+        0.0,
+        -180.0
+      ],
+      "polygon": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.0,
+              0.0
+            ],
+            [
+              110.0,
+              180.0
+            ],
+            [
+              0.0,
+              180.0
+            ],
+            [
+              0.0,
+              0.0
+            ],
+            [
+              110.0,
+              0.0
+            ]
+          ]
+        ]
+      },
+      "rectangular_components": [
+        [
+          0.0,
+          0.0,
+          110.0,
+          180.0
+        ]
+      ],
+      "width_mm": 110.0,
+      "height_mm": 180.0,
+      "source_normalized_class": 9
+    }
+  ],
+  "queries": [
+    {
+      "index": 0,
+      "orientation_class": 0,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 1,
+      "orientation_class": 0,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 2,
+      "orientation_class": 1,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 3,
+      "orientation_class": 1,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 4,
+      "orientation_class": 2,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 5,
+      "orientation_class": 2,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 6,
+      "orientation_class": 3,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 7,
+      "orientation_class": 3,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 8,
+      "orientation_class": 4,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 9,
+      "orientation_class": 4,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 10,
+      "orientation_class": 5,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 11,
+      "orientation_class": 5,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 12,
+      "orientation_class": 6,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 13,
+      "orientation_class": 6,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 14,
+      "orientation_class": 7,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 15,
+      "orientation_class": 7,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 16,
+      "orientation_class": 8,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 17,
+      "orientation_class": 8,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 18,
+      "orientation_class": 9,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 19,
+      "orientation_class": 9,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 20,
+      "orientation_class": 10,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 21,
+      "orientation_class": 10,
+      "sheet_id": "sheet-1"
+    },
+    {
+      "index": 22,
+      "orientation_class": 11,
+      "sheet_id": "sheet-0"
+    },
+    {
+      "index": 23,
+      "orientation_class": 11,
+      "sheet_id": "sheet-1"
+    }
+  ],
+  "coordinate_units_per_mm": 100,
+  "coefficient_scale": 10000000,
+  "coordinate_maxima": [
+    150000,
+    300000
+  ],
+  "new_part_separation_mm": -0.01,
+  "pair_overlap_allowance_units": 1,
+  "grid_cell_mm": 50.0,
+  "outward_numerical_padding_mm": 0.001,
+  "quantization_square_mm": [
+    [
+      -0.01,
+      -0.01
+    ],
+    [
+      -0.01,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -0.01
+    ]
+  ],
+  "query_seconds": 120,
+  "declared_later_solver_seconds": 60,
+  "declared_later_solver_workers": 8,
+  "declared_later_solver_seed": 0,
+  "method": "Reconstruct all24 original-outline zero-clearance forbidden unions for the new33-part guarded alternative. Reuse only cached local Minkowski geometry whose fixed rotation/reflection and moving orientation are unchanged, with committed source hashes; translate every obstacle using the new fixed placements, including the projected cog. Derive each original stock translation domain from moving original-vertex bounds and the unchanged target, expanded0.001mm. Subtract only a0.001mm-shrunken subset of the new forbidden union. Cover every clipped50mm grid cell by an outward-padded convex hull. Shift each complete outer hull to exact normalized anchor coordinates and add the entire[-0.01,0]^2 floor-quantization square with0.001mm outward padding. Encode outward rational halfspaces with full coefficient-error bounds. No previous fixed-core region or model is reused unchanged.",
+  "coverage": "Every valid original continuous placement around the new fixed core must have a representative in this outer model. The same original rectangular-component axis-order proof permits one additional grid unit of overlap as a relaxation only. All12 brackets and21 inserts remain required alongside18 frames and15 cogs. Extra space, dropped positive clearance and permitted overlap never qualify an accepted layout.",
+  "limits": "One120-second construction, preserving pending queries and every failure; no restart or extension. Independent raw-obstacle, complete-region, quantization and model-field audits precede one fresh60-second/eight-worker/seed-zero outer feasibility call. Do not repeat the previous core0 solves.",
+  "solver_calls": 0,
+  "native_margin_qualified": false,
+  "full_target_witness": false
+}

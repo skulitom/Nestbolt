@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-25T20:43:14.986294+00:00",
+  "inputs": {
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-coordinated-placement-selection-20261018/conditional-target.json": "cb720c415bc686b4804b4ca2322f8aa3147c6bfe115b9bfcaf03911baf875acd",
+    "output/h5-cog-center-capacity-20261020/disk.json": "0883b61c16bfc835b5b2f2011a994cc4bb47d8c4ad8ded721122129ecf585755",
+    "output/h5-cog-center-capacity-20261020/audit/checks.json": "44db091c63dabf78cce56f28ed7374ca6d82f07327151d89647af5c4d70c6ace",
+    "benchmarks/results/h5-cog-free-regions-and-continuous-capacity-20261020/raw-manifest.json": "65960c810e05620d5f69e6efe6ab33642881681842bd9aa00bb9df367c704017",
+    "output/h5-guarded-alternate-outer-20261025/solve/result.json": "c3695078e6c1cae37802192cd8f446fb9b986abae00b4dc8a0f038e82a427f36"
+  },
+  "construction_limit_seconds": 120,
+  "model_construction_limit_seconds": 120,
+  "independent_model_audit_limit_seconds": 120,
+  "solver_parameters": {
+    "max_time_in_seconds": 60,
+    "num_search_workers": 8,
+    "random_seed": 0,
+    "cp_model_presolve": true,
+    "cp_model_probing_level": 0,
+    "symmetry_level": 0,
+    "log_search_progress": true,
+    "log_to_stdout": false
+  },
+  "maximum_solver_calls": 1,
+  "geometry_units_per_mm": 10000,
+  "coordinate_units_per_mm": 100,
+  "required_counts": {
+    "frame": 18,
+    "bracket": 12,
+    "insert": 21,
+    "cog": 15
+  },
+  "fixed_parts": 0,
+  "method": "All51 non-cog parts use their original filled outer quarter-turn geometry; both arms of each bracket are coupled. All15 freely rotating cogs are represented by the same axis-fixed16-gon strictly inside their independently certified rotation-invariant inscribed disks. Every part chooses either original stock domain, at the original second-sheet material cap. Floor anchors/centers to0.01mm and round all bounds/separating inequalities outward. Drop positive clearance. Use all edge normals of each exact convex-component Minkowski sum; no sampled poses, fixed frame set, fixed cog pose, hint, objective or missing-part allowance. Identical-copy ordering is the only symmetry constraint.",
+  "scope": "A necessary outer relaxation of the original filled-outline problem, with arbitrary cog angles. A positive outcome is diagnostic only: it lacks actual cog outlines/angles and original clearance and needs further original-shape/native checks. UNKNOWN proves nothing. A negative outcome needs full geometric/model audits. No call retry or extension; no production or H5 acceptance claim."
+}

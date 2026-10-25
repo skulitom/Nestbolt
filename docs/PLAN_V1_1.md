@@ -2230,3 +2230,22 @@ Next check its complete outer regions and exact-count feasibility before any
 accepted-layout claim. Actual native qualification and all H5 requirements
 remain. Source, accurate READMEs and releases are unchanged; H2/H5 stay open
 at 60% completed milestone weight.
+
+
+**N4 guarded alternative and unrestricted relaxation, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-guarded-core-and-global-relaxation-20261025.md) rebuilds and audits all 24
+continuous regions around the guarded core-5 alternative: 864 outward domains,
+18,724 coverage vertices and all 12,860 compatible saved small-part poses.
+Its independently checked exact-count model reports INFEASIBLE in 9.923168
+seconds, conditionally excluding that fixed arrangement. A new necessary
+relaxation lets all 66 parts move and represents each freely rotating cog by
+a polygon strictly inside its certified 109.1157 mm inscribed disk. Original
+non-cog components, orientations, counts and target sheet domains remain.
+Independent geometry and complete 31,467-variable/37,061-constraint encoding
+audits pass. One 60-second call returns UNKNOWN in 60.152007 seconds with no
+incumbent or proof; the preserved 64-part sanity check still lacks two brackets.
+Both completed calls and the initial failed geometry preparation are retained.
+Next investigate audited original-area bounds and global packing propagation;
+do not retry unchanged calls or weaken acceptance. No full target witness,
+native qualification, production-budget run or H5 matrix result is obtained.
+Source, accurate READMEs and releases are unchanged; H2/H5 remain open at 60%.
