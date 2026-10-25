@@ -15687,3 +15687,20 @@ brackets. Next audit exact orientation aliases and source-derived, nonbinding
 hints before considering a different bounded construction test. All original
 limits, native checks and H5 matrix requirements remain. Source, accurate
 READMEs and releases are unchanged; H2/H5 stay open at 60%.
+
+
+**N4 exact orientation aliases and audited source hints, 2026-10-25:**
+[The evidence](benchmarks/results/h5-orientation-aliases-and-source-hints-20261025.md) checks exact representative and
+inverse maps for all 28 original modes, retaining 22 representatives and all
+16 original orientation/reflection classes. All bracket cases stay distinct.
+The original 66-part layout passes 1,456 polygon-pair checks but exceeds the
+target at the same seven recorded parts. Only 59 compatible poses supply
+nonbinding hints; all 66 parts remain required and every position stays free.
+Every field of the 1,686-variable/2,584-constraint model and all 1,482 hint values
+verify independently. One bounded call returns UNKNOWN in 60.101281 seconds
+without an incumbent or proof. A source census prepares a different finite
+orientation-inventory construction, with two additional brackets mandatory;
+no search of that inventory occurs yet. After all six previous main checks
+passed, five checkpoints were pushed normally through 247e823a. Its new CI
+40233299884 remains distinct from the completed previous run. Source, accurate
+READMEs and releases are unchanged; H2/H5 remain open at 60%.
