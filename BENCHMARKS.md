@@ -15591,3 +15591,19 @@ all 37 local checkpoint files byte for byte, and is pushed to main. Main
 4045822e passed all six checks and Pages; the refreshed upstream stop rule
 does not fire. Engine source, READMEs and releases remain unchanged; H2/H5 stay open
 at 60% completed milestone weight.
+
+
+**N4 continuous occupied-area audit, 2026-10-25:** [the independent audit](benchmarks/results/h5-occupied-area-relaxation-20261025.md)
+checks all 168 queries, twelve permitted orientation/reflection classes and
+seven fixed arrangements. All 99,983 known compatible polygon/translation
+memberships and four prior baselines are covered. Every combined and family
+area upper bound exceeds the required inventory; no core is excluded and no
+packing feasibility is established. A failed round-offset assertion and its
+repaired subset check are preserved without regenerating geometry. A separate
+source-derived distance census finds only core 0 meets both conservative pair
+and stock screens; actual native qualification remains required. Next build
+an exact-count direct-coordinate model for its 12 brackets and 21 inserts,
+with independently checked inward rounding, original outlines and new declared
+limits. No solver retry, native packing, quality run or held-out evaluation
+occurs. Engine source, accurate READMEs and releases remain unchanged; H2/H5
+remain open at 60% completed milestone weight.
