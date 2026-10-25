@@ -1538,3 +1538,21 @@ The previous six checkpoints are on main 51fe56c0; its new CI remains separate
 from the prior successful run. No accepted target, native qualification or H5
 completion is claimed. Source, accurate READMEs and releases stay unchanged;
 H2/H5 remain open at 60% completed milestone weight.
+
+
+**N4 stronger circles and full-original construction, 2026-10-25:**
+[The evidence](../benchmarks/results/h5-circle-stock-neighborhood-20261025.md) strengthens the same 57-fixed/nine-moving neighborhood
+with a certified 128-vertex cog proxy, exact circle separation for all 15 cog
+pairs and the all-angle stock bounds. All 20 queries complete; 18 are reused
+unchanged. Independent checks cover 274 domains, 4,204 outward halfplanes,
+85,992 rational vertex tests and 361 exact component Minkowski hulls.
+The fully audited 9,549-variable/22,313-constraint model returns UNKNOWN in
+60.174056 seconds, with no incumbent; the completed call stays closed.
+A distinct full-original preparation retains every cog tooth at its known source
+angle, all bracket choices and 20 inward stock-grid queries. Its 57 starting
+originals meet the 0.2 mm requested clearance, but nine pairs and four stock
+margins fall below the current native conservative guards. These shortfalls
+must be addressed and independently checked before that source is frozen for
+an original-outline construction. No guard, material cap or count is reduced.
+No accepted target or H5 qualification is claimed. Source, accurate READMEs and
+releases stay unchanged; H2/H5 remain open at 60% completed milestone weight.
