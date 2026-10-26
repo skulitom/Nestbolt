@@ -16669,3 +16669,20 @@ The finite pool is closed, with no unrestricted exclusion. All five audits pass;
 four failed checker attempts are preserved. Main 6c5bf878 passes all six checks,
 allowing the queued two-commit push. H2/H5 remain open at 60%; production,
 READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 paired bracket strip and clearance capacity, 2026-10-26:** [the evidence](benchmarks/results/h5-paired-strip-clearance-capacity-20261026.md)
+verifies a changed 49-original core: all twelve brackets and nineteen inserts
+fit beside eighteen frames, leaving two inserts and fifteen cogs mandatory.
+Independent checks cover 666 pairs, 196 stock edges and 73 cutouts/6,782 vertices.
+Fresh continuous all-angle domains yield 1,111 capacity cells and 127,947 verified
+conflicts. Two distinct necessary positives fail their finite source preflights;
+all 9,828 sampled events are independently checked. Separate exact oblique-support
+proofs exclude 61 cells. Using the required 0.2 mm clearance joins fixed exclusion
+regions through 833 audited union atoms and proves five further cell exclusions.
+The stronger 1,818-constraint model closes UNKNOWN after search in 20.026862
+returned/20.772295 shared seconds, with its 0.026862-second soft overrun recorded.
+All three calls are closed, without retries. No full layout or unrestricted
+exclusion is claimed. All fifteen audits pass. Main 4e3b316c passes all six checks,
+allowing the next normal checkpoint push. H2/H5 remain open at 60%; production,
+READMEs, releases and all 22 reserved H2 vectors are unchanged.
