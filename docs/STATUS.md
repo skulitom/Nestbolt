@@ -2065,3 +2065,21 @@ All five CP-SAT and one LP certificate calls are closed. Main c22d3e39 has five
 checks passed and Windows live at 05:15 UTC; checkpoint4817feff is queued.
 H2/H5 stay open at 60%; production, READMEs, releases and all 22 reserved vectors
 are unchanged. No full target layout or new release is claimed.
+
+
+**N4 changed composition and bracket orientations, 2026-10-26:** [the evidence](../benchmarks/results/h5-eight-part-composition-and-orientations-20261026.md)
+checks the nine-part necessary band model (INFEASIBLE), then the eight-part
+allocation (OPTIMAL). The latter is not a placement: its chosen bracket pattern
+is excluded by a full guarded coordinate model. A broader model includes all
+eight approved bracket orientations and518 pair modes; its single bounded call
+is UNKNOWN. Independently verified sharing of repeated pair planes reduces
+95,748 variables/97,636 constraints to40,450/42,338 without changing feasible
+coordinates, but its separate bounded call is also UNKNOWN. All five calls are
+closed; all shared budgets pass and both soft overruns remain recorded. A
+preflight audit typo and downstream failures are preserved with zero opened
+solver calls. All66 identities remain mandatory:55 checked first-sheet originals,
+eight second-sheet originals and pending first-sheet28/29/37. Next inspect
+allowed cog rotations geometrically; no full layout or global impossibility is
+claimed. Main81cc4186 CI40273506020 has five checks passed and one live at05:38UTC.
+H2/H5 stay open at60%; production, READMEs, releases and22 reserved vectors remain
+unchanged. No new release is qualified.
