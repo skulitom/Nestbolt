@@ -2135,3 +2135,22 @@ brackets 28/29, full native/material checks and the H5 matrix remain open.
 Main 88e1dc19 passes all six CI checks, so queued 1299e16b and this checkpoint may
 be pushed normally after verification. H2/H5 remain open at 60%; production,
 READMEs, releases and the 22 reserved H2 vectors remain unchanged.
+
+
+**N4 two-phase band and spacing exclusions, 2026-10-26:** [the evidence](../benchmarks/results/h5-two-phase-band-and-spacing-exclusions-20261026.md)
+closes the tested 56.25°/65.25° source branch. Complete 144-mode balanced and
+repeated-bracket families include both insert choices and every cog-angle mix
+with at least one new-phase cog. Exact vertical-cell area links preserve all
+source-coordinate choices; certified full-height forbidden rectangles add
+necessary cog spacing of 257.862–260.232 mm. Both strengthened coordinate
+families are INFEASIBLE, and audited conditional exclusions leave the final
+721-variable / 94-constraint capacity master INFEASIBLE. This conclusion is
+limited to the conservative source geometry and micrometre grid. All 16 audits
+pass and six calls are closed within shared budgets; two UNKNOWN calls retain
+soft overruns of 0.113378 and 1.477276 seconds. One helper-generation failure
+before any solver call is preserved with its separate recovery. Next screen
+additional original cog rotations across the tooth period; no current exclusion
+transfers to changed angles. All 66 identities and full H5 validation remain
+required. Main 50cdc07e has five passing checks while Windows CI runs, so queue
+this checkpoint for a later normal push. H2/H5 remain open at 60%; production,
+READMEs, releases and all 22 reserved vectors remain unchanged.
