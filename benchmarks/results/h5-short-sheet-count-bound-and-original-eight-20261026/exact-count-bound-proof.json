@@ -1,0 +1,45 @@
+{
+  "six_brackets_two_cogs_excluded": true,
+  "all_real_cog_angles_and_continuous_original_anchors": true,
+  "integer_rounding_covered_by_source_proxy_proofs": true,
+  "statement": "Every source layout admits the audited quantization-safe stems, rectangles and rounded cog centers within the stated X/Y domains. Stems and cog centers have a strict total X order: bracket/cog support gaps are positive in their corresponding direction, stem widths and cog spacing are positive. Any ordered bracket pair must avoid each open X-overlap interval for rectangle pairs whose Y intervals overlap throughout both allowed Y domains. Merging the equivalent closed INTEGER forbidden sets preserves touching endpoints. The computed lower gap applies to every adjacent ordered pair. Every physical arrangement therefore maps to a path of six bracket types and two cogs in this weaker one-dimensional model. Dynamic-program states record earliest position of the last profile; earlier positions dominate later ones because all remaining constraints are lower differences and fixed coordinate domains. A backward latest-position recurrence independently reaches the same empty terminal set. Insert and nonadjacent exclusions were omitted, so their addition cannot create a solution.",
+  "count_coverage": [
+    {
+      "counts": [
+        5,
+        1,
+        3
+      ],
+      "exclusion": "audited exact-count necessary model INFEASIBLE"
+    },
+    {
+      "counts": [
+        6,
+        0,
+        3
+      ],
+      "exclusion": "audited exact-count necessary model INFEASIBLE"
+    },
+    {
+      "counts": [
+        6,
+        1,
+        2
+      ],
+      "exclusion": "independent exact six-bracket/two-cog necessary projection"
+    },
+    {
+      "counts": [
+        6,
+        1,
+        3
+      ],
+      "exclusion": "audited exact-count necessary model INFEASIBLE"
+    }
+  ],
+  "checked55_continuation_maximum_short_count": 8,
+  "mandatory_first_sheet_additions_at_least": 3,
+  "global66_layout_impossibility_claimed": false,
+  "scope": "Same relaxed short-sheet target, original profiles, allowed bracket transforms and all real cog angles. Combined <=8 claim concerns the current checked55 continuation; other first-sheet arrangements and other targets remain open.",
+  "H5_complete": false
+}

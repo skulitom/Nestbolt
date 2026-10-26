@@ -3368,3 +3368,21 @@ validation remain required. Main 6246967c now passes all six checks, enabling
 a normal push of queued checkpoints after staged-byte/ancestry checks.
 H2/H5 remain open at 60%; production, READMEs, releases and reserved vectors
 are unchanged.
+
+
+**N4 exact short-sheet count bound and original eight, 2026-10-26:** [the evidence](../benchmarks/results/h5-short-sheet-count-bound-and-original-eight-20261026.md)
+proves at most eight remaining parts can fit the target short sheet for the
+checked 55-part continuation. Three of four exhaustive >=9 count cases are INFEASIBLE;
+the remaining six-bracket/one-insert/two-cog case is excluded by an independent
+exact horizontal projection, even with the insert omitted. All 81 pair bounds,
+768 guaranteed-Y rectangle pairs, 149 forward states, 1,159 transitions and 149
+backward states are verified. The six bounded solver calls are closed; all
+shared limits pass and UNKNOWN results remain preserved. A new original
+eight-part strip contains all six remaining brackets, insert 37 and cog 53.
+Together with the unchanged first 55, the 63-part partial passes 1,513 original
+pairs, 252 stock edges and preservation of 87 cutouts/9,426 hole vertices.
+Cogs 63/64/65 remain mandatory first-sheet additions; all 66 identities are
+accounted for. This bound does not exclude other first-sheet arrangements.
+All 16 audits pass. Main 9842e4c1 has 5/6 checks passed and is still running;
+queue this checkpoint until CI succeeds. H2/H5 remain open at 60%; production,
+READMEs, releases and all 22 reserved H2 vectors are unchanged.
