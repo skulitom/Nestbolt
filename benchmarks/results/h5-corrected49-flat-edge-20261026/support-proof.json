@@ -1,0 +1,17 @@
+{
+  "original_vertex_count": 80,
+  "maximum_original_radius_squared_um2": [
+    24263624779898479726521299357039453125,
+    1237940039285380274899124224
+  ],
+  "original_circumradius_upper_um": 140001,
+  "original_all_axis_support_lower_um": 139270,
+  "rounded_center_support_lower_um": 139268,
+  "rounded_center_vertex_radius_upper_um": 140003,
+  "support_vertex_transverse_upper_um": 14328,
+  "source_contained_rounded_inner_radius_um": 109113,
+  "strictly_smaller_core_radius_um": 109112,
+  "rectangle_minimum_axial_width_strict_um": 30891,
+  "rectangle_minimum_transverse_width_strict_um": 28656,
+  "proof": "For every rotated original cog and either sign of an axis, its hull support is attained by an original source vertex at axial projection at least h0 from the true center. Moving the reference to the floored center perturbs its vector by less than sqrt(2)um, so projection is greater than h0-2=h and norm is less than ceil(R0)+2=R. Its transverse coordinate has absolute value at most L since h^2+L^2>=R^2. For a center strictly inside the horizontal strip and outside the central axial band [left-core,right+core], the matching support vertex is beyond the near edge and before the far edge because rectangle width > R-core; its transverse coordinate is strictly between bottom/top because of L margins. Inside the central band, distance to the rectangle is at most core<inner, so its guaranteed source disk intersects the rectangle interior. Swap axes for the vertical strip. A source vertex strictly inside a source-contained rectangle implies an original filled-source collision. No convex-hull interior or virtual separation disk is substituted for source geometry."
+}

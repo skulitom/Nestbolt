@@ -16954,3 +16954,17 @@ capacity exclusion does not transfer. This is not a66-part witness, native
 pass or H5 credit; H2/H5 remain open at60%. All22 reserved vectors stay unopened.
 Main36f162d0's other five jobs passed before its browser-only attempt2 retry;
 preserve that live retry and require all six successes before the queued push.
+
+
+**N4 corrected49 geometry and cog flat-edge support, 2026-10-26:**
+[The evidence](benchmarks/results/h5-corrected49-flat-edge-20261026.md) rebuilds all fixed-obstacle geometry from the corrected
+source-valid49. All17 movers remain mandatory. Exact all-angle source-vertex
+support proves186 new flat-edge forbidden strips and removes552 more whole
+cog-center cells while preserving every boundary center and all15 prior cells.
+Seven audits pass. The base15,797-variable and stronger21,557-variable models
+both end UNKNOWN in one60-second call each; raw timing, failures and results
+remain preserved and both searches are closed. There is no full66 witness,
+fixed49 exclusion, native call or H5 credit. H2/H5 stay open at60%; all22 reserved
+vectors remain unopened. Main36f162d0 browser attempt2 also timed out before tests,
+with18m07s checkout; prepare and validate a CI checkout repair on an isolated
+branch before the queued main push. Production and READMEs are unchanged.
