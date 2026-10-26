@@ -3472,3 +3472,18 @@ The model and response audits pass, and the closed call cannot be extended or
 reseeded. H2/H5 remain open at 60%; no full-quality run or new release qualifies,
 and all 22 reserved H2 vectors remain unopened. Preserve main ff5036af
 CI40393931732 until all six checks pass before the next normal push.
+
+
+**N4 retained64 proxy witness and all-angle obstruction, 2026-10-26:** [the evidence](../benchmarks/results/h5-retained64-proxy-witness-and-disk-proof-20261026.md)
+constructs both missing bracket copies without changing the 64 retained source
+transforms. All 609 domains/5,016 constraints of the closed coupled model pass,
+proving that necessary model feasible without another solve. Original-ring
+readback still fails: eight new physical intersections plus six retained gap
+failures and three retained stock-guard failures. An independent exact disk
+certificate covers all 26 complete coarse-free bracket cells across all eight
+modes, even with arbitrary cog angles. Thus at least one existing non-cog pose
+or cog center must change; phase-only repair and fixed64 insertion cannot work.
+Four audits pass; one auxiliary list-order reader failure is preserved. No solver
+or native call occurs. All six main ff5036af checks now pass, allowing the next
+normal push. H2/H5 stay open at 60%; no full-quality run or release qualifies and
+all 22 reserved H2 vectors remain unopened.
