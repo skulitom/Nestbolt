@@ -2500,3 +2500,18 @@ retry of a dependency-download timeout. The failed attempt is preserved.
 H2/H5 remain open at 60%; no native/full-quality run or new release qualifies.
 The next distinct allocation must first repair the older 64-part partial's
 short-sheet clearance; all 22 reserved H2 vectors remain unopened.
+
+
+**N4 retained-64 allocation and full first-sheet search, 2026-10-26:** [the evidence](../benchmarks/results/h5-retained64-allocation-source-search-20261026.md)
+repairs the older four-bracket/two-insert/three-cog short sheet to current
+clearances, independently passing 36 pairs, 36 edges and all17 cutouts.
+Its exact cog angle is reconstructed from source, without a symmetry assumption.
+All57 first originals remain mandatory and movable; the two missing brackets
+are seeded from 22,640 deterministic proposals. The sole guided call closes
+ITERATION_LIMIT in29.220400 optimization/30.492711 shared seconds. All66 source
+identities, 90 cutouts and10,026 hole vertices are retained, but final readback
+finds60 pair failures and10 stock failures. Lower overlap penalty is not a
+material improvement. No native/full-quality run or release is qualified.
+Both independent audits pass; all6 main ea4f2ebf checks pass, permitting a
+normal two-commit checkpoint push. H2/H5 stay open at60%; all22 reserved H2
+vectors stay unopened. Closed searches will not be extended or reseeded.
