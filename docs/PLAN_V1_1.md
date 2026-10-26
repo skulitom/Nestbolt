@@ -2616,3 +2616,21 @@ offline preparation is not production qualification. The prior ten checkpoints
 are pushed to main 728b2db2; its own CI 40246226212 remains tracked before the
 next normal push. Production, READMEs and releases are unchanged. H2/H5 remain
 open at 60%, with all 22 reserved H2 vectors untouched.
+
+
+**N4 direct-model negative and complete integer outer cover, 2026-10-26:** [the evidence](../benchmarks/results/h5-direct-original-search-20261025.md)
+records the distinct 32,074-variable / 173,814-constraint full-coordinate model
+INFEASIBLE in 42.634289s, shared 44.271944s, within its 45s cap and 60s budget
+with a 10s shutdown reserve. This rejects only the fixed-57/source-angle/inward-
+domain construction with stricter pair cells, not unrestricted packing. A new
+necessary outer cover retains every integer displacement satisfying the original
+guarded pair rules: all 164 cases / 394 physical uses, 16,210 complete slabs,
+22,063 proved-invalid rectangles and 9,129 retained boxes. Independent rational
+partition checks and 6,485,956 exact corner inequalities pass. Retained boxes
+are not safe placements. No outer-cover model or solver has run; next replace
+all stricter pair-cell constraints and audit the complete transformation before
+a distinct bounded diagnostic. All originals, material/native limits and H5
+production requirements remain unchanged. The provenance-lookup failure and
+separate corrected audit are preserved. Main 728b2db2's own CI 40246226212 is
+still tracked before pushing local checkpoints. Production, READMEs and releases
+are unchanged; H2/H5 remain open at 60%, with all 22 reserved H2 vectors untouched.

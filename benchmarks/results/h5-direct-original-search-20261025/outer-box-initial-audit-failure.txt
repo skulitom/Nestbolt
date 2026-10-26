@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\output\audit_h5_outer_displacement_boxes.py", line 76, in <module>
+    try:main()
+        ^^^^^^
+  File "C:\DEV\Nestbolt\output\audit_h5_outer_displacement_boxes.py", line 20, in main
+    for p in [SOURCE/'plan.json']+list((SOURCE/'queries').glob('*.json'))+list((SOURCE/'mutual').glob('*.json')):assert digest(p)==known['source-inputs/'+p.relative_to(ROOT).as_posix()]
+                                                                                                                                   ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'source-inputs/output/h5-full-original-joint-prepared-20261025/mutual/081.json'
