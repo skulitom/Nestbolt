@@ -3330,3 +3330,23 @@ diagnostic. All 66 originals and full H5 validation remain required. Main
 7271cc8b now passes all six checks; queued checkpoints can be pushed normally
 after staged byte/ancestry checks. H2/H5 remain open at 60%; production,
 READMEs, releases and all 22 reserved vectors are unchanged.
+
+
+**N4 all-angle continuous composition exclusion, 2026-10-26:** [the evidence](../benchmarks/results/h5-all-angle-continuous-composition-exclusion-20261026.md)
+proves an inner cog polygon valid at every real rotation and maps every
+continuous original anchor to quantization-safe inner subsets. Exact stock
+support, 11 expanded forbidden-rectangle proofs and 42,525 fresh band coefficients
+support two independently audited necessary models. The nine-original model
+is INFEASIBLE in 3.816914 solver / 4.592091 shared seconds;
+removing the insert gives a separate eight-original INFEASIBLE result in
+3.932667 / 4.690825 seconds. All seven audits pass,
+both 20/30-second calls are closed, and no overruns occur. Four brackets and
+four cogs are excluded at this short-sheet target even with continuous positions,
+all cog angles and 0.020 mm outward stock relaxation. Therefore the two-sheet
+target requires at least nine brackets or twelve cogs on the first sheet.
+All 66 identities remain mandatory; six of 70 remaining family-count allocations
+are excluded and 64 remain unproved. Next select a different complete sheet
+composition, preserving every unselected short-sheet part as a first-sheet
+obligation. Main 6246967c has five successful checks and Windows remains live;
+queue this checkpoint for a later normal push. H2/H5 remain open at 60%; no
+production, README, release or reserved-vector change is claimed.
