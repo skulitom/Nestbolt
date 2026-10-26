@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\output\audit_h5_outer_original_geometry.py", line 82, in <module>
+    try:main()
+        ^^^^^^
+  File "C:\DEV\Nestbolt\output\audit_h5_outer_original_geometry.py", line 24, in main
+    start=time.perf_counter();job=load(JOB);assert all(len(p['geometry'])==1 and not p['geometry'][0].get('holes') for p in job['parts']);family={p['id']:p for p in job['parts']};items=load(SRC/'items.json');spec=load(BASE/'plan.json');profiles=load(BASE/'profiles.json');source=load(sourcepath)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

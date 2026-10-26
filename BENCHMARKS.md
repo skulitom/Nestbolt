@@ -16055,3 +16055,24 @@ production requirements remain unchanged. The provenance-lookup failure and
 separate corrected audit are preserved. Main 728b2db2's own CI 40246226212 is
 still tracked before pushing local checkpoints. Production, READMEs and releases
 are unchanged; H2/H5 remain open at 60%, with all 22 reserved H2 vectors untouched.
+
+
+**N4 complete source-clause search and rejected relaxation, 2026-10-26:** [the evidence](benchmarks/results/h5-bounded-source-search-20261026.md)
+verifies complete replacement of all strict safe cells, including 54 empty-cell
+sums, by the necessary integer outer cover. Its sole call finds a candidate in
+16.162402s, shared 18.195138s; independent full-source and 66-original geometry
+readback rejects six moving-pair failures, including four overlaps. All 90
+cutouts, original copies/areas, 1,540 same-sheet pairs and 264 stock edges are
+checked. The initial false no-cutouts assertion and separate repair are retained.
+A distinct complete source-clause model replaces all outer boxes, retains every
+original domain/count/area/capacity rule and applies only exact rectangle-bound
+simplifications. Its 167,044 variables/376,363 constraints and all 394 pair modes
+pass independent reconstruction, 218,048 exact corner evaluations and actual
+solver import/export. One 45s-cap call ends UNKNOWN in 45.471545s, shared 48.583887s;
+the 0.471545s soft-cap overrun is preserved, the shared 60s budget holds, and no
+feasibility/impossibility or native qualification is claimed. Both calls remain
+closed. Next test whole-domain completion against the verified six-cog positions
+with replayable exact certificates; the previous finite pose census is not a
+continuous proof. Any exclusion must remain conditional on fixed witness poses.
+H2/H5 stay open at 60%; production, READMEs, releases and 22 reserved H2 vectors
+remain unchanged. Main 728b2db2's existing CI is allowed to finish before pushing.

@@ -1,0 +1,17 @@
+{
+  "source": "output/audit_h5_outer_original_geometry.py",
+  "source_sha256": "4465ae10e9dcee6cefcf77e5ac1ae7958c5be5334445efe36e8b4da770adb650",
+  "target": "output/audit_h5_outer_original_geometry_repaired.py",
+  "target_sha256": "2de30e33c3cb730bdd6475b85f085fd28abf8d8d9da3578b224ad23e4b1d05fc",
+  "exact_replacements": {
+    "OUT=RUN/'original-proposal-audit'": "OUT=RUN/'original-proposal-audit-repaired'",
+    "assert all(len(p['geometry'])==1 and not p['geometry'][0].get('holes') for p in job['parts'])": "assert all(len(p['geometry'])==1 for p in job['parts'])",
+    "polys={};records=[]": "polys={};records=[];cutout_records=[]",
+    "error=poly.hausdorff_distance(expected)": "g=family[fam]['geometry'][0];cut=affine_transform(Polygon(g['outer'],g.get('holes',[])),[mi*c,-s,mi*s,c,*t['translation']]);assert cut.is_valid and len(cut.interiors)==len(g.get('holes',[])) and cut.exterior.equals(poly.exterior)\n            cutout_records.append({'item':i,'holes':len(cut.interiors),'hole_vertices':sum(len(h) for h in g.get('holes',[])),'original_polygon_with_cutouts_reconstructed':True,'filled_outer_used_for_no_part_in_hole_clearance':True})\n            error=poly.hausdorff_distance(expected)",
+    "write(dest/'original-layout.json',layout)": "write(dest/'original-cutout-checks.json',cutout_records);write(dest/'original-layout.json',layout)",
+    "'all_original_area_constraints_checked':True": "'all_original_area_constraints_checked':True,'original_cutouts_reconstructed':sum(r['holes'] for r in cutout_records),'original_cutout_vertices_reconstructed':sum(r['hole_vertices'] for r in cutout_records),'filled_outer_clearance_for_part_in_hole_off':True",
+    "inputs=[BASE/'plan.json'": "inputs=[RUN/'geometry-audit-repair.json',RUN/'original-proposal-audit/failure.txt',RUN/'original-proposal-audit/audit.py',BASE/'plan.json'"
+  },
+  "reason": "Initial no-holes assertion is false: all four original families contain legitimate cutouts. Preserve that failed audit. Keep original filled outer polygons for part-in-hole-off collision checks, and separately reconstruct every original cutout under the same transform, validating its exterior and interior count. This does not change any job geometry, domain, solver model, placement, clearance or gate.",
+  "solver_calls": 0
+}
