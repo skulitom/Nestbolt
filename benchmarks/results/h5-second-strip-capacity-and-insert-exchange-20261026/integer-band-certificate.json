@@ -1,0 +1,205 @@
+{
+  "integer_band_weights": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    167,
+    0,
+    0,
+    0,
+    0,
+    167,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    89,
+    17,
+    0,
+    0,
+    227,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    167,
+    0,
+    0,
+    0,
+    0,
+    167,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "active_bands": [
+    {
+      "band": 14,
+      "bounds_mm": [
+        [
+          153,
+          2
+        ],
+        [
+          163,
+          2
+        ]
+      ],
+      "weight": 167,
+      "capacity_area_units": 7435000
+    },
+    {
+      "band": 19,
+      "bounds_mm": [
+        [
+          203,
+          2
+        ],
+        [
+          213,
+          2
+        ]
+      ],
+      "weight": 167,
+      "capacity_area_units": 7435000
+    },
+    {
+      "band": 27,
+      "bounds_mm": [
+        [
+          283,
+          2
+        ],
+        [
+          293,
+          2
+        ]
+      ],
+      "weight": 89,
+      "capacity_area_units": 7435000
+    },
+    {
+      "band": 28,
+      "bounds_mm": [
+        [
+          293,
+          2
+        ],
+        [
+          303,
+          2
+        ]
+      ],
+      "weight": 17,
+      "capacity_area_units": 7435000
+    },
+    {
+      "band": 31,
+      "bounds_mm": [
+        [
+          323,
+          2
+        ],
+        [
+          333,
+          2
+        ]
+      ],
+      "weight": 227,
+      "capacity_area_units": 7435000
+    },
+    {
+      "band": 43,
+      "bounds_mm": [
+        [
+          443,
+          2
+        ],
+        [
+          453,
+          2
+        ]
+      ],
+      "weight": 167,
+      "capacity_area_units": 7435000
+    },
+    {
+      "band": 48,
+      "bounds_mm": [
+        [
+          493,
+          2
+        ],
+        [
+          503,
+          2
+        ]
+      ],
+      "weight": 167,
+      "capacity_area_units": 7435000
+    }
+  ],
+  "mandatory_original_counts": {
+    "bracket": 4,
+    "insert": 2,
+    "cog": 4
+  },
+  "minimum_weighted_demand_per_family": {
+    "bracket": 667500000,
+    "insert": 299700000,
+    "cog": 1073661287
+  },
+  "minimizing_cells": {
+    "bracket": {
+      "profile": 0,
+      "cell": 0
+    },
+    "insert": {
+      "profile": 10,
+      "cell": 99
+    },
+    "cog": {
+      "profile": 9,
+      "cell": 18
+    }
+  },
+  "mandatory_weighted_demand": 7564045148,
+  "weighted_stock_capacity": 7442435000,
+  "strict_integer_margin": 121610148,
+  "weight_sum": 1001,
+  "normalized_margin_mm2": 121.48865934065934,
+  "proof": "For each part its chosen profile/cell demands at least its family minimum under these nonnegative band weights. Summing all mandatory originals gives the exact demand shown. Every feasible layout occupies no more than the stock area in each band, so its weighted area cannot exceed the exact capacity shown. Demand exceeds capacity. All673 cell inequalities and the integer arithmetic are independently checked.",
+  "scope": "Four brackets with all eight source profiles, two inserts with both profiles, four cogs at the recorded source angle, and the guarded short second-sheet stock. No exclusion of other compositions, arbitrary cog angles or the full66-job target."
+}

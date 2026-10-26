@@ -16310,3 +16310,22 @@ call is opened yet. The previous two checkpoints are pushed as c22d3e39 after
 all six prior main checks pass; its new CI40270374068 is live with three passed
 at04:48UTC. H2/H5 stay open at60%; production, READMEs, releases and all22reserved
 vectors remain unchanged. No complete target layout or new release is claimed.
+
+
+**N4 short-sheet capacity and insert exchange, 2026-10-26:** [the evidence](benchmarks/results/h5-second-strip-capacity-and-insert-exchange-20261026.md)
+retains the three-free-bracket source call and three whole-strip calls as
+UNKNOWN, with all soft overruns recorded and all shared budgets honored.
+A new necessary band model independently verifies 42,399 exact area bounds
+over 673 vertical cells and 63 bands, then returns INFEASIBLE. An independently
+checked integer certificate extends to continuous positions in the whole usable
+stock and excludes four brackets, two inserts and four cogs at the current cog
+angle; other compositions, cog angles and the full job remain open. Its strict
+adjusted margin is 84,052,628 weighted integer units. A distinct exchange places
+insert36 inside cog53's old first-sheet outline with 3.641264 mm clearance to
+that outline; all 55 retained first-sheet originals pass 1,485 pairs and 220
+stock edges. Next test four brackets, one insert and four cogs on the second
+sheet, keeping all nine originals mandatory; originals28/29 also remain required.
+All five CP-SAT and one LP certificate calls are closed. Main c22d3e39 has five
+checks passed and Windows live at 05:15 UTC; checkpoint4817feff is queued.
+H2/H5 stay open at 60%; production, READMEs, releases and all 22 reserved vectors
+are unchanged. No full target layout or new release is claimed.
