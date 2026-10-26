@@ -1832,3 +1832,20 @@ completed proof work is reused without reruns. Three prior checkpoints were
 normally pushed to verified main 822a5f67 after all six prior CI jobs passed;
 new CI 40248595273 is tracked. H2/H5 remain open at 60%; production, READMEs,
 releases and all 22 reserved H2 vectors remain unchanged.
+
+
+**N4 single-cog obstruction completed, 2026-10-26:** [the exact proof](../benchmarks/results/h5-single-cog-obstruction-20261026.md)
+examines all 3,315 insert/released-cog domain cases for original cogs 57, 64
+and 65 and independently excludes all 2,362 bracket/cog fragment pairs.
+All boundaries and original source pair directions are retained. Combined
+with the prior proofs for 54, 58 and 62, no single-cog-position change can
+complete this layout within the recorded source angles/domains and fixed
+57 poses. The empty focused models are not sent to a solver. Next widen to
+at least two cog positions (five mandatory movers, 61 fixed originals), or
+another fixed pose/orientation/domain inventory; never apply these conditional
+exclusions when their fixed poses move. This is not unrestricted impossibility
+or H5 qualification. No solver/native/quality call occurs. Full original/native
+material evidence, production integration and the full matrix remain required.
+H2/H5 remain open at 60%; original gate limits, production, READMEs, releases
+and all 22 reserved H2 vectors remain unchanged. Main CI 40248595273 is tracked
+before the next normal push.
