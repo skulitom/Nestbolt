@@ -2566,3 +2566,19 @@ hypothesis; neither closed search may be extended or reseeded. H2/H5 remain open
 at 60%; no native/full-quality run or release qualifies and all 22 reserved H2
 vectors remain unopened. Wait for all six main CI40386947038 checks before the
 next normal checkpoint push.
+
+
+**N4 source cog strips and timing failure, 2026-10-26:** [the evidence](../benchmarks/results/h5-cog-source-strips-and-timing-20261026.md)
+adds 728 disjoint cog strips covering 90.150340%/90.767855% of the two actual cog
+modes. With the unchanged non-cogs, 781 source-contained rectangles
+add necessary constraints to the prior model, whose 13,246 constraints remain byte-exact; all
+14,811 new-model constraints are independently verified. Both new cumulative
+constraints alone reject the earlier constructed invalid witness. The sole
+search closes UNKNOWN with 20,248 branches/5,401 conflicts and no assignment.
+Its 87.617085 solver/87.625742 returned/88.877085 shared seconds exceed the
+requested 60-second solver limit by 27.617085 seconds: timing is explicitly
+unqualified despite the 90-second process boundary being met. Four independent
+audits pass without claiming H5 acceptance, and the closed call cannot be
+extended or reseeded. All six main db4d2309 checks now pass, allowing the next
+normal checkpoint push. H2/H5 remain open at 60%; no native/full-quality run or
+new release qualifies and all 22 reserved H2 vectors remain unopened.
