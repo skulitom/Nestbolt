@@ -2871,3 +2871,21 @@ No broader-source solver call is opened yet. Next rebuild its conflict tables
 and necessary master; no old conditional exclusions transfer. Main679e97e0 has
 four checks passed and two live; fec3cd72 is queued. H2/H5 remain open at 60%,
 with production, READMEs, releases and all 22 reserved vectors unchanged.
+
+
+**N4 thirteen-part selection and first-sheet exclusion, 2026-10-26:** [the evidence](../benchmarks/results/h5-thirteen-part-selection-and-sheet-exclusion-20261026.md)
+audits the full 53-fixed/13-mover source and all 8,836,883 fresh domain pairs,
+including 3,938,040 raw-original conflicts. The necessary master selects a tuple,
+but its exact coordinate model is INFEASIBLE. Six distinct subset calls yield
+four checked partial witnesses and two UNKNOWNs; both soft overruns and all
+failures are retained. A complete sheet-separation audit verifies independent
+second-sheet coordinates and derives an eleven-domain first-sheet exclusion.
+Adding that one scoped clause yields a new insert-domain selection, whose exact
+coordinate model is also INFEASIBLE. All ten calls are closed; all shared limits
+pass. No old raw box proof transfers and the unrestricted full source is untested.
+Next allow all three brackets every current domain while retaining the ten
+verified partial-domain memberships, including insert query16 row181. No new
+call is opened yet. The previous two checkpoints are pushed as c22d3e39 after
+all six prior main checks pass; its new CI40270374068 is live with three passed
+at04:48UTC. H2/H5 stay open at60%; production, READMEs, releases and all22reserved
+vectors remain unchanged. No complete target layout or new release is claimed.
