@@ -16939,3 +16939,18 @@ open at 60% and all 22 reserved vectors are unopened. Main36f162d0 browser CI
 timed out after slow Ubuntu dependency downloads; raw failure evidence is kept.
 Preserve its live Windows check before retrying only the browser job, and require
 all six successful jobs before pushing the queued checkpoints.
+
+
+**N4 retained49 source-guard repair, 2026-10-26:** [the evidence](benchmarks/results/h5-retained49-source-guard-repair-20261026.md)
+repairs all six retained pair-clearance and three stock failures. The first
+50 µm construction stays preserved with its exact −29 µm, seven-insert cycle.
+A separately bounded correction derived from that cycle allows only those
+seven inserts up to79 µm in positive Y; all source thresholds stay unchanged.
+The independent reader verifies all49 originals, 918 source pairs, 196 stock
+edges, 69 cutouts and6,294 hole vertices: zero failures, minimum gap0.2256789543 mm,
+extra stock0.0131 mm. All17 remaining originals (two brackets and15 cogs) are
+still mandatory. Rebuild geometry from the corrected poses; the old fixed51
+capacity exclusion does not transfer. This is not a66-part witness, native
+pass or H5 credit; H2/H5 remain open at60%. All22 reserved vectors stay unopened.
+Main36f162d0's other five jobs passed before its browser-only attempt2 retry;
+preserve that live retry and require all six successes before the queued push.
