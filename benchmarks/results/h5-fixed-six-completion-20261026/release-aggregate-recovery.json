@@ -1,0 +1,17 @@
+{
+  "failure": "KeyError: residual_domains in aggregate row after case3 independent audit completed successfully. Counter omitted the zero-valued key; the separately verified per-case conditional-region-summary.json explicitly records zero.",
+  "source": "output/audit_h5_single_cog_release_census.py",
+  "source_sha256": "8068fc03f23cf5f509723996a47d85ce2e135f773f71c54db031180fe68087dd",
+  "target": "output/audit_h5_single_cog_release_census_recovered.py",
+  "target_sha256": "8f50b0018784cd1af288985b51cc5a2aa26b10ff8a51f30cdc82362baa2bae82",
+  "correction": "Read the explicit verified residual count from each case conditional summary. Preserve and reuse completed case3 proof audit; run only cases4..8 whose audit directories do not exist. No geometry preparation, solver call or completed audit is repeated.",
+  "completed_case_reused": 3,
+  "remaining_cases": [
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "solver_calls": 0
+}

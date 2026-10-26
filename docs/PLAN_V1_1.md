@@ -2655,3 +2655,23 @@ with replayable exact certificates; the previous finite pose census is not a
 continuous proof. Any exclusion must remain conditional on fixed witness poses.
 H2/H5 stay open at 60%; production, READMEs, releases and 22 reserved H2 vectors
 remain unchanged. Main 728b2db2's existing CI is allowed to finish before pushing.
+
+
+**N4 exact completion obstruction and single-cog release census, 2026-10-26:** [the evidence](../benchmarks/results/h5-fixed-six-completion-20261026.md)
+proves that the verified six fixed cog poses leave none of the 2,418 original
+bracket domains continuously feasible; the insert retains one domain with 89
+fragments. All 2,756 domains and 1,136 exact clipping events pass independent
+replay, including boundaries and 5,816,904 integer corner checks. Six distinct
+single-cog releases cover all 14,508 bracket domains in 13.630690s, with no
+pending cases. Releasing cogs 54 or 62 leaves no bracket space. Releasing cog
+58 opens individual regions, but all 196 exact ordered region-pair differences
+are empty: at most one bracket fits, while two are required. Cogs 57, 64 and 65
+remain the useful single-position releases to investigate in focused four-mover,
+62-fixed-original models. All 66 parts and original/native/material requirements
+remain mandatory. These are conditional source-pose/domain proofs, not general
+packing impossibility or H5 qualification. No solver/native/quality call occurs.
+The provenance lookup failure and zero-counter aggregation failure are preserved;
+completed proof work is reused without reruns. Three prior checkpoints were
+normally pushed to verified main 822a5f67 after all six prior CI jobs passed;
+new CI 40248595273 is tracked. H2/H5 remain open at 60%; production, READMEs,
+releases and all 22 reserved H2 vectors remain unchanged.
