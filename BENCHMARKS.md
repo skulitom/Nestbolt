@@ -16436,3 +16436,19 @@ and full H5 validation remain required. Main 50cdc07e passes all six checks,
 allowing queued 6927ae7d and this checkpoint to be pushed normally after review.
 H2/H5 remain open at 60%; production, READMEs, releases and 22 reserved vectors
 remain unchanged.
+
+
+**N4 compact cog bin planes, 2026-10-26:** [the evidence](benchmarks/results/h5-compact-cog-bin-planes-20261026.md)
+proves 150,952 original source-face implications across 2,191 complete cog
+profile/relative-Y bins. Exact dominance reduces 44,588 positive source edges
+to 2,407 sloping requirements. The compact model removes 148,074 auxiliary
+variables while retaining every other parent field exactly; its 85,699-variable /
+103,151-constraint model implies the full source on a positive. Reverse
+equivalence is not claimed. Its sole bounded call is UNKNOWN at 46.077775 solver /
+47.517578 shared seconds; the 1.077775-second soft overrun is preserved. All four
+audits pass; no full-source exclusion follows. Next investigate both directional
+alternatives for bracket/cog and insert/cog pairs with independent full-bin
+proofs. All 66 originals and full H5 validation remain required. Main 7271cc8b
+has three successful CI jobs and three running, so queue this checkpoint for a
+later normal push. H2/H5 remain open at 60%; production, READMEs, releases and
+all 22 reserved vectors remain unchanged.
