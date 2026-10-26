@@ -16243,3 +16243,19 @@ audit are preserved, as are all soft-limit overruns; all outer budgets pass.
 No full target/native/production qualification is claimed. All six checks on main
 6a27fec0 pass, permitting a normal push. H2/H5 remain open at 60%; production,
 READMEs, releases and the 22 reserved H2 vectors are unchanged.
+
+
+**N4 conditional selection and original 64-part partial, 2026-10-26:** [the evidence](benchmarks/results/h5-conditional-selection-and-partial64-20261026.md)
+adds and independently audits the raw three-part capacity in the necessary master.
+Its new selection moves only the insert; exact coordinates remain INFEASIBLE for
+that tuple. Only the 45 changed pair/triple subsets are called: 43 witnesses and
+two UNKNOWN. Four larger groups isolate the bracket region and provide an
+insert/seven-cog witness. Independent reconstruction verifies a 64-original partial
+with 84 cutouts / 9,294 vertices, 1,521 pair and 256 stock-edge checks; brackets 28/29 remain
+missing. A new full 66-required model frees both brackets across 16 queries / 2,548 domains
+each while keeping ten non-bracket domains and 60 nonbinding partial hints. Its
+single call is INFEASIBLE in 27.443101 shared seconds, scoped only to that condition.
+Next reopen the two bottom-strip cog domains and audit the broader source model.
+All 52 calls stay closed; all shared budgets pass and soft overruns remain recorded.
+Main b8535505 CI has four jobs passed at 03:46 UTC; preserve it before a normal push.
+H2/H5 stay open at 60%; production, READMEs, releases and 22 reserved vectors are unchanged.
