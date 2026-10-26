@@ -16908,3 +16908,18 @@ Four audits pass; one auxiliary list-order reader failure is preserved. No solve
 or native call occurs. All six main ff5036af checks now pass, allowing the next
 normal push. H2/H5 stay open at 60%; no full-quality run or release qualifies and
 all 22 reserved H2 vectors remain unopened.
+
+
+**N4 mixed all-angle separation, 2026-10-26:** [the evidence](benchmarks/results/h5-mixed-octagon-separation-20261026.md)
+verifies a source-contained cog octagon and 24 exact bracket-component forbidden
+polygons. They detect all eight demonstrated collisions and cover all 26 fixed
+anchor cells. The strengthened all-original model leaves positions, sheets and
+modes free, preserves the entire previous model, and adds 384 conditional
+separation clauses/4,608 facets. All 5,217 variables/10,008 constraints and 609
+advisory hints are audited; the old hint violates the new rules. The sole call
+closes UNKNOWN: 127,806 branches, 54,245 conflicts, 60.063253 returned/61.378682
+shared seconds, with small soft overruns preserved. Three independent audits
+pass, but no source/native witness or unrestricted exclusion exists. No retry
+or reseeding is permitted. H2/H5 stay open at 60%; no release qualifies and all
+22 reserved vectors remain unopened. Preserve main36f162d0 CI40400314122 until
+all six checks pass before the next normal push.
