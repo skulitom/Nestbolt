@@ -2758,3 +2758,19 @@ must be recomputed; prior fixed57 restrictions cannot be carried over. All
 earlier calls remain closed. All six checks on main 68c82ae1 now pass, allowing
 the queued checkpoints to be pushed normally. H2/H5 remain open at 60%; source,
 READMEs, releases and the 22 reserved H2 vectors remain unchanged.
+
+
+**N4 expanded cog neighborhood, 2026-10-26:** [the evidence](../benchmarks/results/h5-expanded-cog-neighborhood-20261026.md)
+releases original cogs 53/56/61 for a fresh 12-mover/54-fixed construction,
+retaining all 66 required originals and native guards. All 20 recomputed free
+regions and 3,716 inward domains pass independent checks; no old fixed57
+conditional restrictions are imported. Cog 53's original constructive-anchor
+exclusion is preserved. A complete 729-triple local grid census yields 54 valid
+partial repairs; the selected shifts pass all 1,467 original pair and 252 stock
+checks. All nine partial cog anchors are represented in the new domains, while
+brackets 28/29 and insert 50 remain missing and mandatory. The fresh geometry
+covers 66 physical pairs/538 query-pair modes. Next build and audit the complete
+12-part coordinate model; no solver or native call occurred here. Prior
+checkpoints are on main d1645404, whose CI is running with four jobs passed at
+the retained snapshot. H2/H5 stay open at 60%; production, READMEs, releases and
+the 22 reserved H2 vectors remain unchanged.
