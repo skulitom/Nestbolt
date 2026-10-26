@@ -16418,3 +16418,21 @@ transfers to changed angles. All 66 identities and full H5 validation remain
 required. Main 50cdc07e has five passing checks while Windows CI runs, so queue
 this checkpoint for a later normal push. H2/H5 remain open at 60%; production,
 READMEs, releases and all 22 reserved vectors remain unchanged.
+
+
+**N4 eight-phase geometry and relative-height spacing, 2026-10-26:** [the evidence](benchmarks/results/h5-eight-phase-geometry-and-spacing-20261026.md)
+adds six exact original cog rotations, sampling one tooth period at 2.25-degree
+steps. All 64 ordered cog pairs and 184 balanced-family source cases verify;
+the full source retains 744 physical orientation modes. A 909-variable necessary
+capacity allocation is positive. Complete band links and proven spacing give
+a 233,563-variable source model; 2,191 additional full-domain rectangle proofs
+add relative-height spacing, reaching 233,773 variables. Both bounded coordinate
+calls return UNKNOWN. All 10 audits pass and all three calls close within shared
+budgets; the two coordinate soft overruns (0.256623 / 0.249901 seconds) and two
+preparation failures with separate recoveries are preserved. No new exclusion
+follows. Next investigate a compact sufficient cog-pair representation with
+full-domain separation proof; current large calls remain closed. All 66 originals
+and full H5 validation remain required. Main 50cdc07e passes all six checks,
+allowing queued 6927ae7d and this checkpoint to be pushed normally after review.
+H2/H5 remain open at 60%; production, READMEs, releases and 22 reserved vectors
+remain unchanged.
