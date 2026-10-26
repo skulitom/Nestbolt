@@ -2727,3 +2727,19 @@ or exclusions. Original/native target, production integration and the complete
 H5 matrix remain required. All six prior main checks pass; the queued batch is
 ready for a normal push. H2/H5 remain open at 60%; original limits, production,
 READMEs, releases and the 22 reserved H2 vectors remain unchanged.
+
+
+**N4 source area propagation and shared directions, 2026-10-26:** [the evidence](../benchmarks/results/h5-source-area-and-direction-sharing-20261026.md)
+retains two closed full nine-mover searches, both UNKNOWN. Fourteen verified
+area rules exclude nine allocations beyond the original global-area bounds.
+An independently verified equivalent representation shares exact direction
+predicates across modes, removing 55,334 variables and 110,668 constraints;
+all 66 originals, 394 source pair modes and original guards remain required.
+The calls finish in 49.698399s and 51.313156s within their shared 60 seconds;
+their 1.532948s/3.508436s soft solver overruns are preserved. Neither result
+proves impossibility or supplies a native-valid target. Next independently
+verify whether complement clauses can be removed under an exact existential
+assignment proof before any distinct bounded call. All earlier calls remain
+closed. Prior checkpoints are on main 68c82ae1; five CI jobs pass and Windows
+checks are still running at the retained snapshot. Production, READMEs,
+releases and the 22 reserved H2 vectors remain unchanged. H2/H5 stay open at 60%.
