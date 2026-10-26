@@ -1,0 +1,145 @@
+name: Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  maker-rebuild:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          # Historical evidence archives are not inputs to these checks.
+          sparse-checkout: |
+            /*
+            !/benchmarks/results/**/*.zip
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.11.5'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.19.0'
+      - name: Prepare pinned isolated source generators
+        run: python scripts/maker_setup.py
+      - name: Verify curve bounds and exact maker rebuild
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            .cache/maker-venv/Scripts/python.exe scripts/test_maker_geometry.py
+          else
+            .cache/maker-venv/bin/python scripts/test_maker_geometry.py
+          fi
+          python scripts/maker_freeze.py --rebuild
+
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    # Windows runners need about 25 minutes for the debug, release and WASM builds.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /*
+            !/benchmarks/results/**/*.zip
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Install pinned Rust toolchain
+        run: rustup show
+      - name: Formatting, lint, native tests, WASM and notices
+        run: python scripts/check.py
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /*
+            !/benchmarks/results/**/*.zip
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.19.0'
+      - name: Install pinned Rust toolchain and wasm-bindgen
+        run: |
+          rustup show
+          cargo install wasm-bindgen-cli --version 0.2.129 --locked
+      - name: Install locked npm packages and test browsers
+        working-directory: web
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium firefox
+      - name: Build the browser app and run Chromium and Firefox tests
+        env:
+          CI: 'true'
+        run: python scripts/build_web.py --test
+      - name: Retain browser failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: browser-failure-diagnostics
+          path: web/test-results/
+          retention-days: 7
+
+  benchmark-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            /*
+            !/benchmarks/results/**/*.zip
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Two sequential five-second native Sparrow runs
+        run: python scripts/smoke.py
+      - name: Build pinned LBF and verify its dependency notices
+        run: |
+          python scripts/lbf.py build
+          python scripts/notices.py --lbf --check
+      - name: Independently validate two bounded LBF smoke jobs
+        run: |
+          python scripts/lbf.py run --job benchmarks/datasets/B/b-fu-nest-mb-given.json --seconds 5 --seed 0
+          python scripts/lbf.py run --job benchmarks/fixtures/lbf-constraints.json --seconds 5 --seed 0
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: integration-smoke-records
+          path: |
+            output/runs/
+            output/lbf/
+            BENCHMARKS.md
+          if-no-files-found: warn

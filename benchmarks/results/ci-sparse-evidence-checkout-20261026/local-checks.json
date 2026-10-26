@@ -1,0 +1,427 @@
+{
+  "passed": true,
+  "utc": "2026-10-26T22:26:25.231039+00:00",
+  "source_head": "a8b37465c3dae2d41947e6e3d3c13f85f8d58f44",
+  "selected_files_git_blob_identical": 9504,
+  "omitted_archives": 2496,
+  "omitted_bytes": 3512792276,
+  "existing_python_CI_commands_passed": 31,
+  "workflow_checkout_steps_verified": 4,
+  "hosted_native_browser_smoke_and_maker_rebuild_pending": true,
+  "records": [
+    {
+      "args": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt",
+      "seconds": 0.03200000000651926,
+      "returncode": 0,
+      "stdout": "command-000.stdout",
+      "stderr": "command-000.stderr"
+    },
+    {
+      "args": [
+        "git",
+        "ls-tree",
+        "-rlz",
+        "a8b37465c3dae2d41947e6e3d3c13f85f8d58f44"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt",
+      "seconds": 0.10900000005494803,
+      "returncode": 0,
+      "stdout": "command-001.stdout",
+      "stderr": "command-001.stderr"
+    },
+    {
+      "args": [
+        "git",
+        "clone",
+        "--shared",
+        "--no-checkout",
+        "C:\\DEV\\Nestbolt",
+        "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt",
+      "seconds": 0.17099999997299165,
+      "returncode": 0,
+      "stdout": "command-002.stdout",
+      "stderr": "command-002.stderr"
+    },
+    {
+      "args": [
+        "git",
+        "sparse-checkout",
+        "set",
+        "--no-cone",
+        "--stdin"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.06300000008195639,
+      "returncode": 0,
+      "stdout": "command-003.stdout",
+      "stderr": "command-003.stderr"
+    },
+    {
+      "args": [
+        "git",
+        "checkout",
+        "--detach",
+        "a8b37465c3dae2d41947e6e3d3c13f85f8d58f44"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 8.405999999959022,
+      "returncode": 0,
+      "stdout": "command-004.stdout",
+      "stderr": "command-004.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/notices.py",
+        "--check"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 7.905999999959022,
+      "returncode": 0,
+      "stdout": "command-005.stdout",
+      "stderr": "command-005.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/smoke.py",
+        "--verify-only"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.23499999998603016,
+      "returncode": 0,
+      "stdout": "command-006.stdout",
+      "stderr": "command-006.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_m0.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.4529999999795109,
+      "returncode": 0,
+      "stdout": "command-007.stdout",
+      "stderr": "command-007.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/schemas.py",
+        "--check"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 237.59400000004098,
+      "returncode": 0,
+      "stdout": "command-008.stdout",
+      "stderr": "command-008.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/datasets.py",
+        "--check"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.609000000054948,
+      "returncode": 0,
+      "stdout": "command-009.stdout",
+      "stderr": "command-009.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_datasets.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 10.843999999924563,
+      "returncode": 0,
+      "stdout": "command-010.stdout",
+      "stderr": "command-010.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_benchmark_io.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.1720000000204891,
+      "returncode": 0,
+      "stdout": "command-011.stdout",
+      "stderr": "command-011.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_lbf_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.29599999997299165,
+      "returncode": 0,
+      "stdout": "command-012.stdout",
+      "stderr": "command-012.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_svgnest_io.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.2190000000409782,
+      "returncode": 0,
+      "stdout": "command-013.stdout",
+      "stderr": "command-013.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_svg_export_transform.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.1720000000204891,
+      "returncode": 0,
+      "stdout": "command-014.stdout",
+      "stderr": "command-014.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_svgnest_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.5939999999245629,
+      "returncode": 0,
+      "stdout": "command-015.stdout",
+      "stderr": "command-015.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_deepnest_io.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.23400000005494803,
+      "returncode": 0,
+      "stdout": "command-016.stdout",
+      "stderr": "command-016.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_deepnest_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.4690000000409782,
+      "returncode": 0,
+      "stdout": "command-017.stdout",
+      "stderr": "command-017.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_deepnest_snapshot.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.3589999999385327,
+      "returncode": 0,
+      "stdout": "command-018.stdout",
+      "stderr": "command-018.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_sparrow_io.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.18799999996554106,
+      "returncode": 0,
+      "stdout": "command-019.stdout",
+      "stderr": "command-019.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_sparrow_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.4530000000959262,
+      "returncode": 0,
+      "stdout": "command-020.stdout",
+      "stderr": "command-020.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_comparator_batch_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.6559999999590218,
+      "returncode": 0,
+      "stdout": "command-021.stdout",
+      "stderr": "command-021.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_batch_comparison_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.31299999996554106,
+      "returncode": 0,
+      "stdout": "command-022.stdout",
+      "stderr": "command-022.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_baseline_gap.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.34299999999348074,
+      "returncode": 0,
+      "stdout": "command-023.stdout",
+      "stderr": "command-023.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_strip_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.23499999998603016,
+      "returncode": 0,
+      "stdout": "command-024.stdout",
+      "stderr": "command-024.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_construct_profile_batch.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.23400000005494803,
+      "returncode": 0,
+      "stdout": "command-025.stdout",
+      "stderr": "command-025.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_search_development_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.2190000000409782,
+      "returncode": 0,
+      "stdout": "command-026.stdout",
+      "stderr": "command-026.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_comparison_session.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.39099999994505197,
+      "returncode": 0,
+      "stdout": "command-027.stdout",
+      "stderr": "command-027.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_comparison_session_report.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.21799999999348074,
+      "returncode": 0,
+      "stdout": "command-028.stdout",
+      "stderr": "command-028.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_comparison_envelope.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.3279999999795109,
+      "returncode": 0,
+      "stdout": "command-029.stdout",
+      "stderr": "command-029.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/matrix_plan.py",
+        "--check"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.15700000000651926,
+      "returncode": 0,
+      "stdout": "command-030.stdout",
+      "stderr": "command-030.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_matrix_plan.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.23400000005494803,
+      "returncode": 0,
+      "stdout": "command-031.stdout",
+      "stderr": "command-031.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/maker_freeze.py",
+        "--check"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.6089999999385327,
+      "returncode": 0,
+      "stdout": "command-032.stdout",
+      "stderr": "command-032.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_maker_freeze.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 3.375,
+      "returncode": 0,
+      "stdout": "command-033.stdout",
+      "stderr": "command-033.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_maker_setup.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.3440000000409782,
+      "returncode": 0,
+      "stdout": "command-034.stdout",
+      "stderr": "command-034.stderr"
+    },
+    {
+      "args": [
+        "C:\\Users\\artem\\anaconda3\\python.exe",
+        "scripts/test_dataset_selection.py"
+      ],
+      "cwd": "C:\\DEV\\Nestbolt\\output\\ci-sparse-checkout-20261026\\checkout",
+      "seconds": 0.18799999996554106,
+      "returncode": 0,
+      "stdout": "command-035.stdout",
+      "stderr": "command-035.stderr"
+    }
+  ]
+}

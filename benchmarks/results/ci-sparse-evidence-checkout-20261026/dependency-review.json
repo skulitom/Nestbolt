@@ -1,0 +1,268 @@
+{
+  "python_modules": [
+    "baseline_gap",
+    "batch_comparison_report",
+    "benchmark_io",
+    "build_web",
+    "check",
+    "comparator_batch_report",
+    "comparison_cases",
+    "comparison_envelope",
+    "comparison_session",
+    "comparison_session_report",
+    "construct_profile_batch",
+    "dataset_selection",
+    "datasets",
+    "deepnest",
+    "deepnest_io",
+    "deepnest_report",
+    "lbf",
+    "lbf_report",
+    "m0",
+    "m0_reference",
+    "maker_freeze",
+    "maker_geometry",
+    "maker_setup",
+    "makers",
+    "matrix_plan",
+    "notices",
+    "schemas",
+    "search_development_report",
+    "smoke",
+    "sparrow_benchmark",
+    "sparrow_io",
+    "sparrow_report",
+    "stock_inputs",
+    "strip_report",
+    "strip_sources",
+    "svg_export_transform",
+    "svgnest",
+    "svgnest_io",
+    "svgnest_report",
+    "test_baseline_gap",
+    "test_batch_comparison_report",
+    "test_benchmark_io",
+    "test_comparator_batch_report",
+    "test_comparison_envelope",
+    "test_comparison_session",
+    "test_comparison_session_report",
+    "test_construct_profile_batch",
+    "test_dataset_selection",
+    "test_datasets",
+    "test_deepnest_io",
+    "test_deepnest_report",
+    "test_deepnest_snapshot",
+    "test_lbf_report",
+    "test_m0",
+    "test_maker_freeze",
+    "test_maker_geometry",
+    "test_maker_setup",
+    "test_matrix_plan",
+    "test_search_development_report",
+    "test_sparrow_io",
+    "test_sparrow_report",
+    "test_strip_report",
+    "test_svg_export_transform",
+    "test_svgnest_io",
+    "test_svgnest_report"
+  ],
+  "historical_result_references": [
+    {
+      "file": "scripts/lbf_report.py",
+      "line": 94,
+      "text": "    output = ROOT / \"benchmarks/results\" / stem"
+    },
+    {
+      "file": "scripts/lbf_report.py",
+      "line": 116,
+      "text": "            f\"[table](benchmarks/results/{stem}.md). Full M1 and quality gates remain pending.\\n\")"
+    },
+    {
+      "file": "scripts/comparison_session_report.py",
+      "line": 75,
+      "text": "    target = sessions.ROOT/'benchmarks/results'/stem"
+    },
+    {
+      "file": "scripts/search_development_report.py",
+      "line": 67,
+      "text": "    for path in ['benchmarks/results/repack-sheet-20261012T035142Z-a7b22154.json',"
+    },
+    {
+      "file": "scripts/search_development_report.py",
+      "line": 68,
+      "text": "                 'benchmarks/results/repack-maker-20261012T035142Z-54130739.json']:"
+    },
+    {
+      "file": "scripts/search_development_report.py",
+      "line": 134,
+      "text": "    target = ROOT/'benchmarks/results'/('search-coverage-'+stamp+'.json')"
+    },
+    {
+      "file": "scripts/construct_profile_batch.py",
+      "line": 146,
+      "text": "    target = ROOT/'benchmarks/results'/('search-development-'+stamp+'.json')"
+    },
+    {
+      "file": "scripts/strip_report.py",
+      "line": 113,
+      "text": "    target = ROOT/'benchmarks/results'/stem"
+    },
+    {
+      "file": "scripts/baseline_gap.py",
+      "line": 159,
+      "text": "    target = ROOT/'benchmarks/results'/stem"
+    },
+    {
+      "file": "scripts/comparator_batch_report.py",
+      "line": 72,
+      "text": "    target = ROOT/'benchmarks/results'/stem"
+    },
+    {
+      "file": "scripts/comparator_batch_report.py",
+      "line": 89,
+      "text": "        f.write(f'\\n- {stamp.isoformat()} | verified {tool} batch `{batch[\"batch_id\"]}` | {batch[\"valid_runs\"]}/{len(rows)} valid | [table](benchmarks/results/{stem}.md). Provisional; all failures retained.\\n')"
+    },
+    {
+      "file": "scripts/batch_comparison_report.py",
+      "line": 147,
+      "text": "    target = ROOT/'benchmarks/results'/stem"
+    },
+    {
+      "file": "scripts/batch_comparison_report.py",
+      "line": 196,
+      "text": "                  f'| [three-seed table](benchmarks/results/{stem}.md). No final gate.\\n')"
+    }
+  ],
+  "existing_python_CI_commands": [
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/notices.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/smoke.py",
+      "--verify-only"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_m0.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/schemas.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/datasets.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_datasets.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_benchmark_io.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_lbf_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_svgnest_io.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_svg_export_transform.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_svgnest_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_deepnest_io.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_deepnest_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_deepnest_snapshot.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_sparrow_io.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_sparrow_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_comparator_batch_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_batch_comparison_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_baseline_gap.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_strip_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_construct_profile_batch.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_search_development_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_comparison_session.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_comparison_session_report.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_comparison_envelope.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/matrix_plan.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_matrix_plan.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/maker_freeze.py",
+      "--check"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_maker_freeze.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_maker_setup.py"
+    ],
+    [
+      "C:\\Users\\artem\\anaconda3\\python.exe",
+      "scripts/test_dataset_selection.py"
+    ]
+  ]
+}

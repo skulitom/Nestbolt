@@ -3827,3 +3827,13 @@ fixed49 exclusion, native call or H5 credit. H2/H5 stay open at60%; all22 reserv
 vectors remain unopened. Main36f162d0 browser attempt2 also timed out before tests,
 with18m07s checkout; prepare and validate a CI checkout repair on an isolated
 branch before the queued main push. Production and READMEs are unchanged.
+
+
+**CI checkout repair, 2026-10-26:** [the diagnosis and local checks](../benchmarks/results/ci-sparse-evidence-checkout-20261026.md)
+preserve main36f162d0's second browser timeout:18m07s checkout, tests never started.
+The four CI checkouts now omit only historical result ZIPs, avoiding3.51GB while
+retaining all9,504 other files byte-for-byte. No evidence is deleted and all test
+commands/timeouts remain unchanged. All31 existing Python CI commands pass in an
+isolated sparse checkout. Full six-job validation will run on the working branch
+before the normal main push; old runs remain preserved. H2/H5 remain open at60%,
+all22 reserved vectors remain unopened and no release qualifies.
