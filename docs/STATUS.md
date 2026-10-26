@@ -2598,3 +2598,19 @@ checkpoints were pushed normally as ff5036af after six successful main checks;
 preserve its live CI 40393931732 before the next push. H2/H5 remain open at 60%;
 no native/full-quality run or release qualifies, and all 22 reserved H2 vectors
 remain unopened.
+
+
+**N4 variable-allocation geometry, 2026-10-26:** [the evidence](../benchmarks/results/h5-allocation-aware-geometry-20261026.md)
+prepares all 66 originals for a coupled two-sheet model with all 454 surviving
+short count vectors and their first-sheet complements. Thirteen source proxy
+variants cover all bracket modes, both rectangular frame/insert footprints and
+every real cog rotation; 24 of 26 sheet/mode domains are allowed. An independent
+audit verifies 28 quantization-safe non-cog rectangles, 132 integer disk corners,
+104 domain endpoints and every count vector. Cog source strips use the proved
+109.113 mm inner disk. Separate 127.148 mm virtual separation disks follow from
+the 254.297 mm rounded-center bound and may constrain cogs only, never mixed
+families. Mathematical stock relaxations do not change the source/material
+acceptance target. No allocation-aware model or solver has opened yet. Prior
+calls remain closed. H2/H5 stay open at 60%; no native/full-quality run or release
+qualifies and all 22 reserved H2 vectors remain unopened. Preserve main
+ff5036af CI40393931732 until all six checks pass before the next normal push.
