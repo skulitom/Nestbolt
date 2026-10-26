@@ -3671,3 +3671,21 @@ Prior main f2322ccd passed all six checks and checkpoint db4d2309 was pushed
 normally. Preserve its live CI40386947038 before the next push. H2/H5 remain
 open at 60%; no native/full-quality run or new release qualifies, and all 22
 reserved H2 vectors remain unopened.
+
+
+**N4 source-cut attempts and constructive seed, 2026-10-26:** [the evidence](../benchmarks/results/h5-lazy-source-cuts-and-constructed-seed-20261026.md)
+records two distinct pipelines, each CLOSED UNKNOWN in its first round without
+returning a candidate or adding new source cuts. The first uses 114 variables/
+180 necessary constraints; a separate direct construction satisfies all of them
+but has 38 actual source collisions. Its 54-source-valid partial contains every
+frame, bracket and insert plus the short three cogs; the other 12 cogs remain
+present and mandatory. This is not a new best partial count or full source fit.
+The second starts with the 38 actual failing-pair disjunctions and 90 non-cog
+hints, fixes no first original, and closes UNKNOWN with 3,880 variables/13,246
+constraints. Returned/shared times are 15.014221/16.716055 and
+15.056194/18.386994 seconds; small soft overruns are preserved. Four independent
+audits pass. A stronger source-contained cog representation is the next distinct
+hypothesis; neither closed search may be extended or reseeded. H2/H5 remain open
+at 60%; no native/full-quality run or release qualifies and all 22 reserved H2
+vectors remain unopened. Wait for all six main CI40386947038 checks before the
+next normal checkpoint push.
