@@ -1,0 +1,138 @@
+{
+  "utc": "2026-10-26T15:16:07.748073+00:00",
+  "inputs": {
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-staggered-frame-bracket-core-repaired-20261026/audit/next-neighborhood.json": "fa79fcf94d0f0d26e5741e0af3c3dceb9ae01974f56c9271401b6e85d21cfb86",
+    "output/h5-staggered-frame-bracket-core-repaired-20261026/audit/checks.json": "6281b5a33b32a83de2d2a1ead6ac2ec4143a58cddadd2fa8e5e39c7e45e159ec",
+    "output/diagnose_h5_concave_gaps.py": "b3025a2aca8ef1dbd38526cde36c95a1cd914ed8cc921f72a7f37f265197508f",
+    "output/build_h5_cog_free_regions.py": "6972d88460d28f05634a8f10c002279251a132432caf1250e9de984d4a6d255c",
+    "output/h5-original-cog-phase-lattice-20261026/wheel-audit/checks.json": "0152652371b0c90bebf0467c805c859b926906974a1c4f721e41de4c69666ca3"
+  },
+  "generation_seconds": 180,
+  "candidate_caps": {
+    "cog": 1400,
+    "bracket": 300,
+    "insert": 300
+  },
+  "orientations": [
+    {
+      "family": "cog",
+      "angle": 0.0,
+      "mirrored": false
+    },
+    {
+      "family": "cog",
+      "angle": 0.07853981633974483,
+      "mirrored": false
+    },
+    {
+      "family": "cog",
+      "angle": 0.15707963267948966,
+      "mirrored": false
+    },
+    {
+      "family": "cog",
+      "angle": 0.23561944901923448,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 0.0,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 1.5707963267948966,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 3.141592653589793,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 4.71238898038469,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 0.0,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "angle": 1.5707963267948966,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "angle": 3.141592653589793,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "angle": 4.71238898038469,
+      "mirrored": true
+    },
+    {
+      "family": "insert",
+      "angle": 0.0,
+      "mirrored": false
+    },
+    {
+      "family": "insert",
+      "angle": 1.5707963267948966,
+      "mirrored": false
+    }
+  ],
+  "required_pair_gap_mm": 0.21170867250963943,
+  "required_extra_stock_mm": 0.011444091796875,
+  "radial_cog_contacts": {
+    "angles_degrees": [
+      0,
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135,
+      150,
+      165,
+      180,
+      195,
+      210,
+      225,
+      240,
+      255,
+      270,
+      285,
+      300,
+      315,
+      330,
+      345
+    ],
+    "bisection_steps": 32,
+    "initial_radius_bracket_mm": [
+      0,
+      300
+    ],
+    "pair_target_gap_mm": 0.225,
+    "extra_radial_margin_mm": 0.001,
+    "maximum_parent_depth": 3
+  },
+  "spatial_quota": {
+    "bin_mm": 25,
+    "maximum_per_family_orientation_bin": 2
+  },
+  "fixed_boundary_seed_caps": {
+    "cog": 160,
+    "bracket": 150,
+    "insert": 150
+  },
+  "noncog_contact_parents": 64,
+  "method": "New fixed26/short15 source geometry. All25 movers remain mandatory:3 brackets,7 inserts,15 cogs. Generate fresh fixed-obstacle translation regions for14 declared original orientations, admitting boundary vertices, midpoints and representatives round-robin with reserved family quotas. Extend cog centers independently by actual source-pair radial contacts, interleaving every active parent rather than forcing common rows, pitch or phase. Every accepted source pose must satisfy stock and all26 fixed filled outers. Then add non-cog boundary contacts around64 spatially spread cog candidates using original Minkowski obstacles, with remaining family quotas. Exact transform deduplication plus an explicitly finite25mm spatial quota controls near-duplicates; omitted proposals and unfinished queues are retained. No unrestricted coverage claim. A complete fresh conflict graph and independent audit must precede one joint solver with exact3/7/15 counts. Prior unchanged finite calls stay closed. No native/quality call here."
+}

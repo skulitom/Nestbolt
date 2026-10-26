@@ -2390,3 +2390,18 @@ brackets, three inserts and fifteen cogs stay required for the complete layout.
 All four audits pass. Main 6c5bf878 was pushed after all six prior checks passed;
 its new CI is running, so queue this checkpoint. H2/H5 remain open at 60%;
 production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 staggered frame strip and joint contacts, 2026-10-26:** [the evidence](../benchmarks/results/h5-staggered-frame-core-and-joint-contacts-20261026.md)
+verifies a different 41-original core with three brackets in the frame-side strip
+and five inserts in adjacent gaps. Remaining first-sheet filled demand falls by
+40,800 mm²; one insert extends 10.45 mm beyond the prior top. Independent checks
+cover 430 pairs, 164 stock edges and 59 cutouts/5,074 vertices. All three remaining
+brackets, seven inserts and fifteen cogs stay mandatory. A fresh 2,000-pose pool
+has all 1,999,000 source pairs and 573,329 conflicts independently verified.
+Its single joint call closes INFEASIBLE in 0.960597 returned/2.098136 shared seconds.
+Search advances beyond presolve; worker counters are reported separately.
+The finite pool is closed, with no unrestricted exclusion. All five audits pass;
+four failed checker attempts are preserved. Main 6c5bf878 passes all six checks,
+allowing the queued two-commit push. H2/H5 remain open at 60%; production,
+READMEs, releases and all 22 reserved H2 vectors are unchanged.

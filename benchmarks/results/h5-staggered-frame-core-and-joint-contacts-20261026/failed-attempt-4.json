@@ -1,0 +1,6 @@
+{
+  "failed": true,
+  "reason": "The repaired parser included both Search stats and the intervening SAT formula table before SAT stats. Duplicate worker names from SAT formula overwrote their branch counts in the comparison.",
+  "repair": "Bound the parser at the next SAT formula heading, retain the three exact Search stats records, and verify the completing-worker line and response LP iterations. Original model, one call and response remain unchanged.",
+  "solver_calls_repeated": 0
+}
