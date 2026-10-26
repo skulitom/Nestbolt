@@ -16686,3 +16686,18 @@ All three calls are closed, without retries. No full layout or unrestricted
 exclusion is claimed. All fifteen audits pass. Main 4e3b316c passes all six checks,
 allowing the next normal checkpoint push. H2/H5 remain open at 60%; production,
 READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 clipped capacity and short-strip allocation, 2026-10-26:** [the evidence](benchmarks/results/h5-clipped-capacity-and-short-strip-20261026.md)
+clips all certified forbidden integer points from the surviving cog cells.
+Independent checks cover 1,313 atomic regions, 4,268 hull corners and all
+545,490 cell pairs, proving 139 new conflicts. The stronger 1,045-variable,
+1,747-constraint model closes UNKNOWN after search in 20.044475 returned/
+21.306630 shared seconds; its 0.044475-second soft overrun is recorded.
+A distinct six-bracket/six-insert/cog short-strip attempt checks four fixed
+variants and144 finite translation queries, finding no candidate. Fixed source
+geometry is independently validated; empty conservative query records are read
+back, not promoted to an independent exclusion. Both attempts are closed.
+All four audits pass. H2/H5 remain open at60%; production, READMEs, releases
+and all22 reserved H2 vectors are unchanged. Preserve main's CI40359411459
+and wait for all six checks before the next push.
