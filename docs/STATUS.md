@@ -2532,3 +2532,19 @@ exclusion. Five independent audits pass; two diagnostic-reader failures are
 preserved and resolved without changing geometry or physical thresholds. H2/H5
 remain open at60%; no native/full-quality run or release qualifies. Preserve
 main f2322ccd's live checks and wait for all6 before the next push.
+
+
+**N4 full-stock source feasibility, 2026-10-26:** [the evidence](../benchmarks/results/h5-full-stock-source-cell-feasibility-20261026.md)
+removes every local movement bound and retains all 57 first originals plus the
+verified short nine. All 1,596 source pairs yield 38,287 conservative free cells
+and 136,401 exact integer halfplanes; independent checking covers 174,688 source
+samples. Another 65 source-contained rectangles provide necessary non-overlap
+and cumulative strip constraints. Every one of the 38,401 variables and 138,177
+serialized constraints is checked, with whole-stock domains and no position
+hints. The sole call closes UNKNOWN after search: 179,798 returned branches,
+5,060 conflicts, 60.089808 returned/61.906913 shared seconds. Its soft overrun is
+preserved; there is no assignment or exclusion. Four independent audits pass.
+Prior main f2322ccd passed all six checks and checkpoint db4d2309 was pushed
+normally. Preserve its live CI40386947038 before the next push. H2/H5 remain
+open at 60%; no native/full-quality run or new release qualifies, and all 22
+reserved H2 vectors remain unopened.
