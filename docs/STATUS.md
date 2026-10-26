@@ -2263,3 +2263,22 @@ accounted for. This bound does not exclude other first-sheet arrangements.
 All 16 audits pass. Main 9842e4c1 has 5/6 checks passed and is still running;
 queue this checkpoint until CI succeeds. H2/H5 remain open at 60%; production,
 READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 exact cog coverage and two-insert strip, 2026-10-26:** [the evidence](../benchmarks/results/h5-exact-cog-coverage-and-two-insert-strip-20261026.md)
+proves no additional cog fits the former fixed 55 first-sheet placements at
+any angle or continuous center. An exact 483-node partition covers the full
+center-stock rectangle with 242 cells; 222 source points/disks and three
+rotation angles pass rational membership, Taylor-interval and corner checks.
+A revised allocation stacks inserts 36/37 on the short sheet with six brackets
+and cog 65, restores cog 53 first, and independently verifies 64 originals,
+1,521 pairs, 256 stock edges and 88 cutouts/9,626 hole vertices. The old eight-part
+bound is not applied after this allocation change. Cogs 63/64 remain mandatory.
+Exact insert-in-cog containment transfers the no-extra-cog result to the new
+fixed 55, requiring a first-sheet rearrangement. The next audited inventory
+fixes 43 non-cog first originals and nine short originals, with all 14 first-sheet
+cogs mandatory movers. Three diagnostic maps are replayed but do not prove
+source feasibility. All five audits pass, with zero new solver calls. Main
+9842e4c1 now passes all six checks, permitting a normal push of queued
+checkpoints. H2/H5 remain open at 60%; production, READMEs, releases and all
+22 reserved H2 vectors are unchanged.
