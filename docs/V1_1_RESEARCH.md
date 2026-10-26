@@ -3575,3 +3575,19 @@ No source witness or exclusion is claimed; the call is closed. All three audits
 pass. Main cb7f7b1f now passes all six checks, allowing a normal two-commit push.
 H2/H5 remain open at 60%; production, READMEs, releases and all 22 reserved H2
 vectors are unchanged.
+
+
+**N4 mixed frame rows and source contacts, 2026-10-26:** [the evidence](../benchmarks/results/h5-mixed-rows-source-contacts-20261026.md)
+checks a changed 18-frame core and the preserved 15-part short sheet against
+258 pairs, 132 stock edges and all 45 cutouts. Every remaining bracket, insert
+and cog stays mandatory (6/12/15). A fresh 4,200-pose pool adds mutual bracket/
+insert contacts and rejects 1,280 obstacle-interior proposals before quotas.
+Independent checks reproduce all 8,817,900 candidate pairs and 1,998,405 conflicts;
+25,736 verified cliques preserve the complete graph. The exact 4,200-variable,
+25,739-constraint model closes UNKNOWN after search in 60.071975 returned/
+61.044539 shared seconds. Its soft overrun and initial cover overrun remain
+recorded. All four independent audits pass; a failed log-precision checker is
+preserved and repaired without rerunning the search. No source witness or
+exclusion is claimed. H2/H5 remain open at 60%; production, READMEs, releases
+and all 22 reserved H2 vectors are unchanged. Wait for all six checks on main
+e158daa2 before the next push.

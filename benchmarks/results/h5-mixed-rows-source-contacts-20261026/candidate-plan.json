@@ -1,0 +1,138 @@
+{
+  "utc": "2026-10-26T17:25:17.970875+00:00",
+  "inputs": {
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-mixed-rows-core-20261026/audit/next-neighborhood.json": "1f0050b15c67e4bce8b713d6f38f0bab2112ba11619b88b76f8a41d276498c9b",
+    "output/h5-mixed-rows-core-20261026/audit/checks.json": "2cdcfeea330156b69d8e875b816e1f37f24982edac1597e9544102a44881ee97",
+    "output/diagnose_h5_concave_gaps.py": "b3025a2aca8ef1dbd38526cde36c95a1cd914ed8cc921f72a7f37f265197508f",
+    "output/build_h5_cog_free_regions.py": "6972d88460d28f05634a8f10c002279251a132432caf1250e9de984d4a6d255c",
+    "output/h5-original-cog-phase-lattice-20261026/wheel-audit/checks.json": "0152652371b0c90bebf0467c805c859b926906974a1c4f721e41de4c69666ca3"
+  },
+  "generation_seconds": 180,
+  "candidate_caps": {
+    "cog": 2200,
+    "bracket": 1000,
+    "insert": 1000
+  },
+  "orientations": [
+    {
+      "family": "cog",
+      "angle": 0.0,
+      "mirrored": false
+    },
+    {
+      "family": "cog",
+      "angle": 0.07853981633974483,
+      "mirrored": false
+    },
+    {
+      "family": "cog",
+      "angle": 0.15707963267948966,
+      "mirrored": false
+    },
+    {
+      "family": "cog",
+      "angle": 0.23561944901923448,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 0.0,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 1.5707963267948966,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 3.141592653589793,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 4.71238898038469,
+      "mirrored": false
+    },
+    {
+      "family": "bracket",
+      "angle": 0.0,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "angle": 1.5707963267948966,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "angle": 3.141592653589793,
+      "mirrored": true
+    },
+    {
+      "family": "bracket",
+      "angle": 4.71238898038469,
+      "mirrored": true
+    },
+    {
+      "family": "insert",
+      "angle": 0.0,
+      "mirrored": false
+    },
+    {
+      "family": "insert",
+      "angle": 1.5707963267948966,
+      "mirrored": false
+    }
+  ],
+  "required_pair_gap_mm": 0.21170867250963943,
+  "required_extra_stock_mm": 0.011444091796875,
+  "radial_cog_contacts": {
+    "angles_degrees": [
+      0,
+      15,
+      30,
+      45,
+      60,
+      75,
+      90,
+      105,
+      120,
+      135,
+      150,
+      165,
+      180,
+      195,
+      210,
+      225,
+      240,
+      255,
+      270,
+      285,
+      300,
+      315,
+      330,
+      345
+    ],
+    "bisection_steps": 32,
+    "initial_radius_bracket_mm": [
+      0,
+      300
+    ],
+    "pair_target_gap_mm": 0.225,
+    "extra_radial_margin_mm": 0.001,
+    "maximum_parent_depth": 3
+  },
+  "spatial_quota": {
+    "bin_mm": 25,
+    "maximum_per_family_orientation_bin": 2
+  },
+  "fixed_boundary_seed_caps": {
+    "cog": 160,
+    "bracket": 150,
+    "insert": 150
+  },
+  "noncog_contact_parents": 64,
+  "method": "New mixed-row eighteen-frame core and unchanged short fifteen. All33 movers remain mandatory:6 brackets,12 inserts,15 cogs. Fixed-boundary seeds and independent source-cog radial closure are followed by contacts around64 spread cog parents, reserving noncog quota for mutual bracket/insert contacts around64 stratified parents. Reject obstacle interior representatives and require distance from the generating parent before applying any candidate quota. Cog-parent stage admits at most450 per noncog family; mutual contacts may fill the1000 caps. Every candidate must satisfy the current18 fixed filled outers and stock. Spatial25mm bins and orientation phases are finite sampling, not unrestricted coverage. Retain all proposal queues and rejection counts. A fresh full original-pair graph and independent readback must precede one exact6/12/15 joint call. No inherited source exclusions or solver retries. No native call for incomplete layouts."
+}
