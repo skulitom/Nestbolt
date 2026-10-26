@@ -3482,3 +3482,19 @@ rejected and reprojected through current owners before independent verification.
 All seven audits pass, with three failed attempts preserved. Main 4e1549ad now
 passes all six checks, permitting a normal checkpoint push. H2/H5 remain open
 at 60%; production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 compact joint model and nine-insert core, 2026-10-26:** [the evidence](../benchmarks/results/h5-compact-joint-model-and-nine-insert-core-20261026.md)
+proves necessary inner-component geometry for every allowed quarter turn/mirror
+and continuous non-cog anchor, using 112 corners and 448 exact edge tests.
+All twelve non-cogs and fifteen cogs remain mandatory in the audited 6,658-variable,
+8,244-constraint model. Its sole call explores 288,549 branches and closes UNKNOWN
+in 60.068638 returned-call / 60.876190 shared seconds, with soft overruns recorded.
+No source witness or neighborhood exclusion is claimed. A different checked core
+puts nine inserts in the central opening, reducing remaining first-sheet filled
+demand by 19,000 mm². Its 42 originals pass 456 pair checks, 168 stock edges and
+54 cutouts/4,464 hole vertices. All six remaining brackets, three inserts and
+fifteen cogs stay mandatory; rebuild domains for the new 27-fixed first sheet.
+The prior 64-original partial is preserved. Main 32282158 CI is still running
+at review, so the next push is queued until all six checks pass. H2/H5 remain
+open at 60%; production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
