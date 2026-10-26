@@ -3607,3 +3607,19 @@ checker expectation preserved. No solver/native call or full target witness.
 All six main e158daa2 checks pass, allowing the queued two-commit push. H2/H5
 remain open at 60%; production, READMEs, releases and all 22 reserved H2 vectors
 are unchanged.
+
+
+**N4 bounded source sliding, 2026-10-26:** [the evidence](../benchmarks/results/h5-source-sliding-and-guided-penalties-20261026.md)
+records three closed searches: 24 movers with 29 fixed first parts, all 53 first
+parts movable, and adaptive positive penalties on all 53. Independent original
+geometry readers retain all 66 identities, 90 cutouts and 10,026 hole vertices,
+but find 40/52/50 pair failures and 5/9/10 stock failures respectively. Lower
+overlap penalties are not material or valid part-count improvements. Neither
+all-part search accepts a frame turn; no global impossibility is claimed.
+Three preflight and three final checks pass; one diagnostic-summation checker
+failure is preserved and repaired without changing physical tolerances or
+rerunning a search. All six main ea4f2ebf checks now pass after the browser-only
+retry of a dependency-download timeout. The failed attempt is preserved.
+H2/H5 remain open at 60%; no native/full-quality run or new release qualifies.
+The next distinct allocation must first repair the older 64-part partial's
+short-sheet clearance; all 22 reserved H2 vectors remain unopened.
