@@ -3560,3 +3560,18 @@ back, not promoted to an independent exclusion. Both attempts are closed.
 All four audits pass. H2/H5 remain open at60%; production, READMEs, releases
 and all22 reserved H2 vectors are unchanged. Preserve main's CI40359411459
 and wait for all six checks before the next push.
+
+
+**N4 complete joint insert/cog necessities, 2026-10-26:** [the evidence](../benchmarks/results/h5-paired-strip-joint-geometry-20261026.md)
+retains every source cog center in 29 exact merged domains, independently checking
+3,632 integer atoms. All four insert modes pass 16 corner and 64 exact edge tests.
+Both remaining inserts and all fifteen cogs are mandatory in the independently
+reconstructed 8,440-variable/10,044-constraint model. Current clearance regions,
+105 cog pairs, 30 cog/insert circle pairs, 60 support strips and 840 support-vertex
+boxes supply necessary geometry. The sole call closes UNKNOWN after search in
+60.060177 returned/60.999099 shared seconds, with its 0.060177-second soft overrun
+preserved. The returned worker records 1,526,058 branches and 250,475 conflicts.
+No source witness or exclusion is claimed; the call is closed. All three audits
+pass. Main cb7f7b1f now passes all six checks, allowing a normal two-commit push.
+H2/H5 remain open at 60%; production, READMEs, releases and all 22 reserved H2
+vectors are unchanged.
