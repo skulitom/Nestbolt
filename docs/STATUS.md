@@ -2188,3 +2188,22 @@ proofs. All 66 originals and full H5 validation remain required. Main 7271cc8b
 has three successful CI jobs and three running, so queue this checkpoint for a
 later normal push. H2/H5 remain open at 60%; production, READMEs, releases and
 all 22 reserved vectors remain unchanged.
+
+
+**N4 necessary direction/rectangle exclusion, 2026-10-26:** [the evidence](../benchmarks/results/h5-necessary-direction-and-rectangle-exclusion-20261026.md)
+records two closed UNKNOWN searches and a stronger necessary geometry result.
+All 80 original non-cog/cog cases support audited horizontal disjunctions;
+15 necessary side-order clauses and complete area cells produce a 2,732-variable
+projection. Its initial positive contains 11 overlapping pairs. Adding 98
+independently verified inner rectangles closes the new-phase branch as
+INFEASIBLE in 3.748729 solver / 4.468353 shared seconds,
+with all four declared call budgets honored and all 11 audits passing.
+Together with the separately closed old two-phase branch, this excludes the
+fixed nine-original short-sheet composition at the eight declared cog angles,
+with every bracket orientation and both inserts, under source guards and the
+micrometre grid. Arbitrary cog angles and other compositions remain open.
+Next derive orientation-independent inner cog geometry before another bounded
+diagnostic. All 66 originals and full H5 validation remain required. Main
+7271cc8b now passes all six checks; queued checkpoints can be pushed normally
+after staged byte/ancestry checks. H2/H5 remain open at 60%; production,
+READMEs, releases and all 22 reserved vectors are unchanged.
