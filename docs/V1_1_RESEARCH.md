@@ -3591,3 +3591,19 @@ preserved and repaired without rerunning the search. No source witness or
 exclusion is claimed. H2/H5 remain open at 60%; production, READMEs, releases
 and all 22 reserved H2 vectors are unchanged. Wait for all six checks on main
 e158daa2 before the next push.
+
+
+**N4 global short-sheet frontier and eight-bracket construction, 2026-10-26:** [the evidence](../benchmarks/results/h5-global-short-frontier-and-eight-brackets-20261026.md)
+uses the full-circle cog certificate to strengthen short-sheet horizontal
+spacing to 251.956 mm. Independent forward/backward recurrences check 222 states,
+1,998 transitions and all 81 pair bounds without fixing a first-sheet layout.
+All 4,576 bracket/insert/cog allocations are covered: 3,850 fail the necessary
+ordering and 272 more fail exact filled-outer area; 454 remain necessary-only.
+A new actual eight-bracket/five-insert short sheet carries 800 mm² more filled
+area than the former six-bracket/nine-insert option. Its 42-original core passes
+484 pairs, 168 stock edges and all 58 cutouts; four brackets, five inserts and
+fifteen cogs stay mandatory. Both independent audits pass, with one repaired
+checker expectation preserved. No solver/native call or full target witness.
+All six main e158daa2 checks pass, allowing the queued two-commit push. H2/H5
+remain open at 60%; production, READMEs, releases and all 22 reserved H2 vectors
+are unchanged.
