@@ -16639,3 +16639,18 @@ fifteen cogs stay mandatory; rebuild domains for the new 27-fixed first sheet.
 The prior 64-original partial is preserved. Main 32282158 CI is still running
 at review, so the next push is queued until all six checks pass. H2/H5 remain
 open at 60%; production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 finite cog-phase obstruction, 2026-10-26:** [the evidence](benchmarks/results/h5-original-cog-phase-wheel-20261026.md)
+checks all fifteen required cogs on five declared triangular pitches with 36
+original half-degree angles. Independent source reconstruction verifies 194,400
+near-pair combinations. The 16-variable/30-constraint phase model closes
+INFEASIBLE in 0.170663 returned-call/1.124359 shared seconds, within 20/30 limits.
+An independent enumeration of 618 prefixes reproduces 458 reachability records:
+the contained seven-cog wheel has no assignment at any tested pitch, although
+some triangles fit. This excludes only the finite construction; arbitrary
+angles, moved centers and the fixed27 neighborhood remain open. All six
+brackets, three inserts and fifteen cogs stay required for the complete layout.
+All four audits pass. Main 6c5bf878 was pushed after all six prior checks passed;
+its new CI is running, so queue this checkpoint. H2/H5 remain open at 60%;
+production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
