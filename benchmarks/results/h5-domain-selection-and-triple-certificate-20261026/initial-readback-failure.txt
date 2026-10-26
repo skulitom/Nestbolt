@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\DEV\Nestbolt\output\audit_h5_selected_expanded_search.py", line 53, in <module>
+    try:main()
+        ~~~~^^
+  File "C:\DEV\Nestbolt\output\audit_h5_selected_expanded_search.py", line 15, in main
+    write(OUT/'plan.json',{'utc':datetime.now(timezone.utc).isoformat(),'inputs':{p.relative_to(ROOT).as_posix():digest(p) for p in paths},'method':'Verify the actual solver model and parameters, immutable audited sources, one closed call, response proto/status and complete elapsed budget. If positive, evaluate every returned model variable/constraint plus each selected original identity/domain/halfplane, every full original same-sheet pair clause, original area and fresh capacity. Preserve negatives and timing overruns without acceptance claims. No solver/native call.'})
+                                                                                                                 ~~~~~~^^^
+  File "C:\DEV\Nestbolt\output\audit_h5_selected_expanded_search.py", line 10, in <lambda>
+    load=lambda p:json.loads(p.read_bytes());digest=lambda p:sha256(p.read_bytes()).hexdigest()
+                                                                    ~~~~~~~~~~~~^^
+  File "C:\Users\artem\AppData\Local\Programs\Python\Python313\Lib\pathlib\_abc.py", line 625, in read_bytes
+    with self.open(mode='rb') as f:
+         ~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\artem\AppData\Local\Programs\Python\Python313\Lib\pathlib\_local.py", line 537, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\DEV\\Nestbolt\\output\\h5-selected-expanded-model-20261026\\necessary-rules.json'

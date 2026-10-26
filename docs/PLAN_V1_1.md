@@ -2806,3 +2806,19 @@ No old fixed57 table is transferred and no unmarked pair is called feasible.
 At 02:49 UTC main d85f2b2a has five CI jobs passed with Windows checks running;
 queued evidence awaits terminal CI before a normal push. H2/H5 remain open at
 60%; product source, READMEs, releases and the 22 reserved H2 vectors are unchanged.
+
+
+**N4 domain selection and three-part certificate, 2026-10-26:** [the evidence](../benchmarks/results/h5-domain-selection-and-triple-certificate-20261026.md)
+retains a closed full-source UNKNOWN and refines 27,798 additional raw collision
+exclusions. A verified necessary master selects domains, but its exact-coordinate
+subproblem is INFEASIBLE for that tuple only. All 46 pair subproblems have checked
+source witnesses; the complete bounded 120-triple census gives 87 checked
+witnesses, 32 UNKNOWN and one conditional negative. Independently of solver
+status, exact-rational original geometry proves that insert 50 in query16/row0
+permits at most one of the nine cogs in query18/row3, covering all 36 copy pairs.
+Next add and audit this single conditional-capacity rule in the necessary master;
+all 169 calls here remain closed. The initial readback helper failure and repaired
+audit are preserved, as are all soft-limit overruns; all outer budgets pass.
+No full target/native/production qualification is claimed. All six checks on main
+6a27fec0 pass, permitting a normal push. H2/H5 remain open at 60%; production,
+READMEs, releases and the 22 reserved H2 vectors are unchanged.
