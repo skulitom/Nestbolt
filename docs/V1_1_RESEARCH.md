@@ -3424,3 +3424,26 @@ The old exclusion and domain constraints are not transferred. All eight audits
 pass. Main 5928270d now passes all six checks, permitting a normal checkpoint
 push. H2/H5 remain open at 60%; production, READMEs, releases and all 22
 reserved H2 vectors are unchanged.
+
+
+**N4 full-circle cog spacing and fifteen-part strip, 2026-10-26:** [the evidence](../benchmarks/results/h5-full-circle-cog-spacing-and-fifteen-part-strip-20261026.md)
+proves a 254.3 mm minimum original cog-center distance at every rotation, improving
+the prior 247.444 mm bound. Independent exact checks cover 720 angle cells,
+28,840 robust horizontal segments,2,307,200 capsule/edge tests and all 518,400
+ordered angle-cell pairs without assuming rotational symmetry. Six separately
+bounded calls are closed: four complete-coordinate formulations UNKNOWN and two
+occupancy-only projections positive. No 40-fixed exclusion or full target witness
+is claimed. A changed short sheet fits six brackets and nine inserts, freeing
+29,137.281062 mm² net first-sheet area while returning cog 65 to first obligations.
+This alternative places 63 originals and leaves cogs 63/64/65 mandatory; the earlier
+64-original partial is preserved. Independent checks pass 1,233 pairs,252 stock
+edges and 87 cutouts/9,426 hole vertices. The next inventory has 36 fixed first
+non-cogs, all 15 first cogs mandatory, and 15 fixed short originals. Rebuild domains
+and capacities for that changed allocation. All 21 audits pass. Main5ab344f5 has
+five successful jobs and Windows checks pending, so the next push is queued until
+all six pass. H2/H5 remain open at 60%; production, READMEs, release assets and
+all 22 reserved H2 vectors are unchanged.
+
+Subsequent [main 5ab344f5 confirmation](../benchmarks/results/h5-full-circle-cog-spacing-and-fifteen-part-strip-20261026/main-ci-5ab344f5-success.json)
+passes all six checks; the checkpoint is eligible for a normal push after
+staged-byte and ancestry verification.
