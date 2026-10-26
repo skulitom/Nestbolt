@@ -3070,3 +3070,19 @@ a separate whole-model audit before another distinct bounded call. The expanded
 geometry checkpoint d85f2b2a is on main after all six prior checks passed; its
 own CI has four jobs passed at 02:31 UTC. H2/H5 remain open at 60%; production,
 READMEs, releases and all 22 reserved H2 vectors remain unchanged.
+
+
+**N4 projected models and fresh conflicts, 2026-10-26:** [the evidence](../benchmarks/results/h5-projected-source-and-fresh-conflicts-20261026.md)
+verifies exact signed projections for all 201,575 source direction definitions,
+removing 534,782 repeated terms, and a separate exact unary truth-channel encoding.
+Both full 12-mover/54-fixed models preserve all 66 required originals and pass
+independent equivalence/import audits. Their separate calls return UNKNOWN in
+48.289739 and 48.865027 shared seconds; no candidate is saved and both calls are
+closed. Solver soft-limit overshoots remain recorded. A fresh complete census
+checks 9,437,545 domain pairs and independently proves 3,948,295 raw-original
+collision exclusions. Exact row grouping preserves 25,189,075 physical uses,
+ready for independently audited integration into a complete source model.
+No old fixed57 table is transferred and no unmarked pair is called feasible.
+At 02:49 UTC main d85f2b2a has five CI jobs passed with Windows checks running;
+queued evidence awaits terminal CI before a normal push. H2/H5 remain open at
+60%; product source, READMEs, releases and the 22 reserved H2 vectors are unchanged.
