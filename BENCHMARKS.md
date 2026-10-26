@@ -16779,3 +16779,20 @@ material improvement. No native/full-quality run or release is qualified.
 Both independent audits pass; all6 main ea4f2ebf checks pass, permitting a
 normal two-commit checkpoint push. H2/H5 stay open at60%; all22 reserved H2
 vectors stay unopened. Closed searches will not be extended or reseeded.
+
+
+**N4 coordinated frame blocks and source obstruction, 2026-10-26:** [the evidence](benchmarks/results/h5-frame-blocks-source-cells-and-displacement-20261026.md)
+closes four joint frame-orientation alternatives; all66 source originals remain
+mandatory, but each full result fails geometry. A separate685-variable model
+uses571 verified source-clearance cells and2,056 exact integer halfplanes for
+all57 first parts; its sole call closes INFEASIBLE in presolve in0.026760 returned/
+1.184046 shared seconds, excluding only the finite sufficient cell subset.
+An independent exact source certificate is stronger: four turned frames and one
+vertical insert require1,509.990 mm of width versus1,487 mm stock. All10 vertical
+interval pairs must intersect under any movement up to180 mm. At least one of
+those five originals must change mode or move vertically more than180 mm;
+horizontal positions and the other61 parts were not fixed. This is not a whole-job
+exclusion. Five independent audits pass; two diagnostic-reader failures are
+preserved and resolved without changing geometry or physical thresholds. H2/H5
+remain open at60%; no native/full-quality run or release qualifies. Preserve
+main f2322ccd's live checks and wait for all6 before the next push.
