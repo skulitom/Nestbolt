@@ -2582,3 +2582,19 @@ audits pass without claiming H5 acceptance, and the closed call cannot be
 extended or reseeded. All six main db4d2309 checks now pass, allowing the next
 normal checkpoint push. H2/H5 remain open at 60%; no native/full-quality run or
 new release qualifies and all 22 reserved H2 vectors remain unopened.
+
+
+**N4 exact source capacity profiles, 2026-10-26:** [the evidence](../benchmarks/results/h5-source-capacity-profiles-20261026.md)
+verifies all 114 original/axis profiles on 2,315 integer slabs and preserves both
+781-rectangle source-strip capacities using 1,218 projection intervals. A different
+staged model has 114 whole-stock coordinates/1,400 constraints, 90 non-cog hints,
+no first part fixed, and no initial source-cell selectors or additional global
+strip non-overlap. Its only round closes UNKNOWN: 155,233 branches, 22,875 conflicts,
+30.043256 returned/32.950780 shared seconds, no candidate or new source cut.
+Small soft overruns remain recorded; the 60/90-second total boundaries are met.
+The previously overlong fj worker is explicitly excluded. Profile and complete
+model/response audits pass without a full-source claim. All prior three
+checkpoints were pushed normally as ff5036af after six successful main checks;
+preserve its live CI 40393931732 before the next push. H2/H5 remain open at 60%;
+no native/full-quality run or release qualifies, and all 22 reserved H2 vectors
+remain unopened.
