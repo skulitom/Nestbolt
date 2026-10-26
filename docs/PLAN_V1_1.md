@@ -2692,3 +2692,21 @@ material evidence, production integration and the full matrix remain required.
 H2/H5 remain open at 60%; original gate limits, production, READMEs, releases
 and all 22 reserved H2 vectors remain unchanged. Main CI 40248595273 is tracked
 before the next normal push.
+
+
+**N4 two-cog focused source search, 2026-10-26:** [the retained result](../benchmarks/results/h5-two-cog-source-focus-20261026.md)
+releases original cogs 64/65, preserving both brackets, insert and every original
+part (five movers, 61 fixed). All 3,523 original domain cases finish exact clipping
+and independent replay; 173 domains/261 fragments remain. Both brackets and
+released cogs must use the second sheet in these source conditions. The full
+parent model is preserved exactly, with eight fixed-coordinate equalities and
+6,364 independently verified empty-domain exclusions appended. One bounded
+call returns INFEASIBLE in 5.966434s, 9.166805s total; actual model/parameters and
+terminal state pass readback. This conditional solver negative is not an
+independent unrestricted geometry proof, and the call is closed. Next examine
+first-sheet cogs 57/58 with new regions and correct pair ordering. No previous
+conditional obstruction may be transferred. The pre-search prose-substitution
+failure and recovery are preserved; no solver repeated. Production integration,
+full original/native target and complete H5 matrix remain required. H2/H5 stay
+open at 60%; original limits, production, READMEs, releases and 22 reserved H2
+vectors are unchanged. Main CI 40248595273 is tracked before the next normal push.
