@@ -1,0 +1,37 @@
+[
+  {
+    "attempt": "graph",
+    "utc": "2026-10-26T13:40:46.349097+00:00",
+    "exit_code": 1,
+    "declared_seconds_limit": 300,
+    "failed_assertion": "Declared graph limit reached; no completed graph claim",
+    "completed_rows_preserved": 10494,
+    "result_json_emitted": false,
+    "solver_calls": 0,
+    "repair": "Keep every completed row byte-for-byte. In a separate recovered folder finish only missing rows using proposed contained-disk overlap and conservative integer outer-box separation before original polygon distance. An independent direct-vertex audit must prove every disk and box and verify all199990000 unordered pairs plus full symmetry; no incomplete result is promoted."
+  },
+  {
+    "attempt": "response-timing",
+    "utc": "2026-10-26T13:55:42.128452+00:00",
+    "exit_code": 1,
+    "checks_json_emitted": false,
+    "failed_assertion": "Absolute difference between internal solver wall time and returned solve-call elapsed must be below0.2seconds",
+    "solver_reported_wall_seconds": 60.5158472,
+    "returned_call_elapsed_seconds": 61.01589320006315,
+    "returned_call_overhead_seconds": 0.5000460000631435,
+    "shared_elapsed_seconds": 63.90977790008765,
+    "solver_seconds_limit": 60,
+    "shared_seconds_limit": 90,
+    "repair": "The internal solver timer and caller timer have different scopes; the arbitrary200ms equality check is not a requirement. Preserve both measurements, verify the internal wall time against the saved solver log, require their chronological ordering within the actual shared process, and explicitly report both soft solver-limit overruns. The90-second shared budget is unchanged. The sole UNKNOWN call remains closed with zero branches; no solver is rerun."
+  },
+  {
+    "attempt": "domain-owners",
+    "utc": "2026-10-26T13:59:48.305716+00:00",
+    "exit_code": 1,
+    "failed_assertion": "Every fixed owner transform equals the prior first-three-cog transform",
+    "checks_or_result_emitted": false,
+    "stale_world_circles_used": false,
+    "solver_calls": 0,
+    "repair": "The changed frame arrangement invalidates old world-space circles. Reuse only original local source-point coordinates, reproject every point with its current owner transform into a new folder, and require the independent exact winding/Taylor audit before any domain use. Keep all failed input manifests and helpers."
+  }
+]

@@ -3186,3 +3186,19 @@ All eleven audits pass. The earlier 64-original partial is preserved. Main
 07c17806 now passes all six checks, permitting a normal checkpoint push.
 H2/H5 remain open at 60%; production, READMEs, releases and all 22 reserved H2
 vectors are unchanged.
+
+
+**N4 joint source graph and compact domains, 2026-10-26:** [the evidence](../benchmarks/results/h5-joint-source-graph-and-compact-domains-20261026.md)
+independently verifies 20,000 original poses, all 199,990,000 candidate pairs and
+30,557,608 conflicts around the changed 24-original first-sheet core. Certified
+substitutions retain exact feasibility with 15,165 poses. The sole model requires
+all four remaining brackets, eight inserts and fifteen cogs; it closes UNKNOWN
+after presolve with zero branches. Internal solver / returned-call / shared
+times are 60.515847 / 61.015893 / 63.909778 seconds. Soft overruns and the failed
+clock-scope assertion are preserved; no retry or exclusion is claimed. Fresh
+exact cog-center coverage has 38 domains, with all twelve moving non-cogs still
+required in the next joint geometric model. Old world-circle coordinates were
+rejected and reprojected through current owners before independent verification.
+All seven audits pass, with three failed attempts preserved. Main 4e1549ad now
+passes all six checks, permitting a normal checkpoint push. H2/H5 remain open
+at 60%; production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
