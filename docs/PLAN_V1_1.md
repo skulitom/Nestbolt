@@ -3502,3 +3502,19 @@ pass, but no source/native witness or unrestricted exclusion exists. No retry
 or reseeding is permitted. H2/H5 stay open at 60%; no release qualifies and all
 22 reserved vectors remain unopened. Preserve main36f162d0 CI40400314122 until
 all six checks pass before the next normal push.
+
+
+**N4 fixed-noncog capacity, 2026-10-26:** [the evidence](../benchmarks/results/h5-fixed-noncog-cog-capacity-20261026.md)
+excludes the saved 51 non-cog poses even when all 15 cog centers, real rotations
+and sheet assignments are free. The exact whole-domain cover checks 33,275
+closed cells and preserves boundary centers. Independent graph/branch readers
+prove lower/small/short capacities of 6/1/3. A new necessary five-center upper
+model, with all 1,370 variables/1,439 constraints audited, closes INFEASIBLE in
+0.413757 returned/1.759713 shared seconds. The combined capacity is 6+4+1+3=14,
+below 15: at least one non-cog pose or orientation must change. This is a fixed
+arrangement exclusion, not unrestricted impossibility or a source witness.
+Three audits pass; no native call, H5 credit or release follows. H2/H5 remain
+open at 60% and all 22 reserved vectors are unopened. Main36f162d0 browser CI
+timed out after slow Ubuntu dependency downloads; raw failure evidence is kept.
+Preserve its live Windows check before retrying only the browser job, and require
+all six successful jobs before pushing the queued checkpoints.

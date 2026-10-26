@@ -1,0 +1,140 @@
+{
+  "source_guard_readback": "output/h5-retained64-proxy-regions-20261026/completion-source-audit/retained64-current-guard-readback.json",
+  "source_sha256": "4854017dc97e1ee5b8b39429f5d09f51139bf278537c5dc3fa5fa7bcef83772b",
+  "retained64_pair_guard_failures": 6,
+  "retained64_stock_guard_failures": 3,
+  "pair_failures": [
+    {
+      "keys": [
+        [
+          "frame",
+          15
+        ],
+        [
+          "bracket",
+          0
+        ]
+      ],
+      "distance_mm": 0.20010000000002037,
+      "intersection_area_mm2": 0.0,
+      "passed": false
+    },
+    {
+      "keys": [
+        [
+          "bracket",
+          3
+        ],
+        [
+          "bracket",
+          4
+        ]
+      ],
+      "distance_mm": 0.20109999999999673,
+      "intersection_area_mm2": 0.0,
+      "passed": false
+    },
+    {
+      "keys": [
+        [
+          "insert",
+          1
+        ],
+        [
+          "insert",
+          2
+        ]
+      ],
+      "distance_mm": 0.20110000000005357,
+      "intersection_area_mm2": 0.0,
+      "passed": false
+    },
+    {
+      "keys": [
+        [
+          "insert",
+          2
+        ],
+        [
+          "insert",
+          3
+        ]
+      ],
+      "distance_mm": 0.20109999999999673,
+      "intersection_area_mm2": 0.0,
+      "passed": false
+    },
+    {
+      "keys": [
+        [
+          "insert",
+          5
+        ],
+        [
+          "insert",
+          6
+        ]
+      ],
+      "distance_mm": 0.2021694971560919,
+      "intersection_area_mm2": 0.0,
+      "passed": false
+    },
+    {
+      "keys": [
+        [
+          "insert",
+          13
+        ],
+        [
+          "insert",
+          16
+        ]
+      ],
+      "distance_mm": 0.2011000000002241,
+      "intersection_area_mm2": 0.0,
+      "passed": false
+    }
+  ],
+  "stock_failures": [
+    {
+      "key": [
+        "bracket",
+        0
+      ],
+      "extra_mm": [
+        9.999999999976694e-05,
+        2101.3501,
+        1186.9999,
+        635.6498999999999
+      ],
+      "passed": false
+    },
+    {
+      "key": [
+        "insert",
+        0
+      ],
+      "extra_mm": [
+        1376.9999,
+        9.999999999976694e-05,
+        9.999999997489795e-05,
+        2806.9999
+      ],
+      "passed": false
+    },
+    {
+      "key": [
+        "insert",
+        5
+      ],
+      "extra_mm": [
+        1377.0,
+        901.0887305028439,
+        0.0,
+        1905.9112694971561
+      ],
+      "passed": false
+    }
+  ],
+  "next_step_requirement": "The retained49 non-cog subset is not already current-guard source-valid. Before treating a subsequent17-mover necessary fit as a source candidate, repair and independently recheck its retained non-cog clearance/stock failures, or explicitly permit those failing non-cog poses to move too. Preserve the original failures and this fixed51-pose exclusion. Any changed49-pose input must get fresh mixed forbidden geometry; do not silently apply the old fixed-position certificate to it. Freeing the added brackets/cogs alone remains a necessary geometric investigation, not a claim that the retained non-cogs are a valid final scaffold."
+}
