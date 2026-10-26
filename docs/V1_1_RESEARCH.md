@@ -3054,3 +3054,19 @@ covers 66 physical pairs/538 query-pair modes. Next build and audit the complete
 checkpoints are on main d1645404, whose CI is running with four jobs passed at
 the retained snapshot. H2/H5 stay open at 60%; production, READMEs, releases and
 the 22 reserved H2 vectors remain unchanged.
+
+
+**N4 expanded full-source search, 2026-10-26:** [the evidence](../benchmarks/results/h5-expanded-source-search-20261026.md)
+independently verifies the complete 12-mover/54-fixed model: all 66 originals,
+214,901 variables, 281,731 constraints, 538 full source pair modes, two exact
+area rules and a fresh second-sheet cog capacity of two. Its one call reaches
+the hard shared deadline without a saved solver response or candidate, returning
+after 60.029781 seconds. The 0.029781-second outer overrun and the ordinary
+readback auditor's missing-result failure are preserved; a separate timeout
+audit verifies closure without assigning UNKNOWN/INFEASIBLE or claiming native
+acceptance. No retry is permitted. A census identifies 16,082 exact pair/normal
+projection groups that could remove 495,561 repeated matrix terms; this needs
+a separate whole-model audit before another distinct bounded call. The expanded
+geometry checkpoint d85f2b2a is on main after all six prior checks passed; its
+own CI has four jobs passed at 02:31 UTC. H2/H5 remain open at 60%; production,
+READMEs, releases and all 22 reserved H2 vectors remain unchanged.
