@@ -2227,3 +2227,21 @@ composition, preserving every unselected short-sheet part as a first-sheet
 obligation. Main 6246967c has five successful checks and Windows remains live;
 queue this checkpoint for a later normal push. H2/H5 remain open at 60%; no
 production, README, release or reserved-vector change is claimed.
+
+
+**N4 complete composition selection and original support, 2026-10-26:** [the evidence](../benchmarks/results/h5-complete-composition-selection-and-support-20261026.md)
+accounts for all eleven remaining originals with explicit first-sheet complements.
+Two complete necessary selectors find eight-part allocations without proving
+optimality or original geometry. Exact original-tip support raises the all-angle
+continuous cog-center lower bound to 247.444 mm and rounded X spacing to 245.034 mm;
+full-height stems strengthen 192 bracket/cog endpoints. The nine-or-more decision
+and its 116-variable geometry-only relaxation both remain UNKNOWN. All four
+20/30-second calls are closed, all shared limits and eleven audits pass, and
+soft overruns are preserved. No maximum selected count or new count exclusion
+is claimed. A common Y=160 mm stem-line proof supports the next audited
+formulation: replace the five old bracket anchor-order constraints before adding
+conditional stem ordering, never impose both. All 66 originals and full H5
+validation remain required. Main 6246967c now passes all six checks, enabling
+a normal push of queued checkpoints after staged-byte/ancestry checks.
+H2/H5 remain open at 60%; production, READMEs, releases and reserved vectors
+are unchanged.
