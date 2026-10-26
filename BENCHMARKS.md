@@ -16381,3 +16381,21 @@ validation, production integration and the H5 matrix remain open. Main
 88e1dc19 has five successful checks while Windows CI runs, so this checkpoint
 is queued for a normal push after that run succeeds. H2/H5 remain open at 60%;
 production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
+
+
+**N4 mixed cog rotations, 2026-10-26:** [the evidence](benchmarks/results/h5-mixed-cog-rotations-and-capacity-20261026.md)
+verifies the original 20-tooth geometry and a second cog angle of 65.25 degrees,
+9 degrees beyond 56.25. Four original-pair screens show no local width benefit
+from this half-tooth phase, but a new 709-variable / 67-constraint capacity model
+with at least one new-angle cog is positive. Complete coordinate models reject
+the selected two/two and three/one cog-phase families with all bracket mirrors.
+A checked conditional exclusion preserves the first negative without copying
+old single-angle cuts. All 12 audits pass; all four calls close within declared
+budgets without overruns. The original run-description 66-constraint typo is
+preserved with an erratum; the actual initial model and audits use 67. Next test
+balanced bracket types with both insert choices and independent 9/11 cog choices
+in one audited 144-mode model. All 66 identities remain mandatory; first-sheet
+brackets 28/29, full native/material checks and the H5 matrix remain open.
+Main 88e1dc19 passes all six CI checks, so queued 1299e16b and this checkpoint may
+be pushed normally after verification. H2/H5 remain open at 60%; production,
+READMEs, releases and the 22 reserved H2 vectors remain unchanged.
