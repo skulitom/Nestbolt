@@ -2011,3 +2011,20 @@ Next also release upper-right bracket27/cog58 and rebuild the 59-fixed geometry.
 Main679e97e0 is pushed after all six prior checks passed; its own CI40267513191
 is live. H2/H5 remain open at 60%; source, READMEs, releases and the 22 reserved
 vectors are unchanged. No complete target layout or new release is qualified.
+
+
+**N4 seven-part obstruction and broader source, 2026-10-26:** [the evidence](../benchmarks/results/h5-seven-part-obstruction-and-broader-source-20261026.md)
+retains the full 59-fixed/seven-mover call as UNKNOWN (47.245034 shared seconds,
+0.719084-second solver soft overrun). A new independently reconstructed census
+checks all 3,644,823 domain pairs and certifies 2,369,711 raw-original conflicts.
+Lossless grouping and verified family ordering yield a necessary master, which
+is INFEASIBLE in 2.518526 shared seconds. The complete implication audit excludes
+that finite source arrangement; it does not claim unrestricted impossibility.
+Both calls stay closed. A distinct broader construction now fixes 53 originals
+and moves 13, including all nine previously moving cogs and the insert. Its
+geometry, 3,599 inward domains, 78-pair/954-mode inventory, physical-region
+broadening and freshly derived second-sheet capacity pass independent checks.
+No broader-source solver call is opened yet. Next rebuild its conflict tables
+and necessary master; no old conditional exclusions transfer. Main679e97e0 has
+four checks passed and two live; fec3cd72 is queued. H2/H5 remain open at 60%,
+with production, READMEs, releases and all 22 reserved vectors unchanged.
