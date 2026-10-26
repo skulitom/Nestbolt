@@ -16364,3 +16364,20 @@ hole-rider fallback under the existing common-line requirements. All three
 calls are closed. Main 81cc4186 passes all six checks, allowing the queued
 checkpoints to be pushed normally. H2/H5 stay open at 60%; production, READMEs,
 releases and the 22 reserved vectors remain unchanged.
+
+
+**N4 aligned profile-family exclusions, 2026-10-26:** [the evidence](benchmarks/results/h5-aligned-profile-family-exclusions-20261026.md)
+closes the tested branch with all four short-sheet cogs fixed at 56.25 degrees.
+Full-stock coordinate checks reject the selected fixed pattern, its broader
+mirror family, and balanced brackets with each of the two insert orientations.
+Exact conditional count exclusions preserve the parent capacity model; the
+final 692-variable / 104-constraint master is INFEASIBLE. This result is limited
+to the guarded source representations and micrometre grid, not unrestricted
+original packing. All 20 audits pass and eight calls close within their declared
+budgets without overruns. All 66 original identities remain required, including
+pending first-sheet brackets 28/29. Next examine independently rotated cogs;
+no current exclusion transfers to that changed geometry. Full native/material
+validation, production integration and the H5 matrix remain open. Main
+88e1dc19 has five successful checks while Windows CI runs, so this checkpoint
+is queued for a normal push after that run succeeds. H2/H5 remain open at 60%;
+production, READMEs, releases and all 22 reserved H2 vectors are unchanged.
