@@ -1,0 +1,24 @@
+[
+  {
+    "attempt": "audit",
+    "utc": "2026-10-26T12:52:25.790190+00:00",
+    "exit_code": 1,
+    "failed_assertion": "Audit cap reached; no pass",
+    "audit_limit_seconds": 120,
+    "initial_manifest_opened_before_builder_completed": true,
+    "initial_manifest_omitted_later_graph_files": true,
+    "checks_json_emitted": false,
+    "solver_calls": 0,
+    "repair": "Wait for the finalized builder result and graph files. New audit-repaired manifest hashes all finalized inputs. Replace exhaustive expensive polygon distances with independently exact inner/outer circle bounds on every saved source candidate, followed by exact integer center-distance pruning and original polygon distance only for unresolved pairs. Retain the same120-second audit cap and compare the entire resulting graph byte-for-byte in decoded form."
+  },
+  {
+    "attempt": "audit-repaired",
+    "utc": "2026-10-26T12:54:12.222628+00:00",
+    "exit_code": 1,
+    "failed_assertion": "Inner circle must lie in every infinite edge halfplane",
+    "checks_json_emitted": false,
+    "solver_calls": 0,
+    "diagnosis": "The gear inner disk is inside the polygon but not its convex kernel. Extensions of sloped tooth edges approach the center to30.22mm even though their finite segments stay beyond109.115mm. The attempted infinite-line condition was unnecessarily strong and correctly emitted no pass.",
+    "repair": "Certify center winding and exact distance to each finite source edge segment, including endpoint projections. A connected disk containing an interior point and disjoint from every boundary edge lies within the polygon. Keep the same inner radius, outer radius, pair thresholds and120-second audit cap in a new audit-segment-circles folder."
+  }
+]

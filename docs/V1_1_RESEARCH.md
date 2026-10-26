@@ -3447,3 +3447,22 @@ all 22 reserved H2 vectors are unchanged.
 Subsequent [main 5ab344f5 confirmation](../benchmarks/results/h5-full-circle-cog-spacing-and-fifteen-part-strip-20261026/main-ci-5ab344f5-success.json)
 passes all six checks; the checkpoint is eligible for a normal push after
 staged-byte and ancestry verification.
+
+
+**N4 original cog pool and central-notch core, 2026-10-26:** [the evidence](../benchmarks/results/h5-original-cog-pool-and-central-notch-core-20261026.md)
+checks all 4,770 source cog poses and all 11,374,065 pair combinations in a fresh
+36-fixed neighborhood. The sole selection call is OPTIMAL at twelve cogs;
+this finite pool does not exclude unrestricted placements of the required fifteen.
+The 63-original readback preserves all cutouts and leaves cogs 63/64/65 mandatory.
+Two failed audits and their final finite-segment repair are preserved. A changed
+frame arrangement creates a central opening holding two brackets and four inserts.
+Its independently checked 39-original core fixes 24 first-sheet parts and the
+unchanged fifteen short-sheet parts; all remaining four brackets, eight inserts
+and fifteen cogs are mandatory movers. Checks pass 381 original pairs, 156 stock
+edges and 55 cutouts/4,586 hole vertices. The separate four-bracket notch model
+is INFEASIBLE only within its declared grid/axis-gap construction. Both calls
+are closed; old domains and finite limits do not transfer to the changed core.
+All eleven audits pass. The earlier 64-original partial is preserved. Main
+07c17806 now passes all six checks, permitting a normal checkpoint push.
+H2/H5 remain open at 60%; production, READMEs, releases and all 22 reserved H2
+vectors are unchanged.
