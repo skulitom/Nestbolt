@@ -1,0 +1,18 @@
+{
+  "utc": "2026-10-26T06:03:08.943306+00:00",
+  "head": "68f82c021a0ab29cc83870ac6e738ec604d56a7b",
+  "source_hashes": {
+    "crates/core/src/sheets.rs": "dfcceb613e126aa4b4fb2923081d2f5d645bb6b4ce86f546b1ed9d3a3a81d9a5",
+    "crates/core/src/common_line/search.rs": "b66107f74b9ade31658cca60e865886e4abddc85e811b5e4cd048a9147833851"
+  },
+  "findings": [
+    "Ordinary optimize explicitly enables the hole-rider pre-pass; common-line bonus optimization explicitly disables it.",
+    "The common-line search receives90% of its budget, then the translation bonus uses the remaining budget.",
+    "The translation bonus material ceiling is1.01 times its own independently valid starting layout, not the external equal-spacing ordinary benchmark.",
+    "An ordinary hole-rider layout cannot be used as a valid common-line fallback while retaining the required part-in-hole-off geometry.",
+    "This review identifies no safe production shortcut that closes the external H5 material gate. Changing the ordinary comparison or enabling riders in common-line mode would not satisfy the existing requirement."
+  ],
+  "production_changes": false,
+  "benchmark_runs": 0,
+  "H5_complete": false
+}

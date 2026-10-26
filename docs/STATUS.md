@@ -2083,3 +2083,20 @@ allowed cog rotations geometrically; no full layout or global impossibility is
 claimed. Main81cc4186 CI40273506020 has five checks passed and one live at05:38UTC.
 H2/H5 stay open at60%; production, READMEs, releases and22 reserved vectors remain
 unchanged. No new release is qualified.
+
+
+**N4 aligned cog and cover limit, 2026-10-26:** [the evidence](../benchmarks/results/h5-aligned-cog-capacity-and-cover-limit-20261026.md)
+screens original cog rotations and verifies a 56.25-degree profile that reduces
+width/height by 1.407411 mm. A newly audited 675-variable band model for four
+brackets, one insert and four cogs is positive, but its selected full-coordinate
+pattern is INFEASIBLE. All 66 identities remain mandatory, with first-sheet
+brackets 28/29 still pending. Conservative component covers preserve original
+clearance and yield a fully audited 52-variable / 2,732-constraint model with
+1,326 rectangles. Its only call is stopped by the 60-second watchdog without a
+solver result; 0.016700 seconds of controller overhead is retained, with no
+budget pass or retry. Next audit an exact conditional profile-count exclusion
+for the failed coordinate pattern. A production review finds no valid ordinary
+hole-rider fallback under the existing common-line requirements. All three
+calls are closed. Main 81cc4186 passes all six checks, allowing the queued
+checkpoints to be pushed normally. H2/H5 stay open at 60%; production, READMEs,
+releases and the 22 reserved vectors remain unchanged.
