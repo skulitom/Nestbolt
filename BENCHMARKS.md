@@ -16164,3 +16164,18 @@ assignment proof before any distinct bounded call. All earlier calls remain
 closed. Prior checkpoints are on main 68c82ae1; five CI jobs pass and Windows
 checks are still running at the retained snapshot. Production, READMEs,
 releases and the 22 reserved H2 vectors remain unchanged. H2/H5 stay open at 60%.
+
+
+**N4 one-sided directions and restored conflicts, 2026-10-26:** [the evidence](benchmarks/results/h5-one-sided-conflict-propagation-20261026.md)
+retains two closed UNKNOWN calls. Exact monotone completion permits removal
+of 101,455 complement clauses. A second model restores all 5,561,575 proven
+domain conflicts across all families, adding only 3,395 auxiliaries and 7,886
+constraints. Complete model and bit-matrix audits pass. Both total budgets
+pass at 47.741708s/48.140666s; soft overruns of 0.486188s/0.358075s remain recorded.
+No target layout or impossibility proof is obtained. A visually inspected
+63-original partial identifies adjacent fixed cogs 53/56/61 for a broader
+12-mover/54-fixed geometry investigation. Its domains, area bounds and capacities
+must be recomputed; prior fixed57 restrictions cannot be carried over. All
+earlier calls remain closed. All six checks on main 68c82ae1 now pass, allowing
+the queued checkpoints to be pushed normally. H2/H5 remain open at 60%; source,
+READMEs, releases and the 22 reserved H2 vectors remain unchanged.
