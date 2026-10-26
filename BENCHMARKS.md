@@ -16259,3 +16259,19 @@ Next reopen the two bottom-strip cog domains and audit the broader source model.
 All 52 calls stay closed; all shared budgets pass and soft overruns remain recorded.
 Main b8535505 CI has four jobs passed at 03:46 UTC; preserve it before a normal push.
 H2/H5 stay open at 60%; production, READMEs, releases and 22 reserved vectors are unchanged.
+
+
+**N4 focused original-geometry obstruction, 2026-10-26:** [the evidence](benchmarks/results/h5-focused-partial-obstruction-20261026.md)
+retains the broader 54-fixed call as UNKNOWN in 47.721778 shared seconds,
+including its 0.423204-second solver soft overrun. A fresh 62-fixed construction
+is excluded by exact original-geometry checks: both mandatory cogs must occupy
+two separate pockets, and every available bracket position collides with the
+left cog. A separate rebuild frees middle cog61, giving five mandatory movers
+and 61 fixed originals. All geometry, 2,118 inward domains and the complete
+22,545-variable/39,619-constraint model pass independent checks; its one call is
+INFEASIBLE in 18.006190 shared seconds. These are conditional results, not an
+unrestricted impossibility claim. Both calls are closed and failures retained.
+Next also release upper-right bracket27/cog58 and rebuild the 59-fixed geometry.
+Main679e97e0 is pushed after all six prior checks passed; its own CI40267513191
+is live. H2/H5 remain open at 60%; source, READMEs, releases and the 22 reserved
+vectors are unchanged. No complete target layout or new release is qualified.
