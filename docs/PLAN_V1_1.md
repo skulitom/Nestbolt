@@ -2710,3 +2710,20 @@ failure and recovery are preserved; no solver repeated. Production integration,
 full original/native target and complete H5 matrix remain required. H2/H5 stay
 open at 60%; original limits, production, READMEs, releases and 22 reserved H2
 vectors are unchanged. Main CI 40248595273 is tracked before the next normal push.
+
+
+**N4 first-sheet neighborhoods and area capacities, 2026-10-26:** [the evidence](../benchmarks/results/h5-first-sheet-cog-neighborhoods-20261026.md)
+retains three distinct original-part searches: cogs 57/58 and 57/58/62 return
+INFEASIBLE; all four first-sheet cogs return UNKNOWN. Every region and focused
+model is independently audited, with all 66 originals retained. The UNKNOWN
+call's 0.682462s soft-limit overrun is preserved; total time is 48.884638s within
+the shared 60 seconds. All calls are closed. Separate exact area proofs yield
+14 necessary source-region inequalities, independent of cog witness poses,
+excluding 28 of 42 all-nine sheet allocations. Two brackets plus two cogs
+cannot share sheet 2 in these source domains (180,124 versus 174,476 mm²);
+the seven-part first-sheet case remains unresolved. Next add the verified
+inequalities to the full nine-mover source model, with no focused witness locks
+or exclusions. Original/native target, production integration and the complete
+H5 matrix remain required. All six prior main checks pass; the queued batch is
+ready for a normal push. H2/H5 remain open at 60%; original limits, production,
+READMEs, releases and the 22 reserved H2 vectors remain unchanged.
