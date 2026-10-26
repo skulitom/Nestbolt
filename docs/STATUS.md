@@ -2282,3 +2282,22 @@ source feasibility. All five audits pass, with zero new solver calls. Main
 9842e4c1 now passes all six checks, permitting a normal push of queued
 checkpoints. H2/H5 remain open at 60%; production, READMEs, releases and all
 22 reserved H2 vectors are unchanged.
+
+
+**N4 fourteen-cog exclusion and twelve-part strip, 2026-10-26:** [the evidence](../benchmarks/results/h5-fourteen-cog-exclusion-and-twelve-part-strip-20261026.md)
+excludes the previous 43-fixed/non-cog and nine-short-original neighborhood:
+all fourteen first-sheet cogs are mandatory in an audited all-angle necessary
+model, which returns INFEASIBLE in 8.613520 solver / 9.451583 shared seconds.
+The sole call is closed. Exact support rectangles and source-point disks cover
+all continuous centers with 135 conservative domains; all 91 cog pairs and
+2,409 capacity-one conflicts are verified. A changed original short-sheet
+construction fits twelve parts: six brackets, five inserts and one cog.
+The initial wrong-arm construction and dependent audit failure are preserved;
+the repaired copy passes independent checks of 64 originals, 1,392 pairs,
+256 stock edges and 88 cutouts/9,626 hole vertices. Inserts 32/34/35 move off
+the first sheet. Cogs 63/64 remain mandatory; the next inventory has 40 fixed
+first non-cogs, fourteen moving cogs and twelve fixed short originals.
+The old exclusion and domain constraints are not transferred. All eight audits
+pass. Main 5928270d now passes all six checks, permitting a normal checkpoint
+push. H2/H5 remain open at 60%; production, READMEs, releases and all 22
+reserved H2 vectors are unchanged.
