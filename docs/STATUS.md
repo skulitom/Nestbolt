@@ -2614,3 +2614,18 @@ acceptance target. No allocation-aware model or solver has opened yet. Prior
 calls remain closed. H2/H5 stay open at 60%; no native/full-quality run or release
 qualifies and all 22 reserved H2 vectors remain unopened. Preserve main
 ff5036af CI40393931732 until all six checks pass before the next normal push.
+
+
+**N4 coupled two-sheet model, 2026-10-26:** [the evidence](../benchmarks/results/h5-coupled-allocation-model-20261026.md)
+links every one of the 66 originals to exactly one sheet/mode choice, with 342
+options, all 454 short count rows, no fixed short allocation and all-angle cog
+necessities. The independent reader verifies all 609 variables/5,016 constraints,
+1,368 stock guards, 1,686 optional rectangles, both source-area constraints and
+separate source/cog-only virtual capacities. Filled source area excludes four
+further count vectors, without excluding the job. The sole call closes UNKNOWN:
+87,096 branches, 62,265 conflicts, 60.056339 returned/61.456279 shared seconds.
+Small soft overruns are preserved; no assignment or source/native witness exists.
+The model and response audits pass, and the closed call cannot be extended or
+reseeded. H2/H5 remain open at 60%; no full-quality run or new release qualifies,
+and all 22 reserved H2 vectors remain unopened. Preserve main ff5036af
+CI40393931732 until all six checks pass before the next normal push.
