@@ -3825,3 +3825,20 @@ counts, H2 gate and 22 unopened reserved vectors stay unchanged. Main 2adfa569
 has five passing jobs and Windows live; queued commits wait for all six before
 normal push. Production/READMEs and upstream releases are unchanged. H2/H5
 remain open at 60%; no release qualifies.
+
+
+**N4 independent cog rotations, 2026-10-28:** [the direct-source experiment](../benchmarks/results/h5-continuous-cog-source-20261028.md)
+adds independent angles and rebuilds all original vertices. Its 900-constraint
+preflight and full source control pass. The sole bounded SLSQP call is CLOSED
+after 48 iterations / 2,486 geometry evaluations (8.321686 s search, 9.325484 s
+shared). Its result fails 11 source pairs and one stock boundary; all 48
+callbacks are invalid. The original valid 772.202399 mm packet is retained;
+height gain is zero. The solver message is not geometric infeasibility, since
+the complete initial control is valid. Preserve the failed result; no restart
+or extension. Next audit a feasible-iterate formulation using small proposed
+position/angle steps and exact source checks before acceptance. All other 51
+originals, full66 validation and H5 material checks remain required. Earlier
+05a7232c/8713c6e1 checkpoints are now on main after all six prior checks passed;
+new CI 40742366525 is live. Further pushes wait for all six jobs. Production,
+READMEs, valid64, 444-count frontier, H2 gate and 22 reserved vectors remain
+unchanged. H2/H5 stay open at 60%; no release qualifies.
