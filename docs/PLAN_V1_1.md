@@ -3680,3 +3680,18 @@ Main541d5bc9 now passes all six CI jobs; the two queued checkpoints may be norma
 pushed after fresh remote/live-run checks. Production, READMEs and upstream
 releases are unchanged. H2/H5 stay open at 60%; all 22 reserved vectors remain
 unopened, and no new release qualifies.
+
+
+**N4 remaining short-count screen, 2026-10-28:** [the evidence](../benchmarks/results/h5-short-count-x-screen-20261028.md)
+independently checks all 6,649 variables / 85,989 constraints before one bounded
+pass over the 32 predeclared maximal count vectors. Four cases are INFEASIBLE,
+27 remain UNKNOWN, and 7/4/1 has a fully checked relaxed assignment. The four
+new exclusions are 0/10/5, 1/8/5, 2/9/4 and 4/7/3 (brackets/inserts/cogs).
+All 4,576 original rows remain recorded; 448 count candidates survive. All 32
+calls finish in 85.249128 shared seconds; the largest 3-second return overrun is
+0.034838 seconds and is preserved. This pass is closed without retries. Known
+source-valid 7/4/1 and 8/5/0 remain allowed; no full66 or native pass follows.
+Next inspect a full-geometry 8/6/0 short-sheet construction to free first-sheet
+space, auditing a new model before any bounded call. Main f9629063 passes all
+six CI jobs. Production, READMEs and upstream releases are unchanged. H2/H5
+remain open at 60%; the 22 reserved vectors stay unopened and no release qualifies.
