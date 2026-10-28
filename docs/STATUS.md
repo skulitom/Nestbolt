@@ -2765,3 +2765,19 @@ construction. Mainf4f6f1fe now passes all six CI jobs, enabling the next normal
 push after a fresh remote/live-run check. Production, READMEs and upstream
 releases remain unchanged. H2/H5 stay open at60%;22 reserved vectors are unopened
 and no release qualifies.
+
+
+**N4 all-free short13 necessities, 2026-10-28:** [the evidence](../benchmarks/results/h5-short13-necessary-20261028.md)
+frees every position for7 brackets/5 inserts/1 cog, covering all allowed modes
+and all real cog angles. Exact source inner/edge/corner geometry, all12,197
+variables and15,458 constraints pass independent audits. All635 known valid
+source12 prefixes satisfy238,125 mixed rules and7,620 stock domains. The sole
+60-second solver call closes UNKNOWN after2,869,712 branches/39,823 conflicts,
+60.102096 returned/62.228226 shared seconds; small soft overruns are retained.
+No assignment, source13 witness, count exclusion or native/H5 pass exists, and
+the call will not be retried or extended. Next seek a stronger exact structural
+projection or different complete source construction. Main390fb2d3 contains both
+prior checkpoints; its newCI40676201231 has four passing jobs and two live checks.
+Preserve it until all six pass before the next main push. Production, READMEs
+and upstream releases are unchanged. H2/H5 stay open at60%;22 reserved vectors
+remain unopened and no new release qualifies.
