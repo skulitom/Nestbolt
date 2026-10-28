@@ -3980,3 +3980,25 @@ checkpoint b0468c71 and this checkpoint wait for CI 40764537562 (five passes,
 Windows checks live). Production/READMEs, valid 64, 444 necessary allocations,
 original H2 gate and 22 unopened vectors stay unchanged. H2/H5 open at 60%; no
 new release qualifies.
+
+
+**N4 short-sheet transfer and source row clearance, 2026-10-28:** [the evidence](../benchmarks/results/h5-transfer-and-hybrid-row-clearance-20261028.md)
+preserves two closed 43-block searches, both UNKNOWN with no candidate. All
+66 originals remain mandatory; the exact short sheet contains 7 brackets,
+4 inserts and 1 cog. A source-valid 61-part control reveals 61 false cover
+collisions between cog rows. A new hybrid model replaces those checks with
+independently proved original-source displacement constraints, retaining all
+903 block pairs. Its 672 variables and 3,374 constraints pass full audits;
+the partial control fails exactly the five missing-bracket requirements.
+The overlapping full control is rejected. Failed geometry preparations,
+including a missing diagnostic file and a zero-area boundary discrepancy,
+remain preserved; a 1 nm scalar guard passes exact containment. Neither
+60-second search returns a full layout. Algorithm/shared times are
+60.028382/60.106266 seconds and 60.025292/60.084533 seconds; soft overruns
+remain recorded. No native validation or global infeasibility claim follows.
+Next compare source and cover clearance for all eight bracket modes around
+the 61-part control. The existing valid 64-part result is preserved. Both
+queued checkpoints are now on main 608fecf1 after all six prior CI jobs passed;
+CI 40771628220 has four passes and both platform checks running. Production,
+READMEs, 444 necessary allocations, the original H2 gate and 22 unopened
+vectors are unchanged. H2/H5 remain open at 60%; no new release qualifies.
