@@ -17298,3 +17298,20 @@ Main 8713c6e1 has five passing jobs and Windows live; queued checkpoints wait
 for all six and fresh guards before normal push. Production/READMEs, valid64,
 444-count frontier, H2 gate and 22 reserved vectors stay unchanged. H2/H5
 remain open at 60%; no release qualifies.
+
+
+**N4 full25 outer-cover model, 2026-10-28:** [the evidence](benchmarks/results/h5-mixed25-outer-covers-20261028.md) verifies
+all 13 source modes, complete clearance-expanded covers and a corrected
+56-original control. The source-valid initial control's 20 cover collisions
+and failed audit remain preserved. The actual target keeps all 25 movers
+mandatory, with 142 variables / 8,819 constraints; the partial control fails
+all ten missing-part constraints in that actual model. The sole call is CLOSED
+UNKNOWN with no candidate (60.517049 s returned / 61.248900 s shared); preserve
+the 0.517049 s soft overrun. No infeasibility, native or H5 claim follows.
+Next audit a full25 relaxation with source collision constraints added for
+exposed pairs, using fresh fixed-owner regions and one total bounded sequence;
+never restart an identical model or give each iteration a fresh 60 seconds.
+All66 source/native/material checks remain required. The three previous
+checkpoints are now on main b699d1c1 after all six prior checks passed; new
+CI 40748909850 is live. Production/READMEs, valid64, 444-count frontier,
+H2 gate and 22 reserved vectors remain unchanged. H2/H5 stay open at 60%.
