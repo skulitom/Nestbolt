@@ -17349,3 +17349,20 @@ audits; no alternate solver is installed or run yet. The previous two checkpoint
 are pushed to main a0d6f9af; CI 40753599821 has four passes and two live checks.
 Production/READMEs, valid 64, 444 necessary allocations, H2 gate and 22 unopened
 vectors remain unchanged. H2/H5 stay open at 60%; no new release qualifies.
+
+
+**N4 real arithmetic and row-cover study, 2026-10-28:** [the evidence](benchmarks/results/h5-rational-source-and-row-covers-20261028.md)
+closes one Z3 check as UNKNOWN/timeout at 15.579044 s, preserving its 0.579044 s
+overrun. A separate exact assignment proves both closed relaxations satisfiable
+but fails original-source validation with 68 collisions; 90 mode-specific cases
+are inactive. All mandatory originals, formula fields, continuous halfplanes,
+conversion fixtures and source rings are audited. A geometry-only alternative
+uses three five-cog rows of 58 cover rectangles each and moves all 51 first-sheet
+originals as 39 blocks. Exact verification of 9,114 section patterns leaves only
+8.840449 mm above the necessary height bound; it proves neither fit nor exclusion.
+No new packing model/solve follows yet. Next audit the complete movable-sheet
+model, stock-bound scope and partial controls before one fixed-budget search.
+The prior checkpoint is on main 571738d8; CI 40758320213 has five passes with
+Windows checks live. Production/READMEs, valid 64, 444 necessary allocations,
+original H2 gate and 22 unopened vectors remain unchanged. H2/H5 stay open at
+60%; no new release qualifies.
