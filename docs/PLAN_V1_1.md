@@ -3911,3 +3911,20 @@ All six jobs of main b699d1c1 CI 40748909850 now pass; the two reviewed evidence
 checkpoints can be pushed after fresh guards. Production/READMEs, valid 64,
 444 necessary allocations, H2 gate and 22 reserved vectors remain unchanged.
 H2/H5 stay open at 60%; no new release qualifies.
+
+
+**N4 complete source collision candidates, 2026-10-28:** [the evidence](../benchmarks/results/h5-source-collision-generation-20261028.md)
+preserves two closed generation policies and three complete 66-part candidates,
+all rejected for 43, 20 and 48 source collisions. All original stock/hole checks
+pass, but no valid full layout or native claim follows. The first policy adds
+all 386 mode groups for 43 owner pairs and returns UNKNOWN; the finer policy
+starts with 43 observed cases, adds 20 then 48, and also closes UNKNOWN at 111 cases.
+All model fields, prefixes, generated cases and saved original rings are
+independently checked. Separate full 66-part negative diagnostics correctly fail
+with 68/65 collisions. Preserve both soft overruns and all five solver responses;
+neither unused budget nor UNKNOWN authorizes a repeat. Next investigate direct
+continuous-rational halfplane disjunctions after license/dependency/formula
+audits; no alternate solver is installed or run yet. The previous two checkpoints
+are pushed to main a0d6f9af; CI 40753599821 has four passes and two live checks.
+Production/READMEs, valid 64, 444 necessary allocations, H2 gate and 22 unopened
+vectors remain unchanged. H2/H5 stay open at 60%; no new release qualifies.

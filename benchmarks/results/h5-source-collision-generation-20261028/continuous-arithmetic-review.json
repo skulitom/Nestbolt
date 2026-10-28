@@ -1,0 +1,25 @@
+{
+  "purpose": "Read-only investigation of a different solver/formulation after two closed CP-SAT generation policies. No dependency installed and no Z3 solve performed.",
+  "sources": [
+    {
+      "url": "https://api.github.com/repos/Z3Prover/z3/contents/LICENSE.txt",
+      "fact": "Upstream Z3 identifies its license as MIT; preserve the full notice in any local package evidence."
+    },
+    {
+      "url": "https://microsoft.github.io/z3guide/docs/theories/Arithmetic/",
+      "fact": "The official guide describes dual simplex for linear real arithmetic, distinct from integer-arithmetic methods."
+    },
+    {
+      "url": "https://z3prover.github.io/api/html/z3.z3.html",
+      "fact": "The Python API offers SolverFor(logic), including SMT-LIB logic selection."
+    },
+    {
+      "url": "https://microsoft.github.io/z3guide/programming/Z3%20Python/Introduction/",
+      "fact": "The Python API represents rational values exactly and exposes their internal expressions."
+    }
+  ],
+  "proposal": "Investigate a QF_LRA formulation with50 real anchor coordinates, Boolean legal-mode choices and direct disjunctions of the already audited conservative halfplanes. Import all111 observed owner/mode exclusions, with no repeated CP call. Retain25 mandatory movers around fixed41 and the original mode subset. Independently audit every serialized formula, rational assignment and conversion to original-source coordinates. Every complete candidate must pass the unchanged66-original stock/pair/hole acceptance checker before native validation. One fixed total budget must include incremental case additions and source checks. Confirm the package license/version/hash and use an isolated local environment before any solve.",
+  "solver_calls": 0,
+  "native_calls": 0,
+  "H5_complete": false
+}
