@@ -3051,3 +3051,20 @@ All66 source/native/material checks remain required. The three previous
 checkpoints are now on main b699d1c1 after all six prior checks passed; new
 CI 40748909850 is live. Production/READMEs, valid64, 444-count frontier,
 H2 gate and 22 reserved vectors remain unchanged. H2/H5 stay open at 60%.
+
+
+**N4 smaller source relaxation and exact bands, 2026-10-28:** [the evidence](../benchmarks/results/h5-mixed25-lazy-source-20261028.md)
+verifies fresh owner regions, all 25 mandatory movers and the smaller 342-variable /
+4,017-constraint model. The first 15 s call is CLOSED UNKNOWN with no candidate;
+the sequence stops immediately, preserving 0.038662 s solve soft overrun
+(15.235108 s algorithm / 15.948386 s shared). No dynamic pair cuts or native calls
+occur. The no-solve pair preflight covers all 66 intrinsic mode domains and
+keeps partial 56 distinct from actual 66. Independent exact checks of 4,278 bands
+find zero overloads, proving neither feasibility nor fixed-core exclusion.
+Next audit collision-first generation with the large cumulative system omitted
+from the initial model, while keeping all 66 required and source checks as the
+acceptance path. Predeclare one total bounded sequence; no closed solve restarts.
+All six jobs of main b699d1c1 CI 40748909850 now pass; the two reviewed evidence
+checkpoints can be pushed after fresh guards. Production/READMEs, valid 64,
+444 necessary allocations, H2 gate and 22 reserved vectors remain unchanged.
+H2/H5 stay open at 60%; no new release qualifies.
