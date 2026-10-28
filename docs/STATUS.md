@@ -3102,3 +3102,21 @@ The prior checkpoint is on main 571738d8; CI 40758320213 has five passes with
 Windows checks live. Production/READMEs, valid 64, 444 necessary allocations,
 original H2 gate and 22 unopened vectors remain unchanged. H2/H5 stay open at
 60%; no new release qualifies.
+
+
+**N4 movable first sheet and tighter row covers, 2026-10-28:** [the evidence](../benchmarks/results/h5-joint-sheet-and-union-covers-20261028.md)
+closes one complete 39-block hull-cover search UNKNOWN with no candidate.
+All 51 first-sheet originals move; 228 variables and 998 constraints are
+independently audited. Partial51 passes source/cover checks but fails exactly
+11 target requirements; negative66 correctly fails with 825 source collisions.
+Search begins at 0.26 s; algorithm/shared times are 60.076083/60.146931 s, with
+the 0.076083 s algorithm overrun preserved. A new geometry-only union-cover
+study removes 263,585.241270 mm² of cover area across three rows and verifies
+a partial56 control, including all 1,276,003 cover pairs. The failed exact-subset
+assumption from a 1 µm slab-grid shift and two reader errors remain preserved;
+independent source-clearance proofs pass. Next build and audit the complete
+union-cover model before one new fixed-budget solve; the hull search stays
+closed. Prior checkpoint 75ee537c is pushed after all six checks passed;
+CI 40764537562 has three passes and three running jobs. Production/READMEs,
+valid 64, 444 necessary allocations, H2 gate and 22 unopened vectors are unchanged.
+H2/H5 remain open at 60%; no new release qualifies.
