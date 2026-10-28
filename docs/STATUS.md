@@ -3206,3 +3206,25 @@ native result or global infeasibility follows. Prior checkpoints are on main
 for all six before a normal push. Production, READMEs, valid 64, 444 necessary
 allocations and H2's original gate/22 unopened vectors remain unchanged.
 H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 necessary capacities and domain studies, 2026-10-28:** [the evidence](../benchmarks/results/h5-row-bracket-capacity-and-domain-studies-20261028.md)
+adds 2,876 source-contained intervals and two whole-sheet capacity constraints
+while preserving all 7,932 variables, 32,137 prior constraints and hints byte
+for byte. The complete 35,015-constraint model, all three ancestor models,
+all nine valid controls and the overlapping full control pass independent
+audits. All 66 originals remain required. Its sole 60/90-second search closes
+UNKNOWN without a candidate: 60.067082 algorithm seconds, 60.142702 shared,
+including the recorded 0.067082-second algorithm overrun. A finite convex-cover
+study proves preservation of every previously accepted integer displacement
+through 3,960 exact rational vertices and 16,214 vertex/plane checks, but its
+4.3994% reduction misses the frozen 25% threshold. A periodic inventory yields
+29,190 projected planes versus 28,640, with 80 strict equality discrepancies;
+it is also rejected. Neither study creates a replacement model or solver call.
+Next preflight a conditional full66 construction fixing only the14 cog poses
+while keeping all40 orthogonal blocks movable; audit it before any new call.
+No full layout, native result or global infeasibility follows. Main 0d6dc0fa's
+CI40777420353 now passes all six jobs. Prior checkpoint 0b84eb89 and this
+checkpoint are ready for a guarded normal push after commit. Production,
+READMEs, valid64, 444 necessary allocations and H2's original gate/22 unopened
+vectors remain unchanged. H2/H5 stay open at 60%; no new release qualifies.
