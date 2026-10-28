@@ -4071,3 +4071,25 @@ CI40777420353 now passes all six jobs. Prior checkpoint 0b84eb89 and this
 checkpoint are ready for a guarded normal push after commit. Production,
 READMEs, valid64, 444 necessary allocations and H2's original gate/22 unopened
 vectors remain unchanged. H2/H5 stay open at 60%; no new release qualifies.
+
+
+**N4 fixed cog rows and short-sheet exchange preflight, 2026-10-28:** [the evidence](../benchmarks/results/h5-fixed-cog-rows-and-short-exchange-20261028.md)
+preserves all 7,932 variables and 35,015 prior constraints, adding only six
+anchor equalities for fourteen cogs. All forty orthogonal blocks remain
+movable and all 66 originals mandatory. Full model/ancestor, source, identity
+and control audits pass; the 61-part control and all eight 62-part witnesses fail only
+their missing-bracket requirements. The full negative has 780 source collisions
+and is rejected by 14 model constraints. The sole 60/90-second call closes
+UNKNOWN: search begins at 6.25 s, algorithm 60.054484 s, shared 60.147361 s, with
+the 0.054484 s algorithm overrun retained. No candidate or infeasibility follows.
+The next allocation review discards 6 brackets/4 inserts/2 cogs under the existing
+ordered-projection proof. The surviving 5 brackets/6 inserts/2 cogs allocation has
+an explicit first-sheet complement of 18 frames/7 brackets/15 inserts/13 cogs.
+Six fixed 11-part exchange variants from a validated 12-part short sheet pass source and all 66
+identity accounting. No new 13-part short sheet, free-region preparation or construction
+call exists yet; that audited finite geometry study is next. Both prior
+checkpoints reached main `83f3f51f` after all six previous CI jobs passed. Its
+CI 40783629977 has four passes and both platform checks running at the snapshot,
+so this checkpoint queues. Production, READMEs, the valid 64-part layout, 444 necessary survivors
+and H2's original gate/22 unopened vectors are unchanged. H2/H5 remain open
+at 60%; no native result or new release qualifies.
