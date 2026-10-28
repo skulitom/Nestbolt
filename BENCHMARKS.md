@@ -16996,3 +16996,20 @@ Publication update2026-10-28: remote main's14 layered-kit example files are
 preserved in a clean merge with the five queued checkpoints. Both parent heads
 pass all six jobs; product source, READMEs and upstream releases are unchanged.
 The combined main head will receive its own checks after the normal push.
+
+
+**N4 oblique original-source construction, 2026-10-28:** [the evidence](benchmarks/results/h5-oblique-source-construction-20261028.md)
+independently verifies3,888 contact cases and a new source-valid64 layout with
+all15 cogs and21 inserts. All1,353 source pairs and256 stock edges pass; minimum
+gap0.2148269833mm and extra stock0.025mm exceed the unchanged guards. Two bracket
+copies remain mandatory. Eighteen conservative anchor-pocket regions are rebuilt
+from original world polygons; empty pockets are not source-impossibility proofs.
+A new17-mover phase7 joint call closes at a local minimum after128 evaluations
+in0.046184 search/2.960379 shared seconds. Its complete66 candidate fails33 source
+pairs and2 stock edges, preserved with all90 holes/10,026 hole vertices. Four
+independent audits pass, but there is no complete valid66 or native/H5 pass.
+All searches stay closed; next change the structural arrangement, not the guard.
+Mainf4f6f1fe preserves the layered-kit example and has five passing CI jobs, with
+Windows still running; defer the next main push until all six pass. Production,
+READMEs and upstream releases are unchanged. H2/H5 remain open at60%; all22
+reserved vectors stay unopened and no new release qualifies.
