@@ -17212,3 +17212,20 @@ The best valid64,444-count frontier, H2 gate and22 unopened reserved vectors
 remain unchanged. Main d71c9c85 now has allsix CI jobs passing; push verified
 queued checkpoints after fresh guards. Production/READMEs and upstream releases
 are unchanged. H2/H5 remain open at60%; no release qualifies.
+
+
+**N4 mixed-core height and exact bounds, 2026-10-28:** [the evidence](benchmarks/results/h5-mixed-core-height-and-section-bounds-20261028.md)
+verifies a mixed 26-part core at 2,157.409 mm, 10.466 mm shorter, with all seven
+source-valid incumbents preserved. The sole search stays closed, including its
+0.047559 s returned soft overrun. Rebuilt cog-anchor area grows only about 0.20%.
+Three independent exact section-weight certificates check 11,741 patterns.
+Adding the two missing brackets to the old 18-frame/11-insert lower core requires
+a top of at least 2,144.593263 mm, exceeding its old height by 36.943263 mm;
+this excludes that core-only repair, not the full job. The current mixed26 core
+has a 2,113.619939 mm lower bound; all first-sheet non-cogs under short6/9 need
+at least 2,249.796028 mm. Next investigate an independently positioned cog packet
+with a height objective and fully audited positive control, preserving all other
+original obligations. Best valid64, 444 necessary counts, the H2 gate and 22
+unopened reserved vectors stay unchanged. Main 2adfa569 has four passing CI jobs
+and Ubuntu/Windows checks live; wait for all six before pushing. Production,
+READMEs and upstream releases are unchanged. H2/H5 remain open at 60%.
