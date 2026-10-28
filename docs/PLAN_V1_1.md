@@ -4002,3 +4002,26 @@ queued checkpoints are now on main 608fecf1 after all six prior CI jobs passed;
 CI 40771628220 has four passes and both platform checks running. Production,
 READMEs, 444 necessary allocations, the original H2 gate and 22 unopened
 vectors are unchanged. H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 bracket source regions and fixed-layout bound, 2026-10-28:** [the evidence](../benchmarks/results/h5-bracket-source-regions-and-fixed-layout-bound-20261028.md)
+finds eight source-valid 62-part controls, one per legal bracket orientation,
+that row covers reject. Independent checks cover 392 source-world obstacles,
+37,184 Minkowski hulls and all original witness geometry. These controls do
+not improve the preserved valid 64-part result. A complete five-bracket model
+around the fixed 61 originals passes every field/control audit and closes
+INFEASIBLE in 0.185030 solve seconds (0.867560 algorithm, 0.928757 shared),
+with no candidate or overrun. A separate necessary proof then removes the
+grid and clearance restrictions: exact contained rectangles and 6,022
+continuous arrangement strips bound possible first-sheet bracket area to
+144,813.690060 mm², allowing at most three missing brackets. The relaxed
+short-sheet area allows at most one more. Five are missing, so these 61
+fixed poses cannot be completed on the two current target sheets, even by
+redistributing the missing brackets. This excludes one layout, not the
+original job or another allocation. All 444 necessary allocation survivors
+remain unchanged. Next audit source row-to-bracket constraints in a model
+that permits existing parts to move; do not restart closed calls. Main
+608fecf1 remains unchanged while CI 40771628220 has five passes and Windows
+checks running; prior local checkpoint 98a5651c and this checkpoint wait.
+Production/READMEs, the original H2 gate and 22 unopened vectors are unchanged.
+H2/H5 remain open at 60%; no new release qualifies.
