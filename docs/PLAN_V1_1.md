@@ -3727,3 +3727,19 @@ changed cog phases/row structure; closed local calls stay closed. Main db26d120
 has five passing jobs and its Windows check is live; wait for allsix before
 pushing. Production, READMEs and upstream releases are unchanged. H2/H5 remain
 open at 60%; all 22 reserved vectors remain unopened and no release qualifies.
+
+
+**N4 cog topology checks, 2026-10-28:** [the evidence](../benchmarks/results/h5-cog-topology-source-checks-20261028.md) audits
+2,592 new contact cases and one finite mixed-phase model. Its sole call returns
+OPTIMAL at 278.84 mm pitch; all 31 incumbents and 105 original cog pairs pass,
+but the packet is 47.819 mm too wide. A new aligned-row source58 passes, then
+one bounded insertion sequence places one bracket and three inserts. Final
+source62 passes 1,219 source pairs and all 78 holes; brackets8–11 remain
+unplaced and the earlier valid64 is preserved. Both calls are closed, with no
+native or global infeasibility claim; the necessary frontier remains 444.
+Next allow independent mover positions or change the retained frame arrangement.
+Main db26d120 passes all six CI jobs, permitting a normal guarded checkpoint
+push. Sparrow6f7b9d35 changes only README/wordmark assets; the upstream stop rule
+does not fire. Production, READMEs and upstream releases remain unchanged.
+H2/H5 stay open at 60%, all 22 reserved vectors remain unopened, and no release
+qualifies.
