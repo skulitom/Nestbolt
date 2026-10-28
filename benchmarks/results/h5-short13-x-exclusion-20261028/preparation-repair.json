@@ -1,0 +1,9 @@
+{
+  "build_error": "AttributeError: 'NoneType' object has no attribute 'index'",
+  "cause": "The installed OR-Tools list overload of only_enforce_if returns None; the code incorrectly used it as a fluent Constraint return.",
+  "premature_audit_error": "FileNotFoundError: model.pb was not produced.",
+  "repair": "Keep the original Constraint objects and call only_enforce_if separately.",
+  "original_build_and_auditor_preserved": true,
+  "solver_calls": 0,
+  "model_written": false
+}

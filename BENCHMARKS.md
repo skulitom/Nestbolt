@@ -17063,3 +17063,23 @@ complete source construction. Main390fb2d3 now passes all six CI jobs, enabling
 the queued checkpoint push after fresh remote/live-run checks. Production,
 READMEs and upstream releases are unchanged. H2/H5 remain open at 60%; all 22
 reserved vectors remain unopened, and no new release qualifies.
+
+
+**N4 short-sheet 7/5/1 exclusion, 2026-10-28:** [the evidence](benchmarks/results/h5-short13-x-exclusion-20261028.md)
+certifies stronger horizontal source spacing across all 983,930 integer relative
+Y values and every real cog angle. Eight mixed directions improve by up to
+23.375 mm; the core-only frontier still has 454 survivors. Including every
+mandatory insert and source height in a reduced X-capacity model gives 158
+variables / 4,372 independently verified constraints. Its sole call returns
+INFEASIBLE after 68,907 branches / 25,215 conflicts in 2.037863 returned /
+2.713545 shared seconds, without overrun. Source mapping and positive controls
+pass: all 635 valid source12 prefixes satisfy 41,910 pair-spacing checks and
+26,035 source-rectangle capacity checks. Seven brackets/five inserts/one cog is
+excluded on the target short sheet; upward closure also excludes 7/6/1. The
+complete frontier retains 452 possible count allocations. This is not a full66
+exclusion or witness. Stop both excluded allocation branches and return to a
+different full source construction, such as freeing all 24 first-sheet packet
+parts around the valid 42-part core. Main541d5bc9 has five passing CI jobs and
+Windows still running; preserve it before the next main push. Production,
+READMEs and upstream releases are unchanged. H2/H5 stay open at 60%; all 22
+reserved vectors remain unopened, and no new release qualifies.
