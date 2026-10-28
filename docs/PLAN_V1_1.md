@@ -3860,3 +3860,20 @@ required. Main 8713c6e1 has four passing jobs; Linux/Windows checks remain live.
 Queued evidence waits for all six and fresh remote guards before normal push.
 Production/READMEs, prior valid64, 444-count frontier, H2 gate and 22 reserved
 vectors remain unchanged. H2/H5 stay open at 60%; no release qualifies.
+
+
+**N4 separate cog contacts, 2026-10-28:** [the audited feature model](../benchmarks/results/h5-cog-feature-source-20261028.md)
+correctly rejects the prior unsafe direction and keeps all 81 accepted states
+source-valid. The sole sequence is CLOSED at 80 iterations, with 232 trials,
+8.964570 s search and 12.407827 s shared time. All 80 displacement-derived
+feature windows and 57,283 active derivatives are independently verified.
+Height improves 0.236005 mm to 771.963627 mm, but width grows 9.392841 mm to
+1445.843185 mm. Do not extend the call or continue isolated height optimization.
+Next audit conservative *outer* rectangle covers and a new full25 mixed-part
+NoOverlap2D formulation around the verified mixed26/short15; source-contained
+capacity rectangles are not outer covers. A 56-original control never replaces
+the mandatory full66 target. Source/native/material checks remain required.
+Main 8713c6e1 has five passing jobs and Windows live; queued checkpoints wait
+for all six and fresh guards before normal push. Production/READMEs, valid64,
+444-count frontier, H2 gate and 22 reserved vectors stay unchanged. H2/H5
+remain open at 60%; no release qualifies.
