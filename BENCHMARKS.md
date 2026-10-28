@@ -17514,3 +17514,25 @@ CI 40783629977 has four passes and both platform checks running at the snapshot,
 so this checkpoint queues. Production, READMEs, the valid 64-part layout, 444 necessary survivors
 and H2's original gate/22 unopened vectors are unchanged. H2/H5 remain open
 at 60%; no native result or new release qualifies.
+
+
+**N4 short-sheet exchange and continuous cog bound, 2026-10-28:** [the evidence](benchmarks/results/h5-short-exchange-continuous-bound-20261028.md)
+prepares 262 original-source obstacles from 264,312 convex hulls in 13.906852 s.
+All 228 free domains are independently checked; all 216 finite cog domains
+are empty and four insert controls are source-valid. The incomplete first
+validator is preserved; a separate validator fixes only tuple/list sample
+representation and passes the complete geometry audit in 13.561847 s.
+The finite construction closes at preflight with no construction, solver or
+native call. A separate necessary bound proves that all six fixed 11-part
+layouts exclude an additional cog at every real rotation and continuous
+center. Its source-contained 32-vertex core, 119 parent rectangles, exact
+no-fit polygons and complete 90-node/48-leaf coverage certificates pass an
+independent rational audit and positive/negative controls. No coordinate
+grid or extra clearance is imposed. This closes only those six fixed layouts;
+the 5-bracket/6-insert/2-cog allocation and original job remain open. The next
+step releases one more existing original before another construction is
+selected. All six main CI 40783629977 jobs now pass; the queued checkpoint
+and this evidence are ready for a guarded normal push. Production, READMEs,
+the valid 64-part layout, 444 necessary allocation survivors and H2's original
+gate/22 unopened vectors remain unchanged. H2/H5 remain open at 60%; no new
+release qualifies.
