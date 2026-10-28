@@ -17197,3 +17197,18 @@ remain unchanged. Main d71c9c85 has five passing jobs and Windows live; wait for
 all six before pushing. Production, READMEs and upstream releases are unchanged.
 H2/H5 remain open at 60%; all 22 reserved vectors remain unopened and no release
 qualifies.
+
+
+**N4 changed-core independent placement, 2026-10-28:** [the evidence](benchmarks/results/h5-staggered-core-independent-placement-20261028.md)
+revalidates the staggered41 source core and a56-part cog control, rebuilds all
+owner-dependent regions, and audits all25 mandatory movers /50 independent
+coordinates. Necessary source-rectangle capacities bring the model to173,538
+constraints. Its sole bounded call closes UNKNOWN; the0.076915s returned soft
+overrun is retained. The saved control has no conservative bracket-insertion
+region, which is not an actual/global exclusion. Next review and optimize the
+26-part core composition itself (18 frames,3 brackets,5 inserts), with source
+L geometry and the actual short15 preserved. Existing searches stay closed.
+The best valid64,444-count frontier, H2 gate and22 unopened reserved vectors
+remain unchanged. Main d71c9c85 now has allsix CI jobs passing; push verified
+queued checkpoints after fresh guards. Production/READMEs and upstream releases
+are unchanged. H2/H5 remain open at60%; no release qualifies.
