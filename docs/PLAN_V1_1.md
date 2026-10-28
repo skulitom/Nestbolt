@@ -3808,3 +3808,20 @@ original obligations. Best valid64, 444 necessary counts, the H2 gate and 22
 unopened reserved vectors stay unchanged. Main 2adfa569 has four passing CI jobs
 and Ubuntu/Windows checks live; wait for all six before pushing. Production,
 READMEs and upstream releases are unchanged. H2/H5 remain open at 60%.
+
+
+**N4 independent cog-height result, 2026-10-28:** [the evidence](../benchmarks/results/h5-independent-cog-height-20261028.md) audits
+all 15 independent cog positions, 13,051 variables, 48,046 constraints and the
+complete positive control. The sole phase7 height call is CLOSED FEASIBLE;
+all five incumbents pass original-source checks. Actual height is 772.202399 mm,
+only 0.126980 mm shorter than the old valid64 cog packet, while width increases
+by 41.066861 mm. The 0.258 mm model-top change includes 0.012 mm translation;
+physical compression from the guarded control is 0.246 mm. Preserve the
+0.057713 s returned soft overrun; no optimum or full66 claim follows. Next add
+independent cog angles in a new direct-source formulation, with audited positive
+control and one declared bounded call; never reuse phase7 obstacles at changed
+angles. The other 51 originals remain required. Best valid64, 444 necessary
+counts, H2 gate and 22 unopened reserved vectors stay unchanged. Main 2adfa569
+has five passing jobs and Windows live; queued commits wait for all six before
+normal push. Production/READMEs and upstream releases are unchanged. H2/H5
+remain open at 60%; no release qualifies.
