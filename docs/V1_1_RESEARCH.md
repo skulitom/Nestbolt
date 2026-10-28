@@ -3904,3 +3904,21 @@ prior checkpoints; its newCI40676201231 has four passing jobs and two live check
 Preserve it until all six pass before the next main push. Production, READMEs
 and upstream releases are unchanged. H2/H5 stay open at60%;22 reserved vectors
 remain unopened and no new release qualifies.
+
+
+**N4 all-source short13 and band-area bounds, 2026-10-28:** [the evidence](../benchmarks/results/h5-short13-source-band-20261028.md)
+retains one new search with all 13 original placements free. All 196,850 initial
+grid scores are replayed; the sole local call closes after 123 evaluations in
+2.218165 search / 5.856514 shared seconds. The original-shape audit finds 15 pair
+failures and two stock failures. A separate exact all-angle cog-area proof
+strengthens 275 of 350 band bounds; 44,800 rational triangle caps and 6,350
+known-source band checks pass. The audited stronger model preserves the prior
+model byte for byte and totals 18,640 variables / 23,549 constraints. Its sole
+bounded call returns UNKNOWN after 67,352 branches / 40,926 conflicts in
+60.120701 returned / 61.081026 shared seconds; the small soft overrun is retained.
+Both searches are closed. No source13 witness, count exclusion, full66 or native
+pass exists. Next derive a stronger exact structural projection or change the
+complete source construction. Main390fb2d3 now passes all six CI jobs, enabling
+the queued checkpoint push after fresh remote/live-run checks. Production,
+READMEs and upstream releases are unchanged. H2/H5 remain open at 60%; all 22
+reserved vectors remain unopened, and no new release qualifies.
