@@ -1,0 +1,9 @@
+{
+  "closed": true,
+  "stage": "diagnostic assertion after original edge-feature enumeration",
+  "error": "AssertionError: max(direction_error) > 1",
+  "cause": "The diagnostic assumed, without evidence, that directional optimism would exceed 1 mm per full proposed step. A read-only check observed a maximum of about 0.9353, so that reporting threshold was unjustified.",
+  "optimizer_calls": 0,
+  "placements_changed": false,
+  "correction": "Preserve this diagnostic and remove the unsupported magnitude assumption in a separate diagnostic output. Report measured values and direct-source feature agreement without a preselected effect size. The closed trust-region search is not rerun."
+}

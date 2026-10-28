@@ -2999,3 +2999,21 @@ originals, full66 validation and H5 material checks remain required. Earlier
 new CI 40742366525 is live. Further pushes wait for all six jobs. Production,
 READMEs, valid64, 444-count frontier, H2 gate and 22 reserved vectors remain
 unchanged. H2/H5 stay open at 60%; no release qualifies.
+
+
+**N4 feasible cog moves and contact diagnosis, 2026-10-28:** [the evidence](../benchmarks/results/h5-feasible-cog-source-20261028.md)
+keeps all 26 accepted states source-valid, auditing 145 trials and 207,000
+derivative entries. The sole sequence is CLOSED MINIMUM_RADIUS after 25 LPs
+(3.735082 s search / 4.707303 s shared). Best actual height is 772.199631 mm,
+only 0.002768 mm shorter, with 0.002945 mm added width; no full66/material result.
+A read-only original-edge diagnosis finds that changing closest features makes
+the single finite-difference constraint too optimistic for combined moves.
+Fifty-six nearby features match 40 direct checks within 1.85e-10 mm. Preserve
+the failed diagnostic's unsupported >1 mm assertion and corrected measured
+0.935300 mm effect; no optimizer was repeated. Next audit separate nearby
+vertex/edge constraints and a displacement-derived feature window before any
+new bounded call, keeping exact acceptance. The other 51 originals remain
+required. Main 8713c6e1 has four passing jobs; Linux/Windows checks remain live.
+Queued evidence waits for all six and fresh remote guards before normal push.
+Production/READMEs, prior valid64, 444-count frontier, H2 gate and 22 reserved
+vectors remain unchanged. H2/H5 stay open at 60%; no release qualifies.
