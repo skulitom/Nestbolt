@@ -3991,3 +3991,19 @@ audit the larger gap cases for remaining seven-bracket allocations, reusing
 existing bounds exactly. Main f61f25d6 passes all six CI jobs. Production,
 READMEs and upstream releases are unchanged. H2/H5 remain open at 60%; all
 22 reserved vectors remain unopened and no new release qualifies.
+
+
+**N4 seven-bracket bound and source construction, 2026-10-28:** [the evidence](../benchmarks/results/h5-seven-bracket-source-and-bound-20261028.md)
+reuses all existing gap bounds exactly and audits 194,944 new task orders /
+2,033,536 earliest-start steps. The complete recurrence excludes 7/8/0 and
+7/9/0, leaving 444 candidates with all 4,576 original rows preserved. A direct
+7/7/0 short14 construction passes original-shape readback: 91 pairs, 56 stock
+edges and all 28 holes, with 0.225 mm minimum separation. Moving two inserts
+from the first sheet leaves a valid63 alternative, missing brackets7/10/11;
+the earlier valid64 is unchanged. One fixed49 probe closes after all eight
+conservative bracket regions are empty, without claiming infeasibility. Next
+reconstruct the first-sheet23-part packet with actual contact geometry and
+changed cog phases/row structure; closed local calls stay closed. Main db26d120
+has five passing jobs and its Windows check is live; wait for allsix before
+pushing. Production, READMEs and upstream releases are unchanged. H2/H5 remain
+open at 60%; all 22 reserved vectors remain unopened and no release qualifies.
