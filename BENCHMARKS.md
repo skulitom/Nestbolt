@@ -16978,3 +16978,21 @@ commands/timeouts remain unchanged. All31 existing Python CI commands pass in an
 isolated sparse checkout. Full six-job validation will run on the working branch
 before the normal main push; old runs remain preserved. H2/H5 remain open at60%,
 all22 reserved vectors remain unopened and no release qualifies.
+
+
+**N4 exact capacity and actual-tooth corner support, 2026-10-26:**
+[The evidence](benchmarks/results/h5-cog-corner-support-20261026.md) verifies 9,420,646 cell pairs and replays 199,989 completed
+certificate nodes. Short-sheet capacity is at most three cogs; first-sheet13
+remains unresolved at the closed shared200,000-node cap, and14/15 receive no
+nodes. The costly first reader is preserved; an equivalent bitset reader passes
+without repeating the search. A separate all-angle actual-source-vertex theorem
+certifies1,116 rectangle-corner boxes and removes34 more whole cells, leaving4,514
+while retaining all15 prior centers and legal boundary coverage. This modest
+tightening does not open another feasibility call. There is no full66 witness,
+fixed49 exclusion or native validation. H2/H5 remain open at60%; all22 reserved
+vectors remain unopened and no release qualifies.
+
+Publication update2026-10-28: remote main's14 layered-kit example files are
+preserved in a clean merge with the five queued checkpoints. Both parent heads
+pass all six jobs; product source, READMEs and upstream releases are unchanged.
+The combined main head will receive its own checks after the normal push.
