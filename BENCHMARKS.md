@@ -17116,3 +17116,19 @@ Next inspect a full-geometry 8/6/0 short-sheet construction to free first-sheet
 space, auditing a new model before any bounded call. Main f9629063 passes all
 six CI jobs. Production, READMEs and upstream releases are unchanged. H2/H5
 remain open at 60%; the 22 reserved vectors stay unopened and no release qualifies.
+
+
+**N4 source stem-gap exclusion, 2026-10-28:** [the evidence](benchmarks/results/h5-short-stem-gap-exclusion-20261028.md)
+rules out actual short-sheet 8/6/0 and 8/7/0 independently of the preserved
+conservative source call, which closed UNKNOWN in 60.104262 returned /
+60.912529 shared seconds. Source stems divide the sheet into nine gaps.
+Exhaustive scheduling and independent readback cover all 12,925 task orders,
+94,348 earliest-start steps, 42 gap bounds and 2,380 chain transitions; a backward
+recurrence agrees. Eight brackets/six inserts need 1,489.948 mm, exceeding the
+relaxed stock width by 2.908 mm. All original modes and the valid 8/5/0 control
+pass. All 4,576 count rows remain recorded and 446 candidates survive. No full66
+or native pass exists. Both excluded branches are closed. Next predeclare and
+audit the larger gap cases for remaining seven-bracket allocations, reusing
+existing bounds exactly. Main f61f25d6 passes all six CI jobs. Production,
+READMEs and upstream releases are unchanged. H2/H5 remain open at 60%; all
+22 reserved vectors remain unopened and no new release qualifies.
