@@ -17384,3 +17384,20 @@ closed. Prior checkpoint 75ee537c is pushed after all six checks passed;
 CI 40764537562 has three passes and three running jobs. Production/READMEs,
 valid 64, 444 necessary allocations, H2 gate and 22 unopened vectors are unchanged.
 H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 union-cover resolution and allocation transfer, 2026-10-28:** [the evidence](benchmarks/results/h5-union-cover-resolution-and-transfer-20261028.md)
+preserves two closed complete 39-block trials, both UNKNOWN with no candidate.
+All model fields and original controls pass independent audits. A frozen
+four-variant geometry comparison selects 10 mm vertical slabs (253 rectangles
+per row versus 523); search begins at 3.16 s instead of 18.87 s. Both 60 s algorithm
+budgets and their 0.048065 s / 0.026304 s overruns remain recorded. No full 66 or
+native claim follows. The next preflight revalidates the existing short 12
+(7 brackets, 4 inserts, 1 cog), keeping the material target and all 66 identities.
+It leaves 54 first-sheet originals and a prospective 43-block model with cog rows of 5/5/4;
+no such placement or model is created yet. All failed controls and the corrected
+summary-key error are preserved. Main 75ee537c remains unchanged; prior local
+checkpoint b0468c71 and this checkpoint wait for CI 40764537562 (five passes,
+Windows checks live). Production/READMEs, valid 64, 444 necessary allocations,
+original H2 gate and 22 unopened vectors stay unchanged. H2/H5 open at 60%; no
+new release qualifies.
