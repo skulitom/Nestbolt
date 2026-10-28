@@ -4023,3 +4023,18 @@ push. Sparrow6f7b9d35 changes only README/wordmark assets; the upstream stop rul
 does not fire. Production, READMEs and upstream releases remain unchanged.
 H2/H5 stay open at 60%, all 22 reserved vectors remain unopened, and no release
 qualifies.
+
+
+**N4 independent-coordinate source model, 2026-10-28:** [the evidence](../benchmarks/results/h5-independent-source-placement-20261028.md)
+audits 77 source-conservative domains, 1,124 convex cells and 4,079 integer
+halfplanes. All 23 remaining originals have independent coordinates; all
+58,151 variables and 210,518 constraints are read back. The corrected source62
+partial control passes original-ring and integer-cell checks; its earlier
+buffer failure is retained. The sole60-second call closes UNKNOWN after
+143,475 branches, with a retained0.151582-second returned soft overrun and no
+assignment. No native or infeasibility claim follows; the valid64 and444-count
+frontier remain unchanged. Next audit source-contained rectangles and necessary
+cumulative sheet-capacity constraints in a new formulation; do not restart the
+closed call. Main a23ee783 passes allsix jobs. Production, READMEs and upstream
+heads/releases are unchanged. H2/H5 remain open at60%, all22 reserved vectors
+remain unopened, and no release qualifies.
