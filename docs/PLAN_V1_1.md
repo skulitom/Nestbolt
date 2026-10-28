@@ -3758,3 +3758,21 @@ cumulative sheet-capacity constraints in a new formulation; do not restart the
 closed call. Main a23ee783 passes allsix jobs. Production, READMEs and upstream
 heads/releases are unchanged. H2/H5 remain open at60%, all22 reserved vectors
 remain unopened, and no release qualifies.
+
+
+**N4 source capacity and core-height bound, 2026-10-28:** [the evidence](../benchmarks/results/h5-source-capacity-and-core-height-20261028.md)
+verifies source-contained rectangles and adds necessary X/Y capacities without
+changing the prior independent-position constraints. The sole call closes
+UNKNOWN. A separate 29-part core-height call is FEASIBLE, with nine audited
+incumbents, but lowers the core by only 0.017 mm. Original source43 passes 497
+pairs and all 57 holes. An exact 214-pattern section-weight certificate covers
+arbitrary positions and all quarter turns of the same 18-frame/11-insert core:
+its top is at least 2,102.189571 mm, allowing at most another 5.443429 mm reduction.
+Both calls stay closed, including their soft overruns; the invalid first audit
+timer and corrected check are preserved. Next change the core composition using
+the source-valid staggered arrangement and a new independent-coordinate model,
+rebuilding owner-dependent geometry. The best valid64 and 444-count frontier
+remain unchanged. Main d71c9c85 has five passing jobs and Windows live; wait for
+all six before pushing. Production, READMEs and upstream releases are unchanged.
+H2/H5 remain open at 60%; all 22 reserved vectors remain unopened and no release
+qualifies.
