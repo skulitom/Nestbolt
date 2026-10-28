@@ -3942,3 +3942,21 @@ parts around the valid 42-part core. Main541d5bc9 has five passing CI jobs and
 Windows still running; preserve it before the next main push. Production,
 READMEs and upstream releases are unchanged. H2/H5 stay open at 60%; all 22
 reserved vectors remain unopened, and no new release qualifies.
+
+
+**N4 whole upper-group source search, 2026-10-28:** [the evidence](../benchmarks/results/h5-oblique24-baseline-review-20261028.md)
+frees all 24 upper-group originals around the independently valid 42-part core,
+including the two existing corner brackets and five inserts fixed previously.
+All source-mode, free-region and 48 gradient checks pass. The sole local call
+closes after 212 evaluations / one mode change in 0.074719 search / 2.892560 shared
+seconds. Original all66 readback retains 34 pair failures and eight stock failures;
+this is no source witness or infeasibility proof. A read-only nine-archive baseline
+review confirms 21 insert hole-riders in each normal layout and none in common
+mode, so the normal layout is not a reusable PIH-OFF witness. The original
+4,988,890.353495 mm² material target remains unchanged. Next use the verified
+X-capacity formulation on distinct remaining maximal short-count vectors,
+retaining unknown/unprocessed cases and all 452 current candidates until excluded.
+Main541d5bc9 now passes all six CI jobs; the two queued checkpoints may be normally
+pushed after fresh remote/live-run checks. Production, READMEs and upstream
+releases are unchanged. H2/H5 stay open at 60%; all 22 reserved vectors remain
+unopened, and no new release qualifies.
