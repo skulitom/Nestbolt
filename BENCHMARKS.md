@@ -17013,3 +17013,19 @@ Mainf4f6f1fe preserves the layered-kit example and has five passing CI jobs, wit
 Windows still running; defer the next main push until all six pass. Production,
 READMEs and upstream releases are unchanged. H2/H5 remain open at60%; all22
 reserved vectors stay unopened and no new release qualifies.
+
+
+**N4 short-sheet cog transfer, 2026-10-28:** [the evidence](benchmarks/results/h5-short-cog-transfer-20261028.md)
+tests7 brackets/5 inserts/1 cog while retaining three existing bracket-pair/insert
+groups. The finite source construction exhausts47 bracket poses,115 cog-pair
+poses and1,270 second-insert checks in0.152079 search/0.565650 shared seconds;
+it finds no13-part witness and is closed. All635 prefixes with only one added
+insert independently pass41,910 source pairs and30,480 stock edges. The retained
+7-bracket/4-insert/1-cog prefix yields a valid62-part whole inventory, with three
+brackets and one insert still mandatory; it does not improve the prior64 count.
+No infeasibility, native pass or H5 credit is claimed. Next free all13 short
+placements in a source-supported necessary model rather than repeat the fixed
+construction. Mainf4f6f1fe now passes all six CI jobs, enabling the next normal
+push after a fresh remote/live-run check. Production, READMEs and upstream
+releases remain unchanged. H2/H5 stay open at60%;22 reserved vectors are unopened
+and no release qualifies.
