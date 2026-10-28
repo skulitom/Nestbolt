@@ -3182,3 +3182,27 @@ that permits existing parts to move; do not restart closed calls. Main
 checks running; prior local checkpoint 98a5651c and this checkpoint wait.
 Production/READMEs, the original H2 gate and 22 unopened vectors are unchanged.
 H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 movable source row/bracket model and capacity preflight, 2026-10-28:** [the evidence](../benchmarks/results/h5-movable-row-bracket-and-capacity-20261028.md)
+replaces cog-row/bracket covers with audited source displacement constraints
+for all eight bracket modes and both row sizes. The 43 movable first-sheet
+blocks contain 54 originals; 12 short-sheet originals stay fixed. All 903
+block pairs and all 66 identities remain covered. Independent audits verify
+7,932 variables, 32,137 constraints and all eight formerly rejected valid
+62-part controls. The sole 60/90-second call closes UNKNOWN with no candidate:
+60.073948 algorithm seconds, 60.156130 shared, including a 0.073948-second
+algorithm overrun. Two frozen hull simplifications are rejected: one loses
+two valid displacement controls; the other fails 13 strict containment checks.
+No threshold is relaxed. A separate necessary-capacity preflight passes
+848 source-contained rectangles, 66,352 exact source-edge checks, 173,106
+same-mode rectangle-pair checks and all nine valid controls. The overlapping
+66-part control exceeds both capacities. These bounds preserve valid source
+placements; the capacity-strengthened model and its search are not yet made.
+Next audit that fresh model without reopening closed calls. No full layout,
+native result or global infeasibility follows. Prior checkpoints are on main
+0d6dc0fa after all six prior CI jobs passed. At the saved snapshot, its CI
+40777420353 has five passes and Windows checks live; this checkpoint waits
+for all six before a normal push. Production, READMEs, valid 64, 444 necessary
+allocations and H2's original gate/22 unopened vectors remain unchanged.
+H2/H5 remain open at 60%; no new release qualifies.
