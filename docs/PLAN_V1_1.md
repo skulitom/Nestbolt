@@ -4440,3 +4440,20 @@ saved CI snapshot has four passes with both platform jobs running. Production,
 READMEs, validshort11, valid64, releases and H2's original gate/22 unopened vectors
 remain unchanged. Full66 source/native/material validation, integration and the
 H5 matrix remain; H2/H5 stay open at 60%, and no new release qualifies.
+
+**2026-10-29 H5 finite source poses and equivalent graph reduction:**
+[the source-pool and response audits](../benchmarks/results/h5-finite-source-poses-and-equivalent-graph-reduction-20261029.md) preserve three distinct, closed
+calls. The 1,525-pose centroid model returned `INFEASIBLE`; a 4,575-pose boundary
+expansion returned `UNKNOWN`; exact, independently verified dominance and clique
+reductions retained equivalent finite feasibility in 1,817 poses and returned
+`INFEASIBLE` within 52.684 s including preparation. No assignment was returned.
+Every expanded source pose and all 10,463,025 pairs were independently checked.
+The boundary call's 0.060066 s solve-slice overrun remains recorded; all algorithm
+and shared totals stay within 60/90 s. These finite solver results have no
+independent unsatisfiability certificate and exclude no continuous site choice
+or overall allocation. A diagonal diagnostic found no new certificate; its
+19,102 material bounds were not all independently recomputed. The 29 continuous
+site choices, 440 allocation candidates, valid short11 and valid64 remain.
+Next work investigates joint-family component capacities before another continuous
+placement formulation. The previous checkpoint was pushed normally as 286223ae;
+production source, READMEs and releases are unchanged. H2/H5 remain open at 60%.

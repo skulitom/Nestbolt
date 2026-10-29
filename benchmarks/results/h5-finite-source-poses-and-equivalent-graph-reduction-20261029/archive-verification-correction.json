@@ -1,0 +1,17 @@
+{
+  "initial_verifier": "output/verify_h5_finite_pose_archive_20261029.py",
+  "initial_verifier_preserved_in_raw_archive": true,
+  "exit_code": 1,
+  "failure": "AssertionError: h5-finite-source-poses-and-equivalent-graph-reduction-20261029/archive-checks.json",
+  "cause": "The report links to the archive verifier's own output. The original verifier required that output to exist before writing it.",
+  "scope": "The initial verifier completed archive byte, alias and source-binding checks, then stopped at the self-output link. It did not write a passing archive result.",
+  "correction": "A separate v2 verifier reruns the entire audit and defers only the precisely resolved own-output link until the result is written, then verifies every link exists and the result parses. The original helper is preserved.",
+  "second_verifier": "archive-verifier-v2.py",
+  "second_exit_code": 1,
+  "second_failure": "FileNotFoundError: the copied verifier retained the output-folder repository-root depth while stored under benchmarks/results/<checkpoint>.",
+  "second_failure_scope": "Stopped before opening the manifest; no passing archive result was written.",
+  "second_correction": "A separate v3 verifier uses parents[3] for its actual tracked location. The v2 helper is preserved.",
+  "corrected_verifier": "archive-verifier-v3.py",
+  "solver_or_geometry_repeated": false,
+  "raw_evidence_changed": false
+}
