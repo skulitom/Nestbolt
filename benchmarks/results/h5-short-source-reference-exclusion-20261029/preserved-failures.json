@@ -1,0 +1,39 @@
+[
+  {
+    "status": "failed_before_plan_write",
+    "missing_input": "output/h5-short13-necessary-geometry-20261028/audit/plan.json",
+    "cause": "The historical geometry audit has audit.py and checks.json but no separate plan.json. Its source preparation has plan.json. The initial preparation stopped while hashing inputs, before writing the new base plan or any geometry outputs.",
+    "preserved_script": "output/prepare_h5_source_projection_mapping_20261029.py",
+    "preserved_copy": "output/h5-source-projection-short-core-20261029/preflight/prepare.py",
+    "model_created": false,
+    "solver_calls": 0,
+    "native_calls": 0
+  },
+  {
+    "status": "failed_at_final_model_assertion",
+    "script": "output/build_h5_source_projection_short_core_20261029.py",
+    "suspected_cause": "The hand count included18 constraints for6 insert intervals; they add6 end-link equalities and6 interval constraints, hence12, before their single cumulative row. Expected total is1913 rather than1919. The corrected distinct build will record actual counts and model validation before asserting.",
+    "original_model_directory_preserved": true,
+    "solver_calls": 0,
+    "native_calls": 0
+  },
+  {
+    "status": "invalid_model_before_export_or_search",
+    "diagnostic": {
+      "variables": 1876,
+      "constraints": 1913,
+      "pair_tables": 78,
+      "validation": "var #1870 has no domain(): name: \"legacy_insert_end_7\""
+    },
+    "cause": "The installed native proto domain vector returns0 for negative indexing, unlike a Python list. Reading xd[-1] and wd[-1] gave zero upper bounds for new insert-end variables. Convert both domain vectors to Python lists before using their endpoints.",
+    "original_builder_and_outputs_preserved": true,
+    "solver_calls": 0,
+    "native_calls": 0
+  },
+  {
+    "issue": "The copied response summary reported only the two parent height/width cumulative constraints, omitting the new insert-capacity cumulative row. The exhaustive model audit and assignment reader already checked all three. Model bytes, solver response, status and times are unaffected.",
+    "old_response_audit_preserved": true,
+    "correction": "Report the parent count separately and verify the total3 directly from the saved model protobuf.",
+    "solver_retried": false
+  }
+]

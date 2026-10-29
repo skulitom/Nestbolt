@@ -1,0 +1,12 @@
+{
+  "coordinate_unit_um": 100,
+  "lower_delta_um": -52,
+  "upper_delta_um": 51,
+  "maximum_nearest_coordinate_error_um": 50,
+  "floor_loss_less_than_um": 1,
+  "source_center_change_norm_less_than_um": "0.001",
+  "exact_center_change_norm_squared_um2": "49294441/151115727451828646838272000000",
+  "formula": "legacy_reference_x -100*coarse_x -selected_reference_offset in[-52,51]",
+  "source_mapping_argument": "For noncogs use floor of the same oriented normalized source anchor; coarse nearest rounding changes it by at most50um and flooring by less than1um. All prior source rectangles expanded1um remain strictly inside every current oriented source outline, so they remain source-contained after flooring. For cogs use the exact previously proved source center; its change to the current rational center is less than0.001um in any rotated coordinate. The conservative integer link includes both cases. Old source-floor domains contain the full original source stock domain. Pointwise inclusion of every coarse core-only anchor in those old domains is not required and is not claimed.",
+  "ordering_argument": "Every old pair-order literal is chosen from its old auxiliary reference coordinates. No inherited reference-X symmetry is imposed on bracket copies. Current parent symmetry remains only the proved coarse-anchor ordering. The insert interval capacity applies to every triple without selecting a subsequence or imposing a new order."
+}

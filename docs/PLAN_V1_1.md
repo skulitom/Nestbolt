@@ -4216,3 +4216,34 @@ or original feasibility is excluded. Main d3b652b6 has five CI passes and
 Windows checks running; both local checkpoints queue. Production, READMEs,
 valid64, 444 necessary allocation survivors and H2's original gate/22 unopened
 vectors remain unchanged. H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 source-reference exclusion, 2026-10-29:** [the evidence](../benchmarks/results/h5-short-source-reference-exclusion-20261029.md)
+qualifies a terminal INFEASIBLE result for the all-movable short-sheet
+allocation of five brackets, six inserts and two cogs. The containing 5/7/2
+and 5/8/2 counts are also excluded by deletion. All 4,576 original frontier
+rows and prior labels are preserved; 441 necessary candidates remain, with
+32 Pareto maxima. This is not whole-job infeasibility or an H5 pass.
+A fresh replay verifies all 121 directed source bounds. Separate micrometre
+references link to the 100-micrometre anchors with a proved [-52,51] micrometre
+allowance, retaining every legal mode and arbitrary cog angles without old
+reference ordering. Independent checks cover 36 expanded source rectangles,
+832 edge pairs, 13 source-floor domains and 7,620 prefix links. All 1,566 parent
+variables and 1,620 constraints remain unchanged; the full 1,876-variable /
+1,913-constraint model adds pair projections and insert capacity two. The
+positive 11-part control fails only its two missing mandatory originals;
+the negative control fails 102 constraints. The sole call returns INFEASIBLE
+in 2.410187 seconds of solving, with algorithm/shared times 3.054400/3.111055
+seconds and no overrun, incumbent, assignment or native call. The separate
+source-necessity qualification verifies 4,883 bindings before narrowing the
+frontier. Four preparation/reporting failures and their separate fixes remain
+preserved, including a native protobuf negative-indexing defect and the
+corrected count of three cumulative constraints. No search is rerun.
+The next inventory requires short12=5 brackets/5 inserts/2 cogs and
+first54=18 frames/7 brackets/16 inserts/13 cogs; insert0 moves to the first
+sheet and all 66 identities are accounted for. No new model or call has opened.
+The two prior checkpoints are pushed normally to main 3e33dedb after all six
+previous checks pass. Its archived CI snapshot has four passes and two jobs
+running, so this checkpoint queues. Production, READMEs, the valid64 layout,
+upstream releases and H2's original gate/22 unopened vectors remain unchanged.
+H2/H5 remain open at 60%; no new release qualifies.
