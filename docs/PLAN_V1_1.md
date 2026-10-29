@@ -4140,3 +4140,27 @@ both platform checks running, so this checkpoint queues. Production, READMEs,
 the valid 64-part layout, 444 allocation survivors and H2's original gate/22
 unopened vectors remain unchanged. H2/H5 remain open at 60%; no native call or
 new release qualifies.
+
+
+**N4 fixed-nine exclusions and global short-sheet preflight, 2026-10-29:** [the evidence](../benchmarks/results/h5-fixed-nine-triple-and-global-short-preflight-20261029.md)
+accounts for all 66 originals in each of 330 identity variants across 200
+source-valid fixed-nine geometries. Single-cog coverage closes 144 geometries;
+253 required-pair tests close another 51. The pair results preserve 28 exact
+relaxation witnesses and 20 depth-limited cases. Fifteen complete triple-core
+certificates close the remaining five geometries: 6,049 six-dimensional nodes,
+3,032 covered leaves and 4,561,920 exact vertex-plane checks pass independent
+audit, with two positive source triples and a coincident-cog negative control.
+All 200 geometries / 330 variants close; this target allocation must change
+at least four parent poses. The allocation and original job remain open.
+A new preflight lets all thirteen short-sheet originals move, preserving the
+first-sheet complement of 53. All eight bracket and four insert modes, sixteen
+orthogonal pieces, thirty-two cog/rectangle predicates and one cog/cog predicate
+are specified. Independent source, exact facet, identity and rounding audits
+pass; the positive 11-part control passes and the full negative 13 is rejected.
+No CP model or search has started. The next step builds and audits that model
+before its sole 60/90-second call; original contours and all 66 placements
+still require validation. This checkpoint makes no construction, solver or
+native call. Main `6b0a1d0b` has five CI passes and the Windows check running,
+so both local checkpoints queue. Production, READMEs, valid64, 444 necessary
+allocation survivors and H2's original gate/22 unopened vectors are unchanged.
+H2/H5 remain open at 60%; no new release qualifies.
