@@ -2,7 +2,7 @@
 
 ## v1.1 — real shop files
 
-Latest H5 evidence: [cog-site masks, rigid components and occupied-area bounds](../benchmarks/results/h5-cog-site-mask-and-rigid-component-searches-20261029.md).
+Latest H5 evidence: [local-coordinate construction and component halfspace bounds](../benchmarks/results/h5-local-grid-construction-and-component-halfspaces-20261029.md).
 The short sheet now passes independent original-source checks for five brackets,
 four inserts and two cogs. Its matching 55-part first sheet remains to construct.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3583,3 +3583,23 @@ unchanged. The previous checkpoint 6a0c7b56 reached main after all six prior che
 passed; its own saved snapshot has five passes with Windows still running.
 The matching first55, full66 source/native/material checks, integration and H5
 matrix remain open. H2/H5 stay open at 60%; no new release qualifies.
+
+
+**N4 local-coordinate construction and component halfspace bounds, 2026-10-29:**
+[the evidence](../benchmarks/results/h5-local-grid-construction-and-component-halfspaces-20261029.md) audits a conservative 0.1 mm grid with local coordinates
+and smaller integer normals. All 1116 retained hulls / 4559 plane implications
+pass exact checks; maximum plane activity falls to 239205000. The complete
+8336-variable / 43571-constraint model retains all 80 source modes and 35 fixed-site
+choices. Its sole call returns UNKNOWN with 33140 branches / 770 conflicts and
+no assignment. Algorithm/shared totals are 56.313912/56.388191 seconds, including
+the prior short11; the 0.300290-second solve-slice overrun remains explicit while
+overall 60/90-second budgets pass. LP overflow counters are zero, but other raw
+diagnostics remain. Independent component halfspace proofs verify 64 contained
+source corners, 2358 region assignments and eight strengthened certificates,
+excluding six more fixed-site choices and leaving 29. No overall allocation is
+excluded; all 440 candidates remain. Failed generator attempts and corrections
+are preserved. Checkpoint 8ba6a6db is on main after six prior checks passed; its
+saved CI snapshot has four passes with both platform jobs running. Production,
+READMEs, validshort11, valid64, releases and H2's original gate/22 unopened vectors
+remain unchanged. Full66 source/native/material validation, integration and the
+H5 matrix remain; H2/H5 stay open at 60%, and no new release qualifies.

@@ -1,0 +1,18 @@
+{
+  "preserved_failures_and_corrections": [
+    {
+      "stage": "initial local-grid model generator",
+      "result": "AssertionError before writing a model builder",
+      "transcribed_error": "AssertionError: 'rectangle_gap_um':226",
+      "reason": "An earlier suffix replacement had already renamed that key, so the later exact replacement guard rejected the generator.",
+      "failed_helper": "output/prepare_h5_local_grid_model_builder_20261029.py",
+      "subsequent_unproductive_invocation": "The attempted builder command reported that build_h5_local_grid_model_20261029.py did not exist. It opened no model or solver.",
+      "correction": "A distinct v2 generator matches the already renamed key and emits the builder. The completed geometry and exhaustive model audits then pass. The original failed generator remains preserved."
+    }
+  ],
+  "traceback_text_source": "Relevant errors transcribed from tool output; exact original generator and corrected generator bytes are retained.",
+  "failed_preparations_count_as_solver_calls": false,
+  "closed_solver_calls": 1,
+  "source_valid66": false,
+  "H5_complete": false
+}
