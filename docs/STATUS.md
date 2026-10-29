@@ -3272,3 +3272,28 @@ and this evidence are ready for a guarded normal push. Production, READMEs,
 the valid 64-part layout, 444 necessary allocation survivors and H2's original
 gate/22 unopened vectors remain unchanged. H2/H5 remain open at 60%; no new
 release qualifies.
+
+
+**N4 fixed-ten inventory and continuous joint bound, 2026-10-29:** [the evidence](../benchmarks/results/h5-fixed-ten-joint-cog-bound-20261029.md)
+preserves all 66 identity variants across 51 source-valid fixed-ten layouts.
+The single-cog necessary bound excludes 44 geometries; seven remain with
+relaxation witnesses. The adjacent-bracket case receives one finite
+construction after all 606 source obstacles and 46 free domains are checked.
+It exhausts 335 cog anchors in 0.358753 algorithm / 0.658447 shared seconds;
+all 2,680 residual bracket domains are empty. No joint or 13-part candidate
+exists. The independent replay passes and documents an identity-format defect
+in the unused candidate checker; its frozen script stays unchanged and future
+constructors must normalize expected identities. A separate continuous bound
+uses a 139.268 mm disk inside the original cog's convex hull for stock only,
+with strictly filled-source cores for collision. All fourteen cog/bracket or
+cog/cog domains close at every cog angle: 860 exact four-dimensional nodes,
+437 covered leaves and positive/negative controls pass independent audit.
+Together the bounds exclude all 51 fixed-ten geometries and all 66 variants.
+This target short-sheet allocation must change at least three parent poses;
+the allocation itself and original job remain open. Next is a new fixed-nine
+inventory; it has not started. The previous checkpoints reached main
+`6b0a1d0b` after six prior CI passes. Current CI 40789500705 has four passes and
+both platform checks running, so this checkpoint queues. Production, READMEs,
+the valid 64-part layout, 444 allocation survivors and H2's original gate/22
+unopened vectors remain unchanged. H2/H5 remain open at 60%; no native call or
+new release qualifies.
