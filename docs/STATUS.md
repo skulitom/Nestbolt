@@ -2,7 +2,7 @@
 
 ## v1.1 — real shop files
 
-Latest H5 evidence: [vectorized capacities and canonical component search](../benchmarks/results/h5-vectorized-capacities-and-canonical-component-search-20261029.md).
+Latest H5 evidence: [source-strip capacities and restricted component search](../benchmarks/results/h5-source-strip-capacities-and-restricted-component-search-20261029.md).
 The short sheet now passes independent original-source checks for five brackets,
 four inserts and two cogs. Its matching 55-part first sheet remains to construct.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3648,3 +3648,17 @@ bounds in bounded strips. The prior checkpoints were pushed normally as bd68c967
 The 29 site choices, 132 count distributions, 440 allocations, valid short11/64,
 production code, READMEs, releases and reserved H2 vectors remain unchanged.
 H2/H5 remain open at 60%.
+
+**2026-10-29 H5 source-strip capacities and restricted component search:**
+[independent exact strip proofs](../benchmarks/results/h5-source-strip-capacities-and-restricted-component-search-20261029.md) verify 24 necessary area certificates
+that remove 50 of 132 component count distributions and four complete fixed
+cog-site choices: [0,9], [5,9], [9,11], [9,12]. There are now 82 distributions
+across 25 choices; 80 of the original 105 fixed-site choices are excluded within
+this conservative construction. All 440 overall allocation candidates remain.
+The reader verifies 13,880 hull projections, 1,014 merged intervals and every
+positive witness using 1,952 polygon clippings. A fully audited model using these
+reductions returned `UNKNOWN` in its sole closed call, with no assignment. Its
+56.091/56.166 s algorithm/shared totals pass; the 0.076602 s internal solve overrun
+is preserved. Next work investigates diagonal strip bounds. Valid short11/64,
+production source, READMEs, releases and reserved H2 vectors remain unchanged.
+All six checks on main bd68c967 now pass; H2/H5 remain open at 60%.
