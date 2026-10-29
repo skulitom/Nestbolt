@@ -4277,3 +4277,31 @@ pass; f96cf8a2 and this checkpoint can be pushed together after local verificati
 Production, READMEs, the valid64 layout, upstream releases and H2's original
 gate/22 unopened vectors remain unchanged. No native call or full66 layout is
 claimed. H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 short11 readback and restricted translation contradiction, 2026-10-29:** [the evidence](../benchmarks/results/h5-short11-source-readback-and-translation-cycle-20261029.md)
+preserves two closed calls without any new allocation exclusion. The all-movable
+5-bracket/4-insert/2-cog necessary model retains all 11 short and 55 first-sheet
+identities. Its full audit verifies two changed presence requirements/hints,
+263 inactive variables, 259 touching constraints and 22 cross-part mode tables.
+It returns OPTIMAL for the satisfaction model in 1.834957 seconds, with
+algorithm/shared times 2.848882/2.921347 seconds. The sole assignment fails
+original-source checks: ten pair and six stock failures. Independent transform
+and contour readback covers all 21 cutouts/2,718 hole vertices. A distinct
+fixed-orientation translation model partitions the original outlines into
+174 convex pieces, with 8,726 frozen pair-axis inequalities and all 22 translations
+free. Independent source/axis/domain/sign audits pass. Its sole LP reports
+INFEASIBLE in 0.010999 seconds; charging 0.391201 seconds of preparation gives
+algorithm/shared totals 3.100803/3.148055 seconds. An independent exact rational
+eight-edge cycle proves these six chosen pair directions and two stock bounds
+contradict each other by 33.42045275048004 mm. This only excludes the frozen
+translation system; the allocation and all 440 candidates remain open. Two
+audit-preparation failures and their separate corrections are preserved; no
+search is retried. The next preparation offers 90 axis variants across those
+six rows, retaining the other 8,720 rows and all source clearances. All 1,440
+stock-domain corner checks pass. No new mixed-integer model or call has opened.
+Main 9dab2f4e is pushed normally after all six previous checks passed; its current
+snapshot has four passes and Ubuntu/Windows checks running, so this checkpoint
+queues. Production, READMEs, valid64, upstream releases and H2's original
+gate/22 unopened vectors remain unchanged. No native call or full 66-part layout is
+claimed. H2/H5 remain open at 60%; no new release qualifies.
