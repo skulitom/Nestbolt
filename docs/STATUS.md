@@ -2,7 +2,7 @@
 
 ## v1.1 — real shop files
 
-Latest H5 evidence: [rejected axis choices and an exact smaller source partition](../benchmarks/results/h5-axis-choice-rejection-and-exact-source-partition-20261029.md).
+Latest H5 evidence: [complete pair separation and relative-region searches](../benchmarks/results/h5-complete-pair-separation-and-relative-region-searches-20261029.md).
 The 440 necessary allocation candidates remain open. The complete 66-part layout and
 H5 quality matrix remain unverified; the existing valid 64-part layout is preserved.
 
@@ -3486,5 +3486,29 @@ No model or search using that partition is opened. The exploratory 40-piece
 partition is also preserved, with its independent audit still pending.
 All six checks on main 9dab2f4e now pass. Production, READMEs, valid64, releases
 and H2's original gate/22 unopened vectors remain unchanged. Full66 source/native/
+material checks, integration and the H5 matrix remain. H2/H5 stay open at 60%;
+no new release qualifies.
+
+
+**N4 complete pair separation and relative regions, 2026-10-29:** [the evidence](../benchmarks/results/h5-complete-pair-separation-and-relative-region-searches-20261029.md)
+preserves three distinct closed fixed-orientation calls, each reaching its
+128-node cap without an assignment. No infeasibility or allocation exclusion is
+claimed; all 440 candidates remain. The first audited model covers all 1,115
+source piece pairs with 18,594 candidate directions. A second construction
+reduces these to 695 free regions across 55 original pairs; 21,960 exact support
+proofs establish at least 0.225460639 mm clearance throughout every region.
+The region-plane model has 717 variables / 2,328 rows. A separate convex-combination
+formulation removes deactivation constants and has 2,990 variables / 860 rows;
+its rounded region vertices pass all 21,960 source-support checks again.
+Solve times are 42.760214, 1.670821 and 3.170081 seconds; preparation-inclusive
+algorithm/shared times are 44.384345/44.478354, 3.911584/3.998491 and
+5.386526/5.457279 seconds. Raw “Solution limit reached” / SciPy status 4 records,
+no-incumbent logs and all timings are preserved, with no overrun or retry.
+Nine horizontal-slice bounds find no contradiction; the tightest sampled slice
+leaves 5.741158 mm before gaps. The next preparation adds all legal bracket and
+insert orthogonal modes: 58 instance options, eleven shared filled geometries,
+and fixed 7-degree cog phases. No variable-orientation model or call is opened.
+All six checks on main 8c434a2b pass. Production, READMEs, valid64, releases and
+H2's original gate/22 unopened vectors remain unchanged. Full66 source/native/
 material checks, integration and the H5 matrix remain. H2/H5 stay open at 60%;
 no new release qualifies.
