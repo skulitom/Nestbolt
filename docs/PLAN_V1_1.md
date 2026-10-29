@@ -4247,3 +4247,33 @@ previous checks pass. Its archived CI snapshot has four passes and two jobs
 running, so this checkpoint queues. Production, READMEs, the valid64 layout,
 upstream releases and H2's original gate/22 unopened vectors remain unchanged.
 H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 short12 exclusion and seven-part source readback, 2026-10-29:** [the evidence](../benchmarks/results/h5-short12-exclusion-and-seven-part-readback-20261029.md)
+excludes the all-movable short5/5/2 allocation, leaving 440 necessary candidates
+and 32 Pareto maxima. All 4,576 original rows and previous labels are preserved;
+only 5/5/2 receives a new exclusion. The full model audit verifies one changed
+presence requirement, all 1,876 variables, 1,913 constraints and the inactive
+insert0 dependencies. All 12 short and 54 first-sheet originals are accounted
+for. The sole call returns INFEASIBLE in 2.236876 seconds, with algorithm/shared
+times 2.908464/2.961609 seconds and no overrun. The source qualification verifies
+4,911 bindings and all original modes/arbitrary cog angles before excluding
+this count. A separate minimum5/0/2 test explicitly moves all six short inserts
+to first59. Its audit verifies six changed presence requirements and hints,
+753 inactive variables, 740 touching constraints and 42 cross-part mode tables.
+That sole call returns OPTIMAL for the necessary satisfaction model in
+1.784775 seconds, with algorithm/shared times 2.789168/2.858293 seconds. Its
+single simplified-geometry assignment fails original-source readback: four
+bracket pair and four bracket stock checks fail; the seven-part baseline has
+five pair and five stock failures. An independent reconstruction verifies all
+seven transformations and reproduces the checks over 17 cutouts/2,230 vertices.
+No angle-only repair is attempted after bracket failures, and neither call is
+retried. This second result gives no source feasibility or further exclusion.
+The next prepared allocation is short11=5 brackets/4 inserts/2 cogs and
+first55=18 frames/7 brackets/17 inserts/13 cogs. Insert0 and insert2 move to
+first; all 66 identities and positive10/negative11 controls pass their preflight.
+No new short11 model or call has opened. All six CI jobs on main 3e33dedb now
+pass; f96cf8a2 and this checkpoint can be pushed together after local verification.
+Production, READMEs, the valid64 layout, upstream releases and H2's original
+gate/22 unopened vectors remain unchanged. No native call or full66 layout is
+claimed. H2/H5 remain open at 60%; no new release qualifies.
