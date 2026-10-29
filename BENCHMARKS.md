@@ -17795,3 +17795,26 @@ native call is opened. All six checks on main 407f91ed pass. Production, READMEs
 releases and H2's original gate/22 unopened vectors remain unchanged. Full66
 source/native/material checks, integration and the H5 matrix remain; H2/H5 stay
 open at 60%, and no new release qualifies.
+
+
+**N4 complete and reduced first-sheet constructions, 2026-10-29:** [the evidence](benchmarks/results/h5-first55-complete-and-reduced-construction-searches-20261029.md)
+closes two audited first55 calls without an assignment. The complete model has
+88,835 variables / 317,577 constraints and stops after presolve. Exact stock-domain
+and copy-order implications prove 144,938 constraints redundant; removing only
+those rows preserves every variable and remaining field. The equivalent model
+has 172,639 constraints and reaches 89,145 branches / 45 conflicts with presolve
+and LP linearization disabled, then returns UNKNOWN. Both calls remain closed;
+neither proves infeasibility or excludes any of the 440 allocation candidates.
+Algorithm/shared totals are 56.254583/56.383286 and 56.175153/56.295412 seconds,
+including the valid short11's 22.247810-second shared construction time. The
+0.219511/0.134961-second solve-slice overruns are preserved; overall 60/90-second
+budgets pass. Tall/compact region audits verify 297,068/88,953 exact source-support
+proofs. Summary, floating-overlay, degenerate-region and reader failures remain
+documented with their corrections. A smaller next preparation selects 13 of
+15 existing valid cog sites while retaining all 105 empty-site pairs and all
+seven brackets / six inserts. An example partial53 passes original-source checks;
+its independent site-selection audit and model are still pending. Validshort11,
+valid64, production, READMEs, releases and H2's original gate/22 unopened vectors
+remain unchanged. At the saved main f81a9ccd snapshot four checks pass and both
+platform checks are running. Full66 source/native/material checks, integration
+and the H5 matrix remain; H2/H5 stay open at 60%, with no new release qualified.

@@ -1,0 +1,46 @@
+{
+  "utc": "2026-10-29T05:02:56.353728+00:00",
+  "inputs": {
+    "output/prepare_h5_first55_cog_slot_selection_20261029.py": "1a705461c0f56079484ffd92d95c7d346e802889adf85213707a3ea37c5208d9",
+    "output/h5_legacy64_source_readback.py": "f5077f977e3e8a9b7e968c068818fbcf2a4900818ade5cbc9a2ee866551963fa",
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "output/h5-oblique64-source-20261028/source64.json": "bab709f97ac044ede2bcf8c40d75ba14162607c3c17c05bcacc1b4fa1614e9ee",
+    "output/h5-short11-integer-mode-regions-20261029/search/source-response/candidate-source11.json": "8b7fa5f6ad765aab6fdba1a586c29d8cac2cce607ed1d7fcd0fb6938c4eeada0",
+    "output/h5-first55-after-source-valid11-20261029/plan.json": "1ac7ab5c0ae281fc38867964f1a8701edfabfcb4c7a035e099ee36f3ef2c240d",
+    "output/h5-first55-after-source-valid11-20261029/fixed29.json": "20b58ddadfa38ad0162edf2f76a91403daf3f85ceeebeb2d129e0349f47cd74f",
+    "output/h5-first55-after-source-valid11-20261029/inventory.json": "9e604e23ad5805aa27ac945b4fd926d2ae3d83ad88c8444e74589da33572f8db",
+    "output/h5-first55-after-source-valid11-20261029/family-modes.json": "a61b5d8ee9a04a8ec6dffbf07dc87bf402b56863071e5a6f2d6812bda2ec0e34",
+    "output/h5-first55-integer-mode-regions-v2-20261029/response-audit/plan.json": "09046a512b16f37a9fabbbe87ca29843106e4a55f52496e3517eaf36f8e1dde2",
+    "output/h5-first55-integer-mode-regions-v2-20261029/response-audit/checks.json": "863b472ca5aaebc2094e36798a18a6b888cdfe4d35a4a5edda8caa0b63cb9330",
+    "output/h5-first55-integer-mode-regions-v2-20261029/reduced-response-audit/plan.json": "0e44f50ac87c447f87535285025aec234e9571310b51e66e92ba18067894d4e6",
+    "output/h5-first55-integer-mode-regions-v2-20261029/reduced-response-audit/checks.json": "bf81a6d751bccc59d19286e286e30227bf1de5b4a7b7ecd5cf59981cbf840815"
+  },
+  "method": "Replace thirteen continuous cog placements with fifteen optional already-source-valid sites from the preserved valid64 first sheet. Select exactly thirteen sites in one model, retaining all105 possible empty-site pairs. Keep all seven bracket and six insert identities and all80 legal orthogonal source-mode options. Every selected cog receives a required copy identity1..13 by deterministic selected-site order at source readback. Keep fixed29 and validshort11. Prepare owner-mode/cog-site source-safe regions guarded by site occupancy, and the complete orthogonal mover-pair constraints. Independently audit the simultaneous site-choice model before one bounded call. This is a restricted fixed-lattice construction, not a global infeasibility certificate or a retry of either closed continuous-cog call.",
+  "candidate_cog_sites": 15,
+  "required_occupied_sites": 13,
+  "site_subsets": 105,
+  "orthogonal_moving_originals": 13,
+  "legal_orthogonal_mode_options": 80,
+  "source_stocks": {
+    "sheet-0": [
+      6.5,
+      6.5,
+      1493.5,
+      2993.5
+    ],
+    "sheet-1": [
+      6.5,
+      6.5,
+      1493.5,
+      319.42690232999934
+    ]
+  },
+  "required_pair_gap_mm": 0.21170867250963943,
+  "stock_guard_mm": 0.011444091796875,
+  "algorithm_seconds": 60,
+  "shared_seconds": 90,
+  "maximum_calls": 1,
+  "retry_permitted": false,
+  "new_model_created": false,
+  "search_opened": false
+}

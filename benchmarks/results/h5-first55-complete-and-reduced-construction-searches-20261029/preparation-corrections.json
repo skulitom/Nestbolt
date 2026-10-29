@@ -1,0 +1,37 @@
+{
+  "preserved_failures_and_corrections": [
+    {
+      "stage": "initial tall-domain summary",
+      "original_summary_field": "original_pair_groups",
+      "original_value": 55,
+      "correct_value": 325,
+      "evidence": "The actual owner-pairs.json has 325 records and its independent audit verified all 325. The unchanged raw summary and compact-pair-regions-v2/prior-summary-correction.json preserve this summary-only error."
+    },
+    {
+      "stage": "initial compact-region preparation",
+      "result": "stopped before completing templates",
+      "transcribed_error": "AssertionError: (4, 8, 17500.0)",
+      "reason": "The floating union of overlapping exterior regions and an explicit triangular pocket lost that pocket at a boundary mismatch of about 7e-15 mm. The explicit pocket, its triangulation and its merged polygon all retain area 17500 mm2. The diagnostic is preserved; coverage is not claimed as a proof.",
+      "correction": "The separate v2 preparation reports both raw and snapped overlay diagnostics and requires exact source-support checks on every individual rounded region. All 88953 support checks passed."
+    },
+    {
+      "stage": "initial integer-region preparation",
+      "result": "stopped before writing a model",
+      "transcribed_error": "AssertionError at assert len(polygon) >= 3",
+      "reason": "One tiny region collapses to fewer than three convex-hull vertices after nine-decimal rounding.",
+      "correction": "A separate v2 conversion makes that region explicitly unselectable with a guarded constant-false condition. The exact geometry audit verifies its degeneracy and all other integer planes."
+    },
+    {
+      "stage": "initial complete-model audit and guarded runner invocation",
+      "result": "audit stopped; runner guard refused before creating its search directory",
+      "transcribed_error": "AssertionError at c.WhichOneof('constraint') == 'linear'; subsequent runner FileNotFoundError for model-audit/checks.json",
+      "reason": "OR-Tools serializes the guarded constant-false condition as an empty bool_or clause. The initial reader only accepted linear constraints.",
+      "correction": "The corrected independent reader explicitly verifies the empty-clause encoding. All 88835 variables and 317577 constraints then passed. The model itself was unchanged; no solver was opened by the refused invocation."
+    }
+  ],
+  "traceback_text_source": "Relevant error lines transcribed from tool output; original helper versions and generated files are preserved separately.",
+  "failed_preparations_count_as_solver_calls": false,
+  "closed_solver_calls": 2,
+  "source_valid66": false,
+  "H5_complete": false
+}
