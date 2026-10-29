@@ -17818,3 +17818,26 @@ valid64, production, READMEs, releases and H2's original gate/22 unopened vector
 remain unchanged. At the saved main f81a9ccd snapshot four checks pass and both
 platform checks are running. Full66 source/native/material checks, integration
 and the H5 matrix remain; H2/H5 stay open at 60%, with no new release qualified.
+
+
+**N4 cog-site masks, rigid components and occupied-area bounds, 2026-10-29:**
+[the evidence](benchmarks/results/h5-cog-site-mask-and-rigid-component-searches-20261029.md) closes three distinct audited calls without an assignment.
+All 105 choices of 13 existing cog sites pass original-source partial53 checks;
+73042 exact support proofs certify 1643 conditional source regions. The joint
+model has 23102 variables /109655 constraints. Replacing moving-part pair regions
+with 20 rigid rectangles and 183 separation pairs gives 11638 /63132; exact source
+partition, mode and complete model audits pass. Exact occupied-area bounds rule
+out 68 fixed-site choices, and the resulting 63201-constraint model retains 37.
+The calls return UNKNOWN at 49571/0, 190637/24805 and 32584/246 branches/conflicts.
+Algorithm/shared totals are 56.249244/56.355219, 56.374103/56.449837 and
+56.438059/56.515522 seconds, including the prior valid short11 construction.
+Slice overruns 0.234862, 0.354419 and 0.422945 seconds and all raw LP diagnostics
+remain recorded; overall 60/90-second budgets pass. A separately audited
+connected-component area bound rules out two more fixed-site choices, leaving 35.
+These restricted bounds exclude no overall allocation; all 440 candidates remain.
+Failed reader versions and corrections are preserved. Valid short11, valid64,
+production, READMEs, releases and H2's original gate/22 unopened vectors remain
+unchanged. The previous checkpoint 6a0c7b56 reached main after all six prior checks
+passed; its own saved snapshot has five passes with Windows still running.
+The matching first55, full66 source/native/material checks, integration and H5
+matrix remain open. H2/H5 stay open at 60%; no new release qualifies.

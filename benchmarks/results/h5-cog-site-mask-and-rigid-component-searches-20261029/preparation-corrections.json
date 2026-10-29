@@ -1,0 +1,25 @@
+{
+  "preserved_failures_and_corrections": [
+    {
+      "stage": "initial rigid component reader",
+      "result": "SyntaxError before execution",
+      "reason": "The helper's opening documentation string had an extra trailing quote.",
+      "original_bytes": "output/audit_h5_rigid_rectangle_pairs_20261029.failed.txt",
+      "correction": "The unbound helper header was corrected; the original failed bytes remain preserved separately. No source geometry or model changed."
+    },
+    {
+      "stage": "second rigid component reader",
+      "result": "TypeError during exact partition-boundary comparison",
+      "transcribed_error": "bad operand type for abs(): 'tuple'",
+      "reason": "The reader applied abs() to dictionary keys instead of signed boundary counts.",
+      "original_helper": "output/audit_h5_rigid_rectangle_pairs_v2_20261029.py",
+      "original_copy": "output/h5-first55-cog-site-masks-20261029/rigid-rectangle-preflight/audit/audit.py",
+      "correction": "A distinct v3 reader iterates the dictionary values. It independently verifies exact source partition boundaries, all12 modes and all20 outward component rectangles. The failed reader and its partial folder remain preserved."
+    }
+  ],
+  "traceback_text_source": "Relevant errors transcribed from tool output; exact failed helper bytes and generated files are preserved separately.",
+  "failed_preparations_count_as_solver_calls": false,
+  "closed_solver_calls": 3,
+  "source_valid66": false,
+  "H5_complete": false
+}

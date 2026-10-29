@@ -1,0 +1,155 @@
+# Cog-site masks, rigid components and occupied-area bounds
+
+2026-10-29. H5 development evidence for `m-mechanical-large-plates`.
+
+Three distinct audited models finished without a placement. Exact occupied-area
+and connected-component bounds now rule out **70 of 105 fixed cog-site choices**,
+leaving 35 choices for this restricted construction. They do not exclude any of
+the 440 overall allocation candidates. The original-source valid short11 and
+valid64 remain preserved. The matching first55, full66 source/native/material
+checks, integration and H5 matrix remain open. H2/H5 remain open at **60%**.
+
+## Original sources and conditional regions
+
+The [independent site audit](h5-cog-site-mask-and-rigid-component-searches-20261029/site-selection-audit.json) verifies all 15
+unchanged source cog poses, 1001 source-pool pairs, and all 105 choices of 13 sites.
+It inherits 96180 checked pairs across those partial53 layouts. Each partial53
+includes fixed29, selected 13 cogs and the valid short11; its 916 pairs, 212 stock
+edges, 63 holes and 6732 hole vertices pass. All 66 identities partition correctly,
+but seven brackets and six inserts remain unplaced.
+
+The new mask construction splits each orthogonal source-mode domain against all
+15 cog obstacles, recording which sites must be empty. It retains all 80 instance
+source-mode options and all 105 possible empty-site pairs. Its 214 cached masks
+contain 1643 convex regions, expanding to 10705 owner-region choices. Square
+inflation has halfwidth 0.226 mm. Every selected region is conditional on all its
+blocked sites being empty; exactly two sites may be empty.
+
+The [source-region audit](h5-cog-site-mask-and-rigid-component-searches-20261029/source-region-audit.json) separately checks all 12
+family modes, including filled aliases, against every applicable original cog.
+All **73042 exact support proofs** pass, with minimum certified clearance
+**0.22599999897032533 mm**. Whole-cog hull separation is used where possible;
+1458 cases require checking all 21 original cog convex pieces. No global
+free-space coverage claim is made.
+
+The [integer audit](h5-cog-site-mask-and-rigid-component-searches-20261029/integer-audit.json) verifies 1643 rounded hulls and 6723
+inward integer planes on a micrometre grid. Normal quantization is bounded over
+the absolute 1500×3000 mm coordinate envelope. Minimum inset exceeds 1e-7 mm and
+maximum activity is 3354101557500000, below 2^62. The 84 orthogonal pair templates
+used in the first model remain byte-identical to the previously audited subset.
+
+## Three closed constructions
+
+The [joint model audit](h5-cog-site-mask-and-rigid-component-searches-20261029/mask-model-audit.json) verifies **23102 variables /
+109655 constraints**. It couples 13 original movers, 80 source modes, 15 empty-site
+flags, 10705 unary region choices and 12276 pair-region choices. All 17686 mask
+implications, 43721 unary planes, 47088 pair planes, 816 pair geometry marginals
+and 11 identical-copy X-order rows are checked. Its only call returns UNKNOWN,
+49571 branches and 0 conflicts, with no incumbent or assignment.
+
+The [rigid component audit](h5-cog-site-mask-and-rigid-component-searches-20261029/rigid-partition-audit.json) proves exact
+partitions of the original filled outlines: two rectangles per L-bracket and
+one per insert. Exact boundary cancellation and zero interior-overlap area
+establish source areas 40000 and 19800 mm². All 12 mode transforms are separately
+contained by outward micrometre bounds, with maximum padding below 0.001 mm.
+The two failed reader versions and their fixes remain in the
+[correction record](h5-cog-site-mask-and-rigid-component-searches-20261029/preparation-corrections.json) and raw archive.
+
+The [rigid model audit](h5-cog-site-mask-and-rigid-component-searches-20261029/rigid-model-audit.json) verifies **11638 variables /
+63132 constraints**. It retains the same unary regions and source modes, replacing
+pair regions with 20 rigid component rectangles and 183 different-owner pairs.
+Every component coordinate is tied to its original owner's position and chosen
+mode through 544 guarded equalities. Each pair chooses one of four axis
+separations of 226 micrometres. Components of the same original remain rigid and
+have no artificial mutual separation. Its only call returns UNKNOWN,
+190637 branches and 24805 conflicts, with no incumbent or assignment.
+
+After the total-area proof below, the
+[area-cut model audit](h5-cog-site-mask-and-rigid-component-searches-20261029/area-cut-model-audit.json) verifies all fields of the
+rigid model unchanged, plus 68 forbidden empty-site pairs and an implied zero-sum
+row disabling 2554 unary selectors. It retains all 37 then-surviving choices and
+has 11638 variables /63201 constraints. Its only call returns UNKNOWN,
+32584 branches and 246 conflicts, with no incumbent or assignment. The subsequent
+two connected-capacity exclusions were not used by this already closed call.
+
+The three response audits
+([joint](h5-cog-site-mask-and-rigid-component-searches-20261029/mask-response-audit.json),
+[rigid](h5-cog-site-mask-and-rigid-component-searches-20261029/rigid-response-audit.json),
+[area cuts](h5-cog-site-mask-and-rigid-component-searches-20261029/area-cut-response-audit.json)) independently verify 5437, 5474
+and 5495 recursive bindings, respectively. Each call used four workers, seed 0,
+default presolve/LP and disabled the `fj` subsolver, with no objective or hint.
+No call is extended, restarted or reseeded. UNKNOWN does not prove infeasibility.
+
+| Timing, seconds | Joint masks | Rigid components | Area cuts |
+|---|---:|---:|---:|
+| Charged preparation |28.275481|25.813189|33.963111|
+| Allocated solve slice |26.698596|29.014435|21.222512|
+| Returned solve time |26.933458|29.368855|21.645457|
+| Preserved slice overrun |0.234862|0.354419|0.422945|
+| Preparation-inclusive algorithm |56.249244|56.374103|56.438059|
+| Preparation-inclusive shared |56.355219|56.449837|56.515522|
+
+All charges include the valid short11's 22.247810-second shared construction.
+The third also charges the rigid model, 7.134203-second area bound and
+1.015718-second conversion. Overall 60/90-second budgets pass. The three
+solve-slice overruns remain explicit. No source checker or native validator ran.
+
+Raw LP diagnostic counters remain preserved. The joint model records max_lp_sym
+Overflow 4 /Bad 5953; the rigid model records max_lp Overflow 13 /Bad 8990 and
+default_lp Bad 1357; the area-cut model records max_lp Adjust 1 /Overflow 19 /
+Bad 10052 and default_lp Bad 1680. These observations motivate investigating
+smaller integer coefficients; they do not establish the cause of failed search
+or invalidate the absence of assignments.
+
+## Necessary occupied-area and connected-capacity bounds
+
+For every source-mode alias and unary region, the area preparation sweeps its
+rounded convex position hull by each outward component rectangle. It then
+covers the swept hull with closed 10 mm grid cells. Exact rational intersections
+with each horizontal grid band bound all covered X cells. Combining mask covers
+conditional on an empty-site pair gives an upper bound on every point any
+corresponding original can occupy. Positive pair spacing makes distinct filled
+originals disjoint. Seven brackets require 280000 mm²; six inserts require 118800 mm²;
+together they require 398800 mm².
+
+The [independent area audit](h5-cog-site-mask-and-rigid-component-searches-20261029/accessible-area-audit.json) verifies all 3286
+swept convex hulls by exact convexity, vertex membership and containment of every
+summed point. A separate polygon-clipping implementation checks all 71239 grid
+bands and recomputes every mask union and all 105 area bounds. **68 choices have
+bracket-area upper bounds below 280000 mm².** Insert-only and combined bounds
+produce no additional contradictions. The
+[complete 105-row table](h5-cog-site-mask-and-rigid-component-searches-20261029/all105-area-bounds.json) preserves every result.
+
+The [connected-capacity audit](h5-cog-site-mask-and-rigid-component-searches-20261029/connected-capacity-audit.json) then partitions
+each bracket cover into eight-neighbour grid components. Each whole L-bracket
+is connected, so it must lie in one component. The sum of
+floor(component area /40000) bounds how many disjoint brackets fit. Counting
+corner-touching cells as connected makes the bound conservative. An independent
+queue-based reader checks 269236 cells and all 105 component partitions.
+**Two more choices fail**, making 70 excluded and 35 remaining. Capacities range
+from 2 to 9 brackets. The [full table](h5-cog-site-mask-and-rigid-component-searches-20261029/all105-capacity-bounds.json) and
+[35 remaining choices](h5-cog-site-mask-and-rigid-component-searches-20261029/allowed-empty-site-pairs.json) are retained.
+
+These are bounds on the saved fixed-cog, conservative-region construction.
+Neither the coarse grid nor the source masks represent every possible global
+packing. No overall allocation is excluded and no full66 feasibility is claimed.
+The [next preparation](h5-cog-site-mask-and-rigid-component-searches-20261029/next-step.json) retains all 35 choices and requires
+exact source implications and a complete independent audit before another call.
+
+## Preservation and publication
+
+The [publication review](h5-cog-site-mask-and-rigid-component-searches-20261029/publication-review.json) confirms unchanged
+production, READMEs, upstream heads and releases. Stable remains v0.1.0 and preview
+remains v0.2.0-alpha.1. The previous checkpoint 6a0c7b56 was normally pushed to main
+and the working branch after all six prior checks passed; its
+[push receipt](h5-cog-site-mask-and-rigid-component-searches-20261029/prior-main-push-receipt.json) is preserved. At this snapshot,
+five jobs in [main run 40823163046](https://github.com/skulitom/Nestbolt/actions/runs/40823163046)
+pass and Windows checks remain running. Another push requires fresh all-six-pass
+evidence and unchanged remote heads; no running check is cancelled.
+
+H2 retains its original gate and all 22 reserved vectors remain unopened.
+No new release qualifies. The archive contains **4797 canonical members**,
+**982 verified identical aliases** and **61262193 ZIP bytes**, preserving
+the original models, calls, parameters, logs, failed readers, exact certificates,
+source controls, helpers and recursive input bindings. The verifier checks all
+archive bytes, aliases, bindings, JSON data and local report links.
