@@ -4470,3 +4470,18 @@ pass, and no new solver or native call was opened. The next model will constrain
 component counts while keeping positions variable inside original source hulls.
 The 440 allocation candidates, valid short11/64, production source, READMEs,
 releases and reserved H2 vectors remain unchanged. H2/H5 remain open at 60%.
+
+**2026-10-29 H5 vectorized capacities and canonical component search:**
+[the independent audits](../benchmarks/results/h5-vectorized-capacities-and-canonical-component-search-20261029.md) confirm generic preparation taking 2.006985 seconds
+regenerates all 39 exact count certificates and the same 132 distributions from
+original source geometry. Floating estimates only screen candidates; each
+exclusion is exact. A model with conditional component counts and a distinct
+component-first canonical-copy model each received one closed call and returned
+`UNKNOWN` with no assignments. Their algorithm/shared totals were 56.231/56.293 s
+and 56.085/56.146 s; internal solve overruns of 0.215537 s and 0.068635 s remain
+recorded. All source modes and the complete inventory remain; no site choice or
+overall allocation is excluded. The next investigation tests exact occupied-area
+bounds in bounded strips. The prior checkpoints were pushed normally as bd68c967.
+The 29 site choices, 132 count distributions, 440 allocations, valid short11/64,
+production code, READMEs, releases and reserved H2 vectors remain unchanged.
+H2/H5 remain open at 60%.
