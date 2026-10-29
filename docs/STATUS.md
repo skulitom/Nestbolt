@@ -2,9 +2,11 @@
 
 ## v1.1 — real shop files
 
-Latest H5 evidence: [complete pair separation and relative-region searches](../benchmarks/results/h5-complete-pair-separation-and-relative-region-searches-20261029.md).
-The 440 necessary allocation candidates remain open. The complete 66-part layout and
-H5 quality matrix remain unverified; the existing valid 64-part layout is preserved.
+Latest H5 evidence: [source-valid eleven-part short sheet and first-sheet preparation](../benchmarks/results/h5-source-valid-eleven-and-first-sheet-preparation-20261029.md).
+The short sheet now passes independent original-source checks for five brackets,
+four inserts and two cogs. Its matching 55-part first sheet remains to construct.
+The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
+the existing valid 64-part layout is preserved.
 
 **Completion: 60%.** The plan is tracked in [PLAN_V1_1.md](PLAN_V1_1.md).
 Only completed gate weights count. N0/H1, N2/H3, N3/H4 and N5/H6 are complete:
@@ -3512,3 +3514,26 @@ All six checks on main 8c434a2b pass. Production, READMEs, valid64, releases and
 H2's original gate/22 unopened vectors remain unchanged. Full66 source/native/
 material checks, integration and the H5 matrix remain. H2/H5 stay open at 60%;
 no new release qualifies.
+
+
+**N4 source-valid eleven-part short sheet, 2026-10-29:** [the evidence](../benchmarks/results/h5-source-valid-eleven-and-first-sheet-preparation-20261029.md)
+independently verifies a short sheet with five original brackets, four inserts
+and two cogs. All 55 pairs, 44 stock edges, 21 holes and 2,718 hole vertices pass;
+minimum pair/extra-stock gaps are 0.227483220/0.026 mm. The complete mode-coupled
+integer model has 7,634 variables and 26,264 constraints. Its sole call returns
+one source-valid assignment after 18.356101 seconds; preparation-inclusive
+algorithm/shared times are 22.181037/22.247810 seconds, with no overrun.
+All 58 source-mode options and 95 geometry-pair templates pass independent audits;
+21,890 exact support proofs certify the 666 rounded convex regions. The preceding
+continuous formulation remains closed at its time limit with 214 nodes and no
+assignment. Its 0.302728-second solve-slice overrun is preserved; overall 60/90-second
+budgets remain satisfied. No allocation is excluded; all 440 candidates remain.
+The matching first55 is not yet constructed. Its audited preparation retains
+18 frames and eleven side inserts, leaving seven brackets, six inserts and
+13 cogs to move together. All 66 identities partition correctly and all 372
+mode-domain corner checks pass against the fixed originals. The new short11 and
+fixed29 form a valid partial40; valid64 remains preserved. No first55 search or
+native call is opened. All six checks on main 407f91ed pass. Production, READMEs,
+releases and H2's original gate/22 unopened vectors remain unchanged. Full66
+source/native/material checks, integration and the H5 matrix remain; H2/H5 stay
+open at 60%, and no new release qualifies.
