@@ -2,7 +2,7 @@
 
 ## v1.1 — real shop files
 
-Latest H5 evidence: [finite source poses and equivalent graph reduction](../benchmarks/results/h5-finite-source-poses-and-equivalent-graph-reduction-20261029.md).
+Latest H5 evidence: [joint component count capacities](../benchmarks/results/h5-joint-component-count-capacities-20261029.md).
 The short sheet now passes independent original-source checks for five brackets,
 four inserts and two cogs. Its matching 55-part first sheet remains to construct.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3620,3 +3620,16 @@ site choices, 440 allocation candidates, valid short11 and valid64 remain.
 Next work investigates joint-family component capacities before another continuous
 placement formulation. The previous checkpoint was pushed normally as 286223ae;
 production source, READMEs and releases are unchanged. H2/H5 remain open at 60%.
+
+**2026-10-29 H5 joint component count capacities:**
+[independent source/component audits](../benchmarks/results/h5-joint-component-count-capacities-20261029.md) verify 39 necessary area certificates
+that eliminate 197 of 329 distributions of seven brackets and six inserts among
+their continuous source-support components. The remaining 132 distributions span
+all 29 retained cog-site choices; no full site choice or overall allocation is
+excluded. The readers verify 122 family components, 6,940 source-region mappings
+and every recorded exclusion; the last six certificates use 118 independent exact
+polygon clippings. Unrecorded scan values remain diagnostic. All preparation caps
+pass, and no new solver or native call was opened. The next model will constrain
+component counts while keeping positions variable inside original source hulls.
+The 440 allocation candidates, valid short11/64, production source, READMEs,
+releases and reserved H2 vectors remain unchanged. H2/H5 remain open at 60%.
