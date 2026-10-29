@@ -4444,3 +4444,30 @@ native call. Main `6b0a1d0b` has five CI passes and the Windows check running,
 so both local checkpoints queue. Production, READMEs, valid64, 444 necessary
 allocation survivors and H2's original gate/22 unopened vectors are unchanged.
 H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 global short-sheet searches and cog-strip preparation, 2026-10-29:** [the evidence](../benchmarks/results/h5-global-short-core-searches-20261029.md)
+preserves two independently audited, closed UNKNOWN calls with no incumbent,
+assignment, source check or native call. All thirteen short-sheet originals
+are mandatory and movable, with the other 53 identities explicitly retained.
+The micrometre model has 1,438 variables / 1,414 constraints; the distinct
+100-micrometre model adds ten identical-copy x orders for 1,424 constraints.
+Its source-feasibility mapping is proved: relative rounding below 141.422
+micrometres is smaller than the unchanged 211.70867250963943-micrometre gap.
+Both complete protobuf audits and positive/negative source-derived controls
+pass. Algorithm/shared times are 57.144285/57.202692 s and
+57.065867/57.121789 s. Allocated solve overruns of 0.137374 and 0.055243 s
+remain preserved; neither overall budget overruns. The first unused source
+checker's rational parsing defect is retained; the new expression is fixed,
+but neither candidate pipeline ran. A script-generation assertion failure
+and its separate completion helper are also preserved. A new preparation
+puts sixteen disjoint rectangles inside each cog core for future global
+propagation. All 2,048 exact corner/edge checks pass; the positive control's
+465 piece pairs are clear and the negative control has 341 overlaps. A future
+48-piece model still needs proved common bounds before cumulative capacities;
+no such model or search has opened. No allocation or source feasibility is
+excluded. Prior checkpoints are pushed to main d3b652b6; its snapshot has four
+CI passes and Ubuntu/Windows checks running, so this checkpoint queues.
+Production, READMEs, valid64, 444 necessary allocation survivors and H2's
+original gate/22 unopened vectors are unchanged. H2/H5 remain open at 60%;
+no new release qualifies.

@@ -1,0 +1,10 @@
+{
+  "anchor_grid_um": 100,
+  "maximum_per_coordinate_rounding_um": 50,
+  "single_original_translation_bound_um": "70.711",
+  "pair_relative_translation_bound_um": "141.422",
+  "original_required_gap_um": "21170867250963943/100000000000000",
+  "rounding_argument": "Nearest0.1mm rounding moves each coordinate by at most50um. Its Euclidean displacement is less than70.711um, so the relative displacement of two originals is less than141.422um, below the unchanged211.70867250963943um required gap. The same strictly source-contained core pieces therefore stay disjoint. Keep core coordinates and no-fit facets in exact micrometres; only anchor variables use100um steps. New grid bounds are ceil((old_lower-50)/100) and floor((old_upper+50)/100), which contain every nearest rounded source anchor because the old bounds already contained every source anchor.",
+  "copy_order_argument": "The benchmark defines one shared geometry, legal transformations and cutting parameters per part family, with a quantity of identical copies. Permuting the complete mode/anchor assignments among the mandatory short-sheet copies of one family preserves every source polygon, cutout, stock condition and pair gap; the selected short identities and first-sheet complement remain the same. Sort each family by normalized x anchor (cog center x for cogs), with any tie order. Nearest-grid rounding is monotone, so ten adjacent nondecreasing x inequalities do not exclude a source-feasible allocation. No cross-family ordering is imposed.",
+  "limitations": "This does not preserve every1um core-only witness, and a coarse core solution is not an original source layout. The first53 originals still require placements. The old UNKNOWN call is not retried. A new model must be independently audited before its own frozen call. Future candidate readers must parse exact rational centers through Fraction and normalize expected identity pairs to tuples."
+}
