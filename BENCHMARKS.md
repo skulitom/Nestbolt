@@ -17612,3 +17612,28 @@ CI passes and Ubuntu/Windows checks running, so this checkpoint queues.
 Production, READMEs, valid64, 444 necessary allocation survivors and H2's
 original gate/22 unopened vectors are unchanged. H2/H5 remain open at 60%;
 no new release qualifies.
+
+
+**N4 short-sheet capacity and original cog separation, 2026-10-29:** [the evidence](benchmarks/results/h5-short-strip-capacity-and-source-pair-20261029.md)
+adds thirty-two source-contained cog strips to a 48-piece global rectangle
+constraint and two cumulative constraints. All 36 mode/piece envelopes and
+576 exact corners establish the common active-piece box; 113 independent
+capacity slabs verify both controls. The 1,566-variable / 1,619-constraint
+model retains every parent variable, constraint and hint, and its full audit
+passes. A fresh all-angle cog proof replay verifies 720 cells, 28,840 robust
+segments, 2,307,200 capsule/edge checks and 518,400 ordered angle pairs.
+The original 254.3 mm center-distance bound is conservatively remapped for
+the rational-center change and 0.1 mm rounding. With the full short-sheet
+Y domain it requires ordered X separation of 251.9 mm. Positive and negative
+original cog pairs pass their independent checks. A second model adds only
+that guarded source bound, for 1,620 constraints; its complete audit passes.
+Both sole calls close UNKNOWN with no incumbent, assignment, source13 or
+source66 candidate, or native call. Algorithm/shared times are
+57.114791/57.190961 s and 57.082501/57.143791 s; allocated-solve overruns of
+0.103430 and 0.073170 s are retained without overall-budget overruns.
+Next investigate the old directed source projections only after proving mode,
+reference, rounding and ordering compatibility with this model. No allocation
+or original feasibility is excluded. Main d3b652b6 has five CI passes and
+Windows checks running; both local checkpoints queue. Production, READMEs,
+valid64, 444 necessary allocation survivors and H2's original gate/22 unopened
+vectors remain unchanged. H2/H5 remain open at 60%; no new release qualifies.
