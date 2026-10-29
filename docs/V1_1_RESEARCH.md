@@ -4585,3 +4585,25 @@ snapshot has four passes and Ubuntu/Windows checks running, so this checkpoint
 queues. Production, READMEs, valid64, upstream releases and H2's original
 gate/22 unopened vectors remain unchanged. No native call or full 66-part layout is
 claimed. H2/H5 remain open at 60%; no new release qualifies.
+
+
+**N4 rejected axis choices and exact source partition, 2026-10-29:** [the evidence](../benchmarks/results/h5-axis-choice-rejection-and-exact-source-partition-20261029.md)
+certifies a remaining three-edge contradiction in the six-choice translation
+model without a solver call. Five exact cycles guide expansion to eleven choice
+groups and 160 variants; all 183 variables, 8,930 rows and 2,560 deactivation
+corner checks pass independent audit. The sole MIP call reports INFEASIBLE in
+presolve with no assignment, taking 0.029907 seconds; charged preparation gives
+algorithm/shared totals of 1.432448/1.480627 seconds, without overrun. The warning
+that 814 tiny coefficients were dropped is preserved, with maximum row effect
+below 7.78e-13 mm. A separate 70.961359-second oblique diagnostic finds no exact
+full-model certificate. Neither result excludes an allocation; all 440 remain.
+A new exact cog partition uses a 40-vertex core and twenty tooth quadrilaterals.
+Independent rational checks verify all 210 intersections, 20 internal edge
+cancellations, all 80 original boundary edges and exact area. This reduces the
+next short-sheet model from 174 pieces / 8,726 pairs to 56 pieces / 1,115 pairs.
+No model or search using that partition is opened. The exploratory 40-piece
+partition is also preserved, with its independent audit still pending.
+All six checks on main 9dab2f4e now pass. Production, READMEs, valid64, releases
+and H2's original gate/22 unopened vectors remain unchanged. Full66 source/native/
+material checks, integration and the H5 matrix remain. H2/H5 stay open at 60%;
+no new release qualifies.
