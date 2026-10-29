@@ -4512,3 +4512,17 @@ additional exclusions; their negative results are not infeasibility proofs.
 No new placement solver or native call was made. The 440 overall allocations,
 full66 validation and H5 matrix remain open. Completion stays **60%**; H2's
 original gate, held-out isolation, production code and release claims are unchanged.
+
+
+**H5 direct capacities and component factorization, 2026-10-29:**
+[the source/model/domain audits](../benchmarks/results/h5-direct-capacities-component-factorization-and-shared-block-20261029.md) regenerate the same 18 choices and 42
+count distributions, then verify a 6,520-variable / 32,928-constraint model with 1,876
+impossible unary choices removed. Its sole closed call returns `UNKNOWN`; the
+0.0643844 s solve-slice overrun is preserved and the 60/90-second total limits pass.
+Exact separation checks prove 23 distributions can split into independent blocks.
+A shared five-part block's audited grid model reports `INFEASIBLE` in its sole
+closed call, without an independent unsat certificate or continuous-source claim.
+Independent continuous pair/subset bounds remove 102,322 option multisets and
+retain 36,802; all 42 full distributions remain. No full66 placement, source check
+or native call was produced. The 440 overall allocations and H2/H5 remain open
+at **60%**. Production code, READMEs, releases and held-out isolation are unchanged.
