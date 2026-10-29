@@ -4499,3 +4499,16 @@ reductions returned `UNKNOWN` in its sole closed call, with no assignment. Its
 is preserved. Next work investigates diagonal strip bounds. Valid short11/64,
 production source, READMEs, releases and reserved H2 vectors remain unchanged.
 All six checks on main bd68c967 now pass; H2/H5 remain open at 60%.
+
+
+**H5 fine-band capacities, 2026-10-29:** [the independent audit](../benchmarks/results/h5-fine-band-capacities-and-spatial-diagnostics-20261029.md) proves
+26 exact necessary-area certificates using a conservative 2 mm-band / 0.1 mm-X
+cover of the original swept source hulls. It removes 40 count distributions and
+seven fixed cog-site choices, leaving 18 choices and 42 distributions. The audit
+checks 14,714 source vertices and 196,029 exact polygon-band clippings. Source
+geometry, mode aliases and component assignments remain preserved. Complete
+diagonal-strip, rectangular-window and fine-band strip diagnostics find no
+additional exclusions; their negative results are not infeasibility proofs.
+No new placement solver or native call was made. The 440 overall allocations,
+full66 validation and H5 matrix remain open. Completion stays **60%**; H2's
+original gate, held-out isolation, production code and release claims are unchanged.
