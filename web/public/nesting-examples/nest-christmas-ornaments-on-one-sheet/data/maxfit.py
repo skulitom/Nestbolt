@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-NB = r"C:\DEV\Compass\scratch\compass-compare\Nestbolt\target\release\nestbolt.exe"
+NB = "nestbolt"  # path to the nestbolt command-line tool
 RUN = Path(sys.argv[1]).resolve()
 prev = json.loads((RUN / "plusone.json").read_text(encoding="utf-8"))
 log = []

@@ -7,7 +7,9 @@ Sheet 304.8 × 304.8 mm (12 × 12 in), margin 5 mm, part spacing 2 mm, edge spac
 The drawing is [`../../../examples/ornaments.svg`](../../../examples/ornaments.svg). `gen.py` drew it and wrote the
 `fill-*` and `mixed-*` requests and `grid.json`; `runall.py` ran the fill and mixed nests (`results.json`);
 `plusone.py` and `maxfit.py` wrote the `all-*` requests (a fill request with the mode removed, unlimited sheets and
-a set quantity) and ran them (`most-that-fit.json`). The scripts expect the `nestbolt` path set at their top.
+a set quantity) and ran them. Done by hand: the snowflake confirm run (`all-snowflake-18-request.json`, after 19
+needed two sheets) and assembling `most-that-fit.json` from those runs. Set `NB` at the top of each script to your
+`nestbolt` path.
 
 ## Ready-to-cut sheets (SVG, millimetres)
 
