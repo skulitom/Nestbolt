@@ -20,6 +20,8 @@ can call.
 How Nestbolt compares with other ways an AI agent can nest parts (OpenNest, pyFit, Sparrow, Deepnest, SVGnest and
 more), by interface, file formats and sheet model: [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/).
 
+For laser makers: [how many ornaments fit on a 12 × 12 inch sheet](https://skulitom.github.io/Nestbolt/nesting-examples/nest-christmas-ornaments-on-one-sheet/), measured for six designs, with ready-to-cut sheets; more in [the examples](https://skulitom.github.io/Nestbolt/nesting-examples/).
+
 **[Try the v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
 for editable LightBurn project nesting, lead-in allowances and improvements for
 large curved drawings. Windows x64, Linux x64 and macOS Apple silicon tools are
