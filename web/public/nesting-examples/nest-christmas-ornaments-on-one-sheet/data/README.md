@@ -4,8 +4,10 @@ Page: https://skulitom.github.io/Nestbolt/nesting-examples/nest-christmas-orname
 
 Measured on 2026-11-01 with the `nestbolt` command-line tool built from `main` at `379761a`, on a desktop PC.
 Sheet 304.8 × 304.8 mm (12 × 12 in), margin 5 mm, part spacing 2 mm, edge spacing 1 mm, rotations 0/90/180/270°.
-The drawing is [`../../../examples/ornaments.svg`](../../../examples/ornaments.svg); `gen.py` drew it and wrote the
-request files and `grid.json`.
+The drawing is [`../../../examples/ornaments.svg`](../../../examples/ornaments.svg). `gen.py` drew it and wrote the
+`fill-*` and `mixed-*` requests and `grid.json`; `runall.py` ran the fill and mixed nests (`results.json`);
+`plusone.py` and `maxfit.py` wrote the `all-*` requests (a fill request with the mode removed, unlimited sheets and
+a set quantity) and ran them (`most-that-fit.json`). The scripts expect the `nestbolt` path set at their top.
 
 ## Ready-to-cut sheets (SVG, millimetres)
 
@@ -36,7 +38,8 @@ nestbolt validate --library library.json --request all-star-23-request.json --la
   on one sheet per design.
 - `results.json`: the fill runs (seeds 0 to 4) and the two mixed sets (18 fit one sheet; 24 needed two).
 - `grid.json`: each design's size and the bounding-box grid count (arithmetic, not a program's output).
-- `check.json`, `check-fill-seed0.json`: our independent check of the exported sheets (`check.py`, Shapely and
-  svgelements, no Nestbolt code): copy counts, shape areas, the 6 mm border and the 2 mm gaps.
+- `check.json` (the seven published sheets and the seed-0 star fill), `check-fill-seed0.json` (the seed-0 fill and
+  mixed runs): our independent check of the exported sheets (`check.py`, Shapely and svgelements, no Nestbolt code):
+  copy counts, each part's area and hole against the drawing, the 6 mm border and the 2 mm gaps.
 
 The drawing, requests and sheets are MIT licensed, like Nestbolt.
