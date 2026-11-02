@@ -5,7 +5,7 @@ Page: https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/
 Measured on 2026-11-02 with the Nestbolt **v0.2.0-alpha.1** Windows x64 release (a preview; zip SHA-256
 `06852c2d3bdf600a60c4cfc403f1a2a28b5028ec55d3a55eca7d04883b2f8b50`, checked against `SHA256SUMS` and its build
 attestation), on a Windows desktop PC: `--seconds 30 --repeatable` (120 s for `all-partly-used-12-request.json`), seed 0,
-part spacing 2 mm, rotations 0/90/180/270°. Every request except the spacing probes was run twice with byte-identical
+part spacing 2 mm, rotations 0/90/180/270°. The six nest requests behind the page's table were each run twice with byte-identical
 results. LightBurn was not run. Every number on the page is in `results.json`.
 
 | File | What it is |
