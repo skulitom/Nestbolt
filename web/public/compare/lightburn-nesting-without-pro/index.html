@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LightBurn nesting without Pro, including onto offcuts | Nestbolt</title>
-    <meta name="description" content="LightBurn 2.2's True Nest needs Pro. Measured 2026-11-02: Nestbolt's free v0.2.0-alpha.1 preview nested a layered LightBurn project onto a full sheet and two offcuts and wrote editable .lbrn2 sheets with every layer kept.">
+    <meta name="description" content="LightBurn 2.2's True Nest needs Pro. On 2026-11-02, Nestbolt's free preview nested a layered LightBurn project onto a full sheet and two offcuts, every layer kept.">
     <link rel="canonical" href="https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/">
     <link rel="stylesheet" href="../../site.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
@@ -40,6 +40,7 @@
           "headline": "LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared",
           "description": "LightBurn 2.2's True Nest needs a Pro licence. A measured run of Nestbolt's free v0.2.0-alpha.1 preview on a layered LightBurn project, nested onto a full sheet and two offcuts, with what True Nest does better.",
           "url": "https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/",
+          "image": "https://skulitom.github.io/Nestbolt/og/compare-lightburn.png",
           "datePublished": "2026-11-02",
           "dateModified": "2026-11-02",
           "inLanguage": "en",
@@ -74,7 +75,7 @@
     <main id="main">
       <article>
         <h1>LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared</h1>
-        <p><strong>In LightBurn 2.2, True Nest (nesting by each shape's real outline) needs a Pro licence: $199 new, or a $100 upgrade from Core's $99. Core keeps Quick Nest, which packs each object's bounding rectangle into a rectangle you draw, and SVGNest (External Tool), which sends your shapes to the SVGnest.com website and back.</strong> On 2026-11-02 we nested a LightBurn project of six engraved ornament designs, with cut, fill-engrave and score layers, using the free Nestbolt v0.2.0-alpha.1 command-line tool, whose LightBurn support is a preview feature. It placed 18 ornaments on one 12 × 12 inch sheet, 13 on an irregular offcut and 11 on a partly used sheet with two holes. Each sheet came back as an editable <code>.lbrn2</code>, with every layer's settings byte-identical and every engraving moved with its part, checked by our own script (method and data below).</p>
+        <p><strong>As of 2026-11-02, True Nest in LightBurn 2.2 (nesting by each shape's real outline) needs a Pro licence: $199 new, or a $100 upgrade from Core's $99 (US dollars). LightBurn's docs describe True Nest and Core's Quick Nest nesting into a rectangle you draw. In our test that day, the free Nestbolt v0.2.0-alpha.1 preview nested a three-layer LightBurn project onto a traced offcut (13 ornaments), a partly used sheet with two holes (11) and a full 12 × 12 inch sheet (18). It wrote each sheet back as an editable <code>.lbrn2</code> with the layer settings unchanged, checked by our own script.</strong> Nestbolt's LightBurn support is a preview feature. Core also has SVGNest (External Tool), which opens the SVGnest.com website in your browser to nest an exported SVG. Method and data are below.</p>
         <p><strong>We make Nestbolt.</strong> We did not run LightBurn, so this page makes no claim about how densely True Nest or Quick Nest packs. Everything about LightBurn comes from its own documentation, release post, price pages and forum, read on 2026-11-02 and linked below. Last checked: <strong>2026-11-02</strong>.</p>
 
         <h2>Your nesting options as a LightBurn Core user</h2>
@@ -94,7 +95,7 @@
             <tbody>
               <tr>
                 <th scope="row"><a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/TrueNest/">True Nest</a> (LightBurn 2.2)</th>
-                <td>LightBurn Pro only: $199 one-time with a year of updates, or a $100 Core-to-Pro upgrade; a two-week Trial Pro from Help → License Management</td>
+                <td>LightBurn Pro only: $199 one-time with a year of updates, or a $100 Core-to-Pro upgrade, which "does not add a year of updates", so your licence's update year must cover 2.2; a two-week Trial Pro from Help → License Management</td>
                 <td>The objects' actual contours</td>
                 <td>A rectangle you draw and select as the container; Multipage adds pages with copies of it</td>
                 <td>"Allowed Orientations" from 1° steps to 90° steps, or locked</td>
@@ -104,7 +105,7 @@
                 <th scope="row"><a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/QuickNest/">Quick Nest</a> (LightBurn 2.1 and later)</th>
                 <td>Core and Pro</td>
                 <td>Each object's bounding rectangle</td>
-                <td>An axis-aligned rectangle you draw and select</td>
+                <td>An axis-aligned rectangle you draw and select; Multipage adds pages with copies of it</td>
                 <td>90° steps, or locked</td>
                 <td>Inside LightBurn, locally</td>
               </tr>
@@ -119,15 +120,15 @@
               <tr>
                 <th scope="row"><a href="https://github.com/skulitom/Nestbolt">Nestbolt</a> (ours)</th>
                 <td>Free, MIT licence. LightBurn projects need the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1">v0.2.0-alpha.1 preview</a> (stable v0.1.0 takes SVG and DXF only)</td>
-                <td>Actual outlines, curves kept; small parts can go inside the holes of larger ones</td>
+                <td>Actual outlines</td>
                 <td>Rectangular sheets, or an offcut's outline with holes in it, plus areas to keep clear</td>
                 <td>Free, stepped or a list of angles (its README); this test used 0°, 90°, 180° and 270°</td>
-                <td>Command line and MCP server on Windows, Linux and macOS, and a browser app that runs on your computer (nothing is uploaded); you move the files between it and LightBurn</td>
+                <td>Command line and MCP server on Windows x64, Linux x64 and macOS on Apple silicon, and a browser app that runs on your computer (nothing is uploaded); you move the files between it and LightBurn</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p>On the container: True Nest's and Quick Nest's getting-started steps both begin "Create a rectangle to use as a container". SVGNest (External) asks for "a container shape", and its page doesn't say it must be a rectangle; it also says shapes inside other shapes are not exported but are moved back with them after the import. When a user asked in September for nesting inside irregular scraps, LightBurn staff member Joe Spanier replied on 22 September 2026, during the 2.2 early access, that arbitrary sheet shapes are "even more complicated" and that there is no specific roadmap for them yet (<a href="https://forum.lightburnsoftware.com/t/true-nesting-in-lightburn/192508/20">forum post</a>). We found nothing newer on this. LightBurn's <a href="https://lightburnsoftware.com/blogs/news/lightburn-2-2-true-nest-center-line-trace-camera-print-and-cut-and-more">2.2 release post</a> calls True Nest "the first LightBurn design/layout feature that is limited to Pro licenses only".</p>
+        <p>On the container: True Nest's and Quick Nest's getting-started steps both begin "Create a rectangle to use as a container". Both also offer Multipage and Lock Inner Objects, which keeps inner shapes with the shape around them without grouping. SVGNest (External) asks for "a container shape", and its page doesn't say it must be a rectangle; it also says shapes inside other shapes are not exported but are moved back with them after the import. When a user asked in September for nesting inside irregular scraps, LightBurn staff member Joe Spanier replied on 22 September 2026, during the 2.2 early access. He wrote that they have discussed arbitrary sheet shapes and "realize it would be useful", but that it is "even more complicated" than the current True Nest and they have no specific roadmap for it (<a href="https://forum.lightburnsoftware.com/t/true-nesting-in-lightburn/192508/20">forum post</a>). We found nothing newer on this. In Nestbolt, small parts can also go inside the holes of larger ones; LightBurn's nesting pages don't say either way for its tools. LightBurn's <a href="https://lightburnsoftware.com/blogs/news/lightburn-2-2-true-nest-center-line-trace-camera-print-and-cut-and-more">2.2 release post</a> calls True Nest "the first LightBurn design/layout feature that is limited to Pro licenses only".</p>
 
         <h2>The test project: six engraved ornaments in a LightBurn project</h2>
         <p>The cut outlines are the six ornament designs from our <a href="../../nesting-examples/nest-christmas-ornaments-on-one-sheet/">ornament example</a>, each about 3 inches tall with a hanging hole. A script turned them into a LightBurn project, <a href="data/engraved-ornaments.lbrn2"><code>engraved-ornaments.lbrn2</code></a>, with one group per design and three layers in LightBurn's default colours:</p>
@@ -143,7 +144,7 @@
         </figure>
 
         <h2>Measured: one full sheet and two offcuts</h2>
-        <p>All runs used the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1">v0.2.0-alpha.1</a> Windows x64 release (its SHA-256 and build provenance checked), on a Windows desktop PC, with a 30-second budget in repeatable mode at seed 0 and 2 mm between parts. "Place what fits" is Nestbolt's <code>fill_area</code> mode, a quick layout that fills as much area as it can from the copies offered. "Most found" is the default mode, which must place every part: we raised the number of ornaments, cycling through the six designs, until it could no longer place them all.</p>
+        <p>All runs used the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1">v0.2.0-alpha.1</a> Windows x64 release (its SHA-256 and build provenance checked), on a Windows desktop PC, in repeatable mode at seed 0 with 2 mm between parts and a 30-second budget (120 seconds where the table says so). "Place what fits" is Nestbolt's <code>fill_area</code> mode, a quick layout that fills as much area as it can from the copies offered. "Most found" is the default mode, which must place every part: we raised the number of ornaments, cycling through the six designs, until it could no longer place them all.</p>
         <div class="table" role="region" aria-label="Measured nests" tabindex="0">
           <table>
             <caption>Nestbolt v0.2.0-alpha.1 on 2026-11-02; every layout valid by Nestbolt's own check and by ours</caption>
@@ -162,7 +163,7 @@
                 <td>92,903 mm²</td>
                 <td>1 mm</td>
                 <td>Not used</td>
-                <td>18 of 18 requested (3 of each design) in 3.3 s, covering 45.6% of the sheet</td>
+                <td>18 of 18 requested (3 of each design) in 3.3 s, covering 45.6% of the sheet; we did not push this count higher</td>
               </tr>
               <tr>
                 <th scope="row">Traced offcut (about 390 × 278 mm across)</th>
@@ -176,7 +177,7 @@
                 <td>66,560 mm²</td>
                 <td>2 mm</td>
                 <td>11 of 18 offered in 1.1 s, covering 42.6%</td>
-                <td>11 in 1.7 s, covering 38.7%; with a 120 s budget, 12 (2 of each) in 6.1 s, covering 42.4%; 13 were not found</td>
+                <td>11 in 1.7 s, covering 38.7%. 12 failed with the 30 s budget; with a 120 s budget, 12 (2 of each) were placed 6.1 s in, covering 42.4%. 13 were not found with 120 s</td>
               </tr>
             </tbody>
           </table>
@@ -185,7 +186,7 @@
           <img src="full-sheet.svg" width="626" height="626" alt="Eighteen engraved ornaments, three of each design, nested on one square sheet" loading="lazy">
           <figcaption>18 ornaments on one 12 × 12 inch sheet, drawn from <a href="data/full-sheet-18-sheet.lbrn2"><code>full-sheet-18-sheet.lbrn2</code></a>. The dashed line is the 5 mm margin.</figcaption>
         </figure>
-        <p>The offcut is the plywood offcut from our <a href="../../nesting-examples/nest-parts-onto-scrap-offcut/">scrap example</a>: its outline was traced from a computer-rendered picture with Maskbolt, so the edge spacing of 5 mm covers the tracing error measured there (at most 4.3 mm). The partly used sheet is a 12 × 12 inch sheet from which an earlier job took a 150 × 120 mm corner, a 70 mm disc and a 90 × 50 mm plate. Its outline comes from that job's own file, so 2 mm from the edges is enough.</p>
+        <p>The offcut is the plywood offcut from our <a href="../../nesting-examples/nest-parts-onto-scrap-offcut/">scrap example</a>: its outline was traced from a computer-rendered picture with Maskbolt, so the edge spacing of 5 mm covers the tracing error measured there (at most 4.3 mm). The partly used sheet was drawn for this test to look like a 12 × 12 inch sheet after an earlier job: a 150 × 120 mm corner, a 70 mm disc and a 90 × 50 mm plate are gone. Its outline is drawn exactly rather than traced, so 2 mm from the edges is enough.</p>
         <figure>
           <img src="traced-offcut.svg" width="796" height="573" alt="Thirteen engraved ornaments nested inside an irregular offcut outline" loading="lazy">
           <figcaption>13 ornaments on the traced offcut, drawn from <a href="data/traced-offcut-13-sheet.lbrn2"><code>traced-offcut-13-sheet.lbrn2</code></a>. The dashed rectangle is the offcut's bounding box.</figcaption>
@@ -201,31 +202,32 @@
           <li><strong>Every ornament is a copy of a group in the project,</strong> with the same three children in the same order, on the same layers, and their path data unchanged. The number of copies matches the request.</li>
           <li><strong>One move per ornament.</strong> Every point and curve handle of an ornament, on all three layers, moved by the same rotation (0°, 90°, 180° or 270°) and shift, to within 0.000001 mm. Nothing was mirrored, so each star and ring stays where it was on its part.</li>
           <li><strong>Layer settings unchanged.</strong> The three layers' settings are byte-for-byte the same as in the input. Each sheet adds one thing: a rectangle on LightBurn's T1 tool layer, named SHEET, which marks the stock and is not cut. On an offcut it is the outline's bounding box, not its shape. Leave it out with <code>--sheet-outline false</code>.</li>
-          <li><strong>Geometry.</strong> Stars and rings lie on their ornament and clear of its hole, and parts keep the requested spacing from each other and from the stock's edges and holes. The edges were sampled, so these distances are accurate to about 0.01 mm.</li>
-          <li><strong>Repeatable.</strong> Two runs of each request file gave byte-identical sheets and layouts.</li>
+          <li><strong>Geometry.</strong> Stars and rings lie on their ornament and clear of its hole, and parts keep the requested spacing from each other and from the stock's edges and holes. The curves were sampled, so these distances are accurate to about 0.01 mm; a second check with ten times finer sampling moved them by at most 0.006 mm.</li>
+          <li><strong>Repeatable.</strong> We ran every request file twice, and each pair of sheets and layouts was byte-identical.</li>
         </ul>
-        <p>One thing we did not expect: on both offcuts, Nestbolt kept parts as far from each other as from the edge, using whichever of the two settings is larger. With a 5 mm edge spacing on the traced offcut, the closest two ornaments are 5.01 mm apart, not 2 mm. On the full rectangular sheet the two settings stayed separate. So on an offcut, use the smallest edge spacing your outline allows.</p>
+        <p>One thing we did not expect: on the traced offcut, Nestbolt kept parts as far from each other as from the edge, using whichever of the two settings is larger. With a 5 mm edge spacing, the closest two ornaments are 5.01 mm apart, not 2 mm. In extra runs on the same offcut, edge spacings of 1, 2 and 3 mm gave closest gaps of 2.01, 2.01 and 3.01 mm. On the full rectangular sheet, a 4 mm edge spacing left the parts 2.02 mm apart. So on an offcut, use the smallest edge spacing your outline allows. The <a href="data/spacing-probe-edge-1mm-request.json">probe requests</a> and their numbers are in the data.</p>
 
         <h2>How to nest your LightBurn project onto an offcut</h2>
+        <p>LightBurn project nesting is a preview feature of Nestbolt (v0.2.0-alpha.1 and the browser app).</p>
         <ol>
           <li>In LightBurn, group each part with its engraving and score lines, then save a copy of the project. Nestbolt moves each group as one piece. Text without embedded outlines must be re-saved in LightBurn or converted to paths first (<a href="https://github.com/skulitom/Nestbolt/blob/main/docs/LBRN2.md#required-preparation-for-older-or-mixed-projects">preparation notes</a>).</li>
           <li>Draw or trace the usable outline of the offcut, with any holes, and export only that outline as SVG or DXF.</li>
           <li>In the <a href="../../">browser app</a>, open the <code>.lbrn2</code> project, set the quantities, and under the sheet size choose the outline file as <strong>Remnant outline</strong>. Set the part and edge spacing, nest, and download the LightBurn sheet.</li>
-          <li>Open the sheet in LightBurn and check it before you cut. The parts sit inside the offcut's bounding box, which starts at the origin and is marked by the T1 rectangle. Line that box up with your offcut before cutting.</li>
+          <li>Open the sheet in LightBurn and check it before you cut. The T1 rectangle marks the offcut's bounding box, moved to the origin, not its shape. To see the shape, import your outline file and line its bounding box up with the T1 rectangle. If your laser's origin is not the bottom-left corner, check that the layout isn't flipped: Nestbolt's LightBurn notes say this must be checked in LightBurn. We did not open the sheets in LightBurn.</li>
         </ol>
-        <p>We ran steps 3 and 4 up to the download in the live browser app on 2026-11-02, in a headless Chromium with a fresh profile. We opened the project, set 2 of each design, and chose the traced offcut as the remnant outline, with 2 mm part and edge spacing. The app placed 12 of 12 in its 30-second run, reported the check as valid, and downloaded <a href="data/browser-traced-offcut-12-sheet.lbrn2"><code>browser-traced-offcut-12-sheet.lbrn2</code></a>, which passed the same independent check. The hosted app is built from Nestbolt's <code>main</code>, whose engine and browser code are unchanged since v0.2.0-alpha.1.</p>
-        <p>On the command line, give the offcut as <code>outline_mm</code> in the request: its outer ring and holes in millimetres, Y up, inside <code>width_mm</code> × <code>height_mm</code>. See <a href="data/traced-offcut-request.json">the traced-offcut request</a>. A SHEET drawing of the partly used sheet for the browser app is in <a href="data/partly-used-sheet.svg"><code>partly-used-sheet.svg</code></a>, and the traced offcut is in <a href="../../examples/traced-offcut.svg"><code>traced-offcut.svg</code></a>.</p>
+        <p>We ran step 3 in the live browser app on 2026-11-02, in a headless Chromium with a fresh profile, using the traced offcut's existing outline file. We opened the project, set 2 of each design, and chose that outline as the remnant outline, with 2 mm part and edge spacing. The app placed 12 of 12 in its 30-second run, reported the check as valid, and downloaded <a href="data/browser-traced-offcut-12-sheet.lbrn2"><code>browser-traced-offcut-12-sheet.lbrn2</code></a>, which passed the same independent check. The hosted app is built from Nestbolt's <code>main</code>, whose engine (<code>crates/</code>) and app code (<code>web/src/</code>) are unchanged since v0.2.0-alpha.1. The release notes, written on 16 October, still say the hosted app is on v0.1.0; that has changed since.</p>
+        <p>On the command line, give the offcut as <code>outline_mm</code> in the request: its outer ring and holes in millimetres, Y up, inside <code>width_mm</code> × <code>height_mm</code>. See <a href="data/traced-offcut-request.json">the traced-offcut request</a>. A SHEET drawing of the partly used sheet is in <a href="data/partly-used-sheet.svg"><code>partly-used-sheet.svg</code></a> (we checked it with the command-line import, not in the browser app), and the traced offcut is in <a href="../../examples/traced-offcut.svg"><code>traced-offcut.svg</code></a>.</p>
 
         <h2>When to use True Nest, Quick Nest or SVGNest instead</h2>
         <ul>
           <li><strong>You already have Pro, or the $100 upgrade is fine.</strong> True Nest nests what you select in your LightBurn workspace, with no files to move between programs. LightBurn says a few sheets' worth of savings should pay for it, and the two-week Trial Pro lets you check that on your own jobs.</li>
           <li><strong>Finer rotation.</strong> True Nest's Allowed Orientations go down to 1° steps. We tested Nestbolt's LightBurn route with quarter turns only.</li>
-          <li><strong>Loose artwork and text.</strong> True Nest's Lock Inner Objects keeps inner shapes with the shape around them without grouping. Nestbolt needs each part grouped: in our <a href="../../nesting-examples/nest-laser-cut-kit-keep-layers/">layered-kit example</a>, ungrouped engraving that covered a hole was nested as a separate piece, with no warning. Nestbolt also cannot nest text that has no embedded outlines until it is re-saved.</li>
+          <li><strong>Loose artwork and text.</strong> LightBurn's Lock Inner Objects, in both True Nest and Quick Nest, keeps inner shapes with the shape around them without grouping. Nestbolt attaches loose artwork to a part only when it lies wholly on that part's material. In our <a href="../../nesting-examples/nest-laser-cut-kit-keep-layers/">layered-kit example</a>, an ungrouped engraved ring around a hole was nested as a separate piece, with no warning, so group parts first. Nestbolt also cannot nest text that has no embedded outlines until it is re-saved.</li>
           <li><strong>A finished feature.</strong> True Nest ships in LightBurn 2.2.00, while Nestbolt's LightBurn support is a preview release, and LightBurn did not open the files in this test.</li>
           <li><strong>Mostly rectangular parts.</strong> LightBurn's docs say the difference between True Nest and Quick Nest is small when parts are close to rectangles. Quick Nest is in Core and is fast.</li>
           <li><strong>You are on Core and a website round trip is fine.</strong> SVGNest (External) nests by real shape at no extra cost, into a container shape you select, and LightBurn's page says shapes inside your parts are moved back with them after the import. We did not run it.</li>
         </ul>
-        <p>Nestbolt fits when you want nesting by real outline without Pro, nesting onto an offcut or a partly used sheet, or one editable LightBurn file per sheet from the command line or an AI agent.</p>
+        <p>Nestbolt fits when you want nesting by real outline without Pro, nesting onto an offcut or a partly used sheet, or one editable LightBurn file per sheet from the command line or an AI agent, and a preview feature is acceptable.</p>
 
         <h2>Limits of this test</h2>
         <ul>
@@ -233,20 +235,21 @@
           <li>One project, three stocks, 30-second budgets, seed 0, one build. Another budget, seed, build or platform can nest differently; failing to find 14 or 13 shows the limit of this search, not that they cannot fit.</li>
           <li>The traced offcut comes from a computer render, not a phone photo. Measure a real offcut before you rely on a traced outline, and test-cut one part first.</li>
           <li>Kerf in a layer's settings does not change part spacing. Set the spacing to cover your kerf.</li>
+          <li>Nestbolt's own LightBurn tests used projects saved by LightBurn 2.1.01. We did not test a project saved by 2.2, or a multi-page one.</li>
         </ul>
 
         <h2>Reproduce it</h2>
-        <p>With the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1">v0.2.0-alpha.1</a> release, in a new folder holding <a href="data/engraved-ornaments.lbrn2"><code>engraved-ornaments.lbrn2</code></a> and the request files (Nestbolt refuses to overwrite existing output):</p>
+        <p>With the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1">v0.2.0-alpha.1</a> release, in a new folder holding <a href="data/engraved-ornaments.lbrn2"><code>engraved-ornaments.lbrn2</code></a>, the request files and <a href="data/check.py"><code>check.py</code></a> (Nestbolt refuses to overwrite existing output):</p>
         <ul>
           <li><code>nestbolt import engraved-ornaments.lbrn2 --output library.json</code> lists the three layers and six parts, <code>engraved-ornaments-unit-1</code> to <code>-6</code>. The request names parts by these IDs, which come from the file name.</li>
-          <li><code>nestbolt nest --library engraved-ornaments.lbrn2 --request full-sheet-request.json --out-dir out-full --seconds 30 --repeatable</code> writes <code>engraved-ornaments-sheet-1.lbrn2</code>, <code>layout.json</code> and <code>report.json</code>. The same command with <a href="data/traced-offcut-request.json"><code>traced-offcut-request.json</code></a> or <a href="data/partly-used-request.json"><code>partly-used-request.json</code></a> gives the "place what fits" layouts, and with <a href="data/all-traced-offcut-13-request.json"><code>all-traced-offcut-13-request.json</code></a> or <a href="data/all-partly-used-11-request.json"><code>all-partly-used-11-request.json</code></a> the "most found" ones.</li>
+          <li><code>nestbolt nest --library engraved-ornaments.lbrn2 --request full-sheet-request.json --out-dir out-full --seconds 30 --repeatable</code> writes <code>engraved-ornaments-sheet-1.lbrn2</code>, <code>layout.json</code>, <code>report.json</code>, <code>job.json</code> and <code>request.json</code>. The same command with <a href="data/traced-offcut-request.json"><code>traced-offcut-request.json</code></a> or <a href="data/partly-used-request.json"><code>partly-used-request.json</code></a> gives the "place what fits" layouts, and with <a href="data/all-traced-offcut-13-request.json"><code>all-traced-offcut-13-request.json</code></a> or <a href="data/all-partly-used-11-request.json"><code>all-partly-used-11-request.json</code></a> the "most found" ones. For the 12 on the partly used sheet, use <a href="data/all-partly-used-12-request.json"><code>all-partly-used-12-request.json</code></a> with <code>--seconds 120</code>.</li>
           <li><code>python check.py engraved-ornaments.lbrn2 full-sheet-request.json out-full/engraved-ornaments-sheet-1.lbrn2</code> runs our check (it needs Shapely).</li>
         </ul>
-        <p>All numbers are in <a href="data/results.json"><code>results.json</code></a>. The scripts that made the project, searched for the most ornaments, drew the figures and drove the browser are <a href="data/kit.py"><code>kit.py</code></a>, <a href="data/maxfit.py"><code>maxfit.py</code></a>, <a href="data/render.py"><code>render.py</code></a> and <a href="data/browser_flow.mjs"><code>browser_flow.mjs</code></a>. The ornament outlines, project, requests and sheets were made for this page and are MIT licensed, like Nestbolt.</p>
+        <p>All numbers are in <a href="data/results.json"><code>results.json</code></a>. The scripts that made the project, searched for the most ornaments, drew the figures and drove the browser are <a href="data/kit.py"><code>kit.py</code></a>, <a href="data/maxfit.py"><code>maxfit.py</code></a>, <a href="data/render.py"><code>render.py</code></a> and <a href="data/browser_flow.mjs"><code>browser_flow.mjs</code></a>. The ornament outlines come from our ornament example; the project, requests and sheets were made for this page. All are MIT licensed, like Nestbolt.</p>
 
         <h2>How we checked</h2>
         <ul>
-          <li><strong>The searches.</strong> We ran five searches a LightBurn user might make, such as "LightBurn nesting without Pro" and "nest LightBurn project onto scrap offcut irregular material". Nestbolt appeared in none. The results were LightBurn's forum and docs, laser-vendor help pages and listing sites, and two summaries said they found no free tool that reads <code>.lbrn2</code> files and keeps their layers. <a href="data/searches-2026-11-02.txt">The queries and results</a>.</li>
+          <li><strong>The searches.</strong> We ran five searches a LightBurn user might make, such as "LightBurn nesting without Pro" and "nest LightBurn project onto scrap offcut irregular material". Nestbolt appeared in none. The results were LightBurn's forum and docs, laser-vendor help pages and listing sites, and one summary said it found no free nesting tool that reads <code>.lbrn2</code> files and keeps their layers. <a href="data/searches-2026-11-02.txt">The queries and results</a>.</li>
           <li><strong>LightBurn.</strong> We read its <a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/">nesting docs</a> (True Nest, Quick Nest and SVGNest pages), the 2.2 release post, the <a href="https://lightburnsoftware.com/pages/which-license-do-you-need">licence page</a> and the <a href="https://lightburnsoftware.com/products/lightburn-software-upgrade-existing-license-key-to-pro">upgrade page</a> ($100.00; it "does not add a year of updates"), and forum topic 192508, on 2026-11-02. LightBurn was not run.</li>
           <li><strong>Nestbolt.</strong> The release archive was downloaded from GitHub, checked against its <code>SHA256SUMS</code> and its build attestation, and run as described above.</li>
           <li><strong>Refresh.</strong> This page is re-checked every 30 days, or sooner when LightBurn or Nestbolt releases.</li>

@@ -317,11 +317,54 @@
    "120 s"
   ],
   "partly-used all-parts 12": [
-   "30 s"
+   "30 s (found with 120 s)"
   ],
   "partly-used all-parts 13": [
    "120 s"
   ]
  },
- "repeat": "run1 and run2 of the three request files gave byte-identical .lbrn2 sheets and layout.json"
+ "repeat": "Every request file here was run twice (the 120 s request with --seconds 120): the .lbrn2 sheets and layout.json were byte-identical each time. The spacing probes ran once.",
+ "spacing_probe": [
+  {
+   "stock": "traced offcut, fill_area, part spacing 2 mm",
+   "edge_spacing_mm": 1,
+   "placed": 15,
+   "min_gap_mm": 2.011,
+   "min_distance_to_stock_edge_mm": 2.016,
+   "check_ok": true
+  },
+  {
+   "stock": "traced offcut, fill_area, part spacing 2 mm",
+   "edge_spacing_mm": 2,
+   "placed": 15,
+   "min_gap_mm": 2.011,
+   "min_distance_to_stock_edge_mm": 2.016,
+   "check_ok": true
+  },
+  {
+   "stock": "traced offcut, fill_area, part spacing 2 mm",
+   "edge_spacing_mm": 3,
+   "placed": 14,
+   "min_gap_mm": 3.012,
+   "min_distance_to_stock_edge_mm": 3.012,
+   "check_ok": true
+  },
+  {
+   "stock": "traced offcut, fill_area, part spacing 2 mm",
+   "edge_spacing_mm": 5,
+   "placed": 12,
+   "min_gap_mm": 5.013,
+   "min_distance_to_stock_edge_mm": 5.015,
+   "check_ok": true
+  },
+  {
+   "stock": "full 12 x 12 in rectangle, margins 5 mm, all parts, part spacing 2 mm",
+   "edge_spacing_mm": 4,
+   "placed": 18,
+   "min_gap_mm": 2.021,
+   "min_distance_to_stock_edge_mm": 9.007,
+   "check_ok": true,
+   "note": "distance to the sheet edge includes the 5 mm margin"
+  }
+ ]
 }
