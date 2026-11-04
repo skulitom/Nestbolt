@@ -8,14 +8,14 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [edge controls and twelve-part companion](../benchmarks/results/h5-first57-edge-controls-and-companion-20261104.md).
+Latest H5 evidence: [shelf and edge capacity proofs](../benchmarks/results/h5-shelf-and-edge-capacity-proofs-20261104.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
-The direct 4/2/3 short sheet passes source checks in 0.297 s. New source-valid
-edge controls fix two brackets and two inserts, leaving six of each moving.
-The audited twelve-part companion closes UNKNOWN without a complete placement.
-The necessary capacity proofs still exclude 196 of the 455 fixed-core twelve-cog
-selections, leaving 259. A direct top insert shelf and fresh bracket capacities
-remain to investigate before another construction.
+The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
+52-part reference shelf cannot be completed: continuous bounds exclude all 13
+cog choices. Without the shelf, fixed33 retains only empty sites [4,5,10], with
+necessary bracket capacities five/one. Joint bracket/insert bounds leave that
+choice open. The broader fixed29 frontier remains 259 choices. A new positive
+construction and fully charged model remain to develop; all prior calls stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3744,3 +3744,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 edge controls and twelve-part companion:** [independent original-source audits](../benchmarks/results/h5-first57-edge-controls-and-companion-20261104.md) validate two fixed edge brackets and two adjoining inserts. The controls check 45/46 reference parts, including all holes, and preserve the full66 identity partition. The right bracket uses space below the older top strip; fixed33 leaves six brackets and six inserts moving, with 13 constructive cog subsets. A saved-world rounding coverage failure is preserved and corrected before model use; both preparation processes are charged. Every field of the 250-variable / 18,918-constraint companion passes audit. Its sole call closes UNKNOWN after 4,234 branches, without an assignment. The 0.024632 s solve-slice overrun is retained; algorithm/shared totals 56.039587/56.107026 s remain within 60/90 s. No new necessary selection or whole allocation is excluded. The 259-choice necessary frontier, full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 shelf and edge capacity proofs:** [independent continuous-source audits](../benchmarks/results/h5-shelf-and-edge-capacity-proofs-20261104.md) validate a 52-part reference control but prove the fixed top insert shelf cannot hold the six remaining brackets for any of 13 cog selections. Fresh fixed33 bracket capacities, with the shelf removed, exclude 12 of 13 choices and retain only empty cog sites [4,5,10], with necessary bracket group capacities five/one. A joint bracket/insert area-count proof adds no exclusion to this frontier. The failed empty-list preparation and corrected version remain preserved; every successful preparation is within its cap. No new solver/native call was opened and every prior call stays closed. These conditional exclusions leave the broader 259-choice fixed29 frontier and 440 whole-job allocations unchanged. Full66 validation and H2/H5 remain open at 60%.
