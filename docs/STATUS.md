@@ -7,7 +7,7 @@ The [Linux CI recovery](../benchmarks/results/ci-python-runner-recovery-20261104
 pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. Hosted confirmation is pending.
 
-Latest H5 evidence: [direct capacities, component factorization and shared block](../benchmarks/results/h5-direct-capacities-component-factorization-and-shared-block-20261029.md).
+Latest H5 evidence: [continuous small-block exclusions](../benchmarks/results/h5-continuous-small-block-exclusions-20261104.md).
 The short sheet now passes independent original-source checks for five brackets,
 four inserts and two cogs. Its matching 55-part first sheet remains to construct.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3694,3 +3694,6 @@ Independent continuous pair/subset bounds remove 102,322 option multisets and
 retain 36,802; all 42 full distributions remain. No full66 placement, source check
 or native call was produced. The 440 overall allocations and H2/H5 remain open
 at **60%**. Production code, READMEs, releases and held-out isolation are unchanged.
+
+
+**2026-11-04 H5 continuous small-block exclusions:** [the independent proofs](../benchmarks/results/h5-continuous-small-block-exclusions-20261104.md) rule out three brackets and two brackets with two inserts in the common source region. They remove 18 of 42 count distributions and four of 18 restricted site choices, leaving 24 distributions over 14 choices. The direct difference-constraint proof covers all 14,336 four-part combinations without the earlier strip pass; a separate rational closure audit verifies every branch. The new four-part grid call is closed INFEASIBLE with no placement and no overruns; it is not the continuous proof. All 440 whole-job allocations, full 66-part validation and the H5 matrix remain open. H2/H5 remain open at 60%; no new release qualifies.
