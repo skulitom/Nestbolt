@@ -8,10 +8,11 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [relative projections and a movable cog packet](../benchmarks/results/h5-relative-projections-and-movable-packet-20261104.md).
+Latest H5 evidence: [translated cog-packet construction](../benchmarks/results/h5-translated-cog-packet-construction-20261104.md).
 The fixed-cog construction retains 2 site choices and 3 count distributions.
-A new shared-translation packet preflight passes; its relative regions and model
-remain to build and audit.
+The shared-translation packet construction is audited and its sole grid call
+is closed without a placement. Independently moving cog rows are the next
+construction hypothesis; their interaction proofs and model remain unbuilt.
 The short sheet now passes independent original-source checks for five brackets,
 four inserts and two cogs. Its matching 55-part first sheet remains to construct.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3716,3 +3717,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 relative projections and movable packet:** [independent source audits](../benchmarks/results/h5-relative-projections-and-movable-packet-20261104.md) verify 1,263 additional pair exclusions and 8,554 tighter relative-coordinate boxes across the two remaining fixed-cog domains. Two distinct bounded count processes close without a new capacity bound; both retain partial proofs and all timings. The fixed frontier remains two choices / three distributions. A new positive preflight verifies a rigid group of 13 cogs across X shifts from −91.56 to −0.01 mm and Y shifts from 0.01 to 113.27 mm, including four valid 53-part controls and all 66 identities. It needs freshly certified relative regions, a model with two shared translation variables, and a complete charged budget before a new call. All 440 allocations, full 66-part source/native/material validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 translated cog packet:** [the independent construction audits](../benchmarks/results/h5-translated-cog-packet-construction-20261104.md) verify 228 freshly source-certified relative regions, 847 integer-plane implications and the complete 2,407-variable / 7,410-constraint model with two shared translation variables. Its sole call closes grid INFEASIBLE with no assignment. Complete preparation is 31.060628 s; algorithm/shared totals are 40.896624 / 40.973398 s, with no overruns. No continuous exclusion follows. Next investigate independently translated cog rows with fresh inter-row safety proofs. All 440 allocations, full 66-part validation and H2/H5 remain open at 60%.
