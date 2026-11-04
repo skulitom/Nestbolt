@@ -8,7 +8,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [broader fixed-core construction](../benchmarks/results/h5-broader-core-positive-construction-20261104.md).
+Latest H5 evidence: [source polygons and joint frontier](../benchmarks/results/h5-source-polygons-and-joint-frontier-20261104.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -17,8 +17,11 @@ necessary bracket capacities five/one. Joint bracket/insert bounds leave that
 choice open. Its new positive-region model closes grid-INFEASIBLE without a
 placement or overrun. Both largest-capacity broader choices pass joint bounds.
 A fresh sixteen-mover [5,11,14] model also closes grid-INFEASIBLE, with no overrun.
-The broader fixed29 frontier remains 259 choices. Original-source polygon
-obstacles, with fresh full-stock proofs, are next to assess. All prior calls stay closed.
+Two fresh original-source polygon models also close grid-INFEASIBLE without
+overruns. Joint bounds verify all 259 broader choices and exclude none; the
+largest joint-area choice [0,4,14] has its own audited closed polygon call.
+The broader fixed29 frontier remains 259 choices. Exact local conflict bounds
+over the continuous necessary anchor cover are next to assess. All prior calls stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3756,3 +3759,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 broader fixed-core construction:** [independent source/model/response audits](../benchmarks/results/h5-broader-core-positive-construction-20261104.md) compare both largest-capacity cog choices for eight brackets/eight inserts; neither is excluded. The selected [5,11,14] direct insert control overlaps cog4 and is preserved as failed, so all sixteen originals remain movable. Fresh positive geometry verifies 214,933,987 integer cells and 925 regions. Every field of the 7,672-variable / 15,870-constraint model passes. Its sole call closes grid-INFEASIBLE in 5.260162 s, without an assignment. Complete preparation is 26.152827 s; algorithm/shared totals 32.216088/32.294957 s pass with zero overruns. No continuous exclusion follows. Next assess original-source polygon obstacles in place of rectangular band covers, with fresh full-stock proofs. Prior checkpoints are normally pushed at f8ba0d95. All 259 broader choices, 440 allocations, full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 original-source polygons and joint frontier:** [independent audits](../benchmarks/results/h5-source-polygons-and-joint-frontier-20261104.md) certify 178/147 fresh full-stock source regions and every field of two distinct shared-alias models for omitted cog sites [5,11,14] and [0,4,14]. Both sole calls close grid-INFEASIBLE without placements or overruns; preparation-inclusive algorithm/shared totals are 26.449704/26.514206 s and 52.151574/52.211289 s. All 259 broader joint area/count bounds also pass exact replay: 690 areas and 39,235 anchor-box assignments, no additional exclusion. The largest total joint area selects [0,4,14]; its complete 26.682578 s selection preparation is charged. No continuous infeasibility follows from either positive model. Next assess exact local conflict bounds over the continuous necessary anchor cover. All 259 broader choices, 440 allocations, full66 checks and H2/H5 remain open at 60%. All prior calls stay closed.
