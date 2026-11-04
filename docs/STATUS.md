@@ -1,6 +1,11 @@
-# Status — 2026-10-29
+# Status — 2026-11-04
 
 ## v1.1 — real shop files
+
+Repository reconciliation preserves main's new ornament example and README.
+The [Linux CI recovery](../benchmarks/results/ci-python-runner-recovery-20261104.md)
+pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
+26.04, where Python 3.11.5 is unavailable. Hosted confirmation is pending.
 
 Latest H5 evidence: [direct capacities, component factorization and shared block](../benchmarks/results/h5-direct-capacities-component-factorization-and-shared-block-20261029.md).
 The short sheet now passes independent original-source checks for five brackets,

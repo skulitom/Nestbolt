@@ -17947,3 +17947,6 @@ Independent continuous pair/subset bounds remove 102,322 option multisets and
 retain 36,802; all 42 full distributions remain. No full66 placement, source check
 or native call was produced. The 440 overall allocations and H2/H5 remain open
 at **60%**. Production code, READMEs, releases and held-out isolation are unchanged.
+
+
+**2026-11-04 repository and CI reconciliation:** main 34e408df adds the ornament example and README link; all 45 changed files are preserved. Its push checks passed, but a later manual run failed to install frozen Python 3.11.5 on the newly selected Ubuntu 26.04 image. [The retained failure and recovery](benchmarks/results/ci-python-runner-recovery-20261104.md) pin only Linux maker rebuild to Ubuntu 24.04. Runtime, assertions and product source remain unchanged; hosted confirmation is pending. H2/H5 remain open at 60%.
