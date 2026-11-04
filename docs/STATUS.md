@@ -8,11 +8,12 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [direct short9 and grouped first57](../benchmarks/results/h5-direct-short9-and-grouped-first57-20261104.md).
+Latest H5 evidence: [necessary domains and component capacities](../benchmarks/results/h5-first57-necessary-capacities-20261104.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
-A new direct 4/2/3 short sheet passes source checks in 0.297 s. Its grouped first57
-model retains all 455 twelve-cog selections but closes UNKNOWN without a placement.
-Fresh necessary-source capacity bounds remain to prepare before further search.
+The direct 4/2/3 short sheet passes source checks in 0.297 s. Its grouped first57
+call remains closed UNKNOWN. New exact continuous-source capacity proofs exclude
+196 of the 455 fixed-core twelve-cog selections, leaving 259. Stronger constraints
+or a meaningfully smaller construction remain to prepare before further search.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3732,3 +3733,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 direct short9 and grouped first57:** [independent audits](../benchmarks/results/h5-direct-short9-and-grouped-first57-20261104.md) verify a new explicit 4-bracket/2-insert/3-cog short sheet in a complete 0.296828 s preparation process. Its complementary first57 retains all 16 orthogonal movers and all 455 choices of twelve cog sites. Fresh geometry has 3,941 regions and 158,834 exact source supports. Sixteen global rectangle groups cover all 268 different-owner component pairs. Every field of the model with 35,735 variables and 143,671 constraints passes audit. Its sole call closes UNKNOWN with no assignment; the 0.149519 s solve-slice overrun is preserved, while complete algorithm/shared totals 56.166951/ 56.264559 s remain within 60/90 s. No site choice or allocation is excluded. Fresh necessary-source capacity bounds are the next method to assess. Full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 necessary domains and component capacities:** [independent exact audits](../benchmarks/results/h5-first57-necessary-capacities-20261104.md) verify a full-stock continuous necessary cover for all 12 legal moving modes, including every boundary class. Exact replay checks 23,278,076 classes and 3,275 cover boxes. A separate integer area audit first excludes 139 of the 455 fixed-core twelve-cog selections. Direct component capacities then verify 1,156 exact areas and 23,906 anchor-box assignments, excluding 196 selections in total and leaving 259. These are continuous-source necessary bounds conditional on the fixed29 and current cog poses; all 440 whole-job allocations remain. All four preparation processes finish within their declared caps. No new solver/native call or full construction budget is claimed; prior calls remain closed. Full66 validation and H2/H5 remain open at 60%.
