@@ -8,13 +8,13 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [row reductions and three-cog allocation](../benchmarks/results/h5-row-reductions-and-three-cog-allocation-20261104.md).
-The fixed-cog construction retains 2 site choices and 3 count distributions.
-Expanded-row reductions are audited but do not justify another call. The new
-4/4/3 short-sheet call closes UNKNOWN; an exact proof limits the older fixed
-four-bracket/three-cog core to two inserts. A new construction must move the core.
-The short sheet now passes independent original-source checks for five brackets,
-four inserts and two cogs. Its matching 55-part first sheet remains to construct.
+Latest H5 evidence: [direct short9 and grouped first57](../benchmarks/results/h5-direct-short9-and-grouped-first57-20261104.md).
+The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
+A new direct 4/2/3 short sheet passes source checks in 0.297 s. Its grouped first57
+model retains all 455 twelve-cog selections but closes UNKNOWN without a placement.
+Fresh necessary-source capacity bounds remain to prepare before further search.
+Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
+the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
 the existing valid 64-part layout is preserved.
 
@@ -3729,3 +3729,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 row reductions and three-cog allocation:** [independent audits](../benchmarks/results/h5-row-reductions-and-three-cog-allocation-20261104.md) find the expanded-row reductions too small to justify new calls. A distinct 4-bracket/4-insert/3-cog short-sheet model has 7,071 variables / 23,988 constraints; its sole 25/35-second stage closes UNKNOWN without an assignment. The 0.059281 s solve-slice overrun is preserved; complete preparation-inclusive algorithm/shared totals are 22.074408 / 22.142098 s. An exact original-source inner-rectangle proof shows the older fixed four-bracket/three-cog core can hold at most two inserts even at zero clearance. This excludes only that fixed core, not the whole allocation; all 440 candidates remain. Further construction must move the core or use a genuinely different allocation/mechanism. Full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 direct short9 and grouped first57:** [independent audits](../benchmarks/results/h5-direct-short9-and-grouped-first57-20261104.md) verify a new explicit 4-bracket/2-insert/3-cog short sheet in a complete 0.296828 s preparation process. Its complementary first57 retains all 16 orthogonal movers and all 455 choices of twelve cog sites. Fresh geometry has 3,941 regions and 158,834 exact source supports. Sixteen global rectangle groups cover all 268 different-owner component pairs. Every field of the model with 35,735 variables and 143,671 constraints passes audit. Its sole call closes UNKNOWN with no assignment; the 0.149519 s solve-slice overrun is preserved, while complete algorithm/shared totals 56.166951/ 56.264559 s remain within 60/90 s. No site choice or allocation is excluded. Fresh necessary-source capacity bounds are the next method to assess. Full66 validation and H2/H5 remain open at 60%.
