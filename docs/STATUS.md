@@ -8,14 +8,16 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [shelf and edge capacity proofs](../benchmarks/results/h5-shelf-and-edge-capacity-proofs-20261104.md).
+Latest H5 evidence: [single edge-choice construction](../benchmarks/results/h5-single-edge-choice-construction-20261104.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
 cog choices. Without the shelf, fixed33 retains only empty sites [4,5,10], with
 necessary bracket capacities five/one. Joint bracket/insert bounds leave that
-choice open. The broader fixed29 frontier remains 259 choices. A new positive
-construction and fully charged model remain to develop; all prior calls stay closed.
+choice open. Its new positive-region model closes grid-INFEASIBLE without a
+placement or overrun. The broader fixed29 frontier remains 259 choices; joint
+bracket/insert bounds for its two largest-capacity choices are next to assess.
+All prior calls stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3747,3 +3749,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 shelf and edge capacity proofs:** [independent continuous-source audits](../benchmarks/results/h5-shelf-and-edge-capacity-proofs-20261104.md) validate a 52-part reference control but prove the fixed top insert shelf cannot hold the six remaining brackets for any of 13 cog selections. Fresh fixed33 bracket capacities, with the shelf removed, exclude 12 of 13 choices and retain only empty cog sites [4,5,10], with necessary bracket group capacities five/one. A joint bracket/insert area-count proof adds no exclusion to this frontier. The failed empty-list preparation and corrected version remain preserved; every successful preparation is within its cap. No new solver/native call was opened and every prior call stays closed. These conditional exclusions leave the broader 259-choice fixed29 frontier and 440 whole-job allocations unchanged. Full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 single edge-choice construction:** [independent source/model/response audits](../benchmarks/results/h5-single-edge-choice-construction-20261104.md) verify 215,479,371 integer arrangement cells, 519 positive placement regions and every field of a 3,111-variable / 6,611-constraint model. The necessary five/one bracket split is enforced with all twelve originals retained. Its sole call closes grid-INFEASIBLE in 1.941110 s, with no assignment. Complete preparation is 15.811935 s; algorithm/shared totals 18.618379/18.694793 s pass with zero overruns. This is not a continuous-source exclusion and the call remains closed. Next compare joint bracket/insert bounds for the two largest-capacity broader fixed29 choices before a genuinely different construction. The broader 259 choices, all 440 allocations, full66 validation and H2/H5 remain open at 60%.
