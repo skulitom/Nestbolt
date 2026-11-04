@@ -4532,3 +4532,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 smaller global construction:** [the independently audited 14-choice/24-distribution model](../benchmarks/results/h5-block-pruned-global-call-20261104.md) has 6,498 variables and 32,697 constraints. Its sole call is closed UNKNOWN with no assignment. The 0.065630 s solve-slice overrun is preserved; total algorithm/shared time remains within 60/90 s. No restart, new exclusion or placement claim follows. H2/H5 remain open at 60%; full66 source/native/material checks and the H5 matrix remain required.
+
+
+**2026-11-04 H5 continuous inserts and bracket capacities:** [the independently audited checkpoint](../benchmarks/results/h5-continuous-inserts-and-bracket-capacities-20261104.md) validates a shared two-insert placement and four partial 55-part layouts across both sheets. Distinct coarse/fine eleven-part companion models each close INFEASIBLE with no assignment or overrun; these statuses do not exclude continuous geometry. Exact bracket triple proofs and exhaustive higher-count enumeration reduce the restricted domain from 14 choices / 24 distributions to 9 / 13, with every retained source field preserved. The 440 whole-job allocations, full66 source/native/material checks and H5 matrix remain open. H2/H5 remain open at 60%.

@@ -17959,3 +17959,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 CI recovery confirmed:** all six [main 114bcf65 checks](https://github.com/skulitom/Nestbolt/actions/runs/41848153978) pass, including the frozen generator rebuild on Ubuntu 24.04 and Windows. The original unavailable-Python failure remains preserved. The queued H5 evidence checkpoints can now be pushed normally without cancelling an active run.
+
+
+**2026-11-04 H5 continuous inserts and bracket capacities:** [the independently audited checkpoint](benchmarks/results/h5-continuous-inserts-and-bracket-capacities-20261104.md) validates a shared two-insert placement and four partial 55-part layouts across both sheets. Distinct coarse/fine eleven-part companion models each close INFEASIBLE with no assignment or overrun; these statuses do not exclude continuous geometry. Exact bracket triple proofs and exhaustive higher-count enumeration reduce the restricted domain from 14 choices / 24 distributions to 9 / 13, with every retained source field preserved. The 440 whole-job allocations, full66 source/native/material checks and H5 matrix remain open. H2/H5 remain open at 60%.
