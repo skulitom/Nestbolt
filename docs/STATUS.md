@@ -8,11 +8,11 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [expanded joint and staged row constructions](../benchmarks/results/h5-expanded-joint-and-staged-row-constructions-20261104.md).
+Latest H5 evidence: [row reductions and three-cog allocation](../benchmarks/results/h5-row-reductions-and-three-cog-allocation-20261104.md).
 The fixed-cog construction retains 2 site choices and 3 count distributions.
-The expanded joint and deterministic staged constructions are audited; their
-sole calls close UNKNOWN and grid-INFEASIBLE without a placement. A certified
-integer-domain reduction is the next method to assess before further search.
+Expanded-row reductions are audited but do not justify another call. The new
+4/4/3 short-sheet call closes UNKNOWN; an exact proof limits the older fixed
+four-bracket/three-cog core to two inserts. A new construction must move the core.
 The short sheet now passes independent original-source checks for five brackets,
 four inserts and two cogs. Its matching 55-part first sheet remains to construct.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3726,3 +3726,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 expanded and staged row constructions:** [independent source/model/response audits](../benchmarks/results/h5-expanded-joint-and-staged-row-constructions-20261104.md) verify a 16,314-variable expanded joint model and a separate 1,756-variable staged companion model. Their sole calls close UNKNOWN and grid-INFEASIBLE, respectively, with no assignment. The joint 0.176077 s solve-slice overrun is retained; both complete algorithm/shared totals remain within 60/90 s. The staged ledger charges every preparation used by both stages. Neither status excludes continuous geometry or any of the 440 whole-job allocations. A certified integer-domain reduction is the next method to assess; both calls stay closed. Full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 row reductions and three-cog allocation:** [independent audits](../benchmarks/results/h5-row-reductions-and-three-cog-allocation-20261104.md) find the expanded-row reductions too small to justify new calls. A distinct 4-bracket/4-insert/3-cog short-sheet model has 7,071 variables / 23,988 constraints; its sole 25/35-second stage closes UNKNOWN without an assignment. The 0.059281 s solve-slice overrun is preserved; complete preparation-inclusive algorithm/shared totals are 22.074408 / 22.142098 s. An exact original-source inner-rectangle proof shows the older fixed four-bracket/three-cog core can hold at most two inserts even at zero clearance. This excludes only that fixed core, not the whole allocation; all 440 candidates remain. Further construction must move the core or use a genuinely different allocation/mechanism. Full66 validation and H2/H5 remain open at 60%.
