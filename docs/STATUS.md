@@ -8,13 +8,14 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [full-stock obstacle packing](../benchmarks/results/h5-first57-full-stock-obstacles-20261104.md).
+Latest H5 evidence: [edge controls and twelve-part companion](../benchmarks/results/h5-first57-edge-controls-and-companion-20261104.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
-The direct 4/2/3 short sheet passes source checks in 0.297 s. Two new full-stock
-obstacle models close UNKNOWN without a placement. Exact interaction factorization
-removes 87.4% of rectangle references and reaches search, but full66 remains open.
+The direct 4/2/3 short sheet passes source checks in 0.297 s. New source-valid
+edge controls fix two brackets and two inserts, leaving six of each moving.
+The audited twelve-part companion closes UNKNOWN without a complete placement.
 The necessary capacity proofs still exclude 196 of the 455 fixed-core twelve-cog
-selections, leaving 259. Fresh side-pocket source controls remain to investigate.
+selections, leaving 259. A direct top insert shelf and fresh bracket capacities
+remain to investigate before another construction.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3740,3 +3741,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 full-stock obstacle packing:** [independent source/model/response audits](../benchmarks/results/h5-first57-full-stock-obstacles-20261104.md) verify fresh full-physical-stock mover bounds and 10,497 disjoint source-covering obstacle rectangles. The direct 324-variable / 22,065-constraint model closes UNKNOWN after presolve. An exact interaction proof preserves all 268 moving-pair and 251,928 moving/fixed checks while reducing rectangle references by 87.4%. Its separately audited 324-variable / 22,066-constraint model reaches search but closes UNKNOWN after 2,005 branches, without an assignment. Preparation-inclusive algorithm/shared totals are 49.817690/49.892755 s and 56.082547/56.165577 s; both stay within 60/90 s. The second solve-slice overrun of 0.067821 s is retained. Both calls remain closed. The necessary frontier stays at 259 selections; all 440 whole-job allocations, full66 validation and H2/H5 remain open at 60%.
+
+
+**2026-11-04 H5 edge controls and twelve-part companion:** [independent original-source audits](../benchmarks/results/h5-first57-edge-controls-and-companion-20261104.md) validate two fixed edge brackets and two adjoining inserts. The controls check 45/46 reference parts, including all holes, and preserve the full66 identity partition. The right bracket uses space below the older top strip; fixed33 leaves six brackets and six inserts moving, with 13 constructive cog subsets. A saved-world rounding coverage failure is preserved and corrected before model use; both preparation processes are charged. Every field of the 250-variable / 18,918-constraint companion passes audit. Its sole call closes UNKNOWN after 4,234 branches, without an assignment. The 0.024632 s solve-slice overrun is retained; algorithm/shared totals 56.039587/56.107026 s remain within 60/90 s. No new necessary selection or whole allocation is excluded. The 259-choice necessary frontier, full66 validation and H2/H5 remain open at 60%.
