@@ -8,7 +8,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [source polygons and joint frontier](../benchmarks/results/h5-source-polygons-and-joint-frontier-20261104.md).
+Latest H5 evidence: [mandatory-clique continuous exclusions](../benchmarks/results/h5-mandatory-clique-exclusions-20261104.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -20,8 +20,11 @@ A fresh sixteen-mover [5,11,14] model also closes grid-INFEASIBLE, with no overr
 Two fresh original-source polygon models also close grid-INFEASIBLE without
 overruns. Joint bounds verify all 259 broader choices and exclude none; the
 largest joint-area choice [0,4,14] has its own audited closed polygon call.
-The broader fixed29 frontier remains 259 choices. Exact local conflict bounds
-over the continuous necessary anchor cover are next to assess. All prior calls stay closed.
+New exact continuous conflict proofs exclude [0,4,14], [5,11,13] and [5,11,14].
+All 549 possible insert-clique distributions reach independently replayed
+contradictions. The broader fixed29 frontier now has 256 choices (199 of 455
+excluded). Extending the complete bracket-clique bound to those survivors is
+next. All prior calls stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3762,3 +3765,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 original-source polygons and joint frontier:** [independent audits](../benchmarks/results/h5-source-polygons-and-joint-frontier-20261104.md) certify 178/147 fresh full-stock source regions and every field of two distinct shared-alias models for omitted cog sites [5,11,14] and [0,4,14]. Both sole calls close grid-INFEASIBLE without placements or overruns; preparation-inclusive algorithm/shared totals are 26.449704/26.514206 s and 52.151574/52.211289 s. All 259 broader joint area/count bounds also pass exact replay: 690 areas and 39,235 anchor-box assignments, no additional exclusion. The largest total joint area selects [0,4,14]; its complete 26.682578 s selection preparation is charged. No continuous infeasibility follows from either positive model. Next assess exact local conflict bounds over the continuous necessary anchor cover. All 259 broader choices, 440 allocations, full66 checks and H2/H5 remain open at 60%. All prior calls stay closed.
+
+
+**2026-11-04 H5 mandatory-clique continuous exclusions:** [independent complete-cover and contradiction proofs](../benchmarks/results/h5-mandatory-clique-exclusions-20261104.md) exclude fixed29 cog selections [0,4,14], [5,11,13] and [5,11,14] even at zero clearance. Eight certified bracket cliques make every group mandatory; exact consistency removes 232 bracket cells, then certified insert pruning leaves covers with 9/10/12 cliques. Every one of the 9/45/495 eight-insert-group selections reaches a replayed contradiction: 549 distributions, 4,618 ordered removals and 15,087 strict source-inner pair checks. Intermediate area bounds and all nine preparation processes are preserved; no placement solver or native call runs. The broader fixed29 frontier falls from 259 to 256 (199 of 455 excluded). Whole allocations remain 440; full66 checks and H2/H5 remain open at 60%. Next extend the cheap complete bracket-clique bound to all 256 survivors. All prior placement calls stay closed.
