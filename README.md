@@ -231,25 +231,30 @@ Claude Code, Codex and Claude Desktop, the request format and the rules.
 
 In Claude Code you can install the plugin instead. It registers the server and adds the `nestbolt` skill, and starts
 `nestbolt-mcp` from your PATH, so put it there first from the
-[v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0):
+[v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) (which predates `quick_start`):
 
 ```text
 /plugin marketplace add https://raw.githubusercontent.com/skulitom/Nestbolt/main/.claude-plugin/marketplace.json
 /plugin install nestbolt@nestbolt
 ```
 
-For Codex, Cursor, Kimi Code, OpenCode and the other agents the open [skills CLI](https://skills.sh) supports, the same
-skill installs with `npx skills add skulitom/nestbolt-plugin`. That small repository holds the same skill, so the CLI
-doesn't have to clone this one, whose benchmark results take about 5 GB. The skill doesn't start the server: register
-`nestbolt-mcp` as well. The skills CLI needs Node.js 22.20 or newer, and it reports installs to the skills.sh
-leaderboard unless `DISABLE_TELEMETRY=1` is set.
+Then restart Claude Code.
 
-**Kimi Code, OpenCode and DeepSeek Harness.** Download `nestbolt-mcp` from the
-[v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) and give its absolute path
-(`nestbolt-mcp.exe` on Windows, where forward slashes work, for example `C:/Tools/nestbolt-mcp.exe`). Set
-`NESTBOLT_WORKSPACE` to the folder with your cutting files, because clients start servers in different folders. A
-`nest` call can run for up to 300 seconds. Kimi Code and DeepSeek Harness stop waiting for a tool after 60 seconds by
-default, so each block below allows 330 seconds; OpenCode's `timeout` covers tool calls too.
+For Codex, Cursor, Kimi Code, OpenCode and the other agents the open-source [skills CLI](https://skills.sh) supports,
+the same skill installs with `npx skills add skulitom/nestbolt-plugin`. That small repository holds the same skill, so
+the CLI doesn't have to clone this one, whose benchmark results take about 5 GB. The skill doesn't start the server:
+register `nestbolt-mcp` as well (below for Kimi Code, OpenCode and DeepSeek Harness;
+[docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md#connecting) for Codex and other `mcpServers` clients). The skill's own
+setup notes assume Claude Code; in other agents, register the server as shown here. The skills CLI needs Node.js 22.20
+or newer, and it reports installs to the skills.sh leaderboard unless `DISABLE_TELEMETRY=1` or `DO_NOT_TRACK=1` is set.
+
+**Kimi Code, OpenCode and DeepSeek Harness.** Extract `nestbolt-mcp` from the
+[v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) archive for your platform (check it against
+`SHA256SUMS`) and give its absolute path (`nestbolt-mcp.exe` on Windows, where forward slashes work, for example
+`C:/Tools/nestbolt-mcp.exe`). Set `NESTBOLT_WORKSPACE` to the folder with your cutting files, because clients start
+servers in different folders. A `nest` call can run for up to 300 seconds. Kimi Code and DeepSeek Harness stop waiting
+for a tool after 60 seconds by default, so each block below allows 330 seconds; OpenCode's `timeout` covers tool calls
+too.
 
 - **Kimi Code CLI:** put this in `~/.kimi-code/mcp.json` (or `.kimi-code/mcp.json` in a trusted project); `/mcp`
   shows it:
@@ -301,9 +306,9 @@ default, so each block below allows 330 seconds; OpenCode's `timeout` covers too
   ```
 
 Checked on 5 November 2026 on Windows with the v0.1.0 server: OpenCode 1.19.5 lists it as connected; Kimi Code 2.5.0
-finds all five tools; DeepSeek Harness 0.2.1-rc.5 accepts the patch, though the server wasn't started from it, because
-it needs a DeepSeek key to start. Started from another folder, the server read and wrote only inside
-`NESTBOLT_WORKSPACE`.
+finds all five tools; DeepSeek Harness 0.2.1-rc.5 accepts the patch, but the harness itself needs a DeepSeek key to
+start, so the server wasn't started from it. Driven directly over stdio from another folder, the server read and wrote
+only inside `NESTBOLT_WORKSPACE`.
 
 ## Development
 
