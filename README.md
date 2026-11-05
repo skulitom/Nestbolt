@@ -20,6 +20,8 @@ can call.
 How Nestbolt compares with other ways an AI agent can nest parts (OpenNest, pyFit, Sparrow, Deepnest, SVGnest and
 more), by interface, file formats and sheet model: [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/).
 
+For LightBurn users without Pro: [True Nest, Quick Nest and Nestbolt compared](https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/), with a measured run of the v0.2.0-alpha.1 preview nesting a layered `.lbrn2` project onto a full sheet and two offcuts.
+
 For laser makers: [how many ornaments fit on a 12 × 12 inch sheet](https://skulitom.github.io/Nestbolt/nesting-examples/nest-christmas-ornaments-on-one-sheet/), measured for six designs, with ready-to-cut sheets; more in [the examples](https://skulitom.github.io/Nestbolt/nesting-examples/).
 
 **[Try the v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
