@@ -229,6 +229,82 @@ The server reads and writes only inside its working directory (or
 `NESTBOLT_WORKSPACE`). [docs/AGENT_INTERFACE.md](docs/AGENT_INTERFACE.md) covers
 Claude Code, Codex and Claude Desktop, the request format and the rules.
 
+In Claude Code you can install the plugin instead. It registers the server and adds the `nestbolt` skill, and starts
+`nestbolt-mcp` from your PATH, so put it there first from the
+[v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0):
+
+```text
+/plugin marketplace add https://raw.githubusercontent.com/skulitom/Nestbolt/main/.claude-plugin/marketplace.json
+/plugin install nestbolt@nestbolt
+```
+
+For Codex, Cursor, Kimi Code, OpenCode and the other agents the open [skills CLI](https://skills.sh) supports, the same
+skill installs with `npx skills add skulitom/nestbolt-plugin`. That small repository holds the same skill, so the CLI
+doesn't have to clone this one, whose benchmark results take about 5 GB. The skill doesn't start the server: register
+`nestbolt-mcp` as well. The skills CLI needs Node.js 22.20 or newer, and it reports installs to the skills.sh
+leaderboard unless `DISABLE_TELEMETRY=1` is set.
+
+**Kimi Code, OpenCode and DeepSeek Harness.** Download `nestbolt-mcp` from the
+[v0.1.0 release](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) and give its absolute path
+(`nestbolt-mcp.exe` on Windows, where forward slashes work, for example `C:/Tools/nestbolt-mcp.exe`). Set
+`NESTBOLT_WORKSPACE` to the folder with your cutting files, because clients start servers in different folders. A
+`nest` call can run for up to 300 seconds. Kimi Code and DeepSeek Harness stop waiting for a tool after 60 seconds by
+default, so each block below allows 330 seconds; OpenCode's `timeout` covers tool calls too.
+
+- **Kimi Code CLI:** put this in `~/.kimi-code/mcp.json` (or `.kimi-code/mcp.json` in a trusted project); `/mcp`
+  shows it:
+
+  ```json
+  {
+    "mcpServers": {
+      "nestbolt": {
+        "command": "/absolute/path/to/nestbolt-mcp",
+        "args": [],
+        "env": { "NESTBOLT_WORKSPACE": "/absolute/path/to/your/cutting/files" },
+        "toolTimeoutMs": 330000
+      }
+    }
+  }
+  ```
+
+- **OpenCode:** add it under `mcp` in `opencode.json` (the project's, or `~/.config/opencode/opencode.json`);
+  `opencode mcp list` shows it connected:
+
+  ```json
+  {
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+      "nestbolt": {
+        "type": "local",
+        "command": ["/absolute/path/to/nestbolt-mcp"],
+        "environment": { "NESTBOLT_WORKSPACE": "/absolute/path/to/your/cutting/files" },
+        "timeout": 330000
+      }
+    }
+  }
+  ```
+
+- **DeepSeek Harness:** add this to `~/.dsh/cordis.patch.yml`; the tools appear as `mcp__nestbolt__nest` and so on:
+
+  ```yaml
+  - insert:
+      - id: mcp-nestbolt
+        name: '@deepseek-ai/dsh-mcp-client'
+        config:
+          serverName: nestbolt
+          transport: stdio
+          command: /absolute/path/to/nestbolt-mcp
+          args: []
+          env:
+            NESTBOLT_WORKSPACE: /absolute/path/to/your/cutting/files
+          toolCallTimeoutMs: 330000
+  ```
+
+Checked on 5 November 2026 on Windows with the v0.1.0 server: OpenCode 1.19.5 lists it as connected; Kimi Code 2.5.0
+finds all five tools; DeepSeek Harness 0.2.1-rc.5 accepts the patch, though the server wasn't started from it, because
+it needs a DeepSeek key to start. Started from another folder, the server read and wrote only inside
+`NESTBOLT_WORKSPACE`.
+
 ## Development
 
 ```sh

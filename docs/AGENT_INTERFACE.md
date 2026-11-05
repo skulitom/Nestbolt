@@ -99,6 +99,10 @@ fetches only the `plugin/` folder rather than cloning the repository and its ben
 Restart Claude Code. The workspace is the folder Claude Code was started in. Use the plugin or
 `claude mcp add`, not both.
 
+**Other clients.** The README's [use from agents](../README.md#use-from-agents) section has tested
+configuration for Kimi Code CLI, OpenCode and DeepSeek Harness, and installs the `nestbolt` skill for
+other agents with `npx skills add skulitom/nestbolt-plugin`.
+
 ## Evidence and remaining acceptance
 
 `crates/mcp/tests/connection.rs` starts the real executable as an MCP child

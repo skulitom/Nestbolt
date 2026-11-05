@@ -43,6 +43,59 @@ MCP 服务器 `nestbolt-mcp` 有五个工具：`import_parts`、`nest`、`valida
 /plugin install nestbolt@nestbolt
 ```
 
+Codex、Cursor、Kimi Code、OpenCode 以及开源 [skills CLI](https://skills.sh) 支持的其他智能体，可以用 `npx skills add skulitom/nestbolt-plugin` 安装同一个技能。这个小仓库里有同样的技能，所以 CLI 不必克隆本仓库（其中的基准测试结果约占 5 GB）。技能本身不会启动服务器，仍需另外注册 `nestbolt-mcp`。skills CLI 需要 Node.js 22.20 或更高版本；除非设置了 `DISABLE_TELEMETRY=1`，它会把安装次数报告给 skills.sh 排行榜。
+
+**Kimi Code、OpenCode 和 DeepSeek Harness。** 从 [v0.1.0 发布页](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)下载 `nestbolt-mcp`，并填写它的绝对路径（Windows 上是 `nestbolt-mcp.exe`，可以使用正斜杠，例如 `C:/Tools/nestbolt-mcp.exe`）。请把 `NESTBOLT_WORKSPACE` 设为存放切割文件的文件夹，因为各客户端启动服务器时所在的文件夹并不相同。一次 `nest` 调用最长可运行 300 秒；Kimi Code 和 DeepSeek Harness 默认只等待工具 60 秒，所以下面的配置都允许 330 秒；OpenCode 的 `timeout` 同样适用于工具调用。
+
+- **Kimi Code CLI：** 写入 `~/.kimi-code/mcp.json`（或受信任项目中的 `.kimi-code/mcp.json`），`/mcp` 会显示它：
+
+  ```json
+  {
+    "mcpServers": {
+      "nestbolt": {
+        "command": "/absolute/path/to/nestbolt-mcp",
+        "args": [],
+        "env": { "NESTBOLT_WORKSPACE": "/absolute/path/to/your/cutting/files" },
+        "toolTimeoutMs": 330000
+      }
+    }
+  }
+  ```
+
+- **OpenCode：** 添加到 `opencode.json`（项目中的，或 `~/.config/opencode/opencode.json`）的 `mcp` 下，`opencode mcp list` 会显示已连接：
+
+  ```json
+  {
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+      "nestbolt": {
+        "type": "local",
+        "command": ["/absolute/path/to/nestbolt-mcp"],
+        "environment": { "NESTBOLT_WORKSPACE": "/absolute/path/to/your/cutting/files" },
+        "timeout": 330000
+      }
+    }
+  }
+  ```
+
+- **DeepSeek Harness：** 添加到 `~/.dsh/cordis.patch.yml`，工具会以 `mcp__nestbolt__nest` 这样的名称出现：
+
+  ```yaml
+  - insert:
+      - id: mcp-nestbolt
+        name: '@deepseek-ai/dsh-mcp-client'
+        config:
+          serverName: nestbolt
+          transport: stdio
+          command: /absolute/path/to/nestbolt-mcp
+          args: []
+          env:
+            NESTBOLT_WORKSPACE: /absolute/path/to/your/cutting/files
+          toolCallTimeoutMs: 330000
+  ```
+
+2026 年 11 月 5 日在 Windows 上用 v0.1.0 服务器检查过：OpenCode 1.19.5 显示已连接；Kimi Code 2.5.0 找到全部五个工具；DeepSeek Harness 0.2.1-rc.5 接受这段配置，但没有通过它启动服务器，因为它需要 DeepSeek 密钥才能启动。从其他文件夹启动时，服务器只在 `NESTBOLT_WORKSPACE` 内读写文件。
+
 详见[智能体接口文档](https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md)（英文）。
 
 ## 许可
