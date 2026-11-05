@@ -1,0 +1,287 @@
+2026-11-02T16:06:19.5145040Z Current runner version: '2.338.2'
+2026-11-02T16:06:19.5170576Z ##[group]Runner Image Provisioner
+2026-11-02T16:06:19.5171512Z Hosted Compute Agent
+2026-11-02T16:06:19.5172140Z Version: 20261021.618
+2026-11-02T16:06:19.5172862Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-11-02T16:06:19.5173589Z Build Date: 2026-10-21T00:45:21Z
+2026-11-02T16:06:19.5174275Z Worker ID: {d4f6aced-0eb4-44bf-a2d0-c792eb4be0b0}
+2026-11-02T16:06:19.5175083Z Region: eastus
+2026-11-02T16:06:19.5175622Z Cloud: Azure
+2026-11-02T16:06:19.5176178Z ##[endgroup]
+2026-11-02T16:06:19.5177847Z ##[group]Operating System
+2026-11-02T16:06:19.5178481Z Ubuntu
+2026-11-02T16:06:19.5179092Z 26.04.1
+2026-11-02T16:06:19.5179637Z LTS
+2026-11-02T16:06:19.5180215Z ##[endgroup]
+2026-11-02T16:06:19.5180760Z ##[group]Runner Image
+2026-11-02T16:06:19.5181327Z Image: ubuntu-26.04
+2026-11-02T16:06:19.5181958Z Version: 20261025.179.1
+2026-11-02T16:06:19.5183300Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261025.179/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-02T16:06:19.5185343Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261025.179
+2026-11-02T16:06:19.5186351Z ##[endgroup]
+2026-11-02T16:06:19.5187892Z ##[group]GITHUB_TOKEN Permissions
+2026-11-02T16:06:19.5190102Z Contents: read
+2026-11-02T16:06:19.5190816Z Metadata: read
+2026-11-02T16:06:19.5191372Z ##[endgroup]
+2026-11-02T16:06:19.5193573Z Secret source: Actions
+2026-11-02T16:06:19.5194513Z Cache mode: write
+2026-11-02T16:06:19.5195553Z Prepare workflow directory
+2026-11-02T16:06:19.5531163Z Prepare all required actions
+2026-11-02T16:06:19.5580376Z Getting action download info
+2026-11-02T16:06:19.7286602Z Download action repository 'actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+2026-11-02T16:06:19.8617187Z Download action repository 'actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+2026-11-02T16:06:19.9161948Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-02T16:06:20.0962402Z Complete job name: maker-rebuild (ubuntu-latest)
+2026-11-02T16:06:20.1846235Z ##[group]Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+2026-11-02T16:06:20.1847555Z with:
+2026-11-02T16:06:20.1848029Z   persist-credentials: false
+2026-11-02T16:06:20.1848645Z   sparse-checkout: /*
+!/benchmarks/results/**/*.zip
+
+2026-11-02T16:06:20.1849307Z   sparse-checkout-cone-mode: false
+2026-11-02T16:06:20.1849862Z   repository: skulitom/Nestbolt
+2026-11-02T16:06:20.1853900Z   token: ***
+2026-11-02T16:06:20.1854331Z   ssh-strict: true
+2026-11-02T16:06:20.1854815Z   ssh-user: git
+2026-11-02T16:06:20.1855247Z   clean: true
+2026-11-02T16:06:20.1855667Z   fetch-depth: 1
+2026-11-02T16:06:20.1856107Z   fetch-tags: false
+2026-11-02T16:06:20.1856554Z   show-progress: true
+2026-11-02T16:06:20.1857000Z   lfs: false
+2026-11-02T16:06:20.1857550Z   submodules: false
+2026-11-02T16:06:20.1858027Z   set-safe-directory: true
+2026-11-02T16:06:20.1858547Z   allow-unsafe-pr-checkout: false
+2026-11-02T16:06:20.1859372Z ##[endgroup]
+2026-11-02T16:06:20.4778499Z Syncing repository: skulitom/Nestbolt
+2026-11-02T16:06:20.4781568Z ##[group]Getting Git version info
+2026-11-02T16:06:20.4782956Z Working directory is '/home/runner/work/Nestbolt/Nestbolt'
+2026-11-02T16:06:20.4784897Z [command]/usr/bin/git version
+2026-11-02T16:06:20.4825439Z git version 2.56.0
+2026-11-02T16:06:20.4850125Z ##[endgroup]
+2026-11-02T16:06:20.4866266Z Temporarily overriding HOME='/home/runner/work/_temp/bdb8cb8e-1368-4d4e-9690-49626d7c0bc4' before making global git config changes
+2026-11-02T16:06:20.4869303Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-02T16:06:20.4871815Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-11-02T16:06:20.4966698Z Deleting the contents of '/home/runner/work/Nestbolt/Nestbolt'
+2026-11-02T16:06:20.4969923Z ##[group]Determining repository object format
+2026-11-02T16:06:20.4971676Z ##[endgroup]
+2026-11-02T16:06:20.4973091Z ##[group]Initializing the repository
+2026-11-02T16:06:20.4976425Z [command]/usr/bin/git init /home/runner/work/Nestbolt/Nestbolt
+2026-11-02T16:06:20.5086560Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-02T16:06:20.5088812Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-02T16:06:20.5090905Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-02T16:06:20.5092429Z hint: call:
+2026-11-02T16:06:20.5093413Z hint:
+2026-11-02T16:06:20.5094620Z hint: 	git config --global init.defaultBranch <name>
+2026-11-02T16:06:20.5095918Z hint:
+2026-11-02T16:06:20.5097205Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-02T16:06:20.5099607Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-02T16:06:20.5101291Z hint:
+2026-11-02T16:06:20.5102414Z hint: 	git branch -m <name>
+2026-11-02T16:06:20.5103619Z hint:
+2026-11-02T16:06:20.5104958Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-02T16:06:20.5107460Z Initialized empty Git repository in /home/runner/work/Nestbolt/Nestbolt/.git/
+2026-11-02T16:06:20.5117055Z [command]/usr/bin/git remote add origin https://github.com/skulitom/Nestbolt
+2026-11-02T16:06:20.5170534Z ##[endgroup]
+2026-11-02T16:06:20.5172541Z ##[group]Disabling automatic garbage collection
+2026-11-02T16:06:20.5175691Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-02T16:06:20.5213710Z ##[endgroup]
+2026-11-02T16:06:20.5215703Z ##[group]Setting up auth
+2026-11-02T16:06:20.5217195Z Removing SSH command configuration
+2026-11-02T16:06:20.5222156Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T16:06:20.5268917Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T16:06:20.5805567Z Removing HTTP extra header
+2026-11-02T16:06:20.5818883Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T16:06:20.5856198Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T16:06:20.6144705Z Removing includeIf entries pointing to credentials config files
+2026-11-02T16:06:20.6151996Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T16:06:20.6187895Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T16:06:20.6472308Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-02T16:06:20.6513289Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:20.6548809Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:20.6586967Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:20.6620649Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:20.6658408Z ##[endgroup]
+2026-11-02T16:06:20.6660069Z ##[group]Fetching the repository
+2026-11-02T16:06:20.6668345Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin +34e408df358f04f2dc168fd17ed7ffcd4509ace3:refs/remotes/origin/main
+2026-11-02T16:06:21.0000218Z From https://github.com/skulitom/Nestbolt
+2026-11-02T16:06:21.0010202Z  * [new ref]         34e408df358f04f2dc168fd17ed7ffcd4509ace3 -> origin/main
+2026-11-02T16:06:21.0019699Z [command]/usr/bin/git branch --list --remote origin/main
+2026-11-02T16:06:21.0039530Z   origin/main
+2026-11-02T16:06:21.0048409Z [command]/usr/bin/git rev-parse refs/remotes/origin/main
+2026-11-02T16:06:21.0074060Z 34e408df358f04f2dc168fd17ed7ffcd4509ace3
+2026-11-02T16:06:21.0080736Z ##[endgroup]
+2026-11-02T16:06:21.0082393Z ##[group]Determining the checkout info
+2026-11-02T16:06:21.0084600Z ##[endgroup]
+2026-11-02T16:06:21.0087565Z ##[group]Setting up sparse checkout
+2026-11-02T16:06:21.0089694Z [command]/usr/bin/git config core.sparseCheckout true
+2026-11-02T16:06:21.0122266Z [command]/usr/bin/git rev-parse --git-path info/sparse-checkout
+2026-11-02T16:06:21.0146567Z .git/info/sparse-checkout
+2026-11-02T16:06:21.0154428Z ##[endgroup]
+2026-11-02T16:06:21.0156281Z ##[group]Checking out the ref
+2026-11-02T16:06:21.0160370Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-02T16:06:36.5799664Z Updating files:   0% (1/10588)
+2026-11-02T16:06:36.5971567Z Updating files:   1% (106/10588)
+2026-11-02T16:06:36.6188163Z Updating files:   2% (212/10588)
+2026-11-02T16:06:36.6382377Z Updating files:   3% (318/10588)
+2026-11-02T16:06:36.6467598Z Updating files:   4% (424/10588)
+2026-11-02T16:06:36.6519767Z Updating files:   5% (530/10588)
+2026-11-02T16:06:36.6594772Z Updating files:   6% (636/10588)
+2026-11-02T16:06:36.6768988Z Updating files:   7% (742/10588)
+2026-11-02T16:06:36.7013090Z Updating files:   8% (848/10588)
+2026-11-02T16:06:36.7528834Z Updating files:   9% (953/10588)
+2026-11-02T16:06:36.8082170Z Updating files:  10% (1059/10588)
+2026-11-02T16:06:36.8419749Z Updating files:  11% (1165/10588)
+2026-11-02T16:06:36.8845837Z Updating files:  12% (1271/10588)
+2026-11-02T16:06:36.8951552Z Updating files:  13% (1377/10588)
+2026-11-02T16:06:36.9118514Z Updating files:  14% (1483/10588)
+2026-11-02T16:06:37.0098776Z Updating files:  15% (1589/10588)
+2026-11-02T16:06:37.0353080Z Updating files:  16% (1695/10588)
+2026-11-02T16:06:37.0487432Z Updating files:  16% (1718/10588)
+2026-11-02T16:06:37.0706987Z Updating files:  17% (1800/10588)
+2026-11-02T16:06:37.1327725Z Updating files:  18% (1906/10588)
+2026-11-02T16:06:37.1511119Z Updating files:  19% (2012/10588)
+2026-11-02T16:06:37.2062602Z Updating files:  20% (2118/10588)
+2026-11-02T16:06:37.2845389Z Updating files:  21% (2224/10588)
+2026-11-02T16:06:37.3530119Z Updating files:  22% (2330/10588)
+2026-11-02T16:06:37.4022866Z Updating files:  23% (2436/10588)
+2026-11-02T16:06:37.4216021Z Updating files:  24% (2542/10588)
+2026-11-02T16:06:37.4462772Z Updating files:  25% (2647/10588)
+2026-11-02T16:06:37.4706775Z Updating files:  26% (2753/10588)
+2026-11-02T16:06:37.4874475Z Updating files:  27% (2859/10588)
+2026-11-02T16:06:37.5024364Z Updating files:  28% (2965/10588)
+2026-11-02T16:06:37.5115500Z Updating files:  29% (3071/10588)
+2026-11-02T16:06:37.5378664Z Updating files:  30% (3177/10588)
+2026-11-02T16:06:37.5554136Z Updating files:  31% (3283/10588)
+2026-11-02T16:06:37.5693707Z Updating files:  32% (3389/10588)
+2026-11-02T16:06:37.5833925Z Updating files:  33% (3495/10588)
+2026-11-02T16:06:37.5943787Z Updating files:  34% (3600/10588)
+2026-11-02T16:06:37.6138713Z Updating files:  35% (3706/10588)
+2026-11-02T16:06:37.6336360Z Updating files:  36% (3812/10588)
+2026-11-02T16:06:37.6441346Z Updating files:  37% (3918/10588)
+2026-11-02T16:06:37.6603296Z Updating files:  38% (4024/10588)
+2026-11-02T16:06:37.6778551Z Updating files:  39% (4130/10588)
+2026-11-02T16:06:37.6860325Z Updating files:  40% (4236/10588)
+2026-11-02T16:06:37.7013302Z Updating files:  41% (4342/10588)
+2026-11-02T16:06:37.7118161Z Updating files:  42% (4447/10588)
+2026-11-02T16:06:37.7229277Z Updating files:  43% (4553/10588)
+2026-11-02T16:06:37.7358309Z Updating files:  44% (4659/10588)
+2026-11-02T16:06:37.7464661Z Updating files:  45% (4765/10588)
+2026-11-02T16:06:37.7578974Z Updating files:  46% (4871/10588)
+2026-11-02T16:06:37.7684739Z Updating files:  47% (4977/10588)
+2026-11-02T16:06:37.8184173Z Updating files:  48% (5083/10588)
+2026-11-02T16:06:37.8347098Z Updating files:  49% (5189/10588)
+2026-11-02T16:06:37.8432486Z Updating files:  50% (5294/10588)
+2026-11-02T16:06:37.8523271Z Updating files:  51% (5400/10588)
+2026-11-02T16:06:37.8755751Z Updating files:  52% (5506/10588)
+2026-11-02T16:06:37.8826357Z Updating files:  53% (5612/10588)
+2026-11-02T16:06:37.8912396Z Updating files:  54% (5718/10588)
+2026-11-02T16:06:37.8985925Z Updating files:  55% (5824/10588)
+2026-11-02T16:06:37.9113090Z Updating files:  56% (5930/10588)
+2026-11-02T16:06:37.9172749Z Updating files:  57% (6036/10588)
+2026-11-02T16:06:37.9271408Z Updating files:  58% (6142/10588)
+2026-11-02T16:06:37.9357430Z Updating files:  59% (6247/10588)
+2026-11-02T16:06:37.9451056Z Updating files:  60% (6353/10588)
+2026-11-02T16:06:37.9602834Z Updating files:  61% (6459/10588)
+2026-11-02T16:06:37.9721863Z Updating files:  62% (6565/10588)
+2026-11-02T16:06:37.9797219Z Updating files:  63% (6671/10588)
+2026-11-02T16:06:37.9886266Z Updating files:  64% (6777/10588)
+2026-11-02T16:06:38.0005185Z Updating files:  65% (6883/10588)
+2026-11-02T16:06:38.0084270Z Updating files:  66% (6989/10588)
+2026-11-02T16:06:38.0233084Z Updating files:  67% (7094/10588)
+2026-11-02T16:06:38.0318758Z Updating files:  68% (7200/10588)
+2026-11-02T16:06:38.0348519Z Updating files:  68% (7282/10588)
+2026-11-02T16:06:38.0461601Z Updating files:  69% (7306/10588)
+2026-11-02T16:06:38.0653992Z Updating files:  70% (7412/10588)
+2026-11-02T16:06:38.0763960Z Updating files:  71% (7518/10588)
+2026-11-02T16:06:38.0852990Z Updating files:  72% (7624/10588)
+2026-11-02T16:06:38.0955005Z Updating files:  73% (7730/10588)
+2026-11-02T16:06:38.1064169Z Updating files:  74% (7836/10588)
+2026-11-02T16:06:38.1306925Z Updating files:  75% (7941/10588)
+2026-11-02T16:06:38.1377800Z Updating files:  76% (8047/10588)
+2026-11-02T16:06:38.1479204Z Updating files:  77% (8153/10588)
+2026-11-02T16:06:38.1582607Z Updating files:  78% (8259/10588)
+2026-11-02T16:06:38.1714728Z Updating files:  79% (8365/10588)
+2026-11-02T16:06:38.1853986Z Updating files:  80% (8471/10588)
+2026-11-02T16:06:38.1988581Z Updating files:  81% (8577/10588)
+2026-11-02T16:06:38.2157189Z Updating files:  82% (8683/10588)
+2026-11-02T16:06:38.2271888Z Updating files:  83% (8789/10588)
+2026-11-02T16:06:38.2361928Z Updating files:  84% (8894/10588)
+2026-11-02T16:06:38.2524342Z Updating files:  85% (9000/10588)
+2026-11-02T16:06:38.2931842Z Updating files:  86% (9106/10588)
+2026-11-02T16:06:38.2990231Z Updating files:  87% (9212/10588)
+2026-11-02T16:06:38.3063008Z Updating files:  88% (9318/10588)
+2026-11-02T16:06:38.3244496Z Updating files:  89% (9424/10588)
+2026-11-02T16:06:38.5099244Z Updating files:  90% (9530/10588)
+2026-11-02T16:06:38.5272674Z Updating files:  91% (9636/10588)
+2026-11-02T16:06:38.5409673Z Updating files:  92% (9741/10588)
+2026-11-02T16:06:38.5641691Z Updating files:  93% (9847/10588)
+2026-11-02T16:06:38.5798443Z Updating files:  94% (9953/10588)
+2026-11-02T16:06:38.5908209Z Updating files:  95% (10059/10588)
+2026-11-02T16:06:38.6002087Z Updating files:  96% (10165/10588)
+2026-11-02T16:06:38.6078126Z Updating files:  97% (10271/10588)
+2026-11-02T16:06:38.6164985Z Updating files:  98% (10377/10588)
+2026-11-02T16:06:38.6285575Z Updating files:  99% (10483/10588)
+2026-11-02T16:06:38.6286272Z Updating files: 100% (10588/10588)
+2026-11-02T16:06:38.6287021Z Updating files: 100% (10588/10588), done.
+2026-11-02T16:06:38.6435843Z Switched to a new branch 'main'
+2026-11-02T16:06:38.6441874Z branch 'main' set up to track 'origin/main'.
+2026-11-02T16:06:38.6584654Z ##[endgroup]
+2026-11-02T16:06:38.6634975Z [command]/usr/bin/git log -1 --format=%H
+2026-11-02T16:06:38.6662200Z 34e408df358f04f2dc168fd17ed7ffcd4509ace3
+2026-11-02T16:06:38.6672015Z ##[group]Removing auth
+2026-11-02T16:06:38.6672452Z Removing SSH command configuration
+2026-11-02T16:06:38.6676770Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T16:06:38.6710252Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T16:06:38.7022133Z Removing HTTP extra header
+2026-11-02T16:06:38.7026519Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T16:06:38.7063183Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T16:06:38.7360069Z Removing includeIf entries pointing to credentials config files
+2026-11-02T16:06:38.7366363Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T16:06:38.7394059Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-11-02T16:06:38.7394991Z includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-11-02T16:06:38.7395482Z includeif.gitdir:/github/workspace/.git.path
+2026-11-02T16:06:38.7395858Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-02T16:06:38.7405261Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path
+2026-11-02T16:06:38.7430151Z /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7441673Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git.path /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7483413Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path
+2026-11-02T16:06:38.7509512Z /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7518964Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Nestbolt/Nestbolt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7565934Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-02T16:06:38.7590988Z /github/runner_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7598646Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7632923Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-02T16:06:38.7660012Z /github/runner_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7668132Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config
+2026-11-02T16:06:38.7701402Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T16:06:38.7993362Z Removing credentials config '/home/runner/work/_temp/git-credentials-6122a1e4-1bcc-4f2c-a5c0-5e6dfc3517cd.config'
+2026-11-02T16:06:38.8002917Z ##[endgroup]
+2026-11-02T16:06:38.8263308Z ##[group]Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+2026-11-02T16:06:38.8263720Z with:
+2026-11-02T16:06:38.8263915Z   python-version: 3.11.5
+2026-11-02T16:06:38.8264140Z   check-latest: false
+2026-11-02T16:06:38.8266806Z   token: ***
+2026-11-02T16:06:38.8267015Z   update-environment: true
+2026-11-02T16:06:38.8267529Z   allow-prereleases: false
+2026-11-02T16:06:38.8267762Z   freethreaded: false
+2026-11-02T16:06:38.8268150Z ##[endgroup]
+2026-11-02T16:06:38.9724009Z ##[group]Installed versions
+2026-11-02T16:06:38.9746990Z Version 3.11.5 was not found in the local cache
+2026-11-02T16:06:39.7143645Z ##[error]The version '3.11.5' with architecture 'x64' was not found for Ubuntu 26.04.
+The list of all available versions can be found here: https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
+2026-11-02T16:06:39.7425635Z Post job cleanup.
+2026-11-02T16:06:39.8277441Z [command]/usr/bin/git version
+2026-11-02T16:06:39.8326403Z git version 2.56.0
+2026-11-02T16:06:39.8374335Z Temporarily overriding HOME='/home/runner/work/_temp/bd968915-d452-43cc-8aa5-ba26e5494e53' before making global git config changes
+2026-11-02T16:06:39.8375797Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-02T16:06:39.8379798Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Nestbolt/Nestbolt
+2026-11-02T16:06:39.8416105Z Removing SSH command configuration
+2026-11-02T16:06:39.8423601Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T16:06:39.8462091Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T16:06:39.8787082Z Removing HTTP extra header
+2026-11-02T16:06:39.8793497Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T16:06:39.8835926Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T16:06:39.9187184Z Removing includeIf entries pointing to credentials config files
+2026-11-02T16:06:39.9205405Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T16:06:39.9214494Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T16:06:39.9672913Z Cleaning up orphan processes

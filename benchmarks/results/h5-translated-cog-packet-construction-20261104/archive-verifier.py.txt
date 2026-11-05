@@ -1,0 +1,43 @@
+"""Read and hash both new evidence and every reused historical member."""
+from pathlib import Path
+from hashlib import sha256
+import json,zipfile,re
+ROOT=Path(__file__).resolve().parents[1];NAME='h5-translated-cog-packet-construction-20261104';OUT=ROOT/'benchmarks/results'/NAME
+load=lambda p:json.loads(p.read_bytes());digest=lambda b:sha256(b).hexdigest();blobs={};archives={};cache={};json_count=0
+manifest=load(OUT/'raw-manifest.json');files={r['path']:r for r in manifest['files']}
+for a in manifest['archives']:
+    p=OUT/a['path'];assert p.stat().st_size==a['bytes'] and digest(p.read_bytes())==a['sha256']
+    with zipfile.ZipFile(p) as z:
+        assert z.testzip() is None
+        for name in z.namelist():
+            row=files[name];data=z.read(name);assert row['archive']==a['path'] and len(data)==row['bytes'] and digest(data)==row['sha256'];blobs[name]=data
+            if name.endswith('.json'):json.loads(data);json_count+=1
+assert set(blobs)==set(files)
+for row in manifest['aliases']:
+    data=blobs[row['canonical']];assert len(data)==row['bytes'] and digest(data)==row['sha256'];blobs[row['path']]=data
+external=load(OUT/'external-evidence.json');parent_manifests={};parent_jsons=0
+for name,row in external.items():
+    assert name not in blobs
+    p=ROOT/row['manifest'];assert p.is_relative_to(ROOT) and p.is_file()
+    if p not in parent_manifests:
+        assert digest(p.read_bytes())==row['manifest_sha256'];m=load(p);parent_manifests[p]=(row['manifest_sha256'],{r['path']:r for r in m['files']},{r['path']:r for r in m['archives']})
+    h,entries,parts=parent_manifests[p];assert h==row['manifest_sha256'];entry=entries[row['member']]
+    assert entry['archive']==row['archive'] and entry['bytes']==row['bytes'] and entry['sha256']==row['sha256']
+    archive=p.parent/row['archive']
+    if archive not in archives:
+        part=parts[row['archive']];assert archive.stat().st_size==part['bytes'] and digest(archive.read_bytes())==part['sha256'];archives[archive]=zipfile.ZipFile(archive);assert archives[archive].testzip() is None
+    key=(archive,row['member'])
+    if key not in cache:
+        data=archives[archive].read(row['member']);assert len(data)==row['bytes'] and digest(data)==row['sha256'];cache[key]=data
+        if row['member'].endswith('.json'):json.loads(data);parent_jsons+=1
+    blobs[name]=cache[key]
+bindings=load(OUT/'source-bindings.json')
+for name,h in bindings.items():assert digest(blobs['source-inputs/'+name])==h==digest((ROOT/name).read_bytes())
+links=[]
+for name in re.findall(r'\]\(([^)]+)\)',OUT.with_suffix('.md').read_text(encoding='utf-8')):
+    if '://' not in name:assert (OUT.parent/name).resolve().is_file(),name;links.append(name)
+for p in OUT.glob('*.json'):load(p)
+for z in archives.values():z.close()
+result={'passed':True,'new_archive_parts':len(manifest['archives']),'new_canonical_members':len(files),'new_aliases':len(manifest['aliases']),'external_references_verified':len(external),'unique_parent_members_verified':len(cache),'parent_archives_verified':len(archives),'source_bindings_verified':len(bindings),'new_json_files_parsed':json_count,'parent_json_files_parsed':parent_jsons,'local_report_links_verified':len(links),'new_archive_bytes':sum(a['bytes'] for a in manifest['archives'])}
+with (OUT/'archive-checks.json').open('x',encoding='utf-8',newline='\n') as f:json.dump(result,f,indent=2);f.write('\n')
+print(result)
