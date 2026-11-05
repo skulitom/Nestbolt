@@ -38,10 +38,10 @@
           "@type": "TechArticle",
           "@id": "https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/#page",
           "headline": "LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared",
-          "description": "LightBurn 2.2's True Nest needs a Pro licence. A measured run of Nestbolt's free v0.2.0-alpha.1 preview on a layered LightBurn project, nested onto a full sheet and two offcuts, with what True Nest does better.",
+          "description": "LightBurn 2.2's True Nest needs a Pro licence. A measured run of Nestbolt's free v0.2.0-alpha.1 preview on a layered LightBurn project, nested onto a full sheet and two offcuts, and when to use True Nest, Quick Nest or SVGNest instead.",
           "url": "https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/",
           "image": "https://skulitom.github.io/Nestbolt/og/compare-lightburn.png",
-          "datePublished": "2026-11-02",
+          "datePublished": "2026-11-05",
           "dateModified": "2026-11-05",
           "inLanguage": "en",
           "author": {"@type": "Person", "name": "skulitom", "url": "https://github.com/skulitom"},
@@ -75,8 +75,8 @@
     <main id="main">
       <article>
         <h1>LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared</h1>
-        <p><strong>As of 2026-11-02, True Nest in LightBurn 2.2 (nesting by each shape's real outline) needs a Pro licence: $199 new, or a $100 upgrade from Core's $99 (US dollars), and LightBurn's docs describe True Nest and Core's Quick Nest nesting into a rectangle you draw; its feature board says nesting around used areas of a sheet is "Completed for v2.3". In our test that day, the free Nestbolt v0.2.0-alpha.1 preview nested a three-layer LightBurn project onto a traced offcut (13 ornaments), a partly used sheet with two holes (11) and a full 12 × 12 inch sheet (18). It wrote each sheet back as an editable <code>.lbrn2</code> with the layer settings unchanged, checked by our own script.</strong> Nestbolt's LightBurn support is a preview feature. Core also has SVGNest (External Tool), which opens the SVGnest.com website in your browser to nest an exported SVG. Method and data are below.</p>
-        <p><strong>We make Nestbolt.</strong> We did not run LightBurn, so this page makes no claim about how densely True Nest or Quick Nest packs. Everything about LightBurn comes from its own documentation, release post, price pages and forum, read on 2026-11-02 (the docs, prices and release post re-checked on 2026-11-03 and 2026-11-05), and its feature-request board, read on 2026-11-03 and 2026-11-05, all linked below. Last checked: <strong>2026-11-05</strong>.</p>
+        <p><strong>As of 2026-11-05, True Nest in LightBurn 2.2 (nesting by each shape's real outline) needs a Pro licence: $199 new, or a $100 upgrade from Core's $99 (US dollars), and LightBurn's docs describe True Nest and Core's Quick Nest, which packs each object's bounding rectangle, nesting into a rectangle you draw; its feature board says nesting around used areas of a sheet is "Completed for v2.3". In our test on 2026-11-02, the free Nestbolt v0.2.0-alpha.1 preview nested a three-layer LightBurn project onto a traced offcut (13 ornaments), a partly used sheet with two holes (11) and a full 12 × 12 inch sheet (18). It wrote each sheet back as an editable <code>.lbrn2</code> with the layer settings unchanged, checked by our own script.</strong> Nestbolt's LightBurn support is a preview feature. Core also has SVGNest (External Tool), which opens the SVGnest.com website in your browser to nest an exported SVG. Method and data are below.</p>
+        <p><strong>We make Nestbolt.</strong> We did not run LightBurn, so this page makes no claim about how densely True Nest or Quick Nest packs. Everything about LightBurn comes from its own documentation, release post, price pages and forum, read on 2026-11-02 (the docs, prices and release post re-checked on 2026-11-03 and 2026-11-05, and the 2.2.01 patch notes read on 2026-11-05), and its feature-request board, read on 2026-11-03 and 2026-11-05, all linked below. Last checked: <strong>2026-11-05</strong>.</p>
 
         <h2>Your nesting options as a LightBurn Core user</h2>
         <div class="table" role="region" aria-label="Nesting options for LightBurn users" tabindex="0">
@@ -113,7 +113,7 @@
                 <th scope="row"><a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/SVGNest/">SVGNest (External Tool)</a></th>
                 <td>Core and Pro</td>
                 <td>Actual shapes, on SVGnest.com</td>
-                <td>"A container shape", usually one the size of your material</td>
+                <td>"a container shape", usually one the size of your material</td>
                 <td>Not covered on LightBurn's page</td>
                 <td>LightBurn exports an SVG, you nest it on SVGnest.com in your web browser and import the result; LightBurn's comparison table marks it as needing the internet</td>
               </tr>
@@ -200,7 +200,7 @@
         <h2>What came back in LightBurn's format</h2>
         <p>A separate script, <a href="data/check.py"><code>check.py</code></a>, read the input project and every output sheet itself and uses none of Nestbolt's code. On all six layouts above:</p>
         <ul>
-          <li><strong>Every ornament is a copy of a group in the project,</strong> with the same three children in the same order, on the same layers, and their path data unchanged. The number of copies matches the request.</li>
+          <li><strong>Every ornament is a copy of a group in the project,</strong> with the same three children in the same order, on the same layers, and their path data unchanged. The number of copies equals the request in the "most found" layouts and never exceeds what was offered in the "place what fits" ones.</li>
           <li><strong>One move per ornament.</strong> Every point and curve handle of an ornament, on all three layers, moved by the same rotation (0°, 90°, 180° or 270°) and shift, to within 0.000001 mm. Nothing was mirrored, so each star and ring stays where it was on its part.</li>
           <li><strong>Layer settings unchanged.</strong> The three layers' settings are byte-for-byte the same as in the input. Each sheet adds one thing: a rectangle on LightBurn's T1 tool layer, named SHEET, which marks the stock and is not cut. On an offcut it is the outline's bounding box, not its shape. Leave it out with <code>--sheet-outline false</code>.</li>
           <li><strong>Geometry.</strong> Stars and rings lie on their ornament and clear of its hole, and parts keep the requested spacing from each other and from the stock's edges and holes. The curves were sampled, so these distances are accurate to about 0.01 mm; a second check with ten times finer sampling moved them by at most 0.006 mm.</li>
@@ -223,8 +223,8 @@
         <ul>
           <li><strong>You already have Pro, or the $100 upgrade is fine.</strong> True Nest nests what you select in your LightBurn workspace, with no files to move between programs. LightBurn says a few sheets' worth of savings should pay for it, and the two-week Trial Pro lets you check that on your own jobs.</li>
           <li><strong>Finer rotation.</strong> True Nest's Allowed Orientations go down to 1° steps. We tested Nestbolt's LightBurn route with quarter turns only.</li>
-          <li><strong>Loose artwork and text.</strong> LightBurn's Lock Inner Objects, in both True Nest and Quick Nest, keeps inner shapes with the shape around them without grouping. Nestbolt attaches loose artwork to a part only when it lies wholly on that part's material. In our <a href="../../nesting-examples/nest-laser-cut-kit-keep-layers/">layered-kit example</a>, an ungrouped engraved ring around a hole was nested as a separate piece, with no warning, so group parts first. Nestbolt also cannot nest text that has no embedded outlines until it is re-saved.</li>
-          <li><strong>A finished feature.</strong> True Nest ships in LightBurn 2.2.00, while Nestbolt's LightBurn support is a preview release, and LightBurn did not open the files in this test.</li>
+          <li><strong>Loose artwork and text.</strong> LightBurn's Lock Inner Objects, in both True Nest and Quick Nest, keeps inner shapes with the shape around them without grouping. Nestbolt attaches loose artwork to a part only when the artwork's bounding rectangle lies wholly on that part's material. In our <a href="../../nesting-examples/nest-laser-cut-kit-keep-layers/">layered-kit example</a>, an ungrouped engraved ring around a hole was nested as a separate piece, with no warning, so group parts first. Nestbolt also cannot nest text that has no embedded outlines until it is re-saved.</li>
+          <li><strong>A finished feature.</strong> True Nest ships in LightBurn 2.2 (2.2.00, now patched to 2.2.01), while Nestbolt's LightBurn support is a preview release, and LightBurn did not open the files in this test.</li>
           <li><strong>You can wait for LightBurn 2.3.</strong> LightBurn marked nesting that avoids used areas of a sheet "Completed for v2.3", and marked a request to nest inside circles and other shapes completed, saying it "should have an update to nesting coming in v2.3" (its feature board, 1 November 2026; see above). If nesting around used areas of a sheet, or inside another container shape, is what you need and you can wait, 2.3 may cover it inside LightBurn. Its release date, and whether its nesting needs Pro, are unknown.</li>
           <li><strong>Mostly rectangular parts.</strong> LightBurn's docs say the difference between True Nest and Quick Nest is small when parts are close to rectangles. Quick Nest is in Core and is fast.</li>
           <li><strong>You are on Core and a website round trip is fine.</strong> SVGNest (External) nests by real shape at no extra cost, into a container shape you select, and LightBurn's page says shapes inside your parts are moved back with them after the import. We did not run it.</li>

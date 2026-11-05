@@ -18,7 +18,7 @@ results. LightBurn was not run. Every number on the page is in `results.json`.
 | `full-sheet-18-sheet.lbrn2`, `traced-offcut-13-sheet.lbrn2`, `partly-used-11-sheet.lbrn2` | The nested sheets drawn on the page, as Nestbolt wrote them |
 | `browser-traced-offcut-12-sheet.lbrn2`, `browser-equivalent-request.json` | The sheet the live browser app downloaded (2 of each, 2 mm part and edge spacing), and a request with the same settings for `check.py` |
 | `partly-used-sheet.svg` | The partly used sheet (drawn for this test) as a SHEET drawing; checked with `nestbolt import`, not in the browser app |
-| `spacing-probe-*-request.json` | Extra runs showing how edge spacing changes the gap between parts on the offcut (numbers in `results.json`, `spacing_probe`; run once) |
+| `spacing-probe-*-request.json` | Extra runs showing how edge spacing changes the gap between parts: edge 1, 2 and 3 mm on the offcut, and edge 4 mm on the full sheet (numbers in `results.json`, `spacing_probe`; run once) |
 | `results.json` | Times, counts, areas, both checks, and the counts that were not found |
 | `searches-2026-11-02.txt` | The five searches and what ranked |
 
