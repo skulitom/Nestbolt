@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [original-source cog pruning](../benchmarks/results/h5-source-cog-pruned-proofs-20261106.md).
+Latest H5 evidence: [union and clearance domains](../benchmarks/results/h5-clearance-domain-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -32,8 +32,11 @@ bracket trees exclude five, and joint bracket/insert trees exclude eleven.
 Exact component-union conflicts exclude thirteen more. Original cog polygon
 proofs remove 847 impossible node occurrences; new joint trees exclude another
 eleven, leaving 28 choices (427 of 455 excluded): 10 necessary joint graph witnesses
-and 18 cutoff cases. Exact subdivision proofs for unions of source collision
-polygons are next. All prior calls and bounded processes stay closed.
+and 18 cutoff cases. Union subdivision and clearance-aware cog proofs remove
+50 more node occurrences across 27 cases, but exclude no further arrangement.
+The new trees retain nine necessary graph witnesses and eighteen cutoff cases;
+one unchanged case is carried forward. Exact clearance-aware pair conflicts
+are next. All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3798,3 +3801,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 original-source cog pruning:** [independent exact source and tree replay](../benchmarks/results/h5-source-cog-pruned-proofs-20261106.md) verifies 378 convex collision polygons, 173 closed-cell certificates and 847 removed node occurrences across all 39 arrangements. All unproved cells and source aliases remain. The new retained-domain trees verify 19,443 records and 598,126 ordered removals; eleven complete trees exclude fixed29/cog choices, leaving 28 (427 of 455 excluded). Ten necessary graph witnesses and eighteen cutoff cases remain unresolved. Complete preparations take 0.931841 and 20.396204 s with no complete-case/process overrun or placement/native call. Next assess bounded exact subdivision proofs of coverage by unions of original-source collision polygons; incomplete cells must remain retained. No full construction budget is claimed and every prior process stays closed. The previous five checkpoints were pushed normally to main f543f082 after all six prior CI jobs passed; new CI has four passes and two live native checks. Full66 checks, 440 whole allocations and H2/H5 stay open at 60%.
+
+
+**2026-11-06 H5 union and clearance domains:** [independent source and tree audits](../benchmarks/results/h5-clearance-domain-proofs-20261106.md) verify five node removals from exact polygon-union subdivision and 45 further removals using a 0.199 mm source-distance bound below the original 0.2 mm clearance. The combined domains strengthen 27 cases; the unchanged case is not rerun. Independent replay verifies 18,942 records and 564,916 ordered removals, with nine necessary graph witnesses and eighteen cutoff cases. No further whole arrangement is excluded: 28 remain, with 427 of 455 previously excluded. Complete preparations take 1.433914, 2.162237 and 18.790352 s; all complete-case/process caps pass. A versioned correction fixes the first clearance audit’s overlap wording; numerical checks were unchanged, and both versions remain preserved. Next assess exact clearance-aware pair conflicts using conservative square expansions of source-inner difference rectangles. No placement/native call or full construction budget is claimed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; all prior processes stay closed.
