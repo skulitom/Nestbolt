@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete frontier proof](../benchmarks/results/h5-full-frontier-proofs-20261106.md).
+Latest H5 evidence: [frontier insert exclusions](../benchmarks/results/h5-frontier-insert-exclusions-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -26,8 +26,10 @@ New exact continuous conflict proofs exclude [0,4,14], [5,11,13] and [5,11,14].
 All 549 possible insert-clique distributions reach independently replayed
 contradictions. Extending the complete bracket-clique proof excludes another
 151 choices; mandatory consistency excludes 18 more. The broader fixed29
-frontier now has 87 choices (368 of 455 excluded). Insert pruning for the
-20 surviving eight-clique choices is next. All prior calls stay closed.
+frontier then has 87 choices. Insert pruning and complete joint-distribution
+proofs exclude another 15, leaving 72 choices (383 of 455 excluded). Five larger
+mandatory-clique cases remain deferred for a compact proof tree; 67 have larger
+bracket-clique bounds. All prior calls stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3774,3 +3776,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 complete frontier proof and resumed reconciliation:** [the saved pre-pause audits](../benchmarks/results/h5-full-frontier-proofs-20261106.md) exclude 151 of 256 fixed29/cog choices through complete continuous bracket-clique bounds (43,535 cells and 1,027,915 strict source-inner pair certificates). Mandatory-clique consistency excludes another 18 of the 38 eight-clique choices (4,711 ordered removals, 60,792 pair certificates). The frontier is now 87, with 368 of 455 choices excluded; 20 have mandatory eight-clique survivors for the next insert proof. Complete preparation is 22.574358 + 0.752594 s, with no overruns, placement solver calls or native calls. All 52 remote README/comparison/navigation files from main bb27a0fe are preserved in the conflict-free reconciliation; all six main checks and Pages pass. Whole allocations remain 440 and H2/H5 remain open at 60%. No closed run was repeated.
+
+
+**2026-11-06 H5 frontier insert exclusions:** [independent continuous-cover and joint-distribution proofs](../benchmarks/results/h5-frontier-insert-exclusions-20261106.md) verify all 20 mandatory-bracket cases, then completely enumerate 21,738 eight-insert-group selections for the 15 cases within the frozen per-case limit. All selections contradict: 375,801 ordered removals and 1,717,058 strict source-inner pair checks. Fifteen fixed29/cog arrangements are excluded continuously, leaving 72 (383 of 455 excluded). Five larger cases remain explicitly deferred; no incomplete enumeration is treated as an exclusion. Complete preparations take 0.915583 and 5.521543 s with no overruns or placement/native calls. The prior checkpoints were pushed normally to main at 8a765828, preserving all newer remote files. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%. A compact, independently replayable proof tree for the five deferred cases is next; all prior calls stay closed.
