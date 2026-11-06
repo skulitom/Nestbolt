@@ -1,0 +1,38 @@
+{
+  "assessment_only": true,
+  "placement_solver_calls": 0,
+  "SAT_calls": 0,
+  "proof_checker_calls": 0,
+  "dependencies_installed": false,
+  "local_gcc": "C:/msys64/mingw64/bin/gcc.exe",
+  "sources": [
+    {
+      "url": "https://github.com/marijnheule/drat-trim",
+      "finding": "The primary repository documents checking a DIMACS formula plus a DRAT unsatisfiability proof, with a configurable checker time limit. Repository is MIT licensed."
+    },
+    {
+      "url": "https://github.com/pysathq/pysat",
+      "finding": "The primary repository provides Python interfaces to SAT solvers and cardinality encodings. The wrapper repository is MIT licensed; any selected bundled solver licence must also be checked before use."
+    },
+    {
+      "url": "https://pysathq.github.io/docs/html/api/solvers.html",
+      "finding": "The primary API documents proof logging and extraction, model extraction, limited solving and interruption. Compatibility and complete proof output must be tested on the pinned Windows build."
+    },
+    {
+      "url": "https://pysathq.github.io/updates/",
+      "finding": "The primary changelog records a proof truncation fix in1.9.dev16. Any version choice needs pinned package hashes and positive/tampered proof controls; an unverified solver status is insufficient."
+    }
+  ],
+  "proposed_method": "A new CNF certificate workflow over complete necessary source graphs, separate from the closed recursive proof-tree processes. Create one Boolean selector per retained continuous cell, forbid each independently certified incompatible pair, and require at least8 bracket and8 insert selectors. Independently verify all clauses and cardinality semantics; any legal continuous packing induces a satisfying assignment. A complete checked unsatisfiability proof would therefore exclude only that fixed29/current-cog arrangement at original required clearance. SAT means only a necessary graph witness, not source-valid geometry; UNKNOWN or missing/invalid/truncated proof means unresolved.",
+  "preconditions": [
+    "Confirm selected solver and checker licences, pin source/package/compiler hashes and preserve notices.",
+    "Build and validate the independent checker with known valid, invalid, tampered and satisfiable controls.",
+    "Independently verify a compact cardinality encoding on exhaustive small cases and prove its recurrence/extension semantics.",
+    "Audit every emitted model clause against the complete source graph; preserve exact DIMACS bytes and hash.",
+    "Freeze one new call's time, memory/proof-byte and process limits before execution. No extension, reseeding or repeat of any prior call.",
+    "Verify any SAT assignment against all CNF clauses and family counts, but do not call it a geometric placement.",
+    "For UNSAT, require a complete proof accepted by a separately built checker bound to the exact formula; preserve all failures and limits.",
+    "Keep all source geometry, clearances, material target, original identities and whole-allocation scope unchanged. Make no60/90-second construction claim without all consumed preparation charges."
+  ],
+  "scope_note": "This assessment does not claim genuinely new geometric constraints or authorize rerunning a closed proof tree. It proposes a different formal certificate representation and proof-checking method over the existing necessary graph. No such model has been generated or solved yet."
+}

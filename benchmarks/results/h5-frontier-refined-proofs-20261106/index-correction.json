@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-06T23:40:55.566578+00:00",
+  "cause": "The audit outer loop used ci for case index, but the independently replayed inner child-cover loop also used ci. Geometry/corner/coverage checks and counts are correct; emitted refinement_index values incorrectly contain the last child node id. The consumer fails while hashing nonexistent choice3159 input, before writing its plan or constructing any graph.",
+  "preserved_v1_audit": "output/h5-first57-frontier-refined-covers-20261106/audit",
+  "preserved_failed_process": "output/h5-first57-frontier-refined-graphs-process-20261106",
+  "failed_preparation_seconds": 0.31675249990075827,
+  "graphs_constructed_before_failure": 0,
+  "proof_trees_run_before_failure": 0,
+  "original_geometry_preparation_repeated": false,
+  "correction": "Use an independent case_index variable for selection and output metadata; replay all geometry checks in a separate audit-v2. Any corrected graph preparation uses a new versioned folder and unchanged caps; the failed process stays closed.",
+  "inputs": {
+    "output/audit_h5_frontier_refined_covers_20261106.py": "371c4b4ea6a704458d770bf35602ce96172c221841d53c161de44cf15ef1d8ed",
+    "output/h5-first57-frontier-refined-covers-20261106/audit/plan.json": "74c05a1bed75fb6c9105dc358d2953ee0f886821961febbf283b7778ef4d7baf",
+    "output/h5-first57-frontier-refined-covers-20261106/audit/checks.json": "7826e7737dd5a3dcb1b03c95b2e79f9bd33778408f3617c8193e2bae2297be12",
+    "output/h5-first57-frontier-refined-covers-20261106/audit/graph-candidates.json": "3875bfb13dcfb714f3c60d33cc4218da7be42e469243a7528162fe213b734070",
+    "output/h5-first57-frontier-refined-graphs-20261106/prepare.py": "63533e5708bd3ba788eea42ed754385a28859eafdd42461e14cd1ee21b2af45a",
+    "output/h5-first57-frontier-refined-graphs-process-20261106/opened.json": "f6e95a5ad75d210e9ead239d7496d1e6d6fb447514817bed56d704b5a9da80cb",
+    "output/h5-first57-frontier-refined-graphs-process-20261106/process.json": "1f9e46df45e8cc48f66bb698f8df6732508ca01b0055f9bbe3b231ad9fa1ebdf",
+    "output/h5-first57-frontier-refined-graphs-process-20261106/stderr.txt": "1a8cf25f7110af87e14f3ed607f739e6af2070c18b2b5e95c3a0eb1a0f742ba4"
+  }
+}

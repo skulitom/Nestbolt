@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [refined continuous cover](../benchmarks/results/h5-refined-cover-proofs-20261106.md).
+Latest H5 evidence: [complete refined frontier](../benchmarks/results/h5-frontier-refined-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -43,9 +43,13 @@ twenty-one cutoff cases. Fixed-core clearance pruning finds no new removals.
 A complete finer cover for [4,5,10] removes 157 child cells and adds 151,808
 certified pair conflicts. Its distinct tree remains open at the frozen limit;
 a complete component-union scan adds no further edge. Four coarse witnesses,
-twenty-one coarse cutoff cases and this refined cutoff remain. New child covers
-and root clique bounds for the other 25 arrangements are next. All prior calls
-and bounded processes stay closed.
+twenty-one coarse cutoff cases and this refined cutoff remained. The other 25
+arrangements now have complete child covers, 2,794 certified child removals and
+6,172,577 new conflicts verified over 110,803,502 pairs. Their distinct trees
+retain 1,453 open leaves. All 26 refined arrangements remain unresolved.
+The corrected index audit and pre-graph failure are preserved. An independently
+checked Boolean certificate method is next; no SAT model or call has run.
+All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3819,3 +3823,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 refined continuous cover:** [independent cover, graph and tree audits](../benchmarks/results/h5-refined-cover-proofs-20261106.md) refine [4,5,10] from 646 retained parent boxes into 2,584 closed children without losing any boundary or source alias. Exact cog-distance proofs remove 157 children; the 2,427 retained cells have 151,808 newly verified conflicts, with every one of 2,943,951 unordered pairs audited. A fresh five-second tree verifies 1,185 records and 78,662 ordered removals but stops with 116 open leaves, so no further arrangement is excluded. The frontier remains 26: four coarse graph witnesses, twenty-one coarse cutoff cases and this refined cutoff. Separate complete fixed-core and refined component-union scans find zero additional removals/edges; neither triggers another tree. Complete preparations take 1.102050, 0.414443, 0.515050, 5.791520 and 1.940855 s with zero complete-case/process overrun. Next assess new complete child covers and root clique bounds for the other 25 surviving arrangements. All prior bounded processes stay closed; no placement/native call or full construction budget is claimed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%.
+
+
+**2026-11-06 H5 complete refined frontier:** [independent cover, every-pair and tree audits](../benchmarks/results/h5-frontier-refined-proofs-20261106.md) verify the other 25 survivors: 18,854 complete parent covers, 75,416 closed children and 2,794 exact cog-clearance removals. The 72,622 retained nodes have 6,172,577 new conflicts; all 110,803,502 unordered pairs and complete root clique bounds pass. A cover-audit metadata index error caused graph preflight to fail before any graph was constructed; the original audit/failure are preserved, audit-v2 corrects the index, and versioned graph preparation keeps the same caps. The 25 fresh joint trees verify 11,716 records and 666,103 removals but retain 1,453 open leaves, with no refined graph witness or new exclusion. Together with the earlier [4,5,10] cutoff, all 26 refined arrangements remain unresolved. Complete preparation costs are 10.539071, 0.316752 (failed preflight), 7.361615 and 44.052088 s; final complete-case/process caps pass. No placement/native call or full construction budget is claimed. The previous checkpoints reached main 3046006d after all six prior CI checks passed. Next assess an independently checked Boolean unsatisfiability certificate workflow; no SAT model or call has yet run. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; every prior bounded process stays closed.
