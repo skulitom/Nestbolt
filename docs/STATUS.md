@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [union and clearance domains](../benchmarks/results/h5-clearance-domain-proofs-20261106.md).
+Latest H5 evidence: [required-clearance pair exclusions](../benchmarks/results/h5-clearance-pair-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -35,8 +35,12 @@ eleven, leaving 28 choices (427 of 455 excluded): 10 necessary joint graph witne
 and 18 cutoff cases. Union subdivision and clearance-aware cog proofs remove
 50 more node occurrences across 27 cases, but exclude no further arrangement.
 The new trees retain nine necessary graph witnesses and eighteen cutoff cases;
-one unchanged case is carried forward. Exact clearance-aware pair conflicts
-are next. All prior calls and bounded processes stay closed.
+one unchanged case is carried forward. Another 22,610 required-clearance pair
+conflicts strengthen all 28 cases; complete trees exclude [0,5,13] and [5,9,10].
+There are now 26 choices (429 of 455 excluded at required 0.2 mm clearance;
+427 of those even at zero clearance): five necessary graph witnesses and
+twenty-one cutoff cases. Clearance-aware root pruning against the fixed core
+is next. All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3804,3 +3808,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 union and clearance domains:** [independent source and tree audits](../benchmarks/results/h5-clearance-domain-proofs-20261106.md) verify five node removals from exact polygon-union subdivision and 45 further removals using a 0.199 mm source-distance bound below the original 0.2 mm clearance. The combined domains strengthen 27 cases; the unchanged case is not rerun. Independent replay verifies 18,942 records and 564,916 ordered removals, with nine necessary graph witnesses and eighteen cutoff cases. No further whole arrangement is excluded: 28 remain, with 427 of 455 previously excluded. Complete preparations take 1.433914, 2.162237 and 18.790352 s; all complete-case/process caps pass. A versioned correction fixes the first clearance audit’s overlap wording; numerical checks were unchanged, and both versions remain preserved. Next assess exact clearance-aware pair conflicts using conservative square expansions of source-inner difference rectangles. No placement/native call or full construction budget is claimed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; all prior processes stay closed.
+
+
+**2026-11-06 H5 required-clearance pair exclusions:** [independent edge and tree audits](../benchmarks/results/h5-clearance-pair-proofs-20261106.md) verify 22,610 new pair conflicts across all 28 retained arrangements, using a 140 µm square whose Euclidean norm stays below the original 200 µm clearance. The two-family replay checks 15,668 records and 559,564 ordered removals. Complete trees exclude [0,5,13] and [5,9,10] at required 0.2 mm clearance, leaving 26 arrangements: five necessary graph witnesses and twenty-one cutoff cases. The total is 429 of 455 excluded at required clearance; only the earlier 427 are certified even at zero clearance. Thirteen edge scans complete and fifteen retain verified prefixes, without an augmentation-completeness claim. Complete preparations take 10.627570 and 22.117861 s, with zero complete-case/process overrun and no placement/native call. Next assess exact required-clearance root pruning against the 29 fixed original core rectangles. The previous two checkpoints were pushed normally to main e7585660 after all six prior CI checks passed; the new run is underway. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; every bounded process stays closed.
