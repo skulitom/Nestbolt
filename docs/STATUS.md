@@ -1,14 +1,16 @@
-# Status — 2026-11-04
+# Status — 2026-11-06
 
 ## v1.1 — real shop files
 
-Repository reconciliation preserves main's new ornament example and README.
+Repository reconciliation preserves main's ornament example, agent setup,
+LightBurn/offcut comparison and shared site navigation, including all 52 files
+added or updated during the pause.
 The [Linux CI recovery](../benchmarks/results/ci-python-runner-recovery-20261104.md)
 pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [mandatory-clique continuous exclusions](../benchmarks/results/h5-mandatory-clique-exclusions-20261104.md).
+Latest H5 evidence: [complete frontier proof](../benchmarks/results/h5-full-frontier-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -22,9 +24,10 @@ overruns. Joint bounds verify all 259 broader choices and exclude none; the
 largest joint-area choice [0,4,14] has its own audited closed polygon call.
 New exact continuous conflict proofs exclude [0,4,14], [5,11,13] and [5,11,14].
 All 549 possible insert-clique distributions reach independently replayed
-contradictions. The broader fixed29 frontier now has 256 choices (199 of 455
-excluded). Extending the complete bracket-clique bound to those survivors is
-next. All prior calls stay closed.
+contradictions. Extending the complete bracket-clique proof excludes another
+151 choices; mandatory consistency excludes 18 more. The broader fixed29
+frontier now has 87 choices (368 of 455 excluded). Insert pruning for the
+20 surviving eight-clique choices is next. All prior calls stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3768,3 +3771,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-04 H5 mandatory-clique continuous exclusions:** [independent complete-cover and contradiction proofs](../benchmarks/results/h5-mandatory-clique-exclusions-20261104.md) exclude fixed29 cog selections [0,4,14], [5,11,13] and [5,11,14] even at zero clearance. Eight certified bracket cliques make every group mandatory; exact consistency removes 232 bracket cells, then certified insert pruning leaves covers with 9/10/12 cliques. Every one of the 9/45/495 eight-insert-group selections reaches a replayed contradiction: 549 distributions, 4,618 ordered removals and 15,087 strict source-inner pair checks. Intermediate area bounds and all nine preparation processes are preserved; no placement solver or native call runs. The broader fixed29 frontier falls from 259 to 256 (199 of 455 excluded). Whole allocations remain 440; full66 checks and H2/H5 remain open at 60%. Next extend the cheap complete bracket-clique bound to all 256 survivors. All prior placement calls stay closed.
+
+
+**2026-11-06 H5 complete frontier proof and resumed reconciliation:** [the saved pre-pause audits](../benchmarks/results/h5-full-frontier-proofs-20261106.md) exclude 151 of 256 fixed29/cog choices through complete continuous bracket-clique bounds (43,535 cells and 1,027,915 strict source-inner pair certificates). Mandatory-clique consistency excludes another 18 of the 38 eight-clique choices (4,711 ordered removals, 60,792 pair certificates). The frontier is now 87, with 368 of 455 choices excluded; 20 have mandatory eight-clique survivors for the next insert proof. Complete preparation is 22.574358 + 0.752594 s, with no overruns, placement solver calls or native calls. All 52 remote README/comparison/navigation files from main bb27a0fe are preserved in the conflict-free reconciliation; all six main checks and Pages pass. Whole allocations remain 440 and H2/H5 remain open at 60%. No closed run was repeated.
