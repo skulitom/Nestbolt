@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [joint bracket/insert trees](../benchmarks/results/h5-joint-optional-trees-20261106.md).
+Latest H5 evidence: [exact union-augmented proofs](../benchmarks/results/h5-union-augmented-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -29,9 +29,11 @@ contradictions. Extending the complete bracket-clique proof excludes another
 frontier then has 87 choices. Insert pruning and complete joint-distribution
 proofs exclude another 15. Mandatory proof trees exclude four more, optional
 bracket trees exclude five, and joint bracket/insert trees exclude eleven.
-There are 52 remaining choices (403 of 455 excluded): 32 necessary joint graph
-witnesses and 20 cutoff cases. Exact union-based source-inner pair conflicts
-are the next method to assess. All prior calls and bounded processes stay closed.
+Exact component-union conflicts strengthen every remaining case; augmented
+joint trees exclude thirteen more. There are 39 remaining choices (416 of 455
+excluded): 27 necessary joint graph witnesses and 12 cutoff cases. Whole-cell
+collision proofs against original cog polygons are next. All prior calls and
+bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3790,3 +3792,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 joint bracket/insert trees:** [independent continuous-cover and joint replay](../benchmarks/results/h5-joint-optional-trees-20261106.md) verifies 21,067 complete insert cells, then 19,134 tree records, 9,590 mandatory covers and 444,620 ordered removals. Eleven complete trees exclude fixed29/cog choices, leaving 52 (403 of 455 excluded). Thirty-one new joint graph witnesses plus the independently rechecked prior witness remain necessary selections only; 20 cutoff cases retain explicit open leaves. No partial tree is an exclusion or a source placement. Complete preparations take 13.917995 and 34.529171 s; all complete-case/process caps pass. There are no placement solver/native calls or full construction budget claims. Next assess exact unions of source-inner collision rectangles for genuinely stronger pair conflicts; do not repeat a closed model without new certified constraints. All consumed preparation remains chargeable. Full66 checks, 440 whole allocations and H2/H5 stay open at 60%. Five prior-main CI jobs pass; the Windows native check is still live at report preparation.
+
+
+**2026-11-06 H5 exact union-augmented proofs:** [independent source and tree replay](../benchmarks/results/h5-union-augmented-proofs-20261106.md) verifies 22,639 additional source-inner conflicts across all 52 cases, preserving every continuous candidate cell. The stronger joint model has 20,162 audited records, 8,830 mandatory covers and 551,955 ordered removals. Thirteen complete trees exclude fixed29/cog choices, leaving 39 (416 of 455 excluded): 27 necessary graph witnesses and 12 cutoff cases. The initial probe audit count error and corrected separate audit are preserved; all 675 boundary controls pass. Seven partial edge scans supply only verified prefixes, with no augmentation-completeness claim. Complete preparation processes take 0.259107, 12.011483 and 18.865523 s; complete-case/process caps pass. No placement solver/native call or full construction budget claim is made. Next assess exact whole-cell collision proofs against original convex cog pieces; every current bounded process stays closed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; the pending push still awaits the live Windows native check and aggregate success.

@@ -1,0 +1,11 @@
+{
+  "utc_recorded": "2026-11-06T22:31:08.545915+00:00",
+  "failed_audit": "audit_h5_union_conflict_probe_20261106.py",
+  "failed_audit_sha256": "35ef7b002424e51e91e6a263fa20773e7c8867b649953434f37ac64dcd47bb10",
+  "observed_exit": "AssertionError",
+  "assertion": "len(controls)==711",
+  "actual_controls": 675,
+  "reason": "Clerical count error in the independent audit: 36 rectangles give630 distinct unordered pairs, so1 empty+36 singles+630 pairs+8 hand cases=675. Preparation was correct and remains closed.",
+  "preserved_failed_audit_directory": "output/h5-first57-union-conflict-probe-20261106/audit",
+  "repair": "Correct only the expected control counts and use a separate audit-v2 output directory. Re-audit the unchanged prepared evidence; do not rerun preparation."
+}
