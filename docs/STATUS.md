@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [required-clearance pair exclusions](../benchmarks/results/h5-clearance-pair-proofs-20261106.md).
+Latest H5 evidence: [refined continuous cover](../benchmarks/results/h5-refined-cover-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -39,8 +39,13 @@ one unchanged case is carried forward. Another 22,610 required-clearance pair
 conflicts strengthen all 28 cases; complete trees exclude [0,5,13] and [5,9,10].
 There are now 26 choices (429 of 455 excluded at required 0.2 mm clearance;
 427 of those even at zero clearance): five necessary graph witnesses and
-twenty-one cutoff cases. Clearance-aware root pruning against the fixed core
-is next. All prior calls and bounded processes stay closed.
+twenty-one cutoff cases. Fixed-core clearance pruning finds no new removals.
+A complete finer cover for [4,5,10] removes 157 child cells and adds 151,808
+certified pair conflicts. Its distinct tree remains open at the frozen limit;
+a complete component-union scan adds no further edge. Four coarse witnesses,
+twenty-one coarse cutoff cases and this refined cutoff remain. New child covers
+and root clique bounds for the other 25 arrangements are next. All prior calls
+and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3811,3 +3816,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 required-clearance pair exclusions:** [independent edge and tree audits](../benchmarks/results/h5-clearance-pair-proofs-20261106.md) verify 22,610 new pair conflicts across all 28 retained arrangements, using a 140 µm square whose Euclidean norm stays below the original 200 µm clearance. The two-family replay checks 15,668 records and 559,564 ordered removals. Complete trees exclude [0,5,13] and [5,9,10] at required 0.2 mm clearance, leaving 26 arrangements: five necessary graph witnesses and twenty-one cutoff cases. The total is 429 of 455 excluded at required clearance; only the earlier 427 are certified even at zero clearance. Thirteen edge scans complete and fifteen retain verified prefixes, without an augmentation-completeness claim. Complete preparations take 10.627570 and 22.117861 s, with zero complete-case/process overrun and no placement/native call. Next assess exact required-clearance root pruning against the 29 fixed original core rectangles. The previous two checkpoints were pushed normally to main e7585660 after all six prior CI checks passed; the new run is underway. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; every bounded process stays closed.
+
+
+**2026-11-06 H5 refined continuous cover:** [independent cover, graph and tree audits](../benchmarks/results/h5-refined-cover-proofs-20261106.md) refine [4,5,10] from 646 retained parent boxes into 2,584 closed children without losing any boundary or source alias. Exact cog-distance proofs remove 157 children; the 2,427 retained cells have 151,808 newly verified conflicts, with every one of 2,943,951 unordered pairs audited. A fresh five-second tree verifies 1,185 records and 78,662 ordered removals but stops with 116 open leaves, so no further arrangement is excluded. The frontier remains 26: four coarse graph witnesses, twenty-one coarse cutoff cases and this refined cutoff. Separate complete fixed-core and refined component-union scans find zero additional removals/edges; neither triggers another tree. Complete preparations take 1.102050, 0.414443, 0.515050, 5.791520 and 1.940855 s with zero complete-case/process overrun. Next assess new complete child covers and root clique bounds for the other 25 surviving arrangements. All prior bounded processes stay closed; no placement/native call or full construction budget is claimed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%.
