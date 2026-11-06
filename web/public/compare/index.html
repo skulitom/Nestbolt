@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nesting tools compared: Deepnest, SVGnest, Sparrow and MCP | Nestbolt</title>
-    <meta name="description" content="Nestbolt's comparison pages: the frozen benchmark against Deepnest, SVGnest and Sparrow, and which nesting tools an AI agent can call over MCP, a CLI or a library.">
+    <title>Nesting tools compared: Deepnest, SVGnest, Sparrow, MCP and LightBurn | Nestbolt</title>
+    <meta name="description" content="Nestbolt's comparisons: Deepnest, SVGnest and Sparrow benchmarked, nesting tools for AI agents, and LightBurn nesting without Pro.">
     <link rel="canonical" href="https://skulitom.github.io/Nestbolt/compare/">
     <link rel="stylesheet" href="../site.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Nestbolt">
-    <meta property="og:title" content="Nesting tools compared: Deepnest, SVGnest, Sparrow and MCP | Nestbolt">
-    <meta property="og:description" content="Nestbolt's comparison pages: the frozen benchmark against Deepnest, SVGnest and Sparrow, and which nesting tools an AI agent can call over MCP, a CLI or a library.">
+    <meta property="og:title" content="Nesting tools compared: Deepnest, SVGnest, Sparrow, MCP and LightBurn | Nestbolt">
+    <meta property="og:description" content="Nestbolt's comparisons: Deepnest, SVGnest and Sparrow benchmarked, nesting tools for AI agents, and LightBurn nesting without Pro.">
     <meta property="og:url" content="https://skulitom.github.io/Nestbolt/compare/">
     <meta property="og:image" content="https://skulitom.github.io/Nestbolt/og/deepnest-alternative.png">
     <meta property="og:image:width" content="1200">
@@ -26,9 +26,9 @@
           "@type": "CollectionPage",
           "@id": "https://skulitom.github.io/Nestbolt/compare/#page",
           "name": "Nestbolt comparisons",
-          "description": "Nestbolt's comparison pages: the frozen benchmark against Deepnest, SVGnest and Sparrow, and which nesting tools an AI agent can call over MCP, a CLI or a library.",
+          "description": "Nestbolt's comparisons: Deepnest, SVGnest and Sparrow benchmarked, nesting tools for AI agents, and LightBurn nesting without Pro.",
           "url": "https://skulitom.github.io/Nestbolt/compare/",
-          "dateModified": "2026-10-21",
+          "dateModified": "2026-11-05",
           "isPartOf": {
             "@type": "WebSite",
             "@id": "https://skulitom.github.io/Nestbolt/#website",
@@ -52,6 +52,12 @@
                 "position": 2,
                 "url": "https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/",
                 "name": "Nesting for AI agents: Nestbolt, OpenNest, pyFit, Sparrow and Deepnest compared"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "url": "https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/",
+                "name": "LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared"
               }
             ]
           }
@@ -105,11 +111,13 @@
     <main id="main">
       <article>
         <h1>Nestbolt comparisons</h1>
-        <p>We make Nestbolt. Two pages compare it with other nesting tools. The Deepnest alternative page gives the material use measured in Nestbolt's frozen benchmark against Deepnest, SVGnest and Sparrow, with the date of the run. The nesting for AI agents page lists which nesting tools an AI agent can call through an MCP server, a command line or a library; it says which numbers we measured and which we read from the other tools' own pages, and when it was last checked.</p>
+        <p>We make Nestbolt. Three pages compare it with other nesting tools. The Deepnest alternative page gives the material use measured in Nestbolt's frozen benchmark against Deepnest, SVGnest and Sparrow, with the date of the run. The nesting for AI agents page lists which nesting tools an AI agent can call through an MCP server, a command line or a library; it says which numbers we measured and which we read from the other tools' own pages, and when it was last checked. The LightBurn page sets out the nesting options for LightBurn users without Pro, from LightBurn's own docs, with a measured run of Nestbolt's LightBurn preview.</p>
         <h2><a href="../deepnest-alternative/">A Deepnest alternative, with the benchmark to inspect</a></h2>
         <p>In Nestbolt's frozen v1 benchmark (build <code>75cbb32</code>, final acceptance run of 2026-10-13), Nestbolt used 8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow at equal 60-second budgets, and 9.6% at 300 seconds on the long subset. Sparrow, which Nestbolt builds on, still wins 8 of the 56 jobs at 60 seconds. The page explains how the benchmark was run and where Sparrow wins. The <a href="../results/">results page</a> has every per-job number.</p>
         <h2><a href="nesting-for-ai-agents/">Nesting for AI agents: Nestbolt, OpenNest, pyFit, Sparrow and Deepnest compared</a></h2>
         <p>Checked 2026-10-20. Reading the tools' repositories, four MCP directories and GitHub search, we found three open-source nesting tools that an AI agent can call over MCP: Nestbolt (5 tools, SVG and DXF in), OpenNest by ajisaacs (19 tools, DXF in, built from source) and pyFit (4 tools). SmartCut is a hosted, paid MCP service. Sparrow, CLI-nesting and sheetnest have command lines, while Deepnest and SVGnest have none. We ran only Nestbolt: three fresh v0.1.0 MCP servers nested its example job six times, placing 32 of 32 parts on one sheet each time, and all six layouts were byte-identical. Everything about the other tools comes from their own documentation.</p>
+        <h2><a href="lightburn-nesting-without-pro/">LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared</a></h2>
+        <p>Checked 2026-11-05. In LightBurn 2.2, True Nest needs a Pro licence ($199, or a $100 upgrade from Core); Core has Quick Nest, which packs bounding rectangles, and SVGNest (External), which uses the SVGnest.com website. LightBurn's feature board marks nesting around used areas of a sheet "Completed for v2.3". We ran Nestbolt's free v0.2.0-alpha.1 preview on a three-layer LightBurn project of engraved ornaments: 18 on one 12 × 12 inch sheet, 13 on a traced offcut and 11 on a partly used sheet with two holes, each written back as an editable <code>.lbrn2</code> with every layer kept, checked by our own script. LightBurn was not run; its facts come from its own docs, forum and feature-request board.</p>
         <p>The hosted browser app runs a preview build from main; <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0">stable v0.1.0</a> remains a download.</p>
         <h2>Comparisons for our other tools</h2>
         <ul>
@@ -119,6 +127,37 @@
           <li><a href="https://skulitom.github.io/Cutbolt/compare/local-video-editing-mcp-servers/">Local video editing MCP servers for AI agents</a> (Cutbolt, checked 2026-10-17)</li>
           <li><a href="https://skulitom.github.io/Inkbolt/compare/svg-vector-editing-mcp-servers/">SVG and vector editing MCP servers for AI agents</a> (Inkbolt, checked 2026-10-18)</li>
         </ul>
+        <!-- nestbolt-all-pages:start -->
+        <nav class="all-pages" aria-labelledby="all-pages-heading">
+          <h2 id="all-pages-heading">All Nestbolt pages</h2>
+          <p><a href="../">Open the Nestbolt app</a>: free nesting in your browser; files never leave your device. See also the <a href="../results/">benchmark results</a>.</p>
+          <h3>Guides</h3>
+          <ul>
+            <li><a href="../free-nesting-software-laser-cutting/">Free nesting software for laser cutting and CNC</a></li>
+            <li><a href="../nest-svg-dxf-in-browser/">Nest SVG and DXF parts in your browser</a></li>
+          </ul>
+          <h3>Comparisons</h3>
+          <ul>
+            <li><span aria-current="page">Nestbolt comparisons (this page)</span></li>
+            <li><a href="../deepnest-alternative/">A Deepnest alternative, with the benchmark to inspect</a></li>
+            <li><a href="nesting-for-ai-agents/">Nesting for AI agents: Nestbolt, OpenNest, pyFit, Sparrow and Deepnest compared</a></li>
+            <li><a href="lightburn-nesting-without-pro/">LightBurn nesting without Pro, including onto offcuts: True Nest, Quick Nest and Nestbolt compared</a></li>
+          </ul>
+          <h3>Examples</h3>
+          <ul>
+            <li><a href="../nesting-examples/">Five nesting examples to try in your browser</a></li>
+            <li><a href="../nesting-examples/finger-jointed-boxes/">Nest two finger-jointed boxes</a></li>
+            <li><a href="../nesting-examples/letters-inside-letters/">Nest small letters inside larger letters</a></li>
+            <li><a href="../nesting-examples/mechanical-parts-kit/">Nest a mechanical kit on a plywood sheet</a></li>
+            <li><a href="../nesting-examples/sewing-pattern-fabric-roll/">Nest a sewing pattern with grain constraints</a></li>
+            <li><a href="../nesting-examples/interlocking-gears/">Nest gears with free rotation</a></li>
+            <li><a href="../nesting-examples/agent-drawn-key-rack/">Nest a key rack an AI agent drew in Inkbolt</a></li>
+            <li><a href="../nesting-examples/nest-parts-onto-scrap-offcut/">Nest parts onto a scrap or offcut</a></li>
+            <li><a href="../nesting-examples/nest-laser-cut-kit-keep-layers/">Nest a laser-cut kit onto your plywood sheets and keep its layers</a></li>
+            <li><a href="../nesting-examples/nest-christmas-ornaments-on-one-sheet/">How many ornaments fit on a 12 × 12 inch sheet?</a></li>
+          </ul>
+        </nav>
+        <!-- nestbolt-all-pages:end -->
       </article>
     </main>
     <footer>

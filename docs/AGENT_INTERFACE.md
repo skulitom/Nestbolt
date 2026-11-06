@@ -82,7 +82,10 @@ For Codex:
 [mcp_servers.nestbolt]
 command = 'C:\DEV\Nestbolt\target\release\nestbolt-mcp.exe'
 env = { NESTBOLT_WORKSPACE = 'C:\path\to\your\cutting\files' }
+tool_timeout_sec = 330
 ```
+
+`nest` can run for up to 300 seconds; `tool_timeout_sec` lets Codex wait a little longer than that.
 
 **Or install the Claude Code plugin.** It registers the server and a `nestbolt` skill that tells
 the agent when and how to nest. It starts `nestbolt-mcp` from your PATH and doesn't install it:
@@ -98,6 +101,11 @@ fetches only the `plugin/` folder rather than cloning the repository and its ben
 
 Restart Claude Code. The workspace is the folder Claude Code was started in. Use the plugin or
 `claude mcp add`, not both.
+
+**Other clients.** The README's [use from agents](../README.md#use-from-agents) section has
+configuration for Kimi Code CLI, OpenCode and DeepSeek Harness (checked on Windows on 2026-11-05; for
+DeepSeek Harness, only that it accepts the configuration), and shows how to install the `nestbolt` skill
+for other agents with `npx skills add skulitom/nestbolt-plugin`.
 
 ## Evidence and remaining acceptance
 
