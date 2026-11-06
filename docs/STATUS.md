@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete deferred proof trees](../benchmarks/results/h5-deferred-conflict-tree-20261106.md).
+Latest H5 evidence: [optional bracket trees](../benchmarks/results/h5-optional-bracket-trees-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -27,9 +27,10 @@ All 549 possible insert-clique distributions reach independently replayed
 contradictions. Extending the complete bracket-clique proof excludes another
 151 choices; mandatory consistency excludes 18 more. The broader fixed29
 frontier then has 87 choices. Insert pruning and complete joint-distribution
-proofs exclude another 15. Complete proof trees exclude four more, leaving
-68 choices (387 of 455 excluded). Case [4,9,14] has an unresolved necessary-graph
-witness; 67 have larger bracket-clique bounds for a new optional-clique proof.
+proofs exclude another 15. Mandatory proof trees exclude four more, and optional
+bracket trees exclude five, leaving 63 choices (392 of 455 excluded). Sixty-one
+bracket-graph witnesses, one node-limited case and the earlier joint witness
+remain unresolved. Fresh complete joint bracket/insert proofs are next.
 All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
@@ -3783,3 +3784,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 complete deferred proof trees:** [independent integer tree replay](../benchmarks/results/h5-deferred-conflict-tree-20261106.md) verifies 79 records, 3,729 bracket removals, 183 insert removals and 17,340 source-inner pair evaluations. Complete branch contradictions exclude four fixed29/cog choices: [2,5,10], [3,5,10], [5,7,10] and [5,8,10]. The frontier is now 68 (387 of 455 excluded). The fifth case [4,9,14] retains a necessary-graph witness and 13 open leaves; it is not a source placement or an exclusion. Complete preparation takes 0.467354 s, with no overrun, placement solver or native call. Next assess optional-clique proof trees on the 67 broader bracket covers; all current bounded processes stay closed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%. Main 8a765828 has four passing checks and two native checks still running at report preparation; the next normal push waits for all six and the aggregate result.
+
+
+**2026-11-06 H5 optional bracket trees:** [independent complete-cover replay](../benchmarks/results/h5-optional-bracket-trees-20261106.md) verifies 10,967 tree records, 2,380 branching cliques and 6,858 closed count leaves across all 67 broader bracket cases. Complete trees exclude [1,11,12], [2,11,12], [3,11,12], [8,9,14] and [8,11,12], leaving 63 fixed29/cog choices (392 of 455 excluded). Sixty-one cases retain necessary bracket-graph witnesses; [9,10,14] reaches the frozen 5,000-node limit with 32 open leaves. Neither outcome is a source placement or an exclusion, and the limited process stays closed. Complete preparation/audit take 6.176453/2.258178 s, with no time overrun, placement solver or native call. A new joint bracket/insert necessary graph is next, with complete covers, fresh limits and independent replay. All consumed preparation must be charged before any later construction claim. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; the next push still waits for the prior main run to finish successfully.
