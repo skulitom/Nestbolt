@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [exact union-augmented proofs](../benchmarks/results/h5-union-augmented-proofs-20261106.md).
+Latest H5 evidence: [original-source cog pruning](../benchmarks/results/h5-source-cog-pruned-proofs-20261106.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -29,11 +29,11 @@ contradictions. Extending the complete bracket-clique proof excludes another
 frontier then has 87 choices. Insert pruning and complete joint-distribution
 proofs exclude another 15. Mandatory proof trees exclude four more, optional
 bracket trees exclude five, and joint bracket/insert trees exclude eleven.
-Exact component-union conflicts strengthen every remaining case; augmented
-joint trees exclude thirteen more. There are 39 remaining choices (416 of 455
-excluded): 27 necessary joint graph witnesses and 12 cutoff cases. Whole-cell
-collision proofs against original cog polygons are next. All prior calls and
-bounded processes stay closed.
+Exact component-union conflicts exclude thirteen more. Original cog polygon
+proofs remove 847 impossible node occurrences; new joint trees exclude another
+eleven, leaving 28 choices (427 of 455 excluded): 10 necessary joint graph witnesses
+and 18 cutoff cases. Exact subdivision proofs for unions of source collision
+polygons are next. All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
 The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
@@ -3795,3 +3795,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 exact union-augmented proofs:** [independent source and tree replay](../benchmarks/results/h5-union-augmented-proofs-20261106.md) verifies 22,639 additional source-inner conflicts across all 52 cases, preserving every continuous candidate cell. The stronger joint model has 20,162 audited records, 8,830 mandatory covers and 551,955 ordered removals. Thirteen complete trees exclude fixed29/cog choices, leaving 39 (416 of 455 excluded): 27 necessary graph witnesses and 12 cutoff cases. The initial probe audit count error and corrected separate audit are preserved; all 675 boundary controls pass. Seven partial edge scans supply only verified prefixes, with no augmentation-completeness claim. Complete preparation processes take 0.259107, 12.011483 and 18.865523 s; complete-case/process caps pass. No placement solver/native call or full construction budget claim is made. Next assess exact whole-cell collision proofs against original convex cog pieces; every current bounded process stays closed. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; the pending push still awaits the live Windows native check and aggregate success.
+
+
+**2026-11-06 H5 original-source cog pruning:** [independent exact source and tree replay](../benchmarks/results/h5-source-cog-pruned-proofs-20261106.md) verifies 378 convex collision polygons, 173 closed-cell certificates and 847 removed node occurrences across all 39 arrangements. All unproved cells and source aliases remain. The new retained-domain trees verify 19,443 records and 598,126 ordered removals; eleven complete trees exclude fixed29/cog choices, leaving 28 (427 of 455 excluded). Ten necessary graph witnesses and eighteen cutoff cases remain unresolved. Complete preparations take 0.931841 and 20.396204 s with no complete-case/process overrun or placement/native call. Next assess bounded exact subdivision proofs of coverage by unions of original-source collision polygons; incomplete cells must remain retained. No full construction budget is claimed and every prior process stays closed. The previous five checkpoints were pushed normally to main f543f082 after all six prior CI jobs passed; new CI has four passes and two live native checks. Full66 checks, 440 whole allocations and H2/H5 stay open at 60%.
