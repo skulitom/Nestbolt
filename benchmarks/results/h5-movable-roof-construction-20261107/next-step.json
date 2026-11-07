@@ -1,0 +1,31 @@
+{
+  "status": "larger_movable_frame_group_source_preflight_required",
+  "proposal": "Assess freeing frame copies12..17, including the upper four base frames and both roof frames; retain only frame copies0..11 plus the15 short-sheet originals as fixed.",
+  "reason": "In the current best candidate both moving frames remain at their base-imposed lower y bound, and their negative local objective gradients point below that bound. Five moving-frame pairs still fail. This describes these candidates only and does not prove the smaller model infeasible.",
+  "proposed_inventory": {
+    "fixed_originals": 27,
+    "moving_originals": 39,
+    "moving_frame_copies": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "center_parameters": 78,
+    "continuous_cog_angles": 15,
+    "continuous_parameters": 93,
+    "moving_pairs": 741
+  },
+  "requirements": [
+    "Reconstruct the twelve-frame fixed core and all six newly movable frame source poses from original geometry, with legal quarter turns and no mirroring. Keep source holes and common-line PIHoff intact.",
+    "Certify new source-safe domains against the smaller fixed core and audit the changed39-owner/93-parameter/741-pair mapping. Do not reuse the35-owner readback unchanged.",
+    "Prepare one fresh complete source-only initializer, charge all consumed source lineage and new preparation, and independently verify geometry, gradients, inventory, bounds and the complete model before a bounded call.",
+    "No optimized current or historical candidate may reset its clock. All closed35-owner and fixed-roof pipelines remain closed. The older39-mover construction had different fixed parts and is not this proposed frame-mobility model."
+  ],
+  "new_source_geometry_prepared": false,
+  "new_complete_model_prepared": false,
+  "new_optimizer_calls": 0,
+  "H5_complete": false
+}

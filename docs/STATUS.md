@@ -10,24 +10,25 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [mixed-roof joint choices](../benchmarks/results/h5-mixed-roof-joint-construction-20261107.md).
-The expanded model includes 159 single-owner, 3,888 bracket/insert and 1,620
-bracket/cog choices. Independent full scoring verifies every initial proposal.
-Three new calls and 17,001 scores close with 49 failing original pairs and
-42,163.183280 mm² overlap in the best candidate. Every fixed-part and stock
-check passes. All 379 retained points replay and 448 recorded evaluations reconcile with
-the counters; the worse third candidate is preserved. Algorithm/shared totals are 55.057091/55.132215 s
-including 13.055456 s preparation. All processes close and slice overruns remain
-recorded. No full66 witness, native call or allocation exclusion follows.
-Next assess freeing the two roof frames, yielding 35 movers, 85 parameters and
-595 moving pairs. New source domains, model and initializer require independent
-verification; none is prepared. All six fixed-roof calls remain closed.
-Four earlier fixed arrangements and 440 allocations remain; H2/H5 stay open
-at 60% completed milestone weight. Main 61ae8141 now includes both preceding
-checkpoints after all six prior checks passed, preserving all 52 remote files.
-Fresh CI is running; this checkpoint awaits the ordinary push gate. Full66
-source/native/material checks, production parity and the unchanged H5 matrix
-remain required. No release qualifies.
+Latest H5 evidence: [movable roof frames](../benchmarks/results/h5-movable-roof-construction-20261107.md).
+The broader model frees both top frames, with 35 moving parts, 85 parameters
+and 595 pair interactions. Source/model audits verify all 8,262 initializer
+trials, 125 owner options and 340 derivative samples. Three distinct calls and
+123 mode trials close at the declared limit. All 380 retained points replay
+and 469 recorded evaluations reconcile. The best candidate still fails 52
+original pairs, with 32,645.952364 mm² overlap; fixed-part and stock checks pass.
+Algorithm/shared totals are 54.899362/54.970363 s including 7.951382 s preparation.
+All processes close and all slice overruns remain preserved. No full66 witness,
+native call or allocation exclusion follows. The two frames move at most
+0.004160 mm and reach their lower y bounds; five frame-related pairs still fail.
+Next assess freeing frame copies12–17, which requires newly certified domains
+and a 39-mover/93-parameter/741-pair model. No successor geometry is prepared.
+All closed calls remain closed. Four earlier fixed arrangements and 440
+allocations remain; H2/H5 stay at 60% completed milestone weight.
+Main61ae8141 has five passed jobs and a live Windows native job. Checkpoint
+4b666d51 and this checkpoint await the ordinary push gate. Full66 source/native/
+material checks, production parity and the unchanged H5 matrix remain required.
+No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3937,3 +3938,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 mixed-roof joint choices:** [independent neighbor/model/response audits](../benchmarks/results/h5-mixed-roof-joint-construction-20261107.md) verify all 5,667 distinct choices: 159 singles, 3,888 bracket/insert and 1,620 bracket/cog joint moves, retaining actual cog angles. All 5,668 initial full scores agree within 6.12e-10 mm². The best initial joint vector is already closed and remains excluded. Three new calls and 17,001 proposal scores close at the declared limit; 379 retained points replay, with 448 recorded evaluations reconciled. Call 1 remains best with 49 failing pairs and 42,163.183280 mm² overlap; all fixed-part and stock checks pass. The worse third candidate is preserved. Complete preparation is 13.055456 s and algorithm/shared totals are 55.057091/55.132215 s. All slice overruns are retained and all processes close. No native call or allocation exclusion follows. Next assess a source model freeing both roof frames, with 35 movers, 85 parameters and 595 pairs against newly certified base-only hard domains; no new geometry or model is prepared. All six current fixed-roof calls stay closed. Four earlier fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. The previous two checkpoints reached main 61ae8141 normally after all six prior checks passed, preserving 52 remote files; fresh CI is running. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 movable roof frames:** [independent source/model/response audits](../benchmarks/results/h5-movable-roof-construction-20261107.md) verify two newly movable frame originals, 44 atomic cells, 27 exact supports, 620 source corner controls and sixteen frame-clearance supports. The 35-mover/85-parameter model scores all 595 moving pairs. One fresh initializer replays 8,262 trials; checks cover 125 owner options, 91 vectors, 114 equivalence pairs and 340 derivative samples. Three distinct calls and 123 mode trials close at the declared limit; 380 retained points replay and 469 recorded evaluations reconcile. The best candidate still fails 52 original pairs with 32,645.952364 mm² overlap; all fixed-part and stock checks pass. Complete preparation is 7.951382 s and algorithm/shared totals are 54.899362/54.970363 s. All slice overruns are retained and all processes close. A read-only diagnostic finds frame motions of 0 and 0.004160 mm, both at their lower y bounds with downward local descent blocked; five frame-related pairs contribute 5,177.537220 mm² overlap. These are candidate observations, not an infeasibility proof. Next assess freeing original frame copies12–17, requiring new domains and a 39-mover/93-parameter/741-pair model; no new geometry or call is prepared. Four earlier fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main61ae8141 has five passed jobs and a live Windows native job; 4b666d51 and this checkpoint await the ordinary push gate. Production, README and releases are unchanged.
