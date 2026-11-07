@@ -1,0 +1,11 @@
+{
+  "preserved_original_verifier_sha256": "726f7f085afd4999e7a6e64998c02c569e6188bdf4c588e55ab22a5f96947b27",
+  "original_preserved_as": "helpers/verify_h5_cross_pair_checkpoint_20261107.py in raw archive",
+  "observed_failure": "AssertionError: h5-cross-pair-boundary-preflight-20261107/archive-checks.json",
+  "cause": "The report linked to the archive-check result that this verifier writes only after checking links. All preceding archive/source checks passed; the result did not yet exist.",
+  "correction": "Version2 defers only its own result link until after writing and reading back that result; every other link is checked beforehand. Root discovery permits this committed helper to run from its artifact directory. Raw archive, numerical evidence, timings and source bindings are unchanged.",
+  "corrected_verifier": "verify-archive-v2.py",
+  "corrected_verifier_sha256": "4695220d22e011a83c9091b49cb6082dcdfaa0081ae450d5d45fec0b90032b7a",
+  "archive_manifest_sha256": "a4407dc09c8083f8f6488511f1c50e43e3d8b898e6c0cf2efae4591e84144e77",
+  "numerical_or_timing_reruns": 0
+}

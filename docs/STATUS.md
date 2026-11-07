@@ -10,25 +10,22 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [weighted mixed-row construction](../benchmarks/results/h5-weighted-mixed-rows-construction-20261107.md).
-The exact original/clearance model retains every pair and all hard stock/fixed
-domains. Bounded positive weights cannot hide an overlap. Independent checks
-verify 7,920 update coefficients, 147 mode scores and 324 derivative samples;
-the original checker rounding failure and exact correction remain preserved.
-Four distinct weighted problems close at their declared limit. All 388 retained
-points and eight full66 winner readbacks replay; 455 evaluation counters and
-1,584 runtime coefficients reconcile. The best unweighted candidate still
-fails 49 pairs with 28,207.754973 mm² overlap; all fixed/stock checks pass.
-Complete preparation is 9.437444 s and algorithm/shared totals are
-54.481227/54.556267 s, with all processes closed and overruns retained.
-No full66 witness, native call or allocation exclusion follows. Next assess
-cross-pair batching of exact boundary integration through numerical controls
-and alternating timings only; no new kernel or optimizer is prepared.
-Four earlier arrangements and 440 allocations remain. H2/H5 stay at 60%
-completed milestone weight. Both prior checkpoints reached main d8aa6a90 after
-all six previous CI jobs passed, preserving all 52 protected remote files.
-Fresh main CI42366837555 is queued at the receipt; this checkpoint awaits the
-ordinary push gate. Product code, README and releases are unchanged.
+Latest H5 evidence: [cross-pair boundary preflight](../benchmarks/results/h5-cross-pair-boundary-preflight-20261107.md).
+The batched research evaluator passes 842 scalar/vector interaction controls,
+405 weighted coordinates and 810 central samples, including weight 64.
+Eighty alternating measurements on four frozen cases show 1.4252–1.5082×
+median speedups. The original affinity-check ABI failure and typed correction
+remain preserved; kernels, cases and tolerances stay unchanged. All three
+validation jobs close. No optimizer runs or candidate changes.
+The prior weighted search remains closed and invalid: 49 source pair failures,
+28,207.754973 mm² overlap, with fixed-part and stock checks passing.
+Next independently assess weighted two-owner physical-mode proposals from
+the unoptimized source initializer; no new selector or search is prepared.
+Faster evaluation alone cannot reopen any closed call. Four earlier fixed
+arrangements and 440 allocations remain. H2/H5 stay at 60% completed milestone
+weight. Main d8aa6a90 has four passed jobs and two live native CI checks at
+review; 0af0c522 and this checkpoint await the ordinary push gate.
+Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3950,3 +3947,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 weighted mixed-row construction:** [independent weighted-model and response audits](../benchmarks/results/h5-weighted-mixed-rows-construction-20261107.md) retain all 528 original/clearance pair terms, hard stock/fixed domains and the unoptimized source initializer. Positive weights in [1,64] preserve zero-overlap equivalence. The original verifier rounding failure remains preserved; exact rational reconstruction reproduces all 7,920 update coefficients, with 79 old-order differences of at most two binary64 steps and no model change. Model checks cover 147 mode scores, 132 scalar gradient terms, 324 central samples, 528 positive-term controls and thirteen corruptions. Four distinct weighted problems and 237 proposal scores close at the declared epoch limit; 1,584 runtime coefficients, 388 retained points, 455 evaluation counters and both winners in all four epochs replay. The best unweighted candidate still fails 49 pairs with 28,207.754973 mm² original overlap; fixed-part and stock checks pass. Complete preparation is 9.437444 s and algorithm/shared totals are 54.481227/54.556267 s; all slice overruns remain and every process closes. No native call or exclusion follows. Next independently assess cross-pair batching of the exact boundary integral, with frozen-case numerical checks and alternating timings only; no new kernel or optimizer exists and no closed call may resume. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoints 15f55b9a and d8aa6a90 reached main normally after all six prior CI checks passed, preserving 52 remote files; fresh CI42366837555 is queued at the push receipt. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 cross-pair boundary preflight:** [frozen numerical and timing audits](../benchmarks/results/h5-cross-pair-boundary-preflight-20261107.md) verify 842 directed integrals, 405 weighted coordinates and 810 central samples, including maximum weight 64. Nine polygon controls, three empty batches and two nested-collection permutations preserve edge/interaction/owner mappings and shared-boundary conventions. The first Windows affinity-check ABI failure is preserved; typed HANDLE signatures correct only observation/output paths, with kernels, cases and tolerances unchanged. Eighty alternating samples on four fixed cases show 1.4252–1.5082× median research-evaluator speedups under CCD1/one BLAS thread. The passing wrapper takes 34.325079s and all three validation stage jobs close. No optimizer, candidate mutation, native call or exclusion occurs. Next independently assess exact weighted two-owner mode proposals from the unoptimized source initializer; no new selector or search exists, and faster evaluation cannot reopen a closed call. The prior best still fails 49 pairs with 28,207.754973 mm² overlap; four earlier arrangements and 440 allocations remain. H2/H5 stay open at 60%. Main d8aa6a90 has four passed CI jobs and both native jobs running at review; 0af0c522 and this checkpoint await the ordinary push gate. Product code, README and releases are unchanged.
