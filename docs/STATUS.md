@@ -10,18 +10,19 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [runtime profile and direct four-row source](../benchmarks/results/h5-runtime-profile-and-four-row-source-20261107.md).
-The complete time ledger reconciles and all120 recorded evaluations replay
-exactly twice. A batched bulk pilot still loses on complete cost; the verified
-screened per-edge kernel remains. One direct original-source4/4/4/3 arrangement
-has39 full-source pair failures, including10 cog/cog overlaps, and a worse
-objective than original A/W. All66 source parts and all81 scalar gradients
-independently check. Changed-context score reuse is rejected and the source
-key is already closed; no optimizer call follows. Next inspect diagonal source
-contact geometry. Consuming this preparation makes the lineage40.933948s.
-All25 keys stay closed. Four arrangements and440 allocations remain unresolved;
-H2/H5 remain open at60%. Main b4e16c74 has5 passed/1 live jobs at review.
-Product code, README and releases are unchanged.
+Latest H5 evidence: [four-row contact phase and companion spaces](../benchmarks/results/h5-four-row-contact-phase-and-companion-spaces-20261107.md).
+A source-derived 2.25-degree phase removes all ten cog contacts and gives a
+valid 48-part core. All 105 cog pairs independently pass; the full66 state still
+fails 29 pairs. All 16 conservative companion cells replay and 227 individual
+poses pass original49 checks, but an exact occupied-area bound allows at most
+three brackets within those regions, versus six required. That construction
+is rejected; unrestricted source placements are not excluded. Next establish
+a necessary outer cover before a fixed-core exclusion. The serialization
+failure and correction are preserved; consumed preparation totals 43.051420 s.
+No optimizer runs; all 25 keys stay closed. Four earlier arrangements and 440
+whole allocations remain. H2/H5 stay open at 60%. Three preceding checkpoints
+reached main bf239548 normally after all six prior checks passed. Its fresh CI
+has 5 passed / 1 live jobs at review. Product and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4009,3 +4010,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 runtime and four-row source:** [independent time/profile/source checks](../benchmarks/results/h5-runtime-profile-and-four-row-source-20261107.md) reconcile all11 intervals and240 exact evaluation replays. The closed run has40.438637s preparation,7.650560s optimizer work and6.363036s other algorithm work. Intersections dominate instrumented time. A batched bulk pilot matches20 controls but takes1.771 times the complete current-kernel cost and is rejected. One direct original-source4/4/4/3 arrangement preserves all15 angles but has39 full-source pair failures, including10 cog/cog overlaps, and worsens the objective from244577.060782 to334586.901596mm2. All81 scalar gradients and all66 source parts independently check; changed-context cache reuse is rejected. Its key was already closed, so no optimizer call follows. Consuming the0.495311s preparation makes the source lineage40.933948s. Next inspect diagonal source-contact geometry before any successor. All25 keys, four unresolved arrangements and440 allocations remain; H2/H5 stay open at60%. Main b4e16c74 has5 passed/1 live jobs at review.
+
+
+**2026-11-07 H5 four-row contact phase:** [independent source/contact/space audits](../benchmarks/results/h5-four-row-contact-phase-and-companion-spaces-20261107.md) verify one source-derived 2.25-degree phase, resolving all ten cog contacts and producing a valid 48-part core. All 105 cog pairs and 672,000 edge pairs pass an independent direct-distance check; minimum cog gap is 1.381413 mm. Full66 still fails 29 pairs. All 16 conservative companion cells, 12 templates and 5,928 hulls replay; 227 individual poses pass original49 checks. An exact 156256.130137 mm2 envelope allows at most three required brackets in these regions, below six needed. This construction is rejected, without excluding unrestricted source placements. The failed NumPy-boolean serialization, truncated query03 and corrected version are retained; consumed source preparation totals 43.051420 s. No optimizer runs and all 25 keys stay closed. Next establish a source-necessary outer cover before any fixed-core exclusion. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Three previous checkpoints reached main bf239548 after all six prior checks passed; new CI has 5 passed / 1 live jobs.

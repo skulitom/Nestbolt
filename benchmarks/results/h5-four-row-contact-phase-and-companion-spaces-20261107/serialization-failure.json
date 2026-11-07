@@ -1,0 +1,10 @@
+{
+  "reason": "A numpy.bool_ result was passed to json.dump without conversion; query03 stopped partway through. Queries00-02 are complete, with no proposals. No candidate selection ran.",
+  "failed_partial_json": "output/h5-four-row-companion-spaces-20261107/queries/03.json",
+  "failed_partial_sha256": "af1893f16edf62908ab2b97b356a9c7dcb28291a45606ef5c3c01bd3fc34ad72",
+  "failed_partial_bytes": 28411,
+  "json_error_position": 28411,
+  "failed_process_seconds": 0.5361506000626832,
+  "correction": "Convert only the persisted validity result to a built-in bool. Preserve the old process, inputs, templates and partial file. New process uses a separate v2 output directory and includes the failed preparation cost. No closed optimization/search is reopened.",
+  "initial_failure_location_assumption_corrected": "The first correction-preparation command expected query00 to be truncated and stopped before writing files or invoking geometry. Readback locates the actual truncated file at query03."
+}
