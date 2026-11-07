@@ -10,23 +10,21 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [source-only mixed-mode construction](../benchmarks/results/h5-mixed-direct-source-construction-20261107.md).
-Fresh source initialization, every legal bracket/insert mode and twelve continuous
-cog angles pass complete geometry, mode, stock and numerical controls. One bounded
-call lowers summed original overlap, but its candidate fails 41 pairs; all stock
-checks pass. None of 80 single-owner orientation changes improves it, closing the
-pipeline after 81 evaluations and 66 saved points. Preparation-inclusive algorithm/
-shared totals are 14.719117/14.791915 s; the 0.078549 s optimizer-slice overrun is preserved.
-The failed short-sheet preparation remains charged and unchanged; a new analytic
-tooth-phase construction produces a source-valid nine-part short sheet.
-Next assess a changed frame/free-insert construction with continuous cog angles,
-acknowledging that the frame topology has been tested before. Its new source domains,
-initializer and complete accounting must be verified before any call; none is prepared.
+Latest H5 evidence: [four-column source domains](../benchmarks/results/h5-four-column-source-domains-20261107.md).
+A changed frame/free-insert construction retains 27 source-valid fixed originals
+and leaves 39 movers with 12 continuous cog angles. All 29 allowed center regions
+pass 864 exact whole-cell source separation proofs and 132 source corner controls.
+The historical frame topology is acknowledged; earlier closed calls remain closed.
+Complete consumed preparation is 3.596640 s. Next freeze one deterministic initializer
+and complete 90-parameter model, then verify all mode, region, angle and pair bindings
+before a bounded search. No initializer, complete model or optimizer call is prepared.
+The preceding broader mixed-mode search closed with 41 source overlaps after one
+call and 80 unsuccessful orientation changes. No full layout or exclusion follows.
 Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%.
 Full source/native/material validation, production parity and the unchanged H5
-matrix remain required. Main 30a26572 contains the preceding two checkpoints.
-Five current CI jobs pass; Windows native CI is live. This checkpoint awaits the
-ordinary push gate. No release qualifies.
+matrix remain required. Main 30a26572 has five passed CI jobs and a live Windows
+native job. Checkpoint 007b7efc and this checkpoint await the ordinary push gate.
+No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3909,3 +3907,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 source-only mixed-mode construction:** [independent source/model/response audits](../benchmarks/results/h5-mixed-direct-source-construction-20261107.md) verify fresh original partitions, 9,344 clearance supports, all 2,400 initialization trials, 108 owner/mode bindings, 528 stock-corner controls and 162 full-pair scoring controls. A source-derived 6.75-degree tooth phase and 261.766 mm pitch produce a valid nine-part small sheet after four preserved phase failures. Complete failed-plus-corrected preparation is 2.988826 s. One ten-second call lowers summed original overlap from 143,568.273079 to 32,299.348636 mm², but all 66 source replay finds 41 overlapping pairs and no stock failures. All 80 subsequent orientation changes fail the strict improvement threshold, closing the pipeline. All 66 saved points and 81 evaluations replay. Algorithm/shared totals are 14.719117/14.791915 s; the 0.078549 s optimizer-slice overrun remains recorded and all processes close. No valid layout or exclusion follows. Historical four-column frame patterns are acknowledged; next assess a changed continuous-angle model that also frees eleven side-strip inserts, with new original-source domains and complete accounting before execution. No successor is prepared. Four fixed arrangements and 440 allocations remain, H2/H5 stay open at 60%, and all closed calls stay closed. Main30a26572 has five passed jobs and live Windows native CI at review. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 four-column source domains:** [independent original-source audits](../benchmarks/results/h5-four-column-source-domains-20261107.md) verify 27 fixed originals, 29 convex center regions, 864 exact whole-cell support proofs and 132 source corner controls. The changed construction frees nineteen inserts, eight brackets and twelve continuously rotating cogs: 39 movers, 152 owner/mode options, 90 continuous parameters and 741 mutual pairs still to satisfy. The four-column topology is historical; prior finite-angle and recent fixed-side-insert calls remain closed. The minimum certified fixed-frame gap is 0.229999999611 mm. Complete new preparation is 0.607814 s, bringing the consumed preparation charge to 3.596640 s. All processes close. Next freeze and verify one deterministic initializer and complete model; neither is prepared and no optimizer or native call opens. No full66 witness or exclusion follows. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Main30a26572 has five passed CI jobs and a live Windows native job; checkpoint007b7efc and this checkpoint await the ordinary push gate. Production, README and releases are unchanged.
