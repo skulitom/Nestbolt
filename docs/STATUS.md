@@ -10,19 +10,22 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [hard-cell continuous construction](../benchmarks/results/h5-hard-cell-continuous-construction-20261107.md).
-All fixed-part clearances and stock checks pass, but the final candidate still
-fails 30 source pairs with 18,638.988042 mm² overlap. The source-certified cells
-free eleven side inserts, leaving 33 movers and fifteen continuous cog angles.
-Independent audits replay the complete initializer, compound-domain equivalence,
-three bounded calls, 155 mode trials and 256 retained points. Preparation-inclusive
-algorithm/shared totals are 52.616504/52.686635 s. Every process is closed.
-The next investigation measures exact boundary-integration speed and assesses
-joint bracket/insert cell choices; no successor model or call is prepared.
-Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%
-completed milestone weight. Main c3af6112 includes the previous two checkpoints;
-its CI is still running at review. Full66 source/native/material checks,
-production parity and the unchanged H5 matrix remain required. No release qualifies.
+Latest H5 evidence: [vectorized gradients and joint cell choices](../benchmarks/results/h5-joint-cell-vector-construction-20261107.md).
+Exact boundary integration is 1.7243–2.0405× faster on four fixed research controls,
+with all numerical checks passing. The expanded single/joint neighborhood checks
+4,122 proposals and closes after three new physical configurations. Joint choices
+lose to single-owner changes in every round. Call 0 remains best with 30 failing
+source pairs and 18,450.266096 mm² overlap; fixed-part and stock checks pass.
+Independent replay verifies 539 retained points and 585 evaluation counters.
+Preparation-inclusive algorithm/shared totals are 53.378490/53.439519 s.
+Every process is closed. Next reconcile historical bracket/cog contacts before
+assessing original-outline contact translations beyond nearest-bound clamping.
+No successor geometry or call is prepared. Four fixed arrangements and 440
+allocations remain; H2/H5 stay open at 60% completed milestone weight.
+Main c3af6112 has five passed jobs and a running Windows native check; be75186f
+and this checkpoint await the ordinary push gate. Full66 source/native/material
+checks, production parity and the unchanged H5 matrix remain required.
+No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3920,3 +3923,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 hard-cell continuous construction:** [independent source/model/response audits](../benchmarks/results/h5-hard-cell-continuous-construction-20261107.md) verify 17 compound domains, 27 exact whole-cell support proofs, 147 owner bindings and 708 original-source corner controls. A preserved source preparation failure is corrected by projections of at most 4.242641 nanometres; the mistaken micrometre label is separately corrected without changing numerical bytes. The 33-mover/81-parameter model frees eleven side inserts and protects all fixed parts with hard bounds. One initializer replays 10,932 trials; compound equivalence preserves different cells. Three distinct calls and 155 mode trials close at the declared limit; 256 retained points and 289 evaluation counters replay. The final candidate still fails 30 source pairs, with 18,638.988042 mm² overlap; every fixed-part and stock check passes. Complete preparation is 9.121196 s and algorithm/shared totals are 52.616504/52.686635 s. All slice overruns are preserved and all processes close. No native call or exclusion follows. Next measure exact boundary-integration speed and assess joint bracket/insert cell changes; no successor model or call is prepared. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Both previous checkpoints reached main c3af6112 after all six prior checks passed; fresh CI is live. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 vectorized gradients and joint cell choices:** [independent numerical/model/response audits](../benchmarks/results/h5-joint-cell-vector-construction-20261107.md) verify 406 boundary terms, 81 central derivatives and 1,375 independently summed initial neighbor scores. Ten alternating timings on each of four fixed validation cases show 1.7243–2.0405× median research-kernel speedups. The expanded search checks 78 single-owner and 1,296 joint bracket/insert neighbors per round while excluding all three prior closed physical vectors. Three new calls and 4,122 scores close at the declared limit; 539 retained points and 585 evaluation counters replay. All selected changes affect one owner; joint alternatives score worse. Call 0 remains best with 30 failing pairs and 18,450.266096 mm² overlap, including 14,107.916224 mm² in eight bracket/cog pairs; fixed-part and stock checks all pass. Complete preparation is 9.533010 s and algorithm/shared totals are 53.378490/53.439519 s. All slice overruns and worse candidates are preserved; every process closes. No source-valid full66 layout, native call or exclusion follows. Next reconcile historical bracket/cog contacts before assessing source-outline contact translations beyond nearest-bound clamping; no successor geometry or call is prepared. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main c3af6112 has five passed jobs and a live Windows native job. Checkpoint be75186f and this checkpoint await the ordinary push gate. Production, README and releases are unchanged.
