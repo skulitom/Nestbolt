@@ -10,23 +10,23 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [direct original-source pose construction](../benchmarks/results/h5-direct-source-pose-construction-20261107.md).
-Fresh clearance geometry and a 68-parameter continuous-pose model pass exact
-source, all-angle stock, derivative and directional controls. One bounded
-call reduces actual overlap and failing pairs from 39 to 32, but its candidate still
-has 29 overlaps and three clearance failures. All stock checks pass. The call
-stops on time after 64 evaluations; no numerical convergence is invented.
-Complete algorithm/shared totals are 56.273396/56.340300 s including preparation.
-The 0.076065 s optimizer-slice overrun is preserved; overall limits pass.
-The consumed lineage leaves less than the required four-second source reserve,
-so it cannot continue. Next assess legal bracket/insert orientation choices
-in a genuinely broader model with independent original-source initialization
-and full accounting. No new initializer, model or call is prepared.
+Latest H5 evidence: [source-only mixed-mode construction](../benchmarks/results/h5-mixed-direct-source-construction-20261107.md).
+Fresh source initialization, every legal bracket/insert mode and twelve continuous
+cog angles pass complete geometry, mode, stock and numerical controls. One bounded
+call lowers summed original overlap, but its candidate fails 41 pairs; all stock
+checks pass. None of 80 single-owner orientation changes improves it, closing the
+pipeline after 81 evaluations and 66 saved points. Preparation-inclusive algorithm/
+shared totals are 14.719117/14.791915 s; the 0.078549 s optimizer-slice overrun is preserved.
+The failed short-sheet preparation remains charged and unchanged; a new analytic
+tooth-phase construction produces a source-valid nine-part short sheet.
+Next assess a changed frame/free-insert construction with continuous cog angles,
+acknowledging that the frame topology has been tested before. Its new source domains,
+initializer and complete accounting must be verified before any call; none is prepared.
 Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%.
-Full source/native/material validation, production parity and the unchanged
-H5 matrix remain required. Main 9118d6cb has five passed CI jobs and a live
-Windows native job. Checkpoint 0ae08d60 and this checkpoint await the ordinary
-push gate. No release qualifies.
+Full source/native/material validation, production parity and the unchanged H5
+matrix remain required. Main 30a26572 contains the preceding two checkpoints.
+Five current CI jobs pass; Windows native CI is live. This checkpoint awaits the
+ordinary push gate. No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3906,3 +3906,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 direct original-source pose construction:** [independent geometry/model/response audits](../benchmarks/results/h5-direct-source-pose-construction-20261107.md) verify 9,344 exact clearance supports, 68 continuous pose parameters, all 378 moving pairs and 208 source stock-corner controls. Controls cover 156 scalar/batched gradient comparisons, 136 central differences, six projected descent steps and four clearance cases. One bounded call stops on time after 64 evaluations and 51 improving points. Actual original overlap falls from 41,109.022811 to 27,392.624149 mm², but all 66 source replay still finds 29 overlaps and three clearance failures, with all stock edges passing. Complete preparation is 46.995655 s; algorithm/shared totals are 56.273396/56.340300 s and all processes close. The 0.076065 s optimizer-slice overrun remains recorded inside the overall limits. Only 3.659700 s remains in the consumed lineage, below the four-second source reserve, so no continuation or reset clock is allowed. Next assess a genuinely broader legal bracket/insert mode model with independently prepared source initialization and complete accounting; it is not yet built or run. Four fixed arrangements and 440 allocations remain, H2/H5 stay open at 60%, and all closed calls stay closed. Five main CI jobs pass; Windows native CI is live at review. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 source-only mixed-mode construction:** [independent source/model/response audits](../benchmarks/results/h5-mixed-direct-source-construction-20261107.md) verify fresh original partitions, 9,344 clearance supports, all 2,400 initialization trials, 108 owner/mode bindings, 528 stock-corner controls and 162 full-pair scoring controls. A source-derived 6.75-degree tooth phase and 261.766 mm pitch produce a valid nine-part small sheet after four preserved phase failures. Complete failed-plus-corrected preparation is 2.988826 s. One ten-second call lowers summed original overlap from 143,568.273079 to 32,299.348636 mm², but all 66 source replay finds 41 overlapping pairs and no stock failures. All 80 subsequent orientation changes fail the strict improvement threshold, closing the pipeline. All 66 saved points and 81 evaluations replay. Algorithm/shared totals are 14.719117/14.791915 s; the 0.078549 s optimizer-slice overrun remains recorded and all processes close. No valid layout or exclusion follows. Historical four-column frame patterns are acknowledged; next assess a changed continuous-angle model that also frees eleven side-strip inserts, with new original-source domains and complete accounting before execution. No successor is prepared. Four fixed arrangements and 440 allocations remain, H2/H5 stay open at 60%, and all closed calls stay closed. Main30a26572 has five passed jobs and live Windows native CI at review. Production, README and releases are unchanged.
