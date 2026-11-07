@@ -10,21 +10,27 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [weighted joint-selection preflight](../benchmarks/results/h5-weighted-joint-selection-20261107.md).
-Independent replay verifies all 2,854 weighted scores, 147 owner/mode bindings
-and four closed problem keys. The best joint alternative is 613.576416 mm²
-worse than the best single; both worsen the unchanged source initializer.
-The declared improvement prerequisite fails, so no selected model or optimizer
-opens. Complete preparation is 10.955294 s; both bounded processes close.
-Next assess conditional centers on the existing 9-by-9 grid against all other
-originals before any new search. No successor selector or optimizer exists.
-The prior weighted search remains invalid: 49 source pair failures with
-28,207.754973 mm² overlap. No native call or allocation exclusion follows.
-Four earlier fixed arrangements and 440 allocations remain. H2/H5 stay at
-60% completed milestone weight. Main d8aa6a90 has five passed CI jobs and
-Windows native checks running at review. Pending 0af0c522, f03aadc1 and this
-checkpoint await the ordinary push gate. Product code, README and releases
-are unchanged.
+Latest H5 evidence: [weighted conditional relocation](../benchmarks/results/h5-weighted-relocated-construction-20261107.md).
+Independent preflight verifies the fixed center grid, all joint scores and
+selected model derivatives. The original summation-order ranking failure and
+exact correction are preserved without changing the model or trials.
+Three new weighted problems close; 12,792 runtime center trials, 5,708 mode
+proposals, 1,056 coefficient updates, 206 retained points and six full66 winner
+readbacks replay. The best candidate still fails 46 pairs with 28,414.189788 mm²
+overlap, worse in overlap/penalty than the preceding weighted result despite
+fewer failing pairs. Fixed-part and stock checks pass. Complete preparation is
+15.046673 s; algorithm/shared totals are 56.586553/56.748614 s, with all
+processes closed and slice overruns preserved. A separate read-only diagnostic
+finds a noncontained crossed-bracket plateau: 5,625 mm² overlap, zero available
+pair gradient and 26 flat feasible translation probes. Next independently
+assess a source-derived collision-region depth term while retaining exact
+area terms. No auxiliary kernel, new objective or successor call is prepared.
+No native call or allocation exclusion follows. Four earlier arrangements and
+440 allocations remain; H2/H5 stay at 60% completed milestone weight.
+The three preceding checkpoints reached main c7e4b305 after all six CI jobs
+passed, preserving 52 remote files; fresh CI42369490349 is running.
+This checkpoint awaits the ordinary push gate. Product code, README and
+releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3952,3 +3958,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 weighted joint-selection preflight:** [exhaustive independent replay](../benchmarks/results/h5-weighted-joint-selection-20261107.md) verifies 2,854 complete weighted scores: the current vector, 78 single-owner and 2,775 two-owner physical-mode alternatives. Exact class/domain reconstruction checks all 147 owner bindings; cached complete pair sums agree with independent original/clearance geometry within 1.747e-10 mm². All four closed weighted keys are checked and the current problem excluded. The best single alternative scores 244,973.051779 mm² and the best joint 245,586.628194 mm², both worse than the 244,566.416868 mm² initializer. The joint-improvement prerequisite fails by 613.576416 mm², so no selected model or optimizer opens. Complete preparation is 10.955294 s, including the entire new 1.517851 s stage; the independent audit takes 48.647537 s and both processes close. Next assess conditional centers on the unchanged 9-by-9 source grid against all other originals before any search; no successor exists. No native call, exclusion or source mutation follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Main d8aa6a90 has five passed CI jobs and Windows native checks running at review; 0af0c522, f03aadc1 and this checkpoint await the ordinary push gate. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 weighted conditional relocation:** [independent preflight and response replay](../benchmarks/results/h5-weighted-relocated-construction-20261107.md) verify 6,396 initial center trials, 2,854 initial proposals, 148 scalar terms and 162 central samples. A preserved ranking-check failure is resolved by independently reconstructing dot ordering and checking scalar sums; exact rational controls reproduce 89 near-best vectors without changing trials, models or tolerances. Three new weighted problems close after 12,792 runtime center trials and 5,708 proposals; 1,056 coefficient updates, 206 retained points, 246 evaluations and six full66 winner readbacks replay. The final candidate still fails 46 pairs with 28,414.189788 mm² overlap: fewer failing pairs but worse overlap/penalty than the prior weighted result. Fixed-part and stock checks pass. Complete preparation is 15.046673 s and algorithm/shared totals are 56.586553/56.748614 s; all processes close and slice overruns remain. A separate diagnostic verifies one noncontained bracket crossing with 5,625 mm² overlap, zero available pair gradient and 26 flat feasible translation probes. Next preflight a supplementary source-derived collision-region depth loss while retaining every exact area term; no auxiliary kernel or successor call exists. No native call or exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. The preceding three checkpoints reached main c7e4b305 after all six CI checks passed, preserving 52 remote files; fresh CI42369490349 is running. Product code, README and releases are unchanged.

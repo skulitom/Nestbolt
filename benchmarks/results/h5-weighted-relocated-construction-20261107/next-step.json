@@ -1,0 +1,16 @@
+{
+  "status": "flat_bracket_collision_region_depth_preflight_required",
+  "finding": "The closed best candidate has a bracket7/bracket8 crossed-arm intersection of5625mm2 (11284.5529mm2 including clearance). Neither polygon strictly contains the other. All available pair-coordinate gradients are zero within1e-7, and26 feasible translations at the frozen\u00b10.001/0.1/1/5mm steps leave this term unchanged. Positive constant pair reweighting cannot supply a direction for this term. This is one local observation, not a global exclusion.",
+  "proposal": "Reconcile earlier configuration-space/surrogate work, then assess a supplementary squared distance-to-exit penalty for the exact nominal bracket/bracket collision translation region. The source bracket is a six-vertex orthogonal L, expressible as two rectangles with disjoint interiors. A union of component Minkowski-difference regions can represent its pair collision region and supply a direction on the crossed-arm area plateau. This is a new numerical/geometry preflight only; no auxiliary kernel or optimizer is prepared.",
+  "requirements": [
+    "Independently reconstruct the exact source bracket rectangle union and all fixed quarter-turn/mirror modes, retaining domain aliases separately. Build and verify collision translation regions from source components with rational boundary/inside/outside controls; reconcile nominal quarter turns with the actual floating source transforms and required source-gap tolerance. Do not replace exact original/clearance areas with a proxy.",
+    "Define the supplementary loss before measurements: squared distance from an interior relative translation to the exterior of the collision region, zero outside; retain deterministic closest-feature ties and nonsmooth cases explicitly. Freeze coefficient1 if the proof supports the same square-mm units. Independently verify values and both owner derivatives, including off-center rotation pivots where applicable; bracket angles are fixed in this model.",
+    "Retain every original/clearance term, all528pair identities, positive bounded weights and hard stock/fixed domains. Prove that the additional nonnegative term cannot hide an original overlap; establish its behavior on source-valid gap-separated pairs. Final acceptance remains full original-source validation.",
+    "Use the saved crossed-arm candidate only as a validation counterexample demonstrating zero area gradient and a verified separating direction from the proposed loss. It may not seed a successor optimizer. No closed weighted/unweighted call may resume, change objective, reset time or receive an extension.",
+    "Only after independent source/gradient/score preflight may a separately versioned objective and finite complete-accounting contract be considered from the unoptimized source initializer. Record objective identity in closure keys, preserve all seven closed weighted problems and all older calls, and charge every consumed preparation stage. No such model or call exists in this checkpoint."
+  ],
+  "new_auxiliary_kernel_prepared": false,
+  "new_optimizer_calls": 0,
+  "closed_calls_remain_closed": true,
+  "H5_complete": false
+}
