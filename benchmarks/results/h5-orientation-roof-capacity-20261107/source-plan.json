@@ -1,0 +1,37 @@
+{
+  "inputs": {
+    "output/prepare_h5_orientation_roofs_20261107.py": "900c13bde96012c4f072f58119706aa3214a5a4e3935ef1b38ebdc894ec075fb",
+    "output/h5-coordinated-placement-selection-20261018/job.json": "2aede6286cf59186781a67a2c355f305aad2d50e735bbfa6cad5ea7dd2ffc6bb",
+    "benchmarks/results/h5-source-frontier-pilot-20261018/results.json": "25cc44801409404f775ef92b87d4a07f4b008556fd322fbeb9321ce23949f10c",
+    "output/h5_exact_convex_partition_tools_20261029.py": "4ad95086f6ebeafcc076a7eedc38b2480b1e1ddea39a2e703a54cea81aa1439f",
+    "output/h5_legacy64_source_readback.py": "f5077f977e3e8a9b7e968c068818fbcf2a4900818ade5cbc9a2ee866551963fa",
+    "output/h5_checked_affinity_20261107.py": "14762a6170381c86848bf4b3995cff3facf4f80f823616282c5a8118cd5308a4"
+  },
+  "source_inputs_only": [
+    "output/h5-coordinated-placement-selection-20261018/job.json",
+    "benchmarks/results/h5-source-frontier-pilot-20261018/results.json"
+  ],
+  "method": "Construct exactly three frame patterns from original dimensions. Keep twelve turned base frames, then three unturned frames in the first roof row. The last row has 3-k unturned followed by k turned frames, k=1,2,3. Derive one cog phase from tooth vertices and one outward axis pitch from all convex-piece differences plus the source gap square; no angle/pitch sweep. For k=1 use a3x3 left pool and2x3 right pool above their corresponding roof tops. For k=2,3 use4x3 above the highest roof and1x4 right of the second roof row above the first row. These latter16-site pools each induce every15-of16 case. All33 intended cores receive complete original-source checks even if invalid; invalid cases cannot proceed to a solver. Original holes are preserved, not nesting space. No old coordinates, optimizer states, numeric geometry or initializer is consumed. Historical orientation comparison occurs in a separate census.",
+  "turned_counts": [
+    1,
+    2,
+    3
+  ],
+  "proposed_cog_pool_sizes": [
+    15,
+    16,
+    16
+  ],
+  "intended_fixed48_cases": 33,
+  "preparation_internal_cap_seconds": 18,
+  "process_cap_seconds": 20,
+  "algorithm_seconds": 60,
+  "shared_seconds": 90,
+  "source_check_reserve_seconds": 4,
+  "memory_bytes": 2147483648,
+  "inherited_numeric_preparation_seconds": 0,
+  "charge_entire_process_if_consumed": true,
+  "optimizer_calls": 0,
+  "retry_permitted": false,
+  "class_exclusions_claimed": false
+}

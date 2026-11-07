@@ -10,21 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [six-unturned-frame construction](../benchmarks/results/h5-six-unturned-frame-construction-20261107.md).
-A joint six-unturned moving-frame case differs from all three earlier
-four-turned/two-unturned calls. Fresh source and model audits pass, including
-9,360 clearance supports, all 8,262 initializer choices and 372 derivative
-samples. Its sole bounded call still fails 58 original-source pairs, with
-zero stock failures. All 334 saved points and the full66 readback replay.
-The 56.279557 s algorithm / 56.371925 s shared time includes 4.445511 s fresh
-preparation and retains the 0.088762 s returned slice overrun. The call is closed;
-no old pipeline resumes, no allocation is excluded and valid64 remains best.
-Next audit all seven frame orientation-count classes and their historical
-scope before another structural construction. The exact fixed48 four-row
-exclusion remains valid for that fixed core. Four earlier arrangements and
-440 allocations remain unresolved. H2/H5 stay open at 60%. Both preceding
-checkpoints reached main a45826d3 after all six prior checks passed; fresh CI
-has 4 passed / 2 live jobs at review. Product and releases are unchanged.
+Latest H5 evidence: [frame orientation and fixed-core capacity](../benchmarks/results/h5-orientation-roof-capacity-20261107.md).
+Seven nominal orientation-count classes are verified in the checked 39-owner
+model scopes. Three source-derived roof patterns yield 17 valid 48-part cores
+and 16 invalid cases. Independent full-stock bracket covers exclude five exact
+cores after 2,423 source-containment checks and 40,376,496 continuous classes.
+Twelve new two-turned-frame cases remain unresolved; no full 66-part placement
+or optimizer call results. Complete consumed preparation is 12.186441 s, with
+separate source/proof audits and all bounded processes closed. Next derive
+insert covers and a coupled six-bracket/twelve-insert area bound before any
+complete companion model. All prior calls stay closed and the valid 64-part
+result remains best. No whole orientation class or allocation is excluded.
+Four earlier arrangements and 440 allocations remain. H2/H5 stay open at 60%.
+Main a45826d3 has five passed and one live CI job; this and the preceding
+six-unturned checkpoint await the ordinary main push gate.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4021,3 +4020,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 six-unturned frame case:** [fresh-source construction and complete audits](../benchmarks/results/h5-six-unturned-frame-construction-20261107.md) verify a joint six-unturned orientation class, distinct from the three earlier four-turned/two-unturned calls. All numeric geometry is recomputed from original JOB and frozen normal metrics: 25 convex pieces, 9,360 clearance supports, 17 arrangements, 141 owner/mode bindings and a valid48 control. All 8,262 initializer choices and 372 finite-difference samples replay. One new 93-parameter call closes after 421 evaluations; all 334 saved points replay. The candidate remains invalid with 58 source failures (52 overlaps, six clearance-only), zero stock failures and no fixed-source conflicts. Preparation is 4.445511 s; algorithm/shared times 56.279557/56.371925 s preserve the 0.088762 s returned slice overrun. No old call resumes, no allocation is excluded, and valid64 stays best. Next audit all seven frame orientation-count classes before any new structural construction. Four earlier arrangements and 440 allocations remain; H2/H5 stay open at 60%. The preceding two checkpoints reached main a45826d3 with all six prior checks passing and 52 protected files retained; fresh CI has 4 passed/2 live jobs. No product or release change.
+
+
+**2026-11-07 H5 orientation and fixed-core capacity:** [complete source and necessary-cover audits](../benchmarks/results/h5-orientation-roof-capacity-20261107.md) enumerate seven nominal frame-orientation classes in the checked 39-owner scopes; the four closed calls used counts 4, 4, 4 and 0 without excluding a class. Three fresh source patterns with counts 1, 2 and 3 yield 33 declared 48-part cases: 17 pass and 16 fail two disjoint cog contacts. Independent readback checks 882 axis sections, 1,191 distances and every case. Exact bracket covers verify 2,423 source-contained rectangles and 40,376,496 continuous classes. The one-turned core holds at most two brackets; four two-turned omission cores hold at most three, below the six required. These five exact cores are excluded; twelve new cases remain unresolved, alongside four earlier arrangements and 440 allocations. No optimizer runs and the valid 64-part result remains best. Complete consumed preparation is 12.186441 s; separate audits pass and all processes close. Next derive insert covers and the coupled six-bracket/twelve-insert area bound before any complete model. H2/H5 remain open at 60%. Main a45826d3 has five passed and one live CI job; this and the preceding six-unturned checkpoint await the ordinary push gate. Product and release state is unchanged.
