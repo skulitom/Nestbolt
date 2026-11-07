@@ -10,12 +10,14 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [exact circular clearance and factored conflicts](../benchmarks/results/h5-exact-circle-forest-20261107.md).
+Latest H5 evidence: [source strip capacities and weighted models](../benchmarks/results/h5-strip-capacity-models-20261107.md).
 Current fixed29/current-cog frontier: four arrangements remain; 451 of 455 are
 excluded at the original 0.2 mm clearance. After two earlier accepted proofs,
 exact circular distance and polygon-union checks remove three more cells and
-add 15 conflicts. Four new factored models
-still reach their proof-size limits, so these calls add no exclusion. No
+add 15 conflicts. Sixteen further source strip-capacity inequalities now pass
+independent audits. Four weighted models still reach their proof-size limits,
+so these calls add no exclusion. The next constructive hypothesis frees twelve
+cogs with the validated nine-part small sheet. No
 source-valid66 placement or whole-allocation exclusion follows; H2/H5 remain open at 60%.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
@@ -3854,3 +3856,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 exact circular clearance and factored conflicts:** [independent source/model audits](../benchmarks/results/h5-exact-circle-forest-20261107.md) verify one refined polygon-union cell removal, two exact rational cog-distance removals and 15 exact Euclidean pair conflicts. Every one of the four source graphs is genuinely stronger; all 33,803,472 retained graph pairs and complete covers pass. Exhaustive interval-tree encoding controls check 1,024 graphs and 524,288 auxiliary extensions. Full audits cover 15,208,033 source conflicts with 2,637,822 factored clauses, 2,658,385 total clauses and 1,088 threshold gates. All four fresh calls reach their frozen 64 MiB proof limits; the batch closes in 125.312357 s with zero active descendants. First inspection of all eight previous/current limited streams finds no complete contradiction prefix. No further exclusion or placement follows: four arrangements and 440 whole allocations remain, with 451 of 455 fixed arrangements excluded at required 0.2 mm clearance and 427 even at zero clearance. Next assess selective complete refinement or higher-order source constraints; every closed call stays closed. H2/H5 remain open at 60%. The prior checkpoint reached main 909db92e after all six CI checks passed, preserving all 52 remote files; no release is made.
+
+
+**2026-11-07 H5 source strip capacities:** [independent geometry and weighted-model audits](../benchmarks/results/h5-strip-capacity-models-20261107.md) verify 16 necessary multi-part inequalities over 19,589 source members. Four partial selections prove information absent from pair clauses alone; they are not full-model witnesses. Exhaustive weighted-prefix controls and full audits verify 659 weight classes, 77,267 weighted gates and 2,968,117 clauses while preserving all 15,208,033 graph conflicts. Four fresh bounded calls stop at their 64 MiB proof caps; the complete batch closes in 138.118836 s, with no complete contradiction prefix, exclusion or placement. Four of 455 fixed arrangements and all 440 whole allocations remain. The next constructive hypothesis uses 12 movable cogs with the source-valid nine-part small sheet, distinct from earlier closed 13-cog/short11 models; fresh source domains and interactions must be audited before another construction. Every closed call stays closed. H2/H5 remain open at 60%; no new release is warranted.
