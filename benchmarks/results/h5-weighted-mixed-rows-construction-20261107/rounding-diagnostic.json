@@ -1,0 +1,651 @@
+{
+  "passed": true,
+  "inputs": {
+    "output/diagnose_h5_weight_update_rounding_20261107.py": "673f4a33f2831022408ede3fdfc6eee4945df81d96dc84efe363f7c67dcba19d",
+    "output/h5_weighted_original_model_20261107.py": "2d8377bed94dc02b8facb7056feece332e5c27ec33de0db41e2c7d466cd19cf3",
+    "output/audit_h5_weighted_mixed_rows_model_20261107.py": "40f4e9bc4cccea3d807266525e19e9095eca75b04a018e433ae4a36193e20f45",
+    "output/h5-weighted-mixed-rows-model-20261107/initial-weight-transition.json": "dbcd2b02b4afb7d0789186f5d06ce78069e6975356bf52c1acb74f9543a0d084",
+    "output/h5-weighted-mixed-rows-model-audit-process-20261107/process.json": "0b0ca191ec3abadc38aaab7ccdc967fe94a2f3b595df238c7c5900e165e89f5e"
+  },
+  "cause": "The original verifier multiplied loss by0.8 before dividing by peak, whereas the declared implementation normalizes loss first. Algebraically equal expressions can round differently. Exact rational reconstruction of each specified binary64 operation reproduces every actual coefficient.",
+  "coefficients_checked": 7920,
+  "legacy_differences": 79,
+  "maximum_legacy_difference_ulps": 2.0,
+  "records": [
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 48,
+      "legacy": 1.272865275142315,
+      "actual": 1.2728652751423148,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 108,
+      "legacy": 1.3639468690702088,
+      "actual": 1.3639468690702086,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 163,
+      "legacy": 1.4474383301707778,
+      "actual": 1.447438330170778,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 167,
+      "legacy": 1.4535104364326374,
+      "actual": 1.4535104364326377,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 182,
+      "legacy": 1.4762808349146108,
+      "actual": 1.476280834914611,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 194,
+      "legacy": 1.4944971537001899,
+      "actual": 1.4944971537001897,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 200,
+      "legacy": 1.503605313092979,
+      "actual": 1.5036053130929792,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 212,
+      "legacy": 1.521821631878558,
+      "actual": 1.5218216318785578,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 227,
+      "legacy": 1.5445920303605314,
+      "actual": 1.5445920303605312,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 249,
+      "legacy": 1.5779886148007591,
+      "actual": 1.577988614800759,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 255,
+      "legacy": 1.5870967741935482,
+      "actual": 1.5870967741935484,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 273,
+      "legacy": 1.6144212523719164,
+      "actual": 1.6144212523719166,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 282,
+      "legacy": 1.6280834914611004,
+      "actual": 1.6280834914611007,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 295,
+      "legacy": 1.647817836812144,
+      "actual": 1.6478178368121443,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 304,
+      "legacy": 1.6614800759013282,
+      "actual": 1.6614800759013284,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 310,
+      "legacy": 1.6705882352941175,
+      "actual": 1.6705882352941177,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 329,
+      "legacy": 1.6994307400379505,
+      "actual": 1.6994307400379507,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 338,
+      "legacy": 1.7130929791271348,
+      "actual": 1.7130929791271345,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 339,
+      "legacy": 1.7146110056925994,
+      "actual": 1.7146110056925996,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 347,
+      "legacy": 1.7267552182163188,
+      "actual": 1.7267552182163186,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 350,
+      "legacy": 1.7313092979127134,
+      "actual": 1.7313092979127136,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 357,
+      "legacy": 1.7419354838709677,
+      "actual": 1.7419354838709675,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 358,
+      "legacy": 1.7434535104364328,
+      "actual": 1.7434535104364326,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 359,
+      "legacy": 1.7449715370018974,
+      "actual": 1.7449715370018977,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 366,
+      "legacy": 1.7555977229601518,
+      "actual": 1.7555977229601516,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 368,
+      "legacy": 1.7586337760910817,
+      "actual": 1.7586337760910815,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 377,
+      "legacy": 1.7722960151802658,
+      "actual": 1.7722960151802656,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 384,
+      "legacy": 1.78292220113852,
+      "actual": 1.7829222011385197,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 393,
+      "legacy": 1.796584440227704,
+      "actual": 1.7965844402277038,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 404,
+      "legacy": 1.813282732447818,
+      "actual": 1.8132827324478178,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 405,
+      "legacy": 1.8148007590132826,
+      "actual": 1.8148007590132829,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 411,
+      "legacy": 1.823908918406072,
+      "actual": 1.8239089184060722,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 413,
+      "legacy": 1.826944971537002,
+      "actual": 1.8269449715370019,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 414,
+      "legacy": 1.828462998102467,
+      "actual": 1.8284629981024667,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 420,
+      "legacy": 1.837571157495256,
+      "actual": 1.8375711574952562,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 423,
+      "legacy": 1.842125237191651,
+      "actual": 1.8421252371916508,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 430,
+      "legacy": 1.852751423149905,
+      "actual": 1.8527514231499052,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 432,
+      "legacy": 1.855787476280835,
+      "actual": 1.8557874762808348,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 438,
+      "legacy": 1.8648956356736242,
+      "actual": 1.8648956356736244,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 457,
+      "legacy": 1.8937381404174571,
+      "actual": 1.8937381404174574,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 459,
+      "legacy": 1.8967741935483873,
+      "actual": 1.896774193548387,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 460,
+      "legacy": 1.898292220113852,
+      "actual": 1.8982922201138521,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 466,
+      "legacy": 1.9074003795066412,
+      "actual": 1.9074003795066414,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 469,
+      "legacy": 1.9119544592030362,
+      "actual": 1.911954459203036,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 475,
+      "legacy": 1.9210626185958253,
+      "actual": 1.9210626185958255,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 478,
+      "legacy": 1.9256166982922203,
+      "actual": 1.92561669829222,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 485,
+      "legacy": 1.9362428842504742,
+      "actual": 1.9362428842504744,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 487,
+      "legacy": 1.9392789373814043,
+      "actual": 1.939278937381404,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 512,
+      "legacy": 1.9772296015180264,
+      "actual": 1.9772296015180266,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 514,
+      "legacy": 1.9802656546489565,
+      "actual": 1.9802656546489563,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 521,
+      "legacy": 1.9908918406072105,
+      "actual": 1.9908918406072107,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 0,
+      "loss_case": 2,
+      "coefficient": 524,
+      "legacy": 1.9954459203036055,
+      "actual": 1.9954459203036052,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 48,
+      "legacy": 62.37039848197344,
+      "actual": 62.370398481973425,
+      "difference_ulps": 2.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 108,
+      "legacy": 61.3776091081594,
+      "actual": 61.37760910815938,
+      "difference_ulps": 2.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 163,
+      "legacy": 52.107779886148,
+      "actual": 52.10777988614801,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 167,
+      "legacy": 58.140417457305496,
+      "actual": 58.1404174573055,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 194,
+      "legacy": 4.48349146110057,
+      "actual": 4.483491461100569,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 200,
+      "legacy": 13.532447817836811,
+      "actual": 13.532447817836813,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 212,
+      "legacy": 31.958254269449718,
+      "actual": 31.958254269449714,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 227,
+      "legacy": 55.60531309297913,
+      "actual": 55.605313092979124,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 273,
+      "legacy": 29.059582542694493,
+      "actual": 29.0595825426945,
+      "difference_ulps": 2.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 282,
+      "legacy": 43.95825426944971,
+      "actual": 43.95825426944972,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 329,
+      "legacy": 16.994307400379505,
+      "actual": 16.99430740037951,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 347,
+      "legacy": 48.34914611005693,
+      "actual": 48.34914611005692,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 350,
+      "legacy": 53.67058823529411,
+      "actual": 53.67058823529412,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 384,
+      "legacy": 1.78292220113852,
+      "actual": 1.7829222011385197,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 404,
+      "legacy": 38.07893738140418,
+      "actual": 38.078937381404174,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 405,
+      "legacy": 39.92561669829222,
+      "actual": 39.925616698292224,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 411,
+      "legacy": 51.06944971537001,
+      "actual": 51.06944971537002,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 413,
+      "legacy": 54.80834914611006,
+      "actual": 54.808349146110054,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 414,
+      "legacy": 56.682352941176475,
+      "actual": 56.68235294117647,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 459,
+      "legacy": 22.76129032258065,
+      "actual": 22.761290322580646,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 460,
+      "legacy": 24.677798861480074,
+      "actual": 24.677798861480078,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 466,
+      "legacy": 36.24060721062618,
+      "actual": 36.24060721062619,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 475,
+      "legacy": 53.789753320683104,
+      "actual": 53.78975332068311,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 478,
+      "legacy": 59.69411764705883,
+      "actual": 59.694117647058825,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 512,
+      "legacy": 1.9772296015180264,
+      "actual": 1.9772296015180266,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 514,
+      "legacy": 5.94079696394687,
+      "actual": 5.940796963946869,
+      "difference_ulps": 1.0
+    },
+    {
+      "before_case": 2,
+      "loss_case": 2,
+      "coefficient": 521,
+      "legacy": 19.908918406072104,
+      "actual": 19.908918406072107,
+      "difference_ulps": 1.0
+    }
+  ],
+  "model_changed": false,
+  "weights_changed": false,
+  "optimizer_calls": 0
+}

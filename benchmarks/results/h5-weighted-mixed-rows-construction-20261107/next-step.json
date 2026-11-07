@@ -1,0 +1,15 @@
+{
+  "status": "cross_pair_boundary_batching_preflight_required",
+  "proposal": "Assess batching clipped boundary integration across all active owner/pair terms, while preserving the existing exact per-edge integral and shared-boundary half contribution. Current code vectorizes edges within each interaction but still invokes Shapely intersection and collection handling separately for every active directed pair.",
+  "reason": "The new weighted model remains invalid and all four10-second calls stop on time. Its exact geometry is independently audited, so a numerical/performance-only preflight can determine whether cross-pair batching reduces evaluation overhead without changing any candidate, objective or derivative. No speedup is assumed.",
+  "requirements": [
+    "Bind the current per-pair vector implementation and weighted model; preserve their source and every closed search result.",
+    "Retain explicit source-edge, interaction, owner and coefficient mappings through empty/point/line/multiline/collection decomposition. Degenerate edges contribute zero. Shared collinear boundary uses exactly the current half convention.",
+    "Independently compare all directed interaction integrals, all weighted owner gradients, source/clearance scores and central derivatives on frozen validation cases. Include actual boundary contacts, containment, empty and multipart intersections and maximum allowed weights.",
+    "Measure alternating timings on the same frozen unoptimized and saved validation cases under CCD1, one BLAS thread, with no optimizer or candidate mutation. Record every timing and numerical tolerance before drawing a speed conclusion.",
+    "A faster kernel alone does not authorize restarting or extending a closed weighted/unweighted call. Any later packing method requires a separately specified mechanism, complete accounting and finite contract; no such method or call is prepared here."
+  ],
+  "new_kernel_prepared": false,
+  "new_optimizer_calls": 0,
+  "H5_complete": false
+}
