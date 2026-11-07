@@ -10,20 +10,19 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [five-column cog-pool exclusions](../benchmarks/results/h5-five-column-cog-pool-exclusions-20261107.md).
-All 136 source48 choices from 17 cog sites pass original geometry checks, but
-complete masks covering 21,026,872 classes and 408 independent area readbacks
-exclude every fixed48 completion. Releasing all brackets and inserts still
-excludes every exact first33 core, by at least 47,521.670796 mm² combined area.
-Two helper failures and their 6.627851 s are preserved; certified completed
-masks were reused without repeating their preparation. Total consumed
-preparation is 63.302255 s, exceeding 60. No optimizer, timed-gate pass, whole
-allocation or orientation-class exclusion is claimed; the timer may not reset.
-Next assess 14-of17 choices with short 6/5/1 via new complete three-empty covers.
-Four earlier arrangements and 440 allocations remain; the valid 64-part remains best.
-H2/H5 stay open at 60%. Main 9eb6698e has 5 passed/1 live CI jobs;
-this and the prior cog-return checkpoint await the ordinary push gate.
-Product and releases remain unchanged.
+Latest H5 evidence: [three-empty cog capacity](../benchmarks/results/h5-three-empty-cog-capacity-20261107.md).
+All 680 fixed44 layouts fail completion after complete source, cover and
+2,040 independent area checks. Releasing every bracket and insert still
+excludes each exact first32 core with the last cog at its verified short pose.
+A further relaxation frees the last cog and excludes 443 first32 arrangements;
+237 remain unresolved. No whole allocation or orientation class is excluded.
+Consumed preparation is 89.996627 s, above 60; this lineage may not reset its
+timer or open an optimizer. Next establish an original-source pose-invariant
+cog area bound before extending the exact short-pose proof.
+Four earlier arrangements and 440 allocations remain; valid64 stays best.
+H2/H5 remain open at 60%. All six previous main checks pass; this and the
+preceding two checkpoints await the ordinary fast-forward push.
+Product and release state are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4041,3 +4040,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 five-column cog-pool exclusions:** [source, mask, area and inventory audits](../benchmarks/results/h5-five-column-cog-pool-exclusions-20261107.md) verify 136 source-valid48 choices from 17 anonymous cog sites,442 pool contacts and86,088 same-sheet pairs. Two helper failures are preserved (Y-index substitution, then case-schema mismatch); their full 6.627851 s remains charged. Independently certified masks cover 21,026,872 continuous classes with distinct cogsite 16/framebit 17. A separate area stage and independent 408-area readback exclude all 136 fixed48 completions: largest companion region 382,919.280346 mm² versus 477,582 required. Releasing every bracket and insert still excludes every exact first33 core, with at least 47,521.670796 mm² combined deficit. No whole allocation or orientation class is excluded. Preparation totals 63.302255 s, over 60; no optimizer or timed-gate pass is claimed and this lineage may not reset its timer. Next investigate 14-of17 choices with the verified short6/5/1 using new complete three-empty covers; existing full masks may be reused only after exact equality checks. Four earlier arrangements and 440 allocations remain; the valid 64-part remains best, H2/H5 stay open at 60%. Main 9eb6698e has 5 passed/1 live CI jobs; this and the prior cog-return checkpoint await the ordinary push gate. Product and releases are unchanged.
+
+
+**2026-11-07 H5 three-empty cog capacity:** [independent source, cover, area and inventory proofs](../benchmarks/results/h5-three-empty-cog-capacity-20261107.md) certify all 680 fourteen-of17 partials using 661 common source pairs, 188 stock edges and exhaustive identity/pose checks, preserving 38,080 holes. New complete three-empty covers verify 21,026,872 classes, 9,936,621 retained classes and 4,728 boxes after exact source/domain/mode equality checks. All 2,040 area bounds replay independently; every fixed44 completion fails, with at most 471,447.388136 mm² versus 556,778 required. Releasing all brackets and inserts while retaining the exact short-cog pose still excludes all 680, by at least 24,329.611864 mm². A further relaxation frees the last cog and excludes 443 exact first32 arrangements; 237 remain unresolved, with every necessary inventory split preserved. No whole allocation or orientation class is excluded. Consumed preparation totals 89.996627 s; no optimizer or timed-gate pass is permitted from this exhausted lineage. Next derive a source-based pose-invariant cog area bound before extending the short-cog conclusion to arbitrary legal poses. Four earlier arrangements and 440 allocations remain; valid64 stays best and H2/H5 stay open at 60%. All six previous main checks pass; this and the preceding two checkpoints await the ordinary push. Product and releases are unchanged.
