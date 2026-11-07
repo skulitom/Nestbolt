@@ -10,11 +10,13 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [stronger polygon clearance proofs](../benchmarks/results/h5-polygon-clearance-proofs-20261107.md).
+Latest H5 evidence: [exact circular clearance and factored conflicts](../benchmarks/results/h5-exact-circle-forest-20261107.md).
 Current fixed29/current-cog frontier: four arrangements remain; 451 of 455 are
-excluded at the original 0.2 mm clearance. The latest six source-strengthened
-models yield two accepted proofs and four proof-size limits. No source-valid66
-placement or whole-allocation exclusion follows; H2/H5 remain open at 60%.
+excluded at the original 0.2 mm clearance. After two earlier accepted proofs,
+exact circular distance and polygon-union checks remove three more cells and
+add 15 conflicts. Four new factored models
+still reach their proof-size limits, so these calls add no exclusion. No
+source-valid66 placement or whole-allocation exclusion follows; H2/H5 remain open at 60%.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3849,3 +3851,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 stronger polygon clearance:** [independent source/model/proof audits](../benchmarks/results/h5-polygon-clearance-proofs-20261107.md) verify 378 original-source collision hulls, two impossible-cell removals and 6,589 additional conflicts across six refined arrangements. The first producer omitted rectangle axis normals; independent source checking rejected its invalid conflicts before any SAT call. Both failure and versioned correction remain preserved, with 2,772 boundary controls. Corrected geometry checks all 42,706,462 retained graph pairs. Six genuinely stronger models verify 18,922,641 clauses; 2 complete proofs exclude further arrangements and 4 limited calls stay unresolved. The frontier is now 4 (451 of 455 excluded at original 0.2 mm clearance; 427 even at zero clearance). The batch closes in 270.861438 s with all descendant trees closed. Next assess exact polygon-union coverage on remaining refined cells; no old call is repeated. All 440 whole allocations, source-valid66/native/material checks and H2/H5 stay open at 60%. No release or full construction budget claim is made.
+
+
+**2026-11-07 H5 exact circular clearance and factored conflicts:** [independent source/model audits](../benchmarks/results/h5-exact-circle-forest-20261107.md) verify one refined polygon-union cell removal, two exact rational cog-distance removals and 15 exact Euclidean pair conflicts. Every one of the four source graphs is genuinely stronger; all 33,803,472 retained graph pairs and complete covers pass. Exhaustive interval-tree encoding controls check 1,024 graphs and 524,288 auxiliary extensions. Full audits cover 15,208,033 source conflicts with 2,637,822 factored clauses, 2,658,385 total clauses and 1,088 threshold gates. All four fresh calls reach their frozen 64 MiB proof limits; the batch closes in 125.312357 s with zero active descendants. First inspection of all eight previous/current limited streams finds no complete contradiction prefix. No further exclusion or placement follows: four arrangements and 440 whole allocations remain, with 451 of 455 fixed arrangements excluded at required 0.2 mm clearance and 427 even at zero clearance. Next assess selective complete refinement or higher-order source constraints; every closed call stays closed. H2/H5 remain open at 60%. The prior checkpoint reached main 909db92e after all six CI checks passed, preserving all 52 remote files; no release is made.
