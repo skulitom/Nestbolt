@@ -10,19 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [shared-selector source construction](../benchmarks/results/h5-shared-source-construction-20261107.md).
-The new source initializer and full 39.049161 s preparation charge pass
-independent readback. Both four-second calls finish inside the finite budget;
-the best original-area candidate remains invalid with 54 failed pairs and
-24,134.380631 mm² overlap. All 98 records, 79 saved points, 528 updated
-weights, 15,013 runtime scores and six full66 outputs replay. The second epoch's
-three winner streams remain distinct. All 23 exact problem keys remain closed.
-A read-only boundary filter preserves gradients/counts/coincidence in eight
-runtime contexts and eight synthetic cases. Kernel means are 0.347927/0.258140 s
-dense/screened; next verify full-objective equivalence and costs before any new
-initializer or search. Four arrangements and 440 allocations remain; H2/H5 stay
-at 60%. Main ddf2310d has 4 passed / 2 live CI jobs at review. Product code,
-README and releases are unchanged.
+Latest H5 evidence: [complete screened-objective preflight](../benchmarks/results/h5-screened-objective-preflight-20261107.md).
+All 363 old/new comparisons agree exactly, including 147 source modes and
+211 evaluations from five closed searches. Independent scalar geometry checks all
+81 gradient coordinates in 216 cases. Known contact failures stay preserved;
+central, boundary and corruption controls pass. All 23 problem keys remain closed.
+Full evaluation/construction timings cover 52 calls, retaining one slowdown.
+Eight complete-trajectory batches verify 392 exact evaluations. Next prepare and
+independently verify a fresh original-source model and full budget, retaining
+39.049161 s source preparation plus new costs. No new initializer or search is
+opened. The last candidate still has 54 failed pairs. Four arrangements and 440
+allocations remain; H2/H5 stay at 60%. Main ddf2310d has 5 passed / 1 live CI
+jobs at review. Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3998,3 +3997,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 shared-selector source construction:** [complete source, runtime and response evidence](../benchmarks/results/h5-shared-source-construction-20261107.md) verifies a fresh original-source model under21closures,5911primary proposals and2854keys. Full preparation is 39.049161s. Both four-second calls finish within53.529241/53.633280s algorithm/shared totals; the candidate remains invalid with54failed pairs and24134.380631mm² original overlap. All98records,79saved points,528updated weights,15013runtime scores and six66part outputs replay, including three distinct second-epoch winners. All23keys remain closed. Read-only boundary filtering preserves exact gradients/counts/coincidence across eight runtime contexts and eight synthetic cases; aggregate kernel means are 0.347927s dense/0.258140s screened, not a whole-objective claim. Next verify the complete objective and full budget before any fresh source model/search. Four arrangements and440allocations remain; H2/H5 stay at60%. Main ddf2310d has4passed/2live jobs at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 complete screened-objective preflight:** [full objective, scalar and timing evidence](../benchmarks/results/h5-screened-objective-preflight-20261107.md) verifies exact old/new results in 363 cases, including all 147 source modes and 211 records from five closed calls. All 81 scalar gradient coordinates are independently checked in 216 cases; 167 saved points and fifteen winner streams reconcile. The original 324 central samples and fourteen failures remain preserved; fourteen finite one-sided controls, 324 historical interior central checks, eight synthetic boundary cases and nine model corruptions pass. All 23 keys stay closed. The 52 single-call timings retain variability and one slowdown. Eight complete saved-trajectory batches verify 392 exact evaluations, with all timings retained and no convergence or packing claim. Next independently prepare an original-source initializer and full budget, retaining 39.049161 s plus new costs. No new source initializer or optimizer call is opened. The last layout still has 54 failed pairs; four arrangements and 440 allocations remain, with H2/H5 open at 60%. Main ddf2310d has 5 passed / 1 live jobs at review. Product code, README and releases are unchanged.
