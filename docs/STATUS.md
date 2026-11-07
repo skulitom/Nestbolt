@@ -10,15 +10,17 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [source strip capacities and weighted models](../benchmarks/results/h5-strip-capacity-models-20261107.md).
-Current fixed29/current-cog frontier: four arrangements remain; 451 of 455 are
-excluded at the original 0.2 mm clearance. After two earlier accepted proofs,
-exact circular distance and polygon-union checks remove three more cells and
-add 15 conflicts. Sixteen further source strip-capacity inequalities now pass
-independent audits. Four weighted models still reach their proof-size limits,
-so these calls add no exclusion. The next constructive hypothesis frees twelve
-cogs with the validated nine-part small sheet. No
-source-valid66 placement or whole-allocation exclusion follows; H2/H5 remain open at 60%.
+Latest H5 evidence: [twelve-cog independent-row construction](../benchmarks/results/h5-twelve-cog-row-construction-20261107.md).
+The new 4/4/4-cog row model with the nine-part small sheet passes its source,
+domain and model audits, then closes UNKNOWN with no placement. All 16 remaining
+orthogonal parts and 96 modes are included. Preparation-inclusive algorithm and
+shared totals of 56.147634 and 56.243310 seconds stay within the 60/90-second
+limits; the smaller solve-slice overrun remains recorded. This call is closed.
+Next assess fresh 5/4/3 row domains. The separate fixed29/current-cog frontier
+remains four arrangements: 451 of 455 excluded at original 0.2 mm clearance,
+427 even at zero. Sixteen source strip capacities strengthen those graphs but
+their four bounded calls add no exclusion. No source-valid 66-part placement or
+whole-allocation exclusion follows. H2/H5 remain open at 60%.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3859,3 +3861,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 source strip capacities:** [independent geometry and weighted-model audits](../benchmarks/results/h5-strip-capacity-models-20261107.md) verify 16 necessary multi-part inequalities over 19,589 source members. Four partial selections prove information absent from pair clauses alone; they are not full-model witnesses. Exhaustive weighted-prefix controls and full audits verify 659 weight classes, 77,267 weighted gates and 2,968,117 clauses while preserving all 15,208,033 graph conflicts. Four fresh bounded calls stop at their 64 MiB proof caps; the complete batch closes in 138.118836 s, with no complete contradiction prefix, exclusion or placement. Four of 455 fixed arrangements and all 440 whole allocations remain. The next constructive hypothesis uses 12 movable cogs with the source-valid nine-part small sheet, distinct from earlier closed 13-cog/short11 models; fresh source domains and interactions must be audited before another construction. Every closed call stays closed. H2/H5 remain open at 60%; no new release is warranted.
+
+
+**2026-11-07 H5 twelve-cog rows:** [the new 4/4/4-row construction](../benchmarks/results/h5-twelve-cog-row-construction-20261107.md) uses the nine-part small sheet, twelve movable cogs and all sixteen orthogonal companions, distinct from closed thirteen-cog models models. Exact stock/core row domains, 2,367 mover regions, 583 row-pair regions, 162,384 source support proofs and 10,819 integer implications pass independent readback. The source-valid 50-part control preserves all original geometry while leaving sixteen companions unplaced. Full model checks cover 20,821 variables, 74,296 constraints, 96 modes, 24 rigid components and 268 component pairs. The sole bounded call closes UNKNOWN with no incumbent; complete preparation 11.751349 s and algorithm/shared totals 56.147634/56.243310 s remain within 60/90 s. The 0.125741 s solve-slice overrun and original misreported integer-region count remain preserved; a versioned audit corrects the count without changing model bytes. Four fixed arrangements and 440 allocations remain, and H2/H5 stay open at 60%. Next assess fresh 5/4/3 row domains with the nine-part small sheet; no closed model is repeated. Prior checkpoints reached main 9e878243 after all six CI checks passed, preserving 52 remote files. No new release is made.
