@@ -10,17 +10,17 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [twelve-cog independent-row construction](../benchmarks/results/h5-twelve-cog-row-construction-20261107.md).
-The new 4/4/4-cog row model with the nine-part small sheet passes its source,
-domain and model audits, then closes UNKNOWN with no placement. All 16 remaining
-orthogonal parts and 96 modes are included. Preparation-inclusive algorithm and
-shared totals of 56.147634 and 56.243310 seconds stay within the 60/90-second
-limits; the smaller solve-slice overrun remains recorded. This call is closed.
-Next assess fresh 5/4/3 row domains. The separate fixed29/current-cog frontier
-remains four arrangements: 451 of 455 excluded at original 0.2 mm clearance,
-427 even at zero. Sixteen source strip capacities strengthen those graphs but
-their four bounded calls add no exclusion. No source-valid 66-part placement or
-whole-allocation exclusion follows. H2/H5 remain open at 60%.
+Latest H5 evidence: [twelve-cog 5/4/3 constructions](../benchmarks/results/h5-twelve-cog-543-constructions-20261107.md).
+The new independent 5/4/3-cog model passes all source and model checks, then
+closes UNKNOWN without a placement. A separate staged method fixes its validated
+row control and closes grid-INFEASIBLE. Both include all sixteen orthogonal
+companions and 96 modes; all preparation is charged, and overall 60/90-second
+limits pass. The joint solve-slice overrun remains recorded. Both calls are
+closed; neither excludes a continuous layout or whole allocation. Next assess
+fresh 5/5/2 row domains with the same nine-part small sheet.
+The fixed29/current-cog frontier remains four arrangements: 451 of 455 excluded
+at original 0.2 mm clearance, 427 even at zero. All 440 whole allocations and
+the full66 source/material/native checks remain open. H2/H5 remain open at 60%.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3864,3 +3864,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 twelve-cog rows:** [the new 4/4/4-row construction](../benchmarks/results/h5-twelve-cog-row-construction-20261107.md) uses the nine-part small sheet, twelve movable cogs and all sixteen orthogonal companions, distinct from closed thirteen-cog models models. Exact stock/core row domains, 2,367 mover regions, 583 row-pair regions, 162,384 source support proofs and 10,819 integer implications pass independent readback. The source-valid 50-part control preserves all original geometry while leaving sixteen companions unplaced. Full model checks cover 20,821 variables, 74,296 constraints, 96 modes, 24 rigid components and 268 component pairs. The sole bounded call closes UNKNOWN with no incumbent; complete preparation 11.751349 s and algorithm/shared totals 56.147634/56.243310 s remain within 60/90 s. The 0.125741 s solve-slice overrun and original misreported integer-region count remain preserved; a versioned audit corrects the count without changing model bytes. Four fixed arrangements and 440 allocations remain, and H2/H5 stay open at 60%. Next assess fresh 5/4/3 row domains with the nine-part small sheet; no closed model is repeated. Prior checkpoints reached main 9e878243 after all six CI checks passed, preserving 52 remote files. No new release is made.
+
+
+**2026-11-07 H5 5/4/3 twelve-cog constructions:** [fresh source and full-model audits](../benchmarks/results/h5-twelve-cog-543-constructions-20261107.md) verify 2,099 mover regions, 577 row-pair regions, 147,085 source support proofs and 9,847 integer implications. The widened 700 mm row-difference error bound covers the new third-row freedom. One complete joint model closes UNKNOWN with no placement; charged preparation is 8.301528 s and algorithm/shared totals are 56.165204/56.309005 s, preserving its 0.146804 s solve-slice overrun. A separately frozen staged control has 208 fresh combined regions and a fully audited 2,962-variable companion model; its sole call closes grid-INFEASIBLE in 15.441594/15.510424 s including all 7.286199 s of preparation. Neither result excludes a continuous layout or allocation. Both calls stay closed. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. The next unprepared hypothesis uses 5/5/2 rows with the same validated nine-part small sheet. A pre-execution helper syntax failure and all original evidence remain preserved. No new release is made.
