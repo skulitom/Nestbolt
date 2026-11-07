@@ -10,22 +10,25 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [mixed frame roof and finite contacts](../benchmarks/results/h5-mixed-roof-contact-construction-20261107.md).
-The changed frame arrangement leaves seventeen compatible cog sites. A valid
-48-part control uses exactly fifteen cogs, with six brackets and twelve inserts
-still missing. Independent audits verify all 4,445 contacts, 2,096,128 candidate
-pairs and every field of the exact-inventory model. Its single declared call
-returns finite-pool INFEASIBLE in 2.227445 s, without an assignment or incumbent.
-Algorithm/shared totals including preparation are 14.700575/14.803571 s;
-all processes close without an overrun. No continuous layout or allocation is
-excluded. Next assess source-safe cells for continuous cog centers and angles
-and all eighteen companions under the changed frame arrangement, including
-multiple cog-cell choices. No successor geometry or call is prepared.
-Four earlier fixed arrangements and 440 allocations remain. H2/H5 stay open
-at 60% completed milestone weight. Main 6b81bf9d includes the previous two
-checkpoints after all six prior checks passed; fresh CI is running.
-All 66 original-source, native and material checks, production parity and the
-unchanged H5 matrix remain required. No release qualifies.
+Latest H5 evidence: [mixed-roof continuous construction](../benchmarks/results/h5-mixed-roof-continuous-construction-20261107.md).
+Source-safe hard cells protect all fixed frames and stock while freeing 33 part
+centers and all fifteen cog angles. Independent audits replay 17,010 initializer
+trials, 240 owner options and both distinct cog domains. A preserved derivative
+check failure resolves at two smaller finite-difference steps with the same
+tolerance; the analytic gradient and initializer remain unchanged.
+Three unique calls and 317 single-owner trials close with 50 failing source
+pairs and 45,898.003784 mm² overlap. Every fixed-part and stock check passes.
+All 315 retained points and 444 evaluations replay. Algorithm/shared totals are
+56.105047/56.173290 s including 12.254436 s preparation; all processes close and
+all slice overruns are preserved. No full66 witness or allocation exclusion follows.
+Next assess joint bracket/insert and bracket/cog cell changes, excluding all
+closed vectors and auditing complete source scores and preparation first.
+No successor selector or call is prepared. Four earlier fixed arrangements and
+440 allocations remain; H2/H5 stay open at 60% completed milestone weight.
+Main6b81bf9d has five passed jobs and a live Windows native check. Checkpoint
+dcfd2a26 and this checkpoint await the ordinary push gate. Full66 source/native/
+material checks, production parity and the unchanged H5 matrix remain required.
+No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3929,3 +3932,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 mixed frame roof and finite contacts:** [independent source/contact/graph/model/response audits](../benchmarks/results/h5-mixed-roof-contact-construction-20261107.md) verify sixteen turned base frames, two unturned top frames and seventeen compatible cog sites. A valid 48-part control uses exactly fifteen cogs; six brackets and twelve inserts remain missing. All 136 cog-site pairs and 306 site/frame pairs pass, with minimum gaps of 0.301547629 and 0.268862770 mm. All 4,445 contacts and 155,575 fixed-pair checks replay; the frozen cap keeps 1,024 candidates per companion family. Every one of 2,096,128 candidate pairs is checked, reproducing 231,343 edges and 3,167 pose/cog conflicts. The model has 2,065 variables and 234,513 constraints and requires exact original quantities. Its single call returns finite-pool INFEASIBLE in 2.227445 s, without an assignment or incumbent; no continuous layout or allocation is excluded. Complete preparation is 11.631014 s and algorithm/shared totals are 14.700575/14.803571 s, with no overrun and all processes closed. Next assess source-certified hard cells for continuous cog centers and angles and all eighteen companions under the changed frame arrangement, including multiple cog-cell choices. No successor geometry or call is prepared. Four earlier fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Checkpoints be75186f and 6b81bf9d reached main after all six prior checks passed, preserving 52 remote files; fresh CI is running. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 mixed-roof continuous construction:** [independent source/model/response audits](../benchmarks/results/h5-mixed-roof-continuous-construction-20261107.md) verify 184 atomic cells, 96 exact support proofs, 1,200 source corner controls and both distinct cog domains. One initializer replays 17,010 trials; the model checks 240 owner options, 208 vectors and 429 equivalence pairs. The original large-step derivative failure is preserved; all 162 coordinates pass the same tolerance at both smaller steps, without changing the gradient or initializer. Three unique calls and 317 single-owner trials close at the source-check stop; 315 retained points and 444 evaluations replay. The final candidate still fails 50 pairs, with 45,898.003784 mm² overlap; every fixed-part and stock check passes. Complete preparation is 12.254436 s and algorithm/shared totals are 56.105047/56.173290 s. All slice overruns are retained and all processes close. A separate containment diagnostic finds no strict-containment plateau across the four saved cases. No native call or allocation exclusion follows. Next assess joint bracket/insert and bracket/cog cell changes with all three closed vectors excluded, complete source accounting and independent score preflight; no successor selector or call is prepared. Four earlier fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main6b81bf9d has five passed CI jobs and a live Windows native job; dcfd2a26 and this checkpoint await the ordinary push gate. Production, README and releases are unchanged.
