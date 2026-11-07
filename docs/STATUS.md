@@ -10,19 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [halfplane search and exact source capacity](../benchmarks/results/h5-cog-halfplane-search-and-capacity-20261107.md).
-The smaller 28-mover model passes all 28,254 variable and 58,169 constraint
-checks. Its sole call closes UNKNOWN without a placement, within the overall
-time and memory limits. The solve-slice overrun is retained and the call stays
-closed. New exact source-contained rectangles pass 101 containment proofs and
-230 projection-slab checks across every original mode. They support global
-capacity and coarse rectangle constraints for a distinct complete model,
-while all full pair geometry remains mandatory. That model and its independent
-protobuf audit are next; no new call is prepared.
+Latest H5 evidence: [global-capacity search and smaller initial model](../benchmarks/results/h5-cog-capacity-search-and-initial-model-v2-20261107.md).
+The complete global-capacity model passes all 28,254 variable and 60,632
+constraint checks. Its sole call closes UNKNOWN without a placement, within
+the overall time and memory limits; the solve-slice overrun is preserved.
+A distinct necessary initial model has 1,332 variables and 4,712 constraints,
+retaining every original mover/mode, full orthogonal spacing and source capacity.
+Its entire readback passes. The next pipeline must validate all 66 original
+contours after each candidate and add detailed constraints only for newly
+observed cog-pair failures, with independent readback before each changed call.
+That bounded pipeline has not been prepared or run; all previous calls stay closed.
 Four fixed arrangements and all 440 allocations remain; full66 source/material/
 native checks and the full H5 gate are open. H2/H5 stay open at 60%.
-The current main c339bc7a CI snapshot is preserved in the report. The next normal
-push waits for all six jobs and aggregate success; no release is made.
+The preceding checkpoints reached main 37ede828 after all six prior CI checks
+passed, preserving all 52 remote files. New CI is underway; no release is made.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3878,3 +3879,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 halfplane search and exact capacity:** [complete model, response and source audits](../benchmarks/results/h5-cog-halfplane-search-and-capacity-20261107.md) verify 28,254 variables and 58,169 constraints. The sole call closes UNKNOWN with no incumbent or placement; preparation-inclusive algorithm/shared totals are 57.533015/57.630837 s and peak memory is 2,102,865,920 bytes. The 1.518168 s solve-slice overrun remains recorded. New source capacity checks verify 101 exact rectangle-containment proofs, 5,104 edge/box checks and 230 projection slabs across all 13 modes and 108 owner/mode options. Cog strips cover 90.562604% of the filled outer. The proposed global model has 1,564/552 projection intervals and 172 optional coarse rectangles, each rigidly coupled to its original mode and coordinates; all full pair geometry remains required. Complete source preparation is 4.246794 s before a fresh model build. No new model or solver call is opened; all closed calls stay closed. Four fixed arrangements and 440 allocations remain, with H2/H5 open at 60%. No release is made.
+
+
+**2026-11-07 H5 global-capacity search and smaller initial model:** [complete model/response and initial-model audits](../benchmarks/results/h5-cog-capacity-search-and-initial-model-v2-20261107.md) verify the full 28,254-variable/60,632-constraint construction, including all 2,463 new global constraints. Its sole call closes UNKNOWN with no incumbent; algorithm/shared totals are 56.129667/56.232693 s including preparation, peak memory is 1,981,014,016 bytes, and the 0.110564 s solve-slice overrun is preserved. A distinct 1,332-variable/4,712-constraint initial model retains all 28 movers, 108 modes, full orthogonal spacing and source capacity constraints while deferring detailed cog pairs. Every field passes independent readback; complete preparation is 5.105639 s. A future bounded pipeline must check all66 originals after each candidate and add only newly witnessed source-pair constraints, audit every changed model and never retry an unchanged one. That pipeline is not yet prepared or run. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. The preceding checkpoints reached main 37ede828 after all six prior CI checks passed, preserving all 52 remote files. No release is made.
