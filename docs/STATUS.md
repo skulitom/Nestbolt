@@ -10,22 +10,23 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [fifteen-cog continuous construction](../benchmarks/results/h5-fifteen-cog-continuous-construction-20261107.md).
-Current-ledger readback, a valid 57 part source control, the complete 24 mover model
-and all three bounded responses pass independent audits. No valid full 66 layout
-results: the first call remains best, with 31 overlapping pairs totaling 7,052.327596 mm².
-All fixed-part clearances and stock edges pass. Later worse candidates, all 268
-saved points,65 orientation trials and all slice overruns are preserved.
-Preparation-inclusive algorithm/shared totals are 54.483481/54.554720 s; every
-process is closed and no continuation is allowed. Next assess the historical
-six-bracket/nine-insert short allocation, changing the remaining mix to six
-brackets, one insert and fifteen continuous-angle cogs. No successor source
-geometry, initializer or model is prepared. Four fixed arrangements and 440
-allocations remain; H2/H5 stay open at 60% completed milestone weight.
-Main 52313564 was pushed after all six prior checks passed, preserving 52 remote
-files; fresh CI is live. This checkpoint awaits the ordinary push gate.
-Full 66 source/native/material checks, production parity and the unchanged H5
-matrix remain required. No release qualifies.
+Latest H5 evidence: [six-bracket continuous construction](../benchmarks/results/h5-six-bracket-continuous-construction-20261107.md).
+Source audits verify the changed short allocation and a valid 59-part control.
+A field-verifier bound error is preserved and corrected before optimization;
+all 4,212 initialization trials are reused unchanged and all failed work is charged.
+The complete 22-mover model and three bounded responses pass replay audits,
+but no full66 layout results. Call 1 remains best with 29 overlapping pairs and
+17,515.461166 mm² total overlap; every fixed-part clearance and stock edge passes.
+All 298 retained points, 85 orientation trials and slice overruns are preserved.
+Preparation-inclusive algorithm/shared totals are 55.654869/55.729385 s; every
+process is closed. Next assess hard certified center cells after freeing eleven
+side-strip inserts, retaining 33 movers and all fifteen continuous cog angles.
+No successor geometry, initializer or model is prepared. Four fixed arrangements
+and 440 allocations remain; H2/H5 stay open at 60% completed milestone weight.
+Main 52313564 has four passed CI jobs and two native checks running; checkpoint
+1191e857 and this checkpoint await the ordinary push gate. Full66 source/native/
+material checks, production parity and the unchanged H5 matrix remain required.
+No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3917,3 +3918,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 fifteen-cog continuous construction:** [independent source/model/response audits](../benchmarks/results/h5-fifteen-cog-continuous-construction-20261107.md) reconcile all 4,576 allocation rows and 440 survivors, verify a source-valid 57 part control,882 exact contact sections and 388 stock-corner controls. One complete initializer replays 4,212 trials; the 24 mover/63 parameter model checks 67 owner-mode bindings,126 central derivatives and 81 physical-mode equivalences. Three unique physical-vector calls and 65 orientation trials close at the declared limit; all 268 saved points and 312 evaluation counters replay. The first call remains best:31 source overlaps totaling 7,052.327596 mm², with all fixed-part and stock checks passing. Both later worse candidates and all slice overruns remain preserved. Complete preparation is 5.846273 s and algorithm/shared totals 54.483481/54.554720 s; every process closes. No native call or allocation exclusion follows. Next assess the historical six-bracket/nine-insert short allocation with a newly checked 22 mover/all 15 continuous-angle original model; no successor is prepared and no closed call may resume. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Previous checkpoint 52313564 reached main after all six prior checks passed, preserving 52 remote files; fresh CI is live. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 six-bracket continuous construction:** [independent source/model/response audits](../benchmarks/results/h5-six-bracket-continuous-construction-20261107.md) verify the historical six-bracket/nine-insert allocation, a valid 59-part source control, 882 exact contact sections and 388 stock-corner controls. A stale inner pair-loop bound stops initialization before optimization; the failed 2.673755 s stage is preserved, its verifier is versioned, and all 4,212 recorded trials are reused unchanged. Corrected model checks cover 22 movers, 59 parameters, 231 pairs, 67 mode bindings and 118 central derivatives. Three distinct physical-vector calls close at the declared limit; all 298 retained points, 85 orientation trials and 332 evaluation counters replay. Call 1 remains best with 29 source overlaps totaling 17,515.461166 mm²; all fixed-part and stock checks pass. Complete preparation is 6.882681 s and algorithm/shared totals are 55.654869/55.729385 s. All slice overruns and worse candidates remain preserved, every process closes, and no native call or exclusion follows. Next assess source-certified hard domain cells after freeing eleven side-strip inserts, retaining 33 movers and all fifteen continuous cog angles; no successor is prepared and no closed call may resume. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main 52313564 has four passed CI jobs and two native checks running, so both pending checkpoints await the ordinary push gate. Production, README and releases are unchanged.
