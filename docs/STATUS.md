@@ -10,18 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete screened-objective preflight](../benchmarks/results/h5-screened-objective-preflight-20261107.md).
-All 363 old/new comparisons agree exactly, including 147 source modes and
-211 evaluations from five closed searches. Independent scalar geometry checks all
-81 gradient coordinates in 216 cases. Known contact failures stay preserved;
-central, boundary and corruption controls pass. All 23 problem keys remain closed.
-Full evaluation/construction timings cover 52 calls, retaining one slowdown.
-Eight complete-trajectory batches verify 392 exact evaluations. Next prepare and
-independently verify a fresh original-source model and full budget, retaining
-39.049161 s source preparation plus new costs. No new initializer or search is
-opened. The last candidate still has 54 failed pairs. Four arrangements and 440
-allocations remain; H2/H5 stay at 60%. Main ddf2310d has 5 passed / 1 live CI
-jobs at review. Product code, README and releases are unchanged.
+Latest H5 evidence: [screened-objective source construction](../benchmarks/results/h5-screened-source-construction-20261107.md).
+Fresh original-source preparation totals 40.438637 s. Both finite calls close,
+but the original-area winner fails 53 source pairs and a different augmented/
+unweighted winner fails 52. All 120 records, 104 saved points, 528 updated weights,
+15,013 runtime scores and six full66 outputs replay. All 81 gradient coordinates
+are independently checked at every evaluation. All 25 exact keys remain closed.
+A whole-boundary clipping diagnostic retains 1128/1132 exact geometry sets and
+4 component-count mismatches, including extra shared-boundary lengths of
+60.77/63.52 mm. Unconditional substitution is rejected. Source-edge correspondence
+and integrated gradients need verification before any replacement kernel or search.
+Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Main b4e16c74
+has 1 passed / 5 live jobs at review. Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4000,3 +4000,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 complete screened-objective preflight:** [full objective, scalar and timing evidence](../benchmarks/results/h5-screened-objective-preflight-20261107.md) verifies exact old/new results in 363 cases, including all 147 source modes and 211 records from five closed calls. All 81 scalar gradient coordinates are independently checked in 216 cases; 167 saved points and fifteen winner streams reconcile. The original 324 central samples and fourteen failures remain preserved; fourteen finite one-sided controls, 324 historical interior central checks, eight synthetic boundary cases and nine model corruptions pass. All 23 keys stay closed. The 52 single-call timings retain variability and one slowdown. Eight complete saved-trajectory batches verify 392 exact evaluations, with all timings retained and no convergence or packing claim. Next independently prepare an original-source initializer and full budget, retaining 39.049161 s plus new costs. No new source initializer or optimizer call is opened. The last layout still has 54 failed pairs; four arrangements and 440 allocations remain, with H2/H5 open at 60%. Main ddf2310d has 5 passed / 1 live jobs at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 screened-objective source construction:** [complete source, selection and scalar-gradient replay](../benchmarks/results/h5-screened-source-construction-20261107.md) verifies a fresh original-source model under 23 closures, all 5,911 primary proposals and 2,854 keys. Full preparation is 40.438637 s. Two calls close within 54.452233/54.563159 s algorithm/shared totals. The original-area winner remains invalid with 53 failed pairs and 41911.983324 mm² overlap; a distinct augmented/unweighted winner fails 52 pairs. All 120 records, 104 saved points, 528 updated weights, 15,013 runtime scores and six source outputs replay, including independent all81 scalar gradients on every evaluation. All 25 keys stay closed. A read-only whole-boundary clipping diagnostic retains 1128/1132 exact geometry sets and 4 component-count mismatches; aggregate separate/bulk clip means are 0.118378/0.086468 s, excluding correspondence/integration. Next resolve source-edge correspondence and full integrals before any replacement kernel, objective or search. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Main b4e16c74 has 1 passed / 5 live jobs at review. Product code, README and releases are unchanged.
