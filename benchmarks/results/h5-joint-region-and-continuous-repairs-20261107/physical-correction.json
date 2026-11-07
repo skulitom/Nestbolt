@@ -1,0 +1,14 @@
+{
+  "preserved_inputs": {
+    "output/h5_cog_physical_union_distance_20261107.py": "9a93cd3cbf42f763f659af6b05aa5e81f7e8e1ec795605e9fee010a7d002d31d",
+    "output/audit_h5_cog_physical_union_distance_20261107.py": "6055328b21c333af2f13ca76eacaa7390676ffee9a3784f09003cd496be17ded",
+    "output/h5-cog-physical-union-distance-20261107/source-arrays.npz": "ccef057e61892a8b88592eab69528e25684e5e6da8c64eb0eb2f6c927b6a0c19",
+    "output/h5-cog-physical-union-distance-preparation-process-20261107/process.json": "fd26ceee5269efb8b3b44db02c9a37a1855afa1136220769c8e3f844091ca823",
+    "output/h5-cog-physical-union-distance-preparation-process-20261107/audit-stderr.txt": "57346aeab35a7e9cb97186059609151da6ab8ee2d8ad63fcb41427698d8a52ec"
+  },
+  "failure": "The first broader objective selected a reflected cog half solely by the query-X sign. Its source safe-region cover need not be centrally symmetric at X=0, and nearest distance to a union cannot generally select a half by the query sign. The descent control caught a10.605332790160901mm2 jump under endpoint reversal at two zero-X queries. No source optimizer call ran.",
+  "correction": "Use the full union K plus -K for every cog query, with duplicated reflected vertices/normals and a global nearest-region minimum. Keep all four rectangle directions. v2 reuses and charges the complete original broader-array preparation, preserves all failed bytes, and independently checks every added reflected projection with exact rationals. Gradient-equivariance is tested at generic perturbed points, not assumed at nondifferentiable ties.",
+  "source_optimizer_calls_before_correction": 0,
+  "original_physical_array_preparation_seconds": 0.40825099986977875,
+  "failed_audit_complete_seconds": 2.5366424000822008
+}

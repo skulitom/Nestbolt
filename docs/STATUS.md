@@ -10,18 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [convex repair and exact choice conflicts](../benchmarks/results/h5-cog-convex-repair-and-choice-proofs-20261107.md).
-The fully audited continuous repair closes infeasible for its selected regions.
-Six exact source constraints require 1,288.21 mm of span against 1,186.94 mm
-allowed by stock bounds. A new proof-guided choice search verifies 256 more
-contradictions, then stops at its frozen node cap with 1,350 states unsearched.
-These results exclude only the selected combinations. A distinct joint-region
-model with 257 certified choice conflicts and stock-domain pruning is next;
-complete consumed charge is 34.464716 s before its new preparation. It is not
-yet built. Four fixed arrangements and all 440 allocations remain. Full66
-source/native/material checks and the unchanged H5 gate remain open.
-H2/H5 stay open at 60%. All six checks on main 548f5b40 now pass; these evidence
-commits are ready for the ordinary guarded push. No release is made.
+Latest H5 evidence: [joint regions and continuous repairs](../benchmarks/results/h5-joint-region-and-continuous-repairs-20261107.md).
+The fully audited joint-region model closes UNKNOWN without a placement.
+Two distinct continuous repairs converge numerically, but full original-source
+checks still fail 40 and 38 pairs. All stock checks pass; neither candidate is
+valid. The broader model now includes all four rectangle directions and the
+complete symmetric safe-region union for identical cogs; its preflight seam
+failure and correction remain preserved. Every call stays closed.
+Legal bracket/insert orientation changes are the next construction, with the
+complete 32.907266 s warm-start lineage charged before new preparation.
+That mixed-mode model is not yet built. Four fixed arrangements and all 440
+allocations remain. H2/H5 stay open at 60%; full source/native/material checks,
+production integration/parity and the unchanged H5 matrix remain required.
+The preceding checkpoints reached main e3b34ed3 after all six prior checks
+passed, preserving all 52 remote files. Current CI is retained; no release.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3886,3 +3888,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 convex repair and exact choice conflicts:** [complete model, response and certificate audits](../benchmarks/results/h5-cog-convex-repair-and-choice-proofs-20261107.md) verify the 112-variable/1,730-row continuous repair. Its sole LP call closes infeasible with no assignment; preparation-inclusive algorithm/shared totals are 31.130687/31.200950 s, peak memory is 62,181,376 bytes and all descendants close. An exact six-region chain needs 1,288.21 mm of horizontal span against 1,186.94 mm allowed, a 101.27 mm contradiction confined to those selected choices. A different proof-guided search closes at 256 nodes; all 256 contradictions and 47,804 bound deductions replay independently, while 1,350 queued states remain unsearched. No call is repeated or extended. The 257 verified choice conflicts can feed a new joint-region model after exact stock-domain pruning; complete consumed charge is 34.464716 s before new geometry/model building. No valid full66 layout or allocation exclusion follows. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. All six prior-main CI jobs pass; ordinary guarded checkpoint push is next. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 joint regions and continuous repairs:** [complete source/model/response audits](../benchmarks/results/h5-joint-region-and-continuous-repairs-20261107.md) verify all 18,882 stock-clipped options and the 18,938-variable/40,118-constraint joint model. Its sole call closes UNKNOWN without an incumbent; the 0.229345 s solve overrun is retained inside 56.301264/56.332928 s algorithm/shared totals. A separate continuous fixed-separator repair converges numerically but fails 40 original pairs. A broader corrected physical-union model checks all four rectangle directions and unordered identical cogs, passing 24,228 exact projection comparisons and 112 derivative controls; its sole call still fails 38 source pairs. Both candidate replays cover all 66 originals, 1,632 pairs, 264 edges, 90 holes and 10,026 hole vertices. All processes close; no valid layout or exclusion follows. The preflight cog-union seam failure and correction are preserved. The next distinct construction proposes legal orientation changes, charging the complete 32.907266 s warm-start lineage before new preparation; it is not built or run. Four fixed arrangements and 440 allocations remain. H2/H5 stay open at 60%; production, README and releases are unchanged.
