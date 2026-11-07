@@ -10,18 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [independent twelve-cog preparation](../benchmarks/results/h5-independent-twelve-cog-preparation-20261107.md).
-Fresh geometry allows all twelve cogs to move independently with sixteen
-orthogonal companions, retaining all 108 source-mode options and the direct
-nine-part small sheet. Exact mode-coupled coordinate proofs and integer reductions
-leave 27,594 region choices and 97,284 guarded planes. All source, coordinate and
-integer audits pass; charged preparation so far is 3.242979 s. A complete model
-and independent serialized-model readback are next, before one bounded call.
-No model or solver has opened, and the 50-original control remains incomplete.
-Four fixed arrangements and all 440 whole allocations remain; full66 source,
-material/native checks and the full H5 gate remain open. H2/H5 stay open at 60%.
-The preceding row checkpoints reached main 3baf15d1 after all six prior checks
-passed; its Windows native check is still live at review.
+Latest H5 evidence: [individual-cog search and support halfplanes](../benchmarks/results/h5-independent-cog-search-and-halfplanes-20261107.md).
+The complete 28-mover model passes all 29,310 variable and 102,383 constraint
+checks. Its sole call stops at the monitored 2 GiB memory limit without a solver
+response or placement; all descendants close and the memory overshoot is preserved.
+The call stays closed. Fresh original-source support inequalities reduce the
+next model's guarded geometry planes to 53,070, with all 108 source modes retained.
+Source, exact clipping, cover-chain and partial-control checks pass. A complete
+new model and independent serialized-model audit are next, before one bounded call.
+Four fixed arrangements and all 440 allocations remain; full66 source/material/
+native checks and the full H5 gate are open. H2/H5 stay open at 60%.
+The preceding checkpoint reached main c339bc7a after all six prior checks passed;
+its current CI snapshot is preserved in the report. No release is made.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3871,3 +3871,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 independent twelve-cog preparation:** [source, coordinate and integer audits](../benchmarks/results/h5-independent-twelve-cog-preparation-20261107.md) verify 28 original movers with 12 independently positioned cogs, all 108 source modes, 25,348 source pair checks and 258 cog interactions. Exact mode-coupled quarter-turn coordinates reduce the initial 80,202 region choices to 29,640, with 6,728 new original-source support proofs and minimum certified gap 0.232399392 mm. All 1,244 integer implications and 31 dominance proofs pass, leaving 27,594 choices and 97,284 guarded planes. The 50-original partial control retains all 66 cog-pair checks; 16 companions remain unplaced. Complete charged preparation so far is 3.242979 s. A complete model and independent protobuf audit are next, before one frozen 60/90-second call. No solver or native call opened and no arrangement or allocation is excluded. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Both earlier row checkpoints reached main 3baf15d1 normally after all six prior checks passed, preserving 52 remote files. Current Windows CI is live at review. The pre-execution shell quoting failure remains documented; all bounded processes closed. No release is made.
+
+
+**2026-11-07 H5 individual-cog model and support halfplanes:** [full model, process and new source audits](../benchmarks/results/h5-independent-cog-search-and-halfplanes-20261107.md) verify 29,310 variables and 102,383 constraints for all 28 movers and 108 modes. The sole call reaches search after presolve, then stops at the 2 GiB monitored memory limit without any solver response, incumbent or assignment. All descendants close; the 4,313,088-byte peak overshoot and 38.762725-second preparation-inclusive process remain recorded. No solver status or exclusion is invented, and the call stays closed. A distinct geometry representation has 576 exact source support proofs, 155 retained halfplanes and 148 unchanged concave pockets, reducing proposed guarded planes from 97,284 to 53,070 and choices to 26,538. Its 66 cog-control pairs pass; charged source preparation is 3.931019 s before the next complete model build. A preserved lineage-scope audit failure is corrected separately without changing geometry or repeating preparation. The new complete model and independent readback are next; no new call is prepared. Four fixed arrangements and 440 allocations remain, with H2/H5 open at 60%. Main c339bc7a was pushed normally after all six prior checks passed, preserving 52 remote files; no release is made.
