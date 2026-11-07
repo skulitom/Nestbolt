@@ -10,25 +10,24 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [six upper frames](../benchmarks/results/h5-six-upper-frames-construction-20261107.md).
-The corrected top-row copies 3, 7, 11, 15 and roof copies 16, 17 give 39 moving parts,
-93 parameters and 741 interactions. The unused right-column preparation is
-preserved and charged. All 8,262 initializer trials, 141 owner options and 372
-derivative samples pass. Three calls close with 57 failing pairs in the best
-candidate and 31,268.077325 mm² overlap; fixed-part and stock checks pass.
-All 362 saved points replay and 440 recorded evaluations reconcile. The complete
-preparation is 7.770826 s; algorithm/shared totals are 55.224232/55.291532 s.
-Every process closes. All frame orientations stay unchanged; 15 frame-related
-failures remain. No full 66 witness, native call or allocation exclusion follows.
-Next reconcile the historical October 26 mixed 4-by-3/3-by-2 frame arrangement
-and assess continuous source domains and an original-source15-cog seed. Its
-finite UNKNOWN call remains closed; no successor geometry/model is prepared.
+Latest H5 evidence: [mixed-row continuous construction](../benchmarks/results/h5-mixed-rows-continuous-construction-20261107.md).
+The historical twelve-turned/six-unturned frame recipe and a fifteen-cog source
+grid pass original checks. The full 33-mover model has 81 parameters and 528
+pair interactions; audits verify 10,692 initializer trials, 147 owner options
+and 324 derivative samples. Three calls close with 52 failing pairs in the best
+objective candidate and 38,972.237088 mm² overlap; fixed-part and stock checks
+pass. All 390 saved points replay and 478 recorded evaluations reconcile.
+Complete preparation is 9.012576 s; algorithm/shared totals are
+56.181211/56.284123 s. Every process closes and all slice overruns remain.
+No full66 witness, native call or allocation exclusion follows. Next assess
+bounded positive pair weights on exact source/clearance overlap with all hard
+stock/fixed domains intact. Earlier guided-search history is retained; no new
+weighted model or call is prepared and no closed call may resume.
 Four earlier fixed arrangements and 440 allocations remain. H2/H5 stay at 60%
-completed milestone weight. Main `bca9af73` preserves all 52 protected remote files;
-four CI jobs pass and two native checks are live at review. This checkpoint
-awaits the ordinary push gate. Full 66 source/native/material checks, production
-parity and the unchanged H5 matrix remain required. Product code is unchanged;
-this evidence-only checkpoint does not warrant another release.
+completed milestone weight. Main bca9af73 has five passing CI jobs and live
+Windows native CI. Checkpoint 15f55b9a and this checkpoint await the ordinary
+push gate. Full66 source/native/material checks, production parity and the
+unchanged H5 matrix remain required. Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3944,3 +3943,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 six upper frames:** [source/model/response audits](../benchmarks/results/h5-six-upper-frames-construction-20261107.md) correct the column-major frame indexing: the moving top row is 3, 7, 11, 15 plus roof 16, 17. The unused right-column source and its passing audit remain preserved; its 0.390410 s complete preparation is charged and it opened no model/optimizer. The corrected 39-mover/93-parameter/741-pair model verifies 44 atomic cells, 27 exact supports, 684 source corners, 8,262 initializer trials, 141 owner options and 372 derivative samples. Three distinct calls and 131 mode trials close at the declared limit; 362 saved points and 440 evaluation counters replay. The best candidate still fails57 original pairs with 31,268.077325 mm² overlap; fixed-part and stock checks pass. Complete preparation is 7.770826 s and algorithm/shared totals 55.224232/55.291532 s; all slice overruns remain and every process closes. Fifteen frame-related failures contribute 14,309.265123 mm²; frame orientations stay unchanged. Next reconcile the already documented October 26 mixed 4-by-3/3-by-2 frame arrangement and assess independently certified continuous domains and a source-only 15-cog seed; its finite UNKNOWN call remains closed. No successor geometry or model is prepared. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoints reached main `bca9af73`; four CI jobs pass and two native checks remain live at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 mixed-row continuous construction:** [source/model/response audits](../benchmarks/results/h5-mixed-rows-continuous-construction-20261107.md) reconcile the historical October 26 mixed-row frame topology and preserve its finite UNKNOWN call. One fifteen-cog grid passes all 105 cog pairs, 270 frame pairs and the full 48-part partial control. New continuous domains verify 112 atomic cells, 54 exact supports and 708 source corners. The 33-mover/81-parameter/528-pair model replays 10,692 initializer trials, 147 owner options, 115 vectors and 324 derivative samples. Three unique calls and 155 mode trials close at the source-check time stop; 390 retained points and 478 evaluation counters replay. The best objective candidate still fails 52 original pairs with 38,972.237088 mm² overlap; fixed-part and stock checks pass. Complete preparation is 9.012576 s and algorithm/shared totals are 56.181211/56.284123 s, with every process closed and all slice overruns retained. Failure diagnostics show overlap across all moving family combinations and five cogs with blocked lower-y descent. Next assess a separately specified bounded positive pair-weight model on exact original/clearance geometry, retaining hard stock/fixed domains and charging only an unoptimized source initializer; earlier guided-search history and every closed call remain preserved. No weighted model or call is prepared. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Main bca9af73 has five passed jobs and live Windows native CI; 15f55b9a and this checkpoint await the ordinary push gate. Product code, README and releases are unchanged.
