@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "scipy_version": "1.17.1",
+  "highs_version": "1.12.0",
+  "synthetic_calls": 2,
+  "source_model_calls": 0,
+  "records": [
+    {
+      "name": "optimal",
+      "status": "Optimal",
+      "seconds": 0.0006988001987338066,
+      "values": [
+        0.5,
+        1.0
+      ],
+      "options": {
+        "solver": "simplex",
+        "simplex_strategy": 1,
+        "presolve": "on",
+        "parallel": "off",
+        "threads": 1,
+        "random_seed": 0,
+        "time_limit": 1.0,
+        "primal_feasibility_tolerance": 1e-09,
+        "dual_feasibility_tolerance": 1e-09,
+        "output_flag": true,
+        "log_to_console": false,
+        "log_file": "C:\\DEV\\Nestbolt\\output\\h5-cog-convex-repair-20261107\\audit-v2\\optimal.log"
+      },
+      "model_readback": {
+        "passed": true,
+        "variables": 2,
+        "rows": 1,
+        "nonzeros": 2,
+        "all_bounds_objective_rows_options_read_back": true
+      }
+    },
+    {
+      "name": "infeasible",
+      "status": "Infeasible",
+      "seconds": 0.00014519994147121906,
+      "values": null,
+      "options": {
+        "solver": "simplex",
+        "simplex_strategy": 1,
+        "presolve": "on",
+        "parallel": "off",
+        "threads": 1,
+        "random_seed": 0,
+        "time_limit": 1.0,
+        "primal_feasibility_tolerance": 1e-09,
+        "dual_feasibility_tolerance": 1e-09,
+        "output_flag": true,
+        "log_to_console": false,
+        "log_file": "C:\\DEV\\Nestbolt\\output\\h5-cog-convex-repair-20261107\\audit-v2\\infeasible.log"
+      },
+      "model_readback": {
+        "passed": true,
+        "variables": 1,
+        "rows": 2,
+        "nonzeros": 2,
+        "all_bounds_objective_rows_options_read_back": true
+      }
+    }
+  ],
+  "actual_model_readback": {
+    "passed": true,
+    "variables": 112,
+    "rows": 1730,
+    "nonzeros": 3952,
+    "all_bounds_objective_rows_options_read_back": true
+  },
+  "actual_model_options_readback": {
+    "solver": "simplex",
+    "simplex_strategy": 1,
+    "presolve": "on",
+    "parallel": "off",
+    "threads": 1,
+    "random_seed": 0,
+    "time_limit": 1.0,
+    "primal_feasibility_tolerance": 1e-09,
+    "dual_feasibility_tolerance": 1e-09,
+    "output_flag": true,
+    "log_to_console": false,
+    "log_file": "C:\\DEV\\Nestbolt\\output\\h5-cog-convex-repair-20261107\\audit-v2\\source-model-load.log"
+  }
+}

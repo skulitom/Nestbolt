@@ -10,18 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [staged cog candidate and exact projections](../benchmarks/results/h5-staged-cog-candidate-and-projections-20261107.md).
-The staged search returns one necessary 66-part candidate, but full original-
-source replay finds 32 failing pairs. The next model adds all 32 interactions
-and stops UNKNOWN at its time limit. Both calls stay closed; no valid
-layout or exclusion follows. New exact projections verify 18,882 closest-point
-certificates across certified source regions, identifying 32 pairs needing
-relative movement. A distinct continuous convex repair is next; its complete
-source charge is 29.922133 s before model building. No repair model is prepared.
-Four fixed arrangements and all 440 allocations remain; full66 source/material/
-native checks and the full H5 gate are open. H2/H5 stay open at 60%.
-The preceding checkpoint reached main 548f5b40 after all six prior CI checks
-passed, preserving all 52 remote files. New CI is underway; no release is made.
+Latest H5 evidence: [convex repair and exact choice conflicts](../benchmarks/results/h5-cog-convex-repair-and-choice-proofs-20261107.md).
+The fully audited continuous repair closes infeasible for its selected regions.
+Six exact source constraints require 1,288.21 mm of span against 1,186.94 mm
+allowed by stock bounds. A new proof-guided choice search verifies 256 more
+contradictions, then stops at its frozen node cap with 1,350 states unsearched.
+These results exclude only the selected combinations. A distinct joint-region
+model with 257 certified choice conflicts and stock-domain pruning is next;
+complete consumed charge is 34.464716 s before its new preparation. It is not
+yet built. Four fixed arrangements and all 440 allocations remain. Full66
+source/native/material checks and the unchanged H5 gate remain open.
+H2/H5 stay open at 60%. All six checks on main 548f5b40 now pass; these evidence
+commits are ready for the ordinary guarded push. No release is made.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3883,3 +3883,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 staged candidate and exact projections:** [independent pipeline, source and projection audits](../benchmarks/results/h5-staged-cog-candidate-and-projections-20261107.md) verify two closed calls. The initial necessary model returns a 66-part candidate; original-source replay finds 31 overlaps and one clearance failure, with all stock edges passing. All 32 new cog-pair interactions are added to a fully audited 5,041-variable/12,819-constraint model, whose eight-second call stops UNKNOWN. The 0.030114 s solve-slice overrun remains recorded; preparation-inclusive algorithm/shared totals are 27.116847/27.155075 s and all descendants close. New exact safe-region preparation verifies 303 clipped regions, 1,055 vertices and 18,882 projection certificates, with 226 cog pairs already safe and 32 needing relative motion. All 268 orthogonal separators pass. One distinct convex translation repair is next, with all 28 selected legal modes fixed and complete charge29.922133 s before its model build. No repair model or solver is prepared, no valid full66 layout or exclusion follows, and all previous calls stay closed. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Main548f5b40 was pushed after all six prior CI checks passed, preserving52 remote files; no release is made.
+
+
+**2026-11-07 H5 convex repair and exact choice conflicts:** [complete model, response and certificate audits](../benchmarks/results/h5-cog-convex-repair-and-choice-proofs-20261107.md) verify the 112-variable/1,730-row continuous repair. Its sole LP call closes infeasible with no assignment; preparation-inclusive algorithm/shared totals are 31.130687/31.200950 s, peak memory is 62,181,376 bytes and all descendants close. An exact six-region chain needs 1,288.21 mm of horizontal span against 1,186.94 mm allowed, a 101.27 mm contradiction confined to those selected choices. A different proof-guided search closes at 256 nodes; all 256 contradictions and 47,804 bound deductions replay independently, while 1,350 queued states remain unsearched. No call is repeated or extended. The 257 verified choice conflicts can feed a new joint-region model after exact stock-domain pruning; complete consumed charge is 34.464716 s before new geometry/model building. No valid full66 layout or allocation exclusion follows. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. All six prior-main CI jobs pass; ordinary guarded checkpoint push is next. Production, README and releases are unchanged.
