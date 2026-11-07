@@ -10,19 +10,17 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [global-capacity search and smaller initial model](../benchmarks/results/h5-cog-capacity-search-and-initial-model-v2-20261107.md).
-The complete global-capacity model passes all 28,254 variable and 60,632
-constraint checks. Its sole call closes UNKNOWN without a placement, within
-the overall time and memory limits; the solve-slice overrun is preserved.
-A distinct necessary initial model has 1,332 variables and 4,712 constraints,
-retaining every original mover/mode, full orthogonal spacing and source capacity.
-Its entire readback passes. The next pipeline must validate all 66 original
-contours after each candidate and add detailed constraints only for newly
-observed cog-pair failures, with independent readback before each changed call.
-That bounded pipeline has not been prepared or run; all previous calls stay closed.
+Latest H5 evidence: [staged cog candidate and exact projections](../benchmarks/results/h5-staged-cog-candidate-and-projections-20261107.md).
+The staged search returns one necessary 66-part candidate, but full original-
+source replay finds 32 failing pairs. The next model adds all 32 interactions
+and stops UNKNOWN at its time limit. Both calls stay closed; no valid
+layout or exclusion follows. New exact projections verify 18,882 closest-point
+certificates across certified source regions, identifying 32 pairs needing
+relative movement. A distinct continuous convex repair is next; its complete
+source charge is 29.922133 s before model building. No repair model is prepared.
 Four fixed arrangements and all 440 allocations remain; full66 source/material/
 native checks and the full H5 gate are open. H2/H5 stay open at 60%.
-The preceding checkpoints reached main 37ede828 after all six prior CI checks
+The preceding checkpoint reached main 548f5b40 after all six prior CI checks
 passed, preserving all 52 remote files. New CI is underway; no release is made.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
@@ -3882,3 +3880,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 global-capacity search and smaller initial model:** [complete model/response and initial-model audits](../benchmarks/results/h5-cog-capacity-search-and-initial-model-v2-20261107.md) verify the full 28,254-variable/60,632-constraint construction, including all 2,463 new global constraints. Its sole call closes UNKNOWN with no incumbent; algorithm/shared totals are 56.129667/56.232693 s including preparation, peak memory is 1,981,014,016 bytes, and the 0.110564 s solve-slice overrun is preserved. A distinct 1,332-variable/4,712-constraint initial model retains all 28 movers, 108 modes, full orthogonal spacing and source capacity constraints while deferring detailed cog pairs. Every field passes independent readback; complete preparation is 5.105639 s. A future bounded pipeline must check all66 originals after each candidate and add only newly witnessed source-pair constraints, audit every changed model and never retry an unchanged one. That pipeline is not yet prepared or run. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. The preceding checkpoints reached main 37ede828 after all six prior CI checks passed, preserving all 52 remote files. No release is made.
+
+
+**2026-11-07 H5 staged candidate and exact projections:** [independent pipeline, source and projection audits](../benchmarks/results/h5-staged-cog-candidate-and-projections-20261107.md) verify two closed calls. The initial necessary model returns a 66-part candidate; original-source replay finds 31 overlaps and one clearance failure, with all stock edges passing. All 32 new cog-pair interactions are added to a fully audited 5,041-variable/12,819-constraint model, whose eight-second call stops UNKNOWN. The 0.030114 s solve-slice overrun remains recorded; preparation-inclusive algorithm/shared totals are 27.116847/27.155075 s and all descendants close. New exact safe-region preparation verifies 303 clipped regions, 1,055 vertices and 18,882 projection certificates, with 226 cog pairs already safe and 32 needing relative motion. All 268 orthogonal separators pass. One distinct convex translation repair is next, with all 28 selected legal modes fixed and complete charge29.922133 s before its model build. No repair model or solver is prepared, no valid full66 layout or exclusion follows, and all previous calls stay closed. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Main548f5b40 was pushed after all six prior CI checks passed, preserving52 remote files; no release is made.
