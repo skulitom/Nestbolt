@@ -10,21 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [one-/three-turned transfer capacity](../benchmarks/results/h5-one-three-transfer-capacity-20261107.md).
-All 135 site choices are checked: 116 retain witnessed collisions and 19 pass
-full 44-part source checks. Fresh covers verify 49,247,076 continuous classes
-and 57 exact occupied-area bounds, excluding all 19 fixed 44-part completions.
-Eleven first 32-part cores are also excluded with all other originals free. Keeping
-the last cog at its valid short-sheet pose, 5,434 whole-part inventory checks
-exclude all 19 for every bracket/insert split: first-sheet companions require
-at least 495,777 mm² versus at most 495,456.515617 mm² available. Eight cores
-remain unexcluded if the last cog is free. No whole allocation or orientation
-class is excluded; no optimizer runs and the valid 64-part result remains best. Consumed
-preparation totals 40.936341 s. Next assess the common one-turned all 15-cog
-first 33-part core with zero-empty covers; further three-turned work needs a changed
-source pose. Four earlier arrangements and 440 allocations remain. H2/H5 stay
-open at 60%. Main 66192d0d has 5 passed/1 live CI jobs; this and the
-five-/six-turned proof await the ordinary push gate. Product and releases
+Latest H5 evidence: [cog return and four-row capacity](../benchmarks/results/h5-cog-return-and-four-row-capacity-20261107.md).
+The exact one-turned first33 core with all 15 original cogs cannot extend to 66:
+21,858,720 continuous classes and 286 whole-part split checks yield a
+113,001.654357 mm² combined inventory deficit. A changed four-row frame layout
+passes all 44 source parts, 343 pool contacts and 562 pairs, but fresh 12 masks
+covering 18,195,372 classes leave 439,326.739298 mm² versus 556,778 required.
+Keeping its short cog fixed while freeing every companion also fails, by
+56,450.260702 mm². No whole allocation or orientation class is excluded; all
+old calls remain closed. No optimizer runs; the valid 64-part result remains best. Charged
+preparation totals 46.840566 s. Next assess a fifth source cog column and all
+15-of17 subsets, validating source geometry before fresh covers. Four earlier
+arrangements and 440 allocations remain. H2/H5 stay open at 60%. Main 9eb6698e
+includes both earlier checkpoints with 4 passed/2 live fresh CI
+jobs; this checkpoint awaits the ordinary push gate. Product and releases
 remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
@@ -4037,3 +4036,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 one-/three-turned transfer capacity:** [source, cover and integer-inventory audits](../benchmarks/results/h5-one-three-transfer-capacity-20261107.md) check all 135 source-site choices, retain 116 witnessed failures and verify 19 source-valid 44-part partials. Fresh world obstacles and 24 mode masks verify 49,247,076 continuous classes and 57 exact component-area bounds; all 19 fixed 44-part cases fail completion. Eleven exact first 32-part cores are also excluded with every other original free. Fixing the last cog at its valid short-sheet pose, while releasing every bracket and insert, excludes all 19: 5,434 whole-part split checks force at least 495,777 mm² of companions onto the first sheet, whose largest available region is 495,456.515617 mm² (minimum deficit 320.484383 mm²). Eight first 32-part cores remain unexcluded if the last cog is free; no whole allocation or orientation class is excluded. Consumed preparation totals 40.936341 s; all bounded stages close and no optimizer runs. Next assess the common one-turned all 15-cog first 33-part core with zero-empty covers and arbitrary companion splits; further three-turned work requires a changed source pose because restoring a removed site revives a collision. Four earlier arrangements and 440 allocations remain; the valid 64-part result remains best and H2/H5 stay open at 60%. Main 66192d0d has 5 passed/1 live CI jobs; this and the five-/six-turned checkpoint await the ordinary push gate. Product and releases are unchanged.
+
+
+**2026-11-07 H5 cog return and four-row capacity:** [independent source, cover and inventory proofs](../benchmarks/results/h5-cog-return-and-four-row-capacity-20261107.md) exclude the exact one-turned first33 core with all fifteen original cogs restored: 21,858,720 continuous classes, three area readbacks and 286 whole-part splits yield a 113,001.654357 mm² combined inventory deficit. A changed four-row frame construction passes all 44 source parts, 343 pool contacts and 562 same-sheet pairs. Its fresh 12 masks verify 18,195,372 classes and three exact occupied-area bounds, leaving 439,326.739298 mm² versus 556,778 required. Keeping its short-sheet cog fixed while freeing every bracket and insert still needs 495,777 mm² on the first sheet, a 56,450.260702 mm² deficit. Neither proof excludes a whole allocation or orientation class; earlier four-turned optimization calls stay closed. All bounded stages close, no optimizer runs, and consumed preparation totals 46.840566 s. Next validate the proposed fifth cog column and every 15-of17 source subset before fresh covers, with the fixed-frame bit kept distinct from all 17 sites. Four earlier arrangements and 440 allocations remain; the valid 64-part result remains best, H2/H5 stay open at 60%. Main 9eb6698e includes both earlier checkpoints with 4 passed/2 live fresh CI jobs; this checkpoint awaits the ordinary push gate. Product and releases are unchanged.
