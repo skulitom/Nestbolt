@@ -10,26 +10,23 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [weighted conditional relocation](../benchmarks/results/h5-weighted-relocated-construction-20261107.md).
-Independent preflight verifies the fixed center grid, all joint scores and
-selected model derivatives. The original summation-order ranking failure and
-exact correction are preserved without changing the model or trials.
-Three new weighted problems close; 12,792 runtime center trials, 5,708 mode
-proposals, 1,056 coefficient updates, 206 retained points and six full66 winner
-readbacks replay. The best candidate still fails 46 pairs with 28,414.189788 mm²
-overlap, worse in overlap/penalty than the preceding weighted result despite
-fewer failing pairs. Fixed-part and stock checks pass. Complete preparation is
-15.046673 s; algorithm/shared totals are 56.586553/56.748614 s, with all
-processes closed and slice overruns preserved. A separate read-only diagnostic
-finds a noncontained crossed-bracket plateau: 5,625 mm² overlap, zero available
-pair gradient and 26 flat feasible translation probes. Next independently
-assess a source-derived collision-region depth term while retaining exact
-area terms. No auxiliary kernel, new objective or successor call is prepared.
-No native call or allocation exclusion follows. Four earlier arrangements and
-440 allocations remain; H2/H5 stay at 60% completed milestone weight.
-The three preceding checkpoints reached main c7e4b305 after all six CI jobs
-passed, preserving 52 remote files; fresh CI42369490349 is running.
-This checkpoint awaits the ordinary push gate. Product code, README and
+Latest H5 evidence: [bracket collision-depth preflight](../benchmarks/results/h5-bracket-collision-depth-preflight-20261107.md).
+Independent rational geometry and source-polygon checks verify all 100 ordered
+mode regions and 19,544 control points. Derivative controls include medial ties
+and concave corners. The preserved floating-projection assertion failure is
+corrected without changing the kernel, cases or declared tolerances. Source
+transform bounds reconcile nominal quarter turns with actual floating geometry.
+All 528 original/clearance area pairs remain; 15 nonnegative bracket terms at
+coefficient 1 supply a verified separating direction on the flat crossed-arm
+pair. Two feasible probes reduce the new pair term, but no full-job improvement
+is claimed and the saved candidate remains unchanged. No augmented model or
+optimizer is opened. Complete source preparation is 11.002683 s before
+that model. Next independently audit the full augmented objective and a finite
+construction from the original unoptimized initializer. All seven weighted
+calls stay closed; the latest search still fails 46 pairs with 28,414.189788 mm²
+overlap. Four earlier arrangements and 440 allocations remain; H2/H5 stay at
+60% completed milestone weight. All six jobs on main c7e4b305 pass; the pending
+checkpoints are ready for the ordinary guarded push. Product code, README and
 releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
@@ -3961,3 +3958,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 weighted conditional relocation:** [independent preflight and response replay](../benchmarks/results/h5-weighted-relocated-construction-20261107.md) verify 6,396 initial center trials, 2,854 initial proposals, 148 scalar terms and 162 central samples. A preserved ranking-check failure is resolved by independently reconstructing dot ordering and checking scalar sums; exact rational controls reproduce 89 near-best vectors without changing trials, models or tolerances. Three new weighted problems close after 12,792 runtime center trials and 5,708 proposals; 1,056 coefficient updates, 206 retained points, 246 evaluations and six full66 winner readbacks replay. The final candidate still fails 46 pairs with 28,414.189788 mm² overlap: fewer failing pairs but worse overlap/penalty than the prior weighted result. Fixed-part and stock checks pass. Complete preparation is 15.046673 s and algorithm/shared totals are 56.586553/56.748614 s; all processes close and slice overruns remain. A separate diagnostic verifies one noncontained bracket crossing with 5,625 mm² overlap, zero available pair gradient and 26 flat feasible translation probes. Next preflight a supplementary source-derived collision-region depth loss while retaining every exact area term; no auxiliary kernel or successor call exists. No native call or exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. The preceding three checkpoints reached main c7e4b305 after all six CI checks passed, preserving 52 remote files; fresh CI42369490349 is running. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 bracket collision-depth preflight:** [independent rational geometry and derivative audit](../benchmarks/results/h5-bracket-collision-depth-preflight-20261107.md) verifies all 100 ordered mode regions, 19,544 source-polygon controls, 8,376 central derivative coordinates and 4,720 descent probes, including 532 tied nearest-feature points and 516 reflex-corner projections. Ten source/domain identities remain distinct. A floating-transform bound of 1.557479e-11 mm is far below the required source gap; 90 source-pose controls pass. The original exact-projection assertion failure and a 1.421085e-14 mm discrepancy are preserved; a versioned verifier uses the unchanged predeclared tolerance and independently proves the selected segment minimizes distance. All 528 area terms remain, with 15 nonnegative auxiliary terms at coefficient 1. The flat bracket pair now has a verified separating direction and two feasible 0.001 mm descent probes, without changing its saved candidate or claiming whole-job improvement. Geometry preparation is 1.565239 s; complete source charge is 11.002683 s before a new model. No augmented model or optimizer is opened. All seven weighted problems remain closed; the latest search still fails 46 source pairs. Next build and independently audit the full augmented model from the original unoptimized initializer. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. All six current main CI jobs pass, enabling the ordinary checkpoint push. Product code, README and releases are unchanged.

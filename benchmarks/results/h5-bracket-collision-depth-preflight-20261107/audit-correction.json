@@ -1,0 +1,19 @@
+{
+  "inputs": {
+    "output/prepare_h5_bracket_depth_audit_v2_20261107.py": "fc8a4fbf799339b53646be58120d1e6b6ef90de2bb59ed5496f03598908b4a6e",
+    "output/audit_h5_bracket_collision_depth_20261107.py": "8d5b39b0027d66f023b16b7f53fb60ecb6b256a70bdd0cf825f307f9f29af49b",
+    "output/audit_h5_bracket_collision_depth_v2_20261107.py": "b05c9aca6218fbaf00058f8898abdef5b4e0ae65ec2bcc32ddaa10397e8a5545",
+    "output/run_h5_bracket_collision_depth_stage_20261107.py": "929b47847663c5de82384f419d95d53948dbbdb0cfad76f030811390d1a46256",
+    "output/run_h5_bracket_collision_depth_audit_v2_20261107.py": "e16824e165f993473fe75aeac646cf5b60499a02681aba39366b6db8a7d74f8f",
+    "output/h5-bracket-collision-depth-20261107/plan.json": "0fb350590bef1903298e63c82556043f55ba45f7ee00f89bec528949400181dc",
+    "output/h5-bracket-collision-depth-20261107/regions.json": "ead4e13f809aa2eefe275f9a9591bb658287cfd76945873033279ebc5be70066",
+    "output/h5-bracket-collision-depth-20261107/projection-diagnostic/checks.json": "62a152487a0c7c5d116aea9ac28db39f6ac52994c3518d9efa0e071ef9d6112f",
+    "output/h5-bracket-collision-depth-20261107/projection-diagnostic/records.json": "1b23bd88cc1910379116b02035f00b1808d1136911e0382ad1dfab3350805bd7",
+    "output/h5-bracket-collision-depth-audit-process-20261107/process.json": "72244d1313d537d7957e80e7c653378b4b9efd1909145421c81a10f23fc64fe7",
+    "output/h5-bracket-collision-depth-audit-process-20261107/stderr.txt": "efe67ac7c12e25e2a1dec4d2fd34abf181a0e2a89f52599abba7d824c3c9394d"
+  },
+  "correction": "The old verifier required exact equality between binary64 dot-projection coordinates and the rational nearest point at arbitrary source coordinates. One coordinate differs by1.4210854715202004e-14mm. The new verifier independently clamps the selected segment using Fractions, requires it to be an exact minimizing boundary feature, then checks binary64 coordinate error against half the original1e-6 gradient tolerance. Reference aggregate gradient uses the exact minimizer. All original geometry, controls, policy, cases, kernel, value/derivative tolerances and model bytes stay unchanged.",
+  "optimizer_calls": 0,
+  "geometry_reprepared": false,
+  "old_failure_preserved": true
+}
