@@ -10,21 +10,22 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [four-column continuous-angle search](../benchmarks/results/h5-four-column-continuous-search-20261107.md).
-The complete 39-mover/90-parameter model passes independent source, initializer,
-region-distance, physical-mode and gradient controls. Its frozen three-call search
-closes without a valid layout after 149 orientation trials and 271 evaluations.
-The final candidate fails 69 pairs, including 12 against fixed originals; all stock
-checks pass. Actual full source overlap is 56,517.717179 mm². A lower finite domain
-penalty does not prove fixed-part clearance. All calls and their slice overruns are
-preserved within 54.960524/55.032120 s algorithm/shared totals, including preparation.
-Next reconcile the historical eight-bracket/five-insert short-sheet allocation and
-assess a changed source model with fifteen continuous cog angles and all 24 remaining
-movers. No successor geometry, initializer, complete model or optimizer is prepared.
-Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%.
-Full source/native/material validation, production parity and the unchanged H5 matrix
-remain required. Main 89afabf2 has five passed jobs and a live Windows native job.
-This checkpoint awaits the ordinary push gate. No release qualifies.
+Latest H5 evidence: [fifteen-cog continuous construction](../benchmarks/results/h5-fifteen-cog-continuous-construction-20261107.md).
+Current-ledger readback, a valid 57 part source control, the complete 24 mover model
+and all three bounded responses pass independent audits. No valid full 66 layout
+results: the first call remains best, with 31 overlapping pairs totaling 7,052.327596 mm².
+All fixed-part clearances and stock edges pass. Later worse candidates, all 268
+saved points,65 orientation trials and all slice overruns are preserved.
+Preparation-inclusive algorithm/shared totals are 54.483481/54.554720 s; every
+process is closed and no continuation is allowed. Next assess the historical
+six-bracket/nine-insert short allocation, changing the remaining mix to six
+brackets, one insert and fifteen continuous-angle cogs. No successor source
+geometry, initializer or model is prepared. Four fixed arrangements and 440
+allocations remain; H2/H5 stay open at 60% completed milestone weight.
+Main 52313564 was pushed after all six prior checks passed, preserving 52 remote
+files; fresh CI is live. This checkpoint awaits the ordinary push gate.
+Full 66 source/native/material checks, production parity and the unchanged H5
+matrix remain required. No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3913,3 +3914,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 four-column continuous-angle search:** [independent initializer/model/response audits](../benchmarks/results/h5-four-column-continuous-search-20261107.md) replay 18,762 initial choices, 152 owner/mode bindings, 861 region-distance controls, 508 region derivatives and 180 full-coordinate checks. Exact physical-mode equivalence prevents 180-degree insert repeats. Three distinct physical-vector calls and 149 orientation trials close at the declared call limit; all 240 saved points and 271 evaluations replay. The final candidate fails 69 source pairs: 57 moving pairs and 12 against fixed parts, with no stock failures. Actual full source overlap is 56,517.717179 mm², including 14,636.360306 mm² against fixed parts; the finite domain penalty does not prove clearance. Complete preparation is 11.244113 s and algorithm/shared totals are 54.960524/55.032120 s. All three slice overruns are preserved and every process closes. No native call or allocation exclusion follows. Next reconcile the historical eight-bracket/five-insert short allocation and assess a new all-fifteen-continuous-angle source model; no successor is prepared and no closed call is resumed. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Main 89afabf2 has five passed jobs and live Windows native CI at review. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 fifteen-cog continuous construction:** [independent source/model/response audits](../benchmarks/results/h5-fifteen-cog-continuous-construction-20261107.md) reconcile all 4,576 allocation rows and 440 survivors, verify a source-valid 57 part control,882 exact contact sections and 388 stock-corner controls. One complete initializer replays 4,212 trials; the 24 mover/63 parameter model checks 67 owner-mode bindings,126 central derivatives and 81 physical-mode equivalences. Three unique physical-vector calls and 65 orientation trials close at the declared limit; all 268 saved points and 312 evaluation counters replay. The first call remains best:31 source overlaps totaling 7,052.327596 mm², with all fixed-part and stock checks passing. Both later worse candidates and all slice overruns remain preserved. Complete preparation is 5.846273 s and algorithm/shared totals 54.483481/54.554720 s; every process closes. No native call or allocation exclusion follows. Next assess the historical six-bracket/nine-insert short allocation with a newly checked 22 mover/all 15 continuous-angle original model; no successor is prepared and no closed call may resume. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Previous checkpoint 52313564 reached main after all six prior checks passed, preserving 52 remote files; fresh CI is live. Production, README and releases are unchanged.
