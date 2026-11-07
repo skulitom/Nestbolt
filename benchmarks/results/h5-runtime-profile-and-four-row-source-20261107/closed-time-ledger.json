@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "source_preparation_seconds": 40.43863689946011,
+  "prior_preparation_seconds": 39.04916139948182,
+  "new_preparation_seconds": 1.389475499978289,
+  "algorithm_seconds": 54.452233299613,
+  "shared_seconds": 54.56315949955024,
+  "intervals": [
+    {
+      "interval": "retained_source_preparation",
+      "seconds": 40.43863689946011
+    },
+    {
+      "interval": "before_epoch_open",
+      "epoch": 0,
+      "seconds": 0.4070995000656694
+    },
+    {
+      "interval": "epoch_open_to_call_marker",
+      "epoch": 0,
+      "seconds": 0.6095416001044214
+    },
+    {
+      "interval": "optimizer_returned",
+      "epoch": 0,
+      "seconds": 4.02298939996399
+    },
+    {
+      "interval": "call_marker_to_response_excluding_optimizer",
+      "epoch": 0,
+      "seconds": 0.40697829984128475
+    },
+    {
+      "interval": "before_epoch_open",
+      "epoch": 1,
+      "seconds": 0.009728900156915188
+    },
+    {
+      "interval": "epoch_open_to_call_marker",
+      "epoch": 1,
+      "seconds": 4.49369450006634
+    },
+    {
+      "interval": "optimizer_returned",
+      "epoch": 1,
+      "seconds": 3.6275706000160426
+    },
+    {
+      "interval": "call_marker_to_response_excluding_optimizer",
+      "epoch": 1,
+      "seconds": 0.42629899992607534
+    },
+    {
+      "interval": "after_last_response_to_algorithm_result",
+      "seconds": 0.009694600012153387
+    },
+    {
+      "interval": "algorithm_result_to_supervisor_close",
+      "seconds": 0.11092619993723929
+    }
+  ],
+  "sum_error_seconds": 0.0,
+  "optimizer_seconds": 7.650559999980032,
+  "postpreparation_algorithm_seconds": 14.013596400152892,
+  "postpreparation_nonoptimizer_seconds": 6.363036400172859,
+  "epoch_records": [
+    {
+      "epoch": 0,
+      "key": "b822ca79240b5eafff2c5d6330c27a355480fe32eb6394a481dbae69e0fba45d",
+      "records": 67,
+      "optimizer_allocated_seconds": 4.0,
+      "optimizer_returned_seconds": 4.02298939996399,
+      "overrun_seconds": 0.022989399963989854,
+      "call_marker_seconds": 41.4552779996302,
+      "response_marker_seconds": 45.88524569943547
+    },
+    {
+      "epoch": 1,
+      "key": "dd2c49c378c8a6c9dd2e5d15b17bcaad218981aad58cde32d997a5513d5c03ff",
+      "records": 53,
+      "optimizer_allocated_seconds": 3.611493300413713,
+      "optimizer_returned_seconds": 3.6275706000160426,
+      "overrun_seconds": 0.01607729960232973,
+      "call_marker_seconds": 50.38866909965873,
+      "response_marker_seconds": 54.442538699600846
+    }
+  ],
+  "algorithm_limit_seconds": 60,
+  "shared_limit_seconds": 90,
+  "source_reserve_boundary_seconds": 54,
+  "source_reserve_boundary_is_not_new_optimizer_budget": true,
+  "no_attempt_to_subtract_inherited_costs": true,
+  "marker_limitations": "The residual call-marker-to-response interval includes marker serialization, post-optimizer winner evaluation, source checks and writes. These historical records do not time those subcomponents separately.",
+  "optimizer_calls": 0,
+  "old_calls_resumed": false
+}

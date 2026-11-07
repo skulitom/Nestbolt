@@ -10,18 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [exact contact proof and guarded bulk pilot](../benchmarks/results/h5-bulk-contact-proof-and-guarded-pilot-20261107.md).
-Two independent exact-coordinate calculations confirm the current per-edge
-kernel at the near-parallel contacts. Whole-boundary clipping invents shared
-segments of 60.77/63.52 mm. The guarded pilot matches all 20 tested contexts,
-but its complete kernel takes 2.453 times as long in the fixed observations,
-so it is rejected as a replacement. No new objective, initializer or optimizer
-call follows. Next review complete construction costs using the current kernel.
-All 25 exact problem keys remain closed; retained preparation is 40.438637 s.
-The latest original-area winner still fails 53 source pairs and the distinct
-augmented/unweighted winner fails 52. Four arrangements and 440 allocations
-remain unresolved. H2/H5 stay open at 60%. Main b4e16c74 has 5 passed /
-1 live CI jobs at review. Product code, README and releases are unchanged.
+Latest H5 evidence: [runtime profile and direct four-row source](../benchmarks/results/h5-runtime-profile-and-four-row-source-20261107.md).
+The complete time ledger reconciles and all120 recorded evaluations replay
+exactly twice. A batched bulk pilot still loses on complete cost; the verified
+screened per-edge kernel remains. One direct original-source4/4/4/3 arrangement
+has39 full-source pair failures, including10 cog/cog overlaps, and a worse
+objective than original A/W. All66 source parts and all81 scalar gradients
+independently check. Changed-context score reuse is rejected and the source
+key is already closed; no optimizer call follows. Next inspect diagonal source
+contact geometry. Consuming this preparation makes the lineage40.933948s.
+All25 keys stay closed. Four arrangements and440 allocations remain unresolved;
+H2/H5 remain open at60%. Main b4e16c74 has5 passed/1 live jobs at review.
+Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4006,3 +4006,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 exact contact proof and guarded bulk pilot:** [independent rational/strip proofs and complete-kernel controls](../benchmarks/results/h5-bulk-contact-proof-and-guarded-pilot-20261107.md) confirm zero true shared length in both near-parallel cases. The unguarded bulk operation invents 60.774488/63.522505 mm shared segments; its replacement remains rejected. Eight analytic fixtures and six fixed ULP controls are preserved. The guarded pilot matches all 20 contexts exactly, including 566 saved-state directed pairs with 62 fallbacks, but complete-kernel means are 0.163021/0.399903 s current/pilot (2.453 times the current cost), so it is not integrated. No source initializer or optimizer call is created. All 25 keys stay closed; retained source preparation is 40.438637 s. The latest winners still fail 53/52 pairs. Four arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main b4e16c74 has 5 passed/1 live CI jobs at review.
+
+
+**2026-11-07 H5 runtime and four-row source:** [independent time/profile/source checks](../benchmarks/results/h5-runtime-profile-and-four-row-source-20261107.md) reconcile all11 intervals and240 exact evaluation replays. The closed run has40.438637s preparation,7.650560s optimizer work and6.363036s other algorithm work. Intersections dominate instrumented time. A batched bulk pilot matches20 controls but takes1.771 times the complete current-kernel cost and is rejected. One direct original-source4/4/4/3 arrangement preserves all15 angles but has39 full-source pair failures, including10 cog/cog overlaps, and worsens the objective from244577.060782 to334586.901596mm2. All81 scalar gradients and all66 source parts independently check; changed-context cache reuse is rejected. Its key was already closed, so no optimizer call follows. Consuming the0.495311s preparation makes the source lineage40.933948s. Next inspect diagonal source-contact geometry before any successor. All25 keys, four unresolved arrangements and440 allocations remain; H2/H5 stay open at60%. Main b4e16c74 has5 passed/1 live jobs at review.
