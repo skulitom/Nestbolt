@@ -10,19 +10,19 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [four-row contact phase and companion spaces](../benchmarks/results/h5-four-row-contact-phase-and-companion-spaces-20261107.md).
-A source-derived 2.25-degree phase removes all ten cog contacts and gives a
-valid 48-part core. All 105 cog pairs independently pass; the full66 state still
-fails 29 pairs. All 16 conservative companion cells replay and 227 individual
-poses pass original49 checks, but an exact occupied-area bound allows at most
-three brackets within those regions, versus six required. That construction
-is rejected; unrestricted source placements are not excluded. Next establish
-a necessary outer cover before a fixed-core exclusion. The serialization
-failure and correction are preserved; consumed preparation totals 43.051420 s.
-No optimizer runs; all 25 keys stay closed. Four earlier arrangements and 440
-whole allocations remain. H2/H5 stay open at 60%. Three preceding checkpoints
-reached main bf239548 normally after all six prior checks passed. Its fresh CI
-has 5 passed / 1 live jobs at review. Product and releases are unchanged.
+Latest H5 evidence: [full-stock four-row exclusion](../benchmarks/results/h5-four-row-necessary-cover-exclusion-20261107.md).
+The valid 48-part core cannot extend to its intended full 66-part allocation. A necessary
+cover spans the full physical first sheet and all eight allowed bracket orientations.
+Independent rational containment and event/count checks verify 468 inner source
+rectangles and 3,707,540 boundary/interval classes. Their occupied envelope holds
+at most four original brackets, versus six required. This rules out the exact fixed core,
+including placements outside the earlier conservative construction. It does
+not exclude moving the core, four earlier arrangements or 440 whole allocations.
+Next change the fixed arrangement or investigate an unresolved allocation.
+Preparation totals 45.356320 s if consumed; the failed serialization is retained.
+No optimizer/solver runs; all 25 mathematical keys stay closed. H2/H5 remain open
+at 60%. Main bf239548 has 5 passed / 1 live jobs at review; the earlier
+phase checkpoint is committed locally as b6d43a8e. Product and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4013,3 +4013,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 four-row contact phase:** [independent source/contact/space audits](../benchmarks/results/h5-four-row-contact-phase-and-companion-spaces-20261107.md) verify one source-derived 2.25-degree phase, resolving all ten cog contacts and producing a valid 48-part core. All 105 cog pairs and 672,000 edge pairs pass an independent direct-distance check; minimum cog gap is 1.381413 mm. Full66 still fails 29 pairs. All 16 conservative companion cells, 12 templates and 5,928 hulls replay; 227 individual poses pass original49 checks. An exact 156256.130137 mm2 envelope allows at most three required brackets in these regions, below six needed. This construction is rejected, without excluding unrestricted source placements. The failed NumPy-boolean serialization, truncated query03 and corrected version are retained; consumed source preparation totals 43.051420 s. No optimizer runs and all 25 keys stay closed. Next establish a source-necessary outer cover before any fixed-core exclusion. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Three previous checkpoints reached main bf239548 after all six prior checks passed; new CI has 5 passed / 1 live jobs.
+
+
+**2026-11-07 H5 full-stock four-row exclusion:** [independent necessary-cover proof](../benchmarks/results/h5-four-row-necessary-cover-exclusion-20261107.md) verifies 468 source-contained rectangles, all eight allowed bracket orientations and 3,707,540 continuous boundary/interval classes over the entire physical first sheet. Exactly 3,564 retained classes have six closed covering rectangles. Their 168935.817519 mm2 occupied envelope permits at most four filled original brackets at a conservative 39999 mm2 each ; six are required. The valid 48-part fixed core therefore cannot extend to the intended 66-part allocation, including positions outside earlier conservative cells. This excludes no earlier arrangement or whole-job allocation. The 2.304900 s preparation retains 45.356320 s total if consumed; independent audit closes in 0.828098 s. No optimizer/solver runs, all 25 keys stay closed, and four earlier arrangements plus 440 allocations remain. H2/H5 remain open at 60%. Main bf239548 has 5 passed / 1 live CI jobs at review; product and releases are unchanged.
