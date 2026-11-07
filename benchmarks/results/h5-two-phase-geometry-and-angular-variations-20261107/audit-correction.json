@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-07T05:57:32.447210+00:00",
+  "inputs": {
+    "output/prepare_h5_two_phase_audit_v2_20261107.py": "d0ee07514c18e16f87d8d19fe9d47a46dd50c6b1322843ee47ccd0178b60a9ff",
+    "output/audit_h5_two_phase_cog_geometry_20261107.py": "1f86724c60fcdb76ec78ee3e4a30d23d189b2ef9f4856940dd70c40b5e4a849d",
+    "output/audit_h5_two_phase_cog_geometry_v2_20261107.py": "35f7336616c40f51837bf6e41cd326e1e20c931b8c5af6016a67ec925ba02240",
+    "output/h5-two-phase-cog-geometry-process-20261107/audit.json": "f0f5354177984b97dea100b5dde1647f9d55c78b8d23937fd88bd59b4bda8fe7",
+    "output/h5-two-phase-cog-geometry-process-20261107/audit-stderr.txt": "6b1ddff22f6cd8d9496e5a0d1adcd84f32cb778fe449cb2d20c55aaf993ae51d",
+    "output/h5-two-phase-boundary-controls-20261107/plan.json": "4d28163af1f36fa55d48e9edc4ab2e0c676f0dd4fb351c1df07cf6c455c0762d",
+    "output/h5-two-phase-boundary-controls-20261107/checks.json": "1b0ceba509656684f0bb12c4c641fd4bc13df8861855d71bda9f24f14458445c"
+  },
+  "reason": "The first auditor required exact membership at an exact stock-domain corner. Binary64 region-vertex rounding shrinks four domain corners inward by at most4.5474735088646414e-14mm. Those original positive source controls remain valid, and their failed exact memberships remain preserved. The corrected auditor still rechecks every original control and every exact support; it also checks28 fresh controls0.01mm inward per owner, with exact safe-region membership. This changes only the verification control location, not the geometry, source bounds, source safety threshold or proof obligations. No optimizer call ran and no geometry preparation is repeated.",
+  "regions_sha256_unchanged": "49ee7d0781bb2a6333e31cb76d3145caf7faa183731ebd8597dfb1910aa616aa",
+  "source_supports_sha256_unchanged": "76f0134a0f3186490dda8aad68ae1488345329e741db52a0148a2b5fac05f4b4",
+  "changed_algorithm_data": false,
+  "new_source_optimizer_calls": 0
+}

@@ -10,22 +10,21 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [legal-mode source repair](../benchmarks/results/h5-mixed-mode-source-repair-20261107.md).
-All 108 finite modes and 159 actual orientation evaluations pass independent
-readback. One call for a changed mode vector converges numerically, but checks
-of all 66 original parts still find 39 overlapping pairs. All stock checks pass.
-The second round has no improving unvisited single-owner orientation change;
-the pipeline is closed without a valid layout or exclusion. The 526-term
-diagnostic finds no positive penalty on source-safe pairs at this candidate.
-The original job permits free cog rotation while the current construction
-fixes all twelve cogs at 7 degrees. A second phase at 16 degrees is the next
-source investigation, requiring fresh ordered-pair, stock and alias proofs.
-That geometry and model are not built or run. The warm-start and diagnostic
-lineage costs 36.313304 s before new preparation. Four fixed arrangements and
-440 allocations remain. H2/H5 stay open at 60%; full source/native/material
-validity, production parity and the unchanged H5 matrix remain required.
-The prior checkpoint reached main 4ca0d8cd after all six prior checks passed,
-preserving 52 remote files. Current CI is retained; no new release is made.
+Latest H5 evidence: [two-phase geometry and angular source variations](../benchmarks/results/h5-two-phase-geometry-and-angular-variations-20261107.md).
+Fresh 7°/16° geometry and all 2,568 ordered mode couplings pass independent
+source/model controls. Every eligible single-cog 16° change increases the
+objective, so its bounded pipeline closes before opening an optimizer call.
+The initial candidate remains invalid. A separate original-source probe checks
+24 smaller rotations; twelve reduce measured overlap, but all retain 39 failing
+pairs and pass stock checks. The best turns cog 2 to 7.25°, reducing summed
+pairwise overlap by 33.681706 mm². This is source evidence, not a valid layout.
+A focused translation repair now needs exact certificates for that cog's
+27 interactions and a new audited model. Neither is prepared. The direct
+candidate-plus-probe lineage costs 42.035678 s before new preparation.
+Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%.
+Full source/native/material validation, production parity and the unchanged
+H5 matrix remain required. All six prior-main CI checks on 4ca0d8cd pass;
+both queued checkpoints are ready for the ordinary push gate. No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3896,3 +3895,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 legal-mode source repair:** [independent model, selection and source audits](../benchmarks/results/h5-mixed-mode-source-repair-20261107.md) verify 108 finite owner/mode options, 760 exact projection comparisons, 168 derivatives and six corruption controls. The bounded pipeline evaluates 80 initial and 79 subsequent legal orientation changes, opens one call for a changed mode vector, then stops with no improving unvisited single-owner change. All 27 improving points replay, but checks of all 66 original parts still find 39 overlapping pairs; all stock edges pass. Algorithm/shared totals are 35.911924/35.983540 s including 33.228634 s of preparation, with no overruns and all processes closed. A diagnostic of 526 terms finds no positive penalty on source-safe pairs at this candidate. The next source investigation proposes cog phases at 7 and 16 degrees, requiring fresh geometry and ordered-pair proofs; the current twelve cogs remain fixed at 7 degrees although the job permits free rotation. That geometry and model are not prepared. The next warm-start-plus-diagnostic charge is 36.313304 s before fresh preparation. Every closed call stays closed. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. The preceding checkpoint reached main 4ca0d8cd after all six prior checks passed, preserving 52 remote files. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 two-phase geometry and angular source variations:** [independent source/model/response audits](../benchmarks/results/h5-two-phase-geometry-and-angular-variations-20261107.md) verify 120 finite modes, 28 ordered templates, 2,621 safe regions, 38,364 exact supports and 5,242 projection comparisons. The corrected source audit preserves four tiny rounded-domain corner membership failures and passes 112 original-source controls. All twelve eligible 16-degree substitutions increase the objective, so the bounded phase pipeline stops before any optimizer call; preparation-inclusive algorithm/shared totals are 48.885302/48.980239 s. A separate frozen 24-variation source diagnostic finds twelve smaller rotations reduce overlap. Cog 2 at 7.25 degrees gives the largest measured decrease, 33.681706 mm², but every candidate still fails 39 pairs and passes all stock edges. Its complete process takes 6.052138 s; independent replay checks 40,800 pairs. The next unprepared focused repair needs fresh certificates for all 27 interactions of that rotated cog, using seven source templates in principle, and starts with 42.035678 s of direct candidate/probe cost. All closed pipelines remain closed. Four fixed arrangements and 440 allocations remain; H2/H5 stay at 60%. Production, README and releases are unchanged.
