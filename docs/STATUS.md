@@ -10,22 +10,24 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [current-mode relocation construction](../benchmarks/results/h5-current-mode-relocation-construction-20261107.md).
-The broader current-mode pipeline closes at its frozen two-call maximum.
-Independent replay verifies all 243 evaluation records, 211 saved points, 528 updated
-coefficients, 9,102 runtime centers, 5,911 proposals and 2,854 complete key minima.
-The best candidate has 20,008.826544 mm² original overlap and 47 failing pairs;
-all fixed-part and stock checks pass. Six full66 winner outputs replay, but no
-valid packing is established. Preparation is 27.204689 s and algorithm/shared
-totals are 51.948452/52.016598 s; both slice overruns remain and all processes close.
-Read-only coverage confirms that each owner/mode contributes only one scored
-center to joint moves. Next assess combinations of two distinct scored centers
-from the original source, with complete score/key/deadline preflight. No broader
-state or search is prepared. All sixteen keys and prior pipelines stay closed.
-Four earlier arrangements and 440 allocations remain; H2/H5 stay open at 60%.
-Both preceding checkpoints reached main b8a14317 normally, preserving 52 files.
-Fresh CI has 4 passed jobs and 2 live jobs at review; this checkpoint awaits the
-ordinary push gate. Product code, README and releases remain unchanged.
+Latest H5 evidence: [two-center source preflight](../benchmarks/results/h5-two-center-preflight-20261107.md).
+Two distinct centers per owner/orientation now produce 23,419 raw proposals.
+Independent reconstruction verifies all 32,521 center/proposal scores and 2,854
+complete key minima. Sixteen closed identities exclude 2,321 raw proposals.
+All old one-center proposals remain represented; 481 eligible key minima improve
+under the same exclusions. The best eligible starting placement is unchanged from the one-center pool when both use the same sixteen exclusions.
+All 222 representative models and the selected model read back. Cached/full
+calculations agree exactly; six stale contexts, eighteen deadline cases and
+three policy stops pass. Source-domain evidence remains exactly bound.
+Retained preparation is 33.769462 s; full uncached selector validation takes
+9.188667 s. All processes close with zero optimizer calls.
+No full66 valid layout is established. Next freeze a finite contract using the
+full runtime cost within the existing 60/90 s limits. None is prepared.
+All sixteen identities and prior pipelines remain closed. Four earlier
+arrangements and 440 allocations remain; H2/H5 stay open at 60%.
+Main b8a14317 has 5 passed CI jobs and 1 live jobs at review; a5cba93c
+and this checkpoint await the ordinary push gate. Product code, README and
+releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3977,3 +3979,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 current-mode relocation construction:** [independent full response and source replay](../benchmarks/results/h5-current-mode-relocation-construction-20261107.md) verifies the frozen two-call pipeline, all 243 evaluation records, 211 saved points, 528 updated coefficients, 9,102 runtime centers, 5,911 proposals and 2,854 complete key minima. Both calls close at the declared maximum. The best candidate has 20,008.826544 mm² original overlap and 47 failed source pairs; fixed-part and stock checks pass. All six full66 winner outputs replay; no valid packing or native call follows. Complete preparation remains 27.204689 s and algorithm/shared totals are 51.948452/52.016598 s. Both slice overruns are preserved and all processes close. A read-only coverage audit verifies that each owner/mode contributes only one individually chosen center to joint moves, omitting combinations of alternate scored centers. Next assess two distinct centers per owner/mode from the original source with complete score/key/deadline preflight; no broader state or search is prepared. All sixteen keys and this finite pipeline remain closed. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoints reached main b8a14317 normally, preserving 52 files; fresh CI has 4 passed jobs and 2 live jobs at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 two-center source preflight:** [independent source/model/selection checks](../benchmarks/results/h5-two-center-preflight-20261107.md) verify two distinct scored centers for all 111 physical owner-mode choices, 23,419 complete raw proposals and 2,854 key minima. All 32,521 full center/proposal scores replay. Sixteen closed identities exclude 2,321 raw proposals across five source keys. Every old proposal remains represented; 481 eligible key minima improve under the same exclusions. The best eligible starting placement is unchanged from the one-center pool when both use the same sixteen exclusions. Both selected center ranks are recorded. All 222 owner/mode/center models and the selected 81-coordinate model read back; inherited source-domain evidence remains exactly bound. Cached/full construction agrees exactly, six stale-cache contexts are rejected, and eighteen deadline plus three policy controls pass. Complete new preparation is 6.564773 s, bringing retained preparation to 33.769462 s; full uncached selector validation takes 9.188667 s. Every process closes, no optimizer opens and no full66 valid layout follows. Next freeze a finite contract using the actual full runtime cost within 60/90 seconds; none is prepared. The generator replacement-order failure was preserved before preparation. All sixteen keys stay closed. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Main b8a14317 has 5 passed CI jobs and 1 live jobs at review; a5cba93c and this checkpoint await the ordinary push gate. Product code, README and releases are unchanged.
