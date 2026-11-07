@@ -10,19 +10,21 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [full-stock four-row exclusion](../benchmarks/results/h5-four-row-necessary-cover-exclusion-20261107.md).
-The valid 48-part core cannot extend to its intended full 66-part allocation. A necessary
-cover spans the full physical first sheet and all eight allowed bracket orientations.
-Independent rational containment and event/count checks verify 468 inner source
-rectangles and 3,707,540 boundary/interval classes. Their occupied envelope holds
-at most four original brackets, versus six required. This rules out the exact fixed core,
-including placements outside the earlier conservative construction. It does
-not exclude moving the core, four earlier arrangements or 440 whole allocations.
-Next change the fixed arrangement or investigate an unresolved allocation.
-Preparation totals 45.356320 s if consumed; the failed serialization is retained.
-No optimizer/solver runs; all 25 mathematical keys stay closed. H2/H5 remain open
-at 60%. Main bf239548 has 5 passed / 1 live jobs at review; the earlier
-phase checkpoint is committed locally as b6d43a8e. Product and releases are unchanged.
+Latest H5 evidence: [six-unturned-frame construction](../benchmarks/results/h5-six-unturned-frame-construction-20261107.md).
+A joint six-unturned moving-frame case differs from all three earlier
+four-turned/two-unturned calls. Fresh source and model audits pass, including
+9,360 clearance supports, all 8,262 initializer choices and 372 derivative
+samples. Its sole bounded call still fails 58 original-source pairs, with
+zero stock failures. All 334 saved points and the full66 readback replay.
+The 56.279557 s algorithm / 56.371925 s shared time includes 4.445511 s fresh
+preparation and retains the 0.088762 s returned slice overrun. The call is closed;
+no old pipeline resumes, no allocation is excluded and valid64 remains best.
+Next audit all seven frame orientation-count classes and their historical
+scope before another structural construction. The exact fixed48 four-row
+exclusion remains valid for that fixed core. Four earlier arrangements and
+440 allocations remain unresolved. H2/H5 stay open at 60%. Both preceding
+checkpoints reached main a45826d3 after all six prior checks passed; fresh CI
+has 4 passed / 2 live jobs at review. Product and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4016,3 +4018,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 full-stock four-row exclusion:** [independent necessary-cover proof](../benchmarks/results/h5-four-row-necessary-cover-exclusion-20261107.md) verifies 468 source-contained rectangles, all eight allowed bracket orientations and 3,707,540 continuous boundary/interval classes over the entire physical first sheet. Exactly 3,564 retained classes have six closed covering rectangles. Their 168935.817519 mm2 occupied envelope permits at most four filled original brackets at a conservative 39999 mm2 each ; six are required. The valid 48-part fixed core therefore cannot extend to the intended 66-part allocation, including positions outside earlier conservative cells. This excludes no earlier arrangement or whole-job allocation. The 2.304900 s preparation retains 45.356320 s total if consumed; independent audit closes in 0.828098 s. No optimizer/solver runs, all 25 keys stay closed, and four earlier arrangements plus 440 allocations remain. H2/H5 remain open at 60%. Main bf239548 has 5 passed / 1 live CI jobs at review; product and releases are unchanged.
+
+
+**2026-11-07 H5 six-unturned frame case:** [fresh-source construction and complete audits](../benchmarks/results/h5-six-unturned-frame-construction-20261107.md) verify a joint six-unturned orientation class, distinct from the three earlier four-turned/two-unturned calls. All numeric geometry is recomputed from original JOB and frozen normal metrics: 25 convex pieces, 9,360 clearance supports, 17 arrangements, 141 owner/mode bindings and a valid48 control. All 8,262 initializer choices and 372 finite-difference samples replay. One new 93-parameter call closes after 421 evaluations; all 334 saved points replay. The candidate remains invalid with 58 source failures (52 overlaps, six clearance-only), zero stock failures and no fixed-source conflicts. Preparation is 4.445511 s; algorithm/shared times 56.279557/56.371925 s preserve the 0.088762 s returned slice overrun. No old call resumes, no allocation is excluded, and valid64 stays best. Next audit all seven frame orientation-count classes before any new structural construction. Four earlier arrangements and 440 allocations remain; H2/H5 stay open at 60%. The preceding two checkpoints reached main a45826d3 with all six prior checks passing and 52 protected files retained; fresh CI has 4 passed/2 live jobs. No product or release change.
