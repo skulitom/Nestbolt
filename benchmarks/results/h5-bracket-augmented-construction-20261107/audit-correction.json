@@ -1,0 +1,22 @@
+{
+  "inputs": {
+    "output/prepare_h5_bracket_augmented_audit_v2_20261107.py": "e377dd7fc89ce01d1783ede94e8697ab36c7e36bac0bb3629939e0a5e2bb2112",
+    "output/audit_h5_bracket_augmented_model_20261107.py": "0c5b437157d9e9eb0dd89d6a8c5c9be62cb569721e951441901517bfb0c68f3f",
+    "output/audit_h5_bracket_augmented_model_v2_20261107.py": "a26912e328ed01e43bca5c569a58f42ccfe240bfcd725e02de8beb628c7f216f",
+    "output/run_h5_bracket_augmented_audit_v2_20261107.py": "3ddab4647572048099d7d760e2bba46359d4f3d14961ef5f42a09bf820e512c0",
+    "output/h5-bracket-augmented-model-20261107/plan.json": "eb02bc45f7fbbbca703313491f173cc4355238ce79d4300e7db61950713533b9",
+    "output/h5-bracket-augmented-model-20261107/model.json": "0cf93d188828e943d03d85796f6b81fa3c44aaf914674c734c37ef0bf8c1e608",
+    "output/h5-bracket-augmented-model-20261107/derivative-diagnostic-v2/checks.json": "c13ff8fd0b837335a708cfccac9ff0f14d531e0178e1b9539163ef8b268fa786",
+    "output/h5-bracket-augmented-model-20261107/derivative-diagnostic-v2/all-original-central-controls.json": "870acd491f06d10717a5e5645a1429ae0920468dc5de61dd55bd931c4d62f737",
+    "output/h5-bracket-augmented-model-20261107/derivative-diagnostic-v2/failing-coordinate-pair-causes.json": "7721c8139f87c20c4a078106a6e0b549afc82c4093135ea02969d99f69e8ca8d",
+    "output/h5-bracket-augmented-model-20261107/derivative-diagnostic-v2/historical-interior-controls.json": "663ba7b656fd3eb0dd4c82db0877fd6a7e3795f526bd3766ddc714a31f79f8d7",
+    "output/h5-bracket-augmented-model-20261107/derivative-diagnostic/serialization-failure.json": "571cee7197da5b131424037994e05d6b6dc4039d2acf368cad2f53910901ecd7",
+    "output/audit_h5_weighted_mixed_rows_model_v2_20261107.py": "e29ab22c3ce7ae8d9f1613253a77b2234c55faddc63202678c82ae33c2d240cf",
+    "output/h5-bracket-augmented-model-audit-process-20261107/process.json": "bde37e45fc456f2da2dce048dfb5041edc1ce2260a8aff7f896fa95e6346d3f3",
+    "output/h5-bracket-augmented-model-audit-process-20261107/stderr.txt": "f96fc1ae0b193ba5ecef56b0479df0e482e4baa2621d5fa474d70b62de8182ea"
+  },
+  "correction": "The original verifier applied central-difference assertions directly at touching/near-transition saved contours. The unchanged area boundary convention need not equal a finite central slope there. Preserve all324original samples and all14failures, with independently reconstructed pair causes. Require independent scalar combined gradients at the same original cases and explicit full-objective one-sided finite-slope enclosures for each failing coordinate. Separately verify324central samples on the exact two deterministic interior controls already used by the old weighted-model audit; confirm no shared boundary and unique auxiliary nearest points. These points are validation only. No model, source initializer, objective, tolerance or optimizer changes. No global generalized-gradient certificate is claimed.",
+  "optimizer_calls": 0,
+  "model_changed": false,
+  "initializer_changed": false
+}
