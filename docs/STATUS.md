@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [SAT certificate pilot](../benchmarks/results/h5-sat-certificate-pilot-20261107.md).
+Latest H5 evidence: [clique-count certificate frontier](../benchmarks/results/h5-clique-sat-frontier-20261107.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -49,9 +49,15 @@ arrangements now have complete child covers, 2,794 certified child removals and
 retain 1,453 open leaves. All 26 refined arrangements remain unresolved.
 The corrected index audit and pre-graph failure are preserved. The new Boolean
 certificate workflow passes tool controls and a full 953,103-clause model audit.
-Its sole [0,5,12] pilot times out without a usable proof or assignment. All 26
-arrangements remain unresolved. Process-tree resource enforcement must pass
-a spawned-child control before another distinct call; this pilot stays closed.
+Its sole [0,5,12] pilot times out without a usable proof or assignment. New
+Windows Job Object controls verify descendant closure and conservative aggregate
+memory stops. Complete clique partitions reduce the counting logic; 25 fresh
+models pass full audits. Nineteen bounded producers have accepted proofs, and a
+separate complete certificate from one failed producer is accepted while its
+process failure and malformed suffix remain preserved. Twenty more choices are
+excluded: six remain, with 449 of 455 excluded at required clearance and 427 even
+at zero clearance. Five proof-byte limits and the earlier time limit remain
+unresolved. New source clearance constraints are next; no closed call is rerun.
 All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
@@ -3832,3 +3838,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 SAT certificate pilot:** [the pinned tool controls and complete model audit](../benchmarks/results/h5-sat-certificate-pilot-20261107.md) verify 953,103 CNF clauses, 16,840 threshold gates and 2,112 source-proved single-cell capacities for [0,5,12]. MIT solver/checker notices, package hashes, failed Windows binary-proof control and versioned lossless text conversion are preserved. The first diagonal audit error is separately corrected without changing model bytes. The sole 60-second search closes without a usable result after 66.683245 s total; its incomplete proof yields no exclusion. The direct-process supervisor does not establish aggregate descendant memory; Windows CIM confirms no matching worker remains after a stalled diagnostic helper is stopped. Next validate process-tree resource limits before any distinct new research call. This pilot and all earlier calls remain closed. The 26 arrangements, 440 whole allocations and H2/H5 remain open at 60%; no source-valid 66, native call or full construction-budget claim is made.
+
+
+**2026-11-07 H5 clique-count certificate frontier:** [source/model/proof audits](../benchmarks/results/h5-clique-sat-frontier-20261107.md) verify 25 fresh models, 47,714,816 clauses, 111,518,237 graph pairs and 5,912 threshold gates. Complete conflict-clique partitions make group counts exactly equivalent to selected cell counts. Nineteen bounded producers have independently accepted proofs; a twentieth contradiction is proved by the first check of an unchanged complete prefix from a failed producer, preserving its Windows error and malformed suffix without claiming execution success. The 23-case batch closes in 691.642932 s; five proof-byte-limited calls and the earlier timed-out pilot remain open and have no complete certificate. The fixed29/current-cog frontier falls from 26 to six: 449 of 455 excluded at required 0.2 mm clearance, 427 even at zero clearance. Windows Job Object controls now verify descendant termination and conservative aggregate-memory stops. Next assess genuinely stronger source clearance polygons; require a new certified constraint before any fresh call. All prior calls remain closed, all 440 whole allocations and full66 validation remain open, and H2/H5 stay at 60%. The preceding two checkpoints reached main de1b6da8 after all six prior CI checks passed; no release was made.
