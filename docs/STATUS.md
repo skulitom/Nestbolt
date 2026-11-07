@@ -10,23 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [two-center construction](../benchmarks/results/h5-two-center-construction-20261107.md).
-Two bounded calls close without a valid full66 layout: the best candidate has
-33,907.097540 mm² original overlap and 50 failing pairs. Fixed-part and stock
-checks pass. Independent replay verifies all 92 evaluation records, 78 saved
-points, 528 updated weights and 32,521 runtime scores over 2,854 key minima.
-Preparation is 33.769462 s and algorithm/shared totals are
-54.572660/54.684802 s. All processes close; slice overruns stay within overall limits.
-Selection/output/model work takes 12.272820 s, leaving 2.563988 s for the second
-call. The same-context two-center comparison improves 659 eligible key minima;
-the best eligible placement does not change. Read-only profiling exactly reproduces
-all runtime output. Next assess equivalent selector computation, preserving all
-scores, identities and deadline behavior. No replacement, successor state or
-new search is prepared. All eighteen keys and finite pipelines stay closed.
-Four earlier arrangements and 440 allocations remain; H2/H5 stay open at 60%.
-The prior checkpoints reached main 8dc99684 normally, preserving 52 files.
-CI has 4 passed and 2 live jobs at review; this checkpoint awaits the ordinary
-push gate. Product code, README and releases remain unchanged.
+Latest H5 evidence: [selector computation equivalence](../benchmarks/results/h5-selector-equivalence-20261107.md).
+Precomputed pair indexing and invocation-local digest reuse preserve every score,
+key and raw proposal in the independently audited source/runtime contexts. Eight
+complete alternating comparison runs agree exactly; digest work falls from 23,419
+to 2,854 calls. Two changed-context controls, 93,676 independent digests, six stale
+trial-cache rejections and fourteen deadline cases pass. Timing samples are
+reported without a statistical or packing claim. All processes close with zero
+optimizers. Next reconstruct a fresh original-source initializer under all eighteen
+closed identities, retaining 33.769462 s preparation plus new work. No successor
+state, model or new search is prepared. The previous construction remains invalid
+with 50 failed source pairs. Four arrangements and 440 allocations remain;
+H2/H5 stay open at 60%. Main is 8dc99684 with 5 passed and 1 live CI jobs at review;
+e90bc056 and this checkpoint await the ordinary push gate. Product code, README
+and releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3984,3 +3981,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 two-center construction:** [independent full response and source replay](../benchmarks/results/h5-two-center-construction-20261107.md) verifies two closed calls, all 92 evaluation records, 78 saved points, 528 updated weights and 32,521 complete runtime scores over 2,854 key minima. The best candidate has 33,907.097540 mm² original overlap and 50 failing pairs; fixed-part and stock checks pass. No valid full66 layout, native call or allocation exclusion follows. Preparation is 33.769462 s and algorithm/shared totals are 54.572660/54.684802 s; slice overruns are preserved within both overall limits. Selection/output/model work takes 12.272820 s, shortening the second call to 2.563988 s. Same-context independent comparison finds 659 eligible key minima improved by second-center combinations; the best eligible placement does not change. Read-only profiling exactly reproduces the complete runtime output and identifies computation costs without a packing or speedup claim. Next assess equivalent selector computation; no replacement, successor source state or search is prepared. All eighteen keys and finite pipelines stay closed. Four earlier arrangements and 440 allocations remain; H2/H5 stay open at 60%. Prior checkpoints reached main 8dc99684 normally, preserving 52 files; CI has 4 passed and 2 live jobs at review. Product code, README and releases remain unchanged.
+
+
+**2026-11-07 H5 selector equivalence:** [complete computation-only validation](../benchmarks/results/h5-selector-equivalence-20261107.md) verifies precomputed pair indexing and invocation-local problem digests against the independently audited source/runtime pools. All eight full selector outputs exactly match their references, including 9,102 center trials and 23,419 proposals per call. Two changed-context controls preserve exact old/new output and change every key correctly; 93,676 digests replay independently. Digest calls fall from 23,419 to 2,854 without omitting geometry. Cached/full paths, six stale-cache rejections and fourteen deadline controls pass with no partial candidate. Fixed alternating timing samples are reported without a statistical or packing claim. The bounded process closes in 184.945360 s with zero optimizers. Next reconstruct an original-source initializer under all eighteen closed keys, preserving 33.769462 s preparation plus new work. No successor state, model or search is prepared. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. e90bc056 and this checkpoint await the ordinary main push gate; CI has 5 passed and 1 live jobs at review. Product code, README and releases remain unchanged.
