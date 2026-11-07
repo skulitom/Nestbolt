@@ -10,17 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [twelve-cog 5/4/3 constructions](../benchmarks/results/h5-twelve-cog-543-constructions-20261107.md).
-The new independent 5/4/3-cog model passes all source and model checks, then
-closes UNKNOWN without a placement. A separate staged method fixes its validated
-row control and closes grid-INFEASIBLE. Both include all sixteen orthogonal
-companions and 96 modes; all preparation is charged, and overall 60/90-second
-limits pass. The joint solve-slice overrun remains recorded. Both calls are
-closed; neither excludes a continuous layout or whole allocation. Next assess
-fresh 5/5/2 row domains with the same nine-part small sheet.
-The fixed29/current-cog frontier remains four arrangements: 451 of 455 excluded
-at original 0.2 mm clearance, 427 even at zero. All 440 whole allocations and
-the full66 source/material/native checks remain open. H2/H5 remain open at 60%.
+Latest H5 evidence: [independent twelve-cog preparation](../benchmarks/results/h5-independent-twelve-cog-preparation-20261107.md).
+Fresh geometry allows all twelve cogs to move independently with sixteen
+orthogonal companions, retaining all 108 source-mode options and the direct
+nine-part small sheet. Exact mode-coupled coordinate proofs and integer reductions
+leave 27,594 region choices and 97,284 guarded planes. All source, coordinate and
+integer audits pass; charged preparation so far is 3.242979 s. A complete model
+and independent serialized-model readback are next, before one bounded call.
+No model or solver has opened, and the 50-original control remains incomplete.
+Four fixed arrangements and all 440 whole allocations remain; full66 source,
+material/native checks and the full H5 gate remain open. H2/H5 stay open at 60%.
+The preceding row checkpoints reached main 3baf15d1 after all six prior checks
+passed; its Windows native check is still live at review.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3867,3 +3868,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 5/4/3 twelve-cog constructions:** [fresh source and full-model audits](../benchmarks/results/h5-twelve-cog-543-constructions-20261107.md) verify 2,099 mover regions, 577 row-pair regions, 147,085 source support proofs and 9,847 integer implications. The widened 700 mm row-difference error bound covers the new third-row freedom. One complete joint model closes UNKNOWN with no placement; charged preparation is 8.301528 s and algorithm/shared totals are 56.165204/56.309005 s, preserving its 0.146804 s solve-slice overrun. A separately frozen staged control has 208 fresh combined regions and a fully audited 2,962-variable companion model; its sole call closes grid-INFEASIBLE in 15.441594/15.510424 s including all 7.286199 s of preparation. Neither result excludes a continuous layout or allocation. Both calls stay closed. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. The next unprepared hypothesis uses 5/5/2 rows with the same validated nine-part small sheet. A pre-execution helper syntax failure and all original evidence remain preserved. No new release is made.
+
+
+**2026-11-07 H5 independent twelve-cog preparation:** [source, coordinate and integer audits](../benchmarks/results/h5-independent-twelve-cog-preparation-20261107.md) verify 28 original movers with 12 independently positioned cogs, all 108 source modes, 25,348 source pair checks and 258 cog interactions. Exact mode-coupled quarter-turn coordinates reduce the initial 80,202 region choices to 29,640, with 6,728 new original-source support proofs and minimum certified gap 0.232399392 mm. All 1,244 integer implications and 31 dominance proofs pass, leaving 27,594 choices and 97,284 guarded planes. The 50-original partial control retains all 66 cog-pair checks; 16 companions remain unplaced. Complete charged preparation so far is 3.242979 s. A complete model and independent protobuf audit are next, before one frozen 60/90-second call. No solver or native call opened and no arrangement or allocation is excluded. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Both earlier row checkpoints reached main 3baf15d1 normally after all six prior checks passed, preserving 52 remote files. Current Windows CI is live at review. The pre-execution shell quoting failure remains documented; all bounded processes closed. No release is made.
