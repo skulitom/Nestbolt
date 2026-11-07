@@ -1,4 +1,4 @@
-# Status — 2026-11-06
+# Status — 2026-11-07
 
 ## v1.1 — real shop files
 
@@ -10,7 +10,7 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete refined frontier](../benchmarks/results/h5-frontier-refined-proofs-20261106.md).
+Latest H5 evidence: [SAT certificate pilot](../benchmarks/results/h5-sat-certificate-pilot-20261107.md).
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
 52-part reference shelf cannot be completed: continuous bounds exclude all 13
@@ -47,8 +47,11 @@ twenty-one coarse cutoff cases and this refined cutoff remained. The other 25
 arrangements now have complete child covers, 2,794 certified child removals and
 6,172,577 new conflicts verified over 110,803,502 pairs. Their distinct trees
 retain 1,453 open leaves. All 26 refined arrangements remain unresolved.
-The corrected index audit and pre-graph failure are preserved. An independently
-checked Boolean certificate method is next; no SAT model or call has run.
+The corrected index audit and pre-graph failure are preserved. The new Boolean
+certificate workflow passes tool controls and a full 953,103-clause model audit.
+Its sole [0,5,12] pilot times out without a usable proof or assignment. All 26
+arrangements remain unresolved. Process-tree resource enforcement must pass
+a spawned-child control before another distinct call; this pilot stays closed.
 All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
@@ -3826,3 +3829,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-06 H5 complete refined frontier:** [independent cover, every-pair and tree audits](../benchmarks/results/h5-frontier-refined-proofs-20261106.md) verify the other 25 survivors: 18,854 complete parent covers, 75,416 closed children and 2,794 exact cog-clearance removals. The 72,622 retained nodes have 6,172,577 new conflicts; all 110,803,502 unordered pairs and complete root clique bounds pass. A cover-audit metadata index error caused graph preflight to fail before any graph was constructed; the original audit/failure are preserved, audit-v2 corrects the index, and versioned graph preparation keeps the same caps. The 25 fresh joint trees verify 11,716 records and 666,103 removals but retain 1,453 open leaves, with no refined graph witness or new exclusion. Together with the earlier [4,5,10] cutoff, all 26 refined arrangements remain unresolved. Complete preparation costs are 10.539071, 0.316752 (failed preflight), 7.361615 and 44.052088 s; final complete-case/process caps pass. No placement/native call or full construction budget is claimed. The previous checkpoints reached main 3046006d after all six prior CI checks passed. Next assess an independently checked Boolean unsatisfiability certificate workflow; no SAT model or call has yet run. Full66 checks, 440 whole allocations and H2/H5 remain open at 60%; every prior bounded process stays closed.
+
+
+**2026-11-07 H5 SAT certificate pilot:** [the pinned tool controls and complete model audit](../benchmarks/results/h5-sat-certificate-pilot-20261107.md) verify 953,103 CNF clauses, 16,840 threshold gates and 2,112 source-proved single-cell capacities for [0,5,12]. MIT solver/checker notices, package hashes, failed Windows binary-proof control and versioned lossless text conversion are preserved. The first diagonal audit error is separately corrected without changing model bytes. The sole 60-second search closes without a usable result after 66.683245 s total; its incomplete proof yields no exclusion. The direct-process supervisor does not establish aggregate descendant memory; Windows CIM confirms no matching worker remains after a stalled diagnostic helper is stopped. Next validate process-tree resource limits before any distinct new research call. This pilot and all earlier calls remain closed. The 26 arrangements, 440 whole allocations and H2/H5 remain open at 60%; no source-valid 66, native call or full construction-budget claim is made.

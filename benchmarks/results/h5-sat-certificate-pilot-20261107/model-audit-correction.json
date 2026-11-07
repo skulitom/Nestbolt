@@ -1,0 +1,11 @@
+{
+  "original_script": "output/audit_h5_sat_pilot_model_20261107.py",
+  "original_script_sha256": "35a2f40ea5627ede646efec4eca293db6f9f0403cdd0b794a1b00aeaf2a9fd58",
+  "exit_code": 1,
+  "original_tool_wall_seconds": 2.3312431,
+  "failure": "Expected graph diagonal0, but the previously audited conflict graphs have diagonal1 to express collision of two copies in one cell. Original auditor stopped at the first diagonal, before output or any SAT call.",
+  "correction": "Versioned auditor requires diagonal1, matching the source graph producer and its independent all-pair audit. It separately proves capacity1 for every cell using strict source inner rectangle overlap. Self bits are not unary exclusion clauses: a cell may contain1 part, but cannot contain2.",
+  "model_bytes_changed": false,
+  "solver_calls": 0,
+  "authoritative_audit": "audit-v2.json"
+}

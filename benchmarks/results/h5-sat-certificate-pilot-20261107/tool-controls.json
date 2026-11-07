@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "local_gate_truth_rows": 16,
+  "prefix_count_assignments": 15874,
+  "prefix_gate_checks": 483846,
+  "solver_controls": [
+    {
+      "name": "xor-unsat",
+      "status": false,
+      "seconds": 0.0035328001249581575,
+      "proof_bytes": 8,
+      "model": null
+    },
+    {
+      "name": "satisfiable",
+      "status": true,
+      "seconds": 0.021139999851584435,
+      "proof_bytes": 0,
+      "model": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "threshold-sat",
+      "status": true,
+      "seconds": 0.025974199874326587,
+      "proof_bytes": 0,
+      "model": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ]
+    },
+    {
+      "name": "threshold-unsat",
+      "status": false,
+      "seconds": 0.005685299867764115,
+      "proof_bytes": 44,
+      "model": null
+    },
+    {
+      "name": "pigeonhole-unsat",
+      "status": false,
+      "seconds": 0.0977215999737382,
+      "proof_bytes": 247,
+      "model": null
+    }
+  ],
+  "checker_controls": [
+    {
+      "name": "valid-xor",
+      "formula": "xor-unsat.cnf",
+      "proof": "xor-unsat.drat.txt",
+      "exit_code": 0,
+      "verified": true,
+      "expected": true,
+      "seconds": 0.44685059995390475
+    },
+    {
+      "name": "missing-proof",
+      "formula": "xor-unsat.cnf",
+      "proof": "empty.drat",
+      "exit_code": 1,
+      "verified": false,
+      "expected": false,
+      "seconds": 0.29567040014080703
+    },
+    {
+      "name": "tampered-proof",
+      "formula": "xor-unsat.cnf",
+      "proof": "tampered.drat",
+      "exit_code": 1,
+      "verified": false,
+      "expected": false,
+      "seconds": 0.29230680014006793
+    },
+    {
+      "name": "false-unsat",
+      "formula": "satisfiable.cnf",
+      "proof": "false-empty-clause.drat",
+      "exit_code": 1,
+      "verified": false,
+      "expected": false,
+      "seconds": 0.344998300075531
+    },
+    {
+      "name": "valid-threshold",
+      "formula": "threshold-unsat.cnf",
+      "proof": "threshold-unsat.drat.txt",
+      "exit_code": 0,
+      "verified": true,
+      "expected": true,
+      "seconds": 0.8121551999356598
+    },
+    {
+      "name": "valid-pigeonhole",
+      "formula": "pigeonhole-unsat.cnf",
+      "proof": "pigeonhole-unsat.drat.txt",
+      "exit_code": 0,
+      "verified": true,
+      "expected": true,
+      "seconds": 0.40914050000719726
+    }
+  ],
+  "checker_sha256": "0ed049137cb665c0fb0b8fcde420949dcbaf1a5d4bba8342e167049a4e674d46",
+  "converter_sha256": "83ca8ae20c2ec2e6c2f63692d75d2bff412513c5658028e471f0d866b35374d2",
+  "encoding_sha256": "0c7da843b37e967a11ec6e5a1a8b9825c1f4576fd36a93fd65a282be7a11f61a",
+  "seconds": 5.279974500183016,
+  "research_calls": 0,
+  "proof_logging": "persistent binary native CaDiCaL proof stream, flushed with the same binding used by PySAT.get_proof",
+  "semantic_argument": "Each local four-clause gate is equivalent to y iff a or (x and b). Its acyclic prefix indexing forces the unique threshold-count assignment. Final positive threshold unit is satisfiable exactly when at least k selectors are true."
+}

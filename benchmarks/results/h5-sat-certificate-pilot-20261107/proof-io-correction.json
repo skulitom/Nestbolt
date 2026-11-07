@@ -1,0 +1,12 @@
+{
+  "preserved_failed_control": "output/h5-sat-controls-20261107/valid-pigeonhole.json",
+  "original_proof_sha256": "d100e52fe678bf21fc44f338936028c2ff4b23602aa3ab15aaa3520bedeaf6e4",
+  "original_proof_bytes": 247,
+  "checker_reported_bytes_read": 99,
+  "first_ctrl_z_zero_based_offset": 98,
+  "diagnosis": "drat-trim opens proof with fopen r; Windows text-mode input treats byte0x1a as EOF. The original binary proof contains247 bytes; the checker reported99 input bytes including its EOF read.",
+  "correction": "Decode binary DRAT to ASCII and require exact binary round-trip before independent checking. Both representations are preserved. No solver algorithm or checker proof logic changes.",
+  "initial_metadata_helper_failure": "prepare_h5_sat_controls_v2_20261107.py wrote the versioned control script, then failed an off-by-one metadata assertion data[99]==26; actual first offset98. Original helper is preserved. This separate recorder corrects only that assertion; the original research/proof controls were not rerun.",
+  "authoritative_controls": "output/h5-sat-controls-v2-20261107/checks.json",
+  "research_calls": 0
+}
