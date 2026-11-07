@@ -10,26 +10,23 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [best admissible augmented construction](../benchmarks/results/h5-best-admissible-augmented-construction-20261107.md).
-The revised policy accepts the best strict-improving single or joint choice.
-Three contexts re-rank 8,562 independent scores, and a new original-source
-initializer excludes every prior closed key. Three distinct calls close at
-the frozen maximum. All 328 evaluation records, 274 saved points, 12,792 runtime
-centers, 5,708 full proposals and nine full66 winner outputs replay. Both
-runtime choices are single-owner changes. Best original overlap falls to
-20,445.492840 mm² but still fails 53 pairs; earlier epoch 1 has 46 failures and
-more overlap. Fixed-part and stock checks pass. No valid packing is established.
-Complete preparation is 18.187213 s; algorithm/shared totals are
-53.219783/53.302369 s, with all descendants closed and slice overruns retained.
-Current physical modes have no explicit fixed-grid relocation trials for any
-owner, including all 15 cogs. Next preflight including those modes, preserving
-all geometry and complete per-key minima. No broader successor is prepared.
-All fourteen keys and this finite pipeline remain closed; no native validation
-or allocation exclusion follows. Four earlier arrangements and 440 allocations
-remain; H2/H5 stay at 60%. Prior checkpoints reached main a69021b6 normally,
-preserving 52 files. Four fresh jobs pass and two native jobs remain live at
-review; this checkpoint awaits the ordinary push gate. Product code, README
-and releases remain unchanged.
+Latest H5 evidence: [current-mode relocation preflight](../benchmarks/results/h5-current-mode-relocation-preflight-20261107.md).
+Every current physical mode now has explicit grid relocation trials, including
+all fifteen cogs. Independent replay verifies 9,102 centers, 5,911 raw proposals
+and 2,854 complete key minima. All fourteen closed identities remain excluded;
+four source keys exclude 565 raw placements. Original geometry passes all
+163,836 nominal fixed-pair and 36,408 stock-edge checks.
+The fresh source initializer changes insert 17 to mode 2 and relocates cog 28
+in its existing mode. All 111 representative models and the complete selected
+model read back. Eleven deadline controls and three policy stops pass.
+Complete source preparation is 27.204689 s; both process trees close.
+No optimizer has run on this state, and no valid full66 packing is established.
+Next freeze a finite contract accounting for the larger runtime selector within
+the existing 60/90 s limits. No new search contract is prepared.
+All fourteen keys and prior pipelines stay closed. Four earlier arrangements
+and 440 allocations remain; H2/H5 stay open at 60%. Main a69021b6 has 5
+passed CI jobs and 1 live jobs at review; this checkpoint and 85d36097 await
+the ordinary push gate. Product code, README and releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3975,3 +3972,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 best admissible augmented construction:** [independent policy, model and response audits](../benchmarks/results/h5-best-admissible-augmented-construction-20261107.md) verify accepting the best strict-improving single or joint choice. Three validation contexts re-rank 8,562 independent score readbacks; the previously stopped single remains validation-only. A new original-source initializer excludes all eleven closed keys and retains all 528 area pairs, 15 coefficient-1 auxiliary terms, 81 coordinates and legal domains. Three new keys close after 325 optimizer evaluations; all 328 records, 274 saved points, 12,792 runtime centers, 5,708 proposals, 1,056 updated coefficients and nine full66 outputs replay. Both runtime choices are single-owner changes. Best original overlap is 20,445.492840 mm² with 53 failed pairs; an earlier epoch has 46 failed pairs and more overlap. Fixed-part and stock checks pass. Lower overlap does not establish packing validity or overall improvement. Complete preparation is 18.187213 s and algorithm/shared totals are 53.219783/53.302369 s; all processes close and three slice overruns remain. A read-only coverage check proves that the current physical mode has no fixed-grid relocation trials for any owner, including all 15 cogs. Next preflight the broader current-mode pool with complete per-key minima, independent geometry and deadline controls; no successor is prepared and different coordinates cannot reopen a closed key. All fourteen keys and the current pipeline remain closed. No native call or allocation exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoints reached main a69021b6 normally, preserving 52 files; four fresh CI jobs pass and two remain live at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 current-mode relocation preflight:** [independent complete source/model/selection checks](../benchmarks/results/h5-current-mode-relocation-preflight-20261107.md) verify 111 owner-mode choices, 9,102 nominal centers and 5,911 raw proposals, totaling 15,013 full objective scores. All 2,854 complete key minima replay; 14 closed identities exclude 565 raw proposals across four source keys, and coordinates alone never reopen them. Source reconstruction checks 163,836 nominal fixed pairs and 36,408 stock edges with all cutouts intact. The fresh original-source initializer changes insert 17 from mode 0 to 2 and relocates cog 28 in mode 0; its augmented score is 209855.390168 mm² with 70686.649827 mm² original overlap. All 111 representative models and the complete 81-coordinate selected model read back. Eleven deadline controls and three policy stops pass; incomplete output selects nothing. Complete new preparation is 9.017476 s, bringing retained source preparation to 27.204689 s. Both process trees close; no optimizer or full66 valid layout follows. Next freeze a finite search contract that accounts for the larger runtime selector within 60/90 seconds; none is prepared. All 14 closed keys and prior pipelines stay closed. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Main a69021b6 has 5 passed CI jobs and 1 live jobs at review; this checkpoint and 85d36097 await the ordinary push gate. Product, README and releases are unchanged.
