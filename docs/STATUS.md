@@ -10,20 +10,21 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [frame orientation and fixed-core capacity](../benchmarks/results/h5-orientation-roof-capacity-20261107.md).
-Seven nominal orientation-count classes are verified in the checked 39-owner
-model scopes. Three source-derived roof patterns yield 17 valid 48-part cores
-and 16 invalid cases. Independent full-stock bracket covers exclude five exact
-cores after 2,423 source-containment checks and 40,376,496 continuous classes.
-Twelve new two-turned-frame cases remain unresolved; no full 66-part placement
-or optimizer call results. Complete consumed preparation is 12.186441 s, with
-separate source/proof audits and all bounded processes closed. Next derive
-insert covers and a coupled six-bracket/twelve-insert area bound before any
-complete companion model. All prior calls stay closed and the valid 64-part
-result remains best. No whole orientation class or allocation is excluded.
-Four earlier arrangements and 440 allocations remain. H2/H5 stay open at 60%.
-Main a45826d3 has five passed and one live CI job; this and the preceding
-six-unturned checkpoint await the ordinary main push gate.
+Latest H5 evidence: [coupled roof bounds and cog transfer](../benchmarks/results/h5-coupled-roof-bound-and-cog-transfer-20261107.md).
+Independent insert covers and exact combined-area proofs exclude all twelve
+remaining fixed 48-part cases. A stronger bound excludes all sixteen exact
+first-sheet frame/cog cores for every bracket/insert split between sheets.
+No whole orientation class or allocation is excluded. A changed short-sheet
+allocation of six brackets, five inserts and one cog passes source checks.
+All 120 choices of fourteen first-sheet cog sites give valid 44-part partials,
+with 67,440 pairs and 6,720 original holes independently replayed. Each still
+needs six brackets and sixteen inserts. No optimizer runs; the valid 64-part
+result remains best. Preparation retains 17.107266 s and all processes close.
+Next extract complete two-empty-site necessary covers and audit the coupled
+area bound before any complete companion model. Four earlier arrangements
+and 440 allocations remain. H2/H5 stay open at 60%. Both prior checkpoints
+reached main be9c79d6 after all six checks passed, preserving 52 files. Fresh
+CI has 4 passed / 2 live jobs. Product and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4023,3 +4024,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 orientation and fixed-core capacity:** [complete source and necessary-cover audits](../benchmarks/results/h5-orientation-roof-capacity-20261107.md) enumerate seven nominal frame-orientation classes in the checked 39-owner scopes; the four closed calls used counts 4, 4, 4 and 0 without excluding a class. Three fresh source patterns with counts 1, 2 and 3 yield 33 declared 48-part cases: 17 pass and 16 fail two disjoint cog contacts. Independent readback checks 882 axis sections, 1,191 distances and every case. Exact bracket covers verify 2,423 source-contained rectangles and 40,376,496 continuous classes. The one-turned core holds at most two brackets; four two-turned omission cores hold at most three, below the six required. These five exact cores are excluded; twelve new cases remain unresolved, alongside four earlier arrangements and 440 allocations. No optimizer runs and the valid 64-part result remains best. Complete consumed preparation is 12.186441 s; separate audits pass and all processes close. Next derive insert covers and the coupled six-bracket/twelve-insert area bound before any complete model. H2/H5 remain open at 60%. Main a45826d3 has five passed and one live CI job; this and the preceding six-unturned checkpoint await the ordinary push gate. Product and release state is unchanged.
+
+
+**2026-11-07 H5 coupled roof bounds and cog transfer:** [independent proofs and source readback](../benchmarks/results/h5-coupled-roof-bound-and-cog-transfer-20261107.md) exclude all twelve remaining fixed 48-part cases after 4,115,344 continuous insert classes. Their combined bracket/insert occupied area is short by at least 51,248.819369 mm². A broader proof releases all brackets and inserts across both sheets and excludes all sixteen exact first33 cores for every such inventory split, with at least 4,107.770511 mm² missing; no whole orientation class or allocation is excluded. A changed 6/5/1 short allocation transfers one cog and passes complete source checks. All 120 fourteen-of-sixteen first-sheet choices produce valid 44-part partials, independently checking 67,440 pairs and 6,720 original holes. Each still needs six brackets and sixteen inserts; no optimizer runs and the valid 64-part result remains best. Preparation retains 17.107266 s total and all bounded processes close. Next extract complete two-empty-site covers and audit the coupled area bound before any complete model. Four earlier arrangements and 440 allocations remain. H2/H5 stay open at 60%. Both preceding checkpoints reached main be9c79d6 after all six prior checks passed with 52 protected files intact; fresh CI has 4 passed / 2 live jobs. Product and release state is unchanged.
