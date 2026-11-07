@@ -10,18 +10,18 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [screened-objective source construction](../benchmarks/results/h5-screened-source-construction-20261107.md).
-Fresh original-source preparation totals 40.438637 s. Both finite calls close,
-but the original-area winner fails 53 source pairs and a different augmented/
-unweighted winner fails 52. All 120 records, 104 saved points, 528 updated weights,
-15,013 runtime scores and six full66 outputs replay. All 81 gradient coordinates
-are independently checked at every evaluation. All 25 exact keys remain closed.
-A whole-boundary clipping diagnostic retains 1128/1132 exact geometry sets and
-4 component-count mismatches, including extra shared-boundary lengths of
-60.77/63.52 mm. Unconditional substitution is rejected. Source-edge correspondence
-and integrated gradients need verification before any replacement kernel or search.
-Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Main b4e16c74
-has 1 passed / 5 live jobs at review. Product code, README and releases are unchanged.
+Latest H5 evidence: [exact contact proof and guarded bulk pilot](../benchmarks/results/h5-bulk-contact-proof-and-guarded-pilot-20261107.md).
+Two independent exact-coordinate calculations confirm the current per-edge
+kernel at the near-parallel contacts. Whole-boundary clipping invents shared
+segments of 60.77/63.52 mm. The guarded pilot matches all 20 tested contexts,
+but its complete kernel takes 2.453 times as long in the fixed observations,
+so it is rejected as a replacement. No new objective, initializer or optimizer
+call follows. Next review complete construction costs using the current kernel.
+All 25 exact problem keys remain closed; retained preparation is 40.438637 s.
+The latest original-area winner still fails 53 source pairs and the distinct
+augmented/unweighted winner fails 52. Four arrangements and 440 allocations
+remain unresolved. H2/H5 stay open at 60%. Main b4e16c74 has 5 passed /
+1 live CI jobs at review. Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4003,3 +4003,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 screened-objective source construction:** [complete source, selection and scalar-gradient replay](../benchmarks/results/h5-screened-source-construction-20261107.md) verifies a fresh original-source model under 23 closures, all 5,911 primary proposals and 2,854 keys. Full preparation is 40.438637 s. Two calls close within 54.452233/54.563159 s algorithm/shared totals. The original-area winner remains invalid with 53 failed pairs and 41911.983324 mm² overlap; a distinct augmented/unweighted winner fails 52 pairs. All 120 records, 104 saved points, 528 updated weights, 15,013 runtime scores and six source outputs replay, including independent all81 scalar gradients on every evaluation. All 25 keys stay closed. A read-only whole-boundary clipping diagnostic retains 1128/1132 exact geometry sets and 4 component-count mismatches; aggregate separate/bulk clip means are 0.118378/0.086468 s, excluding correspondence/integration. Next resolve source-edge correspondence and full integrals before any replacement kernel, objective or search. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Main b4e16c74 has 1 passed / 5 live jobs at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 exact contact proof and guarded bulk pilot:** [independent rational/strip proofs and complete-kernel controls](../benchmarks/results/h5-bulk-contact-proof-and-guarded-pilot-20261107.md) confirm zero true shared length in both near-parallel cases. The unguarded bulk operation invents 60.774488/63.522505 mm shared segments; its replacement remains rejected. Eight analytic fixtures and six fixed ULP controls are preserved. The guarded pilot matches all 20 contexts exactly, including 566 saved-state directed pairs with 62 fallbacks, but complete-kernel means are 0.163021/0.399903 s current/pilot (2.453 times the current cost), so it is not integrated. No source initializer or optimizer call is created. All 25 keys stay closed; retained source preparation is 40.438637 s. The latest winners still fail 53/52 pairs. Four arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main b4e16c74 has 5 passed/1 live CI jobs at review.
