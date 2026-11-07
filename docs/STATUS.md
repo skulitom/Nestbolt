@@ -10,28 +10,27 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [augmented bracket-depth construction](../benchmarks/results/h5-bracket-augmented-construction-20261107.md).
-The full source model retains 528 weighted area pairs and adds 15 bracket-depth
-terms at coefficient 1. Independent model checks cover 147 legal-mode scores,
-combined scalar gradients and interior derivative controls. Original contact
-central failures and a diagnostic output failure remain preserved; corrected
-verification keeps the model, initializer and tolerances unchanged and makes
-the nonsmooth limitations explicit. One new objective key closes after 236
-optimizer evaluations. Every evaluation, 212 retained improvements and three
-full66 winner streams replay. All three select the same invalid candidate:
-44 source collisions and 33,707.125558 mm² overlap. Fewer failed pairs do not
-offset its worse overlap than the prior conditional result. Fixed-part and
-stock checks pass. Complete preparation is 11.688681 s; algorithm/shared totals
-are 52.962365/53.493153 s, with all monitored processes closed and the slice
-overrun retained. No bracket/bracket failure or flat area-pair gradient remains
-at this candidate, but four cogs have lower-y descent blocked by hard domains.
-Next preflight legal conditional mode/center choices under the full augmented
-score from the original unoptimized initializer. No successor selector or call
-exists. The new augmented key and all seven older weighted keys stay closed.
-Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%.
-Prior checkpoints reached main cbc49d2c, preserving 52 files. Four fresh CI jobs
-pass and two native jobs remain live; this checkpoint awaits the ordinary push
-gate. Product code, README and releases remain unchanged.
+Latest H5 evidence: [augmented conditional construction](../benchmarks/results/h5-augmented-conditional-construction-20261107.md).
+Independent replay verifies all 6,396 center trials and 2,854 full proposals,
+with no ranking disagreements. The original-source joint improves the best
+single augmented score while preserving all 528 area pairs, 15 bracket-depth
+terms, 81 coordinates and legal hard domains. One new key closes after 309
+optimizer evaluations. All 310 records, 274 retained points and three distinct
+winner streams replay; each winner still fails 55 source pairs. The best
+original overlap is 36,097.586688 mm², worse than the preceding augmented
+result in both overlap and failing pairs. Fixed-part and stock checks pass.
+Complete preparation is 16.974380 s; algorithm/shared totals are
+48.649513/48.735274 s, with every process closed and the slice overrun retained.
+No bracket/bracket failure or flat available pair gradient remains, but four
+cogs have lower-y descent blocked by hard bounds. Next preflight a bounded
+adaptive augmented pipeline with deadline-aware selectors, independent
+weight/model readback and a new admissible original-source initializer.
+No successor is prepared; both augmented keys and all seven older weighted
+keys stay closed. Four earlier arrangements and 440 allocations remain;
+H2/H5 stay at 60%. The previous checkpoint reached main 193660c4, preserving
+52 files. Five fresh CI jobs pass and Windows native CI remains live at sealing.
+This checkpoint awaits the ordinary push gate. Product code, README and
+releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3968,3 +3967,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 augmented bracket-depth construction:** [independent model and response audits](../benchmarks/results/h5-bracket-augmented-construction-20261107.md) verify the unchanged 81-coordinate source model with all 528 weighted area pairs plus 15 coefficient-1 bracket terms. Checks cover 147 legal-mode scores, 306 scalar directed terms, 324 interior central samples and nine corruptions. All 14 original contact/near-transition central failures remain preserved, with one-sided finite controls and explicit nonsmooth limits; the separate NumPy-boolean output failure and corrected serializer also remain. No model, initializer or tolerance changes. One new objective key closes after 236 optimizer evaluations; all 237 records, 212 retained improvements and three full66 winner streams replay. All three select the same invalid candidate: 44 source collisions and 33,707.125558 mm² overlap, worse overlap than the prior conditional result despite fewer failing pairs. Fixed-part and stock checks pass. Complete preparation is 11.688681 s and algorithm/shared totals are 52.962365/53.493153 s; the 0.071821 s slice overrun remains and all monitored descendants close. A separate diagnostic finds no bracket/bracket failure or flat pair gradient among 45 positive area terms, while four cogs have blocked lower-y descent. Next independently preflight conditional mode/center choices under the full augmented objective from the original unoptimized initializer. The new augmented key and all seven older weighted keys remain closed. No native call or exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoints reached main cbc49d2c, preserving 52 files; four fresh CI jobs pass and two native jobs remain live. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 augmented conditional construction:** [complete selection and response audits](../benchmarks/results/h5-augmented-conditional-construction-20261107.md) independently replay all 6,396 center trials and 2,854 full augmented proposals, with zero ranking disagreements and maximum score error 1.165e-10 mm². The original-source joint changes inserts 10 and 20 to mode 2 and improves the best single by 13,242.671337 mm². It retains all 528 weighted area pairs, 15 coefficient-1 bracket terms, 81 coordinates and legal hard domains. One new key closes after 309 optimizer evaluations; all 310 records, 274 retained points and three distinct winner streams replay. Every winner fails 55 source pairs. The best original-overlap candidate has 36,097.586688 mm² overlap, worse than the preceding augmented result in both overlap and failed pairs. Fixed-part and stock checks pass. Complete preparation is 16.974380 s; algorithm/shared totals are 48.649513/48.735274 s, with every process closed and the 0.064511 s slice overrun preserved. A read-only diagnostic finds no bracket/bracket failure or flat available gradient among 55 positive area terms; four cogs have lower-y descent blocked by hard bounds. Next preflight a bounded adaptive augmented pipeline, with deadline-aware selector controls, independent weight/model readback and a new admissible original-source initializer. No successor is prepared. Both augmented keys and all seven older weighted keys remain closed. No native call or allocation exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. The prior checkpoint reached main 193660c4, preserving 52 files; five fresh CI jobs pass and Windows native CI remains live at sealing. Product code, README and releases are unchanged.
