@@ -10,25 +10,26 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [adaptive augmented construction](../benchmarks/results/h5-adaptive-augmented-construction-20261107.md).
-The source initializer, bounded positive weight updates and deadline-aware
-selector pass independent checks; six injected stops and one real-time stop
-preserve partial results without choosing a candidate. Two distinct optimizer
-keys close after 217 evaluations. All 219 records, 195 retained points, 12,792
-runtime centers, 5,708 full proposals and six full66 winner outputs replay.
-The best original-area candidate still fails 50 pairs with 29,249.033408 mm²
-overlap; fixed-part and stock checks pass. This remains worse than the earlier
-area-only adaptive result. Complete preparation is 17.623198 s; algorithm/shared
-totals are 46.232997/46.308978 s. Every process closes and slice overruns remain.
-The third selection stops because its best single beats its best joint under
-the frozen joint-only prerequisite. Next preflight selecting the best strict-
-improving admissible single or joint from a new original-source initializer.
-No successor is prepared. The current pipeline, its winners and all eleven
-closed keys stay closed; no native validation or allocation exclusion follows.
-Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%.
-All six jobs and the aggregate on main 193660c4 pass. The preceding 760d2ee6
-checkpoint and this one are ready for the ordinary commit/push checks.
-Product code, README and releases remain unchanged.
+Latest H5 evidence: [best admissible augmented construction](../benchmarks/results/h5-best-admissible-augmented-construction-20261107.md).
+The revised policy accepts the best strict-improving single or joint choice.
+Three contexts re-rank 8,562 independent scores, and a new original-source
+initializer excludes every prior closed key. Three distinct calls close at
+the frozen maximum. All 328 evaluation records, 274 saved points, 12,792 runtime
+centers, 5,708 full proposals and nine full66 winner outputs replay. Both
+runtime choices are single-owner changes. Best original overlap falls to
+20,445.492840 mm² but still fails 53 pairs; earlier epoch 1 has 46 failures and
+more overlap. Fixed-part and stock checks pass. No valid packing is established.
+Complete preparation is 18.187213 s; algorithm/shared totals are
+53.219783/53.302369 s, with all descendants closed and slice overruns retained.
+Current physical modes have no explicit fixed-grid relocation trials for any
+owner, including all 15 cogs. Next preflight including those modes, preserving
+all geometry and complete per-key minima. No broader successor is prepared.
+All fourteen keys and this finite pipeline remain closed; no native validation
+or allocation exclusion follows. Four earlier arrangements and 440 allocations
+remain; H2/H5 stay at 60%. Prior checkpoints reached main a69021b6 normally,
+preserving 52 files. Four fresh jobs pass and two native jobs remain live at
+review; this checkpoint awaits the ordinary push gate. Product code, README
+and releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3971,3 +3972,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 adaptive augmented construction:** [independent preflight and full response replay](../benchmarks/results/h5-adaptive-augmented-construction-20261107.md) verify the new original-source initializer, complete deadline-aware selector, six injected stops and one real-time stop with preserved partial prefixes. All 2,854 source proposal scores are independently re-ranked against nine closed keys; every consumed source stage is charged. The fixed positive area-only weight rule and unchanged 528 area/15 auxiliary terms pass scalar controls. Two new optimizer keys close after 217 evaluations and 195 retained points; all 219 records, 12,792 runtime centers, 5,708 proposals, 1,056 updated coefficients and six full66 winner outputs replay. The best original-area winner fails 50 pairs with 29,249.033408 mm² overlap; the augmented/unweighted winner fails 51. Fixed-part and stock checks pass. The result remains worse than the earlier area-only adaptive construction. Complete preparation is 17.623198 s and algorithm/shared totals are 46.232997/46.308978 s; all processes close and slice overruns remain preserved. The third selection correctly stops because its best single beats the best joint by 2,216.679442 mm² under the frozen joint-only rule. Next preflight accepting the best admissible strict-improving single or joint from a new original-source initializer; no successor is prepared and no saved optimized/stopping candidate may seed it. All eleven keys and the current pipeline remain closed. The pre-generation newline-extraction failure and corrected generator remain preserved. No native call or allocation exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. All six jobs and the aggregate on main 193660c4 pass; prior checkpoint 760d2ee6 and this one are ready for the ordinary commit/push checks. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 best admissible augmented construction:** [independent policy, model and response audits](../benchmarks/results/h5-best-admissible-augmented-construction-20261107.md) verify accepting the best strict-improving single or joint choice. Three validation contexts re-rank 8,562 independent score readbacks; the previously stopped single remains validation-only. A new original-source initializer excludes all eleven closed keys and retains all 528 area pairs, 15 coefficient-1 auxiliary terms, 81 coordinates and legal domains. Three new keys close after 325 optimizer evaluations; all 328 records, 274 saved points, 12,792 runtime centers, 5,708 proposals, 1,056 updated coefficients and nine full66 outputs replay. Both runtime choices are single-owner changes. Best original overlap is 20,445.492840 mm² with 53 failed pairs; an earlier epoch has 46 failed pairs and more overlap. Fixed-part and stock checks pass. Lower overlap does not establish packing validity or overall improvement. Complete preparation is 18.187213 s and algorithm/shared totals are 53.219783/53.302369 s; all processes close and three slice overruns remain. A read-only coverage check proves that the current physical mode has no fixed-grid relocation trials for any owner, including all 15 cogs. Next preflight the broader current-mode pool with complete per-key minima, independent geometry and deadline controls; no successor is prepared and different coordinates cannot reopen a closed key. All fourteen keys and the current pipeline remain closed. No native call or allocation exclusion follows. Four earlier arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoints reached main a69021b6 normally, preserving 52 files; four fresh CI jobs pass and two remain live at review. Product code, README and releases are unchanged.
