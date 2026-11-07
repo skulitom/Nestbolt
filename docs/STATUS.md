@@ -10,21 +10,19 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [primary-tier source construction](../benchmarks/results/h5-tiered-source-construction-20261107.md).
-A fresh original-source initializer and full 37.680691 s preparation charge
-pass independent readback. The complete primary tier supplies a second call within
-the finite budget; its allocation is 1.259220 s. Both calls close, with the
-best candidate still invalid: 51 failed pairs and 32897.567939 mm² original overlap.
-All 73 evaluation records, 55 saved points, 528 updated weights, 15,013
-runtime full scores and six original-source outputs replay. Algorithm/shared totals
-are 54.484518/54.564835 s; all processes close. Twenty-one keys remain closed.
-A bounding-box screen is exact but its measured kernel saving is only about 0.29 s.
-A separate shared-row diagnostic finds 2,342 exact geometries among 9,066 unique
-owner/mode centers and reproduces all 9,102 weighted-area scores. Next verify whole
-selector equivalence and timing for shared raw rows before any new source model
-or search. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Main
-remains 831ad47e, with 5 passed / 1 live CI jobs at review. Product code,
-README and releases are unchanged.
+Latest H5 evidence: [shared geometry selector preflight](../benchmarks/results/h5-shared-geometry-preflight-20261107.md).
+The invocation-local raw-row cache preserves every complete primary/extended field
+in source and earlier runtime contexts, plus primary fields in the latest runtime.
+All 2,854 key minima per tier and references for 80,055 scores are retained. Actual
+latest-context shape construction falls to 2,342 exact geometries. Changed-context,
+deadline, fallback, isolation, stale-cache and membership controls pass. Twenty
+fixed-order whole-selector timings are recorded without a packing claim.
+Next independently prepare an original-source initializer and budget under all 21
+closed keys, retaining 37.680691 s prior preparation plus new work. No initializer
+or search is prepared. The last layout remains invalid with 51 failed pairs.
+Four arrangements and 440 allocations remain; H2/H5 stay at 60%. The prior two
+checkpoints reached main ddf2310d after all six previous checks passed, preserving
+52 files. Fresh CI has 0 passed / 6 live jobs at review. Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3994,3 +3992,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 primary-tier source construction:** [complete source and response evidence](../benchmarks/results/h5-tiered-source-construction-20261107.md) verifies a fresh original-source initializer under nineteen closures, all 5,911 primary proposals and 2,854 keys. Full preparation is 37.680691 s. The bounded attempt makes two calls; the second receives 1.259220 s after complete runtime selection. Its best candidate remains invalid with 51 failed pairs and 32897.567939 mm² original overlap. All 73 records, 55 saved points, 528 updated weights, 15,013 runtime full scores and six source outputs replay. Algorithm/shared totals are 54.484518/54.564835 s; all processes close. Twenty-one keys remain closed. A bounding-box screen is exact but saves only about 0.29 s in the measured kernel. A separate shared-row diagnostic identifies 2,342 exact geometries among 9,066 unique owner/mode centers and reproduces all 9,102 weighted-area scores. Next verify complete selector equivalence and timing for shared raw rows; no implementation or successor search is prepared. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Main remains 831ad47e; fresh CI has 5 passed / 1 live at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 shared geometry selector preflight:** [complete equivalence and bounded timing evidence](../benchmarks/results/h5-shared-geometry-preflight-20261107.md) verifies all primary/extended outputs in source and earlier runtime contexts, plus primary outputs in the latest independently audited runtime. All 2,854 key minima per tier and references for 80,055 scores remain bound. The implementation constructs exactly 2,342 distinct latest-context geometries, with copied owner-specific rows and unchanged auxiliary terms. Three changed-context cases, 26 synthetic / 3 real deadlines, two different-best fallbacks, isolation, one-shot extension, six stale caches and membership policies pass. Twenty fixed-order timings preserve full selector cost and variability without a packing claim. Next prepare and independently audit an original-source initializer and budget under all 21 closed keys; retain 37.680691 s prior preparation plus new work. No new optimizer call, initializer or search is prepared. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. The two prior checkpoints reached main ddf2310d after all six previous checks passed, preserving 52 files. Fresh CI has 0 passed / 6 live at review. Product code, README and releases are unchanged.
