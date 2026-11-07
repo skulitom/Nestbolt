@@ -10,22 +10,21 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [indexed source construction](../benchmarks/results/h5-indexed-source-construction-20261107.md).
-Original-source records are hash/context verified and regrouped under eighteen
-exclusions; the fresh model and full 36.028144 s preparation charge pass readback.
-One bounded call closes with 37,449.298292 mm² original overlap and 55 failed pairs.
-Runtime selection stops after all 9,102 centers and 15,454 proposals, with no
-selected candidate or second call. Independent replay verifies 40 evaluation
-records, 33 saved points, 528 updated weights, three full66 outputs and the full
-32,521-score validation reference for the exact partial prefix. Algorithm/shared
-totals are 53.468259/53.606342 s; all processes close. Nineteen keys remain closed.
-The same-context best eligible placement does not change with second centers.
-Next assess complete primary/optional extension tiers with separate score/key,
-deadline and timing preflight. No tiered selector or new source state is prepared.
-Four arrangements and 440 allocations remain; H2/H5 stay at 60%. The preceding
-checkpoints reached main 38e7b1d7 after all six checks passed, preserving 52 files.
-Fresh CI has 4 passed and 2 live jobs at review; this checkpoint awaits the next
-ordinary push gate. Product code, README and releases are unchanged.
+Latest H5 evidence: [complete tier selector preflight](../benchmarks/results/h5-tiered-selector-preflight-20261107.md).
+The complete 5,911-proposal primary tier and 23,419-proposal extension reproduce both
+source and closed-runtime references, covering all 2,854 keys per tier. Twenty-six
+synthetic and three real deadlines preserve selection from a fully completed tier.
+Two different-best controls prove partial extension candidates cannot displace the
+completed primary. Snapshot isolation, one-shot extension, six stale-cache cases
+and membership/policy controls pass. Ten timing samples retain variability. A
+separate three-call phase profile reproduces all outputs and finds center geometry
+dominates runtime cost; serialization is measured separately. Next prepare and
+independently audit the original-source initializer and full budget before a search.
+All 19 problem keys remain closed, with 36.028144 s prior preparation retained plus
+new work. The last search remains invalid with 55 source-pair failures. Four
+arrangements and 440 allocations remain; H2/H5 stay at 60%. Main 831ad47e contains the
+preceding checkpoint after all 6 prior checks passed, preserving 52 files. Fresh CI has
+3 passed / 3 live jobs at review. Product code, README and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3989,3 +3988,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 indexed source construction:** [complete source/response/partial-pool audits](../benchmarks/results/h5-indexed-source-construction-20261107.md) verify exact reuse of 23,419 original-source records under eighteen exclusions, all 2,854 key minima and a fresh original-source model. Full preparation is 36.028144 s. The finite search closes after one four-second call with 37,449.298292 mm² original overlap and 55 failed pairs. Runtime selection reaches its deadline after all 9,102 centers and 15,454 proposals, chooses nothing and opens no second call. All 40 evaluation records, 33 saved points, 528 updated weights and three full66 outputs replay; complete validation-only partial-pool reconstruction checks 32,521 full scores and the exact saved prefix. Algorithm/shared totals are 53.468259/53.606342 s with all processes closed. Nineteen keys stay closed. Same-context first-center comparison records that the best eligible placement does not change with second-center combinations; no packing gain is claimed. Next assess separately verified complete primary/optional extension tiers; no new tiered selector or source state is prepared. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. The preceding checkpoints reached main 38e7b1d7 after all six checks passed, preserving 52 files. Fresh CI has 4 passed and 2 live jobs at review. Product code, README and releases are unchanged.
+
+
+**2026-11-07 H5 complete tier selector preflight:** [exact tier, deadline and isolation evidence](../benchmarks/results/h5-tiered-selector-preflight-20261107.md) verifies all 5,911 primary / 23,419 extended proposals and 2,854 keys per tier in source and closed-runtime contexts. Both full outputs match independent score references. Twenty-six synthetic and three real deadline cases preserve complete-primary-only fallback; two different-best controls discard a better partial extension candidate. Snapshot isolation, one-shot extension, six stale-cache rejections and incomplete/mixed-tier policy controls pass. Ten fixed-order timing samples retain variability without a stable budget claim. A separate three-call phase profile reproduces all primary outputs, identifies center geometry as the main runtime cost and measures complete output serialization. Next prepare and independently audit the original-source initializer and full budget before any search. All 19 keys and prior searches remain closed; no optimizer call or new source model follows. Retained preparation is 36.028144 s plus new work. Four arrangements and 440 allocations remain; H2/H5 stay at 60%. Prior checkpoint reached main 831ad47e after all 6 checks passed, preserving 52 files; fresh CI has 3 passed / 3 live at review. Product code, README and releases are unchanged.
