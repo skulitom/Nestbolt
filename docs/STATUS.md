@@ -10,22 +10,22 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [vectorized gradients and joint cell choices](../benchmarks/results/h5-joint-cell-vector-construction-20261107.md).
-Exact boundary integration is 1.7243–2.0405× faster on four fixed research controls,
-with all numerical checks passing. The expanded single/joint neighborhood checks
-4,122 proposals and closes after three new physical configurations. Joint choices
-lose to single-owner changes in every round. Call 0 remains best with 30 failing
-source pairs and 18,450.266096 mm² overlap; fixed-part and stock checks pass.
-Independent replay verifies 539 retained points and 585 evaluation counters.
-Preparation-inclusive algorithm/shared totals are 53.378490/53.439519 s.
-Every process is closed. Next reconcile historical bracket/cog contacts before
-assessing original-outline contact translations beyond nearest-bound clamping.
-No successor geometry or call is prepared. Four fixed arrangements and 440
-allocations remain; H2/H5 stay open at 60% completed milestone weight.
-Main c3af6112 has five passed jobs and a running Windows native check; be75186f
-and this checkpoint await the ordinary push gate. Full66 source/native/material
-checks, production parity and the unchanged H5 matrix remain required.
-No release qualifies.
+Latest H5 evidence: [mixed frame roof and finite contacts](../benchmarks/results/h5-mixed-roof-contact-construction-20261107.md).
+The changed frame arrangement leaves seventeen compatible cog sites. A valid
+48-part control uses exactly fifteen cogs, with six brackets and twelve inserts
+still missing. Independent audits verify all 4,445 contacts, 2,096,128 candidate
+pairs and every field of the exact-inventory model. Its single declared call
+returns finite-pool INFEASIBLE in 2.227445 s, without an assignment or incumbent.
+Algorithm/shared totals including preparation are 14.700575/14.803571 s;
+all processes close without an overrun. No continuous layout or allocation is
+excluded. Next assess source-safe cells for continuous cog centers and angles
+and all eighteen companions under the changed frame arrangement, including
+multiple cog-cell choices. No successor geometry or call is prepared.
+Four earlier fixed arrangements and 440 allocations remain. H2/H5 stay open
+at 60% completed milestone weight. Main 6b81bf9d includes the previous two
+checkpoints after all six prior checks passed; fresh CI is running.
+All 66 original-source, native and material checks, production parity and the
+unchanged H5 matrix remain required. No release qualifies.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -3926,3 +3926,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 vectorized gradients and joint cell choices:** [independent numerical/model/response audits](../benchmarks/results/h5-joint-cell-vector-construction-20261107.md) verify 406 boundary terms, 81 central derivatives and 1,375 independently summed initial neighbor scores. Ten alternating timings on each of four fixed validation cases show 1.7243–2.0405× median research-kernel speedups. The expanded search checks 78 single-owner and 1,296 joint bracket/insert neighbors per round while excluding all three prior closed physical vectors. Three new calls and 4,122 scores close at the declared limit; 539 retained points and 585 evaluation counters replay. All selected changes affect one owner; joint alternatives score worse. Call 0 remains best with 30 failing pairs and 18,450.266096 mm² overlap, including 14,107.916224 mm² in eight bracket/cog pairs; fixed-part and stock checks all pass. Complete preparation is 9.533010 s and algorithm/shared totals are 53.378490/53.439519 s. All slice overruns and worse candidates are preserved; every process closes. No source-valid full66 layout, native call or exclusion follows. Next reconcile historical bracket/cog contacts before assessing source-outline contact translations beyond nearest-bound clamping; no successor geometry or call is prepared. Four fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Main c3af6112 has five passed jobs and a live Windows native job. Checkpoint be75186f and this checkpoint await the ordinary push gate. Production, README and releases are unchanged.
+
+
+**2026-11-07 H5 mixed frame roof and finite contacts:** [independent source/contact/graph/model/response audits](../benchmarks/results/h5-mixed-roof-contact-construction-20261107.md) verify sixteen turned base frames, two unturned top frames and seventeen compatible cog sites. A valid 48-part control uses exactly fifteen cogs; six brackets and twelve inserts remain missing. All 136 cog-site pairs and 306 site/frame pairs pass, with minimum gaps of 0.301547629 and 0.268862770 mm. All 4,445 contacts and 155,575 fixed-pair checks replay; the frozen cap keeps 1,024 candidates per companion family. Every one of 2,096,128 candidate pairs is checked, reproducing 231,343 edges and 3,167 pose/cog conflicts. The model has 2,065 variables and 234,513 constraints and requires exact original quantities. Its single call returns finite-pool INFEASIBLE in 2.227445 s, without an assignment or incumbent; no continuous layout or allocation is excluded. Complete preparation is 11.631014 s and algorithm/shared totals are 14.700575/14.803571 s, with no overrun and all processes closed. Next assess source-certified hard cells for continuous cog centers and angles and all eighteen companions under the changed frame arrangement, including multiple cog-cell choices. No successor geometry or call is prepared. Four earlier fixed arrangements and 440 allocations remain; H2/H5 stay open at 60%. Checkpoints be75186f and 6b81bf9d reached main after all six prior checks passed, preserving 52 remote files; fresh CI is running. Production, README and releases are unchanged.
