@@ -10,20 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [one-cog-transfer fixed-layout exclusions](../benchmarks/results/h5-roof-transfer-capacity-exclusions-20261107.md).
-Complete two-empty-site covers verify 26,070,912 continuous classes and exclude
-113 of the 120 exact fixed 44-part layouts. Source-component occupied regions,
-with definitely occupied fixed interiors removed, exclude the final seven.
-Their largest available area is 466,620.516415 mm² versus 556,778 required.
-The valid short 6/5/1 remains usable, but all 120 current first-sheet choices
-are closed. No whole allocation or orientation class is excluded. No optimizer
-runs and the valid 64-part result remains best. Consumed preparation totals
-18.855104 s; all processes close. Next assess source-derived upper-frame
-patterns with five and six turned frames, checking every new source pool
-before any model and rebuilding obstacles when frames change. Four earlier
-arrangements and 440 allocations remain. H2/H5 stay open at 60%. Main be9c79d6
-has 5 passed / 1 live CI jobs; this and the prior coupled-transfer
-checkpoint await the ordinary push gate. Product and releases are unchanged.
+Latest H5 evidence: [five-/six-turned upper-frame capacity](../benchmarks/results/h5-five-six-roof-capacity-20261107.md).
+Sixteen source-valid44 partials are independently checked. Fresh necessary
+covers verify70,912,992 continuous classes and48 exact occupied-area bounds;
+all16 fixed layouts cannot extend to66. Even releasing every bracket, insert
+and the last cog rules out these exact18frame/14cog first-sheet cores.
+Five-turned cases lack at least59,922.557639 mm² combined area; six-turned
+forces all12 brackets onto a short sheet too small by14,661.951142 mm².
+No whole allocation or orientation class is excluded. No optimizer runs;
+valid64 remains best. Consumed preparation totals30.001913 s. Next validate
+one-cog transfers for the earlier one-/three-turned pools, preserving source
+failures and rebuilding missing or changed geometry covers. Four earlier
+arrangements and440 allocations remain. H2/H5 stay open at60%. Main66192d0d
+has4 passed/2 live CI jobs; this checkpoint awaits the ordinary
+push gate. Product and releases remain unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4029,3 +4029,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 one-cog-transfer fixed-layout exclusions:** [complete cover and area audits](../benchmarks/results/h5-roof-transfer-capacity-exclusions-20261107.md) verify 26,070,912 continuous classes, 5,483,907 retained classes and 2,225 boxes for all 120 two-empty-site choices. The first coupled bound excludes 113. Source-component sweeps and subtraction of definitely occupied fixed interiors exclude the final seven after 20 rational component bounds and 21 independently recomputed union-difference areas. Their largest remaining area is 466,620.516415 mm² against 556,778 required. All 120 exact fixed 44-part layouts therefore fail completion; no whole allocation or orientation class is excluded. The valid short 6/5/1 remains available and no optimizer runs. Total consumed preparation is 18.855104 s; all bounded processes close. Next assess source-derived five-/six-turned upper-frame patterns with the valid one-cog short sheet, validating every new source pool before any model and rebuilding obstacles for changed frames. Four earlier arrangements and 440 allocations remain; the valid 64-part result remains best. H2/H5 stay open at 60%. Main be9c79d6 has 5 passed / 1 live CI jobs; this and the prior coupled-transfer checkpoint await the ordinary push gate. Product and release state is unchanged.
+
+
+**2026-11-07 H5 five-/six-turned upper-frame capacity:** [source and independent capacity audits](../benchmarks/results/h5-five-six-roof-capacity-20261107.md) verify sixteen source-valid44 partials, 718 pool contacts and 8,992 same-sheet pairs. Rebuilt world obstacles and24 fresh mode masks cover70,912,992 continuous classes; independent rational/source checks and48 union-difference areas exclude all16 fixed44 layouts. Releasing all12 brackets,21 inserts and the last cog still excludes every exact18frame/14cog first-sheet core: five-turned cases lack at least59,922.557639 mm² combined area; six-turned forces all12 brackets onto a short sheet too small by14,661.951142 mm². No whole orientation class or allocation is excluded. No optimizer runs; consumed preparation totals30.001913 s and all bounded processes close. Next validate one-cog transfers for the earlier one-/three-turned pools, preserving all failed source choices and deriving any absent/changed covers. Four earlier arrangements and440 allocations remain, valid64 remains best, and H2/H5 stay open at60%. Main66192d0d has4 passed/2 live CI jobs; this checkpoint awaits the ordinary push gate. Product and releases are unchanged.
