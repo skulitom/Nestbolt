@@ -1,4 +1,4 @@
-# Status — 2026-11-07
+# Status — 2026-11-08
 
 ## v1.1 — real shop files
 
@@ -10,19 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [three-empty cog capacity](../benchmarks/results/h5-three-empty-cog-capacity-20261107.md).
-All 680 fixed44 layouts fail completion after complete source, cover and
-2,040 independent area checks. Releasing every bracket and insert still
-excludes each exact first32 core with the last cog at its verified short pose.
-A further relaxation frees the last cog and excludes 443 first32 arrangements;
-237 remain unresolved. No whole allocation or orientation class is excluded.
-Consumed preparation is 89.996627 s, above 60; this lineage may not reset its
-timer or open an optimizer. Next establish an original-source pose-invariant
-cog area bound before extending the exact short-pose proof.
-Four earlier arrangements and 440 allocations remain; valid64 stays best.
-H2/H5 remain open at 60%. All six previous main checks pass; this and the
-preceding two checkpoints await the ordinary fast-forward push.
-Product and release state are unchanged.
+Latest H5 evidence: [free-angle cog capacity](../benchmarks/results/h5-free-angle-cog-capacity-20261108.md).
+Original-source area and disk proofs cover every rigid cog angle. They exclude
+the last cog from the short sheet for all 680 exact first32 cores. Complete
+continuous center covers, coupled occupancy bounds and disk witnesses exclude
+another 218 of the prior 237 unresolved cores. A total of 661 are now excluded;
+nineteen remain with 25,407 necessary 2.5 mm center cells, without a placement.
+All source certificates, cell arrays and exclusions were independently checked.
+The failed first disk helper and its runtime are preserved. Native floating-point
+predicates remain separate from the exact source theorem. Consumed preparation
+is 113.369355 s: this lineage may not reset its timer or open an optimizer.
+Next apply existing disk witnesses to the finer cells. Four earlier arrangements
+and 440 whole-job allocations remain; valid64 stays best. H2/H5 remain open at
+60%. All six checks on main cc38001e pass; this checkpoint awaits an ordinary push.
+Product and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4043,3 +4044,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-07 H5 three-empty cog capacity:** [independent source, cover, area and inventory proofs](../benchmarks/results/h5-three-empty-cog-capacity-20261107.md) certify all 680 fourteen-of17 partials using 661 common source pairs, 188 stock edges and exhaustive identity/pose checks, preserving 38,080 holes. New complete three-empty covers verify 21,026,872 classes, 9,936,621 retained classes and 4,728 boxes after exact source/domain/mode equality checks. All 2,040 area bounds replay independently; every fixed44 completion fails, with at most 471,447.388136 mm² versus 556,778 required. Releasing all brackets and inserts while retaining the exact short-cog pose still excludes all 680, by at least 24,329.611864 mm². A further relaxation frees the last cog and excludes 443 exact first32 arrangements; 237 remain unresolved, with every necessary inventory split preserved. No whole allocation or orientation class is excluded. Consumed preparation totals 89.996627 s; no optimizer or timed-gate pass is permitted from this exhausted lineage. Next derive a source-based pose-invariant cog area bound before extending the short-cog conclusion to arbitrary legal poses. Four earlier arrangements and 440 allocations remain; valid64 stays best and H2/H5 stay open at 60%. All six previous main checks pass; this and the preceding two checkpoints await the ordinary push. Product and releases are unchanged.
+
+
+**2026-11-08 H5 free-angle cog capacity:** [independent source and continuous-cell proofs](../benchmarks/results/h5-free-angle-cog-capacity-20261108.md) prove a conservative 50,000 mm² source cog body at every rigid pose, excluding all 680 first32 cores when the last cog is on the short sheet. A source-disk center cover verifies 817,047 continuous classes and 463 boxes. Coupled occupied-area bounds exclude 199 further cores at 10 mm; a 109 mm disk and 5 mm refinement exclude three; complete stock/frame/cog witnesses exclude eleven; a 2.5 mm refinement excludes five. All arrays and witnesses replay independently. Together with the prior 443 exclusions, 661 of the 680 exact cores are excluded and nineteen remain with 25,407 necessary center cells. No survivor is a placement, and no whole allocation or orientation class is excluded. The failed infinite-line disk test and its 0.184916 s are preserved. Exact rigid source proofs are distinguished from native floating-point predicates; no all-angle libm guarantee or native acceptance is claimed. Consumed preparation is 113.369355 s; no optimizer or timed-gate pass is allowed from this exhausted lineage. Next apply existing disk witnesses to the finer cells. Four earlier arrangements and 440 allocations remain, valid64 stays best, H2/H5 stay open at 60%. All six checks on main cc38001e pass; this checkpoint awaits its ordinary push. Product and releases are unchanged.
