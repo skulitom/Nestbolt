@@ -10,19 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete cog-family exclusion](../benchmarks/results/h5-free-cog-complement-closure-20261108.md).
-Full source-body conservation and independently counted circular complement
-bounds exclude the last nineteen cases, closing all 680 exact first32 cores
-in this family with every remaining original free. The smallest final deficit
-is 825.361864 mm². No whole allocation or orientation class is excluded.
-Eight separate older one-/three-turned cores remain; every necessary inventory
-is preserved and their last source cog must be first. Their changed source worlds
-need new free-angle center covers with framebit16, not current framebit17 masks.
-The historical three-column eighteen-frame scope is already explored.
-Consumed preparation is 116.459632 s. This lineage may not reset its timer or
-open an optimizer. Four earlier arrangements and 440 whole-job allocations remain;
-valid64 stays best, H2/H5 stay open at 60%. Main916859b2 has 4 passed /
-2 live CI jobs; this checkpoint awaits the ordinary push gate.
+Latest H5 evidence: [older cog-center bounds](../benchmarks/results/h5-older-cog-center-bounds-20261108.md).
+Five of eight older exact first32 cores are now excluded at all source cog angles.
+Three remain with complete continuous covers: t3-omit-03-07 (2,883 cells),
+t3-omit-03-15 (580), and t3-omit-14-15 (243). Source stock support, actual tooth
+vertices, full-body conservation and independently verified exact complement
+cell areas tighten these changed framebit16 worlds. The hull support disk is
+used only for convex-stock containment, never as filled collision material.
+All 680 separately recorded five-column family cores remain closed.
+No whole allocation or orientation class is excluded. These covers are necessary
+conditions, not feasible layouts. All ten bounded processes close; consumed
+preparation is 120.519836 s. No optimizer or timer reset is permitted.
+Four earlier arrangements and 440 whole-job allocations remain; valid64 stays
+best, H2/H5 stay open at 60%. All six prior main916859b2 checks passed; this and
+the preceding closure checkpoint await the ordinary push gate.
 Product and releases are unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
@@ -4050,3 +4051,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-08 H5 complete cog-family exclusion:** [independent full-body complement proofs](../benchmarks/results/h5-free-cog-complement-closure-20261108.md) close the final nineteen exact first32 cores, so all 680 in the current family are excluded with every remaining original free. Finer disk witnesses reduce 25,407 center cells to 24,111. Exact source radius140.001 mm and filled-area lower50,000 mm² give a complement-area conservation bound; independent rectangle queries leave 2,997 cells, and complete circular stencils exclude all of them, with minimum deficit825.361864 mm². All source angles and continuous cell positions are covered, without a native or timed-gate pass. A separate reconciliation preserves eight older one-/three-turned cores and every necessary split; their last cog must be first for every source pose, and changed framebit16 worlds require fresh covers. The historical three-column18frame scope must not be reopened as new. Consumed preparation is 116.459632 s; no optimizer or timer reset is permitted. Four earlier arrangements and440 whole allocations remain; valid64 stays best, H2/H5 stay open at60%. Main916859b2 has4 passed/2 live CI jobs; this checkpoint awaits the ordinary push gate. Product and releases are unchanged.
+
+
+**2026-11-08 H5 older cog-center bounds:** [complete changed-world source proofs](../benchmarks/results/h5-older-cog-center-bounds-20261108.md) exclude five of eight older exact first32 cores and preserve three with3706 continuous2.5mm center cells. Fresh full-stock covers verify5760000 cells; original convex-hull stock support139mm removes15649, and actual source tooth vertices with the109mm moving inner disk remove26101. Full-body conservation against fresh companion-complement masks excludes30206 cells and five cores, minimum deficit3479.355659mm². Independent orthogonal signed-event sweeps verify2160000 exact complement cell areas and remove849 more center cells. Remaining: t3-omit-03-07 (2883), t3-omit-03-15 (580), t3-omit-14-15 (243). No whole allocation/class is excluded. All680 separately recorded current-family cores remain closed. Ten processes close; consumed preparation 120.519836s is already over60s and cannot reset or open an optimizer. Four earlier arrangements and440 allocations remain; valid64 stays best and H2/H5 stay open at60%. All six prior main916859b2 CI checks pass; the two evidence checkpoints await ordinary push. Product and releases unchanged.
