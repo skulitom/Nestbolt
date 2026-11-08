@@ -20,6 +20,27 @@ labels designate positions, not original cog-owner assignments. The earlier
 [identity/scope reconciliation](h5-older-cog-family-closure-20261108/remaining-fixed29-scopes.json)
 preserves all 66 original quantities and ownership constraints.
 
+## Occupied envelope and mode scope
+
+These bounds use **original outer envelopes with holes reserved**, as required
+by common-line mode. The originals retain all 90 holes in their cutting geometry;
+the occupied envelopes reserve those holes during nesting. A bracket occupies
+40,000 mm² and an insert 19,800 mm² by this convention. Their net material areas
+are smaller and are not the capacity quantities used here.
+
+[The explicit scope audit](h5-fixed29-pointwise-capacity-20261108/occupancy-scope/checks.json)
+binds the job, production search policy, export rejection, existing rejection
+test and original-source filled-outer readback. The source convex partitions,
+inner rectangles, collision obstacles and area lower bounds are statements
+about these occupied envelopes. They are not claims that reserved cutouts
+contain physical material. **No ordinary nesting configuration with parts
+inside holes is excluded by this proof.** The arithmetic and common-line
+exclusion remain valid under the original hole-reservation requirement.
+[Separate source/net areas](h5-fixed29-pointwise-capacity-20261108/occupancy-scope/source-occupancy-areas.json),
+[bounded process](h5-fixed29-pointwise-capacity-20261108/occupancy-scope/process.json)
+and [archive readback](h5-fixed29-pointwise-capacity-20261108/occupancy-scope/archive-checks.json)
+preserve this clarification without changing the earlier raw evidence.
+
 ## Current domains and exact area controls
 
 [The initial area audit](h5-fixed29-pointwise-capacity-20261108/four-fixed29-current-areas-v3-audit.json) checks
@@ -41,7 +62,7 @@ agree with an independent horizontal active-rectangle interval merge/subtraction
 
 [Finer source material](h5-fixed29-pointwise-capacity-20261108/fixed29-dense-cog-material-audit.json) adds
 **12,870 rectangles across 15 cog sites**, derived inside the original convex
-source pieces in bands no more than 1 mm high. Exact binary64 transforms are
+outer-envelope pieces in bands no more than 1 mm high. Exact binary64 transforms are
 rational arithmetic. Independent replay checks **51,480 rectangle corners
 against 678,960 source halfplanes**. The earlier 75 rectangles per cog remain.
 The material union alone excludes no additional case.
@@ -59,7 +80,7 @@ uses the unchanged 0.2 mm job requirement. Each certified fixed-source rectangle
 is expanded 141 µm on both axes; every buffer offset has squared norm at most
 39,762 µm², strictly below 40,000 µm². These are **forbidden clearance regions**,
 not additional source material. A source point there would be too close to an
-actual fixed-source point. Another **590,749 boundary/interior classes** and
+point in an occupied fixed envelope. Another **590,749 boundary/interior classes** and
 nine exact area bounds pass; all three remaining cases stay open.
 
 | Omitted sites | Current area | Finer fixed material | Pointwise, zero clearance | Original clearance | Result |
@@ -69,7 +90,7 @@ nine exact area bounds pass; all three remaining cases stay open.
 | [10, 11, 12] | 485,306.699036 | 483,115.064649 | 477,644.122166 | — | Excluded |
 | [11, 12, 13] | 492,069.274645 | 488,975.800301 | 481,250.607685 | 480,776.633787 | Open |
 
-Areas are mm² upper bounds for the combined moving material. They must reach
+Areas are mm² upper bounds for the combined moving occupied envelopes. They must reach
 478,384 mm²; a surplus is only a necessary relaxation, not a valid placement.
 [The four-case frontier](h5-fixed29-pointwise-capacity-20261108/four-case-frontier.json) and
 [remaining cases](h5-fixed29-pointwise-capacity-20261108/remaining-fixed29-cases.json) retain exact integers.
@@ -88,10 +109,11 @@ Areas are mm² upper bounds for the combined moving material. They must reach
 | fixed29-pointwise-domains-audit | 27.350413 | 60 | Pass |
 | fixed29-clearance-domains | 5.843790 | 40 | Pass |
 | fixed29-clearance-domains-audit | 41.276618 | 60 | Pass |
+| fixed29-reserved-hole-scope | 0.199984 | 10 | Pass |
 
-[All ten processes close](h5-fixed29-pointwise-capacity-20261108/process-summary.json) with zero children,
+[All eleven processes close](h5-fixed29-pointwise-capacity-20261108/process-summary.json) with zero children,
 unchanged CCD1/thread controls and 2 GiB Windows Job limits. Both failed
-preparations remain charged. Consumed numeric preparation is **154.076606 s**;
+preparations and the complete scope audit remain charged. Consumed numeric preparation is **154.276590 s**;
 no optimizer, timer reset or timed H5 acceptance is permitted from this lineage.
 
 [Next](h5-fixed29-pointwise-capacity-20261108/next-step.json), stronger conditional companion bounds may use
