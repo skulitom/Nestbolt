@@ -1,0 +1,9 @@
+{
+  "failed_preparation_sha256": "989f283bebdca327a3f37b50f7f614da07e28ccbe5d8cff1762651cdf4814eac",
+  "failed_complete_seconds": 0.4299963000230491,
+  "reason": "The reader incorrectly assumed each retained source node label equalled its current compact graph position. Current arrays preserve original source labels through filtering; conflicts and root covers use current array positions. No area result or exclusion was produced.",
+  "correction": "Verify the exact kept-old-node-ids mapping to the prior graph nodes. Keep current array positions distinct from stable original source labels, preserve all labels and nodes, and independently replay the mapping.",
+  "failed_outputs_preserved": true,
+  "failed_cost_remains_charged": true,
+  "optimizer_calls": 0
+}

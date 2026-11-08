@@ -10,21 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [older cog-family closure](../benchmarks/results/h5-older-cog-family-closure-20261108.md).
-All eight older exact first32 cores are now excluded, alongside the separate
-680-case family. Complete source-angle/center proofs use actual support vertices,
-conditional companion covers, exact source-body conservation and pointwise
-collision subtraction. Independent replay checks 29,480,658 boundary/interior
-classes; the final 22 cells fail by at least 1,411.178149 mm².
-No whole allocation or orientation class is excluded. Four distinct fixed29
-choices remain: [0,5,10], [5,10,11], [10,11,12], [11,12,13]. They fix 18 frames,
-11 inserts and 12 cogs, with 8 bracket/8 insert movers and the validated short9.
-Their latest limited calls remain closed; this closure does not transfer to them.
-All fifteen bounded processes close. Consumed preparation is 136.134759 s;
-no optimizer or timer reset is permitted. All 440 whole-job allocations remain;
-valid 64-part stays best, H2/H5 stay open at 60%. Prior checkpoint reached main dc7f004e,
-whose CI has 5 passed/1 live jobs. This checkpoint awaits ordinary push.
-Product and releases are unchanged.
+Latest H5 evidence: [fixed29 pointwise capacity](../benchmarks/results/h5-fixed29-pointwise-capacity-20261108.md).
+Complete source covers exclude omitted cog sites [10,11,12] by 739.877834 mm²
+even at zero clearance. Three exact fixed29 choices remain: [0,5,10],
+[5,10,11], [11,12,13]. This family now has 452/455 exclusions, 428 at zero
+clearance. The separate eight older first32 and 680 five-column cores remain
+closed. No whole allocation or orientation class is excluded.
+Independent audits verify all 16,267 current cells, 12 source aliases, finer
+actual cog material and 1,259,574 complete boundary/interior classes across
+zero-clearance and original 0.2 mm-clearance covers. All ten processes close;
+two preparation failures remain preserved and charged. Consumed preparation
+is 154.076606 s; no optimizer or timer reset is permitted. All 440 whole-job
+allocations remain; the valid 64-part layout stays best and H2/H5 stay open at 60%.
+Prior checkpoint reached main 38fec6c9; its CI has 4 passed / 2 live
+jobs at review. This checkpoint awaits ordinary push. Product/releases unchanged.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4056,4 +4055,7 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 **2026-11-08 H5 older cog-center bounds:** [complete changed-world source proofs](../benchmarks/results/h5-older-cog-center-bounds-20261108.md) exclude five of eight older exact first32 cores and preserve three with3706 continuous2.5mm center cells. Fresh full-stock covers verify5760000 cells; original convex-hull stock support139mm removes15649, and actual source tooth vertices with the109mm moving inner disk remove26101. Full-body conservation against fresh companion-complement masks excludes30206 cells and five cores, minimum deficit3479.355659mm². Independent orthogonal signed-event sweeps verify2160000 exact complement cell areas and remove849 more center cells. Remaining: t3-omit-03-07 (2883), t3-omit-03-15 (580), t3-omit-14-15 (243). No whole allocation/class is excluded. All680 separately recorded current-family cores remain closed. Ten processes close; consumed preparation 120.519836s is already over60s and cannot reset or open an optimizer. Four earlier arrangements and440 allocations remain; valid64 stays best and H2/H5 stay open at60%. All six prior main916859b2 CI checks pass; the two evidence checkpoints await ordinary push. Product and releases unchanged.
 
 
-**2026-11-08 H5 older cog-family closure:** [complete conditional pointwise source proofs](../benchmarks/results/h5-older-cog-family-closure-20261108.md) exclude all three remaining older exact first32 cores; all eight are now closed alongside the separate 680-case family. Actual support vertices remove 381 cells. Complete companion coupling verifies 601,444 cell/box pairs and 319 cover signatures; 957 exact area bounds and 6,803 inventory tests leave 687 cells. Orthogonal full-body complement sweeps close omit-03-15. Pointwise forbidden-center subtraction preserves all boundary classes, independently checking 29,480,658 classes and 1,704 mode covers. Exact pointwise capacities close omit-03-07; final full-body bounds close all 22 omit-14-15 cells with minimum deficit 1,411.178149 mm². No whole allocation/class is excluded. Distinct fixed29 choices [0,5,10],[5,10,11],[10,11,12],[11,12,13] retain 18 frames + 11 inserts + 12 cogs with 8 bracket/8 insert movers and short9; their closed limited calls are not reopened. All 15 processes close; consumed preparation 136.134759 s cannot reset or open an optimizer. All 440 whole allocations remain; valid 64-part stays best and H2/H5 stay open at 60%. Maindc7f004e has 5 passed/1 live CI jobs; this checkpoint awaits ordinary push. Product/releases unchanged.
+**2026-11-08 H5 older cog-family closure:** [complete conditional pointwise source proofs](../benchmarks/results/h5-older-cog-family-closure-20261108.md) exclude all three remaining older exact first32 cores; all eight are now closed alongside the separate 680-case family. Actual support vertices remove 381 cells. Complete companion coupling verifies 601,444 cell/box pairs and 319 cover signatures; 957 exact area bounds and 6,803 inventory tests leave 687 cells. Orthogonal full-body complement sweeps close omit-03-15. Pointwise forbidden-center subtraction preserves all boundary classes, independently checking 29,480,658 classes and 1,704 mode covers. Exact pointwise capacities close omit-03-07; final full-body bounds close all 22 omit-14-15 cells with minimum deficit 1,411.178149 mm². No whole allocation/class is excluded. Distinct fixed29 choices [0,5,10],[5,10,11],[10,11,12],[11,12,13] retain 18 frames + 11 inserts + 12 cogs with 8 bracket/8 insert movers and short9; their closed limited calls are not reopened. All 15 processes close; consumed preparation 136.134759 s cannot reset or open an optimizer. All 440 whole allocations remain; the valid 64-part layout stays best and H2/H5 stay open at 60%. Maindc7f004e has 5 passed/1 live CI jobs; this checkpoint awaits ordinary push. Product/releases unchanged.
+
+
+**2026-11-08 H5 fixed29 pointwise capacity:** [complete current source covers](../benchmarks/results/h5-fixed29-pointwise-capacity-20261108.md) exclude omitted cog sites [10,11,12] by 739.877834 mm² at zero clearance. Three exact fixed29 choices remain: [0,5,10], [5,10,11], [11,12,13]; 452/455 are excluded, including 428 at zero clearance. All 16,267 latest graph cells, 12 source aliases and 16 strip inequalities reconcile. Finer actual cog material adds 12,870 rectangles; independent replay checks 51,480 corners and 678,960 halfplanes. Pointwise collision subtraction refines 2,743 cells. Its 668,825 complete boundary/interior classes and 12 area bounds pass. The original 0.2 mm clearance uses certified 141 µm square buffers; another 590,749 classes and nine area bounds pass without further exclusions. Both failed preparations remain preserved and charged; all ten processes close. Consumed preparation of 154.076606 s cannot reset or open an optimizer. The separate eight older and 680 five-column cores remain closed; all 440 whole allocations remain, the valid 64-part layout stays best and H2/H5 stay open at 60%. Prior main 38fec6c9 has four passed/two live CI jobs at review; ordinary push pending. Product/releases unchanged.
