@@ -1,4 +1,4 @@
-# Status — 2026-11-08
+# Status — 2026-11-09
 
 ## v1.1 — real shop files
 
@@ -10,22 +10,20 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [fixed29 pointwise capacity](../benchmarks/results/h5-fixed29-pointwise-capacity-20261108.md).
-Common-line source covers with holes reserved exclude omitted cog sites [10,11,12] by 739.877834 mm²
-even at zero clearance. Three exact fixed29 choices remain: [0,5,10],
-[5,10,11], [11,12,13]. This family now has 452/455 exclusions, 428 at zero
-clearance. The separate eight older first32 and 680 five-column cores remain
-closed. No whole allocation or orientation class is excluded.
-Independent audits verify all 16,267 current cells, 12 source aliases, finer
-occupied cog envelopes and 1,259,574 complete boundary/interior classes across
-zero-clearance and original 0.2 mm-clearance covers. All eleven processes close;
-two preparation failures remain preserved and charged. Consumed preparation
-is 154.276590 s; no optimizer or timer reset is permitted. All 440 whole-job
-allocations remain; the valid 64-part layout stays best and H2/H5 stay open at 60%.
-Prior checkpoint reached main 38fec6c9; its CI has 4 passed / 2 live
+Latest H5 evidence: [conditional bracket capacity](../benchmarks/results/h5-conditional-bracket-capacity-20261109.md).
+Common-line occupied-envelope proofs, with holes reserved, exclude omitted cog
+sites [11,12,13] by 8,523.689408 mm². Only [0,5,10] and [5,10,11] remain in
+this exact fixed29 family: 453/455 excluded, including 428 at zero clearance.
+Eleven conditional cell exclusions and fourteen verified clique implications
+tighten the complete global cover. The two surviving scopes retain 8,903 nodes.
+No whole allocation or ordinary part-in-hole configuration is excluded.
+All thirteen bounded processes close; the failed independent audit remains
+preserved and charged. Consumed preparation is 208.194276 s; no optimizer or
+timer reset is permitted. All 440 whole-job allocations remain, the valid
+64-part layout stays best, and H2/H5 remain open at 60% completed milestone weight.
+The separate eight older first32 and 680 five-column cores remain closed.
+Prior checkpoint reached main 22157486; its CI has 5 passed/1 live
 jobs at review. This checkpoint awaits ordinary push. Product/releases unchanged.
-The occupied envelopes reserve all original holes; no ordinary part-in-hole
-layout is excluded by these capacity proofs.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4064,3 +4062,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-08 H5 occupied-envelope scope clarification:** [explicit original/source-policy audit](../benchmarks/results/h5-fixed29-pointwise-capacity-20261108/occupancy-scope/checks.json) confirms the fixed29 capacity proofs apply to common-line mode with holes reserved. All 90 original holes remain in the cutting geometry. The occupied outer-envelope areas, not net material areas, support the lower bounds and inner-rectangle collision proofs. No ordinary part-in-hole layout is excluded. The [10,11,12] common-line exclusion and three remaining exact choices stand. The complete 0.199984 s scope process is also charged, bringing consumed preparation to 154.276590 s. All eleven processes close; no optimizer or timer reset is permitted. H2/H5 remain open at 60%.
+
+
+**2026-11-09 H5 conditional bracket capacity:** [independent common-line occupied-envelope proofs](../benchmarks/results/h5-conditional-bracket-capacity-20261109.md) exclude fixed29 omitted sites [11,12,13] by 8,523.689408 mm². Only [0,5,10] and [5,10,11] remain; 453/455 are excluded at original 0.2 mm clearance, including 428 at zero clearance. Complete reference-cell mappings cover 7,319 bracket positions with 3,942 minimal rows. Fixed nine-query, eight-query pointwise and three-group pilots prove eleven distinct cell exclusions; fourteen certified clique-count implications then tighten the complete global cover. Independent replay checks 12,371 self-collision witnesses, 2,471,360 directed clique edges and all nine global areas. Five full-reference-envelope checks tighten three bounds without more exclusions. All thirteen processes close; the failed initial independent audit remains preserved and charged. Consumed preparation 208.194276 s cannot reset or open an optimizer. Holes remain reserved for common-line mode; no ordinary part-in-hole or whole-allocation exclusion is claimed. All 440 whole allocations remain; the valid 64-part layout stays best and H2/H5 stay open at 60%. Main 22157486 has 5 passed/1 live CI jobs at review; ordinary push pending. Product/releases unchanged.
