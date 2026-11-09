@@ -10,23 +10,22 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete insert-reference capacity](../benchmarks/results/h5-complete-insert-capacity-20261109.md).
-All 3,512 active insert references pass complete independent source and area
-checks. All 87,484 possible-node records, 155,286,888 projected query memberships
-and 10,536 conditional bounds are verified. Eight insert cells in [0,5,10]
-and ten in [5,10,11] are excluded, leaving 8,551 nodes across both open choices.
-No additional clique removal follows; six exact global swept-envelope areas
-still leave both arrangements unresolved. The 453/455 prior exclusions stand,
-including 428 at zero clearance. Common-line holes remain reserved, with no
-ordinary part-in-hole or whole-allocation claim. All 112 new and 479 inherited
-processes close; inherited failures remain preserved. Consumed preparation is
-1294.697307 s, with no optimizer or timer reset permitted. Next combine all
-6,650 bracket/insert queries under the changed masks; none is prepared.
+Latest H5 evidence: [combined conditional fixed point](../benchmarks/results/h5-combined-fixed-point-20261109.md).
+All 6,650 bracket/insert queries and 19,950 conservative area bounds pass
+independent verification from every original physical proof piece. The 18
+prior insert removals tighten 104 signatures but produce no further seed or
+clique exclusion. Both choices reach a joint fixed point, retaining 8,551
+cells. No extra round opens. The 453/455 prior exclusions stand, including
+428 at zero clearance. Common-line holes remain reserved; no ordinary
+part-in-hole or whole-allocation exclusion is claimed. All five new and 591
+inherited processes are terminal, with the four inherited failures preserved.
+Consumed preparation is 1309.785273 s; no optimizer or timer reset is permitted.
+Next assess two-reference capacity bounds; no such stage is prepared.
 All 440 allocations and full66/H5 validation remain open; valid64 stays best.
 H2/H5 remain open at 60%. Separate eight older first32 and 680 five-column
-cores stay closed. Product, README and releases are unchanged. Prior checkpoint
-3642e620 is committed; main 2ae15d96 has 5 passed/1 live CI jobs at review.
-Both checkpoints await ordinary push.
+cores stay closed. Product, README and releases are unchanged. Checkpoints
+3642e620 and 335be569 are committed; main 2ae15d96 has 6 passed/0
+live CI jobs at review. The evidence checkpoints await ordinary push.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4083,3 +4082,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-09 H5 complete insert-reference capacity:** [full source/projection/scalar/frontier audits](../benchmarks/results/h5-complete-insert-capacity-20261109.md) cover all 3,512 active insert cells directly, all 87,484 certified possible-node records, 155,286,888 projected query memberships and 10,536 conditional area bounds. Eight case01 and ten case09 insert cells are excluded; no additional clique removals follow. Both fixed29 choices remain with 8,551 current nodes. All 112 new and 479 inherited processes are terminal; inherited failures remain preserved. Consumed preparation 1294.697307 s cannot reset or open an optimizer. Next combine all 3,138 bracket and 3,512 insert queries under the changed masks; no combined stage is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best, H2/H5 remain open at 60%, common-line holes stay reserved, and product/README/releases are unchanged.
+
+
+**2026-11-09 H5 combined conditional fixed point:** [complete source and independent area audit](../benchmarks/results/h5-combined-fixed-point-20261109.md) covers all 6,650 bracket/insert queries, 8,551 current targets, 87,484 possible-node records, 151,597 original physical entries and 19,950 bounds. The changed masks tighten 104 signatures and yield no new conditional or clique exclusion. Both choices reach a joint fixed point; no extra round opens. All five new processes pass and close; 591 inherited processes remain terminal with four preserved failures. Consumed preparation 1309.785273 s cannot reset or open an optimizer. Next assess independently controlled two-reference capacity bounds; no such stage is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best, H2/H5 remain open at 60%, common-line holes stay reserved, and product/README/releases are unchanged.
