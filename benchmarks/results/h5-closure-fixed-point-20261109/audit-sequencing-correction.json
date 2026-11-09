@@ -1,0 +1,66 @@
+{
+  "reason": "Original auditor was launched before producer terminal completion and failed on missing producer/query-results.json. It remains a terminal failed attempt, not a successful audit. V2 requires terminal successful producer with zero descendants before opening, pins a complete snapshot of every producer JSON output, and verifies the same full two-case87484-signature/3138-query scope under the unchanged60s2GiB cap. Producer is not repeated. Full failed auditor cost is charged conservatively.",
+  "failed_auditor_process": {
+    "closed": true,
+    "complete_seconds": 2.4765074998140335,
+    "passed": false,
+    "exit_code": 126,
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 43392,
+      "root_exit_code": 1,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 3,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 114786304,
+      "peak_single_process_committed_memory": 112705536,
+      "complete_ms": 2469,
+      "maximum_ms": 60000
+    },
+    "retry_permitted": false
+  },
+  "successful_producer_process": {
+    "closed": true,
+    "complete_seconds": 21.925650200108066,
+    "passed": true,
+    "exit_code": 0,
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 146524,
+      "root_exit_code": 0,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 3,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 352985088,
+      "peak_single_process_committed_memory": 350896128,
+      "complete_ms": 21906,
+      "maximum_ms": 30000
+    },
+    "retry_permitted": false
+  },
+  "complete_producer_snapshot": {
+    "output/h5-incremental-closure-20261109/producer/case-results.json": "b43059536095512cb2c82e1e6a0c304f1fe538e123ebbcca514c4bddfc7d2981",
+    "output/h5-incremental-closure-20261109/producer/checks.json": "2061b45f86abc80d30d919e3bff0da6845f64dd19148ce3e85d79b56e7c69358",
+    "output/h5-incremental-closure-20261109/producer/choice-01-frontier.json": "fe7f2db883ab9e50988e0e3462efa06ec7e72075f85ca6aa12f06fd2b3edcbfa",
+    "output/h5-incremental-closure-20261109/producer/choice-01-signatures.json": "97229fc416e96fa13367953116e41362764d0af7f1ba3c39d069270708e56b88",
+    "output/h5-incremental-closure-20261109/producer/choice-09-frontier.json": "28899bd2414f8f309b9c6db60687228e499337a7dd38fabd2a6cd66ff2de6108",
+    "output/h5-incremental-closure-20261109/producer/choice-09-signatures.json": "0bdf1cd7e04db0d6b353a4315f2e31ec24b871ede1d56d69201eeacd0c45b331",
+    "output/h5-incremental-closure-20261109/producer/plan.json": "4bf687729b85b67a07c16634fb9e584b86c14f6ad8334b5c8c497e9327e50f85",
+    "output/h5-incremental-closure-20261109/producer/query-results.json": "a99d0ad32caae79885b312cf826652a2f8837e295151abbd62cb463262bc5340"
+  },
+  "failed_auditor_seconds_charged": 2.4765074998140335,
+  "original_attempt_preserved": true,
+  "optimizer_calls": 0
+}

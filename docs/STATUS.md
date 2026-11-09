@@ -10,23 +10,23 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete possible-node closure](../benchmarks/results/h5-possible-node-closure-20261109.md).
-One complete independently audited round verifies all 87,484 family signatures,
-3,138 reference rows and 9,414 conservative conditional area bounds. The prior
-321 removals tighten 17,434 signatures; the new bounds exclude 13 further
-bracket cells. Choices [0,5,10] and [5,10,11] remain with 8,569 current nodes.
-The 453/455 whole-choice exclusions stand, including 428 at zero clearance.
-These are conservative common-line outer-envelope bounds with holes reserved.
-No additional clique propagation, fixed point, whole-allocation exclusion or
-ordinary part-in-hole claim follows. All 281 new and 191 inherited processes
-close; three inherited failed producers remain preserved. Consumed preparation
-is 1215.373242 s, with no optimizer or timer reset permitted. Next assess clique
-implications and further restrictions of the certified possible-node sets.
+Latest H5 evidence: [complete bracket-bound fixed point](../benchmarks/results/h5-closure-fixed-point-20261109.md).
+The full clique check adds no removal. A further complete conditional pass
+reprojects all changed possible-node sets and independently recomputes all
+9,414 bounds from 151,597 physical records. No new seed follows. This necessary
+bound is at a fixed point, with both choices [0,5,10] and [5,10,11] still open
+and 8,569 current nodes. The 453/455 whole-choice exclusions stand, including
+428 at zero clearance. These common-line bounds reserve holes; no ordinary
+part-in-hole or whole-allocation exclusion follows. An auditor launched before
+its producer finished is preserved as failed; the corrected complete audit
+passes with a terminal-output prerequisite and unchanged limits. All seven
+new and 472 inherited processes close. Consumed preparation is 1245.521613 s;
+no optimizer or timer reset is permitted. Next assess all 3,512 active insert
+references using the certified possible-node sets; this stage is not prepared.
 All 440 allocations and full66/H5 validation remain open; valid64 stays best.
-H2/H5 remain open at 60% completed milestone weight. The separate eight older
-first32 and 680 five-column cores stay closed. Product, README and releases
-are unchanged. Prior checkpoint 4d73b18a is committed; main d6a8cecf has
-6 passed/0 live CI jobs at review. Both checkpoints await ordinary push.
+H2/H5 remain open at 60%. Separate eight older first32 and 680 five-column
+cores stay closed. Product, README and releases are unchanged. Main 2ae15d96
+has 4 passed/2 live CI jobs at review; this checkpoint awaits ordinary push.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4077,3 +4077,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-09 H5 complete possible-node closure:** [one complete independently audited round](../benchmarks/results/h5-possible-node-closure-20261109.md) checks all 87,484 family signatures, 3,138 representative rows, 9,414 conservative conditional bounds and 5,070 current bracket mapping targets. The reduced masks tighten 17,434 signatures and exclude 13 more bracket cells, leaving 8,569 nodes across choices [0,5,10] and [5,10,11]. Both choices stay open; no extra clique propagation or fixed point is claimed. All 281 new and 191 inherited numerical processes are closed, including the three preserved inherited failures. Consumed preparation is 1215.373242 s; no optimizer or timer reset is permitted. Common-line holes remain reserved. The next step assesses clique implications and further complete restrictions of the now-certified possible-node sets. All 440 whole allocations and full66/H5 validation remain open; valid64 stays best. H2/H5 remain open at 60%; product/README/releases unchanged.
+
+
+**2026-11-09 H5 bracket-bound fixed point:** [complete clique and conditional audits](../benchmarks/results/h5-closure-fixed-point-20261109.md) add no new exclusion after all 8,914 source self witnesses, 1,848,482 directed clique edges, 87,484 possible-node sets, 151,597 physical entries and 3,138 reference rows are accounted for. All 9,414 conservative conditional bounds independently match; 3,651 signatures tighten and 41,576 weighted updates yield no new seed. Both fixed29 choices remain with 8,569 nodes. The first auditor was launched before producer completion and failed on a missing output; it is preserved and fully charged. A corrected audit pins complete terminal output and passes the unchanged limit; the producer is not repeated. All seven new and 472 inherited processes close. Consumed preparation 1245.521613 s cannot reset or open an optimizer. Next freeze a complete insert-reference conditional check for all 3,512 active insert cells; none is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best, and H2/H5 remain open at 60%. Common-line holes remain reserved; product/README/releases unchanged.
