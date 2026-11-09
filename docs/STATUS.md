@@ -10,22 +10,23 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [combined conditional fixed point](../benchmarks/results/h5-combined-fixed-point-20261109.md).
-All 6,650 bracket/insert queries and 19,950 conservative area bounds pass
-independent verification from every original physical proof piece. The 18
-prior insert removals tighten 104 signatures but produce no further seed or
-clique exclusion. Both choices reach a joint fixed point, retaining 8,551
-cells. No extra round opens. The 453/455 prior exclusions stand, including
-428 at zero clearance. Common-line holes remain reserved; no ordinary
-part-in-hole or whole-allocation exclusion is claimed. All five new and 591
-inherited processes are terminal, with the four inherited failures preserved.
-Consumed preparation is 1309.785273 s; no optimizer or timer reset is permitted.
-Next assess two-reference capacity bounds; no such stage is prepared.
-All 440 allocations and full66/H5 validation remain open; valid64 stays best.
-H2/H5 remain open at 60%. Separate eight older first32 and 680 five-column
-cores stay closed. Product, README and releases are unchanged. Checkpoints
-3642e620 and 335be569 are committed; main 2ae15d96 has 6 passed/0
-live CI jobs at review. The evidence checkpoints await ordinary push.
+Latest H5 evidence: [two-reference capacity conflicts](../benchmarks/results/h5-pair-capacity-conflicts-20261109.md).
+The frozen 64-batch pilot verifies all 206,356 declared pairs and 619,068 area
+bounds independently. It proves 14,306 new conflict edges and excludes
+0 cells through clique implications, leaving 8,551 cells in
+both open fixed29 choices. This is a complete check of the declared pilot,
+not every possible reference pair. The 453/455 prior exclusions stand,
+including 428 at zero clearance. Common-line holes remain reserved; no
+ordinary part-in-hole or whole-allocation exclusion is claimed. All 133 new
+and 596 inherited processes are terminal; four inherited failures remain.
+Consumed preparation is 1425.568309 s; no optimizer or timer reset is permitted.
+Next prepare complete direct-reference bounds under the certified graph
+overlay; none is prepared. All 440 allocations and full66/H5 remain open,
+valid64 stays best, and H2/H5 remain at 60%. Eight older first32 and 680
+five-column cores stay closed. Product, README and releases are unchanged.
+The three preceding checkpoints reached main afe23d6f after all six prior
+checks passed, preserving 52 files. Fresh CI has 4 passed/2 live
+jobs at review; this checkpoint awaits ordinary push.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4085,3 +4086,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-09 H5 combined conditional fixed point:** [complete source and independent area audit](../benchmarks/results/h5-combined-fixed-point-20261109.md) covers all 6,650 bracket/insert queries, 8,551 current targets, 87,484 possible-node records, 151,597 original physical entries and 19,950 bounds. The changed masks tighten 104 signatures and yield no new conditional or clique exclusion. Both choices reach a joint fixed point; no extra round opens. All five new processes pass and close; 591 inherited processes remain terminal with four preserved failures. Consumed preparation 1309.785273 s cannot reset or open an optimizer. Next assess independently controlled two-reference capacity bounds; no such stage is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best, H2/H5 remain open at 60%, common-line holes stay reserved, and product/README/releases are unchanged.
+
+
+**2026-11-09 H5 two-reference capacity conflicts:** [complete frozen pilot and independent frontier audit](../benchmarks/results/h5-pair-capacity-conflicts-20261109.md) verifies 206,356 declared pairs and 619,068 area bounds across 64 batches. All 1,042,971,280 transposed membership bits and 8,551 target identities check against original physical records. The 9,016 incompatible query pairs imply 14,306 new unique conflict edges; clique propagation excludes 0 cells, leaving 8,551 across both open choices. The pilot covers its full declared scope, not every possible reference pair. All 133 new and 596 inherited processes are terminal; inherited failures remain preserved. Consumed preparation 1425.568309 s cannot reset or open an optimizer. Next prepare complete direct-reference bounds under the certified overlay; none is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best, H2/H5 remain at 60%, common-line holes stay reserved, and product/README/releases are unchanged.
