@@ -10,22 +10,24 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete direct bounds under pair conflicts](../benchmarks/results/h5-direct-overlay-capacity-20261109.md).
-All 8,551 current direct references and 25,653 conditional area bounds pass
-independent verification under the certified conflict overlay. The proof
-excludes 199 bracket cells and two insert cells; no further clique removal
-follows. Both choices remain with 8,350 cells. All 21,194 original source
-component sweeps and six global union bounds replay; neither arrangement is
-excluded. The 453/455 prior exclusions stand, including 428 at zero clearance.
-Common-line holes remain reserved; no ordinary part-in-hole or whole-allocation
-exclusion is claimed. All nine new and 729 inherited processes are terminal,
-with four inherited failures preserved. Consumed preparation is 1465.891791 s;
-no optimizer or timer reset is permitted. Next freeze a bounded complete
-restriction loop under the reduced masks; none is prepared. All 440 allocations
-and full66/H5 remain open, valid64 stays best, and H2/H5 remain at 60%. Eight
-older first32 and 680 five-column cores stay closed. Product, README and
-releases are unchanged. Pair checkpoint5bff1af0 is committed; main afe23d6f
-has 5 passed/1 live CI jobs at review. Both checkpoints await ordinary push.
+Latest H5 evidence: [complete direct restriction fixed point](../benchmarks/results/h5-direct-restriction-fixed-point-20261109.md).
+Two complete independently audited rounds verify all 51,306 conditional bounds.
+The first excludes seven bracket cells; the second finds no further seed or
+clique implication. The loop reaches a genuine fixed point with 8,343 cells
+across both open choices, and the other six declared rounds never open.
+All 21,146 original source/alias component sweeps and six global union areas
+replay. Neither arrangement is excluded. The 453/455 prior exclusions stand,
+including 428 at zero clearance. Common-line holes remain reserved; no ordinary
+part-in-hole or whole-allocation exclusion is claimed. All eight new and 738
+inherited processes are terminal, with four inherited failures preserved.
+Consumed preparation is 1499.743773 s; no optimizer or timer reset is permitted.
+Next assess a fresh finite pair-capacity scope on the complete direct graph;
+none is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best,
+and H2/H5 remain at 60%. Eight older first32 and 680 five-column cores stay
+closed. Product, README and releases are unchanged. The pair and direct-capacity
+checkpoints reached main e1410185 after all six prior checks passed, preserving
+52 files. Fresh CI has 4 passed/2 live jobs at review; this checkpoint
+awaits ordinary push.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4091,3 +4093,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-09 H5 complete direct bounds under pair conflicts:** [full source, projection, area and frontier audits](../benchmarks/results/h5-direct-overlay-capacity-20261109.md) verify all 8,551 current direct references, 37,025,413 graph memberships, 87,484 possible-node records and 25,653 conditional bounds. The certified pair-edge overlay and direct rows exclude 199 bracket cells and two insert cells. No further clique removal follows; both choices remain with 8,350 cells. All 21,194 source-component sweeps and six exact global union bounds replay; neither whole scope is excluded. All nine new and 729 inherited processes are terminal, preserving inherited failures. Consumed preparation 1465.891791 s cannot reset or open an optimizer. Next freeze a bounded complete restriction loop under the reduced masks; none is prepared and no fixed point is claimed. All 440 allocations/full66/H5 remain open, valid64 stays best, H2/H5 remain at 60%, common-line holes stay reserved, and product/README/releases are unchanged.
+
+
+**2026-11-09 H5 complete direct restriction fixed point:** [two complete rounds and exact source-frontier audit](../benchmarks/results/h5-direct-restriction-fixed-point-20261109.md) verify 51,306 bounds, 17,102 query evaluations, 174,968 possible-node records and 303,194 physical records. Round00 excludes seven bracket cells; round01 finds no further seed or clique implication and the loop stops, leaving 8,343 cells in both open choices. All 21,146 retained source-component sweeps and six exact global union areas replay. The other six permitted rounds never open. All eight new and 738 inherited processes are terminal, preserving inherited failures. Consumed preparation 1499.743773 s cannot reset or open an optimizer. Next assess a fresh finite pair-capacity scope on the complete direct graph; none is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best, H2/H5 remain at 60%, common-line holes stay reserved, and product/README/releases are unchanged.
