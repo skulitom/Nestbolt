@@ -10,23 +10,24 @@ pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
 26.04, where Python 3.11.5 is unavailable. All six checks on the correction
 [now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
 
-Latest H5 evidence: [complete reference subdivisions](../benchmarks/results/h5-reference-subdivision-20261109.md).
-All five surviving bracket-reference queries and twenty closed child regions
-pass independent continuous-cover and exact-area audits. Four parent bounds
-tighten, but no child or reference cell is excluded. The exact fixed29 choices
-[0,5,10] and [5,10,11] retain 8,903 nodes; 453/455 are excluded by prior proofs,
-including 428 at zero clearance. These common-line bounds reserve all holes.
-The initial audit's hard-limit failure is preserved. A distinct interval-tree
-auditor passes 8,192 exhaustive controls, nine prior source bounds and all 100
-new area bounds. All nine processes close. Consumed preparation is 308.762676 s;
-no optimizer or timer reset is permitted. Complete conditional row coverage is
-the next method to assess; no broader batch has been prepared.
-All 440 whole-job allocations remain, the valid 64-part layout stays best, and
-H2/H5 remain open at 60% completed milestone weight. No whole allocation or
-ordinary part-in-hole configuration is excluded. The separate eight older
-first32 and 680 five-column cores remain closed.
-Prior checkpoint reached main 0efe5688; its CI has 4 passed/2 live
-jobs at review. This checkpoint awaits ordinary push. Product/releases unchanged.
+Latest H5 evidence: [complete reference capacity](../benchmarks/results/h5-complete-reference-capacity-20261109.md).
+All 3,138 required reference rows and 5,391 active bracket cells now have complete
+graph-only conditional coverage. Independent audits verify 9,414 conditional
+areas and 151,597 physical query-signature areas. Deficits in 139 rows exclude
+321 more bracket cells; no further clique removals follow. Exact fixed29 choices
+[0,5,10] and [5,10,11] remain, with 8,582 nodes; 453/455 whole-choice exclusions
+stand, including 428 at zero clearance. These common-line bounds reserve holes.
+Three failed producers remain preserved and charged. Complete interval
+replacements and checked lookup tables finish every source section. All 191
+processes close; consumed preparation is 984.304155 s. No optimizer or timer
+reset is permitted. Next assess conservative node coverage derived from all
+query signatures and the reduced masks; this new method is not prepared.
+All 440 whole-job allocations remain, valid64 stays best, and H2/H5 stay open
+at 60% completed milestone weight. No whole allocation or ordinary part-in-hole
+configuration is excluded. The separate eight older first32 and 680 five-column
+cores remain closed. Product, README and releases are unchanged.
+Prior checkpoint reached main d6a8cecf; its CI has 5 passed/1 live
+jobs at review. This checkpoint awaits ordinary push.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
@@ -4071,3 +4072,6 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 
 
 **2026-11-09 H5 complete reference subdivisions:** [independent continuous-cover and area audits](../benchmarks/results/h5-reference-subdivision-20261109.md) verify all five surviving queries and twenty closed child regions, with 100 exact area bounds, 51,628 companion covers and 1,119,932 companion boundary/interior classes. Four parent bounds tighten, but no child or reference cell is excluded. The exact fixed29 choices [0,5,10] and [5,10,11] retain 8,903 nodes; 453/455 prior exclusions remain. The first auditor reaches its hard 60 s limit and is preserved. A distinct horizontal interval-tree auditor passes 8,192 exhaustive oracle controls, nine previous source bounds and all twenty new children, without repeating the producer. All nine processes close; consumed preparation 308.762676 s cannot reset or open an optimizer. Common-line holes stay reserved; no ordinary part-in-hole or whole-allocation exclusion follows. Next assess complete conditional row coverage with frozen bounded batches; none is prepared. All 440 allocations, full66 validation and H5 remain open, valid64 stays best, and H2/H5 stay open at 60%. Main 0efe5688 has 4 passed/2 live CI jobs at review. Product/releases unchanged.
+
+
+**2026-11-09 H5 complete reference capacity:** [complete source/query/frontier audits](../benchmarks/results/h5-complete-reference-capacity-20261109.md) cover all 3,138 required representative rows and 5,391 active bracket cells across both remaining exact fixed29 scopes. All 9,414 conditional areas and 151,597 physical query-signature areas replay independently. Deficits in 139 rows exclude 321 bracket cells; no further clique removals follow. Choices [0,5,10] and [5,10,11] remain with 8,582 current nodes; 453/455 prior whole-choice exclusions stand. One signature-limit failure and two hard 60 s failures remain preserved and charged. Complete interval replacements and independently controlled block projections finish every required source piece without raising limits. All 191 processes close; consumed preparation 984.304155 s cannot reset or open an optimizer. Common-line holes remain reserved; no ordinary part-in-hole or whole-allocation exclusion is claimed. Next assess a conservative possible-node closure of the complete query signatures under the reduced masks; none is prepared. All 440 allocations, full66 validation and H5 remain open, valid64 stays best, and H2/H5 remain open at 60%. Main d6a8cecf has 5 passed/1 live CI jobs at review. Product/releases unchanged.
