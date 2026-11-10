@@ -429,6 +429,11 @@ impl Dxf {
     fn segment(&mut self, layer: &str, from: [f64; 2], s: &Segment) {
         match s {
             Segment::Line { to } => {
+                // An imported loop that ends on an arc closes with a line across
+                // its rounding gap; at the written precision that is no line.
+                if num(from[0]) == num(to[0]) && num(from[1]) == num(to[1]) {
+                    return;
+                }
                 self.entity("LINE", layer);
                 self.pair(100, "AcDbLine");
                 self.point(10, from);
@@ -682,6 +687,31 @@ mod tests {
                 );
             }
         }
+    }
+
+    /// These circles' arcs end a rounding gap away from their start, so the
+    /// importer closes them with a line; the DXF gets only the circles.
+    #[test]
+    fn rounding_gaps_export_no_zero_length_lines() {
+        let source = "0\nSECTION\n2\nENTITIES\n\
+            0\nCIRCLE\n8\nCUT\n10\n12.5\n20\n7.25\n40\n3.3\n\
+            0\nCIRCLE\n8\nCUT\n10\n40.3\n20\n0.7\n40\n1.1\n\
+            0\nENDSEC\n0\nEOF\n";
+        let imported = import_dxf(source, &ImportOptions::default()).unwrap();
+        assert_eq!(imported.parts.len(), 2, "{:?}", imported.warnings);
+        let mut w = Dxf {
+            text: String::new(),
+            handle: 0x100,
+        };
+        for part in &imported.parts {
+            let mut from = part.outer.start;
+            for segment in &part.outer.segments {
+                w.segment("CUT", from, segment);
+                from = segment.end();
+            }
+        }
+        assert_eq!(w.text.matches("\nCIRCLE\n").count(), 2, "{}", w.text);
+        assert!(!w.text.contains("LINE"), "{}", w.text);
     }
 
     #[test]
