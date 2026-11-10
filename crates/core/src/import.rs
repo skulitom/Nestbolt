@@ -1233,7 +1233,7 @@ impl<'a> Entity<'a> {
             .filter_map(|c| c.1.parse().ok())
             .collect()
     }
-    /// Whether the extrusion is (0, 0, -1), the reverse of the XY plane's normal.
+    /// Whether the extrusion's Z is negative, as with (0, 0, -1).
     fn flipped(&self) -> bool {
         self.get(230).is_some_and(|z| z < 0.0)
     }
