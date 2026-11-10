@@ -1233,9 +1233,13 @@ impl<'a> Entity<'a> {
             .filter_map(|c| c.1.parse().ok())
             .collect()
     }
+    /// Whether the extrusion is (0, 0, -1), the reverse of the XY plane's normal.
+    fn flipped(&self) -> bool {
+        self.get(230).is_some_and(|z| z < 0.0)
+    }
     /// Extrusion (0, 0, -1) mirrors object coordinates across Y.
     fn ocs(&self) -> Affine {
-        if self.get(230).is_some_and(|z| z < 0.0) {
+        if self.flipped() {
             Affine {
                 m: [[-1.0, 0.0], [0.0, 1.0]],
                 t: [0.0, 0.0],
@@ -1349,7 +1353,12 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
     let layer = e.text(8).unwrap_or("0").to_owned();
     let source = format!("{}:{}", layer, e.kind);
     let point = |x: i32, y: i32| -> Option<Point> { Some([e.get(x)?, e.get(y)?]) };
-    let ocs = e.ocs();
+    // LINE, ELLIPSE and SPLINE store world coordinates, which their extrusion
+    // doesn't move; only object-coordinate entities mirror.
+    let ocs = match e.kind {
+        "LINE" | "ELLIPSE" | "SPLINE" => Affine::IDENTITY,
+        _ => e.ocs(),
+    };
     let map = |start: Point, segments: Vec<Segment>| {
         let (start, segments) = map_segments(start, &segments, &ocs);
         Piece {
@@ -1399,6 +1408,13 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
             if sweep < 1e-12 {
                 sweep = TAU;
             }
+            // Parameters run counter-clockwise about the extrusion, so
+            // (0, 0, -1) traces the ellipse the other way round.
+            let (start, sweep) = if e.flipped() {
+                (-start, -sweep)
+            } else {
+                (start, sweep)
+            };
             let rx = m[0].hypot(m[1]);
             let arc = Segment::Arc {
                 center: c,
@@ -2081,6 +2097,63 @@ mod tests {
             .unwrap();
         // Chords sit inside the arc by at most the 0.005 mm tolerance.
         assert!((disc.area - PI * 25.4 * 25.4).abs() / (PI * 645.16) < 1e-3);
+    }
+
+    const MM_HEADER: &str =
+        "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n";
+    const DOWN: &str = "210\n0\n220\n0\n230\n-1\n";
+
+    /// LINE and SPLINE keep world coordinates under extrusion (0, 0, -1);
+    /// CIRCLE is in object coordinates, whose X axis then points left.
+    #[test]
+    fn negative_extrusion_mirrors_only_object_coordinate_entities() {
+        let dxf = format!(
+            "{MM_HEADER}\
+            0\nLINE\n8\nCUT\n10\n100\n20\n0\n11\n150\n21\n0\n{DOWN}\
+            0\nLINE\n8\nCUT\n10\n150\n20\n0\n11\n150\n21\n50\n{DOWN}\
+            0\nLINE\n8\nCUT\n10\n150\n20\n50\n11\n100\n21\n50\n{DOWN}\
+            0\nSPLINE\n8\nCUT\n70\n8\n71\n1\n72\n4\n73\n2\n40\n0\n40\n0\n40\n1\n40\n1\n\
+            10\n100\n20\n50\n10\n100\n20\n0\n{DOWN}\
+            0\nCIRCLE\n8\nCUT\n10\n300\n20\n0\n40\n10\n{DOWN}\
+            0\nENDSEC\n0\nEOF\n"
+        );
+        let import = import_dxf(&dxf, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 2, "{:?}", import.warnings);
+        let square = import.parts.iter().find(|p| p.bounds[0] > 0.0).unwrap();
+        assert!(
+            (square.bounds[0] - 100.0).abs() < 1e-9 && (square.bounds[2] - 150.0).abs() < 1e-9,
+            "{:?}",
+            square.bounds
+        );
+        let circle = import.parts.iter().find(|p| p.bounds[0] < 0.0).unwrap();
+        assert!(
+            (circle.bounds[0] + 310.0).abs() < 0.01 && (circle.bounds[2] + 290.0).abs() < 0.01,
+            "{:?}",
+            circle.bounds
+        );
+    }
+
+    /// An ELLIPSE's parameters run counter-clockwise about its extrusion, so
+    /// under (0, 0, -1) the half from 0 to pi passes below the centre.
+    #[test]
+    fn negative_extrusion_reverses_ellipse_parameters() {
+        let dxf = format!(
+            "{MM_HEADER}\
+            0\nELLIPSE\n8\nCUT\n10\n125\n20\n50\n11\n25\n21\n0\n40\n0.4\n41\n0\n42\n{PI}\n{DOWN}\
+            0\nLINE\n8\nCUT\n10\n100\n20\n50\n11\n150\n21\n50\n{DOWN}\
+            0\nENDSEC\n0\nEOF\n"
+        );
+        let import = import_dxf(&dxf, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 1, "{:?}", import.warnings);
+        let b = import.parts[0].bounds;
+        assert!(
+            (b[0] - 100.0).abs() < 0.01 && (b[2] - 150.0).abs() < 0.01,
+            "{b:?}"
+        );
+        assert!(
+            (b[1] - 40.0).abs() < 0.01 && (b[3] - 50.0).abs() < 0.01,
+            "{b:?}"
+        );
     }
 
     #[test]
