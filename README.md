@@ -20,7 +20,7 @@ can call.
 How Nestbolt compares with other ways an AI agent can nest parts (OpenNest, pyFit, Sparrow, Deepnest, SVGnest and
 more), by interface, file formats and sheet model: [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/).
 
-For LightBurn users without Pro: [True Nest, Quick Nest and Nestbolt compared](https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/), with a measured run of the v0.2.0-alpha.1 preview nesting a layered `.lbrn2` project onto a full sheet and two offcuts. For remnants from SVG, DXF or LightBurn: [nest parts onto a remnant or irregular offcut](https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/), measured on 2026-11-13, with what LightBurn 2.2, its 2.3 beta and sparrow/studio do with remnants.
+For LightBurn users without Pro: [True Nest, Quick Nest and Nestbolt compared](https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/), with a measured run of the v0.2.0-alpha.1 preview nesting a layered `.lbrn2` project onto a full sheet and two offcuts. For remnants from SVG, DXF or LightBurn (LightBurn support is a preview): [nest parts onto a remnant or irregular offcut](https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/), measured on 2026-11-13, with what LightBurn 2.2, its 2.3 beta and sparrow/studio do with remnants.
 
 For laser makers: [how many ornaments fit on a 12 × 12 inch sheet](https://skulitom.github.io/Nestbolt/nesting-examples/nest-christmas-ornaments-on-one-sheet/), measured for six designs, with ready-to-cut sheets; more in [the examples](https://skulitom.github.io/Nestbolt/nesting-examples/).
 
