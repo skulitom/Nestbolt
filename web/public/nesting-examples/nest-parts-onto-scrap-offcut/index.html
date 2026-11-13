@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nest parts onto a scrap or offcut: remnant nesting example | Nestbolt</title>
-    <meta name="description" content="Nest parts onto a partly used sheet or an irregular offcut: draw or trace the remnant, import it as the sheet and place what fits. Measured results and commands.">
+    <title>Nest parts onto a remnant or irregular offcut (LightBurn, SVG, DXF) | Nestbolt</title>
+    <meta name="description" content="Nest parts inside a remnant's own outline, from SVG, DXF or a LightBurn project: runs measured on 2026-11-13, the steps, and what LightBurn and sparrow/studio do with remnants.">
     <link rel="canonical" href="https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/">
     <link rel="stylesheet" href="../../site.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Nestbolt">
-    <meta property="og:title" content="Nest parts onto a scrap or offcut: remnant nesting example | Nestbolt">
-    <meta property="og:description" content="Nest parts onto a partly used sheet or an irregular offcut: draw or trace the remnant, import it as the sheet and place what fits. Measured results and commands.">
+    <meta property="og:title" content="Nest parts onto a remnant or irregular offcut (LightBurn, SVG, DXF) | Nestbolt">
+    <meta property="og:description" content="Nest parts inside a remnant's own outline, from SVG, DXF or a LightBurn project: runs measured on 2026-11-13, the steps, and what LightBurn and sparrow/studio do with remnants.">
     <meta property="og:url" content="https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/">
     <meta property="og:image" content="https://skulitom.github.io/Nestbolt/og/example-scrap-offcut.png">
     <meta property="og:image:width" content="1200">
@@ -47,9 +47,10 @@
         {
           "@type": "WebPage",
           "@id": "https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/#page",
-          "name": "Nest parts onto a scrap or offcut: remnant nesting example | Nestbolt",
-          "description": "Nest parts onto a partly used sheet or an irregular offcut: draw or trace the remnant, import it as the sheet and place what fits. Measured results and commands.",
+          "name": "Nest parts onto a remnant or irregular offcut (LightBurn, SVG, DXF) | Nestbolt",
+          "description": "Nest parts inside a remnant's own outline, from SVG, DXF or a LightBurn project: runs measured on 2026-11-13, the steps, and what LightBurn and sparrow/studio do with remnants.",
           "url": "https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/",
+          "dateModified": "2026-11-13",
           "isPartOf": {
             "@type": "WebSite",
             "@id": "https://skulitom.github.io/Nestbolt/#website",
@@ -82,7 +83,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Nest onto a scrap or offcut",
+              "name": "Nest onto a remnant or offcut",
               "item": "https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/"
             }
           ]
@@ -112,10 +113,12 @@
       </nav>
     </header>
     <main id="main">
-      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../">Nestbolt</a> / <a href="../">Examples</a> / <span aria-current="page">Nest onto a scrap or offcut</span></nav>
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../">Nestbolt</a> / <a href="../">Examples</a> / <span aria-current="page">Nest onto a remnant or offcut</span></nav>
       <article>
-        <h1>Nest parts onto a scrap or offcut</h1>
-        <p>A partly used sheet or an odd-shaped offcut is material you have already paid for. Nestbolt can use the remnant's own outline as the sheet: draw the usable material on a layer named <code>SHEET</code>, with holes where parts were already cut, and Nestbolt nests inside that shape. This page shows two measured jobs. In the first, a partly used sheet is drawn by hand and Nestbolt places as many parts as fit. In the second, the outline of an irregular offcut is traced from a picture with <a href="https://github.com/skulitom/Maskbolt">Maskbolt</a>, an open-source image tool by the same author. That picture is a computer render made for this test, not a phone photo; see <a href="#limits">the limits</a>.</p>
+        <h1>Nest parts onto a remnant or irregular offcut</h1>
+        <p>To nest onto a remnant, give Nestbolt the remnant's own outline as the sheet, with holes where parts were already cut out. On 2026-11-13, the <code>nestbolt</code> command-line tool built from <code>main</code> at <code>e1410185</code> placed 31 of 32 parts on a partly used sheet with two holes and 8 of 8 on an offcut traced from a picture, and it nested a three-layer LightBurn project of 13 ornaments onto that traced offcut with every layer kept; Nestbolt's check passed each layout. LightBurn 2.2's docs start both True Nest and Quick Nest by drawing a rectangle as the container; LightBurn has marked nesting inside other shapes and around used areas of a sheet as coming in v2.3, and its 2.3.00 Beta 2, public since 11 November 2026, lists a new nesting algorithm, FullNest, without saying what it nests into (<a href="#other-tools">details and sources</a>).</p>
+        <p>We make Nestbolt. We did not run LightBurn or sparrow/studio: everything about them on this page comes from their own docs, release notes and feature board, read on 2026-11-13. Nestbolt's LightBurn support is a preview feature. <strong>Last checked: 2026-11-13.</strong></p>
+        <p>A partly used sheet or an odd-shaped offcut is material you have already paid for. This page shows two jobs from SVG files: a partly used sheet drawn by hand, where Nestbolt places as many parts as fit, and an irregular offcut whose outline is traced from a picture with <a href="https://github.com/skulitom/Maskbolt">Maskbolt</a>, an open-source image tool by the same author. That picture is a computer render made for this test, not a phone photo; see <a href="#limits">the limits</a>. Then it shows the same steps <a href="#lightburn">from a LightBurn project</a>.</p>
         <div class="cta">
           <a class="button" href="../../">Open Nestbolt in your browser</a>
           <p>Free and MIT-licensed; your files never leave your computer.</p>
@@ -160,7 +163,7 @@
             </tbody>
           </table>
         </div>
-        <p class="measured">Measured on 2026-10-25 with the <code>nestbolt</code> command-line tool built from <code>main</code> at <code>247e823</code>, on a Windows desktop PC. Nestbolt placed 31 of the 32 parts on the remnant: 4 back plates, 4 shelves, 7 of the 8 brackets and all 16 hooks, with 77.7% utilisation (placed part area divided by the material used). The independent check: valid, and a separate <code>nestbolt validate</code> run agreed. With the default mode, which must place every part, the same request stopped with “could not place every part in 30 s: allow more time, more sheets or fewer parts”. <code>fill_area</code> counts area, not complete sets, so count the sets yourself: here, three complete racks and a fourth without one bracket.</p>
+        <p class="measured">Measured on 2026-10-25 with the <code>nestbolt</code> command-line tool built from <code>main</code> at <code>247e823</code>, on a Windows desktop PC, and again on 2026-11-13 with a build of <code>main</code> at <code>e1410185</code>, with the same counts, utilisation and check. Nestbolt placed 31 of the 32 parts on the remnant: 4 back plates, 4 shelves, 7 of the 8 brackets and all 16 hooks, with 77.7% utilisation (placed part area divided by the material used). The independent check: valid, and a separate <code>nestbolt validate</code> run agreed. With the default mode, which must place every part, the same request stopped with “could not place every part in 30 s: allow more time, more sheets or fewer parts”. <code>fill_area</code> counts area, not complete sets, so count the sets yourself: here, three complete racks and a fourth without one bracket.</p>
         <figure class="result"><img src="partly-used-sheet-layout.svg" width="1232" height="832" alt="Nestbolt’s measured layout on the partly used sheet: three back plates down the left and a fourth at the bottom middle, with shelves, brackets and hooks around the round hole and the rectangular hole, and the empty corner at the top right where the sheet was already used"><figcaption>The partly used sheet as a build of <code>main</code> nested it on 2026-10-25: 31 of 32 parts, check valid. The dashed line marks the original sheet edge around the corner that was already used.</figcaption></figure>
         <h2>Example 2: an offcut traced from a rendered picture</h2>
         <p>The picture is a render of a plywood offcut lying flat on a grey bench, seen from straight above, with a 100 × 100 mm card beside it. A script drew it for these tests at exactly 0.5 mm per pixel (1600 × 1200 pixels), with wood grain, shadows, blur, noise and JPEG compression. The script also kept the true outline, so the trace can be measured against it.</p>
@@ -171,7 +174,7 @@
           <li><strong>Nest.</strong> One key rack (8 parts) on the traced outline, with a 5 mm edge spacing to cover the tracing error, 2 mm between parts, quarter turns and a 30-second budget in repeatable mode.</li>
         </ol>
         <figure class="result"><img src="offcut-trace.jpg" width="960" height="720" alt="The rendered offcut on a grey bench with the 100 mm card in the top left corner; Maskbolt’s outlines are drawn over both, and two white dots mark the two clicks"><figcaption>The render with Maskbolt’s two outlines: the card (blue) and the offcut (green). The white dots are the two clicks.</figcaption></figure>
-        <p class="measured">Measured on 2026-10-25 against the render's true outline: the traced shape overlaps it with an intersection over union of 0.974. Points along the traced edge are a median of 1.8 mm from the true edge, 95% are within 3.4 mm, and the largest distance is 4.3 mm. The traced area is 71,385 mm² against 71,106 mm² true (0.4% more). Nestbolt, built from <code>main</code> at <code>247e823</code>, placed 8 of 8 parts on the traced offcut with 60.0% utilisation; utilisation leaves out the unused strip above the parts, and the parts cover 50.6% of the whole offcut. The independent check: valid, and <code>nestbolt validate</code> agreed.</p>
+        <p class="measured">Measured on 2026-10-25 against the render's true outline: the traced shape overlaps it with an intersection over union of 0.974. Points along the traced edge are a median of 1.8 mm from the true edge, 95% are within 3.4 mm, and the largest distance is 4.3 mm. The traced area is 71,385 mm² against 71,106 mm² true (0.4% more). Nestbolt, built from <code>main</code> at <code>247e823</code>, placed 8 of 8 parts on the traced offcut with 60.0% utilisation; utilisation leaves out the unused strip above the parts, and the parts cover 50.6% of the whole offcut. The independent check: valid, and <code>nestbolt validate</code> agreed. A build of <code>main</code> at <code>e1410185</code> gave the same result on 2026-11-13.</p>
         <figure class="result"><img src="traced-offcut-layout.svg" width="812" height="589" alt="Nestbolt’s measured layout on the traced offcut: the back plate and shelf across the middle and the two brackets and four hooks on the right, all inside the irregular outline"><figcaption>One key rack nested on the traced offcut on 2026-10-25: 8 of 8 parts, check valid.</figcaption></figure>
         <h2>The commands</h2>
         <p>Example 1, in a new folder with <a href="../../examples/key-rack.svg" download>key-rack.svg</a>, <a href="../../examples/partly-used-sheet.svg" download>partly-used-sheet.svg</a> and <a href="../../examples/partly-used-sheet-request.json" download>partly-used-sheet-request.json</a>:</p>
@@ -187,7 +190,64 @@
           <li>Scale <code>offcut.svg</code> into <code>traced-offcut.svg</code> as described above.</li>
           <li><code>nestbolt import key-rack.svg traced-offcut.svg --output library.json</code>, then <code>nestbolt nest --library library.json --request traced-offcut-request.json --out-dir out --seconds 30 --repeatable</code> and <code>nestbolt validate --library library.json --request traced-offcut-request.json --layout out/layout.json</code>.</li>
         </ol>
-        <p>Each nest finished in about 3 seconds. In repeatable mode, the same inputs, budget and seed give the same layout on the same build and platform: two runs of each example gave identical layout files. Another build of <code>main</code>, or a different budget, can give a different layout. The cut files hold the parts only: the optional <code>--sheet-outline</code> export draws the sheet's bounding rectangle rather than the remnant's shape, so the figures above draw the remnant from its <code>SHEET</code> file.</p>
+        <p>Each nest finished in 3 to 4 seconds. In repeatable mode, the same inputs, budget and seed give the same layout on the same build and platform: two runs of each example gave identical layout files. Another build of <code>main</code>, or a different budget, can give a different layout. The cut files hold the parts only: the optional <code>--sheet-outline</code> export draws the sheet's bounding rectangle rather than the remnant's shape, so the figures above draw the remnant from its <code>SHEET</code> file.</p>
+        <p>On a remnant outline, Nestbolt keeps parts as far from each other as from the edge, using whichever of the two settings is larger. Both requests ask for 2 mm between parts, but the closest two parts are 3.0 mm apart in example 1 (3 mm edge spacing) and 5.0 mm apart in example 2 (5 mm edge spacing), measured on 2026-11-13 from the layouts with <a href="https://shapely.readthedocs.io/">Shapely</a>. So use the smallest edge spacing your outline allows.</p>
+        <h2 id="lightburn">From a LightBurn project</h2>
+        <p>Nestbolt opens LightBurn projects (<code>.lbrn2</code>, and legacy <code>.lbrn</code>) and writes an editable <code>.lbrn2</code> per sheet. This is a preview feature (v0.2.0-alpha.1 and the browser app). A <code>.lbrn2</code> project can't carry the remnant itself, so the outline comes from a separate SVG or DXF file.</p>
+        <ol>
+          <li>In LightBurn, group each part with its engraving and score lines, then save a copy of the project. Nestbolt moves each group as one piece. Text without embedded outlines must be re-saved in LightBurn or converted to paths first (<a href="https://github.com/skulitom/Nestbolt/blob/main/docs/LBRN2.md#required-preparation-for-older-or-mixed-projects">preparation notes</a>).</li>
+          <li>Draw or trace the usable outline of the remnant, with any holes, and export only that outline as SVG or DXF.</li>
+          <li>In the <a href="../../">browser app</a>, open the <code>.lbrn2</code> project, set the quantities, and under the sheet size choose the outline file as <strong>Remnant outline</strong>. Set the part and edge spacing, nest, and download the LightBurn sheet.</li>
+          <li>Open the sheet in LightBurn and check it before you cut. The T1 rectangle marks the remnant's bounding box, moved to the origin, not its shape. To see the shape, import your outline file and line its bounding box up with the T1 rectangle. If your laser's origin is not the bottom-left corner, check that the layout isn't flipped: Nestbolt's LightBurn notes say this must be checked in LightBurn.</li>
+        </ol>
+        <p class="measured">Measured on 2026-11-13 with the same build of <code>main</code> (<code>e1410185</code>), using the three-layer ornament project (cut, engrave and score) and the requests from <a href="../../compare/lightburn-nesting-without-pro/">our LightBurn comparison</a>. Asked for 13 ornaments on the traced offcut above, Nestbolt placed all 13; asked for 11 on a 12 × 12 inch sheet with a corner and two holes already cut away, it placed all 11. Both checks passed, and both sheets came out byte-identical to the sheets the v0.2.0-alpha.1 release made on 2026-11-02, which passed our own layer check: every part kept its engraving and score lines, and the layer settings were unchanged. On the command line, the remnant goes in the request as <code>outline_mm</code> (outer ring and holes in millimetres, Y up); see <a href="../../compare/lightburn-nesting-without-pro/data/traced-offcut-request.json">the traced-offcut request</a>. On 2026-11-02, the live browser app placed 12 of 12 on the same offcut through the steps above. We did not open the sheets in LightBurn. The commands, data and our check script are on <a href="../../compare/lightburn-nesting-without-pro/#reproduce">the comparison page</a>.</p>
+        <h2 id="other-tools">What LightBurn and sparrow/studio do with remnants</h2>
+        <p>From each tool's own pages, read on 2026-11-13. We ran neither, so this says nothing about how densely they pack.</p>
+        <div class="table" role="region" aria-label="Remnant support in LightBurn and sparrow/studio" tabindex="0">
+          <table>
+            <caption>Where each tool nests, from its own documentation</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tool</th>
+                <th scope="col">What it nests into</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">LightBurn 2.2 True Nest (Pro)</th>
+                <td>Parts by their actual contours. The getting-started steps begin "Create a rectangle to use as a container for the shapes you want to nest". True Nest requires LightBurn Pro.</td>
+                <td><a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/TrueNest/">True Nest docs</a></td>
+              </tr>
+              <tr>
+                <th scope="row">LightBurn Quick Nest (2.1 and later)</th>
+                <td>Each part's bounding box, packed into a rectangle you draw; one of its error notes reads "Target Rectangle Must be Axis Aligned".</td>
+                <td><a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/QuickNest/">Quick Nest docs</a></td>
+              </tr>
+              <tr>
+                <th scope="row">LightBurn SVGNest (External)</th>
+                <td>Opens SVGnest.com in your browser with your graphics and "a container shape", usually one the size of your material; LightBurn's table marks it as needing the internet.</td>
+                <td><a href="https://docs.lightburnsoftware.com/latest/Reference/Nesting/SVGNest/">SVGNest docs</a></td>
+              </tr>
+              <tr>
+                <th scope="row">LightBurn 2.3 (in beta)</th>
+                <td>On its feature board, LightBurn marked a request to "avoid certain areas of an existing partially-used sheet" as "Completed for v2.3", and answered a request for nesting inside circles and other shapes with "We should have an update to nesting coming in v2.3" (both on 1 November 2026). The 2.3.00 Beta 2, made public on 11 November 2026, lists "FullNest - New full-featured nesting algorithm"; its notes don't say what FullNest nests into or which licence it needs.</td>
+                <td><a href="https://lightburn.fider.io/posts/5197">Board post 5197</a>, <a href="https://lightburn.fider.io/posts/5193">post 5193</a>, <a href="https://forum.lightburnsoftware.com/t/betas-for-lightburn-and-millmage-are-now-public/193873">beta announcement</a></td>
+              </tr>
+              <tr>
+                <th scope="row">sparrow/studio</th>
+                <td>Free and open source, in the browser. It "packs a strip of fixed width while reducing the length used"; its page says it does not allocate parts across multiple fixed-size sheets and does not nest into irregular remnants.</td>
+                <td><a href="https://sparrowstudio.app/">sparrowstudio.app</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>When to use them instead</h3>
+        <ul>
+          <li><strong>True Nest:</strong> if you have LightBurn Pro and your stock is a rectangle, you can nest by real contours without leaving LightBurn or moving files.</li>
+          <li><strong>LightBurn 2.3:</strong> if you would rather nest onto remnants inside LightBurn, try its public beta, or wait for the release; LightBurn's board says remnant and shaped-container nesting is coming in v2.3.</li>
+          <li><strong>sparrow/studio:</strong> for a roll or strip of fixed width, where the goal is the shortest length used.</li>
+        </ul>
         <h2 id="limits">Limits of this test</h2>
         <ul>
           <li>The picture is a render seen from straight above. A real phone photo adds perspective and lens distortion, which neither tool corrects, so shoot from directly above with the card lying flat beside the offcut, not on top of it.</li>
@@ -196,9 +256,8 @@
         </ul>
         <h2>Let your agent do it</h2>
         <p>Both tools have MCP servers. An agent can open the picture with Maskbolt's <code>maskbolt_open</code>, click with <code>maskbolt_click</code>, check the cutout with <code>maskbolt_view</code> and export the outline with <code>maskbolt_export</code>. It can then pass the scaled <code>SHEET</code> drawing to Nestbolt's <code>import_parts</code>, use the reported outline ID in the <code>nest</code> request and check the result with <code>validate_layout</code>. See Nestbolt's <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">agent interface</a> and <a href="../../compare/nesting-for-ai-agents/">nesting for AI agents</a>.</p>
-        <p>This page uses SVG files. Nestbolt also opens LightBurn projects (<code>.lbrn2</code> or <code>.lbrn</code>) and writes an editable <code>.lbrn2</code> per sheet; that is a preview feature, and it was not part of this test.</p>
         <h2>Source and licence</h2>
-        <p>The remnant drawing, the render, the traced outline and the request files were made for this example and are MIT licensed, like Nestbolt; see the repository's <a href="https://github.com/skulitom/Nestbolt/blob/main/LICENSE">MIT licence</a>. The key rack drawing comes from the <a href="../agent-drawn-key-rack/">key rack example</a>. Measure a real offcut before you rely on a traced outline, and test-cut one part first. Nestbolt gives no machine-safety or fit certification; a valid layout does not certify that a traced outline matches your material.</p>
+        <p>The remnant drawing, the render, the traced outline and the request files were made for this example and are MIT licensed, like Nestbolt; see the repository's <a href="https://github.com/skulitom/Nestbolt/blob/main/LICENSE">MIT licence</a>. The key rack drawing comes from the <a href="../agent-drawn-key-rack/">key rack example</a>, and the ornament project from <a href="../../compare/lightburn-nesting-without-pro/">our LightBurn comparison</a>. Measure a real offcut before you rely on a traced outline, and test-cut one part first. Nestbolt gives no machine-safety or fit certification; a valid layout does not certify that a traced outline matches your material.</p>
         <nav class="example-links" aria-label="More examples">
           <ul>
             <li><a href="../agent-drawn-key-rack/">Previous: Agent-drawn key rack</a></li>
@@ -231,7 +290,7 @@
             <li><a href="../sewing-pattern-fabric-roll/">Nest a sewing pattern with grain constraints</a></li>
             <li><a href="../interlocking-gears/">Nest gears with free rotation</a></li>
             <li><a href="../agent-drawn-key-rack/">Nest a key rack an AI agent drew in Inkbolt</a></li>
-            <li><span aria-current="page">Nest parts onto a scrap or offcut (this page)</span></li>
+            <li><span aria-current="page">Nest parts onto a remnant or irregular offcut (this page)</span></li>
             <li><a href="../nest-laser-cut-kit-keep-layers/">Nest a laser-cut kit onto your plywood sheets and keep its layers</a></li>
             <li><a href="../nest-christmas-ornaments-on-one-sheet/">How many ornaments fit on a 12 × 12 inch sheet?</a></li>
           </ul>
