@@ -223,6 +223,13 @@ fn num(v: f64) -> String {
     if s == "-0" { "0".into() } else { s.into() }
 }
 
+/// Whether two points are the same once `num` writes them. An imported loop
+/// that ends on an arc closes with a line across its rounding gap; that line
+/// has no length in a DXF and must become neither a LINE nor a span.
+fn same_as_written(a: [f64; 2], b: [f64; 2]) -> bool {
+    num(a[0]) == num(b[0]) && num(a[1]) == num(b[1])
+}
+
 fn svg_path(contour: &Contour, d: &mut String, closed: bool) {
     let p = |q: [f64; 2]| format!("{} {}", num(q[0]), num(q[1]));
     write!(d, "M {} ", p(contour.start)).expect("string write");
@@ -429,6 +436,9 @@ impl Dxf {
     fn segment(&mut self, layer: &str, from: [f64; 2], s: &Segment) {
         match s {
             Segment::Line { to } => {
+                if same_as_written(from, *to) {
+                    return;
+                }
                 self.entity("LINE", layer);
                 self.pair(100, "AcDbLine");
                 self.point(10, from);
@@ -682,6 +692,62 @@ mod tests {
                 );
             }
         }
+    }
+
+    /// A loop closed by a line across its arc's rounding gap, as the importer
+    /// builds them, gets no LINE, polyline span or spline span for that line;
+    /// a line of one written unit still becomes a LINE.
+    #[test]
+    fn lines_shorter_than_the_written_precision_are_not_exported() {
+        let closed = |radii: [f64; 2]| Contour {
+            start: [12.5 + radii[0], 7.25],
+            segments: vec![
+                Segment::Arc {
+                    center: [12.5, 7.25],
+                    radii,
+                    rotation: 0.0,
+                    start: 0.0,
+                    sweep: TAU,
+                },
+                Segment::Line {
+                    to: [12.5 + radii[0], 7.25 + 1e-9],
+                },
+            ],
+        };
+        let mut w = Dxf {
+            text: String::new(),
+            handle: 0x100,
+        };
+        for contour in [closed([3.3, 3.3]), closed([3.3, 1.65])] {
+            let mut from = contour.start;
+            for segment in &contour.segments {
+                w.segment("CUT", from, segment);
+                from = segment.end();
+            }
+            w.ordered_contour("CUT", &contour).unwrap();
+        }
+        let mut entities: Vec<(&str, Vec<[&str; 2]>)> = vec![];
+        for pair in w.text.lines().collect::<Vec<_>>().chunks(2) {
+            match pair[0] {
+                "0" => entities.push((pair[1], vec![])),
+                "10" => entities.last_mut().unwrap().1.push([pair[1], ""]),
+                "20" => entities.last_mut().unwrap().1.last_mut().unwrap()[1] = pair[1],
+                _ => {}
+            }
+        }
+        let kinds: Vec<_> = entities.iter().map(|e| e.0).collect();
+        assert_eq!(kinds, ["CIRCLE", "LWPOLYLINE", "ELLIPSE", "SPLINE"]);
+        let polyline = &entities[1].1;
+        let mut ring = polyline.iter().zip(polyline.iter().cycle().skip(1));
+        assert!(ring.all(|(a, b)| a != b), "{}", w.text);
+        assert!(entities[3].1.windows(2).all(|p| p[0] != p[1]), "{}", w.text);
+
+        let mut w = Dxf {
+            text: String::new(),
+            handle: 0x100,
+        };
+        w.segment("CUT", [0.0, 0.0], &Segment::Line { to: [1e-6, 0.0] });
+        assert!(w.text.starts_with("0\nLINE\n"), "{}", w.text);
     }
 
     #[test]
