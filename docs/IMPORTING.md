@@ -133,10 +133,13 @@ without case sensitivity. Unknown choices name the available alternatives.
 DXF counts include expanded block instances and each INSERT. Layer-0 children
 inherit the insertion layer; BYBLOCK and BYLAYER colours are resolved before
 selection. Block base points, rotation, scale and the negative-Z INSERT extrusion
-are applied to the source curves. Malformed POLYLINE sequences require a corrected
-export. Text, dimensions, hatches, leaders, solids, attributes and images are
-reported but are not cutting geometry. Bend, extent and construction layers,
-hidden entities and paper-space geometry are also reported and ignored.
+are applied to the source curves. A MINSERT places a copy at every row and column,
+spaced along its rotated axes without scaling; a count of 0 reads as 1, and a
+spacing of 0 keeps one copy along its axis. Malformed POLYLINE sequences require a
+corrected export. Text, dimensions, hatches, leaders, solids, attributes and images
+are reported but are not cutting geometry. Bend, extent and construction layers,
+hidden entities and paper-space geometry, including the blocks that paper-space
+INSERTs place, are also reported and ignored.
 The block fields follow Autodesk's [BLOCK](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-66D32572-005A-4E23-8B8B-8726E8C14302.htm)
 and [INSERT](https://help.autodesk.com/cloudhelp/2018/ENU/AutoCAD-DXF/files/GUID-28FA4CFB-9D5E-4880-9F11-36C97578252F.htm)
 references; the exact-arc tests cover the composed placement.

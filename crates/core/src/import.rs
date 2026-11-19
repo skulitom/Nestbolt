@@ -1575,6 +1575,8 @@ struct DxfStyle {
     layer: String,
     color: String,
     hidden: bool,
+    /// A paper-space INSERT places its block in paper space too.
+    paper_space: bool,
 }
 
 impl Default for DxfStyle {
@@ -1583,6 +1585,7 @@ impl Default for DxfStyle {
             layer: "0".into(),
             color: "aci:7".into(),
             hidden: false,
+            paper_space: false,
         }
     }
 }
@@ -1611,6 +1614,7 @@ fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) 
             || table.is_some_and(|l| l.hidden)
             || e.get(60) == Some(1.0)
             || e.get(62).is_some_and(|c| c < 0.0),
+        paper_space: parent.paper_space || e.get(67) == Some(1.0),
     }
 }
 
@@ -1650,7 +1654,7 @@ fn dxf_pieces(
                 | "IMAGE"
         ) {
             Some("not a cut outline; explode/convert it to closed paths in the source drawing if it must be cut".into())
-        } else if e.get(67) == Some(1.0) {
+        } else if style.paper_space {
             Some("paper-space entity; move cut outlines to model space".into())
         } else {
             None
@@ -1697,23 +1701,40 @@ fn dxf_pieces(
                     let r = e.get(50).unwrap_or(0.0).to_radians();
                     let (s, c) = r.sin_cos();
                     let at = [e.get(10).unwrap_or(0.0), e.get(20).unwrap_or(0.0)];
-                    let local = Affine {
-                        m: [[c * sx, -s * sy], [s * sx, c * sy]],
-                        t: at,
+                    // A MINSERT repeats the block on a grid that turns with the
+                    // INSERT but isn't scaled. Like ezdxf, a count below 1 reads
+                    // as 1, and a spacing of 0 keeps one copy instead of stacking
+                    // them.
+                    let grid = |count: i32, spacing: i32| {
+                        let step = e.get(spacing).unwrap_or(0.0);
+                        let copies = if step == 0.0 {
+                            1
+                        } else {
+                            (e.get(count).unwrap_or(1.0) as i16).max(1)
+                        };
+                        (0..copies).map(move |k| f64::from(k) * step)
                     };
-                    dxf_pieces(
-                        &block.entities,
-                        blocks,
-                        Affine::translation([-block.base[0], -block.base[1]])
-                            .then(local)
-                            .then(e.ocs())
-                            .then(transform),
-                        depth + 1,
-                        warnings,
-                        &style,
-                        layers,
-                        drawing,
-                    )?;
+                    for dy in grid(71, 45) {
+                        for dx in grid(70, 44) {
+                            let local = Affine {
+                                m: [[c * sx, -s * sy], [s * sx, c * sy]],
+                                t: [at[0] + c * dx - s * dy, at[1] + s * dx + c * dy],
+                            };
+                            dxf_pieces(
+                                &block.entities,
+                                blocks,
+                                Affine::translation([-block.base[0], -block.base[1]])
+                                    .then(local)
+                                    .then(e.ocs())
+                                    .then(transform),
+                                depth + 1,
+                                warnings,
+                                &style,
+                                layers,
+                                drawing,
+                            )?;
+                        }
+                    }
                 } else {
                     warnings.push(format!("unknown block {name:?} skipped"));
                 }
@@ -1850,6 +1871,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                 ),
                 hidden: e.get(62).is_some_and(|c| c < 0.0)
                     || e.get(70).is_some_and(|f| f as u32 & 1 != 0),
+                paper_space: false,
             },
         );
     }
