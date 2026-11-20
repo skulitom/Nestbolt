@@ -327,3 +327,5 @@ pairs carry one source per counted pair. The zero-based indices in
 in the same report. Drawing-level entries identify missing units, duplicate
 handles and undefined layers. An older serialized report reads with an empty
 `entries` list.
+
+The development corpus produced 520 structured warnings. [Compatibility results for 440 drawings](../benchmarks/results/h2-import-entries-20261120/README.md).

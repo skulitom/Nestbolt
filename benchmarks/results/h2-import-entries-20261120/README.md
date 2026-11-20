@@ -1,0 +1,7 @@
+# Structured import warnings on the development corpus
+
+Adding structured entries preserved every previous public import field on all 282 successful SVG/DXF imports. All 158 rejections had identical exit codes and error text. The new importer emitted 520 entries for 520 importer warnings. The corpus contained 257 training files and 183 robustness files. [Results by input and diagnostic kind](entries.json).
+
+The comparison used separate CLI builds from `93a5661d` (DXF array fix) and `42d8b1c4` (structured warnings). For each file the two CLIs received the same units, layer and colour selection, and gap options from its label. After removing only the new `entries` arrays, the complete JSON values were equal. The count excludes the separate project-level messages about using a drawing's outline as stock. No held-out vectors were opened. The shop manifest's SHA-256 was `02e1f40fe7ad6459cce801620d7de4a14c10d9a1fad435e6d1b45a68ac34c3b7`.
+
+A separate comparison isolates the change already merged in [PR #24](https://github.com/skulitom/Nestbolt/pull/24). The earlier importer from `d301f393` and the array-aware importer from `93a5661d` gave identical outcomes on 439 files. On the remaining file both rejected the drawing, and the new error counted all 25 open paths. The earlier error reported one. An independent ezdxf read confirmed that the model contains a five-row, five-column INSERT of the FLAG block, with one POLYLINE per instance. The changed message and the per-input results are preserved in the [array comparison](insert-arrays.json).
