@@ -410,6 +410,8 @@ Build the section 3 model:
 - **LightBurn check** in Anode: one exported DXF and one SVG open with COMMON on its own layer, at the exact sizes.
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
+**H5 complete on 2026-11-20.** With both **Nest parts inside holes** and **Search for more shared cuts** enabled, the 13-job development comparison saved 13.031% of cutting distance at 0.2 mm kerf and 13.101% at 1.5 mm. All 234 layouts validated. Each of the 26 job/kerf pairs met the +1% material ceiling against ordinary nesting at matching spacing. The largest increase was +0.0125%. Common-line mode reserves holes by default. Completed milestone weight is **75%**. H2 remains open under decision 8. [Per-job results, geometry and comparison with Deepnest](../benchmarks/results/h5-rigid-host-rows-20261120.md).
+
 **Development checkpoint 2026-10-15:** the optional bonus is implemented, off by
 default, with UI/CLI/MCP round trips. After the retained [78-run pilot](../benchmarks/results/h5-common-bonus-checkpoint-20261015.md),
 the [60-second, three-seed measurement](../benchmarks/results/h5-cutting-development-20261015.md)

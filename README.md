@@ -28,8 +28,8 @@ For laser makers: [how many ornaments fit on a 12 × 12 inch sheet](https://skul
 for editable LightBurn project nesting, lead-in allowances and improvements for
 large curved drawings. Windows x64, Linux x64 and macOS Apple silicon tools are
 available, plus the Windows MCP bundle. Their [published-download checks](benchmarks/results/preview-depth-published-20261016.md)
-pass. Import acceptance and common-line material use remain under development;
-the [v1.1 plan is 60% complete](docs/STATUS.md). Stable v0.1.0 remains available.
+pass. The [v1.1 plan is 75% complete](docs/STATUS.md). Import acceptance remains open.
+Stable v0.1.0 remains available.
 
 The hosted browser app runs a preview build from `main` (newer than v0.2.0-alpha.1).
 The source on `main` includes AutoCAD 2007 DXF export fixes and reads flat
@@ -109,14 +109,13 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   are review guides; the cutting program creates the actual leads. Imported
   LightBurn projects keep their editable contents and receive separate SVG/DXF
   cutting files. See [lead settings and CAM setup](docs/LEAD_INS.md).
-- **Common-line cutting**, optional and still under development: identify shared
-  straight cuts with kerf compensation. It can reduce cutting distance while
-  increasing material use. On `main`, **Nest parts inside holes** allows inserts
-  in a frame while keeping kerf clearance. With this option and the search
-  bonus enabled, both mechanical jobs met the material limit. A mixed-bracket
-  job exceeded it at 0.2 mm kerf. The default still reserves holes. Prepare
-  shared sections in CAM to avoid cutting them twice.
-  See [common-line setup and limitations](docs/COMMON_LINES.md).
+- **Common-line cutting** identifies straight edges that can share a kerf-compensated cut.
+  It reserves holes by default. On `main`, enable **Nest parts inside holes** and
+  **Search for more shared cuts** to let frames carry inserts while the solver aligns
+  outer edges. Across 13 development jobs, median cutting distance fell by
+  13.031% at 0.2 mm kerf and 13.101% at 1.5 mm. Every job was within the +1%
+  material limit at both kerfs. Prepare shared sections in CAM to avoid cutting them twice.
+  [Common-line setup and per-job results](docs/COMMON_LINES.md).
 - **Check** every result with an independent Clipper2 validator (overlap,
   spacing, containment, rotations, quantities). Invalid layouts are never returned.
 - **Browser app** (`web/`): the same engine compiled to WebAssembly in Web

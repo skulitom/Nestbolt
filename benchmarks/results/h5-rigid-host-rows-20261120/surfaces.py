@@ -33,8 +33,9 @@ def main():
     assert len(files) == 4 and all(digest(mcp / "nested" / name) == sha for name, sha in files.items())
     assert all(check["files"] == files for check in read(HERE / "exports.json"))
     checks = []
-    for name in ("chrome", "firefox"):
-        result = read(browsers / f"{name}.json")
+    for name, file in (("chrome", browsers / "chrome.json"), ("firefox", browsers / "firefox.json"),
+                       ("chrome-isolated", OUT / "h5-rigid-host-browser-isolated/chrome.json")):
+        result = read(file)
         nest = result["nested"]
         assert result["validated"]["valid"] and nest["validation"]["valid"]
         assert len(nest["layout"]["placements"]) == 66 and nest["parts_in_holes"] == 21
@@ -52,7 +53,8 @@ def main():
     for style in ("line", "arc"):
         assert read(OUT / "h5-rigid-host-leads" / (style + ".json")) == read(
             OUT / "h5-native-rows-combined-leads-20261120" / (style + ".json"))
-    folders = {"cli": cli, "mcp": mcp, "browser": browsers, "coupons": OUT / "h5-rigid-host-native",
+    folders = {"cli": cli, "mcp": mcp, "browser": browsers, "browser-isolated": OUT / "h5-rigid-host-browser-isolated",
+               "coupons": OUT / "h5-rigid-host-native",
                "leads": OUT / "h5-rigid-host-leads"}
     with ZipFile(HERE / "surfaces.zip", "w", ZIP_DEFLATED) as archive:
         for category, folder in folders.items():
