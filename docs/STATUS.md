@@ -23,6 +23,9 @@ bounds rule out another 18 at the 0.2 mm kerf target.
 The best validated partial layout inside that material limit contains 64 of 66 parts.
 Complete layouts exist for both mechanical jobs. Even the best archived complete
 layout for each job and kerf [exceeds its material target](../benchmarks/results/h5-two-sheet-capacity-20261120.md#complete-archived-layouts).
+Reusing intact sheets and horizontal bands from those archives produced four
+validated improvements of 51–2,805 mm². They still exceed their targets by
+2.506–4.672%. [Layouts and exports](../benchmarks/results/h5-archived-sheet-combinations-20261120.md).
 The two mechanical jobs in the [cutting comparison](../benchmarks/results/h5-cutting-development-20261015.md)
 still exceed the +1% material limit at both kerfs.
 
