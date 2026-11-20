@@ -35,3 +35,28 @@ The original three-seed H5 comparison remains the acceptance measurement.
 To reproduce, run [combine.py](h5-archived-sheet-combinations-20261120/combine.py)
 with an empty output directory, then [verify.py](h5-archived-sheet-combinations-20261120/verify.py)
 with that directory and the release CLI path.
+
+## Stacking archived horizontal bands
+
+On the 66-part large-plate laser job, even stacking bands with **zero space
+between them** would require at least 53.069510 mm more combined sheet height
+than the target allows. This result covers vertical translations of horizontal
+bands from the 310 archived sheets. Their internal relative positions and
+orientations are fixed. Parts crossing a band edge can be discarded.
+
+The catalogue found 13,632 different band inventories. Four nonnegative
+family weights give each possible band a total weight at most its height plus
+0.2 mm. This makes the required 66 parts weigh 3,366.196413 mm. Even refunding
+0.2 mm for every part leaves 3,352.996413 mm against 3,299.926903 mm of
+usable stock height. The refund covers up to 66 nonempty bands.
+
+An independent reader checked the weights against 214,376 subsets generated
+directly from the original placements. It used interval trigonometry and
+rounded each occupied interval inward to a nanometre. Every subset of a
+horizontal band is covered because the weights are nonnegative. The smallest
+verified slack was 1,263 nm. The price test closed this construction before
+the conditional integer solver. Both fixed arrangements and the 418 possible
+two-sheet allocations in the broader geometry problem remain open.
+[Family weights](h5-archived-sheet-combinations-20261120/band-prices.json),
+[independent check](h5-archived-sheet-combinations-20261120/band-verification.json)
+and [catalogue and process logs](h5-archived-sheet-combinations-20261120/band-catalogue.zip).
