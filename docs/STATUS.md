@@ -16,7 +16,9 @@ Across the whole job, the [two-sheet capacity check](../benchmarks/results/h5-tw
 leaves **418 allocations**. The earlier count of 440 covered the short sheet
 alone. Four already exceeded the first sheet's area. Two new vertical-section
 bounds rule out another 18 at the 0.2 mm kerf target.
-The best validated layout for the 66-part target still contains 64 parts.
+The best validated partial layout inside that material limit contains 64 of 66 parts.
+Complete layouts exist for both mechanical jobs. Even the best archived complete
+layout for each job and kerf [exceeds its material target](../benchmarks/results/h5-two-sheet-capacity-20261120.md#complete-archived-layouts).
 The two mechanical jobs in the [cutting comparison](../benchmarks/results/h5-cutting-development-20261015.md)
 still exceed the +1% material limit at both kerfs.
 

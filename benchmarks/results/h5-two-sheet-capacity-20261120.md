@@ -5,7 +5,7 @@
 by the area of their complementary first sheet. Two new tests exclude another
 18 allocations on the short sheet. These exclusions apply to every placement
 and permitted rotation of the 66 parts for the laser large-plate target.
-The best validated layout still contains 64 parts.
+The best validated layout within that material target contains 64 of 66 parts.
 
 | Check | Allocations entering | Excluded | Remaining |
 | --- | ---: | ---: | ---: |
@@ -64,3 +64,40 @@ outline. The [process receipts](h5-two-sheet-capacity-20261120/stages.json)
 preserve that failure and both successful independent audits. These calculations
 produced no new layouts. The [measured common-line comparison](h5-cutting-development-20261015.md)
 still determines H5.
+
+A [complementary first-sheet calculation](h5-two-sheet-capacity-20261120/first-sheet-recheck.zip)
+tested the four remaining allocations with the heaviest first-sheet inventories
+under componentwise ordering. Horizontal and vertical section weights used the
+same frame, bracket and insert orientations. All four searches produced the
+same integer weights, which exclude zero additional allocations.
+The [two-axis short-sheet check](h5-two-sheet-capacity-20261120/short-sheet-recheck.zip)
+also excludes zero after testing all 33 maximal remaining short-sheet inventories.
+
+## Complete archived layouts
+
+The current CLI validated and exported the complete layout with the least
+material in each of the four mechanical job and kerf combinations below. Each
+target is 101% of the original three-seed ordinary-mode median for that
+combination. Percentages in the last column use the target as the denominator.
+
+| Job | Kerf (mm) | Parts placed | Target (mm²) | Best archived complete layout (mm²) | Above target |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Large plates | 0.2 | 66 | 4,988,890 | 5,124,700 | 2.72% |
+| Large plates | 1.5 | 66 | 5,052,372 | 5,179,080 | 2.51% |
+| Panel hardware | 0.2 | 178 | 4,722,330 | 4,943,285 | 4.68% |
+| Panel hardware | 1.5 | 178 | 4,802,345 | 4,997,113 | 4.06% |
+
+The [census](h5-two-sheet-capacity-20261120/layout-census.json) covers the
+666 archived native common-line results with complete inventory and validation
+records in the 676 selected mechanical-job ZIPs. These contain 651 distinct
+layout files across the four comparisons. Six Deepnest archives and four
+assignment diagnostics have different output formats. The census is a
+retrospective comparison of saved layouts. The original matched three-seed
+matrix remains the H5 measurement.
+
+The first inventory pass missed 48 early records whose part counts lived in
+the validation output. Its follow-up found that the pair probes validate an
+expanded layout. The final pass reads the layout named in each recorded
+validation command, checks the original parts, stock, mode and spacing, and
+retains every eligible record. The [scripts, file list and process logs](h5-two-sheet-capacity-20261120/layout-census-replay.zip)
+include both earlier attempts.
