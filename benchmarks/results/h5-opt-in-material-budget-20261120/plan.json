@@ -1,0 +1,37 @@
+{
+  "prior_measurement": "h5-common-opt-in-holes-20261120T135332Z",
+  "observed_failure": {
+    "job": "c-bracket-mixed",
+    "kerf_mm": 0.2,
+    "material_percent": 1.417303829000871,
+    "all_three_runs_finished_before_seconds": 55.49,
+    "all_three_alignment_phases_reduced_material": true
+  },
+  "hypothesis": "The ten-percent reserve shortens both initial packing and final compaction on simple shapes, even when shared-edge refinement finishes with spare time. Keep ordinary early phase allocations and use only the estimated tail for alignment when hole placement is enabled.",
+  "estimate": "Use the existing reference cost per validated vertex. Estimate two validations per copy in each of the four refinement passes, with a 0.1 reference-second floor and a ceiling of 10% of the total budget. No job identities or benchmark-specific geometry enter the decision.",
+  "default": "Ordinary nesting and the hole-reserving bonus retain their existing allocation. Repeat the same work-budget requests on the measured previous and candidate binaries to check those paths.",
+  "pilot": {
+    "jobs": [
+      "c-bracket-mixed",
+      "m-mechanical-large-plates"
+    ],
+    "kerfs_mm": [
+      0.2,
+      1.5
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "seconds": 60,
+    "arms": [
+      "normal",
+      "off",
+      "bonus"
+    ],
+    "require": "All 36 outcomes validate and each job/kerf bonus material median is within +1% of the matched ordinary median. Report every seed and both cutting arms. Cut savings are assessed across all thirteen jobs only."
+  },
+  "confirmation": "Only a new, full matched 234-run matrix can close H5. Keep the first opt-in matrix and all further pilot outcomes separate. Preserve the default policy regardless of result.",
+  "held_out_geometry_read": false
+}
