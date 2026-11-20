@@ -320,6 +320,9 @@ only inside `NESTBOLT_WORKSPACE`.
 
 ## Development
 
+Rust applications can use the engine and validator with a small checkout.
+[Rust library setup](CONTRIBUTING.md#use-the-rust-crates-from-a-small-checkout).
+
 ```sh
 python scripts/check.py
 python scripts/sheets_batch.py --cpu 0 --cpu 2 --seconds 60
