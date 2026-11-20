@@ -4863,3 +4863,5 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 **2026-11-20.** Both remaining fixed arrangements still admit the required combined area under the tested bounds. The best validated layout contains 64 of 66 parts. H5 remains open on the original material requirement and completed milestone weight is 60%. [Direct-pair evidence and replay](../benchmarks/results/h5-direct-pair-replay-20261120.md).
 
 **2026-11-20.** On the 66-part large-plate development job, 418 allocations between the two sheets remain under the 0.2 mm kerf material target. The previous 440 counted the short sheet alone. The best validated layout remains 64 parts. H5 is open. [Whole-sheet calculation and independent replay](../benchmarks/results/h5-two-sheet-capacity-20261120.md).
+
+**2026-11-20.** N1 now handles flat 3D polylines with downward extrusion inside DXF blocks. The full training-vector and robustness import replays preserve all earlier statuses. H2 remains open under decision 8. [Coordinate regression and corpus results](../benchmarks/results/h2-polyline-coordinates-20261120.md).

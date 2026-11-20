@@ -18290,3 +18290,5 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 **2026-11-20.** The 64 batch audits verified 797,760 area bounds across 265,920 declared pairs. Replaying the final audit from a clean archive confirmed 6,603 additional conflicts. Four bracket positions are excluded. Both fixed arrangements and all 440 whole-job allocations remain open. [Direct-pair evidence and replay](benchmarks/results/h5-direct-pair-replay-20261120.md).
 
 **2026-11-20.** Correcting the short-sheet count for four previously known first-sheet area exclusions and applying 18 newly verified short-sheet exclusions yields 418 whole-job allocations. Both independent integer audits reproduced every exclusion. [Whole-sheet calculation and independent replay](benchmarks/results/h5-two-sheet-capacity-20261120.md).
+
+**2026-11-20.** The negative-extrusion polyline regression passes through the CLI, MCP and WebAssembly. The training set has 246 imports and 11 rejections. The robustness set has 36 imports and 147 rejections, with a maximum of 0.782 s. [Coordinate regression and corpus results](benchmarks/results/h2-polyline-coordinates-20261120.md).

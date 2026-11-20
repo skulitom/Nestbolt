@@ -1657,7 +1657,7 @@ fn dxf_pieces(
         };
         match e.kind {
             "POLYLINE" => {
-                let closed = e.get(70).is_some_and(|f| (f as i64) & 1 == 1);
+                let flags = e.get(70).unwrap_or(0.0) as i64;
                 let mut has_width = polyline_has_width(e, &[40, 41]);
                 let mut vertices = vec![];
                 i += 1;
@@ -1677,8 +1677,14 @@ fn dxf_pieces(
                 if has_width {
                     warn_polyline_width(warnings, &format!("{}:POLYLINE", style.layer));
                 }
-                if let Some((s, segs)) = polyline(&vertices, closed) {
-                    let (s, segs) = map_segments(s, &segs, &e.ocs().then(transform));
+                if let Some((s, segs)) = polyline(&vertices, flags & 1 != 0) {
+                    // 3D POLYLINE vertices already use the block's world axes.
+                    let placement = if flags & 8 != 0 {
+                        transform
+                    } else {
+                        e.ocs().then(transform)
+                    };
+                    let (s, segs) = map_segments(s, &segs, &placement);
                     pieces.push(Piece {
                         start: s,
                         segments: segs,
@@ -2153,6 +2159,35 @@ mod tests {
         assert!(
             (b[1] - 40.0).abs() < 0.01 && (b[3] - 50.0).abs() < 0.01,
             "{b:?}"
+        );
+    }
+
+    #[test]
+    fn legacy_polyline_uses_world_vertices_only_in_3d_mode() {
+        // The same off-origin outline appears twice. Its 2D vertices are in
+        // object coordinates and its 3D vertices are in block coordinates.
+        let mut entities = String::new();
+        for (flags, vertex_flags) in [(1, 0), (9, 32)] {
+            entities.push_str(&format!("0\nPOLYLINE\n70\n{flags}\n{DOWN}"));
+            for (x, y) in [(10, 2), (15, 2), (10, 8)] {
+                entities.push_str(&format!(
+                    "0\nVERTEX\n70\n{vertex_flags}\n10\n{x}\n20\n{y}\n30\n0\n"
+                ));
+            }
+            entities.push_str("0\nSEQEND\n");
+        }
+        let dxf = format!(
+            "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n\
+             0\nSECTION\n2\nBLOCKS\n0\nBLOCK\n2\nPAIR\n10\n0\n20\n0\n\
+             {entities}0\nENDBLK\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n\
+             0\nINSERT\n2\nPAIR\n10\n100\n20\n50\n0\nENDSEC\n0\nEOF\n"
+        );
+        let import = import_dxf(&dxf, &Options::default()).unwrap();
+        let mut bounds: Vec<_> = import.parts.iter().map(|part| part.bounds).collect();
+        bounds.sort_by(|a, b| a[0].total_cmp(&b[0]));
+        assert_eq!(
+            bounds,
+            [[85.0, 52.0, 90.0, 58.0], [110.0, 52.0, 115.0, 58.0]]
         );
     }
 

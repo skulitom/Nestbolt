@@ -75,6 +75,12 @@ width. This covers both constant and variable widths from the
 Convert widths to closed outline paths in the source drawing if their outer
 edges are the intended cut. This warning appears in the UI, CLI and MCP.
 
+For a DXF with extrusion `(0, 0, -1)`, a 2D `POLYLINE` uses an object
+coordinate system whose X axis points left. A flat outline stored as a 3D
+`POLYLINE` already gives its vertices in world coordinates. Nestbolt applies
+the enclosing block placement to both. See Autodesk's
+[DXF vertex reference](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-0741E831-599E-4CBF-91E1-8ADBCFD6556D.htm).
+
 The UI, CLI and MCP decode the original file bytes with the same reader. Older
 DXFs use their `$DWGCODEPAGE` setting, defaulting to Windows-1252 when it is absent;
 DXF R2007 and later use UTF-8. DXF Unicode escapes are decoded too, so non-ASCII
@@ -276,20 +282,20 @@ keeps the source XML, and nesting/validation re-derive geometry from it rather
 than trusting editable cached preview polygons. Files from different projects
 cannot be combined because their layer settings may conflict. SVG/DXF layer,
 colour, gap and sheet-layer overrides must be cleared for LightBurn imports.
-SVG/DXF export of an imported LightBurn project is refused to avoid losing text,
-images and cut settings.
+The editable export is a LightBurn project. Enabling lead-in allowances also
+writes separate SVG/DXF cutting files with the selected contour starts and
+the LEADIN review paths. See [lead setup](LEAD_INS.md).
 
 Legacy `.lbrn` projects export as modern `.lbrn2`: compact path data is added,
 while the original path elements, attributes and comments are retained. Native
 LightBurn checks confirm that the retained legacy data does not duplicate cuts.
 The source stored in the library or Project ZIP remains unchanged.
 
-This is an N2 development checkpoint, not H3 acceptance. Movable text without cached
-outlines requires re-saving in LightBurn. Groups mixing active artwork with
-Tool/output-off shapes must be separated before nesting: active fixed artwork
-is not yet independently validated against every output sheet. Full native
-settings verification and the remaining format cases are tracked in
-[LBRN2.md](LBRN2.md).
+If movable text lacks embedded outlines, save a copy in LightBurn or convert
+the text to paths. If a group mixes cutting artwork with Tool or output-disabled
+shapes, regroup the movable artwork in LightBurn before nesting. See
+[project preparation](LBRN2.md#required-preparation-for-older-or-mixed-projects)
+and the [completed native round-trip checks](../benchmarks/results/h3-complete-20261015.md).
 
 For compensated shared cuts in SVG/DXF workflows, see
 [Common-line cutting](COMMON_LINES.md), including the required CAM layer setup
