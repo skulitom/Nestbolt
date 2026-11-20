@@ -547,6 +547,8 @@ The LightBurn trial ends about 2026-11-11. Finish every LightBurn step by 2026-1
 
 9. **2026-11-20, Artem — test opt-in placement inside holes.** Keep the current default of reserving holes in common-line mode. Test allowing inserts at the same kerf clearance while sharing only straight outer edges. Compare all 13 development jobs at both kerfs and all three seeds against the original cut-length and per-job material limits. Retain the earlier default-mode failures and report the configurations separately.
 
+10. **2026-11-20, Artem — issue fixes and pull requests.** Address relevant repository issues and open pull requests as part of the v1.1 work. Verify fixes against their reported cases and keep the periodic updates to main from decision 2.
+
 ### Verification checkpoint — 2026-10-16
 
 The [full bounded-score development comparison](../benchmarks/results/h4-full-development-20261016.md)
@@ -4880,3 +4882,5 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 **2026-11-20.** The best offline repair of the mixed-bracket laser layouts from the full confirmation left a material penalty of 1.051%, or 0.25745 mm of last-sheet height above the original +1% limit. All 319 complete candidate layouts validated. H5 remains open at 60% completed milestone weight. [Mixed-bracket layout repairs](../benchmarks/results/h5-bracket-axis-compaction-20261120.md).
 
 **2026-11-20.** A construction with interlocking groups of up to four parts placed all 80 mixed brackets below both matched material thresholds. Laser material was 2.800% below ordinary nesting with 25.967% less cutting. The construction ran outside the measured product budget. H5 remains open at 60% completed milestone weight. [Interlocking brackets in repeatable rows](../benchmarks/results/h5-repeated-bands-20261120.md).
+
+**2026-11-20.** With opt-in hole placement and interlocking rows, all 234 layouts validated. The mixed-bracket job used 3.820% less material at 0.2 mm and 2.467% less at 1.5 mm than ordinary nesting. Median cutting savings were 13.031% and 13.101%. Mixed rectangles at 1.5 mm exceeded the material limit at +1.793%. The other 25 comparisons passed. H5 stays open at 60% completed milestone weight. [234-run interlocking-row comparison](../benchmarks/results/h5-native-interlocking-rows-20261120.md).
