@@ -2,7 +2,7 @@
 
 ## v1.1 — real shop files
 
-**2026-11-20.** On `bf9eaa62`, all 313 training files reproduced their reviewed outcomes. An independent SVG reader matched 2,569 exported contours across 411 placements, with maximum deviation of 0.003302 mm. The DXF reader accepted all 246 sheets without repairs. All 183 robustness files finished within 0.837 seconds. H2 remains open. [Training results and reader checks](../benchmarks/results/h2-training-exports-20261120/README.md)
+**2026-11-20.** On `bf9eaa62`, all 313 training files reproduced their reviewed outcomes. An independent SVG reader matched 2,569 exported contours across 411 placements. The largest sampled distance was 0.003302 mm, and every complete contour stayed within 0.01 mm. The DXF reader accepted all 246 sheets without repairs. All 183 robustness files finished within 0.837 seconds. H2 remains open. [Training results and reader checks](../benchmarks/results/h2-training-exports-20261120/README.md)
 
 **2026-11-20.** Compact SVG polygon coordinates now preserve a 200 mm² cutout. Invalid coordinates on a selected outline identify the repair. Chromium, Firefox and both cutting-file exports verified the frame. H2 remains open, with 75% of milestone weight complete. [Drawing and measurements](../benchmarks/results/h2-svg-points-20261120/README.md)
 

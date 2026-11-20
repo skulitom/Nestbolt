@@ -14,8 +14,9 @@ import xml.etree.ElementTree as ET
 
 import numpy as np
 from scipy.optimize import linear_sum_assignment
+from shapely import STRtree, distance, linestrings, points
 from shapely.geometry import LineString
-from svgpathtools import parse_path
+from svgpathtools import Line, parse_path
 
 from h3_geometry_audit import product_paths
 from maker_geometry import flatten_segment
@@ -36,29 +37,66 @@ def line(path, transform):
     points.append(transform(path.end))
     if abs(points[0] - points[-1]) > LIMIT:
         raise ValueError("Open cutting contour")
-    return LineString((p.real, p.imag) for p in points)
+    error = 0.0 if all(isinstance(seg, Line) for seg in path) else TOLERANCE
+    return LineString((p.real, p.imag) for p in points), error
+
+
+def directed_bound(source, target, limit):
+    """Cover every source edge with target-segment capsules inside the limit."""
+    coords = np.asarray(target.coords)
+    edges = linestrings(np.stack((coords[:-1], coords[1:]), axis=1))
+    tree = STRtree(edges)
+    coords = np.asarray(source.coords)
+    left, right = coords[:-1], coords[1:]
+    maximum = 0.0
+    while len(left):
+        middle = (left + right) / 2
+        nearest = edges[tree.nearest(points(middle))]
+        # A segment's distance tube is convex. If both endpoints fit the
+        # same tube, its entire chord fits at the larger endpoint distance.
+        bounds = np.maximum(distance(points(left), nearest), distance(points(right), nearest))
+        covered = bounds <= limit
+        if covered.any():
+            maximum = max(maximum, float(bounds[covered].max()))
+        if covered.all():
+            break
+        left, middle, right = left[~covered], middle[~covered], right[~covered]
+        if np.any(distance(points(middle), nearest[~covered]) > limit):
+            return math.inf
+        if (middle == left).all(axis=1).any() or (middle == right).all(axis=1).any():
+            return math.inf
+        left, right = np.concatenate((left, middle)), np.concatenate((middle, right))
+    return maximum
 
 
 def compare_contours(expected, actual):
     if len(actual) != len(expected) or not expected:
         raise ValueError(f"Expected {len(expected)} contours, found {len(actual)}")
     costs = np.full((len(expected), len(actual)), np.inf)
-    bounds_before = [ring.bounds for ring in expected]
-    bounds_after = [ring.bounds for ring in actual]
-    for i, before in enumerate(expected):
-        for j, after in enumerate(actual):
+    upper = np.full_like(costs, np.inf)
+    bounds_before = [ring.bounds for ring, _ in expected]
+    bounds_after = [ring.bounds for ring, _ in actual]
+    for i, (before, before_error) in enumerate(expected):
+        for j, (after, after_error) in enumerate(actual):
             if (
                 max(abs(a - b) for a, b in zip(bounds_before[i], bounds_after[j]))
                 <= LIMIT
             ):
-                distance = before.hausdorff_distance(after)
-                if math.isfinite(distance) and distance <= LIMIT:
-                    costs[i, j] = distance
+                sampled = before.hausdorff_distance(after)
+                flatten_error = before_error + after_error
+                limit = LIMIT - flatten_error
+                if math.isfinite(sampled) and sampled <= limit:
+                    forward = directed_bound(before, after, limit)
+                    if forward <= limit:
+                        reverse = directed_bound(after, before, limit)
+                        if reverse <= limit:
+                            costs[i, j] = sampled
+                            upper[i, j] = max(forward, reverse) + flatten_error
     try:
         rows, cols = linear_sum_assignment(costs)
     except ValueError as error:
         raise ValueError("No one-to-one contour match within 0.01 mm") from error
-    return float(costs[rows, cols].max())
+    return float(costs[rows, cols].max()), float(upper[rows, cols].max())
 
 
 def measure(svg, stock, parts, placements):
@@ -96,6 +134,7 @@ def measure(svg, stock, parts, placements):
         raise ValueError("Duplicate placement identifiers")
     count = 0
     maximum = 0.0
+    upper_bound = 0.0
     for shape in groups[0]:
         if shape.tag != SVG + "path":
             raise ValueError("Unexpected geometry in CUT")
@@ -124,11 +163,16 @@ def measure(svg, stock, parts, placements):
         if any(s[0] != "M" or not s.rstrip().endswith(("z", "Z")) for s in commands):
             raise ValueError("Expected explicitly closed absolute SVG subpaths")
         after = [line(parse_path(s), lambda p: p) for s in commands]
-        maximum = max(maximum, compare_contours(before, after))
+        sampled, upper = compare_contours(before, after)
+        maximum = max(maximum, sampled)
+        upper_bound = max(upper_bound, upper)
         count += len(before)
     if wanted:
         raise ValueError("Missing exported placements")
-    return dict(placements=len(placements), contours=count, max_hausdorff_mm=maximum)
+    return dict(
+        placements=len(placements), contours=count, max_hausdorff_mm=maximum,
+        max_continuous_upper_bound_mm=upper_bound,
+    )
 
 
 def check_case(exports):
@@ -211,7 +255,7 @@ def main():
         sheets.extend(dict(source=row["path"], **s) for s in measured)
     assert seen == training
     comparison = {
-        "method": "Symmetric vertex-to-polyline Hausdorff distance with both curves subdivided at 0.0005 mm; one-to-one matches within each saved placement",
+        "method": "One-to-one contours with symmetric sampled Hausdorff distances and continuous bounds from full edge coverage in both directions, including curve subdivision error",
         "limit_mm": LIMIT,
         "flatten_tolerance_mm": TOLERANCE,
         "reader_versions": {
@@ -223,6 +267,7 @@ def main():
         "placements": sum(s["placements"] for s in sheets),
         "contours": sum(s["contours"] for s in sheets),
         "max_hausdorff_mm": max(s["max_hausdorff_mm"] for s in sheets),
+        "max_continuous_upper_bound_mm": max(s["max_continuous_upper_bound_mm"] for s in sheets),
         "rows": sheets,
     }
     with args.out.open("x", encoding="utf-8", newline="\n") as stream:

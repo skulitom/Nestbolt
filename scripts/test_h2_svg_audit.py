@@ -66,6 +66,19 @@ class SvgTrainingExport(unittest.TestCase):
             with self.subTest(contours=contours), self.assertRaises(ValueError):
                 self.measure_svg(contours)
 
+    def test_edges_between_matching_vertices_must_follow_the_source(self):
+        crossed = "M20 15 L14 25 L20 25 L14 15 Z"
+        extra_diagonal = self.outer[:-1] + "L20 15 L14 25 L20 15 Z"
+        for outer in (crossed, extra_diagonal):
+            with self.subTest(outer=outer), self.assertRaisesRegex(ValueError, "one-to-one"):
+                self.measure_svg([outer, self.first, self.second])
+
+    def test_straight_edges_can_be_split_or_reversed_within_tolerance(self):
+        outer = "M20.0095 15 L14.0095 15 L14.0095 25 L20.0095 25 L20.0095 22 Z"
+        result = self.measure_svg([outer, self.first, self.second])
+        self.assertAlmostEqual(result["max_hausdorff_mm"], 0.0095)
+        self.assertLessEqual(result["max_continuous_upper_bound_mm"], 0.01)
+
     def test_wrong_physical_size_and_unhandled_presentation_fail(self):
         for kwargs in (
             {"width": "80mm"},
