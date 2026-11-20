@@ -16,7 +16,10 @@ use serde::{Deserialize, Serialize};
 use crate::curves::{Affine, Contour, Point, Segment, bounds, contains, signed_area};
 
 mod cleanup;
+mod diagnostics;
 mod selection;
+use diagnostics::{Diagnostics, Origin};
+pub use diagnostics::{ImportEntry, ImportSource, SkipReason};
 mod svg_style;
 mod svg_viewport;
 mod text;
@@ -111,6 +114,9 @@ pub struct UnitReport {
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
 pub struct ImportReport {
+    /// One structured diagnostic for each import warning, in the same order.
+    #[serde(default)]
+    pub entries: Vec<ImportEntry>,
     pub silent_join_mm: f64,
     pub close_gaps_mm: Option<f64>,
     pub closed_gaps: Vec<Gap>,
@@ -147,6 +153,7 @@ impl ImportReport {
             );
         }
         Ok(Self {
+            entries: Vec::new(),
             silent_join_mm: SILENT_JOIN_MM,
             close_gaps_mm: options.close_gaps_mm,
             closed_gaps: vec![],
@@ -165,7 +172,7 @@ impl ImportReport {
 struct Piece {
     start: Point,
     segments: Vec<Segment>,
-    source: String,
+    source: Origin,
 }
 
 impl Piece {
@@ -337,7 +344,7 @@ fn bridge_gap(piece: &mut Piece, to: Point, report: &mut ImportReport) {
     let size = dist(from, to);
     if size > SILENT_JOIN_MM {
         report.closed_gaps.push(Gap {
-            source: piece.source.clone(),
+            source: piece.source.label.clone(),
             from_mm: from,
             to_mm: to,
             size_mm: size,
@@ -522,9 +529,9 @@ fn simple_in_f32(ring: &[Point]) -> bool {
 /// The nesting polygon checked as the validator will, repaired if needed.
 fn checked_polygon(
     polygon: nestbolt_validator::Polygon,
-    source: &str,
+    source: &Origin,
     tolerance: f64,
-    warnings: &mut Vec<String>,
+    warnings: &mut Diagnostics,
 ) -> Option<nestbolt_validator::Polygon> {
     let identity = nestbolt_validator::RigidTransform {
         translation: [0.0, 0.0],
@@ -544,28 +551,38 @@ fn checked_polygon(
     let base = tolerance.max(0.005);
     for delta in [base, 2.0 * base, 4.0 * base, 8.0 * base] {
         if let Some(p) = closed_polygon(&polygon, delta).filter(|p| valid(p)) {
-            warnings.push(format!(
-                "{source}: outline touches itself (for example relief loops); the nesting \
+            warnings.push(
+                ImportEntry::OutlineTouches {
+                    source: source.location.clone(),
+                    closed_under_mm: 2.0 * delta,
+                },
+                format!(
+                    "{source}: outline touches itself (for example relief loops); the nesting \
                  outline closes gaps under {:.3} mm, exports keep the exact curves",
-                2.0 * delta
-            ));
+                    2.0 * delta
+                ),
+            );
             return Some(p);
         }
     }
-    warnings.push(format!(
-        "{source}: outline crosses or touches itself; part skipped"
-    ));
+    warnings.push(
+        ImportEntry::OutlineCrosses {
+            source: source.location.clone(),
+        },
+        format!("{source}: outline crosses or touches itself; part skipped"),
+    );
     None
 }
 
 fn assemble(
     pieces: Vec<Piece>,
     options: &Options,
-    warnings: &mut Vec<String>,
+    warnings: &mut Diagnostics,
     report: &mut ImportReport,
 ) -> Result<Vec<ImportedPart>> {
     let original = pieces.clone();
-    let pieces = cleanup::clean(pieces, &mut report.cleanup);
+    let mut preserved = vec![];
+    let pieces = cleanup::clean(pieces, &mut report.cleanup, &mut preserved);
     let (mut closed, mut open) = chain(pieces, SILENT_JOIN_MM, report);
     if !open.is_empty()
         && (report.cleanup.overlapping_segments_merged > 0
@@ -578,22 +595,28 @@ fn assemble(
         let mut candidate_report = ImportReport::new(options)?;
         let (connected, remainder) = chain(original, SILENT_JOIN_MM, &mut candidate_report);
         if remainder.is_empty() {
-            let candidate = cleanup::clean(connected, &mut candidate_report.cleanup);
+            let mut candidate_preserved = vec![];
+            let candidate = cleanup::clean(
+                connected,
+                &mut candidate_report.cleanup,
+                &mut candidate_preserved,
+            );
             let (candidate_closed, candidate_open) =
                 chain(candidate, SILENT_JOIN_MM, &mut candidate_report);
             if candidate_open.is_empty() {
                 closed = candidate_closed;
                 open = candidate_open;
                 report.cleanup = candidate_report.cleanup;
+                preserved = candidate_preserved;
             }
         }
     }
     if report.cleanup != Cleanup::default() {
-        warnings.push(format!("cleanup removed {} exact duplicate segment(s), {} zero-length segment(s); merged {} overlapping collinear segment(s)",
+        warnings.push(ImportEntry::Cleanup, format!("cleanup removed {} exact duplicate segment(s), {} zero-length segment(s); merged {} overlapping collinear segment(s)",
             report.cleanup.duplicate_segments_removed, report.cleanup.zero_length_segments_removed, report.cleanup.overlapping_segments_merged));
     }
     if report.cleanup.closed_path_overlaps_preserved > 0 {
-        warnings.push(format!("retained {} overlapping segment pair(s) to keep closed paths connected and preserve their exact curves; repair retraced edges in the source drawing to remove them",
+        warnings.push(ImportEntry::OverlapsKept { sources: preserved }, format!("retained {} overlapping segment pair(s) to keep closed paths connected and preserve their exact curves; repair retraced edges in the source drawing to remove them",
             report.cleanup.closed_path_overlaps_preserved));
     }
     if let Some(limit) = options.close_gaps_mm.filter(|v| *v > SILENT_JOIN_MM) {
@@ -601,8 +624,8 @@ fn assemble(
         closed.extend(repaired);
         open = remaining;
     }
-    for gap in &report.closed_gaps {
-        warnings.push(format!("{}: closed gap {:.6} mm from ({:.6}, {:.6}) to ({:.6}, {:.6}) with explicit Close gaps",
+    for (index, gap) in report.closed_gaps.iter().enumerate() {
+        warnings.push(ImportEntry::GapClosed { gap: index }, format!("{}: closed gap {:.6} mm from ({:.6}, {:.6}) to ({:.6}, {:.6}) with explicit Close gaps",
             gap.source,gap.size_mm,gap.from_mm[0],gap.from_mm[1],gap.to_mm[0],gap.to_mm[1]));
     }
     for piece in open {
@@ -614,10 +637,10 @@ fn assemble(
             "join these endpoints in the source drawing (automatic repair is limited to 1 mm)"
                 .into()
         };
-        warnings.push(format!("{}: open path from ({:.6}, {:.6}) to ({:.6}, {:.6}); end gap {:.6} mm; {fix}. This contour was not imported",
+        warnings.push(ImportEntry::OpenContour { contour: report.open_contours.len() }, format!("{}: open path from ({:.6}, {:.6}) to ({:.6}, {:.6}); end gap {:.6} mm; {fix}. This contour was not imported",
             piece.source,piece.start[0],piece.start[1],piece.end()[0],piece.end()[1],gap));
         report.open_contours.push(OpenContour {
-            source: piece.source,
+            source: piece.source.label,
             start_mm: piece.start,
             end_mm: piece.segments.last().map_or(piece.start, Segment::end),
             end_gap_mm: gap,
@@ -630,7 +653,12 @@ fn assemble(
         let contour = close(piece);
         match contour.flatten(options.tolerance) {
             Ok(points) if signed_area(&points).abs() > 0.0 => loops.push((contour, points, source)),
-            Ok(_) | Err(_) => warnings.push(format!("{source}: degenerate contour skipped")),
+            Ok(_) | Err(_) => warnings.push(
+                ImportEntry::DegenerateContour {
+                    source: source.location.clone(),
+                },
+                format!("{source}: degenerate contour skipped"),
+            ),
         }
     }
     // Containment depth by the smallest containing loop; even depth is an outer.
@@ -679,7 +707,7 @@ fn assemble(
             signed_area(&polygon.outer) + polygon.holes.iter().map(|h| signed_area(h)).sum::<f64>();
         parts.push(ImportedPart {
             id: format!("part-{}", parts.len() + 1),
-            source: source.clone(),
+            source: source.label.clone(),
             bounds: bounds(&polygon.outer),
             outer: outer.clone(),
             holes,
@@ -691,6 +719,7 @@ fn assemble(
         !parts.is_empty(),
         "no closed part outlines found; repair the cut outlines or re-export the drawing with closed, nonzero-area geometry; {}",
         warnings
+            .messages
             .iter()
             .take(8)
             .cloned()
@@ -804,7 +833,7 @@ fn svg_arc(
     }
 }
 
-fn svg_path(d: &str, source: &str) -> Result<Vec<Piece>> {
+fn svg_path(d: &str, source: &Origin) -> Result<Vec<Piece>> {
     use svgtypes::PathSegment as P;
     let mut pieces = vec![];
     let mut current: Option<Piece> = None;
@@ -833,7 +862,7 @@ fn svg_path(d: &str, source: &str) -> Result<Vec<Piece>> {
                 .get_or_insert_with(|| Piece {
                     start: point,
                     segments: vec![],
-                    source: source.into(),
+                    source: source.clone(),
                 })
                 .segments
                 .push(s);
@@ -940,12 +969,12 @@ fn svg_path(d: &str, source: &str) -> Result<Vec<Piece>> {
     Ok(pieces)
 }
 
-fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
+fn svg_shape(node: &roxmltree::Node, source: &Origin) -> Result<Vec<Piece>> {
     let num = |name: &str| node.attribute(name).and_then(|v| v.parse::<f64>().ok());
     let piece = |start: Point, segments: Vec<Segment>| Piece {
         start,
         segments,
-        source: source.into(),
+        source: source.clone(),
     };
     Ok(match node.tag_name().name() {
         "path" => svg_path(node.attribute("d").unwrap_or(""), source)?,
@@ -1071,7 +1100,7 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         root.tag_name().name() == "svg",
         "the document root is not <svg>"
     );
-    let mut warnings = vec![];
+    let mut warnings = Diagnostics::default();
     let page = svg_viewport::page(root, options, &mut warnings)?;
     let ids: HashMap<&str, roxmltree::Node> = document
         .descendants()
@@ -1133,14 +1162,22 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                 let shift = Affine::translation([x, y]).then(ctm);
                 stack.push((*target, shift, depth + 1, style));
             } else {
-                warnings.push(format!("unresolved <use> reference {href:?}"));
+                warnings.push(
+                    ImportEntry::UnresolvedUse {
+                        source: ImportSource::new(&style.layer, name, node.attribute("id")),
+                        href: href.into(),
+                    },
+                    format!("unresolved <use> reference {href:?}"),
+                );
             }
             continue;
         }
         counter += 1;
-        let source = node
-            .attribute("id")
-            .map_or_else(|| format!("{name}-{counter}"), str::to_owned);
+        let id = node.attribute("id");
+        let source = Origin {
+            label: id.map_or_else(|| format!("{name}-{counter}"), str::to_owned),
+            location: ImportSource::new(&style.layer, name, id),
+        };
         let total = ctm.then(page);
         let mut pieces = vec![];
         for piece in svg_shape(&node, &source)? {
@@ -1153,11 +1190,14 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         }
         if !pieces.is_empty() || matches!(name, "text" | "image" | "foreignObject") {
             let ignored = if style.hidden {
-                Some("hidden SVG entity".into())
+                Some((SkipReason::Hidden, "hidden SVG entity"))
             } else if matches!(name, "text" | "image" | "foreignObject") {
-                Some("not a cut outline; convert text to paths or trace the image to cut it".into())
+                Some((
+                    SkipReason::NotCutGeometry,
+                    "not a cut outline; convert text to paths or trace the image to cut it",
+                ))
             } else if style.color() == "none" {
-                Some("SVG has no stroke or fill".into())
+                Some((SkipReason::NoStrokeOrFill, "SVG has no stroke or fill"))
             } else {
                 None
             };
@@ -1165,6 +1205,7 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                 layer: style.layer.clone(),
                 color: style.color(),
                 kind: name.into(),
+                id: id.map(str::to_owned),
                 ignored,
                 pieces,
             });
@@ -1349,9 +1390,12 @@ fn bspline(degree: usize, knots: &[f64], controls: &[Point]) -> Result<(Point, V
     Ok((points[0], segments))
 }
 
-fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
+fn dxf_entity(e: &Entity, effective_layer: &str, warnings: &mut Diagnostics) -> Result<Vec<Piece>> {
     let layer = e.text(8).unwrap_or("0").to_owned();
-    let source = format!("{}:{}", layer, e.kind);
+    let source = Origin {
+        label: format!("{layer}:{}", e.kind),
+        location: ImportSource::new(effective_layer, e.kind, None),
+    };
     let point = |x: i32, y: i32| -> Option<Point> { Some([e.get(x)?, e.get(y)?]) };
     // LINE, ELLIPSE and SPLINE store world coordinates, which their extrusion
     // doesn't move; only object-coordinate entities mirror.
@@ -1472,14 +1516,26 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
             let controls: Vec<Point> = xs.iter().zip(&ys).map(|(&x, &y)| [x, y]).collect();
             let weights = e.all(41);
             if flags & 4 != 0 && weights.iter().any(|w| (w - 1.0).abs() > 1e-12) {
-                warnings.push(format!("{source}: rational spline skipped"));
+                warnings.push(
+                    ImportEntry::Skipped {
+                        source: source.location.clone(),
+                        reason: SkipReason::RationalSpline,
+                        count: 1,
+                    },
+                    format!("{source}: rational spline skipped"),
+                );
                 return Ok(vec![]);
             }
             if controls.is_empty() {
                 let fx = e.all(11);
                 let fy = e.all(21);
                 ensure!(!fx.is_empty(), "SPLINE without control or fit points");
-                warnings.push(format!("{source}: fit-point spline imported as a polyline"));
+                warnings.push(
+                    ImportEntry::FitPointSpline {
+                        source: source.location.clone(),
+                    },
+                    format!("{source}: fit-point spline imported as a polyline"),
+                );
                 let pts: Vec<Point> = fx.iter().zip(&fy).map(|(&x, &y)| [x, y]).collect();
                 let segs = pts[1..].iter().map(|&to| Segment::Line { to }).collect();
                 return Ok(vec![map(pts[0], segs)]);
@@ -1487,7 +1543,14 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
             match bspline(degree, &knots, &controls) {
                 Ok((s, segs)) => vec![map(s, segs)],
                 Err(err) => {
-                    warnings.push(format!("{source}: {err}"));
+                    warnings.push(
+                        ImportEntry::Skipped {
+                            source: source.location.clone(),
+                            reason: SkipReason::InvalidSpline,
+                            count: 1,
+                        },
+                        format!("{source}: {err}"),
+                    );
                     vec![]
                 }
             }
@@ -1506,7 +1569,14 @@ fn dxf_entity(e: &Entity, warnings: &mut Vec<String>) -> Result<Vec<Piece>> {
                     | "ATTDEF"
                     | "VIEWPORT"
             ) {
-                warnings.push(format!("{source}: unsupported entity skipped"));
+                warnings.push(
+                    ImportEntry::Skipped {
+                        source: source.location.clone(),
+                        reason: SkipReason::Unsupported,
+                        count: 1,
+                    },
+                    format!("{source}: unsupported entity skipped"),
+                );
             }
             vec![]
         }
@@ -1519,8 +1589,8 @@ fn polyline_has_width(e: &Entity, codes: &[i32]) -> bool {
     })
 }
 
-fn warn_polyline_width(warnings: &mut Vec<String>, source: &str) {
-    warnings.push(format!("{source}: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut"));
+fn warn_polyline_width(warnings: &mut Diagnostics, source: &Origin) {
+    warnings.push(ImportEntry::PolylineWidth { source: source.location.clone() }, format!("{source}: polyline widths ignored; importing the centreline. Convert widths to closed outline paths in the source drawing if their outer edges must be cut"));
 }
 
 fn polyline(vertices: &[(Point, f64)], closed: bool) -> Option<(Point, Vec<Segment>)> {
@@ -1640,7 +1710,7 @@ fn dxf_pieces(
     blocks: &HashMap<String, Block>,
     transform: Affine,
     depth: u32,
-    warnings: &mut Vec<String>,
+    warnings: &mut Diagnostics,
     parent_style: &DxfStyle,
     layers: &HashMap<String, DxfStyle>,
     drawing: &mut Drawing,
@@ -1656,7 +1726,7 @@ fn dxf_pieces(
         let style = dxf_style(e, parent_style, layers);
         let mut pieces = vec![];
         let ignored = if style.hidden {
-            Some("hidden DXF entity or layer".into())
+            Some((SkipReason::Hidden, "hidden DXF entity or layer"))
         } else if matches!(
             e.kind,
             "TEXT"
@@ -1670,9 +1740,15 @@ fn dxf_pieces(
                 | "ATTRIB"
                 | "IMAGE"
         ) {
-            Some("not a cut outline; explode/convert it to closed paths in the source drawing if it must be cut".into())
+            Some((
+                SkipReason::NotCutGeometry,
+                "not a cut outline; explode/convert it to closed paths in the source drawing if it must be cut",
+            ))
         } else if style.paper_space {
-            Some("paper-space entity; move cut outlines to model space".into())
+            Some((
+                SkipReason::PaperSpace,
+                "paper-space entity; move cut outlines to model space",
+            ))
         } else {
             None
         };
@@ -1705,7 +1781,7 @@ fn dxf_pieces(
                     style.layer
                 );
                 if has_width {
-                    warn_polyline_width(warnings, &format!("{}:POLYLINE", style.layer));
+                    warn_polyline_width(warnings, &Origin::dxf(&style.layer, "POLYLINE"));
                 }
                 if let Some((s, segs)) = polyline(&vertices, flags & 1 != 0) {
                     // 3D POLYLINE vertices already use the block's world axes.
@@ -1718,7 +1794,7 @@ fn dxf_pieces(
                     pieces.push(Piece {
                         start: s,
                         segments: segs,
-                        source: format!("{}:POLYLINE", style.layer),
+                        source: Origin::dxf(&style.layer, "POLYLINE"),
                     });
                 }
             }
@@ -1779,12 +1855,18 @@ fn dxf_pieces(
                         }
                     }
                 } else {
-                    warnings.push(format!("unknown block {name:?} skipped"));
+                    warnings.push(
+                        ImportEntry::UnknownBlock {
+                            source: ImportSource::new(&style.layer, e.kind, None),
+                            block: name.into(),
+                        },
+                        format!("unknown block {name:?} skipped"),
+                    );
                 }
             }
             _ => {
                 for p in if ignored.is_none() {
-                    dxf_entity(e, warnings)?
+                    dxf_entity(e, &style.layer, warnings)?
                 } else {
                     vec![]
                 } {
@@ -1792,7 +1874,7 @@ fn dxf_pieces(
                     pieces.push(Piece {
                         start: s,
                         segments: segs,
-                        source: format!("{}:{}", style.layer, e.kind),
+                        source: Origin::dxf(&style.layer, e.kind),
                     });
                 }
             }
@@ -1801,6 +1883,7 @@ fn dxf_pieces(
             layer: style.layer,
             color: style.color,
             kind: e.kind.into(),
+            id: None,
             ignored,
             pieces,
         });
@@ -1821,7 +1904,7 @@ pub fn inspect_dxf(text: &str, options: &Options) -> Result<ImportReport> {
 fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import> {
     let report = ImportReport::new(options)?;
     let pairs = dxf_pairs(text)?;
-    let mut warnings = vec![];
+    let mut warnings = Diagnostics::default();
     let mut unit = None;
     let mut sections: HashMap<&str, Vec<(i32, &str)>> = HashMap::new();
     let mut i = 0;
@@ -1857,10 +1940,13 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         };
     }
     let scale = unit.unwrap_or_else(|| {
-        warnings.push(format!(
-            "no drawing units; assuming {} mm per unit",
-            options.dxf_unit
-        ));
+        warnings.push(
+            ImportEntry::UnitsMissing,
+            format!(
+                "no drawing units; assuming {} mm per unit",
+                options.dxf_unit
+            ),
+        );
         options.dxf_unit
     });
     let mut blocks = HashMap::new();
@@ -1940,10 +2026,10 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         }
     }
     for (handle, count) in handles.into_iter().filter(|(_, count)| *count > 1) {
-        warnings.push(format!("duplicate entity handle {handle} occurs in {count} DXF records; records are read separately. Audit or re-export the drawing to restore unique handles"));
+        warnings.push(ImportEntry::DuplicateHandle {handle:handle.clone(),count}, format!("duplicate entity handle {handle} occurs in {count} DXF records; records are read separately. Audit or re-export the drawing to restore unique handles"));
     }
     for (layer, count) in undefined_layers {
-        warnings.push(format!("undefined layer {layer:?} is referenced by {count} DXF record(s); default layer properties are assumed. Define the layer or re-export to preserve its colour and visibility"));
+        warnings.push(ImportEntry::UndefinedLayer {layer:layer.clone(),count}, format!("undefined layer {layer:?} is referenced by {count} DXF record(s); default layer properties are assumed. Define the layer or re-export to preserve its colour and visibility"));
     }
     let mut remaining_expansion = 1_000_000;
     dxf_pieces(
@@ -1969,6 +2055,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
     let largest = extent.map(|b| (b[2] - b[0]).max(b[3] - b[1]) / scale);
     let possible_inches = unit.is_none() && largest.is_some_and(|size| size < 60.0);
     if possible_inches {
+        imported.report.entries.push(ImportEntry::PossibleInches);
         imported.warnings.push(format!("drawing units are missing and the largest selected dimension is {:.6} units (under 60); this may be an inches drawing. Choose inches (25.4 mm per unit) if appropriate; current scale is {scale} mm per unit. No automatic rescaling was applied",largest.unwrap()));
     }
     imported.report.units = Some(UnitReport {

@@ -1,13 +1,13 @@
 //! Standalone SVG page coordinates, per SVG 2 sections 8.2 and 8.6.
 //! https://www.w3.org/TR/SVG2/coords.html#ComputingAViewportsTransform
-use super::{Affine, Options, length_mm, svg_transform};
+use super::{Affine, Diagnostics, ImportEntry, Options, length_mm, svg_transform};
 use anyhow::{Context, Result, ensure};
 use svgtypes::{Align, AspectRatio, ViewBox};
 
 pub(super) fn page(
     root: roxmltree::Node,
     options: &Options,
-    warnings: &mut Vec<String>,
+    warnings: &mut Diagnostics,
 ) -> Result<Affine> {
     let view = root.attribute("viewBox").map(str::parse::<ViewBox>).transpose()
         .context("invalid SVG viewBox; set four finite values with positive width and height or re-export as plain SVG")?;
@@ -54,7 +54,7 @@ pub(super) fn page(
             && aspect.align != Align::None
             && ((w - v.w * sx).abs() > 1e-9 || (h - v.h * sy).abs() > 1e-9)
         {
-            warnings.push("SVG preserveAspectRatio slice: imported complete paths without viewport clipping; convert the visible edges to closed paths before cutting if page clipping is intended".into());
+            warnings.push(ImportEntry::SvgSliceNotClipped, "SVG preserveAspectRatio slice: imported complete paths without viewport clipping; convert the visible edges to closed paths before cutting if page clipping is intended".into());
         }
         Affine {
             m: [[sx, 0.0], [0.0, sy]],
