@@ -174,6 +174,8 @@ Surfaces:
   - Record it as `benchmarks/results/h2-lightburn-*.md`, with screenshots.
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
+**2026-11-20.** Physical lengths in SVG shapes and clone offsets are resolved before applying group and page transforms. A regression with a 6.35 mm hole passed the browser geometry comparison and SVG/DXF fidelity checks. The 440 training and robustness vectors retained their previous results. H2 remains open under decision 8. [Measurement and drawing](../benchmarks/results/h2-svg-lengths-20261120/README.md)
+
 **N1 native accounting update, 2026-10-15:** the [completed H3 review](../benchmarks/results/h3-complete-20261015.md)
 accounts for all 59 original projects: 48 imported originals match unit membership,
 physical cutting holes, fixed shapes and cutting layers; all eleven original
