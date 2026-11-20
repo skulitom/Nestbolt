@@ -605,7 +605,7 @@ pub(crate) fn optimize_with_common_bonus(
     optimize_with_areas(
         collision,
         options,
-        false,
+        bonus.options.allow_part_in_hole,
         Some(&areas),
         Some(bonus),
         progress,
@@ -687,9 +687,6 @@ fn optimize_with_areas(
         fill_material,
         live,
     )?;
-    if let Some(bonus) = bonus {
-        bonus.refine(job, &mut result, &clock, budget, &mut progress)?;
-    }
     if debug {
         eprintln!(
             "debug phase search: real {:.2} clock {:.2}",
@@ -707,6 +704,10 @@ fn optimize_with_areas(
         );
         result.layout = expanded;
         result.validation = validation;
+    }
+    // Cutting edges and layout ownership use the original, expanded part copies.
+    if let Some(bonus) = bonus {
+        bonus.refine(job, &mut result, &clock, budget, &mut progress)?;
     }
     result.riders = grouped.riders_placed;
     if let Some(material) = material {

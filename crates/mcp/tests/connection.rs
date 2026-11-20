@@ -269,6 +269,18 @@ async fn common_line_parameter_controls_spacing_and_export_report() {
         }};
         let imported=call("import_parts",json!({"paths":["panel.svg"]})).await.unwrap().structured_content.unwrap();
         let library=&imported["library_path"];
+        std::fs::write(workspace.join("parts.svg"), include_str!("../../../examples/parts.svg")).unwrap();
+        let parts = call("import_parts", json!({"paths": ["parts.svg"]})).await.unwrap().structured_content.unwrap();
+        let holes = json!({"parts": [{"id":"parts-1","quantity":1},{"id":"parts-2","quantity":2}],
+            "sheets":[{"width_mm":90,"height_mm":70,"count":1}], "spacing_mm":1, "edge_spacing_mm":1,
+            "common_line":{"kerf_mm":0.2,"search_bonus":true,"allow_part_in_hole":true}});
+        let nested = call("nest", json!({"library_path":parts["library_path"],"request":holes,
+            "out_dir":"with-inserts","time_budget_s":3})).await.unwrap().structured_content.unwrap();
+        assert_eq!(nested["validation"]["valid"],true);
+        assert_eq!(nested["parts_in_holes"],2);
+        let exported = call("export_layout", json!({"library_path":parts["library_path"],"request":holes,
+            "layout_path":"with-inserts/layout.json","out_dir":"insert-exports","format":"dxf"})).await.unwrap().structured_content.unwrap();
+        assert_eq!(exported["common_line"],nested["common_line"]);
         for bonus in [false,true] {
         let request=json!({"parts":[{"id":"panel-1","quantity":2}],"sheets":[{"width_mm":86,"height_mm":36}],
             "spacing_mm":5,"edge_spacing_mm":1,"common_line":{"kerf_mm":0.2,"search_bonus":bonus}});

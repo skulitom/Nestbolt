@@ -3,7 +3,14 @@
 Enable **Common-line cutting** after importing SVG/DXF cut outlines and enter
 the measured kerf in millimetres (at least 0.05 mm). Kerf replaces part spacing;
 edge spacing and sheet margins still apply. Turning the option off restores the
-previous spacing. Parts are not nested inside other parts' holes in this mode.
+previous spacing. Common-line cutting reserves holes by default.
+
+**Nest parts inside holes** lets inserts use a larger part’s window when the
+required kerf clearance fits. Both the hole wall and the insert keep their
+true-size CUT contours. Only straight outer edges of separate parts can share a
+cut. Enable this independently of the search bonus with the browser checkbox,
+the CLI flag `--common-line-part-in-hole` alongside `--common-line`, or
+`"allow_part_in_hole": true` inside the JSON/MCP `common_line` object.
 
 CLI example, using an existing imported library and nesting request:
 
@@ -25,7 +32,7 @@ the refinement's starting layout minus saved length as a fraction of total cut
 length. Every accepted move passes independent validation, including any lead
 reservations, and adds at most 1% material relative to that starting layout.
 This internal limit does not guarantee a 1% difference from a separate ordinary
-nesting run: search time and the disabled part-in-hole option can affect that
+nesting run: search time and the selected hole placement policy can affect that
 comparison. Compare both material use and saved cutting length for your job.
 
 COMMON contains one copy of each detected shared straight cut, offset by half

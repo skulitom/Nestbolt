@@ -396,6 +396,7 @@ fn common_line_cli_flags_override_spacing_and_export_compensated_paths() {
         ];
         if bonus {
             args.push("--common-line-bonus".as_ref());
+            args.push("--common-line-part-in-hole".as_ref());
         }
         let run = nestbolt(&args);
         assert!(
@@ -421,6 +422,12 @@ fn common_line_cli_flags_override_spacing_and_export_compensated_paths() {
             serde_json::from_slice(&fs::read(output.join("request.json")).unwrap()).unwrap();
         assert_eq!(request["common_line"]["kerf_mm"], 0.2);
         assert_eq!(request["common_line"]["search_bonus"], bonus);
+        assert_eq!(
+            request["common_line"]
+                .get("allow_part_in_hole")
+                .and_then(Value::as_bool),
+            bonus.then_some(true)
+        );
         for file in report["files"].as_array().unwrap() {
             let text = fs::read_to_string(output.join(file.as_str().unwrap())).unwrap();
             assert!(text.contains("COMMON"));
@@ -971,6 +978,30 @@ fn small_parts_go_inside_holes() {
     );
     assert_eq!(run.metrics()["placed_parts"], 3);
     assert!(run.report["parts_in_holes"].as_u64().unwrap() >= 2);
+}
+
+#[test]
+fn common_line_nests_two_inserts_in_the_only_available_window_when_enabled() {
+    let dir = temp("common-holes");
+    let library = import(&dir, &[example("parts.svg")]);
+    for bonus in [false, true] {
+        let output = dir.join(format!("bonus-{bonus}"));
+        fs::create_dir(&output).unwrap();
+        let run = nest(
+            &output,
+            &library,
+            json!({
+                "parts": [{"id": FRAME, "quantity": 1}, {"id": WASHER, "quantity": 2}],
+                "sheets": [{"width_mm": 90, "height_mm": 70, "count": 1}],
+                "spacing_mm": 1, "edge_spacing_mm": 1,
+                "common_line": {"kerf_mm": 0.2, "search_bonus": bonus, "allow_part_in_hole": true}
+            }),
+            "2",
+        );
+        assert_eq!(run.metrics()["placed_parts"], 3);
+        assert_eq!(run.report["parts_in_holes"], 2);
+        assert_eq!(run.report["common_line"][0]["contours_without_common"], 6);
+    }
 }
 
 #[test]

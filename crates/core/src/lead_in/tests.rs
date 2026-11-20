@@ -389,6 +389,7 @@ fn final_common_line_exclusions_choose_starts_per_copy_in_mm_and_inches() {
             crate::common_line::Options {
                 kerf_mm: 0.2,
                 search_bonus: false,
+                allow_part_in_hole: false,
             },
         )
         .unwrap();

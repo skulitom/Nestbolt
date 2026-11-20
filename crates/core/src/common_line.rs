@@ -27,6 +27,9 @@ pub struct Options {
     /// Spend the last tenth of the search aligning shared cuts. Off by default.
     #[serde(default)]
     pub search_bonus: bool,
+    /// Permit placement inside holes at the requested clearance. Only outer edges can share cuts.
+    #[serde(default, skip_serializing_if = "crate::project::is_false")]
+    pub allow_part_in_hole: bool,
 }
 
 impl Options {
@@ -74,6 +77,8 @@ pub struct Report {
     /// Unshared source path pieces plus COMMON paths. Closed CUT reference
     /// contours remain in the export and are not an extra cutting pass.
     pub paths_with_common: usize,
+    #[serde(skip)]
+    pub(crate) parts_in_holes: u32,
 }
 
 #[derive(Clone)]
@@ -287,6 +292,7 @@ pub fn analyze(
         let mut total_length = 0.0;
         let mut contour_count = 0;
         let mut holes = 0;
+        let mut inside_hole = vec![false; parts.len()];
         for (owner, (_, contours)) in parts.iter().enumerate() {
             let outer = contours.first().context("part has no outer contour")?;
             let (e, len) = edges(outer, owner, options.kerf_mm / 2.0)?;
@@ -295,13 +301,16 @@ pub fn analyze(
             total_length += len;
             for hole in &contours[1..] {
                 let ring = hole.flatten(0.0005)?;
-                ensure!(
-                    !parts
-                        .iter()
-                        .enumerate()
-                        .any(|(i, (_, other))| i != owner && contains(&ring, other[0].start)),
-                    "common-line mode does not allow parts inside holes; nest again with part-in-hole disabled"
-                );
+                // Independent validation already checked clearance and ruled out crossings.
+                for (i, (_, other)) in parts.iter().enumerate() {
+                    if i != owner && !inside_hole[i] && contains(&ring, other[0].start) {
+                        ensure!(
+                            options.allow_part_in_hole,
+                            "common-line mode does not allow parts inside holes; nest again with part-in-hole disabled or enable allow_part_in_hole"
+                        );
+                        inside_hole[i] = true;
+                    }
+                }
                 total_length += length::contour(hole);
                 holes += 1;
             }
@@ -364,6 +373,7 @@ pub fn analyze(
                 0.0
             },
             contours_without_common: contour_count,
+            parts_in_holes: inside_hole.iter().filter(|&&inside| inside).count() as u32,
         });
     }
     Ok(reports)

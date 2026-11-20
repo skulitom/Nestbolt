@@ -74,6 +74,9 @@ enum Command {
         /// Reward shared cutting length during placement; off by default.
         #[arg(long, requires = "common_line")]
         common_line_bonus: bool,
+        /// Permit nesting inside holes with kerf clearance. Only outer edges can share cuts.
+        #[arg(long, requires = "common_line")]
+        common_line_part_in_hole: bool,
         /// Physical kerf in mm; common-line needs at least 0.05, leads need > 0.
         #[arg(long)]
         kerf: Option<f64>,
@@ -362,6 +365,7 @@ fn main() -> Result<()> {
             time_limit,
             common_line,
             common_line_bonus,
+            common_line_part_in_hole,
             kerf,
             lead_in,
             lead_length,
@@ -378,6 +382,7 @@ fn main() -> Result<()> {
                 request.common_line = Some(nestbolt_core::common_line::Options {
                     kerf_mm: kerf.context("--common-line requires --kerf")?,
                     search_bonus: common_line_bonus,
+                    allow_part_in_hole: common_line_part_in_hole,
                 });
             }
             if lead_in {

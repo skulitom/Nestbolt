@@ -113,7 +113,7 @@ impl PreparedRequest {
         progress: impl FnMut(&crate::sheets::Progress, &dyn Fn() -> Option<Layout>),
     ) -> Result<(crate::sheets::SheetResult, CuttingReport)> {
         options.quick_start |= self.quick_start;
-        let allow_part_in_hole = self.common_options.is_none();
+        let allow_part_in_hole = self.common_options.is_none_or(|o| o.allow_part_in_hole);
         let mut result = if let Some(common) = self.common_options.filter(|o| o.search_bonus) {
             crate::sheets::optimize_with_common_bonus(
                 self.leads.as_ref().map_or(&self.job, |p| &p.collision_job),
@@ -147,6 +147,9 @@ impl PreparedRequest {
             report.validation.valid,
             "final layout failed independent validation"
         );
+        if let Some(sheets) = &report.common_line {
+            result.riders = sheets.iter().map(|s| s.parts_in_holes).sum();
+        }
         result.validation.metrics = report.validation.metrics.clone();
         Ok((result, report))
     }

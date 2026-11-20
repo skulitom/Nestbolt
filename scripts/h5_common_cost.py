@@ -1,7 +1,7 @@
 """Three-arm public-CLI common-line cost on the frozen H5/H6 development set.
 
-Normal mode uses the same kerf spacing. Common-line arms disable part-in-hole
-and differ only in the optional search bonus. Report cut savings and material
+Normal mode uses the same kerf spacing. Both common-line arms use the selected
+hole placement policy and differ only in the optional search bonus. Report cut savings and material
 cost separately. This development measurement is not final held-out acceptance.
 """
 import argparse
@@ -29,7 +29,7 @@ BINARY=ROOT/'target/release/nestbolt.exe'
 from h6_material_cost import run, equivalent, equivalent_common
 
 
-def case(row, job, kerf, seed, arm, seconds, work, evidence, cpus):
+def case(row, job, kerf, seed, arm, seconds, work, evidence, cpus, allow_part_in_hole=False):
     cpu=cpus.get()
     key=f"{row['id']}-k{kerf}-s{seed}-{arm}"
     folder=work/key; folder.mkdir()
@@ -38,7 +38,10 @@ def case(row, job, kerf, seed, arm, seconds, work, evidence, cpus):
     try:
         library,request=public_inputs(job,kerf,False)
         if arm=='normal': request.pop('common_line')
-        else: request['common_line']['search_bonus']=arm=='bonus'
+        else:
+            request['common_line']['search_bonus']=arm=='bonus'
+            if allow_part_in_hole:
+                request['common_line']['allow_part_in_hole']=True
         write_json(folder/'library.json',library); write_json(folder/'request.json',request)
         command=[BINARY,'nest','--library',folder/'library.json','--request',folder/'request.json',
                  '--out-dir',folder/'nested','--seconds',seconds,'--seed',seed]
@@ -59,6 +62,7 @@ def case(row, job, kerf, seed, arm, seconds, work, evidence, cpus):
         delta=equivalent(checked['metrics'],report['validation']['metrics'],'metrics')
         if arm!='normal':
             delta=max(delta,equivalent_common(checked['common_line'],report['common_line']))
+        record['parts_in_holes']=report['parts_in_holes']
         record['material']=checked['metrics']['normalized_material']
         record['metrics']=checked['metrics']
         if arm!='normal':
@@ -107,6 +111,7 @@ def main():
     parser.add_argument('--seeds',type=int,nargs='+',default=[0,1,2])
     parser.add_argument('--jobs',nargs='+')
     parser.add_argument('--cpus',type=int,nargs='+',default=[0,2,4,6,8,10,12,14])
+    parser.add_argument('--allow-part-in-hole', action='store_true')
     parser.add_argument('--label',default='development')
     args=parser.parse_args()
     assert 0<args.seconds<=300 and set(args.seeds)<={0,1,2} and len(set(args.seeds))==len(args.seeds)
@@ -125,6 +130,7 @@ def main():
             'manifest':digest(FOLDER/'manifest.json')}
     plan={'scope':__doc__,'started_at':stamp,'product_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
           'guards':guards,'jobs':[r['id'] for r,j in selected], 'kerfs_mm':[0.2,1.5],
+          'common_line_allow_part_in_hole':args.allow_part_in_hole,
           'seeds':args.seeds,'seconds':args.seconds,'cpus':args.cpus,
           'wall_timeout_seconds':args.seconds+180,'validation_timeout_seconds':180,
           'revalidation_numeric_absolute_tolerance':1e-9,
@@ -135,7 +141,7 @@ def main():
     for cpu in args.cpus: cpus.put(cpu)
     rows=[]
     with ThreadPoolExecutor(max_workers=len(args.cpus)) as pool:
-        futures=[pool.submit(case,row,job,kerf,seed,arm,args.seconds,work,evidence,cpus)
+        futures=[pool.submit(case,row,job,kerf,seed,arm,args.seconds,work,evidence,cpus,args.allow_part_in_hole)
                  for row,job in selected for kerf in [0.2,1.5] for seed in args.seeds for arm in ['normal','off','bonus']]
         for future in as_completed(futures):
             row=future.result(); rows.append(row)
@@ -151,6 +157,7 @@ def main():
     lines=['# Common-line search development measurement', '',
            f"{record['valid']}/{record['total']} runs validated. {args.seconds:g} s wall budget, seeds {args.seeds}.",
            'Three arms: normal nesting at the kerf spacing, common-line bonus off, and common-line bonus on.',
+           f"Part-in-hole placement in both common-line arms: {'enabled' if args.allow_part_in_hole else 'disabled'}.",
            'Original frozen geometry, stock, rotations and quantities are unchanged. All raw outcomes are retained; failures are not scored.',
            '', '| Job | Kerf mm | Bonus off savings | Bonus on savings | Bonus material vs normal |',
            '| --- | ---: | ---: | ---: | ---: |']

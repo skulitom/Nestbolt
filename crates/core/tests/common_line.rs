@@ -89,6 +89,7 @@ fn report(job: &Job, layout: &Layout, kerf: f64) -> common_line::Report {
         Options {
             kerf_mm: kerf,
             search_bonus: false,
+            allow_part_in_hole: false,
         },
     )
     .unwrap()
@@ -284,7 +285,8 @@ fn minimum_length_spacing_and_physical_units_are_enforced() {
         assert!(
             Options {
                 kerf_mm: kerf,
-                search_bonus: false
+                search_bonus: false,
+                allow_part_in_hole: false,
             }
             .validate()
             .is_err()
@@ -298,7 +300,8 @@ fn minimum_length_spacing_and_physical_units_are_enforced() {
             &HashMap::new(),
             Options {
                 kerf_mm: 0.2,
-                search_bonus: false
+                search_bonus: false,
+                allow_part_in_hole: false,
             }
         )
         .unwrap_err()
@@ -314,7 +317,8 @@ fn minimum_length_spacing_and_physical_units_are_enforced() {
             &HashMap::new(),
             Options {
                 kerf_mm: 0.2,
-                search_bonus: false
+                search_bonus: false,
+                allow_part_in_hole: false,
             }
         )
         .is_err()
@@ -342,6 +346,7 @@ fn holes_sheet_edges_and_other_sheets_are_not_shared() {
         Options {
             kerf_mm: 0.2,
             search_bonus: false,
+            allow_part_in_hole: false,
         },
     )
     .unwrap();
@@ -373,13 +378,71 @@ fn holes_sheet_edges_and_other_sheets_are_not_shared() {
             &HashMap::new(),
             Options {
                 kerf_mm: 0.2,
-                search_bonus: false
+                search_bonus: false,
+                allow_part_in_hole: false,
             }
         )
         .unwrap_err()
         .to_string()
         .contains("part-in-hole disabled")
     );
+}
+
+#[test]
+fn opted_in_inserts_share_only_their_outer_edges_and_keep_wall_clearance() {
+    for kerf in [0.2, 1.5] {
+        let (mut job, mut layout) = fixture(90.0, 55.0, kerf, 0.0, false, 0.0);
+        job.parts[0].quantity = 1;
+        job.parts[0].geometry[0]
+            .holes
+            .push(rectangle(8.0, 8.0, 64.0, 35.0).outer);
+        let mut insert = job.parts[0].clone();
+        insert.id = "insert".into();
+        insert.quantity = 2;
+        insert.geometry = vec![rectangle(0.0, 0.0, 18.0, 18.0)];
+        job.parts.push(insert);
+        layout.placements.truncate(1);
+        for copy in 0..2 {
+            let mut placed = layout.placements[0].clone();
+            placed.part_id = "insert".into();
+            placed.copy_index = copy;
+            placed.transform.translation =
+                [208.0 + kerf + f64::from(copy) * (18.0 + kerf), 208.0 + kerf];
+            layout.placements.push(placed);
+        }
+        let options = Options {
+            kerf_mm: kerf,
+            search_bonus: false,
+            allow_part_in_hole: true,
+        };
+        let r = common_line::analyze(&job, &layout, &HashMap::new(), options)
+            .unwrap()
+            .remove(0);
+        assert_eq!(
+            (
+                r.contours_without_common,
+                r.shared_edges.len(),
+                r.paths.len()
+            ),
+            (4, 1, 1)
+        );
+        assert!((r.cut_length_without_common_mm - 632.0).abs() < 1e-8);
+        assert!((r.saved_length_mm - 18.0).abs() < 1e-8);
+        let edge = &r.shared_edges[0];
+        for owner in &edge.owners {
+            assert!(owner.part_copy.starts_with("insert#"));
+        }
+        for insert in &layout.placements[1..] {
+            let boundary =
+                offset_boundary(&job.parts[1].geometry[0], &insert.transform, kerf / 2.0);
+            for endpoint in [edge.from_mm, edge.to_mm] {
+                assert!(point_distance(endpoint, &boundary) < 0.000003);
+            }
+        }
+        layout.placements[1].transform.translation[0] -= kerf / 2.0;
+        let error = common_line::analyze(&job, &layout, &HashMap::new(), options).unwrap_err();
+        assert!(error.to_string().contains("independently valid layout"));
+    }
 }
 
 #[test]
@@ -412,6 +475,7 @@ fn curved_portions_are_counted_but_never_polygonized_into_common_lines() {
         Options {
             kerf_mm: 0.2,
             search_bonus: false,
+            allow_part_in_hole: false,
         },
     )
     .unwrap()

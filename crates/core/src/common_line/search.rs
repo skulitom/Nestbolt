@@ -225,7 +225,7 @@ impl Bonus<'_> {
                     let proposed = if checked.valid
                         && material.is_some_and(|m| m <= baseline_material * 1.01)
                     {
-                        // Also enforces no parts in holes, using original curves.
+                        // Check shared cuts and the chosen hole placement policy on source curves.
                         let reports = analyze(self.job, &trial, self.outlines, self.options);
                         clock.validated(self.job, &trial);
                         reports.ok().map(|r| (checked, totals(&r).1))
@@ -357,6 +357,7 @@ mod tests {
             options: Options {
                 kerf_mm: 0.2,
                 search_bonus: true,
+                allow_part_in_hole: false,
             },
         }
         .refine(
@@ -387,6 +388,7 @@ mod tests {
             Options {
                 kerf_mm: 0.2,
                 search_bonus: true,
+                allow_part_in_hole: false,
             },
         )
         .unwrap();

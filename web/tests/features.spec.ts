@@ -13,7 +13,7 @@ const fixture = (name: string) => fileURLToPath(new URL(`./fixtures/${name}`, im
 
 type Layout = { sheets: { id: string; stock_id: string }[];
   placements: { part_id: string; transform: { rotation_radians: number; mirrored: boolean } }[] };
-type ProjectFile = { request: { quick_start?: boolean; common_line?: { kerf_mm: number; search_bonus?: boolean }; spacing_mm: number; edge_spacing_mm: number; sheets: { count?: number | null }[] };
+type ProjectFile = { request: { quick_start?: boolean; common_line?: { kerf_mm: number; search_bonus?: boolean; allow_part_in_hole?: boolean }; spacing_mm: number; edge_spacing_mm: number; sheets: { count?: number | null }[] };
   result: { layout: Layout; validation: { valid: boolean } } };
 
 /** Read one entry of the app's stored (uncompressed) ZIP. */
@@ -267,6 +267,20 @@ test('small parts are placed inside the holes of larger parts', async ({ page })
   await nest(page);
   await expect(page.locator('.summary')).toContainText('3/3');
   expect(await metric(page, 'In holes')).toBeGreaterThanOrEqual(2);
+});
+
+test('common-line allows two inserts in a frame when hole placement is enabled', async ({ page }) => {
+  const sheet = await setUp(page, [example('parts.svg')], { 'parts-1': 1, 'parts-2': 2 }, 90, 70);
+  await sheet.getByLabel('Margin').fill('0');
+  await sheet.getByLabel('Count').fill('1');
+  await page.getByLabel('Common-line cutting', { exact: true }).check();
+  await expect(page.getByLabel('Nest parts inside holes')).not.toBeChecked();
+  await page.getByLabel('Nest parts inside holes').check();
+  await page.getByLabel('Search for more shared cuts').check();
+  await page.getByLabel('Kerf mm', { exact: true }).fill('0.2');
+  await nest(page);
+  expect(await metric(page, 'In holes')).toBe(2);
+  expect((await project(page)).request.common_line?.allow_part_in_hole).toBe(true);
 });
 
 test('a remnant outline from a drawing is used as the sheet', async ({ page }) => {

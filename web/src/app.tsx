@@ -515,7 +515,8 @@ export function App() {
               <label>Kerf <input type="number" min={0.05} step={0.05} required value={request.common_line.kerf_mm} onInput={(e) => update({ common_line: { ...request.common_line!, kerf_mm: num(e) }, ...(lead ? { lead_in: { ...lead, kerf_mm: num(e) } } : {}) })} /> mm</label>
               <label class="check"><input type="checkbox" checked={!!request.common_line.search_bonus} onChange={(e) => update({ common_line: { ...request.common_line!, search_bonus: (e.target as HTMLInputElement).checked } })} /> Search for more shared cuts</label>
               <p class="hint">Use part of the search time to align shared cuts. Compare cutting savings and material use before cutting.</p>
-              <p class="hint">Enter the cut width (at least 0.05 mm). Part spacing uses this kerf; parts stay outside holes. Shared straight cuts go on COMMON with compensation included.</p>
+              <label class="check"><input type="checkbox" checked={!!request.common_line.allow_part_in_hole} onChange={(e) => update({ common_line: { ...request.common_line!, allow_part_in_hole: (e.target as HTMLInputElement).checked } })} /> Nest parts inside holes</label>
+              <p class="hint">Part spacing uses the entered kerf (at least 0.05 mm), including inside holes. Only straight outer edges can share a compensated cut on COMMON.</p>
               <p class="hint">CUT keeps the closed outlines. In CAM, replace their shared sections with COMMON and turn off kerf compensation for COMMON.</p>
             </> : null}
             {library?.lightburn ? <p class="hint">For common-line cutting, export the cut outlines from LightBurn as SVG or DXF and import them here.</p> : null}
