@@ -1634,6 +1634,7 @@ fn dxf_pieces(
         let e = &entities[i];
         let style = dxf_style(e, parent_style, layers);
         let mut pieces = vec![];
+        let paper_space = e.get(67) == Some(1.0);
         let ignored = if style.hidden {
             Some("hidden DXF entity or layer".into())
         } else if matches!(
@@ -1650,7 +1651,7 @@ fn dxf_pieces(
                 | "IMAGE"
         ) {
             Some("not a cut outline; explode/convert it to closed paths in the source drawing if it must be cut".into())
-        } else if e.get(67) == Some(1.0) {
+        } else if paper_space {
             Some("paper-space entity; move cut outlines to model space".into())
         } else {
             None
@@ -1696,7 +1697,9 @@ fn dxf_pieces(
                 i += 1;
                 continue;
             }
-            "INSERT" => {
+            // The block definition can also be used in model space. Its children
+            // need not repeat the paper-space flag of this particular instance.
+            "INSERT" if !paper_space => {
                 let name = e.text(2).unwrap_or("");
                 if let Some(block) = blocks.get(name) {
                     let (sx, sy) = (e.get(41).unwrap_or(1.0), e.get(42).unwrap_or(1.0));
@@ -2160,6 +2163,28 @@ mod tests {
             (b[1] - 40.0).abs() < 0.01 && (b[3] - 50.0).abs() < 0.01,
             "{b:?}"
         );
+    }
+
+    #[test]
+    fn paper_space_block_does_not_add_model_cut_paths() {
+        let dxf = "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n\
+            0\nSECTION\n2\nBLOCKS\n0\nBLOCK\n2\nBOLT\n\
+            0\nLWPOLYLINE\n8\nCUT\n90\n4\n70\n1\n\
+            10\n0\n20\n0\n10\n10\n20\n0\n10\n10\n20\n8\n10\n0\n20\n8\n0\nENDBLK\n\
+            0\nBLOCK\n2\nDETAIL\n0\nINSERT\n2\nBOLT\n10\n2\n20\n4\n0\nENDBLK\n0\nENDSEC\n\
+            0\nSECTION\n2\nENTITIES\n0\nINSERT\n2\nDETAIL\n10\n20\n20\n30\n\
+            0\nINSERT\n8\nTITLE\n67\n1\n2\nDETAIL\n10\n100\n20\n120\n0\nENDSEC\n0\nEOF\n";
+        let import = import_dxf(dxf, &Options::default()).unwrap();
+        assert_eq!(import.parts.len(), 1);
+        assert_eq!(import.parts[0].bounds, [22.0, 34.0, 32.0, 42.0]);
+        let title = import
+            .report
+            .layers
+            .iter()
+            .find(|l| l.name == "TITLE")
+            .unwrap();
+        assert_eq!(title.entities, 1);
+        assert_eq!(title.selected_entities, 0);
     }
 
     #[test]

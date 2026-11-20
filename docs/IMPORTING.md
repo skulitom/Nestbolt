@@ -143,6 +143,10 @@ are applied to the source curves. Malformed POLYLINE sequences require a correct
 export. Text, dimensions, hatches, leaders, solids, attributes and images are
 reported but are not cutting geometry. Bend, extent and construction layers,
 hidden entities and paper-space geometry are also reported and ignored.
+An INSERT on a drawing layout is counted once and skipped as a whole. If the
+same block also appears in model space, that instance supplies its cutting
+geometry. DXF group 67 identifies the space of each instance.
+[Autodesk entity group codes](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-3610039E-27D1-4E23-B6D3-7E60B22BB5BD.htm).
 The block fields follow Autodesk's [BLOCK](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-66D32572-005A-4E23-8B8B-8726E8C14302.htm)
 and [INSERT](https://help.autodesk.com/cloudhelp/2018/ENU/AutoCAD-DXF/files/GUID-28FA4CFB-9D5E-4880-9F11-36C97578252F.htm)
 references; the exact-arc tests cover the composed placement.

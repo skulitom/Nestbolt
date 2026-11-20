@@ -51,3 +51,20 @@ Python environment. Supply `--work-dir` if the generated sheets have moved.
 
 The [frozen H2 decision](h2-gate-decision-20261020.md) still applies. Its
 maximum exact-import score is 23 of 25 against a 95% requirement.
+
+## Paper-space block instances
+
+A separate R2007 drawing written with ezdxf contains the same nested block
+once in model space and once in Layout1. Each instance references a 10 × 8 mm
+rectangle on the CUT layer. The previous CLI returned two parts. The updated
+CLI, MCP and WebAssembly each return the model-space rectangle with bounds
+(22, 34) to (32, 42) mm and report the skipped title-block instance. The Rust
+regression reproduces the original two-part failure.
+
+All 246 successful [training imports](h2-import-training-20261120T131255Z.json)
+and 36 successful [robustness imports](h2-import-robustness-20261120T131324Z.json)
+produced byte-identical libraries before and after this fix. Every file kept
+its import or rejection status. Two previously rejected real DXFs now report
+fewer open contours after their drawing-layout instances are excluded. The
+counts dropped from 54 to 45 for `api-cw750-details.dxf` and from six to three
+for `byblock-bylayer.dxf`.

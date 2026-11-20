@@ -8,6 +8,8 @@ and [offcut measurements](https://github.com/skulitom/Nestbolt/pull/19) are incl
 A [follow-up DXF import check](../benchmarks/results/h2-polyline-coordinates-20261120.md)
 confirms 2D and 3D polylines retain their separate positions inside inserted
 blocks. All 257 training-vector outcomes and 183 robustness statuses replay.
+Paper-space block instances are excluded from cutting geometry. A nested block
+shared by a model and a drawing layout now produces just the model-space part.
 All 5,138 exported contours matched within 0.003302 mm. An independent DXF
 reader accepted all 246 exported sheets without repairs.
 
