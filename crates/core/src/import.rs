@@ -702,28 +702,6 @@ fn assemble(
 
 // ---------------------------------------------------------------- SVG
 
-fn length_mm(value: &str, user: f64) -> Option<f64> {
-    let length: svgtypes::Length = value.parse().ok()?;
-    use svgtypes::LengthUnit as U;
-    let n = length.number;
-    Some(match length.unit {
-        U::None | U::Px => n * 25.4 / 96.0,
-        U::Mm => n,
-        U::Cm => n * 10.0,
-        U::In => n * 25.4,
-        U::Pt => n * 25.4 / 72.0,
-        U::Pc => n * 25.4 / 6.0,
-        U::Em | U::Ex | U::Percent => return None,
-    })
-    .map(|mm| {
-        if length.unit == U::None && user != 25.4 / 96.0 {
-            n * user
-        } else {
-            mm
-        }
-    })
-}
-
 fn svg_transform(value: Option<&str>) -> Result<Affine> {
     let Some(value) = value else {
         return Ok(Affine::IDENTITY);
@@ -940,8 +918,12 @@ fn svg_path(d: &str, source: &str) -> Result<Vec<Piece>> {
     Ok(pieces)
 }
 
-fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
-    let num = |name: &str| node.attribute(name).and_then(|v| v.parse::<f64>().ok());
+fn svg_shape(
+    node: &roxmltree::Node,
+    source: &str,
+    page: &svg_viewport::Page,
+) -> Result<Vec<Piece>> {
+    let length = |name| page.length(*node, name);
     let piece = |start: Point, segments: Vec<Segment>| Piece {
         start,
         segments,
@@ -950,13 +932,19 @@ fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
     Ok(match node.tag_name().name() {
         "path" => svg_path(node.attribute("d").unwrap_or(""), source)?,
         "rect" => {
-            let (x, y) = (num("x").unwrap_or(0.0), num("y").unwrap_or(0.0));
-            let (w, h) = (num("width").unwrap_or(0.0), num("height").unwrap_or(0.0));
+            let (x, y) = (length("x")?.unwrap_or(0.0), length("y")?.unwrap_or(0.0));
+            let (w, h) = (
+                length("width")?.unwrap_or(0.0),
+                length("height")?.unwrap_or(0.0),
+            );
             if w <= 0.0 || h <= 0.0 {
                 return Ok(vec![]);
             }
-            let rx = num("rx").or(num("ry")).unwrap_or(0.0).clamp(0.0, w / 2.0);
-            let ry = num("ry").or(num("rx")).unwrap_or(0.0).clamp(0.0, h / 2.0);
+            let (rx, ry) = (length("rx")?, length("ry")?);
+            let (rx, ry) = (
+                rx.or(ry).unwrap_or(0.0).clamp(0.0, w / 2.0),
+                ry.or(rx).unwrap_or(0.0).clamp(0.0, h / 2.0),
+            );
             if rx == 0.0 || ry == 0.0 {
                 vec![piece(
                     [x, y],
@@ -997,12 +985,13 @@ fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
             }
         }
         "circle" | "ellipse" => {
-            let (cx, cy) = (num("cx").unwrap_or(0.0), num("cy").unwrap_or(0.0));
+            let (cx, cy) = (length("cx")?.unwrap_or(0.0), length("cy")?.unwrap_or(0.0));
             let (rx, ry) = if node.tag_name().name() == "circle" {
-                let r = num("r").unwrap_or(0.0);
+                let r = length("r")?.unwrap_or(0.0);
                 (r, r)
             } else {
-                (num("rx").unwrap_or(0.0), num("ry").unwrap_or(0.0))
+                let (rx, ry) = (length("rx")?, length("ry")?);
+                (rx.or(ry).unwrap_or(0.0), ry.or(rx).unwrap_or(0.0))
             };
             if rx <= 0.0 || ry <= 0.0 {
                 return Ok(vec![]);
@@ -1019,8 +1008,8 @@ fn svg_shape(node: &roxmltree::Node, source: &str) -> Result<Vec<Piece>> {
             )]
         }
         "line" => {
-            let a = [num("x1").unwrap_or(0.0), num("y1").unwrap_or(0.0)];
-            let b = [num("x2").unwrap_or(0.0), num("y2").unwrap_or(0.0)];
+            let a = [length("x1")?.unwrap_or(0.0), length("y1")?.unwrap_or(0.0)];
+            let b = [length("x2")?.unwrap_or(0.0), length("y2")?.unwrap_or(0.0)];
             vec![piece(a, vec![Segment::Line { to: b }])]
         }
         "polygon" | "polyline" => {
@@ -1080,7 +1069,12 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
     let rules = svg_style::stylesheet(&document)?;
     let mut drawing = Drawing::default();
     let mut counter = 0;
-    let mut stack = vec![(root, Affine::IDENTITY, 0_u32, svg_style::Style::default())];
+    let mut stack = vec![(
+        root,
+        Ok(Affine::IDENTITY),
+        0_u32,
+        svg_style::Style::default(),
+    )];
     while let Some((node, parent, depth, parent_style)) = stack.pop() {
         if !node.is_element() {
             continue;
@@ -1111,9 +1105,9 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         }
         let local = svg_transform(node.attribute("transform"))?;
         let ctm = if node == root {
-            Affine::IDENTITY
+            Ok(Affine::IDENTITY)
         } else {
-            local.then(parent)
+            parent.map(|p| local.then(p))
         };
         if name == "use" {
             ensure!(depth < 16, "SVG <use> nesting is too deep");
@@ -1122,15 +1116,11 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                 .or(node.attribute("href"))
                 .unwrap_or("");
             if let Some(target) = href.strip_prefix('#').and_then(|id| ids.get(id)) {
-                let x = node
-                    .attribute("x")
-                    .and_then(|v| v.parse().ok())
-                    .unwrap_or(0.0);
-                let y = node
-                    .attribute("y")
-                    .and_then(|v| v.parse().ok())
-                    .unwrap_or(0.0);
-                let shift = Affine::translation([x, y]).then(ctm);
+                let shift = ctm.and_then(|parent| {
+                    page.use_translation(node)
+                        .map(|offset| offset.then(parent))
+                        .map_err(|e| e.to_string())
+                });
                 stack.push((*target, shift, depth + 1, style));
             } else {
                 warnings.push(format!("unresolved <use> reference {href:?}"));
@@ -1141,17 +1131,22 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         let source = node
             .attribute("id")
             .map_or_else(|| format!("{name}-{counter}"), str::to_owned);
-        let total = ctm.then(page);
-        let mut pieces = vec![];
-        for piece in svg_shape(&node, &source)? {
-            let (start, segments) = map_segments(piece.start, &piece.segments, &total);
-            pieces.push(Piece {
-                start,
-                segments,
-                source: piece.source,
-            });
-        }
-        if !pieces.is_empty() || matches!(name, "text" | "image" | "foreignObject") {
+        let pieces = svg_shape(&node, &source, &page).and_then(|mut pieces| {
+            if pieces.is_empty() {
+                return Ok(pieces);
+            }
+            let total = ctm
+                .as_ref()
+                .map_err(|error| anyhow::anyhow!("{error}"))?
+                .then(page.transform);
+            for piece in &mut pieces {
+                (piece.start, piece.segments) = map_segments(piece.start, &piece.segments, &total);
+            }
+            Ok(pieces)
+        });
+        if !matches!(&pieces, Ok(pieces) if pieces.is_empty())
+            || matches!(name, "text" | "image" | "foreignObject")
+        {
             let ignored = if style.hidden {
                 Some("hidden SVG entity".into())
             } else if matches!(name, "text" | "image" | "foreignObject") {
@@ -1173,7 +1168,7 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             continue;
         }
         for child in node.children().collect::<Vec<_>>().into_iter().rev() {
-            stack.push((child, ctm, depth, style.clone()));
+            stack.push((child, ctm.clone(), depth, style.clone()));
         }
     }
     drawing.finish(options, warnings, report, inspect_only)
@@ -1802,7 +1797,7 @@ fn dxf_pieces(
             color: style.color,
             kind: e.kind.into(),
             ignored,
-            pieces,
+            pieces: Ok(pieces),
         });
         i += 1;
     }

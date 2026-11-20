@@ -64,6 +64,17 @@ aspect ratio. With neither, the configured SVG user-unit scale applies (96 DPI
 by default). Invalid or relative page sizes need an absolute size in mm or pixels.
 Nested SVG viewports must be flattened into a single page first.
 
+SVG rectangles, circles, ellipses, lines and `<use>` offsets accept unitless
+coordinates, pixels, mm, cm, quarter-millimetres (`Q`), inches, points and picas.
+For example, `r="0.125in"` and `r="12px"` describe the same circle before group
+and page transforms. Percentage positions and dimensions use the corresponding
+viewBox or viewport axis. A circle's percentage radius uses the normalized
+diagonal. If a selected shape needs a font-relative length or a percentage
+without a known page dimension, the error identifies the attribute. Convert
+the shape to a path or set the dimension explicitly before importing.
+[SVG coordinate units](https://www.w3.org/TR/SVG2/coords.html#Units),
+[CSS absolute lengths](https://www.w3.org/TR/css-values-4/#absolute-lengths).
+
 Page clipping does not trim cutting paths. A `slice` mapping that extends beyond
 the page warns that complete paths were imported; convert visible edges into
 closed paths if clipping is intended to define the cut.
