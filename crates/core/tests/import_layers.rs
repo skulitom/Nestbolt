@@ -207,6 +207,82 @@ fn insert_extrusion_mirrors_its_position_after_local_scale_and_rotation() {
     }
 }
 
+/// A paper-space INSERT places its block in paper space too, as GDAL reports
+/// it, so neither the INSERT nor the block's entities are cut.
+#[test]
+fn paper_space_insert_ignores_its_block() {
+    let blocks = "0\nBLOCK\n2\nA\n10\n0\n20\n0\n0\nCIRCLE\n8\n0\n10\n0\n20\n0\n40\n5\n0\nENDBLK\n";
+    let entities =
+        "0\nINSERT\n8\nCUT\n2\nA\n10\n20\n20\n0\n0\nINSERT\n8\nCUT\n67\n1\n2\nA\n10\n50\n20\n0\n";
+    let r = import_dxf(&dxf(entities, blocks), &Options::default()).unwrap();
+    assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+    let nestbolt_core::curves::Segment::Arc { center, .. } = r.parts[0].outer.segments[0] else {
+        panic!("exact circle lost")
+    };
+    assert_eq!(center, [20.0, 0.0]);
+    for kind in ["INSERT", "CIRCLE"] {
+        let warning = format!(
+            "ignored 1 {kind} on layer \"CUT\": paper-space entity; move cut outlines to model space"
+        );
+        assert!(r.warnings.contains(&warning), "{:?}", r.warnings);
+    }
+    let cut = r.report.layers.iter().find(|l| l.name == "CUT").unwrap();
+    assert_eq!((cut.entities, cut.selected_entities), (4, 1));
+}
+
+/// A MINSERT places a copy of its block at every row and column, spaced along
+/// its rotated axes without scaling, as in ezdxf's `Insert.multi_insert` and
+/// GDAL's `additional-entities.dxf` test. A count of 0 reads as 1, and a
+/// spacing of 0 keeps one copy along its axis.
+#[test]
+fn minsert_places_a_copy_at_every_grid_position() {
+    let blocks = "0\nBLOCK\n2\nA\n10\n0\n20\n0\n0\nCIRCLE\n8\n0\n10\n0\n20\n0\n40\n5\n0\nENDBLK\n";
+    // 3 columns 30 apart and 2 rows 40 apart, turned 90 degrees: columns run
+    // along +Y and rows along -X.
+    let grid = "0\nINSERT\n8\nCUT\n2\nA\n10\n100\n20\n50\n41\n2\n42\n2\n50\n90\n\
+        70\n3\n71\n2\n44\n30\n45\n40\n";
+    // No columns, and 3 rows with no spacing between them: one copy.
+    let single = "0\nINSERT\n8\nCUT\n2\nA\n10\n300\n20\n0\n70\n0\n71\n3\n44\n30\n45\n0\n";
+    let r = import_dxf(
+        &dxf(&format!("{grid}{single}"), blocks),
+        &Options::default(),
+    )
+    .unwrap();
+    let circles: Vec<_> = r
+        .parts
+        .iter()
+        .map(|p| {
+            let nestbolt_core::curves::Segment::Arc { center, radii, .. } = p.outer.segments[0]
+            else {
+                panic!("exact circle lost")
+            };
+            (center, radii[0])
+        })
+        .collect();
+    let expected = [
+        ([100.0, 50.0], 10.0),
+        ([100.0, 80.0], 10.0),
+        ([100.0, 110.0], 10.0),
+        ([60.0, 50.0], 10.0),
+        ([60.0, 80.0], 10.0),
+        ([60.0, 110.0], 10.0),
+        ([300.0, 0.0], 5.0),
+    ];
+    assert_eq!(circles.len(), expected.len(), "{:?}", r.warnings);
+    for (center, radius) in expected {
+        assert!(
+            circles
+                .iter()
+                .any(|(c, rad)| (c[0] - center[0]).abs() < 1e-9
+                    && (c[1] - center[1]).abs() < 1e-9
+                    && (rad - radius).abs() < 1e-9),
+            "{center:?} missing from {circles:?}"
+        );
+    }
+    let cut = r.report.layers.iter().find(|l| l.name == "CUT").unwrap();
+    assert_eq!(cut.entities, 2 + expected.len());
+}
+
 #[test]
 fn malformed_polyline_has_a_reexport_fix() {
     let entity = "0\nPOLYLINE\n8\nCUT\n70\n1\n0\nVERTEX\n10\n0\n20\n0\n";
@@ -215,5 +291,19 @@ fn malformed_polyline_has_a_reexport_fix() {
             .unwrap_err()
             .to_string()
             .contains("re-export")
+    );
+}
+
+#[test]
+fn incomplete_polyline_in_paper_block_keeps_model_geometry() {
+    let block = "0\nBLOCK\n2\nPAGE\n0\nPOLYLINE\n8\n0\n0\nVERTEX\n10\n12\n20\n5\n0\nENDBLK\n";
+    let entities = "0\nCIRCLE\n8\nCUT\n10\n5\n20\n5\n40\n3\n0\nINSERT\n8\nLAYOUT\n67\n1\n2\nPAGE\n";
+    let import = import_dxf(&dxf(entities, block), &Options::default()).unwrap();
+    assert_eq!(import.parts.len(), 1);
+    assert!(
+        import
+            .warnings
+            .iter()
+            .any(|w| w.contains("POLYLINE") && w.contains("paper-space"))
     );
 }
