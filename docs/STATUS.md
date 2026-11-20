@@ -2,6 +2,8 @@
 
 ## v1.1 — real shop files
 
+**2026-11-20.** SVG import now preserves a 6.35 mm cutout that disappeared when the circle was drawn in inches. Chromium and Firefox confirmed its bounds, and both cutting formats retained the hole within the 0.01 mm export tolerance. All 440 development-vector outcomes matched the previous importer. H2 remains open, with 75% of milestone weight complete. [Drawing and measurements](../benchmarks/results/h2-svg-lengths-20261120/README.md)
+
 **H5 complete on 2026-11-20.** With both **Nest parts inside holes** and **Search for more shared cuts** enabled, the 13-job development comparison saved 13.031% of cutting distance at 0.2 mm kerf and 13.101% at 1.5 mm. All 234 layouts validated. Each of the 26 job/kerf pairs met the +1% material ceiling against ordinary nesting at matching spacing. The largest increase was +0.0125%. Common-line mode reserves holes by default. Completed milestone weight is **75%**. H2 remains open under decision 8. [Per-job results, geometry and comparison with Deepnest](../benchmarks/results/h5-rigid-host-rows-20261120.md).
 
 **2026-11-20.** Repacking frames together with their inserts kept all eight material changes in the four-job common-line pilot within +1%. All 72 layouts validated. The prior rectangle-only pilot exceeded the laser large-plate limit at +1.375%. H5 remains open pending the 13-job confirmation. [Pilot scores and independent geometry checks](../benchmarks/results/h5-rigid-host-pilot-20261120.md).
