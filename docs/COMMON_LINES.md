@@ -75,3 +75,5 @@ cut savings. Both mechanical jobs exceed the +1% material limit, up to +6.51%.
 The native Deepnest SVG comparison is also recorded, including its four
 no-layout results. These development findings make no production quality claim
 or new held-out claim.
+
+With **Nest parts inside holes** and **Search for more shared cuts** enabled, all four mechanical job/kerf pairs met the material limit. The mixed-bracket laser job used 1.417% more material. Set-wide median cut savings were 13.031% at 0.2 mm and 13.101% at 1.5 mm. [Opt-in comparison](../benchmarks/results/h5-opt-in-holes-20261120.md).

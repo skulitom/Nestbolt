@@ -111,8 +111,11 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   cutting files. See [lead settings and CAM setup](docs/LEAD_INS.md).
 - **Common-line cutting**, optional and still under development: identify shared
   straight cuts with kerf compensation. It can reduce cutting distance while
-  increasing material use; two development jobs exceed the planned material
-  limit. The export needs CAM preparation to avoid cutting shared sections twice.
+  increasing material use. On `main`, **Nest parts inside holes** allows inserts
+  in a frame while keeping kerf clearance. With this option and the search
+  bonus enabled, both mechanical jobs met the material limit. A mixed-bracket
+  job exceeded it at 0.2 mm kerf. The default still reserves holes. Prepare
+  shared sections in CAM to avoid cutting them twice.
   See [common-line setup and limitations](docs/COMMON_LINES.md).
 - **Check** every result with an independent Clipper2 validator (overlap,
   spacing, containment, rotations, quantities). Invalid layouts are never returned.

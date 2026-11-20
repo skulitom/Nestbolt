@@ -1,0 +1,12 @@
+{
+  "scope": "Independent review of the opt-in H5 measurement on 13 frozen development jobs.",
+  "matrix": "Require all 234 planned outcomes. Check archive and member SHA-256 for every row. Compare the median of the three seeds in each arm. Independently score the 13 bonus-arm cut savings at each kerf and each job-specific ratio of bonus to ordinary material medians.",
+  "cut_savings_floor": 0.1,
+  "maximum_material_growth": 0.01,
+  "mechanical": "For both mechanical jobs, all seeds, arms and kerfs, reconstruct every transformed true-size solid from the input job. Check same-sheet distances, containment inside host holes, the minimum distance to hole walls, and the reported number of distinct nested inserts.",
+  "common_geometry": "For each recorded shared edge in both mechanical common-line arms, check that the whole segment matches half-kerf offsets of straight outer edges belonging to the two named part copies. A hole or sheet edge cannot supply an owner.",
+  "exports": "Match every CUT vertex to the original solid and its holes within 0.000003 mm. Check every CUT and COMMON segment and its multiplicity across SVG and DXF. Audit each DXF with ezdxf, reject duplicate shared length and compare the exported shared lines to the verified source offsets. Coordinates in exports have six decimals.",
+  "native": "Replay the original two LightBurn coupon layouts with the opt-in on. Compare current SVG bytes and DXF units, layer colours, endpoints and multiplicities to the October native inputs.",
+  "comparator": "Use the already completed zero-spacing native Deepnest measurements for these same 13 inputs. Retain failures separately. A three-seed comparison requires three valid outcomes.",
+  "held_out_geometry_read": false
+}
