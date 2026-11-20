@@ -17,6 +17,15 @@ Keep computational geometry in `core`, transport handling in `cli`/`mcp`/`wasm`,
 and the independent validator separate from jagua-rs. Tests should target failure
 modes and geometric invariants. Keep performance claims tied to frozen results.
 
+Rust applications that import and export drawings can build `nestbolt-core`
+with `default-features = false` on their Cargo dependency. This provides
+`curves`, `import`, `export` and `lightburn` without compiling Jagua or Sparrow.
+Enable the default `search` feature to use the nesting and project APIs.
+Cargo combines features when multiple callers depend on the same crate in one
+build. A Git dependency still fetches the repository. Run
+`cargo test -p nestbolt-core --locked --no-default-features` to check the
+drawing-only build.
+
 Workflows and bundle scripts are ordinary source files. There is no extension
 allowlist; any future repository guard must allow `.github/workflows/*.yml`, MCPB
 scripts/manifests, schemas and notices. Never publish releases or registry entries

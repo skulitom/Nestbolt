@@ -1,5 +1,4 @@
 use nestbolt_core::import::{Options, import_svg};
-use nestbolt_core::project::Library;
 
 fn drawing(gap: f64) -> String {
     format!(
@@ -106,8 +105,10 @@ fn empty_import_error_names_the_location_and_fix() {
     assert!(err.contains("Close gaps up to 0.200000 mm"), "{err}");
 }
 
+#[cfg(feature = "search")]
 #[test]
 fn library_rejects_partial_geometry_until_repaired_or_excluded() {
+    use nestbolt_core::project::Library;
     let files = vec![("gap.svg".into(), drawing(0.05))];
     let err = Library::import(&files, &Options::default())
         .unwrap_err()

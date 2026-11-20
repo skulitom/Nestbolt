@@ -7,6 +7,10 @@ rust-version.workspace = true
 license.workspace = true
 publish.workspace = true
 
+[features]
+default = ["search"]
+search = ["dep:jagua-rs", "dep:rand", "dep:rand_distr", "dep:slotmap", "dep:sparrow"]
+
 [dependencies]
 anyhow.workspace = true
 clipper2-rust.workspace = true
@@ -14,17 +18,109 @@ encoding_rs.workspace = true
 roxmltree.workspace = true
 schemars.workspace = true
 svgtypes.workspace = true
-jagua-rs.workspace = true
+jagua-rs = { workspace = true, optional = true }
 nestbolt-validator.workspace = true
 serde.workspace = true
 serde_json.workspace = true
-rand.workspace = true
-rand_distr.workspace = true
-slotmap.workspace = true
-sparrow.workspace = true
+rand = { workspace = true, optional = true }
+rand_distr = { workspace = true, optional = true }
+slotmap = { workspace = true, optional = true }
+sparrow = { workspace = true, optional = true }
 
 [dev-dependencies]
 proptest.workspace = true
 
 [lints]
 workspace = true
+
+[[example]]
+name = "contour_starts"
+required-features = ["search"]
+
+[[example]]
+name = "export_palette"
+required-features = ["search"]
+
+[[example]]
+name = "fidelity"
+required-features = ["search"]
+
+[[example]]
+name = "lead_coupons"
+required-features = ["search"]
+
+[[example]]
+name = "project_job"
+required-features = ["search"]
+
+[[example]]
+name = "public_schemas"
+required-features = ["search"]
+
+[[example]]
+name = "rectangle_start"
+required-features = ["search"]
+
+[[example]]
+name = "sheet_schedule"
+required-features = ["search"]
+
+[[test]]
+name = "common_line"
+required-features = ["search"]
+
+[[test]]
+name = "compact"
+required-features = ["search"]
+
+[[test]]
+name = "compress"
+required-features = ["search"]
+
+[[test]]
+name = "construct"
+required-features = ["search"]
+
+[[test]]
+name = "hole_index_regression"
+required-features = ["search"]
+
+[[test]]
+name = "import_habits"
+required-features = ["search"]
+
+[[test]]
+name = "import_sheet"
+required-features = ["search"]
+
+[[test]]
+name = "inspection"
+required-features = ["search"]
+
+[[test]]
+name = "lead_lightburn"
+required-features = ["search"]
+
+[[test]]
+name = "lead_surfaces"
+required-features = ["search"]
+
+[[test]]
+name = "optimize"
+required-features = ["search"]
+
+[[test]]
+name = "project_lightburn"
+required-features = ["search"]
+
+[[test]]
+name = "repair"
+required-features = ["search"]
+
+[[test]]
+name = "search_fuzz"
+required-features = ["search"]
+
+[[test]]
+name = "strip"
+required-features = ["search"]
