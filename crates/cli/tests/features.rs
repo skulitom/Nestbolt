@@ -771,12 +771,15 @@ fn closed_retraces_keep_holes_and_report_preserved_overlaps() {
         value["imports"][0]["report"]["cleanup"]["closed_path_overlaps_preserved"],
         2
     );
-    assert!(
-        value["warnings"]
-            .as_array()
-            .unwrap()
-            .iter()
-            .any(|w| w.as_str().unwrap().contains("keep closed paths connected"))
+    let overlap = value["warnings"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .position(|w| w.as_str().unwrap().contains("keep closed paths connected"))
+        .expect("retained overlap warning");
+    assert_eq!(
+        value["imports"][0]["report"]["entries"][overlap],
+        json!({"kind":"overlaps_kept","sources":[{"layer":"0","entity":"path"},{"layer":"0","entity":"path"}]})
     );
 }
 

@@ -429,7 +429,11 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
         assert_eq!(retraced["parts"].as_array().unwrap().len(),1);
         assert_eq!(retraced["parts"][0]["holes"],1);
         assert_eq!(retraced["imports"][0]["report"]["cleanup"]["closed_path_overlaps_preserved"],2);
-        assert!(retraced["warnings"].as_array().unwrap().iter().any(|w| w.as_str().unwrap().contains("keep closed paths connected")));
+        let overlap = retraced["warnings"].as_array().unwrap().iter()
+            .position(|w| w.as_str().unwrap().contains("keep closed paths connected"))
+            .expect("retained overlap warning");
+        assert_eq!(retraced["imports"][0]["report"]["entries"][overlap],
+            json!({"kind":"overlaps_kept","sources":[{"layer":"0","entity":"path"},{"layer":"0","entity":"path"}]}));
         std::fs::write(workspace.join("viewport.svg"),include_str!("../../core/tests/fixtures/viewport.svg")).unwrap();
         std::fs::write(workspace.join("width.dxf"),include_str!("../../core/tests/fixtures/polyline-width.dxf")).unwrap();
         let physical=call("import_parts",json!({"paths":["viewport.svg","width.dxf"]})).await.unwrap().structured_content.unwrap();

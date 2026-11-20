@@ -325,7 +325,11 @@ contour, the source follows its first contributing piece. Retained overlap
 pairs carry one source per counted pair. The zero-based indices in
 `gap_closed` and `open_contour` refer to `closed_gaps` and `open_contours`
 in the same report. Drawing-level entries identify missing units, duplicate
-handles and undefined layers. An older serialized report reads with an empty
-`entries` list.
+handles and undefined layers.
+
+Find each file's report at `imports[i].report` in the CLI library and MCP
+`import_parts` result. In a browser project ZIP, open `project.json` and read
+`library.imports[i].report`. Older JSON can omit `entries`. Rust reads that
+field as an empty list, and TypeScript callers can use `report.entries ?? []`.
 
 The development corpus produced 520 structured warnings. [Compatibility results for 440 drawings](../benchmarks/results/h2-import-entries-20261120/README.md).
