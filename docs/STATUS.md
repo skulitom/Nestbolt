@@ -2,6 +2,8 @@
 
 ## v1.1 — real shop files
 
+**2026-11-20.** A construction with interlocking groups of up to four parts placed all 80 mixed brackets below both matched material thresholds. Laser material was 2.800% below ordinary nesting with 25.967% less cutting. The construction ran outside the measured product budget. H5 remains open at 60% completed milestone weight. [Interlocking brackets in repeatable rows](../benchmarks/results/h5-repeated-bands-20261120.md).
+
 **2026-11-20.** The best offline repair of the mixed-bracket laser layouts from the full confirmation left a material penalty of 1.051%, or 0.25745 mm of last-sheet height above the original +1% limit. All 319 complete candidate layouts validated. H5 remains open at 60% completed milestone weight. [Mixed-bracket layout repairs](../benchmarks/results/h5-bracket-axis-compaction-20261120.md).
 
 **2026-11-20.** The experimental scheduler passed its 36-run pilot. In the full 234-run confirmation, all layouts validated and 25 of 26 job/kerf pairs met the material limit. The mixed-bracket laser job saved 22.210% of cut length but used 1.074% more material than ordinary nesting. Median cut savings were 13.031% at 0.2 mm and 13.101% at 1.5 mm. H5 remains open and completed milestone weight stays at 60%. [Scheduler confirmation and source layouts](../benchmarks/results/h5-opt-in-material-budget-20261120.md).
