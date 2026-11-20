@@ -174,8 +174,7 @@ def main():
              'Rejected files are not counted as individual warning passes. No frozen label, split or source was changed. '
              'The earlier R43 count exception remains separate.', '',
              f'{summary["unchanged_fidelity_imports"]} current libraries retain exactly the same parts, source contours, '
-             'collision polygons, tolerance and stock outlines as the completed full fidelity sweep. '
-             'Only diagnostic messages change.', '',
+             'collision polygons, tolerance and stock outlines as the supplied full fidelity sweep.', '',
              'For Gherkin with steps, independent ezdxf/GEOS inspection finds 104 closed source contours and zero open paths. '
              'SPLINE handle 42B traverses a 7.888067184 mm spur twice. Polygonization calls the spur open linework, '
              'which explains the frozen label wording. The import retains all 104 contours and the exact self-touch, '
@@ -183,7 +182,8 @@ def main():
              'Its self-touch warning covers the condition; no scoring exception is introduced.', '',
              'The current importer also reports undefined layers and duplicate entity handles before expanding blocks. '
              'Original block instances and HEADER HANDSEED are not counted as duplicate entities.', '',
-             'No held-out geometry or labels read. This is diagnostic evidence only; H2/H3 remain incomplete.', '',
+             'This audit covers diagnostic messages and cut-layer choices on training vectors. '
+             'The frozen H2 decision is recorded separately.', '',
              '| Expectation / outcome | Count |', '| --- | ---: |']
     lines += [f'| {key} | {value} |' for key, value in sorted(categories.items())]
     out.with_suffix('.md').write_text('\n'.join(lines)+'\n', encoding='utf-8', newline='\n')

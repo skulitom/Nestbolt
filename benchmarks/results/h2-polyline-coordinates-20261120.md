@@ -21,6 +21,8 @@ An independent ezdxf R2007 file gave the same results. Its reader transformed
 each polyline's world vertices by the stored INSERT matrix. The release CLI,
 stdio MCP `import_parts` and compiled WebAssembly `import_files_with_options`
 returned identical part geometry. The locked Rust workspace test suite passed.
+Uploading the file through the production web build in Chrome showed two
+separate parts, each with quantity one.
 
 The [257 training vectors](h2-import-training-20261120T123836Z.json) produced
 246 imports and 11 rejections. Every per-file result, including reported cut
@@ -30,6 +32,22 @@ count mismatch. The [183 robustness files](h2-import-robustness-20261120T123849Z
 produced 36 imports and 147 rejections. All statuses matched October. Three
 previously rejected extrusion examples returned updated diagnostic details.
 The slowest file took 0.782 seconds. Both runs selected only development inputs.
+
+All 246 imported training files nested and passed independent layout validation.
+All 5,138 contours matched one-to-one on SVG and DXF re-import. The maximum
+distance was 0.003302 mm for SVG and 0.000500 mm for DXF against a 0.01 mm
+limit. The separate warning audit verified the expected diagnostics and cut
+layers in all 246 imports and the repair instructions for all 11 rejections.
+See the [fidelity measurements](h2-fidelity-20261120T124440Z.md) and
+[training warning audit](h2-warning-audit-20261120T130512Z.md).
+
+An independent ezdxf 1.4.4 audit of the 246 exported sheets read 91,537
+entities. Every drawing used R2007, millimetres and the expected four layer
+colours. The reader reported zero errors, repairs or zero-length lines.
+The [per-sheet audit](h2-dxf-structure-20261120.json) records each file hash,
+entity counts and actual layer colours. To replay it, run
+`scripts/h2_dxf_audit.py` with the fidelity JSON and `--out` from the shop
+Python environment. Supply `--work-dir` if the generated sheets have moved.
 
 The [frozen H2 decision](h2-gate-decision-20261020.md) still applies. Its
 maximum exact-import score is 23 of 25 against a 95% requirement.
