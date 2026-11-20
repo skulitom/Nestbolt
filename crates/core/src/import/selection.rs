@@ -25,7 +25,15 @@ pub(super) struct DrawingEntity {
     pub kind: String,
     pub id: Option<String>,
     pub ignored: Option<(SkipReason, &'static str)>,
-    pub pieces: Vec<Piece>,
+    /// Keep unreadable geometry in the inventory. Only a selected entity's
+    /// geometry is required to construct parts.
+    pub pieces: Result<Vec<Piece>>,
+}
+
+impl DrawingEntity {
+    fn has_geometry(&self) -> bool {
+        !matches!(&self.pieces, Ok(pieces) if pieces.is_empty())
+    }
 }
 
 #[derive(Default)]
@@ -113,7 +121,7 @@ impl Drawing {
             && self.entities.iter().any(|e| {
                 e.ignored.is_none()
                     && !ignored_layer(&e.layer)
-                    && !e.pieces.is_empty()
+                    && e.has_geometry()
                     && cut_name(&e.layer)
             });
         report.selection_mode = if explicit {
@@ -131,6 +139,7 @@ impl Drawing {
         let mut skipped = BTreeMap::<String, (usize, Exclusion)>::new();
         let mut pieces = vec![];
         for e in self.entities {
+            let geometry = e.has_geometry();
             let color = color_key(&e.color);
             let ignore = e.ignored.or_else(|| {
                 ignored_layer(&e.layer)
@@ -143,7 +152,6 @@ impl Drawing {
                     .is_none_or(|v| v.iter().any(|s| s.to_lowercase() == e.layer.to_lowercase()))
                 && chosen_colors.as_ref().is_none_or(|v| v.contains(&color))
                 && (!named || cut_name(&e.layer));
-            let geometry = !e.pieces.is_empty();
             for item in [channel(&mut layers, &e.layer), channel(&mut colors, &color)] {
                 item.entities += 1;
                 item.geometry_entities += usize::from(geometry);
@@ -172,8 +180,8 @@ impl Drawing {
                 });
                 *count += 1;
             }
-            if selected {
-                pieces.extend(e.pieces);
+            if selected && !inspect_only {
+                pieces.extend(e.pieces?);
             }
         }
         report.layers = layers.into_values().collect();

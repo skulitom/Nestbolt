@@ -1,0 +1,15 @@
+{
+  "scope": "Development only. Test source-derived interlocking rows within the existing opt-in common-line placement bonus. Keep the default hole reservation, ordinary nesting, fixed work contract and published measurements.",
+  "inputs": "All original parts, rotations, stock and quantities. Common-line mode requires the same kerf spacing and true-size CUT curves. Only straight outer edges can create COMMON.",
+  "pilot": {
+    "jobs": ["c-bracket-mixed", "m-mechanical-large-plates"],
+    "kerfs_mm": [0.2, 1.5],
+    "seeds": [0, 1, 2],
+    "seconds_per_run": 60,
+    "arms": ["normal", "off", "bonus"],
+    "require": "36 complete and independently valid results. For each of the four job/kerf pairs the bonus material median must be at most 1.01 times the matched ordinary material median."
+  },
+  "confirmation": "If the pilot passes, measure all 13 original jobs with the same three arms at both kerfs and all seeds. Require every one of 234 layouts to validate, all 26 matched material comparisons to pass, and median cutting savings of at least 10% separately at each kerf. Independently verify final exported geometry, functional tests and native fixture compatibility.",
+  "fallback": "A row candidate must save material over its valid starting layout, preserve shared cutting length, respect all collision geometry and pass source cutting analysis. Ineligible inputs or a search deadline return control to the existing alignment routine.",
+  "held_out_geometry_read": false
+}

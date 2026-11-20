@@ -575,9 +575,16 @@ fn svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports() {
         include_str!("../../core/tests/fixtures/polyline-width.dxf"),
     )
     .unwrap();
-    let path = import(&dir, &[svg, dxf]);
+    let inch = dir.join("inch-hole.svg");
+    fs::write(
+        &inch,
+        include_str!("../../core/tests/fixtures/inch-hole.svg"),
+    )
+    .unwrap();
+    let path = import(&dir, &[svg, dxf, inch]);
     let library: Value = serde_json::from_slice(&fs::read(path).unwrap()).unwrap();
-    assert_eq!(library["parts"].as_array().unwrap().len(), 2);
+    assert_eq!(library["parts"].as_array().unwrap().len(), 3);
+    assert_eq!(library["parts"][2]["holes"].as_array().unwrap().len(), 1);
     for (value, expected) in library["parts"][0]["bounds_mm"]
         .as_array()
         .unwrap()

@@ -694,6 +694,7 @@ fn optimize_with_areas(
             clock.now()
         );
     }
+    let mut grouped_layout = None;
     if grouped.riders_placed > 0 {
         let expanded = grouped.expand(job, &result.layout)?;
         let validation = validate(job, &expanded)?;
@@ -702,12 +703,22 @@ fn optimize_with_areas(
             "expanded part-in-part layout failed independent validation: {:?}",
             validation.violations
         );
-        result.layout = expanded;
+        let previous = std::mem::replace(&mut result.layout, expanded);
+        if bonus.is_some() {
+            grouped_layout = Some(previous);
+        }
         result.validation = validation;
     }
     // Cutting edges and layout ownership use the original, expanded part copies.
     if let Some(bonus) = bonus {
-        bonus.refine(job, &mut result, &clock, budget, &mut progress)?;
+        bonus.refine(
+            job,
+            grouped_layout.as_ref().map(|l| (&grouped, l)),
+            &mut result,
+            &clock,
+            budget,
+            &mut progress,
+        )?;
     }
     result.riders = grouped.riders_placed;
     if let Some(material) = material {

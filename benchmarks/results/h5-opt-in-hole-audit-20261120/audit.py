@@ -29,7 +29,7 @@ def segment_key(a, b):
     return tuple(sorted(tuple(round(v * 1e6) for v in p[:2]) for p in (a, b)))
 
 
-def audit_sheet(zipfile, sheet, stock_height, job, layout, report):
+def audit_sheet(zipfile, sheet, stock_height, job, layout, report, straight_ring=None):
     parts = {p["id"]: p for p in job["parts"]}
     solids = {}
     owners = {}
@@ -75,6 +75,8 @@ def audit_sheet(zipfile, sheet, stock_height, job, layout, report):
     offsets = {}
     for name, exterior in owners.items():
         coords = list(orient(exterior,sign=1.0).exterior.coords)
+        if straight_ring is not None:
+            coords = straight_ring(coords)
         edges = []
         for a, b in zip(coords,coords[1:]):
             length = dist(a,b)
@@ -93,7 +95,7 @@ def audit_sheet(zipfile, sheet, stock_height, job, layout, report):
         assert len(set(names)) == 2
         for name in names:
             err = min(max(line.distance(e) for e in ends) for line in offsets[name])
-            assert err <= 0.01 + EPS, (name, err)
+            assert err <= 0.01 + EPS, (name, err, sheet, edge["from_mm"], edge["to_mm"])
             max_error = max(max_error, err)
     # Independently read the SVG and DXF. Match every emitted CUT and COMMON
     # segment including multiplicity, reversing the SVG viewBox's vertical axis.
@@ -164,13 +166,13 @@ def audit_sheet(zipfile, sheet, stock_height, job, layout, report):
                 exported_segments=layer_sizes)
 
 
-def audit_archive(path):
+def audit_archive(path, straight_ring=None):
     with ZipFile(path) as archive:
         job, layout, report = [json.loads(archive.read("nested/"+n+".json")) for n in ("job","layout","report")]
         assert job["units"] == "mm" and report["validation"]["valid"]
         stocks = {s["id"]:s for s in job["stocks"]}
         reports = {s["sheet_id"]:s for s in report.get("common_line",[])}
-        sheets = [audit_sheet(archive,s["id"],stocks[s["stock_id"]]["height"],job,layout,reports.get(s["id"]))
+        sheets = [audit_sheet(archive,s["id"],stocks[s["stock_id"]]["height"],job,layout,reports.get(s["id"]),straight_ring)
                   for s in layout["sheets"]]
         assert sum(s["riders"] for s in sheets) == report["parts_in_holes"]
         return sheets

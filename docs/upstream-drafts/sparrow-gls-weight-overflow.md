@@ -1,5 +1,10 @@
 # Draft issue for JeroenGar/sparrow (not posted)
 
+**Upstream resolution, 2026-11-17.** Sparrow capped guided-local-search weights
+at `1e10` and closed the issue. Nestbolt uses Sparrow commit `4629b227` for
+its published comparisons. [Issue 188](https://github.com/JeroenGar/sparrow/issues/188)
+and [merged fix 190](https://github.com/JeroenGar/sparrow/pull/190).
+
 **Title:** Guided-local-search weights have no ceiling and overflow f32 (`weighted loss should never increase: ∞ > NaN`)
 
 ---

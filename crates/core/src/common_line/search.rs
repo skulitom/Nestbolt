@@ -56,9 +56,46 @@ fn totals(reports: &[Report]) -> (f64, f64) {
 }
 
 impl Bonus<'_> {
+    fn interlocking_rows(
+        &self,
+        collision: &Job,
+        grouped: Option<(&crate::holes::Grouped, &Layout)>,
+        result: &SheetResult,
+        clock: &Clock,
+        until: f64,
+        saved: f64,
+    ) -> Option<(Layout, nestbolt_validator::job::Report, f64)> {
+        if !self.options.allow_part_in_hole {
+            return None;
+        }
+        let baseline = result.validation.metrics.as_ref()?;
+        let now = clock.now();
+        let end = now + (until - now) * 0.5;
+        let last = baseline.last_sheet_id.as_deref()?;
+        let trial = if let Some((groups, layout)) = grouped {
+            groups.repack_hosts(collision, layout, |hosts, poses| {
+                super::interlock::enclose_curved_hosts(hosts, clock, end)?;
+                super::interlock::pack(hosts, poses, last, clock, end)
+            })
+        } else {
+            super::interlock::pack(collision, &result.layout, last, clock, end)
+        }?;
+        let checked = validate(collision, &trial).ok()?;
+        clock.validated(collision, &trial);
+        if !checked.valid || checked.metrics.as_ref()?.material_area >= baseline.material_area - EPS
+        {
+            return None;
+        }
+        let cutting = analyze(self.job, &trial, self.outlines, self.options);
+        clock.validated(self.job, &trial);
+        let new_saved = totals(&cutting.ok()?).1;
+        (new_saved + EPS >= saved).then_some((trial, checked, new_saved))
+    }
+
     pub(crate) fn refine(
         &self,
         collision: &Job,
+        grouped: Option<(&crate::holes::Grouped, &Layout)>,
         result: &mut SheetResult,
         clock: &Clock,
         until: f64,
@@ -78,6 +115,24 @@ impl Bonus<'_> {
         let mut check_cost = start.elapsed().as_secs_f64();
         if total <= EPS {
             return Ok(());
+        }
+        if let Some((trial, checked, new_saved)) =
+            self.interlocking_rows(collision, grouped, result, clock, until, saved)
+        {
+            saved = new_saved;
+            let m = checked.metrics.as_ref().unwrap();
+            let update = Progress {
+                elapsed_seconds: clock.now(),
+                stage: "common-line-rows",
+                sheets: m.sheets_used,
+                material: m.normalized_material,
+            };
+            progress(&update, &|| Some(trial.clone()));
+            result.accepted_at_seconds = update.elapsed_seconds;
+            result.history.push(update);
+            result.layout = trial;
+            result.validation = checked;
+            result.stats.common_line_moves += 1;
         }
         let baseline_material = result.validation.metrics.as_ref().unwrap().material_area;
         if baseline_material <= EPS {
@@ -362,6 +417,7 @@ mod tests {
         }
         .refine(
             collision,
+            None,
             &mut result,
             &Clock::new(Timing::Work, 30.0),
             10.0,
@@ -369,6 +425,84 @@ mod tests {
         )
         .unwrap();
         result
+    }
+
+    #[test]
+    fn rectangle_rows_reduce_used_height_and_share_a_full_side() {
+        let (job, mut layout) = fixture();
+        layout.placements[1].transform.translation = [1.0, 32.0];
+        let original = validate(&job, &layout).unwrap().metrics.unwrap();
+        let trial = crate::common_line::interlock::pack(
+            &job,
+            &layout,
+            "sheet",
+            &Clock::new(Timing::Work, 30.0),
+            10.0,
+        )
+        .unwrap();
+        let checked = validate(&job, &trial).unwrap();
+        assert!(checked.valid && checked.metrics.unwrap().material_area < original.material_area);
+        let reports = analyze(
+            &job,
+            &trial,
+            &HashMap::new(),
+            Options {
+                kerf_mm: 0.2,
+                search_bonus: true,
+                allow_part_in_hole: true,
+            },
+        )
+        .unwrap();
+        assert!((reports[0].saved_length_mm - 30.0).abs() < 1e-5);
+    }
+
+    #[test]
+    fn interlocked_copies_keep_ids_and_allowed_rotations_across_sheets() {
+        use crate::common_line::interlock::pack;
+        let (mut job, mut layout) = fixture();
+        let part = &mut job.parts[0];
+        part.geometry[0].outer = vec![
+            [0., 0.],
+            [40., 0.],
+            [40., 8.],
+            [8., 8.],
+            [8., 30.],
+            [0., 30.],
+        ];
+        part.rotations = Rotations::List {
+            degrees: vec![0., 180.],
+        };
+        part.quantity = 3;
+        for name in ["second", "offcut"] {
+            layout.sheets.push(Sheet {
+                id: name.into(),
+                stock_id: "s".into(),
+            });
+        }
+        layout.placements[1].sheet_id = "second".into();
+        let mut third = layout.placements[0].clone();
+        third.copy_index = 2;
+        third.sheet_id = "offcut".into();
+        layout.placements.push(third);
+        let clock = Clock::new(Timing::Work, 30.);
+        let proposed = pack(&job, &layout, "offcut", &clock, 10.).unwrap();
+        let checked = validate(&job, &proposed).unwrap();
+        assert!(checked.valid, "{:?}", checked.violations);
+        assert_eq!(proposed.sheets.len(), 2);
+        let original = &layout.placements[1];
+        let unchanged = proposed
+            .placements
+            .iter()
+            .find(|p| p.copy_index == original.copy_index)
+            .unwrap();
+        assert_eq!(
+            serde_json::to_value(unchanged).unwrap(),
+            serde_json::to_value(original).unwrap()
+        );
+        assert_eq!(checked.metrics.unwrap().placed_parts, 3);
+        assert!(pack(&job, &layout, "offcut", &clock, 0.).is_none());
+        job.stocks[0].defects = vec![rectangle(70., 70., 5., 5.)];
+        assert!(pack(&job, &layout, "offcut", &clock, 10.).is_none());
     }
 
     #[test]
