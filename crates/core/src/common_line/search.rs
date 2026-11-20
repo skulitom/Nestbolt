@@ -422,6 +422,35 @@ mod tests {
     }
 
     #[test]
+    fn rectangle_rows_reduce_used_height_and_share_a_full_side() {
+        let (job, mut layout) = fixture();
+        layout.placements[1].transform.translation = [1.0, 32.0];
+        let original = validate(&job, &layout).unwrap().metrics.unwrap();
+        let trial = crate::common_line::interlock::pack(
+            &job,
+            &layout,
+            "sheet",
+            &Clock::new(Timing::Work, 30.0),
+            10.0,
+        )
+        .unwrap();
+        let checked = validate(&job, &trial).unwrap();
+        assert!(checked.valid && checked.metrics.unwrap().material_area < original.material_area);
+        let reports = analyze(
+            &job,
+            &trial,
+            &HashMap::new(),
+            Options {
+                kerf_mm: 0.2,
+                search_bonus: true,
+                allow_part_in_hole: true,
+            },
+        )
+        .unwrap();
+        assert!((reports[0].saved_length_mm - 30.0).abs() < 1e-5);
+    }
+
+    #[test]
     fn interlocked_copies_keep_ids_and_allowed_rotations_across_sheets() {
         use crate::common_line::interlock::pack;
         let (mut job, mut layout) = fixture();

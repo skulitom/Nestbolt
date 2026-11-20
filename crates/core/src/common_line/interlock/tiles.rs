@@ -221,11 +221,8 @@ pub(super) fn catalogue(
             return None;
         }
     }
-    // Rectangular pieces already have a dedicated solver. Interlocking here
-    // requires at least one outer contour with space inside its bounding box.
-    if !singles.iter().any(|t| t.boxes.len() > 1) {
-        return None;
-    }
+    // A group of rectangles can fill a strip that no single rectangle spans.
+    // Use the same row inventory and source-validation rules for these groups.
     for (i, a) in singles.iter().enumerate() {
         for b in &singles[i..] {
             if inventory.can_add(a.inventory, b.poses[0].part) {
