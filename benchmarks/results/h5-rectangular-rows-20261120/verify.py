@@ -1,7 +1,6 @@
 """Replay the CLI archives and recompute matched material and cutting results."""
 import argparse
 from concurrent.futures import ProcessPoolExecutor
-from hashlib import sha256
 import json
 from pathlib import Path
 from statistics import median
@@ -19,14 +18,14 @@ def geometry(path):
     return dict(archive=path.name,sheets=audit_archive(path,straight_ring if path.name.startswith("m-box-") else None))
 
 
-def main(folder, output, pilot):
+def main(folder, output, pilot, source):
     data=json.loads((folder/"results.json").read_bytes())
     plan=json.loads((HERE/"plan.json").read_bytes())
     previous=json.loads((HERE.parent/plan["previous"]/"results.json").read_bytes())
     jobs=plan["pilot"]["jobs"] if pilot else previous["jobs"]
     expected={(j,k,s,a) for j in jobs for k in (0.2,1.5) for s in (0,1,2) for a in ("normal","off","bonus")}
     rows=data["rows"]
-    assert data["product_commit"].startswith("50667e90") and data["seconds"]==60
+    assert data["product_commit"] == source and data["seconds"]==60
     assert data["common_line_allow_part_in_hole"] and not data["held_out_geometry_read"]
     assert data["guards"]["manifest"]==previous["guards"]["manifest"]
     assert set(data["jobs"])==set(jobs) and data["kerfs_mm"]==[0.2,1.5] and data["seeds"]==[0,1,2]
@@ -67,5 +66,6 @@ if __name__=="__main__":
     parser.add_argument("folder",type=Path)
     parser.add_argument("output",type=Path)
     parser.add_argument("--pilot",action="store_true")
+    parser.add_argument("--source",default="50667e906b3837c0363118229dd2e7da445c7aa6")
     args=parser.parse_args()
-    sys.exit(0 if main(args.folder,args.output,args.pilot) else 1)
+    sys.exit(0 if main(args.folder,args.output,args.pilot,args.source) else 1)

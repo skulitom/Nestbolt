@@ -59,6 +59,7 @@ impl Bonus<'_> {
     fn interlocking_rows(
         &self,
         collision: &Job,
+        grouped: Option<(&crate::holes::Grouped, &Layout)>,
         result: &SheetResult,
         clock: &Clock,
         until: f64,
@@ -69,13 +70,16 @@ impl Bonus<'_> {
         }
         let baseline = result.validation.metrics.as_ref()?;
         let now = clock.now();
-        let trial = super::interlock::pack(
-            collision,
-            &result.layout,
-            baseline.last_sheet_id.as_deref()?,
-            clock,
-            now + (until - now) * 0.5,
-        )?;
+        let end = now + (until - now) * 0.5;
+        let last = baseline.last_sheet_id.as_deref()?;
+        let trial = if let Some((groups, layout)) = grouped {
+            groups.repack_hosts(collision, layout, |hosts, poses| {
+                super::interlock::enclose_curved_hosts(hosts, clock, end)?;
+                super::interlock::pack(hosts, poses, last, clock, end)
+            })
+        } else {
+            super::interlock::pack(collision, &result.layout, last, clock, end)
+        }?;
         let checked = validate(collision, &trial).ok()?;
         clock.validated(collision, &trial);
         if !checked.valid || checked.metrics.as_ref()?.material_area >= baseline.material_area - EPS
@@ -91,6 +95,7 @@ impl Bonus<'_> {
     pub(crate) fn refine(
         &self,
         collision: &Job,
+        grouped: Option<(&crate::holes::Grouped, &Layout)>,
         result: &mut SheetResult,
         clock: &Clock,
         until: f64,
@@ -112,7 +117,7 @@ impl Bonus<'_> {
             return Ok(());
         }
         if let Some((trial, checked, new_saved)) =
-            self.interlocking_rows(collision, result, clock, until, saved)
+            self.interlocking_rows(collision, grouped, result, clock, until, saved)
         {
             saved = new_saved;
             let m = checked.metrics.as_ref().unwrap();
@@ -412,6 +417,7 @@ mod tests {
         }
         .refine(
             collision,
+            None,
             &mut result,
             &Clock::new(Timing::Work, 30.0),
             10.0,

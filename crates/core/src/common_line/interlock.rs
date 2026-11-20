@@ -54,7 +54,7 @@ impl Inventory {
             strides.push(states);
             states = states.checked_mul(n.checked_add(1)?)?;
             // Bound memory on the native and browser search paths.
-            if states > 32_768 {
+            if states > 98_304 {
                 return None;
             }
         }
@@ -221,6 +221,39 @@ fn sheets(
         });
     }
     Some((heights, previous))
+}
+
+/// In the rigid-host proposal only, bound non-orthogonal outer contours by
+/// rectangles. Final validation and cutter ownership use the original curves.
+pub(super) fn enclose_curved_hosts(job: &mut Job, clock: &Clock, until: f64) -> Option<()> {
+    let budget = Budget { clock, until };
+    for part in &mut job.parts {
+        for polygon in &mut part.geometry {
+            let ring = &polygon.outer;
+            budget.charge(ring.len())?;
+            if ring.len() > 4096 || ring.len() < 3 {
+                return None;
+            }
+            if ring.len() > 64
+                || ring
+                    .iter()
+                    .zip(ring.iter().cycle().skip(1))
+                    .any(|(a, b)| a[0] != b[0] && a[1] != b[1])
+            {
+                let [mut x0, mut y0] = ring[0];
+                let (mut x1, mut y1) = (x0, y0);
+                for &[x, y] in ring {
+                    x0 = x0.min(x);
+                    x1 = x1.max(x);
+                    y0 = y0.min(y);
+                    y1 = y1.max(y);
+                }
+                polygon.outer = vec![[x0, y0], [x1, y0], [x1, y1], [x0, y1]];
+                polygon.holes.clear();
+            }
+        }
+    }
+    Some(())
 }
 
 /// Rebuild the sheet with the trailing offcut and at most one earlier sheet
