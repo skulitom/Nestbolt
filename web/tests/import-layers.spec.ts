@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
+import type { Project } from '../src/types.js';
+import { unzip } from '../src/zip.js';
 
 test('a custom stock layer is offered separately from the cut selection', async ({ page }) => {
   await page.goto('/');
@@ -20,7 +22,17 @@ test('closed retraced holes survive cleanup with a visible warning', async ({ pa
   await page.locator('.drop input[type=file]').setInputFiles({ name: 'closed-retrace.svg', mimeType: 'image/svg+xml',
     buffer: readFileSync(new URL('../../crates/core/tests/fixtures/closed-retrace.svg', import.meta.url)) });
   await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
-  await expect(page.locator('.warnings')).toContainText('retained 2 overlapping segment pair(s) to keep closed paths connected');
+  const message = 'retained 2 overlapping segment pair(s) to keep closed paths connected';
+  await expect(page.locator('.warnings')).toContainText(message);
+  const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP' }).click()]);
+  const files = unzip(readFileSync(await archive.path()));
+  const project: Project = JSON.parse(new TextDecoder().decode(files.get('project.json')));
+  const library = project.library!;
+  const overlap = library.warnings.findIndex(warning => warning.includes(message));
+  expect(overlap).toBeGreaterThanOrEqual(0);
+  expect(library.imports?.[0].report.entries?.[overlap]).toEqual({
+    kind: 'overlaps_kept', sources: [{ layer: '0', entity: 'path' }, { layer: '0', entity: 'path' }],
+  });
 });
 
 test('legacy DXF text keeps layer names and offers an explicit inches choice', async ({ page }) => {

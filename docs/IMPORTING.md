@@ -324,3 +324,29 @@ and the [completed native round-trip checks](../benchmarks/results/h3-complete-2
 For compensated shared cuts in SVG/DXF workflows, see
 [Common-line cutting](COMMON_LINES.md), including the required CAM layer setup
 and current development limitations.
+
+## Structured diagnostics for library users
+
+`ImportReport.entries` contains one tagged entry for each sentence in
+`Import::warnings`, in the same order. Match on `ImportEntry` in Rust or the
+`kind` field in JSON. For example, a skipped rational spline on the CUT layer
+has this representation.
+
+```json
+{"kind":"skipped","source":{"layer":"CUT","entity":"SPLINE"},"reason":"rational_spline","count":1}
+```
+
+Sources refer to the effective DXF layer or SVG group. A single SVG entity can
+also carry its original `id`. Grouped warnings carry a count. For a joined
+contour, the source follows its first contributing piece. Retained overlap
+pairs carry one source per counted pair. The zero-based indices in
+`gap_closed` and `open_contour` refer to `closed_gaps` and `open_contours`
+in the same report. Drawing-level entries identify missing units, duplicate
+handles and undefined layers.
+
+Find each file's report at `imports[i].report` in the CLI library and MCP
+`import_parts` result. In a browser project ZIP, open `project.json` and read
+`library.imports[i].report`. Older JSON can omit `entries`. Rust reads that
+field as an empty list, and TypeScript callers can use `report.entries ?? []`.
+
+The development corpus produced 520 structured warnings. [Compatibility results for 440 drawings](../benchmarks/results/h2-import-entries-20261120/README.md).

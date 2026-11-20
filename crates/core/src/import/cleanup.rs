@@ -1,5 +1,5 @@
 //! Remove redundant source geometry without flattening the curves.
-use super::{Piece, Point, SILENT_JOIN_MM, Segment, dist, reverse};
+use super::{ImportSource, Origin, Piece, Point, SILENT_JOIN_MM, Segment, dist, reverse};
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -100,7 +100,12 @@ fn dot(a: Point, b: Point) -> f64 {
 
 /// Bins are a broad phase only. Verify both endpoints against the supporting
 /// line to round-off precision before merging; this never uses the gap tolerance.
-fn merge_lines(atoms: &mut [Atom], report: &mut Cleanup) {
+fn merge_lines(
+    atoms: &mut [Atom],
+    report: &mut Cleanup,
+    sources: &[Origin],
+    preserved: &mut Vec<ImportSource>,
+) {
     const ANGLE_BIN: f64 = 1e-8;
     const OFFSET_BIN: f64 = 1e-6;
     const ROUND_OFF_MM: f64 = 1e-9;
@@ -181,6 +186,7 @@ fn merge_lines(atoms: &mut [Atom], report: &mut Cleanup) {
                     // or curve. Keep the exact closed trace, including short
                     // bridges inserted by explicit gap repair.
                     report.closed_path_overlaps_preserved += 1;
+                    preserved.push(sources[atoms[current.4].owner].location.clone());
                     current = next;
                     continue;
                 }
@@ -206,7 +212,11 @@ fn merge_lines(atoms: &mut [Atom], report: &mut Cleanup) {
     }
 }
 
-pub(super) fn clean(pieces: Vec<Piece>, report: &mut Cleanup) -> Vec<Piece> {
+pub(super) fn clean(
+    pieces: Vec<Piece>,
+    report: &mut Cleanup,
+    preserved: &mut Vec<ImportSource>,
+) -> Vec<Piece> {
     let mut atoms = vec![];
     let mut sources = vec![];
     let mut seen = HashMap::new();
@@ -232,6 +242,7 @@ pub(super) fn clean(pieces: Vec<Piece>, report: &mut Cleanup) -> Vec<Piece> {
                     // count curved retraces here as well.
                     if !matches!(segment, Segment::Line { .. }) {
                         report.closed_path_overlaps_preserved += 1;
+                        preserved.push(sources[owner].location.clone());
                     }
                 } else {
                     seen.insert(key, owner);
@@ -247,7 +258,7 @@ pub(super) fn clean(pieces: Vec<Piece>, report: &mut Cleanup) -> Vec<Piece> {
             from = end;
         }
     }
-    merge_lines(&mut atoms, report);
+    merge_lines(&mut atoms, report, &sources, preserved);
     let mut output: Vec<Piece> = vec![];
     let mut previous_owner = None;
     for a in atoms.into_iter().filter(|a| a.live) {

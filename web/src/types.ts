@@ -16,6 +16,8 @@ export interface LightBurnProject { file: string; xml: string; unit_ids: string[
 export const partGeometry = (part: LibraryPart): Polygon[] => part.components?.length ? part.components : [part.polygon];
 export interface Library { lightburn?: LightBurnProject; version: number; tolerance: number; parts: LibraryPart[]; warnings: string[]; imports?: { file: string; report: ImportReport }[]; sheet_outlines?: SheetOutline[] }
 export interface ImportReport {
+  /** In warning order for this file. Older saved projects can omit this field. */
+  entries?: ImportEntry[];
   silent_join_mm: number;
   close_gaps_mm: number | null;
   closed_gaps: { source: string; from_mm: Point; to_mm: Point; size_mm: number }[];
@@ -26,6 +28,29 @@ export interface ImportReport {
   cleanup?: { duplicate_segments_removed: number; zero_length_segments_removed: number; overlapping_segments_merged: number; closed_path_overlaps_preserved?: number };
   units?: { declared: boolean; mm_per_unit: number; largest_dimension_in_drawing_units: number | null; possible_inches: boolean } | null;
 }
+export interface ImportSource { layer: string; entity: string; id?: string | null }
+export type SkipReason =
+  | 'unsupported' | 'rational_spline' | 'invalid_spline' | 'hidden'
+  | 'not_cut_geometry' | 'paper_space' | 'no_stroke_or_fill' | 'ignored_layer';
+export type ImportEntry =
+  | { kind: 'skipped'; source: ImportSource; reason: SkipReason; count: number }
+  | { kind: 'not_selected'; layer: string; color: string; count: number }
+  | { kind: 'unknown_block'; source: ImportSource; block: string }
+  | { kind: 'unresolved_use'; source: ImportSource; href: string }
+  | { kind: 'fit_point_spline'; source: ImportSource }
+  | { kind: 'polyline_width'; source: ImportSource }
+  | { kind: 'outline_touches'; source: ImportSource; closed_under_mm: number }
+  | { kind: 'outline_crosses'; source: ImportSource }
+  | { kind: 'degenerate_contour'; source: ImportSource }
+  | { kind: 'overlaps_kept'; sources: ImportSource[] }
+  | { kind: 'cleanup' }
+  | { kind: 'gap_closed'; gap: number }
+  | { kind: 'open_contour'; contour: number }
+  | { kind: 'duplicate_handle'; handle: string; count: number }
+  | { kind: 'undefined_layer'; layer: string; count: number }
+  | { kind: 'units_missing' }
+  | { kind: 'possible_inches' }
+  | { kind: 'svg_slice_not_clipped' };
 export interface ImportChannel { name: string; entities: number; geometry_entities: number; selected_entities: number }
 export interface ImportSelection { layers?: string[]; colors?: string[]; dxfUnitMm?: number; sheetLayers?: string[] }
 

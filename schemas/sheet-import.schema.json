@@ -113,6 +113,335 @@
       ],
       "type": "object"
     },
+    "ImportEntry": {
+      "description": "Structured counterpart to one entry in the ordered warning list.",
+      "oneOf": [
+        {
+          "properties": {
+            "count": {
+              "format": "uint",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "skipped",
+              "type": "string"
+            },
+            "reason": {
+              "$ref": "#/$defs/SkipReason"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source",
+            "reason",
+            "count"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "color": {
+              "type": "string"
+            },
+            "count": {
+              "format": "uint",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "not_selected",
+              "type": "string"
+            },
+            "layer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "layer",
+            "color",
+            "count"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "block": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "unknown_block",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source",
+            "block"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "href": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "unresolved_use",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source",
+            "href"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "fit_point_spline",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "polyline_width",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "closed_under_mm": {
+              "format": "double",
+              "type": "number"
+            },
+            "kind": {
+              "const": "outline_touches",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source",
+            "closed_under_mm"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "outline_crosses",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "degenerate_contour",
+              "type": "string"
+            },
+            "source": {
+              "$ref": "#/$defs/ImportSource"
+            }
+          },
+          "required": [
+            "kind",
+            "source"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "overlaps_kept",
+              "type": "string"
+            },
+            "sources": {
+              "items": {
+                "$ref": "#/$defs/ImportSource"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "kind",
+            "sources"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "cleanup",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "gap": {
+              "format": "uint",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "gap_closed",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "gap"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "contour": {
+              "format": "uint",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "open_contour",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "contour"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "count": {
+              "format": "uint",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "handle": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "duplicate_handle",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "handle",
+            "count"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "count": {
+              "format": "uint",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "undefined_layer",
+              "type": "string"
+            },
+            "layer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "layer",
+            "count"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "units_missing",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "possible_inches",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "svg_slice_not_clipped",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        }
+      ]
+    },
     "ImportReport": {
       "properties": {
         "cleanup": {
@@ -140,6 +469,14 @@
           "default": [],
           "items": {
             "$ref": "#/$defs/Channel"
+          },
+          "type": "array"
+        },
+        "entries": {
+          "default": [],
+          "description": "One structured diagnostic for each import warning, in the same order.",
+          "items": {
+            "$ref": "#/$defs/ImportEntry"
           },
           "type": "array"
         },
@@ -180,6 +517,28 @@
         "silent_join_mm",
         "closed_gaps",
         "open_contours"
+      ],
+      "type": "object"
+    },
+    "ImportSource": {
+      "description": "Drawing entity associated with an import diagnostic. Layer names are resolved\nthrough block and group inheritance. SVG IDs are present when available.",
+      "properties": {
+        "entity": {
+          "type": "string"
+        },
+        "id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "layer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "layer",
+        "entity"
       ],
       "type": "object"
     },
@@ -312,6 +671,19 @@
         "tolerance_mm"
       ],
       "type": "object"
+    },
+    "SkipReason": {
+      "enum": [
+        "unsupported",
+        "rational_spline",
+        "invalid_spline",
+        "hidden",
+        "not_cut_geometry",
+        "paper_space",
+        "no_stroke_or_fill",
+        "ignored_layer"
+      ],
+      "type": "string"
     },
     "UnitReport": {
       "properties": {
