@@ -1,33 +1,17 @@
-# Status — 2026-11-09
+# Status — 2026-11-20
 
 ## v1.1 — real shop files
 
-Repository reconciliation preserves main's ornament example, agent setup,
-LightBurn/offcut comparison and shared site navigation, including all 52 files
-added or updated during the pause.
-The [Linux CI recovery](../benchmarks/results/ci-python-runner-recovery-20261104.md)
-pins the frozen generator job to Ubuntu 24.04 after `ubuntu-latest` moved to
-26.04, where Python 3.11.5 is unavailable. All six checks on the correction
-[now pass](https://github.com/skulitom/Nestbolt/actions/runs/41848153978).
+Main now includes Pedro Rangel's DXF extrusion and export fixes and the
+updated LightBurn offcut example. The [DXF integration](https://github.com/skulitom/Nestbolt/pull/22)
+and [offcut measurements](https://github.com/skulitom/Nestbolt/pull/19) are included here.
 
-Latest H5 evidence: [complete direct restriction fixed point](../benchmarks/results/h5-direct-restriction-fixed-point-20261109.md).
-Two complete independently audited rounds verify all 51,306 conditional bounds.
-The first excludes seven bracket cells; the second finds no further seed or
-clique implication. The loop reaches a genuine fixed point with 8,343 cells
-across both open choices, and the other six declared rounds never open.
-All 21,146 original source/alias component sweeps and six global union areas
-replay. Neither arrangement is excluded. The 453/455 prior exclusions stand,
-including 428 at zero clearance. Common-line holes remain reserved; no ordinary
-part-in-hole or whole-allocation exclusion is claimed. All eight new and 738
-inherited processes are terminal, with four inherited failures preserved.
-Consumed preparation is 1499.743773 s; no optimizer or timer reset is permitted.
-Next assess a fresh finite pair-capacity scope on the complete direct graph;
-none is prepared. All 440 allocations/full66/H5 remain open, valid64 stays best,
-and H2/H5 remain at 60%. Eight older first32 and 680 five-column cores stay
-closed. Product, README and releases are unchanged. The pair and direct-capacity
-checkpoints reached main e1410185 after all six prior checks passed, preserving
-52 files. Fresh CI has 4 passed/2 live jobs at review; this checkpoint
-awaits ordinary push.
+The [latest common-line check](../benchmarks/results/h5-direct-pair-replay-20261120.md)
+found 6,603 additional incompatible pairs. Four bracket positions were removed.
+Both arrangements remain open with 8,339 candidate positions between them.
+The best validated layout for the 66-part target still contains 64 parts.
+The two mechanical jobs in the [cutting comparison](../benchmarks/results/h5-cutting-development-20261015.md)
+still exceed the +1% material limit at both kerfs.
 
 The earlier fixed 13-cog construction retains 2 site choices and 3 distributions.
 The direct 4/2/3 short sheet passes source checks in 0.297 s. A new source-valid
