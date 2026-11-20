@@ -26,8 +26,12 @@ ordinary nesting. The browser Project ZIP retains this setting and its report.
 **Search for more shared cuts** is optional and off by default. Enable it in the
 browser, add `--common-line-bonus` to the CLI example, or set
 `"common_line": {"kerf_mm": 0.2, "search_bonus": true}` in a JSON/MCP request.
-It reserves the last tenth of the existing time budget for short translations
-that align straight cutting edges. Its placement cost is material relative to
+It reserves the last tenth of the existing time budget for shared-cut placement.
+With **Nest parts inside holes** enabled, repeated right-angled parts can also
+form interlocking groups of up to four. Nestbolt tries arranging these groups in
+rows on rectangular stock. It accepts a row layout only when it reduces stock
+use and preserves or increases the shared cutting length. Short translations
+then align straight cutting edges. Their placement cost is material relative to
 the refinement's starting layout minus saved length as a fraction of total cut
 length. Every accepted move passes independent validation, including any lead
 reservations, and adds at most 1% material relative to that starting layout.
@@ -67,13 +71,10 @@ parts may tip up when freed; support and retention need consideration. See
 [Primecut's kerf and cut-side guidance](https://kineticusa.com/PrimecutHelp/common-line-and-common-crop-cu.html)
 and [OSH Cut's explanation of retention tabs](https://www.oshcut.com/design-guide/understanding-micro-joints).
 
-[The geometry and native-import checkpoint](../benchmarks/results/h5-commonline-checkpoint-20261014.md)
-includes independent Clipper2 tests and native LightBurn SVG/DXF saves. H5 remains
-open: the [60-second, three-seed development comparison](../benchmarks/results/h5-cutting-development-20261015.md)
-validates all 234 Nestbolt layouts and reaches 13.03% laser / 13.10% plasma median
-cut savings. Both mechanical jobs exceed the +1% material limit, up to +6.51%.
-The native Deepnest SVG comparison is also recorded, including its four
-no-layout results. These development findings make no production quality claim
-or new held-out claim.
+## Development measurements
 
-With **Nest parts inside holes** and **Search for more shared cuts** enabled, all four mechanical job/kerf pairs met the material limit. The mixed-bracket laser job used 1.417% more material. Set-wide median cut savings were 13.031% at 0.2 mm and 13.101% at 1.5 mm. [Opt-in comparison](../benchmarks/results/h5-opt-in-holes-20261120.md).
+With **Nest parts inside holes** and **Search for more shared cuts** enabled, the 13 development jobs saved a median 13.031% of cutting distance at 0.2 mm kerf and 13.101% at 1.5 mm. The largest measured increase in material use was approximately 0.0125% relative to ordinary nesting at the same spacing. All 234 layouts passed validation. The comparison uses three seeds and 60 seconds per run. Individual jobs can have lower savings. [Per-job cutting and material results](../benchmarks/results/h5-rigid-host-rows-20261120.md).
+
+With the default hole-reserving policy, both mechanical jobs exceeded the +1% material ceiling in the earlier comparison. The largest increase was 6.51%. The original opt-in search also exceeded the ceiling on the mixed-bracket laser job at +1.417%. [Default-policy comparison](../benchmarks/results/h5-cutting-development-20261015.md) and [earlier opt-in comparison](../benchmarks/results/h5-opt-in-holes-20261120.md).
+
+The laser SVG and plasma DXF were opened in LightBurn. The archived screenshots show the separate COMMON layer and measured dimensions. [Native import and independent geometry checks](../benchmarks/results/h5-commonline-checkpoint-20261014.md).

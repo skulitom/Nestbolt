@@ -13,6 +13,7 @@ use crate::curves::{Contour, Point, Segment, contains, signed_area};
 use crate::export::{Outline, placed};
 
 mod chains;
+mod interlock;
 pub(crate) mod length;
 pub(crate) mod search;
 

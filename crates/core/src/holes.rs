@@ -432,6 +432,50 @@ fn compose(host: &RigidTransform, rider: &RigidTransform, rotations: &Rotations)
 }
 
 impl Grouped {
+    /// Repack hosts with the same outer geometry together, even if different
+    /// copies carry different riders. Restore the group ordering before
+    /// expansion so all original copy indices and rider transforms survive.
+    pub(crate) fn repack_hosts(
+        &self,
+        original: &Job,
+        layout: &Layout,
+        repack: impl FnOnce(&mut Job, &Layout) -> Option<Layout>,
+    ) -> Option<Layout> {
+        let hosts: HashMap<_, _> = self
+            .job
+            .parts
+            .iter()
+            .zip(&self.members)
+            .map(|(part, member)| (part.id.as_str(), member.host))
+            .collect();
+        let mut host_job = original.clone();
+        for part in &mut host_job.parts {
+            part.quantity = 0;
+        }
+        let mut host_layout = layout.clone();
+        for p in &mut host_layout.placements {
+            let part = &mut host_job.parts[*hosts.get(p.part_id.as_str())?];
+            p.part_id.clone_from(&part.id);
+            p.copy_index = part.quantity;
+            part.quantity += 1;
+        }
+        host_job.parts.retain(|p| p.quantity > 0);
+        let proposed = repack(&mut host_job, &host_layout)?;
+        let poses: HashMap<_, _> = proposed
+            .placements
+            .iter()
+            .map(|p| ((p.part_id.as_str(), p.copy_index), p))
+            .collect();
+        let mut groups = layout.clone();
+        for (p, host) in groups.placements.iter_mut().zip(&host_layout.placements) {
+            let placed = poses.get(&(host.part_id.as_str(), host.copy_index))?;
+            p.sheet_id.clone_from(&placed.sheet_id);
+            p.transform = placed.transform;
+        }
+        groups.sheets = proposed.sheets;
+        self.expand(original, &groups).ok()
+    }
+
     /// Expand a layout of the grouped job into one of the original job.
     pub fn expand(&self, original: &Job, layout: &Layout) -> Result<Layout> {
         let index: HashMap<&str, usize> = self
@@ -497,6 +541,36 @@ mod tests {
         let expanded = grouped.expand(&job, &construction.layout).unwrap();
         let report = validate(&job, &expanded).unwrap();
         assert!(report.valid, "{:?}", report.violations);
+        let reordered = grouped
+            .repack_hosts(&job, &construction.layout, |hosts, poses| {
+                assert_eq!(hosts.parts.iter().map(|p| p.quantity).sum::<u32>(), left);
+                let mut trial = poses.clone();
+                trial.placements.reverse();
+                for p in &mut trial.placements {
+                    p.transform.translation[0] += 4.0;
+                }
+                Some(trial)
+            })
+            .unwrap();
+        assert_eq!(reordered.placements.len(), expanded.placements.len());
+        for (after, before) in reordered.placements.iter().zip(&expanded.placements) {
+            assert_eq!(
+                (&after.part_id, after.copy_index),
+                (&before.part_id, before.copy_index)
+            );
+            assert_eq!(after.transform.mirrored, before.transform.mirrored);
+            assert_eq!(
+                after.transform.rotation_radians,
+                before.transform.rotation_radians
+            );
+            assert!(
+                (after.transform.translation[0] - before.transform.translation[0] - 4.0).abs()
+                    < 1e-9
+            );
+            assert!(
+                (after.transform.translation[1] - before.transform.translation[1]).abs() < 1e-9
+            );
+        }
     }
 
     #[test]
