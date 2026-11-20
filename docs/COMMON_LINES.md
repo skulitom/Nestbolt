@@ -26,8 +26,12 @@ ordinary nesting. The browser Project ZIP retains this setting and its report.
 **Search for more shared cuts** is optional and off by default. Enable it in the
 browser, add `--common-line-bonus` to the CLI example, or set
 `"common_line": {"kerf_mm": 0.2, "search_bonus": true}` in a JSON/MCP request.
-It reserves the last tenth of the existing time budget for short translations
-that align straight cutting edges. Its placement cost is material relative to
+It reserves the last tenth of the existing time budget for shared-cut placement.
+With **Nest parts inside holes** enabled, repeated right-angled parts can also
+form interlocking groups of up to four. Nestbolt tries arranging these groups in
+rows on rectangular stock. It accepts a row layout only when it reduces stock
+use and preserves or increases the shared cutting length. Short translations
+then align straight cutting edges. Their placement cost is material relative to
 the refinement's starting layout minus saved length as a fraction of total cut
 length. Every accepted move passes independent validation, including any lead
 reservations, and adds at most 1% material relative to that starting layout.

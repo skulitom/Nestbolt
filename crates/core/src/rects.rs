@@ -13,7 +13,7 @@ use nestbolt_validator::{
 use rand::{RngExt, SeedableRng, rngs::Xoshiro256PlusPlus, seq::SliceRandom};
 
 /// Quarter turns allowed by a part's rotation rule.
-fn quarter_turns(rotations: &Rotations) -> Vec<f64> {
+pub(crate) fn quarter_turns(rotations: &Rotations) -> Vec<f64> {
     let on_grid = |a: f64, step: f64| ((a / step).round() * step - a).abs() < 1e-9;
     [0.0, 90.0, 180.0, 270.0]
         .into_iter()
