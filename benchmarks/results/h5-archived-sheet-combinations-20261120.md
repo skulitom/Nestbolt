@@ -60,3 +60,17 @@ two-sheet allocations in the broader geometry problem remain open.
 [Family weights](h5-archived-sheet-combinations-20261120/band-prices.json),
 [independent check](h5-archived-sheet-combinations-20261120/band-verification.json)
 and [catalogue and process logs](h5-archived-sheet-combinations-20261120/band-catalogue.zip).
+
+Quarter-turning source windows also preserves the allowed part rotations.
+After turning, each window must fit across the 1,487 mm usable width. Adding
+those windows increases the catalogue from 13,632 to 16,046 inventories.
+Pricing the combined catalogue directly at zero clearance between bands
+gives a stronger bound. At least 3,364.630425 mm of height is needed, a
+**64.703522 mm deficit** against the stock. An independent check tested
+214,376 horizontal prefixes and 1,058,165 turned prefixes in 9,055 windows.
+Every prefix satisfies the inequality with at least 1,999 nm of slack. The
+conditional assignment stage was unnecessary. New individual part positions
+remain outside this result.
+[Quarter-turn prices](h5-archived-sheet-combinations-20261120/turned-prices.json),
+[independent verification](h5-archived-sheet-combinations-20261120/turned-verification.json)
+and [catalogue and process logs](h5-archived-sheet-combinations-20261120/turned-catalogue.zip).

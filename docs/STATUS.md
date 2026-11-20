@@ -26,6 +26,9 @@ layout for each job and kerf [exceeds its material target](../benchmarks/results
 Reusing intact sheets and horizontal bands from those archives produced four
 validated improvements of 51–2,805 mm². They still exceed their targets by
 2.506–4.672%. [Layouts and exports](../benchmarks/results/h5-archived-sheet-combinations-20261120.md).
+Stacking horizontal or quarter-turned bands from the 310 large-plate laser
+sheets would still need at least 64.70 mm more stock height than the target
+allows, even with zero gap between bands.
 The two mechanical jobs in the [cutting comparison](../benchmarks/results/h5-cutting-development-20261015.md)
 still exceed the +1% material limit at both kerfs.
 
