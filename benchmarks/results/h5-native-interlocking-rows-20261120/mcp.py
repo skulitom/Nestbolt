@@ -33,7 +33,8 @@ def run(binary,source,output):
             args=dict(library_path="library.json",request=request)
             result=call("tools/call",dict(name="nest",arguments=dict(**args,out_dir="nested",seed=0,time_budget_s=30)),2)
             reply=result["structuredContent"]
-            assert reply["validation"]["valid"] and reply["validation"]["metrics"]["placed_parts"]==80
+            copies=sum(p["quantity"] for p in request["parts"])
+            assert reply["validation"]["valid"] and reply["validation"]["metrics"]["placed_parts"]==copies
             checked=call("tools/call",dict(name="validate_layout",arguments=dict(**args,layout_path="nested/layout.json")),3)
             assert checked["structuredContent"]["valid"]
             (output/"rpc.json").write_text(json.dumps(dict(nest=reply,validate=checked["structuredContent"]),indent=2)+"\n",

@@ -51,7 +51,8 @@ try {
           return {nested,validated};
         } finally { worker.terminate(); }
       },{library,request,workerName:workers[0],mode,seconds});
-      if (!result.nested.validation.valid || !result.validated.valid || result.nested.layout.placements.length!==80)
+      const copies = JSON.parse(request).parts.reduce((sum, part) => sum + part.quantity, 0);
+      if (!result.nested.validation.valid || !result.validated.valid || result.nested.layout.placements.length!==copies)
         throw new Error(name+" failed layout validation");
       await mkdir(output,{recursive:true});
       await writeFile(path.join(output,name+".json"),JSON.stringify(result));
