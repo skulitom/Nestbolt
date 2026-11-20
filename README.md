@@ -34,6 +34,7 @@ the [v1.1 plan is 60% complete](docs/STATUS.md). Stable v0.1.0 remains available
 The hosted browser app runs a preview build from `main` (newer than v0.2.0-alpha.1).
 The source on `main` includes AutoCAD 2007 DXF export fixes and reads flat
 3D polylines in their world coordinates, including inside inserted blocks.
+It also skips paper-space block instances so title-block artwork stays out of the parts list.
 The benchmark figures below belong to the frozen `75cbb32` build; this preview
 makes no new comparison against competing tools.
 

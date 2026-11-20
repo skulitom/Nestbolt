@@ -60,6 +60,9 @@ rectangle on the CUT layer. The previous CLI returned two parts. The updated
 CLI, MCP and WebAssembly each return the model-space rectangle with bounds
 (22, 34) to (32, 42) mm and report the skipped title-block instance. The Rust
 regression reproduces the original two-part failure.
+File-picker checks in Chrome and Firefox each showed one part with quantity
+one and the warning for the skipped TITLE instance. The production web build,
+locked workspace tests and workspace Clippy checks all passed.
 
 All 246 successful [training imports](h2-import-training-20261120T131255Z.json)
 and 36 successful [robustness imports](h2-import-robustness-20261120T131324Z.json)
