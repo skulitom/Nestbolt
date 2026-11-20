@@ -75,6 +75,12 @@ the shape to a path or set the dimension explicitly before importing.
 [SVG coordinate units](https://www.w3.org/TR/SVG2/coords.html#Units),
 [CSS absolute lengths](https://www.w3.org/TR/css-values-4/#absolute-lengths).
 
+SVG polygon and polyline points can use compact coordinate pairs. For example,
+`10-20` represents the point (10, −20). Separate successive pairs with a comma
+or whitespace. If a selected outline has a malformed or incomplete pair,
+the import error names the element. Correct its coordinates or convert it to a
+path before importing. [SVG point-list grammar](https://www.w3.org/TR/SVG11/shapes.html#PointsBNF).
+
 Page clipping does not trim cutting paths. A `slice` mapping that extends beyond
 the page warns that complete paths were imported; convert visible edges into
 closed paths if clipping is intended to define the cut.

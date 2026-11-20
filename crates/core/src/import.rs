@@ -918,6 +918,33 @@ fn svg_path(d: &str, source: &str) -> Result<Vec<Piece>> {
     Ok(pieces)
 }
 
+fn svg_points(value: &str) -> Option<Vec<Point>> {
+    let mut points = Vec::new();
+    if value.trim_ascii().is_empty() {
+        return Some(points);
+    }
+    let mut pending_x = None;
+    for group in value.split(',') {
+        if group.trim_ascii().is_empty() {
+            return None;
+        }
+        for token in group.split_ascii_whitespace() {
+            let mut numbers = svgtypes::NumberListParser::from(token);
+            let first = numbers.next()?.ok()?;
+            match (pending_x.take(), numbers.next()) {
+                (Some(x), None) => points.push([x, first]),
+                (None, None) => pending_x = Some(first),
+                // SVG permits a negative y directly after its x, as in "10-20".
+                (None, Some(Ok(y))) if y.is_sign_negative() && numbers.next().is_none() => {
+                    points.push([first, y]);
+                }
+                _ => return None,
+            }
+        }
+    }
+    pending_x.is_none().then_some(points)
+}
+
 fn svg_shape(
     node: &roxmltree::Node,
     source: &str,
@@ -1013,14 +1040,9 @@ fn svg_shape(
             vec![piece(a, vec![Segment::Line { to: b }])]
         }
         "polygon" | "polyline" => {
-            let values: Vec<f64> = node
-                .attribute("points")
-                .unwrap_or("")
-                .split(|c: char| c == ',' || c.is_whitespace())
-                .filter(|s| !s.is_empty())
-                .filter_map(|s| s.parse().ok())
-                .collect();
-            let points: Vec<Point> = values.as_chunks::<2>().0.to_vec();
+            let points = svg_points(node.attribute("points").unwrap_or("")).with_context(|| {
+                format!("invalid SVG points on <{}> {source}. Correct the coordinate pairs or convert the outline to a path", node.tag_name().name())
+            })?;
             if points.len() < 2 {
                 return Ok(vec![]);
             }

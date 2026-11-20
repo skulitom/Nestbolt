@@ -13,6 +13,103 @@ fn assert_bounds(svg: &str, expected: [f64; 4]) {
 }
 
 #[test]
+fn polygon_and_polyline_points_preserve_the_window() {
+    let source = include_str!("fixtures/compact-points.svg");
+    for points in [
+        "10-20 30-20 30-10 10-10",
+        "+1e1-2E+1,3e1-2e1,30-10,.1e2-1e1",
+        " 10 , -20\t30 -20, 30,-10\n10, -10 ",
+    ] {
+        for element in ["polygon", "polyline"] {
+            let mut points = points.to_owned();
+            if element == "polyline" {
+                points.push_str(" 10-20");
+            }
+            let svg = source
+                .replace("polygon", element)
+                .replace("10-20 30-20 30-10 10-10", &points);
+            let imported = import_svg(&svg, &Options::default()).unwrap();
+            assert_eq!(imported.parts.len(), 1);
+            let part = &imported.parts[0];
+            assert!((part.area - 1000.0).abs() < 1e-9);
+            for (actual, expected) in part.bounds.iter().zip([0.0, -30.0, 40.0, 0.0]) {
+                assert!((actual - expected).abs() < 1e-9);
+            }
+            assert_eq!(part.polygon.holes.len(), 1);
+            for [x, y] in [[10.0, -20.0], [30.0, -20.0], [30.0, -10.0], [10.0, -10.0]] {
+                assert!(
+                    part.polygon.holes[0]
+                        .iter()
+                        .any(|p| (p[0] - x).hypot(p[1] - y) < 1e-9)
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn malformed_selected_point_lists_identify_the_element_and_repair() {
+    let source = include_str!("fixtures/malformed-points.svg");
+    for points in [
+        "10,-20 30,-20 broken 30,-10 10,-10",
+        "10,-20 30,-20 30",
+        ",10,-20",
+        "10,,20",
+        "10,20, ",
+        "10+20 30-20",
+        "10.5.2",
+        "10,-20-30,-20",
+        "10,1e",
+        "NaN,10",
+        "1e999,20",
+    ] {
+        for element in ["polygon", "polyline"] {
+            let svg = source
+                .replace("polygon", element)
+                .replace("10,-20 30,-20 broken 30,-10 10,-10", points);
+            let message = import_svg(&svg, &Options::default())
+                .unwrap_err()
+                .to_string();
+            assert!(
+                message.contains(&format!("<{element}>"))
+                    && message.contains("window")
+                    && message.contains("Correct the coordinate pairs"),
+                "{points}: {message}"
+            );
+        }
+    }
+}
+
+#[test]
+fn excluded_point_lists_can_be_inspected_and_empty_ones_draw_nothing() {
+    let svg = r#"<svg width="20mm" viewBox="0 0 20 20">
+        <g id="CUT"><rect width="10" height="10"/><polygon points=" "/><polyline/></g>
+        <g id="GUIDES"><polygon id="guide" points="broken"/></g>
+        <polyline visibility="hidden" points="broken"/></svg>"#;
+    assert_bounds(svg, [0.0, -10.0, 10.0, 0.0]);
+    let options = Options {
+        layers: Some(vec!["GUIDES".into()]),
+        ..Default::default()
+    };
+    let inventory = nestbolt_core::import::inspect_svg(svg, &options).unwrap();
+    assert_eq!(
+        inventory
+            .layers
+            .iter()
+            .find(|l| l.name == "GUIDES")
+            .unwrap()
+            .selected_entities,
+        1
+    );
+    assert!(
+        import_svg(svg, &options)
+            .unwrap_err()
+            .to_string()
+            .contains("guide")
+    );
+}
+
+#[test]
 fn physical_svg_lengths_keep_an_inch_dimensioned_hole() {
     let svg = include_str!("fixtures/inch-hole.svg");
     let import = import_svg(svg, &Options::default()).unwrap();

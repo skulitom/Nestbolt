@@ -34,6 +34,9 @@ It also adds common-line cutting and lead-in allowances, and closes the browser'
 
 Everything in PLAN.md section 8 applies, plus the following.
 
+- Work on reported issues that affect v1.1. Reproduce defects and open pull
+  requests with the fix and a regression check. Link the issue when one exists
+  and merge verified fixes to `main` periodically.
 - **Licences:**
   - Data that may be committed: CC0, CC-BY, CC-BY-SA, MIT, BSD, Apache-2.0, Unlicense, CERN-OHL-P, public domain.
     Record the source URL, the licence and where it is stated for every file.
@@ -175,6 +178,8 @@ Surfaces:
 - **Surfaces:** UI, CLI and MCP parity, with end-to-end tests.
 
 **2026-11-20.** Physical lengths in SVG shapes and clone offsets are resolved before applying group and page transforms. A regression with a 6.35 mm hole passed the browser geometry comparison and SVG/DXF fidelity checks. The 440 training and robustness vectors retained their previous results. H2 remains open under decision 8. [Measurement and drawing](../benchmarks/results/h2-svg-lengths-20261120/README.md)
+
+**2026-11-20.** Compact negative coordinates now preserve a 20 × 10 mm cutout on SVG import. Malformed point lists on selected outlines return an error naming the element and repair. The 440 development imports and rejections matched the previous CLI. [Regression drawings and results](../benchmarks/results/h2-svg-points-20261120/README.md)
 
 **N1 native accounting update, 2026-10-15:** the [completed H3 review](../benchmarks/results/h3-complete-20261015.md)
 accounts for all 59 original projects: 48 imported originals match unit membership,

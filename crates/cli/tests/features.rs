@@ -565,6 +565,36 @@ fn legacy_lightburn_nests_and_exports_modern_paths() {
 }
 
 #[test]
+fn svg_point_lists_preserve_cutouts_or_fail_before_writing_the_library() {
+    let dir = temp("point-lists");
+    let input = dir.join("frame.svg");
+    fs::write(
+        &input,
+        include_str!("../../core/tests/fixtures/compact-points.svg"),
+    )
+    .unwrap();
+    let path = import(&dir, std::slice::from_ref(&input));
+    let library: Value = serde_json::from_slice(&fs::read(path).unwrap()).unwrap();
+    assert_eq!(library["parts"][0]["holes"].as_array().unwrap().len(), 1);
+    assert!((library["parts"][0]["area_mm2"].as_f64().unwrap() - 1000.0).abs() < 1e-9);
+    fs::write(
+        &input,
+        include_str!("../../core/tests/fixtures/malformed-points.svg"),
+    )
+    .unwrap();
+    let output = dir.join("broken.json");
+    let result = nestbolt(&[
+        "import".as_ref(),
+        input.as_os_str(),
+        "--output".as_ref(),
+        output.as_os_str(),
+    ]);
+    assert!(!result.status.success());
+    assert!(String::from_utf8_lossy(&result.stderr).contains("Correct the coordinate pairs"));
+    assert!(!output.exists());
+}
+
+#[test]
 fn svg_page_dimensions_and_dxf_width_warnings_reach_cli_imports() {
     let dir = temp("viewport-widths");
     let svg = dir.join("viewport.svg");

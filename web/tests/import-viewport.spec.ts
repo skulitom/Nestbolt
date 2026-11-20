@@ -6,6 +6,28 @@ import { unzip } from '../src/zip.js';
 const svg = readFileSync(new URL('../../crates/core/tests/fixtures/viewport.svg', import.meta.url), 'utf8');
 const dxf = readFileSync(new URL('../../crates/core/tests/fixtures/polyline-width.dxf', import.meta.url));
 
+test('compact SVG points preserve a cutout and a malformed replacement names the repair', async ({ page }) => {
+  const valid = readFileSync(new URL('../../crates/core/tests/fixtures/compact-points.svg', import.meta.url), 'utf8');
+  const invalid = readFileSync(new URL('../../crates/core/tests/fixtures/malformed-points.svg', import.meta.url), 'utf8');
+  const corners = [[10, -20], [30, -20], [30, -10], [10, -10]];
+  for (const [source, expected] of [[valid, corners], [invalid, []]] as const) {
+    await page.setContent(source);
+    const points = await page.locator('polygon').evaluate(element =>
+      Array.from((element as SVGPolygonElement).points, p => [p.x, p.y]));
+    expect(points).toEqual(expected);
+  }
+  await page.goto('/');
+  const input = page.locator('.drop input[type=file]');
+  const file = (source: string) => ({ name: 'frame.svg', mimeType: 'image/svg+xml', buffer: Buffer.from(source) });
+  await input.setInputFiles(file(valid));
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  await expect(page.locator('table.parts')).toContainText('10.0 cm²');
+  await input.setInputFiles(file(invalid));
+  await expect(page.locator('.error')).toContainText('Correct the coordinate pairs');
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Nest', exact: true })).toBeDisabled();
+});
+
 test('a hole drawn in inches matches the browser SVG geometry', async ({ page }) => {
   const source = readFileSync(new URL('../../crates/core/tests/fixtures/inch-hole.svg', import.meta.url), 'utf8');
   await page.setContent(source);
