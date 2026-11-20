@@ -432,8 +432,10 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
         assert!(retraced["warnings"].as_array().unwrap().iter().any(|w| w.as_str().unwrap().contains("keep closed paths connected")));
         std::fs::write(workspace.join("viewport.svg"),include_str!("../../core/tests/fixtures/viewport.svg")).unwrap();
         std::fs::write(workspace.join("width.dxf"),include_str!("../../core/tests/fixtures/polyline-width.dxf")).unwrap();
-        let physical=call("import_parts",json!({"paths":["viewport.svg","width.dxf"]})).await.unwrap().structured_content.unwrap();
-        assert_eq!(physical["part_count"],2);
+        std::fs::write(workspace.join("inch-hole.svg"),include_str!("../../core/tests/fixtures/inch-hole.svg")).unwrap();
+        let physical=call("import_parts",json!({"paths":["viewport.svg","width.dxf","inch-hole.svg"]})).await.unwrap().structured_content.unwrap();
+        assert_eq!(physical["part_count"],3);
+        assert_eq!(physical["parts"][2]["holes"],1);
         for (value,expected) in physical["parts"][0]["bounds_mm"].as_array().unwrap().iter().zip([65.4,-62.7,85.4,-42.7]) {
             assert!((value.as_f64().unwrap()-expected).abs()<1e-9);
         }

@@ -13,6 +13,100 @@ fn assert_bounds(svg: &str, expected: [f64; 4]) {
 }
 
 #[test]
+fn physical_svg_lengths_keep_an_inch_dimensioned_hole() {
+    let svg = include_str!("fixtures/inch-hole.svg");
+    let import = import_svg(svg, &Options::default()).unwrap();
+    assert_eq!(import.parts.len(), 1);
+    let holes = &import.parts[0].holes;
+    assert_eq!(holes.len(), 1);
+    let nestbolt_core::curves::Segment::Arc { center, radii, .. } = &holes[0].segments[0] else {
+        panic!("expected circular hole");
+    };
+    for (actual, expected) in center.iter().chain(radii).zip([12.7, -12.7, 3.175, 3.175]) {
+        assert!((actual - expected).abs() < 1e-9);
+    }
+}
+
+#[test]
+fn lengths_apply_before_clone_and_viewbox_transforms() {
+    let svg = r##"<svg width="192mm" height="192mm" viewBox="0 0 96 96">
+        <defs><rect id="tile" x="1pc" y="12pt" width="0.25IN" height="25.4Q"/></defs>
+        <g transform="scale(0.5)"><use href="#tile" x="1.27cm" y="12.7mm"/></g>
+    </svg>"##;
+    assert_bounds(svg, [64.0, -88.0, 88.0, -64.0]);
+    let lines = r#"<svg width="96px" height="96px" stroke="black" fill="none">
+        <line x2="1in"/><line x1="1in" x2="1in" y2="1in"/>
+        <line x1="1in" y1="1in" y2="1in"/><line y1="1in"/>
+    </svg>"#;
+    assert_bounds(lines, [0.0, -25.4, 25.4, 0.0]);
+}
+
+#[test]
+fn percentage_lengths_use_viewport_axes_and_the_normalized_diagonal() {
+    assert_bounds(
+        r#"<svg width="200mm" height="100mm" viewBox="0 0 100 100">
+            <ellipse cx="50%" cy="40%" rx="10%" ry="5%"/></svg>"#,
+        [90.0, -45.0, 110.0, -35.0],
+    );
+    let r = 0.1 * 30.0_f64.hypot(40.0) / std::f64::consts::SQRT_2;
+    assert_bounds(
+        r#"<svg width="30mm" height="40mm"><circle cx="50%" cy="50%" r="10%"/></svg>"#,
+        [15.0 - r, -20.0 - r, 15.0 + r, -20.0 + r],
+    );
+}
+
+#[test]
+fn unresolvable_shape_lengths_name_the_attribute_and_repair() {
+    assert_bounds(
+        r#"<svg><rect x="0%" y="0em" width="96" height="96"/></svg>"#,
+        [0.0, -25.4, 25.4, 0.0],
+    );
+    for (attributes, value) in [
+        (r#"x="1em" width="10""#, "1em"),
+        (r#"width="80%""#, "80%"),
+        (r#"width="10" ry="invalid""#, "invalid"),
+    ] {
+        let svg = format!(r#"<svg><path d="M0 0h1v1h-1Z"/><rect {attributes} height="10"/></svg>"#);
+        let error = import_svg(&svg, &Options::default())
+            .unwrap_err()
+            .to_string();
+        assert!(
+            error.contains("<rect>")
+                && error.contains(value)
+                && error.contains("convert the shape"),
+            "{error}"
+        );
+    }
+}
+
+#[test]
+fn unresolved_lengths_on_other_layers_leave_selected_cuts_available() {
+    let svg = r##"<svg width="20mm" height="20mm" viewBox="0 0 20 20">
+        <defs><circle id="mark" r="1"/></defs>
+        <g id="CUT"><rect width="10" height="10"/></g>
+        <g id="SCORE"><use href="#mark" x="2em"/><ellipse cx="1em" rx="1"/></g>
+        <circle visibility="hidden" r="3em"/>
+    </svg>"##;
+    assert_bounds(svg, [0.0, -10.0, 10.0, 0.0]);
+    let options = Options {
+        layers: Some(vec!["SCORE".into()]),
+        ..Default::default()
+    };
+    let inventory = nestbolt_core::import::inspect_svg(svg, &options).unwrap();
+    assert_eq!(
+        inventory
+            .layers
+            .iter()
+            .find(|l| l.name == "SCORE")
+            .unwrap()
+            .selected_entities,
+        2
+    );
+    let error = import_svg(svg, &options).unwrap_err().to_string();
+    assert!(error.contains("<use>") && error.contains("2em"), "{error}");
+}
+
+#[test]
 fn aspect_ratio_meet_slice_none_and_alignment_keep_physical_dimensions() {
     let page = |aspect| {
         format!(

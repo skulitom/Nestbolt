@@ -1,8 +1,30 @@
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
+import type { Project } from '../src/types.js';
+import { unzip } from '../src/zip.js';
 
 const svg = readFileSync(new URL('../../crates/core/tests/fixtures/viewport.svg', import.meta.url), 'utf8');
 const dxf = readFileSync(new URL('../../crates/core/tests/fixtures/polyline-width.dxf', import.meta.url));
+
+test('a hole drawn in inches matches the browser SVG geometry', async ({ page }) => {
+  const source = readFileSync(new URL('../../crates/core/tests/fixtures/inch-hole.svg', import.meta.url), 'utf8');
+  await page.setContent(source);
+  const expected = await page.locator('circle').evaluate(element => {
+    const { x, y, width, height } = (element as SVGCircleElement).getBBox();
+    return [x, -y - height, x + width, -y].map(px => px * 25.4 / 96);
+  });
+  await page.goto('/');
+  await page.locator('.drop input[type=file]').setInputFiles({ name: 'inch-hole.svg', mimeType: 'image/svg+xml', buffer: Buffer.from(source) });
+  await expect(page.locator('table.parts tbody tr')).toHaveCount(1);
+  const [archive] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Project ZIP' }).click()]);
+  const entries = unzip(readFileSync(await archive.path()));
+  const project: Project = JSON.parse(new TextDecoder().decode(entries.get('project.json')));
+  const holes = project.library!.parts[0].polygon.holes;
+  expect(holes).toHaveLength(1);
+  const xs = holes[0].map(p => p[0]), ys = holes[0].map(p => p[1]);
+  const measured = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+  measured.forEach((value, i) => expect(Math.abs(value - expected[i])).toBeLessThan(0.005));
+});
 
 test('SVG page geometry agrees with browser coordinates and width warnings are visible', async ({ page }) => {
   // An independent browser matrix oracle: the root transform is in outer
