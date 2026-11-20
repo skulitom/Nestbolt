@@ -1575,6 +1575,8 @@ struct DxfStyle {
     layer: String,
     color: String,
     hidden: bool,
+    /// A paper-space INSERT places its block in paper space too.
+    paper_space: bool,
 }
 
 impl Default for DxfStyle {
@@ -1583,6 +1585,7 @@ impl Default for DxfStyle {
             layer: "0".into(),
             color: "aci:7".into(),
             hidden: false,
+            paper_space: false,
         }
     }
 }
@@ -1611,7 +1614,24 @@ fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) 
             || table.is_some_and(|l| l.hidden)
             || e.get(60) == Some(1.0)
             || e.get(62).is_some_and(|c| c < 0.0),
+        paper_space: parent.paper_space || e.get(67) == Some(1.0),
     }
+}
+
+/// Charge raw block records before expanding their transformed copies.
+fn charge_block_records(
+    remaining: &mut usize,
+    rows: usize,
+    columns: usize,
+    records: usize,
+) -> Result<()> {
+    let cost = rows
+        .checked_mul(columns)
+        .and_then(|n| n.checked_mul(records.max(1)));
+    *remaining = cost.and_then(|n| remaining.checked_sub(n)).context(
+        "DXF block expansion exceeds one million records; split the drawing into smaller jobs",
+    )?;
+    Ok(())
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -1624,6 +1644,7 @@ fn dxf_pieces(
     parent_style: &DxfStyle,
     layers: &HashMap<String, DxfStyle>,
     drawing: &mut Drawing,
+    remaining_expansion: &mut usize,
 ) -> Result<()> {
     ensure!(
         depth < 16,
@@ -1634,7 +1655,6 @@ fn dxf_pieces(
         let e = &entities[i];
         let style = dxf_style(e, parent_style, layers);
         let mut pieces = vec![];
-        let paper_space = e.get(67) == Some(1.0);
         let ignored = if style.hidden {
             Some("hidden DXF entity or layer".into())
         } else if matches!(
@@ -1651,12 +1671,21 @@ fn dxf_pieces(
                 | "IMAGE"
         ) {
             Some("not a cut outline; explode/convert it to closed paths in the source drawing if it must be cut".into())
-        } else if paper_space {
+        } else if style.paper_space {
             Some("paper-space entity; move cut outlines to model space".into())
         } else {
             None
         };
         match e.kind {
+            "POLYLINE" if style.paper_space => {
+                // Count the ignored outline without parsing layout-only vertices.
+                while entities.get(i + 1).is_some_and(|e| e.kind == "VERTEX") {
+                    i += 1;
+                }
+                if entities.get(i + 1).is_some_and(|e| e.kind == "SEQEND") {
+                    i += 1;
+                }
+            }
             "POLYLINE" => {
                 let flags = e.get(70).unwrap_or(0.0) as i64;
                 let mut has_width = polyline_has_width(e, &[40, 41]);
@@ -1699,30 +1728,56 @@ fn dxf_pieces(
             }
             // The block definition can also be used in model space. Its children
             // need not repeat the paper-space flag of this particular instance.
-            "INSERT" if !paper_space => {
+            "INSERT" => {
                 let name = e.text(2).unwrap_or("");
                 if let Some(block) = blocks.get(name) {
                     let (sx, sy) = (e.get(41).unwrap_or(1.0), e.get(42).unwrap_or(1.0));
                     let r = e.get(50).unwrap_or(0.0).to_radians();
                     let (s, c) = r.sin_cos();
                     let at = [e.get(10).unwrap_or(0.0), e.get(20).unwrap_or(0.0)];
-                    let local = Affine {
-                        m: [[c * sx, -s * sy], [s * sx, c * sy]],
-                        t: at,
+                    // A MINSERT repeats the block on a grid that turns with the
+                    // INSERT but isn't scaled. Like ezdxf, a count below 1 reads
+                    // as 1, and a spacing of 0 keeps one copy instead of stacking
+                    // them.
+                    let grid = |count: i32, spacing: i32| {
+                        let step = e.get(spacing).unwrap_or(0.0);
+                        let copies = if step == 0.0 {
+                            1
+                        } else {
+                            (e.get(count).unwrap_or(1.0) as i16).max(1)
+                        };
+                        (0..copies).map(move |k| f64::from(k) * step)
                     };
-                    dxf_pieces(
-                        &block.entities,
-                        blocks,
-                        Affine::translation([-block.base[0], -block.base[1]])
-                            .then(local)
-                            .then(e.ocs())
-                            .then(transform),
-                        depth + 1,
-                        warnings,
-                        &style,
-                        layers,
-                        drawing,
+                    let rows = grid(71, 45);
+                    let columns = grid(70, 44);
+                    charge_block_records(
+                        remaining_expansion,
+                        rows.len(),
+                        columns.len(),
+                        block.entities.len(),
                     )?;
+                    for dy in rows {
+                        for dx in columns.clone() {
+                            let local = Affine {
+                                m: [[c * sx, -s * sy], [s * sx, c * sy]],
+                                t: [at[0] + c * dx - s * dy, at[1] + s * dx + c * dy],
+                            };
+                            dxf_pieces(
+                                &block.entities,
+                                blocks,
+                                Affine::translation([-block.base[0], -block.base[1]])
+                                    .then(local)
+                                    .then(e.ocs())
+                                    .then(transform),
+                                depth + 1,
+                                warnings,
+                                &style,
+                                layers,
+                                drawing,
+                                remaining_expansion,
+                            )?;
+                        }
+                    }
                 } else {
                     warnings.push(format!("unknown block {name:?} skipped"));
                 }
@@ -1859,6 +1914,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                 ),
                 hidden: e.get(62).is_some_and(|c| c < 0.0)
                     || e.get(70).is_some_and(|f| f as u32 & 1 != 0),
+                paper_space: false,
             },
         );
     }
@@ -1889,6 +1945,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
     for (layer, count) in undefined_layers {
         warnings.push(format!("undefined layer {layer:?} is referenced by {count} DXF record(s); default layer properties are assumed. Define the layer or re-export to preserve its colour and visibility"));
     }
+    let mut remaining_expansion = 1_000_000;
     dxf_pieces(
         &entities,
         &blocks,
@@ -1898,6 +1955,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         &DxfStyle::default(),
         &layers,
         &mut drawing,
+        &mut remaining_expansion,
     )?;
     let mut imported = drawing.finish(options, warnings, report, inspect_only)?;
     let extent = imported.parts.iter().map(|p| p.bounds).reduce(|a, b| {
@@ -2166,6 +2224,17 @@ mod tests {
     }
 
     #[test]
+    fn nested_array_expansion_shares_one_record_budget() {
+        let mut remaining = 10;
+        charge_block_records(&mut remaining, 2, 2, 2).unwrap();
+        assert_eq!(remaining, 2);
+        assert!(charge_block_records(&mut remaining, 1, 2, 2).is_err());
+        assert_eq!(remaining, 2);
+        charge_block_records(&mut remaining, 1, 2, 0).unwrap();
+        assert_eq!(remaining, 0);
+    }
+
+    #[test]
     fn paper_space_block_does_not_add_model_cut_paths() {
         let dxf = "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n\
             0\nSECTION\n2\nBLOCKS\n0\nBLOCK\n2\nBOLT\n\
@@ -2183,7 +2252,8 @@ mod tests {
             .iter()
             .find(|l| l.name == "TITLE")
             .unwrap();
-        assert_eq!(title.entities, 1);
+        // Both the outer instance and its layer-0 nested INSERT inherit TITLE.
+        assert_eq!(title.entities, 2);
         assert_eq!(title.selected_entities, 0);
     }
 
