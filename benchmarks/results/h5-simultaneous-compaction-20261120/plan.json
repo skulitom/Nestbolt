@@ -1,0 +1,6 @@
+{
+  "inputs": "The four complete, validated layouts in h5-archived-sheet-combinations-20261120/layouts-and-exports.zip, their original libraries and requests, and the two original maker jobs. Use their complete inventories, exact outer polygons, original orientations and sheet assignments. Preserve reserved holes.",
+  "method": "Translate the last sheet's parts simultaneously. Constrain each nearby pair with supporting separating lines of convex hulls, descending to a convex partition when concavity matters. Limit each coordinate change to 150 mm per iteration. Minimize used height, then total absolute movement at the achieved height. Recompute directions for at most four iterations, stopping after less than 0.001 mm of height improvement or a rejected proposal. Retain every candidate and starting layout.",
+  "evaluation": "One process per job and kerf. Revalidate every proposal with the public CLI against the original library and request. Record per-sheet cut length, material, quantities and diagnostics. Export the best valid proposal and independently measure stock bounds, all pair distances and layout quantities against the original polygon geometry. No timed production or held-out evaluation.",
+  "limits": {"per_case_wall_seconds": 60, "memory_bytes": 2147483648, "logical_cpu": 16, "maximum_iterations": 4, "lp_time_limit_seconds": 3}
+}

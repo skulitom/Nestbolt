@@ -20,7 +20,7 @@ Across the whole job, the [two-sheet capacity check](../benchmarks/results/h5-tw
 leaves **418 allocations**. The earlier count of 440 covered the short sheet
 alone. Four already exceeded the first sheet's area. Two new vertical-section
 bounds rule out another 18 at the 0.2 mm kerf target.
-The best validated partial layout inside that material limit contains 64 of 66 parts.
+The best partial layout under the default hole policy now fits [65 of 66 parts](../benchmarks/results/h5-single-transfer-20261120.md) inside the material limit. It still needs one full-size cog.
 Complete layouts exist for both mechanical jobs. Even the best archived complete
 layout for each job and kerf [exceeds its material target](../benchmarks/results/h5-two-sheet-capacity-20261120.md#complete-archived-layouts).
 Reusing intact sheets and horizontal bands from those archives produced four
@@ -29,6 +29,9 @@ validated improvements of 51–2,805 mm². They still exceed their targets by
 Stacking horizontal or quarter-turned bands from the 310 large-plate laser
 sheets would still need at least 64.70 mm more stock height than the target
 allows, even with zero gap between bands.
+Moving individual last-sheet parts together saved a further 2,094–15,205 mm²
+in the four complete layouts. They exceed their targets by 2.457–4.350%.
+[Material and cut length by job](../benchmarks/results/h5-simultaneous-compaction-20261120.md).
 The two mechanical jobs in the [cutting comparison](../benchmarks/results/h5-cutting-development-20261015.md)
 still exceed the +1% material limit at both kerfs.
 

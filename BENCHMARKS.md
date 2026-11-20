@@ -18302,3 +18302,7 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 **2026-11-20.** Stacking horizontal bands from all 310 archived large-plate laser sheets would miss the combined height target by at least 53.069510 mm, even with free joins. The independent verifier checked 214,376 weighted prefixes. [Band catalogue and verification](benchmarks/results/h5-archived-sheet-combinations-20261120.md#stacking-archived-horizontal-bands).
 
 **2026-11-20.** Extending this test to quarter-turned source windows covers 16,046 different inventories. Pricing the combined catalogue at zero gap gives a stronger height deficit of 64.703522 mm. The independent check covers 1,058,165 turned prefixes in addition to the horizontal prefixes. [Combined catalogue and independent verification](benchmarks/results/h5-archived-sheet-combinations-20261120.md#stacking-archived-horizontal-bands).
+
+**2026-11-20.** Simultaneously translating parts on the last sheet saved 2,094–15,205 mm² across four complete mechanical layouts. All eleven proposals and their four starting layouts passed independent original-geometry checks. All four still exceed the +1% target. [Material and cutting measurements](benchmarks/results/h5-simultaneous-compaction-20261120.md).
+
+**2026-11-20.** The default hole policy fits 65 of the 66 large-plate laser parts inside the original material limit. One full-size cog is missing. [Both requests, independent checks and all nine insertion attempts](benchmarks/results/h5-single-transfer-20261120.md).

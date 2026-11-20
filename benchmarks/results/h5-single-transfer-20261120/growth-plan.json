@@ -1,0 +1,7 @@
+{
+  "input": "Validated 53-part receiver sheet and 12-part short sheet. The only absent original is cog copy 14. All other copies, orientations, stock and clearances remain at their original specification.",
+  "locations": "Compute up to three largest-inscribed-circle centres on the usable receiver stock outside the 53 filled outer polygons. After recording a centre, remove a 220 mm radius neighbourhood when choosing the next seed. Test true size at all three centres and angles 0, 6 and 12 degrees.",
+  "movement": "For an initially undersized diagnostic cog, jointly translate all 53 receiver shapes and its centre while maximizing cog scale using separating lines. Resolve directions after each step. Use at most seven steps per centre and angle in round-robin order. Limit translations to 150 mm per axis per step. A second LP minimizes total motion at the achieved scale. Stop a chain at less than 0.00002 scale improvement. Preserve every reached scale and original-family transform.",
+  "limits": {"hard_wall_seconds": 60, "soft_stop_seconds": 47, "per_lp_seconds": 2, "memory_bytes": 2147483648, "logical_cpu": 16},
+  "verification": "Independently measure stock separation and all same-sheet pair distances before accepting a scaled trial. A scale-one placement must be validated and exported by the CLI at all 66 original quantities, followed by independent original-geometry verification. Smaller scales measure the remaining geometric gap only."
+}
