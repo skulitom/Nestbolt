@@ -6,9 +6,13 @@ Main now includes Pedro Rangel's DXF extrusion and export fixes and the
 updated LightBurn offcut example. The [DXF integration](https://github.com/skulitom/Nestbolt/pull/22)
 and [offcut measurements](https://github.com/skulitom/Nestbolt/pull/19) are included here.
 
-The [latest common-line check](../benchmarks/results/h5-direct-pair-replay-20261120.md)
+The [fixed-arrangement check](../benchmarks/results/h5-direct-pair-replay-20261120.md)
 found 6,603 additional incompatible pairs. Four bracket positions were removed.
 Both arrangements remain open with 8,339 candidate positions between them.
+Across the whole job, the [two-sheet capacity check](../benchmarks/results/h5-two-sheet-capacity-20261120.md)
+leaves **418 allocations**. The earlier count of 440 covered the short sheet
+alone. Four already exceeded the first sheet's area. Two new vertical-section
+bounds rule out another 18 at the 0.2 mm kerf target.
 The best validated layout for the 66-part target still contains 64 parts.
 The two mechanical jobs in the [cutting comparison](../benchmarks/results/h5-cutting-development-20261015.md)
 still exceed the +1% material limit at both kerfs.
@@ -63,7 +67,7 @@ unresolved. New source clearance constraints are next; no closed call is rerun.
 All prior calls and bounded processes stay closed.
 Both the valid 5/4/2 short sheet and new direct 4/2/3 short sheet are preserved;
 the matching first55 and first57 constructions remain unresolved.
-The 440 necessary allocation candidates, full66 checks and H5 matrix remain open;
+The 418 remaining allocation candidates, full 66-part checks and H5 matrix remain open;
 the existing valid 64-part layout is preserved.
 
 **Completion: 60%.** The plan is tracked in [PLAN_V1_1.md](PLAN_V1_1.md).

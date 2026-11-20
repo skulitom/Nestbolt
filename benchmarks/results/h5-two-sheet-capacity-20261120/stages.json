@@ -1,0 +1,117 @@
+[
+  {
+    "stage": "audit",
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 75156,
+      "root_exit_code": 0,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 3,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 14467072,
+      "peak_single_process_committed_memory": 12333056,
+      "complete_ms": 266,
+      "maximum_ms": 60000
+    },
+    "stdout": "{\"passed\": true, \"checked_allocations\": 440, \"area_exclusions\": 4, \"slice_exclusions\": 8, \"remaining\": 428, \"verified_price_vectors\": 4, \"solver_calls\": 0}\r\n",
+    "stderr": null
+  },
+  {
+    "stage": "corrected",
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 47536,
+      "root_exit_code": 0,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 5,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 57200640,
+      "peak_single_process_committed_memory": 55037952,
+      "complete_ms": 3484,
+      "maximum_ms": 60000
+    },
+    "stdout": "first sheet 4 short sheet 8 remaining 428\r\n",
+    "stderr": "C:\\DEV\\Nestbolt\\benchmarks\\results\\h5-two-sheet-capacity-20261120\\screen.py:109: OptimizeWarning: Unrecognized options detected: {'threads': 1}. These will be passed to HiGHS verbatim.\r\n  lp = linprog([0] * n + [-c for c in counts], A_ub=matrix, b_ub=limits,\r\n"
+  },
+  {
+    "stage": "first",
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 119324,
+      "root_exit_code": 1,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 3,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 12697600,
+      "peak_single_process_committed_memory": 10563584,
+      "complete_ms": 156,
+      "maximum_ms": 60000
+    },
+    "stdout": null,
+    "stderr": "Traceback (most recent call last):\r\n  File \"C:\\DEV\\Nestbolt\\benchmarks\\results\\h5-two-sheet-capacity-20261120\\screen.py\", line 177, in <module>\r\n    main()\r\n  File \"C:\\DEV\\Nestbolt\\benchmarks\\results\\h5-two-sheet-capacity-20261120\\screen.py\", line 129, in main\r\n    counts, areas, modes = geometry(plan)\r\n                           ^^^^^^^^^^^^^^\r\n  File \"C:\\DEV\\Nestbolt\\benchmarks\\results\\h5-two-sheet-capacity-20261120\\screen.py\", line 64, in geometry\r\n    assert cross > 0 and cross**2 >= radius**2 * (dx**2 + dy**2)\r\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\nAssertionError\r\n"
+  },
+  {
+    "stage": "whole-cog",
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 55356,
+      "root_exit_code": 0,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 5,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 53907456,
+      "peak_single_process_committed_memory": 51777536,
+      "complete_ms": 1016,
+      "maximum_ms": 60000
+    },
+    "stdout": "additional exclusions 10 remaining 418\r\n",
+    "stderr": "C:\\DEV\\Nestbolt\\benchmarks\\results\\h5-two-sheet-capacity-20261120\\cog_screen.py:47: OptimizeWarning: Unrecognized options detected: {'threads': 1}. These will be passed to HiGHS verbatim.\r\n  lp = linprog([0]*(n+2) + [-v for v in q], A_ub=matrix, b_ub=limits,\r\n"
+  },
+  {
+    "stage": "whole-cog-audit",
+    "job": {
+      "error_code": 0,
+      "reason_code": 0,
+      "root_pid": 54212,
+      "root_exit_code": 0,
+      "assigned_before_resume": true,
+      "resumed": true,
+      "closed": true,
+      "active_processes": 0,
+      "total_processes": 3,
+      "terminated_processes": 0,
+      "limit_flags": 8704,
+      "job_committed_memory_limit": 2147483648,
+      "peak_job_committed_memory": 14778368,
+      "peak_single_process_committed_memory": 12603392,
+      "complete_ms": 266,
+      "maximum_ms": 60000
+    },
+    "stdout": "{\"passed\": true, \"checked_allocations\": 440, \"area_exclusions\": 4, \"slice_exclusions\": 8, \"remaining\": 428, \"verified_price_vectors\": 4, \"solver_calls\": 0}\r\n{\"passed\": true, \"checked_allocations\": 428, \"cog_exclusions\": 10, \"remaining\": 418, \"verified_price_vectors\": 8, \"solver_calls\": 0}\r\n",
+    "stderr": null
+  }
+]

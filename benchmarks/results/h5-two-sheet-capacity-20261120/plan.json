@@ -1,0 +1,19 @@
+{
+  "job": "m-mechanical-large-plates",
+  "kerf_mm": 0.2,
+  "starting_short_sheet_allocations": 440,
+  "pareto_count_vectors_for_price_search": 32,
+  "cog_inner_disk_radius_mm": 109,
+  "cog_strip_width_mm": 1,
+  "cog_chord_height_rounding_mm": 25,
+  "price_integer_scale": 1000000,
+  "stages": [
+    "Reconcile the complete short-sheet frontier with exact occupied areas on both target sheets.",
+    "For each maximal short-sheet count vector, search for nonnegative vertical-section prices. Use the same prices for all equal heights, the minimum over permitted bracket and insert orientations and all-angle disk sections for cogs.",
+    "Check every price vector by integer unbounded knapsack against every vertical section of the short stock, then apply only strict deficits to all 440 allocations.",
+    "Independently replay every reported exclusion and retain every surviving count vector."
+  ],
+  "limits": {"producer_seconds": 60, "audit_seconds": 60, "memory_bytes": 2147483648},
+  "layout_searches": 0,
+  "timed_H5_run": false
+}
