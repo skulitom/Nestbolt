@@ -13,6 +13,10 @@ def digest(data):
 
 
 def replay(root, corpus, cli, out):
+    if not __debug__:
+        raise SystemExit(
+            "Run without Python -O to verify the frozen training manifest and archive checksums."
+        )
     baseline = root / "benchmarks/results/h2-native-warning-probe-20261016-v3"
     manifest_bytes = (corpus / "manifest.json").read_bytes()
     training = {

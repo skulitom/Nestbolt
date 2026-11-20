@@ -99,6 +99,9 @@ def measure(svg, stock, parts, placements):
     for shape in groups[0]:
         if shape.tag != SVG + "path":
             raise ValueError("Unexpected geometry in CUT")
+        stroke = shape.get("stroke", "inherit").strip().lower()
+        if stroke not in ("inherit", "#000000", "#000", "black"):
+            raise ValueError("Expected a black stroke on each CUT path")
         placement = wanted.pop(shape.attrib["id"])
         tx, ty = placement["transform"]["translation"]
         angle = placement["transform"]["rotation_radians"]
@@ -154,6 +157,10 @@ def check_case(exports):
 
 
 def main():
+    if not __debug__:
+        raise SystemExit(
+            "Run without Python -O to verify the frozen training split and all sheets."
+        )
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
     parser.add_argument(
