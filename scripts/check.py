@@ -17,6 +17,7 @@ def main():
         ["cargo", "fmt", "--manifest-path", "benchmarks/sparrow-repro/Cargo.toml", "--check"],
         ["cargo", "clippy", "--workspace", "--all-targets", "--locked", "--", "-D", "warnings"],
         ["cargo", "test", "--workspace", "--locked"],
+        ["cargo", "test", "--locked", "-p", "nestbolt-core", "--no-default-features"],
         ["cargo", "test", "--release", "--locked", "-p", "nestbolt-cli", "--test", "features"],
         ["cargo", "test", "--release", "--locked", "-p", "nestbolt-core", "--lib", "sparrow_"],
         ["cargo", "test", "--locked", "-p", "nestbolt-validator", "--example", "stock_adapter"],
