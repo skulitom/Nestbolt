@@ -6,7 +6,7 @@
 //! LightBurn's rational-spline importer otherwise exceeds the 0.01 mm gate.
 use anyhow::{Result, ensure};
 
-use super::{Contour, Dxf, PI, Segment, num};
+use super::{Contour, Dxf, PI, Segment, num, same_as_written};
 use crate::curves::Point;
 
 type Cubic = [Point; 4];
@@ -105,7 +105,11 @@ impl Dxf {
         let mut from = contour.start;
         for s in &contour.segments {
             match s {
-                Segment::Line { .. } => vertices.push((from, 0.0)),
+                Segment::Line { to } => {
+                    if !same_as_written(from, *to) {
+                        vertices.push((from, 0.0));
+                    }
+                }
                 Segment::Arc {
                     center,
                     radii,
@@ -167,7 +171,9 @@ impl Dxf {
         let mut pieces = vec![];
         let mut from = contour.start;
         for segment in &contour.segments {
-            pieces.extend(cubics(from, segment)?);
+            if !matches!(segment, Segment::Line { to } if same_as_written(from, *to)) {
+                pieces.extend(cubics(from, segment)?);
+            }
             from = segment.end();
         }
         ensure!(!pieces.is_empty(), "ordered contour has no segments");

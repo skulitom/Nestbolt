@@ -223,6 +223,13 @@ fn num(v: f64) -> String {
     if s == "-0" { "0".into() } else { s.into() }
 }
 
+/// Whether two points are the same once `num` writes them. An imported loop
+/// that ends on an arc closes with a line across its rounding gap; that line
+/// has no length in a DXF and must become neither a LINE nor a span.
+fn same_as_written(a: [f64; 2], b: [f64; 2]) -> bool {
+    num(a[0]) == num(b[0]) && num(a[1]) == num(b[1])
+}
+
 fn svg_path(contour: &Contour, d: &mut String, closed: bool) {
     let p = |q: [f64; 2]| format!("{} {}", num(q[0]), num(q[1]));
     write!(d, "M {} ", p(contour.start)).expect("string write");
@@ -429,6 +436,9 @@ impl Dxf {
     fn segment(&mut self, layer: &str, from: [f64; 2], s: &Segment) {
         match s {
             Segment::Line { to } => {
+                if same_as_written(from, *to) {
+                    return;
+                }
                 self.entity("LINE", layer);
                 self.pair(100, "AcDbLine");
                 self.point(10, from);
@@ -497,6 +507,16 @@ impl Dxf {
     }
 }
 
+/// The AC1021 drawing around Nestbolt's layers and entities: the HEADER,
+/// CLASSES, TABLES, BLOCKS and OBJECTS that ezdxf 1.4.3 writes for a new R2007
+/// document, without ezdxf's APPID and metadata dictionary. AutoCAD 2025 hangs
+/// on the minimal R13+ structure but opens this one; its `AUDIT` also needs
+/// layer 0 first and `$HANDSEED` above every handle. The template's handles
+/// stay below its LAYER table's, 0x100, after which Nestbolt's follow.
+/// `dxf_with_review_paths` fills in the `{handseed}`, `{layers}` and
+/// `{entities}` lines.
+const AC1021_TEMPLATE: &str = include_str!("export/ac1021_template.dxf");
+
 /// One sheet as an AutoCAD 2007 (AC1021) DXF in millimetres, with true-colour layers.
 pub fn dxf(
     job: &Job,
@@ -529,25 +549,6 @@ pub fn dxf_with_review_paths(
         text: String::new(),
         handle: 0x100,
     };
-    for (code, value) in [
-        (0, "SECTION"),
-        (2, "HEADER"),
-        (9, "$ACADVER"),
-        (1, "AC1021"),
-        (9, "$INSUNITS"),
-        (70, "4"),
-        (0, "ENDSEC"),
-        (0, "SECTION"),
-        (2, "TABLES"),
-        (0, "TABLE"),
-        (2, "LAYER"),
-        (5, "100"),
-        (330, "0"),
-        (100, "AcDbSymbolTable"),
-        (70, "4"),
-    ] {
-        w.pair(code, value);
-    }
     for layer in Layer::ALL {
         w.pair(0, "LAYER");
         w.handle += 1;
@@ -560,13 +561,13 @@ pub fn dxf_with_review_paths(
         w.pair(62, layer.aci());
         w.pair(420, layer.rgb());
         w.pair(6, "CONTINUOUS");
+        // Default lineweight, and the template's Normal plot style and Global material.
+        for (code, value) in [(370, "-3"), (390, "18"), (347, "20")] {
+            w.pair(code, value);
+        }
     }
-    for (code, value) in [
-        (0, "ENDTAB"),
-        (0, "ENDSEC"),
-        (0, "SECTION"),
-        (2, "ENTITIES"),
-    ] {
+    let layers = std::mem::take(&mut w.text);
+    for (code, value) in [(0, "SECTION"), (2, "ENTITIES")] {
         w.pair(code, value);
     }
     if options.sheet_outline {
@@ -613,10 +614,11 @@ pub fn dxf_with_review_paths(
             }
         }
     }
-    for (code, value) in [(0, "ENDSEC"), (0, "EOF")] {
-        w.pair(code, value);
-    }
-    Ok(w.text)
+    w.pair(0, "ENDSEC");
+    Ok(AC1021_TEMPLATE
+        .replacen("{handseed}", &format!("{:X}", w.handle + 1), 1)
+        .replacen("{layers}\n", &layers, 1)
+        .replacen("{entities}\n", &w.text, 1))
 }
 
 #[cfg(test)]
@@ -684,6 +686,62 @@ mod tests {
         }
     }
 
+    /// A loop closed by a line across its arc's rounding gap, as the importer
+    /// builds them, gets no LINE, polyline span or spline span for that line;
+    /// a line of one written unit still becomes a LINE.
+    #[test]
+    fn lines_shorter_than_the_written_precision_are_not_exported() {
+        let closed = |radii: [f64; 2]| Contour {
+            start: [12.5 + radii[0], 7.25],
+            segments: vec![
+                Segment::Arc {
+                    center: [12.5, 7.25],
+                    radii,
+                    rotation: 0.0,
+                    start: 0.0,
+                    sweep: TAU,
+                },
+                Segment::Line {
+                    to: [12.5 + radii[0], 7.25 + 1e-9],
+                },
+            ],
+        };
+        let mut w = Dxf {
+            text: String::new(),
+            handle: 0x100,
+        };
+        for contour in [closed([3.3, 3.3]), closed([3.3, 1.65])] {
+            let mut from = contour.start;
+            for segment in &contour.segments {
+                w.segment("CUT", from, segment);
+                from = segment.end();
+            }
+            w.ordered_contour("CUT", &contour).unwrap();
+        }
+        let mut entities: Vec<(&str, Vec<[&str; 2]>)> = vec![];
+        for pair in w.text.lines().collect::<Vec<_>>().chunks(2) {
+            match pair[0] {
+                "0" => entities.push((pair[1], vec![])),
+                "10" => entities.last_mut().unwrap().1.push([pair[1], ""]),
+                "20" => entities.last_mut().unwrap().1.last_mut().unwrap()[1] = pair[1],
+                _ => {}
+            }
+        }
+        let kinds: Vec<_> = entities.iter().map(|e| e.0).collect();
+        assert_eq!(kinds, ["CIRCLE", "LWPOLYLINE", "ELLIPSE", "SPLINE"]);
+        let polyline = &entities[1].1;
+        let mut ring = polyline.iter().zip(polyline.iter().cycle().skip(1));
+        assert!(ring.all(|(a, b)| a != b), "{}", w.text);
+        assert!(entities[3].1.windows(2).all(|p| p[0] != p[1]), "{}", w.text);
+
+        let mut w = Dxf {
+            text: String::new(),
+            handle: 0x100,
+        };
+        w.segment("CUT", [0.0, 0.0], &Segment::Line { to: [1e-6, 0.0] });
+        assert!(w.text.starts_with("0\nLINE\n"), "{}", w.text);
+    }
+
     #[test]
     fn palette_separates_review_paths_and_keeps_them_open() {
         let (job, layout, curves) = placed_job();
@@ -749,6 +807,66 @@ mod tests {
             assert!(imported.report.open_contours.is_empty());
             assert_eq!(imported.report.selection_mode, "named_cut_layers");
         }
+    }
+
+    #[test]
+    fn dxf_is_a_complete_ac1021_drawing() {
+        let (job, layout, curves) = placed_job();
+        let options = Options {
+            sheet_outline: true,
+        };
+        let dxf = dxf(&job, &layout, "sheet-0", &curves, options).unwrap();
+        let lines: Vec<_> = dxf.lines().collect();
+        let pairs: Vec<(u32, &str)> = lines
+            .chunks(2)
+            .map(|p| (p[0].trim().parse().unwrap(), p[1]))
+            .collect();
+        let after = |pair| pairs.iter().position(|&p| p == pair).map(|i| pairs[i + 1]);
+        let sections: Vec<_> = pairs
+            .windows(2)
+            .filter(|w| w[0] == (0, "SECTION"))
+            .map(|w| w[1].1)
+            .collect();
+        assert_eq!(
+            sections,
+            [
+                "HEADER", "CLASSES", "TABLES", "BLOCKS", "ENTITIES", "OBJECTS"
+            ]
+        );
+        assert_eq!(pairs.last(), Some(&(0, "EOF")));
+        assert_eq!(after((9, "$ACADVER")), Some((1, "AC1021")));
+        assert_eq!(after((9, "$INSUNITS")), Some((70, "4")));
+
+        // Unique handles below $HANDSEED, and no pointer to a missing object.
+        let hex = |v: &str| u32::from_str_radix(v, 16).unwrap();
+        let header_end = pairs.iter().position(|&p| p == (0, "ENDSEC")).unwrap();
+        let handles: Vec<_> = pairs[header_end..]
+            .iter()
+            .filter(|(code, _)| matches!(code, 5 | 105))
+            .map(|&(_, v)| hex(v))
+            .collect();
+        let unique: std::collections::HashSet<_> = handles.iter().copied().collect();
+        assert_eq!(unique.len(), handles.len());
+        let seed = hex(after((9, "$HANDSEED")).unwrap().1);
+        assert!(handles.iter().all(|&h| h < seed));
+        for &(code, value) in &pairs {
+            if matches!(code, 330 | 340 | 347 | 348 | 350 | 360 | 390) && value != "0" {
+                assert!(unique.contains(&hex(value)), "{code} {value}");
+            }
+        }
+
+        // Each table counts its records, and layer 0 comes first.
+        for i in (0..pairs.len()).filter(|&i| pairs[i] == (0, "TABLE")) {
+            let name = pairs[i + 1].1;
+            let end = i + pairs[i..].iter().position(|&p| p == (0, "ENDTAB")).unwrap();
+            let records = pairs[i..end].iter().filter(|&&p| p == (0, name)).count();
+            let count = pairs[i..end].iter().find(|(code, _)| *code == 70).unwrap();
+            assert_eq!(count.1.parse::<usize>().unwrap(), records, "{name}");
+        }
+        let first_layer = pairs.iter().position(|&p| p == (0, "LAYER")).unwrap();
+        let name = pairs[first_layer..].iter().find(|(code, _)| *code == 2);
+        assert_eq!(name, Some(&(2, "0")));
+        assert!(!dxf.to_ascii_uppercase().contains("EZDXF"));
     }
 
     fn placed_job() -> (Job, Layout, HashMap<String, Outline>) {
