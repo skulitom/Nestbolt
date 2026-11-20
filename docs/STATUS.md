@@ -29,6 +29,8 @@ shared by a model and a drawing layout now produces just the model-space part.
 All 5,138 exported contours matched within 0.003302 mm. An independent DXF
 reader accepted all 246 exported sheets without repairs.
 
+### Earlier common-line trials with holes reserved
+
 The [fixed-arrangement check](../benchmarks/results/h5-direct-pair-replay-20261120.md)
 found 6,603 additional incompatible pairs. Four bracket positions were removed.
 Both arrangements remain open with 8,339 candidate positions between them.
@@ -104,22 +106,29 @@ the matching first55 and first57 constructions remain unresolved.
 The 418 remaining allocation candidates, full 66-part checks and H5 matrix remain open;
 the existing valid 64-part layout is preserved.
 
-**Completion: 75%.** The plan is tracked in [PLAN_V1_1.md](PLAN_V1_1.md).
-Only completed gate weights count. N0/H1, N2/H3, N3/H4 and N5/H6 are complete:
-the corpus and split are frozen; LightBurn preservation, browser quality/scale
-and lead allowances pass their complete requirement reviews. The
-[H4 completion audit](../benchmarks/results/h4-depth-complete-20261016.md)
-includes full quality, four large-layout workflows and all-placement curve fidelity.
-H2 and H5 remain open. On 2026-10-20 Artem [chose to retain H2's original gate](../benchmarks/results/h2-gate-decision-20261020.md)
-and leave H2 open. The 25-file denominator is unchanged; the two deliberate
-negative fixtures cap literal exact-import success at 92%, below 95%.
-The prior denominator question is resolved; no reserved vectors were opened.
-N1 implementation is in progress;
-explicit gap repair, layer/colour selection, segment cleanup, byte decoding,
+### Milestone summary
+
+**Five of six gates are complete, accounting for 75% of the v1.1 plan.** These
+are the corpus (H1), LightBurn round-trip (H3), browser performance (H4),
+common-line cutting (H5) and lead allowances (H6). [Milestone weights](PLAN_V1_1.md#7-milestones-progress-weights)
+
+H5 passed with both **Nest parts inside holes** and **Search for more shared cuts**
+enabled. All 234 layouts validated, and every job met the +1% material limit at
+both kerfs. Common-line mode reserves holes by default. [Common-line confirmation](../benchmarks/results/h5-rigid-host-rows-20261120.md)
+
+H2 is the sole open gate. Exact import requires 24 of the 25 held-out drawings.
+Two deliberate negatives cap the possible count at 23 (92%). This upper bound
+comes from the frozen classifications. Three native projects have already been
+evaluated and the other 22 files remain reserved. [H2 gate decision](../benchmarks/results/h2-gate-decision-20261020.md)
+
+The H4 audit covers browser quality, four large-layout workflows and curve fidelity
+for every placement. [H4 completion evidence](../benchmarks/results/h4-depth-complete-20261016.md)
+
+For N1, explicit gap repair, layer/colour selection, segment cleanup, byte decoding,
 units reports, rejection of incomplete selected cuts and the locally verified
 export palette and imported stock outlines now work through the UI, CLI and MCP.
-No N1 importer changes may precede the H1 freeze. LightBurn-dependent evidence is
-due by 2026-11-06. v0.1.0 was released and published to the MCP Registry on
+The H1 corpus freeze preceded N1 importer changes. The plan set 2026-11-06
+as the target for LightBurn-dependent work. v0.1.0 was released and published to the MCP Registry on
 2026-10-14. On 2026-10-16 Artem authorized the next GitHub release when ready,
 including a README update. [Preview v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
 is now published at `c36baa8`; [actual download and provenance checks](../benchmarks/results/preview-depth-published-20261016.md)
