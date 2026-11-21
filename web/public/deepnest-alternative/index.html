@@ -91,7 +91,7 @@
       <article>
         <h1>A Deepnest alternative, with the benchmark to inspect</h1>
         <p>In Nestbolt's frozen v1 benchmark, run on 2026-10-13, Nestbolt used <strong>8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow</strong> at equal 60-second budgets, and 9.6% at 300 seconds on the long subset; Sparrow still wins 8 of the 56 jobs at 60 seconds. The Deepnest in that run was deepnest-next as of 6 October 2026 (revision <code>1e7ba6e</code>), not the 1.6.0-beta.0 pre-release that followed on 20 November, which we have not run (<a href="#deepnest-1-6">what changed in it</a>).</p>
-        <p><strong>We make Nestbolt.</strong> The benchmark numbers are ours, from the run described below. Everything on this page about Deepnest 1.6.0-beta.0 comes from its release notes, pull requests and README on GitHub, read on 2026-11-21. Last checked: <strong>2026-11-21</strong>.</p>
+        <p><strong>We make Nestbolt.</strong> The benchmark numbers are ours, from the run described below. Everything on this page about Deepnest 1.6.0-beta.0 comes from its release notes, pull requests, README and commit lists on GitHub, read on 2026-11-21. Last checked: <strong>2026-11-21</strong>.</p>
         <div class="cta">
           <a class="button" href="../">Open Nestbolt in your browser</a>
           <p>Free and MIT-licensed; your files never leave your computer.</p>
@@ -141,7 +141,7 @@
           <li><strong>A security fix.</strong> The notification window, which shows feed and release-note HTML, is now sandboxed (pull request 210).</li>
         </ul>
         <p>The release notes list pull requests going back to December 2024, so they also name "Fix: overlapping and nesting in holes" (105) and "Material utilisation" (111). Both merged in April 2025 and were already in the notes for v1.5.5 of 9 May 2025. They are not new in 1.6, and both are in the revision we benchmarked.</p>
-        <p>Deepnest's main branch has moved on since the tag: 23 more commits when we read it on 21 November 2026 (the newest at 14:01 UTC), none of them in a release yet. Several change how parts are placed: the rough approximation "no longer turns a sheet into its convex hull", "parts that fill a rectangular sheet exactly are placed", and Deepnest now tries "the other rotations when a part has no room" at the rotation its genetic algorithm chose (<a href="https://github.com/deepnest-next/deepnest/compare/v1.6.0-beta.0...main">commits since the tag</a>). A current Deepnest may therefore do better than the revision in our table. We have not measured it.</p>
+        <p>Deepnest's main branch has moved on since the tag: 23 more commits when we read it on 21 November 2026 (the newest at 14:01 UTC), none of them in a release yet. Several change how parts are placed: the rough approximation "no longer turns a sheet into its convex hull", "parts that fill a rectangular sheet exactly are placed", and when a part has no room at the rotation its genetic algorithm chose, Deepnest now tries "the other rotations" (<a href="https://github.com/deepnest-next/deepnest/compare/v1.6.0-beta.0...main">commits since the tag</a>). A current Deepnest may therefore do better than the revision in our table. We have not measured it.</p>
         <h2>When to choose Deepnest instead</h2>
         <p>From Deepnest's <a href="https://github.com/deepnest-next/deepnest/blob/v1.6.0-beta.0/README.md">README at the 1.6.0-beta.0 tag</a>, read on 2026-11-21. We did not run this version.</p>
         <ul>
