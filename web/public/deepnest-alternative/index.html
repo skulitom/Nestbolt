@@ -50,6 +50,8 @@
           "name": "Deepnest alternative: SVGnest and Sparrow compared | Nestbolt",
           "description": "Compare Nestbolt with Deepnest, SVGnest and Sparrow at equal time budgets. Inspect the frozen benchmark, material savings, failures and where Sparrow wins.",
           "url": "https://skulitom.github.io/Nestbolt/deepnest-alternative/",
+          "datePublished": "2026-10-20",
+          "dateModified": "2026-11-21",
           "isPartOf": {
             "@type": "WebSite",
             "@id": "https://skulitom.github.io/Nestbolt/#website",
@@ -88,7 +90,8 @@
     <main id="main">
       <article>
         <h1>A Deepnest alternative, with the benchmark to inspect</h1>
-        <p>Looking for an alternative to Deepnest or SVGnest starts with a practical question: how much material does the layout use? In Nestbolt's frozen v1 benchmark, it used <strong>8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow</strong> at equal 60-second budgets, and 9.6% at 300 seconds on the long subset. Sparrow still wins 8 of the 56 jobs at 60 seconds.</p>
+        <p>In Nestbolt's frozen v1 benchmark, run on 2026-10-13, Nestbolt used <strong>8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow</strong> at equal 60-second budgets, and 9.6% at 300 seconds on the long subset; Sparrow still wins 8 of the 56 jobs at 60 seconds. The Deepnest in that run was deepnest-next as of 6 October 2026 (revision <code>1e7ba6e</code>), not the 1.6.0-beta.0 pre-release that followed on 20 November, which we have not run (<a href="#deepnest-1-6">what changed in it</a>).</p>
+        <p><strong>We make Nestbolt.</strong> The benchmark numbers are ours, from the run described below. Everything on this page about Deepnest 1.6.0-beta.0 comes from its release notes, pull requests and README on GitHub, read on 2026-11-21. Last checked: <strong>2026-11-21</strong>.</p>
         <div class="cta">
           <a class="button" href="../">Open Nestbolt in your browser</a>
           <p>Free and MIT-licensed; your files never leave your computer.</p>
@@ -127,6 +130,26 @@
         <h2>How the benchmark was run</h2>
         <p>The final acceptance run used 75 frozen sheet jobs: 35 academic and 40 maker jobs. Ten were held out from all tuning. Each tool had equal time budgets and one CPU core, with five fresh seeds each. Each competitor used the better of its two settings, and every layout was checked by an independent validator.</p>
         <p>The first final run, build <code>484ce8b</code>, stopped with an error on one job. The fix is in <code>75cbb32</code>, and both runs are published. You can inspect the <a href="../results/final-484ce8b/">earlier run</a> as well as the <a href="../results/">final results</a>; the <a href="https://github.com/skulitom/Nestbolt/blob/main/BENCHMARKS.md">benchmark log</a> preserves the failures.</p>
+        <h2 id="deepnest-1-6">Deepnest 1.6.0-beta.0: what changed after this benchmark</h2>
+        <p>On 20 November 2026 the deepnest-next project published <a href="https://github.com/deepnest-next/deepnest/releases/tag/v1.6.0-beta.0">v1.6.0-beta.0</a>, marked as a pre-release. Its release before that was v1.5.6, on 19 May 2025, which GitHub still shows as the latest release. The benchmark above ran deepnest-next at <a href="https://github.com/deepnest-next/deepnest/tree/1e7ba6e2382557f337ad481ca3251fc22032ca0f">revision <code>1e7ba6e</code></a> of 6 October 2026, a main-branch revision dated after 1.5.6 and 29 commits before the 1.6.0-beta.0 tag (<a href="https://github.com/deepnest-next/deepnest/compare/1e7ba6e2382557f337ad481ca3251fc22032ca0f...v1.6.0-beta.0">GitHub's comparison</a>). We have not run 1.6.0-beta.0, so the table above does not measure it.</p>
+        <p>The main changes in those 29 commits, from their pull requests:</p>
+        <ul>
+          <li><strong>Two fixes for lost parts.</strong> A sheet that fits no part is now skipped: before, "a small offcut listed before a big sheet gave 0/N placed". Rectangles that start at 0/0 no longer disappear from the parts list and the cut file when a transform applies (<a href="https://github.com/deepnest-next/deepnest/pull/210">pull request 210</a>).</li>
+          <li><strong>No silent freezes.</strong> A nest no longer freezes silently when a worker fails: the worker now always answers, and a crashed one is replaced (pull request 210).</li>
+          <li><strong>More rotation angles.</strong> The part-rotations setting now accepts up to 360 angles, up from 32. Its help text warns that values above 32 are experimental and make nesting much slower (<a href="https://github.com/deepnest-next/deepnest/pull/214">pull request 214</a>).</li>
+          <li><strong>PLT (HPGL) export</strong> for plotters and cutters (<a href="https://github.com/deepnest-next/deepnest/pull/203">pull request 203</a>), Fedora <code>.rpm</code> packages (<a href="https://github.com/deepnest-next/deepnest/pull/191">191</a>) and a move to Electron 45 (<a href="https://github.com/deepnest-next/deepnest/pull/212">212</a>).</li>
+          <li><strong>A security fix.</strong> The notification window, which shows feed and release-note HTML, is now sandboxed (pull request 210).</li>
+        </ul>
+        <p>The release notes list pull requests going back to December 2024, so they also name "Fix: overlapping and nesting in holes" (105) and "Material utilisation" (111). Both merged in April 2025 and were already in the notes for v1.5.5 of 9 May 2025. They are not new in 1.6, and both are in the revision we benchmarked.</p>
+        <p>Deepnest's main branch has moved on since the tag: 23 more commits when we read it on 21 November 2026 (the newest at 14:01 UTC), none of them in a release yet. Several change how parts are placed: the rough approximation "no longer turns a sheet into its convex hull", "parts that fill a rectangular sheet exactly are placed", and Deepnest now tries "the other rotations when a part has no room" at the rotation its genetic algorithm chose (<a href="https://github.com/deepnest-next/deepnest/compare/v1.6.0-beta.0...main">commits since the tag</a>). A current Deepnest may therefore do better than the revision in our table. We have not measured it.</p>
+        <h2>When to choose Deepnest instead</h2>
+        <p>From Deepnest's <a href="https://github.com/deepnest-next/deepnest/blob/v1.6.0-beta.0/README.md">README at the 1.6.0-beta.0 tag</a>, read on 2026-11-21. We did not run this version.</p>
+        <ul>
+          <li><strong>You want a desktop app.</strong> Deepnest is a desktop program with downloads for Windows x64, macOS (Apple silicon and Intel) and Linux (x64 and arm64). Nestbolt's app runs in a browser tab, and its native tools cover Windows x64, Linux x64 and macOS on Apple silicon.</li>
+          <li><strong>Your drawings are EPS, PS or DWG, or your cutter takes PLT.</strong> Deepnest's README lists SVG, EPS and PS import, DXF and DWG import "via conversion service", and SVG, DXF, PLT (HPGL) and JSON export. Nestbolt reads SVG and DXF, and LightBurn projects as a preview feature; it writes SVG, DXF and LightBurn files.</li>
+          <li><strong>You want saved settings per material or machine.</strong> Deepnest's README lists presets you can save and reload. Nestbolt's README lists projects saved in the browser or as a ZIP, but no presets per material or machine.</li>
+        </ul>
+        <p>On material use, the tool that beats Nestbolt on some jobs in this benchmark, which ran Deepnest at revision <code>1e7ba6e</code>, is Sparrow; the next section has the numbers.</p>
         <h2>Where Sparrow still wins</h2>
         <p><a href="https://github.com/JeroenGar/sparrow">Sparrow, which Nestbolt builds on</a>, wins eight jobs at 60 seconds. Seven are one-sheet jobs that Nestbolt hands to Sparrow itself after its own first layout. Sparrow therefore runs with slightly less time inside Nestbolt on those jobs; running it separately is 0.03–2.4% better. The eighth job uses two sheets and is 0.34% better.</p>
         <p>That misses Nestbolt's own 60-second bar: wins or ties on 90% of jobs and never more than 1% worse. The 300-second, strip-parity and speed bars are met. The <a href="../results/">results</a> and <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/STATUS.md">status evidence</a> show the boundaries of those conclusions. A median saving does not promise a saving on every drawing.</p>
