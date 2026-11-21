@@ -18326,3 +18326,5 @@ at **60%**. Production code, READMEs, releases and held-out isolation are unchan
 **2026-11-20.** A compact SVG polygon preserved a 20 × 10 mm window through nesting and export. All four contours across SVG and DXF matched within 0.000001 mm. All 440 development drawings retained their previous results. [Cutout regression, fidelity and corpus comparison](benchmarks/results/h2-svg-points-20261120/README.md)
 
 **2026-11-20.** All 246 accepted training vectors passed export fidelity on `bf9eaa62`. Maximum G6 distances were 0.003302 mm for SVG and 0.000500 mm for DXF. Independent readers checked 2,569 SVG contours and 91,537 DXF entities. All 183 robustness imports or rejections finished within 0.837 seconds. [Full training, robustness and reader results](benchmarks/results/h2-training-exports-20261120/README.md)
+
+**2026-11-21.** After the structured diagnostics merge, `23696fa3` passed all 10,000 generated DXF import cases and 1,008 nesting checks. Each of four seeds covered all 17 drawing conditions. The run used Rust 1.98.1, proptest 1.12.0 and Python 3.11.5. [Per-seed results and reproduction](benchmarks/results/h2-habit-fuzz-20261121T010130Z.md)
