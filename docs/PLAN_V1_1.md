@@ -181,6 +181,8 @@ Surfaces:
 
 **2026-11-20.** Compact negative coordinates now preserve a 20 × 10 mm cutout on SVG import. Malformed point lists on selected outlines return an error naming the element and repair. The 440 development imports and rejections matched the previous CLI. [Regression drawings and results](../benchmarks/results/h2-svg-points-20261120/README.md)
 
+**2026-11-20.** The merged importer reproduced all 291 accepted training imports and 22 diagnosed rejections. The full vector export replay matched all 5,138 contours across both formats. Independent readers checked each SVG cut path and each DXF sheet. [Training evidence and reproduction](../benchmarks/results/h2-training-exports-20261120/README.md)
+
 **N1 native accounting update, 2026-10-15:** the [completed H3 review](../benchmarks/results/h3-complete-20261015.md)
 accounts for all 59 original projects: 48 imported originals match unit membership,
 physical cutting holes, fixed shapes and cutting layers; all eleven original
