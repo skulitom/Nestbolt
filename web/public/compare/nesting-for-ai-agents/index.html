@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nesting MCP servers and CLIs for AI agents compared | Nestbolt</title>
-    <meta name="description" content="How an AI agent can nest SVG or DXF parts on sheets: which nesting tools offer an MCP server, a CLI or a library, with a measured run of Nestbolt's MCP server (checked 2026-10-20).">
+    <meta name="description" content="How an AI agent can nest SVG or DXF parts on sheets: which nesting tools offer an MCP server, a CLI or a library, with a measured run of Nestbolt's MCP server (checked 2026-11-22).">
     <link rel="canonical" href="https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/">
     <link rel="stylesheet" href="../../site.css">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%234e79a7'/%3E%3Cpath d='M3 3h5v5H3zM9 9h4v4H9zM9 3h4v4H9z' fill='white'/%3E%3C/svg%3E">
@@ -41,7 +41,7 @@
           "description": "How an AI agent can nest SVG or DXF parts on sheets: which nesting tools offer an MCP server, a CLI or a library, with a measured run of Nestbolt's MCP server.",
           "url": "https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/",
           "datePublished": "2026-10-20",
-          "dateModified": "2026-10-20",
+          "dateModified": "2026-11-22",
           "inLanguage": "en",
           "author": {"@type": "Person", "name": "skulitom", "url": "https://github.com/skulitom"},
           "about": {"@id": "https://skulitom.github.io/Nestbolt/#software-application"},
@@ -74,13 +74,13 @@
     <main id="main">
       <article>
         <h1>Nesting for AI agents: Nestbolt, OpenNest, pyFit, Sparrow and Deepnest compared</h1>
-        <p><strong>Reading the tools' repositories, four MCP directories and GitHub search on 2026-10-20, we found three open-source nesting tools that an AI agent can call over MCP: Nestbolt (5 tools, SVG and DXF in), OpenNest by ajisaacs (19 tools, DXF in, built from source) and pyFit (4 tools, a JSON job of polygons or single-loop DXF outlines, installed from source), plus one hosted, paid MCP service, SmartCut. All three open-source ones also have command lines, as do Sparrow and CLI-nesting (JSON polygons in) and sheetnest (DXF in), while Deepnest and SVGnest have none.</strong> In our run, three fresh Nestbolt v0.1.0 MCP servers nested the example job from its v0.1.0 source six times on one sheet (32 of 32 parts, checked by its validator) in 3.1 to 3.9 seconds per nest, and all six layouts were byte-identical (method and data below).</p>
-        <p><strong>We make Nestbolt.</strong> We ran only Nestbolt. Everything on this page about the other tools comes from their own repositories, documentation and release pages, read on 2026-10-20 at the commits linked below, and is marked "from its docs". Hosted services were read from their public pages only. Last checked: <strong>2026-10-20</strong>.</p>
+        <p><strong>Reading the tools' repositories, three MCP directories and GitHub search on 2026-11-22, we found three open-source nesting tools that an AI agent can call over MCP, the same three as on 2026-10-20: Nestbolt (5 tools, SVG and DXF in), OpenNest by ajisaacs (19 tools in its v0.7.0 source and 33 on its master branch; DXF, DWG or SVG in; built from source) and pyFit (4 tools, a JSON job of polygons or single-loop DXF outlines, installed from source). Three hosted services now nest true shapes over MCP: SmartCut, CutOptim and NestSolver. Another tool with an MCP server, the desktop program nestpro, publishes its source under a small-business licence, not an open-source one. All three open-source ones also have command lines, as do nestpro, Sparrow, CLI-nesting (JSON polygons in) and sheetnest (DXF in), while Deepnest and SVGnest have none.</strong> In our run of 2026-11-22, three fresh Nestbolt v0.1.0 MCP servers nested the example job from its v0.1.0 source six times on one sheet (32 of 32 parts, checked by its validator) in 3.4 to 5.1 seconds per nest, and all six layouts were byte-identical, to each other and to the six from our first run on 2026-10-20 (method and data below).</p>
+        <p><strong>We make Nestbolt.</strong> We ran only Nestbolt. Everything on this page about the other tools comes from their own repositories, documentation and release pages, read on 2026-11-22 at the commits linked below (and first on 2026-10-20), and is marked "from its docs". Hosted services were read from their public pages only. Last checked: <strong>2026-11-22</strong>.</p>
 
         <h2>How an agent can drive each nesting tool</h2>
         <div class="table" role="region" aria-label="Agent interfaces of nesting tools" tabindex="0">
           <table>
-            <caption>Agent interface, formats and sheet model (Nestbolt from its README and agent docs, its MCP server measured below; the others from their docs, read 2026-10-20)</caption>
+            <caption>Agent interface, formats and sheet model (Nestbolt from its README and agent docs, its MCP server measured below; the others from their docs, read 2026-11-22)</caption>
             <thead>
               <tr>
                 <th scope="col">Tool</th>
@@ -103,13 +103,13 @@
                 <td>v0.1.0, 2026-10-14 (preview v0.2.0-alpha.1, 2026-10-16)</td>
               </tr>
               <tr>
-                <th scope="row"><a href="https://github.com/ajisaacs/OpenNest/tree/1b323e2380b9dccab9dd7d33c9cda8cec098d168">OpenNest</a> (ajisaacs)</th>
-                <td>MCP server (stdio, 19 tools), CLI, .NET API, Windows desktop app</td>
-                <td>Desktop: DXF, DWG, Excel BOMs in; DXF, G-code, <code>.nest</code> out. Over MCP: DXF in, <code>.nest</code> out; the console adds G-code through post-processors</td>
-                <td>Fixed plates, several sizes; parts inside other parts' cutouts</td>
-                <td>The release zip is the Windows desktop app; the MCP server and CLI are built from source with the .NET 8 SDK (its console and API also build on Linux and macOS)</td>
+                <th scope="row"><a href="https://github.com/ajisaacs/OpenNest/tree/aea032a24d15bfecfda89a6e5994e4ee6e69281b">OpenNest</a> (ajisaacs)</th>
+                <td>MCP server (stdio; 19 tools in the v0.7.0 source, 33 on its master branch, 14 of which work only with its own nest server), CLI, .NET API, Windows desktop app</td>
+                <td>Desktop: DXF, DWG, SVG, Excel BOMs in; DXF, SVG, G-code, <code>.nest</code> out. Over MCP: DXF, DWG or SVG in, <code>.nest</code> out; the console adds G-code through post-processors</td>
+                <td>Fixed plates, several sizes; parts inside other parts' cutouts; since v0.7.0 a plate can have an irregular outline, set in the desktop app or the console (no MCP tool sets one; on a plate that has one, the MCP fill tools point to <code>autonest_plate</code> or <code>autonest_job</code> with the Irregular engine)</td>
+                <td>Release downloads (a ZIP, a self-updating Setup.exe and a portable ZIP) are the Windows desktop app; the MCP server and CLI are built from source with the .NET 8 SDK (its console and API also build on Linux and macOS)</td>
                 <td>MIT</td>
-                <td>v0.5.0 pre-release, 2026-10-20</td>
+                <td>v0.7.0, 2026-11-17 (its first full release was v0.6.0, 2026-10-27); a rolling <code>dev-build</code> pre-release, 2026-11-22</td>
               </tr>
               <tr>
                 <th scope="row"><a href="https://github.com/badass-data-science/pyFit-agentic-polygon-nesting/tree/8320110ae2edc463b98865e9969a7256d41e308e">pyFit</a></th>
@@ -121,6 +121,15 @@
                 <td>0.1.0; last commit 2026-07-29</td>
               </tr>
               <tr>
+                <th scope="row"><a href="https://github.com/KurfLabs/nestpro">nestpro</a> (KurfLabs)</th>
+                <td>MCP server (stdio; every operation of the app is a tool), CLI (the same operations, JSON out), desktop app</td>
+                <td>DXF, DWG, IGES, PDF, ESSI, DSTV and Lantek files in; CNC programs, a CSV parts list and PNG renders out</td>
+                <td>Sheet stock and remnants</td>
+                <td>Windows Setup.exe and portable ZIP; its README says it also builds and runs on Linux</td>
+                <td>PolyForm Small Business 1.0.0: the source is public and free for businesses with fewer than 100 people and under about US$1 million revenue; not open source</td>
+                <td>v0.2.1, 2026-11-21</td>
+              </tr>
+              <tr>
                 <th scope="row"><a href="https://smartcut.dev/docs/mcp/">SmartCut</a> (hosted)</th>
                 <td>MCP over HTTP and a REST API</td>
                 <td>JSON outlines; PDF, CSV, DXF, SVG and saw-machine formats</td>
@@ -130,7 +139,25 @@
                 <td>Hosted service</td>
               </tr>
               <tr>
-                <th scope="row"><a href="https://github.com/JeroenGar/sparrow/tree/1fe3e3146110c34d77510636defb737c7ce893c6">Sparrow</a> and <a href="https://github.com/PaulDL-RS/spyrrow/tree/f6345979e5f6cf88e9e2e3775750fcce899334fd">spyrrow</a></th>
+                <th scope="row"><a href="https://cutoptim.com/engine/reference/guides/mcp">CutOptim</a> (hosted)</th>
+                <td>MCP over HTTP, or a local stdio package that calls the same hosted API; a REST API</td>
+                <td>Part outlines as polygons with holes, or SVG or DXF files; placements back, and the layout as SVG and DXF on request</td>
+                <td>Fixed sheets, as rectangles or polygons with exclusion zones; parts interlock into each other's concave pockets; no part-in-part</td>
+                <td>API key: the Studio plan is €49 a month for 3,000 requests, with a 14-day trial of 200 calls; its four <code>validate</code> tools need no key</td>
+                <td>Service terms (its MCP package <code>@cutoptim/mcp</code> is MIT)</td>
+                <td>Hosted service; MCP package 0.1.3, 2026-11-18</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="https://nestsolver.com/mcp">NestSolver</a> (hosted)</th>
+                <td>MCP over HTTP and a REST API</td>
+                <td>DXF, DWG and SVG drawings; DXF and SVG out</td>
+                <td>Sheets; smaller parts inside the holes of bigger ones</td>
+                <td>An account: the free plan gives 5 nests a month of up to 50 parts; the Bench plan is $19 a month</td>
+                <td>Service terms</td>
+                <td>Hosted service; in the MCP registry since 2026-11-06</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="https://github.com/JeroenGar/sparrow/tree/b8ef03312b7a195895f6c5332c6674dd78420ede">Sparrow</a> and <a href="https://github.com/PaulDL-RS/spyrrow/tree/f6345979e5f6cf88e9e2e3775750fcce899334fd">spyrrow</a></th>
                 <td>CLI and Rust library; spyrrow is a Python wrapper</td>
                 <td>Instance JSON (or Python point lists); SVG and JSON</td>
                 <td>Strip packing only: one strip of fixed width, length minimised; parts with holes are rejected</td>
@@ -175,13 +202,13 @@
                 <td>Last commit 2021-09-15</td>
               </tr>
               <tr>
-                <th scope="row"><a href="https://github.com/deepnest-next/deepnest/tree/e33e8889df40fed870dd4c2c68be27fd46ea0fdc">Deepnest</a> (deepnest-next)</th>
+                <th scope="row"><a href="https://github.com/deepnest-next/deepnest/tree/6cbe75fdfa5c828c249bf9d2bd182cb7b402ac55">Deepnest</a> (deepnest-next)</th>
                 <td>Desktop app only; no CLI</td>
-                <td>SVG natively; PS, EPS, DXF and DWG through an online converter; SVG, DXF (converter), PLT, JSON</td>
+                <td>SVG natively; PS, EPS, DXF and DWG through an online converter; SVG, DXF (converter) and JSON out, and PLT in the 1.6.0 pre-releases</td>
                 <td>Fixed sheets, several</td>
                 <td>Release downloads for Windows, macOS and Linux</td>
                 <td>MIT, with a GPL-3.0 core file</td>
-                <td>v1.5.6, 2025-05-19; last commit 2026-10-18</td>
+                <td>v1.5.6, 2025-05-19 (pre-release v1.6.0-beta.1, 2026-11-21); last commit 2026-11-22</td>
               </tr>
               <tr>
                 <th scope="row"><a href="https://github.com/Jack000/SVGnest/tree/1248dc21efd3f90d1aa52ba5785e27e5217ed2c9">SVGnest</a></th>
@@ -207,10 +234,10 @@
         <p>Nestbolt's row is from its <a href="https://github.com/skulitom/Nestbolt/blob/main/README.md">README</a> and <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/AGENT_INTERFACE.md">agent interface</a>, and its MCP behaviour is measured below. LightBurn project nesting in Nestbolt is a preview feature (v0.2.0-alpha.1). The hosted browser app runs a preview build from <code>main</code>.</p>
 
         <h2>Nestbolt over MCP, measured</h2>
-        <p>We downloaded <code>nestbolt-v0.1.0-x86_64-pc-windows-msvc.zip</code> from the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0">v0.1.0 release</a> (SHA-256 <code>f3ba7548…167398</code>, matching its <code>SHA256SUMS</code>) and drove <code>nestbolt-mcp.exe</code> over stdio with a small JSON-RPC client, the way an agent's MCP client does. Each of three runs started a fresh server in a new, empty workspace holding only <code>examples/parts.svg</code> from the v0.1.0 tag's source, with that tag's <code>examples/nest-request.json</code> (4 part shapes, 32 parts, one 600 × 400 mm sheet, 1 mm spacing). The release archive itself holds the two programs, licences, README and llms.txt, but no examples. The PC was an AMD Ryzen 9 7950X3D (16 cores) on Windows 11. The v0.1.0 server's own instructions already mention LightBurn input; Nestbolt's README documents LightBurn project nesting as a v0.2.0-alpha.1 preview feature.</p>
+        <p>We downloaded <code>nestbolt-v0.1.0-x86_64-pc-windows-msvc.zip</code> from the <a href="https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0">v0.1.0 release</a> (SHA-256 <code>f3ba7548…167398</code>, matching its <code>SHA256SUMS</code>) and drove <code>nestbolt-mcp.exe</code> over stdio with a small JSON-RPC client, the way an agent's MCP client does. Each of three runs started a fresh server in a new, empty workspace holding only <code>examples/parts.svg</code> from the v0.1.0 tag's source, with that tag's <code>examples/nest-request.json</code> (4 part shapes, 32 parts, one 600 × 400 mm sheet, 1 mm spacing). The release archive itself holds the two programs, licences, README and llms.txt, but no examples. The PC was an AMD Ryzen 9 7950X3D (16 cores) on Windows 11, and it was running other jobs at the time. This is the second run of the same steps: the first was on 2026-10-20, and v0.1.0 is still the latest release. The v0.1.0 server's own instructions already mention LightBurn input; Nestbolt's README documents LightBurn project nesting as a v0.2.0-alpha.1 preview feature.</p>
         <div class="table" role="region" aria-label="Nestbolt MCP probe results" tabindex="0">
           <table>
-            <caption>Nestbolt v0.1.0 MCP server, three fresh runs, 2026-10-20</caption>
+            <caption>Nestbolt v0.1.0 MCP server, three fresh runs, 2026-11-22 (every reply matched the 2026-10-20 run apart from its timings and folder paths, and every layout, SVG and DXF file was byte-identical; that run's timings are in the last paragraph of this section)</caption>
             <thead>
               <tr>
                 <th scope="col">Call</th>
@@ -222,27 +249,27 @@
               <tr>
                 <th scope="row"><code>initialize</code>, <code>tools/list</code></th>
                 <td>Server <code>nestbolt</code> 0.1.0, protocol 2025-06-18, with instructions that give the three-step workflow; 5 tools (<code>import_parts</code>, <code>nest</code>, <code>validate_layout</code>, <code>export_layout</code>, <code>estimate_sheets</code>) in a 20,752-byte reply</td>
-                <td>0.001 s or less</td>
+                <td>0.002 s or less</td>
               </tr>
               <tr>
                 <th scope="row"><code>import_parts</code></th>
                 <td>4 part ids with areas, bounds and an import report</td>
-                <td>0.001 s</td>
+                <td>0.002 s</td>
               </tr>
               <tr>
                 <th scope="row"><code>nest</code>, <code>time_budget_s</code> 10, seed 0</th>
                 <td>32 of 32 parts on 1 sheet, 8 of them inside holes; the validator's report attached; <code>"repeatable": true</code>; 3 progress notifications; a 1,647-byte reply, with geometry left in files</td>
-                <td>3.1 to 3.2 s</td>
+                <td>3.4 to 3.8 s</td>
               </tr>
               <tr>
                 <th scope="row">The same <code>nest</code> again</th>
-                <td>A byte-identical <code>layout.json</code> (SHA-256 <code>7fc2ed62…</code>) in all six nests across the three servers</td>
-                <td>3.6 to 3.9 s</td>
+                <td>A byte-identical <code>layout.json</code> (SHA-256 <code>7fc2ed62…</code>) in all six nests across the three servers, the same hash as on 2026-10-20</td>
+                <td>4.8 to 5.1 s</td>
               </tr>
               <tr>
                 <th scope="row"><code>validate_layout</code>, <code>export_layout</code>, <code>estimate_sheets</code></th>
                 <td>Valid; the exported <code>sheet-0.svg</code> byte-identical to the one <code>nest</code> wrote; a lower bound of 1 sheet</td>
-                <td>0.012 s or less</td>
+                <td>0.015 s or less</td>
               </tr>
               <tr>
                 <th scope="row">Three mistakes an agent can make</th>
@@ -252,18 +279,22 @@
             </tbody>
           </table>
         </div>
-        <p>The command line gives the same result: <code>nestbolt import parts.svg --output lib.json</code> then <code>nestbolt nest --library lib.json --request nest-request.json --out-dir run --seconds 10 --repeatable</code> wrote the same <code>7fc2ed62…</code> <code>layout.json</code> bytes as the MCP server in three runs. Each tool call's arguments and reply, the <code>tools/list</code> reply, the progress notifications, the timings and the output hashes are in the data: <a href="data/mcp-v0.1.0-run1.json">run 1</a>, <a href="data/mcp-v0.1.0-run2.json">run 2</a>, <a href="data/mcp-v0.1.0-run3.json">run 3</a> and <a href="data/cli-v0.1.0-runs.txt">the CLI runs</a>. Why a 10-second budget finished in about 3 to 4 seconds: Nestbolt's <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/SEARCH_CONTRACT.md">search contract</a> spends half of <code>time_budget_s</code> (here 5 seconds) as deterministic work, estimated in seconds on one core of its reference CPU, the model this PC has. On this job that work took 3.1 to 3.9 real seconds, so the work model's estimate runs high here; the full budget (at most 300 seconds) stays a hard real-time limit. A slower PC takes longer for the same layout, and if it hits the limit the reply says <code>"repeatable": false</code>.</p>
+        <p>The command line gives the same result: <code>nestbolt import parts.svg --output lib.json</code> then <code>nestbolt nest --library lib.json --request nest-request.json --out-dir run --seconds 10 --repeatable</code> wrote the same <code>7fc2ed62…</code> <code>layout.json</code> bytes as the MCP server in three runs, in 3.4 to 3.6 seconds each. Each tool call's arguments and reply, the <code>tools/list</code> reply, the progress notifications, the timings and the output hashes are in the data: <a href="data/mcp-v0.1.0-run1-2026-11-22.json">run 1</a>, <a href="data/mcp-v0.1.0-run2-2026-11-22.json">run 2</a>, <a href="data/mcp-v0.1.0-run3-2026-11-22.json">run 3</a> and <a href="data/cli-v0.1.0-runs-2026-11-22.txt">the CLI runs</a>. The 2026-10-20 data is kept beside it (<a href="data/mcp-v0.1.0-run1.json">run 1</a>, <a href="data/mcp-v0.1.0-run2.json">run 2</a>, <a href="data/mcp-v0.1.0-run3.json">run 3</a>, <a href="data/cli-v0.1.0-runs.txt">the CLI runs</a>). Why a 10-second budget finished in about 3 to 5 seconds: Nestbolt's <a href="https://github.com/skulitom/Nestbolt/blob/main/docs/SEARCH_CONTRACT.md">search contract</a> spends half of <code>time_budget_s</code> (here 5 seconds) as deterministic work, estimated in seconds on one core of its reference CPU, the model this PC has. On 2026-10-20 that work took 3.1 to 3.9 real seconds on this job (first nests 3.1 to 3.2, repeats 3.6 to 3.9), so the work model's estimate ran high. On 2026-11-22, with other jobs running on the PC, the first nests took 3.4 to 3.8 seconds and the repeats 4.8 to 5.1, about the full 5 seconds; the full budget (at most 300 seconds) stays a hard real-time limit. A slower PC takes longer for the same layout, and if it hits the limit the reply says <code>"repeatable": false</code>.</p>
 
         <h2>Material use</h2>
         <p>We did not benchmark material use for this page. Nestbolt's <a href="https://github.com/skulitom/Nestbolt#how-it-compares">README</a> reports its frozen v1 benchmark (build <code>75cbb32</code>, not the v0.1.0 binary measured above): 8.5% less material at the median than the best of Deepnest, SVGnest and Sparrow at equal 60-second budgets, with Sparrow winning 8 of 56 jobs. The <a href="../../deepnest-alternative/">Deepnest alternative guide</a> explains that run and the <a href="../../results/">results page</a> has every number. OpenNest, pyFit, CLI-nesting, sheetnest and the other tools here besides Deepnest, SVGnest and Sparrow were not in that benchmark, so nothing here says which of them uses less material.</p>
 
         <h2>The other tools, from their docs</h2>
         <h3>OpenNest</h3>
-        <p>A Windows desktop app for CNC nesting on material plates that imports DXF and DWG and exports DXF or G-code through post-processors. Its <code>OpenNest.Mcp</code> project is a stdio MCP server with 19 tools, among them <code>import_dxf</code>, <code>create_plate</code>, <code>autonest_job</code>, <code>check_overlaps</code>, <code>plan_cutting</code> and <code>save_nest</code>; over MCP an agent brings DXF in and saves <code>.nest</code> files, and the console adds post-processed CNC output. Its README says the desktop, console, MCP and API nesting share an independent validation pipeline. The v0.5.0 pre-release zip, published 2026-10-20, contains the desktop app; the console and MCP server are built with the .NET 8 SDK, and its README says the console and API also build on Linux and macOS (from its docs, not run by us). A different project, petrasvestartas/OpenNest, shares the name.</p>
+        <p>A Windows desktop app for CNC nesting on material plates that imports DXF, DWG and SVG and exports DXF, SVG, or G-code through post-processors. Its <code>OpenNest.Mcp</code> project is a stdio MCP server. In the v0.7.0 source it has 19 tools, among them <code>import_dxf</code> (which now also takes DWG and SVG), <code>create_drawing</code> (a built-in shape or a G-code string), <code>create_plate</code>, <code>autonest_job</code>, <code>check_overlaps</code>, <code>plan_cutting</code> and <code>save_nest</code>. Its master branch has 33: the 14 added on 2026-11-19, such as <code>search_drawings</code>, <code>make_nests</code> and <code>renest_nest</code>, work only when OpenNest is connected to its own nest server. Over MCP an agent brings DXF, DWG or SVG in and saves <code>.nest</code> files; no MCP tool exports DXF, SVG or G-code, and the console adds post-processed CNC output. Its README says the desktop, console, MCP and API nesting share an independent validation pipeline. The v0.7.0 release, published 2026-11-17, ships the desktop app as a ZIP, a self-updating Setup.exe and a portable ZIP; v0.7.0 also added SVG import and export, irregular sheet outlines for remnants and common-line cutting, which its notes say is not yet proven on a machine. The console and MCP server are built with the .NET 8 SDK, and its README says the console and API also build on Linux and macOS (from its docs, not run by us). A different project, petrasvestartas/OpenNest, shares the name.</p>
         <h3>pyFit</h3>
-        <p>A Python package with a <code>pyfit</code> CLI and a <code>pyfit-mcp</code> stdio server whose four tools (<code>design_nest</code>, <code>preview_nest</code>, <code>get_nest_report</code>, <code>export_nest</code>) share one schema: sheet width and height, parts, and a rotation step. It fills several rectangular sheets, going back to scrap on earlier sheets before opening a new one, re-checks every candidate placement for overlap and containment, can return preview images into the conversation, and sends progress notifications. It has no spacing or kerf setting in its code, its DXF reader takes one closed loop of LINE entities per file, and its README says the package targets convex and simple shapes. Its README installs from PyPI, but that name returned 404 on 2026-10-20, so it installs from source (from its docs, not run by us).</p>
+        <p>A Python package with a <code>pyfit</code> CLI and a <code>pyfit-mcp</code> stdio server whose four tools (<code>design_nest</code>, <code>preview_nest</code>, <code>get_nest_report</code>, <code>export_nest</code>) share one schema: sheet width and height, parts, and a rotation step. It fills several rectangular sheets, going back to scrap on earlier sheets before opening a new one, re-checks every candidate placement for overlap and containment, can return preview images into the conversation, and sends progress notifications. It has no spacing or kerf setting in its code, its DXF reader takes one closed loop of LINE entities per file, and its README says the package targets convex and simple shapes. Its README installs from PyPI, but that name returned 404 on 2026-10-20 and again on 2026-11-22, so it installs from source (from its docs, not run by us).</p>
         <h3>SmartCut</h3>
         <p>A hosted cut-list and nesting service with a REST API and an MCP endpoint at <code>api.smartcut.dev/mcp</code>. Both need an API key and an active subscription; its pricing page renders prices with scripts, so we could not read them as text. Its nesting mode takes part outlines with holes, which are cut but not filled with other parts (from its docs, not run by us). Almacam's <a href="https://doc.nesting.almacam.com/">Nesting Component</a> (PowerNest WS) is another hosted option: an HTTP JSON API for true-shape nesting with holes, several sheets or a strip, and part spacing, by evaluation on request with no public price (from its docs, not run by us).</p>
+        <h3>CutOptim and NestSolver</h3>
+        <p>Two hosted services that were not on this page in October. CutOptim's engine has an MCP endpoint at <code>api.cutoptim.com/mcp</code> and an MIT-licensed package, <code>@cutoptim/mcp</code>, that runs locally over stdio and calls the same hosted API. Of its 10 tools, <code>optimize_nest</code> places "free-form polygon parts on sheets": it takes parts as polygons with holes or as SVG or DXF files and sheets as rectangles or polygons with exclusion zones, and returns the layout as SVG and DXF on request. The others cover rectangular panels, bars and timber, job and usage reads, and four <code>validate</code> tools that check a request without solving it and need no key. Its site says part-in-part nesting, common-line cutting and G-code are not offered, and lists a Studio plan at €49 a month for 3,000 requests, with a 14-day trial of 200 calls. NestSolver runs at <code>mcp.nestsolver.com</code> and needs an account. It nests irregular parts from DXF, DWG and SVG drawings, places smaller parts inside the holes of bigger ones, and exports DXF and SVG. Its free plan gives 5 nests a month of up to 50 parts, and its Bench plan is $19 a month (both from their docs and pricing pages, read 2026-11-22, not run by us).</p>
+        <h3>nestpro</h3>
+        <p>A desktop sheet-nesting CAM program for laser, plasma, oxyfuel and waterjet cutting, written in Rust, with its first release on 2026-11-18. Its README calls it source-available: the licence is PolyForm Small Business 1.0.0, free for businesses with fewer than 100 people and under about US$1 million revenue, with a commercial licence for bigger companies, so it is not open source. <code>nestpro mcp</code> starts a stdio MCP server in which every operation of the app is a tool, and the same operations run as commands without the window, answering in JSON. It imports DXF, DWG, IGES, PDF, ESSI, DSTV and Lantek files and writes CNC programs. It is Windows-first, with a Setup.exe and a portable ZIP, and its README says it also builds and runs on Linux (from its README and releases, read 2026-11-22, not run by us).</p>
         <h3>Sparrow and spyrrow</h3>
         <p>Sparrow is a Rust command line and library for 2D irregular strip packing (<a href="https://arxiv.org/abs/2509.13329">arXiv 2509.13329</a>): <code>-i input.json -t seconds</code> writes the final layout as SVG and JSON. It solves one strip of fixed width (Sparrow calls it the strip height), not several fixed sheets, and its engine rejects parts with holes. spyrrow wraps it for Python with point lists in and placements out, and no SVG or DXF input. Nestbolt builds on Sparrow and its engine, jagua-rs (from their docs, not run by us for this page).</p>
         <h3>CLI-nesting</h3>
@@ -271,27 +302,29 @@
         <h3>libnest2d, pynest2d and Packaide</h3>
         <p>libnest2d is a C++ nesting library that began in PrusaSlicer; pynest2d is Ultimaker's Python binding of its fork, packaged for Cura and shipped through Conan rather than PyPI. Both take polygons built in code and are LGPL-3.0; libnest2d's README says it works well for rectangles and convex polygons, without considering holes and concavities. Packaide is a GPL-3.0 Python library with a CGAL engine that nests SVG shapes onto SVG sheets; its last commit is from 2021 and it is built from source (from their docs, not run by us).</p>
         <h3>Deepnest, SVGnest and DeepNestPort</h3>
-        <p>Deepnest is a desktop app. Asked in <a href="https://github.com/deepnest-next/deepnest/issues/150">issue #150</a> about running it from a command line, its maintainer replied in July 2025 that there is no official support. It reads SVG natively and sends PS, EPS, DXF and DWG files to an online converter, <code>converter.deepnest.app</code>, by default. SVGnest is a browser app whose JavaScript API (<code>parsesvg</code>, <code>setbin</code>, <code>start</code>) runs inside a page and searches until it is stopped. DeepNestPort, a C# port, ships a desktop app; its source also holds an undocumented console program with a fixed 10-second search (from their docs, not run by us).</p>
+        <p>Deepnest is a desktop app. Asked in <a href="https://github.com/deepnest-next/deepnest/issues/150">issue #150</a> about running it from a command line, its maintainer replied in July 2025 that there is no official support. It reads SVG natively and sends PS, EPS, DXF and DWG files to an online converter, <code>converter.deepnest.app</code>, by default. Its 1.6.0 pre-releases of 20 and 21 November 2026 add no command line, API or MCP server; what they do change is on <a href="../../deepnest-alternative/#deepnest-1-6">the Deepnest alternative page</a>. SVGnest is a browser app whose JavaScript API (<code>parsesvg</code>, <code>setbin</code>, <code>start</code>) runs inside a page and searches until it is stopped. DeepNestPort, a C# port, ships a desktop app; its source also holds an undocumented console program with a fixed 10-second search (from their docs, not run by us).</p>
         <h3>sheetnest and ironnest</h3>
-        <p>sheetnest is a Rust library with Python and JavaScript bindings and a CLI whose <code>nest</code> command reads DXF parts, writes DXF and SVG with arcs kept as arcs, and can leave optional micro-joints (uncut tabs), and whose <code>validate</code> command checks overlaps, margins and gaps. It packs rectangular stock or a coil strip of unbounded length, and does not yet place parts inside other parts' holes; the package names in its README returned 404 on 2026-10-20, so it builds from source. <a href="https://pypi.org/project/ironnest/">ironnest</a> 0.6.2 is an MPL-2.0 fork of jagua-rs on PyPI that packs polygons across several sheets from Python (from their docs, not run by us).</p>
-        <p>MCP servers for rectangular cut lists, such as nestingcalc (<a href="https://nestingcalc.com/llms.txt">its MCP endpoint</a> and <a href="https://nestingcalc.com/sheet-cutting-calculator/">sheet calculator</a>), pack rectangles only and are left out (from its docs, read 2026-10-20, not run by us).</p>
+        <p>sheetnest is a Rust library with Python and JavaScript bindings and a CLI whose <code>nest</code> command reads DXF parts, writes DXF and SVG with arcs kept as arcs, and can leave optional micro-joints (uncut tabs), and whose <code>validate</code> command checks overlaps, margins and gaps. It packs rectangular stock or a coil strip of unbounded length, and does not yet place parts inside other parts' holes; the package names in its README returned 404 on 2026-10-20 and again on 2026-11-22, so it builds from source. <a href="https://pypi.org/project/ironnest/">ironnest</a> 0.6.2 is an MPL-2.0 fork of jagua-rs on PyPI that packs polygons across several sheets from Python (from their docs, not run by us).</p>
+        <p>MCP servers for rectangular cut lists, such as nestingcalc (<a href="https://nestingcalc.com/llms.txt">its MCP endpoint</a> and <a href="https://nestingcalc.com/sheet-cutting-calculator/">sheet calculator</a>), <a href="https://www.moacut.com/">MOACUT</a> and <a href="https://github.com/Galvez92/cutlist-mcp">Galvez92/cutlist-mcp</a>, pack rectangles only and are left out (from their docs, read 2026-11-22, not run by us).</p>
 
         <h2>When to use the other tool</h2>
         <ul>
-          <li><strong>OpenNest</strong> if you cut plate on a CNC machine and want DXF or DWG in and machine G-code out of the same tool, with the cut sequencing, generated lead-ins and G-code post-processors that Nestbolt does not have. Nestbolt writes SVG and DXF cut files (and LightBurn projects in the v0.2.0-alpha.1 preview).</li>
+          <li><strong>OpenNest</strong> if you cut plate on a CNC machine and want DXF, DWG or SVG in and machine G-code out of the same tool, with the cut sequencing, generated lead-ins and G-code post-processors that Nestbolt does not have. Nestbolt writes SVG and DXF cut files (and LightBurn projects in the v0.2.0-alpha.1 preview).</li>
           <li><strong>Sparrow</strong> if your job is a roll or strip of fixed width and your parts have no holes. Nestbolt's README calls it the state of the art for that problem, and Nestbolt runs unmodified Sparrow itself on one-sheet jobs of hole-free parts without defects.</li>
           <li><strong>CLI-nesting</strong> if your parts already exist as polygons in your own pipeline and you want a single JSON-in, files-out command with prebuilt binaries. <strong>sheetnest</strong> if you want a DXF-in, DXF-out command for rectangular stock or coils and can build it.</li>
           <li><strong>pyFit</strong> if your agent works in Python, your parts are convex or simple single-outline shapes on rectangular sheets, and you want an MCP server that shows layout previews in the conversation, in one small codebase.</li>
           <li><strong>SmartCut</strong> if you need a hosted service with saw-machine exports and labels, and an API key and subscription are fine; Almacam's API if you want hosted true-shape nesting and can arrange an evaluation.</li>
+          <li><strong>NestSolver or CutOptim</strong> if you want a hosted MCP service that nests true shapes from your drawings. NestSolver takes DXF, DWG and SVG, places small parts inside holes and has a free plan; CutOptim takes polygons, SVG or DXF, nests onto rectangular or polygon sheets, and is a metered API with a 14-day trial.</li>
+          <li><strong>nestpro</strong> if you run a small cutting shop, want a desktop CAM program that an agent can also drive, and its small-business licence fits you.</li>
           <li><strong>libnest2d or pynest2d</strong> if you are already inside C++ or a slicer and only need to arrange polygons on a bed.</li>
           <li><strong>Deepnest</strong> if a person, not an agent, nests the job in a desktop window and wants its common-line merging.</li>
         </ul>
 
         <h2>How we checked</h2>
         <ul>
-          <li><strong>The searches.</strong> We ran seven searches an agent might make, including "Deepnest alternative" and "nesting MCP server for AI agents SVG DXF laser cutting". Nestbolt appeared in none of them; most results were directories and aggregators, and the search tool's summaries said twice that no nesting MCP server turned up, though Glama and a GitHub repository search found OpenNest, pyFit and SmartCut. <a href="data/searches-2026-10-20.txt">The queries and results</a>.</li>
-          <li><strong>The other tools.</strong> Read from their repositories at the commits or pages linked above, plus release pages, package registries, the official MCP registry, Glama, mcp.so and Smithery, on 2026-10-20. Nothing of theirs was installed, built or run.</li>
-          <li><strong>Nestbolt.</strong> The v0.1.0 release binary was run as described above. Its feature claims come from its README and docs; the material numbers come from its published benchmark, which we did not re-run.</li>
+          <li><strong>The searches.</strong> We ran seven searches an agent might make, including "Deepnest alternative" and "nesting MCP server for AI agents SVG DXF laser cutting", on 2026-10-20 and again on 2026-11-22. In October Nestbolt appeared in none of them, and the search tool's summaries said twice that no nesting MCP server turned up. In November Nestbolt's Glama listing was the first result for both MCP queries and the summaries named it, with pyFit, SmartCut and CutOptim; Nestbolt appeared in none of the other five, where most results were still directories, aggregators and copies of Deepnest. The queries and results: <a href="data/searches-2026-11-22.txt">2026-11-22</a> and <a href="data/searches-2026-10-20.txt">2026-10-20</a>.</li>
+          <li><strong>The other tools.</strong> Read from their repositories at the commits or pages linked above, plus release pages, package registries, the official MCP registry, Glama and mcp.so, on 2026-11-22. Smithery's search answered every query with an error that day, so it was last read on 2026-10-20, when all four directories were. Nothing of theirs was installed, built or run.</li>
+          <li><strong>Nestbolt.</strong> The v0.1.0 release binary was run as described above, on 2026-10-20 and again on 2026-11-22. Its feature claims come from its README and docs; the material numbers come from its published benchmark, which we did not re-run.</li>
           <li><strong>Refresh.</strong> This page is re-checked every 30 days.</li>
         </ul>
         <!-- nestbolt-all-pages:start -->
@@ -339,7 +372,7 @@
         </ul>
       </nav>
       <p>From the same author: <a href="https://github.com/skulitom/Anode">Anode</a>, <a href="https://github.com/skulitom/Pixelbolt">Pixelbolt</a>, <a href="https://github.com/skulitom/Cutbolt">Cutbolt</a> and <a href="https://github.com/skulitom/Inkbolt">Inkbolt</a>.</p>
-      <p>Nestbolt is MIT licensed. It gives no machine-safety or fit certification. Last checked 2026-10-20.</p>
+      <p>Nestbolt is MIT licensed. It gives no machine-safety or fit certification. Last checked 2026-11-22.</p>
     </footer>
   </body>
 </html>
