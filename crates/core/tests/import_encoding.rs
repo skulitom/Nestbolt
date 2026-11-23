@@ -133,3 +133,68 @@ fn missing_units_suggest_inches_without_rescaling_and_headers_take_precedence() 
     assert!(!report.possible_inches);
     assert_eq!(report.mm_per_unit, 10.0);
 }
+
+#[test]
+fn every_insunits_length_code_converts_to_millimetres() {
+    // Exact definitions: international inch, US survey foot of 1200/3937 m,
+    // IAU astronomical unit, Julian light year and parsec of 648000/π au.
+    let inch = 25.4;
+    let au = 149_597_870_700.0 * 1000.0;
+    let expected = [
+        (1, inch),
+        (2, 12.0 * inch),
+        (3, 5280.0 * 12.0 * inch),
+        (4, 1.0),
+        (5, 10.0),
+        (6, 1000.0),
+        (7, 1e6),
+        (8, inch / 1e6),
+        (9, inch / 1000.0),
+        (10, 36.0 * inch),
+        (11, 1e-7),
+        (12, 1e-6),
+        (13, 1e-3),
+        (14, 100.0),
+        (15, 1e4),
+        (16, 1e5),
+        (17, 1e12),
+        (18, au),
+        (19, 299_792_458_000.0 * 86_400.0 * 365.25),
+        (20, au * 180.0 * 3600.0 / std::f64::consts::PI),
+        (21, 1200.0 / 3937.0 * 1000.0),
+    ];
+    let close = |a: f64, b: f64| (a - b).abs() <= 4.0 * f64::EPSILON * b.abs();
+    for (code, mm) in expected {
+        // A 20 x 10 mm rectangle drawn in this unit.
+        let (w, h) = (20.0 / mm, 10.0 / mm);
+        let dxf = format!(
+            "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n{code}\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n8\nCUT\n70\n1\n90\n4\n10\n0\n20\n0\n10\n{w:?}\n20\n0\n10\n{w:?}\n20\n{h:?}\n10\n0\n20\n{h:?}\n0\nENDSEC\n0\nEOF\n"
+        );
+        let import = import_dxf(&dxf, &Options::default()).unwrap();
+        let units = import.report.units.unwrap();
+        assert!(units.declared);
+        assert!(
+            close(units.mm_per_unit, mm),
+            "{code}: {} mm",
+            units.mm_per_unit
+        );
+        let [x0, y0, x1, y1] = import.parts[0].bounds;
+        assert!(x0.abs() < 1e-9 && y0.abs() < 1e-9, "{code}");
+        assert!(
+            (x1 - 20.0).abs() < 1e-6 && (y1 - 10.0).abs() < 1e-6,
+            "{code}: {x1} x {y1}"
+        );
+    }
+    for code in ["22", "-1", "4.5", "mm"] {
+        let dxf = drawing("AC1015", "", "CUT")
+            .replace("$INSUNITS\n70\n4\n", &format!("$INSUNITS\n70\n{code}\n"));
+        let error = import_dxf(&dxf, &Options::default())
+            .unwrap_err()
+            .to_string();
+        assert!(
+            error.contains(&format!("unsupported $INSUNITS {code}")),
+            "{error}"
+        );
+        assert!(error.contains("codes 1 to 21"), "{error}");
+    }
+}
