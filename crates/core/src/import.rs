@@ -1999,7 +1999,10 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             .get("ENTITIES")
             .context("DXF has no ENTITIES section")?,
     );
-    let mut drawing = Drawing::default();
+    let mut drawing = Drawing {
+        listed_layers_override_names: true,
+        ..Drawing::default()
+    };
     let mut layers = HashMap::new();
     for e in dxf_entities(sections.get("TABLES").map_or(&[], Vec::as_slice)) {
         if e.kind != "LAYER" {
@@ -2007,6 +2010,12 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         }
         let name = e.text(2).unwrap_or("0").to_owned();
         drawing.known_layers.push(name.clone());
+        // A listed layer is read even when it is off or frozen. An entity
+        // hidden on its own, or inside an INSERT that is hidden on its own or
+        // by a layer that isn't listed, stays hidden.
+        let hidden = (e.get(62).is_some_and(|c| c < 0.0)
+            || e.get(70).is_some_and(|f| f as u32 & 1 != 0))
+            && !selection::listed_layer(options, &name);
         layers.insert(
             name.to_lowercase(),
             DxfStyle {
@@ -2015,8 +2024,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                     || format!("aci:{}", (e.get(62).unwrap_or(7.0) as i32).unsigned_abs()),
                     |rgb| format!("#{:06x}", (rgb as u32) & 0xffffff),
                 ),
-                hidden: e.get(62).is_some_and(|c| c < 0.0)
-                    || e.get(70).is_some_and(|f| f as u32 & 1 != 0),
+                hidden,
                 paper_space: false,
             },
         );
