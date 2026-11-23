@@ -1677,7 +1677,12 @@ impl Default for DxfStyle {
     }
 }
 
-fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) -> DxfStyle {
+fn dxf_style(
+    e: &Entity,
+    parent: &DxfStyle,
+    layers: &HashMap<String, DxfStyle>,
+    options: &Options,
+) -> DxfStyle {
     let own = e.text(8).unwrap_or("0");
     let layer = if own == "0" {
         parent.layer.clone()
@@ -1694,13 +1699,17 @@ fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) 
             n => format!("aci:{}", n.unsigned_abs()),
         }
     };
+    // A negative colour means the entity's layer is off, which listing the
+    // layer overrides as it does the layer table's. 60=1 hides the entity
+    // itself.
+    let layer_off = e.get(62).is_some_and(|c| c < 0.0) && !selection::listed_layer(options, &layer);
     DxfStyle {
         layer,
         color,
         hidden: parent.hidden
             || table.is_some_and(|l| l.hidden)
             || e.get(60) == Some(1.0)
-            || e.get(62).is_some_and(|c| c < 0.0),
+            || layer_off,
         paper_space: parent.paper_space || e.get(67) == Some(1.0),
     }
 }
@@ -1730,6 +1739,7 @@ fn dxf_pieces(
     warnings: &mut Diagnostics,
     parent_style: &DxfStyle,
     layers: &HashMap<String, DxfStyle>,
+    options: &Options,
     drawing: &mut Drawing,
     remaining_expansion: &mut usize,
 ) -> Result<()> {
@@ -1740,7 +1750,7 @@ fn dxf_pieces(
     let mut i = 0;
     while i < entities.len() {
         let e = &entities[i];
-        let style = dxf_style(e, parent_style, layers);
+        let style = dxf_style(e, parent_style, layers, options);
         let mut pieces = vec![];
         let ignored = if style.hidden {
             Some((SkipReason::Hidden, "hidden DXF entity or layer"))
@@ -1866,6 +1876,7 @@ fn dxf_pieces(
                                 warnings,
                                 &style,
                                 layers,
+                                options,
                                 drawing,
                                 remaining_expansion,
                             )?;
@@ -2065,6 +2076,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         &mut warnings,
         &DxfStyle::default(),
         &layers,
+        options,
         &mut drawing,
         &mut remaining_expansion,
     )?;

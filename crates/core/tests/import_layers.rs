@@ -309,6 +309,54 @@ fn listed_layer_keeps_entities_hidden_on_their_own_or_by_their_insert() {
     }
 }
 
+/// An entity's own negative colour turns its layer off, like the layer
+/// table's, so listing the layer reads the entity and lets an INSERT place its
+/// block. Not listed, both stay hidden.
+#[test]
+fn listed_layer_reads_entities_whose_own_colour_is_negative() {
+    let tables = format!("{}{}", layer("CUT", 7, 0), layer("HOLES", 7, 0));
+    // A layer-0 circle that takes the INSERT's layer.
+    let blocks = "0\nBLOCK\n2\nA\n10\n0\n20\n0\n0\nCIRCLE\n8\n0\n10\n0\n20\n0\n40\n5\n0\nENDBLK\n";
+    // The square hole and the INSERT of the round hole have colour -7.
+    let entities = format!(
+        "{}{}0\nINSERT\n8\nHOLES\n62\n-7\n2\nA\n10\n50\n20\n25\n",
+        rectangle("CUT", [0.0, 0.0, 100.0, 50.0]),
+        rectangle("HOLES", [10.0, 10.0, 30.0, 30.0]).replacen(
+            "8\nHOLES\n",
+            "8\nHOLES\n62\n-7\n",
+            1
+        ),
+    );
+    let text = dxf_with_layers(&tables, &entities, blocks);
+    let r = import_dxf(&text, &listed(&["CUT", "HOLES"])).unwrap();
+    assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+    assert_eq!(r.parts[0].holes.len(), 2, "{:?}", r.warnings);
+    assert!(r.parts[0].holes.iter().any(|h| matches!(
+        h.segments[0],
+        nestbolt_core::curves::Segment::Arc { center, .. } if center == [50.0, 25.0]
+    )));
+    // The area comes from the flattened round hole, so it's close, not exact.
+    let area = r.parts[0].area;
+    let expected = 4600.0 - std::f64::consts::PI * 25.0;
+    assert!((area - expected).abs() < 0.5, "{area}");
+    assert!(r.warnings.is_empty(), "{:?}", r.warnings);
+    assert!(r.report.entries.is_empty(), "{:?}", r.report.entries);
+    let holes = r.report.layers.iter().find(|l| l.name == "HOLES").unwrap();
+    assert_eq!((holes.entities, holes.selected_entities), (3, 2));
+    for options in [listed(&["CUT"]), Options::default(), colour_7()] {
+        let r = import_dxf(&text, &options).unwrap();
+        assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+        assert!(r.parts[0].holes.is_empty());
+        for kind in ["LWPOLYLINE", "INSERT", "CIRCLE"] {
+            let warning =
+                format!("ignored 1 {kind} on layer \"HOLES\": hidden DXF entity or layer");
+            assert!(r.warnings.contains(&warning), "{warning}: {:?}", r.warnings);
+        }
+        let holes = r.report.layers.iter().find(|l| l.name == "HOLES").unwrap();
+        assert_eq!((holes.entities, holes.selected_entities), (3, 0));
+    }
+}
+
 #[test]
 fn dxf_layer_and_color_inherit_through_blocks_with_base_points() {
     let blocks = "0\nBLOCK\n2\nA\n10\n10\n20\n20\n0\nCIRCLE\n8\n0\n62\n0\n10\n12\n20\n23\n40\n2\n0\nENDBLK\n";

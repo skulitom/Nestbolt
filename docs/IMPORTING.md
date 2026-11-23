@@ -165,11 +165,13 @@ Malformed model-space POLYLINE sequences require a corrected export. Text,
 dimensions, hatches, leaders, solids, attributes and images appear in the
 inventory. Bend, extent, construction, hidden and paper-space entities are
 reported and excluded from cutting. A chosen layer is still read when it is
-off or frozen, or when its name marks bend, extent or construction lines.
-Entities hidden on their own, or by an INSERT that is hidden on its own or sits
-on a hidden layer that isn't chosen, stay excluded. A paper-space INSERT passes
-its layout status to nested blocks. A model-space instance of the same block
-can still supply cut outlines. [Autodesk entity group codes](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-3610039E-27D1-4E23-B6D3-7E60B22BB5BD.htm).
+off or frozen, or when its name marks bend, extent or construction lines. A
+negative entity colour also marks the entity's layer as off, so it doesn't
+hide an entity on a chosen layer either. Entities hidden on their own, or by
+an INSERT that is hidden on its own or sits on a hidden layer that isn't
+chosen, stay excluded. A paper-space INSERT passes its layout status to nested
+blocks. A model-space instance of the same block can still supply cut
+outlines. [Autodesk entity group codes](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-3610039E-27D1-4E23-B6D3-7E60B22BB5BD.htm).
 The block fields follow Autodesk's [BLOCK](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-DXF/files/GUID-66D32572-005A-4E23-8B8B-8726E8C14302.htm)
 and [INSERT](https://help.autodesk.com/cloudhelp/2018/ENU/AutoCAD-DXF/files/GUID-28FA4CFB-9D5E-4880-9F11-36C97578252F.htm)
 references; the exact-arc tests cover the composed placement.
