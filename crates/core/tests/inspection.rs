@@ -40,8 +40,21 @@ fn rejects_duplicate_ids() {
 }
 
 #[test]
+fn accepts_demand_up_to_ten_thousand_parts() {
+    let mut job = example();
+    // The second item asks for two more.
+    job["items"][0]["demand"] = json!(9_998);
+    assert_eq!(
+        inspect_json(&job.to_string(), Units::Mm)
+            .unwrap()
+            .total_parts,
+        10_000
+    );
+}
+
+#[test]
 fn rejects_overflow_and_excessive_demand_before_geometry_import() {
-    for demand in [2_001_u64, u64::MAX] {
+    for demand in [9_999_u64, u64::MAX] {
         let mut job = example();
         job["items"][0]["demand"] = json!(demand);
         assert!(inspect_json(&job.to_string(), Units::Mm).is_err());

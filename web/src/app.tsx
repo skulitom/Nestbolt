@@ -421,7 +421,7 @@ export function App() {
                     <tr key={p.id}>
                       <td>{lp ? <PartThumb polygons={partGeometry(lp)} color={colors.get(p.id) ?? '#888'} /> : null}</td>
                       <td title={lp?.source}>{label(p.id)}<small>{lp ? `${(lp.area_mm2 / 100).toFixed(1)} cm²` : ''}</small></td>
-                      <td><input type="number" min={1} max={2000} value={p.quantity} aria-label={`Quantity of ${p.id}`}
+                      <td><input type="number" min={1} max={10000} value={p.quantity} aria-label={`Quantity of ${p.id}`}
                         onInput={(e) => updatePart(i, { quantity: Math.max(1, Math.round(num(e))) })} /></td>
                       <td><select aria-label={`Rotations of ${p.id}`} value={rotationLabel(p.rotations)}
                         onChange={(e) => updatePart(i, { rotations: ROTATIONS.find((o) => o.label === (e.target as HTMLSelectElement).value)!.value })}>
