@@ -106,6 +106,16 @@ declaration. Invalid bytes or unsupported encodings give a re-export instruction
 no replacement characters are silently inserted. These DXF rules follow the
 [ezdxf encoding reference](https://ezdxf.readthedocs.io/en/stable/dxfinternals/fileencoding.html).
 
+Binary DXF files are read too, with R12's one-byte group codes or the two-byte
+codes of R13 and later. Each value is read in the type its group code gives it
+and becomes the same group-code text an ASCII DXF holds, so the encoding rules
+above apply to its strings. Control characters in a string, such as the line
+breaks in a tolerance frame, take caret notation (`^J`), as in ASCII DXF. A
+truncated binary file, or one without its closing `EOF` group, gives a re-export
+instruction. See Autodesk's
+[binary DXF layout](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-FC1C3C69-DBC2-49E4-893A-000D6538C0FE.htm)
+and [group code value types](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-2553CF98-44F6-4828-82DD-FE3BC7448113.htm).
+
 DXF file units take precedence over a fallback. mm, cm, metres, inches and feet
 are supported; unsupported unit codes request a re-export in one of these units.
 Without declared units, the default remains 1 mm per drawing unit. If the largest

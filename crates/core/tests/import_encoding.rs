@@ -57,7 +57,7 @@ fn modern_utf8_ignores_legacy_codepage_and_bad_bytes_have_a_fix() {
         decode_drawing("part.dxf", b"AutoCAD Binary DXF\r\n\x1a\0")
             .unwrap_err()
             .to_string()
-            .contains("ASCII DXF")
+            .contains("without its EOF group")
     );
 }
 
