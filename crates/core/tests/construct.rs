@@ -1,4 +1,6 @@
-use nestbolt_core::construct::{Options, PreparedJob, construct};
+use nestbolt_core::construct::{Options, PreparedJob, Unfit, construct};
+use nestbolt_core::control::Control;
+use nestbolt_core::optimize;
 use nestbolt_validator::{
     Polygon, Units,
     job::{Job, Margins, Mode, Part, Rotations, Stock, rectangle, validate},
@@ -370,4 +372,139 @@ fn contact_candidates_interlock_concave_parts_without_random_sampling() {
         serde_json::to_string(&interlocked).unwrap(),
         serde_json::to_string(&prepared.construct_with_contacts(options).unwrap()).unwrap()
     );
+}
+
+/// A 1020 x 10 strip with free rotation on a 1000 x 300 sheet without margins,
+/// 1 mm part spacing and no edge spacing. Keeping that spacing from the edges
+/// too, the constructor fits it only 12.5 to 16.4 degrees off a quarter turn.
+fn strip_job(length: f64) -> Job {
+    let mut strip = part("strip", vec![rectangle(0.0, 0.0, length, 10.0)], 1);
+    strip.rotations = Rotations::Free;
+    let mut source = job(vec![strip], vec![stock("sheet", 1000.0, 300.0, None)]);
+    source.clearance = 1.0;
+    source.edge_clearance = 0.0;
+    source
+}
+
+/// Degrees from the nearest quarter turn.
+fn off_quarter_turn(radians: f64) -> f64 {
+    let turns = radians / std::f64::consts::FRAC_PI_2;
+    (turns - turns.round()).abs() * 90.0
+}
+
+#[test]
+fn a_free_part_that_fits_only_between_quarter_turns_is_placed_with_room() {
+    for mirror in [false, true] {
+        let mut source = strip_job(1020.0);
+        source.parts[0].allow_mirror = mirror;
+        let prepared = PreparedJob::new(&source).unwrap();
+        prepared.ensure_parts_fit(Options::default()).unwrap();
+        let result = prepared.construct(Options::default()).unwrap();
+        assert!(result.complete, "mirror {mirror}");
+        assert!(validate(&source, &result.layout).unwrap().valid);
+        // The middle of the fitting range, not one of its ends.
+        let off = off_quarter_turn(result.layout.placements[0].transform.rotation_radians);
+        assert!(
+            (14.0..=15.0).contains(&off),
+            "{off} degrees, mirror {mirror}"
+        );
+        // Refinement, contact candidates and repacking keep it placed.
+        let search = optimize::optimize(
+            &source,
+            optimize::Options {
+                construct: Options::default(),
+                passes: 8,
+            },
+            |_| {},
+        )
+        .unwrap();
+        assert!(search.best.complete && search.validation.valid);
+    }
+}
+
+#[test]
+fn a_part_that_fits_no_sheet_at_its_allowed_rotations_is_named() {
+    for (length, rotations) in [
+        // Longer than the sheet's 1044 mm diagonal.
+        (1100.0, Rotations::Free),
+        (
+            1020.0,
+            Rotations::List {
+                degrees: vec![0.0, 90.0],
+            },
+        ),
+        (1020.0, Rotations::Step { degrees: 30.0 }),
+    ] {
+        let mut source = strip_job(length);
+        source.parts[0].rotations = rotations.clone();
+        source.parts[0].allow_mirror = true;
+        source
+            .parts
+            .insert(0, part("tab", vec![rectangle(0.0, 0.0, 20.0, 10.0)], 2));
+        let prepared = PreparedJob::new(&source).unwrap();
+        let error = prepared
+            .ensure_parts_fit(Options::default())
+            .expect_err(&format!("{rotations:?}"));
+        assert_eq!(error.downcast_ref::<Unfit>().unwrap().part, "strip");
+        let message = error.to_string();
+        assert!(
+            message.starts_with("part strip does not fit any sheet at its allowed rotations"),
+            "{message}"
+        );
+        assert!(message.contains("more time will not help"), "{message}");
+        // The constructor itself still returns the other parts.
+        let result = prepared.construct(Options::default()).unwrap();
+        assert!(!result.complete);
+        assert_eq!(result.unplaced, 1);
+    }
+    // A 15-degree step reaches the fitting range.
+    let mut source = strip_job(1020.0);
+    source.parts[0].rotations = Rotations::Step { degrees: 15.0 };
+    let prepared = PreparedJob::new(&source).unwrap();
+    prepared.ensure_parts_fit(Options::default()).unwrap();
+    let result = prepared.construct(Options::default()).unwrap();
+    assert!(result.complete);
+    assert!(validate(&source, &result.layout).unwrap().valid);
+}
+
+#[test]
+fn free_parts_that_fit_at_a_grid_angle_search_exactly_the_grid() {
+    // Free rotation and an explicit list of the grid's quarter turns must give
+    // the same search, step for step, when every part fits at a quarter turn:
+    // construction, refinement, contacts, sheet repair and compaction.
+    let free: Job = serde_json::from_str(include_str!(
+        "../../../benchmarks/datasets/B/b-fu-nest-mb-free.json"
+    ))
+    .unwrap();
+    let mut grid = free.clone();
+    for part in &mut grid.parts {
+        assert!(matches!(part.rotations, Rotations::Free));
+        part.rotations = Rotations::List {
+            degrees: vec![0.0, 90.0, 180.0, 270.0],
+        };
+    }
+    let run = |job: &Job| {
+        let search = optimize::optimize(
+            job,
+            optimize::Options {
+                construct: Options::default(),
+                passes: 7,
+            },
+            |_| {},
+        )
+        .unwrap();
+        assert!(search.validation.valid);
+        assert!(search.history.iter().any(|p| p.stage == "repair-sheet"));
+        let compacted = PreparedJob::new(job)
+            .unwrap()
+            .compact_with_relocation(
+                &search.best.layout,
+                2,
+                Options::default(),
+                &mut Control::unlimited(),
+            )
+            .unwrap();
+        serde_json::to_string(&(search, compacted)).unwrap()
+    };
+    assert_eq!(run(&free), run(&grid));
 }

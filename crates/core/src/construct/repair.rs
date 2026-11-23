@@ -290,6 +290,7 @@ impl PreparedJob<'_> {
                 })
                 .collect();
             victims.sort_by(|a, b| self.items[a.3].area().total_cmp(&self.items[b.3].area()));
+            let orientations = self.construction_angles(part, options, state.control)?;
             for (sheet, region, key, victim_part) in victims.into_iter().take(ejections) {
                 state.control.checkpoint()?;
                 let snapshot = sheets[sheet][region].clone();
@@ -307,6 +308,7 @@ impl PreparedJob<'_> {
                     &occupied.region,
                     &self.items[part],
                     &self.job.parts[part],
+                    &orientations,
                     options,
                     &mut state,
                 )? {
@@ -404,12 +406,14 @@ impl PreparedJob<'_> {
         options: Options,
         state: &mut SearchState<'_, '_>,
     ) -> Result<Option<(usize, usize, Candidate)>> {
+        let orientations = self.construction_angles(part, options, state.control)?;
         for (sheet, regions) in sheets.iter().enumerate() {
             for (region, occupied) in regions.iter().enumerate() {
                 if let Some(candidate) = search(
                     &occupied.region,
                     &self.items[part],
                     &self.job.parts[part],
+                    &orientations,
                     options,
                     state,
                 )? {

@@ -143,14 +143,17 @@ pub fn optimize_controlled(
     control: &mut Control<'_>,
     progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
-    optimize_controlled_scored(job, options, control, None, progress)
+    optimize_controlled_scored(job, options, control, None, false, progress)
 }
 
+/// `every_part` fails at once with [`crate::construct::Unfit`] when a part fits
+/// no stock region, before the first pass, for callers that need every part.
 pub(crate) fn optimize_controlled_scored(
     job: &Job,
     options: Options,
     control: &mut Control<'_>,
     material: Option<&crate::scoring::MaterialAreas>,
+    every_part: bool,
     mut progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
     ensure!(
@@ -159,6 +162,9 @@ pub(crate) fn optimize_controlled_scored(
     );
     let debug_started = std::env::var_os("NESTBOLT_DEBUG").map(|_| jagua_rs::Instant::now());
     let prepared = PreparedJob::new_controlled_scored(job, material, control)?;
+    if every_part {
+        prepared.ensure_parts_fit_controlled(options.construct, control)?;
+    }
     let check_layout = |layout: &nestbolt_validator::job::Layout| -> Result<Report> {
         let mut report = validate(job, layout)?;
         if let Some(material) = material {

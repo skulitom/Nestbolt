@@ -138,10 +138,13 @@ impl PreparedJob<'_> {
                     occupied.region.layout.remove_item(tracked.key);
                     if let Some(options) = relocation {
                         occupied.refresh_except(Some(tracked.key));
+                        let orientations =
+                            self.construction_angles(tracked.part, options, state.control)?;
                         if let Some(found) = search_bounded(
                             &occupied.region,
                             &self.items[tracked.part],
                             &self.job.parts[tracked.part],
+                            &orientations,
                             options,
                             &mut state,
                             Some((candidate.cost, candidate.bounds[3])),

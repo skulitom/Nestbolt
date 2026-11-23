@@ -46,8 +46,22 @@ allowed f64 angles are retained on export instead of round-tripping f32 trig.
 Remnant islands share a physical sheet identity and stock count, each with its own
 collision region. Defects and margins are blocking zones. The first pass uses the
 larger of edge and part gaps plus a scale-dependent rounding guard, so it can be
-more restrictive than requested. It does not claim infeasibility after failing to
-place a part. Search must later recover those lost options and reduce sheet usage.
+more restrictive than requested. Apart from parts that fit no stock at any allowed
+angle (below), it does not claim infeasibility after failing to place a part.
+Search must later recover those lost options and reduce sheet usage.
+
+Free rotation starts from a grid of `free_rotations` angles, the four quarter turns
+by default. A free part whose collision outline fits no stock region at a grid
+angle (the bounding-box test placement search makes first) also gets up to four
+angles from a 0.1-degree scan: the middle of the widest runs of angles at which it
+fits, so each keeps room on both sides in f32. Parts that fit at a grid angle keep
+exactly the grid, and so their layouts and work counts. A part that fits at no
+allowed angle (for a free part: no grid angle and nowhere in the scan) cannot be
+placed by any budget. `PreparedJob::ensure_parts_fit` names it; for all-parts jobs
+the sheet search fails with that message before its warm start, and `nestbolt
+construct` and `nestbolt improve` after their passes, instead of asking for more
+time. Fill modes leave such parts out. The test ignores defects and remnant
+outlines inside a region's bounds, so a part that passes may still not fit.
 
 Constructor v2 anchors candidates to actual inset sheet/margin bounds, not the
 square quadtree root. It compensates jagua's 0.1-radian inscribed offset joins by

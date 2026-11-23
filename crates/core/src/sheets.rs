@@ -686,7 +686,16 @@ fn optimize_with_areas(
         search_budget,
         fill_material,
         live,
-    )?;
+    )
+    .map_err(|mut error| {
+        // A filled host that fits no sheet is named by its own id.
+        if let Some(unfit) = error.downcast_mut::<crate::construct::Unfit>()
+            && let Some(id) = grouped.host_id(job, &unfit.part)
+        {
+            unfit.part = id.to_owned();
+        }
+        error
+    })?;
     if debug {
         eprintln!(
             "debug phase search: real {:.2} clock {:.2}",
@@ -784,6 +793,8 @@ fn optimize_job(
     // the fallback and unmodified Sparrow gets the rest of the budget, as its
     // own command-line run would. Its layouts count only when they fit the sheet.
     let quick = model.is_ok() && sparrow_shaped(job) && clock.timing() == Timing::Wall;
+    // A part that fits no sheet fails at once, rather than after the warm start.
+    let every_part = job.mode == Mode::All;
     let mut warm = if options.quick_start {
         rectangle_warm_start(job, options.seed, clock, budget)?
     } else {
@@ -799,6 +810,7 @@ fn optimize_job(
             finish,
             options.seconds,
             material,
+            every_part,
         )?;
         if first.best.complete && first.validation.valid {
             warm = Some(first);
@@ -815,6 +827,7 @@ fn optimize_job(
             finish,
             options.seconds,
             material,
+            every_part,
         )?,
     };
     ensure!(
@@ -887,6 +900,7 @@ fn optimize_job(
                             finish,
                             options.seconds,
                             material,
+                            every_part,
                         )?;
                         if more.best.complete
                             && more.validation.valid
@@ -1083,6 +1097,7 @@ fn single_size_start(
             (now + 2.0 * share).min(finish),
             options.seconds,
             None,
+            false,
         ) else {
             continue;
         };
@@ -1208,7 +1223,10 @@ fn rectangle_warm_start(
 }
 
 /// The repacking warm start: stops at `warm_until` once it has a complete
-/// layout, and at `finish` regardless.
+/// layout, and at `finish` regardless. With `every_part`, a part that fits no
+/// sheet fails it at once with [`crate::construct::Unfit`]; single-size trials
+/// leave it out, so a size too small for a part is still tried and skipped.
+#[allow(clippy::too_many_arguments)]
 fn warm_start(
     job: &Job,
     seed: u64,
@@ -1217,6 +1235,7 @@ fn warm_start(
     finish: f64,
     seconds: f64,
     material: Option<&crate::scoring::MaterialAreas>,
+    every_part: bool,
 ) -> Result<crate::optimize::SearchResult> {
     let explain_interruption = |e: anyhow::Error| {
         if e.is::<crate::control::Interrupted>() {
@@ -1251,6 +1270,7 @@ fn warm_start(
                 construct,
                 &mut control,
                 material,
+                every_part,
                 |p| {
                     if p.complete && (p.accepted || p.pass > 0) {
                         complete.set(true);
@@ -1279,6 +1299,7 @@ fn warm_start(
                 construct,
                 &mut control,
                 material,
+                every_part,
                 |_| {},
             ) {
                 Err(e)
@@ -1298,6 +1319,7 @@ fn warm_start(
                         once,
                         &mut once_control,
                         material,
+                        every_part,
                         |_| {},
                     )
                     .map_err(explain_interruption)?;
@@ -1517,7 +1539,7 @@ mod tests {
             false,
         );
         let clock = Clock::new(Timing::Work, 0.0);
-        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0, None);
+        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0, None, true);
         assert!(clock.hit_hard_limit());
         let error = result.expect_err("an expired deadline must stop the initial construction");
         assert!(error.to_string().contains("allow more time"), "{error:#}");
@@ -1770,5 +1792,89 @@ mod tests {
         .unwrap();
         assert!(result.unsupported.is_some());
         assert!(result.validation.valid);
+    }
+
+    fn free_rectangle(id: &str, width: f64, height: f64) -> Part {
+        Part {
+            id: id.into(),
+            quantity: 1,
+            geometry: vec![nestbolt_validator::job::rectangle(0.0, 0.0, width, height)],
+            rotations: Rotations::Free,
+            allow_mirror: false,
+            priority: 1.0,
+        }
+    }
+
+    #[test]
+    fn a_free_part_that_fits_only_between_quarter_turns_nests() {
+        // Issue #36: a 1020 x 10 strip on a 1000 x 300 sheet without margins
+        // fits about 12.5 to 16.4 degrees off a quarter turn, never at one.
+        for mirror in [false, true] {
+            let mut job = job(Rotations::Free, false);
+            job.parts = vec![free_rectangle("strip", 1020.0, 10.0)];
+            job.parts[0].allow_mirror = mirror;
+            job.stocks[0].width = 1000.0;
+            job.stocks[0].height = 300.0;
+            job.stocks[0].margins = Margins::default();
+            job.clearance = 1.0;
+            job.edge_clearance = 0.0;
+            let result = optimize(
+                &job,
+                Options {
+                    seconds: 2.0,
+                    seed: 1,
+                    timing: Timing::Work,
+                    ..Options::default()
+                },
+                |_, _| {},
+            )
+            .unwrap();
+            assert!(validate(&job, &result.layout).unwrap().valid);
+            assert_eq!(result.layout.placements.len(), 1);
+        }
+    }
+
+    #[test]
+    fn a_part_that_fits_no_sheet_fails_at_once_naming_it() {
+        // The usable 66 x 44 area's diagonal is 79 mm. Before, the wall-clock
+        // warm start kept repacking the other parts for its whole budget and
+        // then asked for more time.
+        let mut plain = job(Rotations::Free, false);
+        plain.parts.push(free_rectangle("strip", 90.0, 4.0));
+        // A holed part filled with smaller ones is named by its own id, not by
+        // its group's.
+        let mut frame = free_rectangle("frame", 90.0, 40.0);
+        frame.geometry[0]
+            .holes
+            .push(nestbolt_validator::job::rectangle(10.0, 5.0, 50.0, 30.0).outer);
+        let mut filled = job(Rotations::Free, false);
+        filled.parts.push(frame);
+        let clock = Clock::new(Timing::Wall, 30.0);
+        assert!(
+            crate::holes::group(&filled, &clock, 6.0, 0)
+                .unwrap()
+                .riders_placed
+                > 0
+        );
+        for (job, name) in [(plain, "strip"), (filled, "frame")] {
+            let started = std::time::Instant::now();
+            let error = optimize(
+                &job,
+                Options {
+                    seconds: 30.0,
+                    ..Options::default()
+                },
+                |_, _| {},
+            )
+            .expect_err(name);
+            let message = format!("{error:#}");
+            assert!(
+                message.starts_with(&format!(
+                    "part {name} does not fit any sheet at its allowed rotations"
+                )),
+                "{message}"
+            );
+            assert!(started.elapsed().as_secs_f64() < 10.0, "{message}");
+        }
     }
 }

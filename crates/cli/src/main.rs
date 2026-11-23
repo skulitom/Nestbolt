@@ -619,16 +619,14 @@ fn main() -> Result<()> {
                     None
                 },
             );
+            let construct = nestbolt_core::construct::Options {
+                seed,
+                random_samples: samples,
+                free_rotations,
+            };
             let result = nestbolt_core::optimize::optimize_controlled(
                 &job,
-                nestbolt_core::optimize::Options {
-                    construct: nestbolt_core::construct::Options {
-                        seed,
-                        random_samples: samples,
-                        free_rotations,
-                    },
-                    passes,
-                },
+                nestbolt_core::optimize::Options { construct, passes },
                 &mut control,
                 |progress| {
                     eprintln!(
@@ -638,6 +636,10 @@ fn main() -> Result<()> {
                 },
             )?;
             println!("{}", serde_json::to_string_pretty(&result)?);
+            if !result.best.complete {
+                // Name a part that no pass could place.
+                nestbolt_core::construct::PreparedJob::new(&job)?.ensure_parts_fit(construct)?;
+            }
             ensure!(
                 result.best.complete && result.validation.valid,
                 "no complete validated layout found in the requested passes"
@@ -681,6 +683,9 @@ fn main() -> Result<()> {
                     &serde_json::json!({"construction":result,"validation":report})
                 )?
             );
+            if !result.complete {
+                prepared.ensure_parts_fit(options)?;
+            }
             ensure!(
                 result.complete && report.valid,
                 "construction incomplete: {} copies unplaced; this does not prove infeasibility",
