@@ -508,3 +508,96 @@ fn free_parts_that_fit_at_a_grid_angle_search_exactly_the_grid() {
     };
     assert_eq!(run(&free), run(&grid));
 }
+
+/// The issue's strip without spacing, on a sheet `slack` larger each way than
+/// the strip's bounding box at 3600/251 degrees (about 14.34).
+fn narrow_strip_job(slack: f64) -> Job {
+    let angle = (3600.0_f64 / 251.0).to_radians();
+    let (width, height) = (
+        1020.0 * angle.cos() + 10.0 * angle.sin(),
+        1020.0 * angle.sin() + 10.0 * angle.cos(),
+    );
+    let mut source = strip_job(1020.0);
+    source.stocks = vec![stock("sheet", width + slack, height + slack, None)];
+    source.clearance = 0.0;
+    source.edge_clearance = 0.0;
+    source
+}
+
+#[test]
+fn a_free_part_that_fits_between_scan_steps_is_placed() {
+    // The strip fits about 0.004 degrees around 14.34 degrees, between the
+    // scan's 0.1-degree steps, as `--free-rotations 251` shows.
+    for mirror in [false, true] {
+        let mut source = narrow_strip_job(0.03);
+        source.parts[0].allow_mirror = mirror;
+        let grid = Options {
+            free_rotations: 251,
+            ..Options::default()
+        };
+        let prepared = PreparedJob::new(&source).unwrap();
+        let on_grid = prepared.construct(grid).unwrap();
+        assert!(on_grid.complete && validate(&source, &on_grid.layout).unwrap().valid);
+        prepared.ensure_parts_fit(Options::default()).unwrap();
+        let result = prepared.construct(Options::default()).unwrap();
+        assert!(result.complete, "mirror {mirror}");
+        assert!(validate(&source, &result.layout).unwrap().valid);
+        let off = off_quarter_turn(result.layout.placements[0].transform.rotation_radians);
+        assert!(
+            (off - 3600.0 / 251.0).abs() < 0.01,
+            "{off} degrees, mirror {mirror}"
+        );
+    }
+}
+
+#[test]
+fn a_part_that_just_misses_at_every_angle_is_named() {
+    // 0.05 mm too small each way at the best angle, so no angle fits.
+    let source = narrow_strip_job(-0.05);
+    let error = PreparedJob::new(&source)
+        .unwrap()
+        .ensure_parts_fit(Options::default())
+        .unwrap_err();
+    assert_eq!(error.downcast_ref::<Unfit>().unwrap().part, "strip");
+}
+
+#[test]
+fn a_fit_closer_than_f32_can_tell_is_left_to_the_search() {
+    // With 0.01 mm slack the strip overhangs the constructor's sheet bounds at
+    // every angle, but by less than f32 rounding: the scan cannot rule a fit
+    // out, so it does not name the part, and construction leaves it out.
+    let source = narrow_strip_job(0.01);
+    let prepared = PreparedJob::new(&source).unwrap();
+    prepared.ensure_parts_fit(Options::default()).unwrap();
+    assert!(!prepared.construct(Options::default()).unwrap().complete);
+}
+
+#[test]
+fn the_fit_check_keeps_the_edge_spacing_exactly() {
+    // 10 mm edge spacing, larger than the 0 mm part spacing, on a 300 mm wide
+    // sheet: a strip fits if at most about 280 mm long. One 4 mm shorter fits
+    // and one 4 mm longer does not, at its one allowed angle and when free on a
+    // sheet too narrow to turn it.
+    for (length, fits) in [(276.0, true), (284.0, false)] {
+        for rotations in [Rotations::List { degrees: vec![0.0] }, Rotations::Free] {
+            let mut strip = part("strip", vec![rectangle(0.0, 0.0, length, 10.0)], 1);
+            strip.rotations = rotations.clone();
+            let mut source = job(vec![strip], vec![stock("sheet", 300.0, 31.0, None)]);
+            source.clearance = 0.0;
+            source.edge_clearance = 10.0;
+            let prepared = PreparedJob::new(&source).unwrap();
+            let check = prepared.ensure_parts_fit(Options::default());
+            assert_eq!(check.is_ok(), fits, "{length} mm, {rotations:?}");
+            let result = prepared.construct(Options::default()).unwrap();
+            assert_eq!(result.complete, fits, "{length} mm, {rotations:?}");
+            if fits {
+                assert!(validate(&source, &result.layout).unwrap().valid);
+            } else {
+                assert_eq!(
+                    check.unwrap_err().downcast_ref::<Unfit>().unwrap().part,
+                    "strip"
+                );
+            }
+        }
+    }
+}

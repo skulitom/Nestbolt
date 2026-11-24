@@ -54,11 +54,17 @@ Free rotation starts from a grid of `free_rotations` angles, the four quarter tu
 by default. A free part whose collision outline fits no stock region at a grid
 angle (the bounding-box test placement search makes first) also gets up to four
 angles from a 0.1-degree scan: the middle of the widest runs of angles at which it
-fits, so each keeps room on both sides in f32. Parts that fit at a grid angle keep
-exactly the grid, and so their layouts and work counts. A part that fits at no
-allowed angle (for a free part: no grid angle and nowhere in the scan) cannot be
-placed by any budget. `PreparedJob::ensure_parts_fit` names it; for all-parts jobs
-the sheet search fails with that message before its warm start, and `nestbolt
+fits, so each keeps room on both sides in f32. When no step fits, the scan bisects
+between steps: the bounding box's overhang changes by at most twice the outline's
+radius per radian, so a gap whose ends overhang by more than that (plus f32
+rounding) is ruled out, and the middle of each fitting range found is used.
+Parts that fit at a grid angle of the job keep exactly the grid, and so their
+layouts and work counts; the sheet search's single-size warm starts use the grid
+only, since a part that fits another size at a grid angle must not get the scan.
+A part that fits at no allowed angle cannot be placed by any budget.
+`PreparedJob::ensure_parts_fit` names it, a free part only when the scan rules out
+every angle: a fit closer than f32 can tell is left to the search. For all-parts
+jobs the sheet search fails with that message before its warm start, and `nestbolt
 construct` and `nestbolt improve` after their passes, instead of asking for more
 time. Fill modes leave such parts out. The test ignores defects and remnant
 outlines inside a region's bounds, so a part that passes may still not fit.
