@@ -1953,16 +1953,36 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         && let Some(pos) = header.iter().position(|p| *p == (9, "$INSUNITS"))
         && let Some(&(70, v)) = header.get(pos + 1)
     {
+        // Millimetres per unit, exact by definition: the international inch,
+        // foot, yard and mile, the US survey foot (1200/3937 m), and the IAU
+        // astronomical unit, Julian light year and parsec (648000/π au).
+        const AU_MM: f64 = 149_597_870_700_000.0;
         unit = match v.trim() {
             "1" => Some(25.4),
             "2" => Some(304.8),
+            "3" => Some(1_609_344.0),
             "4" => Some(1.0),
             "5" => Some(10.0),
             "6" => Some(1000.0),
+            "7" => Some(1e6),
+            "8" => Some(25.4e-6),
+            "9" => Some(0.0254),
+            "10" => Some(914.4),
+            "11" => Some(1e-7),
+            "12" => Some(1e-6),
+            "13" => Some(1e-3),
+            "14" => Some(100.0),
+            "15" => Some(1e4),
+            "16" => Some(1e5),
+            "17" => Some(1e12),
+            "18" => Some(AU_MM),
+            "19" => Some(9_460_730_472_580_800_000.0),
+            "20" => Some(648_000.0 / PI * AU_MM),
+            "21" => Some(1_200_000.0 / 3937.0),
             "0" => None,
             other => {
                 bail!(
-                    "unsupported $INSUNITS {other}; set the source drawing to mm, cm, metres, inches or feet and re-export with its units declared"
+                    "unsupported $INSUNITS {other}; set the source drawing to a length unit (codes 1 to 21, such as mm or inches) and re-export with its units declared"
                 );
             }
         };

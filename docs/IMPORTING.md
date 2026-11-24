@@ -106,8 +106,24 @@ declaration. Invalid bytes or unsupported encodings give a re-export instruction
 no replacement characters are silently inserted. These DXF rules follow the
 [ezdxf encoding reference](https://ezdxf.readthedocs.io/en/stable/dxfinternals/fileencoding.html).
 
-DXF file units take precedence over a fallback. mm, cm, metres, inches and feet
-are supported; unsupported unit codes request a re-export in one of these units.
+Binary DXF files are read too, with R12's one-byte group codes or the two-byte
+codes of R13 and later. Each value is read in the type its group code gives it
+and becomes the same group-code text an ASCII DXF holds, so the encoding rules
+above apply to its strings. Control characters in a string, such as the line
+breaks in a tolerance frame, take caret notation (`^J`), as in ASCII DXF. A
+truncated binary file, or one without its closing `EOF` group, gives a re-export
+instruction. See Autodesk's
+[binary DXF layout](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-FC1C3C69-DBC2-49E4-893A-000D6538C0FE.htm)
+and [group code value types](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-2553CF98-44F6-4828-82DD-FE3BC7448113.htm).
+
+DXF file units take precedence over a fallback. Every `$INSUNITS` length unit,
+codes 1 to 21, converts to millimetres by its exact definition: inches, feet,
+miles, mm, cm, metres, kilometres, microinches, mils, yards, ångströms,
+nanometres, microns, decimetres, decametres, hectometres, gigametres,
+astronomical units, light years, parsecs and US survey feet (1200/3937 m).
+Other codes request a re-export in a length unit. Converted coordinates must
+still lie within the validator's 10 km range. See Autodesk's
+[INSUNITS values](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-LT/files/GUID-A58A87BB-482B-4042-A00A-EEF55A2B4FD8.htm).
 Without declared units, the default remains 1 mm per drawing unit. If the largest
 selected dimension is under 60 drawing units, the report warns that the drawing
 may be in inches. It never changes scale automatically.
