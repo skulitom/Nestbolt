@@ -40,6 +40,17 @@ impl DrawingEntity {
 pub(super) struct Drawing {
     pub entities: Vec<DrawingEntity>,
     pub known_layers: Vec<String>,
+    /// Read a layer named in `Options::layers` even when its name marks bend,
+    /// extent or construction lines. Only the DXF reader sets this.
+    pub listed_layers_override_names: bool,
+}
+
+/// Whether `Options::layers` names this layer, ignoring case.
+pub(super) fn listed_layer(options: &Options, name: &str) -> bool {
+    options
+        .layers
+        .as_ref()
+        .is_some_and(|v| v.iter().any(|s| s.to_lowercase() == name.to_lowercase()))
 }
 
 pub(super) fn cut_name(name: &str) -> bool {
@@ -141,15 +152,13 @@ impl Drawing {
         for e in self.entities {
             let geometry = e.has_geometry();
             let color = color_key(&e.color);
+            let listed = listed_layer(options, &e.layer);
             let ignore = e.ignored.or_else(|| {
-                ignored_layer(&e.layer)
+                (ignored_layer(&e.layer) && !(self.listed_layers_override_names && listed))
                     .then_some((SkipReason::IgnoredLayer, "bend/extent/construction layer"))
             });
             let selected = ignore.is_none()
-                && options
-                    .layers
-                    .as_ref()
-                    .is_none_or(|v| v.iter().any(|s| s.to_lowercase() == e.layer.to_lowercase()))
+                && (options.layers.is_none() || listed)
                 && chosen_colors.as_ref().is_none_or(|v| v.contains(&color))
                 && (!named || cut_name(&e.layer));
             for item in [channel(&mut layers, &e.layer), channel(&mut colors, &color)] {

@@ -79,6 +79,56 @@ fn custom_stock_layers_and_disabled_discovery_do_not_change_cut_parts() {
     assert_eq!(disabled.parts.len(), 2);
 }
 
+/// Automatic SHEET discovery lists the SHEET layer it finds, so a DXF SHEET
+/// layer drawn with a legacy POLYLINE is offered as stock even when it is off
+/// or frozen. The cut part is unchanged.
+#[test]
+fn off_or_frozen_dxf_sheet_layer_of_polylines_is_offered_as_stock() {
+    // The SHEET layer is off (a negative colour) or frozen (flag 1).
+    for (color, flags) in [(-7, 0), (7, 1)] {
+        let source = format!(
+            "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n\
+            0\nSECTION\n2\nTABLES\n0\nLAYER\n2\nCUT\n70\n0\n62\n7\n\
+            0\nLAYER\n2\nSHEET\n70\n{flags}\n62\n{color}\n0\nENDSEC\n\
+            0\nSECTION\n2\nENTITIES\n\
+            0\nLWPOLYLINE\n8\nCUT\n90\n4\n70\n1\n\
+            10\n20\n20\n20\n10\n70\n20\n20\n10\n70\n20\n45\n10\n20\n20\n45\n\
+            0\nPOLYLINE\n8\nSHEET\n66\n1\n70\n1\n\
+            0\nVERTEX\n8\nSHEET\n10\n0\n20\n0\n0\nVERTEX\n8\nSHEET\n10\n200\n20\n0\n\
+            0\nVERTEX\n8\nSHEET\n10\n200\n20\n100\n0\nVERTEX\n8\nSHEET\n10\n0\n20\n100\n\
+            0\nSEQEND\n8\nSHEET\n0\nENDSEC\n0\nEOF\n"
+        );
+        let library = Library::import(&[("nest.dxf".into(), source)], &Options::default()).unwrap();
+        assert_eq!(
+            library.parts.len(),
+            1,
+            "{color} {flags}: {:?}",
+            library.warnings
+        );
+        assert_eq!(library.parts[0].bounds_mm, [20.0, 20.0, 70.0, 45.0]);
+        let [sheet] = library.sheet_outlines.as_slice() else {
+            panic!("{color} {flags}: {:?}", library.warnings)
+        };
+        assert_eq!((sheet.width_mm, sheet.height_mm), (200.0, 100.0));
+        assert!(
+            library
+                .warnings
+                .iter()
+                .any(|w| w.contains("sheet_outline_available")),
+            "{:?}",
+            library.warnings
+        );
+        assert!(
+            !library
+                .warnings
+                .iter()
+                .any(|w| w.contains("could not be used as stock")),
+            "{:?}",
+            library.warnings
+        );
+    }
+}
+
 #[test]
 fn references_do_not_silently_resize_stock_or_accept_conflicting_geometry() {
     let library =

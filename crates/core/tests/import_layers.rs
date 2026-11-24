@@ -131,9 +131,278 @@ fn svg_css_specificity_and_use_inheritance_choose_the_right_colour() {
 }
 
 fn dxf(entities: &str, blocks: &str) -> String {
-    format!(
-        "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nTABLES\n0\nLAYER\n2\nCUT\n62\n7\n0\nLAYER\n2\nSCORE\n62\n1\n0\nENDSEC\n0\nSECTION\n2\nBLOCKS\n{blocks}0\nENDSEC\n0\nSECTION\n2\nENTITIES\n{entities}0\nENDSEC\n0\nEOF\n"
+    dxf_with_layers(
+        "0\nLAYER\n2\nCUT\n62\n7\n0\nLAYER\n2\nSCORE\n62\n1\n",
+        entities,
+        blocks,
     )
+}
+
+fn dxf_with_layers(layers: &str, entities: &str, blocks: &str) -> String {
+    format!(
+        "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nTABLES\n{layers}0\nENDSEC\n0\nSECTION\n2\nBLOCKS\n{blocks}0\nENDSEC\n0\nSECTION\n2\nENTITIES\n{entities}0\nENDSEC\n0\nEOF\n"
+    )
+}
+
+/// A LAYER table record. A negative colour turns the layer off, and flag 1
+/// freezes it.
+fn layer(name: &str, color: i32, flags: u32) -> String {
+    format!("0\nLAYER\n2\n{name}\n70\n{flags}\n62\n{color}\n")
+}
+
+fn rectangle(layer: &str, [x0, y0, x1, y1]: [f64; 4]) -> String {
+    format!(
+        "0\nLWPOLYLINE\n8\n{layer}\n90\n4\n70\n1\n10\n{x0}\n20\n{y0}\n10\n{x1}\n20\n{y0}\n10\n{x1}\n20\n{y1}\n10\n{x0}\n20\n{y1}\n"
+    )
+}
+
+fn listed(layers: &[&str]) -> Options {
+    Options {
+        layers: Some(layers.iter().map(|&l| l.into()).collect()),
+        ..Default::default()
+    }
+}
+
+fn colour_7() -> Options {
+    Options {
+        colors: Some(vec!["7".into()]),
+        ..Default::default()
+    }
+}
+
+/// A layer named in `Options::layers` is read even when it is off (negative
+/// colour) or frozen (flag 1). Automatic and colour-only selection still skip
+/// it.
+#[test]
+fn listed_off_or_frozen_layer_is_imported() {
+    for table in [layer("CUT", -7, 0), layer("CUT", 7, 1)] {
+        let text = dxf_with_layers(&table, &rectangle("CUT", [0.0, 0.0, 100.0, 50.0]), "");
+        // The list matches the layer table without case sensitivity.
+        let r = import_dxf(&text, &listed(&["cut"])).unwrap();
+        assert_eq!(r.parts.len(), 1, "{table:?}: {:?}", r.warnings);
+        assert_eq!(r.parts[0].bounds, [0.0, 0.0, 100.0, 50.0]);
+        assert!(r.warnings.is_empty(), "{:?}", r.warnings);
+        assert!(r.report.entries.is_empty(), "{:?}", r.report.entries);
+        let cut = r.report.layers.iter().find(|l| l.name == "CUT").unwrap();
+        assert_eq!((cut.entities, cut.selected_entities), (1, 1));
+        let white = r.report.colors.iter().find(|c| c.name == "aci:7").unwrap();
+        assert_eq!(white.selected_entities, 1);
+        for options in [Options::default(), colour_7()] {
+            let e = import_dxf(&text, &options).unwrap_err().to_string();
+            assert!(
+                e.contains("ignored 1 LWPOLYLINE on layer \"CUT\": hidden DXF entity or layer"),
+                "{table:?}: {e}"
+            );
+        }
+    }
+}
+
+/// The 100 x 50 mm part keeps its 20 x 20 mm hole when the hole's layer is off
+/// but listed. Not listed, the hole layer is still skipped with a warning.
+#[test]
+fn listed_hidden_hole_layer_gives_the_part_its_hole() {
+    let tables = format!("{}{}", layer("CUT", 7, 0), layer("HOLES", -7, 0));
+    let entities = format!(
+        "{}{}",
+        rectangle("CUT", [0.0, 0.0, 100.0, 50.0]),
+        rectangle("HOLES", [10.0, 10.0, 30.0, 30.0])
+    );
+    let text = dxf_with_layers(&tables, &entities, "");
+    let r = import_dxf(&text, &listed(&["CUT", "HOLES"])).unwrap();
+    assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+    assert_eq!(r.parts[0].holes.len(), 1, "{:?}", r.warnings);
+    let area = r.parts[0].area;
+    assert!((area - 4600.0).abs() < 1e-9, "{area}");
+    assert!(r.warnings.is_empty(), "{:?}", r.warnings);
+    assert!(r.report.entries.is_empty(), "{:?}", r.report.entries);
+    let holes = r.report.layers.iter().find(|l| l.name == "HOLES").unwrap();
+    assert_eq!((holes.entities, holes.selected_entities), (1, 1));
+    let white = r.report.colors.iter().find(|c| c.name == "aci:7").unwrap();
+    assert_eq!((white.entities, white.selected_entities), (2, 2));
+    let warning = "ignored 1 LWPOLYLINE on layer \"HOLES\": hidden DXF entity or layer";
+    for options in [listed(&["CUT"]), Options::default(), colour_7()] {
+        let r = import_dxf(&text, &options).unwrap();
+        assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+        assert!(r.parts[0].holes.is_empty());
+        assert!(r.warnings.iter().any(|w| w == warning), "{:?}", r.warnings);
+        let holes = r.report.layers.iter().find(|l| l.name == "HOLES").unwrap();
+        assert_eq!((holes.entities, holes.selected_entities), (1, 0));
+    }
+}
+
+/// A listed DXF layer is read even when its name marks bend, extent or
+/// construction lines. Automatic and colour-only selection still skip it, and
+/// so does SVG import.
+#[test]
+fn listed_bend_extent_or_construction_layer_is_imported() {
+    for name in ["Bend relief cut", "Extents", "CONSTRUCTION 2"] {
+        let text = dxf_with_layers(
+            &layer(name, 7, 0),
+            &rectangle(name, [0.0, 0.0, 10.0, 10.0]),
+            "",
+        );
+        let r = import_dxf(&text, &listed(&[name])).unwrap();
+        assert_eq!(r.parts.len(), 1, "{name}: {:?}", r.warnings);
+        assert!(r.warnings.is_empty(), "{:?}", r.warnings);
+        let channel = r.report.layers.iter().find(|l| l.name == name).unwrap();
+        assert_eq!((channel.entities, channel.selected_entities), (1, 1));
+        for options in [Options::default(), colour_7()] {
+            let e = import_dxf(&text, &options).unwrap_err().to_string();
+            assert!(
+                e.contains(&format!(
+                    "ignored 1 LWPOLYLINE on layer {name:?}: bend/extent/construction layer"
+                )),
+                "{name}: {e}"
+            );
+        }
+    }
+    let svg = r#"<svg width="10mm" viewBox="0 0 10 10"><g id="BEND" stroke="black"><rect width="10" height="10"/></g></svg>"#;
+    let e = import_svg(svg, &listed(&["BEND"])).unwrap_err().to_string();
+    assert!(e.contains("bend/extent/construction layer"), "{e}");
+}
+
+/// Listing a layer overrides only that layer's own off or frozen state. An
+/// entity hidden on its own (60=1), or inside an INSERT that is hidden on its
+/// own or sits on a hidden layer that isn't listed, stays hidden.
+#[test]
+fn listed_layer_keeps_entities_hidden_on_their_own_or_by_their_insert() {
+    let tables = format!(
+        "{}{}{}",
+        layer("CUT", 7, 0),
+        layer("PARTS", -7, 0),
+        layer("OFF", -7, 0)
+    );
+    // A layer-0 circle that takes the INSERT's layer and a circle on CUT.
+    let blocks = "0\nBLOCK\n2\nA\n10\n0\n20\n0\n0\nCIRCLE\n8\n0\n10\n0\n20\n0\n40\n5\n\
+        0\nCIRCLE\n8\nCUT\n10\n0\n20\n20\n40\n5\n0\nENDBLK\n";
+    let entities = "0\nCIRCLE\n8\nPARTS\n60\n1\n10\n0\n20\n0\n40\n5\n\
+        0\nINSERT\n8\nOFF\n2\nA\n10\n100\n20\n0\n\
+        0\nINSERT\n8\nPARTS\n2\nA\n10\n200\n20\n0\n\
+        0\nINSERT\n8\nCUT\n60\n1\n2\nA\n10\n300\n20\n0\n";
+    let text = dxf_with_layers(&tables, entities, blocks);
+    let r = import_dxf(&text, &listed(&["CUT", "PARTS"])).unwrap();
+    let mut centers: Vec<_> = r
+        .parts
+        .iter()
+        .map(|p| {
+            let nestbolt_core::curves::Segment::Arc { center, .. } = p.outer.segments[0] else {
+                panic!("exact circle lost")
+            };
+            center
+        })
+        .collect();
+    centers.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    // Only the INSERT on the listed PARTS layer places its circles.
+    assert_eq!(centers, [[200.0, 0.0], [200.0, 20.0]], "{:?}", r.warnings);
+    for (count, layer) in [(3, "CUT"), (1, "OFF"), (1, "PARTS")] {
+        let warning =
+            format!("ignored {count} CIRCLE on layer {layer:?}: hidden DXF entity or layer");
+        assert!(r.warnings.contains(&warning), "{warning}: {:?}", r.warnings);
+    }
+    for (name, entities, selected) in [("CUT", 5, 1), ("PARTS", 3, 1), ("OFF", 2, 0)] {
+        let channel = r.report.layers.iter().find(|l| l.name == name).unwrap();
+        assert_eq!(
+            (channel.entities, channel.selected_entities),
+            (entities, selected),
+            "{name}"
+        );
+    }
+}
+
+/// An INSERT's hiding reaches entities two block levels down. Block `OUTER`
+/// holds an INSERT on the listed, visible `CUT` layer that places block
+/// `INNER`'s circle on `CUT`. That circle stays hidden when the INSERT of
+/// `OUTER` sits on a hidden layer that isn't listed, is hidden on its own
+/// (60=1), or has a negative colour on a layer that isn't listed.
+#[test]
+fn listed_layer_keeps_entities_hidden_by_an_insert_two_blocks_up() {
+    let tables = format!(
+        "{}{}{}{}",
+        layer("CUT", 7, 0),
+        layer("PARTS", -7, 0),
+        layer("OFF", -7, 0),
+        layer("SPARE", 7, 0)
+    );
+    let blocks = "0\nBLOCK\n2\nINNER\n10\n0\n20\n0\n0\nCIRCLE\n8\nCUT\n10\n0\n20\n0\n40\n5\n0\nENDBLK\n\
+        0\nBLOCK\n2\nOUTER\n10\n0\n20\n0\n0\nINSERT\n8\nCUT\n2\nINNER\n10\n0\n20\n0\n0\nENDBLK\n";
+    let entities = "0\nINSERT\n8\nOFF\n2\nOUTER\n10\n100\n20\n0\n\
+        0\nINSERT\n8\nPARTS\n2\nOUTER\n10\n200\n20\n0\n\
+        0\nINSERT\n8\nCUT\n60\n1\n2\nOUTER\n10\n300\n20\n0\n\
+        0\nINSERT\n8\nSPARE\n62\n-7\n2\nOUTER\n10\n400\n20\n0\n";
+    let text = dxf_with_layers(&tables, entities, blocks);
+    let r = import_dxf(&text, &listed(&["CUT", "PARTS"])).unwrap();
+    let centers: Vec<_> = r
+        .parts
+        .iter()
+        .map(|p| {
+            let nestbolt_core::curves::Segment::Arc { center, .. } = p.outer.segments[0] else {
+                panic!("exact circle lost")
+            };
+            center
+        })
+        .collect();
+    // Only the INSERT on the listed PARTS layer places the circle.
+    assert_eq!(centers, [[200.0, 0.0]], "{:?}", r.warnings);
+    let warning = "ignored 3 CIRCLE on layer \"CUT\": hidden DXF entity or layer";
+    assert!(r.warnings.iter().any(|w| w == warning), "{:?}", r.warnings);
+    // CUT has the hidden top-level INSERT and, under each top-level INSERT,
+    // the nested INSERT and its circle.
+    for (name, entities, selected) in [("CUT", 9, 1), ("PARTS", 1, 0), ("OFF", 1, 0)] {
+        let channel = r.report.layers.iter().find(|l| l.name == name).unwrap();
+        assert_eq!(
+            (channel.entities, channel.selected_entities),
+            (entities, selected),
+            "{name}"
+        );
+    }
+}
+
+/// An entity's own negative colour turns its layer off, like the layer
+/// table's, so listing the layer reads the entity and lets an INSERT place its
+/// block. Not listed, both stay hidden.
+#[test]
+fn listed_layer_reads_entities_whose_own_colour_is_negative() {
+    let tables = format!("{}{}", layer("CUT", 7, 0), layer("HOLES", 7, 0));
+    // A layer-0 circle that takes the INSERT's layer.
+    let blocks = "0\nBLOCK\n2\nA\n10\n0\n20\n0\n0\nCIRCLE\n8\n0\n10\n0\n20\n0\n40\n5\n0\nENDBLK\n";
+    // The square hole and the INSERT of the round hole have colour -7.
+    let entities = format!(
+        "{}{}0\nINSERT\n8\nHOLES\n62\n-7\n2\nA\n10\n50\n20\n25\n",
+        rectangle("CUT", [0.0, 0.0, 100.0, 50.0]),
+        rectangle("HOLES", [10.0, 10.0, 30.0, 30.0]).replacen(
+            "8\nHOLES\n",
+            "8\nHOLES\n62\n-7\n",
+            1
+        ),
+    );
+    let text = dxf_with_layers(&tables, &entities, blocks);
+    let r = import_dxf(&text, &listed(&["CUT", "HOLES"])).unwrap();
+    assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+    assert_eq!(r.parts[0].holes.len(), 2, "{:?}", r.warnings);
+    assert!(r.parts[0].holes.iter().any(|h| matches!(
+        h.segments[0],
+        nestbolt_core::curves::Segment::Arc { center, .. } if center == [50.0, 25.0]
+    )));
+    // The area comes from the flattened round hole, so it's close, not exact.
+    let area = r.parts[0].area;
+    let expected = 4600.0 - std::f64::consts::PI * 25.0;
+    assert!((area - expected).abs() < 0.5, "{area}");
+    assert!(r.warnings.is_empty(), "{:?}", r.warnings);
+    assert!(r.report.entries.is_empty(), "{:?}", r.report.entries);
+    let holes = r.report.layers.iter().find(|l| l.name == "HOLES").unwrap();
+    assert_eq!((holes.entities, holes.selected_entities), (3, 2));
+    for options in [listed(&["CUT"]), Options::default(), colour_7()] {
+        let r = import_dxf(&text, &options).unwrap();
+        assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+        assert!(r.parts[0].holes.is_empty());
+        for kind in ["LWPOLYLINE", "INSERT", "CIRCLE"] {
+            let warning =
+                format!("ignored 1 {kind} on layer \"HOLES\": hidden DXF entity or layer");
+            assert!(r.warnings.contains(&warning), "{warning}: {:?}", r.warnings);
+        }
+        let holes = r.report.layers.iter().find(|l| l.name == "HOLES").unwrap();
+        assert_eq!((holes.entities, holes.selected_entities), (3, 0));
+    }
 }
 
 #[test]

@@ -1677,7 +1677,12 @@ impl Default for DxfStyle {
     }
 }
 
-fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) -> DxfStyle {
+fn dxf_style(
+    e: &Entity,
+    parent: &DxfStyle,
+    layers: &HashMap<String, DxfStyle>,
+    options: &Options,
+) -> DxfStyle {
     let own = e.text(8).unwrap_or("0");
     let layer = if own == "0" {
         parent.layer.clone()
@@ -1694,13 +1699,17 @@ fn dxf_style(e: &Entity, parent: &DxfStyle, layers: &HashMap<String, DxfStyle>) 
             n => format!("aci:{}", n.unsigned_abs()),
         }
     };
+    // A negative colour means the entity's layer is off, which listing the
+    // layer overrides as it does the layer table's. 60=1 hides the entity
+    // itself.
+    let layer_off = e.get(62).is_some_and(|c| c < 0.0) && !selection::listed_layer(options, &layer);
     DxfStyle {
         layer,
         color,
         hidden: parent.hidden
             || table.is_some_and(|l| l.hidden)
             || e.get(60) == Some(1.0)
-            || e.get(62).is_some_and(|c| c < 0.0),
+            || layer_off,
         paper_space: parent.paper_space || e.get(67) == Some(1.0),
     }
 }
@@ -1730,6 +1739,7 @@ fn dxf_pieces(
     warnings: &mut Diagnostics,
     parent_style: &DxfStyle,
     layers: &HashMap<String, DxfStyle>,
+    options: &Options,
     drawing: &mut Drawing,
     remaining_expansion: &mut usize,
 ) -> Result<()> {
@@ -1740,7 +1750,7 @@ fn dxf_pieces(
     let mut i = 0;
     while i < entities.len() {
         let e = &entities[i];
-        let style = dxf_style(e, parent_style, layers);
+        let style = dxf_style(e, parent_style, layers, options);
         let mut pieces = vec![];
         let ignored = if style.hidden {
             Some((SkipReason::Hidden, "hidden DXF entity or layer"))
@@ -1866,6 +1876,7 @@ fn dxf_pieces(
                                 warnings,
                                 &style,
                                 layers,
+                                options,
                                 drawing,
                                 remaining_expansion,
                             )?;
@@ -1999,7 +2010,10 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             .get("ENTITIES")
             .context("DXF has no ENTITIES section")?,
     );
-    let mut drawing = Drawing::default();
+    let mut drawing = Drawing {
+        listed_layers_override_names: true,
+        ..Drawing::default()
+    };
     let mut layers = HashMap::new();
     for e in dxf_entities(sections.get("TABLES").map_or(&[], Vec::as_slice)) {
         if e.kind != "LAYER" {
@@ -2007,6 +2021,12 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         }
         let name = e.text(2).unwrap_or("0").to_owned();
         drawing.known_layers.push(name.clone());
+        // A listed layer is read even when it is off or frozen. An entity
+        // hidden on its own, or inside an INSERT that is hidden on its own or
+        // by a layer that isn't listed, stays hidden.
+        let hidden = (e.get(62).is_some_and(|c| c < 0.0)
+            || e.get(70).is_some_and(|f| f as u32 & 1 != 0))
+            && !selection::listed_layer(options, &name);
         layers.insert(
             name.to_lowercase(),
             DxfStyle {
@@ -2015,8 +2035,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                     || format!("aci:{}", (e.get(62).unwrap_or(7.0) as i32).unsigned_abs()),
                     |rgb| format!("#{:06x}", (rgb as u32) & 0xffffff),
                 ),
-                hidden: e.get(62).is_some_and(|c| c < 0.0)
-                    || e.get(70).is_some_and(|f| f as u32 & 1 != 0),
+                hidden,
                 paper_space: false,
             },
         );
@@ -2057,6 +2076,7 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
         &mut warnings,
         &DxfStyle::default(),
         &layers,
+        options,
         &mut drawing,
         &mut remaining_expansion,
     )?;
