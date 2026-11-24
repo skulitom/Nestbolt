@@ -8,7 +8,7 @@ use jagua_rs::{
 };
 use nestbolt_validator::{
     RigidTransform,
-    job::{Job, Layout, Mode, Placement, Report, Rotations, Sheet, validate},
+    job::{Job, Layout, MAX_COPIES, Mode, Placement, Report, Rotations, Sheet, validate},
 };
 use rand::{SeedableRng, rngs::Xoshiro256PlusPlus};
 use serde::Serialize;
@@ -125,7 +125,7 @@ fn input(job: &Job) -> Result<io::ext_repr::ExtSPInstance> {
 fn adapt(job: &Job, ext: io::ext_repr::ExtSPSolution) -> Result<Layout> {
     ensure!(ext.layout.container_id == 0, "unexpected strip container");
     ensure!(
-        ext.layout.placed_items.len() <= 2000,
+        ext.layout.placed_items.len() <= MAX_COPIES as usize,
         "too many strip placements"
     );
     let mut layout = Layout {
@@ -350,6 +350,46 @@ mod tests {
         let mut denied = job;
         denied.parts[0].allow_mirror = false;
         assert!(!validate(&denied, &layout).unwrap().valid);
+    }
+
+    #[test]
+    fn adapts_strip_layouts_of_up_to_ten_thousand_parts() {
+        let job = Job {
+            version: 1,
+            name: "large strip".into(),
+            units: Units::Mm,
+            clearance: 0.0,
+            edge_clearance: 0.0,
+            mode: Mode::All,
+            parts: vec![Part {
+                id: "square".into(),
+                quantity: 10_000,
+                geometry: vec![rectangle(0.0, 0.0, 1.0, 1.0)],
+                rotations: Rotations::List { degrees: vec![0.0] },
+                allow_mirror: false,
+                priority: 1.0,
+            }],
+            stocks: vec![Stock {
+                id: "strip".into(),
+                width: 100.0,
+                height: 100.0,
+                count: Some(1),
+                margins: Margins::default(),
+                outline: vec![],
+                defects: vec![],
+            }],
+        };
+        let solution = |count: u32| {
+            serde_json::from_value(json!({"strip_width":100.0,"density":0.0,"run_time_sec":0,
+                "layout":{"container_id":0,"density":0.0,"placed_items":(0..count).map(|n|
+                    json!({"item_id":0,"transformation":{"rotation":0.0,"reflected":false,
+                        "translation":[f64::from(n / 100),f64::from(n % 100)]}})).collect::<Vec<_>>()}}))
+            .unwrap()
+        };
+        let layout = adapt(&job, solution(10_000)).unwrap();
+        assert_eq!(layout.placements.len(), 10_000);
+        assert_eq!(layout.placements[9_999].copy_index, 9_999);
+        assert!(adapt(&job, solution(10_001)).is_err());
     }
 
     #[test]

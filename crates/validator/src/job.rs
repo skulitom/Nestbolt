@@ -7,6 +7,11 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BACKEND, Footprint, GRID, Polygon, RigidTransform, Units};
 
+/// Most copies a job may request, and most placements and sheets a layout may
+/// hold: `validate`, and so every search, refuses more. A job still lists at
+/// most 2,000 part types and 2,000 stock types.
+pub const MAX_COPIES: u32 = 10_000;
+
 #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
 #[serde(deny_unknown_fields)]
 pub struct Job {
@@ -292,8 +297,9 @@ pub fn validate(job: &Job, layout: &Layout) -> Result<Report> {
         "clearances must be finite, nonnegative and within the coordinate range"
     );
     ensure!(
-        layout.placements.len() <= 2000 && layout.sheets.len() <= 2000,
-        "layout exceeds 2000 parts or sheets"
+        layout.placements.len() <= MAX_COPIES as usize
+            && layout.sheets.len() <= MAX_COPIES as usize,
+        "layout exceeds {MAX_COPIES} parts or sheets"
     );
     let mut parts = BTreeMap::new();
     let mut source_shapes = BTreeMap::new();
@@ -318,8 +324,8 @@ pub fn validate(job: &Job, layout: &Layout) -> Result<Report> {
         );
     }
     ensure!(
-        (1..=2000).contains(&requested),
-        "job requires 1..2000 copies"
+        (1..=MAX_COPIES).contains(&requested),
+        "job requires 1..{MAX_COPIES} copies"
     );
     let mut stocks = BTreeMap::new();
     let mut prepared = BTreeMap::new();

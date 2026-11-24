@@ -9,8 +9,8 @@ use jagua_rs::io::import::Importer;
 use jagua_rs::probs::bpp::io::ext_repr::ExtBPInstance;
 use serde::{Deserialize, Serialize};
 
-/// Initial supported job size, matching the v1 target in the project plan.
-pub const MAX_PARTS: u64 = 2_000;
+/// Supported job size: the copies a nesting job may request.
+pub const MAX_PARTS: u64 = nestbolt_validator::job::MAX_COPIES as u64;
 pub const ENGINE_VERSION: &str = "jagua-rs 1.1.0";
 
 /// Units must be declared by the caller: the upstream JSON has no unit field.

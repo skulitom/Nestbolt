@@ -78,8 +78,10 @@ pub fn to_job(input: &str, output: &str, units: Units) -> Result<(job::Job, job:
     let source: Instance = serde_json::from_str(input).context("invalid original Sparrow input")?;
     let output: Output = serde_json::from_str(output).context("invalid Sparrow solution JSON")?;
     ensure!(
-        source.items.len() <= 2000 && output.solution.layout.placed_items.len() <= 2000,
-        "strip job/layout exceeds 2000 parts"
+        source.items.len() <= 2000
+            && output.solution.layout.placed_items.len() <= job::MAX_COPIES as usize,
+        "strip job/layout exceeds 2000 part types or {} parts",
+        job::MAX_COPIES
     );
     let mut parts = vec![];
     for item in source.items {

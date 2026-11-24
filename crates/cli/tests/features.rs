@@ -1160,6 +1160,29 @@ fn quantities_from_one_to_hundreds() {
     assert_eq!(run.placements(TAB).len(), 200);
 }
 
+// Debug builds keep jagua-rs's and Sparrow's own consistency checks, which
+// recheck the whole layout after every change: 2,001 parts would take minutes.
+// check.py runs this test in release.
+#[test]
+#[cfg_attr(
+    debug_assertions,
+    ignore = "upstream debug assertions slow thousands of parts"
+)]
+fn jobs_of_more_than_two_thousand_parts() {
+    let dir = temp("large");
+    let library = import(&dir, &[example("parts.svg")]);
+    let run = nest(
+        &dir,
+        &library,
+        json!({"parts": [{"id": WASHER, "quantity": 1001}, {"id": TAB, "quantity": 1000}],
+               "sheets": [sheet(2000.0, 1250.0, 5.0)], "spacing_mm": 1, "edge_spacing_mm": 1}),
+        "2",
+    );
+    assert_eq!(run.metrics()["placed_parts"], 2001);
+    assert_eq!(run.placements(WASHER).len(), 1001);
+    assert_eq!(run.placements(TAB).len(), 1000);
+}
+
 #[test]
 fn fill_modes_place_the_most_area_or_priority() {
     let dir = temp("fill");

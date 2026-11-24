@@ -32,6 +32,9 @@ irregular remnant outlines, overlapping defect zones, parts with holes or multip
 rigid components, exact physical copies, rotation steps/lists/free rotation,
 mirroring permission, units, edge/inter-part clearance, and all/fill-area/fill-priority
 modes. It rejects empty declared sheets and gives invalid layouts **no metrics**.
+A job requests 1 to 10,000 copies of at most 2,000 part types, on at most 2,000
+stock types, and a layout holds at most 10,000 placements and sheets
+(`job::MAX_COPIES`); larger input is an error, not an invalid layout.
 Fill can validly place nothing, including when defects cover all usable stock;
 that has zero quality score. Diagnostics retain a total count and at most 128
 messages, bounding report memory on heavily overlapping layouts.

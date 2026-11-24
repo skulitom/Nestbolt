@@ -248,7 +248,7 @@ fn unit_mismatch_invalid_inputs_and_excessive_demand_are_rejected() {
     layout.units = Units::Inch;
     assert!(has(&validate(&job, &layout).unwrap(), "units"));
     layout.units = Units::Mm;
-    job.parts[0].quantity = 2001;
+    job.parts[0].quantity = 10_001;
     assert!(validate(&job, &layout).is_err());
     job.parts[0].quantity = 2;
     job.parts[0].rotations = Rotations::Step { degrees: 0.0 };
@@ -314,6 +314,43 @@ fn validates_two_thousand_distinct_copies() {
     let metrics = report.metrics.unwrap();
     assert_eq!(metrics.placed_parts, 2000);
     assert_eq!(metrics.utilization, 1.0);
+}
+
+#[test]
+fn validates_ten_thousand_copies_placements_and_sheets_and_refuses_more() {
+    // A cutting plan checked directly, one copy per sheet, reaches the copy,
+    // placement and sheet limits at once.
+    let (mut job, mut layout) = fixture();
+    job.parts[0].quantity = 10_000;
+    layout.sheets = (0..10_000_u32)
+        .map(|n| Sheet {
+            id: n.to_string(),
+            stock_id: "stock".into(),
+        })
+        .collect();
+    layout.placements = (0..10_000)
+        .map(|n| placement("a", n, &n.to_string(), 0.0, 0.0))
+        .collect();
+    let report = validate(&job, &layout).unwrap();
+    assert!(report.valid, "{:?}", report.violations);
+    let metrics = report.metrics.unwrap();
+    assert_eq!(metrics.placed_parts, 10_000);
+    assert_eq!(metrics.sheets_used, 10_000);
+    // One copy, placement or sheet more is refused as input, not reported as
+    // an extra copy or an empty sheet.
+    let refusal = |job: &Job, layout: &Layout| format!("{:#}", validate(job, layout).unwrap_err());
+    let mut more = job.clone();
+    more.parts[0].quantity += 1;
+    assert!(refusal(&more, &layout).contains("1..10000 copies"));
+    let mut placed = layout.clone();
+    placed.placements.push(placement("a", 0, "0", 50.0, 50.0));
+    assert!(refusal(&job, &placed).contains("exceeds 10000 parts or sheets"));
+    let mut sheets = layout;
+    sheets.sheets.push(Sheet {
+        id: "spare".into(),
+        stock_id: "stock".into(),
+    });
+    assert!(refusal(&job, &sheets).contains("exceeds 10000 parts or sheets"));
 }
 
 #[test]

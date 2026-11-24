@@ -1,4 +1,7 @@
-use nestbolt_validator::{Units, sparrow::validate};
+use nestbolt_validator::{
+    Units,
+    sparrow::{to_job, validate},
+};
 use serde_json::{Value, json};
 
 fn fixture() -> (Value, Value) {
@@ -92,4 +95,23 @@ fn empty_rotation_list_is_fixed_while_null_is_free() {
             .unwrap()
             .valid
     );
+}
+
+#[test]
+fn converts_strip_results_of_up_to_ten_thousand_parts() {
+    let convert = |count: u32| {
+        let input = json!({"name":"original", "strip_height":100,
+            "items":[{"id":0,"demand":count,"allowed_orientations":[0],
+                "shape":{"type":"simple_polygon","data":[[0,0],[1,0],[1,1],[0,1]]}}]});
+        let placed: Vec<Value> = (0..count)
+            .map(|n| json!({"item_id":0,"transformation":{"rotation":0,"translation":[n / 100, n % 100]}}))
+            .collect();
+        let output = json!({"solution":{"strip_width":100,"layout":{"placed_items":placed}}});
+        to_job(&input.to_string(), &output.to_string(), Units::Unitless)
+    };
+    let (job, layout) = convert(10_000).unwrap();
+    assert_eq!(job.parts[0].quantity, 10_000);
+    assert_eq!(layout.placements.len(), 10_000);
+    let refused = format!("{:#}", convert(10_001).unwrap_err());
+    assert!(refused.contains("10000 parts"), "{refused}");
 }
