@@ -160,12 +160,14 @@ fn binary_take<const N: usize>(bytes: &[u8], i: &mut usize) -> Option<[u8; N]> {
 /// Stops after the EOF group, which a complete file must have.
 fn binary_dxf_text(bytes: &[u8]) -> Result<Vec<u8>> {
     use std::io::Write;
-    ensure!(
-        bytes.starts_with(BINARY_SENTINEL),
-        "binary DXF has a damaged sentinel; re-export the drawing"
-    );
+    if let Some(at) =
+        (0..BINARY_SENTINEL.len()).find(|&i| bytes.get(i) != Some(&BINARY_SENTINEL[i]))
+    {
+        bail!("binary DXF has a damaged sentinel at byte {at}; re-export the drawing");
+    }
     let one_byte_codes = binary_one_byte_codes(bytes);
-    let mut out = Vec::with_capacity(bytes.len() * 2);
+    // Grown as groups are written: bytes after the EOF group never count.
+    let mut out = Vec::new();
     let mut i = BINARY_SENTINEL.len();
     while i < bytes.len() {
         let at = i;

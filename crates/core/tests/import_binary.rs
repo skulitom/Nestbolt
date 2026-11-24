@@ -231,6 +231,7 @@ fn binary_chunks_booleans_and_64_bit_integers_take_their_own_widths() {
     let mut tags = plate(b"AC1032", b"CUT", b"", false);
     // A boolean header variable, then proxy graphics on the circle: a 64-bit
     // size beyond f64 precision and chunks holding NUL and line-break bytes.
+    // Codes at both ends of each range, so a range cut short fails too.
     tags.splice(6..6, [(9, S(b"$LWDISPLAY")), (290, Bool(1))]);
     let circle = tags
         .iter()
@@ -240,8 +241,11 @@ fn binary_chunks_booleans_and_64_bit_integers_take_their_own_widths() {
         circle + 2..circle + 2,
         [
             (160, I64(-9_007_199_254_740_993)),
+            (169, I64(i64::MAX)),
+            (299, Bool(1)),
             (310, Chunk(&[0x00, 0x0a, 0x0d, 0xff, 0x30])),
             (310, Chunk(&[])),
+            (319, Chunk(&[0x41, 0x00])),
         ],
     );
     tags.insert(tags.len() - 2, (1004, Chunk(&[0x01, 0x00, 0x0a])));
@@ -249,7 +253,10 @@ fn binary_chunks_booleans_and_64_bit_integers_take_their_own_widths() {
     for pair in [
         "290\n1\n",
         "160\n-9007199254740993\n",
+        "169\n9223372036854775807\n",
+        "299\n1\n",
         "310\n000A0DFF30\n310\n\n",
+        "319\n4100\n",
         "1004\n01000A\n",
     ] {
         assert!(text.contains(pair), "{pair:?} in {text}");
@@ -288,12 +295,29 @@ fn truncated_or_malformed_binary_files_give_errors() {
     }
     let mut damaged = binary(false, &plate(b"AC1015", b"CUT", b"", false));
     damaged[21] = b'!';
-    assert!(
-        decode_drawing("part.dxf", &damaged)
-            .unwrap_err()
-            .to_string()
-            .contains("sentinel")
-    );
+    let error = decode_drawing("part.dxf", &damaged)
+        .unwrap_err()
+        .to_string();
+    assert!(error.contains("damaged sentinel at byte 21"), "{error}");
+}
+
+#[test]
+fn only_a_group_0_eof_ends_a_binary_file() {
+    // An unknown entity whose name starts with EOF, and EOF as extended data
+    // text, are ordinary groups; the drawing goes on after them.
+    for r12 in [true, false] {
+        let version: &[u8] = if r12 { b"AC1009" } else { b"AC1032" };
+        let mut tags = plate(version, b"CUT", b"", r12);
+        let circle = tags
+            .iter()
+            .position(|t| matches!(t, (0, S(b"CIRCLE"))))
+            .unwrap();
+        tags.splice(circle..circle, [(0, S(b"EOFX")), (8, S(b"CUT"))]);
+        tags.insert(tags.len() - 2, (1000, S(b"EOF")));
+        let text = assert_same_drawing(r12, &tags);
+        let import = import_dxf(&text, &Options::default()).unwrap();
+        assert_eq!(import.parts[0].holes.len(), 1);
+    }
 }
 
 #[test]
