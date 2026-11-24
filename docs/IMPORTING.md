@@ -349,4 +349,24 @@ Find each file's report at `imports[i].report` in the CLI library and MCP
 `library.imports[i].report`. Older JSON can omit `entries`. Rust reads that
 field as an empty list, and TypeScript callers can use `report.entries ?? []`.
 
+An import that finds no part still has its warnings and report. When
+`import_dxf` or `import_svg` finds no closed part outline, or nothing to cut on
+the chosen layers and colours, its error is an `ImportFailed`. Its `reason` tells
+the two apart, and its `warnings` and `report` are those of the import when it
+stopped: every warning, the `entries`, `open_contours`, layers and colours, and
+for DXF the units. The error message is unchanged. It lists the first eight
+warnings when no outline closes and all of them when nothing is selected.
+
+```rust
+if let Err(error) = import_dxf(&text, &options)
+    && let Some(failed) = error.downcast_ref::<ImportFailed>()
+{
+    for open in &failed.report.open_contours {
+        println!("{}: end gap {} mm", open.source, open.end_gap_mm);
+    }
+}
+```
+
+The CLI and MCP still report such a failure by its message only.
+
 The development corpus produced 520 structured warnings. [Compatibility results for 440 drawings](../benchmarks/results/h2-import-entries-20261120/README.md).

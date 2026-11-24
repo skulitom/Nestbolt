@@ -84,6 +84,58 @@ pub struct Import {
     pub report: ImportReport,
 }
 
+/// Why an import found no part.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[non_exhaustive]
+pub enum FailureReason {
+    /// The selected geometry holds no closed, nonzero-area outline.
+    NoClosedOutlines,
+    /// The chosen layers and colours hold nothing to cut.
+    NoCuttingGeometry,
+}
+
+/// The error of an import that found no part, with every warning and the report
+/// as they stood when it stopped. Reach it with
+/// `anyhow::Error::downcast_ref::<ImportFailed>()`. Its message lists the first
+/// eight warnings (`NoClosedOutlines`) or all of them (`NoCuttingGeometry`).
+#[derive(Clone, Debug)]
+#[non_exhaustive]
+pub struct ImportFailed {
+    pub reason: FailureReason,
+    pub warnings: Vec<String>,
+    pub report: ImportReport,
+}
+
+impl std::fmt::Display for ImportFailed {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self.reason {
+            FailureReason::NoClosedOutlines => write!(
+                f,
+                "no closed part outlines found; repair the cut outlines or re-export the drawing with closed, nonzero-area geometry; {}",
+                self.warnings[..self.warnings.len().min(8)].join("; ")
+            ),
+            FailureReason::NoCuttingGeometry => {
+                let names = |channels: &[Channel]| {
+                    channels
+                        .iter()
+                        .map(|c| c.name.as_str())
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                };
+                write!(
+                    f,
+                    "no cutting geometry selected; choose a layer/colour containing closed outlines or convert text to paths. Layers: {}; colours: {}. {}",
+                    names(&self.report.layers),
+                    names(&self.report.colors),
+                    self.warnings.join("; ")
+                )
+            }
+        }
+    }
+}
+
+impl std::error::Error for ImportFailed {}
+
 pub const SILENT_JOIN_MM: f64 = 0.005;
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
@@ -715,17 +767,6 @@ fn assemble(
             area,
         });
     }
-    ensure!(
-        !parts.is_empty(),
-        "no closed part outlines found; repair the cut outlines or re-export the drawing with closed, nonzero-area geometry; {}",
-        warnings
-            .messages
-            .iter()
-            .take(8)
-            .cloned()
-            .collect::<Vec<_>>()
-            .join("; ")
-    );
     Ok(parts)
 }
 
@@ -1919,7 +1960,7 @@ pub fn inspect_dxf(text: &str, options: &Options) -> Result<ImportReport> {
 }
 
 fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import> {
-    let report = ImportReport::new(options)?;
+    let mut report = ImportReport::new(options)?;
     let pairs = dxf_pairs(text)?;
     let mut warnings = Diagnostics::default();
     let mut unit = None;
@@ -1965,6 +2006,14 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             ),
         );
         options.dxf_unit
+    });
+    // The report of an import that finds no part keeps its units; the part
+    // extent is filled in once parts exist.
+    report.units = Some(UnitReport {
+        declared: unit.is_some(),
+        mm_per_unit: scale,
+        largest_dimension_in_drawing_units: None,
+        possible_inches: false,
     });
     let mut blocks = HashMap::new();
     if let Some(section) = sections.get("BLOCKS") {
