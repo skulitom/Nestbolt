@@ -309,6 +309,54 @@ fn listed_layer_keeps_entities_hidden_on_their_own_or_by_their_insert() {
     }
 }
 
+/// An INSERT's hiding reaches entities two block levels down. Block `OUTER`
+/// holds an INSERT on the listed, visible `CUT` layer that places block
+/// `INNER`'s circle on `CUT`. That circle stays hidden when the INSERT of
+/// `OUTER` sits on a hidden layer that isn't listed, is hidden on its own
+/// (60=1), or has a negative colour on a layer that isn't listed.
+#[test]
+fn listed_layer_keeps_entities_hidden_by_an_insert_two_blocks_up() {
+    let tables = format!(
+        "{}{}{}{}",
+        layer("CUT", 7, 0),
+        layer("PARTS", -7, 0),
+        layer("OFF", -7, 0),
+        layer("SPARE", 7, 0)
+    );
+    let blocks = "0\nBLOCK\n2\nINNER\n10\n0\n20\n0\n0\nCIRCLE\n8\nCUT\n10\n0\n20\n0\n40\n5\n0\nENDBLK\n\
+        0\nBLOCK\n2\nOUTER\n10\n0\n20\n0\n0\nINSERT\n8\nCUT\n2\nINNER\n10\n0\n20\n0\n0\nENDBLK\n";
+    let entities = "0\nINSERT\n8\nOFF\n2\nOUTER\n10\n100\n20\n0\n\
+        0\nINSERT\n8\nPARTS\n2\nOUTER\n10\n200\n20\n0\n\
+        0\nINSERT\n8\nCUT\n60\n1\n2\nOUTER\n10\n300\n20\n0\n\
+        0\nINSERT\n8\nSPARE\n62\n-7\n2\nOUTER\n10\n400\n20\n0\n";
+    let text = dxf_with_layers(&tables, entities, blocks);
+    let r = import_dxf(&text, &listed(&["CUT", "PARTS"])).unwrap();
+    let centers: Vec<_> = r
+        .parts
+        .iter()
+        .map(|p| {
+            let nestbolt_core::curves::Segment::Arc { center, .. } = p.outer.segments[0] else {
+                panic!("exact circle lost")
+            };
+            center
+        })
+        .collect();
+    // Only the INSERT on the listed PARTS layer places the circle.
+    assert_eq!(centers, [[200.0, 0.0]], "{:?}", r.warnings);
+    let warning = "ignored 3 CIRCLE on layer \"CUT\": hidden DXF entity or layer";
+    assert!(r.warnings.iter().any(|w| w == warning), "{:?}", r.warnings);
+    // CUT has the hidden top-level INSERT and, under each top-level INSERT,
+    // the nested INSERT and its circle.
+    for (name, entities, selected) in [("CUT", 9, 1), ("PARTS", 1, 0), ("OFF", 1, 0)] {
+        let channel = r.report.layers.iter().find(|l| l.name == name).unwrap();
+        assert_eq!(
+            (channel.entities, channel.selected_entities),
+            (entities, selected),
+            "{name}"
+        );
+    }
+}
+
 /// An entity's own negative colour turns its layer off, like the layer
 /// table's, so listing the layer reads the entity and lets an INSERT place its
 /// block. Not listed, both stay hidden.
