@@ -32,6 +32,7 @@ use sparrow::config::DEFAULT_SPARROW_CONFIG;
 use crate::clock::{Clock, Deadline, Timing, Work};
 use crate::construct::{Options as ConstructOptions, conversion_guard, proxy_points};
 use crate::control::{Control, StopReason};
+use crate::optimize::Fit;
 
 mod native;
 mod vstrip;
@@ -686,7 +687,16 @@ fn optimize_with_areas(
         search_budget,
         fill_material,
         live,
-    )?;
+    )
+    .map_err(|mut error| {
+        // A filled host that fits no sheet is named by its own id.
+        if let Some(unfit) = error.downcast_mut::<crate::construct::Unfit>()
+            && let Some(id) = grouped.host_id(job, &unfit.part)
+        {
+            unfit.part = id.to_owned();
+        }
+        error
+    })?;
     if debug {
         eprintln!(
             "debug phase search: real {:.2} clock {:.2}",
@@ -784,6 +794,12 @@ fn optimize_job(
     // the fallback and unmodified Sparrow gets the rest of the budget, as its
     // own command-line run would. Its layouts count only when they fit the sheet.
     let quick = model.is_ok() && sparrow_shaped(job) && clock.timing() == Timing::Wall;
+    // A part that fits no sheet fails at once, rather than after the warm start.
+    let fit = if job.mode == Mode::All {
+        Fit::Require
+    } else {
+        Fit::Scan
+    };
     let mut warm = if options.quick_start {
         rectangle_warm_start(job, options.seed, clock, budget)?
     } else {
@@ -799,6 +815,7 @@ fn optimize_job(
             finish,
             options.seconds,
             material,
+            fit,
         )?;
         if first.best.complete && first.validation.valid {
             warm = Some(first);
@@ -815,6 +832,7 @@ fn optimize_job(
             finish,
             options.seconds,
             material,
+            fit,
         )?,
     };
     ensure!(
@@ -887,6 +905,7 @@ fn optimize_job(
                             finish,
                             options.seconds,
                             material,
+                            fit,
                         )?;
                         if more.best.complete
                             && more.validation.valid
@@ -1083,6 +1102,7 @@ fn single_size_start(
             (now + 2.0 * share).min(finish),
             options.seconds,
             None,
+            Fit::Grid,
         ) else {
             continue;
         };
@@ -1208,7 +1228,12 @@ fn rectangle_warm_start(
 }
 
 /// The repacking warm start: stops at `warm_until` once it has a complete
-/// layout, and at `finish` regardless.
+/// layout, and at `finish` regardless. With [`Fit::Require`], a part that fits
+/// no sheet fails it at once with [`crate::construct::Unfit`]. Single-size
+/// trials use [`Fit::Grid`]: like before the scan, a size too small for a part
+/// is tried and skipped, and a size that a part fits only between quarter
+/// turns is skipped too when another size takes it at a quarter turn.
+#[allow(clippy::too_many_arguments)]
 fn warm_start(
     job: &Job,
     seed: u64,
@@ -1217,6 +1242,7 @@ fn warm_start(
     finish: f64,
     seconds: f64,
     material: Option<&crate::scoring::MaterialAreas>,
+    fit: Fit,
 ) -> Result<crate::optimize::SearchResult> {
     let explain_interruption = |e: anyhow::Error| {
         if e.is::<crate::control::Interrupted>() {
@@ -1251,6 +1277,7 @@ fn warm_start(
                 construct,
                 &mut control,
                 material,
+                fit,
                 |p| {
                     if p.complete && (p.accepted || p.pass > 0) {
                         complete.set(true);
@@ -1279,6 +1306,7 @@ fn warm_start(
                 construct,
                 &mut control,
                 material,
+                fit,
                 |_| {},
             ) {
                 Err(e)
@@ -1298,6 +1326,7 @@ fn warm_start(
                         once,
                         &mut once_control,
                         material,
+                        fit,
                         |_| {},
                     )
                     .map_err(explain_interruption)?;
@@ -1517,7 +1546,7 @@ mod tests {
             false,
         );
         let clock = Clock::new(Timing::Work, 0.0);
-        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0, None);
+        let result = warm_start(&job, 0, &clock, 0.1, 1.0, 1.0, None, Fit::Require);
         assert!(clock.hit_hard_limit());
         let error = result.expect_err("an expired deadline must stop the initial construction");
         assert!(error.to_string().contains("allow more time"), "{error:#}");
@@ -1770,5 +1799,165 @@ mod tests {
         .unwrap();
         assert!(result.unsupported.is_some());
         assert!(result.validation.valid);
+    }
+
+    fn free_rectangle(id: &str, width: f64, height: f64) -> Part {
+        Part {
+            id: id.into(),
+            quantity: 1,
+            geometry: vec![nestbolt_validator::job::rectangle(0.0, 0.0, width, height)],
+            rotations: Rotations::Free,
+            allow_mirror: false,
+            priority: 1.0,
+        }
+    }
+
+    #[test]
+    fn a_free_part_that_fits_only_between_quarter_turns_nests() {
+        // Issue #36: a 1020 x 10 strip on a 1000 x 300 sheet without margins
+        // fits about 12.5 to 16.4 degrees off a quarter turn, never at one.
+        for mirror in [false, true] {
+            let mut job = job(Rotations::Free, false);
+            job.parts = vec![free_rectangle("strip", 1020.0, 10.0)];
+            job.parts[0].allow_mirror = mirror;
+            job.stocks[0].width = 1000.0;
+            job.stocks[0].height = 300.0;
+            job.stocks[0].margins = Margins::default();
+            job.clearance = 1.0;
+            job.edge_clearance = 0.0;
+            let result = optimize(
+                &job,
+                Options {
+                    seconds: 2.0,
+                    seed: 1,
+                    timing: Timing::Work,
+                    ..Options::default()
+                },
+                |_, _| {},
+            )
+            .unwrap();
+            assert!(validate(&job, &result.layout).unwrap().valid);
+            assert_eq!(result.layout.placements.len(), 1);
+        }
+    }
+
+    #[test]
+    fn a_part_that_fits_no_sheet_fails_at_once_naming_it() {
+        // The usable 66 x 44 area's diagonal is 79 mm. Before, the wall-clock
+        // warm start kept repacking the other parts for its whole budget and
+        // then asked for more time.
+        let mut plain = job(Rotations::Free, false);
+        plain.parts.push(free_rectangle("strip", 90.0, 4.0));
+        // A holed part filled with smaller ones is named by its own id, not by
+        // its group's.
+        let mut frame = free_rectangle("frame", 90.0, 40.0);
+        frame.geometry[0]
+            .holes
+            .push(nestbolt_validator::job::rectangle(10.0, 5.0, 50.0, 30.0).outer);
+        let mut filled = job(Rotations::Free, false);
+        filled.parts.push(frame);
+        let clock = Clock::new(Timing::Wall, 30.0);
+        assert!(
+            crate::holes::group(&filled, &clock, 6.0, 0)
+                .unwrap()
+                .riders_placed
+                > 0
+        );
+        for (job, name) in [(plain, "strip"), (filled, "frame")] {
+            let started = std::time::Instant::now();
+            let error = optimize(
+                &job,
+                Options {
+                    seconds: 30.0,
+                    ..Options::default()
+                },
+                |_, _| {},
+            )
+            .expect_err(name);
+            let message = format!("{error:#}");
+            assert!(
+                message.starts_with(&format!(
+                    "part {name} does not fit any sheet at its allowed rotations"
+                )),
+                "{message}"
+            );
+            assert!(started.elapsed().as_secs_f64() < 10.0, "{message}");
+        }
+    }
+
+    #[test]
+    fn a_part_that_fits_no_sheet_fails_before_the_first_construction() {
+        let mut job = job(Rotations::Free, false);
+        job.parts.push(free_rectangle("strip", 90.0, 4.0));
+        let options = crate::optimize::Options {
+            construct: ConstructOptions::default(),
+            passes: 1,
+        };
+        for fit in [Fit::Require, Fit::Scan] {
+            let mut control = Control::unlimited();
+            let result = crate::optimize::optimize_controlled_scored(
+                &job,
+                options,
+                &mut control,
+                None,
+                fit,
+                |_| {},
+            );
+            if fit == Fit::Require {
+                let error = result.unwrap_err();
+                assert_eq!(
+                    error
+                        .downcast_ref::<crate::construct::Unfit>()
+                        .unwrap()
+                        .part,
+                    "strip"
+                );
+                assert_eq!(control.collision_checks(), 0);
+            } else {
+                assert!(!result.unwrap().best.complete);
+                assert!(control.collision_checks() > 0);
+            }
+        }
+    }
+
+    #[test]
+    fn single_size_warm_starts_keep_the_grid() {
+        // The strip fits the 1100 x 100 size at a quarter turn and the 1000 x
+        // 300 size only between quarter turns. As before the scan, the
+        // single-size warm starts use the grid, so the strip stays on an
+        // 1100 x 100 sheet, which cannot hold the square as well. Scanning the
+        // 1000 x 300 size's warm start put both on one sheet of it, changing
+        // the repeatable result of a job whose parts all fit at a grid angle.
+        let mut job = job(Rotations::Free, false);
+        job.parts = vec![
+            free_rectangle("strip", 1020.0, 10.0),
+            free_rectangle("square", 100.0, 100.0),
+        ];
+        job.clearance = 1.0;
+        job.edge_clearance = 0.0;
+        let sheet = job.stocks[0].clone();
+        job.stocks = [("long", 1100.0, 100.0), ("wide", 1000.0, 300.0)]
+            .map(|(id, width, height)| Stock {
+                id: id.into(),
+                width,
+                height,
+                margins: Margins::default(),
+                ..sheet.clone()
+            })
+            .into();
+        let result = optimize(
+            &job,
+            Options {
+                seconds: 3.0,
+                seed: 1,
+                timing: Timing::Work,
+                time_limit: Some(60.0),
+                ..Options::default()
+            },
+            |_, _| {},
+        )
+        .unwrap();
+        assert!(validate(&job, &result.layout).unwrap().valid);
+        assert_eq!(result.layout.sheets.len(), 2);
     }
 }

@@ -143,7 +143,21 @@ pub fn optimize_controlled(
     control: &mut Control<'_>,
     progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
-    optimize_controlled_scored(job, options, control, None, progress)
+    optimize_controlled_scored(job, options, control, None, Fit::Scan, progress)
+}
+
+/// What a search does with free parts that fit no stock region at a grid angle,
+/// and with parts that fit none at any allowed angle.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Fit {
+    /// Construct free parts also at the scanned angles where they fit.
+    Scan,
+    /// Scan, and fail with [`crate::construct::Unfit`] before the first pass
+    /// when a part fits no stock region, for callers that need every part.
+    Require,
+    /// Keep the grid, for single-size sub-jobs: a part that fits another size
+    /// at a grid angle must not get the scan on this one.
+    Grid,
 }
 
 pub(crate) fn optimize_controlled_scored(
@@ -151,6 +165,7 @@ pub(crate) fn optimize_controlled_scored(
     options: Options,
     control: &mut Control<'_>,
     material: Option<&crate::scoring::MaterialAreas>,
+    fit: Fit,
     mut progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
     ensure!(
@@ -158,7 +173,12 @@ pub(crate) fn optimize_controlled_scored(
         "search needs 1..=1024 passes"
     );
     let debug_started = std::env::var_os("NESTBOLT_DEBUG").map(|_| jagua_rs::Instant::now());
-    let prepared = PreparedJob::new_controlled_scored(job, material, control)?;
+    let mut prepared = PreparedJob::new_controlled_scored(job, material, control)?;
+    match fit {
+        Fit::Scan => {}
+        Fit::Require => prepared.ensure_parts_fit_controlled(options.construct, control)?,
+        Fit::Grid => prepared.grid_only(),
+    }
     let check_layout = |layout: &nestbolt_validator::job::Layout| -> Result<Report> {
         let mut report = validate(job, layout)?;
         if let Some(material) = material {

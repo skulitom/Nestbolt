@@ -10,7 +10,7 @@ use std::time::Duration;
 use jagua_rs::Instant;
 use serde::Serialize;
 
-pub const WORK_VERSION: &str = "nestbolt-work-v2";
+pub const WORK_VERSION: &str = "nestbolt-work-v3";
 
 /// Kinds of deterministic work, with reference seconds per unit (AMD Ryzen 9
 /// 7950X3D, one core). Changing a coefficient changes repeatable results.

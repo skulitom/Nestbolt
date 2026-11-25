@@ -70,6 +70,13 @@ impl Grouped {
             riders_placed: 0,
         }
     }
+
+    /// The id of the original part that a part of the grouped job stands for:
+    /// its own, or a filled group's host.
+    pub(crate) fn host_id<'j>(&self, original: &'j Job, part: &str) -> Option<&'j str> {
+        let index = self.job.parts.iter().position(|p| p.id == part)?;
+        Some(original.parts.get(self.members[index].host)?.id.as_str())
+    }
 }
 
 fn angle_set(rotations: &Rotations) -> Option<Vec<f64>> {

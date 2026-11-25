@@ -83,3 +83,37 @@ fn stopping_before_a_layout_exists_does_not_create_an_output_file() {
     assert!(!result.status.success());
     assert!(!path.exists());
 }
+
+#[test]
+fn incomplete_stopped_search_skips_the_followup_fit_scan() {
+    let mut job: serde_json::Value =
+        serde_json::from_str(include_str!("../../../examples/validation-job.json")).unwrap();
+    job["parts"][0]["geometry"] = serde_json::json!([{
+        "outer": [[0, 0], [10000, 0], [10000, 10], [0, 10]], "holes": []
+    }]);
+    let job_path = output_path();
+    let layout_path = output_path();
+    fs::write(&job_path, serde_json::to_vec(&job).unwrap()).unwrap();
+    let run = |args: &[&str]| {
+        Command::new(env!("CARGO_BIN_EXE_nestbolt"))
+            .args(["improve", "--job"])
+            .arg(&job_path)
+            .arg("--output")
+            .arg(&layout_path)
+            .args(args)
+            .output()
+            .unwrap()
+    };
+    let initial = run(&["--passes", "1"]);
+    assert!(!initial.status.success());
+    assert!(String::from_utf8_lossy(&initial.stderr).contains("part frame does not fit"));
+    let report: serde_json::Value = serde_json::from_slice(&initial.stdout).unwrap();
+    let checks = report["collision_checks"].as_u64().unwrap().to_string();
+    let stopped = run(&["--passes", "2", "--max-checks", &checks]);
+    assert!(!stopped.status.success());
+    let report: serde_json::Value = serde_json::from_slice(&stopped.stdout).unwrap();
+    assert_eq!(report["stopped"], "work_limit");
+    assert!(String::from_utf8_lossy(&stopped.stderr).contains("no complete validated layout"));
+    assert!(!layout_path.exists());
+    fs::remove_file(job_path).unwrap();
+}

@@ -27,10 +27,7 @@ impl PreparedJob<'_> {
         options: Options,
         control: &mut Control<'_>,
     ) -> Result<Construction> {
-        ensure!(
-            (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
-            "invalid compaction work budget"
-        );
+        ensure!(options.valid_budget(), "invalid compaction work budget");
         self.compact_impl(source, sweeps, Some(options), control)
     }
 
@@ -138,10 +135,13 @@ impl PreparedJob<'_> {
                     occupied.region.layout.remove_item(tracked.key);
                     if let Some(options) = relocation {
                         occupied.refresh_except(Some(tracked.key));
+                        let orientations =
+                            self.construction_angles(tracked.part, options, state.control)?;
                         if let Some(found) = search_bounded(
                             &occupied.region,
                             &self.items[tracked.part],
                             &self.job.parts[tracked.part],
+                            &orientations,
                             options,
                             &mut state,
                             Some((candidate.cost, candidate.bounds[3])),

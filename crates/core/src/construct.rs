@@ -2,7 +2,7 @@
 //! used only for source-contract preflight and final acceptance, never placement.
 //! Holed exteriors and multipart hulls are conservative collision proxies. Source
 //! geometry is never rewritten. This is a starting solution, not the M2 optimiser.
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 
 use crate::control::Control;
 use anyhow::{Context, Result, ensure};
@@ -13,7 +13,7 @@ use jagua_rs::{
         DTransformation,
         fail_fast::SPSurrogateConfig,
         geo_traits::TransformableFrom,
-        primitives::{Point, SPolygon},
+        primitives::{Point, Rect, SPolygon},
     },
     io::{
         ext_repr::{
@@ -205,6 +205,12 @@ impl Default for Options {
     }
 }
 
+impl Options {
+    fn valid_budget(self) -> bool {
+        (1..=360).contains(&self.free_rotations) && self.random_samples <= 100_000
+    }
+}
+
 #[derive(Debug, Serialize)]
 pub struct Construction {
     pub algorithm: &'static str,
@@ -232,6 +238,27 @@ impl std::fmt::Display for Rejected {
 }
 
 impl std::error::Error for Rejected {}
+
+/// A part whose collision outline fits no stock region at any angle the search
+/// may use (see [`PreparedJob::ensure_parts_fit`]): no budget can place it.
+#[derive(Debug)]
+pub struct Unfit {
+    /// The part's id.
+    pub part: String,
+}
+
+impl std::fmt::Display for Unfit {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "part {} does not fit any sheet at its allowed rotations while keeping the larger \
+             of the part and edge spacing from the usable sheet edges; more time will not help",
+            self.part
+        )
+    }
+}
+
+impl std::error::Error for Unfit {}
 
 /// Fail with [`Rejected`] unless every violation is an allowed unplaced copy
 /// (`partial`) or there are none at all.
@@ -397,6 +424,45 @@ fn shape(points: &[[f64; 2]]) -> ExtShape {
         points.pop();
     }
     ExtShape::SimplePolygon(ExtSPolygon(points))
+}
+
+/// Free-rotation scan for parts that fit no stock region at a grid angle: 3,600
+/// steps of 0.1 degree, keeping the middles of at most four runs of fitting steps.
+const FIT_SCAN_STEPS: u32 = 3600;
+const FIT_ANGLES: usize = 4;
+/// When no step fits, the scan bisects between steps down to a microradian,
+/// about f32's angle resolution near a full turn, with at most this many tests.
+const FIT_RESOLUTION_RADIANS: f64 = 1e-6;
+const FIT_REFINE_TESTS: u32 = 20_000;
+
+/// A free part's angles from the scan, in degrees, and whether the scan rules
+/// out every angle when it finds none.
+#[derive(Debug)]
+struct Fitting {
+    angles: Vec<f64>,
+    /// No angle fits: the bisection excluded every gap between steps.
+    unfit: bool,
+}
+
+/// The collision shape turned to an allowed orientation, as placement search
+/// turns it before translating: jagua's rotation and the turned bounding box.
+fn orient(item: &Item, angle: f64, mirrored: bool, buffer: &mut SPolygon) -> (f32, Rect) {
+    // jagua reflects X; original contract reflects Y. Keep the exact
+    // allowed f64 angle for output, rather than round-tripping f32 trig.
+    let rotation = (angle + if mirrored { std::f64::consts::PI } else { 0.0 }) as f32;
+    let base = DTransformation::new(rotation, (0.0, 0.0)).with_reflection(mirrored);
+    buffer.transform_from(item.shape_cd(), &base.compose());
+    (rotation, buffer.bbox())
+}
+
+/// The lower-left corners `[min_x, min_y, max_x, max_y]` at which a `width` by
+/// `height` box stays `nudge` inside a region's search bounds, if any.
+fn corners(sheet: [f32; 4], nudge: f32, width: f32, height: f32) -> Option<[f32; 4]> {
+    let min_x = sheet[0] + nudge;
+    let min_y = sheet[1] + nudge;
+    let max_x = sheet[2] - width - nudge;
+    let max_y = sheet[3] - height - nudge;
+    (!(min_x > max_x || min_y > max_y)).then_some([min_x, min_y, max_x, max_y])
 }
 
 fn angles(part: &Part, options: Options) -> Result<Vec<f64>> {
@@ -623,18 +689,21 @@ fn search(
     region: &Region,
     item: &Item,
     part: &Part,
+    orientations: &[f64],
     options: Options,
     state: &mut SearchState<'_, '_>,
 ) -> Result<Option<Candidate>> {
-    search_bounded(region, item, part, options, state, None)
+    search_bounded(region, item, part, orientations, options, state, None)
 }
 
 /// A relocation need not test positions that cannot improve its incumbent.
 /// Generate random candidates first so pruning does not change the stream.
+/// `orientations` are the part's construction angles in degrees.
 fn search_bounded(
     region: &Region,
     item: &Item,
     part: &Part,
+    orientations: &[f64],
     options: Options,
     state: &mut SearchState<'_, '_>,
     ceiling: Option<(f32, f32)>, // strict cost ceiling, inclusive top edge
@@ -644,7 +713,7 @@ fn search_bounded(
     let nudge = region.nudge;
     let mut buffer = item.shape_cd().as_ref().clone();
     let mut best: Option<Candidate> = None;
-    let mut orientations = angles(part, options)?;
+    let mut orientations = orientations.to_vec();
     if let Some(random) = &mut state.angle_random {
         for index in (1..orientations.len()).rev() {
             let other = (random.unit() * (index + 1) as f32) as usize;
@@ -658,21 +727,12 @@ fn search_bounded(
             .into_iter()
             .take(if part.allow_mirror { 2 } else { 1 })
         {
-            // jagua reflects X; original contract reflects Y. Keep the exact
-            // allowed f64 angle for output, rather than round-tripping f32 trig.
-            let rotation = (angle + if mirrored { std::f64::consts::PI } else { 0.0 }) as f32;
-            let base = DTransformation::new(rotation, (0.0, 0.0)).with_reflection(mirrored);
-            buffer.transform_from(item.shape_cd(), &base.compose());
-            let bounds = buffer.bbox();
+            let (rotation, bounds) = orient(item, angle, mirrored, &mut buffer);
             let width = bounds.x_max - bounds.x_min;
             let height = bounds.y_max - bounds.y_min;
-            let min_x = sheet[0] + nudge;
-            let min_y = sheet[1] + nudge;
-            let max_x = sheet[2] - width - nudge;
-            let max_y = sheet[3] - height - nudge;
-            if min_x > max_x || min_y > max_y {
+            let Some([min_x, min_y, max_x, max_y]) = corners(sheet, nudge, width, height) else {
                 continue;
-            }
+            };
             let mut positions = vec![(min_x, min_y), (max_x, min_y), (min_x, max_y)];
             for b in &region.boxes {
                 positions.extend([
@@ -867,6 +927,10 @@ pub struct PreparedJob<'a> {
     guard: f64,
     separation: f64,
     notes: Vec<String>,
+    /// Per part, the free-rotation angles at which it fits, scanned on first need.
+    fitting: Vec<OnceLock<Fitting>>,
+    /// Whether free parts that fit at no grid angle get the scanned angles.
+    scan: bool,
 }
 
 impl<'a> PreparedJob<'a> {
@@ -874,7 +938,8 @@ impl<'a> PreparedJob<'a> {
         Self::new_controlled(job, &mut Control::unlimited())
     }
 
-    pub(crate) fn new_controlled(job: &'a Job, control: &mut Control<'_>) -> Result<Self> {
+    /// Prepare the geometry with cooperative deadline and cancellation checks.
+    pub fn new_controlled(job: &'a Job, control: &mut Control<'_>) -> Result<Self> {
         Self::new_controlled_scored(job, None, control)
     }
 
@@ -957,17 +1022,309 @@ impl<'a> PreparedJob<'a> {
             .enumerate()
             .map(|(i, s)| {
                 control.checkpoint()?;
-                container_regions(s, i, &importer)
+                if s.count == Some(0) {
+                    Ok(Vec::new())
+                } else {
+                    container_regions(s, i, &importer)
+                }
             })
             .collect::<Result<_>>()?;
         Ok(Self {
             job,
             material,
+            fitting: items.iter().map(|_| OnceLock::new()).collect(),
+            scan: true,
             items,
             containers,
             guard,
             separation,
             notes,
+        })
+    }
+
+    /// Construct free parts at their grid angles only, as without the scan, for
+    /// a sub-job whose one stock size a part may fit only between quarter turns
+    /// while it fits another size of the whole job at one.
+    pub(crate) fn grid_only(&mut self) {
+        self.scan = false;
+    }
+
+    /// Fail with [`Unfit`] when a part's collision outline fits no stock region
+    /// at any of its construction angles, so that no search can place it and an
+    /// all-parts job cannot be completed; fill modes leave such parts out.
+    /// The test uses the constructor's conservative outlines and separation, so
+    /// it keeps the larger of the part and edge spacing from the sheet edges.
+    /// A free part fits if it fits at a grid angle or at an angle the scan finds,
+    /// and is named only when the scan rules out every angle; a fit narrower than
+    /// f32 can resolve is left to the search. Parts that pass may still fail to
+    /// fit around defects or inside a remnant's outline.
+    pub fn ensure_parts_fit(&self, options: Options) -> Result<()> {
+        self.ensure_parts_fit_controlled(options, &mut Control::unlimited())
+    }
+
+    /// Check the fit with the same interruption policy as the calling search.
+    pub fn ensure_parts_fit_controlled(
+        &self,
+        options: Options,
+        control: &mut Control<'_>,
+    ) -> Result<()> {
+        ensure!(options.valid_budget(), "invalid construction work budget");
+        for (index, part) in self.job.parts.iter().enumerate() {
+            control.checkpoint()?;
+            if part.quantity == 0 {
+                continue;
+            }
+            if self.any_angle_fits(index, &angles(part, options)?, control)?
+                || matches!(part.rotations, Rotations::Free) && !self.fitting(index, control)?.unfit
+            {
+                continue;
+            }
+            return Err(Unfit {
+                part: part.id.clone(),
+            }
+            .into());
+        }
+        Ok(())
+    }
+
+    /// A region's search bounds: its deflated container inside the stock margins.
+    fn search_bounds(&self, stock: usize, container: &Container) -> [f32; 4] {
+        let b = container.outer_cd().bbox();
+        let s = &self.job.stocks[stock];
+        let half = self.separation / 2.0;
+        [
+            b.x_min.max((s.margins.left + half) as f32),
+            b.y_min.max((s.margins.bottom + half) as f32),
+            b.x_max.min((s.width - s.margins.right - half) as f32),
+            b.y_max.min((s.height - s.margins.top - half) as f32),
+        ]
+    }
+
+    /// Whether a part's collision outline at `degrees`, unmirrored or (when
+    /// allowed) mirrored, fits the search bounds of an empty stock region: the
+    /// bounding-box test `search_bounded` makes before trying any position.
+    fn fits(&self, part: usize, degrees: f64, buffer: &mut SPolygon) -> bool {
+        self.fit(part, degrees, buffer).0
+    }
+
+    fn any_angle_fits(
+        &self,
+        part: usize,
+        angles: &[f64],
+        control: &mut Control<'_>,
+    ) -> Result<bool> {
+        let mut buffer = self.items[part].shape_cd().as_ref().clone();
+        for chunk in angles.chunks(64) {
+            control.checkpoint()?;
+            if chunk
+                .iter()
+                .any(|&angle| self.fits(part, angle, &mut buffer))
+            {
+                return Ok(true);
+            }
+        }
+        Ok(false)
+    }
+
+    /// [`Self::fits`], and by how much the turned bounding box overhangs the
+    /// roomiest region (negative with room to spare): the larger of its width's
+    /// and height's overhangs, the smallest over regions and mirrorings.
+    fn fit(&self, part: usize, degrees: f64, buffer: &mut SPolygon) -> (bool, f64) {
+        let mirrors = if self.job.parts[part].allow_mirror {
+            2
+        } else {
+            1
+        };
+        let nudge = self.guard as f32;
+        let room = |low: f32, high: f32| f64::from(high) - f64::from(low) - 2.0 * f64::from(nudge);
+        let mut fits = false;
+        let mut overhang = f64::INFINITY;
+        for mirrored in [false, true].into_iter().take(mirrors) {
+            let (_, b) = orient(&self.items[part], degrees.to_radians(), mirrored, buffer);
+            let (width, height) = (b.x_max - b.x_min, b.y_max - b.y_min);
+            for (stock, regions) in self.containers.iter().enumerate() {
+                for container in regions {
+                    let bounds = self.search_bounds(stock, container);
+                    fits |= corners(bounds, nudge, width, height).is_some();
+                    overhang = overhang.min(
+                        (f64::from(width) - room(bounds[0], bounds[2]))
+                            .max(f64::from(height) - room(bounds[1], bounds[3])),
+                    );
+                }
+            }
+        }
+        (fits, overhang)
+    }
+
+    /// A part's construction angles in degrees: its list or step, or the
+    /// free-rotation grid. A free part that fits no stock region at any grid
+    /// angle also gets the angles at which it fits (`fitting`), unless the job
+    /// is grid-only; parts that fit at a grid angle keep exactly the grid, and
+    /// with it their layouts.
+    fn construction_angles(
+        &self,
+        part: usize,
+        options: Options,
+        control: &mut Control<'_>,
+    ) -> Result<Vec<f64>> {
+        let mut list = angles(&self.job.parts[part], options)?;
+        if self.scan
+            && matches!(self.job.parts[part].rotations, Rotations::Free)
+            && !self.any_angle_fits(part, &list, control)?
+        {
+            list.extend_from_slice(&self.fitting(part, control)?.angles);
+        }
+        Ok(list)
+    }
+
+    /// The free-rotation angles at which a part fits some stock region: the
+    /// middle step of each run of fitting steps in a 0.1-degree scan, widest run
+    /// first and at most four. Each passes `search_bounded`'s bounding-box test
+    /// as far from where the part stops fitting as the scan allows, since jagua
+    /// works in f32. Only parts that fail at 0 degrees, a grid angle, are
+    /// scanned, so no run wraps. When no step fits, [`Self::refine`] looks
+    /// between the steps. Scanned once per prepared job.
+    fn fitting(&self, part: usize, control: &mut Control<'_>) -> Result<&Fitting> {
+        if let Some(fitting) = self.fitting[part].get() {
+            return Ok(fitting);
+        }
+        let degrees = |step: u32| f64::from(step) * 360.0 / f64::from(FIT_SCAN_STEPS);
+        let mut buffer = self.items[part].shape_cd().as_ref().clone();
+        let mut overhangs = Vec::with_capacity(FIT_SCAN_STEPS as usize);
+        let mut runs: Vec<(u32, u32)> = vec![];
+        let mut start = None;
+        for step in 0..=FIT_SCAN_STEPS {
+            if step % 360 == 0 {
+                control.checkpoint()?;
+            }
+            let fits = step < FIT_SCAN_STEPS && {
+                let (fits, overhang) = self.fit(part, degrees(step), &mut buffer);
+                overhangs.push(overhang);
+                fits
+            };
+            match (fits, start) {
+                (true, None) => start = Some(step),
+                (false, Some(first)) => {
+                    runs.push((first, step - first));
+                    start = None;
+                }
+                _ => {}
+            }
+        }
+        let fitting = if runs.is_empty() {
+            self.refine(part, &overhangs, control)?
+        } else {
+            runs.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+            Fitting {
+                angles: runs
+                    .iter()
+                    .take(FIT_ANGLES)
+                    .map(|&(first, length)| degrees(first + (length - 1) / 2))
+                    .collect(),
+                unfit: false,
+            }
+        };
+        Ok(self.fitting[part].get_or_init(|| fitting))
+    }
+
+    /// Look for fitting angles between the scan's steps, given each step's
+    /// overhang. The overhang changes with the angle by at most twice the
+    /// outline's largest distance from its bounding box's centre per radian,
+    /// so a gap between steps whose ends overhang by more than that allows
+    /// (plus f32 rounding) has no fitting angle. Other gaps are bisected until a
+    /// test fits or they are excluded. For each gap that fits, the middle of
+    /// its fitting range, widest first and at most four; with none, the part is
+    /// unfit only if every gap was excluded within the resolution and test limit.
+    fn refine(&self, part: usize, overhangs: &[f64], control: &mut Control<'_>) -> Result<Fitting> {
+        let shape = self.items[part].shape_cd();
+        let b = shape.bbox();
+        let centre = (
+            (f64::from(b.x_min) + f64::from(b.x_max)) / 2.0,
+            (f64::from(b.y_min) + f64::from(b.y_max)) / 2.0,
+        );
+        let mut radius: f64 = 0.0;
+        let mut extent: f64 = 0.0;
+        for p in shape.vertices() {
+            let (x, y) = (f64::from(p.0), f64::from(p.1));
+            radius = radius.max((x - centre.0).hypot(y - centre.1));
+            extent = extent.max(x.hypot(y));
+        }
+        for (stock, regions) in self.containers.iter().enumerate() {
+            for container in regions {
+                for bound in self.search_bounds(stock, container) {
+                    extent = extent.max(f64::from(bound.abs()));
+                }
+            }
+        }
+        // Per degree; and the f32 error in the turned outline, the region
+        // bounds and the angle itself.
+        let slope = 2.0 * radius * std::f64::consts::PI / 180.0;
+        let tolerance =
+            64.0 * f64::from(f32::EPSILON) * extent + 2.0 * radius * FIT_RESOLUTION_RADIANS;
+        let resolution = FIT_RESOLUTION_RADIANS.to_degrees();
+        let mut buffer = shape.as_ref().clone();
+        let tests = std::cell::Cell::new(0_u32);
+        let mut test = |degrees: f64| -> Result<(bool, f64)> {
+            tests.set(tests.get() + 1);
+            if tests.get().is_multiple_of(360) {
+                control.checkpoint()?;
+            }
+            Ok(self.fit(part, degrees, &mut buffer))
+        };
+        let step = 360.0 / f64::from(FIT_SCAN_STEPS);
+        let mut windows: Vec<(f64, f64)> = vec![]; // (width, middle)
+        let mut open = false;
+        for (index, &first) in overhangs.iter().enumerate() {
+            let last = overhangs[(index + 1) % overhangs.len()];
+            let mut gaps = vec![(index as f64 * step, first, (index + 1) as f64 * step, last)];
+            while let Some((low, at_low, high, at_high)) = gaps.pop() {
+                if (at_low + at_high) / 2.0 - slope * (high - low) / 2.0 > tolerance {
+                    continue;
+                }
+                if high - low < resolution || tests.get() >= FIT_REFINE_TESTS {
+                    open = true;
+                    continue;
+                }
+                let middle = (low + high) / 2.0;
+                let (fits, at_middle) = test(middle)?;
+                if !fits {
+                    gaps.push((middle, at_middle, high, at_high));
+                    gaps.push((low, at_low, middle, at_middle));
+                    continue;
+                }
+                // The fitting range around `middle`, to the resolution.
+                let (mut out, mut start) = (low, middle);
+                while start - out > resolution {
+                    let probe = (out + start) / 2.0;
+                    if test(probe)?.0 {
+                        start = probe;
+                    } else {
+                        out = probe;
+                    }
+                }
+                let (mut end, mut out) = (middle, high);
+                while out - end > resolution {
+                    let probe = (end + out) / 2.0;
+                    if test(probe)?.0 {
+                        end = probe;
+                    } else {
+                        out = probe;
+                    }
+                }
+                let centre = (start + end) / 2.0;
+                let centre = if test(centre)?.0 { centre } else { middle };
+                windows.push((end - start, centre));
+                break;
+            }
+        }
+        windows.sort_by(|a, b| b.0.total_cmp(&a.0).then(a.1.total_cmp(&b.1)));
+        Ok(Fitting {
+            unfit: windows.is_empty() && !open,
+            angles: windows
+                .iter()
+                .take(FIT_ANGLES)
+                .map(|&(_, middle)| middle)
+                .collect(),
         })
     }
 
@@ -1010,17 +1367,10 @@ impl<'a> PreparedJob<'a> {
                 .iter()
                 .cloned()
                 .map(|c| {
-                    let b = c.outer_cd().bbox();
-                    let s = &self.job.stocks[stock];
-                    let half = self.separation / 2.0;
+                    let search_bounds = self.search_bounds(stock, &c);
                     Region {
                         nudge: self.guard as f32,
-                        search_bounds: [
-                            b.x_min.max((s.margins.left + half) as f32),
-                            b.y_min.max((s.margins.bottom + half) as f32),
-                            b.x_max.min((s.width - s.margins.right - half) as f32),
-                            b.y_max.min((s.height - s.margins.top - half) as f32),
-                        ],
+                        search_bounds,
                         layout: SearchLayout::new(c),
                         boxes: vec![],
                         contact_anchors: vec![],
@@ -1038,10 +1388,7 @@ impl<'a> PreparedJob<'a> {
         refinement: Refinement,
         control: &mut Control<'_>,
     ) -> Result<Construction> {
-        ensure!(
-            (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
-            "invalid construction work budget"
-        );
+        ensure!(options.valid_budget(), "invalid construction work budget");
         let job = self.job;
         let items = &self.items;
         let mut layout = Layout {
@@ -1095,6 +1442,8 @@ impl<'a> PreparedJob<'a> {
             refinement,
             Refinement::Contacts | Refinement::Diversified { .. }
         );
+        let mut previous_part = None;
+        let mut orientations = Vec::new();
         let mut state = SearchState::new(options.seed, contacts, control);
         if let Refinement::Diversified { right } = refinement {
             state.right = right;
@@ -1102,6 +1451,10 @@ impl<'a> PreparedJob<'a> {
         }
         for (index, copy) in copies {
             state.control.checkpoint()?;
+            if previous_part != Some(index) {
+                orientations = self.construction_angles(index, options, state.control)?;
+                previous_part = Some(index);
+            }
             let mut found = None;
             for (sheet_index, sheet) in open.iter().enumerate() {
                 for (region_index, region) in sheet.regions.iter().enumerate() {
@@ -1109,6 +1462,7 @@ impl<'a> PreparedJob<'a> {
                         region,
                         &items[index],
                         &job.parts[index],
+                        &orientations,
                         options,
                         &mut state,
                     )? {
@@ -1134,6 +1488,7 @@ impl<'a> PreparedJob<'a> {
                             region,
                             &items[index],
                             &job.parts[index],
+                            &orientations,
                             options,
                             &mut state,
                         )? {
@@ -1202,5 +1557,140 @@ impl<'a> PreparedJob<'a> {
             unplaced,
             layout,
         })
+    }
+}
+
+#[cfg(test)]
+mod fit_tests {
+    use super::*;
+    use nestbolt_validator::{
+        Polygon, Units,
+        job::{Margins, rectangle},
+    };
+
+    /// One free part on one sheet without margins, 1 mm part spacing and no
+    /// edge spacing.
+    fn single(outline: Polygon, allow_mirror: bool, width: f64, height: f64) -> Job {
+        Job {
+            version: 1,
+            name: "fit test".into(),
+            units: Units::Mm,
+            parts: vec![Part {
+                id: "part".into(),
+                quantity: 1,
+                geometry: vec![outline],
+                rotations: Rotations::Free,
+                allow_mirror,
+                priority: 1.0,
+            }],
+            stocks: vec![Stock {
+                id: "sheet".into(),
+                width,
+                height,
+                count: None,
+                margins: Margins::default(),
+                outline: vec![],
+                defects: vec![],
+            }],
+            clearance: 1.0,
+            edge_clearance: 0.0,
+            mode: Mode::All,
+        }
+    }
+
+    /// The angles the scan added to the grid of four quarter turns.
+    fn scanned(prepared: &PreparedJob<'_>) -> Vec<f64> {
+        let angles = prepared
+            .construction_angles(0, Options::default(), &mut Control::unlimited())
+            .unwrap();
+        assert_eq!(angles[..4], [0.0, 90.0, 180.0, 270.0]);
+        angles[4..].to_vec()
+    }
+
+    #[test]
+    fn scanned_angles_are_the_middle_steps_of_their_runs() {
+        // The issue's strip fits four runs of 0.1-degree steps; their lengths
+        // change with the sheet's height, so both parities are checked.
+        let mut parities = [false; 2];
+        for height in [298.0, 299.0, 300.0, 301.0, 302.0] {
+            let source = single(rectangle(0.0, 0.0, 1020.0, 10.0), false, 1000.0, height);
+            let prepared = PreparedJob::new(&source).unwrap();
+            let mut buffer = prepared.items[0].shape_cd().as_ref().clone();
+            let mut fits =
+                |step: i64| prepared.fits(0, step.rem_euclid(3600) as f64 / 10.0, &mut buffer);
+            let angles = scanned(&prepared);
+            assert_eq!(angles.len(), 4, "height {height}");
+            for angle in angles {
+                let step = (angle * 10.0).round();
+                assert_eq!(angle, step / 10.0, "a whole scan step, height {height}");
+                let step = step as i64;
+                assert!(fits(step));
+                let before = (1..).take_while(|&k| fits(step - k)).count();
+                let after = (1..).take_while(|&k| fits(step + k)).count();
+                // The run's first step plus half its length, rounded down.
+                assert_eq!(before, (before + after) / 2, "{angle} at height {height}");
+                parities[(before + after + 1) % 2] = true;
+            }
+        }
+        assert_eq!(parities, [true, true]);
+    }
+
+    #[test]
+    fn mirroring_adds_the_reflected_fitting_angles() {
+        // Reflection comes before rotation, so a mirrored part fits at minus
+        // the angles at which it fits unmirrored. A long right triangle fits
+        // between quarter turns over runs that are not symmetric about them, so
+        // only both mirrorings together give angles symmetric about 0 degrees.
+        let triangle = Polygon {
+            outer: vec![[0.0, 0.0], [1020.0, 0.0], [0.0, 40.0]],
+            holes: vec![],
+        };
+        for allow_mirror in [false, true] {
+            let source = single(triangle.clone(), allow_mirror, 1000.0, 300.0);
+            let angles = scanned(&PreparedJob::new(&source).unwrap());
+            assert_eq!(angles.len(), 4);
+            // Mirrored runs' middles round toward their first steps.
+            let symmetric = angles.iter().all(|a| {
+                angles
+                    .iter()
+                    .any(|b| ((a + b + 180.0).rem_euclid(360.0) - 180.0).abs() <= 0.1 + 1e-9)
+            });
+            assert_eq!(symmetric, allow_mirror, "{angles:?}");
+        }
+    }
+
+    #[test]
+    fn angles_found_between_steps_are_the_middles_of_their_ranges() {
+        // The issue's strip without spacing, 0.03 mm larger each way than its
+        // bounding box at 3600/251 degrees: it fits about 0.004 degrees there,
+        // between the scan's steps, and at the three mirrored or opposite angles.
+        let angle = (3600.0_f64 / 251.0).to_radians();
+        let (width, height) = (
+            1020.0 * angle.cos() + 10.0 * angle.sin(),
+            1020.0 * angle.sin() + 10.0 * angle.cos(),
+        );
+        let mut source = single(
+            rectangle(0.0, 0.0, 1020.0, 10.0),
+            false,
+            width + 0.03,
+            height + 0.03,
+        );
+        source.clearance = 0.0;
+        let prepared = PreparedJob::new(&source).unwrap();
+        let mut buffer = prepared.items[0].shape_cd().as_ref().clone();
+        let angles = scanned(&prepared);
+        assert_eq!(angles.len(), 4);
+        let fine = 0.0001;
+        for angle in angles {
+            let mut fits = |k: i32| prepared.fits(0, angle + f64::from(k) * fine, &mut buffer);
+            assert!(fits(0));
+            let before = (1..).take_while(|&k| fits(-k)).count();
+            let after = (1..).take_while(|&k| fits(k)).count();
+            assert!(
+                before + after > 30,
+                "{angle}: {before} + {after} steps of {fine}"
+            );
+            assert!(before.abs_diff(after) <= 2, "{angle}: {before} and {after}");
+        }
     }
 }

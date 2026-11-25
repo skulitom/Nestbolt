@@ -1145,6 +1145,60 @@ fn rotation_lists_steps_free_and_mirroring() {
 }
 
 #[test]
+fn free_rotation_fits_a_part_between_quarter_turns_or_names_it() {
+    // A 1020 x 10 mm strip fits a 1000 x 300 mm sheet only about 12 to 16
+    // degrees off a quarter turn; a 1100 mm strip is longer than the diagonal.
+    let dir = temp("free-fit");
+    let mut inputs = vec![];
+    for (name, length) in [("strip", 1020), ("long", 1100)] {
+        let path = dir.join(format!("{name}.dxf"));
+        fs::write(
+            &path,
+            format!(
+                "0\nSECTION\n2\nHEADER\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n\
+                 0\nLWPOLYLINE\n8\n0\n90\n4\n70\n1\n10\n0\n20\n0\n10\n{length}\n20\n0\n\
+                 10\n{length}\n20\n10\n10\n0\n20\n10\n0\nENDSEC\n0\nEOF\n"
+            ),
+        )
+        .unwrap();
+        inputs.push(path);
+    }
+    let library = import(&dir, &inputs);
+    let request = |id: &str| {
+        json!({"parts": [{"id": id, "quantity": 1, "rotations": {"kind": "free"}}],
+               "sheets": [sheet(1000.0, 300.0, 0.0)], "spacing_mm": 1, "edge_spacing_mm": 0})
+    };
+    let run = nest(&dir, &library, request("strip-1"), "3");
+    let placed = run.placements("strip-1");
+    assert_eq!(placed.len(), 1);
+    let turns = placed[0]["transform"]["rotation_radians"].as_f64().unwrap() / (PI / 2.0);
+    assert!((turns - turns.round()).abs() * 90.0 > 10.0, "{}", placed[0]);
+
+    let request_path = dir.join("long-request.json");
+    fs::write(&request_path, request("long-1").to_string()).unwrap();
+    let out_dir = dir.join("long-run");
+    let out = nestbolt(&[
+        "nest".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request_path.as_os_str(),
+        "--out-dir".as_ref(),
+        out_dir.as_os_str(),
+        "--seconds".as_ref(),
+        "30".as_ref(),
+        "--repeatable".as_ref(),
+    ]);
+    assert!(!out.status.success());
+    let stderr = String::from_utf8_lossy(&out.stderr);
+    assert!(
+        stderr.contains("part long-1 does not fit any sheet at its allowed rotations"),
+        "{stderr}"
+    );
+    assert!(!out_dir.join("layout.json").exists());
+}
+
+#[test]
 fn quantities_from_one_to_hundreds() {
     let dir = temp("quantity");
     let library = import(&dir, &[example("parts.svg")]);

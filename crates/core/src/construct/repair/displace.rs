@@ -78,7 +78,7 @@ impl PreparedJob<'_> {
                     .enumerate()
                     .map(|(index, placed)| (placed.key, index))
                     .collect();
-                for degrees in angles(&self.job.parts[part], options)? {
+                for degrees in self.construction_angles(part, options, state.control)? {
                     state.control.checkpoint()?;
                     let angle = degrees.to_radians();
                     for mirrored in
