@@ -1246,10 +1246,9 @@ fn warm_start(
 ) -> Result<crate::optimize::SearchResult> {
     let explain_interruption = |e: anyhow::Error| {
         if e.is::<crate::control::Interrupted>() {
-            anyhow::anyhow!(
-                "no complete layout within {} s: these parts are many or detailed; allow more time",
-                seconds
-            )
+            e.context(format!(
+                "no complete layout within {seconds} s: these parts are many or detailed; allow more time"
+            ))
         } else {
             e
         }
@@ -1550,6 +1549,27 @@ mod tests {
         assert!(clock.hit_hard_limit());
         let error = result.expect_err("an expired deadline must stop the initial construction");
         assert!(error.to_string().contains("allow more time"), "{error:#}");
+    }
+
+    #[test]
+    fn deadline_before_first_layout_preserves_the_stop_reason() {
+        let job = job(Rotations::Free, false);
+        for timing in [Timing::Wall, Timing::Work] {
+            let options = Options {
+                seconds: 1e-9,
+                timing,
+                ..Options::default()
+            };
+            let error = optimize(&job, options, |_, _| {}).unwrap_err();
+            assert_eq!(
+                error
+                    .downcast_ref::<crate::control::Interrupted>()
+                    .map(|e| e.0),
+                Some(StopReason::Deadline),
+                "{error:#}"
+            );
+            assert!(error.to_string().contains("allow more time"));
+        }
     }
 
     #[test]
