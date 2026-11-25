@@ -284,6 +284,12 @@ fn truncated_or_malformed_binary_files_give_errors() {
                 .unwrap_err()
                 .to_string();
             assert!(error.contains("re-export"), "{cut}: {error}");
+            if cut < SENTINEL.len() {
+                assert!(
+                    error.contains("binary DXF is truncated in its sentinel"),
+                    "{cut}: {error}"
+                );
+            }
         }
         // Bytes after the EOF group are not part of the drawing.
         let mut padded = bytes.clone();
@@ -293,12 +299,20 @@ fn truncated_or_malformed_binary_files_give_errors() {
             decode_drawing("part.dxf", &bytes).unwrap()
         );
     }
+    // The first byte that differs is named, also in a file that ends within
+    // the sentinel.
     let mut damaged = binary(false, &plate(b"AC1015", b"CUT", b"", false));
+    damaged[18] = b'!';
     damaged[21] = b'!';
-    let error = decode_drawing("part.dxf", &damaged)
-        .unwrap_err()
-        .to_string();
-    assert!(error.contains("damaged sentinel at byte 21"), "{error}");
+    for len in [damaged.len(), 20] {
+        let error = decode_drawing("part.dxf", &damaged[..len])
+            .unwrap_err()
+            .to_string();
+        assert!(
+            error.contains("damaged sentinel at byte 18"),
+            "{len}: {error}"
+        );
+    }
 }
 
 #[test]

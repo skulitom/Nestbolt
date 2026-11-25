@@ -163,6 +163,9 @@ fn binary_dxf_text(bytes: &[u8]) -> Result<Vec<u8>> {
     if let Some(at) =
         (0..BINARY_SENTINEL.len()).find(|&i| bytes.get(i) != Some(&BINARY_SENTINEL[i]))
     {
+        if at == bytes.len() {
+            bail!("binary DXF is truncated in its sentinel; re-export the drawing");
+        }
         bail!("binary DXF has a damaged sentinel at byte {at}; re-export the drawing");
     }
     let one_byte_codes = binary_one_byte_codes(bytes);
