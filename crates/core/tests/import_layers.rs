@@ -459,6 +459,36 @@ fn hidden_dxf_geometry_stays_in_the_layer_inventory() {
 }
 
 #[test]
+fn fit_point_spline_diagnostics_follow_layer_selection() {
+    let tables = format!("{}{}", layer("CUT", 7, 0), layer("OFF", -7, 0));
+    let cut = rectangle("CUT", [0.0, 0.0, 10.0, 10.0]);
+    let spline = "0\nSPLINE\n8\nOFF\n11\n20\n21\n0\n11\n30\n21\n0\n11\n30\n21\n10\n11\n20\n21\n0\n";
+    let selected = listed(&["CUT", "OFF"]);
+    for extra in ["", "11\n40\n"] {
+        let text = dxf_with_layers(&tables, &format!("{cut}{spline}{extra}"), "");
+        let hidden = import_dxf(&text, &Options::default()).unwrap();
+        assert_eq!(hidden.parts.len(), 1);
+        let off = hidden
+            .report
+            .layers
+            .iter()
+            .find(|l| l.name == "OFF")
+            .unwrap();
+        assert_eq!((off.geometry_entities, off.selected_entities), (1, 0));
+        let read = import_dxf(&text, &selected);
+        if extra.is_empty() {
+            assert_eq!(read.unwrap().parts.len(), 2);
+        } else {
+            assert!(
+                read.unwrap_err()
+                    .to_string()
+                    .contains("paired X and Y coordinates")
+            );
+        }
+    }
+}
+
+#[test]
 fn dxf_layer_and_color_inherit_through_blocks_with_base_points() {
     let blocks = "0\nBLOCK\n2\nA\n10\n10\n20\n20\n0\nCIRCLE\n8\n0\n62\n0\n10\n12\n20\n23\n40\n2\n0\nENDBLK\n";
     let entities = "0\nINSERT\n8\nCUT\n62\n1\n2\nA\n10\n100\n20\n200\n0\nCIRCLE\n8\nSCORE\n10\n20\n20\n20\n40\n1\n0\nTEXT\n8\nSCORE\n1\nlabel\n";

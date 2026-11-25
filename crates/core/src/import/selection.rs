@@ -25,15 +25,9 @@ pub(super) struct DrawingEntity {
     pub kind: String,
     pub id: Option<String>,
     pub ignored: Option<(SkipReason, &'static str)>,
-    /// Keep unreadable geometry in the inventory. Only a selected entity's
-    /// geometry is required to construct parts.
+    /// Includes unreadable geometry and hidden outlines counted without keeping their curves.
+    pub has_geometry: bool,
     pub pieces: Result<Vec<Piece>>,
-}
-
-impl DrawingEntity {
-    fn has_geometry(&self) -> bool {
-        !matches!(&self.pieces, Ok(pieces) if pieces.is_empty())
-    }
 }
 
 #[derive(Default)]
@@ -132,7 +126,7 @@ impl Drawing {
             && self.entities.iter().any(|e| {
                 e.ignored.is_none()
                     && !ignored_layer(&e.layer)
-                    && e.has_geometry()
+                    && e.has_geometry
                     && cut_name(&e.layer)
             });
         report.selection_mode = if explicit {
@@ -150,7 +144,7 @@ impl Drawing {
         let mut skipped = BTreeMap::<String, (usize, Exclusion)>::new();
         let mut pieces = vec![];
         for e in self.entities {
-            let geometry = e.has_geometry();
+            let geometry = e.has_geometry;
             let color = color_key(&e.color);
             let listed = listed_layer(options, &e.layer);
             let ignore = e.ignored.or_else(|| {
