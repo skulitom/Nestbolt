@@ -6,8 +6,8 @@ use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 use super::{
-    Diagnostics, Import, ImportEntry, ImportReport, ImportSource, Options, Piece, SkipReason,
-    assemble,
+    Diagnostics, FailureReason, Import, ImportEntry, ImportFailed, ImportReport, ImportSource,
+    Options, Piece, SkipReason, assemble,
 };
 
 #[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
@@ -237,22 +237,13 @@ impl Drawing {
                 }
             }
             if pieces.is_empty() {
-                bail!(
-                    "no cutting geometry selected; choose a layer/colour containing closed outlines or convert text to paths. Layers: {}; colours: {}. {}",
-                    report
-                        .layers
-                        .iter()
-                        .map(|l| l.name.as_str())
-                        .collect::<Vec<_>>()
-                        .join(", "),
-                    report
-                        .colors
-                        .iter()
-                        .map(|c| c.name.as_str())
-                        .collect::<Vec<_>>()
-                        .join(", "),
-                    warnings.messages.join("; ")
-                );
+                report.entries = warnings.entries;
+                return Err(ImportFailed {
+                    reason: FailureReason::NoCuttingGeometry,
+                    warnings: warnings.messages,
+                    report,
+                }
+                .into());
             }
         }
         let parts = if inspect_only {
@@ -261,6 +252,14 @@ impl Drawing {
             assemble(pieces, options, &mut warnings, &mut report)?
         };
         report.entries = warnings.entries;
+        if parts.is_empty() && !inspect_only {
+            return Err(ImportFailed {
+                reason: FailureReason::NoClosedOutlines,
+                warnings: warnings.messages,
+                report,
+            }
+            .into());
+        }
         Ok(Import {
             parts,
             warnings: warnings.messages,
