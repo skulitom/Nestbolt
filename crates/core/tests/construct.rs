@@ -386,6 +386,46 @@ fn strip_job(length: f64) -> Job {
     source
 }
 
+#[test]
+fn disabled_stock_does_not_suppress_free_rotation_on_available_stock() {
+    let mut source = strip_job(1020.0);
+    source
+        .stocks
+        .push(stock("unavailable", 1100.0, 100.0, Some(0)));
+    let prepared = PreparedJob::new(&source).unwrap();
+    let result = prepared.construct(Options::default()).unwrap();
+    assert!(result.complete);
+    assert!(validate(&source, &result.layout).unwrap().valid);
+}
+
+#[test]
+fn unused_part_needs_no_construction_angles() {
+    let mut source = strip_job(200.0);
+    let mut unused = part("unused", vec![rectangle(0.0, 0.0, 10.0, 10.0)], 0);
+    unused.rotations = Rotations::Step { degrees: 0.001 };
+    source.parts.push(unused);
+    let prepared = PreparedJob::new(&source).unwrap();
+    prepared.ensure_parts_fit(Options::default()).unwrap();
+    let result = prepared.construct(Options::default()).unwrap();
+    assert!(result.complete);
+    assert!(validate(&source, &result.layout).unwrap().valid);
+}
+
+#[test]
+fn fit_preflight_rejects_invalid_rotation_budgets() {
+    let source = strip_job(200.0);
+    let prepared = PreparedJob::new(&source).unwrap();
+    for free_rotations in [0, 361] {
+        let error = prepared
+            .ensure_parts_fit(Options {
+                free_rotations,
+                ..Options::default()
+            })
+            .unwrap_err();
+        assert_eq!(error.to_string(), "invalid construction work budget");
+    }
+}
+
 /// Degrees from the nearest quarter turn.
 fn off_quarter_turn(radians: f64) -> f64 {
     let turns = radians / std::f64::consts::FRAC_PI_2;

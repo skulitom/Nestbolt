@@ -27,10 +27,7 @@ impl PreparedJob<'_> {
         options: Options,
         control: &mut Control<'_>,
     ) -> Result<Construction> {
-        ensure!(
-            (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
-            "invalid compaction work budget"
-        );
+        ensure!(options.valid_budget(), "invalid compaction work budget");
         self.compact_impl(source, sweeps, Some(options), control)
     }
 

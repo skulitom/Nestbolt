@@ -205,6 +205,12 @@ impl Default for Options {
     }
 }
 
+impl Options {
+    fn valid_budget(self) -> bool {
+        (1..=360).contains(&self.free_rotations) && self.random_samples <= 100_000
+    }
+}
+
 #[derive(Debug, Serialize)]
 pub struct Construction {
     pub algorithm: &'static str,
@@ -932,7 +938,8 @@ impl<'a> PreparedJob<'a> {
         Self::new_controlled(job, &mut Control::unlimited())
     }
 
-    pub(crate) fn new_controlled(job: &'a Job, control: &mut Control<'_>) -> Result<Self> {
+    /// Prepare the geometry with cooperative deadline and cancellation checks.
+    pub fn new_controlled(job: &'a Job, control: &mut Control<'_>) -> Result<Self> {
         Self::new_controlled_scored(job, None, control)
     }
 
@@ -1015,7 +1022,11 @@ impl<'a> PreparedJob<'a> {
             .enumerate()
             .map(|(i, s)| {
                 control.checkpoint()?;
-                container_regions(s, i, &importer)
+                if s.count == Some(0) {
+                    Ok(Vec::new())
+                } else {
+                    container_regions(s, i, &importer)
+                }
             })
             .collect::<Result<_>>()?;
         Ok(Self {
@@ -1051,19 +1062,19 @@ impl<'a> PreparedJob<'a> {
         self.ensure_parts_fit_controlled(options, &mut Control::unlimited())
     }
 
-    pub(crate) fn ensure_parts_fit_controlled(
+    /// Check the fit with the same interruption policy as the calling search.
+    pub fn ensure_parts_fit_controlled(
         &self,
         options: Options,
         control: &mut Control<'_>,
     ) -> Result<()> {
+        ensure!(options.valid_budget(), "invalid construction work budget");
         for (index, part) in self.job.parts.iter().enumerate() {
             control.checkpoint()?;
-            let mut buffer = self.items[index].shape_cd().as_ref().clone();
-            if part.quantity == 0
-                || self
-                    .construction_angles(index, options, control)?
-                    .iter()
-                    .any(|&degrees| self.fits(index, degrees, &mut buffer))
+            if part.quantity == 0 {
+                continue;
+            }
+            if self.any_angle_fits(index, &angles(part, options)?, control)?
                 || matches!(part.rotations, Rotations::Free) && !self.fitting(index, control)?.unfit
             {
                 continue;
@@ -1094,6 +1105,25 @@ impl<'a> PreparedJob<'a> {
     /// bounding-box test `search_bounded` makes before trying any position.
     fn fits(&self, part: usize, degrees: f64, buffer: &mut SPolygon) -> bool {
         self.fit(part, degrees, buffer).0
+    }
+
+    fn any_angle_fits(
+        &self,
+        part: usize,
+        angles: &[f64],
+        control: &mut Control<'_>,
+    ) -> Result<bool> {
+        let mut buffer = self.items[part].shape_cd().as_ref().clone();
+        for chunk in angles.chunks(64) {
+            control.checkpoint()?;
+            if chunk
+                .iter()
+                .any(|&angle| self.fits(part, angle, &mut buffer))
+            {
+                return Ok(true);
+            }
+        }
+        Ok(false)
     }
 
     /// [`Self::fits`], and by how much the turned bounding box overhangs the
@@ -1138,14 +1168,11 @@ impl<'a> PreparedJob<'a> {
         control: &mut Control<'_>,
     ) -> Result<Vec<f64>> {
         let mut list = angles(&self.job.parts[part], options)?;
-        if self.scan && matches!(self.job.parts[part].rotations, Rotations::Free) {
-            let mut buffer = self.items[part].shape_cd().as_ref().clone();
-            if !list
-                .iter()
-                .any(|&degrees| self.fits(part, degrees, &mut buffer))
-            {
-                list.extend_from_slice(&self.fitting(part, control)?.angles);
-            }
+        if self.scan
+            && matches!(self.job.parts[part].rotations, Rotations::Free)
+            && !self.any_angle_fits(part, &list, control)?
+        {
+            list.extend_from_slice(&self.fitting(part, control)?.angles);
         }
         Ok(list)
     }
@@ -1361,10 +1388,7 @@ impl<'a> PreparedJob<'a> {
         refinement: Refinement,
         control: &mut Control<'_>,
     ) -> Result<Construction> {
-        ensure!(
-            (1..=360).contains(&options.free_rotations) && options.random_samples <= 100_000,
-            "invalid construction work budget"
-        );
+        ensure!(options.valid_budget(), "invalid construction work budget");
         let job = self.job;
         let items = &self.items;
         let mut layout = Layout {
@@ -1418,9 +1442,8 @@ impl<'a> PreparedJob<'a> {
             refinement,
             Refinement::Contacts | Refinement::Diversified { .. }
         );
-        let orientations = (0..job.parts.len())
-            .map(|index| self.construction_angles(index, options, control))
-            .collect::<Result<Vec<_>>>()?;
+        let mut previous_part = None;
+        let mut orientations = Vec::new();
         let mut state = SearchState::new(options.seed, contacts, control);
         if let Refinement::Diversified { right } = refinement {
             state.right = right;
@@ -1428,6 +1451,10 @@ impl<'a> PreparedJob<'a> {
         }
         for (index, copy) in copies {
             state.control.checkpoint()?;
+            if previous_part != Some(index) {
+                orientations = self.construction_angles(index, options, state.control)?;
+                previous_part = Some(index);
+            }
             let mut found = None;
             for (sheet_index, sheet) in open.iter().enumerate() {
                 for (region_index, region) in sheet.regions.iter().enumerate() {
@@ -1435,7 +1462,7 @@ impl<'a> PreparedJob<'a> {
                         region,
                         &items[index],
                         &job.parts[index],
-                        &orientations[index],
+                        &orientations,
                         options,
                         &mut state,
                     )? {
@@ -1461,7 +1488,7 @@ impl<'a> PreparedJob<'a> {
                             region,
                             &items[index],
                             &job.parts[index],
-                            &orientations[index],
+                            &orientations,
                             options,
                             &mut state,
                         )? {

@@ -172,9 +172,7 @@ impl PreparedJob<'_> {
             "invalid donor sheet"
         );
         ensure!(
-            (1..=360).contains(&options.free_rotations)
-                && options.random_samples <= 100_000
-                && ejections <= 8,
+            options.valid_budget() && ejections <= 8,
             "invalid repair work budget"
         );
         ensure!(

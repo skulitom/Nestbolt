@@ -636,9 +636,10 @@ fn main() -> Result<()> {
                 },
             )?;
             println!("{}", serde_json::to_string_pretty(&result)?);
-            if !result.best.complete {
-                // Name a part that no pass could place.
-                nestbolt_core::construct::PreparedJob::new(&job)?.ensure_parts_fit(construct)?;
+            if !result.best.complete && result.stopped.is_none() {
+                let prepared =
+                    nestbolt_core::construct::PreparedJob::new_controlled(&job, &mut control)?;
+                prepared.ensure_parts_fit_controlled(construct, &mut control)?;
             }
             ensure!(
                 result.best.complete && result.validation.valid,
