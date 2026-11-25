@@ -405,6 +405,59 @@ fn listed_layer_reads_entities_whose_own_colour_is_negative() {
     }
 }
 
+/// A hidden model-space entity counts as geometry in the inventory whatever its
+/// kind, as a hidden POLYLINE and a hidden SVG element already did. Reading it
+/// for the count adds no warning and fails nothing; a chosen layer reads it
+/// for real.
+#[test]
+fn hidden_dxf_geometry_stays_in_the_layer_inventory() {
+    let tables = format!("{}{}", layer("CUT", 7, 0), layer("OFF", -7, 0));
+    let hidden = [
+        "0\nLINE\n8\nOFF\n10\n0\n20\n0\n11\n10\n21\n0\n",
+        "0\nCIRCLE\n8\nOFF\n10\n0\n20\n0\n40\n5\n",
+        "0\nARC\n8\nOFF\n10\n0\n20\n0\n40\n5\n50\n0\n51\n90\n",
+        "0\nELLIPSE\n8\nOFF\n10\n0\n20\n0\n11\n10\n21\n0\n40\n0.5\n",
+        // A polyline width warns only once its layer is read.
+        "0\nLWPOLYLINE\n8\nOFF\n90\n2\n43\n2\n10\n0\n20\n0\n10\n10\n20\n0\n",
+        "0\nPOLYLINE\n8\nOFF\n66\n1\n0\nVERTEX\n8\nOFF\n10\n0\n20\n0\n\
+         0\nVERTEX\n8\nOFF\n10\n10\n20\n0\n0\nSEQEND\n8\nOFF\n",
+        // Unreadable geometry stays in the inventory and fails only once read.
+        "0\nLINE\n8\nOFF\n10\n0\n20\n0\n",
+        // Neither text nor paper-space entities are geometry.
+        "0\nTEXT\n8\nOFF\n10\n0\n20\n0\n40\n2\n1\nlabel\n",
+        "0\nLINE\n8\nOFF\n67\n1\n10\n0\n20\n0\n11\n10\n21\n0\n",
+    ];
+    let entities = format!(
+        "{}{}",
+        rectangle("CUT", [0.0, 0.0, 100.0, 50.0]),
+        hidden.concat()
+    );
+    let text = dxf_with_layers(&tables, &entities, "");
+    for options in [Options::default(), listed(&["CUT"]), colour_7()] {
+        let r = import_dxf(&text, &options).unwrap();
+        assert_eq!(r.parts.len(), 1, "{:?}", r.warnings);
+        let off = r.report.layers.iter().find(|l| l.name == "OFF").unwrap();
+        assert_eq!(
+            (off.entities, off.geometry_entities, off.selected_entities),
+            (9, 7, 0)
+        );
+        let warning = "ignored 3 LINE on layer \"OFF\": hidden DXF entity or layer";
+        assert!(r.warnings.iter().any(|w| w == warning), "{:?}", r.warnings);
+        assert!(
+            !r.warnings.iter().any(|w| w.contains("widths ignored")),
+            "{:?}",
+            r.warnings
+        );
+    }
+    let e = import_dxf(&text, &listed(&["CUT", "OFF"]))
+        .unwrap_err()
+        .to_string();
+    assert!(e.contains("LINE without endpoints"), "{e}");
+    let svg = inspect_svg(SVG, &Options::default()).unwrap();
+    let group = svg.layers.iter().find(|l| l.name == "hidden").unwrap();
+    assert_eq!((group.entities, group.geometry_entities), (1, 1));
+}
+
 #[test]
 fn dxf_layer_and_color_inherit_through_blocks_with_base_points() {
     let blocks = "0\nBLOCK\n2\nA\n10\n10\n20\n20\n0\nCIRCLE\n8\n0\n62\n0\n10\n12\n20\n23\n40\n2\n0\nENDBLK\n";

@@ -1793,6 +1793,7 @@ fn dxf_pieces(
         let e = &entities[i];
         let style = dxf_style(e, parent_style, layers, options);
         let mut pieces = vec![];
+        let mut unreadable = None;
         let ignored = if style.hidden {
             Some((SkipReason::Hidden, "hidden DXF entity or layer"))
         } else if matches!(
@@ -1934,17 +1935,30 @@ fn dxf_pieces(
                 }
             }
             _ => {
-                for p in if ignored.is_none() {
-                    dxf_entity(e, &style.layer, warnings)?
+                // A hidden model-space entity keeps its geometry in the
+                // inventory, as a hidden POLYLINE or SVG element does, so
+                // automatic SHEET discovery finds a hidden SHEET layer of any
+                // entity. Its warnings and errors wait until a chosen layer
+                // reads it.
+                let read = if ignored.is_none() {
+                    Ok(dxf_entity(e, &style.layer, warnings)?)
+                } else if style.hidden && !style.paper_space {
+                    dxf_entity(e, &style.layer, &mut Diagnostics::default())
                 } else {
-                    vec![]
-                } {
-                    let (s, segs) = map_segments(p.start, &p.segments, &transform);
-                    pieces.push(Piece {
-                        start: s,
-                        segments: segs,
-                        source: Origin::dxf(&style.layer, e.kind),
-                    });
+                    Ok(vec![])
+                };
+                match read {
+                    Ok(read) => {
+                        for p in read {
+                            let (s, segs) = map_segments(p.start, &p.segments, &transform);
+                            pieces.push(Piece {
+                                start: s,
+                                segments: segs,
+                                source: Origin::dxf(&style.layer, e.kind),
+                            });
+                        }
+                    }
+                    Err(error) => unreadable = Some(error),
                 }
             }
         }
@@ -1954,7 +1968,7 @@ fn dxf_pieces(
             kind: e.kind.into(),
             id: None,
             ignored,
-            pieces: Ok(pieces),
+            pieces: unreadable.map_or(Ok(pieces), Err),
         });
         i += 1;
     }
