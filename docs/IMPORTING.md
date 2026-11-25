@@ -201,7 +201,9 @@ Ordinary SVG DOCTYPE declarations are accepted without fetching external resourc
 Text and images require conversion to paths if they are to be cut.
 
 Reports include `layers` and `colors` lists. Each entry has `name`, `entities`,
-`geometry_entities` and `selected_entities`. `selection_mode` is `explicit`,
+`geometry_entities` and `selected_entities`. `geometry_entities` counts hidden
+entities that hold geometry too; text and paper-space entities aren't geometry.
+`selection_mode` is `explicit`,
 `named_cut_layers` or `closed_contours`. These counts describe selection before
 chaining; the open-contour messages still need review for missing outlines.
 
@@ -260,7 +262,8 @@ name, tick it under **Sheet outline layers**, apply the import options, then
 choose the resulting outline. Several separate stock outlines are offered
 individually; the file picker asks you to choose rather than guessing.
 
-CLI imports discover `SHEET` automatically. Use `--sheet-layers MATERIAL` for a
+CLI imports discover `SHEET` automatically, also when a DXF `SHEET` layer is
+off or frozen. Use `--sheet-layers MATERIAL` for a
 custom stock layer; MCP `import_parts` takes `sheet_layers: ["MATERIAL"]`.
 An explicit empty list disables discovery; CLI uses `--sheet-layers` without
 values. Cut-layer and cut-colour choices

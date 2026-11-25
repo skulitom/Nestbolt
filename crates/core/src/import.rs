@@ -1244,9 +1244,8 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
             }
             Ok(pieces)
         });
-        if !matches!(&pieces, Ok(pieces) if pieces.is_empty())
-            || matches!(name, "text" | "image" | "foreignObject")
-        {
+        let has_geometry = !matches!(&pieces, Ok(pieces) if pieces.is_empty());
+        if has_geometry || matches!(name, "text" | "image" | "foreignObject") {
             let ignored = if style.hidden {
                 Some((SkipReason::Hidden, "hidden SVG entity"))
             } else if matches!(name, "text" | "image" | "foreignObject") {
@@ -1265,6 +1264,7 @@ fn read_svg(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
                 kind: name.into(),
                 id: id.map(str::to_owned),
                 ignored,
+                has_geometry,
                 pieces,
             });
         }
@@ -1313,6 +1313,9 @@ fn dxf_pairs(text: &str) -> Result<Vec<(i32, &str)>> {
 struct Entity<'a> {
     kind: &'a str,
     codes: Vec<(i32, &'a str)>,
+    // Repeated hidden block instances share the source entity. Only the
+    // presence of geometry is needed for each instance's layer/colour count.
+    hidden_geometry: std::cell::OnceCell<bool>,
 }
 
 impl<'a> Entity<'a> {
@@ -1587,16 +1590,22 @@ fn dxf_entity(e: &Entity, effective_layer: &str, warnings: &mut Diagnostics) -> 
             if controls.is_empty() {
                 let fx = e.all(11);
                 let fy = e.all(21);
-                ensure!(!fx.is_empty(), "SPLINE without control or fit points");
+                ensure!(
+                    fx.len() == fy.len(),
+                    "SPLINE fit points need paired X and Y coordinates"
+                );
+                let mut points = fx.into_iter().zip(fy).map(|(x, y)| [x, y]);
+                let start = points
+                    .next()
+                    .context("SPLINE without control or fit points")?;
                 warnings.push(
                     ImportEntry::FitPointSpline {
                         source: source.location.clone(),
                     },
                     format!("{source}: fit-point spline imported as a polyline"),
                 );
-                let pts: Vec<Point> = fx.iter().zip(&fy).map(|(&x, &y)| [x, y]).collect();
-                let segs = pts[1..].iter().map(|&to| Segment::Line { to }).collect();
-                return Ok(vec![map(pts[0], segs)]);
+                let segs = points.map(|to| Segment::Line { to }).collect();
+                return Ok(vec![map(start, segs)]);
             }
             match bspline(degree, &knots, &controls) {
                 Ok((s, segs)) => vec![map(s, segs)],
@@ -1681,6 +1690,7 @@ fn dxf_entities<'a>(pairs: &[(i32, &'a str)]) -> Vec<Entity<'a>> {
             current = Some(Entity {
                 kind: value,
                 codes: vec![],
+                hidden_geometry: Default::default(),
             });
         } else if let Some(e) = current.as_mut() {
             e.codes.push((code, value));
@@ -1793,6 +1803,7 @@ fn dxf_pieces(
         let e = &entities[i];
         let style = dxf_style(e, parent_style, layers, options);
         let mut pieces = vec![];
+        let mut hidden_geometry = false;
         let ignored = if style.hidden {
             Some((SkipReason::Hidden, "hidden DXF entity or layer"))
         } else if matches!(
@@ -1851,7 +1862,9 @@ fn dxf_pieces(
                 if has_width {
                     warn_polyline_width(warnings, &Origin::dxf(&style.layer, "POLYLINE"));
                 }
-                if let Some((s, segs)) = polyline(&vertices, flags & 1 != 0) {
+                if style.hidden {
+                    hidden_geometry = vertices.len() >= 2;
+                } else if let Some((s, segs)) = polyline(&vertices, flags & 1 != 0) {
                     // 3D POLYLINE vertices already use the block's world axes.
                     let placement = if flags & 8 != 0 {
                         transform
@@ -1933,12 +1946,8 @@ fn dxf_pieces(
                     );
                 }
             }
-            _ => {
-                for p in if ignored.is_none() {
-                    dxf_entity(e, &style.layer, warnings)?
-                } else {
-                    vec![]
-                } {
+            _ if ignored.is_none() => {
+                for p in dxf_entity(e, &style.layer, warnings)? {
                     let (s, segs) = map_segments(p.start, &p.segments, &transform);
                     pieces.push(Piece {
                         start: s,
@@ -1947,6 +1956,14 @@ fn dxf_pieces(
                     });
                 }
             }
+            _ if style.hidden && !style.paper_space => {
+                // Unreadable geometry counts in the inventory too. A layer
+                // selected on a later import is read with its own diagnostics.
+                hidden_geometry = *e.hidden_geometry.get_or_init(|| {
+                    !matches!(dxf_entity(e, &style.layer, &mut Diagnostics::default()), Ok(p) if p.is_empty())
+                });
+            }
+            _ => {}
         }
         drawing.entities.push(DrawingEntity {
             layer: style.layer,
@@ -1954,6 +1971,7 @@ fn dxf_pieces(
             kind: e.kind.into(),
             id: None,
             ignored,
+            has_geometry: hidden_geometry || !pieces.is_empty(),
             pieces: Ok(pieces),
         });
         i += 1;
@@ -2176,6 +2194,55 @@ fn read_dxf(text: &str, options: &Options, inspect_only: bool) -> Result<Import>
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn hidden_block_copies_retain_only_the_geometry_count() {
+        let circle = dxf_entities(&[(0, "CIRCLE"), (10, "0"), (20, "0"), (40, "2")]);
+        let blocks = HashMap::from([(
+            "A".into(),
+            Block {
+                base: [0., 0.],
+                entities: circle,
+            },
+        )]);
+        let inserts = dxf_entities(&[
+            (0, "INSERT"),
+            (2, "A"),
+            (60, "1"),
+            (70, "2"),
+            (44, "10"),
+            (0, "INSERT"),
+            (2, "A"),
+        ]);
+        let mut drawing = Drawing::default();
+        let mut remaining = 100;
+        dxf_pieces(
+            &inserts,
+            &blocks,
+            Affine::IDENTITY,
+            0,
+            &mut Diagnostics::default(),
+            &DxfStyle::default(),
+            &HashMap::new(),
+            &Options::default(),
+            &mut drawing,
+            &mut remaining,
+        )
+        .unwrap();
+        let circles: Vec<_> = drawing
+            .entities
+            .iter()
+            .filter(|e| e.kind == "CIRCLE")
+            .collect();
+        assert_eq!(circles.len(), 3);
+        assert!(circles.iter().all(|e| e.has_geometry));
+        for entity in &circles[..2] {
+            assert!(entity.ignored.is_some());
+            assert!(entity.pieces.as_ref().unwrap().is_empty());
+        }
+        assert!(circles[2].ignored.is_none());
+        assert_eq!(circles[2].pieces.as_ref().unwrap().len(), 1);
+    }
 
     /// boxes.py draws burn-relief loops that start and end on a slot corner.
     /// The nesting outline covers them; exports keep the exact curves.
