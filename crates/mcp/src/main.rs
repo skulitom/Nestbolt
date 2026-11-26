@@ -60,12 +60,44 @@ struct NestParams {
     library_path: String,
     /// Parts (ids from `import_parts`, quantities, rotations), sheets and spacing, in mm.
     request: Request,
-    /// Search budget in seconds, 1 to 300 (default 10). Also the hard real-time limit.
+    /// Search budget in seconds, 1 to 300 (default 10).
     time_budget_s: Option<f64>,
+    /// Optional real-time limit in seconds (`>= time_budget_s`, up to 600) so slower
+    /// machines can still finish the same repeatable work budget.
+    time_limit_s: Option<f64>,
     /// Random seed (default 0). The same inputs, budget and seed repeat exactly.
     seed: Option<u64>,
     /// New output directory; `nestbolt/runs/<name>` by default.
     out_dir: Option<String>,
+}
+
+#[derive(Debug, Deserialize, JsonSchema)]
+struct OffcutParams {
+    library_path: String,
+    request: Request,
+    /// A valid layout JSON file, for example `layout.json` written by `nest`.
+    layout_path: String,
+    /// New output directory for SHEET-layer remnant SVG/DXF files and `offcut-report.json`.
+    out_dir: String,
+    /// Optional single sheet id; omit to inspect every sheet in the layout.
+    sheet_id: Option<String>,
+    /// `rectangular` (guillotine slab, default) or `exact` (true-shape subtraction).
+    mode: Option<nestbolt_core::offcut::OffcutMode>,
+    /// Minimum remnant area in mm² (default 2500).
+    min_area_mm2: Option<f64>,
+    /// Minimum remnant bounding dimension in mm (default 25).
+    min_dimension_mm: Option<f64>,
+}
+
+#[derive(Debug, Deserialize, JsonSchema)]
+struct QuoteParams {
+    library_path: String,
+    request: Request,
+    /// A valid layout JSON file, for example `layout.json` written by `nest`.
+    layout_path: String,
+    /// Optional shop pricing and machine-rate parameters.
+    #[serde(default)]
+    pricing: nestbolt_core::quote::Pricing,
 }
 
 #[derive(Debug, Deserialize, JsonSchema)]
@@ -326,6 +358,14 @@ impl Nestbolt {
                 "time_budget_s must be between 1 and 300"
             )));
         }
+        let time_limit = p.time_limit_s;
+        if let Some(limit) = time_limit
+            && (!(budget..=600.0).contains(&limit) || !limit.is_finite())
+        {
+            return Err(tool_error(anyhow::anyhow!(
+                "time_limit_s must be between time_budget_s and 600"
+            )));
+        }
         let seed = p.seed.unwrap_or(0);
         let library = self.library(&p.library_path).map_err(tool_error)?;
         let prepared = p.request.prepare(&library).map_err(tool_error)?;
@@ -346,6 +386,7 @@ impl Nestbolt {
                     seconds: budget,
                     seed,
                     timing: nestbolt_core::clock::Timing::Work,
+                    time_limit,
                     ..Default::default()
                 },
                 |progress, _| {
@@ -517,6 +558,101 @@ impl Nestbolt {
         })()
         .map_err(tool_error)
     }
+
+    #[tool(
+        description = "Extract reusable rectangular (guillotine) or exact (true-shape) leftover \
+        remnants from a valid layout and write SHEET-layer SVG/DXF files ready to re-import as \
+        stock outlines in future jobs."
+    )]
+    async fn export_offcut(
+        &self,
+        Parameters(p): Parameters<OffcutParams>,
+    ) -> Result<CallToolResult, ErrorData> {
+        (|| -> Result<CallToolResult> {
+            let library = self.library(&p.library_path)?;
+            let (job, _) = p.request.job(&library)?;
+            let layout: nestbolt_validator::job::Layout =
+                serde_json::from_slice(&std::fs::read(self.inside(&p.layout_path)?)?)
+                    .context("invalid layout JSON")?;
+            let defaults = nestbolt_core::offcut::Options::default();
+            let options = nestbolt_core::offcut::Options {
+                mode: p.mode.unwrap_or(defaults.mode),
+                min_area_mm2: p.min_area_mm2.unwrap_or(defaults.min_area_mm2),
+                min_dimension_mm: p.min_dimension_mm.unwrap_or(defaults.min_dimension_mm),
+            };
+            let report =
+                nestbolt_core::offcut::extract(&job, &layout, p.sheet_id.as_deref(), options)?;
+            let dir = self.new_dir(Some(&p.out_dir), "offcut")?;
+            let mut files = Vec::new();
+            for remnant in &report.remnants {
+                let svg_path = dir.join(format!("{}.svg", remnant.id));
+                Self::write_new(&svg_path, remnant.to_svg()?.as_bytes())?;
+                files.push(self.rel(&svg_path));
+                let dxf_path = dir.join(format!("{}.dxf", remnant.id));
+                Self::write_new(&dxf_path, remnant.to_dxf()?.as_bytes())?;
+                files.push(self.rel(&dxf_path));
+            }
+            let report_path = dir.join("offcut-report.json");
+            Self::write_new(
+                &report_path,
+                serde_json::to_string_pretty(&report)?.as_bytes(),
+            )?;
+            let summaries: Vec<Value> = report
+                .remnants
+                .iter()
+                .take(LIST_LIMIT)
+                .map(|r| {
+                    json!({
+                        "id": r.id,
+                        "sheet_id": r.sheet_id,
+                        "stock_id": r.stock_id,
+                        "width_mm": r.width_mm,
+                        "height_mm": r.height_mm,
+                        "area_mm2": r.area_mm2,
+                        "origin_mm": r.origin_mm,
+                    })
+                })
+                .collect();
+            Ok(CallToolResult::structured(json!({
+                "mode": report.mode,
+                "remnant_count": report.remnants.len(),
+                "total_area_mm2": report.total_area_mm2,
+                "remnants": summaries,
+                "remnants_truncated": report.remnants.len() > LIST_LIMIT,
+                "report_path": self.rel(&report_path),
+                "files": files,
+            })))
+        })()
+        .map_err(tool_error)
+    }
+
+    #[tool(
+        description = "Compute exact curve cut length (deducting verified common-line savings), \
+        pierce count, material utilization, trailing offcut area, estimated cut time and optional \
+        shop cost breakdown for a valid layout."
+    )]
+    async fn quote_layout(
+        &self,
+        Parameters(p): Parameters<QuoteParams>,
+    ) -> Result<CallToolResult, ErrorData> {
+        (|| -> Result<CallToolResult> {
+            let library = self.library(&p.library_path)?;
+            let layout: nestbolt_validator::job::Layout =
+                serde_json::from_slice(&std::fs::read(self.inside(&p.layout_path)?)?)
+                    .context("invalid layout JSON")?;
+            let prepared = p.request.prepare(&library)?;
+            let cutting = prepared.report(&layout)?;
+            let quote = nestbolt_core::quote::from_cutting_report(
+                &prepared, &layout, &cutting, &p.pricing,
+            )?;
+            let markdown = quote.to_markdown();
+            Ok(CallToolResult::structured(json!({
+                "quote": quote,
+                "markdown": markdown,
+            })))
+        })()
+        .map_err(tool_error)
+    }
 }
 
 #[tool_handler(router = self.tool_router)]
@@ -525,12 +661,13 @@ impl ServerHandler for Nestbolt {
         ServerConfig::new(ServerCapabilities::builder().enable_tools().build())
             .with_server_info(Implementation::new("nestbolt", env!("CARGO_PKG_VERSION")))
             .with_instructions(format!(
-                "Nestbolt nests parts on fixed sheets for laser, CNC and fabric cutting. \
+                "Nestbolt nests parts on fixed sheets for laser, CNC and fabric cutting. Local, no account, no API key. \
                  1) import_parts with SVG/DXF or LightBurn paths inside the workspace ({}). \
                  2) nest with the library_path, a request (parts by id with quantities, sheets in mm, \
-                 spacing_mm) and time_budget_s. 3) Use the returned SVG/DXF or preserving LBRN2 files. validate_layout and \
-                 export_layout work on layout files; estimate_sheets gives a lower bound only. \
-                 Lengths are millimetres. Results always pass an independent geometry check.",
+                 spacing_mm) and time_budget_s. 3) Use the returned SVG/DXF or preserving LBRN2 files, \
+                 quote_layout for cut lengths/pierces/costing, or export_offcut to save leftover remnants \
+                 on the SHEET layer for future jobs. validate_layout and export_layout work on layout files; \
+                 estimate_sheets gives a lower bound only. Lengths are millimetres. Results always pass an independent geometry check.",
                 self.root.display()
             ))
     }

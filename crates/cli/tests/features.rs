@@ -1416,3 +1416,201 @@ fn lightburn_import_diagnostics_reach_cli_and_saved_library() {
         assert!(!messages.contains(excluded), "{messages}");
     }
 }
+
+#[test]
+fn offcut_quote_and_lightburn_send_work_end_to_end() {
+    let dir = temp("shop-features");
+    let library = import(&dir, &[example("parts.svg")]);
+    let request_path = dir.join("request.json");
+    fs::write(
+        &request_path,
+        serde_json::to_vec(&json!({
+            "name": "shop-run",
+            "parts": [{"id": "parts-3", "quantity": 4}],
+            "sheets": [{"width_mm": 400, "height_mm": 300, "margins_mm": {"left": 5, "right": 5, "bottom": 5, "top": 5}}],
+            "spacing_mm": 1.0,
+            "edge_spacing_mm": 1.0
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+    let nest_dir = dir.join("nested");
+    let nested = nestbolt(&[
+        "nest".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request_path.as_os_str(),
+        "--out-dir".as_ref(),
+        nest_dir.as_os_str(),
+        "--seconds".as_ref(),
+        "1".as_ref(),
+        "--repeatable".as_ref(),
+        "--time-limit".as_ref(),
+        "30".as_ref(),
+    ]);
+    assert!(
+        nested.status.success(),
+        "{}",
+        String::from_utf8_lossy(&nested.stderr)
+    );
+    let layout_path = nest_dir.join("layout.json");
+
+    // 1) Extract reusable rectangular offcut and verify closed-loop re-import.
+    let offcut_dir = dir.join("offcuts");
+    let offcut_out = nestbolt(&[
+        "offcut".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request_path.as_os_str(),
+        "--layout".as_ref(),
+        layout_path.as_os_str(),
+        "--out-dir".as_ref(),
+        offcut_dir.as_os_str(),
+        "--mode".as_ref(),
+        "rectangular".as_ref(),
+    ]);
+    assert!(
+        offcut_out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&offcut_out.stderr)
+    );
+    let offcut_json: Value = serde_json::from_slice(&offcut_out.stdout).unwrap();
+    assert!(
+        !offcut_json["report"]["remnants"]
+            .as_array()
+            .unwrap()
+            .is_empty()
+    );
+    assert!(offcut_dir.join("offcut-report.json").exists());
+    let offcut_svg = offcut_json["files"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|f| f.as_str().unwrap().ends_with(".svg"))
+        .unwrap()
+        .as_str()
+        .unwrap();
+    let reimport_dir = dir.join("reimport");
+    fs::create_dir_all(&reimport_dir).unwrap();
+    let reimported = import(&reimport_dir, &[PathBuf::from(offcut_svg)]);
+    let reimported_lib: Value = serde_json::from_slice(&fs::read(reimported).unwrap()).unwrap();
+    assert!(
+        !reimported_lib["sheet_outlines"]
+            .as_array()
+            .unwrap()
+            .is_empty(),
+        "exported offcut SVG should auto-discover on SHEET layer"
+    );
+
+    // 2) Quote JSON, CSV, and Markdown with shop pricing parameters.
+    let quote_out = nestbolt(&[
+        "quote".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request_path.as_os_str(),
+        "--layout".as_ref(),
+        layout_path.as_os_str(),
+        "--sheet-cost".as_ref(),
+        "24.0".as_ref(),
+        "--credit-offcut".as_ref(),
+        "--cut-speed".as_ref(),
+        "1200".as_ref(),
+        "--pierce-seconds".as_ref(),
+        "1.0".as_ref(),
+        "--machine-rate".as_ref(),
+        "60".as_ref(),
+        "--setup-cost".as_ref(),
+        "5.0".as_ref(),
+        "--currency".as_ref(),
+        "GBP".as_ref(),
+    ]);
+    assert!(
+        quote_out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&quote_out.stderr)
+    );
+    let quote_json: Value = serde_json::from_slice(&quote_out.stdout).unwrap();
+    assert_eq!(quote_json["placed_parts"], 4);
+    assert!(quote_json["net_cut_length_mm"].as_f64().unwrap() > 100.0);
+    assert_eq!(quote_json["costs"]["currency"], "GBP");
+    assert!(quote_json["costs"]["offcut_credit"].as_f64().unwrap() > 0.0);
+    assert!(quote_json["costs"]["total_cost"].as_f64().unwrap() > 5.0);
+
+    let csv_out = nestbolt(&[
+        "quote".as_ref(),
+        "--library".as_ref(),
+        library.as_os_str(),
+        "--request".as_ref(),
+        request_path.as_os_str(),
+        "--layout".as_ref(),
+        layout_path.as_os_str(),
+        "--format".as_ref(),
+        "csv".as_ref(),
+    ]);
+    assert!(csv_out.status.success());
+    assert!(String::from_utf8_lossy(&csv_out.stdout).contains("TOTAL,"));
+
+    // 3) Send exported sheet to a local mock LightBurn 2.2 REST API listener.
+    let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+    let port = listener.local_addr().unwrap().port();
+    let server = std::thread::spawn(move || {
+        use std::io::{Read, Write};
+        use std::net::Shutdown;
+        let (mut stream, _) = listener.accept().unwrap();
+        let _ = stream.set_read_timeout(Some(std::time::Duration::from_secs(2)));
+        let mut raw = Vec::new();
+        let mut buf = [0_u8; 4096];
+        let mut expected = None;
+        while let Ok(n) = stream.read(&mut buf) {
+            if n == 0 {
+                break;
+            }
+            raw.extend_from_slice(&buf[..n]);
+            if expected.is_none()
+                && let Some(pos) = raw.windows(4).position(|w| w == b"\r\n\r\n")
+            {
+                let end = pos + 4;
+                let head = String::from_utf8_lossy(&raw[..end]);
+                let cl = head
+                    .lines()
+                    .find_map(|line| {
+                        let (k, v) = line.split_once(':')?;
+                        k.trim()
+                            .eq_ignore_ascii_case("content-length")
+                            .then(|| v.trim().parse::<usize>().ok())
+                            .flatten()
+                    })
+                    .unwrap_or(0);
+                expected = Some(end + cl);
+            }
+            if expected.is_some_and(|need| raw.len() >= need) {
+                break;
+            }
+        }
+        stream
+            .write_all(b"HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nok")
+            .unwrap();
+        let _ = stream.flush();
+        let _ = stream.shutdown(Shutdown::Both);
+        String::from_utf8_lossy(&raw).into_owned()
+    });
+    let sheet_svg = nest_dir.join("sheet-0.svg");
+    let send_out = nestbolt(&[
+        "lightburn-send".as_ref(),
+        "--file".as_ref(),
+        sheet_svg.as_os_str(),
+        "--port".as_ref(),
+        port.to_string().as_ref(),
+    ]);
+    assert!(
+        send_out.status.success(),
+        "{}",
+        String::from_utf8_lossy(&send_out.stderr)
+    );
+    let received = server.join().unwrap();
+    assert!(received.starts_with("POST /api/file/upload HTTP/1.1"));
+    assert!(received.contains("filename=\"sheet-0.svg\""));
+}

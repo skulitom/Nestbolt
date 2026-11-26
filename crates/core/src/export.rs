@@ -621,6 +621,97 @@ pub fn dxf_with_review_paths(
         .replacen("{entities}\n", &w.text, 1))
 }
 
+/// Export one or more closed remnant polygons (outer + holes, in mm, Y-up) on
+/// the SHEET layer so Nestbolt's own remnant importer reads them back directly.
+pub fn remnant_svg(
+    name: &str,
+    width_mm: f64,
+    height_mm: f64,
+    polygons: &[nestbolt_validator::Polygon],
+) -> Result<String> {
+    ensure!(
+        width_mm.is_finite() && width_mm > 0.0 && height_mm.is_finite() && height_mm > 0.0,
+        "remnant dimensions must be positive"
+    );
+    ensure!(!polygons.is_empty(), "remnant needs at least one polygon");
+    let flip = Affine {
+        m: [[1.0, 0.0], [0.0, -1.0]],
+        t: [0.0, height_mm],
+    };
+    let mut out = String::new();
+    writeln!(
+        out,
+        r##"<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="{w}mm" height="{h}mm" viewBox="0 0 {w} {h}">
+<title>{name}</title>
+<g id="SHEET" fill="none" stroke="#{rgb:06x}" stroke-width="0.2">"##,
+        w = num(width_mm),
+        h = num(height_mm),
+        name = xml_escape(name),
+        rgb = Layer::Sheet.rgb(),
+    )?;
+    for (idx, poly) in polygons.iter().enumerate() {
+        let outline = Outline::from_polygon(poly);
+        let mut d = String::new();
+        for c in std::iter::once(&outline.outer).chain(&outline.holes) {
+            svg_path(&c.transformed(&flip), &mut d, true);
+        }
+        writeln!(
+            out,
+            r#"<path id="remnant-{}" fill-rule="evenodd" d="{}"/>"#,
+            idx + 1,
+            d.trim_end()
+        )?;
+    }
+    out.push_str("</g>\n</svg>\n");
+    Ok(out)
+}
+
+/// Export one or more closed remnant polygons (in mm, Y-up) as an AC1021 DXF on
+/// the SHEET layer (ACI 30 / LightBurn T1 true-colour `#f36926`).
+pub fn remnant_dxf(polygons: &[nestbolt_validator::Polygon]) -> Result<String> {
+    ensure!(!polygons.is_empty(), "remnant needs at least one polygon");
+    let mut w = Dxf {
+        text: String::new(),
+        handle: 0x100,
+    };
+    for layer in Layer::ALL {
+        w.pair(0, "LAYER");
+        w.handle += 1;
+        w.pair(5, format!("{:X}", w.handle));
+        w.pair(330, "100");
+        w.pair(100, "AcDbSymbolTableRecord");
+        w.pair(100, "AcDbLayerTableRecord");
+        w.pair(2, layer.name());
+        w.pair(70, 0);
+        w.pair(62, layer.aci());
+        w.pair(420, layer.rgb());
+        w.pair(6, "CONTINUOUS");
+        for (code, value) in [(370, "-3"), (390, "18"), (347, "20")] {
+            w.pair(code, value);
+        }
+    }
+    let layers = std::mem::take(&mut w.text);
+    for (code, value) in [(0, "SECTION"), (2, "ENTITIES")] {
+        w.pair(code, value);
+    }
+    for poly in polygons {
+        let outline = Outline::from_polygon(poly);
+        for contour in std::iter::once(&outline.outer).chain(&outline.holes) {
+            let mut from = contour.start;
+            for segment in &contour.segments {
+                w.segment("SHEET", from, segment);
+                from = segment.end();
+            }
+        }
+    }
+    w.pair(0, "ENDSEC");
+    Ok(AC1021_TEMPLATE
+        .replacen("{handseed}", &format!("{:X}", w.handle + 1), 1)
+        .replacen("{layers}\n", &layers, 1)
+        .replacen("{entities}\n", &w.text, 1))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

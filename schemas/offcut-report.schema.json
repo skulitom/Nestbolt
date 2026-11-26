@@ -1,0 +1,146 @@
+{
+  "$defs": {
+    "OffcutMode": {
+      "oneOf": [
+        {
+          "const": "rectangular",
+          "description": "Clean straight-cut slab above the highest placed part (+ edge clearance + top margin).",
+          "type": "string"
+        },
+        {
+          "const": "exact",
+          "description": "True-shape reusable remnant: stock outline (minus defects) minus every\nplaced part inflated by part clearance, filtered by minimum size.",
+          "type": "string"
+        }
+      ]
+    },
+    "Polygon": {
+      "additionalProperties": false,
+      "properties": {
+        "holes": {
+          "default": [],
+          "items": {
+            "items": {
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "maxItems": 2,
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "outer": {
+          "items": {
+            "items": {
+              "format": "double",
+              "type": "number"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "outer"
+      ],
+      "type": "object"
+    },
+    "Remnant": {
+      "description": "One reusable leftover piece extracted from a nested sheet, normalized to\n`[0, 0]` so it matches `SheetOutline` and drops straight into a new job.",
+      "properties": {
+        "area_mm2": {
+          "format": "double",
+          "type": "number"
+        },
+        "height_mm": {
+          "format": "double",
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/OffcutMode"
+        },
+        "origin_mm": {
+          "description": "Lower-left corner in the source sheet's mm, Y-up frame before normalization.",
+          "items": {
+            "format": "double",
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "outline_mm": {
+          "description": "Normalized remnant polygons in mm, Y-up, with origin at `[0, 0]`.",
+          "items": {
+            "$ref": "#/$defs/Polygon"
+          },
+          "type": "array"
+        },
+        "sheet_id": {
+          "type": "string"
+        },
+        "stock_id": {
+          "type": "string"
+        },
+        "width_mm": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "sheet_id",
+        "stock_id",
+        "mode",
+        "width_mm",
+        "height_mm",
+        "area_mm2",
+        "origin_mm",
+        "outline_mm"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "min_area_mm2": {
+      "format": "double",
+      "type": "number"
+    },
+    "min_dimension_mm": {
+      "format": "double",
+      "type": "number"
+    },
+    "mode": {
+      "$ref": "#/$defs/OffcutMode"
+    },
+    "remnants": {
+      "items": {
+        "$ref": "#/$defs/Remnant"
+      },
+      "type": "array"
+    },
+    "total_area_mm2": {
+      "format": "double",
+      "type": "number"
+    }
+  },
+  "required": [
+    "mode",
+    "min_area_mm2",
+    "min_dimension_mm",
+    "total_area_mm2",
+    "remnants"
+  ],
+  "title": "OffcutReport",
+  "type": "object"
+}

@@ -119,7 +119,75 @@ fn point_segment_distance(p: Point, a: Point, b: Point) -> f64 {
     distance(p, lerp(a, b, t))
 }
 
+fn mid(a: Point, b: Point) -> Point {
+    [(a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0]
+}
+
+fn bezier_length(points: &[Point], tolerance: f64, depth: u8) -> f64 {
+    let chord = distance(points[0], *points.last().expect("bezier points"));
+    let polygon: f64 = points.windows(2).map(|p| distance(p[0], p[1])).sum();
+    if polygon - chord <= 2.0 * tolerance || depth == 0 {
+        return (polygon + chord) / 2.0;
+    }
+    let mut levels = points.to_vec();
+    let mut left = vec![points[0]];
+    let mut right = vec![*points.last().expect("bezier points")];
+    while levels.len() > 1 {
+        levels = levels.windows(2).map(|p| mid(p[0], p[1])).collect();
+        left.push(levels[0]);
+        right.push(*levels.last().expect("bezier levels"));
+    }
+    right.reverse();
+    bezier_length(&left, tolerance / 2.0, depth - 1)
+        + bezier_length(&right, tolerance / 2.0, depth - 1)
+}
+
+fn simpson(f: &impl Fn(f64) -> f64, a: f64, b: f64, tolerance: f64, depth: u8) -> f64 {
+    let m = (a + b) / 2.0;
+    let l = (a + m) / 2.0;
+    let r = (m + b) / 2.0;
+    let (fa, fm, fb) = (f(a), f(m), f(b));
+    let whole = (b - a) * (fa + 4.0 * fm + fb) / 6.0;
+    let halves = (b - a) * (fa + 4.0 * f(l) + 2.0 * fm + 4.0 * f(r) + fb) / 12.0;
+    if (halves - whole).abs() <= 15.0 * tolerance || depth == 0 {
+        halves + (halves - whole) / 15.0
+    } else {
+        simpson(f, a, m, tolerance / 2.0, depth - 1) + simpson(f, m, b, tolerance / 2.0, depth - 1)
+    }
+}
+
 impl Segment {
+    /// Exact arc length of this segment starting at `from`. Lines and circular
+    /// arcs are analytic; Béziers use adaptive de Casteljau bounds, and
+    /// elliptical arcs use adaptive Simpson quadrature.
+    pub fn length(&self, from: Point) -> f64 {
+        const TOL: f64 = 1e-7;
+        match self {
+            Segment::Line { to } => distance(from, *to),
+            Segment::Quad { control, to } => bezier_length(&[from, *control, *to], TOL, 24),
+            Segment::Cubic { controls, to } => {
+                bezier_length(&[from, controls[0], controls[1], *to], TOL, 24)
+            }
+            Segment::Arc {
+                radii,
+                start,
+                sweep,
+                ..
+            } => {
+                if (radii[0] - radii[1]).abs() < 1e-12 {
+                    return radii[0].abs() * sweep.abs();
+                }
+                let speed = |t: f64| {
+                    let a = start + sweep * t;
+                    (radii[0] * a.sin()).hypot(radii[1] * a.cos()) * sweep.abs()
+                };
+                (0..8)
+                    .map(|i| simpson(&speed, i as f64 / 8.0, (i + 1) as f64 / 8.0, TOL / 8.0, 24))
+                    .sum()
+            }
+        }
+    }
+
     pub fn end(&self) -> Point {
         match self {
             Segment::Line { to } | Segment::Quad { to, .. } | Segment::Cubic { to, .. } => *to,
@@ -268,6 +336,17 @@ impl Contour {
 
     pub fn end(&self) -> Point {
         self.segments.last().map_or(self.start, Segment::end)
+    }
+
+    /// Total exact arc length along all segments of this contour.
+    pub fn length(&self) -> f64 {
+        let mut from = self.start;
+        let mut total = 0.0;
+        for segment in &self.segments {
+            total += segment.length(from);
+            from = segment.end();
+        }
+        total
     }
 }
 

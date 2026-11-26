@@ -293,3 +293,72 @@ pub fn estimate_sheets(library_json: &str, request_json: &str) -> Result<String,
     }))
     .map_err(fail)
 }
+
+/// Extract reusable rectangular or true-shape remnants from one sheet (or all sheets when `sheet_id` is empty).
+#[wasm_bindgen]
+pub fn extract_offcuts(
+    library_json: &str,
+    request_json: &str,
+    layout_json: &str,
+    sheet_id: &str,
+    options_json: &str,
+) -> Result<String, JsValue> {
+    let library: Library = parse(library_json, "library")?;
+    let request: Request = parse(request_json, "request")?;
+    let layout: nestbolt_validator::job::Layout = parse(layout_json, "layout")?;
+    let options: nestbolt_core::offcut::Options = if options_json.trim().is_empty() {
+        Default::default()
+    } else {
+        parse(options_json, "offcut options")?
+    };
+    let (job, _) = request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
+    let sheet = (!sheet_id.trim().is_empty()).then_some(sheet_id);
+    let report = nestbolt_core::offcut::extract(&job, &layout, sheet, options)
+        .map_err(|e| fail(format!("{e:#}")))?;
+    serde_json::to_string(&report).map_err(fail)
+}
+
+/// Export one extracted remnant as a SHEET-layer `"svg"` or `"dxf"` string.
+#[wasm_bindgen]
+pub fn export_offcut(remnant_json: &str, format: &str) -> Result<String, JsValue> {
+    let remnant: nestbolt_core::offcut::Remnant = parse(remnant_json, "remnant")?;
+    match format {
+        "svg" => remnant.to_svg().map_err(|e| fail(format!("{e:#}"))),
+        "dxf" => remnant.to_dxf().map_err(|e| fail(format!("{e:#}"))),
+        _ => Err(fail("offcut format must be svg or dxf")),
+    }
+}
+
+/// Compute exact curve cut lengths, pierces, material utilization and optional cost breakdown.
+#[wasm_bindgen]
+pub fn quote_layout(
+    library_json: &str,
+    request_json: &str,
+    layout_json: &str,
+    pricing_json: &str,
+) -> Result<String, JsValue> {
+    let library: Library = parse(library_json, "library")?;
+    let request: Request = parse(request_json, "request")?;
+    let layout: nestbolt_validator::job::Layout = parse(layout_json, "layout")?;
+    let pricing: nestbolt_core::quote::Pricing = if pricing_json.trim().is_empty() {
+        Default::default()
+    } else {
+        parse(pricing_json, "pricing")?
+    };
+    let prepared = request
+        .prepare(&library)
+        .map_err(|e| fail(format!("{e:#}")))?;
+    let cutting = prepared
+        .report(&layout)
+        .map_err(|e| fail(format!("{e:#}")))?;
+    let quote = nestbolt_core::quote::from_cutting_report(&prepared, &layout, &cutting, &pricing)
+        .map_err(|e| fail(format!("{e:#}")))?;
+    let csv = quote.to_csv();
+    let markdown = quote.to_markdown();
+    serde_json::to_string(&serde_json::json!({
+        "quote": quote,
+        "csv": csv,
+        "markdown": markdown,
+    }))
+    .map_err(fail)
+}
