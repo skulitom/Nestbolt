@@ -1,6 +1,10 @@
 [package]
 name = "nestbolt-core"
-description = "Geometry adapter and future fixed-sheet optimiser for Nestbolt"
+description = "Fixed-sheet 2D nesting engine, SVG/DXF/LightBurn interchange, remnant extraction and cutting quotes"
+repository = "https://github.com/skulitom/Nestbolt"
+homepage = "https://skulitom.github.io/Nestbolt/"
+keywords = ["nesting", "cad", "dxf", "svg", "laser-cutting"]
+categories = ["algorithms", "graphics", "mathematics"]
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -119,6 +123,10 @@ required-features = ["search"]
 
 [[test]]
 name = "search_fuzz"
+required-features = ["search"]
+
+[[test]]
+name = "shop_torture"
 required-features = ["search"]
 
 [[test]]

@@ -1,5 +1,5 @@
 //! Standalone SVG page coordinates, per SVG 2 sections 8.2 and 8.6.
-//! https://www.w3.org/TR/SVG2/coords.html#ComputingAViewportsTransform
+//! <https://www.w3.org/TR/SVG2/coords.html#ComputingAViewportsTransform>
 use super::{Affine, Diagnostics, ImportEntry, Options, svg_transform};
 use anyhow::{Context, Result, ensure};
 use svgtypes::{Align, AspectRatio, Length, LengthUnit, ViewBox};
