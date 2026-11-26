@@ -1,5 +1,5 @@
 // One Nestbolt engine per worker: the main thread never runs geometry.
-import init, { decode_drawing, estimate_sheets, export_sheet, import_files_with_options, import_sheet, inspect_files, memory_bytes, nest, nest_job, validate } from './pkg/nestbolt_wasm.js';
+import init, { decode_drawing, estimate_sheets, export_offcut, export_sheet, extract_offcuts, import_files_with_options, import_sheet, inspect_files, memory_bytes, nest, nest_job, quote_layout, validate } from './pkg/nestbolt_wasm.js';
 
 const ready = init();
 
@@ -45,6 +45,15 @@ self.onmessage = async (event: MessageEvent) => {
         break;
       case 'estimate':
         value = estimate_sheets(args.library, args.request);
+        break;
+      case 'extract_offcuts':
+        value = extract_offcuts(args.library, args.request, args.layout, args.sheet ?? '', args.options ?? '{}');
+        break;
+      case 'export_offcut':
+        value = export_offcut(args.remnant, args.format);
+        break;
+      case 'quote':
+        value = quote_layout(args.library, args.request, args.layout, args.pricing ?? '{}');
         break;
       default:
         throw new Error(`unknown request ${type}`);

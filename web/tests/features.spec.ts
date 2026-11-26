@@ -347,3 +347,59 @@ test('hundreds of copies of a part', async ({ page }) => {
   await nest(page);
   await expect(page.locator('.summary')).toContainText('301/301');
 });
+
+test('shop quote, offcut remnant round-trip, saved sheet presets, and large-job quick-start hint', async ({ page }) => {
+  const sheet = await setUp(page, [example('parts.svg')], { 'parts-3': 4 }, 400, 300, 2);
+
+  // 1) Save a custom sheet preset and verify it appears in the preset selector.
+  await sheet.getByRole('button', { name: 'Save preset', exact: true }).click();
+  await expect(page.getByLabel('Add a sheet size')).toContainText('Saved 400×300 (m5)');
+
+  // 2) Verify large-job Quick initial layout suggestion appears at >= 1000 copies and restores cleanly.
+  await page.getByLabel('Quantity of parts-3').fill('1000');
+  await expect(page.locator('.large-job-hint')).toContainText('Quick initial layout');
+  await page.getByRole('button', { name: 'Enable Quick initial layout', exact: true }).click();
+  await expect(page.getByLabel('Quick initial layout', { exact: true })).toBeChecked();
+  await page.getByLabel('Quantity of parts-3').fill('4');
+  await page.getByLabel('Quick initial layout', { exact: true }).uncheck();
+
+  // 3) Nest, inspect Cut summary & quote panel, configure shop pricing, and download CSV.
+  await nest(page);
+  const quotePanel = page.locator('.quote-report');
+  await expect(quotePanel).toBeVisible();
+  await expect(quotePanel.locator('summary')).toContainText('m cut');
+  await expect(quotePanel.locator('summary')).toContainText('pierces');
+  await quotePanel.locator('summary').click();
+  await page.getByLabel('Sheet cost', { exact: true }).fill('25');
+  await page.getByLabel('Cut speed mm per min', { exact: true }).fill('1200');
+  await page.getByLabel('Pierce seconds', { exact: true }).fill('1');
+  await page.getByLabel('Machine rate per hour', { exact: true }).fill('60');
+  await page.getByLabel('Setup cost', { exact: true }).fill('5');
+  await page.getByLabel('Quote currency', { exact: true }).fill('GBP');
+  await page.getByLabel('Credit reusable trailing offcut', { exact: true }).check();
+  await expect(quotePanel.locator('.quote-totals')).toContainText('Total GBP');
+  await expect(quotePanel.locator('.quote-totals')).toContainText('offcut credit');
+  const [csvFile] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: 'Download quote CSV', exact: true }).click(),
+  ]);
+  const csvText = readFileSync(await csvFile.path(), 'utf8');
+  expect(csvText).toContain('TOTAL,');
+
+  // 4) Closed-loop offcut export: download Offcut SVG and re-import as a remnant sheet!
+  const [offcutFile] = await Promise.all([
+    page.waitForEvent('download'),
+    page.getByRole('button', { name: 'Offcut SVG', exact: true }).first().click(),
+  ]);
+  const offcutPath = await offcutFile.path();
+  const offcutSvg = readFileSync(offcutPath, 'utf8');
+  expect(offcutSvg).toContain('id="SHEET"');
+  await sheet.getByLabel('Remnant outline for sheet size 1').setInputFiles({
+    name: offcutFile.suggestedFilename(),
+    mimeType: 'image/svg+xml',
+    buffer: Buffer.from(offcutSvg, 'utf8'),
+  });
+  await expect(page.locator('.sheet-messages')).toContainText('Sheet size 1:');
+  await nest(page);
+  await expect(page.locator('.summary')).toContainText('4/4');
+});

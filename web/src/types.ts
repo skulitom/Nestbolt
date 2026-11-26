@@ -139,3 +139,90 @@ export interface Example {
   edge: number;
   seconds: number;
 }
+
+export type OffcutMode = 'rectangular' | 'exact';
+export interface OffcutOptions { mode?: OffcutMode; min_area_mm2?: number; min_dimension_mm?: number }
+export interface Remnant {
+  id: string;
+  sheet_id: string;
+  stock_id: string;
+  mode: OffcutMode;
+  width_mm: number;
+  height_mm: number;
+  area_mm2: number;
+  origin_mm: Point;
+  outline_mm: Polygon[];
+}
+export interface OffcutReport {
+  mode: OffcutMode;
+  min_area_mm2: number;
+  min_dimension_mm: number;
+  total_area_mm2: number;
+  remnants: Remnant[];
+}
+
+export interface Pricing {
+  sheet_cost?: number;
+  material_cost_per_m2?: number;
+  credit_offcut?: boolean;
+  cut_speed_mm_per_min?: number;
+  pierce_seconds?: number;
+  machine_rate_per_hour?: number;
+  setup_cost?: number;
+  currency?: string;
+}
+export interface SheetQuote {
+  sheet_id: string;
+  stock_id: string;
+  width_mm: number;
+  height_mm: number;
+  placed_parts: number;
+  outer_contours: number;
+  hole_contours: number;
+  pierce_count: number;
+  gross_cut_length_mm: number;
+  common_line_saved_mm: number;
+  net_cut_length_mm: number;
+  placed_area_mm2: number;
+  sheet_area_mm2: number;
+  utilization: number;
+  trailing_offcut_area_mm2: number;
+  trailing_offcut_height_mm: number;
+  estimated_cut_seconds?: number;
+  gross_material_cost?: number;
+  offcut_credit?: number;
+  net_material_cost?: number;
+}
+export interface CostBreakdown {
+  currency: string;
+  gross_material_cost: number;
+  offcut_credit: number;
+  net_material_cost: number;
+  machine_cost: number;
+  setup_cost: number;
+  total_cost: number;
+  cost_per_part?: number;
+}
+export interface JobQuote {
+  version: number;
+  job_name: string;
+  sheets_used: number;
+  placed_parts: number;
+  requested_parts: number;
+  outer_contours: number;
+  hole_contours: number;
+  total_pierces: number;
+  gross_cut_length_mm: number;
+  common_line_saved_mm: number;
+  net_cut_length_mm: number;
+  placed_area_mm2: number;
+  full_stock_area_mm2: number;
+  material_area_mm2: number;
+  trailing_offcut_area_mm2: number;
+  utilization: number;
+  estimated_cut_seconds?: number;
+  costs?: CostBreakdown;
+  sheets: SheetQuote[];
+}
+export interface QuoteResult { quote: JobQuote; csv: string; markdown: string }
+export interface SheetPreset { label: string; w: number; h: number; margin: number }

@@ -1,4 +1,4 @@
-import type { ImportSelection, Layout, Library, NestRequest, NestResult, Project, Report, SheetImport } from './types';
+import type { ImportSelection, Layout, Library, NestRequest, NestResult, OffcutOptions, OffcutReport, Pricing, Project, QuoteResult, Remnant, Report, SheetImport } from './types';
 import { betterResult } from './scoring';
 
 type Progress = (t: number, material: number, layout?: Layout) => void;
@@ -81,6 +81,24 @@ export async function exportSheet(library: Library, request: NestRequest, layout
 
 export async function estimate(library: Library, request: NestRequest): Promise<{ sheets_lower_bound: number }> {
   return JSON.parse(await tool().call('estimate', { library: JSON.stringify(library), request: JSON.stringify(request) }));
+}
+
+export async function extractOffcuts(library: Library, request: NestRequest, layout: unknown,
+  sheet = '', options: OffcutOptions = {}): Promise<OffcutReport> {
+  return JSON.parse(await tool().call('extract_offcuts', {
+    library: JSON.stringify(library), request: JSON.stringify(request),
+    layout: JSON.stringify(layout), sheet, options: JSON.stringify(options) }));
+}
+
+export async function exportOffcut(remnant: Remnant, format: 'svg' | 'dxf'): Promise<string> {
+  return tool().call('export_offcut', { remnant: JSON.stringify(remnant), format });
+}
+
+export async function quoteLayout(library: Library, request: NestRequest, layout: unknown,
+  pricing: Pricing = {}): Promise<QuoteResult> {
+  return JSON.parse(await tool().call('quote', {
+    library: JSON.stringify(library), request: JSON.stringify(request),
+    layout: JSON.stringify(layout), pricing: JSON.stringify(pricing) }));
 }
 
 /** Benchmark run of a polygon job in its own worker, the same search as `nestbolt sheets`. */
