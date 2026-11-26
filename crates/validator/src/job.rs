@@ -502,12 +502,48 @@ pub fn validate(job: &Job, layout: &Layout) -> Result<Report> {
         }
     }
     let mut total_overlap = vec![0.0; placed.len()];
-    for (i, (index, sheet, shape)) in placed.iter().enumerate() {
-        let mut comparisons = shape.pair_query(job.clearance);
-        for (j, (other_index, other_sheet, other)) in placed.iter().enumerate().skip(i + 1) {
-            if sheet != other_sheet {
-                continue;
+    // Exact sweep-and-prune per sheet: two footprints farther than `gap + 2*GRID`
+    // along either axis cannot overlap or violate clearance (see `PairQuery::compare`).
+    // Add 1e-9 mm slack so floating-point subtraction never drops a boundary pair;
+    // sorting candidate pairs by `(i, j)` preserves deterministic diagnostic order.
+    let margin = job.clearance * job.units.to_mm() + 2.0 * GRID + 1e-9;
+    let mut by_sheet: BTreeMap<&str, Vec<usize>> = BTreeMap::new();
+    for (i, (_, sheet, _)) in placed.iter().enumerate() {
+        by_sheet.entry(*sheet).or_default().push(i);
+    }
+    let mut candidate_pairs: Vec<(usize, usize)> = Vec::new();
+    for indices in by_sheet.values_mut() {
+        indices.sort_by(|&a, &b| {
+            placed[a].2.bounds()[0]
+                .total_cmp(&placed[b].2.bounds()[0])
+                .then_with(|| a.cmp(&b))
+        });
+        for pos_a in 0..indices.len() {
+            let i = indices[pos_a];
+            let ba = placed[i].2.bounds();
+            let max_x = ba[2] + margin;
+            for &j in &indices[pos_a + 1..] {
+                let bb = placed[j].2.bounds();
+                if bb[0] > max_x {
+                    break;
+                }
+                if bb[1] > ba[3] + margin || ba[1] > bb[3] + margin {
+                    continue;
+                }
+                let (lo, hi) = if i < j { (i, j) } else { (j, i) };
+                candidate_pairs.push((lo, hi));
             }
+        }
+    }
+    candidate_pairs.sort_unstable();
+    let mut cursor = 0;
+    while cursor < candidate_pairs.len() {
+        let i = candidate_pairs[cursor].0;
+        let (index, _, shape) = &placed[i];
+        let mut comparisons = shape.pair_query(job.clearance);
+        while cursor < candidate_pairs.len() && candidate_pairs[cursor].0 == i {
+            let j = candidate_pairs[cursor].1;
+            let (other_index, _, other) = &placed[j];
             let pair = comparisons.compare(other)?;
             report.maximum_overlap_ratio = report.maximum_overlap_ratio.max(pair.overlap_ratio);
             total_overlap[i] += pair.overlap_area;
@@ -527,6 +563,7 @@ pub fn validate(job: &Job, layout: &Layout) -> Result<Report> {
                     format!("placements {index}/{other_index}: insufficient clearance"),
                 );
             }
+            cursor += 1;
         }
     }
     for (i, (index, _, shape)) in placed.iter().enumerate() {

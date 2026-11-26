@@ -143,7 +143,7 @@ pub fn optimize_controlled(
     control: &mut Control<'_>,
     progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
-    optimize_controlled_scored(job, options, control, None, Fit::Scan, progress)
+    optimize_controlled_scored(job, options, control, None, Fit::Scan, None, progress)
 }
 
 /// What a search does with free parts that fit no stock region at a grid angle,
@@ -166,6 +166,7 @@ pub(crate) fn optimize_controlled_scored(
     control: &mut Control<'_>,
     material: Option<&crate::scoring::MaterialAreas>,
     fit: Fit,
+    clock: Option<&crate::clock::Clock>,
     mut progress: impl FnMut(&Progress),
 ) -> Result<SearchResult> {
     ensure!(
@@ -181,6 +182,9 @@ pub(crate) fn optimize_controlled_scored(
     }
     let check_layout = |layout: &nestbolt_validator::job::Layout| -> Result<Report> {
         let mut report = validate(job, layout)?;
+        if let Some(clock) = clock {
+            clock.validated(job, layout);
+        }
         if let Some(material) = material {
             material.apply(layout, &mut report)?;
         }

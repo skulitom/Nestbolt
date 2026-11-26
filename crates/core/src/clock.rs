@@ -10,7 +10,7 @@ use std::time::Duration;
 use jagua_rs::Instant;
 use serde::Serialize;
 
-pub const WORK_VERSION: &str = "nestbolt-work-v3";
+pub const WORK_VERSION: &str = "nestbolt-work-v4";
 
 /// Kinds of deterministic work, with reference seconds per unit (AMD Ryzen 9
 /// 7950X3D, one core). Changing a coefficient changes repeatable results.
@@ -38,9 +38,12 @@ pub enum Work {
 
 // Fitted on 16 development jobs (20 s wall-clock runs, `nestbolt-work-v1`):
 // predicted/real time 0.72-1.23 per job. v2 adds rectangle packing, measured
-// at 2.0e8-2.7e8 operations per second on the small box jobs.
+// at 2.0e8-2.7e8 operations per second on the small box jobs. v4 separates
+// warm-start validation charging (`ValidatedVertex`) from constructor collision
+// checks (`ConstructorCheck`: 5.0e-7 s/check, 2.0e6 checks/s) and eliminates
+// warm-start double-charging on large jobs (issue #38).
 const COEFFICIENTS: [f64; 9] = [
-    1.8e-6, 1.9e-8, 2.0e-5, 2.0e-6, 0.05, 2.5e-6, 7.3e-7, 4.0e-6, 5.0e-9,
+    1.8e-6, 1.9e-8, 2.0e-5, 2.0e-6, 0.05, 5.0e-7, 7.3e-7, 4.0e-6, 5.0e-9,
 ];
 
 #[derive(Clone, Copy, Debug, PartialEq)]
