@@ -17,6 +17,8 @@ can call.
 [Download a release](https://github.com/skulitom/Nestbolt/releases) ·
 [Connect an AI agent](docs/AGENT_INTERFACE.md)
 
+[![skulitom/Nestbolt MCP server](https://glama.ai/mcp/servers/skulitom/Nestbolt/badges/score.svg)](https://glama.ai/mcp/servers/skulitom/Nestbolt)
+
 How Nestbolt compares with other ways an AI agent can nest parts (OpenNest, pyFit, Sparrow, Deepnest, SVGnest and
 more), by interface, file formats and sheet model: [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/).
 
