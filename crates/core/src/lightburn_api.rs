@@ -66,7 +66,7 @@ fn connect(options: &ClientOptions) -> Result<TcpStream> {
         "refusing to send cutting files to non-loopback host {:?}; pass --allow-lan only for a trusted local LightBurn machine",
         options.host
     );
-    let addr = format!("{}:{}", options.host, options.port)
+    let addr = (options.host.as_str(), options.port)
         .to_socket_addrs()
         .with_context(|| format!("cannot resolve {}:{}", options.host, options.port))?
         .next()
@@ -99,6 +99,10 @@ fn read_response(stream: &mut TcpStream, endpoint: &str) -> Result<ApiResponse> 
         match stream.read(&mut buf) {
             Ok(0) => break,
             Ok(n) => {
+                ensure!(
+                    raw.len() + n <= 4 * 1024 * 1024,
+                    "LightBurn response exceeds 4 MiB"
+                );
                 raw.extend_from_slice(&buf[..n]);
                 if header_end.is_none()
                     && let Some(pos) = find_header_end(&raw)
@@ -114,7 +118,7 @@ fn read_response(stream: &mut TcpStream, endpoint: &str) -> Result<ApiResponse> 
                     });
                 }
                 if let (Some(end), Some(len)) = (header_end, content_length)
-                    && raw.len() >= end + len
+                    && raw.len() - end >= len
                 {
                     break;
                 }
@@ -122,13 +126,17 @@ fn read_response(stream: &mut TcpStream, endpoint: &str) -> Result<ApiResponse> 
             Err(err) if !raw.is_empty() && header_end.is_some() => {
                 // Some local HTTP servers reset the socket immediately after sending
                 // a complete response body; accept it if we already have all bytes.
-                if content_length.is_none_or(|len| raw.len() >= header_end.unwrap() + len) {
+                if content_length.is_none_or(|len| raw.len() - header_end.unwrap() >= len) {
                     break;
                 }
                 return Err(err).context("failed reading LightBurn REST API response");
             }
             Err(err) => return Err(err).context("failed reading LightBurn REST API response"),
         }
+    }
+    if let (Some(end), Some(len)) = (header_end, content_length) {
+        ensure!(raw.len() - end >= len, "incomplete response from LightBurn");
+        raw.truncate(end + len);
     }
     let text = String::from_utf8_lossy(&raw).into_owned();
     let (head, body) = text
@@ -143,7 +151,7 @@ fn read_response(stream: &mut TcpStream, endpoint: &str) -> Result<ApiResponse> 
         .with_context(|| format!("unexpected HTTP status line: {status_line:?}"))?;
     if status_code == 401 || status_code == 403 {
         bail!(
-            "LightBurn REST API returned HTTP {status_code} on {endpoint}: approve the pairing consent dialog inside LightBurn and retry"
+            "LightBurn REST API returned HTTP {status_code} on {endpoint}: provide a current token from a paired application with the required capability"
         );
     }
     if !(200..300).contains(&status_code) {
@@ -166,12 +174,30 @@ fn find_header_end(raw: &[u8]) -> Option<usize> {
     raw.windows(2).position(|w| w == b"\n\n").map(|i| i + 2)
 }
 
+// LightBurn uses a hex-encoded HMAC-SHA256 token for the current minute.
+fn check_token(token: &str) -> Result<()> {
+    ensure!(
+        token.len() == 64 && token.bytes().all(|b| b.is_ascii_hexdigit()),
+        "expected a current 64-digit hex LightBurn bearer token"
+    );
+    Ok(())
+}
+
+fn authority(options: &ClientOptions) -> String {
+    if options.host.contains(':') {
+        format!("[{}]:{}", options.host, options.port)
+    } else {
+        format!("{}:{}", options.host, options.port)
+    }
+}
+
 /// Check that a local LightBurn REST API server is reachable (`GET /api/status`).
-pub fn status(options: &ClientOptions) -> Result<ApiResponse> {
+pub fn status(options: &ClientOptions, token: &str) -> Result<ApiResponse> {
+    check_token(token)?;
     let mut stream = connect(options)?;
     let req = format!(
-        "GET /api/status HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Nestbolt\r\nConnection: close\r\n\r\n",
-        options.host, options.port
+        "GET /api/status HTTP/1.1\r\nHost: {}\r\nAuthorization: Bearer {token}\r\nUser-Agent: Nestbolt\r\nConnection: close\r\n\r\n",
+        authority(options)
     );
     stream.write_all(req.as_bytes())?;
     stream.flush()?;
@@ -182,49 +208,37 @@ pub fn status(options: &ClientOptions) -> Result<ApiResponse> {
 /// LightBurn instance via `POST /api/file/upload` or `POST /api/file/open`.
 pub fn send_file(
     options: &ClientOptions,
+    token: &str,
     mode: SendMode,
     filename: &str,
     contents: &[u8],
 ) -> Result<ApiResponse> {
+    check_token(token)?;
     ensure!(!filename.trim().is_empty(), "filename cannot be empty");
     ensure!(
-        !filename.contains(['\r', '\n', '"', '/', '\\']),
+        !filename.chars().any(char::is_control) && !filename.contains(['"', '/', '\\']),
         "filename must be a plain file name"
     );
     ensure!(!contents.is_empty(), "file contents cannot be empty");
     let lower = filename.to_ascii_lowercase();
-    let content_type = if lower.ends_with(".lbrn2") || lower.ends_with(".lbrn") {
-        "application/xml"
-    } else if lower.ends_with(".svg") {
-        "image/svg+xml"
-    } else if lower.ends_with(".dxf") {
-        "application/dxf"
-    } else {
-        bail!("unsupported LightBurn file type {filename:?}; expected .lbrn2, .svg or .dxf");
-    };
+    ensure!(
+        [".lbrn2", ".lbrn", ".svg", ".dxf"]
+            .iter()
+            .any(|ext| lower.ends_with(ext)),
+        "unsupported LightBurn file type {filename:?}; expected .lbrn2, .svg or .dxf"
+    );
     let endpoint = match mode {
         SendMode::Upload => "/api/file/upload",
         SendMode::Open => "/api/file/open",
     };
-    let boundary = "----NestboltLightBurnBoundary7f3a9c";
-    let mut body = Vec::with_capacity(contents.len() + 256);
-    write!(
-        body,
-        "--{boundary}\r\nContent-Disposition: form-data; name=\"file\"; filename=\"{filename}\"\r\nContent-Type: {content_type}\r\n\r\n"
-    )?;
-    body.extend_from_slice(contents);
-    write!(body, "\r\n--{boundary}--\r\n")?;
-
     let mut stream = connect(options)?;
-    let mut request = format!(
-        "POST {endpoint} HTTP/1.1\r\nHost: {}:{}\r\nUser-Agent: Nestbolt\r\nContent-Type: multipart/form-data; boundary={boundary}\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
-        options.host,
-        options.port,
-        body.len()
-    )
-    .into_bytes();
-    request.extend_from_slice(&body);
-    stream.write_all(&request)?;
+    write!(
+        stream,
+        "POST {endpoint} HTTP/1.1\r\nHost: {}\r\nAuthorization: Bearer {token}\r\nX-Filename: {filename}\r\nContent-Type: application/octet-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+        authority(options),
+        contents.len()
+    )?;
+    stream.write_all(contents)?;
     stream.flush()?;
     read_response(&mut stream, endpoint)
 }
@@ -282,6 +296,8 @@ mod tests {
         (port, handle)
     }
 
+    const TOKEN: &str = "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef";
+
     #[test]
     fn status_and_file_upload_work_against_local_mock_lightburn() {
         let (port, handle) =
@@ -290,7 +306,7 @@ mod tests {
             port,
             ..ClientOptions::default()
         };
-        let res = status(&opts).unwrap();
+        let res = status(&opts, TOKEN).unwrap();
         assert_eq!(res.status_code, 200);
         assert!(res.body.contains("ready"));
         assert!(
@@ -307,6 +323,7 @@ mod tests {
         };
         let res = send_file(
             &opts,
+            TOKEN,
             SendMode::Upload,
             "sheet-0.lbrn2",
             b"<LightBurnProject/>",
@@ -315,8 +332,9 @@ mod tests {
         assert_eq!(res.status_code, 200);
         let received = handle.join().unwrap();
         assert!(received.starts_with("POST /api/file/upload HTTP/1.1"));
-        assert!(received.contains("filename=\"sheet-0.lbrn2\""));
-        assert!(received.contains("<LightBurnProject/>"));
+        assert!(received.contains("X-Filename: sheet-0.lbrn2\r\n"));
+        assert!(received.contains(&format!("Authorization: Bearer {TOKEN}\r\n")));
+        assert!(received.ends_with("\r\n\r\n<LightBurnProject/>"));
     }
 
     #[test]
@@ -325,7 +343,7 @@ mod tests {
             host: "192.0.2.10".into(),
             ..ClientOptions::default()
         };
-        let err = status(&remote).unwrap_err().to_string();
+        let err = status(&remote, TOKEN).unwrap_err().to_string();
         assert!(err.contains("non-loopback"), "{err}");
 
         let (port, handle) =
@@ -334,10 +352,10 @@ mod tests {
             port,
             ..ClientOptions::default()
         };
-        let err = send_file(&opts, SendMode::Open, "sheet-0.svg", b"<svg/>")
+        let err = send_file(&opts, TOKEN, SendMode::Open, "sheet-0.svg", b"<svg/>")
             .unwrap_err()
             .to_string();
-        assert!(err.contains("pairing consent dialog"), "{err}");
+        assert!(err.contains("required capability"), "{err}");
         let _ = handle.join();
     }
 }

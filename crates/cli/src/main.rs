@@ -586,9 +586,9 @@ fn main() -> Result<()> {
                 serde_json::from_slice(&fs::read(&request)?)?;
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&fs::read(&layout)?)?;
-            let (job, _) = request.job(&library)?;
-            let report = nestbolt_core::offcut::extract(
-                &job,
+            let report = nestbolt_core::offcut::for_request(
+                &request,
+                &library,
                 &layout,
                 sheet.as_deref(),
                 nestbolt_core::offcut::Options {
@@ -647,8 +647,6 @@ fn main() -> Result<()> {
                 serde_json::from_slice(&fs::read(&request)?)?;
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&fs::read(&layout)?)?;
-            let prepared = request.prepare(&library)?;
-            let cutting = prepared.report(&layout)?;
             let pricing = nestbolt_core::quote::Pricing {
                 sheet_cost,
                 material_cost_per_m2,
@@ -660,8 +658,7 @@ fn main() -> Result<()> {
                 currency,
                 ..Default::default()
             };
-            let quote =
-                nestbolt_core::quote::from_cutting_report(&prepared, &layout, &cutting, &pricing)?;
+            let quote = nestbolt_core::quote::for_request(&request, &library, &layout, &pricing)?;
             match format.as_str() {
                 "csv" => print!("{}", quote.to_csv()),
                 "markdown" => print!("{}", quote.to_markdown()),
@@ -682,8 +679,10 @@ fn main() -> Result<()> {
                 allow_lan,
                 ..Default::default()
             };
+            let token = std::env::var("LIGHTBURN_API_TOKEN")
+                .context("set LIGHTBURN_API_TOKEN to a current paired token (see docs/LBRN2.md)")?;
             let response = if status {
-                nestbolt_core::lightburn_api::status(&options)?
+                nestbolt_core::lightburn_api::status(&options, &token)?
             } else {
                 let path = file.context("--file is required unless --status is set")?;
                 let name = path
@@ -696,7 +695,7 @@ fn main() -> Result<()> {
                     CliLightburnMode::Upload => nestbolt_core::lightburn_api::SendMode::Upload,
                     CliLightburnMode::Open => nestbolt_core::lightburn_api::SendMode::Open,
                 };
-                nestbolt_core::lightburn_api::send_file(&options, send_mode, name, &bytes)?
+                nestbolt_core::lightburn_api::send_file(&options, &token, send_mode, name, &bytes)?
             };
             println!("{}", serde_json::to_string_pretty(&response)?);
         }

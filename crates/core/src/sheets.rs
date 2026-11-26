@@ -1300,7 +1300,7 @@ fn warm_start(
                 .sum::<usize>() as f64
                 / job.parts.len().max(1) as f64;
             let weight = (vertices / 16.0).sqrt().max(1.0);
-            let complete = std::cell::Cell::new(false);
+            let initial_finished = std::cell::Cell::new(false);
             let charged = std::cell::Cell::new(0_u64);
             let mut probe = |used: u64| {
                 let delta = used.saturating_sub(charged.get());
@@ -1311,7 +1311,7 @@ fn warm_start(
                 let now = clock.now();
                 if now.is_infinite() {
                     Some(StopReason::Deadline)
-                } else if complete.get() && now >= warm_until {
+                } else if initial_finished.get() && now >= warm_until {
                     Some(StopReason::WorkLimit)
                 } else {
                     None
@@ -1325,11 +1325,7 @@ fn warm_start(
                 material,
                 fit,
                 Some(clock),
-                |p| {
-                    if p.complete && (p.accepted || p.pass > 0) {
-                        complete.set(true);
-                    }
-                },
+                |_| initial_finished.set(true),
             )
             .map_err(explain_interruption)?;
             let remaining = control.collision_checks().saturating_sub(charged.get());
@@ -1529,6 +1525,18 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[test]
+    fn partial_first_layout_obeys_the_warm_start_work_limit() {
+        let mut job = job(Rotations::List { degrees: vec![0.0] }, false);
+        job.stocks[0].count = Some(1);
+        job.parts[0].quantity = 20;
+        let clock = Clock::new(Timing::Work, 30.0);
+        let warm = warm_start(&job, 0, &clock, 0.0, 30.0, 30.0, None, Fit::Require).unwrap();
+        assert!(!warm.validation.valid);
+        assert_eq!(warm.completed_passes, 1);
+        assert!(!clock.hit_hard_limit());
     }
 
     #[test]

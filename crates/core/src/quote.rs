@@ -29,7 +29,7 @@ pub struct Pricing {
     pub credit_offcut: bool,
     /// Cutting speed in mm/min (for example 1200 for plywood laser or 3000 for plasma).
     pub cut_speed_mm_per_min: Option<f64>,
-    /// Pierce / lead dwell time per closed contour in seconds (default 0).
+    /// Pierce dwell time per cutting contour in seconds (default 0).
     pub pierce_seconds: f64,
     /// Hourly machine + operator rate (requires `cut_speed_mm_per_min` or `pierce_seconds > 0`).
     pub machine_rate_per_hour: Option<f64>,
@@ -89,6 +89,7 @@ pub struct SheetQuote {
     pub placed_parts: usize,
     pub outer_contours: usize,
     pub hole_contours: usize,
+    pub open_contours: usize,
     pub pierce_count: usize,
     pub gross_cut_length_mm: f64,
     pub common_line_saved_mm: f64,
@@ -130,6 +131,7 @@ pub struct JobQuote {
     pub requested_parts: u32,
     pub outer_contours: usize,
     pub hole_contours: usize,
+    pub open_contours: usize,
     pub total_pierces: usize,
     pub gross_cut_length_mm: f64,
     pub common_line_saved_mm: f64,
@@ -158,8 +160,63 @@ pub fn compute(
     common_saved_mm: Option<&HashMap<String, f64>>,
     pricing: &Pricing,
 ) -> Result<JobQuote> {
-    pricing.validate()?;
     let report = validate(job, layout)?;
+    compute_checked(
+        job,
+        layout,
+        &report,
+        |sheet| {
+            (
+                common_saved_mm
+                    .and_then(|m| m.get(sheet))
+                    .copied()
+                    .unwrap_or(0.0),
+                0.0,
+            )
+        },
+        pricing,
+        |part| Ok(CutMetrics::from_part(part, curves)),
+    )
+}
+
+#[derive(Default)]
+struct CutMetrics {
+    outer: usize,
+    holes: usize,
+    open: usize,
+    length: f64,
+}
+
+impl CutMetrics {
+    fn from_part(part: &nestbolt_validator::job::Part, curves: &HashMap<String, Outline>) -> Self {
+        let mut cuts = CutMetrics::default();
+        if let Some(outline) = curves.get(&part.id) {
+            cuts.add_outline(outline);
+        } else {
+            for polygon in &part.geometry {
+                cuts.add_outline(&Outline::from_polygon(polygon));
+            }
+        }
+        cuts
+    }
+
+    fn add_outline(&mut self, outline: &Outline) {
+        self.outer += 1;
+        self.holes += outline.holes.len();
+        self.length +=
+            outline.outer.length() + outline.holes.iter().map(|c| c.length()).sum::<f64>();
+    }
+}
+
+fn compute_checked(
+    job: &Job,
+    layout: &Layout,
+    report: &nestbolt_validator::job::Report,
+    sheet_lengths: impl Fn(&str) -> (f64, f64),
+    pricing: &Pricing,
+    cuts: impl Fn(&nestbolt_validator::job::Part) -> Result<CutMetrics>,
+) -> Result<JobQuote> {
+    pricing.validate()?;
     ensure!(
         report.valid,
         "cannot quote an invalid layout: {:?}",
@@ -171,60 +228,20 @@ pub fn compute(
         .context("valid layout missing metrics")?;
     let scale = job.units.to_mm();
     let area_scale = scale * scale;
-
-    // Precompute per-part-type exact curve lengths, contour counts, and area.
-    struct PartMetrics {
-        outer_contours: usize,
-        hole_contours: usize,
-        cut_length_mm: f64,
-        area_mm2: f64,
-    }
     let mut part_metrics = HashMap::with_capacity(job.parts.len());
     for part in &job.parts {
-        let (outer_contours, hole_contours, cut_length_mm) = match curves.get(&part.id) {
-            Some(outline) => {
-                let outer_len = outline.outer.length() * scale;
-                let holes_len: f64 = outline.holes.iter().map(|h| h.length() * scale).sum();
-                (1, outline.holes.len(), outer_len + holes_len)
-            }
-            None => {
-                let mut outer_n = 0;
-                let mut hole_n = 0;
-                let mut total_len = 0.0;
-                for poly in &part.geometry {
-                    let outline = Outline::from_polygon(poly);
-                    outer_n += 1;
-                    hole_n += outline.holes.len();
-                    total_len += outline.outer.length() * scale;
-                    total_len += outline
-                        .holes
-                        .iter()
-                        .map(|h| h.length() * scale)
-                        .sum::<f64>();
-                }
-                (outer_n, hole_n, total_len)
-            }
-        };
-        let area_mm2: f64 = part
+        let area = part
             .geometry
             .iter()
             .map(crate::curves::polygon_area)
             .sum::<f64>()
             * area_scale;
-        part_metrics.insert(
-            part.id.as_str(),
-            PartMetrics {
-                outer_contours,
-                hole_contours,
-                cut_length_mm,
-                area_mm2,
-            },
-        );
+        part_metrics.insert(part.id.as_str(), (cuts(part)?, area));
     }
-
     let stocks: HashMap<&str, _> = job.stocks.iter().map(|s| (s.id.as_str(), s)).collect();
     let mut sheets = Vec::with_capacity(layout.sheets.len());
     let mut total_outer = 0_usize;
+    let mut total_open = 0;
     let mut total_holes = 0_usize;
     let mut total_gross_cut = 0.0_f64;
     let mut total_saved_cut = 0.0_f64;
@@ -252,24 +269,25 @@ pub fn compute(
 
         let mut placed_parts = 0_usize;
         let mut outer_contours = 0_usize;
+        let mut open_contours = 0;
         let mut hole_contours = 0_usize;
         let mut gross_cut = 0.0_f64;
         let mut placed_area = 0.0_f64;
         for placement in layout.placements.iter().filter(|p| p.sheet_id == sheet.id) {
-            let pm = part_metrics
+            let (pm, area) = part_metrics
                 .get(placement.part_id.as_str())
                 .with_context(|| format!("unknown part {}", placement.part_id))?;
             placed_parts += 1;
-            outer_contours += pm.outer_contours;
-            hole_contours += pm.hole_contours;
-            gross_cut += pm.cut_length_mm;
-            placed_area += pm.area_mm2;
+            outer_contours += pm.outer;
+            hole_contours += pm.holes;
+            open_contours += pm.open;
+            gross_cut += pm.length * scale;
+            placed_area += area;
         }
-        let pierce_count = outer_contours + hole_contours;
-        let saved = common_saved_mm
-            .and_then(|m| m.get(&sheet.id).copied())
-            .unwrap_or(0.0)
-            .clamp(0.0, gross_cut);
+        let pierce_count = outer_contours + hole_contours + open_contours;
+        let (saved, leads) = sheet_lengths(&sheet.id);
+        gross_cut += leads;
+        let saved = saved.clamp(0.0, gross_cut);
         let net_cut = (gross_cut - saved).max(0.0);
 
         let is_last_offcut_sheet = metrics
@@ -287,9 +305,11 @@ pub fn compute(
             0.0
         };
 
+        let dwell = pierce_count as f64 * pricing.pierce_seconds;
         let est_seconds = pricing
             .cut_speed_mm_per_min
-            .map(|speed| (net_cut / speed) * 60.0 + pierce_count as f64 * pricing.pierce_seconds);
+            .map(|speed| net_cut / speed * 60.0 + dwell)
+            .or_else(|| (pricing.pierce_seconds > 0.0).then_some(dwell));
         if let Some(s) = est_seconds {
             total_est_seconds += s;
             any_time = true;
@@ -326,6 +346,7 @@ pub fn compute(
         };
 
         total_outer += outer_contours;
+        total_open += open_contours;
         total_holes += hole_contours;
         total_gross_cut += gross_cut;
         total_saved_cut += saved;
@@ -338,6 +359,7 @@ pub fn compute(
             placed_parts,
             outer_contours,
             hole_contours,
+            open_contours,
             pierce_count,
             gross_cut_length_mm: gross_cut,
             common_line_saved_mm: saved,
@@ -387,7 +409,8 @@ pub fn compute(
         requested_parts: metrics.requested_parts,
         outer_contours: total_outer,
         hole_contours: total_holes,
-        total_pierces: total_outer + total_holes,
+        open_contours: total_open,
+        total_pierces: total_outer + total_holes + total_open,
         gross_cut_length_mm: total_gross_cut,
         common_line_saved_mm: total_saved_cut,
         net_cut_length_mm: total_net_cut,
@@ -402,14 +425,16 @@ pub fn compute(
     })
 }
 
-/// Convenience helper for callers with a `CuttingReport` (deducts verified common-line savings).
+/// Quote the original cuts and recompute cutting reservations and shared edges for this layout.
 #[cfg(feature = "search")]
-pub fn from_cutting_report(
-    prepared: &crate::project::PreparedRequest,
+pub fn for_request(
+    request: &crate::project::Request,
+    library: &crate::project::Library,
     layout: &Layout,
-    report: &crate::project::CuttingReport,
     pricing: &Pricing,
 ) -> Result<JobQuote> {
+    let prepared = request.prepare(library)?;
+    let report = prepared.report(layout)?;
     let saved: HashMap<String, f64> = report
         .common_line
         .as_deref()
@@ -417,12 +442,53 @@ pub fn from_cutting_report(
         .iter()
         .map(|r| (r.sheet_id.clone(), r.saved_length_mm))
         .collect();
-    compute(
+    let mut lead_lengths = HashMap::<&str, f64>::new();
+    if let Some(plan) = &report.lead_in {
+        for part in &plan.parts {
+            let paths = part.plan.reservations.iter().flat_map(|r| &r.paths);
+            let length: f64 = paths
+                .map(|path| match path {
+                    nestbolt_validator::leads::Path::Line { from_mm, to_mm } => {
+                        (to_mm[0] - from_mm[0]).hypot(to_mm[1] - from_mm[1])
+                    }
+                    nestbolt_validator::leads::Path::Arc {
+                        radius_mm,
+                        sweep_radians,
+                        ..
+                    } => radius_mm * sweep_radians.abs(),
+                })
+                .sum();
+            *lead_lengths.entry(&part.sheet_id).or_default() += length;
+        }
+    }
+    let originals = library.lightburn_cut_sources()?;
+    compute_checked(
         &prepared.job,
         layout,
-        &prepared.outlines,
-        (!saved.is_empty()).then_some(&saved),
+        &report.validation,
+        |sheet| {
+            (
+                saved.get(sheet).copied().unwrap_or(0.0),
+                lead_lengths.get(sheet).copied().unwrap_or(0.0),
+            )
+        },
         pricing,
+        |part| {
+            let mut cuts = CutMetrics::default();
+            if let Some(sources) = &originals {
+                let source = sources
+                    .get(&part.id)
+                    .context("missing original LightBurn cutting geometry")?;
+                for outline in &source.components {
+                    cuts.add_outline(outline);
+                }
+                cuts.open = source.open.len();
+                cuts.length += source.open.iter().map(|c| c.length()).sum::<f64>();
+            } else {
+                return Ok(CutMetrics::from_part(part, &prepared.outlines));
+            }
+            Ok(cuts)
+        },
     )
 }
 
@@ -430,12 +496,12 @@ impl JobQuote {
     /// RFC 4180 CSV summary with one row per sheet plus a TOTAL row.
     pub fn to_csv(&self) -> String {
         let mut out = String::from(
-            "sheet_id,stock_id,width_mm,height_mm,placed_parts,pierces,gross_cut_mm,common_saved_mm,net_cut_mm,utilization_pct,offcut_area_mm2,est_cut_s,net_material_cost\n",
+            "sheet_id,stock_id,width_mm,height_mm,placed_parts,pierces,gross_cut_mm,common_saved_mm,net_cut_mm,utilization_pct,offcut_area_mm2,est_cut_s,net_material_cost,machine_cost,setup_cost,total_cost,currency\n",
         );
         for s in &self.sheets {
             let _ = writeln!(
                 out,
-                "{},{},{:.2},{:.2},{},{},{:.2},{:.2},{:.2},{:.2},{:.1},{},{}",
+                "{},{},{:.2},{:.2},{},{},{:.2},{:.2},{:.2},{:.2},{:.1},{},{},,,,",
                 csv_cell(&s.sheet_id),
                 csv_cell(&s.stock_id),
                 s.width_mm,
@@ -453,9 +519,14 @@ impl JobQuote {
                     .map_or_else(String::new, |v| format!("{v:.2}")),
             );
         }
+        let cost = |field: fn(&CostBreakdown) -> f64| {
+            self.costs
+                .as_ref()
+                .map_or_else(String::new, |c| format!("{:.2}", field(c)))
+        };
         let _ = writeln!(
             out,
-            "TOTAL,,0,0,{},{},{:.2},{:.2},{:.2},{:.2},{:.1},{},{}",
+            "TOTAL,,0,0,{},{},{:.2},{:.2},{:.2},{:.2},{:.1},{},{},{},{},{},{}",
             self.placed_parts,
             self.total_pierces,
             self.gross_cut_length_mm,
@@ -465,9 +536,13 @@ impl JobQuote {
             self.trailing_offcut_area_mm2,
             self.estimated_cut_seconds
                 .map_or_else(String::new, |v| format!("{v:.1}")),
+            cost(|c| c.net_material_cost),
+            cost(|c| c.machine_cost),
+            cost(|c| c.setup_cost),
+            cost(|c| c.total_cost),
             self.costs
                 .as_ref()
-                .map_or_else(String::new, |c| format!("{:.2}", c.total_cost)),
+                .map_or_else(String::new, |c| csv_cell(&c.currency)),
         );
         out
     }
@@ -486,13 +561,14 @@ impl JobQuote {
         );
         let _ = writeln!(
             out,
-            "- **Cut length:** {:.2} m net ({:.2} m gross, {:.2} m saved via common-line) | **Pierces:** {} ({} outer, {} holes)",
+            "- **Cut length:** {:.2} m net ({:.2} m gross, {:.2} m saved via common-line) | **Pierces:** {} ({} outer, {} holes, {} open)",
             self.net_cut_length_mm / 1000.0,
             self.gross_cut_length_mm / 1000.0,
             self.common_line_saved_mm / 1000.0,
             self.total_pierces,
             self.outer_contours,
-            self.hole_contours
+            self.hole_contours,
+            self.open_contours
         );
         if self.trailing_offcut_area_mm2 > 0.0 {
             let _ = writeln!(
@@ -685,7 +761,25 @@ mod tests {
         assert!((costs.machine_cost - (expected_secs / 3600.0) * 60.0).abs() < 1e-6);
         assert_eq!(costs.setup_cost, 10.0);
         assert!((costs.cost_per_part.unwrap() - costs.total_cost / 2.0).abs() < 1e-9);
-        assert!(q.to_csv().contains("TOTAL,"));
+        let csv = q.to_csv();
+        assert_eq!(
+            csv.lines().last().unwrap().split(',').nth(12).unwrap(),
+            format!("{:.2}", costs.net_material_cost)
+        );
+        let dwell_only = compute(
+            &job,
+            &layout,
+            &curves,
+            None,
+            &Pricing {
+                pierce_seconds: 1.5,
+                machine_rate_per_hour: Some(60.0),
+                ..Pricing::default()
+            },
+        )
+        .unwrap();
+        assert_eq!(dwell_only.estimated_cut_seconds, Some(6.0));
+        assert_eq!(dwell_only.costs.unwrap().machine_cost, 0.1);
         assert!(q.to_markdown().contains("# Nestbolt Job Quote: quote-job"));
     }
 

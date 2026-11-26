@@ -43,7 +43,15 @@ pub enum Work {
 // checks (`ConstructorCheck`: 5.0e-7 s/check, 2.0e6 checks/s) and eliminates
 // warm-start double-charging on large jobs (issue #38).
 const COEFFICIENTS: [f64; 9] = [
-    1.8e-6, 1.9e-8, 2.0e-5, 2.0e-6, 0.05, 5.0e-7, 7.3e-7, 4.0e-6, 5.0e-9,
+    1.8e-6,
+    1.9e-8,
+    2.0e-5,
+    2.0e-6,
+    0.05,
+    1.0 / crate::sheets::CHECKS_PER_SECOND,
+    7.3e-7,
+    4.0e-6,
+    5.0e-9,
 ];
 
 #[derive(Clone, Copy, Debug, PartialEq)]

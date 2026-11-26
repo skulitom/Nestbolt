@@ -570,7 +570,6 @@ impl Nestbolt {
     ) -> Result<CallToolResult, ErrorData> {
         (|| -> Result<CallToolResult> {
             let library = self.library(&p.library_path)?;
-            let (job, _) = p.request.job(&library)?;
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&std::fs::read(self.inside(&p.layout_path)?)?)
                     .context("invalid layout JSON")?;
@@ -580,8 +579,13 @@ impl Nestbolt {
                 min_area_mm2: p.min_area_mm2.unwrap_or(defaults.min_area_mm2),
                 min_dimension_mm: p.min_dimension_mm.unwrap_or(defaults.min_dimension_mm),
             };
-            let report =
-                nestbolt_core::offcut::extract(&job, &layout, p.sheet_id.as_deref(), options)?;
+            let report = nestbolt_core::offcut::for_request(
+                &p.request,
+                &library,
+                &layout,
+                p.sheet_id.as_deref(),
+                options,
+            )?;
             let dir = self.new_dir(Some(&p.out_dir), "offcut")?;
             let mut files = Vec::new();
             for remnant in &report.remnants {
@@ -640,11 +644,8 @@ impl Nestbolt {
             let layout: nestbolt_validator::job::Layout =
                 serde_json::from_slice(&std::fs::read(self.inside(&p.layout_path)?)?)
                     .context("invalid layout JSON")?;
-            let prepared = p.request.prepare(&library)?;
-            let cutting = prepared.report(&layout)?;
-            let quote = nestbolt_core::quote::from_cutting_report(
-                &prepared, &layout, &cutting, &p.pricing,
-            )?;
+            let quote =
+                nestbolt_core::quote::for_request(&p.request, &library, &layout, &p.pricing)?;
             let markdown = quote.to_markdown();
             Ok(CallToolResult::structured(json!({
                 "quote": quote,

@@ -98,7 +98,7 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   groups need regrouping before nesting. Import messages explain cached text,
   bounding rectangles and missing curve controls. See [LightBurn preparation](docs/LBRN2.md#required-preparation-for-older-or-mixed-projects).
   On the CLI, `nestbolt lightburn-send` can also send exported files straight to
-  a local LightBurn 2.2+ instance (`127.0.0.1:19520`, loopback-only by default).
+  a local LightBurn 2.2+ instance with a paired bearer token. See [REST setup](docs/LBRN2.md#send-an-exported-file-to-lightburn).
 - **Nest** on fixed sheets: margins, part and edge spacing, several sheets, several
   stock sizes with limits, defects, remnant outlines, rotations (free, stepped or a
   list such as 0/180 for fabric grain) and mirroring. Small parts can sit inside the holes of larger parts.
@@ -128,8 +128,8 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   material limit at both kerfs. Prepare shared sections in CAM to avoid cutting them twice.
   [Common-line setup and per-job results](docs/COMMON_LINES.md).
 - **Check** every result with an independent Clipper2 validator (overlap,
-  spacing, containment, rotations, quantities) accelerated with exact
-  O(n log n) sweep-and-prune for multi-thousand-part sheets. Invalid layouts are
+  spacing, containment, rotations, quantities). On large sheets it filters placement
+  pairs by bounding box before checking their exact geometry. Invalid layouts are
   never returned.
 - **Browser app** (`web/`): the same engine compiled to WebAssembly in Web
   Workers, automatic worker selection, a live view of the best layout, custom

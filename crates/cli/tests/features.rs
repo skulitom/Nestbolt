@@ -1598,13 +1598,14 @@ fn offcut_quote_and_lightburn_send_work_end_to_end() {
         String::from_utf8_lossy(&raw).into_owned()
     });
     let sheet_svg = nest_dir.join("sheet-0.svg");
-    let send_out = nestbolt(&[
-        "lightburn-send".as_ref(),
-        "--file".as_ref(),
-        sheet_svg.as_os_str(),
-        "--port".as_ref(),
-        port.to_string().as_ref(),
-    ]);
+    let send_out = Command::new(env!("CARGO_BIN_EXE_nestbolt"))
+        .args(["lightburn-send", "--file"])
+        .arg(&sheet_svg)
+        .arg("--port")
+        .arg(port.to_string())
+        .env("LIGHTBURN_API_TOKEN", "0".repeat(64))
+        .output()
+        .unwrap();
     assert!(
         send_out.status.success(),
         "{}",
@@ -1612,5 +1613,8 @@ fn offcut_quote_and_lightburn_send_work_end_to_end() {
     );
     let received = server.join().unwrap();
     assert!(received.starts_with("POST /api/file/upload HTTP/1.1"));
-    assert!(received.contains("filename=\"sheet-0.svg\""));
+    assert!(received.contains("X-Filename: sheet-0.svg\r\n"));
+    let (headers, file) = received.split_once("\r\n\r\n").unwrap();
+    assert!(headers.contains(&format!("Authorization: Bearer {}", "0".repeat(64))));
+    assert_eq!(file.as_bytes(), fs::read(sheet_svg).unwrap());
 }

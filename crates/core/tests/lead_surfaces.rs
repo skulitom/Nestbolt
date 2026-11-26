@@ -54,6 +54,55 @@ fn final_common_starts_are_exported_from_each_copy_and_offcuts_use_reserved_spac
     assert_eq!(leads.reserved_contours, 2);
     assert_eq!(leads.flagged_contours, 0);
     assert!((checked.common_line.as_ref().unwrap()[0].saved_length_mm - 30.0).abs() < 0.01);
+    let options = nestbolt_core::offcut::Options {
+        min_area_mm2: 0.0,
+        min_dimension_mm: 0.0,
+        ..Default::default()
+    };
+    let slab =
+        nestbolt_core::offcut::for_request(&request, &library, &layout, None, options).unwrap();
+    let metrics = checked.validation.metrics.as_ref().unwrap();
+    assert!((slab.total_area_mm2 - metrics.trailing_offcut_area).abs() < 0.01);
+    let quote = nestbolt_core::quote::for_request(&request, &library, &layout, &Default::default())
+        .unwrap();
+    assert_eq!(quote.trailing_offcut_area_mm2, metrics.trailing_offcut_area);
+    let exact = nestbolt_core::offcut::for_request(
+        &request,
+        &library,
+        &layout,
+        None,
+        nestbolt_core::offcut::Options {
+            mode: nestbolt_core::offcut::OffcutMode::Exact,
+            ..options
+        },
+    )
+    .unwrap();
+    assert!(!exact.remnants.is_empty());
+    for allowance in leads.allowances() {
+        let owner = layout
+            .placements
+            .iter()
+            .find(|p| p.part_id == allowance.part_id && p.copy_index == allowance.copy_index)
+            .unwrap();
+        let paths = allowance
+            .paths
+            .iter()
+            .map(|p| p.transformed(owner.transform, layout.units).unwrap())
+            .collect::<Vec<_>>();
+        let cut = nestbolt_validator::leads::footprint(&paths, allowance.kerf_mm).unwrap();
+        for remnant in &exact.remnants {
+            let material = Footprint::from_polygons(
+                &remnant.outline_mm,
+                layout.units,
+                RigidTransform {
+                    translation: remnant.origin_mm,
+                    ..Default::default()
+                },
+            )
+            .unwrap();
+            assert_eq!(cut.compare(&material, 0.0).unwrap().overlap_area, 0.0);
+        }
+    }
     let review = checked.review(&layout, "sheet-0").unwrap();
     assert!(!review.common.is_empty());
     let text = library

@@ -179,6 +179,7 @@ export interface SheetQuote {
   placed_parts: number;
   outer_contours: number;
   hole_contours: number;
+  open_contours: number;
   pierce_count: number;
   gross_cut_length_mm: number;
   common_line_saved_mm: number;
@@ -211,6 +212,7 @@ export interface JobQuote {
   requested_parts: number;
   outer_contours: number;
   hole_contours: number;
+  open_contours: number;
   total_pierces: number;
   gross_cut_length_mm: number;
   common_line_saved_mm: number;

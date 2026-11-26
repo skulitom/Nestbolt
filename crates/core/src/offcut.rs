@@ -133,8 +133,62 @@ pub fn extract(
     sheet_id: Option<&str>,
     options: Options,
 ) -> Result<OffcutReport> {
-    options.validate()?;
     let check = validate(job, layout)?;
+    extract_checked(job, layout, sheet_id, options, &check, &BTreeMap::new())
+}
+
+/// Use the finalized cutting reservations for each placed copy.
+#[cfg(feature = "search")]
+pub fn for_request(
+    request: &crate::project::Request,
+    library: &crate::project::Library,
+    layout: &Layout,
+    sheet_id: Option<&str>,
+    options: Options,
+) -> Result<OffcutReport> {
+    let prepared = request.prepare(library)?;
+    let report = prepared.report(layout)?;
+    let mut cuts = BTreeMap::new();
+    if let Some(leads) = report.lead_in {
+        let placements: BTreeMap<_, _> = layout
+            .placements
+            .iter()
+            .map(|p| ((p.part_id.as_str(), p.copy_index), p))
+            .collect();
+        for allowance in leads.allowances() {
+            let placed = placements[&(allowance.part_id.as_str(), allowance.copy_index)];
+            let paths = allowance
+                .paths
+                .iter()
+                .map(|path| path.transformed(placed.transform, layout.units))
+                .collect::<Result<Vec<_>>>()?;
+            cuts.entry(placed.sheet_id.as_str())
+                .or_insert_with(Vec::new)
+                .push(nestbolt_validator::leads::footprint(
+                    &paths,
+                    allowance.kerf_mm,
+                )?);
+        }
+    }
+    extract_checked(
+        &prepared.job,
+        layout,
+        sheet_id,
+        options,
+        &report.validation,
+        &cuts,
+    )
+}
+
+fn extract_checked(
+    job: &Job,
+    layout: &Layout,
+    sheet_id: Option<&str>,
+    options: Options,
+    check: &nestbolt_validator::job::Report,
+    cuts: &BTreeMap<&str, Vec<Footprint>>,
+) -> Result<OffcutReport> {
+    options.validate()?;
     ensure!(
         check.valid,
         "cannot extract offcuts from an invalid layout: {:?}",
@@ -144,20 +198,17 @@ pub fn extract(
     let stocks: BTreeMap<&str, &Stock> = job.stocks.iter().map(|s| (s.id.as_str(), s)).collect();
     let scale = job.units.to_mm();
 
-    let target_sheets: Vec<_> = match sheet_id {
-        Some(wanted) => {
-            let found = layout
-                .sheets
-                .iter()
-                .find(|s| s.id == wanted)
-                .with_context(|| format!("unknown sheet {wanted}"))?;
-            vec![found]
-        }
-        None => layout.sheets.iter().collect(),
-    };
-
+    if let Some(wanted) = sheet_id {
+        ensure!(
+            layout.sheets.iter().any(|s| s.id == wanted),
+            "unknown sheet {wanted}"
+        );
+    }
     let mut remnants = Vec::new();
-    for sheet in target_sheets {
+    for (sheet_index, sheet) in layout.sheets.iter().enumerate() {
+        if sheet_id.is_some_and(|wanted| wanted != sheet.id) {
+            continue;
+        }
         let stock = stocks
             .get(sheet.stock_id.as_str())
             .with_context(|| format!("unknown stock {}", sheet.stock_id))?;
@@ -178,6 +229,13 @@ pub fn extract(
             let fp = Footprint::from_polygons(&part.geometry, job.units, placement.transform)?;
             highest_mm = highest_mm.max(fp.bounds()[3]);
             placed_shapes.push(fp);
+        }
+
+        if let Some(allowances) = cuts.get(sheet.id.as_str()) {
+            for fp in allowances {
+                highest_mm = highest_mm.max(fp.bounds()[3]);
+                placed_shapes.push(fp.clone());
+            }
         }
 
         let leftover = match options.mode {
@@ -260,7 +318,7 @@ pub fn extract(
                 OffcutMode::Exact => "remnant",
             };
             remnants.push(Remnant {
-                id: format!("{}-{suffix}-{index}", sheet.id),
+                id: format!("sheet-{sheet_index}-{suffix}-{index}"),
                 sheet_id: sheet.id.clone(),
                 stock_id: sheet.stock_id.clone(),
                 mode: options.mode,
@@ -384,6 +442,19 @@ mod tests {
                 assert!((reimported.outlines[0].height_mm - remnant.height_mm).abs() < 0.05);
             }
         }
+    }
+
+    #[test]
+    fn export_names_are_independent_of_sheet_labels() {
+        let (job, mut layout) = sample_job_and_layout();
+        let label = "rack A/left:panel";
+        layout.sheets[0].id = label.into();
+        for p in &mut layout.placements {
+            p.sheet_id = label.into();
+        }
+        let report = extract(&job, &layout, Some(label), Options::default()).unwrap();
+        assert_eq!(report.remnants[0].id, "sheet-0-offcut-1");
+        assert_eq!(report.remnants[0].sheet_id, label);
     }
 
     #[test]

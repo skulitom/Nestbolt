@@ -599,3 +599,40 @@ completion remains 20%; the open-line footprint and full H3 audit are next.
 The [open-stroke checkpoint](../benchmarks/results/h3-open-line-fix-20261015.md) resolves the repaired L17 rejection. Bounding axes narrower than two curve tolerances receive a symmetric conservative footprint; original open paths and cut settings remain exact in the preserving export. The first grid-only attempt still failed on seventeen nearly horizontal strokes and remains archived. All eight native repairs now import, with 477 independently compared leaves and 210 unit footprints. Original training adds 225 independently compared units; 114 canonical diagnostic sheet diffs pass.
 
 L17 nests 73 units on one sheet. Two new native saves preserve 36 open paths in total and pass 93 leaf comparisons within 0.000516 mm. The earlier five native-checked layouts revalidate with unchanged canonical contents apart from sub-picometre top-level XForm replay. All 293 workspace, 26 optimized CLI and 84 enabled browser tests pass. Three frozen native held-out projects remain unevaluated, so H3 is still open and completion remains 20%. Frozen inputs, labels, split and all failures remain intact.
+
+## Send an exported file to LightBurn
+
+Enable the REST API in LightBurn 2.2 or later. Nestbolt reads the current
+minute's bearer token from `LIGHTBURN_API_TOKEN`. Upload and open require
+the `upload` capability. The `--status` option requires `state`.
+A 202 response acknowledges receipt. LightBurn completes the import asynchronously.
+
+This Python example pairs locally and sends one SVG after you approve LightBurn's
+dialog. For repeated calls, store the returned secret in your application's
+credential store and calculate a fresh token for each request.
+
+```python
+import hashlib
+import hmac
+import json
+import os
+import subprocess
+import time
+import urllib.request
+
+pair = urllib.request.Request(
+    "http://127.0.0.1:19520/api/connect",
+    data=json.dumps({"application_name": "Nestbolt", "capabilities": ["upload"]}).encode(),
+    headers={"Content-Type": "application/json"},
+)
+with urllib.request.urlopen(pair, timeout=40) as response:
+    secret = json.load(response)["secret"]
+minute = str(int(time.time()) // 60).encode()
+token = hmac.new(secret.encode(), minute, hashlib.sha256).hexdigest()
+subprocess.run(
+    ["nestbolt", "lightburn-send", "--file", "sheet-0.svg"],
+    env={**os.environ, "LIGHTBURN_API_TOKEN": token}, check=True,
+)
+```
+
+[LightBurn REST authentication](https://github.com/LightBurnSoftware/LightBurn-REST/blob/main/docs/authentication.md)

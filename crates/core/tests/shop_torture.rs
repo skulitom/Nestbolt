@@ -5,7 +5,7 @@ use nestbolt_core::{
     import::{Options as ImportOptions, decode_drawing, import_dxf, import_svg},
     offcut::{OffcutMode, Options as OffcutOptions, extract},
     project::{Library, Request, SheetImport},
-    quote::{Pricing, from_cutting_report},
+    quote::{Pricing, for_request},
     sheets::{Options as SheetOptions, optimize},
 };
 use nestbolt_validator::job::validate;
@@ -124,7 +124,7 @@ fn svg_physical_units_closed_loop_remnant_reuse_and_quote() {
     }))
     .unwrap();
     let prepared1 = req1.prepare(&lib).unwrap();
-    let (res1, cut1) = prepared1
+    let (res1, _) = prepared1
         .optimize(
             SheetOptions {
                 seconds: 1.0,
@@ -139,10 +139,10 @@ fn svg_physical_units_closed_loop_remnant_reuse_and_quote() {
     assert!(validate(&prepared1.job, &res1.layout).unwrap().valid);
 
     // Quote Batch 1 and verify exact perimeter (outer 152.4 mm + circle 12.7*pi mm) × 4 parts.
-    let quote1 = from_cutting_report(
-        &prepared1,
+    let quote1 = for_request(
+        &req1,
+        &lib,
         &res1.layout,
-        &cut1,
         &Pricing {
             sheet_cost: Some(15.0),
             credit_offcut: true,

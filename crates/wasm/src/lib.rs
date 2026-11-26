@@ -311,9 +311,8 @@ pub fn extract_offcuts(
     } else {
         parse(options_json, "offcut options")?
     };
-    let (job, _) = request.job(&library).map_err(|e| fail(format!("{e:#}")))?;
     let sheet = (!sheet_id.trim().is_empty()).then_some(sheet_id);
-    let report = nestbolt_core::offcut::extract(&job, &layout, sheet, options)
+    let report = nestbolt_core::offcut::for_request(&request, &library, &layout, sheet, options)
         .map_err(|e| fail(format!("{e:#}")))?;
     serde_json::to_string(&report).map_err(fail)
 }
@@ -345,13 +344,7 @@ pub fn quote_layout(
     } else {
         parse(pricing_json, "pricing")?
     };
-    let prepared = request
-        .prepare(&library)
-        .map_err(|e| fail(format!("{e:#}")))?;
-    let cutting = prepared
-        .report(&layout)
-        .map_err(|e| fail(format!("{e:#}")))?;
-    let quote = nestbolt_core::quote::from_cutting_report(&prepared, &layout, &cutting, &pricing)
+    let quote = nestbolt_core::quote::for_request(&request, &library, &layout, &pricing)
         .map_err(|e| fail(format!("{e:#}")))?;
     let csv = quote.to_csv();
     let markdown = quote.to_markdown();
