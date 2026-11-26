@@ -99,6 +99,8 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   text may need a separate native save to embed its outlines; mixed active/fixed
   groups need regrouping before nesting. Import messages explain cached text,
   bounding rectangles and missing curve controls. See [LightBurn preparation](docs/LBRN2.md#required-preparation-for-older-or-mixed-projects).
+  On the CLI, `nestbolt lightburn-send` can also send exported files straight to
+  a local LightBurn 2.2+ instance with a paired bearer token. See [REST setup](docs/LBRN2.md#send-an-exported-file-to-lightburn).
 - **Nest** on fixed sheets: margins, part and edge spacing, several sheets, several
   stock sizes with limits, defects, remnant outlines, rotations (free, stepped or a
   list such as 0/180 for fabric grain) and mirroring. Small parts can sit inside the holes of larger parts.
@@ -106,6 +108,15 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
 - **Export** one SVG and one DXF per sheet from the original curves, transformed
   rather than re-polygonised. LightBurn projects use preserving `.lbrn2` output.
   [Export fidelity checks](docs/STATUS.md) record the tested files and tolerances.
+- **Closed-loop remnant & offcut export**: extract reusable rectangular
+  (guillotine) or exact (true-shape subtracted) remnants from nested sheets and
+  export `SHEET`-layer SVG/DXF files that re-import directly into Nestbolt for
+  your next job (CLI `nestbolt offcut`, MCP `export_offcut`, and browser app).
+- **Shop job costing & quoting**: compute exact curve cut lengths (from source
+  curves, never flattened polygons), pierce counts, common-line cut savings,
+  estimated machine run time, optional trailing-offcut credit and itemized
+  material/machine/setup cost breakdowns in JSON, CSV or Markdown (CLI
+  `nestbolt quote`, MCP `quote_layout`, and browser app).
 - **Lead-in allowances** reserve room for leads and set contour starts, with
   shortened leads and unresolved contours reported explicitly. Red LEADIN paths
   are review guides; the cutting program creates the actual leads. Imported
@@ -119,17 +130,22 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   material limit at both kerfs. Prepare shared sections in CAM to avoid cutting them twice.
   [Common-line setup and per-job results](docs/COMMON_LINES.md).
 - **Check** every result with an independent Clipper2 validator (overlap,
-  spacing, containment, rotations, quantities). Invalid layouts are never returned.
+  spacing, containment, rotations, quantities). On large sheets it filters placement
+  pairs by bounding box before checking their exact geometry. Invalid layouts are
+  never returned.
 - **Browser app** (`web/`): the same engine compiled to WebAssembly in Web
-  Workers, automatic worker selection, a live view of the best layout, projects
-  saved in the browser or as a ZIP, and five one-click examples. Files never leave
-  the computer. An optional **Quick initial layout** setting helps start large
-  jobs. Current browser checks and native comparisons are tracked in
+  Workers, automatic worker selection, a live view of the best layout, custom
+  saved sheet presets, collapsible **Quote & Offcuts** reporting with one-click
+  remnant SVG/DXF download, projects saved in the browser or as a ZIP, and five
+  one-click examples. Files never leave the computer. An optional **Quick
+  initial layout** setting (suggested automatically on 1,000+ part jobs) helps
+  start large jobs. Current browser checks and native comparisons are tracked in
   [Status](docs/STATUS.md).
-- **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`
-  and `estimate_sheets`, tested with Claude Code. Its budgets are repeatable:
-  same build, inputs, work budget and seed give the same layout unless the real-time
-  limit is reached, which is reported explicitly. See
+- **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`,
+  `estimate_sheets`, `export_offcut` and `quote_layout`, tested with Claude Code.
+  Its budgets are repeatable (`nestbolt-work-v4`): same build, inputs, work budget
+  and seed give the same layout unless the real-time limit (`time_limit_s`) is
+  reached, which is reported explicitly. See
   [the agent interface](docs/AGENT_INTERFACE.md).
 
 The engine builds on [jagua-rs](https://github.com/JeroenGar/jagua-rs) and
@@ -188,7 +204,11 @@ A request names library parts with quantities and the sheets in millimetres:
 
 `run/` then holds `layout.json`, `report.json` and `sheet-0.svg`/`sheet-0.dxf` and
 so on. Existing files are never overwritten. `nestbolt export` re-exports a
-layout; `nestbolt validate` checks a polygon job and layout. Add `--repeatable`
+layout; `nestbolt validate` checks a polygon job and layout; `nestbolt offcut`
+extracts reusable rectangular or exact remnant SVG/DXF files on the `SHEET`
+layer; `nestbolt quote` computes exact curve cut length, pierce count, run time
+and shop cost (JSON, CSV or Markdown); and `nestbolt lightburn-send` sends a
+file to a local LightBurn 2.2+ REST listener (`127.0.0.1:19520`). Add `--repeatable`
 to `nestbolt nest` or `nestbolt sheets` for a deterministic work budget instead of
 wall-clock time: the same inputs, budget and seed then give the same layout. On a
 machine much slower than the reference PC, `--time-limit <seconds>` allows more real

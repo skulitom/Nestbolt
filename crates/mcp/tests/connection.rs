@@ -395,7 +395,18 @@ async fn tools_import_nest_validate_export_and_estimate_inside_the_workspace() {
             .map(|t| t.name.to_string())
             .collect();
         names.sort();
-        assert_eq!(names, ["estimate_sheets", "export_layout", "import_parts", "nest", "validate_layout"]);
+        assert_eq!(
+            names,
+            [
+                "estimate_sheets",
+                "export_layout",
+                "export_offcut",
+                "import_parts",
+                "nest",
+                "quote_layout",
+                "validate_layout"
+            ]
+        );
 
         let call = |name: &'static str, value: Value| {
             let client = &client;
@@ -602,4 +613,113 @@ async fn lightburn_import_diagnostics_reach_mcp_and_saved_library() {
     })
     .await
     .expect("diagnostic import timed out");
+}
+
+#[tokio::test(flavor = "current_thread")]
+async fn export_offcut_and_quote_layout_work_end_to_end_over_stdio() {
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let workspace =
+        std::env::temp_dir().join(format!("nestbolt-mcp-shop-{}-{stamp}", std::process::id()));
+    std::fs::create_dir_all(&workspace).unwrap();
+    std::fs::write(
+        workspace.join("panel.svg"),
+        include_str!("../../core/tests/fixtures/common-panels.svg"),
+    )
+    .unwrap();
+    timeout(Duration::from_secs(90), async {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_nestbolt-mcp"));
+        command.env("NESTBOLT_WORKSPACE", &workspace);
+        let client = ().serve(TokioChildProcess::new(command).unwrap()).await.unwrap();
+        let call = |name: &'static str, value: Value| {
+            let client = &client;
+            async move {
+                client
+                    .call_tool(CallToolRequestParams::new(name).with_arguments(args(value)))
+                    .await
+            }
+        };
+        let imported = call("import_parts", json!({"paths": ["panel.svg"]}))
+            .await
+            .unwrap()
+            .structured_content
+            .unwrap();
+        let library = &imported["library_path"];
+        let request = json!({
+            "name": "mcp-shop-quote",
+            "parts": [{"id": "panel-1", "quantity": 2}],
+            "sheets": [{"width_mm": 400, "height_mm": 300, "margins_mm": {"left": 5, "right": 5, "bottom": 5, "top": 5}}],
+            "spacing_mm": 1.0,
+            "edge_spacing_mm": 1.0
+        });
+        let nested = call(
+            "nest",
+            json!({"library_path": library, "request": request, "out_dir": "nested", "time_budget_s": 1, "time_limit_s": 30}),
+        )
+        .await
+        .unwrap()
+        .structured_content
+        .unwrap();
+        assert_eq!(nested["validation"]["valid"], true);
+
+        let quoted = call(
+            "quote_layout",
+            json!({
+                "library_path": library,
+                "request": request,
+                "layout_path": "nested/layout.json",
+                "pricing": {
+                    "sheet_cost": 30.0,
+                    "credit_offcut": true,
+                    "cut_speed_mm_per_min": 1500.0,
+                    "pierce_seconds": 1.0,
+                    "machine_rate_per_hour": 60.0,
+                    "setup_cost": 5.0,
+                    "currency": "USD"
+                }
+            }),
+        )
+        .await
+        .unwrap()
+        .structured_content
+        .unwrap();
+        assert_eq!(quoted["quote"]["placed_parts"], 2);
+        assert!(quoted["quote"]["net_cut_length_mm"].as_f64().unwrap() > 100.0);
+        assert!(quoted["quote"]["costs"]["total_cost"].as_f64().unwrap() > 5.0);
+        assert!(quoted["markdown"].as_str().unwrap().contains("# Nestbolt Job Quote"));
+
+        let offcut = call(
+            "export_offcut",
+            json!({
+                "library_path": library,
+                "request": request,
+                "layout_path": "nested/layout.json",
+                "out_dir": "offcuts",
+                "mode": "exact"
+            }),
+        )
+        .await
+        .unwrap()
+        .structured_content
+        .unwrap();
+        assert!(offcut["remnant_count"].as_u64().unwrap() >= 1);
+        let svg_file = offcut["files"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|f| f.as_str().unwrap().ends_with(".svg"))
+            .unwrap()
+            .as_str()
+            .unwrap();
+        assert!(
+            std::fs::read_to_string(workspace.join(svg_file))
+                .unwrap()
+                .contains(r#"id="SHEET""#)
+        );
+        client.cancel().await.unwrap();
+    })
+    .await
+    .expect("MCP offcut/quote test timed out");
 }

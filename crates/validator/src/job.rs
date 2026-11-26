@@ -502,12 +502,49 @@ pub fn validate(job: &Job, layout: &Layout) -> Result<Report> {
         }
     }
     let mut total_overlap = vec![0.0; placed.len()];
+    // Store each sheet's placements in left-edge order. The running maximum
+    // right edge locates the earliest possible neighbour of each placement.
+    // Only one placement's candidates are retained, even for dense layouts.
+    let margin = job.clearance * job.units.to_mm() + 2.0 * GRID + 1e-9;
+    let mut by_sheet: BTreeMap<&str, Vec<(usize, f64)>> = BTreeMap::new();
+    for (i, (_, sheet, shape)) in placed.iter().enumerate() {
+        by_sheet
+            .entry(*sheet)
+            .or_default()
+            .push((i, shape.bounds()[2]));
+    }
+    for entries in by_sheet.values_mut() {
+        entries.sort_unstable_by(|a, b| {
+            placed[a.0].2.bounds()[0].total_cmp(&placed[b.0].2.bounds()[0])
+        });
+        let mut max_right = f64::NEG_INFINITY;
+        for (_, right) in entries {
+            max_right = max_right.max(*right);
+            *right = max_right;
+        }
+    }
+    let mut candidates = Vec::new();
     for (i, (index, sheet, shape)) in placed.iter().enumerate() {
-        let mut comparisons = shape.pair_query(job.clearance);
-        for (j, (other_index, other_sheet, other)) in placed.iter().enumerate().skip(i + 1) {
-            if sheet != other_sheet {
-                continue;
+        let bounds = shape.bounds();
+        let entries = &by_sheet[sheet];
+        let first = entries.partition_point(|&(_, max_right)| max_right + margin < bounds[0]);
+        let end = entries.partition_point(|&(j, _)| placed[j].2.bounds()[0] <= bounds[2] + margin);
+        candidates.clear();
+        for &(j, _) in &entries[first..end] {
+            let other = placed[j].2.bounds();
+            if j > i
+                && other[2] + margin >= bounds[0]
+                && other[3] + margin >= bounds[1]
+                && other[1] <= bounds[3] + margin
+            {
+                candidates.push(j);
             }
+        }
+        // Retain the original pair order for diagnostics and overlap sums.
+        candidates.sort_unstable();
+        let mut comparisons = shape.pair_query(job.clearance);
+        for &j in &candidates {
+            let (other_index, _, other) = &placed[j];
             let pair = comparisons.compare(other)?;
             report.maximum_overlap_ratio = report.maximum_overlap_ratio.max(pair.overlap_ratio);
             total_overlap[i] += pair.overlap_area;

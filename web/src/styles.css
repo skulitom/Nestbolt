@@ -76,8 +76,17 @@ button.icon { padding: 0 6px; border: none; background: none; font-size: 18px; l
 .summary dd { margin: 0; font-size: 20px; font-weight: 600; }
 .sheets { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-top: 12px; }
 figure { margin: 0; }
-figcaption { display: flex; gap: 6px; align-items: center; margin-top: 4px; font-size: 13px; }
+figcaption { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 4px; font-size: 13px; }
 figcaption button { padding: 1px 8px; }
+.result-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; }
+.quote-report { flex: 1 1 240px; border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; font-size: 13px; }
+.quote-report[open] { flex: 1 0 100%; padding: 6px 10px; max-height: 36vh; overflow-y: auto; }
+.quote-report summary { cursor: pointer; font-weight: 500; }
+.quote-inputs { margin: 8px 0; }
+.quote-totals { margin: 6px 0; }
+.quote-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.large-job-hint { font-size: 13px; margin: 0; }
+.error-box { display: flex; flex-direction: column; gap: 6px; }
 .sheet { width: 100%; height: auto; display: block; max-height: var(--sheet-max); }
 .sheet .stock { fill: var(--stock); stroke: var(--margin); stroke-width: 0.5; vector-effect: non-scaling-stroke; }
 .sheet .margin { fill: none; stroke: var(--margin); stroke-dasharray: 4 3; stroke-width: 1; vector-effect: non-scaling-stroke; }

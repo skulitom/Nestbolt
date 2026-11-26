@@ -124,6 +124,16 @@ fn cutting_sidecars_keep_disconnected_pieces_holes_islands_and_open_paths() {
         .flat_map(|s| &s.paths)
         .collect();
     assert_eq!(paths.len(), 5);
+    // Include all original cuts even without lead sidecars.
+    let mut plain = request.clone();
+    plain.lead_in = None;
+    let quote =
+        nestbolt_core::quote::for_request(&plain, &library, &layout, &Default::default()).unwrap();
+    assert_eq!(quote.total_pierces, 5);
+    assert_eq!(quote.open_contours, 1);
+    let expected: f64 = paths.iter().map(|p| p.curve.length()).sum();
+    assert!((quote.gross_cut_length_mm - expected).abs() < 1e-6);
+
     for (mirrored, rotation_radians) in [(false, 0.0), (true, 0.37)] {
         layout.placements[0].transform.mirrored = mirrored;
         layout.placements[0].transform.rotation_radians = rotation_radians;

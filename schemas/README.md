@@ -21,6 +21,12 @@ independent validator check meaning and geometry.
   next to `job.json` and `layout.json` by `nestbolt nest` and the `nest` tool:
   seed, budget, whether the run is repeatable, parts placed in holes, exported
   files (relative to the report) and the independent validation report.
+- [offcut-report.schema.json](offcut-report.schema.json): reusable rectangular or
+  true-shape remnants extracted by `nestbolt offcut` and `export_offcut`, with
+  normalized `outline_mm` polygons and `origin_mm` sheet offsets.
+- [job-quote.schema.json](job-quote.schema.json): exact curve cutting lengths,
+  pierce counts, common-line savings, material utilization, estimated cutting
+  time and optional cost breakdown from `nestbolt quote` and `quote_layout`.
 
 The browser app saves the same library and request inside its project ZIP.
 

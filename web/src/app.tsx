@@ -1,11 +1,11 @@
 import { partGeometry } from './types';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { exportArchive, exportFilename, exportSheet, importFiles, importSheet, inspectFiles, readDrawingFile, Portfolio } from './engine';
+import { exportArchive, exportFilename, exportOffcut, exportSheet, extractOffcuts, importFiles, importSheet, inspectFiles, quoteLayout, readDrawingFile, Portfolio } from './engine';
 import { SheetCanvas } from './canvas';
 import { PALETTE, PartThumb, SheetPreview, sheetUsage } from './preview';
-import { deleteProject, listProjects, loadProject, saveProject } from './storage';
+import { deleteProject, listProjects, loadProject, loadSheetPresets, loadShopPricing, saveProject, saveSheetPresets, saveShopPricing } from './storage';
 import { workersFor } from './worker-policy';
-import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, Project, RequestPart, RequestSheet, Rotations, SheetOutline } from './types';
+import type { Example, ImportSelection, Layout, Library, LibraryPart, Mode, NestRequest, NestResult, OffcutMode, Pricing, Project, QuoteResult, RequestPart, RequestSheet, Rotations, SheetOutline, SheetPreset } from './types';
 import { unzip } from './zip';
 
 const ROTATIONS: { label: string; value: Rotations }[] = [
@@ -18,17 +18,18 @@ const ROTATIONS: { label: string; value: Rotations }[] = [
 const rotationLabel = (r: Rotations) =>
   ROTATIONS.find((o) => JSON.stringify(o.value) === JSON.stringify(r))?.label ?? 'Custom';
 
-const PRESETS: { label: string; w: number; h: number }[] = [
-  { label: 'Diode laser 300×200', w: 300, h: 200 },
-  { label: 'CO2 bed 600×400', w: 600, h: 400 },
-  { label: 'Plywood 1220×2440', w: 1220, h: 2440 },
-  { label: 'Sheet metal 1250×2500', w: 1250, h: 2500 },
-  { label: 'Sheet metal 1500×3000', w: 1500, h: 3000 },
-  { label: 'Fabric roll 1500 × 10 m', w: 1500, h: 10000 },
+const PRESETS: SheetPreset[] = [
+  { label: 'Diode laser 300×200', w: 300, h: 200, margin: 5 },
+  { label: 'Glowforge / 12×12 in (304.8×304.8)', w: 304.8, h: 304.8, margin: 5 },
+  { label: 'CO2 bed 600×400', w: 600, h: 400, margin: 5 },
+  { label: 'Plywood 1220×2440', w: 1220, h: 2440, margin: 5 },
+  { label: 'Sheet metal 1250×2500', w: 1250, h: 2500, margin: 5 },
+  { label: 'Sheet metal 1500×3000', w: 1500, h: 3000, margin: 5 },
+  { label: 'Fabric roll 1500 × 10 m', w: 1500, h: 10000, margin: 5 },
 ];
 
-const blankSheet = (w = 600, h = 400): RequestSheet => ({
-  width_mm: w, height_mm: h, count: null, margins_mm: { left: 5, right: 5, bottom: 5, top: 5 }, defects_mm: [] });
+const blankSheet = (w = 600, h = 400, m = 5): RequestSheet => ({
+  width_mm: w, height_mm: h, count: null, margins_mm: { left: m, right: m, bottom: m, top: m }, defects_mm: [] });
 
 const emptyRequest = (): NestRequest => ({ parts: [], sheets: [blankSheet()], spacing_mm: 1, edge_spacing_mm: 1, mode: 'all' });
 
@@ -82,6 +83,9 @@ export function App() {
   const [progress, setProgress] = useState<{ elapsed: number; best: number | null }>({ elapsed: 0, best: null });
   const [projects, setProjects] = useState<{ name: string; savedAt: string }[]>([]);
   const [examples, setExamples] = useState<Example[]>([]);
+  const [customPresets, setCustomPresets] = useState<SheetPreset[]>(() => loadSheetPresets());
+  const [pricing, setPricing] = useState<Pricing>(() => loadShopPricing());
+  const [quote, setQuote] = useState<QuoteResult | null>(null);
   const [live, setLive] = useState<{ layout: Layout; material: number } | null>(null);
   const portfolio = useRef<Portfolio | null>(null);
   const zipInput = useRef<HTMLInputElement>(null);
@@ -90,6 +94,48 @@ export function App() {
   useEffect(() => {
     fetch('./examples/examples.json').then((r) => r.json()).then(setExamples).catch(() => setExamples([]));
   }, []);
+  useEffect(() => {
+    if (!result?.validation.valid || !library) { setQuote(null); return; }
+    let cancelled = false;
+    quoteLayout(library, request, result.layout, pricing)
+      .then((q) => { if (!cancelled) setQuote(q); })
+      .catch(() => { if (!cancelled) setQuote(null); });
+    return () => { cancelled = true; };
+  }, [library, request, result, pricing]);
+
+  const updatePricing = (patch: Partial<Pricing>) => {
+    setPricing((current) => {
+      const next = { ...current, ...patch };
+      saveShopPricing(next);
+      return next;
+    });
+  };
+
+  const optNum = (e: Event): number | undefined => {
+    const raw = (e.target as HTMLInputElement).value.trim();
+    if (!raw) return undefined;
+    const v = Number(raw);
+    return Number.isFinite(v) && v >= 0 ? v : undefined;
+  };
+
+  const saveSheetAsPreset = (sheet: RequestSheet) => {
+    const margin = sheet.margins_mm.left;
+    const label = `Saved ${sheet.width_mm}×${sheet.height_mm} (m${margin})`;
+    const next = [...customPresets.filter((p) => p.label !== label), { label, w: sheet.width_mm, h: sheet.height_mm, margin }];
+    setCustomPresets(next);
+    saveSheetPresets(next);
+  };
+
+  async function downloadOffcut(sheetId: string, mode: OffcutMode, format: 'svg' | 'dxf') {
+    if (!library || !result) return;
+    const report = await extractOffcuts(library, request, result.layout, sheetId, { mode });
+    if (!report.remnants.length) {
+      throw new Error(`No usable ${mode} offcut left on ${sheetId} (minimum 50×50 mm area and 25 mm width/height).`);
+    }
+    const primary = report.remnants.reduce((a, b) => (b.area_mm2 > a.area_mm2 ? b : a));
+    const text = await exportOffcut(primary, format);
+    download(`${primary.id}.${format}`, text, format === 'svg' ? 'image/svg+xml' : 'application/dxf');
+  }
 
   const colors = useMemo(() => new Map((library?.parts ?? []).map((p, i) => [p.id, PALETTE[i % PALETTE.length]])), [library]);
   const part = (id: string) => library?.parts.find((p) => p.id === id);
@@ -313,6 +359,8 @@ export function App() {
     && (!request.common_line || request.common_line.kerf_mm === lead.kerf_mm));
   const canRun = !!library && request.parts.length > 0 && request.sheets.length > 0 && !busy && commonValid && leadValid;
   const actualWorkers = library ? workersFor(library, request, workers) : workers;
+  const totalCopies = request.parts.reduce((sum, p) => sum + p.quantity, 0);
+  const allPresets = [...customPresets, ...PRESETS];
 
   return (
     <div class="app">
@@ -487,15 +535,16 @@ export function App() {
                     <button type="submit">Add defect</button>
                   </form>
                 </details>
+                <button type="button" disabled={!!busy} onClick={() => saveSheetAsPreset(s)} title="Save this sheet size in your browser">Save preset</button>
                 {request.sheets.length > 1 ? <button class="icon" aria-label={`Remove sheet size ${i + 1}`} onClick={() => update({ sheets: request.sheets.filter((_, j) => j !== i) })}>×</button> : null}
               </fieldset>
             ))}
             <select aria-label="Add a sheet size" value="" onChange={(e) => {
-              const preset = PRESETS.find((p) => p.label === (e.target as HTMLSelectElement).value);
-              if (preset) update({ sheets: [...request.sheets, blankSheet(preset.w, preset.h)] });
+              const preset = allPresets.find((p) => p.label === (e.target as HTMLSelectElement).value);
+              if (preset) update({ sheets: [...request.sheets, blankSheet(preset.w, preset.h, preset.margin)] });
             }}>
               <option value="">Add sheet size…</option>
-              {PRESETS.map((p) => <option key={p.label}>{p.label}</option>)}
+              {allPresets.map((p) => <option key={p.label}>{p.label}</option>)}
             </select>
           </section>
           <section aria-labelledby="settings-title">
@@ -545,6 +594,12 @@ export function App() {
               {actualWorkers < workers ? <p class="hint">This drawing will use {actualWorkers} {actualWorkers === 1 ? 'worker' : 'workers'} to limit memory.</p> : null}
             </details>
           </section>
+          {totalCopies >= 1000 && !request.quick_start ? (
+            <p class="hint large-job-hint">
+              Large job ({totalCopies.toLocaleString()} parts): enable Quick initial layout for a faster first layout.{' '}
+              <button type="button" onClick={() => update({ quick_start: true })}>Enable Quick initial layout</button>
+            </p>
+          ) : null}
           <div class="run">
             {busy === 'Nesting…' ? (
               <>
@@ -554,7 +609,16 @@ export function App() {
               </>
             ) : <button class="primary" disabled={!canRun} onClick={() => run()}>Nest</button>}
           </div>
-          {error ? <p class="error" role="alert">{error}</p> : null}
+          {error ? <div class="error-box">
+            <p class="error" role="alert">{error}</p>
+            {!request.quick_start && /allow more time|within \d+/i.test(error) ? (
+              <button type="button" onClick={() => {
+                const next = { ...request, quick_start: true };
+                setRequest(next);
+                run(library, next, seconds);
+              }}>Retry with Quick initial layout</button>
+            ) : null}
+          </div> : null}
         </aside>
         <section class="results" aria-labelledby="results-title">
           <h2 id="results-title">Result</h2>
@@ -597,7 +661,44 @@ export function App() {
                 ])}
                 <p class="hint">LEADIN is a red review layer. Assign separate cut settings to contours with different angles or shortened lengths before enabling LightBurn’s own leads.</p>
               </div> : null}
-              <button onClick={guarded(async () => download('sheets.zip', await exportArchive(project(), false), 'application/zip'))}>Download all sheets (ZIP)</button>
+              <div class="result-bar">
+                <button onClick={guarded(async () => download('sheets.zip', await exportArchive(project(), false), 'application/zip'))}>Download all sheets (ZIP)</button>
+                {quote ? <details class="quote-report">
+                  <summary>
+                    Cut summary &amp; quote — {(quote.quote.net_cut_length_mm / 1000).toFixed(2)} m cut · {quote.quote.total_pierces} pierces
+                    {quote.quote.estimated_cut_seconds ? ` · ${(quote.quote.estimated_cut_seconds / 60).toFixed(1)} min` : ''}
+                    {quote.quote.costs ? ` · ${quote.quote.costs.currency} ${quote.quote.costs.total_cost.toFixed(2)}` : ''}
+                  </summary>
+                  <div class="grid quote-inputs">
+                    <label>Sheet cost <input type="number" min={0} step={0.5} placeholder="0" aria-label="Sheet cost"
+                      value={pricing.sheet_cost ?? ''} onInput={(e) => updatePricing({ sheet_cost: optNum(e) })} /></label>
+                    <label>Cut speed (mm/min) <input type="number" min={1} step={100} placeholder="1200" aria-label="Cut speed mm per min"
+                      value={pricing.cut_speed_mm_per_min ?? ''} onInput={(e) => { const v = optNum(e); updatePricing({ cut_speed_mm_per_min: v && v > 0 ? v : undefined }); }} /></label>
+                    <label>Pierce (s) <input type="number" min={0} step={0.1} placeholder="0" aria-label="Pierce seconds"
+                      value={pricing.pierce_seconds ?? ''} onInput={(e) => updatePricing({ pierce_seconds: optNum(e) ?? 0 })} /></label>
+                    <label>Machine (/hr) <input type="number" min={0} step={5} placeholder="0" aria-label="Machine rate per hour"
+                      value={pricing.machine_rate_per_hour ?? ''} onInput={(e) => updatePricing({ machine_rate_per_hour: optNum(e) })} /></label>
+                    <label>Setup <input type="number" min={0} step={1} placeholder="0" aria-label="Setup cost"
+                      value={pricing.setup_cost ?? ''} onInput={(e) => updatePricing({ setup_cost: optNum(e) ?? 0 })} /></label>
+                    <label>Currency <input type="text" maxLength={6} placeholder="USD" aria-label="Quote currency"
+                      value={pricing.currency ?? ''} onInput={(e) => updatePricing({ currency: (e.target as HTMLInputElement).value.trim() || undefined })} /></label>
+                  </div>
+                  <label class="check"><input type="checkbox" checked={!!pricing.credit_offcut}
+                    onChange={(e) => updatePricing({ credit_offcut: (e.target as HTMLInputElement).checked })} /> Credit reusable trailing offcut</label>
+                  {quote.quote.costs ? <p class="quote-totals">
+                    Material {quote.quote.costs.currency} {quote.quote.costs.net_material_cost.toFixed(2)}
+                    {quote.quote.costs.offcut_credit > 0 ? ` (offcut credit −${quote.quote.costs.offcut_credit.toFixed(2)})` : ''}
+                    {' · '}Machine {quote.quote.costs.machine_cost.toFixed(2)}
+                    {' · '}Setup {quote.quote.costs.setup_cost.toFixed(2)}
+                    {' · '}<strong>Total {quote.quote.costs.currency} {quote.quote.costs.total_cost.toFixed(2)}</strong>
+                    {quote.quote.costs.cost_per_part !== undefined ? ` (${quote.quote.costs.currency} ${quote.quote.costs.cost_per_part.toFixed(2)}/part)` : ''}
+                  </p> : null}
+                  <div class="quote-actions">
+                    <button type="button" onClick={() => download(`${name.replace(/[^\w.-]+/g, '_') || 'nestbolt'}-quote.csv`, quote.csv, 'text/csv')}>Download quote CSV</button>
+                    <button type="button" onClick={() => download(`${name.replace(/[^\w.-]+/g, '_') || 'nestbolt'}-quote.md`, quote.markdown, 'text/markdown')}>Download quote Markdown</button>
+                  </div>
+                </details> : null}
+              </div>
               <div class="sheets">
                 {result.layout.sheets.map((s) => (
                   <figure key={s.id}>
@@ -607,9 +708,14 @@ export function App() {
                       {(() => {
                         const u = sheetUsage(library, request, result.layout, s.id, result.lead_in ?? undefined);
                         return u && u.offcut > 0.01 * u.height
-                          ? <span class="usage" title="Clear material above the placed parts">offcut {u.width.toFixed(0)} × {u.offcut.toFixed(0)} mm</span>
+                          ? <>
+                              <span class="usage" title="Clear material above the placed parts">offcut {u.width.toFixed(0)} × {u.offcut.toFixed(0)} mm</span>
+                              <button type="button" title="Download reusable straight-cut offcut on the SHEET layer" onClick={guarded(() => downloadOffcut(s.id, 'rectangular', 'svg'))}>Offcut SVG</button>
+                              <button type="button" title="Download reusable straight-cut offcut DXF on the SHEET layer" onClick={guarded(() => downloadOffcut(s.id, 'rectangular', 'dxf'))}>Offcut DXF</button>
+                            </>
                           : null;
                       })()}
+                      <button type="button" title="Download exact true-shape leftover remnant on the SHEET layer" onClick={guarded(() => downloadOffcut(s.id, 'exact', 'svg'))}>Remnant SVG</button>
                       {library.lightburn ? <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'lbrn2'), await exportSheet(library, request, result.layout, s.id, 'lbrn2', lightburnOutline), 'application/xml'))}>LightBurn</button> : null}
                       {!library.lightburn || lead ? <>
                         <button onClick={guarded(async () => download(exportFilename(library, result.layout, s.id, 'svg'), await exportSheet(library, request, result.layout, s.id, 'svg'), 'image/svg+xml'))}>{library.lightburn ? 'Cutting SVG' : 'SVG'}</button>

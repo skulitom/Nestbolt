@@ -750,7 +750,7 @@ pub const HOLE_SHARE: f64 = 0.2;
 /// below the real limit on the reference machine.
 pub const WORK_SHARE: f64 = 0.5;
 /// Constructor collision checks per reference second, for repeatable warm starts.
-pub const CHECKS_PER_SECOND: f64 = 4.0e5;
+pub const CHECKS_PER_SECOND: f64 = 2.0e6;
 /// Share of the budget for bounding-rectangle packing, and its reference speed.
 pub const RECT_SHARE: f64 = 0.03;
 pub const RECT_OPERATIONS_PER_SECOND: f64 = 2.0e8;
@@ -1277,6 +1277,7 @@ fn warm_start(
                 &mut control,
                 material,
                 fit,
+                None,
                 |p| {
                     if p.complete && (p.accepted || p.pass > 0) {
                         complete.set(true);
@@ -1286,10 +1287,12 @@ fn warm_start(
             .map_err(explain_interruption)?
         }
         Timing::Work => {
-            // A deterministic collision-check quota; if it cannot finish the
-            // first construction, construct once without a quota, still subject
-            // to the real deadline. Checks on detailed outlines cost more:
-            // weight by the root vertex count.
+            // Never interrupt pass 0 for the warm-start work budget (only the
+            // real hard limit can stop it); once a first layout exists, charge
+            // both incremental constructor checks and independent validations
+            // against `warm_until` so few-part curved jobs cannot spin through
+            // uncharged validations and large jobs are never restarted or
+            // double-charged (issue #38).
             let vertices = job
                 .parts
                 .iter()
@@ -1297,50 +1300,38 @@ fn warm_start(
                 .sum::<usize>() as f64
                 / job.parts.len().max(1) as f64;
             let weight = (vertices / 16.0).sqrt().max(1.0);
-            let quota = ((warm_until - clock.now()).max(0.0) * CHECKS_PER_SECOND / weight) as u64;
-            let mut deadline = || clock.now().is_infinite().then_some(StopReason::Deadline);
-            let mut control = Control::new(Some(quota.max(1)), Some(&mut deadline));
-            let warm = match crate::optimize::optimize_controlled_scored(
+            let initial_finished = std::cell::Cell::new(false);
+            let charged = std::cell::Cell::new(0_u64);
+            let mut probe = |used: u64| {
+                let delta = used.saturating_sub(charged.get());
+                if delta > 0 {
+                    clock.charge(Work::ConstructorCheck, delta as f64 * weight);
+                    charged.set(used);
+                }
+                let now = clock.now();
+                if now.is_infinite() {
+                    Some(StopReason::Deadline)
+                } else if initial_finished.get() && now >= warm_until {
+                    Some(StopReason::WorkLimit)
+                } else {
+                    None
+                }
+            };
+            let mut control = Control::with_used_probe(None, &mut probe);
+            let warm = crate::optimize::optimize_controlled_scored(
                 job,
                 construct,
                 &mut control,
                 material,
                 fit,
-                |_| {},
-            ) {
-                Err(e)
-                    if matches!(
-                        e.downcast_ref::<crate::control::Interrupted>(),
-                        Some(crate::control::Interrupted(StopReason::WorkLimit))
-                    ) =>
-                {
-                    let mut deadline = || clock.now().is_infinite().then_some(StopReason::Deadline);
-                    let mut once_control = Control::new(None, Some(&mut deadline));
-                    let once = crate::optimize::Options {
-                        passes: 1,
-                        ..construct
-                    };
-                    let warm = crate::optimize::optimize_controlled_scored(
-                        job,
-                        once,
-                        &mut once_control,
-                        material,
-                        fit,
-                        |_| {},
-                    )
-                    .map_err(explain_interruption)?;
-                    clock.charge(
-                        Work::ConstructorCheck,
-                        once_control.collision_checks() as f64 * weight,
-                    );
-                    warm
-                }
-                other => other.map_err(explain_interruption)?,
-            };
-            clock.charge(
-                Work::ConstructorCheck,
-                control.collision_checks() as f64 * weight,
-            );
+                Some(clock),
+                |_| initial_finished.set(true),
+            )
+            .map_err(explain_interruption)?;
+            let remaining = control.collision_checks().saturating_sub(charged.get());
+            if remaining > 0 {
+                clock.charge(Work::ConstructorCheck, remaining as f64 * weight);
+            }
             warm
         }
     })
@@ -1534,6 +1525,18 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[test]
+    fn partial_first_layout_obeys_the_warm_start_work_limit() {
+        let mut job = job(Rotations::List { degrees: vec![0.0] }, false);
+        job.stocks[0].count = Some(1);
+        job.parts[0].quantity = 20;
+        let clock = Clock::new(Timing::Work, 30.0);
+        let warm = warm_start(&job, 0, &clock, 0.0, 30.0, 30.0, None, Fit::Require).unwrap();
+        assert!(!warm.validation.valid);
+        assert_eq!(warm.completed_passes, 1);
+        assert!(!clock.hit_hard_limit());
     }
 
     #[test]
@@ -1921,6 +1924,7 @@ mod tests {
                 &mut control,
                 None,
                 fit,
+                None,
                 |_| {},
             );
             if fit == Fit::Require {
@@ -1979,5 +1983,82 @@ mod tests {
         .unwrap();
         assert!(validate(&job, &result.layout).unwrap().valid);
         assert_eq!(result.layout.sheets.len(), 2);
+    }
+
+    #[test]
+    fn repeatable_part_in_hole_warm_start_respects_budget_and_repeats() {
+        // Issue #38: when riders fill a holed frame, the grouped job has one
+        // complex part. Warm-start validations must charge the work clock so a
+        // short repeatable budget finishes cleanly and replays identically.
+        let mut frame = Part {
+            id: "frame".into(),
+            quantity: 1,
+            geometry: vec![nestbolt_validator::Polygon {
+                outer: vec![[0.0, 0.0], [300.0, 0.0], [300.0, 200.0], [0.0, 200.0]],
+                holes: vec![vec![
+                    [30.0, 30.0],
+                    [270.0, 30.0],
+                    [270.0, 170.0],
+                    [30.0, 170.0],
+                ]],
+            }],
+            rotations: Rotations::List {
+                degrees: vec![0.0, 180.0],
+            },
+            allow_mirror: false,
+            priority: 1.0,
+        };
+        // Add a second small hole so validation does meaningful Clipper2 work.
+        frame.geometry[0]
+            .holes
+            .push(vec![[8.0, 8.0], [20.0, 8.0], [20.0, 20.0], [8.0, 20.0]]);
+        let washer = Part {
+            id: "washer".into(),
+            quantity: 4,
+            geometry: vec![nestbolt_validator::job::rectangle(0.0, 0.0, 50.0, 50.0)],
+            rotations: Rotations::List {
+                degrees: vec![0.0, 180.0],
+            },
+            allow_mirror: false,
+            priority: 1.0,
+        };
+        let mut j = job(
+            Rotations::List {
+                degrees: vec![0.0, 180.0],
+            },
+            false,
+        );
+        j.parts = vec![frame, washer];
+        j.stocks[0].width = 320.0;
+        j.stocks[0].height = 220.0;
+        j.clearance = 1.0;
+        j.edge_clearance = 0.5;
+        let run = || {
+            optimize(
+                &j,
+                Options {
+                    seconds: 2.0,
+                    seed: 1,
+                    timing: Timing::Work,
+                    time_limit: Some(10.0),
+                    ..Options::default()
+                },
+                |_, _| {},
+            )
+            .unwrap()
+        };
+        let a = run();
+        let b = run();
+        assert!(
+            a.repeatable,
+            "expected repeatable run, elapsed={}",
+            a.elapsed_seconds
+        );
+        assert!(a.riders > 0);
+        assert!(a.counts.validated_vertices > 0.0);
+        assert_eq!(
+            serde_json::to_string(&a.layout).unwrap(),
+            serde_json::to_string(&b.layout).unwrap()
+        );
     }
 }

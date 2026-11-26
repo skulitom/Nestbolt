@@ -365,3 +365,44 @@ fn a_completely_defective_sheet_allows_only_an_empty_fill_result() {
     layout.placements.clear();
     assert!(validate(&job, &layout).unwrap().valid);
 }
+
+#[test]
+fn sweep_and_prune_validates_ten_thousand_parts_on_one_sheet_and_catches_single_violation() {
+    let (mut job, mut layout) = fixture();
+    job.clearance = 1.0;
+    job.edge_clearance = 1.0;
+    job.parts[0].geometry = vec![rectangle(0.0, 0.0, 10.0, 10.0)];
+    job.parts[0].quantity = 10_000;
+    job.stocks[0].width = 1220.0;
+    job.stocks[0].height = 2440.0;
+    layout.sheets = vec![Sheet {
+        id: "s0".into(),
+        stock_id: "stock".into(),
+    }];
+    layout.placements = (0..10_000_u32)
+        .map(|n| {
+            let col = f64::from(n % 100);
+            let row = f64::from(n / 100);
+            placement("a", n, "s0", 10.0 + col * 11.5, 10.0 + row * 11.5)
+        })
+        .collect();
+    let valid_report = validate(&job, &layout).unwrap();
+    assert!(valid_report.valid, "{:?}", valid_report.violations);
+    assert_eq!(valid_report.metrics.unwrap().placed_parts, 10_000);
+
+    // Nudge one interior part by 0.6 mm along X so its gap to its right neighbour drops to 0.9 mm (< 1.0 mm).
+    let mut bad_clearance = layout.clone();
+    bad_clearance.placements[5050].transform.translation[0] += 0.6;
+    let clearance_report = validate(&job, &bad_clearance).unwrap();
+    assert!(!clearance_report.valid);
+    assert!(has(&clearance_report, "clearance"));
+    assert_eq!(clearance_report.violation_count, 1);
+
+    // Move one part onto another out-of-order index so sweep must catch non-adjacent indices too.
+    let mut bad_overlap = layout;
+    bad_overlap.placements[9999].transform.translation =
+        bad_overlap.placements[123].transform.translation;
+    let overlap_report = validate(&job, &bad_overlap).unwrap();
+    assert!(!overlap_report.valid);
+    assert!(has(&overlap_report, "overlap"));
+}

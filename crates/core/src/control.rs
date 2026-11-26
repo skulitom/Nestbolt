@@ -22,10 +22,15 @@ impl fmt::Display for Interrupted {
 }
 impl Error for Interrupted {}
 
+enum Probe<'a> {
+    Plain(&'a mut dyn FnMut() -> Option<StopReason>),
+    WithUsed(&'a mut dyn FnMut(u64) -> Option<StopReason>),
+}
+
 pub struct Control<'a> {
     limit: Option<u64>,
     used: u64,
-    probe: Option<&'a mut dyn FnMut() -> Option<StopReason>>,
+    probe: Option<Probe<'a>>,
     stopped: Option<StopReason>,
 }
 
@@ -37,7 +42,19 @@ impl<'a> Control<'a> {
         Self {
             limit,
             used: 0,
-            probe,
+            probe: probe.map(Probe::Plain),
+            stopped: None,
+        }
+    }
+
+    pub(crate) fn with_used_probe(
+        limit: Option<u64>,
+        probe: &'a mut dyn FnMut(u64) -> Option<StopReason>,
+    ) -> Self {
+        Self {
+            limit,
+            used: 0,
+            probe: Some(Probe::WithUsed(probe)),
             stopped: None,
         }
     }
@@ -58,7 +75,11 @@ impl<'a> Control<'a> {
     /// geometry calls and independent validation are not preempted midway.
     pub(crate) fn checkpoint(&mut self) -> Result<(), Interrupted> {
         if self.stopped.is_none() {
-            self.stopped = self.probe.as_mut().and_then(|probe| probe());
+            let used = self.used;
+            self.stopped = self.probe.as_mut().and_then(|probe| match probe {
+                Probe::Plain(f) => f(),
+                Probe::WithUsed(f) => f(used),
+            });
         }
         self.stopped
             .map_or(Ok(()), |reason| Err(Interrupted(reason)))

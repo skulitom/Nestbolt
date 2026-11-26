@@ -105,6 +105,88 @@ enum Command {
         #[arg(long, num_args = 0..=1, default_missing_value = "true")]
         sheet_outline: Option<bool>,
     },
+    /// Extract reusable rectangular or true-shape offcut remnants on the SHEET layer.
+    Offcut {
+        #[arg(long)]
+        library: PathBuf,
+        #[arg(long)]
+        request: PathBuf,
+        #[arg(long)]
+        layout: PathBuf,
+        #[arg(long)]
+        out_dir: PathBuf,
+        /// Extract only this sheet id; omit to check every sheet in the layout.
+        #[arg(long)]
+        sheet: Option<String>,
+        /// Straight guillotine slab (`rectangular`) or true-shape subtraction (`exact`).
+        #[arg(long, value_enum, default_value_t = CliOffcutMode::Rectangular)]
+        mode: CliOffcutMode,
+        /// Discard fragments smaller than this area in mm².
+        #[arg(long, default_value_t = 2500.0)]
+        min_area: f64,
+        /// Discard thin slivers whose bounding-box width or height is below this limit in mm.
+        #[arg(long, default_value_t = 25.0)]
+        min_dimension: f64,
+        /// Export format: both SVG and DXF, or one of them.
+        #[arg(long, default_value = "both", value_parser = ["both", "svg", "dxf"])]
+        format: String,
+    },
+    /// Compute exact curve cut lengths, pierces, offcut area and optional shop job quote.
+    Quote {
+        #[arg(long)]
+        library: PathBuf,
+        #[arg(long)]
+        request: PathBuf,
+        #[arg(long)]
+        layout: PathBuf,
+        /// Default cost per full sheet.
+        #[arg(long)]
+        sheet_cost: Option<f64>,
+        /// Alternative material cost per square metre of full sheet area.
+        #[arg(long)]
+        material_cost_per_m2: Option<f64>,
+        /// Credit reusable trailing offcut area proportionally against material cost.
+        #[arg(long)]
+        credit_offcut: bool,
+        /// Cutting speed in mm/min (for example 1200 for laser plywood).
+        #[arg(long)]
+        cut_speed: Option<f64>,
+        /// Dwell / pierce seconds per closed contour.
+        #[arg(long, default_value_t = 0.0)]
+        pierce_seconds: f64,
+        /// Hourly machine and operator rate.
+        #[arg(long)]
+        machine_rate: Option<f64>,
+        /// Fixed setup fee per job.
+        #[arg(long, default_value_t = 0.0)]
+        setup_cost: f64,
+        /// Currency code or symbol (default USD).
+        #[arg(long)]
+        currency: Option<String>,
+        /// Output format: json, csv or markdown.
+        #[arg(long, default_value = "json", value_parser = ["json", "csv", "markdown"])]
+        format: String,
+    },
+    /// Send an exported .lbrn2, .svg or .dxf sheet to a local LightBurn 2.2+ REST API.
+    LightburnSend {
+        /// File to send (.lbrn2, .svg or .dxf); omit when using --status.
+        #[arg(long, required_unless_present = "status")]
+        file: Option<PathBuf>,
+        /// Merge into the open project (`upload`) or replace it (`open`).
+        #[arg(long, value_enum, default_value_t = CliLightburnMode::Upload)]
+        mode: CliLightburnMode,
+        /// Host running LightBurn's REST API (loopback only unless --allow-lan is set).
+        #[arg(long, default_value = nestbolt_core::lightburn_api::DEFAULT_HOST)]
+        host: String,
+        #[arg(long, default_value_t = nestbolt_core::lightburn_api::DEFAULT_PORT)]
+        port: u16,
+        /// Allow connecting to a non-loopback LAN host.
+        #[arg(long)]
+        allow_lan: bool,
+        /// Only check GET /api/status without sending a file.
+        #[arg(long)]
+        status: bool,
+    },
     /// Native strip-parity diagnostic using pinned Sparrow, timed rather than fixed-work.
     Strip {
         #[arg(long)]
@@ -231,6 +313,18 @@ enum InputUnits {
     Mm,
     Inch,
     Unitless,
+}
+
+#[derive(Clone, Copy, ValueEnum)]
+enum CliOffcutMode {
+    Rectangular,
+    Exact,
+}
+
+#[derive(Clone, Copy, ValueEnum)]
+enum CliLightburnMode {
+    Upload,
+    Open,
 }
 
 impl From<InputUnits> for Units {
@@ -475,6 +569,135 @@ fn main() -> Result<()> {
                 "{}",
                 serde_json::to_string_pretty(&serde_json::json!({"files": files}))?
             );
+        }
+        Command::Offcut {
+            library,
+            request,
+            layout,
+            out_dir,
+            sheet,
+            mode,
+            min_area,
+            min_dimension,
+            format,
+        } => {
+            let library = load_library(&library)?;
+            let request: nestbolt_core::project::Request =
+                serde_json::from_slice(&fs::read(&request)?)?;
+            let layout: nestbolt_validator::job::Layout =
+                serde_json::from_slice(&fs::read(&layout)?)?;
+            let report = nestbolt_core::offcut::for_request(
+                &request,
+                &library,
+                &layout,
+                sheet.as_deref(),
+                nestbolt_core::offcut::Options {
+                    mode: match mode {
+                        CliOffcutMode::Rectangular => {
+                            nestbolt_core::offcut::OffcutMode::Rectangular
+                        }
+                        CliOffcutMode::Exact => nestbolt_core::offcut::OffcutMode::Exact,
+                    },
+                    min_area_mm2: min_area,
+                    min_dimension_mm: min_dimension,
+                },
+            )?;
+            fs::create_dir_all(&out_dir)?;
+            let mut files = Vec::new();
+            for remnant in &report.remnants {
+                if format == "both" || format == "svg" {
+                    let path = out_dir.join(format!("{}.svg", remnant.id));
+                    write_new(&path, remnant.to_svg()?.as_bytes())?;
+                    files.push(path.display().to_string());
+                }
+                if format == "both" || format == "dxf" {
+                    let path = out_dir.join(format!("{}.dxf", remnant.id));
+                    write_new(&path, remnant.to_dxf()?.as_bytes())?;
+                    files.push(path.display().to_string());
+                }
+            }
+            write_new(
+                &out_dir.join("offcut-report.json"),
+                serde_json::to_string_pretty(&report)?.as_bytes(),
+            )?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&serde_json::json!({
+                    "report": report,
+                    "files": files,
+                }))?
+            );
+        }
+        Command::Quote {
+            library,
+            request,
+            layout,
+            sheet_cost,
+            material_cost_per_m2,
+            credit_offcut,
+            cut_speed,
+            pierce_seconds,
+            machine_rate,
+            setup_cost,
+            currency,
+            format,
+        } => {
+            let library = load_library(&library)?;
+            let request: nestbolt_core::project::Request =
+                serde_json::from_slice(&fs::read(&request)?)?;
+            let layout: nestbolt_validator::job::Layout =
+                serde_json::from_slice(&fs::read(&layout)?)?;
+            let pricing = nestbolt_core::quote::Pricing {
+                sheet_cost,
+                material_cost_per_m2,
+                credit_offcut,
+                cut_speed_mm_per_min: cut_speed,
+                pierce_seconds,
+                machine_rate_per_hour: machine_rate,
+                setup_cost,
+                currency,
+                ..Default::default()
+            };
+            let quote = nestbolt_core::quote::for_request(&request, &library, &layout, &pricing)?;
+            match format.as_str() {
+                "csv" => print!("{}", quote.to_csv()),
+                "markdown" => print!("{}", quote.to_markdown()),
+                _ => println!("{}", serde_json::to_string_pretty(&quote)?),
+            }
+        }
+        Command::LightburnSend {
+            file,
+            mode,
+            host,
+            port,
+            allow_lan,
+            status,
+        } => {
+            let options = nestbolt_core::lightburn_api::ClientOptions {
+                host,
+                port,
+                allow_lan,
+                ..Default::default()
+            };
+            let token = std::env::var("LIGHTBURN_API_TOKEN")
+                .context("set LIGHTBURN_API_TOKEN to a current paired token (see docs/LBRN2.md)")?;
+            let response = if status {
+                nestbolt_core::lightburn_api::status(&options, &token)?
+            } else {
+                let path = file.context("--file is required unless --status is set")?;
+                let name = path
+                    .file_name()
+                    .and_then(|n| n.to_str())
+                    .context("invalid file name")?;
+                let bytes =
+                    fs::read(&path).with_context(|| format!("cannot read {}", path.display()))?;
+                let send_mode = match mode {
+                    CliLightburnMode::Upload => nestbolt_core::lightburn_api::SendMode::Upload,
+                    CliLightburnMode::Open => nestbolt_core::lightburn_api::SendMode::Open,
+                };
+                nestbolt_core::lightburn_api::send_file(&options, &token, send_mode, name, &bytes)?
+            };
+            println!("{}", serde_json::to_string_pretty(&response)?);
         }
         Command::Strip {
             job,

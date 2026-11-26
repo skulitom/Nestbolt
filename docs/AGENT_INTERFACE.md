@@ -1,14 +1,16 @@
 # Agent interface
 
-`nestbolt-mcp` is a native stdio MCP server (rmcp 3.5.1) with five tools over the
+`nestbolt-mcp` is a native stdio MCP server (rmcp 3.5.1) with seven tools over the
 same core as the CLI. It needs no network, account or credentials.
 
 | Tool | What it does |
 | --- | --- |
 | `import_parts` | Reads SVG/DXF files or one LightBurn project, writes a part library (exact curves plus nesting polygons, mm) and returns part ids, areas, bounds, import warnings and separate stock-outline summaries |
-| `nest` | Nests library parts on fixed sheets with a repeatable budget (`time_budget_s` ≤ 300, `seed`); writes `job.json`, `layout.json`, `report.json` and per-sheet SVG/DXF or preserving LBRN2 files; sends progress notifications |
+| `nest` | Nests library parts on fixed sheets with a repeatable budget (`time_budget_s` ≤ 300, optional `time_limit_s` ≤ 600, `seed`); writes `job.json`, `layout.json`, `report.json` and per-sheet SVG/DXF or preserving LBRN2 files; sends progress notifications |
 | `validate_layout` | Checks a layout file against a request with the independent validator |
 | `export_layout` | Writes per-sheet SVG/DXF or preserving LBRN2 files from a valid layout; arcs and splines stay curves |
+| `export_offcut` | Extracts reusable rectangular (guillotine) or exact (true-shape) leftover remnants from a valid layout and writes `SHEET`-layer SVG/DXF files ready to re-import as stock outlines in future jobs |
+| `quote_layout` | Computes exact curve cut lengths (deducting verified common-line savings), pierce counts, material utilization, trailing offcut area, estimated cut time and optional shop cost breakdown |
 | `estimate_sheets` | Net part area over usable sheet area: a necessary lower bound, never a layout; flags parts that fit no sheet |
 
 A `nest` request names library parts and the sheets, in millimetres:

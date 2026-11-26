@@ -218,6 +218,26 @@ impl Footprint {
             .collect())
     }
 
+    /// Expand a footprint outward by `distance` in the footprint's declared units.
+    /// Useful for clearance-safe remnant subtraction and cutting envelopes.
+    pub fn expand(&self, distance: f64) -> Result<Self> {
+        ensure!(
+            distance.is_finite() && distance >= 0.0,
+            "expansion distance must be finite and nonnegative"
+        );
+        let gap = distance * self.units.to_mm();
+        ensure!(
+            gap <= MAX_COORDINATE,
+            "expansion distance exceeds validator range"
+        );
+        if gap == 0.0 {
+            return Ok(self.clone());
+        }
+        let paths = clearance_envelope(&self.paths, gap)?;
+        Self::from_paths(paths, self.units)
+            .ok_or_else(|| anyhow::anyhow!("expanded footprint has no area"))
+    }
+
     pub(crate) fn boundary_tolerance(&self) -> Result<Self> {
         let mut engine = ClipperOffset::new(2.0, 0.0, false, false);
         engine.add_paths(&self.paths, JoinType::Miter, EndType::Polygon);
