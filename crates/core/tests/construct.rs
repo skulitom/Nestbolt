@@ -549,6 +549,12 @@ fn free_parts_that_fit_at_a_grid_angle_search_exactly_the_grid() {
     assert_eq!(run(&free), run(&grid));
 }
 
+/// Room the constructor needs around this strip beyond what it needed on
+/// jagua-rs 1.1.0: twice the growth of the engine separation (0.0039 to
+/// 0.0456 mm for a 1020 mm part without spacing), which keeps the collision
+/// outlines' margin through jagua-rs 2.0's short-edge removal.
+const ENGINE_ROOM: f64 = 0.083341;
+
 /// The issue's strip without spacing, on a sheet `slack` larger each way than
 /// the strip's bounding box at 3600/251 degrees (about 14.34).
 fn narrow_strip_job(slack: f64) -> Job {
@@ -569,7 +575,7 @@ fn a_free_part_that_fits_between_scan_steps_is_placed() {
     // The strip fits about 0.004 degrees around 14.34 degrees, between the
     // scan's 0.1-degree steps, as `--free-rotations 251` shows.
     for mirror in [false, true] {
-        let mut source = narrow_strip_job(0.03);
+        let mut source = narrow_strip_job(0.03 + ENGINE_ROOM);
         source.parts[0].allow_mirror = mirror;
         let grid = Options {
             free_rotations: 251,
@@ -603,10 +609,11 @@ fn a_part_that_just_misses_at_every_angle_is_named() {
 
 #[test]
 fn a_fit_closer_than_f32_can_tell_is_left_to_the_search() {
-    // With 0.01 mm slack the strip overhangs the constructor's sheet bounds at
-    // every angle, but by less than f32 rounding: the scan cannot rule a fit
-    // out, so it does not name the part, and construction leaves it out.
-    let source = narrow_strip_job(0.01);
+    // With 0.01 mm slack beyond the engine's room the strip overhangs the
+    // constructor's sheet bounds at every angle, but by less than f32 rounding:
+    // the scan cannot rule a fit out, so it does not name the part, and
+    // construction leaves it out.
+    let source = narrow_strip_job(0.01 + ENGINE_ROOM);
     let prepared = PreparedJob::new(&source).unwrap();
     prepared.ensure_parts_fit(Options::default()).unwrap();
     assert!(!prepared.construct(Options::default()).unwrap().complete);

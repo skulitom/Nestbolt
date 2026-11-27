@@ -41,6 +41,9 @@ pub struct Options {
 }
 
 #[cfg(test)]
+mod separation_tests;
+
+#[cfg(test)]
 mod order_tests {
     use super::*;
 
@@ -415,6 +418,86 @@ pub(crate) fn conversion_guard(job: &Job) -> f64 {
         .chain(job.stocks.iter().flat_map(|s| [s.width, s.height]))
         .fold(1.0, f64::max);
     (magnitude * 32.0 * f32::EPSILON as f64).max(0.00002 / job.units.to_mm())
+}
+
+/// jagua-rs 2.0 drops every vertex closer than this share of a polygon's
+/// diameter to the previous kept one (`SPolygon::MIN_EDGE_LENGTH_RATIO`, 1e-5),
+/// with 2% headroom for the diameter an inflated outline gains.
+const SHORT_EDGE_RATIO: f64 = 1.02e-5;
+
+/// The `min_item_separation` that keeps original outlines at least `required`
+/// apart (and `required` from stock edges) in jagua's collision shapes.
+///
+/// jagua inflates items and zones, and deflates containers, by half the
+/// separation with inscribed 0.1-radian round joins, then rebuilds each
+/// polygon without its short edges. Each side must therefore keep
+/// `(required + guard) / 2` after three losses:
+/// - the round joins' chord deficit, `1 - cos(0.05)` of the offset;
+/// - vertex removal in a part outline and again in its offset, each moving
+///   the boundary by less than the part's shortest allowed edge;
+/// - on stock-scale shapes (sheet walls, the end blocker, defects, remnant
+///   outlines), whose shortest allowed edge is far larger, corner arcs thinned
+///   to chords or cut off where an arc meets the next edge. Rectangles lose
+///   only at those arcs; drawn outlines and defects may also have short edges
+///   of their own and take the general bound.
+pub(crate) fn engine_separation(job: &Job, required: f64) -> f64 {
+    let guard = conversion_guard(job);
+    let need = (required + guard) / 2.0;
+    let grown = 2.0 * (required + guard);
+    let part_diameter = job
+        .parts
+        .iter()
+        .map(|part| {
+            let points = || part.geometry.iter().flat_map(|p| p.outer.iter());
+            let span = |axis: usize| {
+                let (low, high) = points().fold((f64::MAX, f64::MIN), |(low, high), p| {
+                    (low.min(p[axis]), high.max(p[axis]))
+                });
+                (high - low).max(0.0)
+            };
+            span(0).hypot(span(1))
+        })
+        .fold(0.0, f64::max);
+    let stock_diameter = job
+        .stocks
+        .iter()
+        .map(|s| s.width.hypot(s.height))
+        .fold(0.0, f64::max);
+    let part_edge = SHORT_EDGE_RATIO * (part_diameter + grown);
+    let stock_edge = SHORT_EDGE_RATIO * (stock_diameter + grown);
+    let chord = 0.05_f64.cos();
+    let part_half = (need + 2.0 * part_edge) / chord;
+    let drawn_stock = job
+        .stocks
+        .iter()
+        .any(|s| !s.outline.is_empty() || !s.defects.is_empty());
+    let stock_half = if drawn_stock {
+        (need + 2.0 * stock_edge) / chord
+    } else {
+        // Margin left at a rectangle's corner arcs after an offset of `half`:
+        // kept arc vertices lie at most two short edges plus one 0.1-radian
+        // step apart, and an arc may end up to two short edges early.
+        let kept = |half: f64| {
+            let chord = ((2.0 * stock_edge + 0.1 * half) / (2.0 * half)).min(1.0);
+            let cut = (stock_edge / half).min(1.0);
+            half * (1.0 - chord * chord).sqrt().min(1.0 - 2.0 * cut * cut)
+        };
+        // `kept` grows with the offset; bisect for the smallest that suffices.
+        let (mut low, mut high) = (need, need / chord + 4.0 * stock_edge);
+        while kept(high) < need {
+            high += 0.01 * need + 4.0 * stock_edge;
+        }
+        for _ in 0..64 {
+            let middle = 0.5 * (low + high);
+            if kept(middle) >= need {
+                high = middle;
+            } else {
+                low = middle;
+            }
+        }
+        high
+    };
+    2.0 * part_half.max(stock_half)
 }
 
 fn shape(points: &[[f64; 2]]) -> ExtShape {
@@ -964,17 +1047,14 @@ impl<'a> PreparedJob<'a> {
         );
         // Final validity is still checked independently.
         let guard = conversion_guard(job);
-        // jagua uses 0.1-radian inscribed round joins. Compensate their chord
-        // deficit as well as f32 rounding before allowing contact placements.
-        let separation = (job.clearance.max(job.edge_clearance) + guard) / 0.05_f64.cos();
+        // Covers f32 rounding, jagua's inscribed round joins and its short-edge
+        // removal before allowing contact placements.
+        let separation = engine_separation(job, job.clearance.max(job.edge_clearance));
         let importer = Importer::new(
             CDEConfig {
-                quadtree_depth: 5,
-                cd_threshold: 96,
                 item_surrogate_config: SPSurrogateConfig {
                     n_pole_limits: [(1, 0.0), (1, 0.75), (1, 0.90)],
                     ff_pole_area_ratio: 1.0,
-                    n_ff_piers: 0,
                 },
             },
             None,
@@ -1662,20 +1742,26 @@ mod fit_tests {
     #[test]
     fn angles_found_between_steps_are_the_middles_of_their_ranges() {
         // The issue's strip without spacing, 0.03 mm larger each way than its
-        // bounding box at 3600/251 degrees: it fits about 0.004 degrees there,
-        // between the scan's steps, and at the three mirrored or opposite angles.
+        // bounding box and the engine separation at 3600/251 degrees: it fits
+        // about 0.004 degrees there, between the scan's steps, and at the three
+        // mirrored or opposite angles.
         let angle = (3600.0_f64 / 251.0).to_radians();
         let (width, height) = (
             1020.0 * angle.cos() + 10.0 * angle.sin(),
             1020.0 * angle.sin() + 10.0 * angle.cos(),
         );
-        let mut source = single(
-            rectangle(0.0, 0.0, 1020.0, 10.0),
-            false,
-            width + 0.03,
-            height + 0.03,
-        );
-        source.clearance = 0.0;
+        let strip = |room: f64| {
+            let mut source = single(
+                rectangle(0.0, 0.0, 1020.0, 10.0),
+                false,
+                width + room,
+                height + room,
+            );
+            source.clearance = 0.0;
+            source
+        };
+        // Items grow and the sheet shrinks by half the separation on each side.
+        let source = strip(0.03 + 2.0 * engine_separation(&strip(0.03), 0.0));
         let prepared = PreparedJob::new(&source).unwrap();
         let mut buffer = prepared.items[0].shape_cd().as_ref().clone();
         let angles = scanned(&prepared);
