@@ -1,0 +1,42 @@
+Nestbolt DXF fixture run: nestbolt 0.2.0-alpha.1 (main at commit 4ac32f7, built from source on 2026-11-27)
+Python 3.13.9, ezdxf 1.4.3
+12 of 12 checks pass; 7 of 7 planted faults caught
+
+PASS   U1  a DXF marked millimetres ($INSUNITS 4) imports at its drawn size
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2; units report declared, mm per unit = (True, 1.0)
+PASS   U2  the same plates drawn in inches ($INSUNITS 1) import at the same millimetre size
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2; declared, mm per unit = (True, 25.4)
+PASS   U3  an R12 DXF with no units is not rescaled silently: 1 mm per unit, and the report flags possible inches
+         3.149606 x 1.968504 mm, 1 hole(s), 5.72 mm2; 2.362205 x 1.574803 mm, 0 hole(s), 3.72 mm2; 2.755906 x 2.755906 mm, 0 hole(s), 4.46 mm2; declared False, mm per unit 1.0, possible_inches True; warning: plates-r12-nounit.dxf: no drawing units; assuming 1 mm per unit | plates-r12-nounit.dxf: drawing units are missing and the largest selected dimension is 9.842520 units (under 60); this may be an inches drawing. Choose inches (25.4 mm per unit) if appropriate; current scale is 1 mm per unit. No ...
+PASS   U4  the same R12 file with --dxf-unit-mm 25.4 imports at the drawn size
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2; declared, mm per unit = (False, 25.4)
+PASS   U5  units declared in the file win over --dxf-unit-mm (inch file, fallback 10)
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2; declared, mm per unit = (True, 25.4)
+PASS   U6  the same plates in each $INSUNITS length code from 1 to 21 import at the same millimetre size
+         21 of 21 codes import at the drawn size (codes [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]); not imported: none
+PASS   B1  a binary DXF (two-byte group codes) imports the same parts as its text twin
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2; curves equal to the text file's: True
+PASS   B2  an R12 binary DXF (one-byte group codes) imports the same parts as its text twin
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2; curves equal to the text file's: True
+PASS   L1  chosen layers are read when frozen (CUT) or off (PROFILE); the NOTES frame stays out
+         80 x 50 mm, 1 hole(s), 3686.05 mm2; 60 x 40 mm, 0 hole(s), 2400.00 mm2; 70 x 70 mm, 0 hole(s), 2875.00 mm2
+PASS   L2  with no --layers, hidden layers stay out: only the visible NOTES frame is imported (a limit, stated as one)
+         parts [('200', '120', 0)]; selection mode closed_contours; warnings: plates-hidden-layers.dxf: ignored 1 CIRCLE on layer "CUT": hidden DXF entity or layer | plates-hidden-layers.dxf: ignored 2 LWPOLYLINE on layer "CUT": hidden DXF entity or layer | plates-hidden-layers.dxf: ignored 1 LWPOLYLINE on layer "PROFILE": hidden DXF entity or layer
+PASS   Q1  12 + 16 + 10 plates on 300 x 200 mm sheets: every part placed, three sheets, a valid layout
+         report: placed 38 of 38, sheets 3, valid True; `nestbolt validate`: valid True; material 2.561 sheets
+PASS   Q2  the three exported DXF sheets, read with ezdxf, hold exactly the requested plates: holes in place, inside the margins, 2 mm apart
+         counted {'B': 16, 'C': 10, 'A': 12, 'A-hole': 12} (wanted {'A': 12, 'B': 16, 'C': 10, 'A-hole': 12}); smallest gap between plates per sheet (mm): {'sheet-0.dxf': 2.015, 'sheet-1.dxf': 2.016, 'sheet-2.dxf': 2.055}; problems: none
+CAUGHT M1  units: an inch drawing whose header says millimetres must not pass the size check
+         expected 80 x 50 mm, 1 hole(s), 3685.84 mm2; got [('3.149606', '1.968504', 1, 5.72), ('2.362205', '1.574803', 0, 3.72), ('2.755906', '2.755906', 0, 4.46)]
+CAUGHT M2  binary: a truncated binary DXF must not pass
+         no library: the import failed; exit 1; message: Error: cannot decode <out>\mutants\truncated-binary.dxf Caused by: binary DXF is truncated in the group at byte 7674; re-export the drawing
+CAUGHT M3  layers: choosing only the NOTES layer must not pass
+         expected 80 x 50 mm, 1 hole(s), 3685.84 mm2; got [('200', '120', 0, 24000.0)]
+CAUGHT M4  quantities: a sheet with the first four lines of one plate deleted must not pass the count
+         counted {'B': 16, 'C': 10, 'A': 11, 'A-hole': 12} (wanted {'A': 12, 'B': 16, 'C': 10, 'A-hole': 12}); problems: ['quantity-sheet-1-one-outline-deleted.dxf: a hole at (176.833, 30.035) is not at the middle of any 80 x 50 plate']
+CAUGHT M5  units: a US-survey-foot drawing whose header says feet (2 parts in a million apart) must not pass the size check
+         expected 80 x 50 mm, 1 hole(s), 3685.84 mm2; got [('79.99984', '49.9999', 1, 3686.03), ('59.99988', '39.99992', 0, 2399.99), ('69.99986', '69.99986', 0, 2874.99)]
+CAUGHT M6  holes: a sheet with one hole moved 30 mm off its plate must not pass
+         problems: ['quantity-sheet-0-one-hole-moved.dxf: the 80 x 50 plate centred at (154.142, 109.601) has 0 holes at its middle', 'quantity-sheet-0-one-hole-moved.dxf: a hole at (184.142, 109.601) is not at the middle of any 80 x 50 plate']
+CAUGHT M7  spacing: a sheet with one plate moved onto another must not pass our own spacing check
+         problems: ['quantity-sheet-0-one-plate-moved-onto-another.dxf: two plates are 0.000 mm apart, closer than the 2 mm asked for']
