@@ -18,7 +18,7 @@
    "binary_sha256": "eec649ac50420390a01ea4a7345dba324a5407f7e89ef3b84e9ef0b00b10489f"
   },
   "port-s1": {
-   "record": "benchmarks/results/sheets-jagua2-port-v5-60s-s1-20261127T154318Z-960d5e45.json",
+   "record": "benchmarks/results/sheets-jagua2-port-v5-60s-s1-rerun-20261127T164049Z-1b585e28.json",
    "binary_sha256": "87045a2e3fc40aa7d4a435ba16dc2ba0e59071884566e167ad77b5d6f77eab81"
   },
   "main-s2": {
@@ -26,40 +26,45 @@
    "binary_sha256": "eec649ac50420390a01ea4a7345dba324a5407f7e89ef3b84e9ef0b00b10489f"
   },
   "port-s2": {
-   "record": "benchmarks/results/sheets-jagua2-port-v5-60s-s2-20261127T160125Z-44041598.json",
+   "record": "benchmarks/results/sheets-jagua2-port-v5-60s-s2-rerun2-20261127T165952Z-63e44c9e.json",
    "binary_sha256": "87045a2e3fc40aa7d4a435ba16dc2ba0e59071884566e167ad77b5d6f77eab81"
   }
  },
  "jobs": {},
+ "slowed_batches_not_used": [
+  "benchmarks/results/sheets-jagua2-port-v5-60s-s1-20261127T154318Z-960d5e45.json",
+  "benchmarks/results/sheets-jagua2-port-v5-60s-s2-20261127T160125Z-44041598.json",
+  "benchmarks/results/sheets-jagua2-port-v5-60s-s2-rerun-20261127T164945Z-19e7eb71.json"
+ ],
  "summary": {
   "jobs": 65,
   "valid_main": 195,
   "valid_port": 195,
   "runs_each": 195,
-  "port_lower": 40,
-  "tied": 5,
-  "port_higher": 20,
-  "median_change_percent": -0.10341202331667354,
-  "mean_change_percent": -0.36650861879046154,
-  "seed_pairs_lower": 112,
-  "seed_pairs_higher": 68,
+  "port_lower": 43,
+  "tied": 6,
+  "port_higher": 16,
+  "median_change_percent": -0.19784529852130417,
+  "mean_change_percent": -0.5806912048939952,
+  "seed_pairs_lower": 123,
+  "seed_pairs_higher": 57,
   "seed_pairs": 195,
-  "more_than_one_percent_better": 12,
-  "more_than_one_percent_worse": 4,
+  "more_than_one_percent_better": 17,
+  "more_than_one_percent_worse": 1,
   "competitor_jobs": 52,
   "main_median_reduction_vs_competitor": 8.832528939617085,
-  "port_median_reduction_vs_competitor": 8.981251180771999,
+  "port_median_reduction_vs_competitor": 8.806379268684488,
   "main_wins_or_ties": 48,
-  "port_wins_or_ties": 48,
+  "port_wins_or_ties": 49,
   "main_more_than_one_percent_worse": 0,
-  "port_more_than_one_percent_worse": 1
+  "port_more_than_one_percent_worse": 0
  },
  "rows": [
   {
    "job": "m-mechanical-batch-1000",
    "main_median": 1.0252432752,
-   "port_median": 0.9974577319999999,
-   "change_percent": -2.710141472966976,
+   "port_median": 0.9961468943999999,
+   "change_percent": -2.8379977224746056,
    "main_sheets": [
     2,
     2,
@@ -67,7 +72,7 @@
    ],
    "port_sheets": [
     1,
-    2,
+    1,
     1
    ],
    "main_vs_competitor": null,
@@ -76,8 +81,8 @@
   {
    "job": "m-garment-bruce-3",
    "main_median": 1.0273975201666667,
-   "port_median": 0.9999764409999998,
-   "change_percent": -2.668984363736693,
+   "port_median": 0.9999932736666668,
+   "change_percent": -2.6673459845955594,
    "main_sheets": [
     2,
     2,
@@ -94,8 +99,8 @@
   {
    "job": "b-shirts-nest-mb-given",
    "main_median": 7.764705846153847,
-   "port_median": 7.564333487179487,
-   "change_percent": -2.5805531200336684,
+   "port_median": 7.564284923076922,
+   "change_percent": -2.581178566812037,
    "main_sheets": [
     8,
     8,
@@ -107,7 +112,43 @@
     8
    ],
    "main_vs_competitor": 5.3676474999999835,
-   "port_vs_competitor": 7.809685624999984
+   "port_vs_competitor": 7.810277500000007
+  },
+  {
+   "job": "b-shapes0-nest-mb-given",
+   "main_median": 5.564254047619047,
+   "port_median": 5.428876047619047,
+   "change_percent": -2.4329945908549755,
+   "main_sheets": [
+    6,
+    6,
+    6
+   ],
+   "port_sheets": [
+    6,
+    6,
+    6
+   ],
+   "main_vs_competitor": 26.044724683544306,
+   "port_vs_competitor": 27.84405253164558
+  },
+  {
+   "job": "b-shapes1-strip-sheet",
+   "main_median": 2.2250168500000003,
+   "port_median": 2.175127525,
+   "change_percent": -2.242199873677364,
+   "main_sheets": [
+    3,
+    3,
+    3
+   ],
+   "port_sheets": [
+    3,
+    3,
+    3
+   ],
+   "main_vs_competitor": 9.182985714285707,
+   "port_vs_competitor": 11.219284693877551
   },
   {
    "job": "m-garment-bruce-1",
@@ -128,42 +169,6 @@
    "port_vs_competitor": 2.135926338681815
   },
   {
-   "job": "m-sign-2",
-   "main_median": 0.5791042900000001,
-   "port_median": 0.5677930925000001,
-   "change_percent": -1.9532228814951424,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": null,
-   "port_vs_competitor": null
-  },
-  {
-   "job": "b-mao-nest-mb-free",
-   "main_median": 1.7266465080522637,
-   "port_median": 1.6935644254026132,
-   "change_percent": -1.9159731013482673,
-   "main_sheets": [
-    2,
-    2,
-    2
-   ],
-   "port_sheets": [
-    2,
-    2,
-    2
-   ],
-   "main_vs_competitor": 9.636388481787295,
-   "port_vs_competitor": 11.367730971883095
-  },
-  {
    "job": "m-mechanical-remnant-kit",
    "main_median": 0.6561887295081967,
    "port_median": 0.6438405073770491,
@@ -182,10 +187,28 @@
    "port_vs_competitor": null
   },
   {
+   "job": "m-sign-2",
+   "main_median": 0.5791042900000001,
+   "port_median": 0.5685031875000001,
+   "change_percent": -1.8306033443475256,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": null,
+   "port_vs_competitor": null
+  },
+  {
    "job": "m-sign-1",
    "main_median": 0.716812615,
-   "port_median": 0.70614527,
-   "change_percent": -1.4881636813827592,
+   "port_median": 0.7043855099999999,
+   "change_percent": -1.7336615929952726,
    "main_sheets": [
     1,
     1,
@@ -197,301 +220,13 @@
     1
    ],
    "main_vs_competitor": 24.128612123141068,
-   "port_vs_competitor": 25.257702562085527
-  },
-  {
-   "job": "m-mechanical-large-plates",
-   "main_median": 1.1132296670000001,
-   "port_median": 1.0973759143333333,
-   "change_percent": -1.4241223654585577,
-   "main_sheets": [
-    2,
-    2,
-    2
-   ],
-   "port_sheets": [
-    2,
-    2,
-    2
-   ],
-   "main_vs_competitor": 10.199273971497702,
-   "port_vs_competitor": 11.478146195213778
-  },
-  {
-   "job": "m-public-gear-3",
-   "main_median": 0.5174296151639345,
-   "port_median": 0.5107796901639344,
-   "change_percent": -1.285184458932298,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": null,
-   "port_vs_competitor": null
-  },
-  {
-   "job": "b-shapes1-strip-sheet",
-   "main_median": 2.2250168500000003,
-   "port_median": 2.200108825,
-   "change_percent": -1.1194533200950874,
-   "main_sheets": [
-    3,
-    3,
-    3
-   ],
-   "port_sheets": [
-    3,
-    3,
-    3
-   ],
-   "main_vs_competitor": 9.182985714285707,
-   "port_vs_competitor": 10.199639795918369
-  },
-  {
-   "job": "b-jakobs1-nest-mb-free",
-   "main_median": 3.41669875,
-   "port_median": 3.381616666666667,
-   "change_percent": -1.026783041183632,
-   "main_sheets": [
-    4,
-    4,
-    4
-   ],
-   "port_sheets": [
-    4,
-    4,
-    4
-   ],
-   "main_vs_competitor": 12.499180487824868,
-   "port_vs_competitor": 13.39762406347258
-  },
-  {
-   "job": "b-mao-nest-mb-given",
-   "main_median": 1.8609872701306593,
-   "port_median": 1.843165780613795,
-   "change_percent": -0.9576362935364457,
-   "main_sheets": [
-    2,
-    2,
-    2
-   ],
-   "port_sheets": [
-    2,
-    2,
-    2
-   ],
-   "main_vs_competitor": 14.294582899524212,
-   "port_vs_competitor": 15.115329079205154
-  },
-  {
-   "job": "b-albano-nest-mb-given",
-   "main_median": 2.7730751456822675,
-   "port_median": 2.749002695891013,
-   "change_percent": -0.8680778026782132,
-   "main_sheets": [
-    3,
-    3,
-    3
-   ],
-   "port_sheets": [
-    3,
-    3,
-    3
-   ],
-   "main_vs_competitor": 2.516105453421913,
-   "port_vs_competitor": 3.362341503166988
-  },
-  {
-   "job": "b-shapes1-nest-mb-given",
-   "main_median": 5.857522857142857,
-   "port_median": 5.809893428571429,
-   "change_percent": -0.8131326113964166,
-   "main_sheets": [
-    6,
-    6,
-    6
-   ],
-   "port_sheets": [
-    6,
-    6,
-    6
-   ],
-   "main_vs_competitor": 22.636490566037736,
-   "port_vs_competitor": 23.26555849056603
-  },
-  {
-   "job": "b-jakobs2-strip-sheet",
-   "main_median": 0.7575144428571429,
-   "port_median": 0.7518356857142857,
-   "change_percent": -0.7496566166366958,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": -0.4782655301618366,
-   "port_vs_competitor": 0.2749764356668072
-  },
-  {
-   "job": "m-mechanical-panel-hardware",
-   "main_median": 1.526429796,
-   "port_median": 1.515053346,
-   "change_percent": -0.74529795145587,
-   "main_sheets": [
-    2,
-    2,
-    2
-   ],
-   "port_sheets": [
-    2,
-    2,
-    2
-   ],
-   "main_vs_competitor": 12.266898806802484,
-   "port_vs_competitor": 12.92077181274408
-  },
-  {
-   "job": "b-shapes0-nest-mb-given",
-   "main_median": 5.564254047619047,
-   "port_median": 5.524463428571429,
-   "change_percent": -0.7151114723930485,
-   "main_sheets": [
-    6,
-    6,
-    6
-   ],
-   "port_sheets": [
-    6,
-    6,
-    6
-   ],
-   "main_vs_competitor": 26.044724683544306,
-   "port_vs_competitor": 26.573587341772143
-  },
-  {
-   "job": "m-mechanical-frame-inserts",
-   "main_median": 0.5577943528688525,
-   "port_median": 0.5540836331967213,
-   "change_percent": -0.6652486983861006,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": 10.400142261865996,
-   "port_vs_competitor": 10.99620414922473
-  },
-  {
-   "job": "m-mechanical-small-brackets",
-   "main_median": 5.69676593,
-   "port_median": 5.66376533,
-   "change_percent": -0.5792865707578643,
-   "main_sheets": [
-    6,
-    6,
-    6
-   ],
-   "port_sheets": [
-    6,
-    6,
-    6
-   ],
-   "main_vs_competitor": 14.591215442278859,
-   "port_vs_competitor": 15.085977061469258
-  },
-  {
-   "job": "b-swim-nest-mb-free",
-   "main_median": 4.270804360064288,
-   "port_median": 4.247066266321917,
-   "change_percent": -0.5558225510009951,
-   "main_sheets": [
-    5,
-    5,
-    5
-   ],
-   "port_sheets": [
-    5,
-    5,
-    5
-   ],
-   "main_vs_competitor": 12.537394658717648,
-   "port_vs_competitor": 13.023531542897492
-  },
-  {
-   "job": "m-mechanical-mixed-stock",
-   "main_median": 0.9124870976,
-   "port_median": 0.9076165820000001,
-   "change_percent": -0.5337626814461593,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": 11.275555170780837,
-   "port_vs_competitor": 11.749133146599489
-  },
-  {
-   "job": "m-mechanical-cog-washers",
-   "main_median": 1.8805072925000001,
-   "port_median": 1.8716375675,
-   "change_percent": -0.4716666101415856,
-   "main_sheets": [
-    2,
-    2,
-    2
-   ],
-   "port_sheets": [
-    2,
-    2,
-    2
-   ],
-   "main_vs_competitor": 13.837008361970216,
-   "port_vs_competitor": 14.243410423825885
-  },
-  {
-   "job": "b-albano-strip-sheet",
-   "main_median": 1.685415231632653,
-   "port_median": 1.6775890134693876,
-   "change_percent": -0.4643495570930689,
-   "main_sheets": [
-    2,
-    2,
-    2
-   ],
-   "port_sheets": [
-    2,
-    2,
-    2
-   ],
-   "main_vs_competitor": 5.572178532141492,
-   "port_vs_competitor": 6.010653702900126
+   "port_vs_competitor": 25.443965234834653
   },
   {
    "job": "b-swim-strip-sheet",
    "main_median": 1.5926939167246175,
-   "port_median": 1.5869256048331015,
-   "change_percent": -0.36217328583627584,
+   "port_median": 1.568100282162726,
+   "change_percent": -1.5441532301742278,
    "main_sheets": [
     2,
     2,
@@ -503,31 +238,67 @@
     2
    ],
    "main_vs_competitor": 5.994085368026159,
-   "port_vs_competitor": 6.334549677929213
+   "port_vs_competitor": 7.445680735370608
   },
   {
-   "job": "m-mechanical-defective-stock",
-   "main_median": 2.6803527315999998,
-   "port_median": 2.6707275936,
-   "change_percent": -0.3590996769389343,
+   "job": "b-mao-strip-sheet",
+   "main_median": 0.8099315580392157,
+   "port_median": 0.7981757874509804,
+   "change_percent": -1.451452344528359,
    "main_sheets": [
-    3,
-    3,
-    3
+    1,
+    1,
+    1
    ],
    "port_sheets": [
-    3,
-    3,
-    3
+    1,
+    1,
+    1
    ],
-   "main_vs_competitor": null,
-   "port_vs_competitor": null
+   "main_vs_competitor": -0.9968586819014247,
+   "port_vs_competitor": 0.46906259133702166
+  },
+  {
+   "job": "m-mechanical-large-plates",
+   "main_median": 1.1132296670000001,
+   "port_median": 1.0976062986666668,
+   "change_percent": -1.403427234870247,
+   "main_sheets": [
+    2,
+    2,
+    2
+   ],
+   "port_sheets": [
+    2,
+    2,
+    2
+   ],
+   "main_vs_competitor": 10.199273971497702,
+   "port_vs_competitor": 11.45956181769292
+  },
+  {
+   "job": "m-mechanical-cog-washers",
+   "main_median": 1.8805072925000001,
+   "port_median": 1.8544595225,
+   "change_percent": -1.3851459180129755,
+   "main_sheets": [
+    2,
+    2,
+    2
+   ],
+   "port_sheets": [
+    2,
+    2,
+    2
+   ],
+   "main_vs_competitor": 13.837008361970216,
+   "port_vs_competitor": 15.030491523482247
   },
   {
    "job": "m-sign-3",
    "main_median": 0.13741967909836064,
-   "port_median": 0.1369596729508197,
-   "change_percent": -0.3347454677227746,
+   "port_median": 0.1357244864754098,
+   "change_percent": -1.2335879650377302,
    "main_sheets": [
     1,
     1,
@@ -540,6 +311,330 @@
    ],
    "main_vs_competitor": null,
    "port_vs_competitor": null
+  },
+  {
+   "job": "b-swim-nest-mb-free",
+   "main_median": 4.270804360064288,
+   "port_median": 4.219372075444031,
+   "change_percent": -1.2042762974860843,
+   "main_sheets": [
+    5,
+    5,
+    5
+   ],
+   "port_sheets": [
+    5,
+    5,
+    5
+   ],
+   "main_vs_competitor": 12.537394658717648,
+   "port_vs_competitor": 13.59068608400651
+  },
+  {
+   "job": "m-public-gear-3",
+   "main_median": 0.5174296151639345,
+   "port_median": 0.5114641790983606,
+   "change_percent": -1.152898073621833,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": null,
+   "port_vs_competitor": null
+  },
+  {
+   "job": "b-mao-nest-mb-given",
+   "main_median": 1.8609872701306593,
+   "port_median": 1.8397772142206017,
+   "change_percent": -1.1397206337993127,
+   "main_sheets": [
+    2,
+    2,
+    2
+   ],
+   "port_sheets": [
+    2,
+    2,
+    2
+   ],
+   "main_vs_competitor": 14.294582899524212,
+   "port_vs_competitor": 15.271385222502099
+  },
+  {
+   "job": "m-mechanical-panel-hardware",
+   "main_median": 1.526429796,
+   "port_median": 1.5121042152000002,
+   "change_percent": -0.9385024347362658,
+   "main_sheets": [
+    2,
+    2,
+    2
+   ],
+   "port_sheets": [
+    2,
+    2,
+    2
+   ],
+   "main_vs_competitor": 12.266898806802484,
+   "port_vs_competitor": 13.090276097570264
+  },
+  {
+   "job": "m-mechanical-defective-stock",
+   "main_median": 2.6803527315999998,
+   "port_median": 2.6560214892,
+   "change_percent": -0.9077627027647028,
+   "main_sheets": [
+    3,
+    3,
+    3
+   ],
+   "port_sheets": [
+    3,
+    3,
+    3
+   ],
+   "main_vs_competitor": null,
+   "port_vs_competitor": null
+  },
+  {
+   "job": "b-albano-nest-mb-given",
+   "main_median": 2.7730751456822675,
+   "port_median": 2.749012781366732,
+   "change_percent": -0.8677141098394237,
+   "main_sheets": [
+    3,
+    3,
+    3
+   ],
+   "port_sheets": [
+    3,
+    3,
+    3
+   ],
+   "main_vs_competitor": 2.516105453421913,
+   "port_vs_competitor": 3.361986961223551
+  },
+  {
+   "job": "b-jakobs2-strip-sheet",
+   "main_median": 0.7575144428571429,
+   "port_median": 0.7511004714285714,
+   "change_percent": -0.8467127576313516,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": -0.4782655301618366,
+   "port_vs_competitor": 0.37249676272874677
+  },
+  {
+   "job": "m-mechanical-frame-inserts",
+   "main_median": 0.5577943528688525,
+   "port_median": 0.5531186270491804,
+   "change_percent": -0.8382526276259128,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": 10.400142261865996,
+   "port_vs_competitor": 11.151215423704986
+  },
+  {
+   "job": "b-shapes1-nest-mb-given",
+   "main_median": 5.857522857142857,
+   "port_median": 5.809962857142857,
+   "change_percent": -0.8119473224420082,
+   "main_sheets": [
+    6,
+    6,
+    6
+   ],
+   "port_sheets": [
+    6,
+    6,
+    6
+   ],
+   "main_vs_competitor": 22.636490566037736,
+   "port_vs_competitor": 23.26464150943397
+  },
+  {
+   "job": "b-trousers-nest-mb-given",
+   "main_median": 2.6868784745762713,
+   "port_median": 2.6670765423728815,
+   "change_percent": -0.7369865213763593,
+   "main_sheets": [
+    3,
+    3,
+    3
+   ],
+   "port_sheets": [
+    3,
+    3,
+    3
+   ],
+   "main_vs_competitor": 17.688511377812112,
+   "port_vs_competitor": 18.295135954501873
+  },
+  {
+   "job": "b-shapes1-nest-mb-free",
+   "main_median": 5.404067047619048,
+   "port_median": 5.365315904761905,
+   "change_percent": -0.7170736875704686,
+   "main_sheets": [
+    6,
+    6,
+    6
+   ],
+   "port_sheets": [
+    6,
+    6,
+    6
+   ],
+   "main_vs_competitor": 28.173792405063292,
+   "port_vs_competitor": 28.688839240506326
+  },
+  {
+   "job": "m-mechanical-small-brackets",
+   "main_median": 5.69676593,
+   "port_median": 5.663005215,
+   "change_percent": -0.5926294921511643,
+   "main_sheets": [
+    6,
+    6,
+    6
+   ],
+   "port_sheets": [
+    6,
+    6,
+    6
+   ],
+   "main_vs_competitor": 14.591215442278859,
+   "port_vs_competitor": 15.097373088455768
+  },
+  {
+   "job": "b-shapes0-nest-mb-free",
+   "main_median": 5.365008952380953,
+   "port_median": 5.333545428571429,
+   "change_percent": -0.5864579926853741,
+   "main_sheets": [
+    6,
+    6,
+    6
+   ],
+   "port_sheets": [
+    6,
+    6,
+    6
+   ],
+   "main_vs_competitor": 28.692918987341763,
+   "port_vs_competitor": 29.11110506329113
+  },
+  {
+   "job": "b-albano-strip-sheet",
+   "main_median": 1.685415231632653,
+   "port_median": 1.6775337310204084,
+   "change_percent": -0.467629606302411,
+   "main_sheets": [
+    2,
+    2,
+    2
+   ],
+   "port_sheets": [
+    2,
+    2,
+    2
+   ],
+   "main_vs_competitor": 5.572178532141492,
+   "port_vs_competitor": 6.013750981911581
+  },
+  {
+   "job": "m-mechanical-mixed-stock",
+   "main_median": 0.9124870976,
+   "port_median": 0.9083696092,
+   "change_percent": -0.4512379858114923,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": 11.275555170780837,
+   "port_vs_competitor": 11.675913568550634
+  },
+  {
+   "job": "b-jakobs1-nest-mb-free",
+   "main_median": 3.41669875,
+   "port_median": 3.4027360833333335,
+   "change_percent": -0.40865957722103774,
+   "main_sheets": [
+    4,
+    4,
+    4
+   ],
+   "port_sheets": [
+    4,
+    4,
+    4
+   ],
+   "main_vs_competitor": 12.499180487824868,
+   "port_vs_competitor": 12.856760966908265
+  },
+  {
+   "job": "m-public-gear-4",
+   "main_median": 0.553280714,
+   "port_median": 0.5511200304,
+   "change_percent": -0.3905221247238355,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": null,
+   "port_vs_competitor": null
+  },
+  {
+   "job": "b-marques-strip-sheet",
+   "main_median": 0.9990519711538461,
+   "port_median": 0.99653375,
+   "change_percent": -0.25206107655618704,
+   "main_sheets": [
+    1,
+    1,
+    2
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": -0.8707572211951842,
+   "port_vs_competitor": -0.6165013046130818
   },
   {
    "job": "b-shirts-nest-mb-free",
@@ -560,28 +655,46 @@
    "port_vs_competitor": 8.663136082474232
   },
   {
-   "job": "m-mechanical-mounting-kit",
-   "main_median": 2.5081875074999997,
-   "port_median": 2.504425705,
-   "change_percent": -0.14998091206304132,
+   "job": "b-jakobs1-strip-sheet",
+   "main_median": 0.7031502,
+   "port_median": 0.7019067,
+   "change_percent": -0.1768469951370255,
    "main_sheets": [
-    3,
-    3,
-    3
+    1,
+    1,
+    1
    ],
    "port_sheets": [
-    3,
-    3,
-    3
+    1,
+    1,
+    1
    ],
-   "main_vs_competitor": 10.16804419429751,
-   "port_vs_competitor": 10.302774980938977
+   "main_vs_competitor": -0.277726368096598,
+   "port_vs_competitor": -0.10038822222289134
+  },
+  {
+   "job": "m-garment-bruce-2",
+   "main_median": 0.421946391,
+   "port_median": 0.42138587274999995,
+   "change_percent": -0.13284110540005,
+   "main_sheets": [
+    1,
+    1,
+    1
+   ],
+   "port_sheets": [
+    1,
+    1,
+    1
+   ],
+   "main_vs_competitor": 1.1420773124674821,
+   "port_vs_competitor": 1.2734012697411368
   },
   {
    "job": "m-public-gear-1",
    "main_median": 0.940782025,
-   "port_median": 0.93941202,
-   "change_percent": -0.14562406206687362,
+   "port_median": 0.939751445,
+   "change_percent": -0.10954503515306913,
    "main_sheets": [
     1,
     1,
@@ -594,42 +707,6 @@
    ],
    "main_vs_competitor": null,
    "port_vs_competitor": null
-  },
-  {
-   "job": "m-public-gear-4",
-   "main_median": 0.553280714,
-   "port_median": 0.5524813932000001,
-   "change_percent": -0.14446930459967033,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": null,
-   "port_vs_competitor": null
-  },
-  {
-   "job": "b-shirts-strip-sheet",
-   "main_median": 2.467638975,
-   "port_median": 2.4643708500000003,
-   "change_percent": -0.13243934923663492,
-   "main_sheets": [
-    3,
-    3,
-    3
-   ],
-   "port_sheets": [
-    3,
-    3,
-    3
-   ],
-   "main_vs_competitor": 3.7242587480483147,
-   "port_vs_competitor": 3.8517657132351335
   },
   {
    "job": "b-dagli-strip-sheet",
@@ -652,8 +729,8 @@
   {
    "job": "m-garment-teagan-3",
    "main_median": 4.494137411666666,
-   "port_median": 4.492509058333333,
-   "change_percent": -0.03623283367140129,
+   "port_median": 4.492325464666666,
+   "change_percent": -0.04031801509443156,
    "main_sheets": [
     5,
     5,
@@ -668,28 +745,10 @@
    "port_vs_competitor": null
   },
   {
-   "job": "m-box-desktop",
-   "main_median": 0.83533622,
-   "port_median": 0.8351848000000001,
-   "change_percent": -0.01812683280989491,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": 5.824552423900798,
-   "port_vs_competitor": 5.8416234498308794
-  },
-  {
    "job": "b-albano-nest-mb-free",
    "main_median": 2.410837493517908,
-   "port_median": 2.4106060384530874,
-   "change_percent": -0.009600608313220516,
+   "port_median": 2.410117436167875,
+   "change_percent": -0.029867519149218147,
    "main_sheets": [
     3,
     3,
@@ -701,13 +760,13 @@
     3
    ],
    "main_vs_competitor": 5.9593603068483825,
-   "port_vs_competitor": 5.968388780320566
+   "port_vs_competitor": 5.987447912916776
   },
   {
-   "job": "b-jakobs1-strip-sheet",
-   "main_median": 0.7031502,
-   "port_median": 0.70311055,
-   "change_percent": -0.00563890901260633,
+   "job": "m-box-desktop",
+   "main_median": 0.83533622,
+   "port_median": 0.8351725074999999,
+   "change_percent": -0.019598395960851445,
    "main_sheets": [
     1,
     1,
@@ -718,32 +777,32 @@
     1,
     1
    ],
-   "main_vs_competitor": -0.277726368096598,
-   "port_vs_competitor": -0.27207179834678463
+   "main_vs_competitor": 5.824552423900798,
+   "port_vs_competitor": 5.843009301014668
   },
   {
-   "job": "b-jakobs2-nest-mb-given",
-   "main_median": 3.2501840416666665,
-   "port_median": 3.250087666666667,
-   "change_percent": -0.0029652167004678986,
+   "job": "m-public-gear-2",
+   "main_median": 0.8244719925,
+   "port_median": 0.8244443825,
+   "change_percent": -0.0033488099354772594,
    "main_sheets": [
-    4,
-    4,
-    4
+    1,
+    1,
+    1
    ],
    "port_sheets": [
-    4,
-    4,
-    4
+    1,
+    1,
+    1
    ],
-   "main_vs_competitor": 9.297189534883731,
-   "port_vs_competitor": 9.299879069767435
+   "main_vs_competitor": null,
+   "port_vs_competitor": null
   },
   {
    "job": "b-blaz1-nest-mb-free",
    "main_median": 9.666843333333333,
-   "port_median": 9.666729866666667,
-   "change_percent": -0.0011737716517412622,
+   "port_median": 9.666745200000001,
+   "change_percent": -0.0010151538609615152,
    "main_sheets": [
     10,
     10,
@@ -755,13 +814,13 @@
     10
    ],
    "main_vs_competitor": 1.3587414965986588,
-   "port_vs_competitor": 1.3598993197278864
+   "port_vs_competitor": 1.3597428571428538
   },
   {
    "job": "b-blaz1-nest-mb-given",
    "main_median": 9.666786666666667,
-   "port_median": 9.666708266666667,
-   "change_percent": -0.0008110244148595847,
+   "port_median": 9.666711333333332,
+   "change_percent": -0.0007793006707723649,
    "main_sheets": [
     10,
     10,
@@ -773,7 +832,7 @@
     10
    ],
    "main_vs_competitor": 1.0226621160409621,
-   "port_vs_competitor": 1.0234648464163887
+   "port_vs_competitor": 1.023433447098998
   },
   {
    "job": "m-box-batch-500",
@@ -866,28 +925,10 @@
    "port_vs_competitor": 10.141977839516613
   },
   {
-   "job": "b-fu-nest-mb-free",
-   "main_median": 3.3605538095238097,
-   "port_median": 3.3605589047619047,
-   "change_percent": 0.00015161900044358134,
-   "main_sheets": [
-    4,
-    4,
-    4
-   ],
-   "port_sheets": [
-    4,
-    4,
-    4
-   ],
-   "main_vs_competitor": 8.348532467532454,
-   "port_vs_competitor": 8.348393506493501
-  },
-  {
    "job": "b-jakobs1-nest-mb-given",
    "main_median": 3.416778916666667,
-   "port_median": 3.4168015,
-   "change_percent": 0.0006609538949930993,
+   "port_median": 3.41678025,
+   "change_percent": 3.9023108189262246e-05,
    "main_sheets": [
     4,
     4,
@@ -899,7 +940,43 @@
     4
    ],
    "main_vs_competitor": 10.866636956521736,
-   "port_vs_competitor": 10.866047826086955
+   "port_vs_competitor": 10.866602173913043
+  },
+  {
+   "job": "b-jakobs2-nest-mb-free",
+   "main_median": 3.2500343333333337,
+   "port_median": 3.2500483750000004,
+   "change_percent": 0.00043204671786867266,
+   "main_sheets": [
+    4,
+    4,
+    4
+   ],
+   "port_sheets": [
+    4,
+    4,
+    4
+   ],
+   "main_vs_competitor": 9.301367441860464,
+   "port_vs_competitor": 9.300975581395344
+  },
+  {
+   "job": "m-mechanical-mounting-kit",
+   "main_median": 2.5081875074999997,
+   "port_median": 2.5082100275,
+   "change_percent": 0.0008978595074315976,
+   "main_sheets": [
+    3,
+    3,
+    3
+   ],
+   "port_sheets": [
+    3,
+    3,
+    3
+   ],
+   "main_vs_competitor": 10.16804419429751,
+   "port_vs_competitor": 10.167237629541603
   },
   {
    "job": "b-fu-nest-mb-given",
@@ -938,6 +1015,24 @@
    "port_vs_competitor": 1.2670173728813627
   },
   {
+   "job": "b-fu-strip-sheet",
+   "main_median": 1.2368670263157895,
+   "port_median": 1.236883842105263,
+   "change_percent": 0.0013595470746530225,
+   "main_sheets": [
+    2,
+    2,
+    2
+   ],
+   "port_sheets": [
+    2,
+    2,
+    2
+   ],
+   "main_vs_competitor": 10.65672183230475,
+   "port_vs_competitor": 10.65550716838003
+  },
+  {
    "job": "b-trousers-strip-sheet",
    "main_median": 2.0886929746835445,
    "port_median": 2.088726367088608,
@@ -974,28 +1069,28 @@
    "port_vs_competitor": 14.993676000000011
   },
   {
-   "job": "b-fu-strip-sheet",
-   "main_median": 1.2368670263157895,
-   "port_median": 1.236890394736842,
-   "change_percent": 0.0018893236342520936,
+   "job": "b-fu-nest-mb-free",
+   "main_median": 3.3605538095238097,
+   "port_median": 3.3606252857142853,
+   "change_percent": 0.002126917006162188,
    "main_sheets": [
-    2,
-    2,
-    2
+    4,
+    4,
+    4
    ],
    "port_sheets": [
-    2,
-    2,
-    2
+    4,
+    4,
+    4
    ],
-   "main_vs_competitor": 10.65672183230475,
-   "port_vs_competitor": 10.655033848634709
+   "main_vs_competitor": 8.348532467532454,
+   "port_vs_competitor": 8.34658311688312
   },
   {
-   "job": "b-jakobs2-nest-mb-free",
-   "main_median": 3.2500343333333337,
-   "port_median": 3.2501060416666667,
-   "change_percent": 0.0022063869479005405,
+   "job": "b-jakobs2-nest-mb-given",
+   "main_median": 3.2501840416666665,
+   "port_median": 3.250263125,
+   "change_percent": 0.002433195545847866,
    "main_sheets": [
     4,
     4,
@@ -1006,14 +1101,14 @@
     4,
     4
    ],
-   "main_vs_competitor": 9.301367441860464,
-   "port_vs_competitor": 9.299366279069766
+   "main_vs_competitor": 9.297189534883731,
+   "port_vs_competitor": 9.29498255813954
   },
   {
    "job": "m-garment-teagan-2",
    "main_median": 1.8498355402500002,
-   "port_median": 1.8502828439999999,
-   "change_percent": 0.02418073067940174,
+   "port_median": 1.849897102,
+   "change_percent": 0.0033279580081702065,
    "main_sheets": [
     2,
     2,
@@ -1023,24 +1118,6 @@
     2,
     2,
     2
-   ],
-   "main_vs_competitor": null,
-   "port_vs_competitor": null
-  },
-  {
-   "job": "m-public-gear-2",
-   "main_median": 0.8244719925,
-   "port_median": 0.82471563,
-   "change_percent": 0.02955073091825966,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
    ],
    "main_vs_competitor": null,
    "port_vs_competitor": null
@@ -1048,8 +1125,8 @@
   {
    "job": "m-garment-teagan-1",
    "main_median": 0.762290477,
-   "port_median": 0.76291222,
-   "change_percent": 0.08156247765902513,
+   "port_median": 0.7627554863333332,
+   "change_percent": 0.06100159287878437,
    "main_sheets": [
     1,
     1,
@@ -1061,31 +1138,13 @@
     1
    ],
    "main_vs_competitor": 0.05126722957786711,
-   "port_vs_competitor": -0.03025343325848695
-  },
-  {
-   "job": "b-marques-strip-sheet",
-   "main_median": 0.9990519711538461,
-   "port_median": 0.9999068076923077,
-   "change_percent": 0.08556477171794974,
-   "main_sheets": [
-    1,
-    1,
-    2
-   ],
-   "port_sheets": [
-    1,
-    1,
-    2
-   ],
-   "main_vs_competitor": -0.8707572211951842,
-   "port_vs_competitor": -0.957067054341687
+   "port_vs_competitor": -0.009703089474255577
   },
   {
    "job": "b-swim-nest-mb-given",
    "main_median": 4.3487616323604525,
-   "port_median": 4.368627054191962,
-   "change_percent": 0.45680640860341626,
+   "port_median": 4.356181002813813,
+   "change_percent": 0.1706088096011138,
    "main_sheets": [
     5,
     5,
@@ -1097,31 +1156,13 @@
     5
    ],
    "main_vs_competitor": 5.96286231206935,
-   "port_vs_competitor": 5.533294640643649
+   "port_vs_competitor": 5.802426670877015
   },
   {
-   "job": "b-shapes1-nest-mb-free",
-   "main_median": 5.404067047619048,
-   "port_median": 5.44254580952381,
-   "change_percent": 0.7120333919934385,
-   "main_sheets": [
-    6,
-    6,
-    6
-   ],
-   "port_sheets": [
-    6,
-    6,
-    6
-   ],
-   "main_vs_competitor": 28.173792405063292,
-   "port_vs_competitor": 27.662365822784807
-  },
-  {
-   "job": "b-trousers-nest-mb-given",
-   "main_median": 2.6868784745762713,
-   "port_median": 2.706608960451977,
-   "change_percent": 0.7343274384159715,
+   "job": "b-shirts-strip-sheet",
+   "main_median": 2.467638975,
+   "port_median": 2.4725767249999997,
+   "change_percent": 0.20010017875486952,
    "main_sheets": [
     3,
     3,
@@ -1132,32 +1173,14 @@
     3,
     3
    ],
-   "main_vs_competitor": 17.688511377812112,
-   "port_vs_competitor": 17.084075531890754
-  },
-  {
-   "job": "m-garment-bruce-2",
-   "main_median": 0.421946391,
-   "port_median": 0.42521624025000004,
-   "change_percent": 0.7749442393026884,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": 1.1420773124674821,
-   "port_vs_competitor": 0.3759835355061525
+   "main_vs_competitor": 3.7242587480483147,
+   "port_vs_competitor": 3.531610817705577
   },
   {
    "job": "b-shapes0-strip-sheet",
    "main_median": 2.4502451,
-   "port_median": 2.47516665,
-   "change_percent": 1.0171043704974458,
+   "port_median": 2.46129695,
+   "change_percent": 0.45105079487761657,
    "main_sheets": [
     3,
     3,
@@ -1169,43 +1192,25 @@
     3
    ],
    "main_vs_competitor": 11.702879279279276,
-   "port_vs_competitor": 10.804805405405403
+   "port_vs_competitor": 11.304614414414417
   },
   {
-   "job": "b-shapes0-nest-mb-free",
-   "main_median": 5.365008952380953,
-   "port_median": 5.426860333333333,
-   "change_percent": 1.1528663139495965,
+   "job": "b-mao-nest-mb-free",
+   "main_median": 1.7266465080522637,
+   "port_median": 1.7397690707991493,
+   "change_percent": 0.7600028544168191,
    "main_sheets": [
-    6,
-    6,
-    6
+    2,
+    2,
+    2
    ],
    "port_sheets": [
-    6,
-    6,
-    6
+    2,
+    2,
+    2
    ],
-   "main_vs_competitor": 28.692918987341763,
-   "port_vs_competitor": 27.87084367088608
-  },
-  {
-   "job": "b-mao-strip-sheet",
-   "main_median": 0.8099315580392157,
-   "port_median": 0.8206806333333334,
-   "change_percent": 1.3271584725184082,
-   "main_sheets": [
-    1,
-    1,
-    1
-   ],
-   "port_sheets": [
-    1,
-    1,
-    1
-   ],
-   "main_vs_competitor": -0.9968586819014247,
-   "port_vs_competitor": -2.3372470488757235
+   "main_vs_competitor": 9.636388481787295,
+   "port_vs_competitor": 8.949622454894746
   },
   {
    "job": "m-sign-4",
