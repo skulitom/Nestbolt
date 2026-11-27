@@ -8,7 +8,7 @@ Three plates, the same real size in every file:
 Files:
   plates-mm.dxf              R2000 text DXF, $INSUNITS 4 (millimetres), drawn in mm
   plates-inch.dxf            R2000 text DXF, $INSUNITS 1 (inches), drawn in inches
-  units/plates-insunits-NN.dxf  the same plates in each of the 21 $INSUNITS length units (01 inches ... 21 US survey feet)
+  units/plates-insunits-NN.dxf  the same plates in each $INSUNITS length code from 1 to 21 (01 inches ... 21 US survey feet)
   plates-r12-nounit.dxf      R12 text DXF, no $INSUNITS (R12 has none), drawn in inches
   plates-mm-binary.dxf       plates-mm.dxf saved as binary DXF (two-byte group codes)
   plates-r12-binary.dxf      plates-r12-nounit.dxf saved as binary DXF (R12's one-byte group codes)

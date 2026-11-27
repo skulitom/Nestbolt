@@ -65,7 +65,7 @@ def do_import(src, name, *flags):
     rep = None
     if rc == 0:
         rep = json.loads(out)
-        (OUT / "libraries" / f"{name}.report.json").write_text(out, encoding="utf-8")
+        (OUT / "libraries" / f"{name}.report.json").write_text(out, encoding="utf-8", newline="\n")
     return rc, rep, err.strip(), lib
 
 
@@ -398,7 +398,7 @@ def main():
         "name": "Quantity job: 12 + 16 + 10 plates",
         "parts": [{"id": plate_id["A"], "quantity": 12}, {"id": plate_id["B"], "quantity": 16}, {"id": plate_id["C"], "quantity": 10}],
         "sheets": [{"width_mm": 300, "height_mm": 200, "margins_mm": {"left": 5, "right": 5, "bottom": 5, "top": 5}}],
-        "spacing_mm": 2.0, "edge_spacing_mm": 0.0}, indent=2), encoding="utf-8")
+        "spacing_mm": 2.0, "edge_spacing_mm": 0.0}, indent=2), encoding="utf-8", newline="\n")
     rc, rep, run = nest(lib_mm, req, "quantity")
     m = rep["validation"]["metrics"] if rep else {}
     vrc, vout, verr = nb("validate", "--library", lib_mm, "--request", req, "--layout", run / "layout.json")
@@ -464,7 +464,8 @@ def main():
     d.saveas(mut / "quantity-sheet-0-one-hole-moved.dxf")
     counts, problems, _ = plates_on_sheets([mut / "quantity-sheet-0-one-hole-moved.dxf"], (5, 5, 295, 195))
     record("M6", "holes: a sheet with one hole moved 30 mm off its plate must not pass",
-           not any("hole" in q for q in problems), f"problems: {problems or 'none'}", mutant=True)
+           not any("holes at its middle" in q or "is not at the middle" in q for q in problems),
+           f"problems: {problems or 'none'}", mutant=True)
 
     d = ezdxf.readfile(sheets[0])
     _, cut, _ = read_cut(sheets[0])

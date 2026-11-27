@@ -25,8 +25,9 @@ The drawings (fixtures/, drawn by make_fixtures.py with ezdxf 1.4.3, a DXF libra
 
 The checks (run_checks.py)
   U1-U6  units: the plates import at their drawn size in millimetres, inches and each code from 1 to 21; a file with
-         no units stays at 1 mm per unit with a warning, and takes --dxf-unit-mm 25.4; units in the file win over
-         that flag. Width and height must match to 0.000001 mm.
+         no units stays at 1 mm per unit with a warning (this one, under 60 units across, is also told it may be in
+         inches), and takes --dxf-unit-mm 25.4; units in the file win over that flag. Width and height must match
+         to 0.000001 mm.
   B1-B2  binary DXF: both binary files give the same curves as their text twins, at the drawn size
   L1-L2  layers: named layers are read when frozen or off; with no --layers they stay out, with a warning
   Q1-Q2  quantities: 12 + 16 + 10 plates on 300 x 200 mm sheets, 5 mm margins, 2 mm spacing, 20 s, seed 1,
@@ -66,8 +67,9 @@ Limits
   - $INSUNITS 22 to 24 (US survey inch, yard and mile) are refused with a message. There is no fixture for them.
   - The command line was run. The hosted browser app is built from main, but was not tested.
   - With no --layers, frozen and switched-off layers are left out (the import report says so). Name them to read them.
-  - A drawing with no units is read at 1 mm per unit until you give the unit; Nestbolt warns, and does not detect
-    inch drawings. Earlier builds do the same.
+  - A drawing with no units is read at 1 mm per unit until you give the unit. Nestbolt warns; when the drawing is
+    under 60 units across, the warning says it may be in inches. It never rescales by itself. Earlier builds do
+    the same.
   - Polylines come back in the exported DXF as separate LINE entities that meet end to end, circles as CIRCLE.
   - A nest run with --repeatable gives the same layout for the same inputs, budget and seed on the same build.
     Another build may place the plates differently; the counts must still hold.
