@@ -19,27 +19,6 @@ can call.
 
 [![skulitom/Nestbolt MCP server](https://glama.ai/mcp/servers/skulitom/Nestbolt/badges/score.svg)](https://glama.ai/mcp/servers/skulitom/Nestbolt)
 
-How Nestbolt compares with other ways an AI agent can nest parts (OpenNest, pyFit, Sparrow, Deepnest, SVGnest and
-more), by interface, file formats and sheet model: [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/).
-
-For LightBurn users without Pro: [True Nest, Quick Nest and Nestbolt compared](https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/), with a measured run of the v0.2.0-alpha.1 preview nesting a layered `.lbrn2` project onto a full sheet and two offcuts. For remnants from SVG, DXF or LightBurn (LightBurn support is a preview): [nest parts onto a remnant or irregular offcut](https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/), measured on 2026-11-13, with what LightBurn 2.2, its 2.3 beta and sparrow/studio do with remnants.
-
-For laser makers: [how many ornaments fit on a 12 × 12 inch sheet](https://skulitom.github.io/Nestbolt/nesting-examples/nest-christmas-ornaments-on-one-sheet/), measured for six designs, with ready-to-cut sheets; more in [the examples](https://skulitom.github.io/Nestbolt/nesting-examples/).
-
-**[Try the v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
-for editable LightBurn project nesting, lead-in allowances and improvements for
-large curved drawings. Windows x64, Linux x64 and macOS Apple silicon tools are
-available, plus the Windows MCP bundle. Their [published-download checks](benchmarks/results/preview-depth-published-20261016.md)
-pass. The [v1.1 plan is 75% complete](docs/STATUS.md). Import acceptance remains open.
-Stable v0.1.0 remains available.
-
-The hosted browser app runs a preview build from `main` (newer than v0.2.0-alpha.1).
-The source on `main` includes AutoCAD 2007 DXF export fixes and reads flat
-3D polylines in their world coordinates, including inside inserted blocks.
-It also skips paper-space block instances so title-block artwork stays out of the parts list.
-The benchmark figures below belong to the frozen `75cbb32` build; this preview
-makes no new comparison against competing tools.
-
 ![451 letter outlines nested on one sheet, small letters inside the holes of large ones](docs/images/showcase.png)
 
 451 parts on one 850 × 425 mm sheet in 120 seconds on one CPU core: DejaVu Sans
@@ -47,6 +26,41 @@ Bold glyphs in four sizes with their exact Bézier outlines, 90° rotations and
 1 mm spacing. 29 letters sit inside the holes of others, and the unused material
 stays as one clean offcut along the top. The layout passed the independent
 validator. Rebuild it with `python scripts/make_showcase.py --nest 120`.
+
+## Versions
+
+- **[Browser app](https://skulitom.github.io/Nestbolt/):** built from `main`, so it is
+  the newest build. Nothing is uploaded.
+- **[v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
+  (2026-10-16): editable LightBurn project nesting, lead-in allowances and
+  improvements for large curved drawings. Windows x64, Linux x64 and macOS Apple
+  silicon tools, plus the Windows MCP bundle; their
+  [published-download checks](benchmarks/results/preview-depth-published-20261016.md) pass.
+- **[v0.1.0 stable](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)** (2026-10-14).
+
+`main` has moved on since the preview: common-line cutting, binary DXF and every
+DXF unit, jobs of up to 10,000 parts, offcut export and job quotes.
+[Status](docs/STATUS.md) lists what is on `main`, what is released and what is
+still open; the [v1.1 plan is 75% complete](docs/STATUS.md#v11--real-shop-files)
+and import acceptance remains open. The benchmark figures on this page belong
+to the frozen `75cbb32` build; later builds make no new comparison against
+competing tools.
+
+## Guides and comparisons
+
+- **AI agents:** [nesting for AI agents](https://skulitom.github.io/Nestbolt/compare/nesting-for-ai-agents/)
+  compares Nestbolt with other ways an agent can nest parts (OpenNest, pyFit,
+  Sparrow, Deepnest, SVGnest and more), by interface, file formats and sheet model.
+- **LightBurn users without Pro:** [True Nest, Quick Nest and Nestbolt compared](https://skulitom.github.io/Nestbolt/compare/lightburn-nesting-without-pro/),
+  with a measured run of the v0.2.0-alpha.1 preview nesting a layered `.lbrn2`
+  project onto a full sheet and two offcuts.
+- **Remnants** from SVG, DXF or LightBurn (LightBurn support is a preview):
+  [nest parts onto a remnant or irregular offcut](https://skulitom.github.io/Nestbolt/nesting-examples/nest-parts-onto-scrap-offcut/),
+  measured on 2026-11-13, with what LightBurn 2.2, its 2.3 beta and
+  sparrow/studio do with remnants.
+- **Laser makers:** [how many ornaments fit on a 12 × 12 inch sheet](https://skulitom.github.io/Nestbolt/nesting-examples/nest-christmas-ornaments-on-one-sheet/),
+  measured for six designs, with ready-to-cut sheets; more in
+  [the examples](https://skulitom.github.io/Nestbolt/nesting-examples/).
 
 ## How it compares
 
@@ -69,7 +83,7 @@ Sparrow itself after its own first layout, so Sparrow runs with slightly less ti
 there; it is 0.03-2.4% better on them. The eighth (two sheets) is 0.34% better.
 That misses the project's own 60-second bar (wins or ties on 90% of jobs and never
 more than 1% worse); the 300-second, strip-parity and speed bars are met
-([status](docs/STATUS.md)).
+([status](docs/STATUS.md#v1--accepted)).
 
 ![A benchmark job as nested: frames with inserts in their windows, gears and brackets, compressed to one end of the sheet](docs/images/mechanical-mix.png)
 
@@ -81,7 +95,7 @@ offcut. The best competitor used 62% of the sheet on this job.
 In 30 s Nestbolt matches the competitors' 300 s result on 10 of 11 jobs. The first
 final run (build `484ce8b`) stopped with an error on one job; the fix is in `75cbb32`
 and both runs are published. Every run, including failures, is in
-[BENCHMARKS.md](BENCHMARKS.md); [status](docs/STATUS.md) lists the evidence per
+[BENCHMARKS.md](BENCHMARKS.md); the [status history](docs/STATUS_HISTORY.md#v1--accepted) lists the evidence per
 gate. The [results page](https://skulitom.github.io/Nestbolt/results/) shows every
 per-job number, tool revision, seed and the hardware; `python scripts/reproduce.py
 --phase final --final-acceptance` rebuilds the datasets, reruns what is missing and regenerates it.
@@ -92,7 +106,7 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   transforms and units, converted to millimetres. Each closed outline is a part;
   outlines inside it are its holes. Choose cutting layers, identify stock outlines,
   and review repairs and unsupported geometry. See [import options](docs/IMPORTING.md)
-  and the [shop-file verification](docs/STATUS.md).
+  and the [shop-file verification](docs/STATUS.md#v11--real-shop-files).
 - **LightBurn projects** (`.lbrn2` and legacy `.lbrn`): nest groups as rigid units
   and export an editable `.lbrn2` per sheet, preserving original artwork, text,
   images and layer settings. Tool and output-disabled shapes stay fixed. Older
@@ -107,7 +121,7 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   The last sheet is compressed towards one end so the offcut stays usable.
 - **Export** one SVG and one DXF per sheet from the original curves, transformed
   rather than re-polygonised. LightBurn projects use preserving `.lbrn2` output.
-  [Export fidelity checks](docs/STATUS.md) record the tested files and tolerances.
+  [Export fidelity checks](benchmarks/results/h2-training-exports-20261120/README.md) record the tested files and tolerances.
 - **Closed-loop remnant & offcut export**: extract reusable rectangular
   (guillotine) or exact (true-shape subtracted) remnants from nested sheets and
   export `SHEET`-layer SVG/DXF files that re-import directly into Nestbolt for
@@ -139,8 +153,8 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   remnant SVG/DXF download, projects saved in the browser or as a ZIP, and five
   one-click examples. Files never leave the computer. An optional **Quick
   initial layout** setting (suggested automatically on 1,000+ part jobs) helps
-  start large jobs. Current browser checks and native comparisons are tracked in
-  [Status](docs/STATUS.md).
+  start large jobs. The browser checks and native comparisons are in the
+  [browser gate evidence](benchmarks/results/h4-depth-complete-20261016.md).
 - **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`,
   `estimate_sheets`, `export_offcut` and `quote_layout`, tested with Claude Code.
   Its budgets are repeatable (`nestbolt-work-v4`): same build, inputs, work budget
@@ -364,7 +378,8 @@ jobs excluded) and writes an audited report under `benchmarks/results/`.
 | `benchmarks` | Frozen datasets, competitor runners and all results |
 | `docs/PLAN.md` | Original v1 plan and acceptance gates |
 | `docs/PLAN_V1_1.md` | Current shop-file and cutting-feature plan |
-| `docs/STATUS.md` | Milestone evidence and next steps |
+| `docs/STATUS.md` | Current state: gates, releases and open work |
+| `docs/STATUS_HISTORY.md` | Dated checkpoints and evidence up to 2026-11-20 |
 
 Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS.md).
 

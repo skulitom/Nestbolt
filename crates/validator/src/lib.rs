@@ -1,9 +1,4 @@
-//! Independent geometry primitives. No jagua-rs, Sparrow or geo dependency.
-//!
-//! This is the kernel for the M1 validator, not yet a complete job/layout checker.
-//! Inputs are f64 source polygons; transforms are rebuilt here, never accepted as
-//! pre-transformed solver geometry. Clipper2 uses a one-nanometre integer grid in
-//! physical jobs (1e-6 mm), or 1e-6 coordinate units for unitless benchmarks.
+#![doc = include_str!("../README.md")]
 
 use anyhow::{Result, ensure};
 use clipper2_rust::{
