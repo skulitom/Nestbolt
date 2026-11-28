@@ -10,7 +10,7 @@ use std::time::Duration;
 use jagua_rs::Instant;
 use serde::Serialize;
 
-pub const WORK_VERSION: &str = "nestbolt-work-v4";
+pub const WORK_VERSION: &str = "nestbolt-work-v5";
 
 /// Kinds of deterministic work, with reference seconds per unit (AMD Ryzen 9
 /// 7950X3D, one core). Changing a coefficient changes repeatable results.
@@ -36,20 +36,27 @@ pub enum Work {
     RectOperation,
 }
 
-// Fitted on 16 development jobs (20 s wall-clock runs, `nestbolt-work-v1`):
+// v1 was fitted on 16 development jobs (20 s wall-clock runs, jagua-rs 1.1.0):
 // predicted/real time 0.72-1.23 per job. v2 adds rectangle packing, measured
 // at 2.0e8-2.7e8 operations per second on the small box jobs. v4 separates
 // warm-start validation charging (`ValidatedVertex`) from constructor collision
 // checks (`ConstructorCheck`: 5.0e-7 s/check, 2.0e6 checks/s) and eliminates
 // warm-start double-charging on large jobs (issue #38).
+//
+// v5 refits the six collision-engine kinds for jagua-rs 2.0.0, whose flat
+// hazard index answers the same queries in less time: 58 development jobs with
+// separator work, 20 s wall-clock runs, least squared log error with a pull
+// towards one common factor. Predicted/real time is 0.46-1.96 per job (median
+// 0.95); the v4 values gave 0.87-4.61 (median 1.65) on this engine. Constructor
+// checks, validation and rectangle packing keep their v4 values.
 const COEFFICIENTS: [f64; 9] = [
-    1.8e-6,
-    1.9e-8,
-    2.0e-5,
-    2.0e-6,
-    0.05,
+    1.2e-6,
+    7.6e-9,
+    1.2e-5,
+    1.2e-6,
+    0.037,
     1.0 / crate::sheets::CHECKS_PER_SECOND,
-    7.3e-7,
+    8.7e-7,
     4.0e-6,
     5.0e-9,
 ];

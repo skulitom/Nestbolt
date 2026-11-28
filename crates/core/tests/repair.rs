@@ -351,8 +351,11 @@ fn defects_are_never_displaced_to_admit_a_part() {
 
 #[test]
 fn late_shapes_repairs_cannot_admit_coincident_parts() {
-    // Valid incumbents retained immediately before the two independently
-    // rejected repair trials in development batch20261012T045942Z-d0c3d8fe.
+    // The seeds of the two independently rejected repair trials in development
+    // batch 20261012T045942Z-d0c3d8fe. Their incumbents were laid out at the
+    // jagua-rs 1.1.0 separation, closer than the 2.0.0 one allows, so the
+    // repair can no longer load them; these are the constructor's valid layouts
+    // of the same jobs on 2.0.0 (`nestbolt improve --seed 0 --passes 4`).
     let cases = [
         (
             include_str!("../../../benchmarks/datasets/B/b-shapes1-strip-sheet.json"),
