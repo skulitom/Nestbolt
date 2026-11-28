@@ -379,7 +379,7 @@ jobs excluded) and writes an audited report under `benchmarks/results/`.
 | `docs/PLAN.md` | Original v1 plan and acceptance gates |
 | `docs/PLAN_V1_1.md` | Current shop-file and cutting-feature plan |
 | `docs/STATUS.md` | Current state: gates, releases and open work |
-| `docs/STATUS_HISTORY.md` | Dated checkpoints and evidence up to 2026-11-20 |
+| `docs/STATUS_HISTORY.md` | Dated checkpoints and evidence up to 2026-11-27 |
 
 Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS.md).
 
