@@ -59,12 +59,16 @@ Common-line mode still reserves holes by default.
 
 None of this is in a tagged release yet.
 
-- **Collision engine:** jagua-rs 2.0.0 and Sparrow `73c02f65`
+- **Engine:** moved to jagua-rs 2.0.0 and Sparrow `73c02f65`
   ([#52](https://github.com/skulitom/Nestbolt/pull/52)). At 60 seconds over
-  three development seeds the new engine used less material than the old one
-  on 43 of 65 jobs and more on 16, with a median change of −0.20%; all 390
-  layouts validated. Repeatable budgets are now `nestbolt-work-v5`, so the same
-  job, seed and budget give a different layout than before.
+  three development seeds, the ported build used less material than the
+  previous `main` on 43 of 65 jobs and more on 16; the median change was
+  -0.20%. All 390 layouts validated. jagua-rs 2.0.0 removes short edges from
+  its own collision outlines, which left no margin at corners when spacing
+  was near zero; the separation now covers it, and rejected constructor
+  trials fell from up to eight per run to none in 8,640. The repeatable work
+  clock is `nestbolt-work-v5`. Browser performance and the common-line
+  comparison have not been rerun on this engine.
   [Runs, margins and calibration](../benchmarks/results/jagua-2-port-20261127.md)
 - **Common-line cutting** completed its gate
   ([#27](https://github.com/skulitom/Nestbolt/pull/27)).
