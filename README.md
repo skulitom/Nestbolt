@@ -157,7 +157,7 @@ per-job number, tool revision, seed and the hardware; `python scripts/reproduce.
   [browser gate evidence](benchmarks/results/h4-depth-complete-20261016.md).
 - **MCP server** with `import_parts`, `nest`, `validate_layout`, `export_layout`,
   `estimate_sheets`, `export_offcut` and `quote_layout`, tested with Claude Code.
-  Its budgets are repeatable (`nestbolt-work-v4`): same build, inputs, work budget
+  Its budgets are repeatable (`nestbolt-work-v5`): same build, inputs, work budget
   and seed give the same layout unless the real-time limit (`time_limit_s`) is
   reached, which is reported explicitly. See
   [the agent interface](docs/AGENT_INTERFACE.md).
@@ -379,7 +379,7 @@ jobs excluded) and writes an audited report under `benchmarks/results/`.
 | `docs/PLAN.md` | Original v1 plan and acceptance gates |
 | `docs/PLAN_V1_1.md` | Current shop-file and cutting-feature plan |
 | `docs/STATUS.md` | Current state: gates, releases and open work |
-| `docs/STATUS_HISTORY.md` | Dated checkpoints and evidence up to 2026-11-20 |
+| `docs/STATUS_HISTORY.md` | Dated checkpoints and evidence up to 2026-11-27 |
 
 Every benchmark run, including failures, is logged in [BENCHMARKS.md](BENCHMARKS.md).
 

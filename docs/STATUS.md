@@ -1,7 +1,7 @@
-# Status — 2026-11-27
+# Status — 2026-11-28
 
 This page is the current state in one screen. Every dated checkpoint, failed
-trial and superseded result up to 2026-11-20 is kept unchanged in the
+trial and superseded result up to 2026-11-27 is kept unchanged in the
 [status history](STATUS_HISTORY.md); every benchmark run is in
 [BENCHMARKS.md](../BENCHMARKS.md).
 
@@ -59,6 +59,13 @@ Common-line mode still reserves holes by default.
 
 None of this is in a tagged release yet.
 
+- **Collision engine:** jagua-rs 2.0.0 and Sparrow `73c02f65`
+  ([#52](https://github.com/skulitom/Nestbolt/pull/52)). At 60 seconds over
+  three development seeds the new engine used less material than the old one
+  on 43 of 65 jobs and more on 16, with a median change of −0.20%; all 390
+  layouts validated. Repeatable budgets are now `nestbolt-work-v5`, so the same
+  job, seed and budget give a different layout than before.
+  [Runs, margins and calibration](../benchmarks/results/jagua-2-port-20261127.md)
 - **Common-line cutting** completed its gate
   ([#27](https://github.com/skulitom/Nestbolt/pull/27)).
 - **DXF import:** binary DXF and every `$INSUNITS` unit
@@ -77,7 +84,7 @@ None of this is in a tagged release yet.
   ([#44](https://github.com/skulitom/Nestbolt/pull/44)).
 - **Larger jobs:** up to 10,000 parts
   ([#42](https://github.com/skulitom/Nestbolt/pull/42)), an indexed clearance
-  validator and repeatable budgets recalibrated as `nestbolt-work-v4`
+  validator and repeatable budgets that hold on large jobs
   ([#50](https://github.com/skulitom/Nestbolt/pull/50)).
 - **Free rotation:** parts that fit only between quarter turns are placed, and
   parts that fit no sheet are named
@@ -94,6 +101,9 @@ None of this is in a tagged release yet.
 ## Open work
 
 - **H2** stays open as described above.
+- **Re-measure on the new engine:** browser performance (H4) and the
+  common-line comparison (H5) were measured on jagua-rs 1.1.0 and have not been
+  rerun on 2.0.0.
 - **Crate distribution**
   ([#13](https://github.com/skulitom/Nestbolt/issues/13)): the crates are not on
   crates.io. `nestbolt-core` depends on Sparrow from Git, which crates.io does

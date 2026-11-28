@@ -13,7 +13,7 @@ does not satisfy that promise: scheduling changes how many search steps finish.
   are never reported as repeatable.
 - **Work** (MCP `nest`, CLI `--repeatable`): the search clock is charged with
   deterministic work counts converted to reference seconds by fixed coefficients
-  (`crates/core/src/clock.rs`, version `nestbolt-work-v4`): sample evaluations,
+  (`crates/core/src/clock.rs`, version `nestbolt-work-v5`): sample evaluations,
   evaluated vertices, collision-tracker items and vertices, re-registered items,
   container builds, constructor collision checks (weighted by the square root of
   the mean outline vertex count), validated vertices and bounding-rectangle
@@ -38,6 +38,19 @@ The published v1 benchmark defaults and work coefficients remain unchanged.
 
 ## Calibration
 
+Version 5 moves the engine to jagua-rs 2.0.0 and refits the six coefficients
+that measure collision-engine work (sample evaluations, evaluated vertices,
+tracked items and vertices, re-registered items and container builds). The same
+queries take less real time on that engine, so a budget now covers more search.
+The fit used 58 development jobs with separator work in 20-second wall-clock
+runs on the reference machine. Predicted/real search time is 0.46 to 1.96 per
+job, with a median of 0.95; the version 4 coefficients gave 0.87 to 4.61 on
+this engine. A later run of the final build gave 0.38 to 2.21, with a median of
+1.03. Constructor checks, validation and rectangle packing keep their
+version 4 values. Layouts differ from version 4 for the same job, seed and
+budget.
+[Calibration runs](../benchmarks/results/jagua-2-port-20261127.md)
+
 Version 4 charges warm-start validations and accounts for constructor checks as
 they occur, at 0.5 microseconds per weighted check. The first construction can
 finish before the work quota stops later passes.
@@ -47,9 +60,9 @@ only between grid angles. This can change a repeatable fill layout by placing
 a part that version 2 skipped. Version 3 uses the same work coefficients as
 version 2.
 
-The coefficients were fitted on 16 development jobs (20-second wall-clock runs on
-the reference AMD Ryzen 9 7950X3D, one core). Predicted/real search time ranged
-from 0.72 to 1.23 per job. Detailed outlines with many interlocking contacts
+The version 1 coefficients were fitted on 16 development jobs (20-second
+wall-clock runs on the reference AMD Ryzen 9 7950X3D, one core, jagua-rs 1.1.0).
+Predicted/real search time ranged from 0.72 to 1.23 per job. Detailed outlines with many interlocking contacts
 (public gears) cost more per evaluated vertex than the model assumes and can
 reach the real limit at short budgets. Changing a coefficient changes repeatable
 results, so it requires a new `WORK_VERSION`.

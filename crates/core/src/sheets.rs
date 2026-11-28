@@ -30,7 +30,9 @@ use serde_json::json;
 use sparrow::config::DEFAULT_SPARROW_CONFIG;
 
 use crate::clock::{Clock, Deadline, Timing, Work};
-use crate::construct::{Options as ConstructOptions, conversion_guard, proxy_points};
+use crate::construct::{
+    Options as ConstructOptions, conversion_guard, engine_separation, proxy_points,
+};
 use crate::control::{Control, StopReason};
 use crate::optimize::Fit;
 
@@ -227,10 +229,10 @@ impl<'a> Model<'a> {
         let stock = &job.stocks[0];
         let guard = conversion_guard(job);
         // Jagua inflates items and deflates the strip by half the separation.
-        // Round joins are inscribed, so compensate their chord deficit as the
-        // constructor does. The strip rectangle is then expanded or shrunk so
-        // the real edge gap still covers the requested edge clearance.
-        let separation = (job.clearance + guard) / 0.05_f64.cos();
+        // The separation covers the losses of that inflation as the
+        // constructor's does. The strip rectangle is then expanded or shrunk
+        // so the real edge gap still covers the requested edge clearance.
+        let separation = engine_separation(job, job.clearance);
         let expand =
             (job.clearance + guard) / 2.0 + separation / 2.0 - (job.edge_clearance + guard);
         let m = stock.margins;
