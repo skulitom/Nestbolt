@@ -72,7 +72,7 @@ All of this is in v0.2.0.
   [Runs, margins and calibration](../benchmarks/results/jagua-2-port-20261127.md)
 - **Common-line cutting** completed its gate
   ([#27](https://github.com/skulitom/Nestbolt/pull/27)).
-- **DXF import:** binary DXF and every `$INSUNITS` unit
+- **DXF import:** binary DXF and every `$INSUNITS` length unit from 1 to 21
   ([#41](https://github.com/skulitom/Nestbolt/pull/41)), −Z extrusion, MINSERT
   and paper-space handling ([#22](https://github.com/skulitom/Nestbolt/pull/22)),
   listed layers that are off or frozen
@@ -88,7 +88,8 @@ All of this is in v0.2.0.
   ([#44](https://github.com/skulitom/Nestbolt/pull/44)).
 - **Larger jobs:** up to 10,000 parts
   ([#42](https://github.com/skulitom/Nestbolt/pull/42)), an indexed clearance
-  validator and repeatable budgets recalibrated as `nestbolt-work-v4`
+  validator and recalibrated repeatable budgets (`nestbolt-work-v4`, replaced by
+  `nestbolt-work-v5` with the engine move)
   ([#50](https://github.com/skulitom/Nestbolt/pull/50)).
 - **Free rotation:** parts that fit only between quarter turns are placed, and
   parts that fit no sheet are named

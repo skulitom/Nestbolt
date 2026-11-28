@@ -35,7 +35,7 @@ this release does not claim that all of its acceptance checks are complete.
 - **For library users:** `nestbolt-core` builds without the nesting engines (`default-features = false`) for import
   and export only; every import warning is also a structured entry in the import report; an import that finds no
   part returns an error that carries the report; and a search stopped by its deadline can be told apart from other
-  errors. `nestbolt-validator` now carries its own README, licence and package metadata. The crates are not on
+  errors. `nestbolt-validator` now carries its own README and licence file. The crates are not on
   crates.io yet. The MCP `nest` tool takes an optional `time_limit_s` for slower machines.
 
 ### Fixes
@@ -43,7 +43,7 @@ this release does not claim that all of its acceptance checks are complete.
 - **DXF export:** files now carry the complete AutoCAD 2007 structure, so AutoCAD opens them (#21, landed in #22),
   and no longer contain zero-length lines after arcs and circles (#18, landed in #22).
 - **DXF import:** reads binary DXF and reports a truncated one (#41, #47); converts `$INSUNITS` length units 1 to 21
-  (AutoCAD for Mac's US survey inch, yard and mile, 22 to 24, still ask for a re-export) (#41); reads layers you name
+  (the US survey inch, yard and mile, 22 to 24, still ask for a re-export) (#41); reads layers you name
   even when they are off, frozen or named like bend or construction layers, and offers an off or frozen `SHEET`
   layer as stock (#39, #48); keeps paper-space title blocks out of the parts and places every `MINSERT` copy (#23,
   #24); and no longer mirrors entities drawn with a negative extrusion (#17, landed in #22).
@@ -72,6 +72,8 @@ Layouts and imports can differ from v0.1.0's for the reasons below.
   hidden layers read, holes kept, negative-extrusion entities no longer mirrored), so check saved jobs.
 - DXF export files differ byte for byte from alpha.1's (the added AutoCAD 2007 sections).
 - Rust: `common_line::Options` has a new public field, `allow_part_in_hole`.
+- `nestbolt inspect` reports `"engine": "jagua-rs 2.0.0"`, and `schemas/inspection.schema.json` now requires
+  that value.
 
 ### Current limits
 

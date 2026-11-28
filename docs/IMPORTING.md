@@ -116,12 +116,13 @@ instruction. See Autodesk's
 [binary DXF layout](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-FC1C3C69-DBC2-49E4-893A-000D6538C0FE.htm)
 and [group code value types](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-2553CF98-44F6-4828-82DD-FE3BC7448113.htm).
 
-DXF file units take precedence over a fallback. Every `$INSUNITS` length unit,
-codes 1 to 21, converts to millimetres by its exact definition: inches, feet,
+DXF file units take precedence over a fallback. Every `$INSUNITS` length unit
+from code 1 to 21 converts to millimetres by its exact definition: inches, feet,
 miles, mm, cm, metres, kilometres, microinches, mils, yards, ångströms,
 nanometres, microns, decimetres, decametres, hectometres, gigametres,
 astronomical units, light years, parsecs and US survey feet (1200/3937 m).
-Other codes request a re-export in a length unit. Converted coordinates must
+Other codes, including 22 to 24 (the US survey inch, yard and mile), request a
+re-export in a length unit. Converted coordinates must
 still lie within the validator's 10 km range. See Autodesk's
 [INSUNITS values](https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-LT/files/GUID-A58A87BB-482B-4042-A00A-EEF55A2B4FD8.htm).
 Without declared units, the default remains 1 mm per drawing unit. If the largest

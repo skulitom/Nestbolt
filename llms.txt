@@ -23,7 +23,7 @@
 - [Benchmarks](BENCHMARKS.md): append-only log of every run, including failures.
 - [Licences](THIRD_PARTY_NOTICES): dependency inventory; jagua-rs (MPL-2.0) is unmodified and the separator is adapted from Sparrow (MIT).
 
-The MCP server `nestbolt-mcp` has five tools: import_parts, nest, validate_layout, export_layout and estimate_sheets.
+The MCP server `nestbolt-mcp` has seven tools: import_parts, nest, validate_layout, export_layout, estimate_sheets, export_offcut and quote_layout.
 All paths must be inside its workspace (working directory or NESTBOLT_WORKSPACE); it never overwrites files.
 `nest` budgets (time_budget_s, at most 300) are deterministic work: the same inputs, budget and seed repeat the layout unless the reply says "repeatable": false.
 Optional request field `quick_start: true` tries a conservative initial arrangement before improving it; it defaults to false and may change material use. Keep this setting when replaying a job.
