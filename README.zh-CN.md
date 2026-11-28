@@ -29,7 +29,7 @@ Nestbolt 是免费、开源（MIT）的排样（套料）工具，面向在**固
 
 ## 版本
 
-- **稳定版 v0.1.0** 仍可下载。托管的浏览器版运行来自 `main` 分支的预览构建，比 v0.2.0-alpha.1 更新。
+- **[v0.2.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0)**（2026-11-28）是当前的稳定版，包含下面列出的 `main` 分支改动。v0.1.0 仍可下载。托管的浏览器版由 `main` 分支构建。
 - `main` 分支修复了 AutoCAD 2007 格式的 DXF 导出问题。导入平面上的三维多段线时，Nestbolt 按世界坐标读取顶点，也会正确应用块参照的变换。图纸空间中的块参照会被跳过，标题栏里的图形不会进入零件列表。
 - `main` 的共边切割默认保留孔内空间。启用孔内排样和共边搜索后，13 个开发用例的切割距离降幅中位数在 0.2 mm 割缝下为 13.031%，在 1.5 mm 割缝下为 13.101%。在两种割缝宽度下，每个任务的用料增幅均未超过同间距普通排样的 1%。[各任务结果](benchmarks/results/h5-rigid-host-rows-20261120.md)。
 - **[v0.2.0-alpha.1 预览版](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**：可编辑的 LightBurn 项目排样（**预览功能**）、引入线（lead-in）余量，以及对大型曲线图纸的改进。提供 Windows x64、Linux x64 和 macOS Apple 芯片版工具，以及 Windows MCP 包。导入验收仍在进行中。v1.1 计划已完成 75%。上面的基准数据属于冻结的 `75cbb32` 构建，该预览版没有与竞品做新的对比。

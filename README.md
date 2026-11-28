@@ -31,16 +31,17 @@ validator. Rebuild it with `python scripts/make_showcase.py --nest 120`.
 
 - **[Browser app](https://skulitom.github.io/Nestbolt/):** built from `main`, so it is
   the newest build. Nothing is uploaded.
-- **[v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)**
-  (2026-10-16): editable LightBurn project nesting, lead-in allowances and
-  improvements for large curved drawings. Windows x64, Linux x64 and macOS Apple
-  silicon tools, plus the Windows MCP bundle; their
-  [published-download checks](benchmarks/results/preview-depth-published-20261016.md) pass.
-- **[v0.1.0 stable](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0)** (2026-10-14).
+- **[v0.2.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0)** (2026-11-28),
+  the current stable release: everything in the preview, plus common-line
+  cutting, binary DXF and every DXF unit, jobs of up to 10,000 parts, offcut
+  export and job quotes, on the jagua-rs 2.0.0 engine. Windows x64, Linux x64
+  and macOS Apple silicon tools, plus the Windows MCP bundle. LightBurn project
+  nesting is still a preview feature.
+- **Earlier:** the [v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
+  (2026-10-16; its [published-download checks](benchmarks/results/preview-depth-published-20261016.md)
+  pass) and [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) (2026-10-14).
 
-`main` has moved on since the preview: common-line cutting, binary DXF and every
-DXF unit, jobs of up to 10,000 parts, offcut export and job quotes.
-[Status](docs/STATUS.md) lists what is on `main`, what is released and what is
+[Status](docs/STATUS.md) lists what is released and what is
 still open; the [v1.1 plan is 75% complete](docs/STATUS.md#v11--real-shop-files)
 and import acceptance remains open. The benchmark figures on this page belong
 to the frozen `75cbb32` build; later builds make no new comparison against
@@ -176,8 +177,8 @@ Nestbolt runs unmodified Sparrow for the rest of the budget.
 
 Use the [browser app](https://skulitom.github.io/Nestbolt/) without installing
 anything, or download native tools for **Windows x64, Linux x64 or macOS Apple
-silicon** from the [v0.2.0-alpha.1 preview](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1)
-or [stable v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0). Each
+silicon** from the [latest release](https://github.com/skulitom/Nestbolt/releases/latest)
+(v0.2.0). Each
 archive contains `nestbolt`, `nestbolt-mcp` and licences; download checksums are
 provided alongside it. The separate Windows MCPB bundle installs the server in
 Claude Desktop; see
