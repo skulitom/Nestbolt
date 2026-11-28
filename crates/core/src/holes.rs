@@ -30,7 +30,7 @@ use sparrow::{
 };
 
 use crate::clock::Clock;
-use crate::construct::{conversion_guard, proxy_points};
+use crate::construct::{engine_separation, proxy_points};
 use crate::curves::Affine;
 
 /// A rider's collision proxy and its relative rotations (`None` is free).
@@ -194,19 +194,9 @@ pub fn group(job: &Job, clock: &Clock, until: f64, seed: u64) -> Result<Grouped>
     {
         return Ok(plain());
     }
-    let guard = conversion_guard(job);
-    let separation = ((job.clearance + guard) / 0.05_f64.cos()) as f32;
-    // The small hole container uses a flat collision index. This avoids the
-    // upstream f32 quadrant classification at near-corner intersections.
-    let importer = Importer::new(
-        jagua_rs::collision_detection::CDEConfig {
-            quadtree_depth: 0,
-            ..DEFAULT_SPARROW_CONFIG.cde_config
-        },
-        None,
-        None,
-    )
-    .with_min_item_separation(separation)?;
+    let separation = engine_separation(job, job.clearance) as f32;
+    let importer = Importer::new(DEFAULT_SPARROW_CONFIG.cde_config, None, None)
+        .with_min_item_separation(separation)?;
     let mut rng = Xoshiro256PlusPlus::seed_from_u64(seed);
     let mut remaining: Vec<u32> = job.parts.iter().map(|p| p.quantity).collect();
     // Item proxies per (host, rider) pair, keyed by the allowed relative set.

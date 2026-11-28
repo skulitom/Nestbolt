@@ -73,3 +73,23 @@ still describes a strip solver. [Deepnest's release list](https://github.com/dee
 still marks v1.5.6 as latest; the [LightBurn 2.2 early-access note](https://lightburnsoftware.com/blogs/news/lightburn-2-2-00-early-access-true-nesting-center-line-trace-multi-page-projects)
 still limits True Nest to Pro. These are current documentation observations,
 not new performance measurements or installed-software changes.
+
+Rechecked on 2026-11-27 before re-pinning the engine. [jagua-rs 2.0.0](https://crates.io/crates/jagua-rs/2.0.0)
+was published on 2026-11-07 and replaces the quadtree with a flat hazard index.
+[Sparrow](https://github.com/JeroenGar/sparrow) `73c02f651c60c624d934478b5cb5ced20e8f2ade`
+builds on it ([#185](https://github.com/JeroenGar/sparrow/pull/185)), keeps its
+library at the repository root with the CLI in a separate crate
+([#184](https://github.com/JeroenGar/sparrow/pull/184)) and caps its
+guided-search weights ([#190](https://github.com/JeroenGar/sparrow/pull/190)).
+Sparrow is still version 0.3.0 and still a strip solver; it is not on crates.io
+([#182](https://github.com/JeroenGar/sparrow/issues/182) is open).
+[Deepnest's release list](https://github.com/deepnest-next/deepnest/releases)
+shows v1.6.0-beta.1 (2026-11-21) as a prerelease; v1.5.6 remains latest.
+
+The [Studio README](https://github.com/JeroenGar/sparrow-studio) no longer
+carries the sentence excluding automatic multi-sheet allocation and nesting in
+holes. It now describes a second app under development (`app/`, not published)
+with a Sheets tab and planned _sparrow pro_ features. The published app at
+sparrowstudio.app was not re-tested here, so the stop condition is neither
+triggered nor ruled out by this README review: check the published app before
+the next milestone. These are documentation observations, not measurements.

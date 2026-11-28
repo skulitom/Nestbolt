@@ -45,7 +45,7 @@ Examples live in `examples/validation-job.json` and `examples/validation-layout.
 
 ## Upstream interchange
 
-`nestbolt inspect` accepts **upstream jagua-rs 1.1.0 BPP JSON** with explicit units
+`nestbolt inspect` accepts **upstream jagua-rs 2.0.0 BPP JSON** with explicit units
 ([sample](../examples/sheet-job.json)); its output is
 [inspection.schema.json](inspection.schema.json). It is an interchange format for
 benchmarks, not a Nestbolt project format, and extra upstream metadata is not

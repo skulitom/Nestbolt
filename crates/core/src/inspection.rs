@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 
 /// Supported job size: the copies a nesting job may request.
 pub const MAX_PARTS: u64 = nestbolt_validator::job::MAX_COPIES as u64;
-pub const ENGINE_VERSION: &str = "jagua-rs 1.1.0";
+pub const ENGINE_VERSION: &str = "jagua-rs 2.0.0";
 
 /// Units must be declared by the caller: the upstream JSON has no unit field.
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
@@ -75,8 +75,6 @@ pub fn inspect_json(json: &str, units: Units) -> Result<Inspection> {
     ensure!(available_sheets > 0, "job must have positive sheet stock");
 
     let config = CDEConfig {
-        quadtree_depth: 5,
-        cd_threshold: 96,
         item_surrogate_config: SPSurrogateConfig::none(),
     };
     let importer =

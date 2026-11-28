@@ -150,7 +150,7 @@ placements. Search intersections stay in jagua; final intersections stay in
 Clipper2. Extract shared data types when introducing the public curve/project
 model. No upstream dependency was modified and no Deepnest code was copied.
 
-**Independent validation:** jagua-rs 1.1.0 itself now depends on `geo`. Choosing `geo`
+**Independent validation:** jagua-rs 2.0.0 itself depends on `geo`. Choosing `geo`
 again does not automatically create an independent validator. Keep separate source
 geometry, transforms and intersection/offset code paths. The new `validator` crate
 uses Clipper2 1.2.0 independently, with a working historical strip adapter. See
