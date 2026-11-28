@@ -11,9 +11,9 @@ trial and superseded result up to 2026-11-27 is kept unchanged in the
 | --- | --- |
 | v1 (fixed-sheet nesting) | **Accepted** on 2026-10-13. Final run: 8.5% less material at the median at 60 s; the 60-second win-rate bar was missed |
 | v1.1 (real shop files) | **75% of milestone weight.** Five of six gates complete; import acceptance (H2) stays open |
-| Stable release | [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0), 2026-10-14, also on the MCP Registry |
-| Preview release | [v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1), 2026-10-16 |
-| `main` | Ahead of the preview; see [what is on main](#on-main-since-the-preview). The [hosted browser app](https://skulitom.github.io/Nestbolt/) is built from `main` |
+| Stable release | [v0.2.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0), 2026-11-28. The MCP Registry lists [v0.1.0](https://github.com/skulitom/Nestbolt/releases/tag/v0.1.0) (2026-10-14) until v0.2.0 is published there |
+| Preview release | [v0.2.0-alpha.1](https://github.com/skulitom/Nestbolt/releases/tag/v0.2.0-alpha.1), 2026-10-16, superseded by v0.2.0 |
+| `main` | The source of v0.2.0; see [what it added to the preview](#on-main-since-the-preview). The [hosted browser app](https://skulitom.github.io/Nestbolt/) is built from `main` |
 
 Progress counts completed milestone weights only. The published benchmark
 figures belong to the frozen build `75cbb32`; nothing on `main` makes a new
@@ -57,7 +57,7 @@ Common-line mode still reserves holes by default.
 
 ## On main since the preview
 
-None of this is in a tagged release yet.
+All of this is in v0.2.0.
 
 - **Engine:** moved to jagua-rs 2.0.0 and Sparrow `73c02f65`
   ([#52](https://github.com/skulitom/Nestbolt/pull/52)). At 60 seconds over
@@ -72,7 +72,7 @@ None of this is in a tagged release yet.
   [Runs, margins and calibration](../benchmarks/results/jagua-2-port-20261127.md)
 - **Common-line cutting** completed its gate
   ([#27](https://github.com/skulitom/Nestbolt/pull/27)).
-- **DXF import:** binary DXF and every `$INSUNITS` unit
+- **DXF import:** binary DXF and every `$INSUNITS` length unit from 1 to 21
   ([#41](https://github.com/skulitom/Nestbolt/pull/41)), −Z extrusion, MINSERT
   and paper-space handling ([#22](https://github.com/skulitom/Nestbolt/pull/22)),
   listed layers that are off or frozen
@@ -112,8 +112,8 @@ None of this is in a tagged release yet.
   ([#13](https://github.com/skulitom/Nestbolt/issues/13)): the crates are not on
   crates.io. `nestbolt-core` depends on Sparrow from Git, which crates.io does
   not accept; `nestbolt-validator` has no such dependency.
-- **Next stable release:** the preview is the newest tagged build. Releases and
-  registry publication happen only on Artem's instruction.
+- **Registry:** v0.2.0 is not on the MCP Registry yet. Releases and registry
+  publication happen only on Artem's instruction.
 
 ## v1 — accepted
 

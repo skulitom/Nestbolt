@@ -1,6 +1,6 @@
 # Nestbolt
 
-> Free, open-source (MIT) nesting of parts on fixed sheets for laser, CNC, plasma, waterjet, fabric and leather cutting. Native CLI, stdio MCP server and an in-browser WebAssembly app share one Rust engine. v0.1.0 was released on 2026-10-14. The v1.1 real-shop-file plan is in progress; see Status for completed gates and remaining work.
+> Free, open-source (MIT) nesting of parts on fixed sheets for laser, CNC, plasma, waterjet, fabric and leather cutting. Native CLI, stdio MCP server and an in-browser WebAssembly app share one Rust engine. v0.2.0, the current stable release, was published on 2026-11-28 (v0.1.0 on 2026-10-14). The v1.1 real-shop-file plan is in progress; see Status for completed gates and remaining work.
 
 - [README](README.md): what works, quick start, browser build and development commands.
 - [Guides and examples](https://skulitom.github.io/Nestbolt/llms.txt): the site's own llms.txt, linking the browser app, the comparison with Deepnest and SVGnest, and the five example jobs.
@@ -23,7 +23,7 @@
 - [Benchmarks](BENCHMARKS.md): append-only log of every run, including failures.
 - [Licences](THIRD_PARTY_NOTICES): dependency inventory; jagua-rs (MPL-2.0) is unmodified and the separator is adapted from Sparrow (MIT).
 
-The MCP server `nestbolt-mcp` has five tools: import_parts, nest, validate_layout, export_layout and estimate_sheets.
+The MCP server `nestbolt-mcp` has seven tools: import_parts, nest, validate_layout, export_layout, estimate_sheets, export_offcut and quote_layout.
 All paths must be inside its workspace (working directory or NESTBOLT_WORKSPACE); it never overwrites files.
 `nest` budgets (time_budget_s, at most 300) are deterministic work: the same inputs, budget and seed repeat the layout unless the reply says "repeatable": false.
 Optional request field `quick_start: true` tries a conservative initial arrangement before improving it; it defaults to false and may change material use. Keep this setting when replaying a job.
