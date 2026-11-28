@@ -1,10 +1,12 @@
-# Status history — through 2026-11-20
+# Status history — through 2026-11-27
 
-This is the dated log that `STATUS.md` carried until 2026-11-27, kept unchanged
+This is the dated log that `STATUS.md` carried until 2026-11-28, kept unchanged
 below this note. Percentages, release plans and "current" wording in each entry
 describe the day it was written. The present state is in [STATUS.md](STATUS.md).
 
 ## v1.1 — real shop files
+
+**2026-11-27.** The engine moved to jagua-rs 2.0.0 and Sparrow `73c02f65`. At 60 seconds over three development seeds, the ported build used less material than `main` on 43 of 65 jobs and more on 16; the median change was -0.20%. All 390 layouts validated. jagua-rs 2.0.0 removes short edges from its own collision outlines, which left no margin at corners when spacing was near zero; the separation now covers it, and rejected constructor trials fell from up to eight per run to none in 8,640. The repeatable work clock is `nestbolt-work-v5`. Browser performance and the common-line comparison have not been rerun on this engine. [Runs, margins and calibration](../benchmarks/results/jagua-2-port-20261127.md)
 
 **2026-11-20.** On `bf9eaa62`, all 313 training files reproduced their reviewed outcomes. An independent SVG reader matched 2,569 exported contours across 411 placements. The largest sampled distance was 0.003302 mm, and every complete contour stayed within 0.01 mm. The DXF reader accepted all 246 sheets without repairs. All 183 robustness files finished within 0.837 seconds. H2 remains open. [Training results and reader checks](../benchmarks/results/h2-training-exports-20261120/README.md)
 

@@ -1,7 +1,7 @@
 # Status — 2026-11-28
 
 This page is the current state in one screen. Every dated checkpoint, failed
-trial and superseded result up to 2026-11-20 is kept unchanged in the
+trial and superseded result up to 2026-11-27 is kept unchanged in the
 [status history](STATUS_HISTORY.md); every benchmark run is in
 [BENCHMARKS.md](../BENCHMARKS.md).
 
@@ -88,8 +88,7 @@ All of this is in v0.2.0.
   ([#44](https://github.com/skulitom/Nestbolt/pull/44)).
 - **Larger jobs:** up to 10,000 parts
   ([#42](https://github.com/skulitom/Nestbolt/pull/42)), an indexed clearance
-  validator and recalibrated repeatable budgets (`nestbolt-work-v4`, replaced by
-  `nestbolt-work-v5` with the engine move)
+  validator and repeatable budgets that hold on large jobs
   ([#50](https://github.com/skulitom/Nestbolt/pull/50)).
 - **Free rotation:** parts that fit only between quarter turns are placed, and
   parts that fit no sheet are named
@@ -106,6 +105,9 @@ All of this is in v0.2.0.
 ## Open work
 
 - **H2** stays open as described above.
+- **Re-measure on the new engine:** browser performance (H4) and the
+  common-line comparison (H5) were measured on jagua-rs 1.1.0 and have not been
+  rerun on 2.0.0.
 - **Crate distribution**
   ([#13](https://github.com/skulitom/Nestbolt/issues/13)): the crates are not on
   crates.io. `nestbolt-core` depends on Sparrow from Git, which crates.io does
